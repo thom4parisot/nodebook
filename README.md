@@ -17,3 +17,6 @@
 - testing
 - joyent + entreprises gravitant autour
 - pourquoi un tel success, au-dela du buzz
+- pour le frontend
+- si on fait du PHP etc.
+- avec quoi programmer
