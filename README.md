@@ -19,6 +19,7 @@
   1. Environnement de Développement Intégré (IDE)
     1. WebStorm
     1. SublimeText
+    1. Brackets
     1. vim
     1. Visual Studio
 1. `npm`
@@ -39,8 +40,19 @@
 1. Sécurité
   1. Node Security Project 
 1. Node.js pour le développeur frontend
-  1. Gestion des dépendances
+  1. Gestion des librairies
+    1. bower
+    1. npm
+    1. Ender
+    1. Components
+    1. Webpack
+  1. Tâches utiles
+    1. Vérification syntaxique
+    1. Concaténation et minification
+    1. Préprocesseurs
+    1. Optimisation des images
   1. Automatisation des tâches
+  1. Partager du code entre Node.js et le navigateur
 1. À la conquête du monde physique
   1. Microcontrolleurs
     1. Arduino
