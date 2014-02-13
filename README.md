@@ -62,6 +62,10 @@
   1. Internet of Things (IoT)
     1. Nodecopters
     1. Hue / Nest
+    1. Imprimantes 3D
+    1. Smart TV
+    1. Instruments de musique
+    1. Œuvres artistiques
 
 
 # Sujets à aborder
