@@ -41,6 +41,15 @@
 1. Node.js pour le développeur frontend
   1. Gestion des dépendances
   1. Automatisation des tâches
+1. À la conquête du monde physique
+  1. Microcontrolleurs
+    1. Arduino
+    1. Raspberry Pi
+    1. Tessel
+    1. Espruino
+  1. Internet of Things (IoT)
+    1. Nodecopters
+    1. Hue / Nest
 
 
 # Sujets à aborder
