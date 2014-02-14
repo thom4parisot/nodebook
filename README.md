@@ -70,9 +70,6 @@
 
 # Sujets à aborder
 
-- npm
-- npm
-- npm
 - streams
 - cli
 - libuv
@@ -81,6 +78,5 @@
 - testing
 - joyent + entreprises gravitant autour
 - pourquoi un tel success, au-dela du buzz
-- pour le frontend
+- http://strongloop.com/strongblog/whats-new-node-js-v0-12-multiple-context-execution/
 - si on fait du PHP etc.
-- avec quoi programmer
