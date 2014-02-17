@@ -4,14 +4,19 @@
 
 # Table des matières
 
-1. Introduction
+1. Préface
 1. Introduction à Node.js
   1. Server-Side JavaScript
   1. Historique du projet
-  1. Qui gère Node.js ? 
+  1. Les raisons du succès
   1. Pourquoi choisir Node.js ?
   1. Pourquoi éviter Node.js ?
-1. Environnement de développement
+  1. L'écosystème Node.js
+    1. Joyent
+    1. Nodejitsu
+    1. Node Security Project
+  1. Qui gère Node.js ?
+1. Préparer son environnement Node.js
   1. Command Line Terminal
   1. Installer Node.js
     1. Depuis les sources
@@ -22,23 +27,45 @@
     1. Brackets
     1. vim
     1. Visual Studio
+1. Comprendre Node.js
+  1. Philosophie
+  1. Architecture
+    1. Machine Virtuelle V8
+    1. EventLoop
+    1. `libuv`
+  1. Les variables globales
+    1. `export`
+    1. `module`
+    1. `process`
+    1. `_`
+  1. Asynchronicité
+    1. Pourquoi "non-bloquant" ?
+    1. Les callbacks
+    1. Les promesses
 1. `npm`
   1. Philosophie
   1. Qui gère `npm` ?
   1. `npm init`
   1. `npm install`
+  1. Bien choisir un paquet `npm`
   1. Autres projets basés sur `npm`
     1. Composants Web
     1. Firefox OS
     1. `libc`
+1. Node.js pour des applications système
+  1. Mon premier programme système !
+  1. Un programme avec aide, options et arguments optionnels
+  1. Rendre un programme installable à l'échelle du système
+  1. Proposer un manuel `man`
+  1. Faire communiquer deux process
+  1. Manipuler des images
 1. `npm` avancé
-  1. `npm run`
+  1. Variables d'environnement
+  1. `npm run-script`
   1. `npm shrinkwrap`
   1. `npm publish`
   1. `npm link`
-  1. `npm outdated`
-1. Sécurité
-  1. Node Security Project 
+  1. `npm outdated` 
 1. Node.js pour le développeur frontend
   1. Gestion des librairies
     1. bower
@@ -53,7 +80,7 @@
     1. Optimisation des images
   1. Automatisation des tâches
   1. Partager du code entre Node.js et le navigateur
-1. À la conquête du monde physique
+1. Node.js et le monde physique
   1. Microcontrolleurs
     1. Arduino
     1. Raspberry Pi
