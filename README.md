@@ -50,7 +50,7 @@
   1. Bien choisir un paquet `npm`
   1. Autres projets basés sur `npm`
     1. Composants Web
-    1. Firefox OS
+    1. Mozilla Jetpack
     1. `libc`
 1. Node.js pour des applications système
   1. Mon premier programme système !
@@ -97,13 +97,10 @@
 
 # Sujets à aborder
 
-- streams
-- cli
-- libuv
-- js + v8 + OS
+- https://github.com/substack/stream-handbook
 - tooling
 - testing
 - joyent + entreprises gravitant autour
-- pourquoi un tel success, au-dela du buzz
 - http://strongloop.com/strongblog/whats-new-node-js-v0-12-multiple-context-execution/
 - si on fait du PHP etc.
+- https://github.com/lloyd/node-toobusy (pour faire des modules en C)
