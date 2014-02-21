@@ -59,13 +59,8 @@
   1. Proposer un manuel `man`
   1. Faire communiquer deux process
   1. Manipuler des images
-1. `npm` avancé
-  1. Variables d'environnement
-  1. `npm run-script`
-  1. `npm shrinkwrap`
-  1. `npm publish`
-  1. `npm link`
-  1. `npm outdated` 
+1. Node.js pour les applications temps-réel
+1. Node.js pour des applications Web
 1. Node.js pour le développeur frontend
   1. Gestion des librairies
     1. bower
@@ -93,6 +88,13 @@
     1. Smart TV
     1. Instruments de musique
     1. Œuvres artistiques
+1. `npm` avancé
+  1. Variables d'environnement
+  1. `npm run-script`
+  1. `npm shrinkwrap`
+  1. `npm publish`
+  1. `npm link`
+  1. `npm outdated` 
 
 
 # Sujets à aborder
