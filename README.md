@@ -32,16 +32,21 @@
   1. Architecture
     1. Machine Virtuelle V8
     1. EventLoop
+    1. Asynchronicité
     1. `libuv`
   1. Les variables globales
     1. `export`
     1. `module`
     1. `process`
     1. `_`
-  1. Asynchronicité
+  1. Design Patterns
     1. Pourquoi "non-bloquant" ?
+    1. Les modules
+    1. L'injection
     1. Les callbacks
     1. Les promesses
+    1. Les évènements
+    1. `nextTick`
 1. `npm`
   1. Philosophie
   1. Qui gère `npm` ?
@@ -52,6 +57,7 @@
     1. Composants Web
     1. Mozilla Jetpack
     1. `libc`
+    1. Titanium
 1. Node.js pour des applications système
   1. Mon premier programme système !
   1. Un programme avec aide, options et arguments optionnels
@@ -88,6 +94,11 @@
     1. Smart TV
     1. Instruments de musique
     1. Œuvres artistiques
+1. Node.js avancé
+  1. Node.js sans JavaScript
+  1. `node-gyp` ou écrire en C++ pour `libuv`
+  1. `node debug`
+  1. Flags avancés (`node --v8-options`)
 1. `npm` avancé
   1. Variables d'environnement
   1. `npm run-script`
