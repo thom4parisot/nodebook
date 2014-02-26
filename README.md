@@ -48,6 +48,8 @@
     1. Les évènements
     1. `nextTick`
     1. `index.js`
+    1. Configuration dans `process.env`
+    1. Configuration dans `package.json` 
 1. `npm`
   1. Philosophie
   1. Qui gère `npm` ?
