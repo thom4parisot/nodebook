@@ -47,6 +47,7 @@
     1. Les promesses
     1. Les évènements
     1. `nextTick`
+    1. `index.js`
 1. `npm`
   1. Philosophie
   1. Qui gère `npm` ?
