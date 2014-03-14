@@ -6,7 +6,7 @@
 
 1. Préface
 1. Introduction à Node.js
-  1. Server-Side JavaScript
+  1. Node.js : la plateforme JavaScript côté serveur
   1. Historique du projet
   1. Les raisons du succès
   1. Pourquoi choisir Node.js ?
