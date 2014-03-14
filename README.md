@@ -4,8 +4,8 @@
 
 # Table des matières
 
-1. Préface
-1. Introduction à Node.js
+1. [Préface](chapters/01-foreword.md)
+1. [Introduction à Node.js](chapters/02-introduction.md)
   1. Node.js : la plateforme JavaScript côté serveur
   1. Historique du projet
   1. Les raisons du succès
@@ -16,7 +16,7 @@
     1. Nodejitsu
     1. Node Security Project
   1. Qui gère Node.js ?
-1. Préparer son environnement Node.js
+1. [Préparer son environnement Node.js](chapters/03-environment.md)
   1. Command Line Terminal
   1. Installer Node.js
     1. Depuis les sources
@@ -27,7 +27,7 @@
     1. Brackets
     1. vim
     1. Visual Studio
-1. Comprendre Node.js
+1. [Comprendre Node.js](chapters/04-understanding.md)
   1. Philosophie
   1. Architecture
     1. Machine Virtuelle V8
@@ -50,7 +50,7 @@
     1. `index.js`
     1. Configuration dans `process.env`
     1. Configuration dans `package.json` 
-1. `npm`
+1. [`npm`](chapters/05-npm.md)
   1. Philosophie
   1. Qui gère `npm` ?
   1. `npm init`
