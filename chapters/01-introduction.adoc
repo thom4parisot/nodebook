@@ -79,72 +79,52 @@ Pour comprendre comment Node a opté pour cette approche, retournons en 2009, lo
 
 === Historique du projet Node.js
 
-Early 2009 and got hired by Joyent to pursue the work full time.
+En 2006, _Ryan Dahl_ est un étudiant Américain en troisième année de doctorat de mathématiques.
+Si le but initial était de devenir professeur de mathématiques, il prend la décision de ne pas terminer sa thèse et entreprend un voyage au Chili.
 
-He is not a computer scientist by training. Math student. phd to become a maths professor. Got bored of it after 3 years. "Sit in a room writing on paper, trying to do maths, working on nonsense. Pretty much like programming ;-)"
+Alors qu'il cherche à effectuer des petits boulots, il y rencontre un autre Américain développant des sites Web.
+Ruby on Rails connait un succès grandissant et attire son attention.
+Alors que Ryan considérait utiliser Rails, il découvre avec horreur la lenteur du _framework_ et cherche à en analyser les origines.
 
-Dropped out and travelled to South America with few money. Nowhere to stay and stayed with student, winter in July.
+Ryan débute alors sa *quête des applications Web performantes* et découvre _Mongrel_, un serveur HTTP écrit en Ruby.
+Il est séduit par deux choses :
 
-How could he pay for stuff. Teaching English in Chile. Did not work. Met US programmer there, doing PHP websites. Doing that for a living was something new for him. Rails was starting to become popular. +
-What he noticed: slow, swallowing CPU and heating the machine.
+- la possibilité d'*inclure* un serveur HTTP comme librairie applicative ;
+- la simplicité de fonctionnement : recevoir une requête HTTP et décider soi-même de la réponse à apporter.
 
-All the assumptions of Rails based on lies.
+La quête initiale se dirige désormais sur la possibilité de créer *un serveur Web non-bloquant*.
+En d'autres termes, un serveur capable dans un même processus de traiter d'autres requêtes en attendant de renvoyer la réponse initiale.
 
-How fast can you serve a Web page? That is the real question.
+Nous sommes alors en 2008 et le site de partage de photos Flickr  innove avec un nouveau système d'upload d'images.
+Ce système remplace la sensation de page figée par une … *barre de progression*.
 
-Mongrel inspirational. Throw a Web server as if it was a library. Conceptualising Web server a different way. Before that it was a directory with files served and exposed to the Web. Tight to the file system.
+[.text-center]
+image:http://farm6.staticflickr.com/5117/7112862941_3b8c8e9916_o_d.png[] Nouvelle et ancienne interface d'upload de Flickr.
 
-What does a Web server do? Way to response to requests. Nothing else involved.
+> http://code.flickr.net/2008/04/22/making-a-better-flickr-web-uploadr-or-web-browsers-arent-good-at-uploading-files-by-themselves/ (reclasser autrement)
 
-Problem of the Web servers: creating a lock until the response comes. This is the major problem with Rails. Zero concurrency. Request lock.
+C'est le *déclic* pour Ryan : _Mongrel_ avait déjà un plugin pour ça mais il fallait que ça soit encore plus simple pour le développeur.
+Il reproduit le mécanisme avec succès en C.
+Les développeurs Web jugeant la solution trop complexe, Ryan tente la même approche avec d'autres langages comme Python, Lua ou même Haskell.
+Il se heurte au sempiternel des ressources bloquantes des différents interpréteurs.
 
-Problem deeper than that. Single thread and can run only one thing at a time.
+Le deuxième *déclic* se produit en janvier 2009 lorsque _JavaScript_ émerge dans une discussion entre développeurs.
+_Eurêka_ !
+La machine virtuelle JavaScript V8 de Google a été libérée en _Open Source_ depuis quelques mois et Apple, Microsoft, Mozilla et Google se battent pour rendre la pierre angulaire JavaScript toujours plus performante.
 
-At the same time, Ajax was at the center of websites and people were doing cool stuff with that. People started uploading files to Web servers in 2005. Which was kind of new as FTP was the way of doing file transfers at the time. +
-Everything was freezing while doing that over HTTP.
+Ryan admet que JavaScript dispose des caractéristiques idéales même s'il n'est pas un adepte du langage : fonctions anonymes, _closures_ et l'_event loop_ (dans le DOM en tous cas).
+Il lui manque juste la capacité d'accéder à des _sockets_, au système de fichiers et à d'autres fonctions systèmes.
 
-Key difference was to reflect to the user the state of the upload. He saw that for the first time on Flickr. Progress bar. Amazed by that.
+Il quitte alors son travail, s'inspire de ses travaux de modules non-bloquants pour Ngninx et se concentre pendant six mois à marier JavaScript, V8 et l'environnement système : Node.js. +
+Sa démonstration de serveur IRC écrit en 400 lignes de JavaScript lors de la conférence JSConf Europe suscite l'enthousiasme et attire l'attention.
 
-Mongrel had a plugin to do that.
+L'entreprise américaine _Joyent_ l'embauche à plein temps pour continuer le développement de Node.
+Ils pressentent que la plateforme Node répond à leurs projets de _datacenter_ et d'hébergement.
 
-Node stands primarily to solve the problem of the progress bar. Another way than sending several Ajax requests. He wanted to use long polling: hit the server, wait continuously for several responses.
-
-I wanted a Web server optimised for this behaviour. He tried in Ruby but he could not make it fast. Frustrated because language is beautiful but each line of code trying to achieve that was making the program slower and slower.
-
-Looked around for other options. He then tried purely in C. Super nice. Super fast. Nobody was very interested by that. Too strange. Too unfamiliar for most Web developers. Tried with Python. Tried with Lua. With Haskel. Trying to create a non-blocking system.
-
-Now it was about making a non-blocking single thread. To solve blocking interpreters locks of those languages.
-
-In January 2009. Ho shit JavaScript! By 2008 there was a lot of interest in JavaScript. V8 got released. Apple, MS, Mozilla and Google were pushing JavaScript because it was a crucial thing.
-
-This was how we could build interactive Web applications. Right features: anonymous functions, closures, event loop. It was only functions. But it was lacking of sockets, opening files and stuff related to accessing the systems.
-
-He was living in Germany, doing contractor things. Ngninx modules to do non-blocking modules. Make servers, less painfully.
-
-Quit his work. Worked on Node for 6 months. It was the way to go. Begged a slot at JSConfEU. November 2009. First time as a speaker. Scared. IRC demo where people connected with a crap Wi-Fi connection. In 400 lines of code.
-
-But was now out of money. Talked with people after the conf. Many interested in sponsoring it. Joyent was building datacenters. Liked how Node could be used to do that. Come and work on it. Let's see where we can take it.
-
-Moved to SF to work at Joyent.
-
-Node has several people working on it. Good size. Not making any money.
-
-Common objections on adopting Node
-- callback soup (blocking is a shallow way of callback depth)
-- immaturity of the project (segfaults rarely): "that will change with time, we are only a 2 years old project"
-- debugging is difficult (because of restructured stacks)
-- upload problem and security of the system (unforgiving if you hit an exception)
-- not cool enough
-- too cool/trendy
-
-43ms to start a 30MB Node process (good amount of time, human noticeable). Process is supposed to be living a long time to handle hundreds of connections.
-1 connection = 1K of memory.
-New V8 context = 1.5ms.
+*Node et sa communauté sont nés* et ont continué à prospérer depuis lors.
+Pour une simple affaire de _barre de progression_ et une obsession de _perception de rapidité_.
 
 
-- domains is a way of grouping I/O actions
-- I'm not particularly huge fan of JavaScript. I wish CoffeeScript would be JavaScript. But CS is adding a new layer of complexity.
-- don't add to much unstableness into your world
 
 [TIP]
 ====
@@ -157,55 +137,28 @@ Peut-être un élément qui figurera dans les livres d'histoire !
 - http://www.youtube.com/watch?v=SAc0vQCC6UQ
 ====
 
-> To provide a purely evented, non-blocking infrastructure to script highly concurrent programs.
-
-> No function should directly perform I/O.
-
-==== Inspirations
-
-- EventMachine en Ruby, Twisted/Tornado en Python
-- Ngninx
-- Browser
-
-==== Design Goals
-
-- low level
-- stream everything (never force the buffering of data)
-- to not remove functionality present at the POSIX layer (it has to support half-closed TCP connections)
-- built-in support for most important/infrastructural/low level protocols (DNS, HTTP, TLS)
-- support many HTTP features (chunked encoding, pipelined messaged, hanging/long-polling requests (ex-Comet))
-- API should be familiar for client-side JS programmers and old-school UNIX programmers
-- be platform independant
-- simply licensed (~100% MIT, OpenSSL has own license (maybe has changed))
-- make it enjoyable
-
-==== Architecture
-
-> wrapper around `select`
-
-JavaScript
-- node standard library
-
-C
-- node bindings (event if most the stuff is written is JS anyway)
-- V8
-- thread pool
-- event loop
-
-JavaScript layer = 1 thread
-C layer = multiple threads (targeting only experts)
-
-Exits automatically when there is nothing else to do (nothing in the queue nor the pool - which is why an uncaught exception breaks the function, cancels everything and stops the program execution).
-
-Slow development to mature features and break compatibility as few times as possible. Enables to libraries to update with confidence. Upgrades are less painful.
-
-> For security, set it behind a stable web server.
-
 === Les raisons du succès
 
 === Pourquoi choisir Node.js ?
 
 === Pourquoi éviter Node.js ?
+
+
+Common objections on adopting Node:
+
+- callback soup (blocking is a shallow way of callback depth)
+- immaturity of the project (segfaults rarely): "that will change with time, we are only a 2 years old project"
+- debugging is difficult (because of restructured stacks)
+- upload problem and security of the system (unforgiving if you hit an exception)
+- not cool enough
+- too cool/trendy
+
+---
+
+- 43ms to start a 30MB Node process (good amount of time, human noticeable).
+Process is supposed to be living a long time to handle hundreds of connections.
+- 1 connection = 1K of memory.
+- New V8 context = 1.5ms.
 
 === L'écosystème Node.js
 

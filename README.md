@@ -121,3 +121,56 @@
 - http://strongloop.com/strongblog/whats-new-node-js-v0-12-multiple-context-execution/
 - si on fait du PHP etc.
 - https://github.com/lloyd/node-toobusy (pour faire des modules en C)
+
+# Bac à sable
+
+
+- domains is a way of grouping I/O actions
+- I'm not particularly huge fan of JavaScript. I wish CoffeeScript would be JavaScript. But CS is adding a new layer of complexity.
+- don't add to much unstableness into your world
+
+
+> To provide a purely evented, non-blocking infrastructure to script highly concurrent programs.
+
+> No function should directly perform I/O.
+
+==== Inspirations
+
+- EventMachine en Ruby, Twisted/Tornado en Python
+- Ngninx
+- Browser
+
+==== Design Goals
+
+- low level
+- stream everything (never force the buffering of data)
+- to not remove functionality present at the POSIX layer (it has to support half-closed TCP connections)
+- built-in support for most important/infrastructural/low level protocols (DNS, HTTP, TLS)
+- support many HTTP features (chunked encoding, pipelined messaged, hanging/long-polling requests (ex-Comet))
+- API should be familiar for client-side JS programmers and old-school UNIX programmers
+- be platform independant
+- simply licensed (~100% MIT, OpenSSL has own license (maybe has changed))
+- make it enjoyable
+
+==== Architecture
+
+> wrapper around `select`
+
+JavaScript
+- node standard library
+
+C
+- node bindings (event if most the stuff is written is JS anyway)
+- V8
+- thread pool
+- event loop
+
+JavaScript layer = 1 thread
+C layer = multiple threads (targeting only experts)
+
+Exits automatically when there is nothing else to do (nothing in the queue nor the pool - which is why an uncaught exception breaks the function, cancels everything and stops the program execution).
+
+Slow development to mature features and break compatibility as few times as possible. Enables to libraries to update with confidence. Upgrades are less painful.
+
+> For security, set it behind a stable web server.
+
