@@ -4,8 +4,9 @@
 
 # Table des matières
 
-1. [Préface](chapters/01-foreword.adoc)
-1. [Introduction à Node.js](chapters/02-introduction.adoc)
+0. [Préface](chapters/00-preamble.adoc)
+0. [Avant-propos](chapters/00-foreword.adoc)
+1. [Introduction à Node.js](chapters/01-introduction.adoc)
   1. Node.js : la plateforme JavaScript côté serveur
   1. Historique du projet
   1. Les raisons du succès
@@ -13,10 +14,11 @@
   1. Pourquoi éviter Node.js ?
   1. L'écosystème Node.js
     1. Joyent
+    1. Registre npm
     1. Nodejitsu
     1. Node Security Project
   1. Qui gère Node.js ?
-1. [Préparer son environnement Node.js](chapters/03-environment.adoc)
+1. [Préparer son environnement Node.js](chapters/02-environment.adoc)
   1. Command Line Terminal
   1. Installer Node.js
     1. Depuis les sources
@@ -27,7 +29,7 @@
     1. Brackets
     1. vim
     1. Visual Studio
-1. [Comprendre Node.js](chapters/04-understanding.adoc)
+1. [Comprendre Node.js](chapters/03-understanding.adoc)
   1. Philosophie
   1. Architecture
     1. Machine Virtuelle V8
@@ -50,7 +52,7 @@
     1. `index.js`
     1. Configuration dans `process.env`
     1. Configuration dans `package.json` 
-1. [`npm`](chapters/05-npm.adoc)
+1. [`npm`](chapters/04-npm.adoc)
   1. Philosophie
   1. Qui gère `npm` ?
   1. `npm init`

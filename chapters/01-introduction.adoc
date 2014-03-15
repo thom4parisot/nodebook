@@ -1,0 +1,220 @@
+== [chapterNumber]#1# Introduction à Node.js
+
+[.lead]
+Node.js génère beaucoup de discussions, d'intérêts et d'envies. +
+Dans ce chapitre, nous allons faire le point sur ce qu'est Node.js pour mieux comprendre dans quel cambouis nous allons plonger les mains.
+
+====
+.Sommaire
+- Comprendre ce qu'est Node.js
+- Savoir qui gère Node.js au quotidien
+- Décider si Node.js peut compléter ou remplacer un système en place
+- Pourquoi autant de _hype_ ?
+====
+
+Node.js est-il un langage de programmation ?
+Node.js est-il un _framework_ JavaScript ?
+Qu'en restera-t'il une fois que la frénésie retombera ?
+
+Ce chapitre n'est pas essentiel à l'apprentissage de Node.js.
+Il permet de comprendre pourquoi et comment Node a émergé.
+Surtout, il vous permettra de comprendre des choix techniques à l'origine de ses fondations, et en quoi l'utiliser peut vous apporter en contexte personnel ou professionnel.
+
+Qu'on se le dise : *un langage de programmation en lui-même n'a jamais solutionné quelconque problème*.
+Cela reste avant tout une affaire de compétences et d'expérience.
+
+
+=== Node.js : la plateforme JavaScript côté serveur
+
+Node.js n'est pas un langage de programmation. Node.js n'est pas non plus un _framework_ JavaScript. *Node.js est une plateforme de programmation JavaScript*. +
+La différence entre ces trois désignations peut sembler subtile, futile voire inutile mais le terme *plateforme* est la véritable nature de Node.
+
+*Exécuter du JavaScript côté serveur n'est pas non plus une révolution*.
+
+L'entreprise _Netscape_ s'y est déjà essayé au début des années 1990 avec _Netscape Enterprise Server_, juste après l'avoir introduit dans son navigateur Web _Netscape Navigator_.
+
+En 1997, _Netscape_ s'est attelée à créer https://www.mozilla.org/rhino/[Rhino], une implémentation de JavaScript en Java disponible sous licence libre.
+_Rhino_ était un des projets liés à la réécriture de _Netscape Navigator_ en Java. Si _Netscape_ a depuis fermé ses portes, _Rhino_ a permis l'émergence de projets utiles aux développeurs Web.
+
+D'autres initiatives plus récentes comme http://ape-project.org/[APE (Ajax Push Engine)] ont mis en œuvre JavaScript côté serveur. JavaScript était surtout un choix logique de partage de code entre client et serveur pour Comet, le précurseur des Websockets.
+
+[TIP]
+====
+.[tip-titre]#Glossaire# Comet
+_Comet_ est un terme regroupant les différentes tentatives techniques permettant à un serveur Web d'envoyer des données à un client sans que celui-ci ne les aie demandées initialement.
+
+Parmi ces techniques, on retrouve le _long polling_, consistant à conserver une connexion Ajax ouverte pendant la durée de vie d'une page Web.
+====
+
+[TIP]
+====
+.[tip-titre]#Glossaire# Websockets
+_Websockets_ est un protocole basé sur TCP.
+
+Il permet de maintenir une connexion HTTP active entre un client et un serveur et d'y faire transiter les données de manière bi-directionnelle.
+
+Ce protocole sera probablement rendu obsolète par le successeur d'_HTTP 1.1_, à savoir _HTTP 2.0_.
+_HTTP 2.0_ a initié par Google en tant que protocole _SPDY_ (prononcer _speedy_).
+====
+
+[TIP]
+====
+.Cas d'utilisation modernes de _Rhino_.
+Rhino est toujours utile dès qu'un projet Java implique du JavaScript.
+
+Google l'utilise comme environnement d'exécution de ses http://googleappsdeveloper.blogspot.com/2012/11/using-open-source-libraries-in-apps.html[Google Apps Scripts].
+Ces scripts permettent à tout un chacun de développement des extensions et des interactions supplémentaires pour les documents Google Drive.
+
+Rhino est également employé dans http://yui.github.io/yuicompressor/[yuicompressor], un optimiseur CSS et JavaScript créé par Yahoo.
+_yuicompressor_ est tombé en désuétude suite au gain de popularité de http://gruntjs.com/[Grunt].
+Ce dernier est écrit en JavaScript et repose sur … Node. +
+La boucle est bouclée.
+====
+
+Node représente un *environnement d'exécution* (_runtime_), un  *ensemble d'APIs JavaScript* ainsi qu'une *machine virtuelle JavaScript* performante (parseur, interpréteur et compilateur) pouvant accéder à des ressources systèmes telles que des fichiers (_filesystem_) ou des connexions réseau (_sockets_).
+
+Typiquement, une personne développant en Node écrit du code se basant sur les APIs à disposition. Ce code est lu par le _runtime_ Node qui le transmet à la VM JavaScript. VM qui traduit le programme en langage machine (_bytecode_) avant d'être effectivement exécuté par le processeur.
+
+Pour comprendre comment Node a opté pour cette approche, retournons en 2009, lorsque son créateur **Ryan Dahl** cherchait à résoudre élégamment un problème de performance de programmation.
+
+=== Historique du projet Node.js
+
+Early 2009 and got hired by Joyent to pursue the work full time.
+
+He is not a computer scientist by training. Math student. phd to become a maths professor. Got bored of it after 3 years. "Sit in a room writing on paper, trying to do maths, working on nonsense. Pretty much like programming ;-)"
+
+Dropped out and travelled to South America with few money. Nowhere to stay and stayed with student, winter in July.
+
+How could he pay for stuff. Teaching English in Chile. Did not work. Met US programmer there, doing PHP websites. Doing that for a living was something new for him. Rails was starting to become popular. +
+What he noticed: slow, swallowing CPU and heating the machine.
+
+All the assumptions of Rails based on lies.
+
+How fast can you serve a Web page? That is the real question.
+
+Mongrel inspirational. Throw a Web server as if it was a library. Conceptualising Web server a different way. Before that it was a directory with files served and exposed to the Web. Tight to the file system.
+
+What does a Web server do? Way to response to requests. Nothing else involved.
+
+Problem of the Web servers: creating a lock until the response comes. This is the major problem with Rails. Zero concurrency. Request lock.
+
+Problem deeper than that. Single thread and can run only one thing at a time.
+
+At the same time, Ajax was at the center of websites and people were doing cool stuff with that. People started uploading files to Web servers in 2005. Which was kind of new as FTP was the way of doing file transfers at the time. +
+Everything was freezing while doing that over HTTP.
+
+Key difference was to reflect to the user the state of the upload. He saw that for the first time on Flickr. Progress bar. Amazed by that.
+
+Mongrel had a plugin to do that.
+
+Node stands primarily to solve the problem of the progress bar. Another way than sending several Ajax requests. He wanted to use long polling: hit the server, wait continuously for several responses.
+
+I wanted a Web server optimised for this behaviour. He tried in Ruby but he could not make it fast. Frustrated because language is beautiful but each line of code trying to achieve that was making the program slower and slower.
+
+Looked around for other options. He then tried purely in C. Super nice. Super fast. Nobody was very interested by that. Too strange. Too unfamiliar for most Web developers. Tried with Python. Tried with Lua. With Haskel. Trying to create a non-blocking system.
+
+Now it was about making a non-blocking single thread. To solve blocking interpreters locks of those languages.
+
+In January 2009. Ho shit JavaScript! By 2008 there was a lot of interest in JavaScript. V8 got released. Apple, MS, Mozilla and Google were pushing JavaScript because it was a crucial thing.
+
+This was how we could build interactive Web applications. Right features: anonymous functions, closures, event loop. It was only functions. But it was lacking of sockets, opening files and stuff related to accessing the systems.
+
+He was living in Germany, doing contractor things. Ngninx modules to do non-blocking modules. Make servers, less painfully.
+
+Quit his work. Worked on Node for 6 months. It was the way to go. Begged a slot at JSConfEU. November 2009. First time as a speaker. Scared. IRC demo where people connected with a crap Wi-Fi connection. In 400 lines of code.
+
+But was now out of money. Talked with people after the conf. Many interested in sponsoring it. Joyent was building datacenters. Liked how Node could be used to do that. Come and work on it. Let's see where we can take it.
+
+Moved to SF to work at Joyent.
+
+Node has several people working on it. Good size. Not making any money.
+
+Common objections on adopting Node
+- callback soup (blocking is a shallow way of callback depth)
+- immaturity of the project (segfaults rarely): "that will change with time, we are only a 2 years old project"
+- debugging is difficult (because of restructured stacks)
+- upload problem and security of the system (unforgiving if you hit an exception)
+- not cool enough
+- too cool/trendy
+
+43ms to start a 30MB Node process (good amount of time, human noticeable). Process is supposed to be living a long time to handle hundreds of connections.
+1 connection = 1K of memory.
+New V8 context = 1.5ms.
+
+
+- domains is a way of grouping I/O actions
+- I'm not particularly huge fan of JavaScript. I wish CoffeeScript would be JavaScript. But CS is adding a new layer of complexity.
+- don't add to much unstableness into your world
+
+[TIP]
+====
+.[tip-titre]#Vidéo# _History of Node.js_
+La vidéo suivante est une vidéoconférence donnée par Ryan Dahl, le créateur de Node au cours de l'année 20011.
+C'est la première fois qu'il intervient pour expliquer son parcours et la genèse du projet.
+
+Peut-être un élément qui figurera dans les livres d'histoire !
+
+- http://www.youtube.com/watch?v=SAc0vQCC6UQ
+====
+
+> To provide a purely evented, non-blocking infrastructure to script highly concurrent programs.
+
+> No function should directly perform I/O.
+
+==== Inspirations
+
+- EventMachine en Ruby, Twisted/Tornado en Python
+- Ngninx
+- Browser
+
+==== Design Goals
+
+- low level
+- stream everything (never force the buffering of data)
+- to not remove functionality present at the POSIX layer (it has to support half-closed TCP connections)
+- built-in support for most important/infrastructural/low level protocols (DNS, HTTP, TLS)
+- support many HTTP features (chunked encoding, pipelined messaged, hanging/long-polling requests (ex-Comet))
+- API should be familiar for client-side JS programmers and old-school UNIX programmers
+- be platform independant
+- simply licensed (~100% MIT, OpenSSL has own license (maybe has changed))
+- make it enjoyable
+
+==== Architecture
+
+> wrapper around `select`
+
+JavaScript
+- node standard library
+
+C
+- node bindings (event if most the stuff is written is JS anyway)
+- V8
+- thread pool
+- event loop
+
+JavaScript layer = 1 thread
+C layer = multiple threads (targeting only experts)
+
+Exits automatically when there is nothing else to do (nothing in the queue nor the pool - which is why an uncaught exception breaks the function, cancels everything and stops the program execution).
+
+Slow development to mature features and break compatibility as few times as possible. Enables to libraries to update with confidence. Upgrades are less painful.
+
+> For security, set it behind a stable web server.
+
+=== Les raisons du succès
+
+=== Pourquoi choisir Node.js ?
+
+=== Pourquoi éviter Node.js ?
+
+=== L'écosystème Node.js
+
+==== Joyent
+
+==== Registre npm
+
+==== Nodejitsu
+
+==== Node Security Project
+
+=== Qui gère Node.js ?
