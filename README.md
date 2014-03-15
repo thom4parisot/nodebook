@@ -1,6 +1,6 @@
-# nodebook
+# Node.js — Bonnes pratiques pour la programmation JavaScript côté serveur
 
-> Node.js, le livre à paraître aux éditions Eyrolles en septembre 2014.
+> Livre à paraître aux éditions Eyrolles en septembre 2014.
 
 # Table des matières
 
