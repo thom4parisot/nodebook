@@ -1,14 +1,82 @@
 == Avant-propos
 
+Node.js est une plateforme de développement qui a une histoire différente des pairs auxquels on la compare souvent. J'ai nommé Ruby, Python, Java ou encore PHP.
+
+*Node.js* (que l'on dénommera plus simplement *Node* dans le reste de l'ouvrage) est né dans le cerveau de Ryan Dahl, ancien étudiant sans le sou ni de véritable parcours informatique.
+Son talent a été de penser et de s'obstiner à résoudre un problème alors fréquent, l'attente.
+Son but ? Rendre plus simple la création de barres de chargement dans les navigateurs Web. +
+Qui l'eut cru ?
+
+Et qui aurait cru que Node aurait été propulsé sur les devants de la scène à une vitesse aussi fulgurante ?
+Pas Ryan Dahl en tous cas.
+
+J'ai utilisé Node pour la première fois en 2010, par curiosité. +
+Le concept de pouvoir créer son propre serveur HTTP me semblait étrange.
+Étant alors développeur PHP et frontend, j'étais *habitué* à ce que cet aspect soit pris en charge par un serveur Apache ou Nginx.
+
+*C'était pourtant pratique* : un peu de JavaScript, une ligne de commande et j'avais une API REST pour montrer à mes collègues comment nous pouvions mettre à disposition des données de transport en temps réel.
+
+En 2011, je réalise une API REST avec le framework PHP Symfony2.
+Au fur et à mesure où je programme, j'hésite fortement à basculer vers Node qui me paraissait alors beaucoup plus simple et adapté.
+Je me résigne, de crainte d'emmener mon client sur un terrain inexploré.
+
+De fin 2011 à mi-2012, je bascule dans un *contexte startup* : nous sommes 4 développeurs avec des bagages différents.
+Nous savons tous faire du PHP et du JavaScript mais Node nous attire.
+Notre hébergeur l'installe sans encombre tandis que de notre côté, nos premiers essais se révèlent concluants.
+
+Chose inhabituelle, nous avions la *sensation de progresser rapidement*.
+Et ce n'était pas qu'une sensation : nous allions réellement vite.
+Mieux encore, la _satisfaction_, la _simplicité d'utilisation_ et l'_aisance de déploiement_ nous grisent.
+
+Node était devenu plus qu'un simple langage de programmation : *JavaScript était notre langage de communication*.
+
+Depuis, de nombreuses grosses entreprises ont communiqué sur leur adoption de Node : Viadeo, Paypal, LinkedIn, eBay, The New York Times, Yahoo!, Microsoft, Mozilla, Flickr ou encore Twitter.
+
+Elles en font un usage varié : cela couvre aussi bien l'outillage, des transactions bancaires, des serveurs LDAP, des Web services ou des sites Web.
+
+En 2014, l'écosystème de modules est en pleine expansion, l'API de Node est mâture et séduit chaque jour un peu plus développeurs et entreprises, petites et grandes.
+
 === Pourquoi ce livre ?
+
+Node est devenu mon outil de travail au quotidien depuis 2011 : outillage, tests, APIs, applications, prototypes et automatisation.
+
+Sa simplicité et son architecture m'ont fait *progresser dans l'usage de JavaScript*.
+
+À travers cet ouvrage, je souhaite rendre justice à Node en permettant de s'y intéresser par le biais qui parait le plus naturel pour le lecture :
+pour l'histoire de Node, par ses aspects techniques, par l'Open Source, par la philosophie UNIX, par le développement _frontend_, par l'art ou encore les objets connectés … bref par vos centres d'intérêt.
+
+Il est plus facile d'écrire de bons programmes lorsque l'on connaît mieux les fondamentaux de la plateforme.
+Il suffit de connaître quelques bons motifs de développement (_design patterns_) pour éviter les pièges et leurs inhérentes frustrations.
+Finalement, cela revient à utiliser les _bons aspects_ de JavaScript avec une immense bibliothèques de fonctionnalités prêtes à l'emploi.
+
+Cet ouvrage va vous aider à vous poser les bonnes questions : du choix des modules à l'architecture de vos applications en passant par la qualité du code.
+
+S'il se révèle aussi sympathique à l'usage qu'il l'est pour moi, j'espère avoir l'occasion d'utiliser un module `npm` que vous aurez publié grâce à cette saine lecture !
 
 === À qui s'adresse cet ouvrage ?
 
-=== Structure de l'ouvrage ?
+Une personne avec un infime bagage informatique devrait être en mesure de suivre la progression de l'ouvrage. +
+Certaines parties seront plus complexes car liées à des protocole de communication ou des notions système.
+Qu'à cela ne tienne : c'est une excellente excuse pour jeter un œil à Wikipédia et en apprendre plus sur cette machinerie complexe mais malléable qu'est l'informatique !
+
+Si vous voulez des noms, voici qui peut profiter de cet ouvrage :
+
+* des développeurs _backend_ pratiquant déjà ou pas du tout JavaScript ;
+* des développeurs _frontend_ qui cherchent à mieux s'outiller ;
+* des personnes ayant besoin de prototyper rapidement des applications ;
+* des personnes ayant besoin d'applications performantes supportant de multiples connexions en simultané ;
+* des personnes cherchant à débuter la programmation sans avoir à apprendre plusieurs langages.
+
+=== Structure de l'ouvrage
+
+TBD.
 
 [TIP]
 ====
 .[tip-titre]#Ressources# Code source des examples du livre
+
+Le code source des exemples est accessible depuis le site dédié à l'ouvrage.
+L'ensemble de l'ouvrage et les exemples sont disponibles, à jour et ouverts aux corrections et améliorations depuis le dépôt GitHub correspondant.
 
 - https://oncletom.io/books/nodejs
 - https://github.com/oncletom/nodebook

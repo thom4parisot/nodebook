@@ -118,7 +118,6 @@
 - https://github.com/substack/stream-handbook
 - tooling
 - testing
-- joyent + entreprises gravitant autour
 - http://strongloop.com/strongblog/whats-new-node-js-v0-12-multiple-context-execution/
 - si on fait du PHP etc.
 - https://github.com/lloyd/node-toobusy (pour faire des modules en C)
