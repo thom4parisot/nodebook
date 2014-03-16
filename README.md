@@ -112,6 +112,11 @@
   1. `npm link`
   1. `npm outdated` 
 
+# Annexes
+
+1. [Contributions sociales](chapters/AX-social-contributions.adoc)
+  1. Quelles sont les grosses entreprises françaises qui utilisent Node.js ?
+  1. Quelles sont les raisons pour lesquelles vous n'utiliseriez pas Node.js ?
 
 # Sujets à aborder
 
