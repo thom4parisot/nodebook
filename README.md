@@ -121,6 +121,7 @@
 # Sujets à aborder
 
 - https://github.com/substack/stream-handbook
+- http://nikhilm.github.io/uvbook/introduction.html
 - testing
 - spécifier version employée de Node au cours de l'ouvrage
 - high precision maths
