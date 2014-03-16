@@ -137,6 +137,27 @@
 - I'm not particularly huge fan of JavaScript. I wish CoffeeScript would be JavaScript. But CS is adding a new layer of complexity.
 - don't add to much unstableness into your world
 
+---
+
+Common objections on adopting Node:
+
+- callback soup (blocking is a shallow way of callback depth)
+- immaturity of the project (segfaults rarely): "that will change with time, we are only a 2 years old project"
+- debugging is difficult (because of restructured stacks)
+- upload problem and security of the system (unforgiving if you hit an exception)
+- not cool enough
+- too cool/trendy
+
+
+---
+
+- 43ms to start a 30MB Node process (good amount of time, human noticeable).
+Process is supposed to be living a long time to handle hundreds of connections.
+- 1 connection = 1K of memory.
+- New V8 context = 1.5ms.
+
+---
+
 
 > To provide a purely evented, non-blocking infrastructure to script highly concurrent programs.
 

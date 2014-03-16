@@ -185,31 +185,28 @@ Vous disposez de la maitrise de la version de Node, des modules employés et n'a
  
 === Pourquoi éviter Node.js ?
 
-Si vous pouvez faire la même chose que Node dans une technologie / langage que vous connaissez mieux.
+S'il y a des raisons d'utiliser ou d'adopter Node, l'inverse est également vrai.
+Il faut toutefois noter que la majorité des raisons sont liées à une _culture_ et des _compétences_ déjà en place dans un environnement donné.
 
-Legacy et fonctionnalités qui ne couvriraient pas des besoins existants (type soft tout prêt, il y en a peu car le focus est davantage à l'échelle du module)
+Ce serait d'ailleurs la première et principale raison de ne pas utiliser Node ; si votre équipe dispose déjà de fortes compétences, d'habitudes et d'aisance dans un autre langage. +
+Il n'y a pas de raison d'utiliser Node *si vous parvenez à un résultat similaire avec des performances comparables*.
 
-Si vos équipes ne sont pas prêtes : il vaut mieux comprendre et régler les raisons du blocage avant de forcer quelconque migration/transition.
+L'*offre logicielle est également à prendre en compte* : CMS, systèmes e-commerce ou autre application prête à l'emploi que la communauté Node n'offrirait pas. +
+En 2014, on dénombrait encore peu d'applications de ce genre et pour cause : l'emphase est aux modules à assembler soi-même.
 
-Si vous croyez que sa popularité va résoudre vos problèmes internes. 
+Un facteur important et souvent oublié est *l'acceptation et la compréhension de l'utilisation de Node* par une ou plusieurs équipes.
+Il est alors plus intéressant de comprendre les raisons d'un blocage que de forcer ou d'imposer Node. +
+Il s'agit peut-être de peu : balayer des idées reçues, animer un atelier technique ou inviter un expert pour répondre aux questions, interrogations et utilité d'un tel changement.
 
-Crypto, math précision. (ça s'améliore mais il n'y a pas forcément encore tout ce qu'il faut pour des besoins particulièrement pointus).
+Node n'est pas forcément une solution adaptée si *vos besoins de performance dépassent les capacités de Node*. Certains cas de très haute performance nécessitent d'être au plus près du système ou utilisent fortement le CPU. +
+Un langage comme C sera certainement davantage approprié.
+Toutefois des solutions comme `node-gyp` vous offrent un accès bas niveau aux éléments internes de la plateforme Node.
 
-Common objections on adopting Node:
+Node ne vous aidera probablement pas si vous cherchez à *réaliser des choses qui sera compliquées de par la nature de JavaScript*, à savoir des opérations mathématiques de très haute précision. +
+Des modules comme `bignumber.js` peuvent palier le problème.
+Il se peut que votre cas de figure ne soit pas couvert ni par Node ni par un des modules de l'écosystème npm.
 
-- callback soup (blocking is a shallow way of callback depth)
-- immaturity of the project (segfaults rarely): "that will change with time, we are only a 2 years old project"
-- debugging is difficult (because of restructured stacks)
-- upload problem and security of the system (unforgiving if you hit an exception)
-- not cool enough
-- too cool/trendy
-
----
-
-- 43ms to start a 30MB Node process (good amount of time, human noticeable).
-Process is supposed to be living a long time to handle hundreds of connections.
-- 1 connection = 1K of memory.
-- New V8 context = 1.5ms.
+Enfin si vous croyez que Node va *résoudre des problèmes de compétences en développement* ou résoudre _de facto_ une erreur de conception logicielle, c'est bien évidemment une erreur.
 
 === L'écosystème Node.js
 
