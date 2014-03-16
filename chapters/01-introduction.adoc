@@ -160,10 +160,40 @@ Malgré ses défauts de jeunesse, Node réussit également le tour de force de l
 
 === Pourquoi choisir Node.js ?
 
+Il y a plusieurs raisons d'utiliser Node, en complément ou remplacement d'un langage existant.
+Il est préférable que cela soit avant tout une *volonté ou une curiosité et que cela se fasse en considérant la plate-forme Node pour ce qu'elle est* et non pour ce que vous voudriez qu'elle soit.
 
+Si l'on tient compte des raisons historiques de la création de Node, il est évident que Node est tout désigné dès lors que l'on parle d'*applications à nombreuses actions concurrentes*. +
+Autrement dit, dès que plusieurs requêtes impliquent des accès réseau, aux fichiers ou au système.
 
+Grâce aux _streams_, Node est également un excellent choix pour *travailler et transformer de gros flux de données* en utilisant peu de mémoire. +
+Cela concerne aussi bien la lecture de fichiers CSV, JSON ou XLM de plusieurs giga-octets ou la lecture en continu de l'API Twitter ou Facebook.
+
+La compatibilité de Node avec les modules CommonJS incite à concevoir de multiples modules respectant le _principe de responsabilité unique_. +
+Node encourage ainsi à créer de *multiples applications autonomes et modulaires au lieu d'une seule application monolithique*.
+
+Avec Grunt et Gulp, les développeurs verront dans Node leur *compagnon idéal pour compiler, générer, assembler et minifier* leurs différents fichiers. +
+Le bénéfice évident est le partage du même outillage CSS, JavaScript et HTML entre développeurs, par projet.
+Finies les ambigüités … et place à l'automatisation !
+
+Conséquence directe du point précédent, Node peut se révéler être une opportunité pour *unifier vos équipes de développement _frontend_ et _backend_*. +
+Node devient un langage commun entre les individus.
+Ils peuvent se focaliser sur des fonctionnalités indistinctement de leur périmètre, qu'il s'agisse du navigateur, du serveur ou d'une API.
+
+Enfin, Node est un *environnement adapté à l'apprentissage et l'amélioration des connaissances en JavaScript*. +
+Vous disposez de la maitrise de la version de Node, des modules employés et n'avez pas à vous soucier de quelconque compatibilité de version de JavaScript.
+ 
 === Pourquoi éviter Node.js ?
 
+Si vous pouvez faire la même chose que Node dans une technologie / langage que vous connaissez mieux.
+
+Legacy et fonctionnalités qui ne couvriraient pas des besoins existants (type soft tout prêt, il y en a peu car le focus est davantage à l'échelle du module)
+
+Si vos équipes ne sont pas prêtes : il vaut mieux comprendre et régler les raisons du blocage avant de forcer quelconque migration/transition.
+
+Si vous croyez que sa popularité va résoudre vos problèmes internes. 
+
+Crypto, math précision. (ça s'améliore mais il n'y a pas forcément encore tout ce qu'il faut pour des besoins particulièrement pointus).
 
 Common objections on adopting Node:
 

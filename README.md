@@ -116,8 +116,10 @@
 # Sujets à aborder
 
 - https://github.com/substack/stream-handbook
-- tooling
 - testing
+- spécifier version employée de Node au cours de l'ouvrage
+- high precision maths
+- version d'ES utilisée (+ `--harmony` pour ES6 implémenté dans V8)
 - http://strongloop.com/strongblog/whats-new-node-js-v0-12-multiple-context-execution/
 - si on fait du PHP etc.
 - https://github.com/lloyd/node-toobusy (pour faire des modules en C)
