@@ -2,6 +2,15 @@
 
 > Livre à paraître aux éditions Eyrolles en septembre 2014.
 
+# Lire confortablement cette épreuve
+
+1. `git clone https://github.com/oncletom/nodebook.git`
+1. Installer l'extension Chrome [Asciidoctor](https://chrome.google.com/webstore/detail/asciidoctorjs-live-previe/iaalpfgpbocpdfblpnhhgllgbdbchmia)
+1. Aller sur `chrome://extensions` et cocher la case `Allow access to file URL` pour l'extension en question
+1. Ouvrir n'importe quel fichier `*.adoc` dans le répertoire `chapters/`
+
+![](preview-live.png)
+
 # Table des matières
 
 0. [Préface](chapters/00-preamble.adoc)
