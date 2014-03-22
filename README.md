@@ -48,7 +48,7 @@
 1. [Premiers pas avec Node](chapters/03-first-steps.adoc)
   1. Quelle version de JavaScript ?
     1. ECMAScript 5
-    1. Rappel des primitives
+    1. Rappel des primitives JavaScript
       1. `String`
       1. `Number`
       1. `Date`
@@ -59,7 +59,7 @@
       1. `JSON`
       1. `Buffer`
       1. `Stream`
-  1. Les variables globales
+  1. Les variables globales dans Node.js
     1. `console`
     1. `export` et `module`
     1. `require`
@@ -67,11 +67,11 @@
     1. `__filename` et `__dirname`
     1. `setTimeout` et `setInterval`
     1. `_`
-  1. Invoquer Node
+  1. Invoquer Node.js
     1. REPL
     1. Exécution de script
     1. Script exécutable
-  1. Mon premier script Node : sauvegarder une page Web
+  1. Mon premier script Node.js : sauvegarder une page Web
     1. Objectifs
     1. Exécuter une requête HTTP  
     1. Traiter les données
@@ -84,7 +84,7 @@
       1. Sauver la dépendance
       1. Sauver la dépendance uniquement pour le développement
     1. Invoquer un module
-  1. Mon deuxième script Node : filter le contenu d'une page Web
+  1. Mon deuxième script Node.js : filter le contenu d'une page Web
     1. Objectifs
     1. Filtrer les données
     1. Exporter les données en sortie
@@ -145,7 +145,7 @@
   1. Structure de l'application
   1. Intégrer React
   1. Dialogue client/serveur
-  1. Compiler les modules React avec Node
+  1. Compiler les modules React avec Node.js
   1. Pour aller plus loin
 1. Node.js pour le développeur frontend
   1. Gestion des librairies
@@ -202,7 +202,7 @@
     1. XSS
     1. Attaques par injection
   1. Déboguer son code
-    1. Node en mode debug avec `node --debug`
+    1. Node.js en mode debug avec `node --debug`
     1. Module `node-debug`
     1. Webstorm IDE
 1. Node.js avancé
@@ -213,7 +213,7 @@
     1. Variables d'environnement
     1. `npm run-script`
     1. Geler les versions avec `npm shrinkwrap`
-    1. Développer son module Node `npm link`
+    1. Développer son module Node.js avec `npm link`
     1. Vérifier l'obsolescence avec `npm outdated` 
   1. Utiliser ECMAScript 6 via `node --harmony`
   1. Node.js sans JavaScript
