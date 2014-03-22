@@ -17,17 +17,23 @@
 0. [Avant-propos](chapters/00-foreword.adoc)
 1. [Introduction à Node.js](chapters/01-introduction.adoc)
   1. Node.js : la plateforme JavaScript côté serveur
-  1. Historique du projet
-  1. Les raisons du succès
-  1. Pourquoi choisir Node.js ?
-  1. Pourquoi éviter Node.js ?
-  1. L'écosystème Node.js
+    1. Historique du projet
+    1. Les raisons du succès
+    1. Pourquoi choisir Node.js ?
+    1. Pourquoi éviter Node.js ?
+  1. L'écosystème
     1. Joyent
     1. Registre npm
     1. Nodejitsu
     1. Node Security Project
-  1. Qui gère Node.js ?
-1. [Préparer son environnement Node.js](chapters/02-environment.adoc)
+    1. Qui gère Node.js ?
+  1. Architecture
+    1. Machine Virtuelle V8
+    1. EventLoop
+    1. Asynchronicité
+    1. `libuv`
+  1. Philosophie de développement
+1. [Préparer son environnement](chapters/02-environment.adoc)
   1. Command Line Terminal
   1. Installer Node.js
     1. Depuis les sources
@@ -38,40 +44,84 @@
     1. Brackets
     1. vim
     1. Visual Studio
-1. [Comprendre Node.js](chapters/03-understanding.adoc)
-  1. Philosophie
-  1. Architecture
-    1. Machine Virtuelle V8
-    1. EventLoop
-    1. Asynchronicité
-    1. `libuv`
+1. [Premiers pas avec Node](chapters/03-first-steps.adoc)
+  1. Quelle version de JavaScript ?
+    1. ECMAScript 5
+    1. Rappel des primitives
+      1. `String`
+      1. `Number`
+      1. `Date`
+      1. `Array`
+      1. `Object`
+      1. `Function`
+      1. `RegExp`
+      1. `JSON`
+      1. `Buffer`
+      1. `Stream`
   1. Les variables globales
-    1. `export`
-    1. `module`
+    1. `console`
+    1. `export` et `module`
+    1. `require`
     1. `process`
+    1. `__filename` et `__dirname`
+    1. `setTimeout` et `setInterval`
     1. `_`
+  1. Invoquer Node
+    1. REPL
+    1. Exécution de script
+    1. Script exécutable
+  1. Mon premier script Node : sauvegarder une page Web
+    1. Objectifs
+    1. Exécuter une requête HTTP  
+    1. Traiter les données
+    1. Exporter les données
+  1. Utiliser des modules tiers
+    1. Modules natifs
+    1. Installer un module
+      1. Installation locale
+      1. Installation globale
+      1. Sauver la dépendance
+      1. Sauver la dépendance uniquement pour le développement
+    1. Invoquer un module
+  1. Mon deuxième script Node : filter le contenu d'une page Web
+    1. Objectifs
+    1. Filtrer les données
+    1. Exporter les données en sortie
+    1. Assembler avec le premier exemple
+  1. Initialiser un projet/module
+    1. Création du `package.json`
+    1. Organiser son code
+    1. Choisir ses modules `npm`
+      1. Bien choisir un paquet `npm`
+      1. Quelques modules essentiels
+        1. `eslint`
+        1. `async`
+        1. `lodash`
+        1. `request`
+        1. `moment`
+        1. `node-static`
+        1. `mocha` et `chai`
+        1. `harp` et `nodemon`
+        1. `grunt` et `gulp`
+  1. Comprendre les accès non-bloquants
+    1. Exemple avec `readFile` et `readFileSync`
+    1. Débloquer du code avec `process.nextTick`
   1. Design Patterns
-    1. Pourquoi "non-bloquant" ?
     1. Les modules
     1. L'injection
-    1. Les callbacks
-    1. Les promesses
-    1. Les évènements
-    1. `nextTick`
-    1. `index.js`
-    1. Configuration dans `process.env`
-    1. Configuration dans `package.json` 
-1. [`npm`](chapters/04-npm.adoc)
-  1. Philosophie
-  1. Qui gère `npm` ?
-  1. `npm init`
-  1. `npm install`
-  1. Bien choisir un paquet `npm`
-  1. Autres projets basés sur `npm`
-    1. Composants Web
-    1. Mozilla Jetpack
-    1. `libc`
-    1. Titanium
+    1. Callbacks
+    1. Évènements
+    1. Promesses
+    1. `require('./lib')`
+    1. Augmenter un module via l'héritage prototypal
+    1. Application partielle
+1. Tester son code
+  1. Configurer son `package.json`
+  1. Écrire les tests
+  1. Exécuter les tests
+  1. Utilisation des espions, bouchons etc. avec _Sinon.js_
+  1. Connaître sa couverture de code avec _blanket_
+  1. Intégration continue avec _Travis CI_
 1. Node.js pour des applications système
   1. Mon premier programme système !
   1. Un programme avec aide, options et arguments optionnels
@@ -79,8 +129,23 @@
   1. Proposer un manuel `man`
   1. Faire communiquer deux process
   1. Manipuler des images
-1. Node.js pour les applications temps-réel
-1. Node.js pour des applications Web
+1. Créer une API RESTful
+  1. Structure de l'application
+  1. Préparer la base de données
+  1. Préparer le serveur HTTP
+  1. Pour aller plus loin
+1. Créer une application Web
+  1. Structure de l'application
+  1. Intégrer un système de templating
+  1. Intégrer une authentification utilisateur
+  1. Se préparer à HTTP/2
+  1. Pour aller plus loin
+1. Créer une application Web temps réel avec React
+  1. Structure de l'application
+  1. Intégrer React
+  1. Dialogue client/serveur
+  1. Compiler les modules React avec Node
+  1. Pour aller plus loin
 1. Node.js pour le développeur frontend
   1. Gestion des librairies
     1. bower
@@ -95,7 +160,10 @@
     1. Optimisation des images
   1. Automatisation des tâches
   1. Partager du code entre Node.js et le navigateur
-1. Node.js et le monde physique
+  1. Tests unitaires
+  1. Tests fonctionnels impliquant le DOM
+  1. Pour aller plus loin
+1. Se connecter et piloter le monde physique
   1. Microcontrolleurs
     1. Arduino
     1. Raspberry Pi
@@ -108,18 +176,53 @@
     1. Smart TV
     1. Instruments de musique
     1. Œuvres artistiques
+  1. Pour aller plus loin
+1. Rendre ses applications robustes
+  1. Prévenir les plantages
+    1. Erreurs et exceptions
+    1. Le problème des exceptions
+    1. De l'utilisation des `domains`
+    1. Écouter les évènements système
+  1. Cas typiques de code à surveiller
+    1. Erreurs de syntaxe
+    1. Typage inattendu
+    1. Valeurs nulles
+    1. Upload de fichiers
+    1. Évènements via `.on('error')`
+    1. Callbacks
+    1. Épuisement de mémoire
+    1. _Race condition_
+  1. Sécurité des données
+    1. Données malicieuses
+    1. Infiltration du système de fichier
+    1. Échapper les données consommées par les utilisateurs
+    1. RegExp
+    1. CSRF
+    1. XSS
+    1. Attaques par injection
+  1. Déboguer son code
+    1. Node en mode debug avec `node --debug`
+    1. Module `node-debug`
+    1. Webstorm IDE
 1. Node.js avancé
+  1. De la bonne utilisation de `package.json`
+  1. `npm`
+    1. Dépendances optionnelles (`optionalDependencies`)
+    1. Dépendances de pairs (`peerDependencies`)
+    1. Variables d'environnement
+    1. `npm run-script`
+    1. Geler les versions avec `npm shrinkwrap`
+    1. Développer son module Node `npm link`
+    1. Vérifier l'obsolescence avec `npm outdated` 
+  1. Utiliser ECMAScript 6 via `node --harmony`
   1. Node.js sans JavaScript
+  1. `npm` sans Node.js
+    1. Composants Web
+    1. Mozilla Jetpack
+    1. `libc`
+    1. Titanium
   1. `node-gyp` ou écrire en C++ pour `libuv`
-  1. `node debug`
   1. Flags avancés (`node --v8-options`)
-1. `npm` avancé
-  1. Variables d'environnement
-  1. `npm run-script`
-  1. `npm shrinkwrap`
-  1. `npm publish`
-  1. `npm link`
-  1. `npm outdated` 
 
 # Annexes
 
@@ -138,6 +241,9 @@
 - http://strongloop.com/strongblog/whats-new-node-js-v0-12-multiple-context-execution/
 - si on fait du PHP etc.
 - https://github.com/lloyd/node-toobusy (pour faire des modules en C)
+- http://package.json.nodejitsu.com/
+- V8 optimisation (http://floitsch.blogspot.co.uk/2012/03/optimizing-for-v8-introduction.html)
+- http://nodeschool.io/
 
 # Bac à sable
 
