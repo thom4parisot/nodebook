@@ -13,8 +13,9 @@
 
 # Table des matières
 
-0. [Préface](chapters/00-preamble.adoc)
-0. [Avant-propos](chapters/00-foreword.adoc)
+- [Préface](chapters/00-preamble.adoc)
+- [Avant-propos](chapters/00-foreword.adoc)
+
 1. [Introduction à Node.js](chapters/01-introduction.adoc)
   1. Node.js : la plateforme JavaScript côté serveur
     1. Historique du projet
