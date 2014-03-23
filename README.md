@@ -202,7 +202,7 @@
   1. Mettre à jour une application en production
   1. Monitoring 
 1. Se connecter et piloter le monde physique
-  1. Microcontrolleurs
+  1. Microcontrôleurs
     1. Arduino
     1. Raspberry Pi
     1. Tessel
@@ -256,6 +256,7 @@
 - V8 optimisation (http://floitsch.blogspot.co.uk/2012/03/optimizing-for-v8-introduction.html)
 - http://nodeschool.io/
 - https://www.npmjs.org/package/grunt-nsp-shrinkwrap
+- http://strongloop.com/strongblog/robust-node-applications-error-handling/
 
 # Bac à sable
 
