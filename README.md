@@ -34,18 +34,21 @@
     1. Asynchronicité
     1. `libuv`
   1. Philosophie de développement
-1. [Préparer son environnement](chapters/02-environment.adoc)
-  1. Command Line Terminal
-  1. Installer Node.js
-    1. Depuis les sources
-    1. Node Version Manager
-  1. Environnement de Développement Intégré (IDE)
-    1. WebStorm
-    1. SublimeText
-    1. Brackets
-    1. vim
-    1. Visual Studio
-1. [Premiers pas avec Node](chapters/03-first-steps.adoc)
+    1. Changement de version de Node
+    1. Versionning sémantique
+    1. Modules `npm`
+1. [Premiers pas avec Node](chapters/02-first-steps.adoc)
+  1. Préparer son environnement
+    1. Installer Node.js
+      1. Depuis le gestionnaire de paquets de son système d'exploitation
+      1. Depuis les sources
+      1. Node Version Manager
+    1. Outils de développement
+      1. WebStorm
+      1. SublimeText
+      1. Brackets
+      1. vim
+      1. Visual Studio
   1. Quelle version de JavaScript ?
     1. ECMAScript 5
     1. Rappel des primitives JavaScript
@@ -245,6 +248,7 @@
 - http://package.json.nodejitsu.com/
 - V8 optimisation (http://floitsch.blogspot.co.uk/2012/03/optimizing-for-v8-introduction.html)
 - http://nodeschool.io/
+- https://www.npmjs.org/package/grunt-nsp-shrinkwrap
 
 # Bac à sable
 
