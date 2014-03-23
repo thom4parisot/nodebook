@@ -119,13 +119,6 @@
     1. `require('./lib')`
     1. Augmenter un module via l'héritage prototypal
     1. Application partielle
-1. Tester son code
-  1. Configurer son `package.json`
-  1. Écrire les tests
-  1. Exécuter les tests
-  1. Utilisation des espions, bouchons etc. avec _Sinon.js_
-  1. Connaître sa couverture de code avec _blanket_
-  1. Intégration continue avec _Travis CI_
 1. Node.js pour des applications système
   1. Mon premier programme système !
   1. Un programme avec aide, options et arguments optionnels
@@ -167,20 +160,6 @@
   1. Tests unitaires
   1. Tests fonctionnels impliquant le DOM
   1. Pour aller plus loin
-1. Se connecter et piloter le monde physique
-  1. Microcontrolleurs
-    1. Arduino
-    1. Raspberry Pi
-    1. Tessel
-    1. Espruino
-  1. Internet of Things (IoT)
-    1. Nodecopters
-    1. Hue / Nest
-    1. Imprimantes 3D
-    1. Smart TV
-    1. Instruments de musique
-    1. Œuvres artistiques
-  1. Pour aller plus loin
 1. Rendre ses applications robustes
   1. Prévenir les plantages
     1. Erreurs et exceptions
@@ -208,6 +187,34 @@
     1. Node.js en mode debug avec `node --debug`
     1. Module `node-debug`
     1. Webstorm IDE
+1. Tester son code
+  1. Configurer son `package.json`
+  1. Écrire les tests
+  1. Exécuter les tests
+  1. Utilisation des espions, bouchons etc. avec _Sinon.js_
+  1. Connaître sa couverture de code avec _blanket_
+  1. Intégration continue avec _Travis CI_
+1. Déployer ses applications
+  1. Environnements d'exécution (`NODE_ENV`)
+  1. Héberger des applications Node.js
+    1. Heroku
+    1. Sur ses propres machines
+  1. Mettre à jour une application en production
+  1. Monitoring 
+1. Se connecter et piloter le monde physique
+  1. Microcontrolleurs
+    1. Arduino
+    1. Raspberry Pi
+    1. Tessel
+    1. Espruino
+  1. Internet of Things (IoT)
+    1. Nodecopters
+    1. Hue / Nest
+    1. Imprimantes 3D
+    1. Smart TV
+    1. Instruments de musique
+    1. Œuvres artistiques
+  1. Pour aller plus loin
 1. Node.js avancé
   1. De la bonne utilisation de `package.json`
   1. `npm`
