@@ -49,9 +49,9 @@
       1. Brackets
       1. vim
       1. Visual Studio
-  1. Quelle version de JavaScript ?
+  1. Quelle version de ECMAScript ?
     1. ECMAScript 5
-    1. Rappel des primitives JavaScript
+    1. Rappel des primitives ECMAScript
       1. `String`
       1. `Number`
       1. `Date`
@@ -60,8 +60,6 @@
       1. `Function`
       1. `RegExp`
       1. `JSON`
-      1. `Buffer`
-      1. `Stream`
   1. Les variables globales dans Node.js
     1. `console`
     1. `export` et `module`
