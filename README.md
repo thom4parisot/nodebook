@@ -255,6 +255,7 @@
 - http://nodeschool.io/
 - https://www.npmjs.org/package/grunt-nsp-shrinkwrap
 - http://strongloop.com/strongblog/robust-node-applications-error-handling/
+- [SIMD for performance acceleration](http://engineering.voxer.com/2013/12/02/hardwareaccelerated-crc32-for-nodejs/)
 
 # Bac à sable
 
