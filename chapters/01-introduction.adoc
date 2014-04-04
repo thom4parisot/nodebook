@@ -334,13 +334,113 @@ Intéressons-nous à l'architecture technique de Node pour comprendre cette dich
 
 === Architecture technique
 
+Le terme _plateforme_ prend tout son sens lorsque l'on se penche sur l'architecture de Node.
+
+Si on devait la résumer en une phrase : *Node est une API JavaScript pour manipuler des ressources système*.
+
+L'architecture se décompose en plusieurs couches, partant du plus haut niveau (exposées au développeur) et allant jusqu'au plus bas niveau (exposées au système d'exploitation) :
+
+1. API Node
+1. Interpréteur Node
+1. Machine Virtuelle V8
+1. `libuv`
+1. Système d'exploitation
+
+==== API Node
+
+L'API Node correspond à des modules JavaScript bas niveau : client et serveur TCP, accès au système de fichiers, lecture de DNS, streams, buffers etc.
+
+Ces modules natifs servent de base à la création d'autres modules plus faciles d'accès et partagés dans le registre npm.
+
+[source,javascript]
+----
+var fs = require('fs');
+----
+
+La fonction `require` charge un module natif, local ou global au projet.
+Elle fait partie de l'API Node.
+
+Le module `fs` est une API facilitant l'accès au système de fichier sur lequel est exécuté le code.
+
+
+[TIP]
+====
+.[tip-titre]#Lien# Documentation de l'API Node
+La documentation de l'API Node est disponible au format HTML sur le site officiel du projet.
+
+- http://nodejs.org/api/
+====
+
+==== Interpréteur Node
+
+L'interpréteur Node est un programme écrit en C++.
+
+L'interpréteur crée un environnement d'exécution, initialise la boucle évènementielle (_EventLoop_, voir ci-après), lit le code JavaScript, crée l'arbre de dépendance des modules puis demande à exécuter le tout en attendant que cette exécution se termine.
+
+[source,javascript]
+print-date.js
+----
+var now = new Date()
+console.log(now.toString());
+----
+
+[source,bash]
+----
+node print-date.js
+-> Fri Apr 04 2014 20:26:46 GMT+0100 (BST)
+----
+
+Dans cet exemple, l'interpréteur Node lit le contenu du fichier `print-date.js`, exécute les deux instructions et s'arrête dès que les deux instructions sont terminées.
+
+La compilation du code est effectuée par la machine virtuelle V8. +
+La liaison avec le shell système est effectuée par `libuv`.
+
+[CAUTION]
+====
+J'ai pas dis de bêtise ci-dessus ?
+====
+
+[TIP]
+====
+.[tip-titre]#Lien# Code Source de Node
+Le code source de Node est disponible sur GitHub.
+Le parcourir permet de mieux comprendre la magie de son fonctionnement … ou d'avoir subitement mal à la tête !
+
+- https://github.com/joyent/node
+====
+
 ==== Machine Virtuelle V8
+
+La machine virtuelle V8 est un compilateur JavaScript focalisé sur les performances et la sécurité.
+Elle a été créée par Google pour interpréter JavaScript dans son navigateur Web Chrome.
+
+Node utilise également V8 pour les mêmes raisons : parser et compiler JavaScript.
+Le résultat de la compilation est retourné sous forme de fonctions C++ manipulées par l'interpréteur Node.
+
+[TIP]
+====
+.[tip-titre]#Lien# Google V8
+Google propose une documentation en ligne du projet V8.
+Cette documentation est accompagnée d'un guide pour intégrer V8 dans d'autres programmes C++.
+
+- https://developers.google.com/v8/
+====
+
+==== libuv
+
+`libuv` est une librairie d'accès aux ressources systèmes compatible avec de nombreuses plateformes comme Windows, Linux ou encore FreeBSD.
+
+
+[TIP]
+====
+.[tip-titre]#Lien# Code source de `libuv`
+Le code source de `libuv` est disponible sur GitHub. Le parcourir permet de mieux comprendre les adaptations à chaque système d'exploitation, par exemple.
+
+- https://github.com/joyent/libuv
+====
 
 ==== EventLoop
 
-==== Asynchronicité
-
-==== `libuv`
 
 === Philosophie de développement
 
