@@ -312,7 +312,25 @@ Il fonctionne aussi bien pour du JavaScript interprété par un navigateur Web q
 
 ==== Qui gère Node.js ?
 
-Cette annonce n'a pas d'impact sur la libre utilisation du code source de Node, régi par la _licence MIT_.
+Les pages précédentes font état de nombreux acteurs privés.
+
+Certaines voix se sont élevées pour critiquer l'absence d'une fondation chapeautant Node et son écosystème. +
+D'autres arguent qu'il n'y a pas besoin de fondation car les avancées de Node sont l'œuvre de sa propre communauté.
+
+La vérité se situe entre les deux.
+
+La plateforme Node est régie par la _licence MIT_. De ce fait, toute personne peut contribuer ou baser un logiciel (y compris propriétaire) sur Node.
+Toute utilisation de la marque "Node.js" dans un cadre de service professionnel payant est en revanche soumise à une acceptation écrite de la part de Joyent.
+
+L'écosystème de modules hébergé sur _npmjs.org_ est le fruit de ses différents contributeurs.
+Il s'agit de la communauté la plus représentative de Node.
+
+On peut parler de gouvernance bipolaire, à l'image d'un _iceberg_:
+
+- les *contributeurs Node* sont essentiellement des *développeurs C++* ;
+- les *contributeurs de _modules_ Node* via _npm_ sont essentiellement des *développeurs JavaScript*.
+
+Intéressons-nous à l'architecture technique de Node pour comprendre cette dichotomie.
 
 === Architecture technique
 
