@@ -29,10 +29,12 @@
     1. Node Security Project
     1. Qui gère Node.js ?
   1. Architecture
+    1. API Node
+    1. Modules CommonJS
+    1. Interpréteur Node
     1. Machine Virtuelle V8
+    1. libuv
     1. EventLoop
-    1. Asynchronicité
-    1. `libuv`
   1. Philosophie de développement
     1. Changement de version de Node
     1. Versionning sémantique

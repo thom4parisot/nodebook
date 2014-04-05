@@ -40,7 +40,7 @@ D'autres initiatives plus récentes comme http://ape-project.org/[APE (Ajax Push
 
 [TIP]
 ====
-.[tip-titre]#Glossaire# Comet
+.[RemarquePreTitre]#Glossaire# Comet
 _Comet_ est un terme regroupant les différentes tentatives techniques permettant à un serveur Web d'envoyer des données à un client sans que celui-ci ne les aie demandées initialement.
 
 Parmi ces techniques, on retrouve le _long polling_, consistant à conserver une connexion Ajax ouverte pendant la durée de vie d'une page Web.
@@ -48,7 +48,7 @@ Parmi ces techniques, on retrouve le _long polling_, consistant à conserver une
 
 [TIP]
 ====
-.[tip-titre]#Glossaire# Websockets
+.[RemarquePreTitre]#Glossaire# Websockets
 _Websockets_ est un protocole basé sur TCP.
 
 Il permet de maintenir une connexion HTTP active entre un client et un serveur et d'y faire transiter les données de manière bi-directionnelle.
@@ -126,7 +126,7 @@ Pour une simple affaire de _barre de progression_ et une obsession de _perceptio
 
 [TIP]
 ====
-.[tip-titre]#Vidéo# _History of Node.js_
+.[RemarquePreTitre]#Vidéo# _History of Node.js_
 La vidéo suivante est une vidéoconférence donnée par Ryan Dahl, le créateur de Node au cours de l'année 20011.
 C'est la première fois qu'il intervient pour expliquer son parcours et la genèse du projet.
 
@@ -232,7 +232,7 @@ En avril 2011, Joyent dépose _Node.js_ et son logo en tant que marque.
 
 [TIP]
 ====
-.[tip-titre]#Lien# Annonce du dépôt de marque
+.[RemarquePreTitre]#Lien# Annonce du dépôt de marque
 Ryan Dahl, alors développeur actif de Node, annonce le dépôt de marque par l'entreprise Joyent sur le blog officiel du projet Node.
 
 - http://blog.nodejs.org/2011/04/29/trademark/
@@ -259,7 +259,7 @@ La société détient la marque _npm_, _npm, Inc_ et le _logo npm_.
 
 [TIP]
 ====
-.[tip-titre]#Lien# Annonce de l'inclusion de `npm` dans Node
+.[RemarquePreTitre]#Lien# Annonce de l'inclusion de `npm` dans Node
 `npm` est installé par défaut avec Node depuis la version 0.6.3, sortie en novembre 2011.
 Auparavant il fallait installer le module `npm` séparément.
 
@@ -278,7 +278,7 @@ En 2013, _Nodejitsu_ lance l'initiative _#scalenpm_ visant à collecter des fond
 
 [TIP]
 ====
-.[tip-titre]#Lien# _#scalenpm_
+.[RemarquePreTitre]#Lien# _#scalenpm_
 L'initiative _#scalenpm_ a réuni quelques 326.000$ auprès d'entreprises privées et de la communauté Node.
 
 Son effort se poursuit dans le but de fournir une meilleure instrumentation et une architecture résistant à la montée en puissance de l'utilisation des modules `npm`.
@@ -302,7 +302,7 @@ Cela concerne aussi bien la déclaration des vulnérabilité que leur résolutio
 
 [TIP]
 ====
-.[tip-titre]#Module npm# retire.js
+.[RemarquePreTitre]#Module npm# retire.js
 
 _retire.js_ est un module npm permettant de scanner soi-même des vulnérabilités connues dans le code JavaScript de son choix.
 Il fonctionne aussi bien pour du JavaScript interprété par un navigateur Web que dans Node.
@@ -346,29 +346,92 @@ L'architecture se décompose en plusieurs couches, partant du plus haut niveau (
 1. `libuv`
 1. Système d'exploitation
 
+[CAUTION]
+====
+Mettre un joli graph à cet endroit.
+====
+
 ==== API Node
 
-L'API Node correspond à des modules JavaScript bas niveau : client et serveur TCP, accès au système de fichiers, lecture de DNS, streams, buffers etc.
+L'API Node correspond à des _modules CommonJS_ écrits en JavaScript (voir ci-après) : client et serveur TCP, accès au système de fichiers, lecture de DNS, streams, buffers etc.
 
-Ces modules natifs servent de base à la création d'autres modules plus faciles d'accès et partagés dans le registre npm.
+Le but de cette API est d'adresser les manipulations les plus répétitives et pénibles pour les développeurs.
+Vous avez déjà cherché à implémenter un client HTTP de zéro ?
+Node vous affranchit de cette contrainte en prenant à sa charge ce difficile labeur (car oui écrire un client HTTP n'est pas une sinécure !).
+
+Ces modules natifs sont relativement bas niveau.
+Ils servent de base à la création d'autres modules plus faciles d'accès et partagés dans le registre npm.
 
 [source,javascript]
+.api.js
 ----
 var fs = require('fs');
 ----
 
-La fonction `require` charge un module natif, local ou global au projet.
-Elle fait partie de l'API Node.
+Dans cet exemple, la fonction `require` charge l'API d'accès au système de fichier contenue dans le module `fs`.
 
-Le module `fs` est une API facilitant l'accès au système de fichier sur lequel est exécuté le code.
+Le module CommonJS `fs` expose des fonctions ouvrant l'accès au système de fichier du système d'exploitation sur lequel est exécuté le code.
 
+Ce code trivial en apparence masque en réalité des milliers de lignes de code écrites en JavaScript et C++.
 
 [TIP]
 ====
-.[tip-titre]#Lien# Documentation de l'API Node
+.[RemarquePreTitre]#Lien# Documentation de l'API Node
 La documentation de l'API Node est disponible au format HTML sur le site officiel du projet.
 
 - http://nodejs.org/api/
+====
+
+==== Modules CommonJS
+
+Le projet _CommonJS_ débute en janvier 2009.
+
+Pour les membres fondateurs, il était devenu évident que JavaScript allait évoluer dans d'autres environnements que les seuls navigateurs Web.
+Il fallait donc trouver un moyen de rendre le code interopérable sur les différentes plateformes. +
+Les spécifications les plus notables sont _Console_ et _Module_.
+
+La spécification _Module_ définit entre autre :
+- la syntaxe de déclaration d'un module ;
+- le procédé chargement d'un module ;
+- l'algorithme de résolution d'un module au sein d'un arbre de dépendance.
+
+L'exemple suivant illustre avec du code ce qu'est un module CommonJS.
+
+[source,javascript]
+.increment-module.js
+----
+var privateValue = 0;
+
+module.exports = function incrementValue(){
+  privateValue++;
+
+  return privateValue;
+};
+----
+
+La spécification _Module_ de CommonJS fait usage de la portée lexicale (_lexical scope_) pour isoler ce qui appartient au module (la variable `privateValue`) et ce qu'il expose (une fonction incrémentant et retournant la variable privée).
+
+[source,javascript]
+----
+var increment = require('./increment-module.js');
+
+increment();    // <1>
+increment();    // <2>
+----
+<1> retourne `1`
+<2> retourne `2`
+
+Le fonctionnement technique des modules est décrit plus en détail dans le _Chapitre 2 : Premiers pas avec Node_.
+
+L'essentiel est d'en retenir que Node se base sur ce mécanisme de chargement de module.
+*Les modules sont une des force principale de Node*.
+
+[TIP]
+====
+.[RemarquePreTitre]#Lien# Site officiel CommonJS
+Le site officiel de CommonJS documente différentes spécifications vouées à promouvoir l'interopérabilité et la réutilisabilité de JavaScript sur divers environnement d'exécution. 
+
+- http://www.commonjs.org/
 ====
 
 ==== Interpréteur Node
@@ -378,9 +441,9 @@ L'interpréteur Node est un programme écrit en C++.
 L'interpréteur crée un environnement d'exécution, initialise la boucle évènementielle (_EventLoop_, voir ci-après), lit le code JavaScript, crée l'arbre de dépendance des modules puis demande à exécuter le tout en attendant que cette exécution se termine.
 
 [source,javascript]
-print-date.js
+.print-date.js
 ----
-var now = new Date()
+var now = new Date();
 console.log(now.toString());
 ----
 
@@ -402,7 +465,7 @@ J'ai pas dis de bêtise ci-dessus ?
 
 [TIP]
 ====
-.[tip-titre]#Lien# Code Source de Node
+.[RemarquePreTitre]#Lien# Code Source de Node
 Le code source de Node est disponible sur GitHub.
 Le parcourir permet de mieux comprendre la magie de son fonctionnement … ou d'avoir subitement mal à la tête !
 
@@ -419,7 +482,7 @@ Le résultat de la compilation est retourné sous forme de fonctions C++ manipul
 
 [TIP]
 ====
-.[tip-titre]#Lien# Google V8
+.[RemarquePreTitre]#Lien# Google V8
 Google propose une documentation en ligne du projet V8.
 Cette documentation est accompagnée d'un guide pour intégrer V8 dans d'autres programmes C++.
 
@@ -433,7 +496,7 @@ Cette documentation est accompagnée d'un guide pour intégrer V8 dans d'autres 
 
 [TIP]
 ====
-.[tip-titre]#Lien# Code source de `libuv`
+.[RemarquePreTitre]#Lien# Code source de `libuv`
 Le code source de `libuv` est disponible sur GitHub. Le parcourir permet de mieux comprendre les adaptations à chaque système d'exploitation, par exemple.
 
 - https://github.com/joyent/libuv
