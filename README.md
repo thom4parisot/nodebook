@@ -34,7 +34,7 @@
     1. Interpréteur Node
     1. Machine Virtuelle V8
     1. libuv
-    1. EventLoop
+    1. Boucle évènementielle
   1. Philosophie de développement
     1. Changement de version de Node
     1. Versionning sémantique

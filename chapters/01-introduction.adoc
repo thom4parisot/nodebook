@@ -438,7 +438,7 @@ Le site officiel de CommonJS documente différentes spécifications vouées à p
 
 L'interpréteur Node est un programme écrit en C++.
 
-L'interpréteur crée un environnement d'exécution, initialise la boucle évènementielle (_EventLoop_, voir ci-après), lit le code JavaScript, crée l'arbre de dépendance des modules puis demande à exécuter le tout. +
+L'interpréteur crée un environnement d'exécution, initialise la boucle évènementielle (_Event Loop_, voir ci-après), lit le code JavaScript, crée l'arbre de dépendance des modules puis demande à exécuter le tout. +
 Il considère l'exécution terminée lorsque la boucle évènementielle n'a plus d'instructions à traiter, ni maintenant ni dans le futur.
 
 L'interpréteur s'arrêtera prématurément si une erreur se déclare et que cette dite erreur n'est pas prise en charge par le programme.
@@ -525,7 +525,74 @@ Le code source de _libuv_ est disponible sur GitHub. Le parcourir permet de mieu
 - https://github.com/joyent/libuv
 ====
 
-==== EventLoop
+==== Boucle évènementielle
+
+La boucle évènementielle (_Event Loop_) est un mécanisme d'exécution des tâches apporté par _libuv_ et déléguée au système d'exploitation.
+Elle s'inspire très fortement du modèle de boucle évènementielle telle qu'implémentée dans les navigateurs Web.
+
+C'est grâce à ce mécanisme que l'exécution d'une fonction peut être reportée à plus tard.
+C'est la fameuse _exécution asynchrone_.
+
+[CAUTION]
+====
+Ajouter un graph explicatif pour l'aspect "boucle".
+====
+
+[source,javascript]
+.timeout.js
+----
+var referenceTime = process.hrtime();   <1>
+var printT = function(){                <2>
+  console.log(process.hrtime(referenceTime)[0]);
+};
+
+printT();                               <3>
+setTimeout(printT, 1000);               <4>
+----
+<1> Initialise un temps de référence.
+<2> Fonction affichant le nombre de seconde de différence avec le temps de référence à chaque invocation. 
+<3> Affiche `0`.
+<4> Affiche `1`, car exécutée _une seconde_ (_1000 millisecondes_) plus tard.
+
+Dans ce précédent exemple, le code est interprété séquentiellement comme suit :
+
+1. assignation de la variable `referenceTime` ;
+1. invocation de la fonction `printT` (retournant `0`) ;
+1. invocation de la fonction `console.log` ;
+1. invocation de la fonction `setTimeout` : il s'agit d'un contrat avec la boucle évènementielle d'exécuter `printT` dans 1000 millisecondes ;
+1. la boucle évènementielle continue de tourner car il y a une tâche à traiter ;
+1. après avoir tournée pendant 1000 millisecondes, la boucle dépile une instruction programmée pour cet instant ;
+1. invocation de la fonction `printT` (retournant `1`) ;
+1. la file de priorité est vide, Node demande au système d'exploitation d'arrêter son processus.
+
+Alors pourquoi dit-on que _libuv_ est non-bloquant ?
+Tout simplement car l'acquisition d'une ressource système renvoie un descripteur, vérifiée à chaque itération de la boucle  et dont le _callback_ est exécuté lorsque la vérification se révèle positive.
+
+En clair, au lieu de bloquer l'exécution de l'instruction suivante, la boucle évènementielle reporte la vérification à plus tard et se saisit de l'instruction suivante.
+Et ainsi de suite.
+
+On dit également que Node est _single threaded_ car il n'y a qu'une seule boucle par processus Node ; processus rattaché à un  seul cœur de processeur (_CPU core_). +
+Il faut donc lancer d'autres processus Node sur d'autres cœurs pour être capable de traiter davantage de données à la fois.
+Plusieurs processus Node sur le même cœur se partagent une puissance de calcul finie.
+
+[CAUTION]
+====
+Existe-t'il une traduction pas dégueu pour _single threaded_ ? +
+Très certainement des choses un peu hardcores à vérifier (qui me paraissent normales mais sont des hérésies pour un puriste).
+====
+
+[TIP]
+====
+.[RemarquePreTitre]#Trivia# JavaScript n'est pas évènementiel
+Contrairement à la croyance populaire, *JavaScript n'a pas de gestion native des évènements*.
+
+Ce que propose nativement JavaScript, c'est la facilité de créer des fonctions et d'encapsuler des contextes via le mécanisme de clôture (_closure_).
+C'est tout.
+
+Tout ce qui est dit _asynchrone_ et _évènementiel_ a en réalité rapport à la boucle évènementielle et à sa gestion des tâches.
+
+Ceci reste valide tant que la boucle évènementielle n'est pas implémentée nativement dans ECMAScript, vraisemblablement dans la version 7 ou 8 du langage.
+====
 
 
 === Philosophie de développement
