@@ -343,7 +343,7 @@ L'architecture se décompose en plusieurs couches, partant du plus haut niveau (
 1. API Node
 1. Interpréteur Node
 1. Machine Virtuelle V8
-1. `libuv`
+1. _libuv_
 1. Système d'exploitation
 
 [CAUTION]
@@ -459,7 +459,7 @@ node print-date.js
 Dans cet exemple, l'interpréteur Node lit le contenu du fichier `print-date.js`, exécute les deux instructions et s'arrête dès que les deux instructions sont terminées.
 
 La compilation du code est effectuée par la machine virtuelle V8. +
-La liaison avec le shell système est effectuée par `libuv`.
+La liaison avec le shell système est effectuée par _libuv_.
 
 [CAUTION]
 ====
@@ -507,13 +507,20 @@ Cette documentation est accompagnée d'un guide pour intégrer V8 dans d'autres 
 
 ==== libuv
 
-`libuv` est une librairie d'accès aux ressources systèmes compatible avec de nombreuses plateformes comme Windows, Linux ou encore FreeBSD.
+_libuv_ est une librairie C++ focalisée sur l'accès aux ressources systèmes de manière non-bloquante.
 
+Cette librairie est compatible avec de nombreux systèmes d'exploitation comme Windows, Linux ou encore FreeBSD. +
+D'autres logiciels sont basés sur _libuv_ mais Node est la première plateforme à en avoir fait l'usage … et pour cause, _libuv_ a été créée pour les besoins propre de Node.
+
+_libuv_ implémente notamment la fameuse boucle évènementielle (voir ci-après), la file de priorité (_priority queue_), délègue les accès réseaux au système d'exploitation et expose la plupart des fonctions UNIX nécessaires à la manipulation de fichiers et d'autres actions bas niveau.
+
+*La performance de Node réside clairement dans _libuv_*. 
+JavaScript n'y est pour rien, si ce n'est à travers la puissance de la machine virtuelle V8.
 
 [TIP]
 ====
-.[RemarquePreTitre]#Lien# Code source de `libuv`
-Le code source de `libuv` est disponible sur GitHub. Le parcourir permet de mieux comprendre les adaptations à chaque système d'exploitation, par exemple.
+.[RemarquePreTitre]#Lien# Code source de _libuv_
+Le code source de _libuv_ est disponible sur GitHub. Le parcourir permet de mieux comprendre les adaptations à chaque système d'exploitation, par exemple.
 
 - https://github.com/joyent/libuv
 ====
