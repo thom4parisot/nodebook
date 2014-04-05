@@ -424,7 +424,7 @@ increment();    // <2>
 Le fonctionnement technique des modules est décrit plus en détail dans le _Chapitre 2 : Premiers pas avec Node_.
 
 L'essentiel est d'en retenir que Node se base sur ce mécanisme de chargement de module.
-*Les modules sont une des force principale de Node*.
+*Et ces modules sont une des force principale de Node*.
 
 [TIP]
 ====
@@ -438,7 +438,10 @@ Le site officiel de CommonJS documente différentes spécifications vouées à p
 
 L'interpréteur Node est un programme écrit en C++.
 
-L'interpréteur crée un environnement d'exécution, initialise la boucle évènementielle (_EventLoop_, voir ci-après), lit le code JavaScript, crée l'arbre de dépendance des modules puis demande à exécuter le tout en attendant que cette exécution se termine.
+L'interpréteur crée un environnement d'exécution, initialise la boucle évènementielle (_EventLoop_, voir ci-après), lit le code JavaScript, crée l'arbre de dépendance des modules puis demande à exécuter le tout. +
+Il considère l'exécution terminée lorsque la boucle évènementielle n'a plus d'instructions à traiter, ni maintenant ni dans le futur.
+
+L'interpréteur s'arrêtera prématurément si une erreur se déclare et que cette dite erreur n'est pas prise en charge par le programme.
 
 [source,javascript]
 .print-date.js
@@ -475,10 +478,23 @@ Le parcourir permet de mieux comprendre la magie de son fonctionnement … ou d'
 ==== Machine Virtuelle V8
 
 La machine virtuelle V8 est un compilateur JavaScript focalisé sur les performances et la sécurité.
-Elle a été créée par Google pour interpréter JavaScript dans son navigateur Web Chrome.
+V8 a été créé par Google pour interpréter JavaScript dans son navigateur Web Chrome.
 
 Node utilise également V8 pour les mêmes raisons : parser et compiler JavaScript.
-Le résultat de la compilation est retourné sous forme de fonctions C++ manipulées par l'interpréteur Node.
+Le résultat de la compilation est retourné sous forme de fonctions et de ressources C++ manipulées par l'interpréteur Node.
+
+Par ricochet, les progrès de V8 impactent directement Node.
+Cela concerne aussi bien la prise en charge des nouveautés d'ECMAScript (version 6, version 7) mais aussi des options et fonctionnalités expérimentales activables à la demande.
+
+[TIP]
+====
+.[RemarquePreTitre]#Lien# Node et ECMAScript 6
+Ce site référence l'état de l'implémentation d'ECMAScript 6 sur différentes plateformes, dont Node. +
+_harmony_ fait référence au module V8 introduisant les fonctionnalités expérimentales d'ECMAScript 6 (voir Chapitre 2 : Premiers pas avec Node).
+
+- http://kangax.github.io/es5-compat-table/es6/#node
+- http://kangax.github.io/es5-compat-table/es6/#nodeharmony
+====
 
 [TIP]
 ====
