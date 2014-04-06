@@ -11,6 +11,24 @@
 
 ![](preview-live.png)
 
+# Build
+
+## Install
+
+```bash
+brew install asciidoc
+```
+
+[Télécharger `pandoc`](https://code.google.com/p/pandoc/downloads/list) puis l'installer.
+
+## Générer l'ODT
+
+```bash
+make
+```
+
+Le fichier sera à la racine, nommé `book.odt`.
+
 # Table des matières
 
 - [Préface](chapters/00-preamble.adoc)
