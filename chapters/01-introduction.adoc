@@ -101,10 +101,16 @@ En d'autres termes, un serveur capable dans un même processus de traiter d'autr
 Nous sommes alors en 2008 et le site de partage de photos Flickr  innove avec un nouveau système d'upload d'images.
 Ce système remplace la sensation de page figée par une … *barre de progression*.
 
-[.text-center]
-image:http://farm6.staticflickr.com/5117/7112862941_3b8c8e9916_o_d.png[] Nouvelle et ancienne interface d'upload de Flickr.
+.Nouvelle et ancienne interface d’upload de Flickr.
+image::http://farm6.staticflickr.com/5117/7112862941_3b8c8e9916_o_d.png[align="center", link="https://www.flickr.com/photos/schill/7112862941/"]
 
-> http://code.flickr.net/2008/04/22/making-a-better-flickr-web-uploadr-or-web-browsers-arent-good-at-uploading-files-by-themselves/ (reclasser autrement)
+[TIP]
+====
+.[RemarquePreTitre]#Lien# Annonce du nouveau Flickr Uploadr
+L'équipe d'ingénierie de Flickr explique comment elle a contourné le problème de l'upload via formulaire classique ; problème qui gelait la fenêtre du navigateur pendant la durée du  téléversement.
+
+- http://wp.me/p2DMyG-ok
+====
 
 C'est le *déclic* pour Ryan : _Mongrel_ avait déjà un plugin pour ça mais il fallait que ça soit encore plus simple pour le développeur.
 Il reproduit le mécanisme avec succès en C.
@@ -297,8 +303,8 @@ Il a été initié au début de l'année 2013.
 Son but est triple :
 
 1. auditer la sécurité de tous les modules npm
-1. communiquer les failles auprès des auteurs de modules
-1. permettre à quiconque de savoir si un module donné dépend de module vulnérable
+2. communiquer les failles auprès des auteurs de modules
+3. permettre à quiconque de savoir si un module donné dépend de module vulnérable
 
 Le projet met un point d'honneur à impliquer la communauté Node dans la gestion de la sécurité.
 Cela concerne aussi bien la déclaration des vulnérabilité que leur résolution ou l'éducation à la sécurité des développeurs.
@@ -344,10 +350,10 @@ Si on devait la résumer en une phrase : *Node est une API JavaScript pour manip
 L'architecture se décompose en plusieurs couches, partant du plus haut niveau (exposées au développeur) et allant jusqu'au plus bas niveau (exposées au système d'exploitation) :
 
 1. API Node
-1. Interpréteur Node
-1. Machine Virtuelle V8
-1. _libuv_
-1. Système d'exploitation
+2. Interpréteur Node
+3. Machine Virtuelle V8
+4. _libuv_
+5. Système d'exploitation
 
 [CAUTION]
 ====
@@ -552,13 +558,13 @@ setTimeout(printT, 1000);               <4>
 Dans ce précédent exemple, le code est interprété séquentiellement comme suit :
 
 1. assignation de la variable `referenceTime` ;
-1. invocation de la fonction `printT` (retournant `0`) ;
-1. invocation de la fonction `console.log` ;
-1. invocation de la fonction `setTimeout` : il s'agit d'un contrat avec la boucle évènementielle d'exécuter `printT` dans 1000 millisecondes ;
-1. la boucle évènementielle continue de tourner car il y a une tâche à traiter ;
-1. après avoir tournée pendant 1000 millisecondes, la boucle dépile une instruction programmée pour cet instant ;
-1. invocation de la fonction `printT` (retournant `1`) ;
-1. la file de priorité est vide, Node demande au système d'exploitation d'arrêter son processus.
+2. invocation de la fonction `printT` (retournant `0`) ;
+3. invocation de la fonction `console.log` ;
+4. invocation de la fonction `setTimeout` : il s'agit d'un contrat avec la boucle évènementielle d'exécuter `printT` dans 1000 millisecondes ;
+5. la boucle évènementielle continue de tourner car il y a une tâche à traiter ;
+6. après avoir tournée pendant 1000 millisecondes, la boucle dépile une instruction programmée pour cet instant ;
+7. invocation de la fonction `printT` (retournant `1`) ;
+8. la file de priorité est vide, Node demande au système d'exploitation d'arrêter son processus.
 
 Alors pourquoi dit-on que _libuv_ est non-bloquant ?
 Tout simplement car l'acquisition d'une ressource système renvoie un descripteur, vérifiée à chaque itération de la boucle  et dont le _callback_ est exécuté lorsque la vérification se révèle positive.
