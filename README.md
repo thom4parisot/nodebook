@@ -36,9 +36,9 @@
     1. libuv
     1. Boucle évènementielle
   1. Philosophie de développement
-    1. Changement de version de Node
-    1. Versionning sémantique
-    1. Modules `npm`
+    1. Node et son API
+    1. Modules npm
+    1. Versioning sémantique
 1. [Premiers pas avec Node](chapters/02-first-steps.adoc)
   1. Préparer son environnement
     1. Installer Node.js

@@ -377,14 +377,6 @@ Le module CommonJS `fs` expose des fonctions ouvrant l'accès au système de fic
 
 Ce code trivial en apparence masque en réalité des milliers de lignes de code écrites en JavaScript et C++.
 
-[TIP]
-====
-.[RemarquePreTitre]#Lien# Documentation de l'API Node
-La documentation de l'API Node est disponible au format HTML sur le site officiel du projet.
-
-- http://nodejs.org/api/
-====
-
 ==== Modules CommonJS
 
 Le projet _CommonJS_ débute en janvier 2009.
@@ -600,13 +592,87 @@ Ceci reste valide tant que la boucle évènementielle n'est pas implémentée na
 
 === Philosophie de développement
 
-==== Changement de version de Node
+Node a connu une forte croissance entre 2012 et 2014.
+Cela concerne aussi bien le nombre de modules publiés sur le registre npm que le nombre de contributeurs.
+C'est sans compter ni sur le nombre d'articles faisant l'éloge de la plateforme ni sur les annonces de migration vers Node.
 
-[quote, 'TJ Fontaine dans une http://venturebeat.com/2014/03/12/nodes-new-leader-tj-fontaine-explains-why-version-0-12-will-blow-developers-minds/[nterview Ventureteat]']
-____
-We want to make sure code we’re writing today will continue to work when we release the next version of Node, which should be the 1.0 release of Node.
-____
+Il n'aura fallu que deux ans avant que Node ne devienne vraiment stable et utilisable en production.
 
-==== Versionning sémantique
+Essayons de comprendre pourquoi.
 
-==== Modules `npm`
+==== Node et son API
+
+La vitesse et la croissance sont des facteurs propices à l'immaturité et à l'instabilité.
+
+*Une nouvelle version majeure de Node sort chaque année*, environ.
+Depuis la version `0.8`, l'équipe de développement met un point d'honneur à suivre les deux principes suivants :
+
+- laisser maturer le plus de temps possible la branche de développement de Node ;
+- limiter le nombre de nouveautés de chaque version majeure.
+
+Le but et la conséquence de ce choix sont de garantir au maximum le fonctionnement du code et des modules qui en dépendent à chaque montée de version de Node.
+
+Node suit le mode de numérotation de version pair/impair :
+
+- les versions `0.8.x`, `0.10.x`, `0.12.x` représentent les évolutions stables de Node ;
+- les versions `0.7.x`, `0.9.x`, `0.11.x` représentent les branches de développement qui deviendront les futures branches stables.
+
+Ainsi la version `0.9.12` est devenue la version `0.10.0` une fois jugée suffisamment stable et aboutie.
+
+Sur le plan interne, Node indique une indice de stabilité pour chacune de ses APIs sur une échelle de 0 à 5 :
+
+- 0 : le module est *déprécié* et devrait être utilisé en toute connaissance de cause ;
+- 1 : le module est *expérimental*, instable et nécessite des retours utilisateur ;
+- 2 : le module est *instable* et nécessite davantage de tests grandeur nature avant d'être considéré comme stable ;
+- 3 : le module est *stable* mais peut être sujet à des changements mineurs d'API ;
+- 4 : le module est *gelé*, son API ne devrait plus du tout changer ;
+- 5 : le module est *verrouillé*, son code interne ne changera plus.
+
+Ce mécanisme aide au choix des composants pour bâtir des applications robustes ainsi qu'une estimation de l'effort de maintenance en cas de changement majeur à venir.
+
+[TIP]
+====
+.[RemarquePreTitre]#Lien# Documentation de l'API Node
+La documentation de l'API Node est disponible au format HTML sur le site officiel du projet.
+
+- http://nodejs.org/api/
+====
+
+==== Modules npm
+
+*Node baigne dans la philosophie UNIX* : le mécanisme de modules incite à suivre le principe de responsabilité unique et de séparation des principes.
+
+Cette philosophie encourage la création de petits modules plutôt que de gros monolithes difficilement configurables.
+
+Il est possible de publier des modules dans le registre se basant sur d'autres modules tiers.
+Ils n'ont pas à avoir connaissance de leur statut de dépendance : ils doivent juste à être responsable de leur numérotation de version pour éviter les problèmes de compatibilité.
+
+Pour garantir au maximum la stabilité des dépendances, le _versioning sémantique_ aka _semver_ a fait son apparition.
+Il explicite l'algorithme employé par _npm_ lors du processus d'installation et de mise à jour.
+
+==== Versioning sémantique
+
+Le versioning sémantique explicite deux choses importantes :
+
+- le principe de numérotation de version ;
+- les motifs de numérotation afin de spécifier des plages de dépendance strictes ou souples.
+
+Un numéro de version doit respecter la forme `MAJEUR.MINEUR.CORRECTIF`.
+Ainsi, si on considère le numéro de version `0.0.3` :
+
+- `0.0.4` est une version corrigeant un défaut ;
+- `0.1.0` est une version ajoutant ou modifiant des fonctionnalités mais ne cassant pas la compatibilité descendante ;
+- `1.0.0` est une version cassant la compatibilité descendante.
+
+Ce mécanisme relativement simple associé à la gestion de dépendances du programme `npm` renforce la stabilité des mises à jour.
+
+Nous verrons ultérieurement comment _effectivement_ gérer des dépendances _npm_ au sein d'un projet.
+
+[TIP]
+=====
+.[RemarquePreTitre]#Lien# semver
+La spécification _semver_ est disponible sous forme textuelle mais également en tant que module npm.
+
+- http://semver.org/lang/fr/
+- https://www.npmjs.org/package/semver
+=====
