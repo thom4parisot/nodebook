@@ -6,8 +6,9 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build-sample": "asciidoc -d book -b docbook sample/toc.asciidoc",
-    "build-sample-book": "pandoc -f docbook -t odt -o sample/book.odt sample/toc.xml"
+    "build": "npm run build-docbook && npm run build-odtbook",
+    "build-dockbook": "asciidoc -b docbook -d book chapters/00-book.adoc",
+    "build-odtbook": "pandoc -f docbook -s chapters/00-book.xml -S --reference-odt=template.odt -o book.odt"
   },
   "repository": {
     "type": "git",
