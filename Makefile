@@ -1,13 +1,20 @@
-all: clean build
+all: docbook 
+docbook: configure.docbook clean build.odt
+html: configure.html clean build.odt
+
+configure.docbook:
+	$(eval ASCIIDOC_BACKEND = docbook)
+	$(eval PANDOC_BACKEND = docbook)
+	$(eval EXTENSION = xml)
+
+configure.html:
+	$(eval ASCIIDOC_BACKEND = html5)
+	$(eval PANDOC_BACKEND = html)
+	$(eval EXTENSION = html)
 
 clean:
-	rm -f chapters/*.xml book.odt
-
-build: build.docbook build.odt
-
-build.docbook:
-	asciidoc -b docbook -d book chapters/00-book.adoc
+	rm -f chapters/*.${EXTENSION} book-${PANDOC_BACKEND}.odt
 
 build.odt:
-	pandoc -f docbook -s chapters/00-book.xml -S --reference-odt=template.odt -o book.odt
-
+	asciidoc -s -b ${ASCIIDOC_BACKEND} -d book chapters/00-book.adoc
+	pandoc -f ${PANDOC_BACKEND} chapters/00-book.${EXTENSION} -S --reference-odt=template.odt -o book-${PANDOC_BACKEND}.odt
