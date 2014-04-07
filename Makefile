@@ -16,5 +16,5 @@ clean:
 	rm -f chapters/*.${EXTENSION} book-${PANDOC_BACKEND}.odt
 
 build.odt:
-	asciidoc -s -b ${ASCIIDOC_BACKEND} -d book chapters/00-book.adoc
-	pandoc -f ${PANDOC_BACKEND} chapters/00-book.${EXTENSION} -S --reference-odt=template.odt -o book-${PANDOC_BACKEND}.odt
+	asciidoc -b ${ASCIIDOC_BACKEND} -d book chapters/00-book.adoc
+	pandoc -f ${PANDOC_BACKEND} --template template.xml chapters/00-book.${EXTENSION} -S --reference-odt=eyrolles.odt -o book-${PANDOC_BACKEND}.odt
