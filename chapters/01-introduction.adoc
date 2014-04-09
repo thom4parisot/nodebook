@@ -16,20 +16,20 @@ Dans ce chapitre, nous allons faire le point sur ce qu'est Node.js pour mieux co
 
 Node.js est-il un langage de programmation ?
 Node.js est-il un _framework_ JavaScript ?
-Qu'en restera-t'il une fois que la frénésie retombera ?
+Qu'en restera-t-il une fois que la frénésie retombera ?
 
 Ce chapitre n'est pas essentiel à l'apprentissage de Node.js.
 Il permet de comprendre pourquoi et comment Node a émergé.
-Surtout, il vous permettra de comprendre des choix techniques à l'origine de ses fondations, et en quoi l'utiliser peut vous apporter en contexte personnel ou professionnel.
+Surtout, il vous permettra de comprendre des choix techniques à l'origine des fondations de Node, et en quoi l'utiliser peut vous apporter en contexte personnel ou professionnel.
 
 Qu'on se le dise : *un langage de programmation en lui-même n'a jamais solutionné quelconque problème*.
 Cela reste avant tout une affaire de compétences et d'expérience.
 
 
-=== Node.js : la plateforme JavaScript côté serveur
+=== Node.js : la plate-forme JavaScript côté serveur
 
-Node.js n'est pas un langage de programmation. Node.js n'est pas non plus un _framework_ JavaScript. *Node.js est une plateforme de programmation JavaScript*. +
-La différence entre ces trois désignations peut sembler subtile, futile voire inutile mais le terme *plateforme* est la véritable nature de Node.
+Node.js n'est pas un langage de programmation. Node.js n'est pas non plus un _framework_ JavaScript. *Node.js est une plate-forme de programmation JavaScript*. +
+La différence entre ces trois désignations peut sembler subtile, futile voire inutile mais le terme *plate-forme* est la véritable nature de Node.
 
 *Exécuter du JavaScript côté serveur n'est pas non plus une révolution*.
 
@@ -53,7 +53,7 @@ Parmi ces techniques, on retrouve le _long polling_, consistant à conserver une
 .[RemarquePreTitre]#Glossaire# Websockets
 _Websockets_ est un protocole basé sur TCP.
 
-Il permet de maintenir une connexion HTTP active entre un client et un serveur et d'y faire transiter les données de manière bi-directionnelle.
+Il permet de maintenir une connexion HTTP active entre un client et un serveur et d'y faire transiter les données de manière bidirectionnelle.
 
 Ce protocole sera probablement rendu obsolète par le successeur d'_HTTP 1.1_, à savoir _HTTP 2.0_.
 _HTTP 2.0_ a initié par Google en tant que protocole _SPDY_ (prononcer _speedy_).
@@ -65,28 +65,28 @@ _HTTP 2.0_ a initié par Google en tant que protocole _SPDY_ (prononcer _speedy_
 Rhino est toujours utile dès qu'un projet Java implique du JavaScript.
 
 Google l'utilise comme environnement d'exécution de ses http://googleappsdeveloper.blogspot.com/2012/11/using-open-source-libraries-in-apps.html[Google Apps Scripts].
-Ces scripts permettent à tout un chacun de développement des extensions et des interactions supplémentaires pour les documents Google Drive.
+Ces scripts permettent à tout un chacun de développer des extensions et des interactions supplémentaires pour les documents Google Drive.
 
 Rhino est également employé dans http://yui.github.io/yuicompressor/[yuicompressor], un optimiseur CSS et JavaScript créé par Yahoo.
 _yuicompressor_ est tombé en désuétude suite au gain de popularité de http://gruntjs.com/[Grunt].
-Ce dernier est écrit en JavaScript et repose sur … Node. +
+Ce dernier est écrit en JavaScript et repose sur… Node. +
 La boucle est bouclée.
 ====
 
-Node représente un *environnement d'exécution* (_runtime_), un  *ensemble d'APIs JavaScript* ainsi qu'une *machine virtuelle JavaScript* performante (parseur, interpréteur et compilateur) pouvant accéder à des ressources systèmes telles que des fichiers (_filesystem_) ou des connexions réseau (_sockets_).
+Node représente un *environnement d'exécution* (_runtime_), un  *ensemble d'API JavaScript* ainsi qu'une *machine virtuelle JavaScript* performante (parseur, interpréteur et compilateur) pouvant accéder à des ressources système telles que des fichiers (_filesystem_) ou des connexions réseau (_sockets_).
 
-Typiquement, une personne développant en Node écrit du code se basant sur les APIs à disposition. Ce code est lu par le _runtime_ Node qui le transmet à la VM JavaScript. VM qui traduit le programme en langage machine (_bytecode_) avant d'être effectivement exécuté par le processeur.
+Typiquement, une personne développant en Node écrit du code se basant sur les API à disposition. Ce code est lu par le _runtime_ Node qui le transmet à la VM JavaScript. VM qui traduit le programme en langage machine (_bytecode_) avant d'être effectivement exécuté par le processeur.
 
 Pour comprendre comment Node a opté pour cette approche, retournons en 2009, lorsque son créateur **Ryan Dahl** cherchait à résoudre élégamment un problème de performance de programmation.
 
 === Historique du projet Node.js
 
-En 2006, _Ryan Dahl_ est un étudiant Américain en troisième année de doctorat de mathématiques.
+En 2006, _Ryan Dahl_ est un étudiant américain en troisième année de doctorat de mathématiques.
 Si le but initial était de devenir professeur de mathématiques, il prend la décision de ne pas terminer sa thèse et entreprend un voyage au Chili.
 
 Alors qu'il cherche à effectuer des petits boulots, il y rencontre un autre Américain développant des sites Web.
-Ruby on Rails connait un succès grandissant et attire son attention.
-Alors que Ryan considérait utiliser Rails, il découvre avec horreur la lenteur du _framework_ et cherche à en analyser les origines.
+Ruby on Rails connaît un succès grandissant et attire son attention.
+Alors que Ryan envisageait d'utiliser Rails, il découvre avec horreur la lenteur du _framework_ et cherche à en analyser les origines.
 
 Ryan débute alors sa *quête des applications Web performantes* et découvre _Mongrel_, un serveur HTTP écrit en Ruby.
 Il est séduit par deux choses :
@@ -94,11 +94,11 @@ Il est séduit par deux choses :
 - la possibilité d'*inclure* un serveur HTTP comme librairie applicative ;
 - la simplicité de fonctionnement : recevoir une requête HTTP et décider soi-même de la réponse à apporter.
 
-La quête initiale se dirige désormais sur la possibilité de créer *un serveur Web non-bloquant*.
+La quête initiale se dirige désormais sur la possibilité de créer *un serveur web non bloquant*.
 En d'autres termes, un serveur capable dans un même processus de traiter d'autres requêtes en attendant de renvoyer la réponse initiale.
 
 Nous sommes alors en 2008 et le site de partage de photos Flickr  innove avec un nouveau système d'upload d'images.
-Ce système remplace la sensation de page figée par une … *barre de progression*.
+Ce système remplace la sensation de page figée par une… *barre de progression*.
 
 .Nouvelle et ancienne interface d’upload de Flickr.
 image::http://farm6.staticflickr.com/5117/7112862941_3b8c8e9916_o_d.png[align="center", link="https://www.flickr.com/photos/schill/7112862941/"]
@@ -111,23 +111,23 @@ L'équipe d'ingénierie de Flickr explique comment elle a contourné le problèm
 - http://wp.me/p2DMyG-ok
 ====
 
-C'est le *déclic* pour Ryan : _Mongrel_ avait déjà un plugin pour ça mais il fallait que ça soit encore plus simple pour le développeur.
+C'est le *déclic* pour Ryan : _Mongrel_ avait déjà un plug-in pour ça mais il fallait que ça soit encore plus simple pour le développeur.
 Il reproduit le mécanisme avec succès en C.
 Les développeurs Web jugeant la solution trop complexe, Ryan tente la même approche avec d'autres langages comme Python, Lua ou même Haskell.
-Il se heurte au sempiternel des ressources bloquantes des différents interpréteurs.
+Il se heurte au sempiternel problème des ressources bloquantes des différents interpréteurs.
 
 Le deuxième *déclic* se produit en janvier 2009 lorsque _JavaScript_ émerge dans une discussion entre développeurs.
 _Eurêka_ !
-La machine virtuelle JavaScript V8 de Google a été libérée en _Open Source_ depuis quelques mois et Apple, Microsoft, Mozilla et Google se battent pour rendre la pierre angulaire JavaScript toujours plus performante.
+La machine virtuelle JavaScript V8 de Google a été libérée en _open source_ depuis quelques mois et Apple, Microsoft, Mozilla et Google se battent pour rendre la pierre angulaire JavaScript toujours plus performante.
 
 Ryan admet que JavaScript dispose des caractéristiques idéales même s'il n'est pas un adepte du langage : fonctions anonymes, _closures_ et l'_event loop_ (dans le DOM en tous cas).
-Il lui manque juste la capacité d'accéder à des _sockets_, au système de fichiers et à d'autres fonctions systèmes.
+Il lui manque juste la capacité d'accéder à des _sockets_, au système de fichiers et à d'autres fonctions système.
 
-Il quitte alors son travail, s'inspire de ses travaux de modules non-bloquants pour Ngninx et se concentre pendant six mois à marier JavaScript, V8 et l'environnement système : Node.js. +
+Il quitte alors son travail, s'inspire de ses travaux de modules non bloquants pour Ngninx et se concentre pendant six mois à marier JavaScript, V8 et l'environnement système : Node.js. +
 Sa démonstration de serveur IRC écrit en 400 lignes de JavaScript lors de la conférence JSConf Europe suscite l'enthousiasme et attire l'attention.
 
 L'entreprise américaine _Joyent_ l'embauche à plein temps pour continuer le développement de Node.
-Ils pressentent que la plateforme Node répond à leurs projets de _datacenter_ et d'hébergement.
+Ils pressentent que la plate-forme Node répond à leurs projets de _datacenter_ et d'hébergement.
 
 *Node et sa communauté sont nés* et ont continué à prospérer depuis lors.
 Pour une simple affaire de _barre de progression_ et une obsession de _perception de rapidité_.
@@ -135,7 +135,7 @@ Pour une simple affaire de _barre de progression_ et une obsession de _perceptio
 [TIP]
 ====
 .[RemarquePreTitre]#Vidéo# _History of Node.js_
-La vidéo suivante est une vidéoconférence donnée par Ryan Dahl, le créateur de Node au cours de l'année 20011.
+La vidéo suivante est une vidéoconférence donnée par Ryan Dahl, le créateur de Node, au cours de l'année 20011.
 C'est la première fois qu'il intervient pour expliquer son parcours et la genèse du projet.
 
 Peut-être un élément qui figurera dans les livres d'histoire !
@@ -147,11 +147,11 @@ Peut-être un élément qui figurera dans les livres d'histoire !
 
 En 2009, la tension et l'attention autour de JavaScript sont énormes.
 La mode du tout _Ajax_ et des _mashups_ s'est estompée mais une chose en est ressortie : JavaScript n'a plus à rougir ni à être relégué au rang de sous-langage.
-Les initiatives JSlint, CommonJS et les _good parts_ de Douglas Crockford y sont pour beaucoup dans la création de code élégant.
+Les initiatives JSlint, CommonJS et les _good parts_ de Douglas Crockford  sont pour beaucoup dans la création de code élégant.
 
 D'un autre côté, les entreprise développant des navigateurs Web se livrent à féroce compétition d'optimisation.
 Google, Mozilla et Apple ont en effet besoin de navigateurs rapides pour améliorer leurs parts de marché sur les ordinateurs mais aussi les téléphones et tablettes.
-On peut considérer que JavaScript est à cette époque le langages de programmation bénéficiant du plus grand investissement financier et humain en R&D.
+On peut considérer que JavaScript est à cette époque le langage de programmation bénéficiant du plus grand investissement financier et humain en R&D.
 
 La communauté JavaScript accueille avec ferveur Node lors de la conférence JSConf Europe en 2009.
 Elle contribue à son amélioration et à la création d'un écosystème de modules réutilisables.
@@ -161,9 +161,9 @@ Dès lors, un simple `npm install node-playground` suffit pour inclure le module
 Partager un module est tout aussi simple puisqu'un simple `npm publish` le rend disponible à tous en un instant.
 
 npm devient une telle pierre angulaire qu'il est inclut par défaut dans l'installation de Node à partir de novembre 2011, lors de la publication de Node 0.6.3.
-La communauté Node et ses contributeurs ont fait le reste du travail en fournissant un écosystème de modules riche et variés : frameworks, templating, drivers de bases de données, serveurs HTTP, serveurs Websockets, préprocesseurs CSS, CoffeeScript, parseurs, proxy, serveurs de log, librairies de tests, langages de _templating_ etc.
+La communauté Node et ses contributeurs ont fait le reste du travail en fournissant un écosystème de modules riche et variés : frameworks, templating, drivers de bases de données, serveurs HTTP, serveurs Websockets, préprocesseurs CSS, CoffeeScript, parseurs, proxy, serveurs de log, librairies de tests, langages de _templating_, etc.
 
-Malgré ses défauts de jeunesse, Node réussit également le tour de force de la performance : la recette de l'accès non-bloquant aux ressources aurait-elle fonctionné ?
+Malgré ses défauts de jeunesse, Node réussit également le tour de force de la performance : la recette de l'accès non bloquant aux ressources aurait-elle fonctionné ?
 À en croire les personnes ayant migré vers Node pour ces raisons, la réponse est *oui*.
 
 === Pourquoi choisir Node.js ?
@@ -182,14 +182,14 @@ Node encourage ainsi à créer de *multiples applications autonomes et modulaire
 
 Avec Grunt et Gulp, les développeurs verront dans Node leur *compagnon idéal pour compiler, générer, assembler et minifier* leurs différents fichiers. +
 Le bénéfice évident est le partage du même outillage CSS, JavaScript et HTML entre développeurs, par projet.
-Finies les ambigüités … et place à l'automatisation !
+Finies les ambiguïtés… et place à l'automatisation !
 
 Conséquence directe du point précédent, Node peut se révéler être une opportunité pour *unifier vos équipes de développement _frontend_ et _backend_*. +
 Node devient un langage commun entre les individus.
 Ils peuvent se focaliser sur des fonctionnalités indistinctement de leur périmètre, qu'il s'agisse du navigateur, du serveur ou d'une API.
 
 Enfin, Node est un *environnement adapté à l'apprentissage et l'amélioration des connaissances en JavaScript*. +
-Vous disposez de la maitrise de la version de Node, des modules employés et n'avez pas à vous soucier de quelconque compatibilité de version de JavaScript.
+Vous disposez de la maîtrise de la version de Node, des modules employés et n'avez pas à vous soucier de quelconque compatibilité de version de JavaScript.
  
 === Pourquoi éviter Node.js ?
 
@@ -210,7 +210,7 @@ Node n'est pas forcément une solution adaptée si *vos besoins de performance d
 Un langage comme C sera certainement davantage approprié.
 Toutefois des solutions comme `node-gyp` vous offrent un accès bas niveau aux éléments internes de la plateforme Node.
 
-Node ne vous aidera probablement pas si vous cherchez à *réaliser des choses qui sera compliquées de par la nature de JavaScript*, à savoir des opérations mathématiques de très haute précision. +
+Node ne vous aidera probablement pas si vous cherchez à *réaliser des choses qui seraient compliquées de par la nature de JavaScript*, à savoir des opérations mathématiques de très haute précision. +
 Des modules comme `bignumber.js` peuvent palier le problème.
 Il se peut que votre cas de figure ne soit pas couvert ni par Node ni par un des modules de l'écosystème npm.
 
@@ -227,14 +227,14 @@ On se rapproche davantage d'un modèle comme Ruby où l'auteur du langage est em
 
 ==== Joyent
 
-Joyent est entreprise états-unienne fondée en 2004.
+Joyent est une entreprise américaine fondée en 2004.
 Elle proposait à l'origine des services de collaborations en ligne : documents, calendriers, emails etc.
 
 Elle se lance sur le marché de l'hébergement fin 2005 par le biais d'une acquisition-fusion.
-Parmis ses clients, on peut dénombrer le site de Ruby on Rails (société Basecamp), WordPress.com (société Automattic) ou encore l'historique site _A List Apart_.
+Parmi ses clients, on peut dénombrer le site de Ruby on Rails (société Basecamp), WordPress.com (société Automattic) ou encore l'historique site _A List Apart_.
 
-Depuis 2009, Joyent s'est orientée et spécialisée dans les infrastructures et plateformes à la demande et à haute-performance.
-Elle se spécialise dans les solutions dites temps-réel pour les réseaux sociaux, applications mobiles et compagnies de jeux vidéo en ligne.
+Depuis 2009, Joyent s'est orientée et spécialisée dans les infrastructures et plate-formes à la demande et à haute performance.
+Elle se spécialise dans les solutions dites temps réel pour les réseaux sociaux, applications mobiles et compagnies de jeux vidéo en ligne.
 
 En avril 2011, Joyent dépose _Node.js_ et son logo en tant que marque.
 
@@ -254,7 +254,7 @@ _npm_ est originellement un module Node créé par Isaacs Schlueter.
 Le module permet d'installer des modules tiers et de les lier sous forme d'un arbre de dépendances.
 Il est l'équivalent de Bundler pour Ruby, du module CPAN pour Perl ou encore de Pip pour Python.
 
-Nous reviendrons plus en détails sur son utilisation dans le link:02-first-steps.adoc[chapitre 2 _Utiliser des modules tiers_] de cet ouvrage.
+Nous reviendrons plus en détail sur son utilisation dans le link:02-first-steps.adoc[chapitre 2 _Utiliser des modules tiers_] de cet ouvrage.
 
 https://www.npmjs.org/[npmjs.org] est le _registre_ principal qui héberge les modules publiés par le biais du module _npm_.
 Il est sponsorisé par la société _Nodejistu_ (voir ci-après).
@@ -262,7 +262,7 @@ Il est l'équivalent de http://rubygems.org/[rubygems.org] pour Ruby, de http://
 
 Isaacs Schlueter a été embauché par Joyent en septembre 2010 et a succédé à Ryan Dahl dans la gestion du projet Node de janvier 2012 jusqu'à janvier 2014.
 
-_npm, Inc_ est une entreprise privée états-unienne fondée en janvier 2014 par Isaacs Schlueter dans le but de fournir des solutions professionnelles se basant sur _npm_.
+_npm, Inc_ est une entreprise privée américaine fondée en janvier 2014 par Isaacs Schlueter dans le but de fournir des solutions professionnelles se basant sur _npm_.
 La société détient la marque _npm_, _npm, Inc_ et le _logo npm_.
 
 [TIP]
@@ -276,7 +276,7 @@ Auparavant il fallait installer le module _npm_ séparément.
 
 ==== Nodejitsu
 
-_Nodejitsu_ est une entreprise privée états-unienne fondée en 2010.
+_Nodejitsu_ est une entreprise privée américaine fondée en 2010.
 Elle vise à fournir des solutions professionnelles autour de Node en tant que _Platform as a Service_ ainsi qu'avec des dépôts _npm_ privés.
 
 _Nodejitsu_ démontre un investissement fort dans la communauté Node en contribuant et maintenant plusieurs centaines de modules. +
@@ -287,7 +287,7 @@ En 2013, _Nodejitsu_ lance l'initiative _#scalenpm_ visant à collecter des fond
 [TIP]
 ====
 .[RemarquePreTitre]#Lien# _#scalenpm_
-L'initiative _#scalenpm_ a réuni quelques 326.000$ auprès d'entreprises privées et de la communauté Node.
+L'initiative _#scalenpm_ a réuni quelques 326 000 $ auprès d'entreprises privées et de la communauté Node.
 
 Son effort se poursuit dans le but de fournir une meilleure instrumentation et une architecture résistant à la montée en puissance de l'utilisation des modules _npm_.
 
@@ -296,24 +296,24 @@ Son effort se poursuit dans le but de fournir une meilleure instrumentation et u
 
 ==== Node Security Project
 
-Le _Node Security Project_ est un projet à but non-lucratif soutenu par la société états-unienne _&yet_.
+Le _Node Security Project_ est un projet à but non lucratif soutenu par la société américaine _&yet_.
 Il a été initié au début de l'année 2013.
 
 Son but est triple :
 
-1. auditer la sécurité de tous les modules npm
-2. communiquer les failles auprès des auteurs de modules
-3. permettre à quiconque de savoir si un module donné dépend de module vulnérable
+1. auditer la sécurité de tous les modules npm ;
+2. communiquer les failles auprès des auteurs de modules ;
+3. permettre à quiconque de savoir si un module donné dépend de module vulnérable.
 
 Le projet met un point d'honneur à impliquer la communauté Node dans la gestion de la sécurité.
-Cela concerne aussi bien la déclaration des vulnérabilité que leur résolution ou l'éducation à la sécurité des développeurs.
+Cela concerne aussi bien la déclaration des vulnérabilités que leur résolution ou l'éducation à la sécurité des développeurs.
 
 [TIP]
 ====
 .[RemarquePreTitre]#Module npm# retire.js
 
 _retire.js_ est un module npm permettant de scanner soi-même des vulnérabilités connues dans le code JavaScript de son choix.
-Il fonctionne aussi bien pour du JavaScript interprété par un navigateur Web que dans Node.
+Il fonctionne aussi bien pour du JavaScript interprété par un navigateur web que dans Node.
 
 - https://www.npmjs.org/package/retire
 ====
@@ -327,8 +327,8 @@ D'autres arguent qu'il n'y a pas besoin de fondation car les avancées de Node s
 
 La vérité se situe entre les deux.
 
-La plateforme Node est régie par la _licence MIT_. De ce fait, toute personne peut contribuer ou baser un logiciel (y compris propriétaire) sur Node.
-Toute utilisation de la marque "Node.js" dans un cadre de service professionnel payant est en revanche soumise à une acceptation écrite de la part de Joyent.
+La plate-forme Node est régie par la _licence MIT_. De ce fait, toute personne peut contribuer ou baser un logiciel (y compris propriétaire) sur Node.
+Toute utilisation de la marque « Node.js » dans un cadre de service professionnel payant est en revanche soumise à une acceptation écrite de la part de Joyent.
 
 L'écosystème de modules hébergé sur _npmjs.org_ est le fruit de ses différents contributeurs.
 Il s'agit de la communauté la plus représentative de Node.
@@ -342,7 +342,7 @@ Intéressons-nous à l'architecture technique de Node pour comprendre cette dich
 
 === Architecture technique
 
-Le terme _plateforme_ prend tout son sens lorsque l'on se penche sur l'architecture de Node.
+Le terme _plate-forme_ prend tout son sens lorsque l'on se penche sur l'architecture de Node.
 
 Si on devait la résumer en une phrase : *Node est une API JavaScript pour manipuler des ressources système*.
 
@@ -386,7 +386,7 @@ Ce code trivial en apparence masque en réalité des milliers de lignes de code 
 
 Le projet _CommonJS_ débute en janvier 2009.
 
-Pour les membres fondateurs, il était devenu évident que JavaScript allait évoluer dans d'autres environnements que les seuls navigateurs Web.
+Pour les membres fondateurs, il était devenu évident que JavaScript allait évoluer dans d'autres environnements que les seuls navigateurs web.
 Il fallait donc trouver un moyen de rendre le code interopérable sur les différentes plateformes. +
 Les spécifications les plus notables sont _Console_ et _Module_.
 
@@ -438,8 +438,8 @@ Le site officiel de CommonJS documente différentes spécifications vouées à p
 
 L'interpréteur Node est un programme écrit en C++.
 
-L'interpréteur crée un environnement d'exécution, initialise la boucle évènementielle (_Event Loop_, voir ci-après), lit le code JavaScript, crée l'arbre de dépendance des modules puis demande à exécuter le tout. +
-Il considère l'exécution terminée lorsque la boucle évènementielle n'a plus d'instructions à traiter, ni maintenant ni dans le futur.
+L'interpréteur crée un environnement d'exécution, initialise la boucle événementielle (_Event Loop_, voir ci-après), lit le code JavaScript, crée l'arbre de dépendance des modules puis demande à exécuter le tout. +
+Il considère l'exécution terminée lorsque la boucle événementielle n'a plus d'instructions à traiter, ni maintenant ni dans le futur.
 
 L'interpréteur s'arrêtera prématurément si une erreur se déclare et que cette dite erreur n'est pas prise en charge par le programme.
 
@@ -470,7 +470,7 @@ J'ai pas dis de bêtise ci-dessus ?
 ====
 .[RemarquePreTitre]#Lien# Code Source de Node
 Le code source de Node est disponible sur GitHub.
-Le parcourir permet de mieux comprendre la magie de son fonctionnement … ou d'avoir subitement mal à la tête !
+Le parcourir permet de mieux comprendre la magie de son fonctionnement… ou d'avoir subitement mal à la tête !
 
 - https://github.com/joyent/node
 ====
@@ -507,12 +507,12 @@ Cette documentation est accompagnée d'un guide pour intégrer V8 dans d'autres 
 
 ==== libuv
 
-_libuv_ est une librairie C++ focalisée sur l'accès aux ressources systèmes de manière non-bloquante.
+_libuv_ est une librairie C++ focalisée sur l'accès aux ressources système de manière non bloquante.
 
 Cette librairie est compatible avec de nombreux systèmes d'exploitation comme Windows, Linux ou encore FreeBSD. +
-D'autres logiciels sont basés sur _libuv_ mais Node est la première plateforme à en avoir fait l'usage … et pour cause, _libuv_ a été créée pour les besoins propre de Node.
+D'autres logiciels sont basés sur _libuv_ mais Node est la première plate-forme à en avoir fait l'usage… et pour cause, _libuv_ a été créée pour les besoins propre de Node.
 
-_libuv_ implémente notamment la fameuse boucle évènementielle (voir ci-après), la file de priorité (_priority queue_), délègue les accès réseaux au système d'exploitation et expose la plupart des fonctions UNIX nécessaires à la manipulation de fichiers et d'autres actions bas niveau.
+_libuv_ implémente notamment la fameuse boucle événementielle (voir ci-après), la file de priorité (_priority queue_), délègue les accès réseaux au système d'exploitation et expose la plupart des fonctions UNIX nécessaires à la manipulation de fichiers et d'autres actions bas niveau.
 
 *La performance de Node réside clairement dans _libuv_*. 
 JavaScript n'y est pour rien, si ce n'est à travers la puissance de la machine virtuelle V8.
@@ -527,8 +527,8 @@ Le code source de _libuv_ est disponible sur GitHub. Le parcourir permet de mieu
 
 ==== Boucle évènementielle
 
-La boucle évènementielle (_Event Loop_) est un mécanisme d'exécution des tâches apporté par _libuv_ et déléguée au système d'exploitation.
-Elle s'inspire très fortement du modèle de boucle évènementielle telle qu'implémentée dans les navigateurs Web.
+La boucle événementielle (_Event Loop_) est un mécanisme d'exécution des tâches apporté par _libuv_ et déléguée au système d'exploitation.
+Elle s'inspire très fortement du modèle de boucle événementielle telle qu'implémentée dans les navigateurs Web.
 
 C'est grâce à ce mécanisme que l'exécution d'une fonction peut être reportée à plus tard.
 C'est la fameuse _exécution asynchrone_.
@@ -554,21 +554,21 @@ setTimeout(printT, 1000);               <4>
 <3> Affiche `0`.
 <4> Affiche `1`, car exécutée _une seconde_ (_1000 millisecondes_) plus tard.
 
-Dans ce précédent exemple, le code est interprété séquentiellement comme suit :
+Dans ce précédent exemple, le code est interprété séquentiellement comme suit.
 
-1. assignation de la variable `referenceTime` ;
-2. invocation de la fonction `printT` (retournant `0`) ;
-3. invocation de la fonction `console.log` ;
-4. invocation de la fonction `setTimeout` : il s'agit d'un contrat avec la boucle évènementielle d'exécuter `printT` dans 1000 millisecondes ;
-5. la boucle évènementielle continue de tourner car il y a une tâche à traiter ;
-6. après avoir tournée pendant 1000 millisecondes, la boucle dépile une instruction programmée pour cet instant ;
-7. invocation de la fonction `printT` (retournant `1`) ;
-8. la file de priorité est vide, Node demande au système d'exploitation d'arrêter son processus.
+1. Assignation de la variable `referenceTime`.
+2. Invocation de la fonction `printT` (retournant `0`).
+3. Invocation de la fonction `console.log`.
+4. Invocation de la fonction `setTimeout` : il s'agit d'un contrat avec la boucle événementielle d'exécuter `printT` dans 1000 millisecondes.
+5. La boucle événementielle continue de tourner car il y a une tâche à traiter.
+6. Après avoir tournée pendant 1000 millisecondes, la boucle dépile une instruction programmée pour cet instant.
+7. Invocation de la fonction `printT` (retournant `1`).
+8. La file de priorité est vide, Node demande au système d'exploitation d'arrêter son processus.
 
-Alors pourquoi dit-on que _libuv_ est non-bloquant ?
+Alors pourquoi dit-on que _libuv_ est non bloquant ?
 Tout simplement car l'acquisition d'une ressource système renvoie un descripteur, vérifiée à chaque itération de la boucle  et dont le _callback_ est exécuté lorsque la vérification se révèle positive.
 
-En clair, au lieu de bloquer l'exécution de l'instruction suivante, la boucle évènementielle reporte la vérification à plus tard et se saisit de l'instruction suivante.
+En clair, au lieu de bloquer l'exécution de l'instruction suivante, la boucle événementielle reporte la vérification à plus tard et se saisit de l'instruction suivante.
 Et ainsi de suite.
 
 On dit également que Node est _single threaded_ car il n'y a qu'une seule boucle par processus Node ; processus rattaché à un  seul cœur de processeur (_CPU core_). +
@@ -577,21 +577,21 @@ Plusieurs processus Node sur le même cœur se partagent une puissance de calcul
 
 [CAUTION]
 ====
-Existe-t'il une traduction pas dégueu pour _single threaded_ ? +
+Existe-t-il une traduction pas dégueu pour _single threaded_ ? +
 Très certainement des choses un peu hardcores à vérifier (qui me paraissent normales mais sont des hérésies pour un puriste).
 ====
 
 [TIP]
 ====
-.[RemarquePreTitre]#Trivia# JavaScript n'est pas évènementiel
-Contrairement à la croyance populaire, *JavaScript n'a pas de gestion native des évènements*.
+.[RemarquePreTitre]#Trivia# JavaScript n'est pas événementiel
+Contrairement à la croyance populaire, *JavaScript n'a pas de gestion native des événements*.
 
 Ce que propose nativement JavaScript, c'est la facilité de créer des fonctions et d'encapsuler des contextes via le mécanisme de clôture (_closure_).
 C'est tout.
 
-Tout ce qui est dit _asynchrone_ et _évènementiel_ a en réalité rapport à la boucle évènementielle et à sa gestion des tâches.
+Tout ce qui est dit _asynchrone_ et _événementiel_ a en réalité rapport à la boucle événementielle et à sa gestion des tâches.
 
-Ceci reste valide tant que la boucle évènementielle n'est pas implémentée nativement dans ECMAScript, vraisemblablement dans la version 7 ou 8 du langage.
+Ceci reste valide tant que la boucle événementielle n'est pas implémentée nativement dans ECMAScript, vraisemblablement dans la version 7 ou 8 du langage.
 ====
 
 
@@ -599,7 +599,7 @@ Ceci reste valide tant que la boucle évènementielle n'est pas implémentée na
 
 Node a connu une forte croissance entre 2012 et 2014.
 Cela concerne aussi bien le nombre de modules publiés sur le registre npm que le nombre de contributeurs.
-C'est sans compter ni sur le nombre d'articles faisant l'éloge de la plateforme ni sur les annonces de migration vers Node.
+C'est sans compter ni sur le nombre d'articles faisant l'éloge de la plate-forme ni sur les annonces de migration vers Node.
 
 Il n'aura fallu que deux ans avant que Node ne devienne vraiment stable et utilisable en production.
 
@@ -612,7 +612,7 @@ La vitesse et la croissance sont des facteurs propices à l'immaturité et à l'
 *Une nouvelle version majeure de Node sort chaque année*, environ.
 Depuis la version `0.8`, l'équipe de développement met un point d'honneur à suivre les deux principes suivants :
 
-- laisser maturer le plus de temps possible la branche de développement de Node ;
+- laisser mûrir le plus de temps possible la branche de développement de Node ;
 - limiter le nombre de nouveautés de chaque version majeure.
 
 Le but et la conséquence de ce choix sont de garantir au maximum le fonctionnement du code et des modules qui en dépendent à chaque montée de version de Node.
@@ -624,9 +624,9 @@ Node suit le mode de numérotation de version pair/impair :
 
 Ainsi la version `0.9.12` est devenue la version `0.10.0` une fois jugée suffisamment stable et aboutie.
 
-Sur le plan interne, Node indique une indice de stabilité pour chacune de ses APIs sur une échelle de 0 à 5 :
+Sur le plan interne, Node indique une indice de stabilité pour chacune de ses API sur une échelle de 0 à 5 :
 
-- 0 : le module est *déprécié* et devrait être utilisé en toute connaissance de cause ;
+- 0 : le module est *déprécié* et ne devrait être utilisé qu'en toute connaissance de cause ;
 - 1 : le module est *expérimental*, instable et nécessite des retours utilisateur ;
 - 2 : le module est *instable* et nécessite davantage de tests grandeur nature avant d'être considéré comme stable ;
 - 3 : le module est *stable* mais peut être sujet à des changements mineurs d'API ;
