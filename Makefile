@@ -1,4 +1,4 @@
-all: docbook 
+all: docbook
 docbook: configure.docbook clean build.odt
 html: configure.html clean build.odt
 
@@ -11,6 +11,19 @@ configure.html:
 	$(eval ASCIIDOC_BACKEND = html5)
 	$(eval PANDOC_BACKEND = html)
 	$(eval EXTENSION = html)
+
+unzip:
+	unzip book-docbook.odt -d tmp/
+
+zip:
+	rm -f book.odt
+	cd tmp && zip -r ../book.odt ./
+
+patch: unzip
+
+
+debug:
+	pandoc -t native -f docbook chapters/00-book.xml
 
 clean:
 	rm -f chapters/*.${EXTENSION} book-${PANDOC_BACKEND}.odt
