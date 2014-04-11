@@ -1,6 +1,10 @@
+ASCIIDOC_BACKEND = docbook
+PANDOC_BACKEND = docbook
+EXTENSION = xml
+
 all: docbook
-docbook: configure.docbook clean build.odt
-html: configure.html clean build.odt
+docbook: configure.docbook build clean
+html: configure.html clean build clean
 
 configure.docbook:
 	$(eval ASCIIDOC_BACKEND = docbook)
@@ -13,21 +17,42 @@ configure.html:
 	$(eval EXTENSION = html)
 
 unzip:
-	unzip book-docbook.odt -d tmp/
+	unzip -u book-${PANDOC_BACKEND}.odt -d tmp/
 
 zip:
 	rm -f book.odt
 	cd tmp && zip -r ../book.odt ./
 
-patch: unzip
+zip.clean:
+	rm -rf tmp/
 
+patch: unzip patch.odt zip
 
-debug:
+patch.odt:
+	cat tmp/content.xml | node src/odt-filter/bin.js > tmp/content-tmp.xml
+	cp tmp/content-tmp.xml tmp/content.xml
+	rm tmp/content-tmp.xml
+
+debug.build:
 	pandoc -t native -f docbook chapters/00-book.xml
 
-clean:
-	rm -f chapters/*.${EXTENSION} book-${PANDOC_BACKEND}.odt
+debug.patch:
+	cat tmp/content.xml | node src/odt-filter/bin.js --silent
 
-build.odt:
-	asciidoc -b ${ASCIIDOC_BACKEND} -d book chapters/00-book.adoc
-	pandoc -f ${PANDOC_BACKEND} --template template.xml chapters/00-book.${EXTENSION} -S --reference-odt=eyrolles.odt -o book-${PANDOC_BACKEND}.odt
+debug.odt:
+	unzip -u book.odt -d tmp-final/
+
+clean: zip.clean build.clean
+
+build: build.odt patch
+
+build.odt: build.asciidoc build.pandoc
+
+build.asciidoc:
+	asciidoc -b ${ASCIIDOC_BACKEND} -f src/eyrolles.conf -d book chapters/00-book.adoc
+
+build.pandoc:
+	pandoc -f ${PANDOC_BACKEND} --template src/template.xml chapters/00-book.${EXTENSION} -S --reference-odt=src/eyrolles.odt -o book-${PANDOC_BACKEND}.odt
+
+build.clean:
+	rm -f chapters/*.${EXTENSION} book-${PANDOC_BACKEND}.odt
