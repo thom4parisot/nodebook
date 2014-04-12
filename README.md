@@ -69,8 +69,8 @@ Le fichier sera à la racine, nommé `book.odt`.
       1. Brackets
       1. vim
       1. Visual Studio
-  1. Quelle version de ECMAScript ?
-    1. ECMAScript 5
+  1. Node, JavaScript et ECMAScript
+    1. Standard ECMA-262 Edition 5.1
     1. Rappel des primitives ECMAScript
       1. `String`
       1. `Number`

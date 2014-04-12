@@ -270,17 +270,67 @@ TBD.
 Rajouter une image similaire à Webstorm.
 ====
 
-=== Quelle version d'ECMAScript ?
+=== Node, JavaScript et ECMAScript
 
-TBD.
+Nous l'avons vu dans le premier chapitre, Node utilise JavaScript comme principal langage de développement.
+Mais contrairement à Ruby, Python ou PHP dont le numéro de version annonce les fonctionnalités exploitables, qu'en est-il de Node et de JavaScript ?
+
+Il faut se tourner du côté de _V8_ pour savoir ce que la machine virtuelle est capable de comprendre.
+Et comme chaque version de Node est associée à une version spécifique de _V8_, il suffit d'aller regarder les notes de version de V8 pour l'apprendre.
+
+De manière générale, _V8_ implémente les spécification	s approuvées ou en passe d'être approuvées par le comité gérant l'évolution du langage JavaScript : le *TC39*.
+
+Enfin si vous n'avez pas envie de retourner la moitié du Web pour savoir si _V8_, donc Node, supporte telle ou telle fonctionnalité, partez du principe que *le JavaScript supporté par Chrome ou Opera correspond au JavaScript supporté par Node*.
 
 [TIP]
 .[RemarquePreTitre]#FAQ# JavaScript ou ECMAScript ?
 ====
-TBD.
+On peut lire régulièrement les termes _JavaScript_ et _ECMAScript_ comme s'il s'agissait de la même chose.
+Y compris dans cet ouvrage.
+*JavaScript et ECMAScript sont la même chose*.
+
+Historiquement, JavaScript a été inventé en 1995 par Brendan Eich alors qu'il était employé de la société _Netscape Communications_.
+Microsoft suit le pas en incluant JavaScript dans son logiciel Internet Explorer, alors en version 3.
+Pour des raisons de droits de marque, il y est dénommé _JScript_.
+
+La spécification est ensuite validée par l'organisme _Ecma International_ en juin 1997 sous le nom d'_ECMAScript_, standard ECMA-262.
+
+L'utilisation du terme _JavaScript_ est resté dans le vocabulaire courant. Mais c'est bien d'_ECMAScript_ dont on parle, vraiment.
+
+Adobe Flash utilise un dérivé d'ECMAScript, ActionScript et bien des machines virtuelles sont capables d'interpréter partiellement ou intégralement ECMAScript : Rhino en Java, Konq, BESEN en Object Pascal ou encore Esprima en… ECMAScript.
 ====
 
-==== ECMAScript 5
+La suite de l'ouvrage emploie principalement le terme _ECMAScript_.
+
+==== Standard ECMA-262 Edition 5
+
+ECMAScript a été standardisé dans sa version 5 en décembre 2009.
+Il s'agit de la version d'ECMAScript supportée dans Node {nodeVersion}.
+La révision 5.1 de juin 2011 est une correction mineure de la spécification.
+
+Il s'agit d'une évolution majeure, dix après sa précédente édition, ECMAScript 3.
+
+_ES5_ introduit le mode strict limitant fortement les effets de bord indésirables, de nouvelles fonctionnalités pour `Object` et `Array`, le support natif de _JSON_ et `Function.prototype.bind`.
+
+Un récapitulatif des fonctionnalités d'ECMAScript 5 est présenté  ci-après.
+
+[TIP]
+.[RemarquePreTitre]#Lien# Le futur d'ECMAScript : ES6.
+====
+
+_ES6_ est l'abréviation employée pour désigner ECMAScript 6.
+_Harmony_ est un des noms de code donné à cette future version d'ESCMAScript, avant que le numéro 6 ne devienne le numéro de version attribué à cette édition.
+
+Ce site référence l'état de l'implémentation d'ES6 sur différentes plateformes, dont Node :
+
+- http://kangax.github.io/es5-compat-table/es6/#node
+- http://kangax.github.io/es5-compat-table/es6/#nodeharmony
+====
+
+==== Rappel des primitives ECMAScript
+
+TBD.
+
 
 [TIP]
 .[RemarquePreTitre]#URL# Spécification ECMAScript
@@ -290,10 +340,6 @@ Il s'agit d'une mine d'or pour comprendre les mécanismes internes du langage, l
 
 - http://www.ecma-international.org/ecma-262/5.1/
 ====
-
-==== Rappel des primitives JavaScript
-
-TBD.
 
 ==== Variables globales dans Node.js
 
