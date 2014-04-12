@@ -60,9 +60,9 @@ Le fichier sera à la racine, nommé `book.odt`.
 1. [Premiers pas avec Node](chapters/02-first-steps.adoc)
   1. Préparer son environnement
     1. Installer Node.js
-      1. Depuis le gestionnaire de paquets de son système d'exploitation
-      1. Depuis les sources
+      1. Pour les différents systèmes d'exploitation
       1. Node Version Manager
+      1. Compiler depuis les sources
     1. Outils de développement
       1. WebStorm
       1. SublimeText

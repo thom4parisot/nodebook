@@ -103,6 +103,22 @@ Le moyen le plus simple d'installer Node sous Windows est de *télécharger l'in
 
 Une fois cette étape franchie, vous pouvez opter pour une alternative à _Node Version Manager_ (voir encadrés ci-après).
 
+===== Raspberry Pi
+
+Node a effectué des changements dans son architecture dans sa version 0.8.
+Ces changements ont permis d'éviter la compilation systématique sur des architectures processeur type ARM.
+
+Des binaires et installateurs sont de ce fait disponibles pour Raspberry Pi, et très probablement pour d'autres plates-formes de ce type.
+
+Des binaires et instructions sont disponibles à cette adresse [URL]#https://gist.github.com/adammw/3245130#. +
+Un paquet `deb` est également proposé pour les utilisateurs du système d'exploitation _Raspbian_.
+
+.Installation de la dernière version stable de Node sur un Raspberry Pi sous _Raspbian_.
+----
+wget http://node-arm.herokuapp.com/node_latest_armhf.deb
+sudo dpkg -i node_latest_armhf.deb
+----
+
 ==== Node Version Manager
 
 _Node Version Manager_ est un logiciel permettant de gérer plusieurs versions de Node en même temps, sur une même machine.
@@ -144,7 +160,21 @@ Dans les deux cas, leur installation est très simple.
 
 ==== Compiler depuis les sources
 
-TBD.
+Certaines situations exigeront que vous compiliez Node.
+Ce sera le cas si vous cherchez à tirer parti au maximum des instructions de votre CPU ou si aucun binaire n'est disponible pour votre plate-forme.
+
+La compilation manuelle requiert la présence de _GCC_ 4.2+, de _Python_ 2.6+ et de *GNU Make* 3.81+. +
+La procédure de compilation ressemble fortement à ceci :
+
+.Étapes de compilation de Node
+----
+wget http://nodejs.org/dist/latest/node-v0.10.26.tar.gz
+tar -zxf node-v0.10.26.tar.gz
+cd node-v0.10.26
+./configure && make && make install
+----
+
+Les instructions pouvant varier fortement d'un système d'exploitation à l'autre, consultez les dépendances et instructions complètes à cette adresse [URL]#https://github.com/joyent/node/wiki/installation#.
 
 === Quelle version d'ECMAScript ?
 
