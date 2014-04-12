@@ -345,7 +345,7 @@ L'opérateur `typeof` permet d'identifier une chaîne :
 ----
 typeof 'Eyrolles'; <1>
 ----
-<1> Retourne `'string'`
+<1> Retourne `'string'`.
 
 On peut connaître la longueur d'une chaîne via son attribut `length`.
 
@@ -400,12 +400,172 @@ On peut remplacer les occurrences correspondantes à un masque de caractères vi
 <1> Retourne `'i ♥ javascript'`.
 
 ===== `Number`
+
+Flottants 64 bits
+
+[source,javascript]
+----
+Number.length
+----
+
+[source,javascript]
+----
+1 + 1
+'1' + 1
+1 + '1'
+undefined + 1
+----
+
+[source,javascript]
+----
+parseInt
+parseFloat
+----
+
+[source,javascript]
+----
+Number.POSITIVE_INFINITY
+Number.NEGATIVE_INFINITY
+Number.MIN_VALUE
+Number.MAX_VALUE
+----
+
+[source,javascript]
+----
+Number.isNaN
+----
+
+[source,javascript]
+----
+Number.toFixed
+----
+
 ===== `Date`
+
+
+[source,javascript]
+----
+typeof (new Date())
+----
+
+[source,javascript]
+----
+Date.now
+----
+
+[source,javascript]
+----
+Date.format
+----
+
 ===== `Array`
+
+[source,javascript]
+----
+Array.length
+----
+
+[source,javascript]
+----
+Array.isArray
+----
+
+[source,javascript]
+----
+Array.join
+----
+
+[source,javascript]
+----
+Array.map
+----
+
+[source,javascript]
+----
+Array.some
+Array.every
+----
+
+[source,javascript]
+----
+Array.filter
+----
+
+[source,javascript]
+----
+Array.sort
+----
+
+[source,javascript]
+----
+Array.reduce
+----
+
 ===== `Object`
+
+[source,javascript]
+----
+Object.defineProperty
+----
+
+
+[source,javascript]
+----
+Object.prototype
+----
+
+
+[source,javascript]
+----
+Object.keys
+----
+
+[source,javascript]
+----
+Object.prototype.toString
+----
+
+[source,javascript]
+----
+in vs hasOwnProperty
+----
+
 ===== `Function`
+
+
+[source,javascript]
+----
+typeof
+----
+
+[source,javascript]
+----
+Function.bind
+----
+
+
+[source,javascript]
+----
+Function.call
+Function.apply
+----
+
 ===== `RegExp`
+
+
+
 ===== `JSON`
+
+
+[source,javascript]
+----
+JSON.parse
+----
+
+[source,javascript]
+----
+Object.toString
+----
 
 
 [TIP]
