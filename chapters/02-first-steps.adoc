@@ -1,19 +1,186 @@
-== Premiers pas avec Node.js
+:nodeVersion: v0.10
+:nodeNextVersion: v0.12
+:imageFolder: 02-first-steps
+:revisionYear: 2014
 
-=== Quelle version de JavaScript ?
+== [ChapitreNumero]#2# Premiers pas avec Node.js
+
+On aura beau discuter de Node et de son architecture, rien ne vaudra quelques lignes de code pour mesurer ce dont à quoi nous avons affaire.
+
+Ce chapitre contient tout ce qu'il faut savoir pour installer Node et développer son premier programme avec de bons _design patterns_.
+
+====
+.Sommaire
+- Installer Node.js
+- Comprendre le vocabulaire JavaScript à disposition
+- Écrire son premier programme Node.js
+- Utiliser des modules tiers
+- Apprendre les bons _design patterns_
+====
+
+Il est fortement recommandé d'utiliser un interpréteur de commandes (terminal ou _shell_). Les systèmes d'exploitation modernes en proposent un, y compris les versions récentes de Windows.
+
+Si vous n'utilisez pas encore de terminal, voici une liste de recommandation non exhaustive pour vous aider :
+
+- *OS X* : iTerm2, Terminal.app ;
+- *Linux* : GNOME Shell, Terminator ;
+- *Windows* : PowerShell, Console.
+
+.Terminal iTerm2 sous OS X.
+image::{imageFolder}/terminal.png[align="center"]
+
+Enfin, tous les exemples de ce chapitre sont relatifs à la *branche {nodeVersion} de Node*. +
+Il se peut qu'une nouvelle branche stable soit sortie depuis l'édition de cet ouvrage, par exemple la {nodeNextVersion}.
+Il suffit d'adapter les numéros de version adéquats dans les différents exemples. 
+
+=== Préparer son environnement
+
+Installer Node n'est pas très compliqué.
+Il existe cependant plusieurs mécanismes d'installation.
+Ces mécanismes vont du téléchargement d'un installateur à une compilation manuelle _via_ un terminal.
+
+Voici mes recommandations pour savoir quelle solution d'installation choisir :
+
+- *néophyte ou pressé(e)* : installateur du site nodejs.org, paquet fourni par le système d'exploitation ;
+- *vous commencez à maîtriser* : Node Version Manager ;
+- *à l'aise avec un terminal* : Node Version Manager ;
+- *envie ou besoin de mettre en production* : Node Version Manager ;
+- *besoin très spécifique et pointu* : compiler depuis les sources.
+
+Une fois l'étape de l'installation terminée, la suite du livre ne fera plus de distinction entre les différents systèmes d'exploitation : c'est Node qui se chargera des abstractions !
+
+==== Pour les différents systèmes d'exploitation
+
+Certains systèmes d'exploitation fournissent leur propre mouture de Node.
+Les procédures les plus courantes sont décrites ci-après.
+
+Une liste complète mais non exhaustive est mise jour sur le wiki du dépôt GitHub de Node à cette adresse : [URL]#https://github.com/joyent/node/wiki/Installing-Node.js-via-package-manager#.
+
+Si malgré tout votre système n'y était pas listé, le mieux reste encore d'*utiliser un binaire*, de *compiler depuis les sources* ou de demander à votre *moteur de recherche* favori !
+
+[TIP]
+.[RemarquePreTitre]#URL# Téléchargements officiels
+====
+Les installateurs, les binaires et les sources de Node sont disponibles sur le site officiel [URL]#nodejs.org#. +
+Si vous vous sentez perdu(e), téléchargez l'installateur adapté, ouvrez un terminal et sautez quelques pages pour plonger dans l'utilisation de Node.
+
+- http://nodejs.org/download/
+====
+
+===== Linux
+
+Node est disponible dans les dépôts des systèmes suivants :
+
+- *Gentoo* : `emerge nodejs`
+- *Ubuntu >= 12.04*, *Debian >= jessie*, *Mint* : `sudo apt-get install nodejs`
+- *Fedora >= 18* : `sudo yum install nodejs npm`
+- *Arch Linux* : `pacman -S nodejs`
+- *FreeBSD*, *OpenBSD* : `pkg install node`
+
+Si votre système d'exploitation ne dispose pas de paquet pour Node, essayez dans l'ordre :
+
+1. _Node Version Manager_ (voir ci-après) ;
+2. le téléchargement du binaire Node sur son site officiel ;
+3. la compilation manuelle de Node.
+
+===== OS X
+
+_OS X_ ne dispose pas de gestionnaire de paquet par défaut.
+Quelques projets populaires permettent toutefois d'y remédier :
+
+- *homebrew* : `brew install node`
+- *MacPorts* : `port install nodejs`
+
+Si vous n'utilisez aucun de ces gestionnaires de paquet, dans ce cas essayez :
+
+1. _Node Version Manager_ (voir ci-après) ;
+2. le téléchargement du binaire Node sur son site officiel ;
+3. la compilation manuelle de Node.
+
+===== Windows
+
+Le moyen le plus simple d'installer Node sous Windows est de *télécharger l'installateur officiel* depuis la page de téléchargements de Node.
+
+Une fois cette étape franchie, vous pouvez opter pour une alternative à _Node Version Manager_ (voir encadrés ci-après).
+
+==== Node Version Manager
+
+_Node Version Manager_ est un logiciel permettant de gérer plusieurs versions de Node en même temps, sur une même machine.
+Il est communément abrégé en _nvm_.
+
+_nvm_ est l'équivalent de _rvm_ dans le monde Ruby, de _phpenv_ dans le monde PHP ou encore de _virtualenv_ pour Python.
+
+.Installation de _nvm_ et de Node {nodeVersion}.
+----
+curl https://raw.github.com/creationix/nvm/v0.4.0/install.sh | sh
+nvm install 0.10
+nvm alias default 0.10	 <1>
+----
+<1> La version par défaut est désormais la dernière version stable de Node {nodeVersion}.
+
+Les instructions d'installation à jour se trouvent sur [URL]#https://github.com/creationix/nvm#.
+
+[TIP]
+.[RemarquePreTitre]#Alternative# _n_
+====
+_n_ est une alternative à _nvm_ écrite en… JavaScript.
+Elle a l'avantage d'être compatible avec tous les systèmes d'exploitation compatibles avec le Shell Unix _Bash_.
+
+- https://www.npmjs.org/package/n
+====
+
+[TIP]
+.[RemarquePreTitre]#Alternative# Et pour Windows ?
+====
+_nvm_ ne fonctionne pas sur les ordinateurs équipés de Windows.
+Il existe deux autres alternatives : _nvmw_ et _nodist_.
+
+_nvmw_ nécessite d'avoir Git et Python tandis que _nodist_ se base uniquement sur Node.
+Dans les deux cas, leur installation est très simple.
+
+- https://github.com/hakobera/nvmw
+- https://github.com/marcelklehr/nodist
+====
+
+==== Compiler depuis les sources
+
+TBD.
+
+=== Quelle version d'ECMAScript ?
+
+TBD.
+
+[TIP]
+.[RemarquePreTitre]#FAQ# JavaScript ou ECMAScript ?
+====
+TBD.
+====
 
 ==== ECMAScript 5
 
-> http://www.ecma-international.org/ecma-262/5.1/
+[TIP]
+.[RemarquePreTitre]#URL# Spécification ECMAScript
+====
+L'ensemble de la spécification ECMAScript est disponible aux formats PDF et HTML.
+Il s'agit d'une mine d'or pour comprendre les mécanismes internes du langage, les types et primitives à disposition.
+
+- http://www.ecma-international.org/ecma-262/5.1/
+====
 
 ==== Rappel des primitives JavaScript
 
+TBD.
+
 ==== Variables globales dans Node.js
 
+TBD.
+
 [TIP]
+.[RemarquePreTitre]#Vidéo# _Introduction to Node.js_
 ====
-.[.tip-titre]#Vidéo# _Introduction to Node.js_
 Ryan Dahl, le créateur de Node, explique dans cette vidéo comment les fondamentaux de la plate-forme ont influencé sa conception et façonné son architecture.
 
 - http://www.youtube.com/watch?v=M-sc73Y-zQA
 ====
+
+TBD.
