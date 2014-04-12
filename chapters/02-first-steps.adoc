@@ -331,7 +331,81 @@ Ce site référence l'état de l'implémentation d'{esNext} sur différentes pla
 
 ==== Rappel des primitives ECMAScript
 
-TBD.
+Un des conforts apporté par l'utilisation d'ECMAScript dans Node est qu'il n'y a pas à se soucier de la compatibilité navigateur : vous pouvez utiliser le meilleur de JavaScript !
+
+Ce résumé des primitives et fonctionnalités principales d'_{es}_ a pour but de vous apprendre ou rappeler la syntaxe à disposition pour écrire des programmes pour Node.
+
+===== `String`
+
+Chaque élément d'une chaîne de caractère est encodé au format UTF-16 et peut donc contenir 16 bits de données.
+
+L'opérateur `typeof` permet d'identifier une chaîne :
+
+[source,javascript]
+----
+typeof 'Eyrolles'; <1>
+----
+<1> Retourne `'string'`
+
+On peut connaître la longueur d'une chaîne via son attribut `length`.
+
+[source,javascript]
+----
+'I ♥ JavaScript'.length; <1>
+----
+<2> Retourne `14`.
+
+On peut nettoyer les espaces englobant une chaîne avec la méthode `trim` :
+
+[source,javascript]
+----
+'  w w w  '.trim(); <1>
+----
+<1> Retourne `'w w w'`.
+
+On peut connaître la position d'un ou plusieurs caractères via la méthode `indexOf` :
+
+[source,javascript]
+----
+'I ♥ JavaScript'.indexOf('JavaScript'); <1>
+'I ♥ JavaScript'.indexOf('I'); <2>
+'I ♥ JavaScript'.indexOf('?'); <3>
+----
+<1> Retourne `4` ;
+<2> Retourne `0` ;
+<3> Retourne `-1`, aucune occurrence n'ayant été trouvée.
+
+On peut collecter les occurrences correspondantes à un masque de caractères via la méthode `match` :
+
+[source,javascript]
+----
+'I ♥ JavaScript'.match('♥'); <1>
+'I ♥ JavaScript'.match(/\wa/g); <2>
+'I ♥ JavaScript'.match('!'); <3>
+----
+<1> Retourne `['♥']` ;
+<2> Retourne `['Ja', 'va']` ;
+<3> Retourne `null`.
+
+On peut remplacer les occurrences correspondantes à un masque de caractères via la méthode `replace` :
+
+[source,javascript]
+----
+'I ♥ JavaScript'.replace('♥', 'love'); <1>
+'I ♥ JavaScript'.replace(/[A-Z]/g, function(match){
+  return match.toLowerCase();
+}); <2>
+----
+<1> Retourne `'I love JavaScript'` ;
+<1> Retourne `'i ♥ javascript'`.
+
+===== `Number`
+===== `Date`
+===== `Array`
+===== `Object`
+===== `Function`
+===== `RegExp`
+===== `JSON`
 
 
 [TIP]
