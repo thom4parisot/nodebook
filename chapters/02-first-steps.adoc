@@ -1,6 +1,6 @@
 :nodeVersion: v0.10
 :nodeNextVersion: v0.12
-:imageFolder: 02-first-steps
+:imagePath: 02-first-steps
 :revisionYear: 2014
 
 == [ChapitreNumero]#2# Premiers pas avec Node.js
@@ -27,7 +27,7 @@ Si vous n'utilisez pas encore de terminal, voici une liste de recommandation non
 - *Windows* : PowerShell, Console.
 
 .Terminal iTerm2 sous OS X.
-image::{imageFolder}/terminal.png[align="center"]
+image::{imagePath}/terminal.png[align="center"]
 
 Enfin, tous les exemples de ce chapitre sont relatifs à la *branche {nodeVersion} de Node*. +
 Il se peut qu'une nouvelle branche stable soit sortie depuis l'édition de cet ouvrage, par exemple la {nodeNextVersion}.
@@ -168,7 +168,7 @@ Dans les deux cas, leur installation est très simple.
 Certaines situations exigeront que vous compiliez Node.
 Ce sera le cas si vous cherchez à tirer parti au maximum des instructions de votre CPU ou si aucun binaire n'est disponible pour votre plate-forme.
 
-La compilation manuelle requiert la présence de _GCC_ 4.2+, de _Python_ 2.6+ et de *GNU Make* 3.81+. +
+La compilation manuelle requiert la présence de _GCC_ 4.2+, de _Python_ 2.6+ et de _GNU Make_ 3.81+. +
 La procédure de compilation ressemble fortement à ceci :
 
 .Étapes de compilation de Node
