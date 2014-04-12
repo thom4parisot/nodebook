@@ -41,16 +41,16 @@ _Rhino_ était un des projets liés à la réécriture de _Netscape Navigator_ e
 D'autres initiatives plus récentes comme http://ape-project.org/[APE (Ajax Push Engine)] ont mis en œuvre JavaScript côté serveur. JavaScript était surtout un choix logique de partage de code entre client et serveur pour Comet, le précurseur des Websockets.
 
 [TIP]
-====
 .[RemarquePreTitre]#Glossaire# Comet
+====
 _Comet_ est un terme regroupant les différentes tentatives techniques permettant à un serveur Web d'envoyer des données à un client sans que celui-ci ne les aie demandées initialement.
 
 Parmi ces techniques, on retrouve le _long polling_, consistant à conserver une connexion Ajax ouverte pendant la durée de vie d'une page Web.
 ====
 
 [TIP]
-====
 .[RemarquePreTitre]#Glossaire# Websockets
+====
 _Websockets_ est un protocole basé sur TCP.
 
 Il permet de maintenir une connexion HTTP active entre un client et un serveur et d'y faire transiter les données de manière bidirectionnelle.
@@ -60,8 +60,8 @@ _HTTP 2.0_ a initié par Google en tant que protocole _SPDY_ (prononcer _speedy_
 ====
 
 [TIP]
-====
 .Cas d'utilisation modernes de _Rhino_.
+====
 Rhino est toujours utile dès qu'un projet Java implique du JavaScript.
 
 Google l'utilise comme environnement d'exécution de ses http://googleappsdeveloper.blogspot.com/2012/11/using-open-source-libraries-in-apps.html[Google Apps Scripts].
@@ -104,8 +104,8 @@ Ce système remplace la sensation de page figée par une… *barre de progressio
 image::http://farm6.staticflickr.com/5117/7112862941_3b8c8e9916_o_d.png[align="center", link="https://www.flickr.com/photos/schill/7112862941/"]
 
 [TIP]
-====
 .[RemarquePreTitre]#Lien# Annonce du nouveau Flickr Uploadr
+====
 L'équipe d'ingénierie de Flickr explique comment elle a contourné le problème de l'upload via formulaire classique ; problème qui gelait la fenêtre du navigateur pendant la durée du  téléversement.
 
 - http://wp.me/p2DMyG-ok
@@ -133,8 +133,8 @@ Ils pressentent que la plate-forme Node répond à leurs projets de _datacenter_
 Pour une simple affaire de _barre de progression_ et une obsession de _perception de rapidité_.
 
 [TIP]
-====
 .[RemarquePreTitre]#Vidéo# _History of Node.js_
+====
 La vidéo suivante est une vidéoconférence donnée par Ryan Dahl, le créateur de Node, au cours de l'année 2011.
 C'est la première fois qu'il intervient pour expliquer son parcours et la genèse du projet.
 
@@ -239,8 +239,8 @@ Elle se spécialise dans les solutions dites temps réel pour les réseaux socia
 En avril 2011, Joyent dépose _Node.js_ et son logo en tant que marque.
 
 [TIP]
-====
 .[RemarquePreTitre]#Lien# Annonce du dépôt de marque
+====
 Ryan Dahl, alors développeur actif de Node, annonce le dépôt de marque par l'entreprise Joyent sur le blog officiel du projet Node.
 
 - http://blog.nodejs.org/2011/04/29/trademark/
@@ -266,8 +266,8 @@ _npm, Inc_ est une entreprise privée américaine fondée en janvier 2014 par Is
 La société détient la marque _npm_, _npm, Inc_ et le _logo npm_.
 
 [TIP]
-====
 .[RemarquePreTitre]#Lien# Annonce de l'inclusion de _npm_ dans Node
+====
 _npm_ est installé par défaut avec Node depuis la version 0.6.3, sortie en novembre 2011.
 Auparavant il fallait installer le module _npm_ séparément.
 
@@ -285,8 +285,8 @@ L'entreprise a également en charge l'hébergement de la base de données du reg
 En 2013, _Nodejitsu_ lance l'initiative _#scalenpm_ visant à collecter des fonds pour améliorer la performance et la stabilité du registre https://www.npmjs.org/[npmjs.org].
 
 [TIP]
-====
 .[RemarquePreTitre]#Lien# _#scalenpm_
+====
 L'initiative _#scalenpm_ a réuni quelques 326 000 $ auprès d'entreprises privées et de la communauté Node.
 
 Son effort se poursuit dans le but de fournir une meilleure instrumentation et une architecture résistant à la montée en puissance de l'utilisation des modules _npm_.
@@ -309,9 +309,8 @@ Le projet met un point d'honneur à impliquer la communauté Node dans la gestio
 Cela concerne aussi bien la déclaration des vulnérabilités que leur résolution ou l'éducation à la sécurité des développeurs.
 
 [TIP]
-====
 .[RemarquePreTitre]#Module npm# retire.js
-
+====
 _retire.js_ est un module npm permettant de scanner soi-même des vulnérabilités connues dans le code JavaScript de son choix.
 Il fonctionne aussi bien pour du JavaScript interprété par un navigateur web que dans Node.
 
@@ -427,8 +426,8 @@ L'essentiel est d'en retenir que Node se base sur ce mécanisme de chargement de
 *Et ces modules sont une des force principale de Node*.
 
 [TIP]
-====
 .[RemarquePreTitre]#Lien# Site officiel CommonJS
+====
 Le site officiel de CommonJS documente différentes spécifications vouées à promouvoir l'interopérabilité et la réutilisabilité de JavaScript sur divers environnement d'exécution. 
 
 - http://www.commonjs.org/
@@ -450,7 +449,6 @@ var now = new Date();
 console.log(now.toString());
 ----
 
-[source,bash]
 ----
 node print-date.js
 -> Fri Apr 04 2014 20:26:46 GMT+0100 (BST)
@@ -467,8 +465,8 @@ J'ai pas dis de bêtise ci-dessus ?
 ====
 
 [TIP]
-====
 .[RemarquePreTitre]#Lien# Code Source de Node
+====
 Le code source de Node est disponible sur GitHub.
 Le parcourir permet de mieux comprendre la magie de son fonctionnement… ou d'avoir subitement mal à la tête !
 
@@ -487,8 +485,8 @@ Par ricochet, les progrès de V8 impactent directement Node.
 Cela concerne aussi bien la prise en charge des nouveautés d'ECMAScript (version 6, version 7) mais aussi des options et fonctionnalités expérimentales activables à la demande.
 
 [TIP]
-====
 .[RemarquePreTitre]#Lien# Node et ECMAScript 6
+====
 Ce site référence l'état de l'implémentation d'ECMAScript 6 sur différentes plateformes, dont Node. +
 _harmony_ fait référence au module V8 introduisant les fonctionnalités expérimentales d'ECMAScript 6 (voir Chapitre 2 : Premiers pas avec Node).
 
@@ -497,8 +495,8 @@ _harmony_ fait référence au module V8 introduisant les fonctionnalités expér
 ====
 
 [TIP]
-====
 .[RemarquePreTitre]#Lien# Google V8
+====
 Google propose une documentation en ligne du projet V8.
 Cette documentation est accompagnée d'un guide pour intégrer V8 dans d'autres programmes C++.
 
@@ -518,8 +516,8 @@ _libuv_ implémente notamment la fameuse boucle événementielle (voir ci-après
 JavaScript n'y est pour rien, si ce n'est à travers la puissance de la machine virtuelle V8.
 
 [TIP]
-====
 .[RemarquePreTitre]#Lien# Code source de _libuv_
+====
 Le code source de _libuv_ est disponible sur GitHub. Le parcourir permet de mieux comprendre les adaptations à chaque système d'exploitation, par exemple.
 
 - https://github.com/joyent/libuv
@@ -582,8 +580,8 @@ Très certainement des choses un peu hardcores à vérifier (qui me paraissent n
 ====
 
 [TIP]
-====
 .[RemarquePreTitre]#Trivia# JavaScript n'est pas événementiel
+====
 Contrairement à la croyance populaire, *JavaScript n'a pas de gestion native des événements*.
 
 Ce que propose nativement JavaScript, c'est la facilité de créer des fonctions et d'encapsuler des contextes via le mécanisme de clôture (_closure_).
@@ -636,8 +634,8 @@ Sur le plan interne, Node indique une indice de stabilité pour chacune de ses A
 Ce mécanisme aide au choix des composants pour bâtir des applications robustes ainsi qu'une estimation de l'effort de maintenance en cas de changement majeur à venir.
 
 [TIP]
-====
 .[RemarquePreTitre]#Lien# Documentation de l'API Node
+====
 La documentation de l'API Node est disponible au format HTML sur le site officiel du projet.
 
 - http://nodejs.org/api/
@@ -674,8 +672,8 @@ Ce mécanisme relativement simple associé à la gestion de dépendances du prog
 Nous verrons ultérieurement comment _effectivement_ gérer des dépendances _npm_ au sein d'un projet.
 
 [TIP]
-=====
 .[RemarquePreTitre]#Lien# semver
+=====
 La spécification _semver_ est disponible sous forme textuelle mais également en tant que module npm.
 
 - http://semver.org/lang/fr/
