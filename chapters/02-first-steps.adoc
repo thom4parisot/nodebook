@@ -467,16 +467,17 @@ parseInt(10.0101, 10); <3>
 
 ===== Date
 
-L'opérateur `typeof` permet d'identifier une date :
+L'opérateur `typeof` ne permet pas d'identifier une date. Il convient d'utiliser `instanceof` :
 
 [source,javascript]
 ----
 typeof (new Date('2014-03-24')); <1>
-typeof (new Date('2014-03-24 13:37')); <1>
-typeof Date.parse('2014-03-24 13:37'); <2>
+(new Date('2014-03-24 13:37')) instanceof Date; <2>
+typeof Date.parse('2014-03-24 13:37'); <3>
 ----
-<1> Retourne `'date'` ;
-<2> Retourne `'number'`, car il s'agit d'une date exprimée en millisecondes depuis le 1er janvier 1970 (temps _EPOCH_).
+<1> Retourne `'object'` ;
+<2> Retourne `true` ;
+<3> Retourne `'number'`, car il s'agit d'une date exprimée en millisecondes depuis le 1er janvier 1970 (temps _EPOCH_).
 
 Il également possible d'obtenir la date actuelle exprimée en millisecondes avec `Date.now` :
 
@@ -612,7 +613,7 @@ Cela affecte les fonctions itératives et peut se révéler problématique si vo
 
 [code,javascript]
 ----
-var a = [1,,3, undefined, null];
+var a = [1,, 3, undefined, null];
 var print = function(value){ console.log(value); };
 
 a.length; <1>
@@ -623,6 +624,10 @@ a.forEach(print); <2>
 ====
 
 ===== Object
+
+L'opérateur `typeof` permet d'identifier un objet. Le problème est que cet opérateur englobe davantage de types qu'espéré : dates, tableaux et expressions régulières, entre autre.
+
+L'idéal est encore de respecter le contract
 
 [source,javascript]
 ----
