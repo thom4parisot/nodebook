@@ -333,7 +333,7 @@ Un des conforts apporté par l'utilisation d'ECMAScript dans Node est qu'il n'y 
 
 Ce résumé des primitives et fonctionnalités principales d'_{es}_ a pour but de vous apprendre ou rappeler la syntaxe à disposition pour écrire des programmes pour Node.
 
-===== `String`
+===== String
 
 Chaque élément d'une chaîne de caractère est encodé au format UTF-16 et peut donc contenir 16 bits de données.
 
@@ -351,7 +351,7 @@ On peut connaître la longueur d'une chaîne via son attribut `length`.
 ----
 'I ♥ JavaScript'.length; <1>
 ----
-<2> Retourne `14`.
+<1> Retourne `14`.
 
 On peut nettoyer les espaces englobant une chaîne avec la méthode `trim` :
 
@@ -395,9 +395,9 @@ On peut remplacer les occurrences correspondantes à un masque de caractères vi
 }); <2>
 ----
 <1> Retourne `'I love JavaScript'` ;
-<1> Retourne `'i ♥ javascript'`.
+<2> Retourne `'i ♥ javascript'`.
 
-===== `Number`
+===== Number
 
 Flottants 64 bits
 
@@ -465,68 +465,164 @@ parseInt(10.0101, 10); <3>
 <2> Retourne `'10'` ;
 <3> Retourne `10`.
 
-===== `Date`
+===== Date
 
-
-[source,javascript]
-----
-typeof (new Date())
-----
+L'opérateur `typeof` permet d'identifier une date :
 
 [source,javascript]
 ----
-Date.now
+typeof (new Date('2014-03-24')); <1>
+typeof (new Date('2014-03-24 13:37')); <1>
+typeof Date.parse('2014-03-24 13:37'); <2>
 ----
+<1> Retourne `'date'` ;
+<2> Retourne `'number'`, car il s'agit d'une date exprimée en millisecondes depuis le 1er janvier 1970 (temps _EPOCH_).
+
+Il également possible d'obtenir la date actuelle exprimée en millisecondes avec `Date.now` :
 
 [source,javascript]
 ----
-Date.format
+Date.parse(new Date()); <1>
+Date.now(); <2>
 ----
+<1> Retourne `1397381941000` ;
+<2> Retourne `1397381941031`, équivalent à la syntaxe précédente donc, la précision à la milliseconde près en plus.
 
-===== `Array`
 
-[source,javascript]
-----
-Array.length
-----
+===== Array
 
-[source,javascript]
-----
-Array.isArray
-----
+L'opérateur `typeof` ne permet pas d'identifier un tableau. Il faut pour cela privilégier la méthode `isArray` :
 
 [source,javascript]
 ----
-Array.join
+typeof []; <1>
+Array.isArray([]); <2>
 ----
+<1> Retourne `'object'` ;
+<2> Retourne `true`.
+
+Il est possible de connaître la longueur d'un tableau en utilisant la propriété `length` :
 
 [source,javascript]
 ----
-Array.map
+[1, 2, 3].length; <1>
 ----
+<1> Retourne `3` ;
+
+La méthode `join` permet de concaténer tous les éléments d'un tableau avec le séparateur de votre choix :
 
 [source,javascript]
 ----
-Array.some
-Array.every
+[1, 2, 3].join(', ')+'… soleil'; <1>
 ----
+<1> Retourne `'1, 2, 3… soleil'`.
+
+À l'inverse, la méthode `concat` permet de concaténer d'autres éléments dans le tableau courant :
 
 [source,javascript]
 ----
-Array.filter
+[1, 2].concat(3); <1>
+[1, 2].concat([3, 4]); <2>
+[1, 2].concat([3, 4], [5, 6]); <3>
 ----
+<1> Retourne `[1, 2, 3]` ;
+<2> Retourne `[1, 2, 3, 4]` ;
+<3> Retourne `[1, 2, 3, 4, 5, 6]`.
+
+La fonction de tri via la méthode `sort` se base sur des comparaisons positives, négatives ou neutres pour retourner un nouveau tableau, réindexé :
 
 [source,javascript]
 ----
-Array.sort
+[1, 3, 2].sort(function ascSort(a, b){
+  return a - b;
+}); <1>
+
+[1, 3, 2].sort(function descSort(a, b){
+  return b - a;
+}); <2>
+
+['A', 'b', 'c', 'a'].sort(function ascSort(a, b){
+  return (a < b) ? -1 : ((a > b) ? 1 : 0); 
+});
 ----
+<1> Retourne `[1, 2, 3]` ;
+<2> Retourne `[3, 2, 1]` ;
+<1> Retourne `['a', 'A', 'b', 'c']`.
+
+Les méthodes suivantes sont des nouveautés d'ECMAScript 5.
+Elles facilitent énormément les itérations sur les tableaux tout en ajoutant une orientation fonctionnelle pas désagréable du tout.
+
+La méthode `map` permet de retourner un nouveau tableau avec des valeurs modifiées :
 
 [source,javascript]
 ----
-Array.reduce
+['a', ' B', 'c '].map(function(value){
+  return value.trim().toUpperCase();
+}); <1>
 ----
+<1> Retourne `['A', 'B', 'C']`.
 
-===== `Object`
+La méthode `filter` quant à elle retourne un nouveau tableau ne contenant que les éléments retournant une _valeur positive_ :
+
+[source,javascript]
+----
+var values = [1, 'a', 120, undefined, 4];
+values.filter(function smallerThanTen(value){
+  return value < 10;
+}); <1>
+----
+<1> Retourne `[1, 4]`.
+
+De manière similaire, les méthodes `some` et `every` retournent un booléen si _au moins une itération_ et _toutes les itérations_ ont renvoyé une _valeur positive_ :
+
+[source,javascript]
+----
+var values = [1, 'a', 120, undefined, 4];
+var isUndefined = function(value){
+  return value === undefined;
+};
+
+values.some(isUndefined); <1>
+values.every(isUndefined); <2>
+[undefined, undefined].every(isUndefined); <3>
+----
+<1> Renvoie `true` puisqu'au moins une valeur équivaut à `undefined` ;
+<2> Renvoie `false` puisque toutes les valeurs n'équivalent pas à `undefined` ;
+<3> Renvoie `true` puisque toutes les valeurs sont égales à `undefined`.
+
+La méthode `reduce` a un comportement similaire à `sort` mais fonctionne de manière accumulative :
+
+[source,javascript]
+----
+var pairs = [[1, 2], [3, 4], [5, 6]];
+
+pairs.reduce(function sumItAll(left, right){
+  return left + right[0] + right[1];
+}, 0); <1>
+----
+<1> Retourne `21`.
+
+[TIP]
+.[RemarquePreTitre]#FAQ# Tableau non contigü.
+====
+Il se peut que des valeurs soient manquantes dans un tableau.
+On dit alors que les valeurs ne sont pas contigües.
+
+Cela affecte les fonctions itératives et peut se révéler problématique si vous cherchez à conserver cette absence de valeurs :
+
+[code,javascript]
+----
+var a = [1,,3, undefined, null];
+var print = function(value){ console.log(value); };
+
+a.length; <1>
+a.forEach(print); <2>
+----
+<1> Retourne `5` ;
+<2> Affiche 4 valeurs : `1`, `3`, `undefined` puis `null`.
+====
+
+===== Object
 
 [source,javascript]
 ----
@@ -555,7 +651,7 @@ Object.prototype.toString
 in vs hasOwnProperty
 ----
 
-===== `Function`
+===== Function
 
 
 [source,javascript]
@@ -575,11 +671,11 @@ Function.call
 Function.apply
 ----
 
-===== `RegExp`
+===== RegExp
 
 
 
-===== `JSON`
+===== JSON
 
 
 [source,javascript]
