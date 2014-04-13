@@ -108,14 +108,12 @@ Toutefois si vous utilisez déjà un gestionnaire de paquet, voici quelques reco
 - *scoop.sh* : `scoop install nodejs`
 - *Chocolatey* : `cinst nodejs.install`
 
-Une fois cette étape franchie, vous pouvez opter pour une alternative à _Node Version Manager_ (voir encadrés ci-après).
-
 ===== Raspberry Pi
 
 Node a effectué des changements dans son architecture dans sa version 0.8.
-Ces changements ont permis d'éviter la compilation systématique sur des architectures processeur type ARM.
+Ces changements ont permis d'éviter la compilation systématique sur des architectures processeur autre que l'Intel x86.
 
-Des binaires et installateurs sont de ce fait disponibles pour Raspberry Pi, et très probablement pour d'autres plates-formes de ce type.
+Des binaires et installateurs sont de ce fait disponibles pour Raspberry Pi, à base de processeur _ARM_, et très probablement pour d'autres plates-formes de ce genre.
 
 Des binaires et instructions sont disponibles à cette adresse [URL]#https://gist.github.com/adammw/3245130#. +
 Un paquet `deb` est également proposé pour les utilisateurs du système d'exploitation _Raspbian_.
@@ -392,8 +390,8 @@ On peut remplacer les occurrences correspondantes à un masque de caractères vi
 [source,javascript]
 ----
 'I ♥ JavaScript'.replace('♥', 'love'); <1>
-'I ♥ JavaScript'.replace(/[A-Z]/g, function(match){
-  return match.toLowerCase();
+'I ♥ JavaScript'.replace(/[A-Z]/g, function(char){
+  return char.toLowerCase();
 }); <2>
 ----
 <1> Retourne `'I love JavaScript'` ;
