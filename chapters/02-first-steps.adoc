@@ -401,42 +401,69 @@ On peut remplacer les occurrences correspondantes à un masque de caractères vi
 
 Flottants 64 bits
 
-[source,javascript]
-----
-Number.length
-----
+L'opérateur `typeof` permet d'identifier un nombre :
 
 [source,javascript]
 ----
-1 + 1
-'1' + 1
-1 + '1'
-undefined + 1
+typeof 42; <1>
+typeof 13.37; <1>
+typeof NaN; <2>
 ----
+<1> Retourne `'Number'` ;
+<2> Retourne également `'Number'`, ce qui est souvent source de confusion.
+
+On peut effectuer des opérations mathématiques grâce aux opérateurs `+` (addition), `-` (soustraction), `*` (multiplication), `/` (division) et `%` (modulo).
+
+L'exception dont il faut se méfier est l'addition, car le signe `+` est également l'opérateur de concaténation de chaîne. +
+Dès qu'une chaîne est détectée, l'opération d'addition est remplacée par une concaténation.
 
 [source,javascript]
 ----
-parseInt
-parseFloat
+1 + 2; <1>
+'1' + 2; <2>
+1 + '2'; <2>
+undefined + 2; <3>
 ----
+<1> Retourne `3` ;
+<2> Retourne `'12'` ;
+<3> Retourne `NaN`.
+
+Les fonctions `parseInt` et `parseFloat` permettent de respectivement de convertir en nombre entier et nombre flottant :
 
 [source,javascript]
 ----
-Number.POSITIVE_INFINITY
-Number.NEGATIVE_INFINITY
-Number.MIN_VALUE
-Number.MAX_VALUE
+typeof 2.10 === 'number';
+typeof '2.10' === 'string';
+
+parseInt('2.10', 10); <1>
+parseFloat('2.10', 10); <2>
 ----
+<1> Retourne `2` ;
+<2> Retourne `2.10`.
+
+La méthode `isNaN` permet d'être sûr de ne pas manipuler un nombre indésirable :
 
 [source,javascript]
 ----
-Number.isNaN
+Number.isNaN(undefined + 1); <1>
+Number.isNaN(2.10); <2>
+Number.isNaN(undefined); <2>
 ----
+<1> Retourne `true` ;
+<2> Retourne `false`.
+
+Il également possible de choisir le nombre de nombres après la virgules avec la méthode `toFixed`. +
+Attention toutefois, la valeur retournée est de type `String` :
 
 [source,javascript]
 ----
-Number.toFixed
+10.0101.toFixed(2); <1>
+10.0101.toFixed(0); <2>
+parseInt(10.0101, 10); <3>
 ----
+<1> Retourne `'10.01'` ;
+<2> Retourne `'10'` ;
+<3> Retourne `10`.
 
 ===== `Date`
 
