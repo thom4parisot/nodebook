@@ -135,7 +135,7 @@ _nvm_ est l'équivalent de _rvm_ dans le monde Ruby, de _phpenv_ dans le monde P
 ----
 curl https://raw.github.com/creationix/nvm/v0.4.0/install.sh | sh
 nvm install 0.10
-nvm alias default 0.10	 <1>
+nvm alias default 0.10   <1>
 ----
 <1> La version par défaut est désormais la dernière version stable de Node {nodeVersion}.
 
@@ -278,7 +278,7 @@ Mais contrairement à Ruby, Python ou PHP dont le numéro de version annonce les
 Il faut se tourner du côté de _V8_ pour savoir ce que la machine virtuelle est capable de comprendre.
 Et comme chaque version de Node est associée à une version spécifique de _V8_, il suffit d'aller regarder les notes de version de V8 pour l'apprendre.
 
-De manière générale, _V8_ implémente les spécification	s approuvées ou en passe d'être approuvées par le comité gérant l'évolution du langage JavaScript : le *TC39*.
+De manière générale, _V8_ implémente les spécifications approuvées ou en passe d'être approuvées par le comité gérant l'évolution du langage JavaScript : le *TC39*.
 
 Enfin si vous n'avez pas envie de retourner la moitié du Web pour savoir si _V8_, donc Node, supporte telle ou telle fonctionnalité, partez du principe que *le JavaScript supporté par Chrome ou Opera correspond au JavaScript supporté par Node*.
 
@@ -600,8 +600,15 @@ var pairs = [[1, 2], [3, 4], [5, 6]];
 pairs.reduce(function sumItAll(left, right){
   return left + right[0] + right[1];
 }, 0); <1>
+
+pairs.reduce(function pairSum(left, right){
+  left[0] += right[0];
+  left[1] += right[1];
+  return left;
+}, [0, 0]); <2>
 ----
-<1> Retourne `21`.
+<1> Retourne `21` ;
+<2> Retourne `[9, 12]` ;
 
 [TIP]
 .[RemarquePreTitre]#FAQ# Tableau non contigü.
@@ -627,34 +634,110 @@ a.forEach(print); <2>
 
 L'opérateur `typeof` permet d'identifier un objet. Le problème est que cet opérateur englobe davantage de types qu'espéré : dates, tableaux et expressions régulières, entre autre.
 
-L'idéal est encore de respecter le contract
+L'idéal est encore d'utiliser l'opérateur `instanceof` ou la méthode `getPrototypeOf` pour valider le prototype à l'origine de la création de l'objet :
 
 [source,javascript]
 ----
-Object.defineProperty
-----
+var Book = function Book(title){
+  this.title = title;
+};
 
+var nodeBook = new Book('Node.js');
+typeof nodeBook; <1>
+nodeBook instanceof Book; <2>
+Object.getPrototypeOf(nodeBook) === Book.prototype; <2>
+----
+<1> Retourne `object` ;
+<2> Retourne `true`.
 
-[source,javascript]
-----
-Object.prototype
-----
-
-
-[source,javascript]
-----
-Object.keys
-----
-
-[source,javascript]
-----
-Object.prototype.toString
-----
+La méthode `defineProperty` permet de définir des comportements simples ou avancés sur n'importe quel type d'objet, y compris les prototypes :
 
 [source,javascript]
 ----
-in vs hasOwnProperty
+var Book = function Book(title){
+  this.title = title;
+  this.GS1;
+  this.ISBN;
+}
+
+Object.defineProperty(Book.prototype, 'EAN13', {
+  get: function(){
+    return this.GS1 + '-' + this.ISBN;
+  },
+  set: function(EAN13){
+    EAN13 = EAN13.split('-');
+    this.GS1 = EAN13[0];
+    this.ISBN = EAN13[1];
+  }
+});
+
+var cssBook = new Book('CSS maintenables');
+cssBook.EAN13 = '978-2212136401';
+
+cssBook.GS1; <1>
+cssBook.ISBN; <2>
+cssBook.EAN13; <3>
 ----
+<1> Retourne `'978'`;
+<2> Retourne `'2212136401'` ;
+<3> Retourne `'978-2212136401'`.
+
+ECMAScript 5 permet de définir directement ces propriétés dans la déclaration du `prototype` :
+
+[source,javascript]
+----
+var Book = function Book(title){
+  this.title = title;
+  this.GS1;
+  this.ISBN;
+}
+
+Book.prototype = {
+  get EAN13(){
+    return this.GS1 + '-' + this.ISBN;
+  },
+  set EAN13(value){
+    value = value.split('-');
+    this.GS1 = value[0];
+    this.ISBN = value[1];
+  }
+};
+----
+
+Il est également plus facile d'itérer sur un objet grâce à la fonction `Object.keys` :
+
+[source,javascript]
+----
+var company = {
+  name: 'Eyrolles',
+  address: '55, 57, 61 et 63 boulevard Saint-Germain, 75005, Paris, FRANCE',
+  twitter: '@Eyrolles'
+};
+
+Object.keys(company); <1>
+Object.keys(company).forEach(function(key){
+  console.log(company[key]); <2>
+});
+----
+<1> Retourne `['name', 'address', 'twitter']` ;
+<2> Affiche successivement les _valeurs associées_ aux clés `name`, `address` puis `twitter`.
+
+Il également possible de surcharger la méthode `toString` d'un objet pour contrôler la conversion de l'objet en chaîne de caractère. +
+En reprenant l'exemple précédent :
+
+[source,javascript]
+----
+String(company); <1>
+
+company.toString = function(){
+  return this.name;
+};
+
+String(company); <2>
+----
+<1> Retourne `[object Object]` ;
+<2> Retourne désormais la valeur de la propriété `name`, ici `'Eyrolles'`.
+
 
 ===== Function
 
