@@ -49,7 +49,7 @@ build: build.odt patch
 build.odt: build.asciidoc build.pandoc
 
 build.asciidoc:
-	asciidoc -b ${ASCIIDOC_BACKEND} -f src/eyrolles.conf -d book chapters/00-book.adoc
+	asciidoc -b ${ASCIIDOC_BACKEND} -a imagesdir=chapters -f src/eyrolles.conf -d book chapters/00-book.adoc
 
 build.pandoc:
 	pandoc -f ${PANDOC_BACKEND} --template src/template.xml chapters/00-book.${EXTENSION} -S --reference-odt=src/eyrolles.odt -o book-${PANDOC_BACKEND}.odt

@@ -63,6 +63,8 @@ module.exports = {
 
     parser._parser.ENTITIES['amp'] = '&amp;';
     parser._parser.ENTITIES['apos'] = '&apos;';
+    parser._parser.ENTITIES['gt'] = '&gt;';
+    parser._parser.ENTITIES['lt'] = '&lt;';
 
     var outStream = through();
     var write = writeToStream.bind(null, outStream);
