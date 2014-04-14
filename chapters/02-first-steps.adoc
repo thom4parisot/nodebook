@@ -29,7 +29,7 @@ Si vous n'utilisez pas encore de terminal, voici une liste de recommandation non
 - *Windows* : PowerShell, Console.
 
 .Terminal iTerm2 sous OS X.
-image::{imagePath}/terminal.png[align="center"]
+image::{imagePath}/terminal.png[align="center",scaledwidth="85%"]
 
 Enfin, tous les exemples de ce chapitre sont relatifs à la *branche {nodeVersion} de Node*. +
 Il se peut qu'une nouvelle branche stable soit sortie depuis l'édition de cet ouvrage, par exemple la {nodeNextVersion}.
@@ -210,7 +210,7 @@ Le téléchargement du logiciel inclut une période d'essai de 30 jours.
 - http://www.jetbrains.com/webstorm/
 ====
 
-image::{imagePath}/webstorm.png[align="center"]
+image::{imagePath}/webstorm.png[align="center",scaledwidth="85%"]
 
 [TIP]
 .[RemarquePreTitre]#Astuce# Licence open source.
@@ -544,11 +544,11 @@ La fonction de tri via la méthode `sort` se base sur des comparaisons positives
 
 ['A', 'b', 'c', 'a'].sort(function ascSort(a, b){
   return (a < b) ? -1 : ((a > b) ? 1 : 0); 
-});
+}); <3>
 ----
 <1> Retourne `[1, 2, 3]` ;
 <2> Retourne `[3, 2, 1]` ;
-<1> Retourne `['a', 'A', 'b', 'c']`.
+<3> Retourne `['a', 'A', 'b', 'c']`.
 
 Les méthodes suivantes sont des nouveautés d'ECMAScript 5.
 Elles facilitent énormément les itérations sur les tableaux tout en ajoutant une orientation fonctionnelle pas désagréable du tout.
@@ -618,7 +618,6 @@ On dit alors que les valeurs ne sont pas contigües.
 
 Cela affecte les fonctions itératives et peut se révéler problématique si vous cherchez à conserver cette absence de valeurs :
 
-[code,javascript]
 ----
 var a = [1,, 3, undefined, null];
 var print = function(value){ console.log(value); };
