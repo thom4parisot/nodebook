@@ -17,6 +17,7 @@ xml.node(replaceStyle('First_20_paragraph', 'TexteCourant'));
 xml.node(replaceStyle('Heading_20_1', 'ChapitreTitre'));
 xml.node(replaceStyle('Heading_20_2', 'TitreNiveau1'));
 xml.node(replaceStyle('Heading_20_3', 'TitreNiveau2'));
+xml.node(replaceStyle('Heading_20_4', 'TitreNiveau3'));
 xml.childOf('text:list-item', replaceStyle(/P\d+/, 'ListeAPuce'));
 
 if (!cmd.silent){
