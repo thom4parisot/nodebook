@@ -740,23 +740,78 @@ String(company); <2>
 
 ===== Function
 
+Les fonctions permettent d'isoler des portions de code et de les rendre réutilisables.
+
+L'opérateur `typeof` permet d'identifier une fonction :
 
 [source,javascript]
 ----
-typeof
+typeof Date; <1>
+typeof new Date(); <2>
 ----
+<1> Retourne `'function'` ;
+<2> Retourne `'object'`, car il ne s'agit plus d'une fonction mais d'une nouvelle instance construite par la fonction `Date` (le constructeur).
+
+La méthode `bind` est extrêmement puissante car elle permet de modifier le contexte d'exécution de la dite fonction.
 
 [source,javascript]
 ----
-Function.bind
-----
+var FR = {
+  capitalCity: 'Paris',
+  currency: 'EUR'
+};
 
+var UK = {
+  capitalCity: 'London',
+  currency: 'GBP'
+};
+
+var formatCurrency = function(amount){
+  return amount + ' ' + this.currency;
+};
+
+var priceInEUR = formatCurrency.bind(FR);
+var priceInGBP = formatCurrency.bind(UK);
+
+priceInEUR(100); <1>
+priceInGBP(100); <2>
+----
+<1> Retourne `'100 EUR'` ;
+<2> Retourne `'100 GBP'`.
+
+`bind` est également capable de créer une nouvelle fonction à laquelle vous auriez appliqué partiellement des arguments:
 
 [source,javascript]
 ----
-Function.call
-Function.apply
+var helloSomething = function(text){
+  console.log('Hello ' + text);
+};
+
+var helloWorld = helloSomething.bind(null, 'World');
+var helloParis = helloSomething.bind(null, 'Paris');
+
+helloWorld(); <1>
+helloParis(); <2>
+helloSomething('Paris'); <2>
 ----
+<1> Affiche `'Hello World'` ;
+<2> Affiche `'Hello Paris'`.
+
+Ce procédé est particulièrement utile pour rendre des fonctions génériques et composer des dérivées, notamment dans le cas de pagination.
+
+Les méthodes `call` et `apply` reposent sur le même principe mais à la différente de `bind`, elles exécutent immédiatement la fonction. +
+Le seul élément différenciant correspond à la syntaxe d'application des arguments :
+
+[source,javascript]
+----
+var wrap = function(prefix, suffix, text){
+  return prefix + text + suffix;
+};
+
+wrap.call(null, '<', '>', 'title'); <1>
+wrap.apply(null, ['<', '>', 'title']); <1>
+----
+<1> Retourne `'<title>'`.
 
 ===== RegExp
 
