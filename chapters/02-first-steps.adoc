@@ -631,6 +631,26 @@ a.forEach(print); <2>
 
 ===== Object
 
+Dans ECMAScript, tout est objet. C'est le _prototype_ qui détermine le comportement du dit objet.
+Les objets peuvent être créés de manière littérale, avec la fonction `Object.create` ou via un constructeur.
+
+[source,javascript]
+----
+var litteral = { literally: 'lateral' };
+var litteralCopy = litteral;
+var constructed = new Date();
+var objectCreated = Object.create(litteral);
+
+litteral.literally; <1>
+objectCreated.literally; <2>
+litteral === litteralCopy; <3>
+litteral === objectCreated; <4>
+----
+<1> Retourne `'lateral'` ;
+<2> Retourne également `'lateral'` ;
+<3> Retourne `true`, les deux objets étant la même instance ;
+<4> Retourne `false`, les deux objets étant deux instances différentes.
+
 L'opérateur `typeof` permet d'identifier un objet. Le problème est que cet opérateur englobe davantage de types qu'espéré : dates, tableaux et expressions régulières, entre autre.
 
 L'idéal est encore d'utiliser l'opérateur `instanceof` ou la méthode `getPrototypeOf` pour valider le prototype à l'origine de la création de l'objet :
