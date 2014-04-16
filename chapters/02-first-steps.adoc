@@ -907,17 +907,40 @@ Il faut juste veiller à ce que ce soit un résultat escompté pour éviter tout
 
 ===== JSON
 
+L'introduction du support natif du parsing JSON dans ECMAScript 5 a apporté un grand confort dans la consommation de données issues d'API.
+La sécurité de cette consommation a été améliorée de par sa prise en charge par les développeurs de VM ECMAScript.
+
+La fonction `JSON.parse` tente de convertir une chaîne de texte supposée au format JSON en un objet natif :
 
 [source,javascript]
 ----
-JSON.parse
+var jsonContent = '{ "ECMAScript": 5.1 }';
+
+typeof jsonContent; <1>
+
+var content = JSON.parse(jsonContent);
+content.ECMAScript; <2>
+
+try {
+  JSON.parse('{ "ECMAScript": 5.1');
+}
+catch (err) {
+  console.log(err.message); <3>
+}
 ----
+<1> Retourne `'string'` ;
+<2> Retourne `5.1` ;
+<3> Affiche `Unexpected end of input` car `JSON.parse` a lancé une exception `SyntaxError`.
+
+À l'inverse, la fonction `JSON.stringify` convertit un objet natif en chaîne de caractère au format JSON :
 
 [source,javascript]
 ----
-Object.toString
+JSON.stringify({ ECMAScript: 5.1 }); <1>
+JSON.stringify({ ECMAScript: 5.1 }, null, 2); <2>
 ----
-
+<1> Retourne `'{"ECMAScript":5.1}'` ;
+<2> Retourne `'{\n  "ECMAScript": 5.1\n}'`, le troisième argument formate proprement avec la taille d'indentation spécifiée, exprimée en nombre d'espaces par niveau de profondeur.
 
 [TIP]
 .[RemarquePreTitre]#URL# Spécification ECMAScript
