@@ -953,7 +953,32 @@ Il s'agit d'une mine d'or pour comprendre les mécanismes internes du langage, l
 
 ==== Variables globales dans Node.js
 
-TBD.
+===== console
+
+===== module
+
+===== require
+
+===== process
+
+===== \__filename et __dirname
+
+===== setTimeout, setInterval et setImmediate
+
+===== _
+
+La variable globale `_` est un cas spécial.
+Elle n'est prédéfinie que dans le terminal interactif (_REPL_).
+
+Cette variable _magique_ contient systématiquement la résultat de la dernière évaluation de code.
+
+----
+$ node
+> 2 + 2
+4
+> _ + 2
+6
+----
 
 [TIP]
 .[RemarquePreTitre]#Vidéo# _Introduction to Node.js_
