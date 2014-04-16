@@ -489,7 +489,6 @@ Date.now(); <2>
 <1> Retourne `1397381941000` ;
 <2> Retourne `1397381941031`, équivalent à la syntaxe précédente donc, la précision à la milliseconde près en plus.
 
-
 ===== Array
 
 L'opérateur `typeof` ne permet pas d'identifier un tableau. Il faut pour cela privilégier la méthode `isArray` :
@@ -757,7 +756,6 @@ String(company); <2>
 <1> Retourne `[object Object]` ;
 <2> Retourne désormais la valeur de la propriété `name`, ici `'Eyrolles'`.
 
-
 ===== Function
 
 Les fonctions permettent d'isoler des portions de code et de les rendre réutilisables.
@@ -835,7 +833,77 @@ wrap.apply(null, ['<', '>', 'title']); <1>
 
 ===== RegExp
 
+Les expressions régulières en JavaScript permettent de pratiquer des recherches de motifs simples et complexes au sein de chaînes de caractères.
+Elles sont inspirées de l'implémentation dans Perl 5.
 
+L'opérateur `instanceof` permet d'identifier une instance d'expression régulière :
+
+[source,javascript]
+----
+/Eyroll?es/g instanceof RegExp; <1>
+(new RegExp('Eyroll?es', 'g')) instanceof RegExp; <1>
+----
+<1> Retourne `true`.
+
+La méthode `exec` permet de capturer les occurrences d'une expression régulières au sein d'une chaîne de caractères :
+
+[source,javascript]
+----
+/(.+)(Script)/.exec('ECMAScript'); <1>
+----
+<1> Retourne `['ECMAScript', 'ECMA', 'Script']`.
+
+Plusieurs drapeaux peuvent être utilisés :
+
+- `g` pour chercher dans toute la chaîne, et ne pas s'arrêter à la première occurrence trouvée ;
+- `i` pour ne pas tenir compte de la casse ;
+- `m` pour que les caractères `^` et `$` correspondent respectivement au début et à la fin d'une ligne au lieu du début et de la fin de la chaîne ;
+
+[source,javascript]
+----
+var re;
+var text = ['JavaScript', 'ECMAScript'].join("\n");
+
+re = /^([a-z]+)(Script)/;
+re.exec(text); <1>
+
+re = /^([a-z]+)(Script)/i;
+re.exec(text); <2>
+
+re = /([a-z]+)(Script)$/i;
+re.exec(text); <3>
+
+re = /([a-z]+)(Script)$/im;
+re.exec(text); <4>
+
+re = /^([a-z]+)(Script)$/gim;
+re.exec(text); <5>
+re.exec(text); <6>
+re.exec(text); <7>
+----
+<1> Retourne `null` ;
+<2> Retourne `['JavaScript', 'Java', 'Script']` ;
+<3> Retourne `['ECMAScript', 'ECMA', 'Script']` ;
+<4> Retourne `['JavaScript', 'Java', 'Script']`, puisque `$` correspond à la fin de ligne et non la fin de chaîne ;
+<5> Retourne `['JavaScript', 'Java', 'Script']` ;
+<6> Retourne `['ECMAScript', 'ECMA', 'Script']` puisque le curseur a effectué la recherche après la position de la précédente occurrence ;
+<7> Retourne `null` puisque le curseur a rencontré la fin de la chaîne ;
+
+[CAUTION]
+.[RemarquePreTitre]#Remarque# Gare à la réutilisation de l'objet _RegExp_ !
+====
+Vous l'aurez remarqué avec le drapeau `g`, le comportement de la  méthode `exec` peut renvoyer un résultat différent à chaque appel.
+
+Il faut juste veiller à ce que ce soit un résultat escompté pour éviter tout effet de bord dans vos applications.
+====
+
+À la manière de `exec`, la méthode `test` se contente de renvoyer un booléen si un motif a été trouvé ou non :
+
+[source,javascript]
+----
+/(.+)(Script)/.exec('ECMAScript'); <1>
+----
+<1> Retourne `true`.
 
 ===== JSON
 
