@@ -7,7 +7,7 @@
 
 == [ChapitreNumero]#2# Premiers pas avec Node.js
 
-On aura beau discuter de Node et de son architecture, rien ne vaudra quelques lignes de code pour mesurer ce dont à quoi nous avons affaire.
+On aura beau discuter de Node et de son architecture, rien ne vaut quelques lignes de code pour mesurer ce à quoi nous avons affaire.
 
 Ce chapitre contient tout ce qu'il faut savoir pour installer Node et développer son premier programme avec de bons _design patterns_.
 
@@ -22,7 +22,7 @@ Ce chapitre contient tout ce qu'il faut savoir pour installer Node et développe
 
 Il est fortement recommandé d'utiliser un interpréteur de commandes (terminal ou _shell_). Les systèmes d'exploitation modernes en proposent un, y compris les versions récentes de Windows.
 
-Si vous n'utilisez pas encore de terminal, voici une liste de recommandation non exhaustive pour vous aider :
+Si vous n'utilisez pas encore de terminal, voici une liste de recommandations non exhaustive pour vous aider :
 
 - *OS X* : iTerm2, Terminal.app ;
 - *Linux* : GNOME Shell, Terminator ;
@@ -31,7 +31,7 @@ Si vous n'utilisez pas encore de terminal, voici une liste de recommandation non
 .Terminal iTerm2 sous OS X.
 image::{imagePath}/terminal.png[align="center",scaledwidth="85%"]
 
-Enfin, tous les exemples de ce chapitre sont relatifs à la *branche {nodeVersion} de Node*. +
+Tous les exemples de ce chapitre sont relatifs à la *branche {nodeVersion} de Node*. +
 Il se peut qu'une nouvelle branche stable soit sortie depuis l'édition de cet ouvrage, par exemple la {nodeNextVersion}.
 Il suffit d'adapter les numéros de version adéquats dans les différents exemples. 
 
@@ -193,7 +193,7 @@ Ceci a pour but de vous aider à piocher au plus près de vos goûts, à défaut
 ==== WebStorm
 
 _WebStorm_ est un environnement de développement _(IDE)_ commercialisé par la société _JetBrains_.
-Il est dédié au développement Web, ce qui inclut JavaScript, Node mais aussi CSS et HTML.
+Il est dédié au développement web, ce qui inclut JavaScript, Node, mais aussi CSS et HTML.
 
 _JetBrains_ est une entreprise connue dans d'autres écosystèmes pour ses _IDE_ _Pycharm_ (pour Python) et _IntelliJ IDEA_ (pour Java).
 
@@ -285,12 +285,11 @@ Enfin si vous n'avez pas envie de retourner la moitié du Web pour savoir si _V8
 [TIP]
 .[RemarquePreTitre]#FAQ# JavaScript ou ECMAScript ?
 ====
-On peut lire régulièrement les termes _JavaScript_ et _ECMAScript_ comme s'il s'agissait de la même chose.
-Y compris dans cet ouvrage.
+On peut lire régulièrement les termes _JavaScript_ et _ECMAScript_ comme s'il s'agissait de la même chose, y compris dans cet ouvrage.
 *JavaScript et ECMAScript sont la même chose*.
 
-Historiquement, JavaScript a été inventé en 1995 par Brendan Eich alors qu'il était employé de la société _Netscape Communications_.
-Microsoft suit le pas en incluant JavaScript dans son logiciel Internet Explorer, alors en version 3.
+JavaScript a été inventé en 1995 par Brendan Eich alors qu'il était employé de la société _Netscape Communications_.
+Microsoft lui emboîte le pas en incluant JavaScript dans son logiciel Internet Explorer, alors en version 3.
 Pour des raisons de droits de marque, il y est dénommé _JScript_.
 
 La spécification est ensuite validée par l'organisme _Ecma International_ en juin 1997 sous le nom d'_ECMAScript_, standard ECMA-262.
@@ -321,7 +320,7 @@ Un récapitulatif des fonctionnalités d'{es} est présenté  ci-après.
 _ES6_ est l'abréviation employée pour désigner {esNext}.
 _Harmony_ est un des noms de code donné à cette future version d'ESCMAScript, avant que le numéro 6 ne devienne le numéro de version attribué à cette édition.
 
-Ce site référence l'état de l'implémentation d'{esNext} sur différentes plateformes, dont Node :
+Ce site référence l'état de l'implémentation d'{esNext} sur différentes plates-formes, dont Node :
 
 - http://kangax.github.io/es5-compat-table/es6/#node
 - http://kangax.github.io/es5-compat-table/es6/#nodeharmony
@@ -452,7 +451,7 @@ Number.isNaN(undefined); <2>
 <1> Retourne `true` ;
 <2> Retourne `false`.
 
-Il également possible de choisir le nombre de nombres après la virgules avec la méthode `toFixed`. +
+Il également possible de choisir le nombre de nombres après la virgule avec la méthode `toFixed`. +
 Attention toutefois, la valeur retournée est de type `String` :
 
 [source,javascript]
@@ -631,7 +630,7 @@ a.forEach(print); <2>
 
 ===== Object
 
-Dans ECMAScript, tout est objet. C'est le _prototype_ qui détermine le comportement du dit objet.
+Dans ECMAScript, tout est objet. C'est le _prototype_ qui détermine le comportement dudit objet.
 Les objets peuvent être créés de manière littérale, avec la fonction `Object.create` ou via un constructeur.
 
 [source,javascript]
@@ -651,7 +650,7 @@ litteral === objectCreated; <4>
 <3> Retourne `true`, les deux objets étant la même instance ;
 <4> Retourne `false`, les deux objets étant deux instances différentes.
 
-L'opérateur `typeof` permet d'identifier un objet. Le problème est que cet opérateur englobe davantage de types qu'espéré : dates, tableaux et expressions régulières, entre autre.
+L'opérateur `typeof` permet d'identifier un objet. Le problème est que cet opérateur englobe davantage de types qu'espéré : dates, tableaux et expressions régulières, entre autres.
 
 L'idéal est encore d'utiliser l'opérateur `instanceof` ou la méthode `getPrototypeOf` pour valider le prototype à l'origine de la création de l'objet :
 
@@ -741,7 +740,7 @@ Object.keys(company).forEach(function(key){
 <1> Retourne `['name', 'address', 'twitter']` ;
 <2> Affiche successivement les _valeurs associées_ aux clés `name`, `address` puis `twitter`.
 
-Il également possible de surcharger la méthode `toString` d'un objet pour contrôler la conversion de l'objet en chaîne de caractère. +
+Il est également possible de surcharger la méthode `toString` d'un objet pour contrôler la conversion de l'objet en chaîne de caractères. +
 En reprenant l'exemple précédent :
 
 [source,javascript]
@@ -772,7 +771,7 @@ typeof new Date(); <2>
 <1> Retourne `'function'` ;
 <2> Retourne `'object'`, car il ne s'agit plus d'une fonction mais d'une nouvelle instance construite par la fonction `Date` (le constructeur).
 
-La méthode `bind` est extrêmement puissante car elle permet de modifier le contexte d'exécution de la dite fonction.
+La méthode `bind` est extrêmement puissante car elle permet de modifier le contexte d'exécution de ladite fonction.
 
 [source,javascript]
 ----
@@ -799,7 +798,7 @@ priceInGBP(100); <2>
 <1> Retourne `'100 EUR'` ;
 <2> Retourne `'100 GBP'`.
 
-`bind` est également capable de créer une nouvelle fonction à laquelle vous auriez appliqué partiellement des arguments:
+`bind` est également capable de créer une nouvelle fonction à laquelle vous auriez appliqué partiellement des arguments :
 
 [source,javascript]
 ----
