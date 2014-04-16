@@ -17,13 +17,13 @@ Dans ce chapitre, nous allons faire le point sur ce qu'est Node.js pour mieux co
 
 Node.js est-il un langage de programmation ?
 Node.js est-il un _framework_ JavaScript ?
-Qu'en restera-t-il une fois que la frénésie retombera ?
+Qu'en restera-t-il une fois la frénésie retombée ?
 
 Ce chapitre n'est pas essentiel à l'apprentissage de Node.js.
 Il permet de comprendre pourquoi et comment Node a émergé.
-Surtout, il vous permettra de comprendre des choix techniques à l'origine des fondations de Node, et en quoi l'utiliser peut vous apporter en contexte personnel ou professionnel.
+Surtout, il vous permettra de comprendre les choix techniques à l'origine des fondations de Node, et ce que l'utiliser peut vous apporter, que ce soit dans un contexte personnel ou professionnel.
 
-Qu'on se le dise : *un langage de programmation en lui-même n'a jamais solutionné quelconque problème*.
+Qu'on se le dise : *un langage de programmation en lui-même n'a jamais résolu quelconque problème*.
 Cela reste avant tout une affaire de compétences et d'expérience.
 
 
@@ -34,19 +34,19 @@ La différence entre ces trois désignations peut sembler subtile, futile voire 
 
 *Exécuter du JavaScript côté serveur n'est pas non plus une révolution*.
 
-L'entreprise _Netscape_ s'y est déjà essayé au début des années 1990 avec _Netscape Enterprise Server_, juste après l'avoir introduit dans son navigateur Web _Netscape Navigator_.
+L'entreprise _Netscape_ s'y est déjà essayée au début des années 1990 avec _Netscape Enterprise Server_, juste après l'avoir introduit dans son navigateur Web _Netscape Navigator_.
 
 En 1997, _Netscape_ s'est attelée à créer https://www.mozilla.org/rhino/[Rhino], une implémentation de JavaScript en Java disponible sous licence libre.
-_Rhino_ était un des projets liés à la réécriture de _Netscape Navigator_ en Java. Si _Netscape_ a depuis fermé ses portes, _Rhino_ a permis l'émergence de projets utiles aux développeurs Web.
+_Rhino_ était un des projets liés à la réécriture de _Netscape Navigator_ en Java. Si _Netscape_ a depuis fermé ses portes, _Rhino_ a permis l'émergence de projets utiles aux développeurs web.
 
 D'autres initiatives plus récentes comme http://ape-project.org/[APE (Ajax Push Engine)] ont mis en œuvre JavaScript côté serveur. JavaScript était surtout un choix logique de partage de code entre client et serveur pour Comet, le précurseur des Websockets.
 
 [TIP]
 .[RemarquePreTitre]#Glossaire# Comet
 ====
-_Comet_ est un terme regroupant les différentes tentatives techniques permettant à un serveur Web d'envoyer des données à un client sans que celui-ci ne les aie demandées initialement.
+_Comet_ est un terme regroupant les différentes tentatives techniques permettant à un serveur web d'envoyer des données à un client sans que celui-ci ne les ait demandées initialement.
 
-Parmi ces techniques, on retrouve le _long polling_, consistant à conserver une connexion Ajax ouverte pendant la durée de vie d'une page Web.
+Parmi ces techniques, on retrouve le _long polling_, consistant à conserver une connexion Ajax ouverte pendant la durée de vie d'une page web.
 ====
 
 [TIP]
@@ -57,7 +57,7 @@ _Websockets_ est un protocole basé sur TCP.
 Il permet de maintenir une connexion HTTP active entre un client et un serveur et d'y faire transiter les données de manière bidirectionnelle.
 
 Ce protocole sera probablement rendu obsolète par le successeur d'_HTTP 1.1_, à savoir _HTTP 2.0_.
-_HTTP 2.0_ a initié par Google en tant que protocole _SPDY_ (prononcer _speedy_).
+_HTTP 2.0_ a été initié par Google en tant que protocole _SPDY_ (prononcer _speedy_).
 ====
 
 [TIP]
@@ -76,26 +76,26 @@ La boucle est bouclée.
 
 Node représente un *environnement d'exécution* (_runtime_), un  *ensemble d'API JavaScript* ainsi qu'une *machine virtuelle JavaScript* performante (parseur, interpréteur et compilateur) pouvant accéder à des ressources système telles que des fichiers (_filesystem_) ou des connexions réseau (_sockets_).
 
-Typiquement, une personne développant en Node écrit du code se basant sur les API à disposition. Ce code est lu par le _runtime_ Node qui le transmet à la VM JavaScript. VM qui traduit le programme en langage machine (_bytecode_) avant d'être effectivement exécuté par le processeur.
+Typiquement, une personne développant en Node écrit du code se basant sur les API à disposition. Ce code est lu par le _runtime_ Node qui le transmet à la VM JavaScript. Enfin, VM traduit le programme en langage machine (_bytecode_) avant que le programme soit effectivement exécuté par le processeur.
 
 Pour comprendre comment Node a opté pour cette approche, retournons en 2009, lorsque son créateur **Ryan Dahl** cherchait à résoudre élégamment un problème de performance de programmation.
 
 === Historique du projet Node.js
 
 En 2006, _Ryan Dahl_ est un étudiant américain en troisième année de doctorat de mathématiques.
-Si le but initial était de devenir professeur de mathématiques, il prend la décision de ne pas terminer sa thèse et entreprend un voyage au Chili.
+Si son but initial était de devenir professeur de mathématiques, il prend la décision de ne pas terminer sa thèse et d'entreprendre un voyage au Chili.
 
-Alors qu'il cherche à effectuer des petits boulots, il y rencontre un autre Américain développant des sites Web.
+Alors qu'il cherche à effectuer des petits boulots, il y rencontre un autre Américain développant des sites web.
 Ruby on Rails connaît un succès grandissant et attire son attention.
-Alors que Ryan envisageait d'utiliser Rails, il découvre avec horreur la lenteur du _framework_ et cherche à en analyser les origines.
+Alors que Ryan envisageait d'utiliser Rails, il découvre avec horreur la lenteur du _framework_ et cherche à en découvrir les causes.
 
-Ryan débute alors sa *quête des applications Web performantes* et découvre _Mongrel_, un serveur HTTP écrit en Ruby.
+Ryan débute alors sa *quête des applications web performantes* et découvre _Mongrel_, un serveur HTTP écrit en Ruby.
 Il est séduit par deux choses :
 
 - la possibilité d'*inclure* un serveur HTTP comme librairie applicative ;
 - la simplicité de fonctionnement : recevoir une requête HTTP et décider soi-même de la réponse à apporter.
 
-La quête initiale se dirige désormais sur la possibilité de créer *un serveur web non bloquant*.
+La quête initiale se dirige alors sur la possibilité de créer *un serveur web non bloquant*.
 En d'autres termes, un serveur capable dans un même processus de traiter d'autres requêtes en attendant de renvoyer la réponse initiale.
 
 Nous sommes alors en 2008 et le site de partage de photos Flickr  innove avec un nouveau système d'upload d'images.
@@ -107,21 +107,21 @@ image::{imagePath}/7112862941_3b8c8e9916_o_d.png[align="center", link="https://w
 [TIP]
 .[RemarquePreTitre]#Lien# Annonce du nouveau Flickr Uploadr
 ====
-L'équipe d'ingénierie de Flickr explique comment elle a contourné le problème de l'upload via formulaire classique ; problème qui gelait la fenêtre du navigateur pendant la durée du  téléversement.
+L'équipe d'ingénierie de Flickr explique comment elle a contourné le problème de l'upload via un formulaire classique ; problème qui gelait la fenêtre du navigateur pendant la durée du téléversement.
 
 - http://wp.me/p2DMyG-ok
 ====
 
 C'est le *déclic* pour Ryan : _Mongrel_ avait déjà un plug-in pour ça mais il fallait que ça soit encore plus simple pour le développeur.
 Il reproduit le mécanisme avec succès en C.
-Les développeurs Web jugeant la solution trop complexe, Ryan tente la même approche avec d'autres langages comme Python, Lua ou même Haskell.
+Les développeurs web jugeant la solution trop complexe, Ryan tente la même approche avec d'autres langages, comme Python, Lua ou même Haskell.
 Il se heurte au sempiternel problème des ressources bloquantes des différents interpréteurs.
 
 Le deuxième *déclic* se produit en janvier 2009 lorsque _JavaScript_ émerge dans une discussion entre développeurs.
 _Eurêka_ !
 La machine virtuelle JavaScript V8 de Google a été libérée en _open source_ depuis quelques mois et Apple, Microsoft, Mozilla et Google se battent pour rendre la pierre angulaire JavaScript toujours plus performante.
 
-Ryan admet que JavaScript dispose des caractéristiques idéales même s'il n'est pas un adepte du langage : fonctions anonymes, _closures_ et l'_event loop_ (dans le DOM en tous cas).
+Ryan admet que JavaScript dispose des caractéristiques idéales, même s'il n'est pas un adepte du langage : fonctions anonymes, _closures_ et l'_event loop_ (dans le DOM en tous cas).
 Il lui manque juste la capacité d'accéder à des _sockets_, au système de fichiers et à d'autres fonctions système.
 
 Il quitte alors son travail, s'inspire de ses travaux de modules non bloquants pour Ngninx et se concentre pendant six mois à marier JavaScript, V8 et l'environnement système : Node.js. +
@@ -150,7 +150,7 @@ En 2009, la tension et l'attention autour de JavaScript sont énormes.
 La mode du tout _Ajax_ et des _mashups_ s'est estompée mais une chose en est ressortie : JavaScript n'a plus à rougir ni à être relégué au rang de sous-langage.
 Les initiatives JSlint, CommonJS et les _good parts_ de Douglas Crockford  sont pour beaucoup dans la création de code élégant.
 
-D'un autre côté, les entreprise développant des navigateurs Web se livrent à féroce compétition d'optimisation.
+D'un autre côté, les entreprises développant des navigateurs web se livrent à une féroce compétition d'optimisation.
 Google, Mozilla et Apple ont en effet besoin de navigateurs rapides pour améliorer leurs parts de marché sur les ordinateurs mais aussi les téléphones et tablettes.
 On peut considérer que JavaScript est à cette époque le langage de programmation bénéficiant du plus grand investissement financier et humain en R&D.
 
@@ -161,8 +161,8 @@ Il faudra attendre la création du registre _npm_ au tout début 2010 pour facil
 Dès lors, un simple `npm install node-playground` suffit pour inclure le module `node-playground` à son propre projet.
 Partager un module est tout aussi simple puisqu'un simple `npm publish` le rend disponible à tous en un instant.
 
-npm devient une telle pierre angulaire qu'il est inclut par défaut dans l'installation de Node à partir de novembre 2011, lors de la publication de Node 0.6.3.
-La communauté Node et ses contributeurs ont fait le reste du travail en fournissant un écosystème de modules riche et variés : frameworks, templating, drivers de bases de données, serveurs HTTP, serveurs Websockets, préprocesseurs CSS, CoffeeScript, parseurs, proxy, serveurs de log, librairies de tests, langages de _templating_, etc.
+npm devient une telle pierre angulaire qu'il est inclus par défaut dans l'installation de Node à partir de novembre 2011, lors de la publication de Node 0.6.3.
+La communauté Node et ses contributeurs ont fait le reste du travail en fournissant un écosystème de modules riche et varié : frameworks, templating, drivers de bases de données, serveurs HTTP, serveurs Websockets, préprocesseurs CSS, CoffeeScript, parseurs, proxy, serveurs de log, librairies de tests, langages de _templating_, etc.
 
 Malgré ses défauts de jeunesse, Node réussit également le tour de force de la performance : la recette de l'accès non bloquant aux ressources aurait-elle fonctionné ?
 À en croire les personnes ayant migré vers Node pour ces raisons, la réponse est *oui*.
@@ -209,7 +209,7 @@ Il s'agit peut-être de peu : balayer des idées reçues, animer un atelier tech
 
 Node n'est pas forcément une solution adaptée si *vos besoins de performance dépassent les capacités de Node*. Certains cas de très haute performance nécessitent d'être au plus près du système ou utilisent fortement le CPU. +
 Un langage comme C sera certainement davantage approprié.
-Toutefois des solutions comme `node-gyp` vous offrent un accès bas niveau aux éléments internes de la plateforme Node.
+Toutefois des solutions comme `node-gyp` vous offrent un accès bas niveau aux éléments internes de la plate-forme Node.
 
 Node ne vous aidera probablement pas si vous cherchez à *réaliser des choses qui seraient compliquées de par la nature de JavaScript*, à savoir des opérations mathématiques de très haute précision. +
 Des modules comme `bignumber.js` peuvent palier le problème.
@@ -229,7 +229,7 @@ On se rapproche davantage d'un modèle comme Ruby où l'auteur du langage est em
 ==== Joyent
 
 Joyent est une entreprise américaine fondée en 2004.
-Elle proposait à l'origine des services de collaborations en ligne : documents, calendriers, emails etc.
+Elle proposait à l'origine des services de collaborations en ligne : documents, calendriers, e-mails, etc.
 
 Elle se lance sur le marché de l'hébergement fin 2005 par le biais d'une acquisition-fusion.
 Parmi ses clients, on peut dénombrer le site de Ruby on Rails (société Basecamp), WordPress.com (société Automattic) ou encore l'historique site _A List Apart_.
@@ -387,12 +387,12 @@ Ce code trivial en apparence masque en réalité des milliers de lignes de code 
 Le projet _CommonJS_ débute en janvier 2009.
 
 Pour les membres fondateurs, il était devenu évident que JavaScript allait évoluer dans d'autres environnements que les seuls navigateurs web.
-Il fallait donc trouver un moyen de rendre le code interopérable sur les différentes plateformes. +
+Il fallait donc trouver un moyen de rendre le code interopérable sur les différentes plates-formes. +
 Les spécifications les plus notables sont _Console_ et _Module_.
 
-La spécification _Module_ définit entre autre :
+La spécification _Module_ définit entre autres :
 - la syntaxe de déclaration d'un module ;
-- le procédé chargement d'un module ;
+- le procédé de chargement d'un module ;
 - l'algorithme de résolution d'un module au sein d'un arbre de dépendance.
 
 L'exemple suivant illustre avec du code ce qu'est un module CommonJS.
@@ -424,7 +424,7 @@ increment();    // <2>
 Le fonctionnement technique des modules est décrit plus en détail dans le _Chapitre 2 : Premiers pas avec Node_.
 
 L'essentiel est d'en retenir que Node se base sur ce mécanisme de chargement de module.
-*Et ces modules sont une des force principale de Node*.
+*Et ces modules sont une des forces principales de Node*.
 
 [TIP]
 .[RemarquePreTitre]#Lien# Site officiel CommonJS
@@ -477,7 +477,7 @@ Le parcourir permet de mieux comprendre la magie de son fonctionnement… ou d'a
 ==== Machine Virtuelle V8
 
 La machine virtuelle V8 est un compilateur JavaScript focalisé sur les performances et la sécurité.
-V8 a été créé par Google pour interpréter JavaScript dans son navigateur Web Chrome.
+V8 a été créé par Google pour interpréter JavaScript dans son navigateur web Chrome.
 
 Node utilise également V8 pour les mêmes raisons : parser et compiler JavaScript.
 Le résultat de la compilation est retourné sous forme de fonctions et de ressources C++ manipulées par l'interpréteur Node.
@@ -514,10 +514,10 @@ Le code source de _libuv_ est disponible sur GitHub. Le parcourir permet de mieu
 - https://github.com/joyent/libuv
 ====
 
-==== Boucle évènementielle
+==== Boucle événementielle
 
 La boucle événementielle (_Event Loop_) est un mécanisme d'exécution des tâches apporté par _libuv_ et déléguée au système d'exploitation.
-Elle s'inspire très fortement du modèle de boucle événementielle telle qu'implémentée dans les navigateurs Web.
+Elle s'inspire très fortement du modèle de boucle événementielle telle qu'implémentée dans les navigateurs web.
 
 C'est grâce à ce mécanisme que l'exécution d'une fonction peut être reportée à plus tard.
 C'est la fameuse _exécution asynchrone_.
@@ -539,7 +539,7 @@ printT();                               <3>
 setTimeout(printT, 1000);               <4>
 ----
 <1> Initialise un temps de référence.
-<2> Fonction affichant le nombre de seconde de différence avec le temps de référence à chaque invocation. 
+<2> Fonction affichant le nombre de secondes de différence avec le temps de référence à chaque invocation. 
 <3> Affiche `0`.
 <4> Affiche `1`, car exécutée _une seconde_ (_1000 millisecondes_) plus tard.
 
@@ -548,9 +548,9 @@ Dans ce précédent exemple, le code est interprété séquentiellement comme su
 1. Assignation de la variable `referenceTime`.
 2. Invocation de la fonction `printT` (retournant `0`).
 3. Invocation de la fonction `console.log`.
-4. Invocation de la fonction `setTimeout` : il s'agit d'un contrat avec la boucle événementielle d'exécuter `printT` dans 1000 millisecondes.
+4. Invocation de la fonction `setTimeout` : il s'agit d'un contrat avec la boucle événementielle d'exécuter `printT` dans 1 000 millisecondes.
 5. La boucle événementielle continue de tourner car il y a une tâche à traiter.
-6. Après avoir tournée pendant 1000 millisecondes, la boucle dépile une instruction programmée pour cet instant.
+6. Après avoir tournée pendant 1 000 millisecondes, la boucle dépile une instruction programmée pour cet instant.
 7. Invocation de la fonction `printT` (retournant `1`).
 8. La file de priorité est vide, Node demande au système d'exploitation d'arrêter son processus.
 
@@ -588,9 +588,9 @@ Ceci reste valide tant que la boucle événementielle n'est pas implémentée na
 
 Node a connu une forte croissance entre 2012 et 2014.
 Cela concerne aussi bien le nombre de modules publiés sur le registre npm que le nombre de contributeurs.
-C'est sans compter ni sur le nombre d'articles faisant l'éloge de la plate-forme ni sur les annonces de migration vers Node.
+C'est sans compter le nombre d'articles faisant l'éloge de la plate-forme et les annonces de migration vers Node.
 
-Il n'aura fallu que deux ans avant que Node ne devienne vraiment stable et utilisable en production.
+Il n'aura fallu que deux ans pour que Node devienne vraiment stable et utilisable en production.
 
 Essayons de comprendre pourquoi.
 
@@ -611,7 +611,7 @@ Node suit le mode de numérotation de version pair/impair :
 - les versions `0.8.x`, `0.10.x`, `0.12.x` représentent les évolutions stables de Node ;
 - les versions `0.7.x`, `0.9.x`, `0.11.x` représentent les branches de développement qui deviendront les futures branches stables.
 
-Ainsi la version `0.9.12` est devenue la version `0.10.0` une fois jugée suffisamment stable et aboutie.
+Ainsi, la version `0.9.12` est devenue la version `0.10.0` une fois jugée suffisamment stable et aboutie.
 
 Sur le plan interne, Node indique une indice de stabilité pour chacune de ses API sur une échelle de 0 à 5 :
 
@@ -639,7 +639,7 @@ La documentation de l'API Node est disponible au format HTML sur le site officie
 Cette philosophie encourage la création de petits modules plutôt que de gros monolithes difficilement configurables.
 
 Il est possible de publier des modules dans le registre se basant sur d'autres modules tiers.
-Ils n'ont pas à avoir connaissance de leur statut de dépendance : ils doivent juste à être responsable de leur numérotation de version pour éviter les problèmes de compatibilité.
+Ils n'ont pas à avoir connaissance de leur statut de dépendance : ils doivent juste être responsables de leur numérotation de version pour éviter les problèmes de compatibilité.
 
 Pour garantir au maximum la stabilité des dépendances, le _versioning sémantique_ aka _semver_ a fait son apparition.
 Il explicite l'algorithme employé par _npm_ lors du processus d'installation et de mise à jour.
