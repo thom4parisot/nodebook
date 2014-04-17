@@ -72,22 +72,22 @@ Le fichier sera à la racine, nommé `book.odt`.
   1. Node, JavaScript et ECMAScript
     1. Standard ECMA-262 Edition 5.1
     1. Rappel des primitives ECMAScript
-      1. `String`
-      1. `Number`
-      1. `Date`
-      1. `Array`
-      1. `Object`
-      1. `Function`
-      1. `RegExp`
-      1. `JSON`
+      1. String
+      1. Number
+      1. Date
+      1. Array
+      1. Object
+      1. Function
+      1. RegExp
+      1. JSON
   1. Les variables globales dans Node.js
-    1. `console`
-    1. `export` et `module`
-    1. `require`
-    1. `process`
-    1. `__filename` et `__dirname`
-    1. `setTimeout` et `setInterval`
-    1. `_`
+    1. console
+    1. process
+    1. module
+    1. require
+    1. __filename et __dirname
+    1. setTimeout, setInterval et setImmediate
+    1. _
   1. Invoquer Node.js
     1. REPL
     1. Exécution de script

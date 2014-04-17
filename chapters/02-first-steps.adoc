@@ -953,17 +953,79 @@ Il s'agit d'une mine d'or pour comprendre les mécanismes internes du langage, l
 
 ==== Variables globales dans Node.js
 
+En plus des primitives ECMAScript, Node introduit des variables globales supplémentaires.
+Elles vous seront utiles pour faciliter le débogage ou tout simplement pour la développement et le partage de vos modules.
+
 ===== console
 
-===== module
+Toute personne ayant développé du JavaScript pour le navigateur a très certainement utilisé `console.log` pour tracer l'état d'une expression lors de l'exécution de son code.
 
-===== require
+Trois fonctions sont à garder dans un coin de la tête :
+
+- `console.log` ;
+- `console.error` ;
+- `console.trace`.
+
+`console.log` affiche une représentation textuelle d'une expression et la formate avec des motifs équivalents à la fonction C `printf()`. +
+Ce contenu est envoyé vers la sortie standard, `process.stdout` :
+
+[source,javascript]
+----
+console.log('ECMA%s', 'script'); <1>
+----
+<1> Affiche `'ECMAScript'`.
+
+`console.error` a exactement le même comportement mais redirige vers le flux d'erreur, `process.stderr`).
+
+`console.trace` envoie l'état de la _stack trace_ vers le flux d'erreur :
+
+.stack-trace.js
+----
+$ node stack-trace.js
+At level 1
+At level 2
+At level 3
+At level 4
+Trace: Level 5
+    at traceAtLevel (…/examples/02-first-steps/stack-trace.js:11:13)
+    at traceAtLevel (…/examples/02-first-steps/stack-trace.js:8:5)
+    at traceAtLevel (…/examples/02-first-steps/stack-trace.js:8:5)
+    at traceAtLevel (…/examples/02-first-steps/stack-trace.js:8:5)
+    at traceAtLevel (…/examples/02-first-steps/stack-trace.js:8:5)
+    at Object.<anonymous> (…/examples/02-first-steps/stack-trace.js:15:1)
+    at Module._compile (module.js:456:26)
+    at Object.Module._extensions..js (module.js:474:10)
+    at Module.load (module.js:356:32)
+    at Function.Module._load (module.js:312:12)
+----
+
+Pour en savoir plus sur les méthodes fonctions disponibles, reportez-vous à la documentation en ligne du module `console`sur [URL]#http://nodejs.org/api/console.html#.
 
 ===== process
 
+TBD.
+
+Pour en savoir plus sur les méthodes fonctions disponibles, reportez-vous à la documentation en ligne du module `process`sur [URL]#http://nodejs.org/api/process.html#.
+
+===== module
+
+TBD.
+
+Pour en savoir plus sur les méthodes fonctions disponibles, reportez-vous à la documentation en ligne des modules sur [URL]#http://nodejs.org/api/modules.html#.
+
+===== require
+
+TBD.
+
 ===== \__filename et __dirname
 
+TBD.
+
 ===== setTimeout, setInterval et setImmediate
+
+TBD.
+
+Pour en savoir plus sur les méthodes fonctions disponibles, reportez-vous à la documentation en ligne du module `timers`sur [URL]#http://nodejs.org/api/timers.html#.
 
 ===== _
 
@@ -988,4 +1050,3 @@ Ryan Dahl, le créateur de Node, explique dans cette vidéo comment les fondamen
 - http://www.youtube.com/watch?v=M-sc73Y-zQA
 ====
 
-TBD.
