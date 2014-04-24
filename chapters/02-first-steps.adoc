@@ -1007,7 +1007,64 @@ L'objet `process` correspond à l'instance de l'environnement Node en cours d'ex
 
 Il permet de s'interfacer avec le système, en écoutant les évènements qu'il envoie au processus ou en écoutant les évènements que Node s'apprête à envoyer au système d'exploitation.
 
+Le tableau `process.argv` contient le chemin du script exécuté ainsi que les différents arguments transmis à Node :
 
+.process.js
+----
+node process.js <1>
+node process.js argument1 "argument 2" --option1 <2>
+----
+<1> Retourne `[ 'node', '…/examples/chapitre-02/process.js' ]` ;
+<2> Retourne `[ 'node', '…/examples/chapitre-02/process.js', 'argument1', 'argument 2', '--option1' ]`.
+
+Il n'en faut pas davantage pour bâtir votre premier programme en ligne de commande.
+Pour des besoins plus avancés, il existe un certain nombre de modules _npm_ pour exploiter les options et arguments.
+
+[TIP]
+.[RemarquePreTitre]#Remarque# Arguments internes
+====
+Comment faire pour passer des arguments à Node sans qu'ils soient interprétés par le script et vice-versa ?
+Il suffit de les placer au bon endroit lorsque vous construisez l'appel à l'exécutable Node :
+
+----
+node <arguments node> chemin/vers/script.js <arguments script>
+----
+
+Ces arguments se retrouveront respectivement dans `process.execArgv` et `process.argv`.
+====
+
+Le deuxième ensemble d'objets à connaître est le trio `process.stdin`, `process.stdout` et `process.stderr`.
+Ce sont trois flux (_Streams_) qui permettent d'accéder respectivement à l'entrée standard, à la sortie standard et à l'erreur standard.
+
+Si ces noms vous parlent peut-être, c'est parce qu'ils sont directement inspirés de la philosophie UNIX.
+Mais manipulables via l'interface JavaScript de Node.
+
+.uppercase.js
+----
+echo "Entrée standard" | node uppercase.js <1>
+----
+<1> Retourne `ENTRÉE STANDARD`.
+
+Le concept de _Streams_ sera développé petit à petit au fil de ce chapitre et dans le reste du livre.
+C'est un concept puissant mais il y a d'autres choses plus simples à apprendre d'abord.
+
+Nous venons de voir que `process` est un objet contenant plusieurs attributes précieux.
+L'héritage prototypal est utilisé pour le rendre capable d'émettre des évènements via la méthode `.on()`.
+Cette méthode est utilisée pour écouter les évènements système et permettre à nos programmes de réagir convenablement :
+
+.interrupt.js
+----
+node interrupt.js 3<1>
+^C <2>
+^C <3>
+^C <4>
+----
+<1> Affiche `Appuyer 3 fois sur CTRL+C arrêtera le programme.`
+<2>
+<3>
+<4>
+
+Enfin nous pourrions parler de `process.nextTick()` mais nous développerons davantage cette méthode dans _Comprendre les accès non bloquants_.
 
 Pour en savoir plus sur les méthodes fonctions disponibles, reportez-vous à la documentation en ligne du module `process`sur [URL]#http://nodejs.org/api/process.html#.
 
