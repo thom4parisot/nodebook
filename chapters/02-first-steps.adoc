@@ -999,7 +999,7 @@ Trace: Level 5
     at Function.Module._load (module.js:312:12)
 ----
 
-Pour en savoir plus sur les méthodes fonctions disponibles, reportez-vous à la documentation en ligne du module `console`sur [URL]#http://nodejs.org/api/console.html#.
+Pour en savoir plus sur les méthodes fonctions disponibles, reportez-vous à la documentation en ligne du module `console` sur [URL]#http://nodejs.org/api/console.html#.
 
 ===== process
 
@@ -1049,24 +1049,27 @@ Le concept de _Streams_ sera développé petit à petit au fil de ce chapitre et
 C'est un concept puissant mais il y a d'autres choses plus simples à apprendre d'abord.
 
 Nous venons de voir que `process` est un objet contenant plusieurs attributes précieux.
-L'héritage prototypal est utilisé pour le rendre capable d'émettre des évènements via la méthode `.on()`.
-Cette méthode est utilisée pour écouter les évènements système et permettre à nos programmes de réagir convenablement :
+L'héritage prototypal est utilisé pour le rendre capable d'émettre des évènements via la méthode `process.on()`.
+Cette méthode est utilisée pour écouter les évènements système et permettre à nos programmes de réagir convenablement.
+
+L'exemple suivant illustre la réaction face à un signal d'interruption (abrégé en `SIGINT`, pour _Signal Interrupt_).
+Ce signal est notamment émis en pressant les touches [Menu]#CTRL# et [Menu]#C#.
 
 .interrupt.js
 ----
-node interrupt.js 3<1>
+node interrupt.js 3 <1>
 ^C <2>
 ^C <3>
 ^C <4>
 ----
-<1> Affiche `Appuyer 3 fois sur CTRL+C arrêtera le programme.`
-<2>
-<3>
-<4>
+<1> Affiche `Appuyer 3 fois sur CTRL+C arrêtera le programme.` ;
+<2> Affiche `Nombre d'essais restants: 2` ;
+<3> Affiche `Nombre d'essais restants: 1` ;
+<4> Affiche `Arrêt du programme…`.
 
 Enfin nous pourrions parler de `process.nextTick()` mais nous développerons davantage cette méthode dans _Comprendre les accès non bloquants_.
 
-Pour en savoir plus sur les méthodes fonctions disponibles, reportez-vous à la documentation en ligne du module `process`sur [URL]#http://nodejs.org/api/process.html#.
+Pour en savoir plus sur les méthodes fonctions disponibles, reportez-vous à la documentation en ligne du module `process` sur [URL]#http://nodejs.org/api/process.html#.
 
 ===== module
 
@@ -1086,7 +1089,7 @@ TBD.
 
 TBD.
 
-Pour en savoir plus sur les méthodes fonctions disponibles, reportez-vous à la documentation en ligne du module `timers`sur [URL]#http://nodejs.org/api/timers.html#.
+Pour en savoir plus sur les méthodes fonctions disponibles, reportez-vous à la documentation en ligne du module `timers` sur [URL]#http://nodejs.org/api/timers.html#.
 
 ===== _
 
