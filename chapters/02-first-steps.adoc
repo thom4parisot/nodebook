@@ -1043,10 +1043,10 @@ Mais manipulables via l'interface JavaScript de Node.
 ----
 echo "Entrée standard" | node uppercase.js <1>
 ----
-<1> Retourne `ENTRÉE STANDARD`.
+<1> Affiche `ENTRÉE STANDARD`.
 
 Le concept de _Streams_ sera développé petit à petit au fil de ce chapitre et dans le reste du livre.
-C'est un concept puissant mais il y a d'autres choses plus simples à apprendre d'abord.
+C'est un concept puissant mais il y a des fonctionnalités plus simples à appréhender pour débuter.
 
 Nous venons de voir que `process` est un objet contenant plusieurs attributes précieux.
 L'héritage prototypal est utilisé pour le rendre capable d'émettre des évènements via la méthode `process.on()`.
@@ -1073,7 +1073,117 @@ Pour en savoir plus sur les méthodes fonctions disponibles, reportez-vous à la
 
 ===== module
 
-TBD.
+Les modules CommonJS sont au cœur du fonctionnement de Node.
+Ils permettent d'isoler, d'empaqueter et de rendre le code réutilisable.
+
+La magie opère principalement grâce à la fonction `require` et à l'objet `module`.
+Ils s'occupent respectivement de _charger_ et de _déclarer_ un module.
+
+Techniquement parlant, un module est fichier JavaScript dont toutes les variables sont privées et inaccessibles depuis l'extérieur.
+Seules les variables exposées par `module.exports` sont publiquement accessibles.
+
+Prenons l'exemple suivant :
+
+[source,javascript]
+.currency-format.js
+----
+var currencies = {
+  FR: {
+    symbol: '€',
+    decimal: ','
+  }
+};
+
+function formatNumber(separator, precision, number){
+  return number.toFixed(precision).replace('.', separator);
+}
+
+module.exports = function setupFormatter(currencyId){
+  var currency = currencies[currencyId];
+  var f = formatNumber.bind(null, currency.decimal, 2);
+
+  return function formatCurrency(amount){
+    return f(amount) + currency.symbol;
+  };
+};
+----
+
+Dans le précédent exemple, le module `currency-format.js` est exposé tant que fonction.
+Les variables `currencies` et `formatNumber` restent encapsulées dans la portée du module.
+
+Admettons que nous souhaitons utiliser ce module dans un programme :
+
+[source,javascript]
+.currency-main.js
+----
+var setupFormatter = require(./currency-format.js');
+var formatCurrency = setupFormatter('FR');
+
+console.log(typeof currencies);
+console.log(formatCurrency(12));
+----
+
+La fonction `require` chargera le fichier `currency-format.js` et assignera le résultat de l'export dans la variable de votre choix, ici, `setupFormatter`.
+
+----
+node currency-main.js <1> <2>
+----
+<1> Affiche `undefined` ;
+<2> Puis affiche `'12,00€'`.
+
+Lors de l'exécution du précédent programme, nous avons confirmation que la variable `currencies` contenue dans le module `currency-format.js` n'est pas disponible dans le module `currency-main.js`.
+
+Node optimise le chargement des modules en les mettant en cache.
+Autrement dit et de manière générale, *un module est chargé une seule fois*.
+L'unicité d'un module est assurée par son emplacement au sein du système de fichiers, en se basant sur la propriété `module.id`.
+
+Prenons le cas de ce module :
+
+[source,javascript]
+.increment-module.js
+----
+var counter = 0;
+
+console.log(module.id);
+
+module.exports = {
+  run: function(){
+    return counter++;
+  }
+};
+----
+
+Le précédent module affichera son identifiant unique à chaque fois qu'il est _chargé_.
+Dès que la méthode `run()` de l'objet exporté sera appelée, elle incrémentera la variable privée `counter` et retournera sa nouvelle valeur.
+
+Le module suivant fait deux fois appel à `increment-module.js` et assigne le résultat dans deux variables différentes.
+Ceci dans le but de vérifier le comportement du mécanisme de chargement des modules Node.
+
+[source,javascript]
+.increment-main.js
+----
+var incrementA = require('./increment-module.js');
+var incrementB = require('./increment-module.js');
+
+console.log(incrementA.run());
+console.log(incrementB.run());
+console.log(incrementA === incrementB);
+----
+
+Il ne reste plus qu'à l'exécuter pour constater ce qu'il se passe :
+
+----
+node increment-main.js <1> <2> <3> <4>
+----
+<1> Affiche `…/examples/chapitre-02/increment-module.js` ;
+<2> Affiche `0` ;
+<3> Affiche `1` ;
+<4> Affiche `true`.
+
+Le module ayant déjà été chargé une fois, Node n'ira pas charger le fichier une deuxième fois et ne créera pas de nouvelle instance de l'objet `module`.
+Il se contente de *retourner la même instance de module*.
+
+Ce comportement peut être exploité	 en tant que _design pattern_ _Singleton_, explicité plus en détail dans ce même chapitre.
 
 Pour en savoir plus sur les méthodes fonctions disponibles, reportez-vous à la documentation en ligne des modules sur [URL]#http://nodejs.org/api/modules.html#.
 
