@@ -1140,19 +1140,21 @@ Pour en savoir plus sur les méthodes fonctions disponibles, reportez-vous à la
 Nous avons abordé le mécanisme de chargement de modules dans le point précédent.
 Regardons plus en détails le comportement de la fonction `require`.
 
+[CAUTION]
+====
+NODE_PATH.
+====
+
 `require` est une fonction synchrone _et_ bloquante.
 Cela permet de garantir l'ordre de chargement des modules.
 
 [source,javascript]
 ----
 var path = require('path'); <1>
-
-var modulePath = path.join(__dirname, 'currency-format.js'); <2>
-var setupFormatter = require(modulePath); <3>
+var setupFormatter = require('./currency-format.js''); <2>
 ----
-<1> Node interprète d'abord cette ligne…
-<2> … puis interprète celle-ci dès que le module `path` est chargé…
-<3> … avant de tenter de charger le module suivant _via_ un chemin absolu.
+<1> Node interprète d'abord cette ligne… ;
+<2> … puis interprète celle-ci dès que le module `path` est chargé.
 
 Qui dit bloquant dit que si du code exécuté dans le module _avant_ l'export ralentira l'exécution tant que le module n'aura pas été mis en cache. +
 L'exemple suivant illustre le phénomène :
@@ -1232,7 +1234,20 @@ Il se contente de *retourner la même instance de module*.
 
 Ce comportement peut être exploité	 en tant que _design pattern_ _Singleton_, explicité plus en détail dans ce même chapitre.
 
-ERREURS.
+Enfin, Node lancera une exception si une erreur se produit lors du chargement (fichier inexistant, erreur de syntaxe dans le fichier à charger).
+
+[source,javascript]
+----
+try {
+  require('./module-inexistant.js');
+}
+catch (err) {
+  console.log('L\'erreur est la suivante : %s', err.message); <1>
+}
+----
+<1> L'exécution de ce module affichera `L'erreur est la suivante : Cannot find module './module-inexistant.js'`.
+
+Pour en savoir plus sur le fonctionnement de la fonction `require`, reportez-vous à la documentation en ligne des modules sur [URL]#http://nodejs.org/api/modules.html#.
 
 ===== \__filename et __dirname
 
