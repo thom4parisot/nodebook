@@ -1111,7 +1111,7 @@ module.exports = function setupFormatter(currencyId){
 Dans le précédent exemple, le module `currency-format.js` est exposé tant que fonction.
 Les variables `currencies` et `formatNumber` restent encapsulées dans la portée du module.
 
-Admettons que nous souhaitons utiliser ce module dans un programme :
+Admettons que nous souhaitons utiliser ce module dans un programme, ici `currency-main.js` :
 
 [source,javascript]
 .currency-main.js
@@ -1132,6 +1132,53 @@ node currency-main.js <1> <2>
 <2> Puis affiche `'12,00€'`.
 
 Lors de l'exécution du précédent programme, nous avons confirmation que la variable `currencies` contenue dans le module `currency-format.js` n'est pas disponible dans le module `currency-main.js`.
+
+Pour en savoir plus sur les méthodes fonctions disponibles, reportez-vous à la documentation en ligne des modules sur [URL]#http://nodejs.org/api/modules.html#.
+
+===== require
+
+Nous avons abordé le mécanisme de chargement de modules dans le point précédent.
+Regardons plus en détails le comportement de la fonction `require`.
+
+`require` est une fonction synchrone _et_ bloquante.
+Cela permet de garantir l'ordre de chargement des modules.
+
+[source,javascript]
+----
+var path = require('path'); <1>
+
+var modulePath = path.join(__dirname, 'currency-format.js'); <2>
+var setupFormatter = require(modulePath); <3>
+----
+<1> Node interprète d'abord cette ligne…
+<2> … puis interprète celle-ci dès que le module `path` est chargé…
+<3> … avant de tenter de charger le module suivant _via_ un chemin absolu.
+
+Qui dit bloquant dit que si du code exécuté dans le module _avant_ l'export ralentira l'exécution tant que le module n'aura pas été mis en cache. +
+L'exemple suivant illustre le phénomène :
+
+[source,javascript]
+.blocking-module.js
+----
+var cycles = 0;
+
+while(cycles++ < 1000000000);
+
+module.exports = cycles;
+----
+
+Dans l'exemple précédent, il faut attendre que la boucle soit complétée avant que la fonction `require` ne rende la main et procède à l'exécution des instructions suivantes :
+
+[source,javascript]
+----
+require('./blocking-module.js');
+
+console.log('module chargé'); <1>
+----
+<1> Le message ne sera affiché que tardivement, environ une seconde après le chargement du module `blocking-module.js`.
+
+Il faut s'assurer que le code exécuté pendant le chargement d'un module soit exclusivement non bloquant pour conserver la performance applicative. +
+Le concept d'asynchronicité et de non bloquant est explicité plus en détail dans _Comprendre les accès non-bloquants_.
 
 Node optimise le chargement des modules en les mettant en cache.
 Autrement dit et de manière générale, *un module est chargé une seule fois*.
@@ -1185,11 +1232,7 @@ Il se contente de *retourner la même instance de module*.
 
 Ce comportement peut être exploité	 en tant que _design pattern_ _Singleton_, explicité plus en détail dans ce même chapitre.
 
-Pour en savoir plus sur les méthodes fonctions disponibles, reportez-vous à la documentation en ligne des modules sur [URL]#http://nodejs.org/api/modules.html#.
-
-===== require
-
-TBD.
+ERREURS.
 
 ===== \__filename et __dirname
 
