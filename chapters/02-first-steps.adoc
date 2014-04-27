@@ -1282,7 +1282,26 @@ Pour en savoir plus sur le fonctionnement de la fonction `require`, reportez-vou
 
 ===== \__filename et __dirname
 
-TBD.
+`__filename` et `__dirname` sont des constantes indiquant respectivement le chemin absolu du fichier exécuté et le chemin absolu du répertoire contenant le fichier exécuté.
+
+[source,javascript]
+.filename-dirname.js
+----
+console.log(__filename);
+console.log(__dirname);
+console.log(__filename === module.filename);
+----
+
+Exécutons maintenant le code précédent :
+
+----
+node filename-dirname.js <1> <2> <3>
+----
+<1> Affiche `…/examples/chapitre-02/filename-dirname.js` ;
+<2> Affiche `…/examples/chapitre-02` ;
+<3> Affiche `true`.
+
+Utiliser `__filename` et `__dirname` est utile pour travailler avec des chemins absolus, indépendamment du répertoire de travail de Node.
 
 ===== setTimeout, setInterval et setImmediate
 
