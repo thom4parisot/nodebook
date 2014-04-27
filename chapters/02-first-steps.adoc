@@ -1287,15 +1287,9 @@ Pour en savoir plus sur le fonctionnement de la fonction `require`, reportez-vou
 [source,javascript]
 .filename-dirname.js
 ----
-console.log(__filename);
-console.log(__dirname);
-console.log(__filename === module.filename);
-----
-
-Exécutons maintenant le code précédent :
-
-----
-node filename-dirname.js <1> <2> <3>
+console.log(__filename); <1>
+console.log(__dirname); <2>
+console.log(__filename === module.filename); <3>
 ----
 <1> Affiche `…/examples/chapitre-02/filename-dirname.js` ;
 <2> Affiche `…/examples/chapitre-02` ;
@@ -1305,7 +1299,26 @@ Utiliser `__filename` et `__dirname` est utile pour travailler avec des chemins 
 
 ===== setTimeout, setInterval et setImmediate
 
-TBD.
+Pour des raisons de commodité, Node fournit des implémentations de `setTimeout`, de `setInterval` et de `setImmediate`.
+Pour rappel, ces fonctions de temps ne font pas partie de JavaScript mais de la spécification _DOM Level 0_.
+
+Ces fonctions exécute une fonction respectivement une seule fois dans un délai imparti, un nombre de fois indéterminé à un intervalle imparti et une seule fois immédiatement :
+
+[source,javascript]
+----
+var print = function(message){
+  return print(){
+    console.log(message); <1> <2> <3>
+  }
+};
+
+var timer = setInterval(print('interval'), 250);
+setTimeout(print('timeout'), 200);
+setImmediate(print('immediate'));
+----
+<1> Affichera d'abord `immediate`… ;
+<2> … suivi de `timeout` environ 200ms plus tard… ;
+<3> … puis `interval` environ 50ms plus tard, et ce, toutes les 250ms tant que le programme ne sera pas arrêté ou que `clearTimeout` n'annule pas l'intervalle.
 
 Pour en savoir plus sur les méthodes et fonctions disponibles, reportez-vous à la documentation en ligne du module `timers` sur [URL]#http://nodejs.org/api/timers.html#.
 
@@ -1323,6 +1336,32 @@ $ node
 > _ + 2
 6
 ----
+
+=== Invoquer Node.js
+
+==== REPL
+
+==== Exécution de script
+
+==== Script exécutable
+
+=== Mon premier script Node.js : sauvegarder une page Web
+
+==== Objectifs
+
+==== Exécuter une requête HTTP
+
+==== Traiter les données
+
+==== Exporter les données
+
+=== Utiliser des modules tiers
+
+==== Modules natifs
+
+==== Installer un module
+
+==== Invoquer un module
 
 [TIP]
 .[RemarquePreTitre]#Vidéo# _Introduction to Node.js_
