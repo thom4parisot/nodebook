@@ -999,7 +999,7 @@ Trace: Level 5
     at Function.Module._load (module.js:312:12)
 ----
 
-Pour en savoir plus sur les méthodes fonctions disponibles, reportez-vous à la documentation en ligne du module `console` sur [URL]#http://nodejs.org/api/console.html#.
+Pour en savoir plus sur les méthodes et fonctions disponibles, reportez-vous à la documentation en ligne du module `console` sur [URL]#http://nodejs.org/api/console.html#.
 
 ===== process
 
@@ -1069,7 +1069,7 @@ node interrupt.js 3 <1>
 
 Enfin nous pourrions parler de `process.nextTick()` mais nous développerons davantage cette méthode dans _Comprendre les accès non bloquants_.
 
-Pour en savoir plus sur les méthodes fonctions disponibles, reportez-vous à la documentation en ligne du module `process` sur [URL]#http://nodejs.org/api/process.html#.
+Pour en savoir plus sur les méthodes et fonctions disponibles, reportez-vous à la documentation en ligne du module `process` sur [URL]#http://nodejs.org/api/process.html#.
 
 ===== module
 
@@ -1133,17 +1133,48 @@ node currency-main.js <1> <2>
 
 Lors de l'exécution du précédent programme, nous avons confirmation que la variable `currencies` contenue dans le module `currency-format.js` n'est pas disponible dans le module `currency-main.js`.
 
-Pour en savoir plus sur les méthodes fonctions disponibles, reportez-vous à la documentation en ligne des modules sur [URL]#http://nodejs.org/api/modules.html#.
+[TIP]
+.[RemarquePreTitre]#Remarque# Les modules Node
+====
+Un module Node est un répertoire contenant un fichier de description `package.json`.
+Ce fichier contient notamment une propriété `main` indiquant quel fichier charger par défaut.
+Les modules Node sont par convention placés dans un répertoire `node_modules`.
+
+Voici un extrait du fichier `package.json` du module `lodash` :
+----
+{
+  "name": "lodash",
+  "version": "2.4.1",
+  "main": "dist/lodash.js"
+}
+----
+
+Ainsi, exécuter `require('lodash');` revient à peu près à faire `require('./node_modules/lodash/dist/lodash.js');`.
+====
+
+Pour en savoir plus sur les méthodes et fonctions disponibles, reportez-vous à la documentation en ligne des modules sur [URL]#http://nodejs.org/api/modules.html#.
 
 ===== require
 
 Nous avons abordé le mécanisme de chargement de modules dans le point précédent.
 Regardons plus en détails le comportement de la fonction `require`.
 
-[CAUTION]
-====
-NODE_PATH.
-====
+La fonction `require` permet de charger des fichiers locaux, des modules JavaScript, des modules binaires ou même des fichiers JSON :
+
+[source,javascript]
+.require.js
+----
+var fs = require('fs'); <1>
+var setupFormatter = require('./currency-format'); <2>
+var chap2Index = require('../chapitre-02'); <3>
+var _ = require('lodash'); <4>
+var packageInfos = require('./package.json'); <5>
+----
+<1> Charge le module Node natif `fs` ;
+<2> Charge le fichier `currency-format.js` : Node suffixe automatiquement le nom du fichier par `.js` (module JavaScript) ou par `.node` (module binaire) si l'extension manque ;
+<3> Charge le fichier `index.js` du répertoire `chapitre-02` car Node détecte que `chapitre-02` est un répertoire ;
+<4> Charge le module Node `lodash`, vraisemblablement depuis le répertoire `node_modules/lodash` ;
+<5> Charge et parse le fichier `package.json` en tant qu'objet ECMAScript.
 
 `require` est une fonction synchrone _et_ bloquante.
 Cela permet de garantir l'ordre de chargement des modules.
@@ -1151,7 +1182,7 @@ Cela permet de garantir l'ordre de chargement des modules.
 [source,javascript]
 ----
 var path = require('path'); <1>
-var setupFormatter = require('./currency-format.js''); <2>
+var setupFormatter = require('./currency-format.js'); <2>
 ----
 <1> Node interprète d'abord cette ligne… ;
 <2> … puis interprète celle-ci dès que le module `path` est chargé.
@@ -1257,7 +1288,7 @@ TBD.
 
 TBD.
 
-Pour en savoir plus sur les méthodes fonctions disponibles, reportez-vous à la documentation en ligne du module `timers` sur [URL]#http://nodejs.org/api/timers.html#.
+Pour en savoir plus sur les méthodes et fonctions disponibles, reportez-vous à la documentation en ligne du module `timers` sur [URL]#http://nodejs.org/api/timers.html#.
 
 ===== _
 
