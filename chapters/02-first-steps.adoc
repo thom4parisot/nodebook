@@ -1339,9 +1339,34 @@ $ node
 
 === Invoquer Node.js
 
+C'est bien beau de parler d'histoire, d'architecture et d'interpréteur mais concrètement, comment exécuter du code écrit pour Node ?
+
+La plateforme Node fournit un exécutable système : `node`. C'est lui qui digèrera votre code, préparé à l'avance ou non :
+- `node` invoquera le _REPL_, un interpréteur interactif ;
+- `node votre-script.js` invoquera le dit script et s'arrêtera dès qu'il n'y aura plus de code en attente dans l'_Event Loop_.
+
 ==== REPL
 
+Un _REPL_ est un interpréteur interactif exécuté dans votre terminal.
+Une fois invoqué, toutes les instructions écrites dans le terminal seront interprétées dès que vous presserez la touche [KEY]#Entrée#.
+
+L'intérêt principal d'utiliser le _REPL_ est de prototyper rapidement du code ; code que l'on pourra éventuellement sauvegarder en tapant `.save` [KEY]#Entrée#.
+
+Autre exemple : vous écrivez un programme qui nécessite que l'utilisateur saisisse lui-même du code à faire interpréter par Node.
+On pourrait penser à un programme en ligne de commande éducatif ou encore à une interface Web qui commanderait un _REPL_ distant.
+
+image::{imagePath}/node-repl.png[align="center",scaledwidth="85%"]
+
+Le _REPL_ lui-même est écrit en ECMAScript.
+Il est disponible dans le module Node natif `repl` dont la documentation est disponible à l'adresse suivante : [URL]#http://nodejs.org/api/repl.html#.
+
 ==== Exécution de script
+
+L'exécution d'un script est très certainement l'invocation la plus classique de Node.
+
+image::{imagePath}/node-exec.png[align="center",scaledwidth="85%"]
+
+
 
 ==== Script exécutable
 
