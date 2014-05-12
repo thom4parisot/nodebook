@@ -91,7 +91,7 @@ Le fichier sera à la racine, nommé `book.odt`.
   1. Invoquer Node.js
     1. REPL
     1. Exécution de script
-    1. Script exécutable
+    1. Script shell
   1. Mon premier script Node.js : sauvegarder une page Web
     1. Objectifs
     1. Exécuter une requête HTTP  

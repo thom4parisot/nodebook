@@ -1342,8 +1342,9 @@ $ node
 C'est bien beau de parler d'histoire, d'architecture et d'interpréteur mais concrètement, comment exécuter du code écrit pour Node ?
 
 La plateforme Node fournit un exécutable système : `node`. C'est lui qui digèrera votre code, préparé à l'avance ou non :
+
 - `node` invoquera le _REPL_, un interpréteur interactif ;
-- `node votre-script.js` invoquera le dit script et s'arrêtera dès qu'il n'y aura plus de code en attente dans l'_Event Loop_.
+- `node votre-script.js` invoquera le dit script.
 
 ==== REPL
 
@@ -1364,11 +1365,22 @@ Il est disponible dans le module Node natif `repl` dont la documentation est dis
 
 L'exécution d'un script est très certainement l'invocation la plus classique de Node.
 
+Node tente de charger et d'exécuter le fichier mentionné en argument de l'exécutable `node`.
+Le processus Node reste actif tant que l'_Event Loop_ a des instructions à traiter dans le futur.
+
+Un certain nombre d'options sont acceptées par l'exécutable et modifient son comportement en conséquent :
+
+- `node debug votre-script.js` : active le mode débogage ;
+- `node --harmony votre-script.js` : active le mode de compatibilité avec ECMAScript 6 ;
+- `NODE_ENV=production node votre-script` : transmets une variable d'environnement au processus, et est accessible sous la forme `process.env.NODE_ENV`.
+
 image::{imagePath}/node-exec.png[align="center",scaledwidth="85%"]
 
+Pour connaître l'ensemble des options disponibles de l'exécutable Node, tapez `node --help` dans votre terminal.
+
+==== Script shell
 
 
-==== Script exécutable
 
 === Mon premier script Node.js : sauvegarder une page Web
 
