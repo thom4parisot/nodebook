@@ -1,5 +1,5 @@
 'use strict';
 
-console.log(__filename);
-console.log(__dirname);
-console.log(__filename === module.filename);
+console.log(__filename); // <1>
+console.log(__dirname); // <2>
+console.log(__filename === module.filename); // <3>

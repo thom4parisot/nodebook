@@ -3,6 +3,7 @@
 :es: ECMAScript 5
 :esNext: ECMAScript 6
 :imagePath: 02-first-steps
+:sourceDir: ../examples/chapitre-02
 :revisionYear: 2014
 
 == [ChapitreNumero]#2# Premiers pas avec Node.js
@@ -1087,25 +1088,7 @@ Prenons l'exemple suivant :
 [source,javascript]
 .currency-format.js
 ----
-var currencies = {
-  FR: {
-    symbol: '€',
-    decimal: ','
-  }
-};
-
-function formatNumber(separator, precision, number){
-  return number.toFixed(precision).replace('.', separator);
-}
-
-module.exports = function setupFormatter(currencyId){
-  var currency = currencies[currencyId];
-  var f = formatNumber.bind(null, currency.decimal, 2);
-
-  return function formatCurrency(amount){
-    return f(amount) + currency.symbol;
-  };
-};
+include::{sourceDir}/currency-format.js[]
 ----
 
 Dans le précédent exemple, le module `currency-format.js` est exposé tant que fonction.
@@ -1116,11 +1099,7 @@ Admettons que nous souhaitons utiliser ce module dans un programme, ici `currenc
 [source,javascript]
 .currency-main.js
 ----
-var setupFormatter = require(./currency-format.js');
-var formatCurrency = setupFormatter('FR');
-
-console.log(typeof currencies);
-console.log(formatCurrency(12));
+include::{sourceDir}/currency-main.js[]
 ----
 
 La fonction `require` chargera le fichier `currency-format.js` et assignera le résultat de l'export dans la variable de votre choix, ici, `setupFormatter`.
@@ -1164,11 +1143,7 @@ La fonction `require` permet de charger des fichiers locaux, des modules JavaScr
 [source,javascript]
 .require.js
 ----
-var fs = require('fs'); <1>
-var setupFormatter = require('./currency-format'); <2>
-var chap2Index = require('../chapitre-02'); <3>
-var _ = require('lodash'); <4>
-var packageInfos = require('./package.json'); <5>
+include::{sourceDir}/require.js[]
 ----
 <1> Charge le module Node natif `fs` ;
 <2> Charge le fichier `currency-format.js` : Node suffixe automatiquement le nom du fichier par `.js` (module JavaScript) ou par `.node` (module binaire) si l'extension manque ;
@@ -1193,11 +1168,7 @@ L'exemple suivant illustre le phénomène :
 [source,javascript]
 .blocking-module.js
 ----
-var cycles = 0;
-
-while(cycles++ < 1000000000);
-
-module.exports = cycles;
+include::{sourceDir}/blocking-module.js[]
 ----
 
 Dans l'exemple précédent, il faut attendre que la boucle soit complétée avant que la fonction `require` ne rende la main et procède à l'exécution des instructions suivantes :
@@ -1222,15 +1193,7 @@ Prenons le cas de ce module :
 [source,javascript]
 .increment-module.js
 ----
-var counter = 0;
-
-console.log(module.id);
-
-module.exports = {
-  run: function(){
-    return counter++;
-  }
-};
+include::{sourceDir}/increment-module.js[]
 ----
 
 Le précédent module affichera son identifiant unique à chaque fois qu'il est _chargé_.
@@ -1242,12 +1205,7 @@ Ceci dans le but de vérifier le comportement du mécanisme de chargement des mo
 [source,javascript]
 .increment-main.js
 ----
-var incrementA = require('./increment-module.js');
-var incrementB = require('./increment-module.js');
-
-console.log(incrementA.run());
-console.log(incrementB.run());
-console.log(incrementA === incrementB);
+include::{sourceDir}/increment-main.js[]
 ----
 
 Il ne reste plus qu'à l'exécuter pour constater ce qu'il se passe :
@@ -1287,9 +1245,7 @@ Pour en savoir plus sur le fonctionnement de la fonction `require`, reportez-vou
 [source,javascript]
 .filename-dirname.js
 ----
-console.log(__filename); <1>
-console.log(__dirname); <2>
-console.log(__filename === module.filename); <3>
+include::{sourceDir}/filename-dirname.js[]
 ----
 <1> Affiche `…/examples/chapitre-02/filename-dirname.js` ;
 <2> Affiche `…/examples/chapitre-02` ;
