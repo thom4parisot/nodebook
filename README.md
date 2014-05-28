@@ -92,9 +92,9 @@ Le fichier sera à la racine, nommé `book.odt`.
     1. REPL
     1. Exécution de script
     1. Script shell
-  1. Mon premier script Node.js : sauvegarder une page Web
+  1. Mon premier script Node.js : lire un fichier CSV
     1. Objectifs
-    1. Exécuter une requête HTTP  
+    1. Accéder au système de fichiers 
     1. Traiter les données
     1. Exporter les données
   1. Utiliser des modules tiers
