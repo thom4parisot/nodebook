@@ -1340,14 +1340,37 @@ Pour connaître l'ensemble des options disponibles de l'exécutable Node, tapez 
 
 === Mon premier script Node.js : lire un fichier CSV
 
-Il est temps de passer à la pratique après toute cette théorie et tous ces concepts.
+Il est temps de passer à la pratique.
+Surtout après autant de théorie et de concepts.
 
-La lecture et la manipulation de fichiers est une activité courante dans le développement d'une application.
-Cela vaut aussi bien pour des
+La lecture et l'écriture de fichiers est une activité courante dans le développement d'une application.
 
-==== Objectifs
+Node ne déroge pas à la règle en exposant des méthodes non-bloquantes d'accès au système de fichiers.
+Des méthodes bloquantes sont également fournies par praticité mais nous ne nous y intéresserons pas.
 
-==== Accéder au système de fichiers
+==== Intentions et objectifs
+
+Que cherchons-nous à faire au travers de cet exercice ?
+
+Nous voulons un *programme exécutable* capable de lire un *fichier CSV* défini et d'en *afficher le contenu* de manière intelligible.
+
+Pour ce premier exercice, nous développerons tout par nous-même afin de mieux comprendre en pratiquant les concepts évoqués en amont dans cet ouvrage.
+
+Nous pouvons considérer cet exercice comme une réussite si :
+
+- nous pouvons exécuter le programme avec le fichier d'exemple ;
+- nous comprenons l'organisation et l'ordre d'exécution du code ;
+- nous comprenons comment Node exprime les erreurs via le mécanisme de _callback_ ;
+- nous comprenons quoi modifier pour impacter le comportement du programme.
+
+==== Pré-requis
+
+Nous avons besoin d'utiliser deux modules Node pour accéder au système de fichier :
+
+- `fs` : pour la lecture et l'écriture de données stockées au sein d'un système de fichiers ;
+- `path` : pour la construction de chemins d'accès d'une manière compatible avec tous les systèmes d'exploitation.
+
+Le contenu du fichier CSV est le suivant :
 
 [source,csv]
 .data/books.csv
@@ -1355,9 +1378,101 @@ Cela vaut aussi bien pour des
 include::{sourceDir}/data/books.csv[]
 ----
 
+L'exécution du script se fait simplement en exécutant la commande suivante :
+
+----
+node print-csv.js
+----
+
+==== Accéder au système de fichier
+
+Itérons une première fois sur l'accès au données.
+
+
+[source,javascript]
+.print-csv.js
+----
+var fs = require('fs');
+var join = require('path').join;
+
+var FILENAME = join(__dirname, 'data', 'books.csv');
+
+fs.readFile(FILENAME, functio(err, binaryContent){
+  if (err){
+    throw err;
+  }
+
+  console.log(String(binaryContent));
+});
+----
+
+Le premier bloc décrit l'assignation des modules Node `fs` et `path` vers des variables.
+Dans un cas on assigne le module entier tandis que dans le second, on n'exporte _que la méthode `join`_.
+L'intérêt d'utiliser l'une ou l'autre des méthodes est une *question de lisibilité*.
+
+La construction du chemin vers le fichier `data/books.csv` en utilisant la méthode `join` du module `path` est une bonne habitude à prendre.
+Elle garantit la compatibilité avec le séparateur de répertoires du système d'exploitation sur lequel est exécuté le script Node. 
+
+La présence de `__dirname` garantit quant à elle une construction du chemin à partir du _fichier exécuté_ et non depuis le répertoire de travail actuel (`process.cwd()`). +
+Ce chemin sera construit comme `./data/books.csv` sur les systèmes UNIX tandis qu'il pourra être construit comme `.\data\books.csv` sous Windows ou encore `@.data.books/csv` sous RISC OS. +
+
+L'exécution de `fs.readFile` est asynchrone _et_ non bloquante.
+À la manière des requêtes Ajax dans les navigateurs Web, la fonction ne retourne pas de résultat mais elle exécute la fonction de _callback_ dès que la lecture est effectuée avec succès … ou qu'un problème est survenu :
+
+- le premier paramètre du _callback_ sera un objet de type `Error` en cas de problème (fichier inexistant, droit d'accès refusé, secteur disque défectueux etc.) ;
+- le second paramètre du _callback_ est un _buffer_ - une chaîne binaire ; à moins de spécifier l'encodage en tant que second argument optionnel de `fs.readFile` :
+
+[source,javascript]
+----
+var FS_OPTIONS = {
+  encoding: 'utf8'
+};
+
+fs.readFile(FILENAME, FS_OPTIONS, function(err, textContent){
+  if (err){
+    throw err;
+  }
+
+  console.log(textContent);
+});
+----
+
+Enfin, si nous détectons une erreur, nous remontons l'exception au sein du process Node et lui déléguons la responsabilité de son usage. +
+Cela veut dire que si un mécanisme d'interception est mis en place, il sera prévenu de cette erreur et décidera que faire.
+Sinon Node mettra un terme au processus, tout simplement.
+
 ==== Traiter les données
 
-==== Exporter les données
+Maintenant que nous avons accédé aux données, le reste du code est de la logique ECMAScript pure, qui ne dépend d'aucune API Node :
+
+[source,javascript]
+----
+fs.readFile(FILENAME, function(err, binaryContent){
+  if (err){
+    throw err;
+  }
+
+  parseRows(String(binaryContent))
+    .map(parseRow)
+    .forEach(function(row){
+      console.log(row);
+    });
+});
+
+function parseRows(content){
+  return content.split('\n');
+}
+
+function parseRow(rowContent){
+  return rowContent.split(';');
+}
+----
+
+La syntaxe employée rend explicite l'enchaînement des opérations tout en spécialisant les actions de chaque fonction.
+Elles gagnent ainsi en réutilisabilité.
+C'est autant de temps de gagné pour un possible _refactoring_ si jamais certaines fonctions devenaient utiles dans d'autres modules de votre application.
+
+==== Pistes d'amélioration
 
 === Utiliser des modules tiers
 
