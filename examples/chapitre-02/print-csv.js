@@ -12,8 +12,9 @@ fs.readFile(FILENAME, function(err, binaryContent){
 
   parseRows(String(binaryContent))
     .map(parseRow)
+    .slice(1)
     .forEach(function(row){
-      console.log(row);
+      console.log('"%s" a été écrit par %s', row[0], row[1]);
     });
 });
 
