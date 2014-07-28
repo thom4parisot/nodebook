@@ -1352,7 +1352,7 @@ Des méthodes bloquantes sont également fournies par praticité mais nous ne no
 
 Que cherchons-nous à faire au travers de cet exercice ?
 
-Nous voulons un *programme exécutable* capable de lire un *fichier CSV* défini et d'en *afficher le contenu* de manière intelligible.
+Nous voulons un *programme exécutable* capable de lire un *fichier CSV* et d'en *afficher le contenu* de manière intelligible.
 
 Pour ce premier exercice, nous développerons tout par nous-même afin de mieux comprendre en pratiquant les concepts évoqués en amont dans cet ouvrage.
 
@@ -1384,6 +1384,15 @@ L'exécution du script se fait simplement en exécutant la commande suivante :
 node print-csv.js
 ----
 
+Le résultat attendu serait le suivant :
+
+----
+"CSS maintenables avec Sass et Compass" a été écrit par Kaelig Deloumeau-Prigent
+"Intégration web" a été écrit par Corinne Schillinger
+"Projet responsive web design" a été écrit par Jérémie Patonnier,Rudy Rigot
+"Javascript the Definitive Guide" a été écrit par David Flanagan
+----
+
 ==== Accéder au système de fichier
 
 Itérons une première fois sur l'accès au données.
@@ -1397,7 +1406,7 @@ var join = require('path').join;
 
 var FILENAME = join(__dirname, 'data', 'books.csv');
 
-fs.readFile(FILENAME, functio(err, binaryContent){
+fs.readFile(FILENAME, function(err, binaryContent){
   if (err){
     throw err;
   }
@@ -1452,24 +1461,29 @@ fs.readFile(FILENAME, function(err, binaryContent){
     throw err;
   }
 
-  parseRows(String(binaryContent))
-    .map(parseRow)
+  parseRows(binaryContent) // <1>
+    .map(parseRow) <2>
+    .slice(1) // <3>
     .forEach(function(row){
-      console.log(row);
+      console.log('"%s" a été écrit par %s', row[0], row[1]);
     });
 });
 
 function parseRows(content){
-  return content.split('\n');
+  return String(content).split('\n');
 }
 
 function parseRow(rowContent){
   return rowContent.split(';');
 }
 ----
+<1> transforme le contenu du fichier en tableau de lignes ;
+<2> éclate chaque ligne de texte en tableau de cellules ;
+<3> supprime la première ligne d'entête.
 
 La syntaxe employée rend explicite l'enchaînement des opérations tout en spécialisant les actions de chaque fonction.
 Elles gagnent ainsi en réutilisabilité.
+
 C'est autant de temps de gagné pour un possible _refactoring_ si jamais certaines fonctions devenaient utiles dans d'autres modules de votre application.
 
 ==== Pistes d'amélioration
