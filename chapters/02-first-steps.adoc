@@ -1336,7 +1336,7 @@ Pour connaître l'ensemble des options disponibles de l'exécutable Node, tapez 
 
 ==== Script shell
 
-
+TBD.
 
 === Mon premier script Node.js : lire un fichier CSV
 
@@ -1446,7 +1446,8 @@ fs.readFile(FILENAME, FS_OPTIONS, function(err, textContent){
 });
 ----
 
-Enfin, si nous détectons une erreur, nous remontons l'exception au sein du process Node et lui déléguons la responsabilité de son usage. +
+Enfin, si nous détectons une erreur, nous remontons l'exception au sein du process Node.
+Nous lui déléguons ainsi la responsabilité de son usage. +
 Cela veut dire que si un mécanisme d'interception est mis en place, il sera prévenu de cette erreur et décidera que faire.
 Sinon Node mettra un terme au processus, tout simplement.
 
@@ -1488,11 +1489,44 @@ C'est autant de temps de gagné pour un possible _refactoring_ si jamais certain
 
 ==== Pistes d'amélioration
 
+Le code final est relativement élégant et lisible mais souffre de plusieurs inconvénients :
+
+- la lecture CSV n'est pas assez robuste ;
+- il n'y a pas de possibilité de configurer le caractère de séparation de cellule ni de configurer de ligne d'entête ;
+- la manipulation d'une ligne sous forme d'un tableau peut rapidement devenir illisible en cas de nombreuses colonnes ; 
+- quid de l'utilisation de ce code dans un autre contexte que celui de la ligne de commande ?
+
+Enfin on notera un autre problème, celui de la performance.
+Il ne se révèlera qu'à l'usage, en fonction de la taille du fichier CSV et de sa concurrence d'accès.
+
+Autrement dit, plus le fichier est gros, plus la phase de lecture sera longue et plus nombreuses seront les chances d'obtenir une erreur.
+
+Autant de problèmes dont nous n'avons pas nécessairement envie de nous soucier mais que l'on aimerait pour autant éviter.
+
+Ne réinventons pas la roue : *utilisons des modules tiers* !
+
 === Utiliser des modules tiers
 
-==== Modules natifs
+Nous avons évoqués la notion de _modules_ dans les pages précédentes.
+Il est désormais temps de plonger plus en détails dans le sujet pour mieux comprendre une des pierres angulaires de Node.
+
+Lorsque la fonction globale `require` est invoquée, plusieurs scénarios peuvent se dérouler, en fonction de la syntaxe employée.
+
+==== `npm`
+
+Le mécanisme privilégié pour installer des modules tiers et leurs dépendances est `npm`.
+Il s'agit d'un programme Node 
+
+----
+$ npm --version
+1.4.23
+----
+
 
 ==== Installer un module
+
+
+==== Le fichier `package.json`
 
 ==== Invoquer un module
 
