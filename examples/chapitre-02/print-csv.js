@@ -10,7 +10,7 @@ fs.readFile(FILENAME, function(err, binaryContent){
     throw err;
   }
 
-  parseRows(String(binaryContent))
+  parseRows(String(binaryContent).trim())
     .map(parseRow)
     .slice(1)
     .forEach(function(row){
