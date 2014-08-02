@@ -84,3 +84,11 @@ Exits automatically when there is nothing else to do (nothing in the queue nor t
 Slow development to mature features and break compatibility as few times as possible. Enables to libraries to update with confidence. Upgrades are less painful.
 
 > For security, set it behind a stable web server.
+
+[TIP]
+.[RemarquePreTitre]#Vidéo# _Introduction to Node.js_
+====
+Ryan Dahl, le créateur de Node, explique dans cette vidéo comment les fondamentaux de la plate-forme ont influencé sa conception et façonné son architecture.
+
+- http://www.youtube.com/watch?v=M-sc73Y-zQA
+====
