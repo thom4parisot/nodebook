@@ -1491,50 +1491,127 @@ C'est autant de temps de gagné pour un possible _refactoring_ si jamais certain
 
 Le code final est relativement élégant et lisible mais souffre de plusieurs inconvénients :
 
-- la lecture CSV n'est pas assez robuste ;
+- la lecture CSV n'est ni robuste ni résiliante ni flexible ;
 - il n'y a pas de possibilité de configurer le caractère de séparation de cellule ni de configurer de ligne d'entête ;
 - la manipulation d'une ligne sous forme d'un tableau peut rapidement devenir illisible en cas de nombreuses colonnes ; 
 - quid de l'utilisation de ce code dans un autre contexte que celui de la ligne de commande ?
 
 Enfin on notera un autre problème, celui de la performance.
 Il ne se révèlera qu'à l'usage, en fonction de la taille du fichier CSV et de sa concurrence d'accès.
+En clair, lorsqu'il sera déjà trop tard.
 
 Autrement dit, plus le fichier est gros, plus la phase de lecture sera longue et plus nombreuses seront les chances d'obtenir une erreur.
 
-Autant de problèmes dont nous n'avons pas nécessairement envie de nous soucier mais que l'on aimerait pour autant éviter.
+Autant de problèmes dont nous n'avons pas nécessairement envie de nous soucier mais que l'on aimerait pour autant éviter. _
+Et ça tombe bien, d'autres personnes se sont déjà frottés à la lecture de fichiers CSV et ont mis à disposition du code réutilisable donc ne réinventons pas la roue et *utilisons des modules tiers* !
 
-Ne réinventons pas la roue : *utilisons des modules tiers* !
+=== Introduction aux modules Node
 
-=== Utiliser des modules tiers
+Nous avons évoqué la notion de _modules_ dans les pages précédentes et il est désormais temps de plonger plus en détails dans le sujet pour mieux comprendre une des pierres angulaires de Node.
 
-Nous avons évoqués la notion de _modules_ dans les pages précédentes.
-Il est désormais temps de plonger plus en détails dans le sujet pour mieux comprendre une des pierres angulaires de Node.
+Lorsque la fonction globale `require` est invoquée, plusieurs scénarios de chargement peuvent se dérouler, en fonction de la syntaxe employée :
 
-Lorsque la fonction globale `require` est invoquée, plusieurs scénarios peuvent se dérouler, en fonction de la syntaxe employée.
+- un fichier local en utilisant un chemin relatif (`require('./mon-fichier.js')`) ;
+- un module Node (`require('comma-separated-values')`) ;
+- un module Node natif (par exemple, `require('fs')`).
 
-==== `npm`
+L'objectif de Node est de fournir des modules natifs de bas niveau, stables et robustes.
+Le reste est pris en charge par la communauté.
+Et c'est de la communauté dont émergent les modules et les _patterns_ utiles et efficaces.
 
-Le mécanisme privilégié pour installer des modules tiers et leurs dépendances est `npm`.
-Il s'agit d'un programme Node 
+==== npm
+
+Cette communauté a créé, conçu et contribue à alimenter le registre `npm` pour faciliter la distribution, l'installation et la mise à jour des modules.
+C'est de loin le mécanisme privilégié pour installer des modules Node de la manière la plus simple qu'il soit.
+
+Si vous avez installé Node depuis les binaires officiels, `npm` est inclus par défaut.
+Autrement, il convient de vérifier que le programme `npm` est installé sur votre machine avant de continuer.
 
 ----
 $ npm --version
 1.4.23
 ----
 
-
 ==== Installer un module
 
+Revenons à notre exemple précédent.
+Nous voulons un module Node permettant de parser et d'itérer facilement sur un fichier CSV sans avoir à nous soucier des cas limites.
 
-==== Le fichier `package.json`
+Après quelques recherches, il se trouve que le module `comma-separated-values` est un bon candidat pour améliorer notre précédent script.
+La documentation et les informations relatives à son utilisation sont accessibles sur [URL]#https://npmjs.org/package/comma-separated-values#.
 
-==== Invoquer un module
+Après avoir préalablement navigué dans le répertoire `examples/chapitre-02/`, l'installation du module se déroule en invoquant la commande `npm install` de la manière suivante :
 
-[TIP]
-.[RemarquePreTitre]#Vidéo# _Introduction to Node.js_
-====
-Ryan Dahl, le créateur de Node, explique dans cette vidéo comment les fondamentaux de la plate-forme ont influencé sa conception et façonné son architecture.
+----
+npm install comma-separated-values
+----
 
-- http://www.youtube.com/watch?v=M-sc73Y-zQA
-====
+Le module est désormais installé dans le répertoire `examples/chapitre-02/node_modules/comma-separated-values` et est disponible pour tout script invoqué dans le répertoire `examples/chapitre-02/`.
+
+Lire un fichier CSV et en afficher son contenu deviendrait aussi simple que le script suivant :
+
+[code,javascript]
+----
+var fs = require('fs');
+var csv = require('comma-separated-values'); // <1>
+
+fs.readFile('./data/books.csv', function(err, binaryContent){
+  var csvFile = new csv(String(binaryContent), { header: true, delimiter: ';' }); // <2>
+
+  console.log(csvFile.parse()); // <3> 
+});
+----
+<1> importe le module `comma-separated-values` dans la variable `csv` ;
+<2> configure un nouvel objet _CSV_ ;
+<3> décode le contenu initial et affiche la structure JavaScript appropriée.
+
+Nous verrons dans le chapitre suivant comment utiliser efficacement le programme `npm` pour initialiser et gérer un projet de bout en bout.
+
+=== Mon premier script Node.js : lire un fichier CSV (bis)
+
+Reprenons désormais notre premier module Node.
+Les intentions et objectifs demeurent identiques mais nous allons appliquer nos nouvelles connaissances quant aux modules Node.
+
+.Résultat final
+image::{imagePath}/print-csv-cli.png[align="center",scaledwidth="85%"]
+
+==== Invocation de la ligne de commande
+
+Nous allons créer un module Node explicitement pour l'invocation dans un terminal.
+Ce module sera responsable de l'_affichage des données_ :
+
+- il sélectionne la source de données ;
+- il choisit le formatage de l'affichage des données ;
+- il embellit l'affichage en utilisant des couleurs.
+
+[code,javascript]
+.print-csv-cli.js
+----
+include::{sourceDir}/print-csv-cli.js[]
+----
+
+Le code est drastiquement simplifié par rapport à la version finale contenue dans `print-csv.js`.
+
+Et la lecture du fichier CSV a été rendue modulaire et déléguée au module `print-csv-module.js`.
+
+==== Le module de lecture de fichier CSV 
+
+Les responsabilités du module `print-csv-module.js` sont les suivantes :
+
+- exposer et _exporter_ une fonction unique et configurable ;
+- lire et appliquer une fonction pour chaque ligne du fichier CSV.
+
+De ce fait, nous avons rendu le code générique et réutilisable dans tout contexte, que ce soit en ligne de commande ou dans un autre module Node.
+
+[code,javascript]
+.print-csv-module.js
+----
+include::{sourceDir}/print-csv-module.js[]
+----
+
+=== Conclusion
+
+TBD.
+
+
 
