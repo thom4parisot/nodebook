@@ -6,8 +6,9 @@
 
 # Table des matières
 
-- [Préface](chapters/00-preamble.adoc)
-- [Avant-propos](chapters/00-foreword.adoc)
+- [Préface de TF Fontaine](chapters/00-foreword-en.adoc)
+- [Préface de David Bruant](chapters/00-foreword-fr.adoc)
+- [Avant-propos](chapters/00-preamble.adoc)
 
 1. [Introduction à Node.js](chapters/01-introduction.adoc)
   1. Node.js : la plateforme JavaScript côté serveur
