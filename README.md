@@ -71,20 +71,14 @@
     1. Objectifs
     1. Accéder au système de fichiers 
     1. Traiter les données
-    1. Exporter les données
-  1. Utiliser des modules tiers
-    1. Modules natifs
+    1. Pistes d'amélioration
+  1. Introduction aux modules Node
+    1. npm
     1. Installer un module
-      1. Installation locale
-      1. Installation globale
-      1. Sauver la dépendance
-      1. Sauver la dépendance uniquement pour le développement
-    1. Invoquer un module
-  1. Mon deuxième script Node.js : filter le contenu d'une page Web
-    1. Objectifs
-    1. Filtrer les données
-    1. Exporter les données en sortie
-    1. Assembler avec le premier exemple
+  1. Mon premier script Node.js (bis)
+    1. Invocation de la ligne de commande
+    1. Le module de lecture de fichier CSV
+1. [Gestion d'un projet Node.js](chapters/03-project-management.adoc)
   1. Initialiser un projet/module
     1. Création du `package.json`
     1. Organiser son code
@@ -100,9 +94,14 @@
         1. `mocha` et `chai`
         1. `harp` et `nodemon`
         1. `grunt` et `gulp`
-  1. Comprendre les accès non-bloquants
-    1. Exemple avec `readFile` et `readFileSync`
-    1. Débloquer du code avec `process.nextTick`
+  1. Utiliser des modules tiers
+    1. Modules natifs
+    1. Installer un module
+      1. Installation locale
+      1. Installation globale
+      1. Sauver la dépendance
+      1. Sauver la dépendance uniquement pour le développement
+    1. Invoquer un module
   1. Design Patterns
     1. Les modules
     1. L'injection
@@ -112,6 +111,14 @@
     1. `require('./lib')`
     1. Augmenter un module via l'héritage prototypal
     1. Application partielle
+  1. Mon deuxième script Node.js : filter le contenu d'une page Web
+    1. Objectifs
+    1. Filtrer les données
+    1. Exporter les données en sortie
+    1. Assembler avec le premier exemple
+  1. Comprendre les accès non-bloquants
+    1. Exemple avec `readFile` et `readFileSync`
+    1. Débloquer du code avec `process.nextTick`
 1. Node.js pour des applications système
   1. Mon premier programme système !
   1. Un programme avec aide, options et arguments optionnels
