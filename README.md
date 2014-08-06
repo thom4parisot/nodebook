@@ -79,7 +79,7 @@
   1. Mon premier script Node.js (bis)
     1. Invocation de la ligne de commande
     1. Le module de lecture de fichier CSV
-1. [Gestion d'un projet Node.js](chapters/03-project-management.adoc)
+1. [Mon premier projet Node.js](chapters/03-first-project.adoc)
   1. Initialiser un projet/module
     1. Création du `package.json`
     1. Organiser son code
