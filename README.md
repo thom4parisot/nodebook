@@ -1,9 +1,3 @@
-# Node.js — Bonnes pratiques pour la programmation JavaScript côté serveur
-
-> Livre à paraître aux éditions Eyrolles en décembre 2014.
-
-![](cover.png?raw=1)
-
 # Table des matières
 
 - [Préface de TF Fontaine](chapters/00-foreword-en.adoc)
@@ -70,7 +64,7 @@
     1. Script shell
   1. Mon premier script Node.js : lire un fichier CSV
     1. Objectifs
-    1. Accéder au système de fichiers 
+    1. Accéder au système de fichiers
     1. Traiter les données
     1. Pistes d'amélioration
   1. Introduction aux modules Node
@@ -201,7 +195,7 @@
     1. Heroku
     1. Sur ses propres machines
   1. Mettre à jour une application en production
-  1. Monitoring 
+  1. Monitoring
 1. Se connecter et piloter le monde physique
   1. Microcontrôleurs
     1. Arduino
@@ -225,7 +219,7 @@
     1. `npm run-script`
     1. Geler les versions avec `npm shrinkwrap`
     1. Développer son module Node.js avec `npm link`
-    1. Vérifier l'obsolescence avec `npm outdated` 
+    1. Vérifier l'obsolescence avec `npm outdated`
   1. Utiliser ECMAScript 6 via `node --harmony`
   1. Node.js sans JavaScript
   1. `npm` sans Node.js
@@ -241,34 +235,5 @@
 1. [Contributions sociales](chapters/AX-social-contributions.adoc)
   1. Quelles sont les grosses entreprises françaises qui utilisent Node.js ?
   1. Quelles sont les raisons pour lesquelles vous n'utiliseriez pas Node.js ?
-
-
-
-# Lire confortablement cette épreuve
-
-1. `git clone https://github.com/oncletom/nodebook.git` (ou [installer GitHub pour Windows](http://windows.github.com/))
-1. Installer l'extension Chrome [Asciidoctor](https://chrome.google.com/webstore/detail/asciidoctorjs-live-previe/iaalpfgpbocpdfblpnhhgllgbdbchmia)
-1. Aller sur `chrome://extensions` et cocher la case `Allow access to file URL` pour l'extension en question
-1. Ouvrir n'importe quel fichier `*.adoc` dans le répertoire `chapters/`
-
-![](preview-live.png)
-
-# Build
-
-## Install
-
-```bash
-brew install asciidoc
-```
-
-[Télécharger `pandoc`](https://code.google.com/p/pandoc/downloads/list) puis l'installer.
-
-## Générer l'ODT
-
-```bash
-make
-```
-
-Le fichier `book.odt` se trouvera à la racine.
 
 
