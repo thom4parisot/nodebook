@@ -2,7 +2,6 @@
 :nodeNextVersion: v0.12
 :es: ECMAScript 5
 :esNext: ECMAScript 6
-:imagePath: ./images
 :sourceDir: ../../examples/nodebook.chapter-02/src
 :revisionYear: 2014
 
@@ -29,7 +28,7 @@ Si vous n'utilisez pas encore de terminal, voici une liste de recommandations no
 - *Windows* : PowerShell, Console.
 
 .Terminal iTerm2 sous OS X.
-image::{imagePath}/terminal.png[align="center",scaledwidth="85%"]
+image::{indir}/images/terminal.png[align="center",scaledwidth="85%"]
 
 Tous les exemples de ce chapitre sont relatifs à la *branche {nodeVersion} de Node*. +
 Il se peut qu'une nouvelle branche stable soit sortie depuis l'édition de cet ouvrage, par exemple la {nodeNextVersion}.
@@ -210,7 +209,7 @@ Le téléchargement du logiciel inclut une période d'essai de 30 jours.
 - http://www.jetbrains.com/webstorm/
 ====
 
-image::{imagePath}/webstorm.png[align="center",scaledwidth="85%"]
+image::{indir}/images/webstorm.png[align="center",scaledwidth="85%"]
 
 [TIP]
 .[RemarquePreTitre]#Astuce# Licence open source.
@@ -1311,7 +1310,7 @@ L'intérêt principal d'utiliser le _REPL_ est de prototyper rapidement du code 
 Autre exemple : vous écrivez un programme qui nécessite que l'utilisateur saisisse lui-même du code à faire interpréter par Node.
 On pourrait penser à un programme en ligne de commande éducatif ou encore à une interface Web qui commanderait un _REPL_ distant.
 
-image::{imagePath}/node-repl.png[align="center",scaledwidth="85%"]
+image::{indir}/images/node-repl.png[align="center",scaledwidth="85%"]
 
 Le _REPL_ lui-même est écrit en ECMAScript.
 Il est disponible dans le module Node natif `repl` dont la documentation est disponible à l'adresse suivante : [URL]#http://nodejs.org/api/repl.html#.
@@ -1329,7 +1328,7 @@ Un certain nombre d'options sont acceptées par l'exécutable et modifient son c
 - `node --harmony votre-script.js` : active le mode de compatibilité avec ECMAScript 6 ;
 - `NODE_ENV=production node votre-script` : transmets une variable d'environnement au processus, et est accessible sous la forme `process.env.NODE_ENV`.
 
-image::{imagePath}/node-exec.png[align="center",scaledwidth="85%"]
+image::{indir}/images/node-exec.png[align="center",scaledwidth="85%"]
 
 Pour connaître l'ensemble des options disponibles de l'exécutable Node, tapez `node --help` dans votre terminal.
 
@@ -1572,7 +1571,7 @@ Reprenons désormais notre premier module Node.
 Les intentions et objectifs demeurent identiques mais nous allons appliquer nos nouvelles connaissances quant aux modules Node.
 
 .Résultat final
-image::{imagePath}/print-csv-cli.png[align="center",scaledwidth="85%"]
+image::{indir}/images/print-csv-cli.png[align="center",scaledwidth="85%"]
 
 ==== Invocation de la ligne de commande
 
