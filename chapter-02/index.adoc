@@ -2,8 +2,8 @@
 :nodeNextVersion: v0.12
 :es: ECMAScript 5
 :esNext: ECMAScript 6
-:imagePath: 02-first-steps
-:sourceDir: ../examples/chapitre-02
+:imagePath: ./images
+:sourceDir: ../../examples/nodebook.chapter-02/src
 :revisionYear: 2014
 
 == [ChapitreNumero]#2# Premiers pas avec Node.js
@@ -33,7 +33,7 @@ image::{imagePath}/terminal.png[align="center",scaledwidth="85%"]
 
 Tous les exemples de ce chapitre sont relatifs à la *branche {nodeVersion} de Node*. +
 Il se peut qu'une nouvelle branche stable soit sortie depuis l'édition de cet ouvrage, par exemple la {nodeNextVersion}.
-Il suffit d'adapter les numéros de version adéquats dans les différents exemples. 
+Il suffit d'adapter les numéros de version adéquats dans les différents exemples.
 
 === Préparer son environnement
 
@@ -186,7 +186,7 @@ Les instructions pouvant varier fortement d'un système d'exploitation à l'autr
 Programmer pour Node revient dans la majorité des cas à écrire du JavaScript.
 Donc même si un éditeur texte suffit, il est intéressant de connaître l'offre en outillage autour de Node.
 
-Les logiciels présentés dans les pages suivantes couvrent un large spectre de besoins : écriture du code, coloration syntaxique, inspection dynamique, débogage, productivité et intégration à l'écosystème Node. 
+Les logiciels présentés dans les pages suivantes couvrent un large spectre de besoins : écriture du code, coloration syntaxique, inspection dynamique, débogage, productivité et intégration à l'écosystème Node.
 
 Ceci a pour but de vous aider à piocher au plus près de vos goûts, à défaut de continuer à utiliser votre logiciel habituel.
 
@@ -542,7 +542,7 @@ La fonction de tri via la méthode `sort` se base sur des comparaisons positives
 }); <2>
 
 ['A', 'b', 'c', 'a'].sort(function ascSort(a, b){
-  return (a < b) ? -1 : ((a > b) ? 1 : 0); 
+  return (a < b) ? -1 : ((a > b) ? 1 : 0);
 }); <3>
 ----
 <1> Retourne `[1, 2, 3]` ;
@@ -1372,9 +1372,9 @@ Nous avons besoin d'utiliser deux modules Node pour accéder au système de fich
 Le contenu du fichier CSV est le suivant :
 
 [source]
-.data/books.csv
+./data/books.csv
 ----
-include::{sourceDir}/data/books.csv[]
+include::{sourceDir}/../data/books.csv[]
 ----
 
 L'exécution du script se fait simplement en exécutant la commande suivante :
@@ -1419,7 +1419,7 @@ Dans un cas on assigne le module entier tandis que dans le second, on n'exporte 
 L'intérêt d'utiliser l'une ou l'autre des méthodes est une *question de lisibilité*.
 
 La construction du chemin vers le fichier `data/books.csv` en utilisant la méthode `join` du module `path` est une bonne habitude à prendre.
-Elle garantit la compatibilité avec le séparateur de répertoires du système d'exploitation sur lequel est exécuté le script Node. 
+Elle garantit la compatibilité avec le séparateur de répertoires du système d'exploitation sur lequel est exécuté le script Node.
 
 La présence de `__dirname` garantit quant à elle une construction du chemin à partir du _fichier exécuté_ et non depuis le répertoire de travail actuel (`process.cwd()`). +
 Ce chemin sera construit comme `./data/books.csv` sur les systèmes UNIX tandis qu'il pourra être construit comme `.\data\books.csv` sous Windows ou encore `@.data.books/csv` sous RISC OS. +
@@ -1492,7 +1492,7 @@ Le code final est relativement élégant et lisible mais souffre de plusieurs in
 
 - la lecture CSV n'est ni robuste ni résiliante ni flexible ;
 - il n'y a pas de possibilité de configurer le caractère de séparation de cellule ni de configurer de ligne d'entête ;
-- la manipulation d'une ligne sous forme d'un tableau peut rapidement devenir illisible en cas de nombreuses colonnes ; 
+- la manipulation d'une ligne sous forme d'un tableau peut rapidement devenir illisible en cas de nombreuses colonnes ;
 - quid de l'utilisation de ce code dans un autre contexte que celui de la ligne de commande ?
 
 Enfin on notera un autre problème, celui de la performance.
@@ -1557,7 +1557,7 @@ var csv = require('comma-separated-values'); // <1>
 fs.readFile('./data/books.csv', function(err, binaryContent){
   var csvFile = new csv(String(binaryContent), { header: true, delimiter: ';' }); // <2>
 
-  console.log(csvFile.parse()); // <3> 
+  console.log(csvFile.parse()); // <3>
 });
 ----
 <1> importe le module `comma-separated-values` dans la variable `csv` ;
@@ -1593,7 +1593,7 @@ Le code est drastiquement simplifié par rapport à la version finale contenue d
 
 Et la lecture du fichier CSV a été rendue modulaire et déléguée au module `print-csv-module.js`.
 
-==== Le module de lecture de fichier CSV 
+==== Le module de lecture de fichier CSV
 
 Les responsabilités du module `print-csv-module.js` sont les suivantes :
 

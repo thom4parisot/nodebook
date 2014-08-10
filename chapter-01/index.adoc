@@ -1,6 +1,6 @@
 :nodeVersion: v0.12
 :revisionYear: 2014
-:imagePath: 01-introduction
+:imagePath: {baseImagePath}/images
 
 == [ChapitreNumero]#1# Introduction à Node.js
 
@@ -191,7 +191,7 @@ Ils peuvent se focaliser sur des fonctionnalités indistinctement de leur périm
 
 Enfin, Node est un *environnement adapté à l'apprentissage et l'amélioration des connaissances en JavaScript*. +
 Vous disposez de la maîtrise de la version de Node, des modules employés et n'avez pas à vous soucier de quelconque compatibilité de version de JavaScript.
- 
+
 === Pourquoi éviter Node.js ?
 
 S'il y a des raisons d'utiliser ou d'adopter Node, l'inverse est également vrai.
@@ -245,7 +245,7 @@ En avril 2011, Joyent dépose _Node.js_ et son logo en tant que marque.
 Ryan Dahl, alors développeur actif de Node, annonce le dépôt de marque par l'entreprise Joyent sur le blog officiel du projet Node.
 
 - http://blog.nodejs.org/2011/04/29/trademark/
-==== 
+====
 
 ==== npm
 
@@ -429,7 +429,7 @@ L'essentiel est d'en retenir que Node se base sur ce mécanisme de chargement de
 [TIP]
 .[RemarquePreTitre]#Lien# Site officiel CommonJS
 ====
-Le site officiel de CommonJS documente différentes spécifications vouées à promouvoir l'interopérabilité et la réutilisabilité de JavaScript sur divers environnement d'exécution. 
+Le site officiel de CommonJS documente différentes spécifications vouées à promouvoir l'interopérabilité et la réutilisabilité de JavaScript sur divers environnement d'exécution.
 
 - http://www.commonjs.org/
 ====
@@ -503,7 +503,7 @@ D'autres logiciels sont basés sur _libuv_ mais Node est la première plate-form
 
 _libuv_ implémente notamment la fameuse boucle événementielle (voir ci-après), la file de priorité (_priority queue_), délègue les accès réseaux au système d'exploitation et expose la plupart des fonctions UNIX nécessaires à la manipulation de fichiers et d'autres actions bas niveau.
 
-*La performance de Node réside clairement dans _libuv_*. 
+*La performance de Node réside clairement dans _libuv_*.
 JavaScript n'y est pour rien, si ce n'est à travers la puissance de la machine virtuelle V8.
 
 [TIP]
@@ -539,7 +539,7 @@ printT();                               <3>
 setTimeout(printT, 1000);               <4>
 ----
 <1> Initialise un temps de référence.
-<2> Fonction affichant le nombre de secondes de différence avec le temps de référence à chaque invocation. 
+<2> Fonction affichant le nombre de secondes de différence avec le temps de référence à chaque invocation.
 <3> Affiche `0`.
 <4> Affiche `1`, car exécutée _une seconde_ (_1000 millisecondes_) plus tard.
 
