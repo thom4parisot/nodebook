@@ -92,3 +92,8 @@ Ryan Dahl, le créateur de Node, explique dans cette vidéo comment les fondamen
 
 - http://www.youtube.com/watch?v=M-sc73Y-zQA
 ====
+
+
+HTTP
+
+- attention en exposant les erreurs a coup de `next(err)` (cf. chapter-04/images/error-NO_ENT.png)
