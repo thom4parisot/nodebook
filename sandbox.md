@@ -94,6 +94,11 @@ Ryan Dahl, le créateur de Node, explique dans cette vidéo comment les fondamen
 ====
 
 
-HTTP
+## HTTP
 
 - attention en exposant les erreurs a coup de `next(err)` (cf. chapter-04/images/error-NO_ENT.png)
+
+## npm
+
+- Firefox Jetpack w/ jpm (cf. http://work.erikvold.com/jetpack/2014/08/07/cfx-to-jpm.html)
+- https://github.com/atom/apm
