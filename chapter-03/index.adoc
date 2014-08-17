@@ -31,31 +31,85 @@ Cet exemple d'application vous permettra de couvrir l'essentiel de ce qu'il faut
 
 === Initialisation du projet
 
-Que notre idée tienne en un fichier ou en plusieurs, tout projet Node dispose de son rituel : la création du fichier `package.json`.
+L'initialisation d'un projet est une étape incontournable de tout projet Node, quelle que soit sa taille : petit ou grand, application ou module, public ou privé.
+
+Elle se caractérise principalement par le choix des modules externes à utiliser et de ce fait, par la rédaction du fichier `package.json`.
 
 ==== package.json
 
-Le fichier `package.json` est un élément incontournable de tout projet Node.
-Il contient plusieurs niveaux d'informations :
+La création du fichier `package.json` est un élément incontournable de tout projet Node.
+Il se situe à la racine d'un module et contient plusieurs catégories d'informations :
 
 - *textuels* : titre, descriptions, liens et licence ;
 - *version* : une chaîne respectant le fonctionnement de _node-semver_ ([URL]#https://github.com/isaacs/node-semver#) ;
 - *dépendances* : emplacement du module principal et liste explicite de modules nécessaires au bon fonctionnement du projet ;
-- *actions* : commandes à exécuter automatiquement ou manuellement ;
+- *actions* : commandes à exécuter lors des différentes étapes du cycle de vie du projet ;
 - *divers* : données de configuration ou utilisées par des modules Node.
+
+.Exemple minimaliste d'un fichier `package.json`
+image::{indir}/images/package-json.png[align="center",scaledwidth="85%"]
+
+Le fichier `package.json` est un mécanisme de description, d'installation et de documentation distribué avec les sources de tout projet.
+Il joue clairement un rôle essentiel dans la facilité de distribution des modules.
+En une ligne de commande, le module est prêt à être utilisé, testé et déployé.
 
 [TIP]
 .[RemarquePreTitre]#Commande# npm help json
 ====
-
+Le détail de chaque clé de configuration est expliqué _via_ cette commande.
+Des exemples vous permettront également de mieux comprendre leur utilité.
 ====
 
 ==== npm init
 
-[source]
+Heureusement nous n'avons pas besoin de connaître la syntaxe exacte du fichier pour débuter.
+Nous disposons en effet d'un moyen plus intuitif : la commande `npm init`.
+Elle entame une séquence de questions et de réponses – pré-remplies pour la plupart – à l'issu de laquelle un `package.json` sera créé dans le répertoire courant.
+
+Prenez l'habitude de débuter un projet par cette commande, cela vous épargnera temps et erreurs.
+
+.Exemple de questions posées lors de la séquence `npm init`
+image::{indir}/images/npm-init.png[align="center",scaledwidth="85%"]
+
+==== Ajouter une dépendance externe
+
+Conséquence directe de la présence d'un fichier `package.json` :  nous pouvons (et voulons) déclarer les dépendances externes dont notre projet a besoin pour fonctionner.
+
+Le module npm `excel-stream` ([URL]#https://npmjs.org/excel-stream#) semble être un bon candidat pour la lecture de fichiers Excel.
+Nous pouvons l'installer et le lier à notre projet par le biais de la commande `npm install` :
+
 ----
-npm init
+npm install --save excel-stream
 ----
+
+.Exemple de résultat de la commande `npm install`
+image::{indir}/images/npm-install-save.png[align="center",scaledwidth="85%"]
+
+La commande précédente effectue plusieurs opérations :
+
+- elle installe le module `excel-stream` dans le répertoire `node_modules` ;
+- elle installe les dépendances nécessaires au fonctionnement du module `excel-stream` ;
+- elle inscrit `excel-stream` en tant que dépendance dans notre fichier `package.json`.
+
+.Fichier `package.json` après installation d'une nouvelle dépendance.
+image::{indir}/images/npm-install-save-diff.png[align="center",scaledwidth="85%"]
+
+Le programme npm prend soin de créer la section `dependencies` si elle n'existe pas, et y rajoute la clé `excel-stream` associée à un numéro de version, ici `~1.0.8`.
+Il s'agit de la notation _semver_ ([URL]#http://semver.org#).
+
+[WARNING]
+----
+On parle de semver dans le chapitre 1 – il vaudrait peut-être mieux reporter une partie de l'encadré ici.
+----
+
+Il est désormais possible d'invoquer `excel-stream` via la fonction `require` au sein de notre code :
+
+[source,javascript]
+----
+var excel = require('excel-stream');
+----
+
+Maintenant que nous savons installer et sauvegarder des dépendances, voyons comment organiser le répertoire de travail du projet avant d'aborder la logique de développement.
 
 ==== Organiser son espace de travail
 
