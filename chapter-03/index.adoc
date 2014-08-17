@@ -98,9 +98,10 @@ Le programme npm prend soin de créer la section `dependencies` si elle n'existe
 Il s'agit de la notation _semver_ ([URL]#http://semver.org#).
 
 [WARNING]
-----
+.semver
+====
 On parle de semver dans le chapitre 1 – il vaudrait peut-être mieux reporter une partie de l'encadré ici.
-----
+====
 
 Il est désormais possible d'invoquer `excel-stream` via la fonction `require` au sein de notre code :
 
@@ -109,11 +110,41 @@ Il est désormais possible d'invoquer `excel-stream` via la fonction `require` a
 var excel = require('excel-stream');
 ----
 
-Maintenant que nous savons installer et sauvegarder des dépendances, voyons comment organiser le répertoire de travail du projet avant d'aborder la logique de développement.
-
-==== Organiser son espace de travail
+Maintenant que nous savons installer et sauvegarder des dépendances par le biais du fichier `package.json`, prenons le temps d'initialiser la gestion des versions.
 
 ==== Intégration avec Git
+
+Node s'intègre parfaitement avec les gestionnaires de version de code.
+Nous illustrerons la démarche à l'aide de Git mais sachez qu'il est tout à fait possible d'utiliser SVN, Team Foundation Server ou un autre gestionnaire de votre choix.
+
+La configuration initiale des fichiers à ignorer est extrêmement réduite.
+Un cas minimal de contenu de fichier `.gitignore` tient en trois lignes :
+
+[source]
+.gitignore
+----
+# Code source des dépendances externes
+node_modules
+
+# Logs
+logs
+*.log
+----
+
+On se content simplement d'_ignorer le code source des dépendances externes_ et les éventuels fichiers de log générés par le programme npm ou vos futures applications.
+
+
+----
+git init
+git add package.json .gitignore
+git commit -m "Premier commit"
+git remote add origin git@votre-serveur-git:repo.git
+git push origin master
+----
+
+À ce stade, nous avons non seulement initialisé le projet Node mais il est également 
+
+==== Organiser son espace de travail
 
 === Tester le code
 
