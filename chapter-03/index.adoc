@@ -19,11 +19,22 @@ Ce chapitre se focalise sur les différentes étapes d'un projet Node, de son in
 - Design pattern
 ====
 
+Comment organiser, installer maintenir du code dans le cadre d'un projet Node ?
+C'est la question à laquelle nous allons répondre dans les prochaines pages.
+
+Vos projets peuvent bénéficier de la richesse de l'écosystème npm dont les modules fournissent fonctionnalités, outillage et des utilitaires d'organisation de code dont il serait dommage de se passer.
+En plus de vous faire gagner un temps précieux, ils vous éviteront de réinventer la roue.
+
+Nous terminerons le chapitre par un ensemble de _design patterns_ utiles et récurrents.
+Les connaître vous facilitera la lecture du code source de modules tiers, tout en vous donnant les moyens de développer des applications optimisant au maximum l'usage des ressources systèmes.
+
+Ces millisecondes et méga-octets de mémoire peuvent avoir l'air de rien du tout … mais ces techniques vous aideront à créer et maintenir des applications résistant à la charge, de quelques dizaines à plusieurs milliers d'utilisateurs en simultané !
 
 === Cycles de vie d'un projet
 
-La création du fichier `package.json` est un élément incontournable de tout projet Node.
-Il se situe à la racine d'un module et contient plusieurs catégories d'informations :
+La pierre angulaire d'un projet Node est le fichier  `package.json`.
+Incontournable, il décrit les composants essentiels du projet.
+Il se situe à la racine de chaque module et contient plusieurs catégories d'informations :
 
 - *textuels* : titre, descriptions, liens et licence ;
 - *version* : une chaîne respectant le fonctionnement de _node-semver_ ([URL]#https://github.com/isaacs/node-semver#) ;
@@ -35,22 +46,28 @@ Il se situe à la racine d'un module et contient plusieurs catégories d'informa
 image::{indir}/images/package-json.png[align="center",scaledwidth="85%"]
 
 Le fichier `package.json` est un mécanisme de description, d'installation et de documentation distribué avec les sources de tout projet.
-Il joue clairement un rôle essentiel dans la facilité de distribution des modules.
-En une ligne de commande, le module est prêt à être utilisé, testé et déployé.
+
+Considérez ce fichier comme obligatoire.
+Il explicite les dépendances, facilite leur installation et leurs mises à jour.
+
+Donc tant qu'à faire, autant le créer dès le début d'un projet — même si on ne sait pas encore ce dont on va avoir besoin de manière exhaustive.
 
 ==== Initialisation
 
-L'initialisation d'un projet est une étape incontournable de tout projet Node, quelle que soit sa taille : petit ou grand, application ou module, public ou privé.
+L'initialisation d'un projet Node passe par la création du fichier `package.json` et ce, quelle que soit sa taille : petit ou grand, application ou module, public ou privé.
 
-Elle se caractérise principalement par le choix des modules externes à utiliser et de ce fait, par la rédaction du fichier `package.json`.
+Nous pourrions créer ce fichier à la main et le compléter en suivant la spécification.
+Cependant il existe une commande bien utile qui réduit le risque d'erreurs et en accélère sa complétion : `npm init`.
 
 ===== npm init
 
-Heureusement nous n'avons pas besoin de connaître la syntaxe exacte du fichier pour débuter.
-Nous disposons en effet d'un moyen plus intuitif : la commande `npm init`.
-Elle entame une séquence de questions et de réponses – pré-remplies pour la plupart – à l'issu de laquelle un `package.json` sera créé dans le répertoire courant.
+L'utilisation de la commande `npm init` est une bonne habitude à prendre pour débuter tout projet Node.
 
-Prenez l'habitude de débuter un projet par cette commande, cela vous épargnera temps et erreurs.
+La commande démarre une série de questions interactives.
+Certaines réponses seront pré-remplies, par exemple si un dépôt Git ou un fichier README sont détectés.
+
+À l'issu de la série de questions, le fichier `package.json` sera créé dans le répertoire courant.
+Ensuite libre à vous de le compléter avec d'autres éléments optionnels de configuration.
 
 .Exemple de questions posées lors de la séquence `npm init`
 image::{indir}/images/npm-init.png[align="center",scaledwidth="85%"]
@@ -62,7 +79,40 @@ Le détail de chaque clé de configuration est expliqué _via_ cette commande.
 Des exemples vous permettront également de mieux comprendre leur utilité.
 ====
 
+===== Champs essentiels
+
+Que votre projet soit public ou non, il est important de renseigner les champs décrits ci-après.
+Ils indiqueront aux utilisateurs les intentions du projet ainsi que l'emplacement des ressources pour en savoir davantage à son propos ou tout simplement, pour y contribuer.
+
+- *name* : il s'agit de l'identifiant du module lorsqu'il est chargé via la fonction `require()`. Ce sera également l'identifiant npm si vous publiez ce module dans un registre public ou privé. Par exemple, si la propriété *name* vaut _nodebook_, le module se chargera via `require('nodebook')` et s'installera avec la commande `npm install nodebook` ;
+- *description* : une indication textuelle des objectifs et fonctionnalités du module, écrite généralement en anglais ;
+- *version* : chaîne respectant la sémantique _semver_ — par exemple `1.0.0`. Nous verrons un peu plus loin dans ce chapitre comment utiliser intelligemment cette valeur pour assurer des mises à jour tout en préservant la compatibilité descendante au sein des projets dépendant de ce module ;
+- *main* : emplacement du fichier Node chargé par défaut lors d'un appel à `require(<name>)`. S'il n'est pas spécifié, Node tentera de charger par défaut le fichier `index.js` ;
+- *repository* : objet spécifiant le type de dépôt de code ainsi que son URL. Présent essentiellement à titre informatif ;
+- *preferGlobal* : booléen indiquant si ce module a davantage vocation à être installé globalement au niveau du système ou non (`false` par défaut) ;
+- *bin* : emplacement du fichier. npm effectue un lien symbolique pour rendre `<name>` disponible en tant qu'exécutable système lors d'une installation globale ;
+- *private* : boolean spécifiant que le module ne doit pas être publié dans un registre npm (`false` par défaut) ;
+- *dependencies* : objet représentant respectivement en clé/valeur les noms/versions des modules dont le projet dépend ;
+- *engines* : objet spécifiant des contraintes de compatibilité suivant la sémantique _semver_ dans lesquelles le projet s'exécute sans accroc. Par exemple `{ "node": "~0.10.0 || ~0.12.0" }` indiquera une compatibilité avec toutes les versions de Node `v0.10` et de Node `v0.12` — une installation sur Node `v0.8` échouera car la compatibilité n'est pas assurée.
+
+[TIP]
+.[RemarquePreTitre]#Aide# dependencies, devDependencies, optionalDependencies, peerDependencies
+====
+Il existe plusieurs types de dépendances, chacune ayant sa propre utilité :
+
+- *dependencies* : dépendances utiles à un fonctionnement en production ;
+- *devDependencies* : dépendances utiles uniquement dans le cadre du développement, par exemple pour exécuter des tests ou s'assurer de la qualité du code ou encore empaqueter le projet ;
+- *optionalDependencies* : dépendances dont l'installation ne sera pas nécessairement satisfaite, notamment pour des raisons de compatibilité. En général votre code prévoira que le chargement de ces modules via `require()` pourra échouer en prévoyant le traitement des exceptions avec un `try {} catch ()` ;
+- *peerDependencies* : modules installés au niveau parent du projet actuel. Pratique couramment employée dans le cas de _plugins_.
+====
+
+Voyons maintenant comment organiser notre code au sein de notre espace de travail.
+
 ===== Organisation de l'espace de travail
+
+Chaque développeur possède sa propre manière de ranger et d'organiser son code.
+La méthode suivante combine à la fois du bon sens et les conventions employées par une majorité de modules publiés sur npm.
+Il est ainsi plus aisé de naviguer au sein de projets ayant une structure similaire.
 
 ===== Ajouter des dépendances
 
