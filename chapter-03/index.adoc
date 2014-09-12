@@ -79,7 +79,7 @@ Le détail de chaque clé de configuration est expliqué _via_ cette commande.
 Des exemples vous permettront également de mieux comprendre leur utilité.
 ====
 
-===== Champs essentiels
+===== Configurer package.json
 
 Que votre projet soit public ou non, il est important de renseigner les champs décrits ci-après.
 Ils indiqueront aux utilisateurs les intentions du projet ainsi que l'emplacement des ressources pour en savoir davantage à son propos ou tout simplement, pour y contribuer.
@@ -108,11 +108,75 @@ Il existe plusieurs types de dépendances, chacune ayant sa propre utilité :
 
 Voyons maintenant comment organiser notre code au sein de notre espace de travail.
 
-===== Organisation de l'espace de travail
+===== Organiser l'espace de travail
 
 Chaque développeur possède sa propre manière de ranger et d'organiser son code.
-La méthode suivante combine à la fois du bon sens et les conventions employées par une majorité de modules publiés sur npm.
-Il est ainsi plus aisé de naviguer au sein de projets ayant une structure similaire.
+
+La méthode suivante combine à la fois du bon sens et les conventions employées par une majorité de modules publiés sur npm. +
+Elle a également l’avantage de fonctionner de manière agnostique selon que votre code soit destiné à être exécuté par un navigateur Web ou un système informatique.
+
+Quoiqu’il en soit, l’objectif est de créer des repères pérennes pour naviguer au sein de vos projets de manière similaire — en tous cas, de manière claire et non-anarchique.
+
+----
+├── bin
+├── config
+├── data
+├── dist
+├── doc
+├── lib
+│   └── models
+├── node_modules
+├── src
+│   ├── assets
+│   │   ├── images
+│   │   ├── js
+│   │   └── less
+│   ├── routes
+│   └── views
+├── tests
+│   ├── fixtures
+│   ├── functional
+│   └── unit
+├── package.json
+└── README
+----
+
+[TIP]
+.[RemarquePreTitre]#Remarque# Persistence des données
+====
+L’application ne devrait *jamais persister de fichiers* au sein de cette arborescence.
+
+Considérez un emplacement qui persistera aux installations diverses et répétées. +
+Cet emplacement sera défini par un fichier de configuration ou une variable d’environnement.
+====
+
+La suggestion d’organisation ci-avant s’explique de la manière suivante :
+
+- *bin* : fichiers exécutables depuis un shell ;
+- *config* : environnements de configuration pour éviter d’écrire ces valeurs en dur dans le code source ;
+- *data* : données diverses (type binaires ou CSV) nécessaires au fonctionnement de l’application ;
+- *dist* : artéfacts produits après une compilation ou un résultat de _build_ — souvent une librairie Node prête à l’usage pour le navigateur ou une arborescence d’application prête à être déployée ;
+- *doc* : fichiers de documentation relatifs à la version courante de l’application ;
+- *lib* : librairie et modèles utilisées par l’application. Ce code peut typiquement grossir suffisamment pour ainsi justifier qu’il soit extrait en tant que projet(s) indépendant(s) ;
+- *node_modules* : modules tiers installés automatiquement via la commande npm. Autrement dit, ne créez jamais de fichiers dans ce répertoire autrement que par la commande npm ;
+- *src* : code source spécifique au projet, des routes aux vues/templates en passant par les images et le code à compiler (Sass, LESS, JSX etc.) ;
+- *tests* : tests unitaires, fonctionnels et _fixtures_ nécessaires à leur fonctionnement ;
+- *package.json* : fichier de configuration précédemment décrit dans cet ouvrage ;
+- *README* : présentation, description et documentation minimaliste — mais suffisamment pour installer, faire fonctionner et contribuer au projet.
+
+[TIP]
+.[RemarquePreTitre]#Remarque# Échafaudage de projet
+=====
+
+Certains modules tels que _Yeoman_ ou _Express Generator_  mettent à disposition une commande pour échafauder automatiquement un projet.
+
+Servez-vous en pour automatiser l’initialisation de vos projets — surtout s’il s’agit d’une opération récurrente.
+
+- https://npmjs.org/yo
+- https://npmjs.org/express-generator
+=====
+
+Intéressons-nous plus particulièrement au répertoire _node_modules_.
 
 ===== Ajouter des dépendances
 
@@ -122,7 +186,7 @@ Le module npm `excel-stream` ([URL]#https://npmjs.org/excel-stream#) semble êtr
 Nous pouvons l'installer et le lier à notre projet par le biais de la commande `npm install` :
 
 ----
-npm install --save excel-stream
+npm install --save async yargs
 ----
 
 .Exemple de résultat de la commande `npm install`
@@ -140,11 +204,17 @@ image::{indir}/images/npm-install-save-diff.png[align="center",scaledwidth="85%"
 Le programme npm prend soin de créer la section `dependencies` si elle n'existe pas, et y rajoute la clé `excel-stream` associée à un numéro de version, ici `~1.0.8`.
 Il s'agit de la notation _semver_ ([URL]#http://semver.org#).
 
-[WARNING]
-.semver
-====
-On parle de semver dans le chapitre 1 – il vaudrait peut-être mieux reporter une partie de l'encadré ici.
-====
+[TIP]
+.[RemarquePreTitre]#Aide# --save, --save-dev, --save-optional et --save-exact
+=====
+
+- *--save* : ; 
+- *--save-dev* : ;
+- *--save-optional* : ;
+- *--save-exact* : .
+
+*Remarque* : il n’existe pas de mécanisme pour enregistrer automatiquement une dépendance en tant que _peerDependency_.
+=====
 
 Il est désormais possible d'invoquer `excel-stream` via la fonction `require` au sein de notre code :
 
