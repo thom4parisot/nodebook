@@ -234,7 +234,8 @@ Leur comportement varie légèrement :
 - *--save-dev* : enregistre le module dans la clé _devDependencies_ ;
 - *--save-optional* : enregistre le module dans la clé _optionalDependencies_.
 
-Ces clés de configuration sont expliqués dans la section _Configurer package.json_ de ce même chapitre.
+Sans la présence de ces options, les modules seront installés dans le répertoire _node_modules_ mais ils n'apparaitront pas dans _package.json_. +
+Cela posera problème si vous cherchez à installer ou déployer l'application sur une autre machine ou après avoir effacé le contenu du répertoire _node_modules_.
 
 *Remarque* : il n’existe pas de mécanisme pour enregistrer automatiquement une dépendance en tant que _peerDependency_.
 =====
@@ -252,10 +253,14 @@ Maintenant que nous savons installer et sauvegarder des dépendances par le biai
 ===== Versionner son code
 
 Node s'intègre parfaitement avec les gestionnaires de version de code.
-Nous illustrerons la démarche à l'aide de Git mais sachez qu'il est tout à fait possible d'utiliser SVN, Team Foundation Server ou un autre gestionnaire de votre choix.
+Nous illustrerons la démarche à l'aide de Git mais sachez qu'il est tout à fait possible d'utiliser Mercurial, SVN, Team Foundation Server ou tout autre gestionnaire de version gérant les fichiers texte.
 
-La configuration initiale des fichiers à ignorer est extrêmement réduite.
-Un cas minimal de contenu de fichier `.gitignore` tient en trois lignes :
+La règle est simple : vous pouvez *tout versionner sauf* deux exceptions.
+Deux règles suffisent dans la majorité des cas :
+
+- *node_modules* : le fichier _package.json_ contenant déjà les références aux dépendances requises, nous n'avons pas besoin d'en versionner leur code source ;
+- **.log* : la commande npm ou l'interpréteur interactif de Node peuvent générer occasionnellement des fichiers log en cas d'erreur.
+
 
 [source]
 .gitignore
@@ -263,13 +268,19 @@ Un cas minimal de contenu de fichier `.gitignore` tient en trois lignes :
 # Code source des dépendances externes
 node_modules
 
-# Logs
-logs
+# Erreurs et logs d'exécution de Node/npm
 *.log
 ----
 
-On se content simplement d'_ignorer le code source des dépendances externes_ et les éventuels fichiers de log générés par le programme npm ou vos futures applications.
+[TIP]
+.[RemarquePreTitre]#Astuce# Automatisation sans effort
+====
+Certains IDE comme WebStorm ou des plateformes comme GitHub vous proposent de créer le fichier _.gitignore_ configuré pour Node.
 
+Une attention sympathique qui vous évitera de versionner inutilement certains fichiers.
+====
+
+Versionner le contenu produit dans les deux précédentes sections se résume à ces quelques commandes :
 
 ----
 git init
@@ -279,11 +290,56 @@ git remote add origin git@votre-serveur-git:repo.git
 git push origin master
 ----
 
-À ce stade, nous avons non seulement initialisé le projet Node mais il est également 
+La suite du cycle de vie Git sera similaire à ce que vous aviez l'habitude de pratiquer.
+
+À ce stade, nous savons initialiser un projet Node, installer des dépendances et maintenir son état dans un gestionnaire de version.
 
 ===== Approche modulaire
 
-designer une API et l'exposer 
+La force de Node réside dans sa facilité à créer et réutiliser du code dont la portée est contenue.
+C'est un atout considérable pour créer et maintenir du code modulaire ne se limitant pas qu'à une seule application.
+
+Il faut imaginer et penser une application comme étant le sens donné en créant du _liant_ entre des modules encapsulés.
+
+Un exécutable shell configure des modules et retourne une sortie vers le terminal ou des fichiers. +
+Une application Web configure des modèles, les expose via des routes et met la sortie en forme au travers d'un formatage JSON ou HTML par exemple.
+
+Une application accepte des informations en entrée : paramètres HTTP, arguments shell etc. +
+Une application retourne des informations en sortie : HTML, JSON, binaire etc.
+
+Un module accepte des informations en entrée : objets et fonctions ECMAScript. +
+Un module retourne des informations en sortie : objets et fonctions ECMAScript.
+
+Cela revient à constamment _designer_ des APIs et à les exposer, que ce soit au travers d'une interface Node, système ou HTTP.
+
+Une application en ligne de commande devrait contenir une orchestration d'API mettant en relation l'intention exprimée par un shell système envers une librairie Node :
+
+[source,javascript]
+.snippets/cli-app.js
+----
+include::{sourceDir}/snippets/cli-app.js[]
+----
+
+Une application HTTP devrait contenir une orchestration d'API mettant en relation l'intention exprimée par une requête HTTP envers une application Node :
+
+
+[source,javascript]
+.snippets/http-app.js
+----
+include::{sourceDir}/snippets/http-app.js[]
+----
+
+Une route obéissant elle-aussi au même principe :
+
+[source,javascript]
+.snippets/route.js
+----
+include::{sourceDir}/snippets/route.js[]
+----
+
+Nous verrons dans un chapitre ultérieur comment utiliser cette même logique de développement et l'exécuter du côté du navigateur.
+
+Non seulement la modularité renforcera la facilité à tester votre code, à expliciter ses intentions mais en plus il accentuera l'ubiquité de son utilisation.
 
 ==== Installation
 
