@@ -343,16 +343,77 @@ Non seulement la modularité renforcera la facilité à tester votre code, à ex
 
 ==== Installation
 
-son code mais aussi les dépendances
+À ce stade, nous avons toutes les cartes en main pour créer une application Node.
+
+Il ne reste plus qu'à pouvoir l'installer, dans un état identique sur un autre poste de travail, dans un environnement de test ou de production ou encore en tant que dépendance d'un autre module/projet ou à l'échelle du système.
+
+Dans tous les cas décrits ci-après, que ce soit via Git ou via une archive, npm requiert que le fichier `package.json` soit situé à sa racine.
+
+===== Autonome
+
+Une installation autonome concerne aussi bien un développeur ayant besoin de contribuer à un projet qu'un projet exposant une ou plusieurs interfaces.
+
+La procédure d'installation est relativement simple :
+
+1. Cloner le dépôt Git ;
+1. Lancer la commande `npm install`.
+
+Dans le cadre des exemples contenus dans ce chapitre, il suffirait d'exécuter ces commandes :
+
+----
+git clone https://github.com/oncletom/nodebook.chapter-03.git
+cd nodebook.chapter-03
+npm install
+----
+
+Vous remarquerez que la commande `npm install` est utilisée seule, sans npm de module.
+Dans ce cas, npm se contente d'installer récursivement les dépendances listées dans le fichier `package.json`.
+
+[TIP]
+.[RemarquePreTitre]#npm# --production
+====
+Si vous suffixez la commande `npm install` avec l'option `--production`, toutes les dépendances seront installées à _l'exception_ de celles listées en tant que _devDependences_.
+
+Il s'agit d'un moyen d'installer moins de dépendance lors d'une livraison — à condition de ne pas avoir besoin de l'outillage de tests.
+====
+
+Le clonage du dépôt pour être remplacé par des méthodes alternatives, de type empaquetage sous forme de fichier DEB, de module Puppet, d'archive ZIP … ou encore d'archive Node via la commande `npm pack`.
+
+Ces méthodes permettent entre autre d'inclure les dépendances contenues dans le répertoire _node_modules_ et de garantir la version exacte de l'intégralité de l'arbre de dépendance. 
 
 ===== Locale
 
-- git
+Dans le cas où votre projet n'est pas autonome et/ou expose une API Node _mais_ n'est pas disponible dans un registre npm, il existe tout de même une méthode d'installation à partir d'un dépôt Git :
+
+----
+npm install --save git+https://github.com/oncletom/nodebook.chapter-03.git#master
+----
+
+Si l'interface HTTP de Git n'est pas disponible ou que son authentification est exclusivement gérée à partir de certificat SSH, vous pouvez opter pour le préfixe `git+ssh` :
+
+----
+npm install --save git+ssh://git@github.com:oncletom/nodebook.chapter-03.git#master
+----
+
+À défaut d'un dépôt Git, vous pouvez également installer une dépendance à partir d'une archive Tar compressée (extension `.tar.gz`), produite à l'aide de `npm pack` par exemple.
+
+----
+npm install --save https://github.com/oncletom/nodebook.chapter-03/archive/master.tar.gz
+----
 
 ===== Globale
 
-- git + npm
-- npm -g
+L'installation globale est une installation rendant disponible votre module sur tout le système d'exploitation.
+
+Il s'agit d'une installation à privilégier pour les modules Node exposant un ou plusieurs exécutables — ces exécutables ayant une vocation utilitaire pour l'utilisateur final ou pour interagir avec d'autres programmes informatiques.
+
+----
+npm install -g npm
+----
+
+L'exécution de la précédente commande installera la dernière version de npm et rendra disponible l'exécutable du même nom au niveau du système.
+
+Bravo, vous venez d'apprendre à mettre à jour l'exécutable npm !
 
 ==== Configuration
 
