@@ -310,7 +310,7 @@ Une application retourne des informations en sortie : HTML, JSON, binaire etc.
 Un module accepte des informations en entrée : objets et fonctions ECMAScript. +
 Un module retourne des informations en sortie : objets et fonctions ECMAScript.
 
-Cela revient à constamment _designer_ des APIs et à les exposer, que ce soit au travers d'une interface Node, système ou HTTP.
+Cela revient à constamment _designer_ des API et à les exposer, que ce soit au travers d'une interface Node, système ou HTTP.
 
 Une application en ligne de commande devrait contenir une orchestration d'API mettant en relation l'intention exprimée par un shell système envers une librairie Node :
 
@@ -417,20 +417,171 @@ Bravo, vous venez d'apprendre à mettre à jour l'exécutable npm !
 
 ==== Configuration
 
-===== package.json
+Certaines applications ou modules nécessitent d'en savoir plus sur le contexte d'exécution, l'emplacement de ressources ou la manière de se connecter à des serveurs distants, par exemple.
+
+C'est à la fois une bonne pratique en terme de flexibilité … et en même temps, vous n'aurez surement pas envie de partager publiquement vos identifiants de base de données, qu'elles contiennent ou pas des informations sensibles.
 
 ===== Variables d'environnement
 
+L'utilisation d'une variable d'environnement pour configurer l'exécution d'une application est la solution la plus aisée à implémenter.
+
+Ces variables sont accessibles via l'objet `process.env` et ce, quel que soit le contexte d'exécution de Node.
+
+L'exemple suivant décrit comment définir le port sur lequel écoutera le serveur HTTP en fonction d'un contexte d'exécution (environnement de test ou environnement de production) ou d'un réglage surchargeant le dit contexte.
+
+[source,javascript]
+.snippets/config-env.js
+----
+include::{sourceDir}/snippets/config-env.js[]
+----
+
+Ainsi que l'illustration de leur définition (ou non) :
+
+----
+PORT=8000 node src/snippets/config-env.js <1>
+NODE_ENV=test node src/snippets/config-env.js <2>
+node src/snippets/config-env.js <3>
+----
+<1> Le port sélectionné est le port 8000 ;
+<2> Le port sélectionné est le port 3001 ;
+<3> Le port sélectionné (par défaut) est le port 3000.
+
+Ces variables d'environnement ont l'avantage d'avoir une portée au niveau du processus uniquement ou d'être propagées à l'échelle du système — via `export` en bash, par exemple.
+
+===== Arguments
+
+Les arguments correspondent à un tableau de chaînes exposé par `process.argv`.
+
+Cette approche est recommandée si la passation d'informations fait partie de la logique métier du module Node, requiert des arguments obligatoires ou implique un _parsing_ avancé.
+
+Le script suivant illustre leur lecture par l'interpréteur Node :
+
+[source,javascript]
+.snippets/config-argv.js
+----
+include::{sourceDir}/snippets/config-argv.js[]
+----
+
+Et leur invocation :
+
+----
+node src/snippets/config-argv.js -y 2014 2012 --title 'fromage baguette'
+----
+<1> Affiche `["-y", "2014", "2012", "--title", "fromage baguette"]`.
+
+C'est rudimentaire mais heureusement des parseurs d'arguments vont nous faciliter la vie.
+Ils permettent de configurer des valeurs par défaut, de valider les valeurs, de les rendre obligatoire et même de générer automatiquement une aide à l'utilisateur.
+
+L'un de ces modules est `yargs`.
+Nous l'avons évoqué et installé précédemment dans ce chapitre.
+
+[source,javascript]
+.snippets/config-yargs.js
+----
+include::{sourceDir}/snippets/config-yargs.js[]
+----
+
+Et leur invocation :
+
+----
+node src/snippets/config-yargs.js 2012 --title 'fromage baguette' <1> <2> <3>
+----
+<1> 2014 (sa valeur étant définie par défaut si `-y` n'est pas spécifié comme argument shell) ;
+<2> fromage baguette ;
+<3> 2012 (`_` étant l'attribut fourre-tout récupérant les arguments non-assignés).
+
+L'invocation suivante omet volontairement l'argument `--title` afin de tester le comportement du module :
+
+----
+node src/snippets/config-yargs.js <1>
+----
+<1> Affiche le message suivant en flux d'erreur (`process.stderr`) : `Missing required arguments: title`.
+
+Consultez la documentation de ce module pour davantage d'exemples variés et avancés.
+
 ===== Fichier de configuration
 
-- fichier json
-- package.json + npm start
+Opter pour un fichier de configuration fait sens si de nombreux paramètres sont à fournir à l'application — ou si certains de ces paramètres impliquent des arborescences d'objets ou de tableaux ECMAScript.
+
+Plusieurs stratégies s'offrent à vous :
+
+- un fichier unique pour éviter les valeurs en dur dans le code ;
+- un fichier par environnement d'exécution (test, préprod, production etc.) ;
+- un fichier par domaine d'application (base de données, API etc.) ;
+- un fichier par domaine de sécurité (backend, frontend etc.).
+
+Le choix reste ouvert et le votre.
+En revanche nous allons voir comment _techniquement_ mettre en œuvre ces possibles stratégies.
+
+Commençons par l'approche par environnement d'exécution, reposant sur la notion d'un fichier de configuration par environnement.
+
+[source,javascript]
+.snippets/config-file.js
+----
+include::{sourceDir}/snippets/config-file.js[]
+----
+
+Ainsi, un appel au module précédent chargera :
+
+- `production.json` lors du premier appel ;
+- `dev.json` lors du second appel ;
+- `test.json` lors du premier appel si `NODE_ENV=test` ;
+- `dev.json` lors du second appel si `NODE_ENV=test`.
+
+[TIP]
+.[RemarquePreTitre]#npm# Le module nconf
+====
+Des modules comme _nconf_ proposent des abstractions gérant de multiples cas de figure.
+
+Ils vont jusqu'à la prise en charge des notions d'héritage et de cascade pour faciliter la maintenance et ne gérer que les différences entre environnement, plutôt que d'avoir à tout spécifier à chaque fois.
+
+- https://npmjs.org/nconf
+====
+
+Une autre approche, tout aussi voire plus simple consiste à réutiliser le fichier `package.json` en y ajoutant des propriétés supplémentaires.
+
+[source,javascript]
+.snippets/config-file-package.js
+----
+include::{sourceDir}/snippets/config-file-package.js[]
+----
+<1> Affiche `{ port: '3000' }`.
+
+On peut également se passer de l'étape `require()` si la commande npm invoque un script Node :
+
+[source,javascript]
+.snippets/config-file-npm.js
+----
+include::{sourceDir}/snippets/config-file-npm.js[]
+----
+
+npm aplatira la structure d'objet du fichier `package.json` et séparera chaque niveau de profondeur par le caractère `_`, le préfixera par `npm_package_` et l'injectera dans l'objet `process.env`. +
+Par exemple, `require('./package.json').config.port` sera accessible via `process.env.npm_package_config_port`.
+
+----
+node src/snippets/config-file-npm.js <1>
+npm run display-config-port <2>
+----
+<1> Affiche `undefined` ;
+<2> Affiche `3000`.
+
+On comprend ainsi que l'exposition du contenu du fichier `package.json` sous forme de variables d'environnement est l'œuvre de la commande npm.
+
+[TIP]
+.[RemarquePreTitre]#Astuce# Combinaison avec les variables d'environnement
+====
+Un bon moyen de ne pas inscrire en dur l'emplacement d'un fichier de configuration est encore d'indiquer son emplacement via une variable d'environnement :
+
+----
+CONFIG_FILE=~/.secured/config.json node app.js
+----
+====
 
 ==== Exécution de l'application
 
 ===== Invocation Node
 
-===== npm start
+===== Invocation npm
 
 ===== Orchestration des services
 
