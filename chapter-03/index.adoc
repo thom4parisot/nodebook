@@ -180,50 +180,74 @@ Intéressons-nous plus particulièrement au répertoire _node_modules_.
 
 ===== Ajouter des dépendances
 
-Conséquence directe de la présence d'un fichier `package.json` :  nous pouvons (et voulons) déclarer les dépendances externes dont notre projet a besoin pour fonctionner.
+Comme nous l'avons vu auparavant, le répertoire _node_modules_ contient les dépendances requises par la fonction `require()` (lire la section _modules_ du _Chapitre 2_).
 
-Le module npm `excel-stream` ([URL]#https://npmjs.org/excel-stream#) semble être un bon candidat pour la lecture de fichiers Excel.
-Nous pouvons l'installer et le lier à notre projet par le biais de la commande `npm install` :
+Le mécanisme principal d'installation est la commande `npm install`. +
+L'installation d'un module est par défaut _locale_ au projet.
+Mais elle peut également être globale au système — nous le verrons plus tard.
+
+Il est toutefois recommandé d'installer les modules localement, afin de limiter leur portée uniquement au projet tout en maintenant une dépendance explicite et gérable via le fichier _package.json_.
+
+Déroulons ensemble l'algorithme d'installation de `npm install` par le biais de cet exemple :
 
 ----
 npm install --save async yargs
 ----
 
+La commande précédente effectue plusieurs opérations :
+
+1. requête du registre _npmjs.org_ à propos des deux modules _async_ et _yargs_ ;
+2. si les modules existent, la version compatible la plus récente est retournée (équivalent à `npm view async version` et `npm view async version` — respectivement `0.9.0` et `1.3.1`) ;
+3. téléchargement et décompression des paquets dans les répertoire `node_modules/async` et `node_modules/yargs` ;
+4. introspection récursive des dépendances de ces modules et si besoin est, téléchargement et décompression dans leur répertoire _node_modules_ respectif (ici `node_modules/async/node_modules` et `node_modules/yargs/node_modules`) ;
+5. inscription de _async_ et de _yargs_ dans la configuration _dependencies_ de notre fichier `package.json`.
+
 .Exemple de résultat de la commande `npm install`
 image::{indir}/images/npm-install-save.png[align="center",scaledwidth="85%"]
 
-La commande précédente effectue plusieurs opérations :
+La commande npm prend soin de télécharger et de persister les dépendances, à la fois dans le répertoire _node_modules_ et dans le fichier _package.json_.
+Ce dernier contient désormais une section _dependencies_ :
 
-- elle installe le module `excel-stream` dans le répertoire `node_modules` ;
-- elle installe les dépendances nécessaires au fonctionnement du module `excel-stream` ;
-- elle inscrit `excel-stream` en tant que dépendance dans notre fichier `package.json`.
+[source,javascript]
+.package.json
+----
+{
+  ...
+  "dependencies": {
+    "async": "~1.3.1",
+    "yargs": "~0.9.0"
+  }
+}
+----
 
-.Fichier `package.json` après installation d'une nouvelle dépendance.
-image::{indir}/images/npm-install-save-diff.png[align="center",scaledwidth="85%"]
-
-Le programme npm prend soin de créer la section `dependencies` si elle n'existe pas, et y rajoute la clé `excel-stream` associée à un numéro de version, ici `~1.0.8`.
-Il s'agit de la notation _semver_ ([URL]#http://semver.org#).
+Vous remarquerez que les numéros de versions sont préfixés du symbole `~` (ou `^` selon la version de npm).
+Nous y reviendrons 
 
 [TIP]
 .[RemarquePreTitre]#Aide# --save, --save-dev, --save-optional et --save-exact
 =====
+Plusieurs options à la commande npm inscrivent les dépendances dans le fichier _package.json_.
+Leur comportement varie légèrement :
 
-- *--save* : ; 
-- *--save-dev* : ;
-- *--save-optional* : ;
-- *--save-exact* : .
+- *--save* : enregistre le module dans la clé _dependencies_ ; 
+- *--save-exact* : idem que `--save` mais ne rajoute pas de préfixe au numéro de version (exemple : `1.3.1` au lieu de `~1.3.1`) ;
+- *--save-dev* : enregistre le module dans la clé _devDependencies_ ;
+- *--save-optional* : enregistre le module dans la clé _optionalDependencies_.
+
+Ces clés de configuration sont expliqués dans la section _Configurer package.json_ de ce même chapitre.
 
 *Remarque* : il n’existe pas de mécanisme pour enregistrer automatiquement une dépendance en tant que _peerDependency_.
 =====
 
-Il est désormais possible d'invoquer `excel-stream` via la fonction `require` au sein de notre code :
+Les modules installés sont désormais manipulables via la fonction `require` au sein de notre code :
 
 [source,javascript]
 ----
-var excel = require('excel-stream');
+var async = require('async');
+vars argv = require('yargs').argv;
 ----
 
-Maintenant que nous savons installer et sauvegarder des dépendances par le biais du fichier `package.json`, prenons le temps d'initialiser la gestion des versions.
+Maintenant que nous savons installer et sauvegarder des dépendances par le biais du fichier `package.json`, sauvegardons l'état actuel du projet avec un gestionnaire de versions.
 
 ===== Versionner son code
 
