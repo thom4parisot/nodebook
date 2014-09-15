@@ -553,6 +553,15 @@ Dans ce précédent exemple, le code est interprété séquentiellement comme su
 7. Invocation de la fonction `printT` (retournant `1`).
 8. La file de priorité est vide, Node demande au système d'exploitation d'arrêter son processus.
 
+[TIP]
+.[RemarquePreTitre]#Outil# Visualiser la boucle
+====
+_Loupe_ est un visualisateur de boucle évènementielle.
+Écrivez du code et il animera visuellement l'orchestration de la pile d'appels, les appels aux API du navigateur ainsi que la pile de callbacks.
+
+- [URL]#http://latentflip.com/loupe/#
+====
+
 Alors pourquoi dit-on que _libuv_ est non bloquant ?
 Tout simplement car l'acquisition d'une ressource système renvoie un descripteur, vérifiée à chaque itération de la boucle  et dont le _callback_ est exécuté lorsque la vérification se révèle positive.
 
@@ -562,12 +571,6 @@ Et ainsi de suite.
 On dit également que Node est _single threaded_ car il n'y a qu'une seule boucle par processus Node ; processus rattaché à un  seul cœur de processeur (_CPU core_). +
 Il faut donc lancer d'autres processus Node sur d'autres cœurs pour être capable de traiter davantage de données à la fois.
 Plusieurs processus Node sur le même cœur se partagent une puissance de calcul finie.
-
-[CAUTION]
-====
-Existe-t-il une traduction pas dégueu pour _single threaded_ ? +
-Très certainement des choses un peu hardcores à vérifier (qui me paraissent normales mais sont des hérésies pour un puriste).
-====
 
 [TIP]
 .[RemarquePreTitre]#Trivia# JavaScript n'est pas événementiel
