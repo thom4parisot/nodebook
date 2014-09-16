@@ -579,15 +579,68 @@ CONFIG_FILE=~/.secured/config.json node app.js
 
 ==== Exécution de l'application
 
+Nous avons vu les différentes manières d'utiliser l'interpréteur Node dans le _chapitre 2_.
+Pour autant, comment exécuter une application — un programme dont la durée d'exécution est indéfini et de longue durée ?
+
+Il existe plusieurs méthodes, allant de la simple exécution d'un  script Node à l'utilisation de gestionnaire de processus voire même des gestionnaires système tels que _System V_ ou _systemd_.
+
 ===== Invocation Node
+
+L'utilisation seule de l'interpréteur Node pour démarrer une application est évidemment la plus simple mais également la moins robuste.
+
+----
+node server.js
+----
+
+Elle est pratique et acceptable dans le cadre d'un développement local voire encore dans le cadre d'un exécutable à usage ponctuel.
+
+Une technique "de pauvre" consisterait à utiliser le symbole _&_ afin de rendre la main au système — sans pour autant transformer le processus en _daemon_. +
+L'inconvénient de cette méthode est que le processus sera interrompu par le système si vous quittez votre session shell — ce qui sera le cas lors d'une connexion distante via SSH.
+
+----
+node server.js &
+----
+
+Enfin, dernière alternative : l'utilisation de la commande `nohup` pour demander au système de ne pas interrompre le processus en cas de fin de session.
+
+----
+nohup server.js &
+----
+
+Quoiqu'il advienne, les solutions précédemment citées n'adresseront pas les problématiques suivantes :
+
+- démarrage automatique du processus ;
+- notification et reprise en cas de plantage de l'application ;
+- redémarrage ou arrêt des services.
 
 ===== Invocation npm
 
+----
+npm start
+----
+
+
+- npm run postinstall
+
 ===== Orchestration des services
 
+----
+forever start server.js
+----
+
+
 - plusieurs app Node
+
+----
+foreman start
+----
+
 - services système
-- npm run postinstall
+
+----
+start your-app
+----
+
 
 ==== Modification de l'application
 
