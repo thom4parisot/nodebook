@@ -620,17 +620,59 @@ nohup server.js &
 Quoiqu'il advienne, les solutions précédemment citées n'adresseront pas les problématiques suivantes :
 
 - démarrage automatique du processus ;
-- notification et reprise en cas de plantage de l'application ;
+- notification et reprise sur erreur en cas de plantage de l'application ;
 - redémarrage ou arrêt des services.
 
 ===== Invocation npm
+
+L'invocation npm diffère peu de l'invocation Node précédemment décrite : elle souffre en effet des mêmes défauts de résilience.
+
+Alors pourquoi parler de npm ?
+N'est-ce pas un outil simplement dédié à la gestion des modules externes ?
+
+La commande npm propose des fonctionnalités additionnelles complétant et facilitant la gestion du processus applicatif. +
+Une de ces fonctionnalités est `npm start` :
 
 ----
 npm start
 ----
 
+Cette commande ne fait rien en soit si ce n'est exécuter la commande contenue dans la section `scripts.start` de votre fichier `package.json`.
 
-- npm run postinstall
+[source]
+.package.json
+----
+{
+  "name": "nodebook",
+  ...
+  "scripts": {
+    "start": "node server.js"
+  }
+}
+----
+
+L'avantage de cette approche est double :
+
+- toute complexité est masquée et résumée à des commandes pouvant devenir des _conventions_ au sein de tous vos projets ;
+- npm modifie la variable système `$PATH` et rend disponible les exécutables contenus dans le répertoire `./node_modules/.bin` (voir l'encadré _Répertoires et exécutables_ de la section _Installation_).
+
+[source]
+.package.json
+----
+{
+  "name": "nodebook",
+  ...
+  "scripts": {
+    "test": "jshint ./src" <1>
+  },
+  "devDependencies": {
+    "jshint": "~2.5.1"
+  }
+}
+----
+<1> Équivaut donc à `./node_modules/.bin/jshint ./src`
+
+Depuis sa version `2.0`, npm expose également les commandes `npm stop` et `npm restart`.
 
 ===== Orchestration des services
 
