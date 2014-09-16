@@ -415,6 +415,16 @@ L'exécution de la précédente commande installera la dernière version de npm 
 
 Bravo, vous venez d'apprendre à mettre à jour l'exécutable npm !
 
+[TIP]
+.[RemarquePreTitre]#npm# Répertoires et exécutables
+====
+npm se charge de créer les liens symboliques pour vous.
+Et ce, en fonction du contexte d'installation — qu'il soit global ou local donc.
+
+- `npm install -g jshint` : exécutable mis à disposition dans le répertoire `\`npm config get npm config get prefix\`/bin` (par exemple `/usr/local/node/bin`) ;
+- `npm install jshint` : exécutable mis à disposition dans le répertoire `./node_modules/.bin`.
+====
+
 ==== Configuration
 
 Certaines applications ou modules nécessitent d'en savoir plus sur le contexte d'exécution, l'emplacement de ressources ou la manière de se connecter à des serveurs distants, par exemple.
