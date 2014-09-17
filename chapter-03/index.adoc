@@ -617,7 +617,7 @@ C'est tout !
 ====
 
 Une technique "de pauvre" consisterait à utiliser le symbole _&_ afin de rendre la main au système — sans pour autant transformer le processus en _daemon_. +
-L'inconvénient de cette méthode est que le processus sera interrompu par le système si vous quittez votre session shell — ce qui sera le cas lors d'une connexion distante via SSH.
+L'inconvénient de cette méthode est que le processus sera interrompu par le système si vous quittez votre session shell — ce qui sera le cas lors d'une connexion distante via SSH :
 
 ----
 node server.js &
@@ -649,7 +649,7 @@ Une de ces fonctionnalités est `npm start` :
 npm start
 ----
 
-Cette commande ne fait rien en soit si ce n'est exécuter la commande contenue dans la section `scripts.start` de votre fichier `package.json`.
+Cette commande ne fait rien en soit si ce n'est exécuter la commande contenue dans la section `scripts.start` de votre fichier `package.json` :
 
 [source]
 .package.json
