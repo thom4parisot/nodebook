@@ -604,6 +604,18 @@ node server.js
 
 Elle est pratique et acceptable dans le cadre d'un développement local voire encore dans le cadre d'un exécutable à usage ponctuel.
 
+[TIP]
+.[RemarquePreTitre]#module# nodemon
+====
+_nodemon_ est un excellent moyen d'automatiser le rechargement de votre application quand vous la développez.
+Dès qu'un fichier est modifié, le module interrompt le serveur et le relance aussitôt avec les arguments originels.
+
+Installez le module globalement et ensuite, au lieu d'exécuter `node server.js`, exécutez `nodemon server.js`.
+C'est tout !
+
+- https://npmjs.org/nodemon
+====
+
 Une technique "de pauvre" consisterait à utiliser le symbole _&_ afin de rendre la main au système — sans pour autant transformer le processus en _daemon_. +
 L'inconvénient de cette méthode est que le processus sera interrompu par le système si vous quittez votre session shell — ce qui sera le cas lors d'une connexion distante via SSH.
 
