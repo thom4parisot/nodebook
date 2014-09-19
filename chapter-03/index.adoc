@@ -793,9 +793,38 @@ Maintenant intéressons-nous aux impacts de la modification d'une application en
 
 ==== Modification de l'application
 
-===== npm test
+Vous disposez d'une application qui démarre et dont le versionning est mis en place … mais concrètement, on fait quoi quand le code change ?
 
-- simple
+Cette section s'intéresse aux habitudes à prendre avant de pousser le code modifié dans votre dépôt.
+
+===== Mise à jour des dépendances
+
+L'erreur classique : l'application fonctionne sur votre machine mais pas sur celle de votre collègue.
+Un module manque mais vous ne comprenez pas pourquoi …
+
+Ça se résume en deux points :
+
+- vous avez une dépendance installée dans votre projet qui n'est pas déclarée dans le fichier `package.json` ;
+- la version de vos dépendances et celle de l'autre personne diffèrent.
+
+La commande npm adresse très exactement ces problèmes grâce aux actions suivantes :
+
+----
+npm prune
+npm install
+npm update
+----
+
+La première supprimera du répertoire _node_modules_ toute dépendance non-déclarée dans le fichier `package.json`.
+La seconde installera les dépendances manquantes et enfin la troisième mettre à jour les dépendances locales.
+
+`npm update` se comporte de manière similaire à `npm install` à une différence près : seules les dépendances préalablement installées seront mises à jour, et seulement si nécessaire.
+
+Ces trois commandes vous assureront un état d'installation similaire à ce qu'une personne aurait en procédant à une installation _fraîche_.
+
+===== Exécution des tests
+
+- npm test
 - complexe avec variables d'environnement
 
 ===== Choisir un bon numéro de version
