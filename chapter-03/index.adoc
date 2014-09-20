@@ -811,16 +811,15 @@ La commande npm adresse très exactement ces problèmes grâce aux actions suiva
 
 ----
 npm prune
-npm install
 npm update
 ----
 
 La première supprimera du répertoire _node_modules_ toute dépendance non-déclarée dans le fichier `package.json`.
-La seconde installera les dépendances manquantes et enfin la troisième mettre à jour les dépendances locales.
+La seconde installera les dépendances manquantes et mettra à jour les dépendances locales.
 
-`npm update` se comporte de manière similaire à `npm install` à une différence près : seules les dépendances préalablement installées seront mises à jour, et seulement si nécessaire.
+`npm update` se comporte de manière similaire à `npm install` à une différence près : les dépendances préalablement installées seront mises à jour si nécessaire.
 
-Ces trois commandes vous assureront un état d'installation similaire à ce qu'une personne aurait en procédant à une installation _fraîche_.
+Ces deux commandes vous assureront un état d'installation similaire à ce qu'une personne aurait en procédant à une installation _fraîche_.
 
 ===== Exécution des tests
 
