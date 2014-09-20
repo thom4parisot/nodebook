@@ -895,6 +895,32 @@ Vous maintenez ainsi une lisibilité au sein de votre fichier `package.json` tou
 
 ===== Choisir un bon numéro de version
 
+Bien versionner chaque publication de votre projet n'apporte que des avantages.
+Et ce, que vous choisissiez ou non de publier vos modules dans un registre npm public ou privé.
+
+Modifier le numéro de version dans votre fichier `package.json` revient à déclarer deux choses :
+
+1. l'*intention du changement*, à savoir mineur, fonctionnel ou très important ;
+2. un `git tag` s'impose, pour marquer l'historique de version et faciliter la *reprise du code à un stade identique* à celui livré en production ou dans le registre npm.
+
+Il est temps d'expliquer la spécification _semver_ pour mieux comprendre en tirer profit.
+
+Un numéro de version suivant la logique _semver_ est structuré en quatre parties : MAJEUR.MINEUR.PATCH-EXTRA.
+
+- *Majeur* : changement important d'API cassant la compatibilité avec les versions majeures précédentes ;
+- *Mineur* : changement fonctionnel d'API ne cassant pas la compatibilité avec les autres publications associées à la même version majeure ;
+- *Patch* : changement trivial impliquant souvent un simple correctif et n'ayant aucun impact de compatibilité ;
+- *Extra* (optionnel) : métadonnée spécifique indiquant le statut (beta, alpha etc.), la cible (architecture de CPU, compilateur visé etc.) ou autre (identifiant de commit, numéro de _build_ ayant généré le paquet etc.).
+
+Autrement dit, si vous modifier le numéro de version de `1.1.1` vers :
+
+- `2.0.0` : incompatibilité de code avec toutes les versions de la branche `1.x` ;
+- `1.2.0` : fonctionnalités modifiées mais compatibles avec le reste de la branche `1.x` ;
+- `1.1.2` : correctif de la version `1.1.1` ;
+- `1.1.2-beta.2` : deuxième version beta du correctif de la version `1.1.1`.
+
+À ce stade, nous sommes dans le déclaratif : chaque projet ajoutant une dépendance vers un autre module _choisit_ sa manière d'accepter les nouvelles versions.
+
 ===== Publication du code
 
 - dans npm
