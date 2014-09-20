@@ -823,8 +823,75 @@ Ces deux commandes vous assureront un état d'installation similaire à ce qu'un
 
 ===== Exécution des tests
 
-- npm test
-- complexe avec variables d'environnement
+L'écriture de tests et la vérification de la qualité de votre code sont un excellent moyen de vous assurez que de nouveaux bugs ne sont pas introduits dans votre application.
+
+Écrire des modules et les empiler sans écrire de tests revient à construire un château de carte : le moindre changement accentue le risque de propager des erreurs dans tous les applications en dépendant.
+
+Nous verrons ultérieurement comment écrire des tests unitaires pour vos applications et votre code exécuté dans un contexte Web.
+
+À la manière du démarrage d'une application, la commande npm fournit un contexte d'exécution dédié aux tests :
+
+----
+npm test
+----
+
+Cette commande effectue deux choses :
+
+- elle règle la variable d'environnement `NODE_ENV` à `test` ;
+- elle exécute l'instruction du script `test` déclarée dans le fichier `package.json` :
+
+[source]
+.package.json
+----
+{
+  "name": "nodebook",
+  ...
+  "scripts": {
+    "test": "mocha tests/**/*.js"
+  },
+  "devDependencies": {
+    "mocha": "*"
+  }
+}
+----
+
+Dans cet exemple, exécuter la commande `npm test` revient à actionner l'exécutable déclaré par le module _mocha_ avec comme argument l'ensemble des fichiers JavaScript contenus dans le répertoire `tests/` de notre projet.
+
+En cas de test fautif, l'exécutable de tests affichera des précisions quant à leur origine et se terminera avec un code de sortie différent de 0.
+
+Ce qui signifie en jargon Unixien que vous pouvez chaîner la commande avec d'autres actions basées sur un état de réussite des tests :
+
+----
+npm test && git push
+----
+
+Cette précédente commande a deux scénarios possibles :
+
+1. `npm test` échoue et `git push` ne sera pas exécuté ;
+2. `npm test` réussit et `git push` sera exécuté.
+
+En se basant sur ce principe de chaîne, vous pouvez faire évoluer votre commande de test en quelque chose de plus poussé :
+
+[source]
+.package.json
+----
+{
+  "name": "nodebook",
+  ...
+  "scripts": {
+    "test": "npm run code-quality && npm run unit-tests",
+    "code-quality": "jshint src/",
+    "unit-tests": "mocha tests/**/*.js"
+  },
+  "devDependencies": {
+    "mocha": "*",
+    "jshint": "*"
+  }
+}
+----
+
+La commande `npm test` est alors composée de deux autres commandes personnalisées.
+Vous maintenez ainsi une lisibilité au sein de votre fichier `package.json` tout en bénéficiant d'une indépendance d'exécution de vos commandes.
 
 ===== Choisir un bon numéro de version
 
@@ -868,6 +935,8 @@ Ces deux commandes vous assureront un état d'installation similaire à ce qu'un
 === Design patterns
 
 ==== index.js
+
+==== Globbing
 
 ==== Injection de module
 
