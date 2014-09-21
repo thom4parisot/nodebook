@@ -989,7 +989,14 @@ npm publish
 `npm publish` téléversera une archive compressée associée au numéro de version déclaré par le fichier `package.json` et contenant tous les fichiers du projet.
 Tous les fichiers sauf ceux correspondant aux motifs déclarés dans les fichiers `.gitignore` et `.npmignore`.
 
-Pour résumer, si le module est nommé `nodebook` et est en version `1.3.0`, `npm publish` 
+Pour résumer, si le module est nommé `nodebook` et est en version `1.3.0`, `npm publish` enregistrera cette version dans le registre npm.
+L'installation du module fraichement publié est accessible à travers ces différentes variantes :
+
+----
+npm install nodebook
+npm install nodebook@latest
+npm install nodebook@1.3.0
+----
 
 Utilisez l'installation versionnée pour installer spécifiquement cette version à tout moment :
 
