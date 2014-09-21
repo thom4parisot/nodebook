@@ -1110,9 +1110,20 @@ Elle sera plus facile à maintenir si elle rend isole et rend explicite les dép
 
 ===== Alertes de sécurité
 
-- https://nodesecurity.io/advisories (https://nodesecurity.io/rss.xml)
-- http://blog.nodejs.org/vulnerability/ (http://blog.nodejs.org/feed/vulnerability/)
-- http://blog.nodejs.org/ (http://blog.nodejs.org/feed/)
+Il existe quatre niveaux où des failles de sécurité peuvent s'immiscer :
+
+- votre propre code — des revues de code, une amélioration de vos connaissances et la commande d'audits vous aideront à identifier les possibles failles et vulnérabilités ;
+- des vulnérabilités contenues dans vos dépendances, et dépendances de vos dépendances ;
+- des vulnérabilités occasionnées par Node ;
+- des vulnérabilités occasionnées par V8, dont le développement est indépendant du projet Node.
+
+On n'oubliera pas les vulnérabilités liés à votre système d'exploitation, à ses logiciels ainsi qu'à son exposition au monde extérieur — mais ce n'est pas l'objet de cet ouvrage.
+
+Plusieurs canaux sont à votre disposition pour être notifié très rapidement de mises à jour correctives :
+
+- *Failles de sécurité de modules npm* : [URL]#https://nodesecurity.io/advisories# — et son flux RSS [URL]#https://nodesecurity.io/rss.xml# ;
+- *Failles de sécurité de Node* : [URL]#http://blog.nodejs.org/#vulnerability/ — et son flux RSS [URL]#http://blog.nodejs.org/feed/vulnerability/# ;
+- *Mises à jour de Node* : [URL]#http://blog.nodejs.org/# — et son flux RSS [URL]#http://blog.nodejs.org/feed/#.
 
 === Bien utiliser npm
 
