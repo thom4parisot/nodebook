@@ -1077,6 +1077,37 @@ Le moyen le plus simple étant de souscrire au flux RSS de chacun de vos modules
 
 ===== Éclater sa base de code
 
+Le temps sédimente votre base de code.
+Elle grossit, se densifie et devient à chaque fois un peu plus difficile à lire et naviguer.
+
+Plusieurs raisons peuvent vous pousser à extraire une partie de votre code afin de le placer dans un autre module :
+
+- le besoin de partager la logique métier d'une application avec une autre application ;
+- une portion de votre application n'est pas spécifique à son métier et gagnerait à devenir autonome ;
+- un composant pourrait être partagé et réutilisé dans un contexte  Web ;
+- un besoin de clarification des dépendances de votre application ainsi que de leur documentation ;
+- les chemins de vos appels à `require()` deviennent longs et compliqués.
+
+C'est quelque chose de facilement identifiable à l'œil nu :
+
+[source,javascript]
+----
+var User = require('../../lib/model/user.js');
+var Validator = require('../app/middlewares/validator');
+var csvParser = require('../../lib/parsers/csv');
+----
+
+Dans le cas présent, ces trois modules pourrait être extraits dans les modules indépendants suivants :
+
+- *my-app-models* : pour bénéficier d'un module global gérant tous vos modèles de données — la limite se présentera quand vous aurez beaucoup de modèles dont la compatibilité occasionnera des collisions ;
+- *my-app-models-user* : pour bénéficier d'un module dédié à la description de la persistence d'un utilisateur ;
+- *validator-middleware* : pour bénéficier d'un module de validation générique et disponible dans le registre npm ;
+- *csv-parser* : pour bénéficier d'un parseur CSV utilisable dans toutes vos applications — avez-vous pensé à regarder dans le registre npm avant de réinventer la roue ? ;-)
+
+Il s'agit d'une logique de maintenabilité et d'expression des intentions de votre application.
+Elle sera plus facile à maintenir si elle rend isole et rend explicite les dépendances entre les différents modules. +
+À moins que vous ne soyiez fan du code spaghetti ;-)
+
 ===== Alertes de sécurité
 
 - https://nodesecurity.io/advisories (https://nodesecurity.io/rss.xml)
