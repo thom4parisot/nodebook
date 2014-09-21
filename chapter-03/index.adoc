@@ -999,20 +999,103 @@ npm install --save-exact nodebook@1.3.0
 
 ==== Opérations de routine
 
+Votre projet fonctionne de manière autonome.
+Mieux encore : il n'y a plus de bug à corriger ni de nouvelle fonctionnalité à apporter pour le moment.
+
+Alors que faire d'une application Node en production avant qu'elle ne prenne la poussière ?
+
 ===== Vérifier l'état des dépendances
+
+Maintenir ses dépendances à jour est important pour deux raisons :
+
+- colmater des bugs qui pourraient se répercuter sur votre application ;
+- se prémunir de faille de sécurité mettant en danger vos données et votre système informatique.
+
+En dernier recours, vérifier la fraîcheur de ses dépendances permet de prendre connaissance de nouvelles versions majeures ou mineures dont vous pourriez bénéficier.
+
+Quoiqu'il en soit, une commande npm nous aidera une fois de plus à obtenir les informations voulues :
+
+----
+npm outdated
+----
+
+La lecture de sa sortie peut être déroutante au premier abord, notamment dans le cas d'un module qui n'a pas été mis à jour via `npm update` depuis un moment :
+
+.Résultats obsolètes issue de `npm outdated`
+image::{indir}/images/npm-outdated.png[align="center",scaledwidth="85%"]
+
+Le tableau ne liste que les dépendances considérées comme obsolètes en l'état actuel d'installation de votre projet.
+Il se peut donc que le résultat varie d'une machine à l'autre, en fonction des versions installées localement. +
+Les résultats est divisé en cinq colonnes :
+
+- *Package* : npm du paquet concerné — en jaune une dépendance qui sera satisfaite en cas de `npm update`, en rouge une dépendance qui nécessite une mise à jour manuelle ;
+- *Current* : version installée localement — _MISSING_ sera affiché si la dépendance n'est pas encore installée, _git_ indique que la dépendance est installée via git ;
+- *Wanted* : version installée après exécution de `npm update` ;
+- *Latest* : version la plus récente publiée dans le registre npm ;
+- *Location* : emplacement de la dépendance — dépendance directe ou dépendance incluse dans une autre dépendance etc.
+
+[TIP]
+.[RemarquePreTitre]#Remarque# Et si une dépendance n'est pas listée ?
+====
+Toute dépendance listée dans le fichier `package.json` mais absente du tableau est considérée comme à jour.
+====
+
+La première action à mener est de procéder à l'exécution de la commande `npm update`, puis de relancer la commande `npm outdated` :
+
+.Résultats `npm outdated` après mise à jour
+image::{indir}/images/npm-outdated-wanted.png[align="center",scaledwidth="85%"]
+
+Le résultat est probant : de nombreuses dépendances précédemment listées en rouge on disparu.
+Il ne reste que trois dépendances sur lesquelles nous pouvons avoir une action directe en modifiant la version référencées dans le fichier `package.json`.
+
+Pour forcer l'installation de la version correspondant à la colonne _Latest_ de la commande `npm outdated`, il suffit d'utiliser le suffixe `@latest` lors de l'installation :
+
+----
+npm install --save-dev grunt-contrib-uglify@latest
+----
+
+Et ainsi de suite pour les autres dépendances de premier niveau.
+Voici ce qui est affiché après l'installation de nouvelles versions majeures :
+
+.Résultats obsolètes issue de `npm outdated`
+image::{indir}/images/npm-outdated-uptodate.png.png[align="center",scaledwidth="85%"]
+
+On ne peut faire mieux en l'état car :
+
+- une dépendance Git apparaîtra systématiquement car npm n'a aucun moyen de connaître s'il s'agit de la dernière version en date ;
+- les dépendances de second niveau (et plus) ne sont pas maitrisables si le paquet reposant sur celles-ci est à jour.
+
+[TIP]
+.[RemarquePreTitre]#Outil# david-dm.org
+====
+L'outil en ligne _David DM_ se charge de vérifier l'état des dépendances de chaque module publié dans le registre npm.
+
+Le moyen le plus simple étant de souscrire au flux RSS de chacun de vos modules publié dans le registre afin d'être notifié de leur obsolescence.
+
+- [URL]#http://david-dm.io#
+====
 
 ===== Éclater sa base de code
 
 ===== Alertes de sécurité
 
-- node
-- packages npm
+- https://nodesecurity.io/advisories (https://nodesecurity.io/rss.xml)
+- http://blog.nodejs.org/vulnerability/ (http://blog.nodejs.org/feed/vulnerability/)
+- http://blog.nodejs.org/ (http://blog.nodejs.org/feed/)
 
 === Bien utiliser npm
 
 ==== Chercher un module
 
+- npm search
+- npmsearch.com
+
 ==== Critères de sélection d'un module
+
+- tests / badge tests
+- documentation
+- dépendances
+- date de mise à jour
 
 ==== Sélection de modules utiles et courants
 
