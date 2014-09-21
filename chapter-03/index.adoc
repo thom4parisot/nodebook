@@ -821,6 +821,22 @@ La seconde installera les dépendances manquantes et mettra à jour les dépenda
 
 Ces deux commandes vous assureront un état d'installation similaire à ce qu'une personne aurait en procédant à une installation _fraîche_.
 
+[TIP]
+.[RemarquePreTitre]#npm# EPEERINVALID
+====
+Il se peut qu'une erreur _ EPEERINVALID_ se déclare lors d'une mise à jour ou d'une fraîche installation.
+
+image::{indir}/images/npm-outdated-peerinvalid.png[align="center",scaledwidth="85%"]
+
+Cela signifie qu'un paquet réclame une dépendance d'une version différente et incompatible avec celle que vous déclarer dans votre fichier `package.json`.
+
+Trois solutions s'offrent à vous :
+
+- monter en version sur le module incriminé (dans notre exemple, le module `browserify`) ;
+- si la version la plus récente de ce module casse la compatibilité de votre application, sélectionnez une version majeure satisfaisant la condition de compatibilité (ici, `>= 3.20.5`) ;
+- en dernier recours, supprimer le contenu de _node_modules_ et tout réinstaller proprement — des fois cela suffit à écarter les conflits de version.
+====
+
 ===== Exécution des tests
 
 L'écriture de tests et la vérification de la qualité de votre code sont un excellent moyen de vous assurez que de nouveaux bugs ne sont pas introduits dans votre application.
@@ -953,6 +969,14 @@ Dans le cas où votre module est publié dans un dépôt Git public accessible a
   }
 }
 ----
+
+[TIP]
+.[RemarquePreTitre]#npm# Mise à jour d'une dépendance Git
+====
+La commande `npm update` actualise vos dépendances … sauf les dépendances Git.
+
+Pour mettre à jour une dépendance Git, il vous faut recourir à la commande … `npm install`.
+====
 
 Enfin, optez pour une publication dans le registre npm si vous considérez votre projet comme étant suffisamment solide et testé pour être partagé avec les communautés Node.
 
