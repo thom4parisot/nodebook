@@ -1134,10 +1134,32 @@ Plusieurs canaux sont à votre disposition pour être notifié très rapidement 
 
 === Bien utiliser npm
 
+Le registre npm fourmille de modules en tous genres.
+Ils fournissent de simples fonctions, des librairies ou des _frameworks_ complets pour gérer vos accès réseau, vos bases de données, la qualité de vos projets et leur automatisation.
+
+Mais comment se retrouver dans cette jungle contenant plusieurs dizaines de millier de modules ?
+
 ==== Chercher un module
 
-- npm search
-- npmsearch.com
+Le site Web du registre npm ([URL]#https://npmjs.org#) est _la_ ressource incontournable.
+Le site liste l'intégralité des modules récents, des modules populaires et des auteurs populaires.
+
+Les résultats sont triés en fonction de la correspondance avec l'expression recherchée … ce qui peut se révéler compliqué si vous cherchez avec les mauvais termes ou que vous ne connaissez pas le terme anglo-saxon adapté.
+
+Pour en savoir plus sur la manière de choisir un module, et de séparer le grain de l'ivraie, reportez-vous à la section suivante.
+
+La commande `npm search` est une alternative au site Web.
+Son algorithme d'affichage est d'ailleurs identique. +
+Astuce : si le motif de recherche est encadré par le caractère `/`, la commande npm effectuera la requête via une expression régulière :
+
+----
+npm search /(strings?|format)/
+----
+
+Enfin, le projet _npmsearch_ ([URL]#http://npmsearch.com#) est une initiative indépendante dont le but est de proposer une interface optimisée pour la recherche de modules Node.
+Ses principaux avantages sont la rapidité d'affichage des résultats, ainsi qu'un tri par défaut orienté sur la *pertinence*.
+
+Cette pertinence est évaluée selon certains des critères évoqués ci-après.
 
 ==== Critères de sélection d'un module
 
