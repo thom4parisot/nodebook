@@ -1163,10 +1163,31 @@ Cette pertinence est évaluée selon certains des critères évoqués ci-après.
 
 ==== Critères de sélection d'un module
 
-- tests / badge tests
-- documentation
-- dépendances
-- date de mise à jour
+La sélection d'un module est un choix subjectif : la qualité, la pertinence et la popularité sont corrélé sans pour autant être des critères impératifs. +
+Un module peu populaire sera-t'il moins bon pour autant ? Un module populaire est-il plus performant qu'une alternative ? Un module bien testé est-il plus aisé à utiliser ?
+
+Bref, pour vous aider à choisir — et ce peu importe le contexte — voici une liste subjective de critères et leur impact sur votre processus de décision :
+
+- *documentation* : un fichier _README_ décrivant l'API ou une *documentation technique illustrée d'exemples* sont des exemples d'objectif de qualité aidant tant à l'utilisation qu'à la contribution du-dit module ;
+- *badge d'intégration continue* : la présence de tests est indispensable pour assurer une certaine qualité. Le badge d'intégration continue est un mécanisme supplémentaire pour démontrer l'*existence de tests* et leur *automatisation* lors de toute contribution de code ;
+- *dépendances* : l'existence de modules reposant sur un autre démontre une *marque de confiance* d'autres développeurs. Confiance suffisante dans la solidité des fondations sur lesquelles ils s'appuient pour bâtir leur propre module ;
+- *date de mise à jour* : une ou plusieurs versions majeures de Node sont-elles sorties entre temps ? Si oui, des *risques d'incompatibilité* peuvent se présenter. Certaines dépendances peuvent également être devenues obsolètes ou avoir présenté des failles de sécurité ;
+- *maintenance* : si personne ne met à jour le module alors que des contributions se présentent, cela peut se révéler bloquant, dénoter une *obsolescence* d'idée ou impliquer l'existence d'un _fork_ de ce module ;
+- *état des contributions* : les mainteneurs répondent-ils aux contributeurs ? Les contributions de code sont-elles acceptées dans des conditions légitimes ? Ou tout simplement, y'a-t'il beaucoup de déclaration de bugs en suspens ? Telles sont les indicateurs de vitalité pour estimer la gravité et la probabilité que la librairie nous explose au visage lorsqu'on ne s'y attendra pas.
+
+.Résultats `npm outdated` après mise à jour
+image::{indir}/images/module-npm-ok.png[align="center",scaledwidth="85%"]
+
+.Exemple de module
+image::{indir}/images/module-npm-ko.png[align="center",scaledwidth="85%"]
+
+Enfin, n'oubliez pas qu'il s'agit de critères subjectifs.
+Les mainteneurs du module ne sont peut-être pas de bons communicants ou n'ont que peu d'expérience en terme de tests … ou ils n'ont tout simplement pas eu le temps. +
+N'hésitez pas à les encourager si vos expérimentations se révèlent concluantes.
+Contribuez des tests et de la documentation à hauteur de votre temps.
+Même s'il ne s'agit _que_ de cinq lignes de code, d'un exemple supplémentaire ou d'une faute d'orthographe en moins.
+
+C'est comme cela que l'écosystème s'améliore petit à petit … et que vous apprenez par la même occasion.
 
 ==== Sélection de modules utiles et courants
 
