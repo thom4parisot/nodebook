@@ -1443,6 +1443,11 @@ include::{sourceDir}/snippets/npm-levelup.js[]
 
 ====== redis
 
+_redis_ est une autre base de données clé/valeur focalisée sur la performance et la distribution sur de multiples serveurs.
+
+_hiredis_ est un _driver_ C++ pouvant être utilisé par le module Node _redis_.
+Il permet de travailler directement avec des buffers plutôt qu'avec des conversions JSON, ce qui accélère le processus de conversion/déconversion depuis la base de données.
+
 [URL]#https://npmjs.org/redis# et 
 [URL]#https://npmjs.org/hiredis#
 
