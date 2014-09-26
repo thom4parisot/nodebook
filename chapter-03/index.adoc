@@ -1209,6 +1209,7 @@ Compatible Node et navigateurs Web. +
 [URL]#https://npmjs.org/lodash#
 
 [source,javascript]
+.npm-lodash.js
 ----
 include::{sourceDir}/snippets/npm-lodash.js[]
 ----
@@ -1224,6 +1225,7 @@ Compatible Node et navigateurs Web. +
 [URL]#https://npmjs.org/async#
 
 [source,javascript]
+.npm-async.js
 ----
 include::{sourceDir}/snippets/npm-async.js[]
 ----
@@ -1238,6 +1240,7 @@ Compatible Node et navigateurs Web. +
 [URL]#https://npmjs.org/string#
 
 [source,javascript]
+.npm-string.js
 ----
 include::{sourceDir}/snippets/npm-string.js[]
 ----
@@ -1254,6 +1257,7 @@ Compatible Node et navigateurs Web. +
 [URL]#https://npmjs.org/bluebird#
 
 [source,javascript]
+.npm-bluebird.js
 ----
 include::{sourceDir}/snippets/npm-bluebird.js[]
 ----
@@ -1268,6 +1272,7 @@ Compatible Node et navigateurs Web. +
 [URL]#https://npmjs.org/moment#
 
 [source,javascript]
+.npm-moment.js
 ----
 include::{sourceDir}/snippets/npm-moment.js[]
 ----
@@ -1284,6 +1289,7 @@ Compatible Node et navigateurs Web. +
 [URL]#https://npmjs.org/eventemitter2#
 
 [source,javascript]
+.npm-eventemitter2.js
 ----
 include::{sourceDir}/snippets/npm-eventemitter2.js[]
 ----
@@ -1292,12 +1298,100 @@ include::{sourceDir}/snippets/npm-eventemitter2.js[]
 
 ===== Système de fichier
 
-- mkdirp
-- rimraf
-- glob
-- fs-extra
-- graceful-fs
-- chokidar
+Ces librairies adressent des besoins quotidiens de manipulation de fichiers, que ce soit leur création, suppression mais aussi leur sélection ou l'écoute d'événements liés à ces activités.
+
+====== mkdirp
+
+_mkdirp_ est identique à la commande UNIX `mkdir -p`.
+C'est à dire que les répertoires seront créés récursivement s'ils n'existent pas au préalable.
+
+[URL]#https://npmjs.org/mkdirp#
+
+[source,javascript]
+.npm-mkdirp.js
+----
+include::{sourceDir}/snippets/npm-mkdirp.js[]
+----
+
+L'exemple précédent illustre l'écriture de la date courante dans un fichier.
+Ce fichier n'est écrit que lorsque l'arborescence est préalablement créée.
+
+====== rimraf
+
+_rimraf_ est le pendant inverse de _mkdirp_ : il supprime une arborescence de manière récursive.
+
+[URL]#https://npmjs.org/rimraf#
+
+[source,javascript]
+.npm-rimraf.js
+----
+include::{sourceDir}/snippets/npm-rimraf.js[]
+----
+
+====== glob
+
+_glob_ est un utilitaire très pratique pour filtrer une recherche récursive au sein du système de fichiers.
+
+Sa syntaxe équivalente à ce qui se fait dans le monde UNIX évite  une écriture de code complexe reposant sur l'API `fs`.
+
+[URL]#https://npmjs.org/glob#
+
+[source,javascript]
+.npm-glob.js
+----
+include::{sourceDir}/snippets/npm-glob.js[]
+----
+<1> Affiche `['bin/cli.js', 'src/snippets/cli-app.js']`.
+
+====== fs-extra
+
+_fs-extra_ complète _rimraf_ et _mkdirp_ et ajoute d'autres fonctions utilitaires telles que la copie et le déplacement récursifs.
+
+[URL]#https://npmjs.org/fs-extra#
+
+[source,javascript]
+.npm-fs-extra.js
+----
+include::{sourceDir}/snippets/npm-fs-extra.js[]
+----
+
+====== graceful-fs
+
+_graceful-fs_ n'apporte aucune API supplémentaire à l'API native Node `fs`.
+Sous le capot la librairie simplifie l'écriture de notre code en tentant plusieurs fois d'accéder à un fichier si celui-ci n'est pas disponible.
+Un module qui vous sera utile si l'activité de lecture et d'écriture sur disque dépasse les capacités du système.
+
+[URL]#https://npmjs.org/graceful-fs#
+
+[source,javascript]
+.npm-graceful-fs.js
+----
+include::{sourceDir}/snippets/npm-graceful-fs.js[]
+----
+<1> Affiche `nodebook.chapter-03`.
+
+====== chokidar
+
+_chokidar_ normalise l'observation du système de fichiers pour une très grande majorité de systèmes d'exploitation.
+La librairie ajoute quelques fonctionnalités de filtre, de persistance d'observation et permet de dynamiquement ajouter ou retirer des fichiers de l'observation.
+
+[URL]#https://npmjs.org/chokidar#
+
+[source,javascript]
+.npm-chokidar.js
+----
+include::{sourceDir}/snippets/npm-chokidar.js[]
+----
+
+L'exemple ci-contre surveille un répertoire dans lequel le script `npm-mkdirp.js` écrit.
+Sans surprise, la sortie reflète les actions décrites quelques pages auparavant :
+
+----
+addDir - tmp
+addDir - tmp/blah
+addDir - tmp/blah/blah
+add - tmp/blah/blah/now.txt
+----
 
 ===== Base de données
 
