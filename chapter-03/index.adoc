@@ -1395,18 +1395,64 @@ add - tmp/blah/blah/now.txt
 
 ===== Base de données
 
-- knex
-- mongoose
-- levelup
-- redis
+Node supporte un vaste ensemble de bases de données grâce aux modules npm.
+Favorisez toujours les modules faisant état de _driver_ natif/binaire : la communication vers la base de données n'en sera que plus rapide.
+
+====== knex
+
+_knex_ est une librairie de manipulation de base de données SQL.
+Elle est notamment compatible avec PostgreSQL, MariaDB, MySQL et SQLite.
+Son API fluide basée sur des _callbacks_ et des _promesses_ vous sera précieuse pour ne pas écrire de requête à la main.
+
+Les auteurs de _knex_ ont également créé la surcouche _bookshelf_ pour la partie ORM, et donc gérer des modèles de données au lieu de requêtes SQL.
+
+[URL]#https://npmjs.org/knex# et [URL]#https://npmjs.org/bookshelf#
+
+[source,javascript]
+.npm-knex.js
+----
+include::{sourceDir}/snippets/npm-knex.js[]
+----
+
+L'exemple précédent se charge de créer une table dans une base de données SQLite, puis y insère trois nouveaux enregistrements.
+
+====== mongoose
+
+[URL]#https://npmjs.org/mongoose#
+
+[source,javascript]
+.npm-mongoose.js
+----
+include::{sourceDir}/snippets/npm-mongoose.js[]
+----
+
+====== levelup
+
+[URL]#https://npmjs.org/levelup#
+
+[source,javascript]
+.npm-levelup.js
+----
+include::{sourceDir}/snippets/npm-levelup.js[]
+----
+
+====== redis
+
+[URL]#https://npmjs.org/redis# et 
+[URL]#https://npmjs.org/hiredis#
+
+[source,javascript]
+.npm-redis.js
+----
+include::{sourceDir}/snippets/npm-redis.js[]
+----
 
 ===== Ligne de commande
 
-- yargs / minimist
-- commander
+- yargs
 - chalk
 - cli-table
-- enquirer
+- inquirer
 
 ===== HTTP et API
 
@@ -1450,6 +1496,15 @@ add - tmp/blah/blah/now.txt
 - yo
 - npm
 
+==== Internet of Things
+
+- nitrogen
+- serialport
+- firmata
+- johnny-five
+- cylon
+- node-red
+
 ==== Auteurs et communautés de confiance
 
 - substack
@@ -1460,15 +1515,6 @@ add - tmp/blah/blah/now.txt
 - dougwilson
 - isaacs
 - fgribreau
-
-==== Internet of Things
-
-- nitrogen
-- serialport
-- firmata
-- johnny-five
-- cylon
-- node-red
 
 === Design patterns
 
