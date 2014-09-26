@@ -1188,19 +1188,193 @@ Même s'il ne s'agit _que_ de cinq lignes de code, d'un exemple supplémentaire 
 
 C'est comme cela que l'écosystème s'améliore petit à petit … et que vous apprenez par la même occasion.
 
-==== Sélection de modules utiles et courants
+==== Sélection de modules npm
+
+Débuter dans un océan de plusieurs dizaines de millier de modules npm reste une chose peu aisée.
+
+Les prochaines pages de l'ouvrage dressent une liste non-exhaustive de modules fréquemment employés et appréciés par les communautés de développeurs Node.
 
 ===== Manipulations diverses
+
+Ces librairies adressent des besoins quotidiens en terme de manipulation de chaîne ou de dates.
+Elles vous permettront aussi d'organiser votre code en exécutant des fonctions de manière séquentielles, parallèles ou en boucles asynchrones.
+
+====== lodash
+
+_lodash_ est une excellente librairie de manipulation de tableaux, d'objets, de fonctions et de chaînes.
+
+Vous pourrez ainsi boucler, filtrer, extraire et composer sans vous soucier de la compatibilité de l'environnement d'exécution.
+
+Compatible Node et navigateurs Web. +
+[URL]#https://npmjs.org/lodash#
+
+[source,javascript]
+----
+include::{sourceDir}/snippets/npm-lodash.js[]
+----
+<1> Affiche `['A', 'B', 'C', 'D']`.
+
+====== async
+
+_async_ est une librairie de gestion de fonctions asynchrones.
+Son but ?
+Pouvoir itérer sur des tableaux de manière asynchrone, exécuter des _callbacks_ de manière séquentielle ou gérer une pile d'exécution de _n_ fonctions en parallèle.
+
+Compatible Node et navigateurs Web. +
+[URL]#https://npmjs.org/async#
+
+[source,javascript]
+----
+include::{sourceDir}/snippets/npm-async.js[]
+----
+<1> Affiche `['A', 'B', 'C', 'D']`.
+
+====== string
+
+_string_ est un utilitaire de manipulation de chaînes de caractère.
+Le module fournit des méthodes pour échapper, nettoyer, tronquer, remplacer, compter … entre autre.
+
+Compatible Node et navigateurs Web. +
+[URL]#https://npmjs.org/string#
+
+[source,javascript]
+----
+include::{sourceDir}/snippets/npm-string.js[]
+----
+<1> `blog-post` ;
+<2> `<h1>Blog Post</h1>` ;
+<3> `\&lt;h1\&gt;Blog Post\&lt;/h1\&gt;`.
+
+====== bluebird
+
+_bluebird_ est une libraire de gestion de promesses (voir ci-après la section _Design patterns_).
+Elle est performante et propose de nombreuses méthodes pour organiser des flux asynchrones tout en gérant les cas d'erreur sans s'arracher les cheveux.
+
+Compatible Node et navigateurs Web. +
+[URL]#https://npmjs.org/bluebird#
+
+[source,javascript]
+----
+include::{sourceDir}/snippets/npm-bluebird.js[]
+----
+<1> Affiche un tableau de noms de paquet manquants, en l'occurrence `['yargs']`.
+
+====== moment
+
+_moment_ est une librairie de gestion de temps.
+Elle simple énormément le _parsing_ des chaînes, l'ajout/soustraction de durées et propose des utilitaires de formatage d'affichage qui vous feront gagner un temps précieux.
+
+Compatible Node et navigateurs Web. +
+[URL]#https://npmjs.org/moment#
+
+[source,javascript]
+----
+include::{sourceDir}/snippets/npm-moment.js[]
+----
+<1> Affiche `2014-09-10T23:00:00.000Z` ;
+<1> Affiche `13/09/14` ;
+<1> Affiche `2 jours`.
+
+====== eventemitter2
+
+_eventemitter2_ est une librairie performante de gestion d'événements.
+Elle introduit la notion d'espace de nom et de durée de vie d'événement.
+
+Compatible Node et navigateurs Web. +
+[URL]#https://npmjs.org/eventemitter2#
+
+[source,javascript]
+----
+include::{sourceDir}/snippets/npm-eventemitter2.js[]
+----
+<1> Affiche `['ping', 'ping']` ;
+<2> N'affiche rien, l'événement étant désormais déconnecté.
+
+===== Système de fichier
+
+- mkdirp
+- rimraf
+- glob
+- fs-extra
+- graceful-fs
+- chokidar
+
 ===== Base de données
+
+- knex
+- mongoose
+- levelup
+- redis
+
 ===== Ligne de commande
+
+- yargs / minimist
+- commander
+- chalk
+- cli-table
+- enquirer
+
 ===== HTTP et API
+
+- express / kraken / helmet
+- passport
+- restify
+- socket.io
+
 ===== Préprocesseurs
-===== Gestion des dates
+
+- less
+- libsass
+- rework
+- browserify / webpack
+- traceur
+- uglify-js
+
 ===== Templating
+
+- Swig
+- Handlebars
+- Jade
+- ejs
+- React
+
 ===== Tests
-===== Automatisation de tâches
+
+- tape
+- karma
+- mocha / lab
+- sinon
+- chai
+- superagent
+- eslint / jslint
+
+===== Automatisation
+
+- grunt
+- gulp
+- forever / pm2
+- yo
+- npm
 
 ==== Auteurs et communautés de confiance
+
+- substack
+- jshttp
+- nodejitsu
+- mafintosh
+- feross
+- dougwilson
+- isaacs
+- fgribreau
+
+==== Internet of Things
+
+- nitrogen
+- serialport
+- firmata
+- johnny-five
+- cylon
+- node-red
 
 === Design patterns
 
