@@ -1152,9 +1152,8 @@ La commande `npm search` est une alternative au site Web.
 Son algorithme d'affichage est d'ailleurs identique. +
 Astuce : si le motif de recherche est encadré par le caractère `/`, la commande npm effectuera la requête via une expression régulière :
 
-----
-npm search /(strings?|format)/
-----
+.npm search /slug/
+image::{indir}/images/npm-search-cli.png[align="center",scaledwidth="85%"]
 
 Enfin, le projet _npmsearch_ ([URL]#http://npmsearch.com#) est une initiative indépendante dont le but est de proposer une interface optimisée pour la recherche de modules Node.
 Ses principaux avantages sont la rapidité d'affichage des résultats, ainsi qu'un tri par défaut orienté sur la *pertinence*.
