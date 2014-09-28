@@ -1459,26 +1459,206 @@ include::{sourceDir}/snippets/npm-redis.js[]
 
 ===== Ligne de commande
 
-- yargs
-- chalk
-- cli-table
-- inquirer
+Nous l'avions déjà entraperçu dans le chapitre 2 mais Node nous révèle un outillage facilitant les interactions dans un environnement _bash_.
+
+====== yargs
+
+_yargs_ est une librairie de _parsing_ et de validation d'arguments.
+Elle vous aidera à gérer les valeurs par défaut, à rejeter toute option inconnue ou encore à accumuler les valeurs d'options identiques.
+
+Si seul le _parsing_ vous intéresse, optez pour _minimist_.
+
+[URL]#https://npmjs.org/yargs#
+
+[source,javascript]
+.npm-yargs.js
+----
+include::{sourceDir}/snippets/npm-yargs.js[]
+----
+
+====== chalk
+
+_chalk_ est un simple outil de colorisation et de mise en forme de texte dans un terminal.
+Oubliez les code ANSI, _chalk_ ne vous demandera que deux appels de fonction pour afficher un texte en bleu, italique et souligné !
+
+[URL]#https://npmjs.org/chalk#
+
+[source,javascript]
+.npm-chalk.js
+----
+include::{sourceDir}/snippets/npm-chalk.js[]
+----
+
+====== cli-table
+
+_cli-table_ est un utilitaire permettant de transformer un tableau de primitives ou d'objets ECMAScript en un tableau visuel dans le terminal.
+Des options vous permettent de gérer la ligne d'entête et la largeur des colonnes, entre autre.
+
+[URL]#https://npmjs.org/cli-table#
+
+[source,javascript]
+.npm-cli-table.js
+----
+include::{sourceDir}/snippets/npm-cli-table.js[]
+----
+
+====== inquirer
+
+_inquirer_ est le composant qu'il vous faut pour gérer l'interactivité avec un utilisateur dans le terminal : questions à choix multiple, validation de saisie, texte libre multiple etc.
+
+[URL]#https://npmjs.org/inquirer#
+
+[source,javascript]
+.npm-inquirer.js
+----
+include::{sourceDir}/snippets/npm-inquirer.js[]
+----
 
 ===== HTTP et API
 
-- express / kraken / helmet
-- passport
-- restify
-- socket.io
+Une majorité d'articles et de tutoriaux pour Node ont pour habitude d'illustrer la création d'un serveur HTTP.
+S'il est vrai que Node rend les interactions réseaux aisées grâce à leur gestion non-bloquante, créer un serveur respectant réellement la spécification du protocole HTTP est une autre paire de manches.
+
+La plupart des modules n'imposant pas de choix d'architecture, vous aurez souvent à composer vous-même votre application HTTP en fonction de vos besoins.
+
+====== express
+
+_express_ est probablement la librairie la plus populaire.
+Elle gère le routage HTTP et la passation de données vers le moteur de rendu de votre choix.
+Son système de _middlewares_
+
+Peu d'aspects de sécurité sont pris en charge.
+Il est fortement recommandé de lui adjoindre _helmet_ ou d'opter pour _kraken_, une surcouche d'_express_ configurée dans cette optique.
+
+[URL]#https://npmjs.org/express#, [URL]#https://npmjs.org/helmet# et [URL]#https://npmjs.org/kraken#
+
+[source,javascript]
+.npm-express.js
+----
+include::{sourceDir}/snippets/npm-express.js[]
+----
+
+====== passport
+
+_passport_ est une librairie de gestion d'authentification.
+De nombreux modules complémentaires permettent de gérer une authentification par mot de passe, par OAuth, par compte Google Apps etc.
+
+Elle fonctionne particulièrement bien puisqu'elle n'impose pas de mécanisme de persistence d'utilisateurs ni de session.
+
+[URL]#https://npmjs.org/passport#
+
+[source,javascript]
+.npm-passport.js
+----
+include::{sourceDir}/snippets/npm-passport.js[]
+----
+
+====== restify
+
+_restify_ est une alternative à _express_ si votre application n'a pour seul but que d'exposer une API REST, sans rendu HTML ou nécessitant un templating particulier.
+
+Elle rend possible le débogage complet à partir de _dtrace_, la gestion des versions d'API etc.
+
+[URL]#https://npmjs.org/restify#
+
+[source,javascript]
+.npm-restify.js
+----
+include::{sourceDir}/snippets/npm-restify.js[]
+----
+
+====== socket.io
+
+_socket.io_ est à la fois un serveur et un client Websocket.
+Autrement dit, de la gestion de communication en temps réel entre un client et un serveur.
+
+En cas d'incompatibilité du client, la librairie propose des solutions alternatives (Flash, JSONP, AJAX).
+
+Compatible Node et navigateurs Web. +
+[URL]#https://npmjs.org/socket.io#
+
+[source,javascript]
+.npm-socket.io.js
+----
+include::{sourceDir}/snippets/npm-socket.io.js[]
+----
 
 ===== Préprocesseurs
 
-- less
-- libsass
-- rework
-- browserify / webpack
-- traceur
-- uglify-js
+Les préprocesseurs sont des outils de productivité transformant un langage vers un autre langage, en général compatible avec une majorité de navigateurs.
+
+Certains vous permettront même de compiler du code Node vers du code compatible avec un navigateur Web.
+
+====== less
+
+_less_ est un préprocesseur permettant de compiler vers du code CSS.
+Ses atouts résident dans la gestion des variables, de _mixins_ et de fonctions encourageant une écriture modulaire, plus logique et plus succincte.
+
+Sass est son alternative la plus populaire, en Ruby.
+Un portage partiel en C++ est accessible en Node via le module _node-sass_ — beaucoup plus performant et recommandé si vous n'avez pas besoin des fonctionnalités les plus avancées de Sass.
+
+Compatible Node et navigateurs Web. +
+[URL]#https://npmjs.org/less# et [URL]#https://npmjs.org/node-sass#
+
+[source,javascript]
+.npm-less.js
+----
+include::{sourceDir}/snippets/npm-less.js[]
+----
+
+====== rework
+
+_rework_ est une alternative à Less et Sass dans le sens où vous définissez les règles de votre préprocesseur … y compris si cela revient à écrire vos propres règles.
+
+[URL]#https://npmjs.org/rework#
+
+[source,javascript]
+.npm-rework.js
+----
+include::{sourceDir}/snippets/npm-rework.js[]
+----
+
+====== browserify
+
+_browserify_ transforme des modules CommonJS et des appels aux API Node en un code ECMAScript capable d'être exécuté dans un navigateur Web.
+
+Un puissant mécanisme de _transforms_ introduit des remplacements de modules à la volée ou le mélange de modules AMD et CommonJS.
+
+Une alternative à _browserify_ est _webpack_.
+Aux fonctionnalités précédemment listées s'ajoutent une prise en charge plus aisée de multiples modules ainsi que la compilation de fichiers CSS ou Less.
+
+[URL]#https://npmjs.org/browserify# et [URL]#https://npmjs.org/webpack#
+
+[source,javascript]
+.npm-browserify.js
+----
+include::{sourceDir}/snippets/npm-browserify.js[]
+----
+
+====== traceur
+
+_traceur_ transforme tout code ECMAScript 6 en code compatible ECMAScript 5 voire ECMAScript 3.
+Il peut être utilisé en complément de _browserify_ et de _webkpack_.
+
+[URL]#https://npmjs.org/traceur#
+
+[source,javascript]
+.npm-traceur.js
+----
+include::{sourceDir}/snippets/npm-traceur.js[]
+----
+
+====== uglify-js
+
+_uglify-js_ compile de l'ECMAScript en ECMAScript mais en plus de concaténer plusieurs fichiers en un seul, il peut également minifier voire supprimer le code inutilisé par votre application.
+
+[URL]#https://npmjs.org/uglify-js#
+
+[source,javascript]
+.npm-uglify-js.js
+----
+include::{sourceDir}/snippets/npm-uglify-js.js[]
+----
 
 ===== Templating
 
