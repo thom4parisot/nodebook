@@ -1928,19 +1928,6 @@ Son architecture est entièrement basée sur les _Streams_ rend cette bibliothè
 ----
 include::{sourceDir}/../Gulpfile.js[]
 ----
- 
-====== forever
-
-_forever_ est un utilitaire permettant de démarrer des processus en tâche de fond ou en tant que _daemon_.
-Une bonne pratique est ensuite de déléguer la gestion des logs au système d'exploitation (par exemple _logrotate_) et de notifier des plantages par email ou un autre canal de communication.
-
-Si le mécanisme ne vous paraît pas adéquat, optez pour des mécanismes système comme _Upstart_, _foreman_ ou _monit_.
-
-[URL]#https://npmjs.org/forever# et [URL]#https://npmjs.org/pm2#
-
-[source]
-----
-----
 
 ====== Yeoman
 
