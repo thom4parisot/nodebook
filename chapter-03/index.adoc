@@ -155,9 +155,9 @@ La suggestion d’organisation ci-avant s’explique de la manière suivante :
 - *bin* : fichiers exécutables depuis un shell ;
 - *config* : environnements de configuration pour éviter d’écrire ces valeurs en dur dans le code source ;
 - *data* : données diverses (type binaires ou CSV) nécessaires au fonctionnement de l’application ;
-- *dist* : artéfacts produits après une compilation ou un résultat de _build_ — souvent une librairie Node prête à l’usage pour le navigateur ou une arborescence d’application prête à être déployée ;
+- *dist* : artéfacts produits après une compilation ou un résultat de _build_ — souvent une bibliothèque Node prête à l’usage pour le navigateur ou une arborescence d’application prête à être déployée ;
 - *doc* : fichiers de documentation relatifs à la version courante de l’application ;
-- *lib* : librairie et modèles utilisées par l’application. Ce code peut typiquement grossir suffisamment pour ainsi justifier qu’il soit extrait en tant que projet(s) indépendant(s) ;
+- *lib* : bibliothèque et modèles utilisées par l’application. Ce code peut typiquement grossir suffisamment pour ainsi justifier qu’il soit extrait en tant que projet(s) indépendant(s) ;
 - *node_modules* : modules tiers installés automatiquement via la commande npm. Autrement dit, ne créez jamais de fichiers dans ce répertoire autrement que par la commande npm ;
 - *src* : code source spécifique au projet, des routes aux vues/templates en passant par les images et le code à compiler (Sass, LESS, JSX etc.) ;
 - *tests* : tests unitaires, fonctionnels et _fixtures_ nécessaires à leur fonctionnement ;
@@ -312,7 +312,7 @@ Un module retourne des informations en sortie : valeurs, objets et fonctions ECM
 
 Cela revient à constamment _designer_ des API et à les exposer, que ce soit au travers d'une interface Node, système ou HTTP.
 
-Une application en ligne de commande devrait contenir une orchestration d'API mettant en relation l'intention exprimée par un shell système envers une librairie Node :
+Une application en ligne de commande devrait contenir une orchestration d'API mettant en relation l'intention exprimée par un shell système envers une bibliothèque Node :
 
 [source,javascript]
 .snippets/cli-app.js
@@ -1135,7 +1135,7 @@ Plusieurs canaux sont à votre disposition pour être notifié très rapidement 
 === Bien utiliser npm
 
 Le registre npm fourmille de modules en tous genres.
-Ils fournissent de simples fonctions, des librairies ou des _frameworks_ complets pour gérer vos accès réseau, vos bases de données, la qualité de vos projets et leur automatisation.
+Ils fournissent de simples fonctions, des bibliothèques ou des _frameworks_ complets pour gérer vos accès réseau, vos bases de données, la qualité de vos projets et leur automatisation.
 
 Mais comment se retrouver dans cette jungle contenant plusieurs dizaines de milliers de modules ?
 
@@ -1172,7 +1172,7 @@ Bref, pour vous aider à choisir — et ce peu importe le contexte — voici une
 - *dépendances* : l'existence de modules reposant sur un autre démontre une *marque de confiance* d'autres développeurs. Confiance suffisante dans la solidité des fondations sur lesquelles ils s'appuient pour bâtir leur propre module ;
 - *date de mise à jour* : une ou plusieurs versions majeures de Node sont-elles sorties entre temps ? Si oui, des *risques d'incompatibilité* peuvent se présenter. Certaines dépendances peuvent également être devenues obsolètes ou avoir présenté des failles de sécurité ;
 - *maintenance* : si personne ne met à jour le module alors que des contributions se présentent, cela peut se révéler bloquant, dénoter une *obsolescence* d'idée ou impliquer l'existence d'un _fork_ de ce module ;
-- *état des contributions* : les mainteneurs répondent-ils aux contributeurs ? Les contributions de code sont-elles acceptées dans des conditions légitimes ? Ou tout simplement, y'a-t-il beaucoup de déclaration de bugs en suspens ? Telles sont les indicateurs de vitalité pour estimer la gravité et la probabilité que la librairie nous explose au visage lorsqu'on ne s'y attendra pas.
+- *état des contributions* : les mainteneurs répondent-ils aux contributeurs ? Les contributions de code sont-elles acceptées dans des conditions légitimes ? Ou tout simplement, y'a-t-il beaucoup de déclaration de bugs en suspens ? Telles sont les indicateurs de vitalité pour estimer la gravité et la probabilité que la bibliothèque nous explose au visage lorsqu'on ne s'y attendra pas.
 
 .Résultats `npm outdated` après mise à jour
 image::{indir}/images/module-npm-ok.png[align="center",scaledwidth="85%"]
@@ -1196,12 +1196,12 @@ Les prochaines pages de l'ouvrage dressent une liste non-exhaustive de modules f
 
 ===== Manipulations diverses
 
-Ces librairies adressent des besoins quotidiens en terme de manipulation de chaîne ou de dates.
+Ces bibliothèques adressent des besoins quotidiens en terme de manipulation de chaîne ou de dates.
 Elles vous permettront aussi d'organiser votre code en exécutant des fonctions de manière séquentielles, parallèles ou en boucles asynchrones.
 
 ====== lodash
 
-_lodash_ est une excellente librairie de manipulation de tableaux, d'objets, de fonctions et de chaînes.
+_lodash_ est une excellente bibliothèque de manipulation de tableaux, d'objets, de fonctions et de chaînes.
 
 Vous pourrez ainsi boucler, filtrer, extraire et composer sans vous soucier de la compatibilité de l'environnement d'exécution.
 
@@ -1217,7 +1217,7 @@ include::{sourceDir}/snippets/npm-lodash.js[]
 
 ====== async
 
-_async_ est une librairie de gestion de fonctions asynchrones.
+_async_ est une bibliothèque de gestion de fonctions asynchrones.
 Son but ?
 Pouvoir itérer sur des tableaux de manière asynchrone, exécuter des _callbacks_ de manière séquentielle ou gérer une pile d'exécution de _n_ fonctions en parallèle.
 
@@ -1265,7 +1265,7 @@ include::{sourceDir}/snippets/npm-bluebird.js[]
 
 ====== moment
 
-_moment_ est une librairie de gestion de temps.
+_moment_ est une bibliothèque de gestion de temps.
 Elle simple énormément le _parsing_ des chaînes, l'ajout/soustraction de durées et propose des utilitaires de formatage d'affichage qui vous feront gagner un temps précieux.
 
 Compatible Node et navigateurs Web. +
@@ -1282,7 +1282,7 @@ include::{sourceDir}/snippets/npm-moment.js[]
 
 ====== eventemitter2
 
-_eventemitter2_ est une librairie performante de gestion d'événements.
+_eventemitter2_ est une bibliothèque performante de gestion d'événements.
 Elle introduit la notion d'espace de nom et de durée de vie d'événement.
 
 Compatible Node et navigateurs Web. +
@@ -1298,7 +1298,7 @@ include::{sourceDir}/snippets/npm-eventemitter2.js[]
 
 ===== Système de fichier
 
-Ces librairies adressent des besoins quotidiens de manipulation de fichiers, que ce soit leur création, suppression mais aussi leur sélection ou l'écoute d'événements liés à ces activités.
+Ces bibliothèques adressent des besoins quotidiens de manipulation de fichiers, que ce soit leur création, suppression mais aussi leur sélection ou l'écoute d'événements liés à ces activités.
 
 ====== mkdirp
 
@@ -1358,7 +1358,7 @@ include::{sourceDir}/snippets/npm-fs-extra.js[]
 ====== graceful-fs
 
 _graceful-fs_ n'apporte aucune API supplémentaire à l'API native Node `fs`.
-Sous le capot la librairie simplifie l'écriture de notre code en tentant plusieurs fois d'accéder à un fichier si celui-ci n'est pas disponible.
+Sous le capot la bibliothèque simplifie l'écriture de notre code en tentant plusieurs fois d'accéder à un fichier si celui-ci n'est pas disponible.
 Un module qui vous sera utile si l'activité de lecture et d'écriture sur disque dépasse les capacités du système.
 
 [URL]#https://npmjs.org/graceful-fs#
@@ -1373,7 +1373,7 @@ include::{sourceDir}/snippets/npm-graceful-fs.js[]
 ====== chokidar
 
 _chokidar_ normalise l'observation du système de fichiers pour une très grande majorité de systèmes d'exploitation.
-La librairie ajoute quelques fonctionnalités de filtre, de persistance d'observation et permet de dynamiquement ajouter ou retirer des fichiers de l'observation.
+La bibliothèque ajoute quelques fonctionnalités de filtre, de persistance d'observation et permet de dynamiquement ajouter ou retirer des fichiers de l'observation.
 
 [URL]#https://npmjs.org/chokidar#
 
@@ -1400,7 +1400,7 @@ Favorisez toujours les modules faisant état de _driver_ natif/binaire : la comm
 
 ====== knex
 
-_knex_ est une librairie de manipulation de base de données SQL.
+_knex_ est une bibliothèque de manipulation de base de données SQL.
 Elle est notamment compatible avec PostgreSQL, MariaDB, MySQL et SQLite.
 Son API fluide basée sur des _callbacks_ et des _promesses_ vous sera précieuse pour ne pas écrire de requête à la main.
 
@@ -1463,14 +1463,14 @@ Nous l'avions déjà entraperçu dans le chapitre 2 mais Node nous révèle un o
 
 ====== yargs
 
-_yargs_ est une librairie de _parsing_ et de validation d'arguments.
+_yargs_ est une bibliothèque de _parsing_ et de validation d'arguments.
 Elle vous aidera à gérer les valeurs par défaut, à rejeter toute option inconnue ou encore à accumuler les valeurs d'options identiques.
 
 Si seul le _parsing_ vous intéresse, optez pour _minimist_.
 
 [URL]#https://npmjs.org/yargs#
 
-Référez-vous à la section _Approche modulaire_ de ce même chapitre pour un exemple plus détaillé de cette librairie.
+Référez-vous à la section _Approche modulaire_ de ce même chapitre pour un exemple plus détaillé de cette bibliothèque.
 
 ====== chalk
 
@@ -1531,7 +1531,7 @@ La plupart des modules n'imposant pas de choix d'architecture, vous aurez souven
 
 ====== express
 
-_express_ est probablement la librairie la plus populaire.
+_express_ est probablement la bibliothèque la plus populaire.
 Elle gère le routage HTTP et la passation de données vers le moteur de rendu de votre choix.
 Son système de _middlewares_
 
@@ -1540,11 +1540,11 @@ Il est fortement recommandé de lui adjoindre _helmet_ ou d'opter pour _kraken_,
 
 [URL]#https://npmjs.org/express#, [URL]#https://npmjs.org/helmet# et [URL]#https://npmjs.org/kraken-js#
 
-Référez-vous à la section _Approche modulaire_ de ce même chapitre pour un exemple plus détaillé de cette librairie.
+Référez-vous à la section _Approche modulaire_ de ce même chapitre pour un exemple plus détaillé de cette bibliothèque.
 
 ====== passport
 
-_passport_ est une librairie de gestion d'authentification.
+_passport_ est une bibliothèque de gestion d'authentification.
 De nombreux modules complémentaires permettent de gérer une authentification par mot de passe, par OAuth, par compte Google Apps etc.
 
 Elle fonctionne particulièrement bien puisqu'elle n'impose pas de mécanisme de persistence d'utilisateurs ni de session.
@@ -1588,7 +1588,7 @@ $ curl -H 'Accept-version: ~1' http://localhost:8080/modules/express
 _socket.io_ est à la fois un serveur et un client Websocket.
 Autrement dit, de la gestion de communication en temps réel entre un client et un serveur.
 
-En cas d'incompatibilité du client, la librairie propose des solutions alternatives (Flash, JSONP, AJAX).
+En cas d'incompatibilité du client, la bibliothèque propose des solutions alternatives (Flash, JSONP, AJAX).
 
 Compatible Node et navigateurs Web. +
 [URL]#https://npmjs.org/socket.io#
@@ -1709,7 +1709,7 @@ _uglify-js_ compile de l'ECMAScript en ECMAScript mais en plus de concaténer pl
 
 ===== Templating
 
-Les librairies de templating proposent chacune à leur manière d'associer une structure de données à une logique de présentation.
+Les bibliothèques de templating proposent chacune à leur manière d'associer une structure de données à une logique de présentation.
 
 Node n'y échappe pas bien sûr, mais a l'avantage de disposer de langages de templating fonctionnant aussi bien dans un environnement Node que dans des navigateurs Web.
 
@@ -1771,7 +1771,7 @@ include::{sourceDir}/snippets/template.ejs[]
 
 ====== react
 
-_react_ est une librairie de présentation essentiellement connue pour son approche efficace du côté des navigateurs Web.
+_react_ est une bibliothèque de présentation essentiellement connue pour son approche efficace du côté des navigateurs Web.
 Ce qui est moins connu en revanche est sa capacité à pouvoir également générer du balisage côté Node, et de servir de moteur de rendu pour des _frameworks_ comme _express_.
 
 Compatible Node et navigateurs Web. +
@@ -1800,7 +1800,7 @@ Une exception sera levée à chaque fois qu'une assertion ne sera pas satisfaite
 
 ====== tape
 
-_tape_ est probablement la librairie d'exécution de tests et d'assertion la plus simple qui soit.
+_tape_ est probablement la bibliothèque d'exécution de tests et d'assertion la plus simple qui soit.
 Extrêmement simpliste, elle se base sur la sortie de `console.log` pour s'assurer de l'état global d'exécution des tests.
 
 Compatible Node et navigateurs Web. +
@@ -1814,7 +1814,7 @@ include::{sourceDir}/snippets/npm-tape.js[]
 
 ====== mocha
 
-_mocha_ est une librairie d'exécution de tests offrant des interfaces TDD, BDD et QUnit — cette dernière facilitant la transition depuis la librairie du même nom.
+_mocha_ est une bibliothèque d'exécution de tests offrant des interfaces TDD, BDD et QUnit — cette dernière facilitant la transition depuis la bibliothèque du même nom.
 Sa simplicité et flexibilité d'utilisation en font un choix pertinent pour la majorité de vos projets.
 
 Compatible Node et navigateurs Web. +
@@ -1828,7 +1828,7 @@ include::{sourceDir}/snippets/npm-mocha.js[]
 
 ====== chai
 
-_chai_ est une librairie d'assertion exposant des interfaces BDD et TDD.
+_chai_ est une bibliothèque d'assertion exposant des interfaces BDD et TDD.
 Elle est particulièrement bien fournie pour tester des structures d'objets complètes ou partielles.
 
 Compatible Node et navigateurs Web. +
@@ -1879,7 +1879,7 @@ image::{indir}/images/karma.png[align="center",scaledwidth="85%"]
 
 ====== superagent
 
-_superagent_ est une librairie de tests pour API HTTP.
+_superagent_ est une bibliothèque de tests pour API HTTP.
 Autrement dit, au lieu de tester directement le code de votre application, vous testez le comportement de votre API au travers des codes HTTP et des structures de données exposées.
 
 [URL]#https://npmjs.org/superagent#
@@ -1919,7 +1919,7 @@ include::{sourceDir}/../Gruntfile.js[]
 ====== gulp
 
 _gulp_ est une alternative à _grunt_ avec un focus sur la performance d'exécution.
-Son architecture est entièrement basée sur les _Streams_ rend cette librairie particulièrement efficace pour les traitements de fichiers impliquant plusieurs transformations.
+Son architecture est entièrement basée sur les _Streams_ rend cette bibliothèque particulièrement efficace pour les traitements de fichiers impliquant plusieurs transformations.
 
 [URL]#https://npmjs.org/gulp#
 
