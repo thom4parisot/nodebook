@@ -1827,11 +1827,8 @@ Ces navigateurs peuvent tout aussi bien être ceux présents sur votre machine, 
 
 [URL]#https://npmjs.org/karma#
 
-[source,javascript]
-.npm-karma.js
-----
-include::{sourceDir}/snippets/npm-karma.js[]
-----
+.Exemple d'exécution continues de tests avec Karma
+image::{indir}/images/karma.png[align="center",scaledwidth="85%"]
 
 ====== superagent
 
@@ -1839,12 +1836,6 @@ _superagent_ est une librairie de tests pour API HTTP.
 Autrement dit, au lieu de tester directement le code de votre application, vous testez le comportement de votre API au travers des codes HTTP et des structures de données exposées.
 
 [URL]#https://npmjs.org/superagent#
-
-[source,javascript]
-.npm-superagent.js
-----
-include::{sourceDir}/snippets/npm-superagent.js[]
-----
 
 ====== jshint
 
@@ -1869,11 +1860,58 @@ jshint -c .jshintrc src/
 
 ===== Automatisation
 
-- grunt
-- gulp
-- forever / pm2
-- yo
-- npm
+L'automatisation de tâches et leur inclusion dans vos projets sont d'excellents moyens pour rendre explicite votre outillage tout en le rendant reproductible et vérifiable.
+
+====== grunt
+
+_grunt_ est l'outil qui a propulsé Node dans la cours des développeurs _frontend_.
+Son écosystème de modules particulièrement fourni en terme de performance, d'assemblage et de fonctionnalités a définitivement aidé de nombreux développeurs à automatiser bon nombre de tâches dans leurs projets.
+
+[URL]#https://npmjs.org/grunt# et grunt-cli
+
+[source,javascript]
+.Gruntfile.js
+----
+include::{sourceDir}/Gruntfile.js[]
+----
+
+====== gulp
+
+_gulp_ est une alternative à _grunt_ avec un focus sur la performance d'exécution.
+Son architecture est entièrement basée sur les _Streams_ rend cette librairie particulièrement efficace pour les traitements de fichiers impliquant plusieurs transformations.
+
+[URL]#https://npmjs.org/gulp#
+
+[source,javascript]
+.Gulpfile.js
+----
+include::{sourceDir}/Gulpfile.js[]
+----
+
+====== forever
+
+_forever_ est un utilitaire permettant de démarrer des processus en tâche de fond ou en tant que _daemon_.
+Une bonne pratique est ensuite de déléguer la gestion des logs au système d'exploitation (par exemple _logrotate_) et de notifier des plantages par email ou un autre canal de communication.
+
+Si le mécanisme ne vous paraît pas adéquat, optez pour des mécanismes système comme _Upstart_, _foreman_ ou _monit_.
+
+[URL]#https://npmjs.org/forever# et [URL]#https://npmjs.org/pm2#
+
+[source]
+----
+----
+
+====== Yeoman
+
+_yo_ est le nom de la commande exécutable de _Yeoman_.
+Cet outil est adapté à l'échafaudage interactif d'applications ou de parties d'application (nouveau gabarit, nouveau composant).
+
+[URL]#https://npmjs.org/yo#
+
+[source]
+----
+
+----
 
 ==== Internet of Things
 
