@@ -1662,21 +1662,210 @@ include::{sourceDir}/snippets/npm-uglify-js.js[]
 
 ===== Templating
 
-- Swig
-- Handlebars
-- Jade
-- ejs
-- React
+Les librairies de templating proposent chacune à leur manière d'associer une structure de données à une logique de présentation.
+
+Node n'y échappe pas bien sûr, mais a l'avantage de disposer de langages de templating fonctionnant aussi bien dans un environnement Node que dans des navigateurs Web.
+
+====== swig
+
+_swig_ est un portage de _Twig_, bien connu par les développeurs PHP proche de l'écosystème Symfony.
+Sa syntaxe inclut des fonctionnalités comme les filtres, les blocs ou l'héritage de gabarit.
+
+Compatible Node et navigateurs Web. +
+[URL]#https://npmjs.org/swig#
+
+[source,javascript]
+.npm-swig.js
+----
+include::{sourceDir}/snippets/npm-swig.js[]
+----
+
+====== handlebars
+
+_handlebars_ et son prédécesseur _mustache_ sont les vétérans du templating Node.
+Leur parti pris est de proposer le minimum de logique afin que celle-ci reste au plus près des données.
+
+Compatible Node et navigateurs Web. +
+[URL]#https://npmjs.org/swig#
+
+[source,javascript]
+.npm-swig.js
+----
+include::{sourceDir}/snippets/npm-swig.js[]
+----
+
+====== jade
+
+_jade_ s'inspire de _yaml_ en optant pour un parti pris à base d'indentation et d'un balisage dépourvu de chevron.
+Son mécanisme de blocs facilite la réutilisation de logiques d'affichage au sein de votre application.
+
+Compatible Node et navigateurs Web. +
+[URL]#https://npmjs.org/jade#
+
+[source,javascript]
+.npm-jade.js
+----
+include::{sourceDir}/snippets/npm-jade.js[]
+----
+
+====== ejs
+
+_ejs_ part du principe qu'il n'y a pas besoin d'un langage de templating autre qu'ECMAScript.
+Donc c'est tout simplement ce qui vous sera proposé, impliquant de ce fait une faible courbe d'apprentissage.
+
+Compatible Node et navigateurs Web. +
+[URL]#https://npmjs.org/ejs#
+
+[source,javascript]
+.npm-ejs.js
+----
+include::{sourceDir}/snippets/npm-ejs.js[]
+----
+
+====== react
+
+_react_ est une librairie de présentation essentiellement connue pour son approche efficace du côté des navigateurs Web.
+Ce qui est moins connu en revanche est sa capacité à pouvoir également générer du balisage côté Node, et de servir de moteur de rendu pour des _frameworks_ comme _express_.
+
+Compatible Node et navigateurs Web. +
+[URL]#https://npmjs.org/react#
+
+[source,javascript]
+.npm-react.js
+----
+include::{sourceDir}/snippets/npm-react.js[]
+----
 
 ===== Tests
 
-- tape
-- karma
-- mocha / lab
-- sinon
-- chai
-- superagent
-- eslint / jslint
+L'outillage permettant de tester vos applications est également richement fourni.
+Il y a bien sûr de quoi couvrir les tests unitaires, générer des couverture de code, exécuter les tests dans différents navigateurs, tester vos API HTTP ou encore créer des _stubs_ et des _mocks_.
+
+[TIP]
+.[RemarquePreTitre]#Remarque# require('assert')
+====
+Node dispose de sa propre API d'assertion : vous pouvez donc vous lancer dans vos premiers tests simplement en exécutant un module Node faisant appel à ce module natif.
+
+Une exception sera levée à chaque fois qu'une assertion ne sera pas satisfaite.
+
+- [URL]#http://nodejs.org/api/assert.html#
+====
+
+====== tape
+
+_tape_ est probablement la librairie d'exécution de tests et d'assertion la plus simple qui soit.
+Extrêmement simpliste, elle se base sur la sortie de `console.log` pour s'assurer de l'état global d'exécution des tests.
+
+Compatible Node et navigateurs Web. +
+[URL]#https://npmjs.org/tape#
+
+[source,javascript]
+.npm-tape.js
+----
+include::{sourceDir}/snippets/npm-tape.js[]
+----
+
+====== mocha
+
+_mocha_ est une librairie d'exécution de tests offrant des interfaces TDD, BDD et QUnit — cette dernière facilitant la transition depuis la librairie du même nom.
+Sa simplicité et flexibilité d'utilisation en font un choix pertinent pour la majorité de vos projets.
+
+Compatible Node et navigateurs Web. +
+[URL]#https://npmjs.org/mocha#
+
+[source,javascript]
+.npm-mocha.js
+----
+include::{sourceDir}/snippets/npm-mocha.js[]
+----
+
+====== chai
+
+_chai_ est une librairie d'assertion exposant des interfaces BDD et TDD.
+Elle est particulièrement bien fournie pour tester des structures d'objets complètes ou partielles.
+
+Compatible Node et navigateurs Web. +
+[URL]#https://npmjs.org/x#
+
+[source,javascript]
+.npm-chai.js
+----
+include::{sourceDir}/snippets/npm-chai.js[]
+----
+
+====== sinon
+
+_sinon_ est votre compagnon idéal pour gérer _spys_, _stubs_ et _mocks_.
+En d'autres termes, vous prenez la main sur des portions de votre propre API pour vérifier que leur _comportement_ répond comme prévu aux signaux de leur environnement.
+
+_sinon_ peut étendre _chai_ via le module _sinon-chai_ ou être utilisé directement avec le _framework_ de tests _buster_.
+
+Compatible Node et navigateurs Web. +
+[URL]#https://npmjs.org/x#
+
+[source,javascript]
+.npm-sinon.js
+----
+include::{sourceDir}/snippets/npm-sinon.js[]
+----
+
+====== blanket
+
+_blanket_ génère une couverture de code en inspectant le code exécuté par vos tests unitaires et en vous signalant les portions de votre applications qui ne sont pas prises en compte par vos tests.
+
+[URL]#https://npmjs.org/blanket#
+
+[source]
+----
+mocha -r blanket -c html-cov test/**/*.js > coverage.html
+----
+
+====== karma
+
+_karma_ est un utilitaire d'exécution de tests unitaires dans un contexte de navigateur Web.
+Ces navigateurs peuvent tout aussi bien être ceux présents sur votre machine, que des navigateurs résidant dans une VM ou exécutés à distance via des services comme SauceLabs ou BrowserStack.
+
+[URL]#https://npmjs.org/karma#
+
+[source,javascript]
+.npm-karma.js
+----
+include::{sourceDir}/snippets/npm-karma.js[]
+----
+
+====== superagent
+
+_superagent_ est une librairie de tests pour API HTTP.
+Autrement dit, au lieu de tester directement le code de votre application, vous testez le comportement de votre API au travers des codes HTTP et des structures de données exposées.
+
+[URL]#https://npmjs.org/superagent#
+
+[source,javascript]
+.npm-superagent.js
+----
+include::{sourceDir}/snippets/npm-superagent.js[]
+----
+
+====== jshint
+
+_jshint_ teste la qualité de votre code et signale des pratiques de programmation à risque.
+C'est un excellent moyen d'éviter des bugs tout en uniformisant vos pratiques de codage au sein de vos applications.
+
+Son petit-frère _eslint_ a également le même but à la différence près que les règles de vérification sont programmables … et vous pouvez créer les vôtres.
+
+[URL]#https://npmjs.org/jshint# et [URL]#https://npmjs.org/eslint#
+
+[source]
+.jshintrc
+----
+include::{sourceDir}/.jshintrc[]
+----
+
+Et la commande exécutant la vérification récursive du code contenu dans le répertoire `src/` :
+
+----
+jshint -c .jshintrc src/
+----
 
 ===== Automatisation
 
