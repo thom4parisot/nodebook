@@ -1318,7 +1318,8 @@ Ce fichier n'est écrit que lorsque l'arborescence est préalablement créée.
 
 ====== rimraf
 
-_rimraf_ est le pendant inverse de _mkdirp_ : il supprime une arborescence de manière récursive.
+_rimraf_ se situe dans la lignée _mkdirp_ : il supprime une arborescence de manière récursive — équivalent de la commande `rm -rf`.
+Encore une fois, sans la complexité d'avoir à gérer un enchevêtrement de fonctions asynchrones.
 
 [URL]#https://npmjs.org/rimraf#
 
@@ -1418,7 +1419,7 @@ L'exemple précédent se charge de créer une table dans une base de données SQ
 
 ====== mongoose
 
-_mongoose_ est un _ODM_ pour MongoDB.
+_mongoose_ est un _ODM_ (_Object Document Model_) pour MongoDB.
 Il vous aidera à composer vos modèles, gérer la connexion à la base de données mais aussi à définir des comportements annexes comme des mixins ou des _getters_ dynamiques.
 
 [URL]#https://npmjs.org/mongoose#
