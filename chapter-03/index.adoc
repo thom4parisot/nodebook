@@ -1470,11 +1470,7 @@ Si seul le _parsing_ vous intéresse, optez pour _minimist_.
 
 [URL]#https://npmjs.org/yargs#
 
-[source,javascript]
-.npm-yargs.js
-----
-include::{sourceDir}/snippets/npm-yargs.js[]
-----
+Référez-vous à la section _Approche modulaire_ de ce même chapitre pour un exemple plus détaillé de cette librairie.
 
 ====== chalk
 
@@ -1489,6 +1485,10 @@ Oubliez les code ANSI, _chalk_ ne vous demandera que deux appels de fonction pou
 include::{sourceDir}/snippets/npm-chalk.js[]
 ----
 
+Ce script produira l'affichage suivant :
+
+image::{indir}/images/npm-chalk.png[align="center",scaledwidth="85%"]
+
 ====== cli-table
 
 _cli-table_ est un utilitaire permettant de transformer un tableau de primitives ou d'objets ECMAScript en un tableau visuel dans le terminal.
@@ -1502,6 +1502,10 @@ Des options vous permettent de gérer la ligne d'entête et la largeur des colon
 include::{sourceDir}/snippets/npm-cli-table.js[]
 ----
 
+Ce script produira l'affichage suivant :
+
+image::{indir}/images/npm-cli-table.png[align="center",scaledwidth="85%"]
+
 ====== inquirer
 
 _inquirer_ est le composant qu'il vous faut pour gérer l'interactivité avec un utilisateur dans le terminal : questions à choix multiple, validation de saisie, texte libre multiple etc.
@@ -1513,6 +1517,10 @@ _inquirer_ est le composant qu'il vous faut pour gérer l'interactivité avec un
 ----
 include::{sourceDir}/snippets/npm-inquirer.js[]
 ----
+
+Le programme précédent tente de charger le module Node saisi par l'utilisateur et rejette la réponse s'il n'existe pas.
+
+La saisie est préalablement nettoyée pour éviter que le chargement d'un module local puisse aboutir.
 
 ===== HTTP et API
 
@@ -1530,13 +1538,9 @@ Son système de _middlewares_
 Peu d'aspects de sécurité sont pris en charge.
 Il est fortement recommandé de lui adjoindre _helmet_ ou d'opter pour _kraken_, une surcouche d'_express_ configurée dans cette optique.
 
-[URL]#https://npmjs.org/express#, [URL]#https://npmjs.org/helmet# et [URL]#https://npmjs.org/kraken#
+[URL]#https://npmjs.org/express#, [URL]#https://npmjs.org/helmet# et [URL]#https://npmjs.org/kraken-js#
 
-[source,javascript]
-.npm-express.js
-----
-include::{sourceDir}/snippets/npm-express.js[]
-----
+Référez-vous à la section _Approche modulaire_ de ce même chapitre pour un exemple plus détaillé de cette librairie.
 
 ====== passport
 
@@ -1547,17 +1551,13 @@ Elle fonctionne particulièrement bien puisqu'elle n'impose pas de mécanisme de
 
 [URL]#https://npmjs.org/passport#
 
-[source,javascript]
-.npm-passport.js
-----
-include::{sourceDir}/snippets/npm-passport.js[]
-----
+Référez-vous à sa documentation pour des exemples détaillés d'utilisation et d'implémentation au sein de votre application.
 
 ====== restify
 
 _restify_ est une alternative à _express_ si votre application n'a pour seul but que d'exposer une API REST, sans rendu HTML ou nécessitant un templating particulier.
 
-Elle rend possible le débogage complet à partir de _dtrace_, la gestion des versions d'API etc.
+Elle rend possible le débogage complet à partir de _dtrace_, la gestion des versions d'API et expose un client permettant de consommer des données sur d'autres API REST.
 
 [URL]#https://npmjs.org/restify#
 
@@ -1565,6 +1565,22 @@ Elle rend possible le débogage complet à partir de _dtrace_, la gestion des ve
 .npm-restify.js
 ----
 include::{sourceDir}/snippets/npm-restify.js[]
+----
+
+L'exemple précédent expose une même route permettant d'obtenir des informations sur les déclarations de versions d'un fichier `package.json`.
+
+Par défaut, la version 2 de l'API est utilisée :
+
+----
+$ curl http://localhost:8080/modules/express
+{"modules":[{"name":"express","version":"4.9.5"}]}
+----
+
+Une version obsolète de l'API peut toutefois être utilisée si l'on mentionne explicitement cette information :
+
+----
+$ curl -H 'Accept-version: ~1' http://localhost:8080/modules/express
+"^4.9.5"
 ----
 
 ====== socket.io
@@ -1600,10 +1616,10 @@ Un portage partiel en C++ est accessible en Node via le module _node-sass_ — b
 Compatible Node et navigateurs Web. +
 [URL]#https://npmjs.org/less# et [URL]#https://npmjs.org/node-sass#
 
-[source,javascript]
-.npm-less.js
+[source]
+.npm-less.less
 ----
-include::{sourceDir}/snippets/npm-less.js[]
+include::{sourceDir}/snippets/npm-less.less[]
 ----
 
 ====== rework
@@ -1634,10 +1650,36 @@ Aux fonctionnalités précédemment listées s'ajoutent une prise en charge plus
 ----
 include::{sourceDir}/snippets/npm-browserify.js[]
 ----
+<1> Affiche `Open Sky`.
+
+[source,javascript]
+.package.json
+----
+{
+  "browser": {
+    "cheerio": "jquery"
+  },
+  "dependencies": {
+    "cheerio": "^0.17.0",
+    "jquery": "^2.1.1",
+  },
+  "devDependencies": {
+    "browserify": "^5.0.0"
+  }
+}
+----
+
+La commande `browserify` remplacera l'appel au module _cheerio_ par un appel au module _jquery_ :
+
+----
+browserify npm-browserify.js -o npm-browserify.bundle.js
+----
+
+Inclus dans un navigateur Web, le fichier `npm-browserify.bundle.js` affichera le même résultat que l'interpréteur Node.
 
 ====== traceur
 
-_traceur_ transforme tout code ECMAScript 6 en code compatible ECMAScript 5 voire ECMAScript 3.
+_traceur_ transforme tout code ECMAScript 6 en code compatible ECMAScript 5.
 Il peut être utilisé en complément de _browserify_ et de _webkpack_.
 
 [URL]#https://npmjs.org/traceur#
@@ -1648,16 +1690,21 @@ Il peut être utilisé en complément de _browserify_ et de _webkpack_.
 include::{sourceDir}/snippets/npm-traceur.js[]
 ----
 
+----
+node npm-traceur-bootstrap.js <1> <2>
+----
+<1> Affiche `passport@^0.2.1` ;
+<2> Affiche `passport-local@^1.0.0`.
+
 ====== uglify-js
 
 _uglify-js_ compile de l'ECMAScript en ECMAScript mais en plus de concaténer plusieurs fichiers en un seul, il peut également minifier voire supprimer le code inutilisé par votre application.
 
 [URL]#https://npmjs.org/uglify-js#
 
-[source,javascript]
-.npm-uglify-js.js
+[source]
 ----
-include::{sourceDir}/snippets/npm-uglify-js.js[]
+
 ----
 
 ===== Templating
@@ -1675,9 +1722,9 @@ Compatible Node et navigateurs Web. +
 [URL]#https://npmjs.org/swig#
 
 [source,javascript]
-.npm-swig.js
+.template.swig
 ----
-include::{sourceDir}/snippets/npm-swig.js[]
+include::{sourceDir}/snippets/template.swig[]
 ----
 
 ====== handlebars
@@ -1689,9 +1736,9 @@ Compatible Node et navigateurs Web. +
 [URL]#https://npmjs.org/swig#
 
 [source,javascript]
-.npm-swig.js
+.template.hbs
 ----
-include::{sourceDir}/snippets/npm-swig.js[]
+include::{sourceDir}/snippets/template.hbs[]
 ----
 
 ====== jade
@@ -1703,9 +1750,9 @@ Compatible Node et navigateurs Web. +
 [URL]#https://npmjs.org/jade#
 
 [source,javascript]
-.npm-jade.js
+.template.jade
 ----
-include::{sourceDir}/snippets/npm-jade.js[]
+include::{sourceDir}/snippets/template.jade[]
 ----
 
 ====== ejs
@@ -1717,9 +1764,9 @@ Compatible Node et navigateurs Web. +
 [URL]#https://npmjs.org/ejs#
 
 [source,javascript]
-.npm-ejs.js
+.template.ejs
 ----
-include::{sourceDir}/snippets/npm-ejs.js[]
+include::{sourceDir}/snippets/template.ejs[]
 ----
 
 ====== react
@@ -1731,9 +1778,9 @@ Compatible Node et navigateurs Web. +
 [URL]#https://npmjs.org/react#
 
 [source,javascript]
-.npm-react.js
+.template.jsx
 ----
-include::{sourceDir}/snippets/npm-react.js[]
+include::{sourceDir}/snippets/template.jsx[]
 ----
 
 ===== Tests
@@ -1846,16 +1893,10 @@ Son petit-frère _eslint_ a également le même but à la différence près que 
 
 [URL]#https://npmjs.org/jshint# et [URL]#https://npmjs.org/eslint#
 
-[source]
-.jshintrc
-----
-include::{sourceDir}/.jshintrc[]
-----
-
 Et la commande exécutant la vérification récursive du code contenu dans le répertoire `src/` :
 
 ----
-jshint -c .jshintrc src/
+jshint src/
 ----
 
 ===== Automatisation
@@ -1872,7 +1913,7 @@ Son écosystème de modules particulièrement fourni en terme de performance, d'
 [source,javascript]
 .Gruntfile.js
 ----
-include::{sourceDir}/Gruntfile.js[]
+include::{sourceDir}/../Gruntfile.js[]
 ----
 
 ====== gulp
@@ -1885,9 +1926,9 @@ Son architecture est entièrement basée sur les _Streams_ rend cette librairie 
 [source,javascript]
 .Gulpfile.js
 ----
-include::{sourceDir}/Gulpfile.js[]
+include::{sourceDir}/../Gulpfile.js[]
 ----
-
+ 
 ====== forever
 
 _forever_ est un utilitaire permettant de démarrer des processus en tâche de fond ou en tant que _daemon_.
@@ -1915,23 +1956,77 @@ Cet outil est adapté à l'échafaudage interactif d'applications ou de parties 
 
 ==== Internet of Things
 
-- nitrogen
-- serialport
-- firmata
-- johnny-five
-- cylon
-- node-red
+====== nitrogen
+
+[URL]#https://npmjs.org/nitrogen#
+
+- device + features
+- service
+- server relaying
+
+====== serialport
+
+[URL]#https://npmjs.org/serialport#
+
+[source,javascript]
+.npm-serialport.js
+----
+include::{sourceDir}/snippets/npm-serialport.js[]
+----
+
+====== firmata
+
+[URL]#https://npmjs.org/firmata#
+
+[source,javascript]
+.npm-firmata.js
+----
+include::{sourceDir}/snippets/npm-firmata.js[]
+----
+
+====== johnny-five
+
+Compatible Node et navigateurs Web. +
+[URL]#https://npmjs.org/johnny-five#
+
+[source,javascript]
+.npm-johnny-five.js
+----
+include::{sourceDir}/snippets/npm-johnny-five.js[]
+----
+
+====== cylon
+
+Compatible Node et navigateurs Web. +
+[URL]#https://npmjs.org/cylon#
+
+[source,javascript]
+.npm-cylon.js
+----
+include::{sourceDir}/snippets/npm-cylon.js[]
+----
+
+====== node-red
+
+Compatible Node et navigateurs Web. +
+[URL]#https://npmjs.org/node-red#
+
+
 
 ==== Auteurs et communautés de confiance
 
-- substack
-- jshttp
-- nodejitsu
-- mafintosh
-- feross
-- dougwilson
-- isaacs
-- fgribreau
+Des organisations et des individus contribuent activement à Node en mettant à disposition une large majorité de leurs créations.
+
+La liste suivante est non-exhaustive et référence des contributeurs de qualité :
+
+- substack ([URL]#https://npmjs.org/~substack#) ;
+- jshttp ([URL]#https://github.com/jshttp#) ;
+- nodejitsu ([URL]#https://github.com/nodejitsu#) ;
+- mafintosh ([URL]#https://npmjs.org/~mafintosh#) ;
+- feross ([URL]#https://npmjs.org/~feross#) ;
+- dougwilson ([URL]#https://npmjs.org/~dougwilson#) ;
+- isaacs ([URL]#https://npmjs.org/~isaacs#) ;
+- fgribreau ([URL]#https://npmjs.org/~fgribreau#).
 
 === Design patterns
 
