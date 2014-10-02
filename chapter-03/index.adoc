@@ -4,6 +4,10 @@
 :esNext: ECMAScript 6
 :sourceDir: ../../examples/nodebook.chapter-03/src
 :revisionYear: 2014
+:imagesdir: {indir}
+ifdef::env[]
+:imagesdir: .
+endif::[]
 
 == [ChapitreNumero]#3# Premier projet
 
@@ -43,7 +47,7 @@ Il se situe à la racine de chaque module et contient plusieurs catégories d'in
 - *divers* : données de configuration ou utilisées par des modules Node.
 
 .Exemple minimaliste d'un fichier `package.json`
-image::{indir}/images/package-json.png[align="center",scaledwidth="85%"]
+image::images/package-json.png[align="center",scaledwidth="85%"]
 
 Le fichier `package.json` est un mécanisme de description, d'installation et de documentation distribué avec les sources de tout projet.
 
@@ -70,7 +74,7 @@ Certaines réponses seront pré-remplies, par exemple si un dépôt Git ou un fi
 Ensuite libre à vous de le compléter avec d'autres éléments optionnels de configuration.
 
 .Exemple de questions posées lors de la séquence `npm init`
-image::{indir}/images/npm-init.png[align="center",scaledwidth="85%"]
+image::images/npm-init.png[align="center",scaledwidth="85%"]
 
 [TIP]
 .[RemarquePreTitre]#Commande# npm help json
@@ -203,7 +207,7 @@ La commande précédente effectue plusieurs opérations :
 5. inscription de _async_ et de _yargs_ dans la configuration _dependencies_ de notre fichier `package.json`.
 
 .Exemple de résultat de la commande `npm install`
-image::{indir}/images/npm-install-save.png[align="center",scaledwidth="85%"]
+image::images/npm-install-save.png[align="center",scaledwidth="85%"]
 
 La commande npm prend soin de télécharger et de persister les dépendances, à la fois dans le répertoire _node_modules_ et dans le fichier _package.json_.
 Ce dernier contient désormais une section _dependencies_ :
@@ -826,7 +830,7 @@ Ces deux commandes vous assureront un état d'installation similaire à ce qu'un
 ====
 Il se peut qu'une erreur _EPEERINVALID_ se déclare lors d'une mise à jour ou d'une fraîche installation.
 
-image::{indir}/images/npm-outdated-peerinvalid.png[align="center",scaledwidth="85%"]
+image::images/npm-outdated-peerinvalid.png[align="center",scaledwidth="85%"]
 
 Cela signifie qu'un paquet réclame une dépendance d'une version différente et incompatible avec celle que vous déclarer dans votre fichier `package.json`.
 
@@ -1029,7 +1033,7 @@ npm outdated
 La lecture de sa sortie peut être déroutante au premier abord, notamment dans le cas d'un module qui n'a pas été mis à jour via `npm update` depuis un moment :
 
 .Résultats obsolètes issue de `npm outdated`
-image::{indir}/images/npm-outdated.png[align="center",scaledwidth="85%"]
+image::images/npm-outdated.png[align="center",scaledwidth="85%"]
 
 Le tableau ne liste que les dépendances considérées comme obsolètes en l'état actuel d'installation de votre projet.
 Il se peut donc que le résultat varie d'une machine à l'autre, en fonction des versions installées localement. +
@@ -1050,7 +1054,7 @@ Toute dépendance listée dans le fichier `package.json` mais absente du tableau
 La première action à mener est de procéder à l'exécution de la commande `npm update`, puis de relancer la commande `npm outdated` :
 
 .Résultats `npm outdated` après mise à jour
-image::{indir}/images/npm-outdated-wanted.png[align="center",scaledwidth="85%"]
+image::images/npm-outdated-wanted.png[align="center",scaledwidth="85%"]
 
 Le résultat est probant : de nombreuses dépendances précédemment listées en rouge on disparu.
 Il ne reste que trois dépendances sur lesquelles nous pouvons avoir une action directe en modifiant la version référencées dans le fichier `package.json`.
@@ -1065,7 +1069,7 @@ Et ainsi de suite pour les autres dépendances de premier niveau.
 Voici ce qui est affiché après l'installation de nouvelles versions majeures :
 
 .Résultats obsolètes issue de `npm outdated`
-image::{indir}/images/npm-outdated-uptodate.png.png[align="center",scaledwidth="85%"]
+image::images/npm-outdated-uptodate.png.png[align="center",scaledwidth="85%"]
 
 On ne peut faire mieux en l'état car :
 
@@ -1153,7 +1157,7 @@ Son algorithme d'affichage est d'ailleurs identique. +
 Astuce : si le motif de recherche est encadré par le caractère `/`, la commande npm effectuera la requête via une expression régulière :
 
 .npm search /slug/
-image::{indir}/images/npm-search-cli.png[align="center",scaledwidth="85%"]
+image::images/npm-search-cli.png[align="center",scaledwidth="85%"]
 
 Enfin, le projet _npmsearch_ ([URL]#http://npmsearch.com#) est une initiative indépendante dont le but est de proposer une interface optimisée pour la recherche de modules Node.
 Ses principaux avantages sont la rapidité d'affichage des résultats, ainsi qu'un tri par défaut orienté sur la *pertinence*.
@@ -1175,10 +1179,10 @@ Bref, pour vous aider à choisir — et ce peu importe le contexte — voici une
 - *état des contributions* : les mainteneurs répondent-ils aux contributeurs ? Les contributions de code sont-elles acceptées dans des conditions légitimes ? Ou tout simplement, y'a-t-il beaucoup de déclaration de bugs en suspens ? Telles sont les indicateurs de vitalité pour estimer la gravité et la probabilité que la bibliothèque nous explose au visage lorsqu'on ne s'y attendra pas.
 
 .Résultats `npm outdated` après mise à jour
-image::{indir}/images/module-npm-ok.png[align="center",scaledwidth="85%"]
+image::images/module-npm-ok.png[align="center",scaledwidth="85%"]
 
 .Exemple de module
-image::{indir}/images/module-npm-ko.png[align="center",scaledwidth="85%"]
+image::images/module-npm-ko.png[align="center",scaledwidth="85%"]
 
 Enfin, n'oubliez pas qu'il s'agit de critères subjectifs.
 Les mainteneurs du module ne sont peut-être pas de bons communicants ou n'ont que peu d'expérience en terme de tests … ou ils n'ont tout simplement pas eu le temps. +
@@ -1488,7 +1492,7 @@ include::{sourceDir}/snippets/npm-chalk.js[]
 
 Ce script produira l'affichage suivant :
 
-image::{indir}/images/npm-chalk.png[align="center",scaledwidth="85%"]
+image::images/npm-chalk.png[align="center",scaledwidth="85%"]
 
 ====== cli-table
 
@@ -1505,7 +1509,7 @@ include::{sourceDir}/snippets/npm-cli-table.js[]
 
 Ce script produira l'affichage suivant :
 
-image::{indir}/images/npm-cli-table.png[align="center",scaledwidth="85%"]
+image::images/npm-cli-table.png[align="center",scaledwidth="85%"]
 
 ====== inquirer
 
@@ -1876,7 +1880,7 @@ Ces navigateurs peuvent tout aussi bien être ceux présents sur votre machine, 
 [URL]#https://npmjs.org/karma#
 
 .Exemple d'exécution continues de tests avec Karma
-image::{indir}/images/karma.png[align="center",scaledwidth="85%"]
+image::images/karma.png[align="center",scaledwidth="85%"]
 
 ====== superagent
 
