@@ -1901,7 +1901,7 @@ _chai_ est une bibliothèque d'assertion exposant des interfaces BDD et TDD.
 Elle est particulièrement bien fournie pour tester des structures d'objets complètes ou partielles.
 
 Compatible Node et navigateurs Web. +
-[URL]#https://npmjs.org/x#
+[URL]#https://npmjs.org/chai#
 
 [source,javascript]
 .npm-chai.js
@@ -1917,7 +1917,7 @@ En d'autres termes, vous prenez la main sur des portions de votre propre API pou
 _sinon_ peut étendre _chai_ via le module _sinon-chai_ ou être utilisé directement avec le _framework_ de tests _buster_.
 
 Compatible Node et navigateurs Web. +
-[URL]#https://npmjs.org/x#
+[URL]#https://npmjs.org/sinon#
 
 [source,javascript]
 .npm-sinon.js
@@ -2012,59 +2012,50 @@ Cet outil est adapté à l'échafaudage interactif d'applications ou de parties 
 
 ====== nitrogen
 
-[URL]#https://npmjs.org/nitrogen#
+_nitrogen_ est une plateforme permettant de gérer les interactions entre différents périphériques, sur un même réseau local et à travers Internet.
 
-- device + features
-- service
-- server relaying
+La bibliothèque se base sur un mécanisme déclaratif de fonctionnalités et de terminaux ainsi que la publication de messages.
+
+[URL]#https://npmjs.org/nitrogen#
 
 ====== serialport
 
-[URL]#https://npmjs.org/serialport#
+_serialport_ est une bibliothèque pour communiquer avec tout appareil bénéficiant d'un port série, et relié à un périphérique via un port USB.
 
-[source,javascript]
-.npm-serialport.js
-----
-include::{sourceDir}/snippets/npm-serialport.js[]
-----
+[URL]#https://npmjs.org/serialport#
 
 ====== firmata
 
+_firmata_ est un _firmware_, un protocole de communication ainsi qu'une bibliothèque de communication pour microcontrôleur Arduino.
+Le module Node permet de communiquer via ce protocole avec un Arduino préalablement flashé avec Firmata.
+
 [URL]#https://npmjs.org/firmata#
 
-[source,javascript]
-.npm-firmata.js
-----
-include::{sourceDir}/snippets/npm-firmata.js[]
-----
 
 ====== johnny-five
+
+_johnny-five_ est une bibliothèque haut niveau pour Arduino, Raspberry Pi et autres microcontrôleurs.
+Son API expose des fonctionnalités de manipulations avancées pour simplifier les interactions avec des moteurs, des servo-contrôleurs, des capteurs etc.
 
 Compatible Node et navigateurs Web. +
 [URL]#https://npmjs.org/johnny-five#
 
-[source,javascript]
-.npm-johnny-five.js
-----
-include::{sourceDir}/snippets/npm-johnny-five.js[]
-----
 
 ====== cylon
+
+_cylon_ est une autre bibliothèque haut niveau orientée vers la programmation d'interactions pour robots.
+Son interface est particulièrement adaptée pour manipuler et réagir plusieurs robots entre eux.
 
 Compatible Node et navigateurs Web. +
 [URL]#https://npmjs.org/cylon#
 
-[source,javascript]
-.npm-cylon.js
-----
-include::{sourceDir}/snippets/npm-cylon.js[]
-----
-
 ====== node-red
+
+_node-red_ est une interface visuelle de programmation d'objets connectés.
+Le module Node démarre un serveur Web dont l'interface a pour but de relier des sources de données, des interactions possibles ainsi que les objets devant recevoir les instructions.
 
 Compatible Node et navigateurs Web. +
 [URL]#https://npmjs.org/node-red#
-
 
 
 ==== Auteurs et communautés de confiance
