@@ -1660,11 +1660,23 @@ _rework_ est une alternative à Less et Sass dans le sens où vous définissez l
 
 [URL]#https://npmjs.org/rework#
 
+Par défaut _rework_ ne fournit qu'un lot réduit de fonctionnalités.
+Il faut donc rajouter des extensions pour étendre le comportement et modeler le _parsing_ à notre goût.
+
 [source,javascript]
 .npm-rework.js
 ----
 include::{sourceDir}/snippets/npm-rework.js[]
 ----
+
+Cette configuration permet de parser la feuille de style suivante :
+
+[source]
+----
+include::{sourceDir}/snippets/stylesheet.css[]
+----
+
+Le résultat à l'issu de la compilation est identique à la sortie du module _less_.
 
 ====== browserify
 
