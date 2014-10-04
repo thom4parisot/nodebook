@@ -1032,7 +1032,7 @@ npm outdated
 
 La lecture de sa sortie peut être déroutante au premier abord, notamment dans le cas d'un module qui n'a pas été mis à jour via `npm update` depuis un moment :
 
-.Résultats obsolètes issue de `npm outdated`
+.Résultats obsolètes issus de `npm outdated`
 image::images/npm-outdated.png[align="center",scaledwidth="85%"]
 
 Le tableau ne liste que les dépendances considérées comme obsolètes en l'état actuel d'installation de votre projet.
@@ -1069,7 +1069,7 @@ Et ainsi de suite pour les autres dépendances de premier niveau.
 Voici ce qui est affiché après l'installation de nouvelles versions majeures :
 
 .Résultats obsolètes issue de `npm outdated`
-image::images/npm-outdated-uptodate.png.png[align="center",scaledwidth="85%"]
+image::images/npm-outdated-uptodate.png[align="center",scaledwidth="85%"]
 
 On ne peut faire mieux en l'état car :
 
@@ -1178,10 +1178,10 @@ Bref, pour vous aider à choisir — et ce peu importe le contexte — voici une
 - *maintenance* : si personne ne met à jour le module alors que des contributions se présentent, cela peut se révéler bloquant, dénoter une *obsolescence* d'idée ou impliquer l'existence d'un _fork_ de ce module ;
 - *état des contributions* : les mainteneurs répondent-ils aux contributeurs ? Les contributions de code sont-elles acceptées dans des conditions légitimes ? Ou tout simplement, y'a-t-il beaucoup de déclaration de bugs en suspens ? Telles sont les indicateurs de vitalité pour estimer la gravité et la probabilité que la bibliothèque nous explose au visage lorsqu'on ne s'y attendra pas.
 
-.Résultats `npm outdated` après mise à jour
+.Page npm d'un module populaire et fiable
 image::images/module-npm-ok.png[align="center",scaledwidth="85%"]
 
-.Exemple de module
+.Page npm peu encourageante
 image::images/module-npm-ko.png[align="center",scaledwidth="85%"]
 
 Enfin, n'oubliez pas qu'il s'agit de critères subjectifs.
