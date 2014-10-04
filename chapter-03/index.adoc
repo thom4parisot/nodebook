@@ -1625,9 +1625,33 @@ Compatible Node et navigateurs Web. +
 [URL]#https://npmjs.org/less# et [URL]#https://npmjs.org/node-sass#
 
 [source]
-.npm-less.less
+.stylesheet.less
 ----
-include::{sourceDir}/snippets/npm-less.less[]
+include::{sourceDir}/snippets/stylesheet.less[]
+----
+
+L'exécutable `lessc` compile le fichier LESS:
+
+----
+../../node_modules/.bin/less stylesheet.less
+----
+
+La sortie de la commande précédente génère ce résultat :
+
+[source,css]
+----
+.btn {
+  border: 1px solid black;
+  border-radius: 3px;
+  font-size: 18px;
+}
+.btn--large {
+  font-size: 27px;
+}
+.btn--warning {
+  border-color: rgba(255, 0, 0, 0.9);
+  color: #ff0000;
+}
 ----
 
 ====== rework
