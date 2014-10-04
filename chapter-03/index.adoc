@@ -1633,7 +1633,7 @@ include::{sourceDir}/snippets/stylesheet.less[]
 L'exécutable `lessc` compile le fichier LESS:
 
 ----
-../../node_modules/.bin/less stylesheet.less
+lessc stylesheet.less
 ----
 
 La sortie de la commande précédente génère ce résultat :
@@ -1746,10 +1746,12 @@ _uglify-js_ compile de l'ECMAScript en ECMAScript mais en plus de concaténer pl
 
 [URL]#https://npmjs.org/uglify-js#
 
-[source]
-----
+_ufglify-js_ s'utilise via son exécutable, son API Node ou encore via des outils comme Grunt, Gulp ou _browserify_.
+Certaines options vous seront très utiles, comme par exemple :
 
-----
+- `--mangle` : compresse le code de manière plus agressive en renommant les déclarations pour gagner de la place ;
+- `--compress` : définit des options de compression supplémentaires telles que la suppression des appels à `console.log` et la suppression du code non-utilisé ;
+- `--source-map` : produit un fichier _Source Maps_ facilitant le débogage du code minifié .
 
 ===== Templating
 
@@ -1906,10 +1908,8 @@ _blanket_ génère une couverture de code en inspectant le code exécuté par vo
 
 [URL]#https://npmjs.org/blanket#
 
-[source]
-----
-mocha -r blanket -c html-cov test/**/*.js > coverage.html
-----
+.Résultat de couverture de code généré par _blanket_
+image::images/blanket.png[align="center",scaledwidth="85%"]
 
 ====== karma
 
