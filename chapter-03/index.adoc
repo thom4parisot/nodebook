@@ -1588,21 +1588,24 @@ $ curl -H 'Accept-version: ~1' http://localhost:8080/modules/express
 "^4.9.5"
 ----
 
-====== socket.io
+====== faye
 
-_socket.io_ est à la fois un serveur et un client Websocket.
-Autrement dit, de la gestion de communication en temps réel entre un client et un serveur.
-
-En cas d'incompatibilité du client, la bibliothèque propose des solutions alternatives (Flash, JSONP, AJAX).
+_faye_ est à la fois un serveur et un client de communication en temps réel entre un client et un serveur.
+Il utilisera Websocket, Ajax ou JSON-P selon les capacités technologiques du client.
 
 Compatible Node et navigateurs Web. +
-[URL]#https://npmjs.org/socket.io#
+[URL]#https://npmjs.org/faye#
 
 [source,javascript]
-.npm-socket.io.js
+.npm-faye.js
 ----
-include::{sourceDir}/snippets/npm-socket.io.js[]
+include::{sourceDir}/snippets/npm-faye.js[]
 ----
+
+Ce serveur extrêmement minimaliste expose un point d'entrée qui peut être accédé via le client _Faye_, dans un navigateur Web ou via un autre script Node.
+
+Tout message émit par un client sera relayé auprès des autres clients connectés.
+Un mécanisme de canaux et d'authentification vous permettra de canaliser les messages en fonction des besoins de votre application.
 
 ===== Préprocesseurs
 
