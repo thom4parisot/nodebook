@@ -2260,6 +2260,40 @@ Ce _pattern_ est utile pour réduire l'encombrement visuel et regrouper des modu
 
 ==== Globbing
 
+Le _globbing_ est un _pattern_ fréquemment employé dans le monde UNIX.
+Au lieu de nommer des fichiers un par un, le mécanisme permet de désigner des motifs de sélection, de profondeur de recherche et d'exclusion.
+
+Les motifs utilisables sont les suivants :
+
+- `*` : n'importe quel caractère ;
+- `**` : n'importe quel répertoire ;
+- `{js,css}` : la chaîne `js` ou `css ;
+- `[js]` : un caractère dans l'ensemble `j` et `s` ;
+- `!(js)` : sauf la chaîne _js_.
+
+Parcourir et filtrer le contenu d'un répertoire devient un jeu d'enfant — bien plus que s'il avait fallu utiliser soi-même l'API Node `fs` à coup de `readDir` récursif.
+
+Au final, c'est ce qui est effectué mais sans que nous ayions à écrire ce code nous-même.
+
+[source,javascript]
+.pattern-glob.js
+----
+include::{sourceDir}/snippets/pattern-glob.js[]
+----
+<1> fichiers débutant par `template` ;
+<2> fichiers débutant par `template` et suffixés par `hbs` ou dont le suffixe débute par `ej` ;
+<3> fichiers débutant par `template` et dont le suffixe est précédé par les lettres `e` ou `j` ;
+<4> fichiers débutant par `template`, à l'exception de `template.jade` ;
+<5> fichiers contenus dans le répertoire `src` et suffixés par `css`, peu importe leur emplacement dans l'arborescence.
+
+[CAUTION]
+.[RemarquePreTitre]#Attention# Certains modules sont bloquants
+====
+Certains modules de _globbing_ sont bloquants, comme `globule@~0.2.0`.
+
+Méfiez-vous donc de leur API séduisante car leur performance s'en trouvera amoindrie.
+====
+
 ==== Injection de module
 
 Il est tentant de créer des modules pour abstraire certaines parties de votre logique applicative.
