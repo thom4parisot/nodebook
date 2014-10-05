@@ -2144,7 +2144,7 @@ include::{sourceDir}/snippets/pattern-sync.js[]
 ----
 
 Finalement le code n'est pas nécessairement plus clair.
-Et plus encore, on doit activement essayer de faire la distinction entre un résultat attendu d'une valeur _fausse_ et un résultat issu d'une erreur (système surchargé, fichier inexistant, lecture interrompu, _timeout_ etc.).
+On doit activement essayer de faire la distinction entre un résultat d'une valeur _fausse_ et un résultat issu d'une erreur (système surchargé, fichier inexistant, lecture interrompu, _timeout_ etc.).
 
 Le module d'accès synchrone au contenu d'un fichier ressemblerait à ceci :
 
@@ -2200,6 +2200,63 @@ Ne vous fiez pas nécessairement à l'API mise à disposition par les modules em
 Un seul module bloquant et peu performant peut réduire à néant les performances de vos applications.
 
 ==== index.js
+
+Il arrive que la modularisation de votre code nécessite l'utilisation de multiples appels à `require()` pour charger l'intégralité des modules nécessaires.
+
+Ce n'est pas un signe de mauvais code mais on peut sentir une certaine répétition dans l'exemple suivant :
+
+[source,javascript]
+----
+var Person = require('./lib/models/person.js');
+var Vehicle = require('./lib/models/vehicle.js');
+var Location = require('./lib/models/location.js');
+var Transaction = require('./lib/models/transaction.js');
+
+var rental = new Transaction({
+  // ...
+});
+
+rental.save(function(err, commit){
+  if (err) {
+    throw err;
+	}
+
+  // ...
+});
+----
+
+Nous pourrions grouper les appels aux modèles car ils appartiennent à un même domaine.
+L'exemple précédent se résumerait alors à ceci :
+
+[source,javascript]
+----
+var models = require('./lib/models');
+
+var rental = new models.Transaction({
+  // ...
+});
+----
+
+Comme nous l'avons vu dans le _chapitre 2_, lorsque le chemin indiqué en paramètre de la fonction `require()` est un répertoire, l'heuristique veut que Node vérifie l'existence d'un fichier `index.js` et le charge le cas échéant.
+
+Ainsi, `require('./lib/models')` est équivalent à `require('./lib/models/index.js')`.
+
+Le fichier `index.js` est quant à lui une factorisation des appels précédents :
+
+[source,javascript]
+.lib/models/index.js
+----
+'use strict';
+
+module.exports = {
+  Person: require('./person.js'),
+  Location: require('./location.js'),
+  Vehicle: require('./vehicle.js'),
+  Transaction: require('./transaction.js')
+};
+----
+
+Ce _pattern_ est utile pour réduire l'encombrement visuel et regrouper des modules par pertinence.
 
 ==== Globbing
 
