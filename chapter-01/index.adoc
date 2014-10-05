@@ -88,7 +88,7 @@ Pour comprendre comment Node a opté pour cette approche, retournons en 2009, lo
 En 2006, _Ryan Dahl_ est un étudiant américain en troisième année de doctorat de mathématiques.
 Si son but initial était de devenir professeur de mathématiques, il prend la décision de ne pas terminer sa thèse et d'entreprendre un voyage au Chili.
 
-Alors qu'il cherche à effectuer des petits boulots, il y rencontre un autre Américain développant des sites web.
+Alors qu'il cherche à effectuer des petits boulots, il y rencontre une autre personne développant des sites web.
 Ruby on Rails connaît un succès grandissant et attire son attention.
 Alors que Ryan envisageait d'utiliser Rails, il découvre avec horreur la lenteur du _framework_ et cherche à en découvrir les causes.
 
@@ -127,7 +127,7 @@ La machine virtuelle JavaScript V8 de Google a été libérée en _open source_ 
 Ryan admet que JavaScript dispose des caractéristiques idéales, même s'il n'est pas un adepte du langage : fonctions anonymes, _closures_ et l'_event loop_ (dans le DOM en tous cas).
 Il lui manque juste la capacité d'accéder à des _sockets_, au système de fichiers et à d'autres fonctions système.
 
-Il quitte alors son travail, s'inspire de ses travaux de modules non bloquants pour Ngninx et se concentre pendant six mois à marier JavaScript, V8 et l'environnement système : Node.js. +
+Il quitte alors son travail, s'inspire de ses travaux de modules non bloquants pour Nginx et se concentre pendant six mois à marier JavaScript, V8 et l'environnement système : Node.js. +
 Sa démonstration de serveur IRC écrit en 400 lignes de JavaScript lors de la conférence JSConf Europe suscite l'enthousiasme et attire l'attention.
 
 L'entreprise américaine _Joyent_ l'embauche à plein temps pour continuer le développement de Node.
@@ -151,7 +151,7 @@ Peut-être un élément qui figurera dans les livres d'histoire !
 
 En 2009, la tension et l'attention autour de JavaScript sont énormes.
 La mode du tout _Ajax_ et des _mashups_ s'est estompée mais une chose en est ressortie : JavaScript n'a plus à rougir ni à être relégué au rang de sous-langage.
-Les initiatives JSlint, CommonJS et les _good parts_ de Douglas Crockford  sont pour beaucoup dans la création de code élégant.
+Les initiatives JSLint, CommonJS et les _good parts_ de Douglas Crockford  sont pour beaucoup dans la création de code élégant.
 
 D'un autre côté, les entreprises développant des navigateurs web se livrent à une féroce compétition d'optimisation.
 Google, Mozilla et Apple ont en effet besoin de navigateurs rapides pour améliorer leurs parts de marché sur les ordinateurs mais aussi les téléphones et tablettes.
@@ -482,7 +482,7 @@ Le parcourir permet de mieux comprendre la magie de son fonctionnement… ou d'a
 La machine virtuelle V8 est un compilateur JavaScript focalisé sur les performances et la sécurité.
 V8 a été créé par Google pour interpréter JavaScript dans son navigateur web Chrome.
 
-Node utilise également V8 pour les mêmes raisons : parser et compiler JavaScript.
+Node utilise également V8 pour les mêmes raisons : parser, compiler et exécuter JavaScript.
 Le résultat de la compilation est retourné sous forme de fonctions et de ressources C++ manipulées par l'interpréteur Node.
 
 Par ricochet, les progrès de V8 impactent directement Node.
@@ -502,9 +502,9 @@ Cette documentation est accompagnée d'un guide pour intégrer V8 dans d'autres 
 _libuv_ est une librairie C++ focalisée sur l'accès aux ressources système de manière non bloquante.
 
 Cette librairie est compatible avec de nombreux systèmes d'exploitation comme Windows, Linux ou encore FreeBSD. +
-D'autres logiciels sont basés sur _libuv_ mais Node est la première plate-forme à en avoir fait l'usage… et pour cause, _libuv_ a été créée pour les besoins propre de Node.
+D'autres logiciels sont basés sur _libuv_ mais Node est la première plate-forme à en avoir fait l'usage… et pour cause, _libuv_ a été créée pour les besoins propres de Node.
 
-_libuv_ implémente notamment la fameuse boucle événementielle (voir ci-après), la file de priorité (_priority queue_), délègue les accès réseaux au système d'exploitation et expose la plupart des fonctions UNIX nécessaires à la manipulation de fichiers et d'autres actions bas niveau.
+_libuv_ implémente notamment la fameuse boucle événementielle (_Event Loop_, voir ci-après), la file de priorité (_priority queue_), délègue les accès réseaux au système d'exploitation et expose la plupart des fonctions UNIX nécessaires à la manipulation de fichiers et d'autres actions bas niveau.
 
 *La performance de Node réside clairement dans _libuv_*.
 JavaScript n'y est pour rien, si ce n'est à travers la puissance de la machine virtuelle V8.
