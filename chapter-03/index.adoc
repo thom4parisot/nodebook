@@ -2196,7 +2196,7 @@ Que se passe-t'il du côté de Node si le code exécuté est :
 En clair, on n'exécute pas du code non-bloquant parce que c'est davantage à la mode : on exécute du code non-bloquant pour économiser du temps et traiter davantage d'instructions. +
 Par effet mécanique, à puissance CPU équivalente, un code non-bloquant pourra traiter davantage d'instructions à la seconde car il gâchera moins de temps à attendre un retour d'instruction.
 
-Ne vous fiez pas nécessairement à l'API mise à disposition par les modules employés mais vérifiez bien qu'elles emploient un minimum d'instructions non-bloquantes. +
+Ne vous fiez pas nécessairement à l'API mise à disposition par les modules employés mais vérifiez bien qu'elles emploient un minimum d'instructions bloquantes. +
 Un seul module bloquant et peu performant peut réduire à néant les performances de vos applications.
 
 ==== index.js
