@@ -2256,11 +2256,71 @@ module.exports = {
 };
 ----
 
-Ce _pattern_ est utile pour réduire l'encombrement visuel et regrouper des modules par pertinence.
+Ce _pattern_ est utile pour réduire l'encombrement visuel et regrouper des modules par logique applicative.
 
 ==== Globbing
 
 ==== Injection de module
+
+Il est tentant de créer des modules pour abstraire certaines parties de votre logique applicative.
+C'est d'autant plus pertinent si vous souhaitez partager ce code au sein d'un même projet ou entre plusieurs projets similaires.
+
+L'exemple suivant illustre la volonté de déporter la configuration d'une hypothétique application dans un module nommé `app-configure.js` :
+
+[source,javascript]
+.app.js
+----
+var app = module.exports = new AppServer();
+
+require('./app-configure.js');
+----
+
+Ce module de configuration requiert à son tour l'application pour en configurer l'objet exporté :
+
+[source,javascript]
+.app-configure.js
+----
+var app = require('./app.js');
+
+app.set('X-Powered-By', 'ACME Corp.');
+app.set('view engine', require('consolidate').ejs);
+
+// ...
+----
+
+Cette approche pose toutefois deux problèmes :
+
+- l'inclusion cyclique — même si Node s'en sortira, on pressent une erreur de _design_ ;
+- quid de l'utilisation de ce module de configuration si l'on souhaite configurer un autre fichier qu'`app.js` ?
+
+L'injection de variable est un _pattern_ intéressant car il résout ce dilemme sans présenter d'inconvénient :
+
+[source,javascript]
+.app-reworked.js
+----
+var app = new App();
+
+require('./app-configure-reworked.js')(app);
+----
+
+Le module de configuration devient alors une fonction recevant l'objet applicatif en paramètre :
+
+[source,javascript]
+.app-configure-reworked.js
+----
+module.exports = function(app){
+  app.set('X-Powered-By', 'ACME Corp.');
+  app.set('view engine', require('consolidate').ejs);
+
+  // ...
+};
+----
+
+Ce _pattern_ est intéressant à plus d'un titre :
+
+- il rend explicite toute dépendance ;
+- le module d'injection peut baser son comportement sur l'état des objets passés en paramètre ;
+- il n'impose qu'une seule chose : respecter la signature de la fonction d'injection.
 
 ==== Callback
 
