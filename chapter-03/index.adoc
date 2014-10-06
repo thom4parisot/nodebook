@@ -2358,10 +2358,69 @@ Ce _pattern_ est intéressant à plus d'un titre :
 
 ==== Callback
 
+Le _pattern_ _callback_ est très couramment employé et pour cause : il est systématiquement employé dans les API asynchrones de Node.
+
+Le _pattern_ implique une fonction ayant un ou plusieurs arguments ; le premier d'entre eux étant systématiquement un objet d'erreur. +
+Ce mécanisme permet de *propager une erreur* le long de la chaîne de _callbacks_.
+
+Forçons le trait en créant une fonction asynchrone faisant appel à deux autres fonctions asynchrones :
+
+[source,javascript]
+.message-abbr.js
+----
+include::{sourceDir}/snippets/message-abbr.js[]
+----
+
+Plusieurs remarques :
+
+- `process.nextTick` est utilisé pour rendre asynchrone du code ordinairement synchrone ;
+- chaque niveau de _callback_ appellera la fonction de callback initiale avec l'objet d'erreur en premier argument ;
+- l'imbrication rend difficilement contrôlable la possibilité d'interagir avant que l'intégralité de la chaîne soit accomplie.
+
+Le module suivant exécute la fonction asynchrone précédemment exportée à trois reprises, pour illustrer différents cas de figure :
+
+[source,javascript]
+.pattern-callback.js
+----
+include::{sourceDir}/snippets/pattern-callback.js[]
+----
+<1> Affiche la chaîne `GME` ;
+<2> Affiche le message d'erreur `[TypeError: message is not a String]` ;
+<3> Affiche une exception `TypeError: Cannot read property 'toLocaleUpperCase' of null` et termine le script de manière prématurée.
+
+Le premier appel à `messageAbbr` se déroule dans des conditions optimales.
+La fonction de callback transmet un premier paramètre `err` équivalent à `null`, et une valeur conforme aux attentes.
+
+Le deuxième appel illustre une interception maîtrisée d'un cas d'erreur.
+C'est bien `console.error(err)` qui sera interprété suite à une erreur renvoyée par la fonction `splitWordsAsync`.
+
+Le troisième et dernier appel interpelle : pourquoi le bloc `try/catch` est-il resté sans effet ?
+Et bien pour la simple et bonne raison que `try/catch` ne fonctionne que sur du _code synchrone_. +
+Dans notre cas, l'exception n'étant pas interceptée dans les rouages asynchrones, elle remonte jusqu'au processus initial et génère un événement `uncaughtException`.
+
+Autrement dit, un code asynchrone requiert encore plus de précautions du fait de la potentielle difficulté à intercepter les erreurs, et donc à éviter le plantage de notre application.
+
+Enfin, on notera que l'ordre d'affichage des deux premiers appels n'est pas nécessairement le même que l'ordre d'exécution.
+
+Le code initial peut être rendu légèrement plus lisible sans toucher à l'API de callback en utilisant la méthode `waterfall` de la bibliothèque `async` ([URL]#https://npmjs.org/async#) :
+
+[source,javascript]
+.message-abbr-waterfall.js
+----
+include::{sourceDir}/snippets/message-abbr-waterfall.js[]
+----
+
+Le mécanisme `waterfall` exécute chaque callback de manière séquentielle, en transmettant l'erreur et le résultat au callback suivant.
+
 [CAUTION]
-.[RemarquePreTitre]#Attention# `try/catch` et callbacks
+.[RemarquePreTitre]#Performance# Non-bloquant mais pas rapide pour autant
 ====
-TBD.
+Vous aurez beau rendre non-bloquant la majorité de votre code, il n'en sera pas nécessairement exécuté plus rapidement.
+
+Alors certes votre application pourra _accepter_ davantage de sollicitation mais votre code, lui, ira à la vitesse prescrite par l'enchainement logique du flux de données.
+
+Le temps d'exécution des callbacks correspond à la _somme du temps d'exécution de chaque callback_. +
+Un excellent moyen pour gérer du code _asynchrone_ et _parallèle_ est le _pattern_ _promesse_, abordé dans les pages suivantes.
 ====
 
 ==== Event
