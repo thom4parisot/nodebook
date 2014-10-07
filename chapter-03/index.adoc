@@ -2425,6 +2425,69 @@ Un excellent moyen pour gérer du code _asynchrone_ et _parallèle_ est le _patt
 
 ==== Event
 
+Les _callbacks_ nous permettent d'agir lorsqu'un exécution asynchrone est en mesure de nous retourner un résultat, ou une erreur. +
+Leur fonctionnement est toutefois encapsulé et limité à la portée de la portion de code dans laquelle nous pouvons insérer des instructions.
+Difficile donc d'exposer notre logique applicative en dehors de ces _callbacks_. 
+
+Les événements nous offrent un tel mécanisme d'exposition, en permettant la connection de plusieurs écouteurs (_listeners_).
+Plusieurs composants indépendants peuvent alors utiliser les résultats pour leurs propres besoins.
+
+Il s'agit d'un _pattern_ particulièrement intéressant adresser ces besoins :
+
+- gérer des cas de figure ayant trait à une progression ;
+- gérer des cas de figure plus complexes qu'une logique binaire de réussite ou d'échec ;
+- séparer la logique d'exécution d'un résultat unique (éviter de mettre tous les _callbacks_ dans le même panier dirait-on …); 
+- transmettre des résultats au travers de plusieurs couches applicatives.
+
+Reprenons l'exemple de la section précédente à propos des callbacks.
+Au lieu d'exécuter trois la fonction `messageAbbr`, nous voulons au contraire exécuter trois traitements différents sur le résultat. +
+Le changement le plus rapide reviendrait à transformer le code de la manière suivante :
+
+[source,javascript]
+.pattern-callback-naive.js
+----
+include::{sourceDir}/snippets/pattern-callback-naive.js[]
+----
+
+C'est visuellement propre mais il est difficile de savoir en quoi les fonctions exécutées dans le _callback_ sont liées.
+Quid de nos besoins de maintenance et de logique applicative ? +
+Sans compter qu'il est virtuellement impossible pour un autre module de greffer un quelconque traitement.
+
+Moins de cinq minutes suffisent à implémenter un traitement événementiel dans notre module Node :
+
+[source,javascript]
+.pattern-event.js
+----
+include::{sourceDir}/snippets/pattern-event.js[]
+----
+<1> L'utilisation de `module.exports` permet d'exposer l'émetteur d'événement en dehors de notre module, par exemple `require('./pattern-events').on('data', ...)`.
+
+Cette fois-ci notre fonction va retourner une instance de l'objet `EventEmitter`, de manière synchrone.
+Le traitement reste asynchrone.
+
+[source,javascript]
+.message-abbr-evented.js
+----
+include::{sourceDir}/snippets/message-abbr-evented.js[]
+----
+
+On notera qu'aucun code n'est injecté dans notre module retravaillé.
+Le module se contente d'exposer une API et d'émettre des données aux moments adéquats.
+
+[TIP]
+.[RemarquePreTitre]#Astuce# `emitter.setMaxListeners`
+====
+Vous pouvez brancher dix écouteurs maximum sur un émetteur.
+C'est en général un nombre suffisant mais cette limite peut être augmentée (ou réduite) si le besoin se fait sentir.
+
+[source,javascript]
+----
+include::{sourceDir}/tips/events-setmaxlisteners.js[]
+----
+====
+
+Il est important de bien connaître et de bien comprendre ce _pattern_ car il est fréquemment employé au sein des API natives de Node et dans de nombreux modules npm.
+
 ==== Promesses
 
 ==== Streams
