@@ -2490,6 +2490,70 @@ Il est important de bien connaître et de bien comprendre ce _pattern_ car il es
 
 ==== Promesses
 
+Le concept des promesses (_promises_) est extrêmement puissant pour gérer, ordonner et organiser un ou plusieurs enchaînements d'exécutions asynchrones.
+
+Historiquement, de nombreuses bibliothèques ont proposé leur propre implémentation du _pattern_ mais sans être réellement interopérables.
+La spécification _Promise/A+_ a émergé pour établir un standard de compatibilité.
+Il faut attendre ECMAScript 6 pour disposer d'une API native, que ce soit pour le Web ou pour Node.
+
+Les cas d'utilisation des promesses sont multiples :
+
+- exécuter une continuité d'actions asynchrones ;
+- paralléliser des actions asynchrones et exécuter des instructions lorsqu'une ou plusieurs de ces actions sont terminées ;
+- simplifier la gestion des erreurs à n'importe quelle étape du processus asynchrone.
+
+Faisons évoluer notre exemple de _pattern_ _callback_ et d'événement :
+
+[source,javascript]
+.pattern-promise.js
+----
+include::{sourceDir}/snippets/pattern-promise.js[]
+----
+
+La lecture du code est similaire à un enchaînement d'événements.
+Les méthodes `then` et `catch` se chaînent mais nous verrons un peu plus tard leur subtilité.
+
+Tournons-nous vers l'implémentation de la fonction `messageAbbr` :
+
+[source,javascript]
+.message-abbr-promisified.js
+----
+include::{sourceDir}/snippets/message-abbr-promisified.js[]
+----
+
+Plusieurs choses notables sont à relever :
+
+- chaque fonction `*Async` retourne une promesse ;
+- les callbacks ne sont plus des arguments des fonctions de traitement ;
+- les fonctions `reject` et `resolve` remplacent le _pattern_ `callback(error, result)` ;
+- l'enchaînement final de `then` laisse supposer que chaque promesse consomme le résultat de la promesse précédente;
+- `messageAbbr` est elle-même une promesse dont le résultat se base sur un enchaînement de promesses.
+
+Un atout essentiel des promesses est leur gestion des erreurs.
+Et d'une manière plus élégante qu'avec les _callbacks_ : les exceptions que nous n'avons pas englobé avec des `try/catch` seront quand même capturées :
+
+[source,javascript]
+.pattern-promise-errors.js
+----
+include::{sourceDir}/snippets/pattern-promise-errors.js[]
+----
+<1> Comme dans le _pattern_ _callback_, le message d'exception est affiché `[TypeError: Cannot read property 'toLocaleUpperCase' of null]` ;
+<2> Cette fois-ci, le cas d'erreur imprévu de la valeur nulle ne nous échappe pas et fait remonter une exception remontée à la fonction `logErr`.
+
+Enfin, la méthode statique `Promise.all` nous permet d'exécuter plusieurs promesses en parallèle.
+Le résultat de l'intégralité des promesses est alors retourné en argument de `then`.
+
+[source,javascript]
+.pattern-promise-multiple.js
+----
+include::{sourceDir}/snippets/pattern-promise-multiple.js[]
+----
+<1> Affiche `Promesse tenue !` ;
+<2> Affiche `[ 'H&M', 'HMS', 'GO' ]`
+
+Aussi logique que cela puisse paraître, cette technique est plus rapidement qu'un enchainement de promesse.
+Le temps d'exécution correspond à celui de la plus lente promesse au lieu d'une accumulation séquentielle de temps d'exécution.
+
 ==== Streams
 
 
