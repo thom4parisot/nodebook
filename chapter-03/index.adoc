@@ -2556,5 +2556,185 @@ Le temps d'exécution correspond à celui de la plus lente promesse au lieu d'un
 
 ==== Streams
 
+Les _streams_ représentent un concept déjà connu par les pratiquants du monde UNIX.
+Nous en avons déjà parlé dans le chapitre 2 et dans certains exemples de ce même chapitre.
+Il est donc temps de comprendre ce que sont les _streams_, ce qu'ils apportent et leurs inconvénients.
 
+Nous avons déjà vu dans cette section qu'une opération asynchrone ne bloque pas le reste de l'exécution du programme.
+Mais les _patterns_ précédents n'adressent pas la problématique de mémoire.
 
+Prenons un exemple courant : télécharger un fichier distant et le stocker sur disque.
+
+[source,javascript]
+.npm-streams-http-async.js
+----
+include::{sourceDir}/snippets/npm-streams-http-async.js[]
+----
+
+Que se passe-t-il dans le précédent exemple ?
+
+1. une requête est envoyée ;
+2. la réponse arrive morceau par morceau et s'accumule en mémoire ;
+3. la réponse est transmise au _callback_ de _request_ ;
+4. les données sont écrites en un bloc sur le système de fichier local.
+
+Ça fonctionne, c'est non-bloquant mais il y a deux possibles inconvénients :
+
+1. on exécute les actions de téléchargement et d'écriture de manière séquentielle ; on accumule le temps d'attente de chaque _callback_ ;
+2. l'intégralité des données doit être stockée en mémoire.
+
+Les _streams_ servent très précisément à résoudre ces inconvénients.
+Rectifions notre précédent exemple :
+
+[source,javascript]
+.npm-streams-http.js
+----
+include::{sourceDir}/snippets/npm-streams-http.js[]
+----
+
+Que se passe-t-il dans cet exemple ?
+
+1. le module _request_ retourne un _ReadableStream_ ;
+2. `fs.createWriteStream` retourne un _WriteableStream_ ;
+3. la méthode `pipe()` déverse les données dans le _WritableStream_ ;
+4. le _WritableStream_ écrit sur disque au fur et à mesure de la réception des données du _ReadableStream_ ;
+5. le _ReadableStream_ termine la connexion en émettant un évènement _finish_ lorsqu'il n'y a plus de données à lire. 
+
+[TIP]
+.[RemarquePreTitre]#API# Les types de _streams_
+====
+Node met à disposition plusieurs types de _streams_, chacun ayant sa propre vocation :
+
+- _ReadableStream_ : données en lecture seule ;
+- _WriteableStream_ : données en écriture seule ;
+- _DuplexStream_ : données en lecture et écriture (connexion bi-directionnelle, opérations asymétriques etc.) ;
+- _TransformStream_ : données en lecture, modifiées et émises en écriture (filtres de compression, parsing etc.) ;
+- _PassThroughStream_ : données en lecture émises à l'identique en écriture (_logging_, débogage etc.).
+====
+
+Les _streams_ sont efficaces pour transférer et modifier des données de manière constante et maitrisée, le tout avec une faible empreinte mémoire.
+
+Les opérations asynchrones à base de _callbacks_ allouent autant de mémoire que nécessaire de manière fluctuante tandis que les _streams_ ne consommeront que quelques kilo-octets de manière constante.
+
+C'est là où réside la promesse de Node : des opérations non-bloquantes et à faible empreinte mémoire.
+Il s'agit d'une combinaison gagnante si ces traitements sont multipliés et rendus simultanés en cas d'accès concurrents à l'application.
+
+Dix accès concurrents ouvrant un fichier de 10 méga-octets nécessitera au bas mot 100 méga-octets de mémoire disponible. +
+Les mêmes dix accès concurrents ouvrant ce fichier en _streaming_ nécessitera tout au plus une cinquantaine de kilo-octets de mémoire disponible.
+
+Continuons sur notre lancée et intéressons-nous à la manipulation d'un fichier JSON.
+Nous souhaitons le lire, le parser et en afficher le contenu avant de pouvoir procéder à d'autres opérations de tri ou de filtre.
+
+Voilà comment nous procéderions avec une approche classique non-bloquante :
+
+[source,javascript]
+.pattern-streams-async.js
+----
+include::{sourceDir}/snippets/pattern-streams-async.js[]
+----
+
+C'est certes non-bloquant mais nous faisons face à un problème de performance lié à la montée en charge, en relation avec la taille du fichier à charger et à parser :
+
+- `JSON.parse` doit charger l'intégralité du fichier JSON en mémoire ;
+- `JSON.parse` ne faisant pas de parsing progressif, il faudra attendre que l'intégralité du fichier soit parsé pour commencer en à manipuler le résultat.
+
+C'est peut-être acceptable dans le cas d'un simple utilitaire exécuté ponctuellement mais ce sera clairement problématique pour la montée en charge d'une application soumise à des accès concurrents : il faudra en effet multiplier la quantité de mémoire allouée par fichier par le nombre d'accès simultanés au service.
+
+En clair, ce modèle ne fonctionnera pas si vous exposez des archives de fichiers ou même plus simplement, si vous proposez des fonctions d'export requétant et renvoyant des résultats de base de données.
+
+Sur la base de notre premier essai avec les _streams_, transformons donc la lecture ponctuelle en lecture progressive :
+
+[source,javascript]
+.pattern-streams.js
+----
+include::{sourceDir}/snippets/pattern-streams.js[]
+----
+
+Que se passe-t-il lors de l'exécution de la méthode `createReadStream` :
+
+1. Node retourne une instance d'objet `ReadableStream` de manière synchrone ;
+2. vous configurez l'instance de `ReadableStream` pour choisir votre méthode de consommation de données ;
+3. l'instance de `ReadableStream` émet des événements relatifs à sa progression ;
+4. la consommation des données s'arrête lorsque vous le décidez ou lorsque l'instance de `ReadableStream` émet l'événement `end`.
+
+Recyclons notre précédent exemple avec un fichier JSON plus volumineux.
+Le fichier en question est issu de la _ressourcerie Datalocale_ ([URL]#http://www.datalocale.fr/drupal7/dataset/catalogue-datalocale#), en date du 19 mars 2014 :
+
+[source,javascript]
+.pattern-streams-large.js
+----
+include::{sourceDir}/snippets/pattern-streams-large.js[]
+----
+<1> Jette une exception `SyntaxError: Unexpected end of input`.
+
+En quoi le simple changement de la source de données peut-il affecter notre script, qui fonctionnait parfaitement dans notre exemple précédent ?
+
+Le mécanisme des _streams_ est ici mis en évidence par le volume de données contenus dans le fichier JSON (un peu plus d'un méga-octet) : seule une dizaine d'éléments ont été retournés ; le dernier étant même partiellement tronqué.
+
+En pratique, chaque _buffer_ correspond plus ou moins à 4Ko de données … mais 4Ko de données brutes. +
+La fonction `JSON.parse` devient alors inefficace car elle impose d'avoir à disposition une structure JSON finie et complète.
+
+Il nous faudrait un parseur JSON compatible avec les _streams_ ; c'est à dire qui soit capable de parser une structure JSON au fur et à mesure de sa lecture. +
+C'est exactement ce que nous propose le module npm `JSONStream` ([URL]#https://npmjs.org/JSONStream#).
+
+Notre script se transforme légèrement et nécessite l'emploi de la méthode `pipe()` sur laquelle nous nous pencherons juste après :
+
+[source,javascript]
+.pattern-streams-jsonstream.js
+----
+include::{sourceDir}/snippets/pattern-streams-jsonstream.js[]
+----
+<1> Affiche `208`.
+
+La fonction `JSONStream.parse()` retourne en réalité un nouveau _stream_ qui lit les données émises par `fs.createReadStream`. +
+Ce nouveau _stream_ a été configuré pour retourner chaque élément (`\*`) du tableau JSON. +
+Si nous avions voulu ne retourner que la propriété `resources` de chaque élément, nous aurions alors écrit `JSONStream.parse('*.resources')`.
+
+Le mécanisme de `pipe` permet de transvaser un flux de données d'un _stream_ vers un autre.
+Ce comportement est littéralement le même que l'opérateur `|` dans le monde UNIX :
+
+[source,bash]
+----
+cat /etc/networks | head -n3 | grep -i 'database'
+----
+
+Cet exemple précédent pourrait être écrit de la manière suivante avec Node (les modules npm sont fictifs et servent uniquement à illustrer le propos) :
+
+[source,javascript]
+----
+var head = require('head');
+var grep = require('stream-grep');
+var fs = require('fs');
+
+fs.createReadStream('/etc/networks')
+  .pipe(head({ count: 3 }))
+  .pipe(grep(/database/i))
+  .pipe(process.stdout);
+----
+
+Cette manipulation équivaut à une transmission de pointeur de données.
+Autrement dit, vous pouvez router un _stream_ vers plusieurs autres _streams_ sans pénaliser les ressources système !
+
+[source,javascript]
+.pattern-streams-multipipes.js
+----
+include::{sourceDir}/snippets/pattern-streams-multipipes.js[]
+----
+
+Tout comme dans notre exemple précédent `pattern-streams-jsonstream.js`, nous avons recours à l'évènement `data`.
+Le module _JSONStream_ met temporairement en mémoire la structure de données parsée avant de l'émettre.
+
+Mais cela empêche de _piper_ à nouveau.
+Pour ce faire, il faut reconstituer un _stream_ … tâche ardue mais simplifiée grâce au module _event-stream_ et à ses méthodes `map` et `mapSync`. +
+Elles créent un nouveau _stream_ et écrivent dedans à chaque émission de l'évènement _data_ du _stream_ précédent.
+
+On peut ainsi diriger notre _stream_ principal vers un fichier sur disque, mais aussi vers le parseur JSON qui lui aussi est dirigé vers le disque et la sortie standard :
+
+[source,javascript]
+.pattern-streams-multipipes-es.js
+----
+include::{sourceDir}/snippets/pattern-streams-multipipes-es.js[]
+----
+
+De nombreuses API Node exposent des _streams_ : requête HTTP, serveur HTTP, lecture et écriture de fichier, cryptographie, entrée/sortie standard du processus etc. +
+Pour être explicite : toute API vous permettra à un moment ou à un autre de manipuler des ensembles de données dont vous ne maitrisez pas la taille sans affecter les performances du système.
