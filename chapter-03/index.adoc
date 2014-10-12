@@ -2002,16 +2002,22 @@ grunt watch
 
 ====== gulp
 
-_gulp_ est une alternative à _grunt_ avec un focus sur la performance d'exécution.
-Son architecture est entièrement basée sur les _Streams_ rend cette bibliothèque particulièrement efficace pour les traitements de fichiers impliquant plusieurs transformations.
+_gulp_ est un outil de _build_ — en opposition à _grunt_ qui est un outil d'exécution de tâches.
+
+Son architecture entièrement basée sur les _Streams_ rend cette bibliothèque particulièrement rapide et efficace pour les traitements de fichiers impliquant plusieurs étapes de transformation.
 
 [URL]#https://npmjs.org/gulp#
+
+Le fichier de configuration de _Gulp_ décrit les séquences d'exécution nécessaires à la production de vos artéfacts :
 
 [source,javascript]
 .Gulpfile.js
 ----
 include::{sourceDir}/../Gulpfile.js[]
 ----
+
+Le concept des _streams_ est indiqué en fin de chapitre.
+Il vous aidera à mieux comprendre la magie du fonctionnement de _Gulp_.
 
 ====== Yeoman
 
