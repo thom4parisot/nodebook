@@ -1252,6 +1252,19 @@ include::{sourceDir}/snippets/npm-string.js[]
 <2> `<h1>Blog Post</h1>` ;
 <3> `\&lt;h1\&gt;Blog Post\&lt;/h1\&gt;`.
 
+====== request
+
+_request_ est un module facilitant la manipulation de requêtes HTTP.
+Cela concerne aussi bien l'envoi de formulaires, l'obtention de jeton OAuth que l'obtention d'une ressource distante et son écriture sur le système de fichiers.
+
+[URL]#https://npmjs.org/request#
+
+[source,javascript]
+.npm-request.js
+----
+include::{sourceDir}/snippets/npm-request.js[]
+----
+
 ====== bluebird
 
 _bluebird_ est une libraire de gestion de promesses (voir ci-après la section _Design patterns_).
@@ -2016,7 +2029,7 @@ Le fichier de configuration de _Gulp_ décrit les séquences d'exécution néces
 include::{sourceDir}/../Gulpfile.js[]
 ----
 
-Le concept des _streams_ est indiqué en fin de chapitre.
+Le concept de _streams_ est décrit en fin de chapitre.
 Il vous aidera à mieux comprendre la magie du fonctionnement de _Gulp_.
 
 ====== Yeoman
