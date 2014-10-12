@@ -1975,13 +1975,30 @@ L'automatisation de tâches et leur inclusion dans vos projets sont d'excellents
 _grunt_ est l'outil qui a propulsé Node dans la cours des développeurs _frontend_.
 Son écosystème de modules particulièrement fourni en terme de performance, d'assemblage et de fonctionnalités a définitivement aidé de nombreux développeurs à automatiser bon nombre de tâches dans leurs projets.
 
-[URL]#https://npmjs.org/grunt# et grunt-cli
+L'utilisation de Node pour le développement _frontend_ est expliqué dans le _chapitre 5 : au service du développement frontend_.
+
+[URL]#https://npmjs.org/grunt# et [URL]#https://npmjs.org/grunt-cli#
 
 [source,javascript]
 .Gruntfile.js
 ----
 include::{sourceDir}/../Gruntfile.js[]
 ----
+
+Cet exemple illustre comment compiler une extension Chrome, ainsi que ses feuilles de style LESS ([URL]#http://lesscss.org/#), à la demande et en temps réel.
+
+Ces tâches peuvent ensuite être invoquées en intégralité ou individuellement :
+
+----
+# Exécuter toutes les tâches
+grunt build
+
+# Compiler uniquement les feuilles de style
+grunt css
+
+# Compilation en temps réel
+grunt watch
+---- 
 
 ====== gulp
 
