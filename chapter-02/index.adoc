@@ -516,7 +516,7 @@ La méthode `join` permet de concaténer tous les éléments d'un tableau avec l
 
 [source,javascript]
 ----
-[1, 2, 3].join(', ')+'… soleil'; <1>
+[1, 2, 3].join(', ') + '… soleil'; <1>
 ----
 <1> Retourne `'1, 2, 3… soleil'`.
 
@@ -904,7 +904,7 @@ Il faut juste veiller à ce que ce soit un résultat escompté pour éviter tout
 
 [source,javascript]
 ----
-/(.+)(Script)/.exec('ECMAScript'); <1>
+/(.+)(Script)/.test('ECMAScript'); <1>
 ----
 <1> Retourne `true`.
 
@@ -1082,7 +1082,7 @@ Ils permettent d'isoler, d'empaqueter et de rendre le code réutilisable.
 La magie opère principalement grâce à la fonction `require` et à l'objet `module`.
 Ils s'occupent respectivement de _charger_ et de _déclarer_ un module.
 
-Techniquement parlant, un module est fichier JavaScript dont toutes les variables sont privées et inaccessibles depuis l'extérieur.
+Techniquement parlant, un module est un fichier JavaScript dont toutes les variables sont privées et inaccessibles depuis l'extérieur.
 Seules les variables exposées par `module.exports` sont publiquement accessibles.
 
 Prenons l'exemple suivant :
@@ -1242,7 +1242,7 @@ Pour en savoir plus sur le fonctionnement de la fonction `require`, reportez-vou
 
 ===== \__filename et __dirname
 
-`__filename` et `__dirname` sont des constantes indiquant respectivement le chemin absolu du fichier exécuté et le chemin absolu du répertoire contenant le fichier exécuté.
+`\__filename` et `__dirname` sont des constantes indiquant respectivement le chemin absolu du fichier exécuté et le chemin absolu du répertoire contenant le fichier exécuté.
 
 [source,javascript]
 .filename-dirname.js
@@ -1253,7 +1253,7 @@ include::{sourceDir}/filename-dirname.js[]
 <2> Affiche `…/examples/chapitre-02` ;
 <3> Affiche `true`.
 
-Utiliser `__filename` et `__dirname` est utile pour travailler avec des chemins absolus, indépendamment du répertoire de travail de Node.
+Utiliser `\__filename` et `__dirname` est utile pour travailler avec des chemins absolus, indépendamment du répertoire de travail de Node.
 
 ===== setTimeout, setInterval et setImmediate
 
@@ -1503,7 +1503,7 @@ En clair, lorsqu'il sera déjà trop tard.
 
 Autrement dit, plus le fichier est gros, plus la phase de lecture sera longue et plus nombreuses seront les chances d'obtenir une erreur.
 
-Autant de problèmes dont nous n'avons pas nécessairement envie de nous soucier mais que l'on aimerait pour autant éviter. _
+Autant de problèmes dont nous n'avons pas nécessairement envie de nous soucier mais que l'on aimerait pour autant éviter. +
 Et ça tombe bien, d'autres personnes se sont déjà frottés à la lecture de fichiers CSV et ont mis à disposition du code réutilisable donc ne réinventons pas la roue et *utilisons des modules tiers* !
 
 === Introduction aux modules Node
