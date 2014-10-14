@@ -8,7 +8,7 @@
 :v:         |:wavy_dash: | [Premiers pas avec Node](chapter-02/index.adoc)
 :v:         |:wavy_dash: | [Premier projet](chapter-03/index.adoc)
 :x:         |            | *Cas pratiques d'utilisation*
-:x:         |            | *Au service du développement frontend*
+:muscle:    |            | [Au service du développement frontend](chapter-05/index.adoc)
 :x:         |            | *Bonnes pratiques pour des applications robustes*
 :x:         |            | *Déploiement et hébergement*
 :wavy_dash: |            | **Annexe A** : [Contributions sociales](AX-social-contributions.adoc)
