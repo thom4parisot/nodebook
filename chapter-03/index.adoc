@@ -225,7 +225,7 @@ Ce dernier contient désormais une section _dependencies_ :
 ----
 
 Vous remarquerez que les numéros de versions sont préfixés du symbole `~` (ou `^` selon la version de npm).
-Nous y reviendrons 
+Nous y reviendrons
 
 [TIP]
 .[RemarquePreTitre]#Aide# --save, --save-dev, --save-optional et --save-exact
@@ -233,7 +233,7 @@ Nous y reviendrons
 Plusieurs options à la commande npm inscrivent les dépendances dans le fichier _package.json_.
 Leur comportement varie légèrement :
 
-- *--save* : enregistre le module dans la clé _dependencies_ ; 
+- *--save* : enregistre le module dans la clé _dependencies_ ;
 - *--save-exact* : idem que `--save` mais ne rajoute pas de préfixe au numéro de version (exemple : `1.3.1` au lieu de `~1.3.1`) ;
 - *--save-dev* : enregistre le module dans la clé _devDependencies_ ;
 - *--save-optional* : enregistre le module dans la clé _optionalDependencies_.
@@ -383,7 +383,7 @@ Il s'agit d'un moyen d'installer moins de dépendance lors d'une livraison — �
 
 Le clonage du dépôt pour être remplacé par des méthodes alternatives, de type empaquetage sous forme de fichier DEB, de module Puppet, d'archive ZIP … ou encore d'archive Node via la commande `npm pack`.
 
-Ces méthodes permettent entre autre d'inclure les dépendances contenues dans le répertoire _node_modules_ et de garantir la version exacte de l'intégralité de l'arbre de dépendance. 
+Ces méthodes permettent entre autre d'inclure les dépendances contenues dans le répertoire _node_modules_ et de garantir la version exacte de l'intégralité de l'arbre de dépendance.
 
 ===== Locale
 
@@ -1466,7 +1466,7 @@ _redis_ est une autre base de données clé/valeur focalisée sur la performance
 _hiredis_ est un _driver_ C++ pouvant être utilisé par le module Node _redis_.
 Il permet de travailler directement avec des buffers plutôt qu'avec des conversions JSON, ce qui accélère le processus de conversion/déconversion depuis la base de données.
 
-[URL]#https://npmjs.org/redis# et 
+[URL]#https://npmjs.org/redis# et
 [URL]#https://npmjs.org/hiredis#
 
 [source,javascript]
@@ -1607,7 +1607,7 @@ _faye_ est à la fois un serveur et un client de communication en temps réel en
 Il utilisera Websocket, Ajax ou JSON-P selon les capacités technologiques du client.
 
 Compatible Node et navigateurs Web. +
-[URL]#https://npmjs.org/faye#
+[URL]#https://npmjs.org/faye# et [URL]#https://npmjs.org/socket.io#
 
 [source,javascript]
 .npm-faye.js
@@ -2011,7 +2011,7 @@ grunt css
 
 # Compilation en temps réel
 grunt watch
----- 
+----
 
 ====== gulp
 
@@ -2149,7 +2149,7 @@ Si ce code est tout à fait fonctionnel, il présente quelques inconvénients :
 
 - il n'est pas réutilisable ;
 - il est difficile de discerner _où_ manipuler le résultat attendu au premier abord ;
-- où intercepter les erreurs ? Et qu'en faire ? 
+- où intercepter les erreurs ? Et qu'en faire ?
 
 Ces problèmes seront amplifiés à mesure que la complexité de votre code, et la profondeur des _callbacks_ augmentera.
 
@@ -2219,7 +2219,7 @@ Pourtant il est bloquant car le code sur lequel il repose propose certes un méc
 ----
 include::{sourceDir}/snippets/get-filecontent-async-fake.js[]
 ----
-<1> Premier accès bloquant ; 
+<1> Premier accès bloquant ;
 <2> Second accès bloquant.
 
 Le fait que Node explicite tout accès bloquant permet de repérer rapidement les potentiels goulots d'étrangement.
@@ -2301,7 +2301,7 @@ Au lieu de nommer des fichiers un par un, le mécanisme permet de désigner des 
 
 Les motifs utilisables sont les suivants :
 
-- `*` : n'importe quel caractère ;
+- `*` : n'importe quelle chaine de caractère ;
 - `**` : n'importe quel répertoire ;
 - `{js,css}` : la chaîne `js` ou `css ;
 - `[js]` : un caractère dans l'ensemble `j` et `s` ;
@@ -2351,9 +2351,10 @@ Ce module de configuration requiert à son tour l'application pour en configurer
 .app-configure.js
 ----
 var app = require('./app.js');
+var ejsEngine = require('consolidate').ejs;
 
 app.set('X-Powered-By', 'ACME Corp.');
-app.set('view engine', require('consolidate').ejs);
+app.set('view engine', ejsEngine);
 
 // ...
 ----
@@ -2378,9 +2379,11 @@ Le module de configuration devient alors une fonction recevant l'objet applicati
 [source,javascript]
 .app-configure-reworked.js
 ----
+var ejsEngine = require('consolidate').ejs;
+
 module.exports = function(app){
   app.set('X-Powered-By', 'ACME Corp.');
-  app.set('view engine', require('consolidate').ejs);
+  app.set('view engine', ejsEngine);
 
   // ...
 };
@@ -2409,7 +2412,7 @@ include::{sourceDir}/snippets/message-abbr.js[]
 
 Plusieurs remarques :
 
-- `process.nextTick` est utilisé pour rendre asynchrone du code ordinairement synchrone ;
+- `process.nextTick` est utilisé pour déporter l'exécution du process principal vers l'_Event Loop_ ;
 - chaque niveau de _callback_ appellera la fonction de callback initiale avec l'objet d'erreur en premier argument ;
 - l'imbrication rend difficilement contrôlable la possibilité d'interagir avant que l'intégralité de la chaîne soit accomplie.
 
@@ -2463,7 +2466,7 @@ Un excellent moyen pour gérer du code _asynchrone_ et _parallèle_ est le _patt
 
 Les _callbacks_ nous permettent d'agir lorsqu'un exécution asynchrone est en mesure de nous retourner un résultat, ou une erreur. +
 Leur fonctionnement est toutefois encapsulé et limité à la portée de la portion de code dans laquelle nous pouvons insérer des instructions.
-Difficile donc d'exposer notre logique applicative en dehors de ces _callbacks_. 
+Difficile donc d'exposer notre logique applicative en dehors de ces _callbacks_.
 
 Les événements nous offrent un tel mécanisme d'exposition, en permettant la connection de plusieurs écouteurs (_listeners_).
 Plusieurs composants indépendants peuvent alors utiliser les résultats pour leurs propres besoins.
@@ -2472,7 +2475,7 @@ Il s'agit d'un _pattern_ particulièrement intéressant adresser ces besoins :
 
 - gérer des cas de figure ayant trait à une progression ;
 - gérer des cas de figure plus complexes qu'une logique binaire de réussite ou d'échec ;
-- séparer la logique d'exécution d'un résultat unique (éviter de mettre tous les _callbacks_ dans le même panier dirait-on …); 
+- séparer la logique d'exécution d'un résultat unique (éviter de mettre tous les _callbacks_ dans le même panier dirait-on …);
 - transmettre des résultats au travers de plusieurs couches applicatives.
 
 Reprenons l'exemple de la section précédente à propos des callbacks.
@@ -2530,7 +2533,7 @@ Le concept des promesses (_promises_) est extrêmement puissant pour gérer, ord
 
 Historiquement, de nombreuses bibliothèques ont proposé leur propre implémentation du _pattern_ mais sans être réellement interopérables.
 La spécification _Promise/A+_ a émergé pour établir un standard de compatibilité.
-Il faut attendre ECMAScript 6 pour disposer d'une API native, que ce soit pour le Web ou pour Node.
+ECMAScript 6 introduit nativement cette API, la rendant alors disponible pour le Web ou pour Node, avec ou sans _polyfill_.
 
 Les cas d'utilisation des promesses sont multiples :
 
@@ -2576,7 +2579,7 @@ include::{sourceDir}/snippets/pattern-promise-errors.js[]
 <1> Comme dans le _pattern_ _callback_, le message d'exception est affiché `[TypeError: Cannot read property 'toLocaleUpperCase' of null]` ;
 <2> Cette fois-ci, le cas d'erreur imprévu de la valeur nulle ne nous échappe pas et fait remonter une exception remontée à la fonction `logErr`.
 
-Enfin, la méthode statique `Promise.all` nous permet d'exécuter plusieurs promesses en parallèle.
+Enfin, la méthode statique `Promise.all` nous permet d'exécuter un _callback_ lorsque toutes les ats sont résolues.
 Le résultat de l'intégralité des promesses est alors retourné en argument de `then`.
 
 [source,javascript]
@@ -2634,7 +2637,7 @@ Que se passe-t-il dans cet exemple ?
 2. `fs.createWriteStream` retourne un _WriteableStream_ ;
 3. la méthode `pipe()` déverse les données dans le _WritableStream_ ;
 4. le _WritableStream_ écrit sur disque au fur et à mesure de la réception des données du _ReadableStream_ ;
-5. le _ReadableStream_ termine la connexion en émettant un évènement _finish_ lorsqu'il n'y a plus de données à lire. 
+5. le _ReadableStream_ termine la connexion en émettant un évènement _finish_ lorsqu'il n'y a plus de données à lire.
 
 [TIP]
 .[RemarquePreTitre]#API# Les types de _streams_
