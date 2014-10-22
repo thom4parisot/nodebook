@@ -2301,7 +2301,7 @@ Au lieu de nommer des fichiers un par un, le mécanisme permet de désigner des 
 
 Les motifs utilisables sont les suivants :
 
-- `*` : n'importe quelle chaine de caractère ;
+- `*` : n'importe quelle chaîne de caractère ;
 - `**` : n'importe quel répertoire ;
 - `{js,css}` : la chaîne `js` ou `css ;
 - `[js]` : un caractère dans l'ensemble `j` et `s` ;
@@ -2579,7 +2579,7 @@ include::{sourceDir}/snippets/pattern-promise-errors.js[]
 <1> Comme dans le _pattern_ _callback_, le message d'exception est affiché `[TypeError: Cannot read property 'toLocaleUpperCase' of null]` ;
 <2> Cette fois-ci, le cas d'erreur imprévu de la valeur nulle ne nous échappe pas et fait remonter une exception remontée à la fonction `logErr`.
 
-Enfin, la méthode statique `Promise.all` nous permet d'exécuter un _callback_ lorsque toutes les ats sont résolues.
+Enfin, la méthode statique `Promise.all` nous permet d'exécuter un _callback_ lorsque _toutes_ les promesses sont résolues.
 Le résultat de l'intégralité des promesses est alors retourné en argument de `then`.
 
 [source,javascript]
