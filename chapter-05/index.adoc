@@ -148,7 +148,12 @@ Derrière cette simplicité de prise en main, deux inconvénients se font ressen
 Autrement dit, les avantages de bower font les inconvénients de npm et vice-versa. +
 Démarrer par bower est probablement la solution la plus rapide pour élimiter l'acquisition manuelle des dépendances … mais les limites se feront sentir dès lors que les barrières entre _backend_ et _frontend_ se feront sentir.
 
-==== Utilisation des dépendances côté Node
+==== Exposer un composant Web avec Node
+
+Que vous utilisiez npm ou bower pour gérer vos dépendances, il peut arriver que vous ayiez besoin de les servir via HTTP.
+
+Le _framework_ _express_ ([URL]#http://expressjs.com/#) met à disposition un mécanisme de _montage d'URL_.
+En combinant ce mécanisme avec la méthode `express.static`, il devient alors possible d'exposer n'importe quel fichier ou répertoire en tant que ressource Web.
 
 [source,javascript]
 .snippets/npm-express.js
@@ -158,6 +163,7 @@ include::{sourceDir}/snippets/npm-express.js[]
 <1> Rend accessible le fichier `jquery.js` à l'adresse `http://localhost:3000/assets/jquery.js` ;
 <2> Rend accessible le répertoire `node_modules` à l'adresse `http://localhost:3000/assets`, et donc d'une autre manière, le fichier `jquery.js` à l'adresse `http://localhost:3000/assets/jquery/dist/jquery.js`.
 
+Pour en savoir plus sur l'utilisation du _framework_ _express_, reportez-vous à la section _Application Web_ du chapitre 4.
 
 === Un outillage sur mesure
 
@@ -193,6 +199,7 @@ include::{sourceDir}/snippets/npm-express.js[]
 
 - optimisation des chemins
 - iconfontes
+- https://npmjs.org/connect-fonts
 
 ==== Livereload
 
