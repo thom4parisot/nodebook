@@ -39,7 +39,7 @@ Avant Node, l'obtention d'une bibliothèque se faisait en allant sur son site We
 C'est sans compter sur les téléchargements sur-mesure dont il fallait mémoriser les options de mise à jour en mise à jour.
 
 Tout ceci appartient au passé grâce aux gestionnaires de paquets.
-Ils rendent explicites la liste des dépendances, le spectre des versions compatibles ainsi que l'automatisation des opérations de mise à jour.
+Ils rendent explicites la liste des dépendances, le spectre des versions compatibles ainsi que l'automatisation des opérations d'installation et de mises à jour.
 
 ==== npm
 
@@ -113,12 +113,40 @@ Nous verrons davantage d'exemples, plus complets et variés dans la section _Ver
 
 ==== bower
 
+_npm_ est un gestionnaire de dépendances entièrement dédié aux composants _frontend_.
+Son interface est très proche de celle la commande npm.
+Les dépendances sont quant à elles listées dans un fichier `bower.json`.
+
+----
+npm install -g bower
+bower init
+bower install --save jquery
+----
+
+Si les deux gestionnaires de modules sont à ce point similaires, quelles seraient les raisons d'opter pour bower ?
+
+- sa capacité à inclure des dépendances n'ayant pas déclarées de fichier `bower.json` ;
+- sa structure à plat, facile à lire ;
+- l'absence de phase de compilation obligatoire ;
+- la séparation explicite des componsants _frontend_ des composants _backend_.
+
+Il a souvent été perçu comme plus légitime que npm, ce dernier étant compris comme étant exclusivement dédié aux dépendances Node.
+
+L'exemple suivant illustre deux moyens d'inclure jQuery dans une page HTML, via une simple balise script ou via la syntaxe AMD :
 
 [source,html]
 .snippets/dependency-bower.html
 ----
 include::{sourceDir}/snippets/dependency-bower.html[]
 ----
+
+Derrière cette simplicité de prise en main, deux inconvénients se font ressentir à long terme :
+
+- l'impossiblité d'inclure une dépendance sans en connaître le chemin exact ;
+- la difficulté à produire des artéfacts optimisés depuis les sources des modules — certains ne fournissant que des artéfacts sans les sources originales.
+
+Autrement dit, les avantages de bower font les inconvénients de npm et vice-versa. +
+Démarrer par bower est probablement la solution la plus rapide pour élimiter l'acquisition manuelle des dépendances … mais les limites se feront sentir dès lors que les barrières entre _backend_ et _frontend_ se feront sentir.
 
 ==== Utilisation des dépendances côté Node
 
