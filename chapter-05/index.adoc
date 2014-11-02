@@ -167,12 +167,22 @@ Pour en savoir plus sur l'utilisation du _framework_ _express_, reportez-vous à
 
 === Un outillage sur mesure
 
+Qu'il s'agisse de vos propres composants ou de modules tiers, l'écosystème Node regorge d'utilitaires facilitant la vie de tout développeur _frontend_.
+
+Outre l'uniformisation de l'installation de vos composants et dépendances, *vous rendez explicite et partagez le même processus* avec tous les membres de votre équipe.
+Et même si vous êtes seul(e) sur le projet, vous construisez une documentation d'utilisation pour les prochaines personnes susceptibles de participer au projet.
+
+Autre avantage indéniable : l'ubiquité des utilitaires.
+S'ils peuvent être utilisés de manière indépendante, ils s'intègrent très bien avec des outils d'automatisation ou des _frameworks_ populaires.
+
+Vous trouverez ci-après une suggestion non-exhaustive de modules utiles à tout développeur _frontend_.
+
 ==== Vérification syntaxique
 
-- htmlhint
-- jshint
+- htmllint
+- eslint
 - csslint
-- sasslinter
+- recess
 
 ==== Concaténation de fichiers
 
@@ -187,6 +197,7 @@ Pour en savoir plus sur l'utilisation du _framework_ _express_, reportez-vous à
 ==== Optimisation du code
 
 - uncss
+- autoprefixer
 - uglify + mangle + dead code
 
 ==== Optimisation des images
