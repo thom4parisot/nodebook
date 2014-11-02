@@ -1,29 +1,217 @@
-== Au service du développement frontend
+:nodeVersion: v0.12
+:revisionYear: 2014
+:sourceDir: ../../examples/nodebook.chapter-05/src
+:imagesdir: {indir}
+ifdef::env[]
+:imagesdir: .
+endif::[]
 
- - Choisir un gestionnaire de paquets
- - Un vaste choix d'outils
- - Automatiser les projets
- - Partager du code entre Node et le navigateur
- - Tester dans le navigateur
+== [ChapitreNumero]#5# Au service du développement frontend
+
+Les chapitres précédents ont démontré l'utilité de Node pour la création de modules réutilisables ainsi que pour le développement d'applications et d'utilitaires.
+
+Ce chapitre nous apprendra le _rôle utilitaire_ de Node pour le développement _frontend_.
+C'est à dire l'utilisation de Node comme outil de productivité et d'automatisation du développement de composants Web.
+
+====
+.Sommaire
+- Choisir un gestionnaire de paquets
+- Un outillage sur mesure
+- Automatiser les projets
+- Partager du code entre Node et le navigateur
+- Tester dans le navigateur
+====
+
+Node en tant que plate-forme ne fournit rien de spécial à part des fondations communes avec les navigateurs Web.
+C'est la richesse et la versatilité de l'écosystème npm qui nous permet de mieux outiller nos projets.
+
+Pour rappel, avant l'apparition de Node, rare était l'outillage n'imposant pas une plateforme de développement entière (comme _sprockets_ et _assetic_ dans les univers Ruby et PHP).
+Il fallait se contenter de programmes tels que _YUICompressor_, _Google Closure Compiler_ ou encore _pngquant_.
+Leur installation diffère selon les systèmes d'exploitation, quand ils sont multi-plateformes.
+C'est sans parler de leur intégration et de leur systématisation au sein des projets.
+
+Bref c'était lourd et compliqué à moins de disposer d'une infrastructure industrialisée. +
+Node simplifie tout, de la récupération des bibliothèques tierces à la compilation, optimisation et aux tests de vos composants Web.
+
+=== Gestion des dépendances
+
+Avant Node, l'obtention d'une bibliothèque se faisait en allant sur son site Web respectif puis en téléchargeant une archive avant de la décompresser dans votre répertoire de travail.
+C'est sans compter sur les téléchargements sur-mesure dont il fallait mémoriser les options de mise à jour en mise à jour.
+
+Tout ceci appartient au passé grâce aux gestionnaires de paquets.
+Ils rendent explicites la liste des dépendances, le spectre des versions compatibles ainsi que l'automatisation des opérations de mise à jour.
+
+==== npm
+
+_npm_ est le gestionnaire de dépendances par défaut de Node.
+Pourquoi en parler s'il ne fonctionne que pour Node ?
+Car contrairement aux à prioris, *npm ne se limite pas qu'à Node*.
+
+Quelles sont les raisons de choisir npm comme gestionnaire de dépendances _frontend_ ?
+
+- déclaration explicite des points d'entrée via la propriété _main_ du fichier _package.json_ ;
+- inclusion des dépendances avec la syntaxe _CommonJS_ ;
+- transformation des appels _CommonJS_ en modules _AMD_ ou pur ECMAScript (_vanilla ECMAScript_) ;
+- utilisation du même outil de dépendance, indépendamment du contexte d'exécution de l'application ;
+- c'est le meilleur moyen d'atteindre l'_isomorphisme applicatif_ (lire _Vers un code isomorphique et modulaire_ dans ce même chapitre).
+
+L'exemple suivant illustre deux moyens d'inclure jQuery dans une page HTML, via une simple balise script ou via la syntaxe AMD :
+
+[source,html]
+.snippets/dependency-npm.html
+----
+include::{sourceDir}/snippets/dependency-npm.html[]
+----
+
+Rien de spécial à signaler, si ce n'est que cela nous force à exposer le contenu du répertoire `node_modules` de notre projet.
+
+L'utilisation de npm nécessitera une étape de compilation dans les cas où les dépendances ne proposent pas de code directement intelligible par les navigateurs Web.
+Ce sera le cas si les dépendances ne proposent que des modules CommonJS (faisant appel à `require()`), sans artéfacts précompilés.
+Dans le précédent exemple jQuery propose ces artéfacts dans un répertoire `dist`.
+
+Un second frein est l'effort de simplification et de vérification de l'arbre de dépendances pour éviter les redondances.
 
 ----
- 1. Gestion des librairies
-    1. npm
-    1. Ender
-    1. Components
-    1. Webpack
-  1. Tâches utiles
-    1. Vérification syntaxique
-    1. Concaténation et minification
-    1. Préprocesseurs
-    1. Optimisation des images
-  1. Automatisation des tâches avec Grunt
-  1. Partager du code entre Node.js et le navigateur
-  1. Tester la compatibilité navigateurs
-    1. Karma
-    1. SauceLabs
-    1. Testling
-    1. BrowserStack
-    1. Apium
-  1. Pour aller plus loin
+.
+└── node_modules
+    ├── moduleA
+    │   └── node_modules
+    │       └── jquery
+    └── moduleB
+        └── node_modules
+            └── jquery
 ----
+
+Le schéma précédent illustre la situation où deux modules différents dépendent tous deux de jQuery.
+La structure de dépendances en arbre de npm n'est pas optimisée pour des performances Web. 
+Elle n'est d'ailleurs pas conçue pour être exposée telle quelle via un serveur HTTP, sauf pour des besoins de prototypage rapide.
+
+L'utilisation de `npm dedupe` peut toutefois simplifier la structure de l'arbre.
+Notre exemple précédent sera optimisé de la sorte :
+
+----
+.
+└── node_modules
+    ├── jquery
+    ├── moduleA
+    └── moduleB
+----
+
+Inconvénient : cela cassera tout appel de chemin en dur dans `moduleA` et `moduleB` et nécessitera d'utiliser le mécanisme de résolution de chemin de CommonJS. +
+Nous verrons par la suite que ces inconvénients n'en sont pas vraiment, et que les mécanismes de compilation reposant sur CommonJS sont très largement bénéficiaires pour une chaîne de compilation entièrement automatisée.
+
+[WARNING]
+.[RemarquePreTitre]#Windows# NTFS et ses 255 caractères
+====
+Le système de fichiers NTFS limite la longueur d'un chemin à 255 caractères. +
+npm gérant les dépendances sous forme d'arborescence de répertoires, il se pourrait que vous atteigniez cette limite en cas de profondeur prononcée et de longs noms de modules.
+
+Si Windows est votre plateforme de développement principale ou votre environnement de déploiement, optez pour un gestionnaire de dépendances à plat tel que _bower_ (voir ci-après).
+====
+
+Nous verrons davantage d'exemples, plus complets et variés dans la section _Vers un code isomorphique et modulaire_.
+
+==== bower
+
+
+[source,html]
+.snippets/dependency-bower.html
+----
+include::{sourceDir}/snippets/dependency-bower.html[]
+----
+
+==== Utilisation des dépendances côté Node
+
+[source,javascript]
+.snippets/npm-express.js
+----
+include::{sourceDir}/snippets/npm-express.js[]
+----
+<1> Rend accessible le fichier `jquery.js` à l'adresse `http://localhost:3000/assets/jquery.js` ;
+<2> Rend accessible le répertoire `node_modules` à l'adresse `http://localhost:3000/assets`, et donc d'une autre manière, le fichier `jquery.js` à l'adresse `http://localhost:3000/assets/jquery/dist/jquery.js`.
+
+
+=== Un outillage sur mesure
+
+==== Vérification syntaxique
+
+- htmlhint
+- jshint
+- csslint
+- sasslinter
+
+==== Concaténation de fichiers
+
+- concaténation
+- r.js
+
+==== Minification du code
+
+- uglify/Google Closure Compiler
+- cssmin
+
+==== Optimisation du code
+
+- uncss
+- uglify + mangle + dead code
+
+==== Optimisation des images
+
+- génération de sprites
+- réduction du poid des fichiers
+- génération de vignettes
+
+==== Optimisation des fontes
+
+- optimisation des chemins
+- iconfontes
+
+==== Livereload
+
+- watcher
+- livereload
+
+=== Automatisation des tâches avec Grunt
+
+==== Configuration des tâches
+
+==== Exécution des tâches
+
+- par tâche
+- par target
+- tâches personnalisées
+- arguments
+
+==== Optimisation du temps de traitement
+
+- grunt-newer
+- grunt-lazyload
+
+=== Vers un code isomorphique et modulaire
+
+- approche simple d'objets partagés (inclusion, retour d'APIs)
+- ECMAScript, CommonJS et AMD
+- inclusion de bibliothèques fonctionnant côté Node et côté navigateur de manière transparente
+- transformation du code avec un outillage spécifique
+
+=== Transformation et empaquetage de code
+
+==== browserify
+
+==== Webpack
+
+==== ender
+
+=== Tester la compatibilité navigateur
+
+==== Karma
+
+==== SauceLabs
+
+==== BrowserStack
+
+==== Testling
+
+==== Apium
+
+=== Conclusion
