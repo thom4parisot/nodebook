@@ -179,10 +179,89 @@ Vous trouverez ci-après une suggestion non-exhaustive de modules utiles à tout
 
 ==== Vérification syntaxique
 
-- htmllint
-- eslint
+La vérification syntaxique est un mécanisme s'assurant que votre code respecte la grammaire du langage associé.
+Elle peut autant révéler des anomalies fondamentales (balise mal fermée, expression inconnue etc.) que renforcer des pratiques de programmation réduisant les erreurs potentielles lors de l'exécution du-dit code.
+
+Il s'agit d'une excellente première étape avant d'introduire des tests unitaires ou fonctionnels.
+C'est aussi une pratique rapide à mettre en œuvre — de préférence dès le début du projet — et poussant à harmoniser les pratiques de développement au sein d'un group d'individus.
+
+Les modules à disposition dans npm vous permettront de couvrir vos fichiers CSS, HTML et ECMAScript bien sûr !
+
+*htmlhint* ([URL]#https://npmjs.org/htmlhint#) est un outil en ligne de commande vérifiant la structure de vos documents HTML.
+Il rapporte les doublons d'attributs `id`, la présence de paires de balises mal formées, l'absence de balise fermante ou encore l'existance de chaînes de charactère non-imprimables dans des attributs critiques, entre autre.
+
+Prenons en exemple le document suivant :
+
+[source,html]
+.snippets/sample.html
+----
+include::{sourceDir}/snippets/sample.html[]
+----
+
+Une lecture distraite pourrait nous faire passer à côté des erreurs mais également des inconsistances de programmation.
+Sur un document plus réaliste, et donc volumineux, avec de fréquents changements, autant oublier la vérification manuelle.
+
+L'exéction de *htmlhint* avec ses règles par défaut remontera les alertes suivantes :
+
+----
+$ npm run lint-html
+src/snippets/sample.html:
+line 1, col 1: Doctype must be first.
+line 8, col 10: Id redefinition of [ btn ].
+line 10, col 3: Tagname [ BUTTON ] must be lower case.
+line 10, col 10: The value of attribute [ class ] must closed by double quotes.
+line 10, col 52: Tagname [ BUTTON ] must be lower case.
+----
+
+Si elle peuvent paraître opiniatres, sachez qu'elles n'ont pour seul but que de décider une bonne fois pour toute quelle attitude adopter : tout ou rien en miniscule, guillemets simples ou doubles, doctype explicite etc.
+
+*eslint* ([URL]#https://npmjs.org/eslint#) est le meilleur outil de vérification syntaxique pour ECMAScript.
+Il offre un niveau de souplesse extrême au niveau de la configuration des règles à appliquer (utilisation systématique de `use strict`, nombre maximum de paramètres de fonctions, objets non-déclarés, variables inconnues etc.). +
+Il expose également une API relativement simple à utiliser pour y adjoindre vos propres règles.
+Que vous pouvez ainsi partager ou pas, selon qu'il s'agisse de vos propres règles métier ou non.
+
+Appliquons les règles par défault d'*eslint* sur le code existant d'un précédent exemple de ce même chapitre :
+
+----
+$ npm run lint-es
+src/snippets/npm-express.js
+1:0   error  Use the function form of "use strict"  global-strict
+1:0   error  Strings must use doublequote           quotes
+3:14  error  'require' is not defined               no-undef
+3:22  error  Strings must use doublequote           quotes
+4:11  error  'require' is not defined               no-undef
+4:19  error  Strings must use doublequote           quotes
+7:17  error  'require' is not defined               no-undef
+7:33  error  Strings must use doublequote           quotes
+8:27  error  '__dirname' is not defined             no-undef
+8:38  error  Strings must use doublequote           quotes
+8:44  error  Strings must use doublequote           quotes
+8:50  error  Strings must use doublequote           quotes
+10:8   error  Strings must use doublequote           quotes
+11:8   error  Strings must use doublequote           quotes
+----
+
+La vérification syntaxique se plaint de l'utilisation globale de `use strict`, de l'utilisation des guillemets simples et de certaines fonctions de Node. +
+Le nom de la règle _eslint_ en question est explicitée en fin de ligne, pour information ou pour aider à affiner votre configuration.
+
+*eslint* lit par défaut le fichier de configuration `.eslintrc`, placé à la racine de votre projet mais il est tout à fait possible de lui fournir un emplacement alternatif.
+Dans mon cas, j'ai indiqué une préférence pour les guillemets simples ainsi qu'une déclaration globale de `use strict` :
+
+[source,json]
+.eslintrc.json
+----
+include::{sourceDir}/../eslintrc.json[]
+----
+
+Le niveau de sévérité de chaque règle peut être configuré à l'aide d'un nombre entier :
+
+- `0` : règle désactivée ;
+- `1` : affiche un avertissement ;
+- `2` : affiche une erreur et termine le processus avec un code d'erreur.
+
+Certaines règles demandent ou acceptent des arguments supplémentaires, documentés dans le répertoire `lib/rules` de la bibliothèque _eslint_ mais aussi sur son site Web.
+
 - csslint
-- recess
 
 ==== Concaténation de fichiers
 
