@@ -244,7 +244,7 @@ src/snippets/npm-express.js
 La vérification syntaxique se plaint de l'utilisation globale de `use strict`, de l'utilisation des guillemets simples et de certaines fonctions de Node. +
 Le nom de la règle _eslint_ en question est explicitée en fin de ligne, pour information ou pour aider à affiner votre configuration.
 
-*eslint* lit par défaut le fichier de configuration `.eslintrc`, placé à la racine de votre projet mais il est tout à fait possible de lui fournir un emplacement alternatif.
+*eslint* lit le fichier de configuration `.eslintrc` pour adapter son comportement , placé à la racine de votre projet mais il est tout à fait possible de lui fournir un emplacement alternatif.
 Dans mon cas, j'ai indiqué une préférence pour les guillemets simples ainsi qu'une déclaration globale de `use strict` :
 
 [source,json]
@@ -259,9 +259,49 @@ Le niveau de sévérité de chaque règle peut être configuré à l'aide d'un n
 - `1` : affiche un avertissement ;
 - `2` : affiche une erreur et termine le processus avec un code d'erreur.
 
-Certaines règles demandent ou acceptent des arguments supplémentaires, documentés dans le répertoire `lib/rules` de la bibliothèque _eslint_ mais aussi sur son site Web.
+Certaines règles demandent ou acceptent des arguments supplémentaires.
+Ces arguments sont documentés dans le répertoire `lib/rules` de la bibliothèque _eslint_ mais aussi sur son site Web.
 
-- csslint
+*csslint* ([URL]#https://npmjs.org/csslint#) est un outil de vérification syntaxique de feuilles de style CSS.
+Il a été créé par deux anciens ingénieurs de _Yahoo!_.
+Leurs anciens travaux dans le domaine de la performance ont influencé l'architecture et le choix des règles par défaut.
+Celles-ci peuvent d'ailleurs être étendues, moins aisément que pour *eslint* certes, mais suffisamment pour adapter l'outil aux besoins modernes, notamment ceux du Web mobile.
+
+*csslint* fournit les mécanismes de vérification adéquats pour alerter de possibles effets de bord de _box model_, de déclaration incompatible de `@font-face`, de _vendor prefix_ dépréciés (voir plus loin la section _Optimisation du code_) ou encore de combinaisons de propriétés connues pour casser l'affichage dans certains navigateurs.
+
+Prenons par exemple le fichier CSS suivant :
+
+[source,css]
+.snippets/sample.css
+----
+include::{sourceDir}/snippets/sample.css[]
+----
+
+*csslint* génèrera trois alertes en lisant le fichier `sample.css` et ce, même si celui-ci est syntaxiquement parfaitement valide :
+
+----
+$ csslint src/snippets/sample.css
+
+csslint: There are 3 problems in snippets/sample.css.
+
+sample.css
+1: warning at line 4, col 11
+Values of 0 shouldn't have units specified.
+  border: 0px solid black;
+
+sample.css
+2: warning at line 4, col 3
+Using height with border can sometimes make elements larger than you expect.
+  border: 0px solid black;
+
+sample.css
+3: warning at line 6, col 3
+Using height with padding can sometimes make elements larger than you expect.
+  padding: 10px;
+----
+
+Si la présence d'une mesure en pixels n'est qu'une affaire de micro-optimisation, les deux autres erreurs sont nettement plus problématiques car elles impliquent un manque de consistance d'affichage, selon le navigateur effectuant le rendu. +
+Éviter l'utilisation de ces cas limites évite également d'avoir à empiler des couches de CSS pouvant accentuer encore peu plus l'instabilité d'affichage.
 
 ==== Concaténation de fichiers
 
@@ -277,6 +317,19 @@ Certaines règles demandent ou acceptent des arguments supplémentaires, documen
 
 - uncss
 - autoprefixer
+
+[TIP]
+.[RemarquePreTitre]#CSS# À propos des _vendor prefix_
+====
+Je recommande fortement de ne pas coder les préfixes navigateur à la main ni même d'utiliser un _mixin_ Less ou Sass.
+
+Laissez ce travail à *autoprefixer* : ce module ajoutera automatiquement les bons préfixes aux bons endroits.
+Et ce, sans superflu car il se maintient à jour en suivant le travail des implémenteurs.
+
+- [URL]#https://npmjs.org/autoprefixer#
+
+====
+
 - uglify + mangle + dead code
 
 ==== Optimisation des images
