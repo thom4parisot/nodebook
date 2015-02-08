@@ -1,8 +1,8 @@
-:nodeVersion: v0.10
-:nodeNextVersion: v0.12
+:nodeVersion: v0.12
+:nodeNextVersion: v0.13
 :es: ECMAScript 5
 :esNext: ECMAScript 6
-:sourceDir: ../../examples/nodebook.chapter-02/src
+:sourceDir: ./examples
 :revisionYear: 2014
 :imagesdir: {indir}
 ifdef::env[]
@@ -136,9 +136,9 @@ _nvm_ est l'équivalent de _rvm_ dans le monde Ruby, de _phpenv_ dans le monde P
 
 .Installation de _nvm_ et de Node {nodeVersion}.
 ----
-curl https://raw.github.com/creationix/nvm/v0.4.0/install.sh | sh
-nvm install 0.10
-nvm alias default 0.10   <1>
+curl https://raw.github.com/creationix/nvm/v0.23.0/install.sh | sh
+nvm install 0.12
+nvm alias default 0.12   <1>
 ----
 <1> La version par défaut est désormais la dernière version stable de Node {nodeVersion}.
 
@@ -166,6 +166,20 @@ Dans les deux cas, leur installation est très simple.
 - https://github.com/marcelklehr/nodist
 ====
 
+==== Docker
+
+_Docker_ est un outil d'isolation de processus système qui a le vent en poupe depuis 2014.
+Sa qualité principale est d'isoler les dépendances logicielles du système qui exécute le-dit processus.
+Une image Docker aura la même recette d'installation même si celle-ci est exécutée sous Linux, OSX ou encore Windows.
+
+Lancer un interpréteur Node _sans polluer_ le système hôte revient à exécuter l'image suivante :
+
+----
+docker run -ti --rm node:0.12-slim
+----
+
+Nous nous nous repencherons sur Docker dans le link:../chapter-05/index.adoc[chapitre 5], dans la section _Déploiement_.
+
 ==== Compiler depuis les sources
 
 Certaines situations exigeront que vous compiliez Node.
@@ -176,9 +190,9 @@ La procédure de compilation ressemble fortement à ceci :
 
 .Étapes de compilation de Node
 ----
-wget http://nodejs.org/dist/latest/node-v0.10.30.tar.gz
-tar -zxf node-v0.10.30.tar.gz
-cd node-v0.10.30
+wget http://nodejs.org/dist/latest/node-v0.12.0.tar.gz
+tar -zxf node-v0.12.0.tar.gz
+cd node-v0.12.0
 ./configure && make && make install
 ----
 
