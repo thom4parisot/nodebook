@@ -26,7 +26,7 @@ npm i -g nodebook
 
 # Lire le livre
 
-Installez l'extension [Asciidoctor] pour votre navigateur favori :
+Installez l'extension [Asciidoctor](http://asciidoctor.org) pour votre navigateur favori :
 
 - [Asciidoctor pour Chrome](https://chrome.google.com/webstore/detail/asciidoctorjs-live-previe/iaalpfgpbocpdfblpnhhgllgbdbchmia)
 - [Asciidoctor pour Firefox](https://addons.mozilla.org/en-US/firefox/addon/asciidoctorjs-live-preview/)
