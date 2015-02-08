@@ -1,5 +1,5 @@
 :nodeVersion: v0.12
-:revisionYear: 2014
+:revisionYear: 2015
 :imagesdir: {indir}
 ifdef::env[]
 :imagesdir: .
@@ -240,7 +240,7 @@ Parmi ses clients, on peut dénombrer le site de Ruby on Rails (société Baseca
 Depuis 2009, Joyent s'est orientée et spécialisée dans les infrastructures et plate-formes à la demande et à haute performance.
 Elle se spécialise dans les solutions dites temps réel pour les réseaux sociaux, applications mobiles et compagnies de jeux vidéo en ligne.
 
-En avril 2011, Joyent dépose _Node.js_ et son logo en tant que marque.
+En avril 2011, Joyent enregistre _Node.js_ et son logo en tant que marque déposée.
 
 [TIP]
 .[RemarquePreTitre]#Lien# Annonce du dépôt de marque
@@ -255,22 +255,15 @@ Ryan Dahl, alors développeur actif de Node, annonce le dépôt de marque par l'
 _npm_ est une dénomination qui abrite plusieurs concepts.
 
 _npm_ est originellement un module Node créé par Isaacs Schlueter.
-Le module permet d'installer des modules tiers et de les lier sous forme d'un arbre de dépendances.
-Il est l'équivalent de Bundler pour Ruby, du module CPAN pour Perl ou encore de Pip pour Python.
+Ce module permet d'installer des modules tiers et de les lier sous forme d'un arbre de dépendances.
+Il est l’équivalent de http://rubygems.org/[rubygems.org] pour Ruby, de http://www.cpan.org/[cpan.org] pour Perl ou encore de https://pypi.python.org/pypi[pypi.python.org] pour Python.
 
-Nous reviendrons plus en détail sur son utilisation dans le link:02-first-steps.adoc[chapitre 2 _Utiliser des modules tiers_] de cet ouvrage.
+Nous reviendrons plus en détail sur son utilisation dans le link:../chapter-02/index.adoc[chapitre 2 _Utiliser des modules tiers_] de cet ouvrage.
 
-https://www.npmjs.org/[npmjs.org] est le _registre_ principal qui héberge les modules publiés par le biais du module _npm_.
-Il est sponsorisé par la société _Nodejistu_ (voir ci-après).
-Il est l'équivalent de http://rubygems.org/[rubygems.org] pour Ruby, de http://www.cpan.org/[cpan.org] pour Perl ou encore de https://pypi.python.org/pypi[pypi.python.org] pour Python.
-
-Isaacs Schlueter a été embauché par Joyent en septembre 2010 et a succédé à Ryan Dahl dans la gestion du projet Node de janvier 2012 jusqu'à janvier 2014.
-
-_npm, Inc_ est une entreprise privée américaine fondée en janvier 2014 par Isaacs Schlueter dans le but de fournir des solutions professionnelles se basant sur _npm_.
-La société détient la marque _npm_, _npm, Inc_ et le _logo npm_.
+_npm_ peut également désigner le _registre_ principal qui héberge  les modules des communautés Node : [URL]#https://www.npmjs.com/#.
 
 [TIP]
-.[RemarquePreTitre]#Lien# Annonce de l'inclusion de _npm_ dans Node
+.[RemarquePreTitre]#Lien# Annonce de l’inclusion de _npm_ dans Node
 ====
 _npm_ est installé par défaut avec Node depuis la version 0.6.3, sortie en novembre 2011.
 Auparavant il fallait installer le module _npm_ séparément.
@@ -278,15 +271,23 @@ Auparavant il fallait installer le module _npm_ séparément.
 - http://blog.nodejs.org/2011/11/25/node-v0-6-3/
 ====
 
+==== npm, Inc.
+
+Isaacs Schlueter a été embauché par Joyent en septembre 2010 et a succédé à Ryan Dahl dans la gestion du projet Node de janvier 2012 jusqu’à janvier 2014.
+
+_npm, Inc_ est une entreprise privée américaine fondée en janvier 2014 par Isaacs Schlueter, directement après son départ de Joyent. Le but de _npm, Inc_ est fournir des solutions professionnelles basées sur _npm_ tout en soutenant l’effort open source et les coûts d’infrastructure du registre _npm_.
+
+La société _npm, Inc_ détient la marque _npm_, _npm, Inc_ et le _logo npm_.
+
 ==== Nodejitsu
 
 _Nodejitsu_ est une entreprise privée américaine fondée en 2010.
-Elle vise à fournir des solutions professionnelles autour de Node en tant que _Platform as a Service_ ainsi qu'avec des dépôts _npm_ privés.
+Elle vise à fournir des solutions professionnelles autour de Node en tant que _Platform as a Service_ (_Paas_) ainsi qu'avec des dépôts _npm_ privés.
 
 _Nodejitsu_ démontre un investissement fort dans la communauté Node en contribuant et maintenant plusieurs centaines de modules. +
-L'entreprise a également en charge l'hébergement de la base de données du registre _npm_ de 2010 jusqu'en décembre 2013.
+L'entreprise a pris en charge l'hébergement de la base de données du registre _npm_ de 2010 jusqu'en décembre 2013.
 
-En 2013, _Nodejitsu_ lance l'initiative _#scalenpm_ visant à collecter des fonds pour améliorer la performance et la stabilité du registre https://www.npmjs.org/[npmjs.org].
+En 2013, _Nodejitsu_ lance l'initiative _#scalenpm_ visant à collecter des fonds pour améliorer la performance et la stabilité du registre https://www.npmjs.com/[npmjs.com].
 
 [TIP]
 .[RemarquePreTitre]#Lien# _#scalenpm_
@@ -294,6 +295,8 @@ En 2013, _Nodejitsu_ lance l'initiative _#scalenpm_ visant à collecter des fond
 L'initiative _#scalenpm_ a réuni quelques 326 000 $ auprès d'entreprises privées et de la communauté Node.
 
 Son effort se poursuit dans le but de fournir une meilleure instrumentation et une architecture résistant à la montée en puissance de l'utilisation des modules _npm_.
+
+Cette initiative a suscité une controverse dans la mesure où l’opération s’est déroulée lors de la naissance de _npm, Inc_ et du dépôt de marque associé … mais sans entente apparente entre les deux parties.
 
 - https://scalenpm.nodejitsu.com/
 ====
@@ -318,7 +321,7 @@ Cela concerne aussi bien la déclaration des vulnérabilités que leur résoluti
 _retire.js_ est un module npm permettant de scanner soi-même des vulnérabilités connues dans le code JavaScript de son choix.
 Il fonctionne aussi bien pour du JavaScript interprété par un navigateur web que dans Node.
 
-- https://www.npmjs.org/package/retire
+- https://www.npmjs.com/package/retire
 ====
 
 ==== Qui gère Node.js ?
@@ -333,7 +336,7 @@ La vérité se situe entre les deux.
 La plate-forme Node est régie par la _licence MIT_. De ce fait, toute personne peut contribuer ou baser un logiciel (y compris propriétaire) sur Node.
 Toute utilisation de la marque « Node.js » dans un cadre de service professionnel payant est en revanche soumise à une acceptation écrite de la part de Joyent.
 
-L'écosystème de modules hébergé sur _npmjs.org_ est le fruit de ses différents contributeurs.
+L'écosystème de modules hébergé sur _npmjs.com_ est le fruit de ses différents contributeurs.
 Il s'agit de la communauté la plus représentative de Node.
 
 On peut parler de gouvernance bipolaire, à l'image d'un _iceberg_:
@@ -674,7 +677,7 @@ Nous verrons ultérieurement comment _effectivement_ gérer des dépendances _np
 La spécification _semver_ est disponible sous forme textuelle mais également en tant que module npm.
 
 - http://semver.org/lang/fr/
-- https://www.npmjs.org/package/semver
+- https://www.npmjs.com/package/semver
 =====
 
 === Conclusion
