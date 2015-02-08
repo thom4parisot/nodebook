@@ -5,7 +5,7 @@
 var http = require('http');
 var finalhandler = require('finalhandler');
 var open = require('open');
-var doOpen = Boolean('BROWSER_OPEN' in process.env ? process.env.BROWSER_OPEN : true);
+var doOpen = Boolean('BROWSER_OPEN' in process.env ? parseFloat(process.env.BROWSER_OPEN) : true);
 
 /*
  Static files handling
