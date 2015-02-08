@@ -5,6 +5,7 @@
   "main": "index.js",
   "bin": "server.js",
   "scripts": {
+    "start": "OPEN_BROWSER=0 node server.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "postinstall": "./bin/symlink-examples.js"
   },
@@ -34,6 +35,7 @@
     "nodebook.chapter-02": "^1.0.0",
     "nodebook.chapter-03": "^1.0.0",
     "nodebook.chapter-05": "^1.0.0",
+    "open": "0.0.5",
     "serve-static": "^1.5.1"
   }
 }

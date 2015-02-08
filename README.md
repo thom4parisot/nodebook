@@ -1,17 +1,44 @@
+# Node.js — Bonnes pratiques pour la programmation JavaScript applicative et modulaire
+
+![](cover.png?raw=1)
+
 # Table des matières
 
 Écriture    | Relecture  | Chapitre
 :----------:|:----------:|:--------
-            |            | [Préface de David Bruant](foreword-fr.adoc)
-:wavy_dash: |            | [Avant-propos](preamble.adoc)
+            |            | [Préface de David Bruant](foreword/foreword-fr.adoc)
+:wavy_dash: |            | [Avant-propos](foreword/preamble.adoc)
 :v:         |:wavy_dash: | [Introduction à Node.js](chapter-01/index.adoc)
 :v:         |:wavy_dash: | [Premiers pas avec Node](chapter-02/index.adoc)
 :v:         |:wavy_dash: | [Premier projet](chapter-03/index.adoc)
-:x:         |            | *Cas pratiques d'utilisation*
-:muscle:    |            | [Au service du développement frontend](chapter-05/index.adoc)
-:x:         |            | *Bonnes pratiques pour des applications robustes*
+:muscle:    |            | [Au service du développement frontend](chapter-04/index.adoc)
 :x:         |            | *Déploiement et hébergement*
-:wavy_dash: |            | **Annexe A** : [Contributions sociales](AX-social-contributions.adoc)
+:x:         |            | *Bonnes pratiques pour des applications robustes*
+:x:         |            | *Cas pratiques d'utilisation*
 
+# Installation
+
+Télécharge une copie du livre ainsi que les exemples et leurs dépendances pour une utilisation hors-ligne.
+
+```bash
+npm i -g nodebook
+```
+
+# Lire le livre
+
+Installez l'extension [Asciidoctor] pour votre navigateur favori :
+
+- [Asciidoctor pour Chrome](https://chrome.google.com/webstore/detail/asciidoctorjs-live-previe/iaalpfgpbocpdfblpnhhgllgbdbchmia)
+- [Asciidoctor pour Firefox](https://addons.mozilla.org/en-US/firefox/addon/asciidoctorjs-live-preview/)
+
+Puis consultez le dans votre butineur :
+
+```bash
+nodebook
+```
+
+# Mentions légales
+
+*Node.js — bonnes pratiques pour la programmation JavaScript applicative et modulaire* est un ouvrage rédigé par [Thomas Parisot](https://oncletom.io) et publié aux éditions [Eyrolles](http://www.eyrolles.fr).
 
 

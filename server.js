@@ -4,6 +4,8 @@
 
 var http = require('http');
 var finalhandler = require('finalhandler');
+var open = require('open');
+var doOpen = Boolean('BROWSER_OPEN' in process.env ? process.env.BROWSER_OPEN : true);
 
 /*
  Static files handling
@@ -28,9 +30,15 @@ require('getport')(3000, function(err, port){
   if (err) {
     throw err;
   }
+  
+  var url = 'http://localhost:' + port + '/index.adoc';
 
   server.listen(port, function(){
-    console.log('Browse the content of the book at http://localhost:%d/index.adoc', port);
+    if (doOpen) {
+      open(url);
+    }
+    
+    console.log('Book content available at %s', url);
     console.log('Make sure the Asciidoctor.js Chrome extension is installed – %s', 'https://chrome.google.com/webstore/detail/asciidoctorjs-live-previe/iaalpfgpbocpdfblpnhhgllgbdbchmia');
   });
 });
