@@ -1,16 +1,20 @@
 {
-  "name": "nodebook-data",
-  "version": "0.1.0",
-  "private": true,
-  "description": "Node.js, le livre à paraître aux éditions Eyrolles.",
+  "name": "nodebook",
+  "version": "1.0.0",
+  "description": "Node.js, bonnes pratiques de développement.",
   "main": "index.js",
+  "bin": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "make"
+    "postinstall": "./bin/symlink-examples.js"
+  },
+  "engines": {
+    "node": ">=0.10.0 <1.0.0",
+    "iojs": ">=1.0.0 <2.0.0"
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/oncletom/nodebook-data.git"
+    "url": "git://github.com/oncletom/nodebook.git"
   },
   "keywords": [
     "nodejs",
@@ -20,7 +24,16 @@
   "author": "Thomas Parisot (https://oncletom.io)",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/oncletom/nodebook-data/issues"
+    "url": "https://github.com/oncletom/nodebook/issues"
   },
-  "homepage": "https://github.com/oncletom/nodebook"
+  "homepage": "https://github.com/oncletom/nodebook",
+  "dependencies": {
+    "finalhandler": "^0.1.0",
+    "getport": "^0.1.0",
+    "nodebook.chapter-01": "^nodebook.chapter-01",
+    "nodebook.chapter-02": "^nodebook.chapter-02",
+    "nodebook.chapter-03": "^nodebook.chapter-03",
+    "nodebook.chapter-05": "^nodebook.chapter-05",
+    "serve-static": "^1.5.1"
+  }
 }
