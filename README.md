@@ -18,7 +18,7 @@
 
 # Installation
 
-Télécharge une copie du livre ainsi que les exemples et leurs dépendances pour une utilisation hors-ligne.
+Cette commande télécharge une copie du livre, les exemples associés ainsi que leurs dépendances pour une utilisation hors-ligne.
 
 ```bash
 npm i -g nodebook
@@ -26,12 +26,12 @@ npm i -g nodebook
 
 # Lire le livre
 
-Installez l'extension [Asciidoctor](http://asciidoctor.org) pour votre navigateur favori :
+L’épreuve est consultable dans un navigateur Web via [liseuse Asciidoctor](http://asciidoctor.org) :
 
 - [Asciidoctor pour Chrome](https://chrome.google.com/webstore/detail/asciidoctorjs-live-previe/iaalpfgpbocpdfblpnhhgllgbdbchmia)
 - [Asciidoctor pour Firefox](https://addons.mozilla.org/en-US/firefox/addon/asciidoctorjs-live-preview/)
 
-Puis consultez le dans votre butineur :
+Pour se faire, il suffit d’exécuter la commande suivante :
 
 ```bash
 nodebook
