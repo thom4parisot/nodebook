@@ -32,7 +32,7 @@ Ces millisecondes et méga-octets de mémoire peuvent avoir l'air de rien du tou
 
 === Cycles de vie d'un projet
 
-La pierre angulaire d'un projet Node est le fichier  `package.json`.
+La pierre angulaire d'un projet Node est le fichier `package.json`.
 Incontournable, il décrit les composants essentiels du projet.
 Il se situe à la racine de chaque module et contient plusieurs catégories d'informations :
 
@@ -168,7 +168,7 @@ La suggestion d’organisation ci-avant s’explique de la manière suivante :
 .[RemarquePreTitre]#Remarque# Échafaudage de projet
 =====
 
-Certains modules tels que _Yeoman_ ou _Express Generator_  mettent à disposition une commande pour échafauder automatiquement un projet.
+Certains modules tels que _Yeoman_ ou _Express Generator_ mettent à disposition une commande pour échafauder automatiquement un projet.
 
 Servez-vous en pour automatiser l’initialisation de vos projets — surtout s’il s’agit d’une opération récurrente.
 
@@ -592,7 +592,7 @@ CONFIG_FILE=~/.secured/config.json node app.js
 Nous avons vu les différentes manières d'utiliser l'interpréteur Node dans le _chapitre 2_.
 Pour autant, comment exécuter une application — un programme dont la durée d'exécution est indéfini et de longue durée ?
 
-Il existe plusieurs méthodes, allant de la simple exécution d'un  script Node à l'utilisation de gestionnaire de processus voire même des gestionnaires système tels que _System V_ ou _systemd_.
+Il existe plusieurs méthodes, allant de la simple exécution d'un script Node à l'utilisation de gestionnaire de processus voire même des gestionnaires système tels que _System V_ ou _systemd_.
 
 ===== Invocation Node
 
@@ -1091,7 +1091,7 @@ Plusieurs raisons peuvent vous pousser à extraire une partie de votre code afin
 
 - le besoin de partager la logique métier d'une application avec une autre application ;
 - une portion de votre application n'est pas spécifique à son métier et gagnerait à devenir autonome ;
-- un composant pourrait être partagé et réutilisé dans un contexte  Web ;
+- un composant pourrait être partagé et réutilisé dans un contexte Web ;
 - un besoin de clarification des dépendances de votre application ainsi que de leur documentation ;
 - les chemins de vos appels à `require()` deviennent longs et compliqués.
 
@@ -1346,7 +1346,7 @@ include::{sourceDir}/snippets/npm-rimraf.js[]
 
 _glob_ est un utilitaire très pratique pour filtrer une recherche récursive au sein du système de fichiers.
 
-Sa syntaxe équivalente à ce qui se fait dans le monde UNIX évite  une écriture de code complexe reposant sur l'API `fs`.
+Sa syntaxe équivalente à ce qui se fait dans le monde UNIX évite une écriture de code complexe reposant sur l'API `fs`.
 
 [URL]#https://npmjs.org/glob#
 

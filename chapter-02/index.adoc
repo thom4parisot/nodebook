@@ -52,6 +52,10 @@ Voici mes recommandations pour savoir quelle solution d'installation choisir :
 - *envie ou besoin de mettre en production* : Node Version Manager ;
 - *besoin très spécifique et pointu* : compiler depuis les sources.
 
+<!--
+Il manque une petite phrase pour dire que tu parles de NVM un peu plus loin
+-->
+
 Une fois l'étape de l'installation terminée, la suite du livre ne fera plus de distinction entre les différents systèmes d'exploitation : c'est Node qui se chargera des abstractions !
 
 ==== Pour les différents systèmes d'exploitation
@@ -96,7 +100,7 @@ Quelques projets populaires permettent toutefois d'y remédier :
 - *homebrew* : `brew install node`
 - *MacPorts* : `port install nodejs`
 
-Si vous n'utilisez aucun de ces gestionnaires de paquet, dans ce cas essayez :
+Si vous n'utilisez aucun de ces gestionnaires de paquet, vous pouvez essayez :
 
 1. _Node Version Manager_ (voir ci-après) ;
 2. le téléchargement du binaire Node sur son site officiel ;
@@ -121,6 +125,10 @@ Des binaires et installateurs sont de ce fait disponibles pour Raspberry Pi, à 
 Des binaires et instructions sont disponibles à cette adresse [URL]#https://gist.github.com/adammw/3245130#. +
 Un paquet `deb` est également proposé pour les utilisateurs du système d'exploitation _Raspbian_.
 
+<!--
+Peut-être serait-il pertinent de mettre en cache le gist, ou d'utiliser un raccourcisseur d'URL pour y accéder, de manière à pouvoir maintenir les liens pendant quelques mois / années ?
+-->
+
 .Installation de la dernière version stable de Node sur un Raspberry Pi sous _Raspbian_.
 ----
 wget http://node-arm.herokuapp.com/node_latest_armhf.deb
@@ -134,7 +142,7 @@ Il est communément abrégé en _nvm_.
 
 _nvm_ est l'équivalent de _rvm_ dans le monde Ruby, de _phpenv_ dans le monde PHP ou encore de _virtualenv_ pour Python.
 
-.Installation de _nvm_ et de Node {nodeVersion}.
+.Installation de _nvm_ et de Node {nodeVersion} sur un environnement Linux.
 ----
 curl https://raw.github.com/creationix/nvm/v0.23.0/install.sh | sh
 nvm install 0.12
@@ -158,6 +166,11 @@ Elle a l'avantage d'être compatible avec tous les systèmes d'exploitation comp
 ====
 _nvm_ ne fonctionne pas sur les ordinateurs équipés de Windows.
 Il existe deux autres alternatives : _nvmw_ et _nodist_.
+
+<!--
+Pour info, j'utilise https://github.com/coreybutler/nvm-windows qui marche bien aussi.
+Je jeterai un oeil à ces alternatives :)
+-->
 
 _nvmw_ nécessite d'avoir Git et Python tandis que _nodist_ se base uniquement sur Node.
 Dans les deux cas, leur installation est très simple.
@@ -201,7 +214,7 @@ Les instructions pouvant varier fortement d'un système d'exploitation à l'autr
 === Outils de développement
 
 Programmer pour Node revient dans la majorité des cas à écrire du JavaScript.
-Donc même si un éditeur texte suffit, il est intéressant de connaître l'offre en outillage autour de Node.
+Donc même si un éditeur de texte suffit, il est intéressant de connaître l'offre en outillage autour de Node.
 
 Les logiciels présentés dans les pages suivantes couvrent un large spectre de besoins : écriture du code, coloration syntaxique, inspection dynamique, débogage, productivité et intégration à l'écosystème Node.
 
@@ -210,7 +223,7 @@ Ceci a pour but de vous aider à piocher au plus près de vos goûts, à défaut
 ==== WebStorm
 
 _WebStorm_ est un environnement de développement _(IDE)_ commercialisé par la société _JetBrains_.
-Il est dédié au développement web, ce qui inclut JavaScript, Node, mais aussi CSS et HTML.
+Il est dédié au développement Web, ce qui inclut JavaScript, Node, mais aussi CSS et HTML.
 
 _JetBrains_ est une entreprise connue dans d'autres écosystèmes pour ses _IDE_ _Pycharm_ (pour Python) et _IntelliJ IDEA_ (pour Java).
 
@@ -328,7 +341,7 @@ Il s'agit d'une évolution majeure, dix après sa précédente édition, ECMAScr
 
 ECMAScript 5 introduit le mode strict limitant fortement les effets de bord indésirables, de nouvelles fonctionnalités pour `Object` et `Array`, le support natif de _JSON_ et `Function.prototype.bind`.
 
-Un récapitulatif des fonctionnalités d'ECMAScript 5 est présenté  ci-après.
+Un récapitulatif des fonctionnalités d'ECMAScript 5 est présenté ci-après.
 
 [TIP]
 .[RemarquePreTitre]#Lien# Le futur d'ECMAScript : ES6.
@@ -568,6 +581,10 @@ La fonction de tri via la méthode `sort` se base sur des comparaisons positives
 
 Les méthodes suivantes sont des nouveautés d'ECMAScript 5.
 Elles facilitent énormément les itérations sur les tableaux tout en ajoutant une orientation fonctionnelle pas désagréable du tout.
+
+<!--
+"pas désagréable du tout" ? :)
+-->
 
 La méthode `map` permet de retourner un nouveau tableau avec des valeurs modifiées :
 
@@ -909,7 +926,7 @@ re.exec(text); <7>
 [CAUTION]
 .[RemarquePreTitre]#Remarque# Gare à la réutilisation de l'objet _RegExp_ !
 ====
-Vous l'aurez remarqué avec le drapeau `g`, le comportement de la  méthode `exec` peut renvoyer un résultat différent à chaque appel.
+Vous l'aurez remarqué avec le drapeau `g`, le comportement de la méthode `exec` peut renvoyer un résultat différent à chaque appel.
 
 Il faut juste veiller à ce que ce soit un résultat escompté pour éviter tout effet de bord dans vos applications.
 ====
@@ -992,7 +1009,7 @@ console.log('ECMA%s', 'script'); <1>
 ----
 <1> Affiche `'ECMAScript'`.
 
-`console.error` a exactement le même comportement mais redirige vers le flux d'erreur, `process.stderr`).
+`console.error` a exactement le même comportement mais redirige vers le flux d'erreur, `process.stderr`.
 
 `console.trace` envoie l'état de la _stack trace_ vers le flux d'erreur :
 
@@ -1274,7 +1291,7 @@ Utiliser `\__filename` et `__dirname` est utile pour travailler avec des chemins
 Pour des raisons de commodité, Node fournit des implémentations de `setTimeout`, de `setInterval` et de `setImmediate`.
 Pour rappel, ces fonctions de temps ne font pas partie de JavaScript mais de la spécification _DOM Level 0_.
 
-Ces fonctions exécute une fonction respectivement une seule fois dans un délai imparti, un nombre de fois indéterminé à un intervalle imparti et une seule fois immédiatement :
+Ces fonctions exécutent une fonction respectivement une seule fois dans un délai imparti, un nombre de fois indéterminé à un intervalle imparti et une seule fois immédiatement :
 
 [source,javascript]
 ----
@@ -1355,8 +1372,8 @@ TBD.
 
 === Mon premier script Node.js : lire un fichier CSV
 
-Il est temps de passer à la pratique.
-Surtout après autant de théorie et de concepts.
+Il est temps de passer à la pratique. +
+Surtout après autant de théorie et de concepts !
 
 La lecture et l'écriture de fichiers est une activité courante dans le développement d'une application.
 
@@ -1403,8 +1420,8 @@ Le résultat attendu serait le suivant :
 
 ----
 "CSS maintenables avec Sass et Compass" a été écrit par Kaelig Deloumeau-Prigent
-"Intégration web" a été écrit par Corinne Schillinger
-"Projet responsive web design" a été écrit par Jérémie Patonnier,Rudy Rigot
+"Intégration Web" a été écrit par Corinne Schillinger
+"Projet responsive Web design" a été écrit par Jérémie Patonnier,Rudy Rigot
 "Javascript the Definitive Guide" a été écrit par David Flanagan
 ----
 
@@ -1464,7 +1481,7 @@ fs.readFile(FILENAME, FS_OPTIONS, function(err, textContent){
 Enfin, si nous détectons une erreur, nous remontons l'exception au sein du process Node.
 Nous lui déléguons ainsi la responsabilité de son usage. +
 Cela veut dire que si un mécanisme d'interception est mis en place, il sera prévenu de cette erreur et décidera que faire.
-Sinon Node mettra un terme au processus, tout simplement.
+Sinon, Node mettra un terme au processus, tout simplement.
 
 ==== Traiter les données
 
