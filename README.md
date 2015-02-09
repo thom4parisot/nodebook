@@ -41,4 +41,7 @@ nodebook
 
 *Node.js — bonnes pratiques pour la programmation JavaScript applicative et modulaire* est un ouvrage rédigé par [Thomas Parisot](https://oncletom.io) et publié aux éditions [Eyrolles](http://www.eyrolles.fr).
 
+L’épreuve est soumise à la licence [Creative Commons NC-BY-SA](https://creativecommons.org/licenses/by-nc-sa/3.0/deed.fr) (*Attribution, Non-Commercial, Share Alike*).
+
+Les exemples de code sont soumis à une licence MIT et le cas échéant, à une license spécifiée par l’auteur du programme.
 
