@@ -24,11 +24,14 @@ Qu'en restera-t-il une fois la frénésie retombée ?
 
 Ce chapitre n'est pas essentiel à l'apprentissage de Node.js.
 Il permet de comprendre pourquoi et comment Node a émergé.
-Surtout, il vous permettra de comprendre les choix techniques à l'origine des fondations de Node, et ce que l'utiliser peut vous apporter, que ce soit dans un contexte personnel ou professionnel.
+Surtout, il vous permettra de comprendre les choix techniques à l'origine des fondations de Node et ce que l'utiliser peut vous apporter, que ce soit dans un contexte personnel ou professionnel.
 
 Qu'on se le dise : *un langage de programmation en lui-même n'a jamais résolu quelconque problème*.
 Cela reste avant tout une affaire de compétences et d'expérience.
 
+<!--
+Ca mérite peut-être un peu plus d'explications, ou alors tu l'abordes après ?
+-->
 
 === Node.js : la plate-forme JavaScript côté serveur
 
@@ -41,6 +44,10 @@ L'entreprise _Netscape_ s'y est déjà essayée au début des années 1990 avec 
 
 En 1997, _Netscape_ s'est attelée à créer https://www.mozilla.org/rhino/[Rhino], une implémentation de JavaScript en Java disponible sous licence libre.
 _Rhino_ était un des projets liés à la réécriture de _Netscape Navigator_ en Java. Si _Netscape_ a depuis fermé ses portes, _Rhino_ a permis l'émergence de projets utiles aux développeurs web.
+
+<!--
+Comme ?
+-->
 
 D'autres initiatives plus récentes comme http://ape-project.org/[APE (Ajax Push Engine)] ont mis en œuvre JavaScript côté serveur. JavaScript était surtout un choix logique de partage de code entre client et serveur pour Comet, le précurseur des Websockets.
 
@@ -75,11 +82,14 @@ Rhino est également employé dans http://yui.github.io/yuicompressor/[yuicompre
 _yuicompressor_ est tombé en désuétude suite au gain de popularité de http://gruntjs.com/[Grunt].
 Ce dernier est écrit en JavaScript et repose sur… Node. +
 La boucle est bouclée.
+<!--
+Sur la "désuétude", certains DevOps, adeptes de l'intégration continue, te diront que l'avantage de yuicompressor (ou de Closure Compiler), c'est aussi sont côté "exécutable packagé"... et que Grunt est encore trop imprévisible dans les erreurs qu'il lève.
+-->
 ====
 
-Node représente un *environnement d'exécution* (_runtime_), un  *ensemble d'API JavaScript* ainsi qu'une *machine virtuelle JavaScript* performante (parseur, interpréteur et compilateur) pouvant accéder à des ressources système telles que des fichiers (_filesystem_) ou des connexions réseau (_sockets_).
+Node représente un *environnement d'exécution* (_runtime_), un  *ensemble d'API JavaScript* ainsi qu'une *machine virtuelle (VM) JavaScript* performante (parseur, interpréteur et compilateur) pouvant accéder à des ressources système telles que des fichiers (_filesystem_) ou des connexions réseau (_sockets_).
 
-Typiquement, une personne développant en Node écrit du code se basant sur les API à disposition. Ce code est lu par le _runtime_ Node qui le transmet à la VM JavaScript. Enfin, VM traduit le programme en langage machine (_bytecode_) avant que le programme soit effectivement exécuté par le processeur.
+Typiquement, une personne développant en Node écrit du code se basant sur les API à disposition. Ce code est lu par le _runtime_ Node qui le transmet à la VM JavaScript. Enfin, la VM traduit le programme en langage machine (_bytecode_) avant que le programme soit effectivement exécuté par le processeur.
 
 Pour comprendre comment Node a opté pour cette approche, retournons en 2009, lorsque son créateur **Ryan Dahl** cherchait à résoudre élégamment un problème de performance de programmation.
 
@@ -103,6 +113,10 @@ En d'autres termes, un serveur capable dans un même processus de traiter d'autr
 
 Nous sommes alors en 2008 et le site de partage de photos Flickr  innove avec un nouveau système d'upload d'images.
 Ce système remplace la sensation de page figée par une… *barre de progression*.
+
+<!--
+Upload ou téléversement ? Quel vocable vas-tu choisir ?
+-->
 
 .Nouvelle et ancienne interface d’upload de Flickr.
 image::images/7112862941_3b8c8e9916_o_d.png[align="center", link="https://www.flickr.com/photos/schill/7112862941/",scaledwidth="85%"]
@@ -218,6 +232,10 @@ Node ne vous aidera probablement pas si vous cherchez à *réaliser des choses q
 Des modules comme `bignumber.js` peuvent palier le problème.
 Il se peut que votre cas de figure ne soit pas couvert ni par Node ni par un des modules de l'écosystème npm.
 
+<!--
+JS implémente IEEE 754, donc les problématiques sont les mêmes qu'en C# ou en Java, non ?
+-->
+
 Enfin si vous croyez que Node va *résoudre des problèmes de compétences en développement* ou résoudre _de facto_ une erreur de conception logicielle, c'est bien évidemment une erreur.
 
 === Écosystème
@@ -293,7 +311,7 @@ Idéalement, _io.js_ souhaite reverser les fruits de son travail à la plateform
 ==== Nodejitsu
 
 _Nodejitsu_ est une entreprise privée américaine fondée en 2010.
-Elle vise à fournir des solutions professionnelles autour de Node en tant que _Platform as a Service_ (_Paas_) ainsi qu'avec des dépôts _npm_ privés.
+Elle vise à fournir des solutions professionnelles autour de Node en tant que _Platform as a Service_ (_PaaS_) ainsi qu'avec des dépôts _npm_ privés.
 
 _Nodejitsu_ démontre un investissement fort dans la communauté Node en contribuant et maintenant plusieurs centaines de modules. +
 L'entreprise a pris en charge l'hébergement de la base de données du registre _npm_ de 2010 jusqu'en décembre 2013.
@@ -408,6 +426,7 @@ Il fallait donc trouver un moyen de rendre le code interopérable sur les diffé
 Les spécifications les plus notables sont _Console_ et _Module_.
 
 La spécification _Module_ définit entre autres :
+
 - la syntaxe de déclaration d'un module ;
 - le procédé de chargement d'un module ;
 - l'algorithme de résolution d'un module au sein d'un arbre de dépendance.
@@ -441,7 +460,7 @@ increment();    // <2>
 Le fonctionnement technique des modules est décrit plus en détail dans le _Chapitre 2 : Premiers pas avec Node_.
 
 L'essentiel est d'en retenir que Node se base sur ce mécanisme de chargement de module.
-*Et ces modules sont une des forces principales de Node*.
+*Ces modules sont une des forces principales de Node*.
 
 [TIP]
 .[RemarquePreTitre]#Lien# Site officiel CommonJS
@@ -547,13 +566,13 @@ Ajouter un graph explicatif pour l'aspect "boucle".
 [source,javascript]
 .timeout.js
 ----
-var referenceTime = process.hrtime();   <1>
-var printT = function(){                <2>
+var referenceTime = process.hrtime();   // <1>
+var printT = function(){                // <2>
   console.log(process.hrtime(referenceTime)[0]);
 };
 
-printT();                               <3>
-setTimeout(printT, 1000);               <4>
+printT();                               // <3>
+setTimeout(printT, 1000);               // <4>
 ----
 <1> Initialise un temps de référence.
 <2> Fonction affichant le nombre de secondes de différence avec le temps de référence à chaque invocation.
@@ -582,6 +601,10 @@ _Loupe_ est un visualisateur de boucle évènementielle.
 
 Alors pourquoi dit-on que _libuv_ est non bloquant ?
 Tout simplement car l'acquisition d'une ressource système renvoie un descripteur, vérifiée à chaque itération de la boucle  et dont le _callback_ est exécuté lorsque la vérification se révèle positive.
+
+<!--
+Qu'est qui est vérifié ? Le descripteur ou la ressource ? La tournure est ambiguë.
+-->
 
 En clair, au lieu de bloquer l'exécution de l'instruction suivante, la boucle événementielle reporte la vérification à plus tard et se saisit de l'instruction suivante.
 Et ainsi de suite.
