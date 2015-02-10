@@ -1,6 +1,6 @@
 :nodeVersion: v0.12
-:revisionYear: 2014
-:sourceDir: ./examples
+:revisionYear: 2015
+:sourceDir: ./examples/src
 :imagesdir: {indir}
 ifdef::env[]
 :imagesdir: .
@@ -306,8 +306,38 @@ Si la présence d'une mesure en pixels n'est qu'une affaire de micro-optimisatio
 
 ==== Minification du code
 
-- uglify/Google Closure Compiler
-- cssmin
+Commentaires, indentations ou encore noms de variables : tout ça occupe de la place, donc des caractères textuels et donc des octets de bande passante.
+
+Sans outillage, l'optimisation repose littéralement entre les mains des développeurs.
+Ces derniers doivent alors compromettre lisibilité et maintenabilité au profit de quelques kilo-octets. +
+Ce que nous chercherons à tout prix à ne pas sacrifier.
+
+Les minifieurs mettent en œuvre différentes techniques pour réduire cette occupation d'espace :
+
+- suppression des commentaires et caractères non-significatifs ;
+- renommage de variables ;
+- factorisation d'occurences multiples similaires ;
+- suppression des instructions relatives au débogage/développement ;
+- suppression de code mort.
+
+Ces différentes techniques de minification chercherons l'intégrité de vos programmes.
+Les mainteneurs des outils de compression mettent en général en garde si une option est possible destructrice ou non.
+
+**cssmin** ([URL]#https://npmjs.com/cssmin#) est un portage ECMAScript du compresseur CSS _YUICompressor_ développé par la compagnie _Yahoo!_ à la fin des années 2000. +
+L'approche de *cssmin* consiste principalement à supprimer les caractères et commentaires non-significatifs.
+Il ne cherche pas à faire davantage que son homologue originel
+
+*cssmin* est donc un outil simple, exposant un exécutable système ainsi qu'un module Node.
+Il ne fournit en revanche aucun support pour les _Source Maps_. Il vous faudra reposer sur l'outillage proposé par les navigateurs Web modernes pour le débogage (reformatage du code, inspection des propriétés etc.).
+
+.Exemples d'utilisation de *cssmin*
+----
+cssmin src/snippets/sample.css > sample.min.css # <1>
+
+cat src/snippets/sample.css | cssmin | wc -c | awk '{print $1}' # <2>
+----
+<1> Exporte le résultat de la minification dans le fichier `sample.min.css`;
+<2> Utilisation des *pipes* UNIX pour afficher le nombre de caractères d'une version minifiée de `sample.css`.
 
 ==== Optimisation du code
 
