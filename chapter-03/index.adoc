@@ -1,5 +1,5 @@
 :nodeVersion: v0.12
-:sourceDir: ./examples
+:sourceDir: ./examples/src
 :imagesdir: {indir}
 ifdef::env[]
 :imagesdir: .
@@ -356,7 +356,7 @@ Une installation autonome concerne aussi bien un développeur ayant besoin de co
 La procédure d'installation est relativement simple :
 
 1. Cloner le dépôt Git ;
-1. Lancer la commande `npm install`.
+2. Lancer la commande `npm install`.
 
 Dans le cadre des exemples contenus dans ce chapitre, il suffirait d'exécuter ces commandes :
 
@@ -475,7 +475,7 @@ include::{sourceDir}/snippets/config-argv.js[]
 Et leur invocation :
 
 ----
-node src/snippets/config-argv.js -y 2014 2012 --title 'fromage baguette'
+node src/snippets/config-argv.js -y 2014 2012 --title 'fromage baguette' #<1>
 ----
 <1> Affiche `["-y", "2014", "2012", "--title", "fromage baguette"]`.
 
@@ -1290,8 +1290,8 @@ Compatible Node et navigateurs Web. +
 include::{sourceDir}/snippets/npm-moment.js[]
 ----
 <1> Affiche `2014-09-10T23:00:00.000Z` ;
-<1> Affiche `13/09/14` ;
-<1> Affiche `2 jours`.
+<2> Affiche `13/09/14` ;
+<3> Affiche `2 jours`.
 
 ====== eventemitter2
 
@@ -2042,7 +2042,7 @@ Cet outil est adapté à l'échafaudage interactif d'applications ou de parties 
 
 ==== Internet of Things
 
-====== nitrogen
+===== nitrogen
 
 _nitrogen_ est une plateforme permettant de gérer les interactions entre différents périphériques, sur un même réseau local et à travers Internet.
 
@@ -2050,13 +2050,13 @@ La bibliothèque se base sur un mécanisme déclaratif de fonctionnalités et de
 
 [URL]#https://npmjs.com/nitrogen#
 
-====== serialport
+===== serialport
 
 _serialport_ est une bibliothèque pour communiquer avec tout appareil bénéficiant d'un port série, et relié à un périphérique via un port USB.
 
 [URL]#https://npmjs.com/serialport#
 
-====== firmata
+===== firmata
 
 _firmata_ est un _firmware_, un protocole de communication ainsi qu'une bibliothèque de communication pour microcontrôleur Arduino.
 Le module Node permet de communiquer via ce protocole avec un Arduino préalablement flashé avec Firmata.
@@ -2064,7 +2064,7 @@ Le module Node permet de communiquer via ce protocole avec un Arduino préalable
 [URL]#https://npmjs.com/firmata#
 
 
-====== johnny-five
+===== johnny-five
 
 _johnny-five_ est une bibliothèque haut niveau pour Arduino, Raspberry Pi et autres microcontrôleurs.
 Son API expose des fonctionnalités de manipulations avancées pour simplifier les interactions avec des moteurs, des servo-contrôleurs, des capteurs etc.
@@ -2073,7 +2073,7 @@ Compatible Node et navigateurs Web. +
 [URL]#https://npmjs.com/johnny-five#
 
 
-====== cylon
+===== cylon
 
 _cylon_ est une autre bibliothèque haut niveau orientée vers la programmation d'interactions pour robots.
 Son interface est particulièrement adaptée pour manipuler et réagir plusieurs robots entre eux.
@@ -2081,7 +2081,7 @@ Son interface est particulièrement adaptée pour manipuler et réagir plusieurs
 Compatible Node et navigateurs Web. +
 [URL]#https://npmjs.com/cylon#
 
-====== node-red
+===== node-red
 
 _node-red_ est une interface visuelle de programmation d'objets connectés.
 Le module Node démarre un serveur Web dont l'interface a pour but de relier des sources de données, des interactions possibles ainsi que les objets devant recevoir les instructions.
