@@ -320,12 +320,12 @@ Les minifieurs mettent en œuvre différentes techniques pour réduire cette occ
 - suppression des instructions relatives au débogage/développement ;
 - suppression de code mort.
 
-Ces différentes techniques de minification chercherons l'intégrité de vos programmes.
-Les mainteneurs des outils de compression mettent en général en garde si une option est possible destructrice ou non.
+Ces différentes techniques de minification chercherons à préserver l'intégrité du fonctionnement ou de l'apparence de vos programmes.
+Un avertissement vous préviendra du contraire le cas échéant.
 
-**cssmin** ([URL]#https://npmjs.com/cssmin#) est un portage ECMAScript du compresseur CSS _YUICompressor_ développé par la compagnie _Yahoo!_ à la fin des années 2000. +
+*cssmin* ([URL]#https://npmjs.com/cssmin#) est un portage ECMAScript du compresseur CSS _YUICompressor_ développé par la compagnie _Yahoo!_ à la fin des années 2000. +
 L'approche de *cssmin* consiste principalement à supprimer les caractères et commentaires non-significatifs.
-Il ne cherche pas à faire davantage que son homologue originel
+Il ne cherche pas à faire davantage que son homologue originel.
 
 *cssmin* est donc un outil simple, exposant un exécutable système ainsi qu'un module Node.
 Il ne fournit en revanche aucun support pour les _Source Maps_. Il vous faudra reposer sur l'outillage proposé par les navigateurs Web modernes pour le débogage (reformatage du code, inspection des propriétés etc.).
@@ -338,6 +338,27 @@ cat src/snippets/sample.css | cssmin | wc -c | awk '{print $1}' # <2>
 ----
 <1> Exporte le résultat de la minification dans le fichier `sample.min.css`;
 <2> Utilisation des *pipes* UNIX pour afficher le nombre de caractères d'une version minifiée de `sample.css`.
+
+**UglifyJS** ([URL]#https://npmjs.com/uglify-js2#) est un des premiers compresseurs à utiliser une  représentation syntaxique en arbre (_Abstract Syntax Tree_ — _AST_) en lieu et place des classiques optimisations à coups d'expressions régulières.
+
+Cette méthode permet d'élargir les perspectives de la compression via de la réécriture de code :
+
+- _hoisting_ des variables (remontée de leur déclaration en début de _scope_) ;
+- combinaison des déclarations de variables ;
+- factorisation des valeurs de variables ;
+- réécriture partielle d'expressions ;
+- injection en ligne du contenu de variables.
+
+*UglifyJS* s'utilise de manière autonome, en ligne de commande ou via son API ECMAScript, mais aussi par le biais de plugins grunt, gulp et browserify (uglifyify et minifyify). +
+Un exemple plus concret est abordé dans la section _Automatisation des tâches avec Grunt_.
+
+Enfin, il est bon de savoir que d'autres outils existent, complètent voire remplacent les compresseurs précédemment cités :
+
+- *Google Closure Compiler* ([URL]#https://npmjs.com/closurecompiler#) +
+Un autre compilateur ECMAScript plus poussé qu'_UglifyJS_ mais imposant un style d'écriture plus strict, voire plus contraignant selon votre style d'écriture.
+- *csswring* ([URL]#https://npmjs.com/csswring#) +
+Une alternative plus moderne que _cssmin_.
+Cet outil s'interface optionnellement avec _PostCSS_ et offre un support des _Source Maps_.
 
 ==== Optimisation du code
 
