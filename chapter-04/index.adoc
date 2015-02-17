@@ -304,6 +304,20 @@ Si la présence d'une mesure en pixels n'est qu'une affaire de micro-optimisatio
 Éviter l'utilisation de ces cas limites évite également d'avoir à empiler des couches de CSS pouvant accentuer encore peu plus l'instabilité d'affichage.
 
 
+*doiuse* ([URL]#https://npmjs.com/doiuse#) est un utilitaire qui se repose sur la base de données de [URL]#caniuse.com#.
+Il vous alerte des possibles incompatibilités de syntaxe en fonction de la compatibilité désirée avec une liste de navigateurs web définie par vos soins.
+Cette liste peut aussi bien concerner des versions spécifiques ou encore cibler en fonction leurs parts de marché.
+
+L'exemple suivant illustre les alertes relevées par _doiuse_ dans le cas d'une recherche de compatibilité avec Internet Explorer 6 et Internet Explorer 7 :
+
+----
+$ doiuse -b 'ie < 8' src/snippets/sample.css
+src/snippets/sample.css:1:1: CSS 2.1 selectors not supported by: IE (6)
+src/snippets/sample.css:8:1: CSS 2.1 selectors not supported by: IE (6)
+src/snippets/sample.css:14:1: CSS 2.1 selectors not supported by: IE (6)
+----
+
+
 ==== Minification du code
 
 Commentaires, indentations ou encore noms de variables : tout ça occupe de la place, donc des caractères textuels et donc des octets de bande passante.
