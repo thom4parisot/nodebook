@@ -351,7 +351,7 @@ cssmin src/snippets/sample.css > sample.min.css # <1>
 
 cat src/snippets/sample.css | cssmin | wc -c | awk '{print $1}' # <2>
 ----
-<1> Exporte le résultat de la minification dans le fichier `sample.min.css`;
+<1> Exporte le résultat de la minification dans le fichier `sample.min.css`; 
 <2> Utilisation des *pipes* UNIX pour afficher le nombre de caractères d'une version minifiée de `sample.css`.
 
 **UglifyJS** ([URL]#https://npmjs.com/uglify-js2#) est un des premiers compresseurs à utiliser une  représentation syntaxique en arbre (_Abstract Syntax Tree_ — _AST_) en lieu et place des classiques optimisations à coups d'expressions régulières.
@@ -367,38 +367,70 @@ Cette méthode permet d'élargir les perspectives de la compression via de la r�
 *UglifyJS* s'utilise de manière autonome, en ligne de commande ou via son API ECMAScript, mais aussi par le biais de plugins grunt, gulp et browserify (uglifyify et minifyify). +
 Un exemple plus concret est abordé dans la section _Automatisation des tâches avec Grunt_.
 
-Enfin, il est bon de savoir que d'autres outils existent, complètent voire remplacent les compresseurs précédemment cités :
+==== Optimisation du code
+
+Parce qu'optimiser le poids ne suffit pas, certains outils et compresseurs proposent de réécrire une partie de votre code.
+Ces optimisations seraient souvent complexes à imaginer et couteuses en temps, à répéter le geste et en maintenance.
+
+La majorité des optimiseurs suggérés vous inciteront à suivre la voie des standards.
+Vous écrivez du code orienté vers le long terme et les outils se chargent du fardeau de la compatibilité avec le quotidien. +
+De ce fait, ils ajouteront des instructions relatives à une plus grande compatibilité ou à l'inverse, ils retireront des portions inutilisées.
+
+Quoiqu'il advienne, en complément des compresseurs ou non, votre code source d'origine reste intact.
+Il est d'autant plus aisé de les tester, de les activer et de les désactiver quand bon vous semble.
+
+*autoprefixer* ([URL]#https://npmjs.com/autoprefixer#) est _le_ module qui vous épargnera l'écriture de centaines de lignes en ajoutant automatiquement les bons préfixes aux bons endroits. 
+Travail d'autant plus ingrat si vous n'avez pas envie ni le loisir de recourir à des _mixins_ Less ou Sass. +
+_autoprefixer_ expose une API ECMAScript, un exécutable système ainsi qu'une API de _streaming_ permettant une intégration sans plugin avec *browserify*, entre autre.
+
+.Exemple d'utilisation d'_autoprefixer_ en fonction des besoins en compatibilité navigateur
+----
+$ autoprefixer -o - src/snippets/sample.css | grep transition
+  -webkit-transition: font-weight 0.2s ease;
+          transition: font-weight 0.2s ease;
+          
+$ autoprefixer -b 'firefox > 8' -o - src/snippets/sample.css | grep transition
+  -webkit-transition: font-weight 0.2s ease;
+     -moz-transition: font-weight 0.2s ease;
+          transition: font-weight 0.2s ease;
+----
+
+L'exemple précédent illustre comment la propriété `transition` a été préfixée pour couvrir les navigateurs ayant plus de 1% de part de marché, puis en incluant les versions supérieures à Firefox 8 — assez obsolètes il faut se l'avouer. +
+Sans l'utilisation du paramètre `-o` (_output_), le fichier d'origine aurait été réécrit.
+
+*uncss* ([URL]#https://npmjs.com/uncss#) est le pendant inverse d'_autoprefixer_ puisqu'il se charge de supprimer le code … mort.
+Pour se faire, _uncss_ charge une ou plusieurs pages de référence et fait la différence entre les règles CSS utilisées … et celles qui ne le sont pas.
+Libre à vous de mentionner une liste blanche de règles à ne jamais supprimer pour éviter qu'elles soient écrémées par mégarde.+
+_uncss_ s'intègre particulièrement facilement dans les projet grâces à des plugins _grunt_ et _gulp_.
+
+Si le monde de l'optimisation ECMAScript a explosé depuis l'apparition d'*esprima*, il en est de même pour CSS avec *PostCSS* ([URL]#https://npmjs.com/postcss#). +
+Cet outil est construit autour du triptyque suivant :
+
+- un parseur CSS ;
+- un arbre syntaxique ;
+- un compilateur texte.
+
+Cette combinaison rend possible la production de _Source Maps_ mais aussi la construction d'une multitude d'outils destinés à faciliter la vie des développeurs.
+Ces outils se greffent sur le parseur, l'arbre ou le compilateur pour parvenir à leurs fins. +
+Avec une ou plusieurs extensions, vous avez ainsi accès à *autoprefixer*, à votre nettoyeur de code mort ou même à votre propre réimplémentation de Sass … entièrement en ECMAScript !
+
+Enfin, il est bon de savoir que d'autres outils existent, complètent voire remplacent les compresseurs et optimiseurs précédemment cités :
 
 - *Google Closure Compiler* ([URL]#https://npmjs.com/closurecompiler#) +
 Un autre compilateur ECMAScript plus poussé qu'_UglifyJS_ mais imposant un style d'écriture plus strict, voire plus contraignant selon votre style d'écriture.
 - *csswring* ([URL]#https://npmjs.com/csswring#) +
 Une alternative plus moderne que _cssmin_.
 Cet outil s'interface optionnellement avec _PostCSS_ et offre un support des _Source Maps_.
-
-==== Optimisation du code
-
-- uncss
-- autoprefixer
-
-[TIP]
-.[RemarquePreTitre]#CSS# À propos des _vendor prefix_
-====
-Je recommande fortement de ne pas coder les préfixes navigateur à la main ni même d'utiliser un _mixin_ Less ou Sass.
-
-Laissez ce travail à *autoprefixer* : ce module ajoutera automatiquement les bons préfixes aux bons endroits.
-Et ce, sans superflu car il se maintient à jour en suivant le travail des implémenteurs.
-
-- [URL]#https://npmjs.com/autoprefixer#
-
-====
-
-- uglify + mangle + dead code
+- *csso* ([URL]#https://npmjs.com/csso#) +
+Une autre alternative à _cssmin_ et _csswring_ écrite par l'équipe derrière la méthodologie BEM ([URL]#https://en.bem.info#), moins bien documentée mais plus efficace en terme d'optimisations.
+_csso_ ira jusqu'à réécrire les codes couleurs, les `margin` et `padding` et factorisera les sélecteurs similaires.
 
 ==== Optimisation des images
 
 - génération de sprites
 - réduction du poid des fichiers
 - génération de vignettes
+- SVG https://www.npmjs.com/svgo
 
 ==== Optimisation des fontes
 
