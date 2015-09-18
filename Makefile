@@ -18,7 +18,7 @@ all: $(html_files)
 
 deploy-html: $(html_files)
 	git add dist && git commit -m 'Build HTML pages'
-	git subtree push --prefix $(BUILD_DIR) https://$(GH_TOKEN)@github.com/$(GIT_REPO).git gh-pages
+	git subtree push --force --prefix $(BUILD_DIR) https://$(GH_TOKEN)@github.com/$(GIT_REPO).git gh-pages
 
 test:
 	@exit 0
