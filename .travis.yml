@@ -12,7 +12,7 @@ services:
 
 before_install: "make install"
 
-script: "make test"
+script: "make clean all"
 
 after_script: "make deploy-html" 
 
