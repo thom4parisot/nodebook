@@ -1,4 +1,4 @@
-# Node.js — Bonnes pratiques pour la programmation JavaScript applicative et modulaire
+# Node.js — Bonnes pratiques pour la programmation JavaScript applicative, universelle et modulaire
 
 ![](cover.png?raw=1)
 

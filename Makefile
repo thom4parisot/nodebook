@@ -1,5 +1,6 @@
 BUILD_DIR=dist
 GIT_REPO=oncletom/nodebook
+DOCKER_COMMAND=docker run -i --rm -v $(CURDIR):/documents asciidoctor/docker-asciidoctor
 
 adoc_files := index.adoc $(wildcard chapter-*/index.adoc) $(wildcard foreword/*.adoc)
 html_files := $(adoc_files:%.adoc=$(BUILD_DIR)/%.html)
@@ -12,13 +13,29 @@ install:
 
 $(html_files): $(adoc_files)
 	$(eval ADOC_FILE = $(@:dist/%.html=%.adoc) )
-	$(DOCKER_COMMAND) asciidoctor -a data-uri -D $(dir $@) -d book $(ADOC_FILE)
+	$(DOCKER_COMMAND) sh -c "sh bin/symlink-examples.sh \
+          && asciidoctor \
+            -a data-uri \
+            -a icons=font \
+            -a lang=fr \
+            -a env=ci \
+            -a hide-uri-scheme \
+            -a docinfo1 \
+            -D $(dir $@) \
+            -b html5 \
+            -d book $(ADOC_FILE)"
 
 all: $(html_files)
 
 deploy-html: $(html_files)
-	git add dist && git commit -m 'Build HTML pages'
-	git subtree push --force --prefix $(BUILD_DIR) https://$(GH_TOKEN)@github.com/$(GIT_REPO).git gh-pages
+	rm -rf /tmp/deploy && cp -r $(BUILD_DIR) /tmp/deploy
+	cd /tmp/deploy \
+          && git init \
+          && git remote add origin https://$(GH_TOKEN)@github.com/$(GIT_REPO).git \
+          && git checkout --orphan gh-pages \
+          && git add . \
+          && git commit -am 'Build HTML book' \
+          && git push -q -f origin gh-pages
 
 test:
 	@exit 0
