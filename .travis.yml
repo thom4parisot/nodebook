@@ -1,0 +1,17 @@
+sudo: required
+
+language: node_js
+node_js: v4
+
+services:
+- docker
+
+before_install: "make install"
+
+script: "make test"
+
+after_script: "make deploy-html" 
+
+env:
+  global:
+  - secure: fMIbVupFhHqAhU1vV88OqVrokLR15Pi4qI+dsnsI5HUHL7WN5XrjWCuV8nJMLyaXD2vs6g5aApU7tTMGpb85ijYLKaGLTNcAIIwGpsZbOVxy27ZRgR//TgKNvYsxvMHeuhfEjiztcv96Ly4TkcyIust9Nd7eoAf7V5xKZezZ42s=
