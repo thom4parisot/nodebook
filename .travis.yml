@@ -12,9 +12,8 @@ services:
 
 before_install: "make install"
 
-script: "make clean all"
-
-after_script: "make deploy-html" 
+script:
+- if [ "$TRAVIS_PULL_REQUEST" = 'false' ] && [ "$TRAVIS_BRANCH" = "master" ]; then make clean deploy-html; fi
 
 env:
   global:
