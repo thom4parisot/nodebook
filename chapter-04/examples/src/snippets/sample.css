@@ -1,0 +1,19 @@
+.btn {
+  background: white;
+  color: black;
+  border: 0px solid black;
+  height: 20px;
+  padding: 10px;
+}
+.btn__primary {
+  background-color: blue;
+  color: white;
+  font-size: 1.3em;
+  transition: font-weight 0.2s ease;
+}
+.btn__primary--current {
+  color: gray;
+}
+.btn__primary--current.btn--active {
+  font-weight: 700;
+}

@@ -1,0 +1,13 @@
+<script src="bower_components/jquery/dist/jquery.min.js"></script>
+
+<script>
+requirejs.config({
+  paths: {
+    jquery: 'bower_components/jquery/src'
+  }
+});
+
+require(['jquery/core/ready'], function($){
+  $(document).ready( … );
+});
+</script>

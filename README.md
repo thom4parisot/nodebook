@@ -26,20 +26,15 @@ npm i -g nodebook
 
 # Lire le livre
 
-L’épreuve est consultable dans un navigateur Web via [liseuse Asciidoctor](http://asciidoctor.org) :
+L’épreuve est consultable dans un navigateur Web via [oncletom.io/node.js](https://oncletom.io/node.js).
 
-- [Asciidoctor pour Chrome](https://chrome.google.com/webstore/detail/asciidoctorjs-live-previe/iaalpfgpbocpdfblpnhhgllgbdbchmia)
-- [Asciidoctor pour Firefox](https://addons.mozilla.org/en-US/firefox/addon/asciidoctorjs-live-preview/)
+La version Web est générée automatiquement et directement à partir des sources Asciidoc utilisées pour l'épreuve papier.
 
-Pour se faire, il suffit d’exécuter la commande suivante :
-
-```bash
-nodebook
-```
+Le livre sera disponible en rayons lorsque le Bon à Tirer (BAT) aura été signé (première moitié 2016).
 
 # Mentions légales
 
-*Node.js — bonnes pratiques pour la programmation JavaScript applicative et modulaire* est un ouvrage rédigé par [Thomas Parisot](https://oncletom.io) et publié aux éditions [Eyrolles](http://www.eyrolles.fr).
+*Node.js — bonnes pratiques pour la programmation JavaScript applicative, universelle et modulaire* est un ouvrage rédigé par [Thomas Parisot](https://oncletom.io) et publié aux éditions [Eyrolles](http://www.eyrolles.fr).
 
 L’épreuve est soumise à la licence [Creative Commons NC-BY-SA](https://creativecommons.org/licenses/by-nc-sa/3.0/deed.fr) (*Attribution, Non-Commercial, Share Alike*).
 

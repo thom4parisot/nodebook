@@ -1,0 +1,13 @@
+<script src="node_modules/jquery/dist/jquery.min.js"></script>
+
+<script>
+requirejs.config({
+  paths: {
+    jquery: 'node_modules/jquery/src'
+  }
+});
+
+require(['jquery/core/ready'], function($){
+  $(document).ready( … );
+});
+</script>

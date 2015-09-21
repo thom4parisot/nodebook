@@ -13,8 +13,7 @@ install:
 
 $(html_files): $(adoc_files)
 	$(eval ADOC_FILE = $(@:dist/%.html=%.adoc) )
-	$(DOCKER_COMMAND) sh -c "sh bin/symlink-examples.sh \
-          && asciidoctor \
+	$(DOCKER_COMMAND) sh -c "asciidoctor \
             -a data-uri \
             -a icons=font \
             -a lang=fr \

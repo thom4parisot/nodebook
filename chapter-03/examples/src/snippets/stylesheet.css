@@ -1,0 +1,15 @@
+:root
+  --warning-color: red
+  --base-font-size: 18px
+
+.btn
+  border: 1px solid black
+  border-radius: math(var(--base-font-size) / 6)
+  font-size: var(--base-font-size)
+
+.btn--large
+  font-size: math(var(--base-font-size) * 1.5)
+
+.btn--warning
+  border-color: rgba(var(--warning-color), 0.9)
+  color: var(--warning-color)

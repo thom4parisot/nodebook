@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title><%= typeof title === 'string' ? title : 'Template demo' %></title>
+</head>
+<body>
+<ul>
+  <% ['Node.js', 'CSS maintenables', 'Open Sky'].forEach(function(item){ -%>
+  <li><%= item %></li>
+  <% }); -%>
+</ul>
+</body>
+</html>
