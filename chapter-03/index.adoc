@@ -113,7 +113,7 @@ Voyons maintenant comment organiser notre code au sein de notre espace de travai
 Chaque développeur possède sa propre manière de ranger et d'organiser son code.
 
 La méthode suivante combine à la fois du bon sens et les conventions employées par une majorité de modules publiés sur npm. +
-Elle a également l’avantage de fonctionner de manière agnostique selon que votre code soit destiné à être exécuté par un navigateur Web ou un système informatique.
+Elle a également l’avantage de fonctionner de manière agnostique selon que votre code soit destiné à être exécuté par un navigateur web ou un système informatique.
 
 Quoiqu’il en soit, l’objectif est de créer des repères pérennes pour naviguer au sein de vos projets de manière similaire — en tous cas, de manière claire et non-anarchique.
 
@@ -302,7 +302,7 @@ C'est un atout considérable pour créer et maintenir du code modulaire ne se li
 Il faut imaginer et penser une application comme étant le sens donné en créant du _liant_ entre des modules encapsulés.
 
 Un exécutable shell configure des modules et retourne une sortie vers le terminal ou des fichiers. +
-Une application Web configure des modèles, les expose via des routes et met la sortie en forme au travers d'un formatage JSON ou HTML par exemple.
+Une application web configure des modèles, les expose via des routes et met la sortie en forme au travers d'un formatage JSON ou HTML par exemple.
 
 Une application accepte des informations en entrée : paramètres HTTP, arguments shell etc. +
 Une application retourne des informations en sortie : HTML, JSON, binaire etc.
@@ -1091,7 +1091,7 @@ Plusieurs raisons peuvent vous pousser à extraire une partie de votre code afin
 
 - le besoin de partager la logique métier d'une application avec une autre application ;
 - une portion de votre application n'est pas spécifique à son métier et gagnerait à devenir autonome ;
-- un composant pourrait être partagé et réutilisé dans un contexte Web ;
+- un composant pourrait être partagé et réutilisé dans un contexte web ;
 - un besoin de clarification des dépendances de votre application ainsi que de leur documentation ;
 - les chemins de vos appels à `require()` deviennent longs et compliqués.
 
@@ -1141,7 +1141,7 @@ Mais comment se retrouver dans cette jungle contenant plusieurs dizaines de mill
 
 ==== Chercher un module
 
-Le site Web du registre npm ([URL]#https://npmjs.org#) est _la_ ressource incontournable.
+Le site web du registre npm ([URL]#https://npmjs.org#) est _la_ ressource incontournable.
 Le site liste l'intégralité des modules récents, des modules populaires et des auteurs populaires.
 
 Les résultats sont triés en fonction de la correspondance avec l'expression recherchée … ce qui peut se révéler compliqué si vous cherchez avec les mauvais termes ou que vous ne connaissez pas le terme anglo-saxon adapté.
@@ -1445,7 +1445,7 @@ include::{sourceDir}/snippets/npm-mongoose.js[]
 
 ====== levelup
 
-_LevelDB_ est un système de base de données clé/valeur extrêmement modulaire, avec un stockage sur disque par défaut mais pouvant évoluer vers du stockage en mémoire … et dans un contexte de navigateur Web !
+_LevelDB_ est un système de base de données clé/valeur extrêmement modulaire, avec un stockage sur disque par défaut mais pouvant évoluer vers du stockage en mémoire … et dans un contexte de navigateur web !
 
 [URL]#https://npmjs.org/levelup#
 
@@ -1611,7 +1611,7 @@ Compatible Node et navigateurs Web. +
 include::{sourceDir}/snippets/npm-faye.js[]
 ----
 
-Ce serveur extrêmement minimaliste expose un point d'entrée qui peut être accédé via le client _Faye_, dans un navigateur Web ou via un autre script Node.
+Ce serveur extrêmement minimaliste expose un point d'entrée qui peut être accédé via le client _Faye_, dans un navigateur web ou via un autre script Node.
 
 Tout message émit par un client sera relayé auprès des autres clients connectés.
 Un mécanisme de canaux et d'authentification vous permettra de canaliser les messages en fonction des besoins de votre application.
@@ -2084,7 +2084,7 @@ Compatible Node et navigateurs Web. +
 ====== node-red
 
 _node-red_ est une interface visuelle de programmation d'objets connectés.
-Le module Node démarre un serveur Web dont l'interface a pour but de relier des sources de données, des interactions possibles ainsi que les objets devant recevoir les instructions.
+Le module Node démarre un serveur web dont l'interface a pour but de relier des sources de données, des interactions possibles ainsi que les objets devant recevoir les instructions.
 
 Compatible Node et navigateurs Web. +
 [URL]#https://npmjs.org/node-red#
@@ -2529,7 +2529,7 @@ Le concept des promesses (_promises_) est extrêmement puissant pour gérer, ord
 
 Historiquement, de nombreuses bibliothèques ont proposé leur propre implémentation du _pattern_ mais sans être réellement interopérables.
 La spécification _Promise/A+_ a émergé pour établir un standard de compatibilité.
-ECMAScript 6 introduit nativement cette API, la rendant alors disponible pour le Web ou pour Node, avec ou sans _polyfill_.
+ECMAScript 6 introduit nativement cette API, la rendant alors disponible pour le web ou pour Node, avec ou sans _polyfill_.
 
 Les cas d'utilisation des promesses sont multiples :
 

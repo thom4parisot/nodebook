@@ -40,23 +40,19 @@ La différence entre ces trois désignations peut sembler subtile, futile voire 
 
 *Exécuter du JavaScript côté serveur n'est pas non plus une révolution*.
 
-L'entreprise _Netscape_ s'y est déjà essayée au début des années 1990 avec _Netscape Enterprise Server_, juste après l'avoir introduit dans son navigateur Web _Netscape Navigator_.
+L'entreprise _Netscape_ s'y est déjà essayée au début des années 1990 avec _Netscape Enterprise Server_, juste après l'avoir introduit dans son navigateur web _Netscape Navigator_.
 
 En 1997, _Netscape_ s'est attelée à créer https://www.mozilla.org/rhino/[Rhino], une implémentation de JavaScript en Java disponible sous licence libre.
-_Rhino_ était un des projets liés à la réécriture de _Netscape Navigator_ en Java. Si _Netscape_ a depuis fermé ses portes, _Rhino_ a permis l'émergence de projets utiles aux développeurs Web.
-
-<!--
-Comme ?
--->
+_Rhino_ était un des projets liés à la réécriture de _Netscape Navigator_ en Java. Si _Netscape_ a depuis fermé ses portes, _Rhino_ a permis l'émergence de projets utiles aux développeurs web.
 
 D'autres initiatives plus récentes comme http://ape-project.org/[APE (Ajax Push Engine)] ont mis en œuvre JavaScript côté serveur. JavaScript était surtout un choix logique de partage de code entre client et serveur pour Comet, le précurseur des Websockets.
 
 [TIP]
 .[RemarquePreTitre]#Glossaire# Comet
 ====
-_Comet_ est un terme regroupant les différentes tentatives techniques permettant à un serveur Web d'envoyer des données à un client sans que celui-ci ne les ait demandées initialement.
+_Comet_ est un terme regroupant les différentes tentatives techniques permettant à un serveur web d'envoyer des données à un client sans que celui-ci ne les ait demandées initialement.
 
-Parmi ces techniques, on retrouve le _long polling_, consistant à conserver une connexion Ajax ouverte pendant la durée de vie d'une page Web.
+Parmi ces techniques, on retrouve le _long polling_, consistant à conserver une connexion Ajax ouverte pendant la durée de vie d'une page web.
 ====
 
 [TIP]
@@ -98,17 +94,17 @@ Pour comprendre comment Node a opté pour cette approche, retournons en 2009, lo
 En 2006, _Ryan Dahl_ est un étudiant américain en troisième année de doctorat de mathématiques.
 Si son but initial était de devenir professeur de mathématiques, il prend la décision de ne pas terminer sa thèse et d'entreprendre un voyage au Chili.
 
-Alors qu'il cherche à effectuer des petits boulots, il y rencontre une autre personne développant des sites Web.
+Alors qu'il cherche à effectuer des petits boulots, il y rencontre une autre personne développant des sites web.
 Ruby on Rails connaît un succès grandissant et attire son attention.
 Alors que Ryan envisageait d'utiliser Rails, il découvre avec horreur la lenteur du _framework_ et cherche à en découvrir les causes.
 
-Ryan débute alors sa *quête des applications Web performantes* et découvre _Mongrel_, un serveur HTTP écrit en Ruby.
+Ryan débute alors sa *quête des applications web performantes* et découvre _Mongrel_, un serveur HTTP écrit en Ruby.
 Il est séduit par deux choses :
 
 - la possibilité d'*inclure* un serveur HTTP comme librairie applicative ;
 - la simplicité de fonctionnement : recevoir une requête HTTP et décider soi-même de la réponse à apporter.
 
-La quête initiale se dirige alors sur la possibilité de créer *un serveur Web non bloquant*.
+La quête initiale se dirige alors sur la possibilité de créer *un serveur web non bloquant*.
 En d'autres termes, un serveur capable dans un même processus de traiter d'autres requêtes en attendant de renvoyer la réponse initiale.
 
 Nous sommes alors en 2008 et le site de partage de photos Flickr innove avec un nouveau système d'upload d'images.
@@ -131,7 +127,7 @@ L'équipe d'ingénierie de Flickr explique comment elle a contourné le problèm
 
 C'est le *déclic* pour Ryan : _Mongrel_ avait déjà un plug-in pour ça mais il fallait que ça soit encore plus simple pour le développeur.
 Il reproduit le mécanisme avec succès en C.
-Les développeurs Web jugeant la solution trop complexe, Ryan tente la même approche avec d'autres langages, comme Python, Lua ou même Haskell.
+Les développeurs web jugeant la solution trop complexe, Ryan tente la même approche avec d'autres langages, comme Python, Lua ou même Haskell.
 Il se heurte au sempiternel problème des ressources bloquantes des différents interpréteurs.
 
 Le deuxième *déclic* se produit en janvier 2009 lorsque _JavaScript_ émerge dans une discussion entre développeurs.
@@ -167,7 +163,7 @@ En 2009, la tension et l'attention autour de JavaScript sont énormes.
 La mode du tout _Ajax_ et des _mashups_ s'est estompée mais une chose en est ressortie : JavaScript n'a plus à rougir ni à être relégué au rang de sous-langage.
 Les initiatives JSLint, CommonJS et les _good parts_ de Douglas Crockford sont pour beaucoup dans la création de code élégant.
 
-D'un autre côté, les entreprises développant des navigateurs Web se livrent à une féroce compétition d'optimisation.
+D'un autre côté, les entreprises développant des navigateurs web se livrent à une féroce compétition d'optimisation.
 Google, Mozilla et Apple ont en effet besoin de navigateurs rapides pour améliorer leurs parts de marché sur les ordinateurs mais aussi les téléphones et tablettes.
 On peut considérer que JavaScript est à cette époque le langage de programmation bénéficiant du plus grand investissement financier et humain en R&D.
 
@@ -348,7 +344,7 @@ Cela concerne aussi bien la déclaration des vulnérabilités que leur résoluti
 .[RemarquePreTitre]#Module npm# retire.js
 ====
 _retire.js_ est un module npm permettant de scanner soi-même des vulnérabilités connues dans le code JavaScript de son choix.
-Il fonctionne aussi bien pour du JavaScript interprété par un navigateur Web que dans Node.
+Il fonctionne aussi bien pour du JavaScript interprété par un navigateur web que dans Node.
 
 - https://www.npmjs.com/package/retire
 ====
@@ -421,7 +417,7 @@ Ce code trivial en apparence masque en réalité des milliers de lignes de code 
 
 Le projet _CommonJS_ débute en janvier 2009.
 
-Pour les membres fondateurs, il était devenu évident que JavaScript allait évoluer dans d'autres environnements que les seuls navigateurs Web.
+Pour les membres fondateurs, il était devenu évident que JavaScript allait évoluer dans d'autres environnements que les seuls navigateurs web.
 Il fallait donc trouver un moyen de rendre le code interopérable sur les différentes plates-formes. +
 Les spécifications les plus notables sont _Console_ et _Module_.
 
@@ -513,7 +509,7 @@ Le parcourir permet de mieux comprendre la magie de son fonctionnement… ou d'a
 ==== Machine Virtuelle V8
 
 La machine virtuelle V8 est un compilateur JavaScript focalisé sur les performances et la sécurité.
-V8 a été créé par Google pour interpréter JavaScript dans son navigateur Web Chrome.
+V8 a été créé par Google pour interpréter JavaScript dans son navigateur web Chrome.
 
 Node utilise également V8 pour les mêmes raisons : parser, compiler et exécuter JavaScript.
 Le résultat de la compilation est retourné sous forme de fonctions et de ressources C++ manipulées par l'interpréteur Node.
@@ -553,7 +549,7 @@ Le code source de _libuv_ est disponible sur GitHub. Le parcourir permet de mieu
 ==== Boucle événementielle
 
 La boucle événementielle (_Event Loop_) est un mécanisme d'exécution des tâches apporté par _libuv_ et déléguée au système d'exploitation.
-Elle s'inspire très fortement du modèle de boucle événementielle telle qu'implémentée dans les navigateurs Web.
+Elle s'inspire très fortement du modèle de boucle événementielle telle qu'implémentée dans les navigateurs  web.
 
 C'est grâce à ce mécanisme que l'exécution d'une fonction peut être reportée à plus tard.
 C'est la fameuse _exécution asynchrone_.

@@ -35,7 +35,7 @@ Node simplifie tout, de la récupération des bibliothèques tierces à la compi
 
 === Gestion des dépendances
 
-Avant Node, l'obtention d'une bibliothèque se faisait en allant sur son site Web respectif puis en téléchargeant une archive avant de la décompresser dans votre répertoire de travail.
+Avant Node, l'obtention d'une bibliothèque se faisait en allant sur son site web respectif puis en téléchargeant une archive avant de la décompresser dans votre répertoire de travail.
 C'est sans compter sur les téléchargements sur-mesure dont il fallait mémoriser les options de mise à jour en mise à jour.
 
 Tout ceci appartient au passé grâce aux gestionnaires de paquets.
@@ -148,7 +148,7 @@ Derrière cette simplicité de prise en main, deux inconvénients se font ressen
 Autrement dit, les avantages de bower font les inconvénients de npm et vice-versa. +
 Démarrer par bower est probablement la solution la plus rapide pour élimiter l'acquisition manuelle des dépendances … mais les limites se feront sentir dès lors que les barrières entre _backend_ et _frontend_ se feront sentir.
 
-==== Exposer un composant Web avec Node
+==== Exposer un composant web avec Node
 
 Que vous utilisiez npm ou bower pour gérer vos dépendances, il peut arriver que vous ayiez besoin de les servir via HTTP.
 
@@ -265,7 +265,7 @@ Ces arguments sont documentés dans le répertoire `lib/rules` de la bibliothèq
 *csslint* ([URL]#https://npmjs.org/csslint#) est un outil de vérification syntaxique de feuilles de style CSS.
 Il a été créé par deux anciens ingénieurs de _Yahoo!_.
 Leurs anciens travaux dans le domaine de la performance ont influencé l'architecture et le choix des règles par défaut.
-Celles-ci peuvent d'ailleurs être étendues, moins aisément que pour *eslint* certes, mais suffisamment pour adapter l'outil aux besoins modernes, notamment ceux du Web mobile.
+Celles-ci peuvent d'ailleurs être étendues, moins aisément que pour *eslint* certes, mais suffisamment pour adapter l'outil aux besoins modernes, notamment ceux du web mobile.
 
 *csslint* fournit les mécanismes de vérification adéquats pour alerter de possibles effets de bord de _box model_, de déclaration incompatible de `@font-face`, de _vendor prefix_ dépréciés (voir plus loin la section _Optimisation du code_) ou encore de combinaisons de propriétés connues pour casser l'affichage dans certains navigateurs.
 
