@@ -1,9 +1,9 @@
-:nodeVersion: v0.12
-:nodeNextVersion: v0.13
-:es: ECMAScript 5
-:esNext: ECMAScript 6
+:nodeCurrentVersion: v4
+:nodeNextMajorVersion: v5
+:es: ECMAScript 2015
+:esNext: ECMAScript 2016
 :sourceDir: ./examples/src
-:revisionYear: 2014
+:revisionYear: 2015
 :imagesdir: {indir}
 ifdef::env[]
 :imagesdir: .
@@ -34,8 +34,8 @@ Si vous n'utilisez pas encore de terminal, voici une liste de recommandations no
 .Terminal iTerm2 sous OS X.
 image::images/terminal.png[align="center",scaledwidth="85%"]
 
-Tous les exemples de ce chapitre sont relatifs à la *branche {nodeVersion} de Node*. +
-Il se peut qu'une nouvelle branche stable soit sortie depuis l'édition de cet ouvrage, par exemple Node {nodeNextVersion}.
+Tous les exemples de ce chapitre sont relatifs à la *branche {nodeCurrentVersion} de Node*. +
+Il se peut qu'une nouvelle branche stable soit sortie depuis l'édition de cet ouvrage, par exemple Node {nodeNextMajorVersion}.
 Il suffit d'adapter les numéros de version adéquats dans les différents exemples fournis.
 
 === Préparer son environnement
@@ -69,7 +69,7 @@ Si malgré tout votre système n'y était pas listé, le mieux reste encore d'*u
 Les installateurs, les binaires et les sources de Node sont disponibles sur le site officiel [URL]#nodejs.org#. +
 Si vous vous sentez perdu(e), téléchargez l'installateur adapté, ouvrez un terminal et sautez quelques pages pour plonger dans l'utilisation de Node.
 
-- http://nodejs.org/download/
+- https://nodejs.org/download/
 ====
 
 ===== Linux
@@ -134,13 +134,16 @@ Il est communément abrégé en _nvm_.
 
 _nvm_ est l'équivalent de _rvm_ dans le monde Ruby, de _phpenv_ dans le monde PHP ou encore de _virtualenv_ pour Python.
 
-.Installation de _nvm_ et de Node {nodeVersion}.
+.Installation de _nvm_ et de Node {nodeCurrentVersion}.
 ----
-curl https://raw.github.com/creationix/nvm/v0.23.0/install.sh | sh
-nvm install 0.12
-nvm alias default 0.12   <1>
+curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.26.1/install.sh | bash
+nvm install v4
+nvm alias default v4   <1>
 ----
-<1> La version par défaut est désormais la dernière version stable de Node {nodeVersion}.
+<1> La version par défaut est désormais la dernière version stable de Node {nodeCurrentVersion}.
+
+.Liste des versions installées de Node.
+image::images/nvm-terminal.png[align="center",scaledwidth="85%"]
 
 Les instructions d'installation à jour se trouvent sur [URL]#https://github.com/creationix/nvm#.
 
@@ -175,7 +178,7 @@ Une image Docker aura la même recette d'installation même si celle-ci est exé
 Lancer un interpréteur Node _sans polluer_ le système hôte revient à exécuter l'image suivante :
 
 ----
-docker run -ti --rm node:0.12-slim
+docker run -ti --rm node:4-slim
 ----
 
 Nous nous nous repencherons sur Docker dans le link:../chapter-05/index.adoc[chapitre 5], dans la section _Déploiement_.
@@ -190,9 +193,10 @@ La procédure de compilation ressemble fortement à ceci :
 
 .Étapes de compilation de Node
 ----
-wget http://nodejs.org/dist/latest/node-v0.12.0.tar.gz
-tar -zxf node-v0.12.0.tar.gz
-cd node-v0.12.0
+curl -sS \
+  https://nodejs.org/dist/v4.1.1/node-v4.1.1.tar.gz \
+  | tar -zxf -
+cd node-v4.1.1
 ./configure && make && make install
 ----
 
@@ -235,18 +239,19 @@ image::images/webstorm.png[align="center",scaledwidth="85%"]
 L'éditeur de _WebStorm_, _JetBrains_, propose une licence gratuite sous réserve d'une contribution active à un projet open source.
 ====
 
-==== SublimeText
+==== Atom
+
+image::images/atom.png[align="center",scaledwidth="85%"]
+
+==== SublimeText 3
 
 TBD.
 
 - http://sublimecodeintel.github.io/SublimeCodeIntel/
 - https://sublime.wbond.net/search/node.js
-- http://www.sublimetext.com/
+- http://www.sublimetext.com/3
 
-[WARNING]
-====
-Rajouter une image similaire à Webstorm.
-====
+image::images/sublime-text3.png[align="center",scaledwidth="85%"]
 
 ==== Brackets
 
@@ -255,10 +260,7 @@ TBD.
 - http://brackets.io/
 - https://brackets-registry.aboutweb.com/
 
-[WARNING]
-====
-Rajouter une image similaire à Webstorm.
-====
+image::images/brackets.png[align="center",scaledwidth="85%"]
 
 ==== vim
 
@@ -334,26 +336,25 @@ Il s'agit d'une évolution majeure, dix ans après sa précédente édition, ECM
 
 ECMAScript 5 introduit le mode strict limitant fortement les effets de bord indésirables, de nouvelles fonctionnalités pour `Object` et `Array`, le support natif de _JSON_ et `Function.prototype.bind`.
 
-Un récapitulatif des fonctionnalités d'ECMAScript 5 est présenté  ci-après.
+- https://kangax.github.io/compat-table/es5/
+- [URL]#http://www.ecma-international.org/ecma-262/5.1/#
 
-[TIP]
-.[RemarquePreTitre]#Lien# Le futur d'ECMAScript : ES6.
-====
+==== Standard ECMA-262 Edition 2015
 
-_ES6_ est l'abréviation employée pour désigner ECMAScript 6.
-_Harmony_ est un des noms de code donné à cette future version d'ESCMAScript, avant que le numéro 6 ne devienne le numéro de version attribué à cette édition.
+La spécification *ECMAScript 2015* (_ES2015_) a été publiée en juin 2015 et succède à *ECMAScript 5*. +
+La spécification _ES2015_ a successivement été appelée _ECMAScript Harmony_ puis _ECMAScript 6_.
 
-Ce site référence l'état de l'implémentation d'ECMAScript 6 sur différentes plates-formes, dont Node :
+La page Web suivante référence l'état de l'implémentation d'ECMAScript 2015 sur différentes plates-formes, dont Node :
 
-- http://kangax.github.io/es5-compat-table/es6/#node
-- http://kangax.github.io/es5-compat-table/es6/#nodeharmony
-====
+- https://kangax.github.io/compat-table/es6/
+- [URL]#http://www.ecma-international.org/ecma-262/6.0/#
+
 
 ==== Rappel des primitives ECMAScript
 
 Un des conforts apporté par l'utilisation d'ECMAScript dans Node est qu'il n'y a pas à se soucier de la compatibilité navigateur : vous pouvez utiliser le meilleur de JavaScript !
 
-Ce résumé des primitives et fonctionnalités principales d'_ECMAScript 5_ a pour but de vous apprendre ou rappeler la syntaxe à disposition pour écrire des programmes pour Node.
+Ce résumé des primitives et fonctionnalités principales d'_ECMAScript_ a pour but de vous apprendre ou de vous rappeler des fonctionnalités du langage disponibles dans Node {nodeCurrentVersion}.
 
 ===== String
 
@@ -540,17 +541,26 @@ La méthode `join` permet de concaténer tous les éléments d'un tableau avec l
 ----
 <1> Retourne `'1, 2, 3… soleil'`.
 
-À l'inverse, la méthode `concat` permet de concaténer d'autres éléments dans le tableau courant :
+À l'inverse, la méthode `from` prend en charge la création de tableau à partir d'_itérables_ ou de structures similaires à des tableaux, comme `arguments` ou `NodeList` (dans un navigateur).
+
+[source,javascript]
+.primivite-array-from.js (avec l'option `--harmony`)
+----
+include::{sourceDir}/primitives-array-from.js[]
+----
+<1> Retourne `[ 'c', 'a', 'm', 'e', 'm', 'b', 'e', 'r', 't' ] ;
+<2> Retourne `[ 1, 'b', 3, 'd' ]` ;
+<3> Retourne `[ 1, 'b', 3, 'd' ]`.
+
+En complément, la méthode `concat` permet de concaténer d'autres éléments :
 
 [source,javascript]
 ----
-[1, 2].concat(3); <1>
-[1, 2].concat([3, 4]); <2>
-[1, 2].concat([3, 4], [5, 6]); <3>
+include::{sourceDir}/primitives-array-concat.js[]
 ----
-<1> Retourne `[1, 2, 3]` ;
-<2> Retourne `[1, 2, 3, 4]` ;
-<3> Retourne `[1, 2, 3, 4, 5, 6]`.
+<1> Retourne `[ 1, 2, 3 ]` ;
+<2> Retourne `[ 1, 2, 3, 4 ]` ;
+<3> Retourne `[ 1, 2, 3, 4, 4, 5 ]` — cf. <<primitive-set,Set>>.
 
 La fonction de tri via la méthode `sort` se base sur des comparaisons positives, négatives ou neutres pour retourner un nouveau tableau, réindexé :
 
@@ -651,135 +661,17 @@ a.forEach(print); <2>
 <2> Affiche 4 valeurs : `1`, `3`, `undefined` puis `null`.
 ====
 
-===== Object
+[[primitive-set]]
+===== Set
 
-Dans ECMAScript, tout est objet. C'est le _prototype_ qui détermine le comportement dudit objet.
-Les objets peuvent être créés de manière littérale, avec la fonction `Object.create` ou via un constructeur.
-
-[source,javascript]
-----
-var litteral = { literally: 'lateral' };
-var litteralCopy = litteral;
-var constructed = new Date();
-var objectCreated = Object.create(litteral);
-
-litteral.literally; <1>
-objectCreated.literally; <2>
-litteral === litteralCopy; <3>
-litteral === objectCreated; <4>
-----
-<1> Retourne `'lateral'` ;
-<2> Retourne également `'lateral'` ;
-<3> Retourne `true`, les deux objets étant la même instance ;
-<4> Retourne `false`, les deux objets étant deux instances différentes.
-
-L'opérateur `typeof` permet d'identifier un objet. Le problème est que cet opérateur englobe davantage de types qu'espéré : dates, tableaux et expressions régulières, entre autres.
-
-L'idéal est encore d'utiliser l'opérateur `instanceof` ou la méthode `getPrototypeOf` pour valider le prototype à l'origine de la création de l'objet :
-
-[source,javascript]
-----
-var Book = function Book(title){
-  this.title = title;
-};
-
-var nodeBook = new Book('Node.js');
-typeof nodeBook; <1>
-nodeBook instanceof Book; <2>
-Object.getPrototypeOf(nodeBook) === Book.prototype; <2>
-----
-<1> Retourne `object` ;
-<2> Retourne `true`.
-
-La méthode `defineProperty` permet de définir des comportements simples ou avancés sur n'importe quel type d'objet, y compris les prototypes :
-
-[source,javascript]
-----
-var Book = function Book(title){
-  this.title = title;
-  this.GS1;
-  this.ISBN;
-}
-
-Object.defineProperty(Book.prototype, 'EAN13', {
-  get: function(){
-    return this.GS1 + '-' + this.ISBN;
-  },
-  set: function(EAN13){
-    EAN13 = EAN13.split('-');
-    this.GS1 = EAN13[0];
-    this.ISBN = EAN13[1];
-  }
-});
-
-var cssBook = new Book('CSS maintenables');
-cssBook.EAN13 = '978-2212136401';
-
-cssBook.GS1; <1>
-cssBook.ISBN; <2>
-cssBook.EAN13; <3>
-----
-<1> Retourne `'978'`;
-<2> Retourne `'2212136401'` ;
-<3> Retourne `'978-2212136401'`.
-
-ECMAScript 5 permet de définir directement ces propriétés dans la déclaration du `prototype` :
-
-[source,javascript]
-----
-var Book = function Book(title){
-  this.title = title;
-  this.GS1;
-  this.ISBN;
-}
-
-Book.prototype = {
-  get EAN13(){
-    return this.GS1 + '-' + this.ISBN;
-  },
-  set EAN13(value){
-    value = value.split('-');
-    this.GS1 = value[0];
-    this.ISBN = value[1];
-  }
-};
-----
-
-Il est également plus facile d'itérer sur un objet grâce à la fonction `Object.keys` :
-
-[source,javascript]
-----
-var company = {
-  name: 'Eyrolles',
-  address: '55, 57, 61 et 63 boulevard Saint-Germain, 75005, Paris, FRANCE',
-  twitter: '@Eyrolles'
-};
-
-Object.keys(company); <1>
-Object.keys(company).forEach(function(key){
-  console.log(company[key]); <2>
-});
-----
-<1> Retourne `['name', 'address', 'twitter']` ;
-<2> Affiche successivement les _valeurs associées_ aux clés `name`, `address` puis `twitter`.
-
-Il est également possible de surcharger la méthode `toString` d'un objet pour contrôler la conversion de l'objet en chaîne de caractères. +
-En reprenant l'exemple précédent :
-
-[source,javascript]
-----
-String(company); <1>
-
-company.toString = function(){
-  return this.name;
-};
-
-String(company); <2>
-----
-<1> Retourne `[object Object]` ;
-<2> Retourne désormais la valeur de la propriété `name`, ici `'Eyrolles'`.
+TBD.
 
 ===== Function
+
+[WARNING]
+====
+Partie en cours de réécriture pour refléter les évolutions d'ES2015 — notamment les _arrow functions_.
+====
 
 Les fonctions permettent d'isoler des portions de code et de les rendre réutilisables.
 
@@ -853,6 +745,105 @@ wrap.call(null, '<', '>', 'title'); <1>
 wrap.apply(null, ['<', '>', 'title']); <1>
 ----
 <1> Retourne `'<title>'`.
+
+
+===== Object
+
+[WARNING]
+====
+Partie en cours de réécriture pour refléter les évolutions d'ES2015 — notamment `Object.assign` et _destructuring_.
+====
+
+Dans ECMAScript, tout est objet. C'est le _prototype_ qui détermine le comportement dudit objet.
+Les objets peuvent être créés de manière littérale, avec la fonction `Object.create` ou via un constructeur.
+
+[source,javascript]
+----
+var litteral = { literally: 'lateral' };
+var litteralCopy = litteral;
+var constructed = new Date();
+var objectCreated = Object.create(litteral);
+
+litteral.literally; <1>
+objectCreated.literally; <2>
+litteral === litteralCopy; <3>
+litteral === objectCreated; <4>
+----
+<1> Retourne `'lateral'` ;
+<2> Retourne également `'lateral'` ;
+<3> Retourne `true`, les deux objets étant la même instance ;
+<4> Retourne `false`, les deux objets étant deux instances différentes.
+
+L'opérateur `typeof` permet d'identifier un objet. Le problème est que cet opérateur englobe davantage de types qu'espéré : dates, tableaux et expressions régulières, entre autres.
+
+===== Class
+
+[WARNING]
+====
+Partie en cours de réécriture pour refléter les évolutions d'ES2015.
+====
+
+L'idéal est encore d'utiliser l'opérateur `instanceof` ou la méthode `getPrototypeOf` pour valider le prototype à l'origine de la création de l'objet :
+
+[source,javascript]
+.primitives-class-constructor.js
+----
+include::{sourceDir}/primitives-class-constructor.js[]
+----
+<1> Retourne `object` ;
+<2> Retourne `true`.
+
+La méthode `defineProperty` permet de définir des comportements simples ou avancés sur n'importe quel type d'objet, y compris les prototypes :
+
+ECMAScript permet de définir des accesseurs sur les propriétés de votre choix ; dans l'exemple suivant, la propriété `EAN13` :
+
+[source,javascript]
+.primitives-class-accessors.js
+----
+include::{sourceDir}/primitives-class-accessors.js[]
+----
+<1> Retourne `'978'`;
+<2> Retourne `'2212136401'` ;
+<3> Retourne `'978-2212136401'`.
+
+
+Il est également plus facile d'itérer sur un objet grâce à la fonction `Object.keys` :
+
+[source,javascript]
+----
+var company = {
+  name: 'Eyrolles',
+  address: '55, 57, 61 et 63 boulevard Saint-Germain, 75005, Paris, FRANCE',
+  twitter: '@Eyrolles'
+};
+
+Object.keys(company); <1>
+Object.keys(company).forEach(function(key){
+  console.log(company[key]); <2>
+});
+----
+<1> Retourne `['name', 'address', 'twitter']` ;
+<2> Affiche successivement les _valeurs associées_ aux clés `name`, `address` puis `twitter`.
+
+Il est également possible de surcharger la méthode `toString` d'un objet pour contrôler la conversion de l'objet en chaîne de caractères. +
+En reprenant l'exemple précédent :
+
+[source,javascript]
+----
+String(company); <1>
+
+company.toString = function(){
+  return this.name;
+};
+
+String(company); <2>
+----
+<1> Retourne `[object Object]` ;
+<2> Retourne désormais la valeur de la propriété `name`, ici `'Eyrolles'`.
+
+===== Map
+
+TBD.
 
 ===== RegExp
 
@@ -1022,7 +1013,7 @@ Trace: Level 5
     at Function.Module._load (module.js:312:12)
 ----
 
-Pour en savoir plus sur les méthodes et fonctions disponibles, reportez-vous à la documentation en ligne du module `console` sur [URL]#http://nodejs.org/api/console.html#.
+Pour en savoir plus sur les méthodes et fonctions disponibles, reportez-vous à la documentation en ligne du module `console` sur [URL]#https://nodejs.org/api/console.html#.
 
 ===== process
 
@@ -1092,7 +1083,7 @@ node interrupt.js 3 <1>
 
 Enfin nous pourrions parler de `process.nextTick()` mais nous développerons davantage cette méthode dans _Comprendre les accès non bloquants_.
 
-Pour en savoir plus sur les méthodes et fonctions disponibles, reportez-vous à la documentation en ligne du module `process` sur [URL]#http://nodejs.org/api/process.html#.
+Pour en savoir plus sur les méthodes et fonctions disponibles, reportez-vous à la documentation en ligne du module `process` sur [URL]#https://nodejs.org/api/process.html#.
 
 ===== module
 
@@ -1153,7 +1144,7 @@ Voici un extrait du fichier `package.json` du module `lodash` :
 Ainsi, exécuter `require('lodash');` revient à peu près à faire `require('./node_modules/lodash/dist/lodash.js');`.
 ====
 
-Pour en savoir plus sur les méthodes et fonctions disponibles, reportez-vous à la documentation en ligne des modules sur [URL]#http://nodejs.org/api/modules.html#.
+Pour en savoir plus sur les méthodes et fonctions disponibles, reportez-vous à la documentation en ligne des modules sur [URL]#https://nodejs.org/api/modules.html#.
 
 ===== require
 
@@ -1258,7 +1249,7 @@ catch (err) {
 ----
 <1> L'exécution de ce module affichera `L'erreur est la suivante : Cannot find module './module-inexistant.js'`.
 
-Pour en savoir plus sur le fonctionnement de la fonction `require`, reportez-vous à la documentation en ligne des modules sur [URL]#http://nodejs.org/api/modules.html#.
+Pour en savoir plus sur le fonctionnement de la fonction `require`, reportez-vous à la documentation en ligne des modules sur [URL]#https://nodejs.org/api/modules.html#.
 
 ===== \__filename et __dirname
 
@@ -1298,7 +1289,7 @@ setImmediate(print('immediate'));
 <2> … suivi de `timeout` environ 200ms plus tard… ;
 <3> … puis `interval` environ 50ms plus tard, et ce, toutes les 250ms tant que le programme ne sera pas arrêté ou que `clearTimeout` n'annule pas l'intervalle.
 
-Pour en savoir plus sur les méthodes et fonctions disponibles, reportez-vous à la documentation en ligne du module `timers` sur [URL]#http://nodejs.org/api/timers.html#.
+Pour en savoir plus sur les méthodes et fonctions disponibles, reportez-vous à la documentation en ligne du module `timers` sur [URL]#https://nodejs.org/api/timers.html#.
 
 ===== _
 
@@ -1337,7 +1328,7 @@ On pourrait penser à un programme en ligne de commande éducatif ou encore à u
 image::images/node-repl.png[align="center",scaledwidth="85%"]
 
 Le _REPL_ lui-même est écrit en ECMAScript.
-Il est disponible dans le module Node natif `repl` dont la documentation est disponible à l'adresse suivante : [URL]#http://nodejs.org/api/repl.html#.
+Il est disponible dans le module Node natif `repl` dont la documentation est disponible à l'adresse suivante : [URL]#https://nodejs.org/api/repl.html#.
 
 ==== Exécution de script
 
