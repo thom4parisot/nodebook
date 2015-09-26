@@ -1,4 +1,4 @@
-:nodeVersion: v0.12
+:nodeCurrentVersion: v4
 :revisionYear: 2015
 :sourceDir: ./examples/src
 :imagesdir: {indir}
@@ -365,7 +365,7 @@ Cette méthode permet d'élargir les perspectives de la compression via de la r�
 - injection en ligne du contenu de variables.
 
 *UglifyJS* s'utilise de manière autonome, en ligne de commande ou via son API ECMAScript, mais aussi par le biais de plugins grunt, gulp et browserify (uglifyify et minifyify). +
-Un exemple plus concret est abordé dans la section _Automatisation des tâches avec Grunt_.
+Un exemple plus concret est abordé dans la section <<automatisation-gulp,Automatisation des tâches avec Gulp>>.
 
 ==== Optimisation du code
 
@@ -443,7 +443,9 @@ _csso_ ira jusqu'à réécrire les codes couleurs, les `margin` et `padding` et 
 - watcher
 - livereload
 
-=== Automatisation des tâches avec Grunt
+anchor:automatisation-gulp[]
+
+=== Automatisation des tâches avec Gulp
 
 ==== Configuration des tâches
 
@@ -453,11 +455,6 @@ _csso_ ira jusqu'à réécrire les codes couleurs, les `margin` et `padding` et 
 - par target
 - tâches personnalisées
 - arguments
-
-==== Optimisation du temps de traitement
-
-- grunt-newer
-- grunt-lazyload
 
 === Vers un code isomorphique et modulaire
 
@@ -472,7 +469,7 @@ _csso_ ira jusqu'à réécrire les codes couleurs, les `margin` et `padding` et 
 
 ==== Webpack
 
-==== ender
+==== brunch.io
 
 === Tester la compatibilité navigateur
 
@@ -481,9 +478,5 @@ _csso_ ira jusqu'à réécrire les codes couleurs, les `margin` et `padding` et 
 ==== SauceLabs
 
 ==== BrowserStack
-
-==== Testling
-
-==== Apium
 
 === Conclusion
