@@ -1,4 +1,4 @@
-:nodeVersion: v0.12
+:nodeCurrentVersion: v4
 :revisionYear: 2015
 :imagesdir: {indir}
 ifdef::env[]
@@ -242,6 +242,8 @@ Elle se spécialise dans les solutions dites temps réel pour les réseaux socia
 
 En avril 2011, Joyent enregistre _Node.js_ et son logo en tant que marque déposée.
 
+En février 2015, Joyent transfère la gestion de Node à la <<node-foundation,Node.js Foundation>>.
+
 [TIP]
 .[RemarquePreTitre]#Lien# Annonce du dépôt de marque
 ====
@@ -249,6 +251,12 @@ Ryan Dahl, alors développeur actif de Node, annonce le dépôt de marque par l'
 
 - http://blog.nodejs.org/2011/04/29/trademark/
 ====
+
+anchor:node-foundation[]
+
+==== Node.js Foundation
+
+TBD.
 
 ==== npm
 
@@ -281,6 +289,11 @@ La société _npm, Inc_ détient la marque _npm_, _npm, Inc_ et le _logo npm_.
 
 ==== io.js
 
+[CAUTION]
+====
+Mettre à jour cette partie.
+====
+
 _io.js_ est un _fork_ communautaire de Node.
 
 Les objectifs du projet _io.js_ sont doubles :
@@ -291,6 +304,11 @@ Les objectifs du projet _io.js_ sont doubles :
 Idéalement, _io.js_ souhaite reverser les fruits de son travail à la plateforme Node mais en février 2015, les rapports entre Joyent et _io.js_ sont obscurs.
 
 ==== Nodejitsu
+
+[CAUTION]
+====
+Mettre à jour cette partie.
+====
 
 _Nodejitsu_ est une entreprise privée américaine fondée en 2010.
 Elle vise à fournir des solutions professionnelles autour de Node en tant que _Platform as a Service_ (_Paas_) ainsi qu'avec des dépôts _npm_ privés.
@@ -332,10 +350,15 @@ Cela concerne aussi bien la déclaration des vulnérabilités que leur résoluti
 _retire.js_ est un module npm permettant de scanner soi-même des vulnérabilités connues dans le code JavaScript de son choix.
 Il fonctionne aussi bien pour du JavaScript interprété par un navigateur web que dans Node.
 
-- https://www.npmjs.com/package/retire
+- https://npmjs.com/retire
 ====
 
 ==== Qui gère Node.js ?
+
+[CAUTION]
+====
+Mettre à jour cette partie, notamment en regard de <<node-foundation,Node.js Foundation>>.
+====
 
 Les pages précédentes font état de nombreux acteurs privés.
 
@@ -371,10 +394,8 @@ L'architecture se décompose en plusieurs couches, partant du plus haut niveau (
 4. _libuv_
 5. Système d'exploitation
 
-[CAUTION]
-====
-Mettre un joli graph à cet endroit.
-====
+.Via https://twitter.com/busyrich/status/496344440559378432
+image::images/event-loop.svg[align="center", link="https://twitter.com/busyrich/status/496344440559378432",scaledwidth="85%"]
 
 ==== API Node
 
@@ -408,6 +429,7 @@ Il fallait donc trouver un moyen de rendre le code interopérable sur les diffé
 Les spécifications les plus notables sont _Console_ et _Module_.
 
 La spécification _Module_ définit entre autres :
+
 - la syntaxe de déclaration d'un module ;
 - le procédé de chargement d'un module ;
 - l'algorithme de résolution d'un module au sein d'un arbre de dépendance.
@@ -438,7 +460,7 @@ increment();    // <2>
 <1> retourne `1`
 <2> retourne `2`
 
-Le fonctionnement technique des modules est décrit plus en détail dans le _Chapitre 2 : Premiers pas avec Node_.
+Le fonctionnement technique des modules est décrit plus en détail dans le <<../chapter-02/index.adoc#,Chapitre 2 : Premiers pas avec Node>>.
 
 L'essentiel est d'en retenir que Node se base sur ce mécanisme de chargement de module.
 *Et ces modules sont une des forces principales de Node*.
@@ -468,9 +490,9 @@ console.log(now.toString());
 ----
 
 ----
-node print-date.js
--> Fri Apr 04 2014 20:26:46 GMT+0100 (BST)
+node print-date.js // <1>
 ----
+<1> Affiche `Fri Apr 04 2014 20:26:46 GMT+0100 (BST)`.
 
 Dans cet exemple, l'interpréteur Node lit le contenu du fichier `print-date.js`, exécute les deux instructions et s'arrête dès que les deux instructions sont terminées.
 
@@ -578,6 +600,7 @@ _Loupe_ est un visualisateur de boucle évènementielle.
 Écrivez du code et il animera visuellement l'orchestration de la pile d'appels, les appels aux API du navigateur ainsi que la pile de callbacks.
 
 - [URL]#http://latentflip.com/loupe/#
+- [URL]#https://github.com/latentflip/loupe#
 ====
 
 Alors pourquoi dit-on que _libuv_ est non bloquant ?
@@ -614,56 +637,6 @@ Il n'aura fallu que deux ans pour que Node devienne vraiment stable et utilisabl
 
 Essayons de comprendre pourquoi.
 
-==== Node et son API
-
-La vitesse et la croissance sont des facteurs propices à l'immaturité et à l'instabilité.
-
-*Une nouvelle version majeure de Node sort chaque année*, environ.
-Depuis la version `0.8`, l'équipe de développement met un point d'honneur à suivre les deux principes suivants :
-
-- laisser mûrir le plus de temps possible la branche de développement de Node ;
-- limiter le nombre de nouveautés de chaque version majeure.
-
-Le but et la conséquence de ce choix sont de garantir au maximum le fonctionnement du code et des modules qui en dépendent à chaque montée de version de Node.
-
-Node suit le mode de numérotation de version pair/impair :
-
-- les versions `0.8.x`, `0.10.x`, `0.12.x` représentent les évolutions stables de Node ;
-- les versions `0.7.x`, `0.9.x`, `0.11.x` représentent les branches de développement qui deviendront les futures branches stables.
-
-Ainsi, la version `0.9.12` est devenue la version `0.10.0` une fois jugée suffisamment stable et aboutie.
-
-Sur le plan interne, Node indique une indice de stabilité pour chacune de ses API sur une échelle de 0 à 5 :
-
-- 0 : le module est *déprécié* et ne devrait être utilisé qu'en toute connaissance de cause ;
-- 1 : le module est *expérimental*, instable et nécessite des retours utilisateur ;
-- 2 : le module est *instable* et nécessite davantage de tests grandeur nature avant d'être considéré comme stable ;
-- 3 : le module est *stable* mais peut être sujet à des changements mineurs d'API ;
-- 4 : le module est *gelé*, son API ne devrait plus du tout changer ;
-- 5 : le module est *verrouillé*, son code interne ne changera plus.
-
-Ce mécanisme aide au choix des composants pour bâtir des applications robustes ainsi qu'une estimation de l'effort de maintenance en cas de changement majeur à venir.
-
-[TIP]
-.[RemarquePreTitre]#Lien# Documentation de l'API Node
-====
-La documentation de l'API Node est disponible au format HTML sur le site officiel du projet.
-
-- http://nodejs.org/api/
-====
-
-==== Modules npm
-
-*Node baigne dans la philosophie UNIX* : le mécanisme de modules incite à suivre le principe de responsabilité unique et de séparation des principes.
-
-Cette philosophie encourage la création de petits modules plutôt que de gros monolithes difficilement configurables.
-
-Il est possible de publier des modules dans le registre se basant sur d'autres modules tiers.
-Ils n'ont pas à avoir connaissance de leur statut de dépendance : ils doivent juste être responsables de leur numérotation de version pour éviter les problèmes de compatibilité.
-
-Pour garantir au maximum la stabilité des dépendances, le _versioning sémantique_ aka _semver_ a fait son apparition.
-Il explicite l'algorithme employé par _npm_ lors du processus d'installation et de mise à jour.
-
 ==== Versioning sémantique
 
 Le versioning sémantique explicite deux choses importantes :
@@ -688,8 +661,63 @@ Nous verrons ultérieurement comment _effectivement_ gérer des dépendances _np
 La spécification _semver_ est disponible sous forme textuelle mais également en tant que module npm.
 
 - http://semver.org/lang/fr/
-- https://www.npmjs.com/package/semver
+- https://npmjs.com/semver
 =====
+
+==== Node et son API
+
+[CAUTION]
+====
+Ceci est moins vrai depuis la v4 — idem pour les numéros de version.
+====
+
+La vitesse et la croissance sont des facteurs propices à l'immaturité et à l'instabilité.
+
+*Une nouvelle version majeure de Node sort chaque année*, environ.
+Depuis la version `0.8`, l'équipe de développement met un point d'honneur à suivre les deux principes suivants :
+
+- laisser mûrir le plus de temps possible la branche de développement de Node ;
+- limiter le nombre de nouveautés de chaque version majeure.
+
+Le but et la conséquence de ce choix sont de garantir au maximum le fonctionnement du code et des modules qui en dépendent à chaque montée de version de Node.
+
+Node suit le mode de numérotation de version pair/impair :
+
+- les versions `0.8.x`, `0.10.x`, `4.x` représentent les évolutions stables de Node ;
+- les versions `0.7.x`, `0.9.x`, `3.1.x` représentent les branches de développement qui deviendront les futures branches stables.
+
+Ainsi, la version `0.9.12` est devenue la version `0.10.0` une fois jugée suffisamment stable et aboutie.
+
+Sur le plan interne, Node indique une indice de stabilité pour chacune de ses API sur une échelle de 0 à 5 :
+
+- 0 : le module est *déprécié* et ne devrait être utilisé qu'en toute connaissance de cause ;
+- 1 : le module est *expérimental*, instable et nécessite des retours utilisateur ;
+- 2 : le module est *instable* et nécessite davantage de tests grandeur nature avant d'être considéré comme stable ;
+- 3 : le module est *stable* mais peut être sujet à des changements mineurs d'API ;
+- 4 : le module est *gelé*, son API ne devrait plus du tout changer ;
+- 5 : le module est *verrouillé*, son code interne ne changera plus.
+
+Ce mécanisme aide au choix des composants pour bâtir des applications robustes ainsi qu'une estimation de l'effort de maintenance en cas de changement majeur à venir.
+
+[TIP]
+.[RemarquePreTitre]#Lien# Documentation de l'API Node
+====
+La documentation de l'API Node est disponible au format HTML sur le site officiel du projet.
+
+- https://nodejs.org/api/
+====
+
+==== Modules npm
+
+*Node baigne dans la philosophie UNIX* : le mécanisme de modules incite à suivre le principe de responsabilité unique et de séparation des principes.
+
+Cette philosophie encourage la création de petits modules plutôt que de gros monolithes difficilement configurables.
+
+Il est possible de publier des modules dans le registre se basant sur d'autres modules tiers.
+Ils n'ont pas à avoir connaissance de leur statut de dépendance : ils doivent juste être responsables de leur numérotation de version pour éviter les problèmes de compatibilité.
+
+Pour garantir au maximum la stabilité des dépendances, le _versioning sémantique_ aka _semver_ a fait son apparition.
+Il explicite l'algorithme employé par _npm_ lors du processus d'installation et de mise à jour.
 
 === Conclusion
 
