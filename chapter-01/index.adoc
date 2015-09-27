@@ -229,6 +229,7 @@ En {revisionYear}, Node est essentiellement le fruit de contributions d'entrepri
 On remarque une absence de gestion par une fondation ou organisation à but non-lucratif comme cela peut être le cas pour d'autres langages comme PHP ou Perl.
 On se rapproche davantage d'un modèle comme Ruby où l'auteur du langage est employé par Heroku, une compagnie d'hébergement _Platform as a Service_… comme Joyent.
 
+[[joyent]]
 ==== Joyent
 
 Joyent est une entreprise américaine fondée en 2004.
@@ -254,9 +255,15 @@ Ryan Dahl, alors développeur actif de Node, annonce le dépôt de marque par l'
 
 anchor:node-foundation[]
 
+[[node-foundation]]
 ==== Node.js Foundation
 
-TBD.
+La _Node.js Foundation_ est l'organe de gouvernance officiel du projet Node depuis juin 2015.
+Il s'agit d'une
+
+La fondation a opéré la fusion entre la base de code de _Node_ et d'<<iojs,io.js>> 
+
+La société _Joyent_ reste propriétaire de la marque _Node.js_ et de son logo.
 
 ==== npm
 
@@ -279,47 +286,46 @@ Auparavant il fallait installer le module _npm_ séparément.
 - http://blog.nodejs.org/2011/11/25/node-v0-6-3/
 ====
 
+[[npm-inc]]
 ==== npm, Inc.
 
 Isaacs Schlueter a été embauché par Joyent en septembre 2010 et a succédé à Ryan Dahl dans la gestion du projet Node de janvier 2012 jusqu’à janvier 2014.
 
 _npm, Inc_ est une entreprise privée américaine fondée en janvier 2014 par Isaacs Schlueter, directement après son départ de Joyent. Le but de _npm, Inc_ est fournir des solutions professionnelles basées sur _npm_ tout en soutenant l’effort open source et les coûts d’infrastructure du registre _npm_.
 
+Elle lève 2,6 millions de dollars en février 2014 pour mettre en place une nouvelle architecture du registre _npm_ ainsi que pour  mettre en place une stratégie commerciale, notamment les modules privés.
+
 La société _npm, Inc_ détient la marque _npm_, _npm, Inc_ et le _logo npm_.
 
+[[iojs]]
 ==== io.js
 
-[CAUTION]
-====
-Mettre à jour cette partie.
-====
+_io.js_ est un _fork_ de Node initié par la communauté Node en réaction à la main-mise de Jouent sur le développement et la communication erratique de la plate-forme.
 
-_io.js_ est un _fork_ communautaire de Node.
+Les objectifs initiaux du projet _io.js_ sont doubles :
 
-Les objectifs du projet _io.js_ sont doubles :
+- offrir à la communauté Node une gestion de la plate-forme  transparente, inclusive et ouverte ;
+- fournir une plate-forme technique plus moderne, une version de v8 plus récente ainsi qu'une intégration rapide des nouvelles fonctionnalités ECMAScript.
 
-- offrir à la communauté Node une gestion de la plateforme davantage transparente, inclusive et ouverte ;
-- fournir une plateforme technique plus moderne, une version de v8 plus récente ainsi qu'une inclusion et un suivi du langage ECMAScript plus rapide.
+Les efforts du projet et de sa communauté ont abouti à la création de la <<node-foundation,Node.js Foundation>> et du <<governance,Node.js Advisory Board>>, respectivement l'organe de gestion du projet et le groupe d'individus en charge de la gestion du projet Node.
 
-Idéalement, _io.js_ souhaite reverser les fruits de son travail à la plateforme Node mais en février 2015, les rapports entre Joyent et _io.js_ sont obscurs.
+Le projet _io.js_ continue sur la même lancée mais contribue désormais directement dans la base de code de Node au lieu du _fork_ initial.
 
 ==== Nodejitsu
 
-[CAUTION]
-====
-Mettre à jour cette partie.
-====
-
 _Nodejitsu_ est une entreprise privée américaine fondée en 2010.
-Elle vise à fournir des solutions professionnelles autour de Node en tant que _Platform as a Service_ (_Paas_) ainsi qu'avec des dépôts _npm_ privés.
+Elle vise à fournir des solutions professionnelles autour de Node en tant que _Platform as a Service_ (_Paas_) ainsi qu'avec des dépôts _npm_ privés. +  
+Son activité en fait un concurrent direct de <<joyent,Joyent>> et de <<npm-inc,npm, Inc..>>.
 
-_Nodejitsu_ démontre un investissement fort dans la communauté Node en contribuant et maintenant plusieurs centaines de modules. +
-L'entreprise a pris en charge l'hébergement de la base de données du registre _npm_ de 2010 jusqu'en décembre 2013.
+_Nodejitsu_ démontre un investissement fort dans la communauté Node en contribuant plusieurs centaines de modules et en prenant en charge l'hébergement du registre _npm_ de 2010 jusqu'en décembre 2013.
 
-En 2013, _Nodejitsu_ lance l'initiative _#scalenpm_ visant à collecter des fonds pour améliorer la performance et la stabilité du registre https://www.npmjs.com/[npmjs.com].
+En 2013, _Nodejitsu_ lance l'initiative _#scalenpm_ visant à collecter des fonds pour améliorer la performance et la stabilité du registre https://www.npmjs.com/[npmjs.com]. +
+Elle attise les tensions avec la compagnie _npm, Inc._ en tentant de lui coupant l'herbe sous le pied, sans succès.
+
+En février 2015, la compagnie de vente de noms de domaine et d'hébergement _GoDaddy_ rachète _Nodejitsu_, absorbe son équipe et met fin à ses activités commerciales.
 
 [TIP]
-.[RemarquePreTitre]#Lien# _#scalenpm_
+.[RemarquePreTitre]#Lien# La controverse _#scalenpm_
 ====
 L'initiative _#scalenpm_ a réuni quelques 326 000 $ auprès d'entreprises privées et de la communauté Node.
 
@@ -353,32 +359,26 @@ Il fonctionne aussi bien pour du JavaScript interprété par un navigateur web q
 - https://npmjs.com/retire
 ====
 
+[[governance]]
 ==== Qui gère Node.js ?
 
-[CAUTION]
-====
-Mettre à jour cette partie, notamment en regard de <<node-foundation,Node.js Foundation>>.
-====
+Joyent est une entreprise privée qui a été responsable de Node depuis l'embauche de son créateur — Ryan Dahl —.
+Cette gérance privée du projet Open Source a régulièrement fait grincer des dents, notamment en entretenant un climat d'incertitude sur la pérennité à long terme de la plate-forme.
 
-Les pages précédentes font état de nombreux acteurs privés.
+Certaines voix se sont élevées pour critiquer l'absence d'une organisation ouverte, commercialement neutre et ouverte aux contributeurs externes. +
+C'est ce qui a poussé <<iojs,io.js>> a créer un _fork_ de Node, entre autre.
 
-Certaines voix se sont élevées pour critiquer l'absence d'une fondation chapeautant Node et son écosystème. +
-D'autres arguent qu'il n'y a pas besoin de fondation car les avancées de Node sont l'œuvre de sa propre communauté.
+La gérance du projet est garantie par un organisme commercialement neutre, la <<node-foundation,Node.js Foundation>> depuis juin 2015.
 
-La vérité se situe entre les deux.
+L'écosystème de modules _npm_ est quant à lui hébergé sur _npmjs.com_.
+Il sont gratuitement mis à disposition et chaque module est soumis à sa propre license Open Source (MIT, Apache 2 etc.).
 
-La plate-forme Node est régie par la _licence MIT_. De ce fait, toute personne peut contribuer ou baser un logiciel (y compris propriétaire) sur Node.
-Toute utilisation de la marque « Node.js » dans un cadre de service professionnel payant est en revanche soumise à une acceptation écrite de la part de Joyent.
+On distingue deux communautés fortes au sein de Node :
 
-L'écosystème de modules hébergé sur _npmjs.com_ est le fruit de ses différents contributeurs.
-Il s'agit de la communauté la plus représentative de Node.
+- les *contributeurs Node* — essentiellement des *développeurs C++* ;
+- les *contributeurs de _modules npm_* — essentiellement des *développeurs JavaScript*.
 
-On peut parler de gouvernance bipolaire, à l'image d'un _iceberg_:
-
-- les *contributeurs Node* sont essentiellement des *développeurs C++* ;
-- les *contributeurs de _modules_ Node* via _npm_ sont essentiellement des *développeurs JavaScript*.
-
-Intéressons-nous à l'architecture technique de Node pour comprendre cette dichotomie.
+Intéressons-nous maintenant à l'architecture technique de la plate-forme Node.
 
 === Architecture technique
 
@@ -666,29 +666,23 @@ La spécification _semver_ est disponible sous forme textuelle mais également e
 
 ==== Node et son API
 
-[CAUTION]
-====
-Ceci est moins vrai depuis la v4 — idem pour les numéros de version.
-====
-
 La vitesse et la croissance sont des facteurs propices à l'immaturité et à l'instabilité.
 
-*Une nouvelle version majeure de Node sort chaque année*, environ.
-Depuis la version `0.8`, l'équipe de développement met un point d'honneur à suivre les deux principes suivants :
+Le développement de la plate-forme Node prend en compte ces facteurs afin de *sortir au mieux une version majeure par année*.
+Des versions intermédiaires sont publiées pour corriger des bugs, maintenir la sécurité et inclure des fonctionnalités compatibles avec les projets existants.
 
-- laisser mûrir le plus de temps possible la branche de développement de Node ;
-- limiter le nombre de nouveautés de chaque version majeure.
+Depuis la version 4.0 de Node, des versions dites LTS (_Long Term Support_) sont créées tous les douze mois, contribuées pendant dix-huit mois et maintenues pendant douze mois. +  
+Ceci garantit une plate-forme et un ensemble de fonctionnalités stables de manière prédictible, à la fois pour les projets reposant sur Node mais aussi pour l'écosystème de contributeurs de modules _npm_.
 
-Le but et la conséquence de ce choix sont de garantir au maximum le fonctionnement du code et des modules qui en dépendent à chaque montée de version de Node.
+Node suit la convention <<semver,Semver>> depuis la version 4.0.
+Précédemment, elle opérait selon le modèle de numérotation de version pair/impair :
 
-Node suit le mode de numérotation de version pair/impair :
-
-- les versions `0.8.x`, `0.10.x`, `4.x` représentent les évolutions stables de Node ;
-- les versions `0.7.x`, `0.9.x`, `3.1.x` représentent les branches de développement qui deviendront les futures branches stables.
+- les versions `0.8.x`, `0.10.x`, `0.12.x` représentaient les évolutions stables de Node ;
+- les versions `0.7.x`, `0.9.x`, `0.11.x` représentaient les branches de développement.
 
 Ainsi, la version `0.9.12` est devenue la version `0.10.0` une fois jugée suffisamment stable et aboutie.
 
-Sur le plan interne, Node indique une indice de stabilité pour chacune de ses API sur une échelle de 0 à 5 :
+Sur le plan interne, Node indique une indice de stabilité pour chacune de ses API publique selon une échelle discrète graduée de 0 à 5 :
 
 - 0 : le module est *déprécié* et ne devrait être utilisé qu'en toute connaissance de cause ;
 - 1 : le module est *expérimental*, instable et nécessite des retours utilisateur ;
