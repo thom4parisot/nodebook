@@ -83,7 +83,7 @@ Exits automatically when there is nothing else to do (nothing in the queue nor t
 
 Slow development to mature features and break compatibility as few times as possible. Enables to libraries to update with confidence. Upgrades are less painful.
 
-> For security, set it behind a stable web server.
+> For security, set it behind a stable Web server.
 
 [TIP]
 .[RemarquePreTitre]#Vidéo# _Introduction to Node.js_
