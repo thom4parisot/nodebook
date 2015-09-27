@@ -24,11 +24,10 @@ Qu'en restera-t-il une fois la frénésie retombée ?
 
 Ce chapitre n'est pas essentiel à l'apprentissage de Node.js.
 Il permet de comprendre pourquoi et comment Node a émergé.
-Surtout, il vous permettra de comprendre les choix techniques à l'origine des fondations de Node, et ce que l'utiliser peut vous apporter, que ce soit dans un contexte personnel ou professionnel.
+Surtout, il vous permettra de comprendre les choix techniques à l'origine des fondations de Node et ce que l'utiliser peut vous apporter, que ce soit dans un contexte personnel ou professionnel.
 
 Qu'on se le dise : *un langage de programmation en lui-même n'a jamais résolu quelconque problème*.
-Cela reste avant tout une affaire de compétences et d'expérience.
-
+Cela reste avant tout une affaire de compétences et d'expérience, <<avoiding-node,cf. Pourquoi éviter Node ?>>.
 
 === Node.js : la plate-forme JavaScript côté serveur
 
@@ -37,7 +36,7 @@ La différence entre ces trois désignations peut sembler subtile, futile voire 
 
 *Exécuter du JavaScript côté serveur n'est pas non plus une révolution*.
 
-L'entreprise _Netscape_ s'y est déjà essayée au début des années 1990 avec _Netscape Enterprise Server_, juste après l'avoir introduit dans son navigateur Web _Netscape Navigator_.
+L'entreprise _Netscape_ s'y est déjà essayée au début des années 1990 avec _Netscape Enterprise Server_, juste après l'avoir introduit dans son navigateur web _Netscape Navigator_.
 
 En 1997, _Netscape_ s'est attelée à créer https://www.mozilla.org/rhino/[Rhino], une implémentation de JavaScript en Java disponible sous licence libre.
 _Rhino_ était un des projets liés à la réécriture de _Netscape Navigator_ en Java. Si _Netscape_ a depuis fermé ses portes, _Rhino_ a permis l'émergence de projets utiles aux développeurs web.
@@ -72,14 +71,14 @@ Google l'utilise comme environnement d'exécution de ses http://googleappsdevelo
 Ces scripts permettent à tout un chacun de développer des extensions et des interactions supplémentaires pour les documents Google Drive.
 
 Rhino est également employé dans http://yui.github.io/yuicompressor/[yuicompressor], un optimiseur CSS et JavaScript créé par Yahoo.
-_yuicompressor_ est tombé en désuétude suite au gain de popularité de http://gruntjs.com/[Grunt].
+_yuicompressor_ a été surpassé par https://developers.google.com/closure/compiler/[Closure Compiler] et https://npmjs.com/uglify-js[UglifyJS].
 Ce dernier est écrit en JavaScript et repose sur… Node. +
 La boucle est bouclée.
 ====
 
-Node représente un *environnement d'exécution* (_runtime_), un  *ensemble d'API JavaScript* ainsi qu'une *machine virtuelle JavaScript* performante (parseur, interpréteur et compilateur) pouvant accéder à des ressources système telles que des fichiers (_filesystem_) ou des connexions réseau (_sockets_).
+Node représente un *environnement d'exécution* (_runtime_), un *ensemble d'API JavaScript* ainsi qu'une *machine virtuelle (VM) JavaScript* performante (parseur, interpréteur et compilateur) pouvant accéder à des ressources système telles que des fichiers (_filesystem_) ou des connexions réseau (_sockets_).
 
-Typiquement, une personne développant en Node écrit du code se basant sur les API à disposition. Ce code est lu par le _runtime_ Node qui le transmet à la VM JavaScript. Enfin, VM traduit le programme en langage machine (_bytecode_) avant que le programme soit effectivement exécuté par le processeur.
+Typiquement, une personne développant en Node écrit du code se basant sur les API à disposition. Ce code est lu par le _runtime_ Node qui le transmet à la VM JavaScript. Enfin, la VM traduit le programme en langage machine (_bytecode_) avant que le programme soit effectivement exécuté par le processeur.
 
 Pour comprendre comment Node a opté pour cette approche, retournons en 2009, lorsque son créateur **Ryan Dahl** cherchait à résoudre élégamment un problème de performance de programmation.
 
@@ -101,7 +100,7 @@ Il est séduit par deux choses :
 La quête initiale se dirige alors sur la possibilité de créer *un serveur web non bloquant*.
 En d'autres termes, un serveur capable dans un même processus de traiter d'autres requêtes en attendant de renvoyer la réponse initiale.
 
-Nous sommes alors en 2008 et le site de partage de photos Flickr  innove avec un nouveau système d'upload d'images.
+Nous sommes alors en 2008 et le site de partage de photos Flickr innove avec un nouveau système de téléversement d'images.
 Ce système remplace la sensation de page figée par une… *barre de progression*.
 
 .Nouvelle et ancienne interface d’upload de Flickr.
@@ -151,7 +150,7 @@ Peut-être un élément qui figurera dans les livres d'histoire !
 
 En 2009, la tension et l'attention autour de JavaScript sont énormes.
 La mode du tout _Ajax_ et des _mashups_ s'est estompée mais une chose en est ressortie : JavaScript n'a plus à rougir ni à être relégué au rang de sous-langage.
-Les initiatives JSLint, CommonJS et les _good parts_ de Douglas Crockford  sont pour beaucoup dans la création de code élégant.
+Les initiatives JSLint, CommonJS et les _good parts_ de Douglas Crockford sont pour beaucoup dans la création de code élégant.
 
 D'un autre côté, les entreprises développant des navigateurs web se livrent à une féroce compétition d'optimisation.
 Google, Mozilla et Apple ont en effet besoin de navigateurs rapides pour améliorer leurs parts de marché sur les ordinateurs mais aussi les téléphones et tablettes.
@@ -195,6 +194,7 @@ Ils peuvent se focaliser sur des fonctionnalités indistinctement de leur périm
 Enfin, Node est un *environnement adapté à l'apprentissage et l'amélioration des connaissances en JavaScript*. +
 Vous disposez de la maîtrise de la version de Node, des modules employés et n'avez pas à vous soucier de quelconque compatibilité de version de JavaScript.
 
+[[avoiding-node]]
 === Pourquoi éviter Node.js ?
 
 S'il y a des raisons d'utiliser ou d'adopter Node, l'inverse est également vrai.
@@ -214,9 +214,10 @@ Node n'est pas forcément une solution adaptée si *vos besoins de performance d
 Un langage comme C sera certainement davantage approprié.
 Toutefois des solutions comme `node-gyp` vous offrent un accès bas niveau aux éléments internes de la plate-forme Node.
 
-Node ne vous aidera probablement pas si vous cherchez à *réaliser des choses qui seraient compliquées de par la nature de JavaScript*, à savoir des opérations mathématiques de très haute précision. +
-Des modules comme `bignumber.js` peuvent palier le problème.
-Il se peut que votre cas de figure ne soit pas couvert ni par Node ni par un des modules de l'écosystème npm.
+Node ne vous aidera probablement pas si vous cherchez à *réaliser des choses qui seraient compliquées de par la nature même de JavaScript*, par exemple des opérations mathématiques de très haute précision. +
+ECMAScript suit le standard IEEE 754 pour la représentation des nombres à virgule flottante — de même que C#, Ruby et Java, entre autre.
+Vous pouvez toutefois palier à ce problème via l'utilisation des `Buffer` ou des _Typed Array_ (_Int32_, _UInt32_ etc.).
+Les module `bignumber.js` et `bignum` reposent sur ces mécanismes tout en vous facilitant le travail.
 
 Enfin si vous croyez que Node va *résoudre des problèmes de compétences en développement* ou résoudre _de facto_ une erreur de conception logicielle, c'est bien évidemment une erreur.
 
@@ -275,7 +276,7 @@ Il est l’équivalent de http://rubygems.org/[rubygems.org] pour Ruby, de http:
 
 Nous reviendrons plus en détail sur son utilisation dans le link:../chapter-02/index.adoc[chapitre 2 _Utiliser des modules tiers_] de cet ouvrage.
 
-_npm_ peut également désigner le _registre_ principal qui héberge  les modules des communautés Node : [URL]#https://www.npmjs.com/#.
+_npm_ peut également désigner le _registre_ principal qui héberge les modules des communautés Node : [URL]#https://www.npmjs.com/#.
 
 [TIP]
 .[RemarquePreTitre]#Lien# Annonce de l’inclusion de _npm_ dans Node
@@ -314,7 +315,7 @@ Le projet _io.js_ continue sur la même lancée mais contribue désormais direct
 ==== Nodejitsu
 
 _Nodejitsu_ est une entreprise privée américaine fondée en 2010.
-Elle vise à fournir des solutions professionnelles autour de Node en tant que _Platform as a Service_ (_Paas_) ainsi qu'avec des dépôts _npm_ privés. +  
+Elle vise à fournir des solutions professionnelles autour de Node en tant que _Platform as a Service_ (_PaaS_) ainsi qu'avec des dépôts _npm_ privés. +  
 Son activité en fait un concurrent direct de <<joyent,Joyent>> et de <<npm-inc,npm, Inc..>>.
 
 _Nodejitsu_ démontre un investissement fort dans la communauté Node en contribuant plusieurs centaines de modules et en prenant en charge l'hébergement du registre _npm_ de 2010 jusqu'en décembre 2013.
@@ -463,7 +464,7 @@ increment();    // <2>
 Le fonctionnement technique des modules est décrit plus en détail dans le <<../chapter-02/index.adoc#,Chapitre 2 : Premiers pas avec Node>>.
 
 L'essentiel est d'en retenir que Node se base sur ce mécanisme de chargement de module.
-*Et ces modules sont une des forces principales de Node*.
+*Ces modules sont une des forces principales de Node*.
 
 [TIP]
 .[RemarquePreTitre]#Lien# Site officiel CommonJS
@@ -556,7 +557,7 @@ Le code source de _libuv_ est disponible sur GitHub. Le parcourir permet de mieu
 ==== Boucle événementielle
 
 La boucle événementielle (_Event Loop_) est un mécanisme d'exécution des tâches apporté par _libuv_ et déléguée au système d'exploitation.
-Elle s'inspire très fortement du modèle de boucle événementielle telle qu'implémentée dans les navigateurs web.
+Elle s'inspire très fortement du modèle de boucle événementielle telle qu'implémentée dans les navigateurs  web.
 
 C'est grâce à ce mécanisme que l'exécution d'une fonction peut être reportée à plus tard.
 C'est la fameuse _exécution asynchrone_.
@@ -569,13 +570,13 @@ Ajouter un graph explicatif pour l'aspect "boucle".
 [source,javascript]
 .timeout.js
 ----
-var referenceTime = process.hrtime();   <1>
-var printT = function(){                <2>
+var referenceTime = process.hrtime();   // <1>
+var printT = function(){                // <2>
   console.log(process.hrtime(referenceTime)[0]);
 };
 
-printT();                               <3>
-setTimeout(printT, 1000);               <4>
+printT();                               // <3>
+setTimeout(printT, 1000);               // <4>
 ----
 <1> Initialise un temps de référence.
 <2> Fonction affichant le nombre de secondes de différence avec le temps de référence à chaque invocation.
@@ -604,12 +605,14 @@ _Loupe_ est un visualisateur de boucle évènementielle.
 ====
 
 Alors pourquoi dit-on que _libuv_ est non bloquant ?
-Tout simplement car l'acquisition d'une ressource système renvoie un descripteur, vérifiée à chaque itération de la boucle  et dont le _callback_ est exécuté lorsque la vérification se révèle positive.
+L'acquisition d'une ressource système renvoie un descripteur qui est stocké dans une pile d'exécution dédiée tandis que le processus principal poursuit son propre traitement. +
+La pile d'exécution vérifiée à chaque itération de la boucle — à chaque _Tick_).
+_libuv_ libère la ressource lorsqu'elle est résolue et le signale au processus principal via un _callback_.
 
 En clair, au lieu de bloquer l'exécution de l'instruction suivante, la boucle événementielle reporte la vérification à plus tard et se saisit de l'instruction suivante.
 Et ainsi de suite.
 
-On dit également que Node est _single threaded_ car il n'y a qu'une seule boucle par processus Node ; processus rattaché à un  seul cœur de processeur (_CPU core_). +
+On dit également que Node est _single threaded_ car il n'y a qu'une seule boucle par processus Node ; processus rattaché à un seul cœur de processeur (_CPU core_). +
 Il faut donc lancer d'autres processus Node sur d'autres cœurs pour être capable de traiter davantage de données à la fois.
 Plusieurs processus Node sur le même cœur se partagent une puissance de calcul finie.
 
