@@ -628,6 +628,16 @@ values.every(isUndefined); <2>
 <2> Renvoie `false` puisque toutes les valeurs n'équivalent pas à `undefined` ;
 <3> Renvoie `true` puisque toutes les valeurs sont égales à `undefined`.
 
+ECMAScript 2015 introduit les méthodes `find` et `findIndex`, respectivement pour retourner une valeur et son index selon une fonction prédicat :
+
+[source,javascript]
+----
+include::{sourceDir}/primitives-array-find.js[]
+----
+<1> Valeur que l'on recherche ;
+<2> Affiche `stram` (valeur recherchée) ;
+<3> Affiche `1` (index de la valeur recherchée).
+
 La méthode `reduce` a un comportement similaire à `sort` mais fonctionne de manière accumulative :
 
 [source,javascript]
