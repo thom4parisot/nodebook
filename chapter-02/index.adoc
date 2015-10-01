@@ -773,32 +773,60 @@ Dans ECMAScript, tout est objet. C'est le _prototype_ qui détermine le comporte
 Les objets peuvent être créés de manière littérale, avec la fonction `Object.create` ou via un constructeur.
 
 [source,javascript]
+.primitives-object.js
 ----
-var litteral = { literally: 'lateral' };
-var litteralCopy = litteral;
-var constructed = new Date();
-var objectCreated = Object.create(litteral);
-
-litteral.literally; <1>
-objectCreated.literally; <2>
-litteral === litteralCopy; <3>
-litteral === objectCreated; <4>
+include::{sourceDir}/primitives-object.js[]
 ----
 <1> Retourne `'lateral'` ;
 <2> Retourne également `'lateral'` ;
 <3> Retourne `true`, les deux objets étant la même instance ;
 <4> Retourne `false`, les deux objets étant deux instances différentes.
 
-L'opérateur `typeof` permet d'identifier un objet. Le problème est que cet opérateur englobe davantage de types qu'espéré : dates, tableaux et expressions régulières, entre autres.
+L'opérateur `typeof` permet d'identifier la primitive d'une variable — au sens d'ECMAScript, pas au sens logique de votre application, c'est à dire le prototype d'un objet.
+
+L'opérateur `instanceof` ou la méthode `getPrototypeOf` permettent justement de comparer les appartenances logiques.
+
+[source,javascript]
+.primitives-object-typeof-instanceof.js
+----
+include::{sourceDir}/primitives-object-typeof-instanceof.js[]
+----
+<1> Affiche `function` ;
+<2> Affiche `object` ;
+<3> Affiche `true` ;
+<4> Affiche `[object Object]` ;
+<5> Affiche `pseudoBookClass`.
+
+Et si `Object.keys` extrait les clés d'un objet, l'opérateur `for..of` permet désormais d'itérer dessus, sans inclure les propriétés (à l'instar de `Object.getOwnKeys()`) :
+
+[source,javascript]
+.primitives-object-keys-for-of.js
+----
+include::{sourceDir}/primitives-object-keys-for-of.js[]
+----
+<1> Affiche `[ 'name', 'services' ]` ;
+<2> Affiche successivement `name` puis `services`.
+
+`Object.assign` étend des structures existantes et la définition de valeurs par défaut.
+Les clés et valeurs sont copiées de gauche à droite avant d'être assignées dans le premier paramètre :
+
+[source,javascript]
+.primitives-object-assign.js
+----
+include::{sourceDir}/primitives-object-assign.js[]
+----
+<1> Les clés et valeurs de `DEFAULT` et celles de `userOptions` sont copiées dans un objet vide puis retournées dans `mergedOptions` ;
+<2> Affiche `{ concurrency: 10, timeout: 'https', tags: [] }` ;
+<3> Affiche `[ 'img', 'h1' ]` ;
+<4> Affiche `[ 'url', 'env', 'tags' ]` — l'objet `testOptions` est donc modifié.
 
 ===== Class
 
 [WARNING]
 ====
-Partie en cours de réécriture pour refléter les évolutions d'ES2015.
+Partie en cours de réécriture pour refléter les évolutions d'ES2015. — extends
 ====
-
-L'idéal est encore d'utiliser l'opérateur `instanceof` ou la méthode `getPrototypeOf` pour valider le prototype à l'origine de la création de l'objet :
+ :
 
 [source,javascript]
 .primitives-class-constructor.js
