@@ -797,15 +797,15 @@ include::{sourceDir}/primitives-object-typeof-instanceof.js[]
 <4> Affiche `[object Object]` ;
 <5> Affiche `pseudoBookClass`.
 
-Et si `Object.keys` extrait les clés d'un objet, l'opérateur `for..of` permet désormais d'itérer dessus, sans inclure les propriétés (à l'instar de `Object.getOwnKeys()`) :
+`Object.keys` extrait les propriétés énumérables d'un objet, à la différence de `Object.getOwnPropertyNames()` :
 
 [source,javascript]
-.primitives-object-keys-for-of.js
+.primitives-object-keys.js
 ----
-include::{sourceDir}/primitives-object-keys-for-of.js[]
+include::{sourceDir}/primitives-object-keys.js[]
 ----
 <1> Affiche `[ 'name', 'services' ]` ;
-<2> Affiche successivement `name` puis `services`.
+<2> Affiche successivement `name`, `services` et `internal_code`.
 
 `Object.assign` étend des structures existantes et la définition de valeurs par défaut.
 Les clés et valeurs sont copiées de gauche à droite avant d'être assignées dans le premier paramètre :
@@ -822,23 +822,40 @@ include::{sourceDir}/primitives-object-assign.js[]
 
 ===== Class
 
-[WARNING]
-====
-Partie en cours de réécriture pour refléter les évolutions d'ES2015. — extends
-====
- :
+ECMAScript 2015 ajoute au langage des sucres syntaxiques facilitant la création et maintenance d'objets métier.
+Nous bénéficions d'une véritable notion de constructeur, de méthodes statiques et même d'extension de prototype — on pourrait parler d'héritage mais nous n'avons pas envie d'aller dans cette direction, pas vrai ?
+
+Tout ce que nous attachions auparavant à une _fonction_, nous nous référons désormais à une _classe_ à proprement parler. +
+En voici un exemple de définition :
+
+
+[source,javascript]
+.class-view.js
+----
+include::{sourceDir}/class-view.js[]
+----
+
+La définition de la classe `View` comporte trois fonctions :
+
+- `constructor` : le constructeur invoqué à chaque nouvelle instantiation via l'opérateur `new` ;
+- `render` : une méthode partagée par toutes les instances de `View` — équivalent à `View.prototype.render = function(){ ... }` ;
+- `removeDuplicates` : une méthode statique, utilisable indépendamment des instances de `View` — équivalent à `View.removeDuplicates = function(){ ... }`,.
+
+L'exemple suivant illustre le comportement de la classe `View` :
 
 [source,javascript]
 .primitives-class-constructor.js
 ----
 include::{sourceDir}/primitives-class-constructor.js[]
 ----
-<1> Retourne `object` ;
-<2> Retourne `true`.
+<1> Affiche `object` ;
+<2> Affiche `true` ;
+<3> Affiche `{ blacklist: [ 'object', 'iframe' ] }` — l'objet de configuration initial ;
+<4> Affiche `Node.js` ;
+<5> Affiche une exception personnalisée.
 
-La méthode `defineProperty` permet de définir des comportements simples ou avancés sur n'importe quel type d'objet, y compris les prototypes :
-
-ECMAScript permet de définir des accesseurs sur les propriétés de votre choix ; dans l'exemple suivant, la propriété `EAN13` :
+ECMAScript permet de définir des accesseurs, sur des propriétés existantes ou de manière ad-hoc. +
+Dans l'exemple suivant, nous créons la propriété `EAN13` pour coordonner la logique avec les propriétés `GS1` et `ISBN` … mais sans pour autant stocker la valeur `EAN13` à proprement parler :
 
 [source,javascript]
 .primitives-class-accessors.js
@@ -849,40 +866,26 @@ include::{sourceDir}/primitives-class-accessors.js[]
 <2> Retourne `'2212136401'` ;
 <3> Retourne `'978-2212136401'`.
 
+Étendre les classes ouvre la porte à des _patterns_ d'interface plus explicites et moins prompts à abimer la chaine prototypale.
 
-Il est également plus facile d'itérer sur un objet grâce à la fonction `Object.keys` :
+L'exemple suivant illustre deux classes héritant de notre classe `View`.
 
-[source,javascript]
-----
-var company = {
-  name: 'Eyrolles',
-  address: '55, 57, 61 et 63 boulevard Saint-Germain, 75005, Paris, FRANCE',
-  twitter: '@Eyrolles'
-};
+`HTMLView` surcharge le constructeur tandis que `TextView` se contente du comportement par défaut défini par le constructeur de `View`.
 
-Object.keys(company); <1>
-Object.keys(company).forEach(function(key){
-  console.log(company[key]); <2>
-});
-----
-<1> Retourne `['name', 'address', 'twitter']` ;
-<2> Affiche successivement les _valeurs associées_ aux clés `name`, `address` puis `twitter`.
-
-Il est également possible de surcharger la méthode `toString` d'un objet pour contrôler la conversion de l'objet en chaîne de caractères. +
-En reprenant l'exemple précédent :
+L'appel à la fonction `super` revient à _appeler le constructeur de la classe que l'on étend_.
+Ne pas l'appeler revient à ne pas exécuter le constructeur de la classe parent.
 
 [source,javascript]
+.primitives-class-extends.js
 ----
-String(company); <1>
-
-company.toString = function(){
-  return this.name;
-};
-
-String(company); <2>
+include::{sourceDir}/primitives-class-extends.js[]
 ----
-<1> Retourne `[object Object]` ;
-<2> Retourne désormais la valeur de la propriété `name`, ici `'Eyrolles'`.
+<1> Retourne une chaîne de HTML après avoir interpolé les variables avec leur valeur respective ;
+<2> Retourne la chaîne de texte `# Node.js\n#{empty}#\#{empty}#\#{empty}#\#{empty}#{empty}#\n\nHello World!`.
+
+S'il est désormais plus sûr d'utiliser l'extension de chaîne prototypale, *il ne faut pas abandonner la composition* pour autant.
+
+Il est en effet bien plus simple de réutiliser (et de tester) des fonctions agnostiques de contexte — de `this` — que de maintenir de grosses classes héritant sur plusieurs niveaux.
 
 ===== Map
 

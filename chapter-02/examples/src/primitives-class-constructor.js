@@ -1,13 +1,17 @@
 'use strict';
 
-class Book{
-  constructor(title) {
-    this.title = title;
-  }
+let View = require('./class-view.js');
+
+var htmlView = new View({ blacklist: ['object', 'iframe']});
+
+console.log(typeof htmlView);                         // <1>
+console.log(htmlView instanceof View);                // <2>
+console.log(htmlView.config);                         // <3>
+console.log(View.removeDuplicates('.', 'Node...js')); // <4>
+
+try {
+  htmlView.render({ title: 'Node.js' });
 }
-
-var nodeBook = new Book('Node.js');
-
-console.log(typeof nodeBook);					// <1>
-console.log(nodeBook instanceof Book);				// <2>
-console.log(Object.getPrototypeOf(nodeBook) === Book.prototype);// <3>
+catch (err) {
+  console.error(err);                                 // <5>
+}

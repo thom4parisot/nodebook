@@ -12,6 +12,6 @@ Object.defineProperty(busStop, 'internal_code', {
 
 console.log(Object.keys(busStop));    // <1>
 
-for (let prop of busStop) {
+for (let prop of Object.getOwnPropertyNames(busStop)) {
   console.log(prop);                  // <2>
 }
