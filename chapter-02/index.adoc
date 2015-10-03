@@ -683,46 +683,26 @@ TBD.
 
 ===== Function
 
-[WARNING]
-====
-Partie en cours de réécriture pour refléter les évolutions d'ES2015 — notamment les _arrow functions_.
-====
+Les fonctions permettent d'isoler des portions de code et de les rendre réutilisables via l'utilisation de paramètres.
 
-Les fonctions permettent d'isoler des portions de code et de les rendre réutilisables.
-
-L'opérateur `typeof` permet d'identifier une fonction :
+Vous pouvez les déclarer de plusieurs manières
 
 [source,javascript]
+.primitives-function.js
 ----
-typeof Date; <1>
-typeof new Date(); <2>
+include::{sourceDir}/primitives-function.js[]
 ----
 <1> Retourne `'function'` ;
-<2> Retourne `'object'`, car il ne s'agit plus d'une fonction mais d'une nouvelle instance construite par la fonction `Date` (le constructeur).
+<2> Retourne `false` — la valeur étant nulle ;
+<3> Retourne `[ 1, 3 ]` — un tableau filtré des valeurs nulles ou égales à `undefined` ;
+<4> Lève une exception car la constante `values` n'est pas définie dans ce _scope_.
 
 La méthode `bind` est extrêmement puissante car elle permet de modifier le contexte d'exécution de ladite fonction.
 
 [source,javascript]
+.primitives-function-bind.js
 ----
-var FR = {
-  capitalCity: 'Paris',
-  currency: 'EUR'
-};
-
-var UK = {
-  capitalCity: 'London',
-  currency: 'GBP'
-};
-
-var formatCurrency = function(amount){
-  return amount + ' ' + this.currency;
-};
-
-var priceInEUR = formatCurrency.bind(FR);
-var priceInGBP = formatCurrency.bind(UK);
-
-priceInEUR(100); <1>
-priceInGBP(100); <2>
+include::{sourceDir}/primitives-function-bind.js[]
 ----
 <1> Retourne `'100 EUR'` ;
 <2> Retourne `'100 GBP'`.
@@ -730,17 +710,9 @@ priceInGBP(100); <2>
 `bind` est également capable de créer une nouvelle fonction à laquelle vous auriez appliqué partiellement des arguments :
 
 [source,javascript]
+.primitives-function-partials.js
 ----
-var helloSomething = function(text){
-  console.log('Hello ' + text);
-};
-
-var helloWorld = helloSomething.bind(null, 'World');
-var helloParis = helloSomething.bind(null, 'Paris');
-
-helloWorld(); <1>
-helloParis(); <2>
-helloSomething('Paris'); <2>
+include::{sourceDir}/primitives-function-partials.js[]
 ----
 <1> Affiche `'Hello World'` ;
 <2> Affiche `'Hello Paris'`.
@@ -751,23 +723,14 @@ Les méthodes `call` et `apply` reposent sur le même principe mais à la diffé
 Le seul élément différenciant correspond à la syntaxe d'application des arguments :
 
 [source,javascript]
+.primitives-function-call-apply.js
 ----
-var wrap = function(prefix, suffix, text){
-  return prefix + text + suffix;
-};
-
-wrap.call(null, '<', '>', 'title'); <1>
-wrap.apply(null, ['<', '>', 'title']); <1>
+include::{sourceDir}/primitives-function-call-apply.js[]
 ----
 <1> Retourne `'<title>'`.
 
 
 ===== Object
-
-[WARNING]
-====
-Partie en cours de réécriture pour refléter les évolutions d'ES2015 — notamment `Object.assign` et _destructuring_.
-====
 
 Dans ECMAScript, tout est objet. C'est le _prototype_ qui détermine le comportement dudit objet.
 Les objets peuvent être créés de manière littérale, avec la fonction `Object.create` ou via un constructeur.
@@ -820,6 +783,10 @@ include::{sourceDir}/primitives-object-assign.js[]
 <3> Affiche `[ 'img', 'h1' ]` ;
 <4> Affiche `[ 'url', 'env', 'tags' ]` — l'objet `testOptions` est donc modifié.
 
+===== Map
+
+TBD.
+
 ===== Class
 
 ECMAScript 2015 ajoute au langage des sucres syntaxiques facilitant la création et maintenance d'objets métier.
@@ -839,7 +806,7 @@ La définition de la classe `View` comporte trois fonctions :
 
 - `constructor` : le constructeur invoqué à chaque nouvelle instantiation via l'opérateur `new` ;
 - `render` : une méthode partagée par toutes les instances de `View` — équivalent à `View.prototype.render = function(){ ... }` ;
-- `removeDuplicates` : une méthode statique, utilisable indépendamment des instances de `View` — équivalent à `View.removeDuplicates = function(){ ... }`,.
+- `removeDuplicates` : une méthode statique, utilisable indépendamment des instances de `View` — équivalent à `View.removeDuplicates = function(){ ... }`.
 
 L'exemple suivant illustre le comportement de la classe `View` :
 
@@ -887,7 +854,7 @@ S'il est désormais plus sûr d'utiliser l'extension de chaîne prototypale, *il
 
 Il est en effet bien plus simple de réutiliser (et de tester) des fonctions agnostiques de contexte — de `this` — que de maintenir de grosses classes héritant sur plusieurs niveaux.
 
-===== Map
+===== Promise
 
 TBD.
 
