@@ -1069,7 +1069,14 @@ Il permet de s'interfacer avec le système, en écoutant les évènements qu'il 
 
 Le tableau `process.argv` contient le chemin du script exécuté ainsi que les différents arguments transmis à Node :
 
+[source,javascript]
 .process.js
+----
+include::{sourceDir}/process.js[]
+----
+
+Exécutons ce même script avec différents arguments :
+
 ----
 node process.js <1>
 node process.js argument1 "argument 2" --option1 <2>
@@ -1097,9 +1104,18 @@ Le deuxième ensemble d'objets à connaître est le trio `process.stdin`, `proce
 Ce sont trois flux (_Streams_) qui permettent d'accéder respectivement à l'entrée standard, à la sortie standard et à l'erreur standard.
 
 Si ces noms ne vous parlent peut-être pas, c'est parce qu'ils sont directement inspirés d'UNIX.
-Mais manipulables via l'interface JavaScript de Node.
+Ils sont directement accessibles via l'interface JavaScript de Node.
 
+Le script suivant convertit toute chaine de caractère envoyée vers l'entrée standard en lettres majuscules :
+
+[source,javascript]
 .uppercase.js
+----
+include::{sourceDir}/uppercase.js[]
+----
+
+Exécutons ce script sur un système Unix :
+
 ----
 echo "Entrée standard" | node uppercase.js <1>
 ----
@@ -1115,7 +1131,14 @@ Cette méthode est utilisée pour écouter les évènements système et permettr
 L'exemple suivant illustre la réaction face à un signal d'interruption (abrégé en `SIGINT`, pour _Signal Interrupt_).
 Ce signal est notamment émis en pressant les touches [Menu]#CTRL# et [Menu]#C#.
 
+[source,javascript]
 .interrupt.js
+----
+include::{sourceDir}/interrupt.js[]
+----
+
+Et maintenant son exécution dans un terminal Unix :
+
 ----
 node interrupt.js 3 <1>
 ^C <2>
