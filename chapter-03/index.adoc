@@ -221,7 +221,7 @@ Ce dernier contient désormais une section _dependencies_ :
 ----
 
 Vous remarquerez que les numéros de versions sont préfixés du symbole `~` (ou `^` selon la version de npm).
-Nous y reviendrons
+Nous y reviendrons dans <<semver, Choisir un bon numéro de version>>.
 
 [TIP]
 .[RemarquePreTitre]#Aide# --save, --save-dev, --save-optional et --save-exact
@@ -909,6 +909,7 @@ En se basant sur ce principe de chaîne, vous pouvez faire évoluer votre comman
 La commande `npm test` est alors composée de deux autres commandes personnalisées.
 Vous maintenez ainsi une lisibilité au sein de votre fichier `package.json` tout en bénéficiant d'une indépendance d'exécution de vos commandes.
 
+[[semver]]
 ===== Choisir un bon numéro de version
 
 Bien versionner chaque publication de votre projet n'apporte que des avantages.
