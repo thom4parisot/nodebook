@@ -1,4 +1,4 @@
-:nodeVersion: v0.12
+:nodeCurrentVersion: v4.x
 :sourceDir: ./examples/src
 :imagesdir: {indir}
 ifdef::env[]
@@ -1261,21 +1261,6 @@ Cela concerne aussi bien l'envoi de formulaires, l'obtention de jeton OAuth que 
 ----
 include::{sourceDir}/snippets/npm-request.js[]
 ----
-
-====== bluebird
-
-_bluebird_ est une libraire de gestion de promesses (voir ci-après la section _Design patterns_).
-Elle est performante et propose de nombreuses méthodes pour organiser des flux asynchrones tout en gérant les cas d'erreur sans s'arracher les cheveux.
-
-Compatible Node et navigateurs Web. +
-[URL]#https://npmjs.com/bluebird#
-
-[source,javascript]
-.npm-bluebird.js
-----
-include::{sourceDir}/snippets/npm-bluebird.js[]
-----
-<1> Affiche un tableau de noms de paquet manquants, en l'occurrence `['yargs']`.
 
 ====== moment
 
