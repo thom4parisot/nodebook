@@ -4,12 +4,12 @@ function filterSparseArray (array) {
   return array.filter(isNotNullOrUndefined);
 }
 
-const isNotNullOrUndefined = function (value) {
+let isNotNullOrUndefined = function (value) {
   return !isEqualTo(value, [null, undefined]);
 }
 
-const isEqualTo = function isEqualTo(value, compareWith) {
-  return compareWith.some((v) => v === value);
+function isEqualTo (value, compareWith) {
+  return (compareWith || []).some((v) => v === value);
 }
 
 (function(){

@@ -856,7 +856,120 @@ Il est en effet bien plus simple de réutiliser (et de tester) des fonctions agn
 
 ===== Promise
 
-TBD.
+La nature asynchrone et non-bloquante des opérations coûteuses en cycles CPU est quelque chose d'appréciable dans Node.
+L'avantage d'un _callback_ est sa possible asynchronicité.
+En revanche son inconvénient est la difficulté à être tenu informé de ce qui s'y passe.
+
+Que faire si l'on souhaite exécuter trois fonctions différentes lors de la lecture d'un fichier ?
+Et comment gérer les erreurs si l'une de ces fonctions échoue ?
+Certainement pas en imbriquant les _callbacks_ les uns dans les autres comme ceci :
+
+[source,javascript]
+.callback-hell.js
+----
+include::{sourceDir}/callback-hell.js[]
+----
+<1> Affiche le nombre de dépendances combinées pour les trois premiers chapitres de cet ouvrage.
+
+À l'œil nu, on se rend compte de la répétition de la gestion des erreurs — difficilement capturable soit dit en passant — et du caractère monolithique de la structure.
+Il est impossible d'exécuter autre chose qu'un `console.log` dans le dernier _callback_ sans en modifier son contenu.
+
+Un motif a émergé en réponse à cette complexité grandissante, à mi-chemin entre les _callbacks_ et les événements : les *promesses*.
+*Il s'agit d'une primitive à maitriser* et disponible nativement à la fois dans Node et les navigateurs modernes.
+
+[TIP]
+.[RemarquePreTitre]#Définition# Promesse
+====
+Une promesse est *objet retourné immédiatement* et résolu _positivement_ ou _négativement_ *une seule et _unique_ fois dans le futur*.
+
+C'est un peu comme envoyer un courrier en recommandé :
+
+- le bureau de poste vous remet une preuve de dépôt (la promesse) ;
+- vous recevez un accusé de réception lorsque le destinataire atteste sa réception (le _callback_ de succès) ;
+- vous recevez un accusé de non-délivrance si le destinataire n'a pas signé, ou récupéré son courrier dans un délai imparti (le _callback_ équivalent d'un _timeout_).
+====
+
+`Promise` implémente plusieurs méthodes dont les plus utiles sont certainement `then` et `catch`.
+Le pseudocode suivant illustre la migration d'un mécanisme de _callback_ vers les promesses :
+
+[source,javascript]
+.primitives-promise-pseudocode.js
+----
+include::{sourceDir}/primitives-promise-pseudocode.js[]
+----
+
+Le résultat est une *lecture séquentielle du code*, plus facile à appréhender mais également la *souscription de multiples fonctions* en cas de succès ou d'erreur grâce aux méthodes `then` et `catch` :
+
+- `then(onSuccess[, onError])` : fonction acceptant un _callback_ de succès obligatoire et un _callback_ d'erreur facultatif ;
+- `catch(onError)` : fonction acceptant un _callback_ d'erreur obligatoire, commun à toute la chaine de promesses.
+
+[TIP]
+.[RemarquePreTitre]#Bon à savoir# `then` et `return`
+====
+Le _callback_ de succès contient le résultat de la promesse précédente.
+
+Il y a trois cas de figure si vous chainez plusieurs `then` :
+
+- le callback de succès ne retourne rien : le prochain `then` transmet à nouveau le résultat de la promesse ;
+- le callback de succès retourne une valeur arbitraire : le prochain `then` contiendra cette dite valeur ;
+- le callback de succès retourne une nouvelle promesse : le prochain `then` retournera la valeur de cette dite promesse, une fois résolue.
+====
+
+L'implémentation d'une promesse consiste en la création d'un objet `Promise` acceptant comme argument une fonction.
+Cette fonction contient la logique d'exécution, résolue positivement en appelant `resolve` ou à l'inverse, en appelant `reject`.
+
+`resolve` et `reject` transmettent les valeurs passées en argument à vos _callbacks_ souscrivant respectivement à `then` et `catch`.
+
+L'implémentation de `readFilePromise` évoquée dans le pseudocode précédent pourrait se faire de la manière suivante :
+
+[source,javascript]
+.readfile-promise.js
+----
+include::{sourceDir}/readfile-promise.js[]
+----
+<1> Les fonctions de résolution `resolve` et `reject` sont mises à disposition par l'API des `Promise` ;
+<2> La promesse englobe l'exécution asynchrone — toute exception levée revient à implicitement appeler `reject` ;
+<3> Résout négativement la promesse en passant le contenu de la dite erreur ;
+<4> Résout positivement la promesse — si le _parsing_ échoue, la promesse sera rejetée.
+
+Reprenons maintenant le premier exemple de cette section en utilisant ce que nous venons d'apprendre à propos des `Promise` :
+
+[source,javascript]
+.primitives-promise.js
+----
+include::{sourceDir}/primitives-promise.js[]
+----
+
+S'il y un léger mieux — nous n'avons plus d'imbrication de _callbacks_ — nous avons en revanche un problème : comment itérer sur le résultat de plusieurs appels asynchrones sur un nombre indéterminé d'éléments ?
+
+Tout d'abord, nous n'avons pas besoin de récupérer les fichiers séquentiellement : laissons le système gérer au mieux les cycles CPU et opérer avec la charge système pour obtenir les ressources demandées.
+En d'autres termes : *parallélisons les appels asynchrones*.
+
+Et combinons le tout avec `Promise.all`, une méthode créant une _promesse de promesses_ : elle résoudra positivement ou négativement lorsque toutes les promesses passées en argument seront résolues.
+
+Notre exemple initial s'en trouve simplifié au maximum :
+
+[source,javascript]
+.primitives-promise-all.js
+----
+include::{sourceDir}/primitives-promise-all.js[]
+----
+<1> L'unique argument du _callback_ de succès est un tableau des ressources retournées par chaque promesse, en suivant leur ordre respectif d'exécution ;
+<2> Résultat identique à celui affiché par `callback-hell.js` — la fierté d'un code maintenable en plus !
+
+Usez et abusez des promesses : elles sont un des meilleurs moyens d'aplatir votre code, d'organiser son déroulement tout en  facilitant sa modularité et sa testabilité.
+
+[TIP]
+.Pour aller plus loin
+====
+Des librairies de promesses ajoutent des sucres syntaxiques pour faciliter encore davantage la manipulation des promesses :
+
+- [URL]#https://npmjs.com/bluebird
+- [URL]#https://npmjs.com/when
+- [URL]#https://npmjs.com/es6-promise (un polyfill pour Node et les navigateurs Web)
+
+Enfin, il est toujours possible de jeter un œil aux _générateurs_ ainsi qu'aux fonctions _async_ (prévues pour ES2016).
+====
 
 ===== RegExp
 
