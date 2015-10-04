@@ -1,7 +1,7 @@
 'use strict';
 
 function filterSparseArray (array) {
-  return array.filter(isNotNullOrUndefined);
+  return array.filter(isNotNullOrUndefined);    // <1>
 }
 
 let isNotNullOrUndefined = function (value) {
@@ -9,15 +9,15 @@ let isNotNullOrUndefined = function (value) {
 }
 
 function isEqualTo (value, compareWith) {
-  return (compareWith || []).some((v) => v === value);
+  return compareWith.some(v => v === value);  // <2>
 }
 
-(function(){
+(function(){                              // <3>
   const values = [,3,,,1];
 
-  console.log(typeof Date);               // <1>
-  console.log(isNotNullOrUndefined(null));// <2>
-  console.log(filterSparseArray(values)); // <3>
+  console.log(typeof Date);               // <4>
+  console.log(isNotNullOrUndefined(null));// <5>
+  console.log(filterSparseArray(values)); // <6>
 })();
 
-console.log(values);      // <4>
+console.log(values);                      // <7>
