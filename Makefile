@@ -16,7 +16,7 @@ $(html_files): $(adoc_files)
 
 	$(DOCKER_COMMAND) sh -c "asciidoctor \
             -a data-uri \
-            -a toc \
+            -a toc=macro \
             -a toclevels=4 \
             -a icons=font \
             -a lang=fr \
