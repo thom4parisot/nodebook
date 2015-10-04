@@ -13,9 +13,11 @@ install:
 
 $(html_files): $(adoc_files)
 	$(eval ADOC_FILE = $(@:dist/%.html=%.adoc) )
+
 	$(DOCKER_COMMAND) sh -c "asciidoctor \
             -a data-uri \
             -a toc \
+            -a toclevels=4 \
             -a icons=font \
             -a lang=fr \
             -a env=ci \
