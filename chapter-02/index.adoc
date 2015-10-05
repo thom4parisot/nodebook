@@ -538,7 +538,7 @@ Il est possible de connaître la longueur d'un tableau en utilisant la propriét
 ----
 [1, 2, 3].length; <1>
 ----
-<1> Retourne `3` ;
+<1> Retourne `3`.
 
 La méthode `join` permet de concaténer tous les éléments d'un tableau avec le séparateur de votre choix :
 
@@ -657,7 +657,7 @@ pairs.reduce(function pairSum(left, right){
 }, [0, 0]); <2>
 ----
 <1> Retourne `21` ;
-<2> Retourne `[9, 12]` ;
+<2> Retourne `[9, 12]`.
 
 [TIP]
 .[RemarquePreTitre]#FAQ# Tableau non contigü.
@@ -711,7 +711,7 @@ include::{sourceDir}/primitives-function.js[]
 Le code contenu dans le bloc déclaratif d'une fonction crée une _portée_ (ou _scope_) qui est invisible au contexte parent de l'exécution de cette fonction.
 Il s'agit d'une excellente manière d'isoler des variables, notamment pour éviter des effets de bord indésirables liés à l'état d'exécution de vos scripts.
 
-L'exemple précédent illustre un cas un tel cas de portée en contenant la constante `values` dans l'_IIFE_ : le contexte parent n'a aucune connaissance de son existence — et c'est tant mieux.
+L'exemple précédent illustre un tel cas de portée en contenant la constante `values` dans l'_IIFE_ : le contexte parent n'a aucune connaissance de son existence — et c'est tant mieux.
 
 Une syntaxe abrégée est disponible via les _arrow functions_ :
 
@@ -746,7 +746,7 @@ include::{sourceDir}/primitives-function-partials.js[]
 
 Ce procédé est particulièrement utile pour rendre des fonctions génériques et composer des dérivées, notamment dans le cas de pagination.
 
-Les méthodes `call` et `apply` reposent sur le même principe mais à la différente de `bind`, elles exécutent immédiatement la fonction.
+Les méthodes `call` et `apply` reposent sur le même principe mais à la différence de `bind`, elles exécutent immédiatement la fonction.
 Le seul élément différenciant correspond à la syntaxe d'application des arguments :
 
 [source,javascript]
