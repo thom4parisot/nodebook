@@ -34,6 +34,4 @@ function responseV2(req, res, next){
   next();
 }
 
-server.listen(8080, function () {
-  console.log('Serveur accessible sur %s', server.url);
-});
+server.listen(8080, () => console.log('Serveur accessible sur %s', server.url));

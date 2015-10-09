@@ -1619,11 +1619,8 @@ Certains vous permettront même de compiler du code Node vers du code compatible
 _less_ est un préprocesseur permettant de compiler vers du code CSS.
 Ses atouts résident dans la gestion des variables, de _mixins_ et de fonctions encourageant une écriture modulaire, plus logique et plus succincte.
 
-Sass est son alternative la plus populaire, en Ruby.
-Un portage partiel en C++ est accessible en Node via le module _node-sass_ — beaucoup plus performant et recommandé si vous n'avez pas besoin des fonctionnalités les plus avancées de Sass.
-
 Compatible Node et navigateurs Web. +
-[URL]#https://npmjs.com/less# et [URL]#https://npmjs.com/node-sass#
+[URL]#https://npmjs.com/less#
 
 [source]
 .stylesheet.less
@@ -1654,6 +1651,14 @@ La sortie de la commande précédente génère ce résultat :
   color: #ff0000;
 }
 ----
+
+====== sass
+
+Sass est un autre préprocesseur populaire issu du monde Ruby.
+Un portage en C++ est disponible via le module _node-sass_ et ne requiert pas l'installation de Ruby.
+
+Compatible Node. +
+[URL]#https://npmjs.com/node-sass# et [URL]#http://sass-lang.com/libsass#
 
 ====== rework
 
