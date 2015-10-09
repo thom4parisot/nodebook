@@ -1727,23 +1727,23 @@ browserify npm-browserify.js -o npm-browserify.bundle.js
 
 Inclus dans un navigateur Web, le fichier `npm-browserify.bundle.js` affichera le même résultat que l'interpréteur Node.
 
-====== traceur
+====== babel
 
-_traceur_ transforme tout code ECMAScript 6 en code compatible ECMAScript 5.
+_babel_ transforme tout code ECMAScript 2015, ECMAScript 2016 et  JSX en code compatible ECMAScript 5.
 Il peut être utilisé en complément de _browserify_ et de _webkpack_.
 
-[URL]#https://npmjs.com/traceur#
+[URL]#https://npmjs.com/babel#
 
 [source,javascript]
-.npm-traceur.js
+.npm-babel.js
 ----
-include::{sourceDir}/snippets/npm-traceur.js[]
+include::{sourceDir}/snippets/npm-babel.js[]
 ----
 
 ----
-node npm-traceur-bootstrap.js <1> <2>
+babel-node npm-babel.js <1> <2>
 ----
-<1> Affiche `passport@^0.2.1` ;
+<1> Affiche `passport@^0.3.0` ;
 <2> Affiche `passport-local@^1.0.0`.
 
 ====== uglify-js
