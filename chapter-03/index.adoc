@@ -1144,7 +1144,7 @@ Mais comment se retrouver dans cette jungle contenant plusieurs dizaines de mill
 
 ==== Chercher un module
 
-Le site web du registre npm ([URL]#https://npmjs.org#) est _la_ ressource incontournable.
+Le site web du registre npm ([URL]#https://npmjs.com#) est _la_ ressource incontournable.
 
 Le site liste l'intégralité des modules récents, des modules populaires et des auteurs populaires.
 
@@ -1159,7 +1159,7 @@ Astuce : si le motif de recherche est encadré par le caractère `/`, la command
 .npm search /slug/
 image::images/npm-search-cli.png[align="center",scaledwidth="85%"]
 
-Enfin, le projet _npmsearch_ ([URL]#http://npmsearch.com#) est une initiative indépendante dont le but est de proposer une interface optimisée pour la recherche de modules Node.
+Enfin, le projet _npmsearch_ ([URL]#https://npmsearch.com#) est une initiative indépendante dont le but est de proposer une interface optimisée pour la recherche de modules Node.
 Ses principaux avantages sont la rapidité d'affichage des résultats, ainsi qu'un tri par défaut orienté sur la *pertinence*.
 
 Cette pertinence est évaluée selon certains des critères évoqués ci-après.
@@ -1282,21 +1282,22 @@ include::{sourceDir}/snippets/npm-moment.js[]
 <2> Affiche `13/09/14` ;
 <3> Affiche `2 jours`.
 
-====== eventemitter2
+====== eventemitter3
 
-_eventemitter2_ est une bibliothèque performante de gestion d'événements.
-Elle introduit la notion d'espace de nom et de durée de vie d'événement.
+_eventemitter3_ est une bibliothèque performante de gestion d'événements.
 
 Compatible Node et navigateurs Web. +
 [URL]#https://npmjs.com/eventemitter2#
 
 [source,javascript]
-.npm-eventemitter2.js
+.npm-eventemitter3.js
 ----
-include::{sourceDir}/snippets/npm-eventemitter2.js[]
+include::{sourceDir}/snippets/npm-eventemitter3.js[]
 ----
-<1> Affiche `['ping', 'ping']` ;
-<2> N'affiche rien, l'événement étant désormais déconnecté.
+<1> Affiche `[ [Function], [Function] ]` ;
+<2> Affiche `on: ping,ping\nonce: ping,ping` ;
+<3> Affiche `on: ping,ping` ;
+<4> N'affiche rien, l'événement étant désormais déconnecté.
 
 ===== Système de fichier
 

@@ -1,7 +1,6 @@
 'use strict';
 
 var messageAbbr = require('./message-abbr-promisified');
-var Promise = require('es6-promise').Promise;
 
 Promise.all([
   messageAbbr('Hennes & Mauritz'),

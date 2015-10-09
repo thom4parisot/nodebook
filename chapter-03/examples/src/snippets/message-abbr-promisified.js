@@ -1,7 +1,5 @@
 'use strict';
 
-var Promise = require('es6-promise').Promise;
-
 function uppercaseAsync(message){
   return new Promise(function(resolve){
     resolve(message.toLocaleUpperCase ? message.toLocaleUpperCase() : message)
