@@ -1,7 +1,7 @@
 'use strict';
 
 var client = require('redis').createClient();
-var Promise = require("bluebird");
+var Promise = require('bluebird');
 var uuid = require('uuid').v4;
 
 Promise.promisifyAll(client);

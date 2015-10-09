@@ -1410,13 +1410,14 @@ Son API fluide basée sur des _callbacks_ et des _promesses_ vous sera précieus
 
 Les auteurs de _knex_ ont également créé la surcouche _bookshelf_ pour la partie ORM, et donc gérer des modèles de données au lieu de requêtes SQL.
 
-[URL]#https://npmjs.com/knex# et [URL]#https://npmjs.com/bookshelf#
+[URL]#https://npmjs.com/knex# et [URL]#https://npmjs.com/bookshelf#.
 
 [source,javascript]
 .npm-knex.js
 ----
 include::{sourceDir}/snippets/npm-knex.js[]
 ----
+<1> Affiche `[ { id: 1, title: 'Node.js ', created_at: '2015-10-09 16:06:17' } ]`.
 
 L'exemple précédent se charge de créer une table dans une base de données SQLite, puis y insère trois nouveaux enregistrements.
 
@@ -1432,6 +1433,7 @@ Il vous aidera à composer vos modèles, gérer la connexion à la base de donn�
 ----
 include::{sourceDir}/snippets/npm-mongoose.js[]
 ----
+<1> Affiche `3 enregistrements créés`.
 
 ====== levelup
 

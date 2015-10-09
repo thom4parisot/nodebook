@@ -1,11 +1,11 @@
 'use strict';
 
-var rm = require('rimraf');
-var join = require('path').join;
+let rm = require('rimraf');
+let join = require('path').join;
 
-var filepath = join(__dirname, '..', '..', 'tmp');
+let filepath = join(__dirname, '..', '..', 'tmp');
 
-rm(filepath, function(err){
+rm(filepath, err =>
   if (err) {
     return console.error('Une erreur s\'est produite.', err);
   }

@@ -1,26 +1,29 @@
 'use strict';
 
-var chokidar = require('chokidar');
-var path = require('path');
-var rootDir = path.join(__dirname, '..', '..');
+let chokidar = require('chokidar');
+let path = require('path');
+let rootDir = path.join(__dirname, '..', '..');
 
-var options = {
+const options = {
   ignoreInitial: true,
+  ignored: /node_modules/,
   persistent: true
 };
 
-var watcher = chokidar.watch(rootDir, options);
+let watcher = chokidar.watch(rootDir, options);
 
-watcher.on('add', function(filepath){
+watcher.on('add', filepath => {
   console.log('add - %s', path.relative(rootDir, filepath));
 });
-watcher.on('addDir', function(filepath){
+watcher.on('addDir', filepath => {
   console.log('addDir - %s', path.relative(rootDir, filepath));
 });
+watcher.on('change', filepath => {
+  console.log('change - %s', path.relative(rootDir, filepath));
+});
 
-setTimeout(function(){
+setTimeout(() => {
   require('./npm-mkdirp');
 
-  setTimeout(watcher.close, 200);
-}, 200);
-
+  setTimeout(watcher.close.bind(watcher), 200);
+}, 400);

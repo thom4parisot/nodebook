@@ -1,29 +1,31 @@
 'use strict';
 
-var Promise = require('bluebird');
-var mongoose = require('mongoose');
-var Schema = mongoose.Schema;
+// docker run -ti --rm -p 0.0.0.0:27017:27017 mongo:3.1
+// MONGODB_URL=mongodb://192.168.59.103:27017/nodebook node npm-mongoose.js
 
-mongoose.connect('mongodb://localhost/nodebook');
+let mongoose = require('mongoose');
+let Schema = mongoose.Schema;
 
-var BookSchema = new Schema({
+const MONGODB_URL = process.env.MONGODB_URL;
+
+mongoose.connect(MONGODB_URL || 'mongodb://localhost:27017/nodebook');
+
+let BookSchema = new Schema({
   id: Schema.ObjectId,
   title: String,
   created_at: { type: Date, default: Date.now }
 });
 
-BookSchema.path('title').set(function (title) {
-  return title.trim();
-});
+BookSchema.path('title').set(title => title.trim());
 
-var Book = mongoose.model('Book', BookSchema);
+let Book = mongoose.model('Book', BookSchema);
 
 Promise.all([
   new Book({ title: 'Node.js' }).save(),
   new Book({ title: 'CSS maintenables' }).save(),
   new Book({ title: 'Open Sky' }).save()
 ])
-.then(function(){
-  console.log('Enregistrements créés.');
+.then(records => {
+  console.log('%d enregistrements créés.', records.length);   // <1>
   mongoose.disconnect();
 });
