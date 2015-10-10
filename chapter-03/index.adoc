@@ -39,7 +39,7 @@ Incontournable, il décrit les composants essentiels du projet.
 Il se situe à la racine de chaque module et contient plusieurs catégories d'informations :
 
 - *textuels* : titre, descriptions, liens et licence ;
-- *version* : une chaîne respectant le fonctionnement de _node-semver_ ([URL]#https://github.com/isaacs/node-semver#) ;
+- *version* : une chaîne respectant le fonctionnement de _node-semver_ ([URL]#https://github.com/npm/node-semver#) ;
 - *dépendances* : emplacement du module principal et liste explicite de modules nécessaires au bon fonctionnement du projet ;
 - *actions* : commandes à exécuter lors des différentes étapes du cycle de vie du projet ;
 - *divers* : données de configuration ou utilisées par des modules Node.
@@ -79,6 +79,10 @@ image::images/npm-init.png[align="center",scaledwidth="85%"]
 ====
 Le détail de chaque clé de configuration est expliqué _via_ cette commande.
 Des exemples vous permettront également de mieux comprendre leur utilité.
+
+Cette même documentation est disponible en ligne, en anglais :
+
+- [URL]#https://docs.npmjs.com/files/package.json#
 ====
 
 ===== Configurer package.json
@@ -105,7 +109,8 @@ Il existe plusieurs types de dépendances, chacune ayant sa propre utilité :
 - *dependencies* : dépendances utiles à un fonctionnement en production ;
 - *devDependencies* : dépendances utiles uniquement dans le cadre du développement, par exemple pour exécuter des tests ou s'assurer de la qualité du code ou encore empaqueter le projet ;
 - *optionalDependencies* : dépendances dont l'installation ne sera pas nécessairement satisfaite, notamment pour des raisons de compatibilité. En général votre code prévoira que le chargement de ces modules via `require()` pourra échouer en prévoyant le traitement des exceptions avec un `try {} catch ()` ;
-- *peerDependencies* : modules installés au niveau parent du projet actuel. Pratique couramment employée dans le cas de _plugins_.
+- *peerDependencies* : module dont l'installation vous est recommandée ; pratique couramment employée dans le cas de _plugins_. +
+Par exemple, si votre projet `A` installe `gulp-webserver` en `devDependencies` et que `gulp-webserver` déclare `gulp` en `peerDependencies`, npm vous recommandera d'installer également `gulp` en tant que `devDependencies` de votre projet `A`.
 ====
 
 Voyons maintenant comment organiser notre code au sein de notre espace de travail.
@@ -148,8 +153,9 @@ Quoiqu’il en soit, l’objectif est de créer des repères pérennes pour navi
 ====
 L’application ne devrait *jamais persister de fichiers* au sein de cette arborescence.
 
-Considérez un emplacement qui persistera aux installations diverses et répétées. +
-Cet emplacement sera défini par un fichier de configuration ou une variable d’environnement.
+Considérez un emplacement système qui persistera aux installations diverses et répétées. +
+Cet emplacement sera défini par mécanisme de configuration type  variable d’environnement.
+Lire <<project-configuration,fichier de configuration>> de ce même chapitre pour plus d'informations et recommandations à ce sujet.
 ====
 
 La suggestion d’organisation ci-avant s’explique de la manière suivante :
@@ -511,6 +517,7 @@ node src/snippets/config-yargs.js <1>
 
 Consultez la documentation de ce module pour davantage d'exemples variés et avancés.
 
+[[project-configuration]]
 ===== Fichier de configuration
 
 Opter pour un fichier de configuration fait sens si de nombreux paramètres sont à fournir à l'application — ou si certains de ces paramètres impliquent des arborescences d'objets ou de tableaux ECMAScript.
@@ -771,20 +778,21 @@ Sa configuration est une des plus faciles à apprendre :
 [source]
 ./etc/init/your-app
 ----
-start on startup
+start on runlevel [2345] and net-device-up IFACE=eth0
 
 exec /usr/bin/node /path/to/your/app.js
 ----
 
 Cette configuration ultra simpliste décrit la commande à exécuter, et quand lancer automatiquement le service.
-Dans ce cas, au démarrage du système.
+Dans ce cas, au démarrage du système, une fois le réseau disponible sur l'interface `eth0`.
 
 [TIP]
 .[RemarquePreTitre]#Outil# Upstart
 ====
 Une introduction ainsi qu'une documentation détaillée d'_Upstart_ est disponible à l'adresse suivante :
 
-- [URL]#http://upstart.ubuntu.com/cookbook/#
+- [URL]#http://doc.ubuntu-fr.org/upstart# (en français)
+- [URL]#http://upstart.ubuntu.com/cookbook/# (en anglais)
 ====
 
 L'apprentissage et le débogage de tels scripts peut se révéler fastidieuse et rébarbative … _foreman_ dispose d'une fonctionnalité d'export adressant le problème.
@@ -1061,28 +1069,22 @@ Il ne reste que trois dépendances sur lesquelles nous pouvons avoir une action 
 Pour forcer l'installation de la version correspondant à la colonne _Latest_ de la commande `npm outdated`, il suffit d'utiliser le suffixe `@latest` lors de l'installation :
 
 ----
-npm install --save-dev grunt-contrib-uglify@latest
+npm install --save-dev mocha@latest karma@latest …
 ----
 
 Et ainsi de suite pour les autres dépendances de premier niveau.
-Voici ce qui est affiché après l'installation de nouvelles versions majeures :
-
-.Résultats obsolètes issue de `npm outdated`
-image::images/npm-outdated-uptodate.png[align="center",scaledwidth="85%"]
-
-On ne peut faire mieux en l'état car :
-
-- une dépendance Git apparaîtra systématiquement car npm n'a aucun moyen de connaître s'il s'agit de la dernière version en date ;
-- les dépendances de second niveau (et plus) ne sont pas maitrisables si le paquet reposant sur celles-ci est à jour.
+La commande `npm outdated` ne devrait pas retourner de résultats, sauf si une de vos dépendances n'est pas à jour elle-même.
 
 [TIP]
-.[RemarquePreTitre]#Outil# David
+.[RemarquePreTitre]#Outil# David et Greenkeeper
 ====
 L'outil en ligne _David_ se charge de vérifier l'état des dépendances de chaque module publié dans le registre npm.
 
-Le moyen le plus simple étant de souscrire au flux RSS de chacun de vos modules publié dans le registre afin d'être notifié de leur obsolescence.
+_Greenkeeper_ vérifie également l'état de vos dépendances tout en étant plus strict sur la version à autoriser dans le fichier `package.json`.
+Il notifie votre projet et propose automatiquement une _pull request_ en cas de mise à jour d'une de vos dépendances.
 
 - [URL]#https://david-dm.org/#
+- [URL]#http://greenkeeper.io/#
 ====
 
 ===== Éclater sa base de code
@@ -1132,8 +1134,8 @@ On n'oubliera pas les vulnérabilités liés à votre système d'exploitation, �
 Plusieurs canaux sont à votre disposition pour être notifié très rapidement de mises à jour correctives :
 
 - *Failles de sécurité de modules npm* : [URL]#https://nodesecurity.io/advisories# — et son flux RSS [URL]#https://nodesecurity.io/rss.xml# ;
-- *Failles de sécurité de Node* : [URL]#http://blog.nodejs.org/vulnerability/# — et son flux RSS [URL]#http://blog.nodejs.org/feed/vulnerability/# ;
-- *Mises à jour de Node* : [URL]#http://blog.nodejs.org/# — et son flux RSS [URL]#http://blog.nodejs.org/feed/#.
+- *Failles de sécurité de Node* : son flux RSS [URL]#https://nodejs.org/en/feed/vulnerability.xml# ;
+- *Mises à jour de Node* : [URL]#https://nodejs.org/en/blog/# — et son flux RSS [URL]#https://nodejs.org/en/feed/blog.xml#.
 
 === Bien utiliser npm
 

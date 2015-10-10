@@ -1,10 +1,11 @@
 'use strict';
 
-var glob = require('glob');
-var join = require('path').join;
+let glob = require('glob');
+let join = require('path').join;
 
-var options = {
-  cwd: join(__dirname, '..', '..')
+const options = {
+  cwd: join(__dirname, '..', '..'),
+  ignore: 'node_modules/**'
 };
 
 glob('**/cli*.{js,json}', options, function(err, files){
