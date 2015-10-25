@@ -1,4 +1,5 @@
 :nodeCurrentVersion: v4
+:npmCurrentVersion: v3
 :revisionYear: 2015
 :sourceDir: ./examples/src
 :imagesdir: {indir}
@@ -33,6 +34,14 @@ C'est sans parler de leur intégration et de leur systématisation au sein des p
 Bref c'était lourd et compliqué à moins de disposer d'une infrastructure industrialisée. +
 Node simplifie tout, de la récupération des bibliothèques tierces à la compilation, optimisation et aux tests de vos composants Web.
 
+[TIP]
+.[RemarquePreTitre]#Remarque# Versions de Node et npm
+====
+Le contenu de ce chapitre se base par défaut sur les branches de  *Node {nodeCurrentVersion}* et *npm {npmCurrentVersion}*.
+
+D'autres versions majeures sorties depuis ont peut-être altéré certains des comportements et fonctionnalités décrites ci-après.
+====
+
 toc::[]
 
 === Gestion des dépendances
@@ -45,17 +54,18 @@ Ils rendent explicites la liste des dépendances, le spectre des versions compat
 
 ==== npm
 
-_npm_ est le gestionnaire de dépendances par défaut de Node.
+_npm_ est le gestionnaire de dépendances inclus dans les distributions courantes de Node.
 Pourquoi en parler s'il ne fonctionne que pour Node ?
-Car contrairement aux à prioris, *npm ne se limite pas qu'à Node*.
+Car contrairement aux à prioris, *npm ne se limite pas à la gestion des dépendances spécifiques à Node*.
+npm utilise Node comme moteur d'exécution mais vous pouvez tout  fait empaqueter des images, fichiers CSS, Sass, TypeScript etc.
 
 Quelles sont les raisons de choisir npm comme gestionnaire de dépendances _frontend_ ?
 
-- déclaration explicite des points d'entrée via la propriété _main_ du fichier _package.json_ ;
-- inclusion des dépendances avec la syntaxe _CommonJS_ ;
-- transformation des appels _CommonJS_ en modules _AMD_ ou pur ECMAScript (_vanilla ECMAScript_) ;
-- utilisation du même outil de dépendance, indépendamment du contexte d'exécution de l'application ;
-- c'est le meilleur moyen d'atteindre l'_isomorphisme applicatif_ (lire _Vers un code isomorphique et modulaire_ dans ce même chapitre).
+- *déclaration explicite* des points d'entrée via la propriété _main_ du fichier _package.json_ ;
+- gestion des dépendances de dépendances et quasi-absence de conflits de version ;
+- outillage et *écosystème riche* et complet ;
+- transformation des appels _CommonJS_ en modules _ECMAScript 2015_ et vice-versa via des transpilateurs ou _transforms_ ;
+- c'est le meilleur moyen d'*atteindre l'_isomorphisme applicatif_* (lire <<universal-applications,Vers un code universel et modulaire>> dans ce même chapitre).
 
 L'exemple suivant illustre deux moyens d'inclure jQuery dans une page HTML, via une simple balise script ou via la syntaxe AMD :
 
