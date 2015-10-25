@@ -6,7 +6,8 @@
   "scripts": {
     "less": "lessc src/snippets/sample.less > src/snippets/sample.css",
     "lint-css": "csslint src/snippets/sample.css",
-    "lint-es": "eslint src/snippets/npm-express.js",
+    "lint-eslint": "eslint --no-eslintrc src/snippets/npm-express.js",
+    "lint-eslintrc": "eslint src/snippets/npm-express.js",
     "lint-html": "node node_modules/.bin/htmlhint src/snippets/sample.html"
   },
   "repository": {

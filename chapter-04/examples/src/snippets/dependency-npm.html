@@ -1,13 +1,20 @@
+<!-- syntaxe vanilla JS -->
 <script src="node_modules/jquery/dist/jquery.min.js"></script>
 
+<!-- syntaxe CommonJS -->
 <script>
-requirejs.config({
-  paths: {
-    jquery: 'node_modules/jquery/src'
-  }
-});
+let $ = require('jquery');
 
-require(['jquery/core/ready'], function($){
-  $(document).ready( … );
+$(document).ready(() => {
+  // ...
+});
+</script>
+
+<!-- syntaxe modules ECMAScript 2015 -->
+<script>
+import jQuery as $ from 'jquery';
+
+$(document).ready(() => {
+  // ...
 });
 </script>

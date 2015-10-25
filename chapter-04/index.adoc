@@ -67,7 +67,7 @@ Quelles sont les raisons de choisir npm comme gestionnaire de dépendances _fron
 - transformation des appels _CommonJS_ en modules _ECMAScript 2015_ et vice-versa via des transpilateurs ou _transforms_ ;
 - c'est le meilleur moyen d'*atteindre l'_isomorphisme applicatif_* (lire <<universal-applications,Vers un code universel et modulaire>> dans ce même chapitre).
 
-L'exemple suivant illustre deux moyens d'inclure jQuery dans une page HTML, via une simple balise script ou via la syntaxe AMD :
+L'exemple suivant illustre plusieurs moyens d'inclure jQuery dans une page HTML, via une simple balise script, via un module _CommonJS_ (syntaxe Node) ou via la syntaxe des _modules_ d'ECMAScript 2015 :
 
 [source,html]
 .snippets/dependency-npm.html
@@ -75,53 +75,71 @@ L'exemple suivant illustre deux moyens d'inclure jQuery dans une page HTML, via 
 include::{sourceDir}/snippets/dependency-npm.html[]
 ----
 
-Rien de spécial à signaler, si ce n'est que cela nous force à exposer le contenu du répertoire `node_modules` de notre projet.
+L'utilisation de modules _CommonJS_ nécessitera une étape de compilation avant de pouvoir fonctionner nativement dans le navigateur.
+C'est quelque chose que nous adresserons dans la section <<automation, automatisation des tâches>> de ce même chapitre.
 
-L'utilisation de npm nécessitera une étape de compilation dans les cas où les dépendances ne proposent pas de code directement intelligible par les navigateurs Web.
-Ce sera le cas si les dépendances ne proposent que des modules CommonJS (faisant appel à `require()`), sans artéfacts précompilés.
-Dans le précédent exemple jQuery propose ces artéfacts dans un répertoire `dist`.
+L'étape de compilation sera également nécessaire si les navigateurs cibles de votre applications ne sont pas compatibles nativement avec les _modules ECMAScript 2015_. +
+Pour cela nous aurons recours à un _transpilateur_, pour convertir du code ECMAScript 2015 en ECMAScript 5.
+Nous en reparlerons dans la section <<transpilation,Transpilation>> de ce même chapitre.
 
-Un second frein est l'effort de simplification et de vérification de l'arbre de dépendances pour éviter les redondances.
+Certains auteurs de paquets _npm_ proposent du code préalablement compilé et prêt à l'emploi, en général et par convention dans un répertoire `dist/`.
 
-----
-.
-└── node_modules
-    ├── moduleA
-    │   └── node_modules
-    │       └── jquery
-    └── moduleB
-        └── node_modules
-            └── jquery
-----
-
-Le schéma précédent illustre la situation où deux modules différents dépendent tous deux de jQuery.
-La structure de dépendances en arbre de npm n'est pas optimisée pour des performances Web.
-Elle n'est d'ailleurs pas conçue pour être exposée telle quelle via un serveur HTTP, sauf pour des besoins de prototypage rapide.
-
-L'utilisation de `npm dedupe` peut toutefois simplifier la structure de l'arbre.
-Notre exemple précédent sera optimisé de la sorte :
+_npm_ organise les dépendances selon une structure dite _plate_ (_flat tree structure_).
+Ainsi, si deux modules distincts se basent sur une *version compatible d'une même dépendance* selon _semver_ — ici, jQuery v2 —  voici l'arbre de dépendance de _npm_ et la disposition sur le système de fichiers qui en résultent :
 
 ----
-.
-└── node_modules
-    ├── jquery
-    ├── moduleA
-    └── moduleB
+$ npm ls
+my-app@1.0.0
+├── module-a@1.0.0
+|   └── jquery@2.1.0
+└── module-b@1.0.0
+    └── jquery@2.1.4
+
+$ tree node_modules
+node_modules
+├── jquery
+├── module-a
+└── module-b
 ----
 
-Inconvénient : cela cassera tout appel de chemin en dur dans `moduleA` et `moduleB` et nécessitera d'utiliser le mécanisme de résolution de chemin de CommonJS. +
-Nous verrons par la suite que ces inconvénients n'en sont pas vraiment, et que les mécanismes de compilation reposant sur CommonJS sont très largement bénéficiaires pour une chaîne de compilation entièrement automatisée.
+Dans le cas où plusieurs modules dépendant d'un même paquet mais dans une version _semver_ incompatible — ici jQuery v1 et jQuery v2 — la version la plus _ancienne_ se trouvera à la racine du répertoire _node_modules_ tandis que les autres seront _encapsulées_ au plus près du module en dépendant :
 
-[WARNING]
-.[RemarquePreTitre]#Windows# NTFS et ses 255 caractères
+----
+$ npm ls
+my-app@1.0.0
+├── module-a@1.0.0
+|   └── jquery@1.11.3
+└── module-b@1.0.0
+    └── jquery@2.1.4
+
+$ tree node_modules
+node_modules
+├── jquery
+├── module-a
+└── module-b
+    └── jquery
+----
+
+L'utilisation de `npm dedupe` peut être un ultime recours pour optimiser un arbre plus complexe que celui-ci.
+Ceci dans l'optique de diminuer les inclusions multiples d'une librairie techniquement compatible avec d'autres versions mineures.
+
+[CAUTION]
+.[RemarquePreTitre]#Remarque# Résolution de chemins
 ====
-Le système de fichiers NTFS limite la longueur d'un chemin à 255 caractères. +
-npm gérant les dépendances sous forme d'arborescence de répertoires, il se pourrait que vous atteigniez cette limite en cas de profondeur prononcée et de longs noms de modules.
+Il est fortement *déconseillé de se baser sur des chemins en dur* tapant dans le répertoire _node_modules_.
+Il est *préférable de faire appel à `require.resolve`* pour déterminer le chemin vers un fichier compris dans une dépendance.
 
-Si Windows est votre plateforme de développement principale ou votre environnement de déploiement, optez pour un gestionnaire de dépendances à plat tel que _bower_ (voir ci-après).
+[source,javascript]
+----
+// À ne surtout pas faire
+var jqueryCore = require('./node_modules/jquery/src/core.js');
+
+// À faire
+var jQueryCore = require('jquery/src/core.js');
+----
 ====
 
-Nous verrons davantage d'exemples, plus complets et variés dans la section _Vers un code isomorphique et modulaire_.
+Nous verrons davantage d'exemples, plus complets et tendant vers une même base de code compatible à la fois avec les API de Node et des navigateurs Web dans la section <<universal-applications, Vers un code universel et modulaire>>.
 
 ==== bower
 
@@ -129,43 +147,16 @@ _bower_ est un gestionnaire de dépendances entièrement dédié aux composants 
 Son interface est très proche de celle la commande npm.
 Les dépendances sont quant à elles listées dans un fichier `bower.json`.
 
-----
-npm install -g bower
-bower init
-bower install --save jquery
-----
-
-Si les deux gestionnaires de modules sont à ce point similaires, quelles seraient les raisons d'opter pour bower ?
-
-- sa capacité à inclure des dépendances n'ayant pas déclarées de fichier `bower.json` ;
-- sa structure à plat, facile à lire ;
-- l'absence de phase de compilation obligatoire ;
-- la séparation explicite des componsants _frontend_ des composants _backend_.
-
-Il a souvent été perçu comme plus légitime que npm pour les besoins _frontend_, ce dernier étant perçu comme étant exclusivement dédié aux dépendances Node.
-
-L'exemple suivant illustre deux moyens d'inclure jQuery dans une page HTML, via une simple balise script ou via la syntaxe AMD :
-
-[source,html]
-.snippets/dependency-bower.html
-----
-include::{sourceDir}/snippets/dependency-bower.html[]
-----
-
-Derrière cette simplicité de prise en main, deux inconvénients se font ressentir à long terme :
-
-- l'impossiblité d'inclure une dépendance sans en connaître le chemin exact ;
-- la difficulté à produire des artéfacts optimisés depuis les sources des modules — certains ne fournissant que des artéfacts sans les sources originales.
-
-Autrement dit, les avantages de bower font les inconvénients de npm et vice-versa. +
-Démarrer par bower est probablement la solution la plus rapide pour élimiter l'acquisition manuelle des dépendances … mais les limites se feront sentir dès lors que les barrières entre _backend_ et _frontend_ se feront sentir.
+Ce projet a rencontré une forte popularité à une époque où les développeurs pensaient que _npm_ n'était pas nécessaire ni pertinent pour les dépendances _front-end_. +  
+Je *déconseille fortement l'utilisation de _bower_* car il ne répond pas du tout au besoin de l'outillage _front-end_.  
+Il est par ailleurs un frein majeur aux <<universal-applications,applications universelles>>.
 
 ==== Exposer un composant web avec Node
 
-Que vous utilisiez npm ou bower pour gérer vos dépendances, il peut arriver que vous ayiez besoin de les servir via HTTP.
+Il peut arriver que vous ayiez besoin de servir certaines ressources de modules via HTTP sans utiliser de préprocesseur ou d'outil de compilation.
 
 Le _framework_ _express_ ([URL]#http://expressjs.com/#) met à disposition un mécanisme de _montage d'URL_.
-En combinant ce mécanisme avec la méthode `express.static`, il devient alors possible d'exposer n'importe quel fichier ou répertoire en tant que ressource Web.
+En combinant ce mécanisme avec la méthode `express.static`, il devient alors possible d'exposer n'importe quel fichier inclut dans _npm_modules_ (ou autre répertoire) en tant que ressource Web.
 
 [source,javascript]
 .snippets/npm-express.js
@@ -174,8 +165,6 @@ include::{sourceDir}/snippets/npm-express.js[]
 ----
 <1> Rend accessible le fichier `jquery.js` à l'adresse `http://localhost:3000/assets/jquery.js` ;
 <2> Rend accessible le répertoire `node_modules` à l'adresse `http://localhost:3000/assets`, et donc d'une autre manière, le fichier `jquery.js` à l'adresse `http://localhost:3000/assets/jquery/dist/jquery.js`.
-
-Pour en savoir plus sur l'utilisation du _framework_ _express_, reportez-vous à la section _Application Web_ du chapitre 4.
 
 === Un outillage sur mesure
 
@@ -200,7 +189,7 @@ C'est aussi une pratique rapide à mettre en œuvre — de préférence dès le 
 Les modules à disposition dans npm vous permettront de couvrir vos fichiers CSS, HTML et ECMAScript bien sûr !
 
 *htmlhint* ([URL]#https://npmjs.com/htmlhint#) est un outil en ligne de commande vérifiant la structure de vos documents HTML.
-Il rapporte les doublons d'attributs `id`, la présence de paires de balises mal formées, l'absence de balise fermante ou encore l'existance de chaînes de charactère non-imprimables dans des attributs critiques, entre autre.
+Il rapporte les doublons d'attributs `id`, la présence de paires de balises mal formées, l'absence de balise fermante ou encore l'existance de chaînes de caractère non-imprimables dans des attributs critiques, entre autre.
 
 Prenons en exemple le document suivant :
 
@@ -213,7 +202,7 @@ include::{sourceDir}/snippets/sample.html[]
 Une lecture distraite pourrait nous faire passer à côté des erreurs mais également des inconsistances de programmation.
 Sur un document plus réaliste, et donc volumineux, avec de fréquents changements, autant oublier la vérification manuelle.
 
-L'exéction de *htmlhint* avec ses règles par défaut remontera les alertes suivantes :
+L'exécution de *htmlhint* avec ses règles par défaut remontera les alertes suivantes :
 
 ----
 $ npm run lint-html
@@ -227,15 +216,14 @@ line 10, col 52: Tagname [ BUTTON ] must be lower case.
 
 Si elle peuvent paraître opiniatres, sachez qu'elles n'ont pour seul but que de décider une bonne fois pour toute quelle attitude adopter : tout ou rien en miniscule, guillemets simples ou doubles, doctype explicite etc.
 
-*eslint* ([URL]#https://npmjs.com/eslint#) est le meilleur outil de vérification syntaxique pour ECMAScript.
+*eslint* ([URL]#https://npmjs.com/eslint#) est l'outil de vérification syntaxique pour ECMAScript le plus *complet et modulaire*.
 Il offre un niveau de souplesse extrême au niveau de la configuration des règles à appliquer (utilisation systématique de `use strict`, nombre maximum de paramètres de fonctions, objets non-déclarés, variables inconnues etc.). +
-Il expose également une API relativement simple à utiliser pour y adjoindre vos propres règles.
-Que vous pouvez ainsi partager ou pas, selon qu'il s'agisse de vos propres règles métier ou non.
+Il expose également une API relativement simple à utiliser pour y adjoindre vos propres règles afin de les réutiliser dans vos différents projets.
 
 Appliquons les règles par défault d'*eslint* sur le code existant d'un précédent exemple de ce même chapitre :
 
 ----
-$ npm run lint-es
+$ npm run lint-eslint
 src/snippets/npm-express.js
 1:0   error  Use the function form of "use strict"  global-strict
 1:0   error  Strings must use doublequote           quotes
@@ -377,7 +365,7 @@ Cette méthode permet d'élargir les perspectives de la compression via de la r�
 - injection en ligne du contenu de variables.
 
 *UglifyJS* s'utilise de manière autonome, en ligne de commande ou via son API ECMAScript, mais aussi par le biais de plugins grunt, gulp et browserify (uglifyify et minifyify). +
-Un exemple plus concret est abordé dans la section <<automatisation-gulp,Automatisation des tâches avec Gulp>>.
+Un exemple plus concret est abordé dans la section <<automation,Automatisation des tâches>>.
 
 ==== Optimisation du code
 
@@ -413,7 +401,7 @@ Sans l'utilisation du paramètre `-o` (_output_), le fichier d'origine aurait é
 *uncss* ([URL]#https://npmjs.com/uncss#) est le pendant inverse d'_autoprefixer_ puisqu'il se charge de supprimer le code … mort.
 Pour se faire, _uncss_ charge une ou plusieurs pages de référence et fait la différence entre les règles CSS utilisées … et celles qui ne le sont pas.
 Libre à vous de mentionner une liste blanche de règles à ne jamais supprimer pour éviter qu'elles soient écrémées par mégarde.+
-_uncss_ s'intègre particulièrement facilement dans les projet grâces à des plugins _grunt_ et _gulp_.
+_uncss_ s'intègre particulièrement facilement dans les projet grâces à des plugins _grunt_ et <<gulp, gulp>>.
 
 Si le monde de l'optimisation ECMAScript a explosé depuis l'apparition d'*esprima*, il en est de même pour CSS avec *PostCSS* ([URL]#https://npmjs.com/postcss#). +
 Cet outil est construit autour du triptyque suivant :
@@ -455,40 +443,74 @@ _csso_ ira jusqu'à réécrire les codes couleurs, les `margin` et `padding` et 
 - watcher
 - livereload
 
-anchor:automatisation-gulp[]
+[[transpilation]]
+==== Transpilation
 
-=== Automatisation des tâches avec Gulp
+- babel
+- traceur
+- TypeScript
 
-==== Configuration des tâches
+[[automation]]
 
-==== Exécution des tâches
+=== Automatisation des tâches
+
+TBD.
+
+==== Quel outil choisir ?
+
+npm/grunt/gulp/brunch/webpack : c'est la jungle j'y comprends rien.
+
+==== Scripts npm
+
+- scripts "natifs"
+- scripts custom
+- composition
+- pre/post
+
+==== Gulp
 
 - par tâche
 - par target
 - tâches personnalisées
 - arguments
 
-=== Vers un code isomorphique et modulaire
+[[universal-applications]]
+=== Vers un code universel et modulaire
 
 - approche simple d'objets partagés (inclusion, retour d'APIs)
-- ECMAScript, CommonJS et AMD
+- ECMAScript, CommonJS et modules ES2015
+- browserify + transform chain
 - inclusion de bibliothèques fonctionnant côté Node et côté navigateur de manière transparente
 - transformation du code avec un outillage spécifique
 
-=== Transformation et empaquetage de code
-
 ==== browserify
+
+TBD.
 
 ==== Webpack
 
+TBD.
+
 ==== brunch.io
+
+TBD.
 
 === Tester la compatibilité navigateur
 
+TBD.
+
 ==== Karma
+
+TBD.
 
 ==== SauceLabs
 
+TBD.
+
 ==== BrowserStack
 
+TBD.
+
 === Conclusion
+
+TBD.
