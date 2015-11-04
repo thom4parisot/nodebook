@@ -217,8 +217,8 @@ Un langage comme C sera certainement davantage approprié.
 Toutefois des solutions comme `node-gyp` vous offrent un accès bas niveau aux éléments internes de la plate-forme Node.
 
 Node ne vous aidera probablement pas si vous cherchez à *réaliser des choses qui seraient compliquées de par la nature même de JavaScript*, par exemple des opérations mathématiques de très haute précision. +
-ECMAScript suit le standard IEEE 754 pour la représentation des nombres à virgule flottante — de même que C#, Ruby et Java, entre autre.
-Vous pouvez toutefois palier à ce problème via l'utilisation des `Buffer` ou des _Typed Array_ (_Int32_, _UInt32_ etc.).
+ECMAScript suit le standard IEEE 754 pour la représentation des nombres à virgule flottante — de même que C#, Ruby et Java, entre autres.
+Vous pouvez toutefois pallier ce problème via l'utilisation des `Buffer` ou des _Typed Array_ (_Int32_, _UInt32_ etc.).
 Les module `bignumber.js` et `bignum` reposent sur ces mécanismes tout en vous facilitant le travail.
 
 Enfin si vous croyez que Node va *résoudre des problèmes de compétences en développement* ou résoudre _de facto_ une erreur de conception logicielle, c'est bien évidemment une erreur.
@@ -228,7 +228,7 @@ Enfin si vous croyez que Node va *résoudre des problèmes de compétences en d�
 Un certain nombre d'acteurs gravitent autour de Node.
 Le modèle qui en émerge est assez unique : la majorité des développements initiaux était financée par *Joyent* suite à l'embauche de Ryan Dahl.
 
-L'écosystème contribuant au développement de la plateforme a évolué d'un faible nombre d'entreprises privées vers une fondation non-commerciale impliquant plusieurs dizaines d'individus, la plupart financés par leur employeur.
+L'écosystème contribuant au développement de la plate-forme a évolué d'un faible nombre d'entreprises privées vers une fondation non-commerciale impliquant plusieurs dizaines d'individus, la plupart financés par leur employeur.
 
 En 2015, après avoir traversé des périodes incertaines, l'avenir de Node est au beau fixe avec plus de 300 contributeurs à la plateforme et plus de 190 000 paquets publics hébergés par le registre _npm_.
 
@@ -286,7 +286,7 @@ _npm_ peut également désigner le _registre_ principal qui héberge les modules
 .[RemarquePreTitre]#Lien# Annonce de l’inclusion de _npm_ dans Node
 ====
 _npm_ est installé par défaut avec Node depuis la version 0.6.3, sortie en novembre 2011.
-Auparavant il fallait installer le module _npm_ séparément.
+Auparavant, il fallait installer le module _npm_ séparément.
 
 - http://blog.nodejs.org/2011/11/25/node-v0-6-3/
 ====
@@ -298,7 +298,7 @@ Isaacs Schlueter a été embauché par Joyent en septembre 2010 et a succédé �
 
 _npm, Inc_ est une entreprise privée américaine fondée en janvier 2014 par Isaacs Schlueter, directement après son départ de Joyent. Le but de _npm, Inc_ est fournir des solutions professionnelles basées sur _npm_ tout en soutenant l’effort open source et les coûts d’infrastructure du registre _npm_.
 
-Elle lève 2,6 millions de dollars en février 2014 pour mettre en place une nouvelle architecture du registre _npm_ ainsi que pour  mettre en place une stratégie commerciale, notamment les modules privés.
+Elle lève 2,6 millions de dollars en février 2014 pour élaborer une nouvelle architecture du registre _npm_ ainsi que pour mettre en place une stratégie commerciale, notamment les modules privés.
 
 La société _npm, Inc_ détient la marque _npm_, _npm, Inc_ et le _logo npm_.
 
@@ -309,20 +309,20 @@ _io.js_ est un _fork_ de Node initié par la communauté Node en réaction à la
 
 Les objectifs initiaux du projet _io.js_ sont doubles :
 
-- offrir à la communauté Node une gestion de la plate-forme  transparente, inclusive et ouverte ;
+- offrir à la communauté Node une gestion de la plate-forme transparente, inclusive et ouverte ;
 - fournir une plate-forme technique plus moderne, une version de v8 plus récente ainsi qu'une intégration rapide des nouvelles fonctionnalités ECMAScript.
 
 Les efforts du projet et de sa communauté ont abouti à la création de la <<node-foundation,Node.js Foundation>> et du <<governance,Node.js Advisory Board>>, respectivement l'organe de gestion du projet et le groupe d'individus en charge de la gestion du projet Node.
 
-Le projet _io.js_ continue sur la même lancée mais contribue désormais directement dans la base de code de Node au lieu du _fork_ initial.
+Le projet _io.js_ continue sur la même lancée mais contribue désormais directement à la base de code de Node au lieu du _fork_ initial.
 
 ==== Nodejitsu
 
 _Nodejitsu_ est une entreprise privée américaine fondée en 2010.
-Elle vise à fournir des solutions professionnelles autour de Node en tant que _Platform as a Service_ (_PaaS_) ainsi qu'avec des dépôts _npm_ privés. +  
-Son activité en fait un concurrent direct de <<joyent,Joyent>> et de <<npm-inc,npm, Inc..>>.
+Elle vise à fournir des solutions professionnelles autour de Node en tant que _Platform as a Service_ (_PaaS_) ainsi qu'avec des dépôts _npm_ privés. +
+Son activité en fait un concurrent direct de <<joyent,Joyent>> et de <<npm-inc,npm, Inc.>>.
 
-_Nodejitsu_ démontre un investissement fort dans la communauté Node en contribuant plusieurs centaines de modules et en prenant en charge l'hébergement du registre _npm_ de 2010 jusqu'en décembre 2013.
+_Nodejitsu_ démontre un investissement fort dans la communauté Node en contribuant à plusieurs centaines de modules et en prenant en charge l'hébergement du registre _npm_ de 2010 jusqu'en décembre 2013.
 
 En 2013, _Nodejitsu_ lance l'initiative _#scalenpm_ visant à collecter des fonds pour améliorer la performance et la stabilité du registre https://www.npmjs.com/[npmjs.com]. +
 Elle attise les tensions avec la compagnie _npm, Inc._ en tentant de lui couper l'herbe sous le pied, sans succès.
@@ -336,7 +336,7 @@ L'initiative _#scalenpm_ a réuni quelques 326 000 $ auprès d'entreprises priv�
 
 Son effort se poursuit dans le but de fournir une meilleure instrumentation et une architecture résistant à la montée en puissance de l'utilisation des modules _npm_.
 
-Cette initiative a suscité une controverse dans la mesure où l’opération s’est déroulée lors de la naissance de _npm, Inc_ et du dépôt de marque associé … mais sans entente apparente entre les deux parties.
+Cette initiative a suscité une controverse dans la mesure où l’opération s’est déroulée lors de la naissance de _npm, Inc_ et du dépôt de marque associé… mais sans entente apparente entre les deux parties.
 
 - https://scalenpm.nodejitsu.com/
 ====
@@ -353,7 +353,7 @@ Son but est triple :
 3. permettre à quiconque de savoir si un module donné dépend de module vulnérable.
 
 Le projet met un point d'honneur à impliquer la communauté Node dans la gestion de la sécurité.
-Cela concerne aussi bien la déclaration des vulnérabilités que leur résolution ou l'éducation à la sécurité des développeurs.
+Cela concerne aussi bien la déclaration des vulnérabilités que leur résolution ou l'éducation des développeurs à la sécurité.
 
 [TIP]
 .[RemarquePreTitre]#Module npm# retire.js
@@ -371,7 +371,7 @@ Joyent est une entreprise privée qui a été responsable de Node depuis l'embau
 Cette gérance privée du projet Open Source a régulièrement fait grincer des dents, notamment en entretenant un climat d'incertitude sur la pérennité à long terme de la plate-forme.
 
 Certaines voix se sont élevées pour critiquer l'absence d'une organisation ouverte, commercialement neutre et ouverte aux contributeurs externes. +
-C'est ce qui a poussé <<iojs,io.js>> a créer un _fork_ de Node, entre autre.
+C'est ce qui a poussé <<iojs,io.js>> a créer un _fork_ de Node, entre autres.
 
 Si bien que depuis juin 2015, la gérance du projet est garantie par un organisme commercialement neutre, la <<node-foundation,Node.js Foundation>>.
 
@@ -408,7 +408,7 @@ L'API Node correspond à des _modules CommonJS_ écrits en JavaScript (voir ci-a
 
 Le but de cette API est d'adresser les manipulations les plus répétitives et pénibles pour les développeurs.
 Vous avez déjà cherché à implémenter un client HTTP de zéro ?
-Node vous affranchit de cette contrainte en prenant à sa charge ce difficile labeur (car oui écrire un client HTTP n'est pas une sinécure !).
+Node vous affranchit de cette contrainte en prenant à sa charge ce difficile labeur (car oui, écrire un client HTTP n'est pas une sinécure !).
 
 Ces modules natifs sont relativement bas niveau.
 Ils servent de base à la création d'autres modules plus faciles d'accès et partagés dans le registre npm.
@@ -506,7 +506,7 @@ La liaison avec le shell système est effectuée par _libuv_.
 
 [CAUTION]
 ====
-J'ai pas dis de bêtise ci-dessus ?
+J'ai pas dit de bêtises ci-dessus ?
 ====
 
 [TIP]
@@ -561,7 +561,7 @@ Le code source de _libuv_ est disponible sur GitHub. Le parcourir permet de mieu
 ==== Boucle événementielle
 
 La boucle événementielle (_Event Loop_) est un mécanisme d'exécution des tâches apporté par _libuv_ et déléguée au système d'exploitation.
-Elle s'inspire très fortement du modèle de boucle événementielle telle qu'implémentée dans les navigateurs  web.
+Elle s'inspire très fortement du modèle de boucle événementielle telle qu'implémentée dans les navigateurs web.
 
 C'est grâce à ce mécanisme que l'exécution d'une fonction peut être reportée à plus tard.
 C'est la fameuse _exécution asynchrone_.
@@ -610,7 +610,7 @@ _Loupe_ est un visualisateur de boucle évènementielle.
 
 Alors pourquoi dit-on que _libuv_ est non bloquant ?
 L'acquisition d'une ressource système renvoie un descripteur qui est stocké dans une pile d'exécution dédiée tandis que le processus principal poursuit son propre traitement. +
-La pile d'exécution vérifiée à chaque itération de la boucle — à chaque _Tick_).
+La pile d'exécution est vérifiée à chaque itération de la boucle — à chaque _Tick_).
 _libuv_ libère la ressource lorsqu'elle est résolue et le signale au processus principal via un _callback_.
 
 En clair, au lieu de bloquer l'exécution de l'instruction suivante, la boucle événementielle reporte la vérification à plus tard et se saisit de l'instruction suivante.
@@ -663,7 +663,7 @@ Ce mécanisme relativement simple associé à la gestion de dépendances du prog
 Nous verrons ultérieurement comment _effectivement_ gérer des dépendances _npm_ au sein d'un projet.
 
 [TIP]
-.[RemarquePreTitre]#Lien# semver
+.[RemarquePreTitre]#Lien# SemVer
 =====
 La spécification _semver_ est disponible sous forme textuelle mais également en tant que module npm.
 
@@ -678,10 +678,10 @@ La vitesse et la croissance sont des facteurs propices à l'immaturité et à l'
 Le développement de la plate-forme Node prend en compte ces facteurs afin de *sortir au mieux une version majeure par année*.
 Des versions intermédiaires sont publiées pour corriger des bugs, maintenir la sécurité et inclure des fonctionnalités compatibles avec les projets existants.
 
-Depuis la version 4.0 de Node, des versions dites LTS (_Long Term Support_) sont créées tous les douze mois, contribuées pendant dix-huit mois et maintenues pendant douze mois. +  
+Depuis la version 4.0 de Node, des versions dites LTS (_Long Term Support_) sont créées tous les douze mois, contribuées pendant dix-huit mois et maintenues pendant douze mois. +
 Ceci garantit une plate-forme et un ensemble de fonctionnalités stables de manière prédictible, à la fois pour les projets reposant sur Node mais aussi pour l'écosystème de contributeurs de modules _npm_.
 
-Node suit la convention <<semver,Semver>> depuis la version 4.0.
+Node suit la convention <<semver,SemVer>> depuis la version 4.0.
 Précédemment, elle opérait selon le modèle de numérotation de version pair/impair :
 
 - les versions `0.8.x`, `0.10.x`, `0.12.x` représentaient les évolutions stables de Node ;
@@ -689,7 +689,7 @@ Précédemment, elle opérait selon le modèle de numérotation de version pair/
 
 Ainsi, la version `0.9.12` est devenue la version `0.10.0` une fois jugée suffisamment stable et aboutie.
 
-Sur le plan interne, Node indique une indice de stabilité pour chacune de ses API publique selon une échelle discrète graduée de 0 à 5 :
+Sur le plan interne, Node indique un indice de stabilité pour chacune de ses API publiques selon une échelle discrète graduée de 0 à 5 :
 
 - 0 : le module est *déprécié* et ne devrait être utilisé qu'en toute connaissance de cause ;
 - 1 : le module est *expérimental*, instable et nécessite des retours utilisateur ;
@@ -714,10 +714,10 @@ La documentation de l'API Node est disponible au format HTML sur le site officie
 
 Cette philosophie encourage la création de petits modules plutôt que de gros monolithes difficilement configurables.
 
-Il est possible de publier des modules dans le registre se basant sur d'autres modules tiers.
+Il est possible de publier des modules dans le registre en se basant sur d'autres modules tiers.
 Ils n'ont pas à avoir connaissance de leur statut de dépendance : ils doivent juste être responsables de leur numérotation de version pour éviter les problèmes de compatibilité.
 
-Pour garantir au maximum la stabilité des dépendances, le _versioning sémantique_ aka _semver_ a fait son apparition.
+Pour garantir au maximum la stabilité des dépendances, le _versioning sémantique_ aka _SemVer_ a fait son apparition.
 Il explicite l'algorithme employé par _npm_ lors du processus d'installation et de mise à jour.
 
 === Conclusion
