@@ -188,7 +188,7 @@ Lancer un interpréteur Node _sans polluer_ le système hôte revient à exécut
 docker run -ti --rm node:4-slim
 ----
 
-Nous nous repencherons sur Docker dans le link:../chapter-05/index.adoc[chapitre 5], dans la section _Déploiement_.
+Nous nous repencherons sur Docker dans la <<../chapter-05/index.adoc,section _Déploiement_>> du chapitre 5.
 
 ==== Compiler depuis les sources
 
@@ -942,7 +942,7 @@ include::{sourceDir}/primitives-promise-pseudocode.js[]
 
 Le résultat est une *lecture séquentielle du code*, plus facile à appréhender mais également la *souscription de multiples fonctions* en cas de succès ou d'erreur grâce aux méthodes `then` et `catch` :
 
-- `then(onSuccess[, onError])` : fonction acceptant un _callback_ de succès obligatoire et un _callback_ d'erreur facultatif ; 
+- `then(onSuccess[, onError])` : fonction acceptant un _callback_ de succès obligatoire et un _callback_ d'erreur facultatif ;
 - `catch(onError)` : fonction acceptant un _callback_ d'erreur obligatoire, commun à toute la chaine de promesses.
 
 [TIP]
@@ -985,7 +985,7 @@ include::{sourceDir}/primitives-promise.js[]
 S'il y un léger mieux — nous n'avons plus d'imbrication de _callbacks_ — nous avons en revanche un problème : comment itérer sur le résultat de plusieurs appels asynchrones sur un nombre indéterminé d'éléments ?
 
 Tout d'abord, nous n'avons pas besoin de récupérer les fichiers séquentiellement : laissons le système gérer au mieux les cycles CPU et opérer avec la charge système pour obtenir les ressources demandées.
-En d'autres termes : *parallélisons les appels asynchrones*. 
+En d'autres termes : *parallélisons les appels asynchrones*.
 
 Et combinons le tout avec `Promise.all`, une méthode créant une _promesse de promesses_ : elle résoudra positivement ou négativement lorsque toutes les promesses passées en argument seront résolues.
 
