@@ -1,6 +1,6 @@
 BUILD_DIR=dist
 GIT_REPO=oncletom/nodebook
-DOCKER_COMMAND=docker run -i --rm -v $(CURDIR):/documents asciidoctor/docker-asciidoctor
+DOCKER_COMMAND=docker run -i --rm -v $(CURDIR):/documents oncletom/asciidoctor
 
 adoc_files := index.adoc $(wildcard chapter-*/index.adoc) $(wildcard foreword/*.adoc)
 html_files := $(adoc_files:%.adoc=$(BUILD_DIR)/%.html)
@@ -14,7 +14,7 @@ install:
 $(html_files): $(adoc_files)
 	$(eval ADOC_FILE = $(@:dist/%.html=%.adoc) )
 
-	$(DOCKER_COMMAND) sh -c "asciidoctor \
+	$(DOCKER_COMMAND) \
             -a data-uri \
             -a toc=macro \
             -a toclevels=4 \
@@ -25,7 +25,7 @@ $(html_files): $(adoc_files)
             -a docinfo1 \
             -D $(dir $@) \
             -b html5 \
-            -d book $(ADOC_FILE)"
+            -d book $(ADOC_FILE)
 
 all: $(html_files)
 
