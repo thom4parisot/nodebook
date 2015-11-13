@@ -57,7 +57,7 @@ Ils rendent explicites la liste des dépendances, le spectre des versions compat
 _npm_ est le gestionnaire de dépendances inclus dans les distributions courantes de Node.
 Pourquoi en parler s'il ne fonctionne que pour Node ?
 Car contrairement aux à prioris, *npm ne se limite pas à la gestion des dépendances spécifiques à Node*.
-npm utilise Node comme moteur d'exécution mais vous pouvez tout  fait empaqueter des images, fichiers CSS, Sass, TypeScript etc.
+npm utilise Node comme moteur d'exécution mais vous pouvez tout  fait empaqueter des images, fichiers CSS, Sass, <<typescript,TypeScript>> etc.
 
 Quelles sont les raisons de choisir npm comme gestionnaire de dépendances _frontend_ ?
 
@@ -365,7 +365,7 @@ Cette méthode permet d'élargir les perspectives de la compression via de la r�
 - injection en ligne du contenu de variables.
 
 *UglifyJS* s'utilise de manière autonome, en ligne de commande ou via son API ECMAScript, mais aussi par le biais de plugins grunt, gulp et browserify (uglifyify et minifyify). +
-Un exemple plus concret est abordé dans la section <<automation,Automatisation des tâches>>.
+Un exemple plus concret est abordé dans la section <<automation,automatisation des tâches>> de ce même chapitre.
 
 ==== Optimisation du code
 
@@ -444,14 +444,63 @@ _csso_ ira jusqu'à réécrire les codes couleurs, les `margin` et `padding` et 
 - livereload
 
 [[transpilation]]
-==== Transpilation
+=== Transpilation
 
-- babel
-- traceur
-- TypeScript
+Pendant longtemps, transformer de l'ECMAScript en ECMAScript — par exemple de l'ES5 en ES3 ou un autre langage en ECMAScript nécessitait l'utilisation d'un autre environnement qu'ECMAScript lui-même. +
+Rhino nécessitait Java, Spidermonkey nécessitait C++ et Trident nécessitait un environnement Windows en plus de C++.
+Même Node et V8 requièrent C++ pour interpréter de l'ECMAScript.
+
+Pour autant, un projet va chambouler les règles du jeu en décembre 2011 : *esprima*.
+_esprima_ est un parseur ECMAScript écrit en… ECMAScript.
+Donc capable de fonctionner aussi bien dans Node que dans un navigateur Web. +
+Si ça n'a l'air de rien, ce projet ouvre la voie à un écosystème entier de modules qui vont faire de Node la plateforme de prédilection pour assembler ses projets _frontend_ : minifieurs plus performants, _linters_ dynamiques, mais aussi et surtout, l'avènement des *transpilateurs*.
+Ces derniers compilent de l'ECMAScript (ou une surcouche d'ECMAScript) en ECMAScript interprétable par une VM ECMAScript classique.  
+
+_Coffeescript_ est un exemple populaire de surcouche ECMAScript.
+Ce langage a fortement contribué à transvaser nombre de ses fonctionnalités vers la spécification ECMAScript 6 : classes, fonctions fléchées, chaînes multi-lignes, destructuration etc.
+
+On parle de _transpilation_ et non de _compilation_ car le processus de transformation traduit un langage en un autre langage qui n'est pas un langage machine.
+On compile un certain langage en ECMAScript qui nécessite une VM ECMAScript pour que les instructions soient enfin traduites en opérations CPU.
+
+[WARNING]
+.[RemarquePreTitre]#Attention# Coffeescript ou pas Coffeescript ?
+====
+Il n'est pas recommandé d'utiliser _Coffescript_ sur de nouveaux projets depuis la sortie d'ECMAScript 2015.
+
+Si vous souhaitez une version typée d'ESCMAScript, je vous recommande de vous pencher sur <<typescript,TypeScript>>.
+====
+
+La transpilation offre plusieurs avantages face à la création d'un langage compilé à part entière :
+
+- le code transpilé est un *artéfact durable* — souvent lisible et modifiable par un humain — qui permet éventuellement de se passer du langage transpilé initial ;
+- la *complémentarité* avec l'écosystème ECMAScript — c'est quand même plus sympa que de devoir tout réinventer ;
+- l'orientation vers des *langages davantage maintenables* bénéficiant à terme à la spécification ECMAScript.
+
+La suite de cette section s'intéressera à des transpilateurs modernes et singuliers pour vous aider à vous faire une idée de leur utilité au sein d'un projet Web géré seul, en équipe ou en communauté.
+
+[TIP]
+.[RemarquePreTitre]#Lien# Annonce d'esprima
+====
+_Aryia Hidayat_ introduit exprima dans un billet de blog.
+Il y présente notamment des comparatifs de performances d'exécution sur différentes VM ECMAScript et face à d'autres parseurs. 
+
+- [URL]#http://ariya.ofilabs.com/2011/12/introducing-esprima.html#
+====
+
+==== Babel
+
+TBD.
+
+==== Traceur
+
+TBD.
+
+[[typescript]]
+==== TypeScript
+
+TBD.
 
 [[automation]]
-
 === Automatisation des tâches
 
 TBD.
