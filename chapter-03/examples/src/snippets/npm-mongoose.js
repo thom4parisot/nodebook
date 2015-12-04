@@ -3,14 +3,14 @@
 // docker run -ti --rm -p 0.0.0.0:27017:27017 mongo:3.1
 // MONGODB_URL=mongodb://192.168.59.103:27017/nodebook node npm-mongoose.js
 
-let mongoose = require('mongoose');
-let Schema = mongoose.Schema;
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 
 const MONGODB_URL = process.env.MONGODB_URL;
 
 mongoose.connect(MONGODB_URL || 'mongodb://localhost:27017/nodebook');
 
-let BookSchema = new Schema({
+const BookSchema = new Schema({
   id: Schema.ObjectId,
   title: String,
   created_at: { type: Date, default: Date.now }
@@ -18,7 +18,7 @@ let BookSchema = new Schema({
 
 BookSchema.path('title').set(title => title.trim());
 
-let Book = mongoose.model('Book', BookSchema);
+const Book = mongoose.model('Book', BookSchema);
 
 Promise.all([
   new Book({ title: 'Node.js' }).save(),

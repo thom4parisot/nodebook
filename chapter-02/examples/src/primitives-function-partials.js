@@ -1,11 +1,11 @@
 'use strict';
 
-let helloSomething = (text) => {
+const helloSomething = (text) => {
   console.log('Hello ' + text);
 };
 
-let helloWorld = helloSomething.bind(null, 'World');
-let helloParis = helloSomething.bind(null, 'Paris');
+const helloWorld = helloSomething.bind(null, 'World');
+const helloParis = helloSomething.bind(null, 'Paris');
 
 helloWorld();           // <1>
 helloParis();           // <2>

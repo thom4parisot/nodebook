@@ -12,13 +12,13 @@ DATA.some(function(value){
   }
 });
 
-console.log(found);			// <2>
+console.log(found);			  // <2>
 
 // Depuis ES2015
 found = DATA.find(value => value === FIND);
 
-console.log(found);			// <2>
+console.log(found);			  // <2>
 
-let foundIndex = DATA.findIndex(value => value === FIND);
+const foundIndex = DATA.findIndex(value => value === FIND);
 
-console.log(foundIndex);		// <3>
+console.log(foundIndex);	// <3>

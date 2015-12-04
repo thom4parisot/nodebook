@@ -1,7 +1,7 @@
 'use strict';
 
-let glob = require('glob');
-let join = require('path').join;
+const glob = require('glob');
+const join = require('path').join;
 
 const options = {
   cwd: join(__dirname, '..', '..'),

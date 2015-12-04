@@ -12,7 +12,8 @@ class Book {
   }
 
   set EAN13(value) {
-    let EAN13 = value.split('-');
+    const EAN13 = value.split('-');
+
     this.GS1 = EAN13[0];
     this.ISBN = EAN13[1];
   }
@@ -21,7 +22,7 @@ class Book {
 var cssBook = new Book('CSS maintenables');
 cssBook.EAN13 = '978-2212136401';
 
-console.log(cssBook.GS1);	// <1>
+console.log(cssBook.GS1);	  // <1>
 console.log(cssBook.ISBN);	// <2>
 console.log(cssBook.EAN13);	// <3>
 

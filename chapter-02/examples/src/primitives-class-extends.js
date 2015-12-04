@@ -1,6 +1,6 @@
 'use strict';
 
-let View = require('./class-view');
+const View = require('./class-view');
 
 class HTMLView extends View {
   constructor (options) {

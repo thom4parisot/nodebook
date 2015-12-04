@@ -4,9 +4,9 @@ function filterSparseArray (array) {
   return array.filter(isNotNullOrUndefined);    // <1>
 }
 
-let isNotNullOrUndefined = function (value) {
+const isNotNullOrUndefined = function (value) {
   return !isEqualTo(value, [null, undefined]);
-}
+};
 
 function isEqualTo (value, compareWith) {
   return compareWith.some(v => v === value);  // <2>

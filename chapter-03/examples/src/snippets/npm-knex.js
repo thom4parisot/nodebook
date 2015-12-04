@@ -1,7 +1,7 @@
 'use strict';
 
-let path = require('path');
-let db = require('knex')({
+const path = require('path');
+const db = require('knex')({
   client: 'sqlite3',
   connection: {
     // filename: path.join(__dirname, '..', '..', 'db.sqlite')
@@ -25,8 +25,6 @@ db.schema.dropTableIfExists('books')
       db.insert({ title: 'Open Sky'}).into('books')
     ])
   })
-  .then(() => {
-    return db('books').where('title', 'like', '%Node%');
-  })
+  .then(() => db('books').where('title', 'like', '%Node%'))
   .then(rows => console.log(rows))
   .then(db.destroy.bind(db));

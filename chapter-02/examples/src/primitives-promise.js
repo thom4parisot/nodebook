@@ -1,9 +1,9 @@
 'use strict';
 
-let join = require('path').join;
-let readFilePromise = require('./readfile-promise');
+const join = require('path').join;
+const readFilePromise = require('./readfile-promise');
 
-let files = new Set(['chapter-02', 'chapter-01', 'chapter-03'].map(dir => {
+const files = new Set(['chapter-02', 'chapter-01', 'chapter-03'].map(dir => {
   return join(__dirname, '..', '..', '..', dir, 'examples', 'package.json');
 })).values();
 
@@ -11,7 +11,7 @@ function logError(err) {
   console.error(err);
 }
 
-let logPackageDeps = (pkg) => console.log(Object.keys(pkg.dependencies || {}));
+const logPackageDeps = (pkg) => console.log(Object.keys(pkg.dependencies || {}));
 
 readFilePromise(files.next().value)
   .then(chapter02Package => {

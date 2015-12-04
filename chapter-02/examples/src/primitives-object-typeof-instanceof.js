@@ -4,7 +4,7 @@ function pseudoBookClass(title) {
   this.title = title.trim();
 }
 
-let nodeBook = new pseudoBookClass('Node.js universel');
+const nodeBook = new pseudoBookClass('Node.js universel');
 
 console.log(typeof pseudoBookClass);              // <1>
 console.log(typeof nodeBook);                     // <2>

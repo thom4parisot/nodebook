@@ -1,8 +1,8 @@
 'use strict';
 
-let chokidar = require('chokidar');
-let path = require('path');
-let rootDir = path.join(__dirname, '..', '..');
+const chokidar = require('chokidar');
+const path = require('path');
+const rootDir = path.join(__dirname, '..', '..');
 
 const options = {
   ignoreInitial: true,
@@ -10,7 +10,7 @@ const options = {
   persistent: true
 };
 
-let watcher = chokidar.watch(rootDir, options);
+const watcher = chokidar.watch(rootDir, options);
 
 watcher.on('add', filepath => {
   console.log('add - %s', path.relative(rootDir, filepath));

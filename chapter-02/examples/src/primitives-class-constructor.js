@@ -1,8 +1,8 @@
 'use strict';
 
-let View = require('./class-view.js');
+const View = require('./class-view.js');
 
-var htmlView = new View({ blacklist: ['object', 'iframe']});
+const htmlView = new View({ blacklist: ['object', 'iframe']});
 
 console.log(typeof htmlView);                         // <1>
 console.log(htmlView instanceof View);                // <2>

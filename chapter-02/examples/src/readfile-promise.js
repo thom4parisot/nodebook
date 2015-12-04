@@ -1,6 +1,6 @@
 'use strict';
 
-let fs = require('fs');
+const fs = require('fs');
 
 module.exports = function readFilePromise(file) {
   return new Promise((resolve, reject) => {       // <1>
@@ -12,6 +12,6 @@ module.exports = function readFilePromise(file) {
       resolve(JSON.parse(buffer));                // <4>
     });
   });
-}
+};
 
 // readFilePromise(file).then(onSuccess, onError)
