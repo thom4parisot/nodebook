@@ -5,7 +5,6 @@
   "main": "index.js",
   "bin": "server.js",
   "scripts": {
-    "start": "BROWSER_OPEN=0 node server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "engines": {
@@ -15,17 +14,20 @@
     "type": "git",
     "url": "git://github.com/oncletom/nodebook.git"
   },
-  "keywords": ["nodejs", "book", "french"],
+  "keywords": [
+    "nodejs",
+    "book",
+    "french"
+  ],
   "author": "Thomas Parisot (https://oncletom.io)",
   "license": "CC-BY-NC-SA-3.0",
   "bugs": {
     "url": "https://github.com/oncletom/nodebook/issues"
   },
   "homepage": "https://oncletom.io/node.js",
-  "dependencies": {
-    "finalhandler": "^0.1.0",
-    "getport": "^0.1.0",
-    "open": "0.0.5",
+  "devDependencies": {
+    "finalhandler": "^0.4.0",
+    "get-port": "^2.1.0",
     "serve-static": "^1.5.1"
   }
 }

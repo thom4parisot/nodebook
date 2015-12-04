@@ -2,43 +2,39 @@
 
 'use strict';
 
-var http = require('http');
-var finalhandler = require('finalhandler');
-var open = require('open');
-var doOpen = Boolean('BROWSER_OPEN' in process.env ? parseFloat(process.env.BROWSER_OPEN) : true);
+const http = require('http');
+const finalhandler = require('finalhandler');
+const getPort = require('get-port');
+
+const doOpen = parseInt(process.env.BROWSER_OPEN || 0, 10) === 1;
+const PORT = process.env.PORT;
 
 /*
  Static files handling
  */
-var serveStatic = require('serve-static');
-var staticResponse = serveStatic('.', { etag: false, dotfiles: 'allow' });
+const serveStatic = require('serve-static');
+const staticResponse = serveStatic('.', { etag: false, dotfiles: 'allow' });
 serveStatic.mime.define({ 'text/plain': ['adoc'] });
 
 /*
  Server definition
  */
-var server = http.createServer(function(req, res){
+const server = http.createServer(function(req, res){
   res.setHeader('X-Content-Type-Options', 'nosniff');
 
   staticResponse(req, res, finalhandler(req, res));
 });
 
-/*
- Starting the server after finding a proper port
- */
-require('getport')(3000, function(err, port){
-  if (err) {
-    throw err;
-  }
-  
-  var url = 'http://localhost:' + port + '/index.adoc';
+function startServer(port) {
+  const url = `http://localhost:${port}/index.adoc`;
 
   server.listen(port, function(){
-    if (doOpen) {
-      open(url);
-    }
-    
-    console.log('Book content available at %s', url);
-    console.log('Make sure the Asciidoctor.js Chrome extension is installed – %s', 'https://chrome.google.com/webstore/detail/asciidoctorjs-live-previe/iaalpfgpbocpdfblpnhhgllgbdbchmia');
+    console.log('Book content served at %s', url);
+    console.log('Make sure the Asciidoctor.js Chrome extension is installed – %s', 'https://chrome.google.com/webstore/detail/asciidoctorjs-live-preview/iaalpfgpbocpdfblpnhhgllgbdbchmia');
   });
-});
+}
+
+/*
+ Starting the server after finding a proper port
+*/
+PORT ? startServer(PORT) : getPort().then(startServer);
