@@ -5,7 +5,7 @@
   "main": "index.js",
   "bin": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "eslint chapter-*/**/*.js"
   },
   "engines": {
     "node": "^4.0.0"
@@ -26,8 +26,30 @@
   },
   "homepage": "https://oncletom.io/node.js",
   "devDependencies": {
+    "eslint": "^1.10.3",
     "finalhandler": "^0.4.0",
     "get-port": "^2.1.0",
     "serve-static": "^1.5.1"
+  },
+  "eslintConfig": {
+    "root": true,
+    "env": {
+      "es6": true,
+      "node": true
+    },
+    "rules": {
+      "callback-return": 2,
+      "curly": 2,
+      "eqeqeq": 2,
+      "global-require": 2,
+      "handle-callback-err": 2,
+      "quotes": [2, "single"],
+      "no-path-concat": 1,
+      "no-sync": 1,
+      "no-undef": 2,
+      "no-unused-vars": 2,
+      "no-use-before-define": 1,
+      "strict": [2, "global"]
+    }
   }
 }

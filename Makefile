@@ -27,7 +27,7 @@ $(html_files): $(adoc_files)
             -b html5 \
             -d book $(ADOC_FILE)
 
-all: $(html_files)
+build: $(html_files)
 
 deploy-html: $(html_files)
 	rm -rf /tmp/deploy && cp -r $(BUILD_DIR) /tmp/deploy
@@ -39,7 +39,4 @@ deploy-html: $(html_files)
           && git commit -am 'Build HTML book' \
           && git push -q -f origin gh-pages
 
-test:
-	@exit 0
-
-.PHONY: test install deploy-html
+.PHONY: build clean deploy-html install
