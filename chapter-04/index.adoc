@@ -396,7 +396,7 @@ $ autoprefixer -b 'firefox > 8' -o - src/snippets/sample.css | grep transition
 ----
 
 L'exemple précédent illustre comment la propriété `transition` a été préfixée pour couvrir les navigateurs ayant plus de 1% de part de marché, puis en incluant les versions supérieures à Firefox 8 — assez obsolètes il faut se l'avouer. +
-Sans l'utilisation du paramètre `-o` (_output_), le fichier d'origine aurait été réécrit.
+L'utilisation du paramètre `-o -` (_o_ pour _output_) suivi du caractère _trait d'union_ redirige le code réécrit en _sortie standard_ au lieu de modifier le fichier originel.
 
 *uncss* ([URL]#https://npmjs.com/uncss#) est le pendant inverse d'_autoprefixer_ puisqu'il se charge de supprimer le code … mort.
 Pour se faire, _uncss_ charge une ou plusieurs pages de référence et fait la différence entre les règles CSS utilisées … et celles qui ne le sont pas.
@@ -442,6 +442,7 @@ _csso_ ira jusqu'à réécrire les codes couleurs, les `margin` et `padding` et 
 
 - watcher
 - livereload
+- HMR (Hot Module Replacement)
 
 [[transpilation]]
 === Transpilation
@@ -467,7 +468,7 @@ On compile un certain langage en ECMAScript qui nécessite une VM ECMAScript pou
 ====
 Il n'est pas recommandé d'utiliser _Coffescript_ sur de nouveaux projets depuis la sortie d'ECMAScript 2015.
 
-Si vous souhaitez une version typée d'ESCMAScript, je vous recommande de vous pencher sur <<typescript,TypeScript>>.
+Si vous souhaitez un langage davantage typée qu'ESCMAScript, je vous recommande de vous pencher sur <<typescript,TypeScript>>.
 ====
 
 La transpilation offre plusieurs avantages face à la création d'un langage compilé à part entière :
@@ -487,11 +488,19 @@ Il y présente notamment des comparatifs de performances d'exécution sur diffé
 - [URL]#http://ariya.ofilabs.com/2011/12/introducing-esprima.html#
 ====
 
-==== Babel
-
-TBD.
-
 ==== Traceur
+
+_Traceur_ est un des premiers transpilateurs ES6 vers ES5 à avoir émergé dans l'écosystème Node.
+Il est le fruit d'ingénieurs de *Google*.
+
+L'avantage de _traceur_ ?
+Avoir permis d'*écrire des modules en ES6 avant que la spécification ne soit entièrement terminée*.
+Et donc de pouvoir anticiper son apprentissage tout en mettant le langage à l'épreuve avant sa finalisation.
+
+Il a depuis été dépassé en terme d'intégration, de modularité et de complétion d'implémentation de fonctionnalités ES6 par <<babel,Babel>> (voir ci-après).
+
+[[babel]]
+==== Babel
 
 TBD.
 
@@ -500,8 +509,65 @@ TBD.
 
 TBD.
 
+==== Publication sur npm
+
+Répondre aux questions :
+
+- quels impacts si on publie uniquement les sources d'un module non-interprétable directement par Node
+- comment faire pour publier ? Et pour tester ?
+
+
+[[universal-applications]]
+=== Vers un code universel et modulaire
+
+Le concept d'*applications universelles* (parfois appelées _applications isomorphiques_) a été sur toutes les bouches en 2015.
+
+Imaginez une application où la logique de routage des requêtes HTTP (_routing_), les modèles de données et le rendu HTML ne sont écrits qu'une seule fois.
+Imaginez que ces composants soient fonctionnels du côté de vos serveur ainsi que dans les navigateurs Web accédant à votre service en ligne.
+
+Beaucoup y voient un moyen d'enfin développer des applications web monopages (_single page apps_) rapides et accessibles — souvenez-vous de l'époque des sites entièrement développés en Flash.
+
+On peut ainsi *combiner* l'approche web _classique_ et des _interfaces dynamiques_ sans pour autant imposer une page blanche en attendant que les centaines de kilo-octets (voire de méga-octets) de la base de code ECMAScript de votre application soit transférée sur le réseau puis interprétée par le navigateur. +
+C'est sans parler des performances réseau et de puissance de calcul plus réduites sur mobile.
+
+Malheureusement et comme souvent, beaucoup y ont également vu une méthode pour développer _toutes_ les applications.
+
+[TIP]
+.[RemarquePreTitre]#Question# Ai-je besoin d'une application universelle ?
+====
+Il y a trois principales raisons _de tendre_ vers des applications universelles :
+
+- vous éditez une application web monopage sans alternative accessible ou sans pré-rendu HTML ;
+- vous remarquez des doublons de code entre l'application web et son pendant côté serveur ;
+- vous pensez qu'une partie de la logique côté serveur pourrait être réutilisée côté web.
+
+Le cas échéant, on peut penser que vous n'avez qu'une faible fraction de votre métier à partager entre les deux environnements.
+====
+
+Nous allons aborder la *notion de code universel de manière progressive* et itérative dans les prochaines pages de l'ouvrage.
+
+Nous parlerons d'abord de partage modulaire, de chaîne de construction, de remplacement de code à la volée avant de nous intéresser à un mécanisme de rendu universel basé sur la librairie React.
+
+Il s'agit d'une approche parmi d'autres, "simple" : je vous encourage à regarder ce qui se dit et ce qui se fait ailleurs.
+
+==== Effectuer une requête HTTP
+
+TBD.
+
+==== L'approche browserify
+
+TBD.
+
+==== Templates HTML partagés
+
+TBD.
+
+==== Stratégies de gestion des ressources frontend
+
+TBD.
+
 [[automation]]
-=== Automatisation des tâches
+=== Automatisation et assemblage
 
 TBD.
 
@@ -523,27 +589,6 @@ npm/grunt/gulp/brunch/webpack : c'est la jungle j'y comprends rien.
 - tâches personnalisées
 - arguments
 
-[[universal-applications]]
-=== Vers un code universel et modulaire
-
-- approche simple d'objets partagés (inclusion, retour d'APIs)
-- ECMAScript, CommonJS et modules ES2015
-- browserify + transform chain
-- inclusion de bibliothèques fonctionnant côté Node et côté navigateur de manière transparente
-- transformation du code avec un outillage spécifique
-
-==== browserify
-
-TBD.
-
-==== Webpack
-
-TBD.
-
-==== brunch.io
-
-TBD.
-
 === Tester la compatibilité navigateur
 
 TBD.
@@ -552,11 +597,11 @@ TBD.
 
 TBD.
 
-==== SauceLabs
+==== BrowserStack
 
 TBD.
 
-==== BrowserStack
+==== Internet Explorer
 
 TBD.
 
