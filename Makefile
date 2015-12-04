@@ -1,6 +1,7 @@
 BUILD_DIR=dist
 GIT_REPO=oncletom/nodebook
-DOCKER_COMMAND=docker run -i --rm -v $(CURDIR):/documents oncletom/asciidoctor
+DOCKER_IMAGE=oncletom/asciidoctor
+DOCKER_COMMAND=docker run -i --rm -v $(CURDIR):/documents $(DOCKER_IMAGE)
 
 adoc_files := index.adoc $(wildcard chapter-*/index.adoc) $(wildcard foreword/*.adoc)
 html_files := $(adoc_files:%.adoc=$(BUILD_DIR)/%.html)
@@ -9,7 +10,7 @@ clean:
 	rm -rf $(BUILD_DIR)
 
 install:
-	docker pull asciidoctor/docker-asciidoctor
+	docker pull $(DOCKER_IMAGE)
 
 $(html_files): $(adoc_files)
 	$(eval ADOC_FILE = $(@:dist/%.html=%.adoc) )

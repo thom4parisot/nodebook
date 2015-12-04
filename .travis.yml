@@ -10,7 +10,9 @@ cache:
 services:
 - docker
 
-before_install: "make install"
+install:
+- npm install
+- make install
 
 script:
 - npm test
