@@ -237,7 +237,7 @@ En effet si certaines règles nous alertent de dangers potentiels, d'autres sont
 ====
 
 *eslint* lit la section `eslintConfig` du fichier `package.json` pour adapter son comportement. +
-
+ 
 L'exemple suivant illustre une configuration d'_eslint_ renforçant la déclaration du mode strict au niveau global, l'emploi des égalités strictes, l'interdiction de l'utilisation de variables non déclarées, la cohérence d'utilisation des accolades ainsi que l'utilisation de guillemets simples uniquement :
 
 [source,json]
@@ -357,7 +357,7 @@ Cette méthode permet d'élargir les perspectives de la compression via de la r�
 - réécriture partielle d'expressions ;
 - injection en ligne du contenu de variables.
 
-*UglifyJS* s'utilise de manière autonome, en ligne de commande ou via son API ECMAScript, mais aussi par le biais de plugins grunt, gulp et browserify (uglifyify et minifyify). +
+*UglifyJS* s'utilise de manière autonome, en ligne de commande ou via son API ECMAScript, mais aussi par le biais de plugins grunt, gulp et <<browserify,browserify>> (uglifyify et minifyify). +
 Un exemple plus concret est abordé dans la section <<automation,automatisation des tâches>> de ce même chapitre.
 
 ==== Optimisation du code
@@ -374,7 +374,7 @@ Il est d'autant plus aisé de les tester, de les activer et de les désactiver q
 
 *autoprefixer* ([URL]#https://npmjs.com/autoprefixer#) est _le_ module qui vous épargnera l'écriture de centaines de lignes en ajoutant automatiquement les bons préfixes aux bons endroits. 
 Travail d'autant plus ingrat si vous n'avez pas envie ni le loisir de recourir à des _mixins_ Less ou Sass. +
-_autoprefixer_ expose une API ECMAScript, un exécutable système ainsi qu'une API de _streaming_ permettant une intégration sans plugin avec *browserify*, entre autre.
+_autoprefixer_ expose une API ECMAScript, un exécutable système ainsi qu'une API de _streaming_ permettant une intégration sans plugin avec <<browserify,browserify>>, entre autre.
 
 .Exemple d'utilisation d'_autoprefixer_ en fonction des besoins en compatibilité navigateur
 ----
@@ -528,7 +528,7 @@ Malheureusement et comme souvent, beaucoup y ont également vu une méthode pour
 [TIP]
 .[RemarquePreTitre]#Question# Ai-je besoin d'une application universelle ?
 ====
-Il y a trois principales raisons _de tendre_ vers des applications universelles :
+Il y a trois principales raisons _de tendre vers_ la conception  d'applications universelles :
 
 - vous éditez une application web monopage sans alternative accessible ou sans pré-rendu HTML ;
 - vous remarquez des doublons de code entre l'application web et son pendant côté serveur ;
@@ -545,13 +545,45 @@ Il s'agit d'une approche parmi d'autres, "simple" : je vous encourage à regarde
 
 ==== Effectuer une requête HTTP
 
+Il est fréquent d'avoir à effectuer des requêtes HTTP pour obtenir des données distantes.
+L'implémentation, les contraintes techniques et les mesures de sécurité d'une telle requête sont pourtant foncièrement différentes entre Node et un navigateur Web.
+Node fait appel aux modules *http* et *https* tandis que le navigateur dispose nativement de l'objet *XMLHttpRequest*, *XMLHttpRequest level 2* (depuis HTML5) ainsi que de *fetch* (depuis _ES2015_).
+
+Nous n'avons pas encore attaqué l'implémentation technique que la _simple requête_ paraît déjà compliquée en terme d'_universalité_.
+
+Le module _superagent_ émerge en tête des résultats si l'on recherche _browser_ et _http_ dans le registre _npm_.
+Le module promet de fonctionner aussi bien avec Node qu'avec différents navigateurs Web, Internet Explorer 8 inclus.
+Prometteur non ?
+
+[source,javascript]
+.universal-http/index.js
+----
+include::{sourceDir}/universal-http/index.js[]
+----
+<1> La fonction `require()` n'existe pas nativement dans le navigateur donc on ne charge le module _superagent_ que dans Node ;
+<2> Affiche `[ 'Chaource', 'Stilton', 'Camembert' ]`.
+
+Ce même fichier `index.js` doit être inclus dans une page HTML afin d'être interprété et exécuté par un navigateur Web :
+
+[source,html]
+.universal-http/index.html
+----
+include::{sourceDir}/universal-http/index.html[]
+----
+<1> Puisque la fonction `require()` n'est pas disponible nativement dans les navigateurs, on se charge d'injecter `superagent` dans l'espace global ;
+<2> Affiche `[ 'Chaource', 'Stilton', 'Camembert' ]`.
+
+Nous avons créé notre premier code universel, fonctionnant aussi bien dans un navigateur qu'avec Node !
+Toutefois, on est tenté d'_hésiter entre magie et bricolage_ … Est-on obligé de recourir à des conditions ECMAScript pour éviter d'exécuter des APIs propres à Node ? Et surtout, *que se passe-t-il sous le capot de _superagent_* pour parvenir à un tel résultat ?
+
+Il est grand temps de parler de _browserify_.
+
+[[browserify]]
+==== browserify
+
 TBD.
 
-==== L'approche browserify
-
-TBD.
-
-==== Templates HTML partagés
+==== Templates HTML universels avec React
 
 TBD.
 

@@ -8,7 +8,8 @@
     "less": "lessc src/snippets/sample.less > src/snippets/sample.css",
     "lint-css": "csslint src/snippets/sample.css",
     "lint-eslint": "eslint src/snippets/npm-express.js",
-    "lint-html": "node node_modules/.bin/htmlhint src/snippets/sample.html"
+    "lint-html": "node node_modules/.bin/htmlhint src/snippets/sample.html",
+    "start": "static -p 4000 -H '{\"Access-Control-Allow-Origin\":\"*\"}'"
   },
   "repository": {
     "type": "git",
@@ -32,9 +33,13 @@
     "htmlhint": "^0.9.6",
     "jquery": "^2.1.1",
     "less": "^1.7.5",
+    "superagent": "^1.5.0",
     "svgo": "^0.5.0",
     "uglify-js": "^2.4.15",
     "uncss": "^0.12.0"
+  },
+  "devDependencies": {
+    "node-static": "^0.7.7"
   },
   "eslintConfig": {
     "env": {
