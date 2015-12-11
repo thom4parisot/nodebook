@@ -37,9 +37,7 @@ Node simplifie tout, de la récupération des bibliothèques tierces à la compi
 [TIP]
 .[RemarquePreTitre]#Remarque# Versions de Node et npm
 ====
-Le contenu de ce chapitre se base par défaut sur les branches de  *Node {nodeCurrentVersion}* et *npm {npmCurrentVersion}*.
-
-D'autres versions majeures sorties depuis ont peut-être altéré certains des comportements et fonctionnalités décrites ci-après.
+Le contenu de ce chapitre se réfère aux versions de *Node {nodeCurrentVersion}* et *npm {npmCurrentVersion}*.
 ====
 
 toc::[]
@@ -145,11 +143,19 @@ Nous verrons davantage d'exemples, plus complets et tendant vers une même base 
 
 _bower_ est un gestionnaire de dépendances entièrement dédié aux composants _frontend_.
 Son interface est très proche de celle la commande npm.
-Les dépendances sont quant à elles listées dans un fichier `bower.json`.
+Les dépendances sont quant à elles listées dans un fichier `bower.json`, lui-même très similaire au fichier `package.json`.
 
-Ce projet a rencontré une forte popularité à une époque où les développeurs pensaient que _npm_ n'était pas nécessaire ni pertinent pour les dépendances _front-end_. +  
-Je *déconseille fortement l'utilisation de _bower_* car il ne répond pas du tout au besoin de l'outillage _front-end_.  
-Il est par ailleurs un frein majeur aux <<universal-applications,applications universelles>>.
+Ce projet a rencontré une forte popularité à une époque où les développeurs pensaient que _npm_ était dédié uniquement à Node et de ce fait, que _npm_ n'était pas adapté à la gestion des dépendances _front-end_.
+
+Toutefois je *déconseille d'utiliser _bower_* pour les raisons suivantes :
+
+- les fonctionnalités sont identiques à peu de chose près à celles de _npm_ ;
+- vous aurez la plupart besoin d'un peu d'outillage complémentaire via _npm_, donc autant n'utiliser qu'un seul outil ;
+- _bower_ ne sait pas gérer la présence d'un même module dans deux versions conflictuelles — ce qui représente un frein aux installations automatisées ;
+- les composants _bower_ ne peuvent être employées pour la création d'<<universal-applications,applications universelles>>.
+
+_bower_ dispose d'un seul avantage : la capacité à collecter des  librairies qui ne sont pas déclarées dans un registre.
+Cela peut se révéler pratique pour l'inclusion de code tiers assez ancien.
 
 ==== Exposer un composant web avec Node
 
