@@ -224,49 +224,36 @@ Si elle peuvent paraître opiniatres, sachez qu'elles n'ont pour seul but que de
 
 *eslint* ([URL]#https://npmjs.com/eslint#) est l'outil de vérification syntaxique pour ECMAScript le plus *complet et modulaire*.
 Il offre un niveau de souplesse extrême au niveau de la configuration des règles à appliquer (utilisation systématique de `use strict`, nombre maximum de paramètres de fonctions, objets non-déclarés, variables inconnues etc.). +
-Il expose également une API relativement simple à utiliser pour y adjoindre vos propres règles afin de les réutiliser dans vos différents projets.
+Il expose également une API relativement simple afin de créer vos propres règles métier.
+Un autre mécanisme permet d'inclure et d'étendre un ou plusieurs  fichiers de configuration afin de les réutiliser dans différents projets.
 
-Appliquons les règles par défault d'*eslint* sur le code existant d'un précédent exemple de ce même chapitre :
+[TIP]
+.[RemarquePreTitre]#Bon à savoir# Règles par défaut
+====
+*eslint* n'applique aucune règle par défaut.
+Ses premières utilisations nécessiteront donc de prendre connaissance des règles à disposition … ou d'opter pour un module _npm_ définissant une configuration _à votre goût_.
 
-----
-$ npm run lint-eslint
-src/snippets/npm-express.js
-1:0   error  Use the function form of "use strict"  global-strict
-1:0   error  Strings must use doublequote           quotes
-3:14  error  'require' is not defined               no-undef
-3:22  error  Strings must use doublequote           quotes
-4:11  error  'require' is not defined               no-undef
-4:19  error  Strings must use doublequote           quotes
-7:17  error  'require' is not defined               no-undef
-7:33  error  Strings must use doublequote           quotes
-8:27  error  '__dirname' is not defined             no-undef
-8:38  error  Strings must use doublequote           quotes
-8:44  error  Strings must use doublequote           quotes
-8:50  error  Strings must use doublequote           quotes
-10:8   error  Strings must use doublequote           quotes
-11:8   error  Strings must use doublequote           quotes
-----
+En effet si certaines règles nous alertent de dangers potentiels, d'autres sont totalement subjectives et sujettes à des préférences purement personnelles.
+====
 
-La vérification syntaxique se plaint de l'utilisation globale de `use strict`, de l'utilisation des guillemets simples et de certaines fonctions de Node. +
-Le nom de la règle _eslint_ en question est explicitée en fin de ligne, pour information ou pour aider à affiner votre configuration.
+*eslint* lit la section `eslintConfig` du fichier `package.json` pour adapter son comportement. +
 
-*eslint* lit le fichier de configuration `.eslintrc` pour adapter son comportement , placé à la racine de votre projet mais il est tout à fait possible de lui fournir un emplacement alternatif.
-Dans mon cas, j'ai indiqué une préférence pour les guillemets simples ainsi qu'une déclaration globale de `use strict` :
+L'exemple suivant illustre une configuration d'_eslint_ renforçant la déclaration du mode strict au niveau global, l'emploi des égalités strictes, l'interdiction de l'utilisation de variables non déclarées, la cohérence d'utilisation des accolades ainsi que l'utilisation de guillemets simples uniquement :
 
 [source,json]
-.{empty}.eslintrc
+.package.json
 ----
-include::{sourceDir}/../.eslintrc[]
+include::{sourceDir}/../package-eslint.json[]
 ----
 
 Le niveau de sévérité de chaque règle peut être configuré à l'aide d'un nombre entier :
 
 - `0` : règle désactivée ;
 - `1` : affiche un avertissement ;
-- `2` : affiche une erreur et termine le processus avec un code d'erreur.
+- `2` : affiche une erreur (le processus se terminera avec un code d'erreur).
 
 Certaines règles demandent ou acceptent des arguments supplémentaires.
-Ces arguments sont documentés dans le répertoire `lib/rules` de la bibliothèque _eslint_ mais aussi sur son site Web.
+Ces arguments sont documentés dans le répertoire `lib/rules` de la bibliothèque _eslint_ ainsi que sur le site Web du projet ([URL]#http://eslint.org/docs/rules/#).
 
 *csslint* ([URL]#https://npmjs.com/csslint#) est un outil de vérification syntaxique de feuilles de style CSS.
 Il a été créé par deux anciens ingénieurs de _Yahoo!_.
