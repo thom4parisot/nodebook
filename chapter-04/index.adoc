@@ -545,6 +545,19 @@ Il s'agit d'une approche parmi d'autres, "simple" : je vous encourage à regarde
 
 ==== Effectuer une requête HTTP
 
+[CAUTION]
+.[RemarquePreTitre]#Pré-requis# Démarrage du serveur local
+====
+Les exemples suivant s'appuient sur un serveur embarqué présent dans le dépôt GitHub des exemples du chapitre 4.
+
+Il sert statiquement le répertoire d'exemples sur le port 4000 de la manière suivante :
+
+.chapter-04/examples
+----
+$ npm start
+----
+====
+
 Il est fréquent d'avoir à effectuer des requêtes HTTP pour obtenir des données distantes.
 L'implémentation, les contraintes techniques et les mesures de sécurité d'une telle requête sont pourtant foncièrement différentes entre Node et un navigateur Web.
 Node fait appel aux modules *http* et *https* tandis que le navigateur dispose nativement de l'objet *XMLHttpRequest*, *XMLHttpRequest level 2* (depuis HTML5) ainsi que de *fetch* (depuis _ES2015_).
@@ -554,6 +567,19 @@ Nous n'avons pas encore attaqué l'implémentation technique que la _simple requ
 Le module _superagent_ émerge en tête des résultats si l'on recherche _browser_ et _http_ dans le registre _npm_.
 Le module promet de fonctionner aussi bien avec Node qu'avec différents navigateurs Web, Internet Explorer 8 inclus.
 Prometteur non ?
+
+
+[TIP]
+.[RemarquePreTitre]#npm# superagent
+====
+Le module _superagent_ abstrait l'accès au réseau via une API fluide et chainable.
+Sa documentation en ligne détaille la gestion des verbes HTTP, l'envoi des données et la construction des paramètres d'URL.
+
+- [URL]#https://npmjs.com/superagent#
+- [URL]#https://visionmedia.github.io/superagent/#
+====
+
+Notre exemple se focalise sur l'interrogation d'une URL et l'affichage de sa réponse dans la console :
 
 [source,javascript]
 .universal-http/index.js
@@ -571,7 +597,7 @@ Ce même fichier `index.js` doit être inclus dans une page HTML afin d'être in
 include::{sourceDir}/universal-http/index.html[]
 ----
 <1> Puisque la fonction `require()` n'est pas disponible nativement dans les navigateurs, on se charge d'injecter `superagent` dans l'espace global ;
-<2> Affiche `[ 'Chaource', 'Stilton', 'Camembert' ]`.
+<2> Affiche `[ 'Chaource', 'Stilton', 'Camembert' ]` lorsque le navigateur est dirigé vers `http://localhost:4000/src/universal-http/index.html`.
 
 Nous avons créé notre premier code universel, fonctionnant aussi bien dans un navigateur qu'avec Node !
 Toutefois, on est tenté d'_hésiter entre magie et bricolage_ … Est-on obligé de recourir à des conditions ECMAScript pour éviter d'exécuter des APIs propres à Node ? Et surtout, *que se passe-t-il sous le capot de _superagent_* pour parvenir à un tel résultat ?
@@ -581,7 +607,60 @@ Il est grand temps de parler de _browserify_.
 [[browserify]]
 ==== browserify
 
-TBD.
+Le développement de *browserify* a débuté fin 2010 mais a vraiment pris un envol début 2013 avec sa version 2. +
+L'object de _browserify_ est de permettre l'utilisation de l'API CommonJS (`require()` etc.) et de réécrire des parties spécifiques de code pour générer du code ECMAScript fonctionnel dans un environnement de navigateur web.
+
+_browserify_ ne cherche pas à être intelligent sur les éléments à remplacer mais offre une interface de transformation (les _transforms_) pour permettre à tout un chacun de réécrire selon ses besoins. +
+Ces transformations s'appliquent à deux niveaux :
+
+- les *fichiers*, en les interchangeant lors des appels à la fonction `require()` ;
+- l'*arbre syntaxique*, en délégant aux _transforms_ la réécriture des déclarations et des éléments de syntaxe dont ils sont responsables.
+
+Voici quelques exemples de _transforms_ utiles et fréquemment rencontrés dans différents modules :
+
+- _brfs_ : injecte le contenu de fichiers chargés via l'API `fs` ;
+- _browserify-hmr_ : remplace les modules à volée dans le navigateur lors d'un changement de code source ;
+- _envify_ : remplacement les appels à `process.env` par leur valeur respective au moment de la transformation ;
+- _babelify_ : délègue la transpilation de code ECMAScript et JSX à <<babel,Babel>> ;
+- _sassify_ : transpile les inclusions de fichiers Sass en code CSS, optionnellement injecté dans le navigateur au chargement du module en question ;
+- _es3ify_ : remplace certains éléments de langage en code ECMAScript 3, afin de supporter d'anciens navigateurs comme Internet Explorer 8.
+
+L'exemple suivant illustre une réécriture agnostique de l'environnement d'exécution :
+
+[source,javascript]
+.universal-http/index-browserify.js
+----
+include::{sourceDir}/universal-http/index-browserify.js[]
+----
+
+_browserify_ inclut le code nécessaire à l'exécution de l'arbre de dépendances dessiné par les multiples appels à `require()` lors de l'opération de transformation. +
+La conversion de code peut s'effectuer depuis l'API Node de browserify mais aussi depuis un terminal :
+
+----
+$ npm run browserify
+# tâche présente dans `package.json` équivalente à
+$ browserify \
+ --entrypoint src/universal-http/index-browserify \
+ --output src/universal-http/bundle.js
+----
+
+Le fichier HTML varie à peine par rapport à notre première tentative.
+
+À noter que nous n'incluons désormais que le fichier généré par _browserify_ :
+
+[source,html]
+.universal-http/index-browserify.html
+----
+include::{sourceDir}/universal-http/index-browserify.html[]
+----
+
+On commence à se rendre compte qu'il y a plusieurs notions d'universalité :
+
+- du code ECMAScript interprétable à la fois par Node et par un navigateur web ;
+- du code ECMAScript interprétable par Node et converti pour fonctionner dans un navigateur web.
+
+C'est sans compter sur du code interprétable par un navigateur web mais outillé par Node.
+Mais nous quittons là les terres de l'universalité.
 
 ==== Templates HTML universels avec React
 
@@ -589,7 +668,9 @@ TBD.
 
 ==== Stratégies de gestion des ressources frontend
 
-TBD.
+- build externe
+- inlining
+- extraction
 
 [[automation]]
 === Automatisation et assemblage
