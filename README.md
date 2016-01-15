@@ -14,9 +14,7 @@
 :v:         |:wavy_dash: | [Premiers pas avec Node](chapter-02/index.adoc)
 :v:         |:wavy_dash: | [Premier projet](chapter-03/index.adoc)
 :muscle:    |            | [Au service du développement frontend](chapter-04/index.adoc)
-:x:         |            | *Déploiement et hébergement*
-:x:         |            | *Bonnes pratiques pour des applications robustes*
-:x:         |            | *Cas pratiques d'utilisation*
+:x:         |            | *Automatiser, déployer et héberger*
 
 # Installation
 

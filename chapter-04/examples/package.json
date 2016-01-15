@@ -24,6 +24,9 @@
   "homepage": "https://github.com/oncletom/nodebook",
   "dependencies": {
     "autoprefixer": "^5.1.0",
+    "babel-preset-es2015": "^6.3.13",
+    "babelify": "^7.2.0",
+    "brfs": "^1.4.2",
     "browserify": "^12.0.0",
     "csslint": "^0.10.0",
     "cssmin": "^0.4.2",
@@ -48,8 +51,14 @@
       "es6": true
     },
     "rules": {
-      "strict": [2, "global"],
-      "quotes": [2, "single"],
+      "strict": [
+	2,
+	"global"
+      ],
+      "quotes": [
+	2,
+	"single"
+      ],
       "no-undef": 2,
       "curly": 2,
       "eqeqeq": 2

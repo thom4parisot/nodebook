@@ -80,3 +80,21 @@ https://twitter.com/krachot/status/447449557946085377
 https://twitter.com/goldoraf/status/447452882565341184
 
 https://twitter.com/jonathanperret/status/447478654223003648
+
+
+=== Snippets
+
+==== Exposer un composant web avec Node
+
+Il peut arriver que vous ayiez besoin de servir certaines ressources de modules via HTTP sans utiliser de préprocesseur ou d'outil de compilation.
+
+Le _framework_ _express_ ([URL]#http://expressjs.com/#) met à disposition un mécanisme de _montage d'URL_.
+En combinant ce mécanisme avec la méthode `express.static`, il devient alors possible d'exposer n'importe quel fichier inclut dans _npm_modules_ (ou autre répertoire) en tant que ressource web.
+
+[source,javascript]
+.snippets/npm-express.js
+----
+include::{sourceDir}/snippets/npm-express.js[]
+----
+<1> Rend accessible le fichier `jquery.js` à l'adresse `http://localhost:3000/assets/jquery.js` ;
+<2> Rend accessible le répertoire `node_modules` à l'adresse `http://localhost:3000/assets`, et donc d'une autre manière, le fichier `jquery.js` à l'adresse `http://localhost:3000/assets/jquery/dist/jquery.js`.
