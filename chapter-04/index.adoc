@@ -241,11 +241,24 @@ Le niveau de sévérité de chaque règle peut être configuré à l'aide d'un n
 Certaines règles demandent ou acceptent des arguments supplémentaires.
 Ces arguments sont documentés dans le répertoire `lib/rules` de la bibliothèque _eslint_ ainsi que sur le site web du projet ([URL]#http://eslint.org/docs/rules/#).
 
-[WARNING]
-.TBD
-====
-Parler des configurations via package npm (type Airbnb).
-====
+Il serait fastidieux de répéter ou copier/coller la configuration de projet en projet.
+Ça tombe bien, _eslint_ fournit un mécanisme d'extension.
+Ce mécanisme accepte aussi bien des chemins relatifs vers un fichier de configuration mais aussi vers des modules npm.
+
+L'exemple suivant illustre l'utilisation combinée de deux configurations _eslint_ :
+
+[source,json]
+.package.json
+----
+include::{sourceDir}/../package-eslint-extend.json[]
+----
+
+Il y a deux éléments combinés dans le précédent exemple :
+
+- l'utilisation d'un module _npm_ pour obtenir de nouvelles règles — spécifiques à l'analyse syntaxique d'applications React ;
+- l'utilisation d'un module _npm_ (_eslint-config-airbnb_) pour configurer _eslint_, à la fois pour du code à destination de Node, des navigateurs web et de React.
+
+Le détail des règles de configuration mises en application sont disponible simplement en parcourant l'arborescence du dépôt de code disponible sur [URL]#https://github.com/airbnb/javascript#.
 
 *csslint* ([URL]#https://npmjs.com/csslint#) est un outil de vérification syntaxique de feuilles de style CSS.
 Il a été créé par deux anciens ingénieurs de _Yahoo!_.
