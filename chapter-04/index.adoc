@@ -26,13 +26,13 @@ C'est à dire l'utilisation de Node comme outil de productivité et d'automatisa
 Node en tant que plate-forme ne fournit rien de spécial à part des fondations communes avec les navigateurs web.
 C'est la richesse et la versatilité de l'écosystème npm qui nous permet de mieux outiller nos projets.
 
-Pour rappel, avant l'apparition de Node, rare était l'outillage n'imposant pas une plateforme de développement entière (comme _sprockets_ et _assetic_ dans les univers Ruby et PHP).
-Il fallait se contenter de programmes tels que _YUICompressor_, _Google Closure Compiler_ ou encore _pngquant_.
-Leur installation diffère selon les systèmes d'exploitation, quand ils sont multi-plateformes.
-C'est sans parler de leur intégration et de leur systématisation au sein des projets.
+Avant l'apparition de Node, rare était l'outillage n'imposant pas une plateforme de développement entière.
+Il faut se contenter de programmes tels que _YUICompressor_, _Google Closure Compiler_, _sprockets_ ou encore _pngquant_.
+Leur installation requiert des dépendances variées comme Ruby, Java ou des librairies, parfois incompatibles entre elles et dont la procédure d'installation diffère selon les systèmes d'exploitation — lorsqu'ils sont multi-plateformes.
+C'est sans parler des difficultés d'intégration et de leur systématisation au sein des projets.
 
-Bref c'était lourd et compliqué à moins de disposer d'une infrastructure industrialisée. +
-Node simplifie tout, de la récupération des bibliothèques tierces à la compilation, optimisation et aux tests de vos composants web.
+Bref c'était lourd, complexe et compliqué à moins de disposer d'une infrastructure industrialisée. +
+Node homogénéise cet outillage et ce, de la découverte et le téléchargement des bibliothèques tierces à la compilation, à la phase d'optimisation et à l'exécution des tests de vos composants et applications web.
 
 [TIP]
 .[RemarquePreTitre]#Remarque# Versions de Node et npm
@@ -44,10 +44,10 @@ toc::[]
 
 === Gestion des dépendances
 
-Avant Node, l'obtention d'une bibliothèque se faisait en allant sur son site web respectif puis en téléchargeant une archive avant de la décompresser dans votre répertoire de travail.
+Avant Node, l'obtention d'une bibliothèque se faisait en allant sur son site web respectif puis en téléchargeant manuellement une archive avant de la décompresser dans votre répertoire de travail.
 C'est sans compter sur les téléchargements sur-mesure dont il fallait mémoriser les options de mise à jour en mise à jour.
 
-Tout ceci appartient au passé grâce aux gestionnaires de paquets.
+Tout ceci a bien évolué grâce aux gestionnaires de paquets.
 Ils rendent explicites la liste des dépendances, le spectre des versions compatibles ainsi que l'automatisation des opérations d'installation et de mises à jour.
 
 ==== npm
@@ -73,7 +73,7 @@ L'exemple suivant illustre plusieurs moyens d'inclure jQuery dans une page HTML,
 include::{sourceDir}/snippets/dependency-npm.html[]
 ----
 
-L'utilisation de modules _CommonJS_ nécessitera une étape de compilation avant de pouvoir fonctionner nativement dans le navigateur.
+L'utilisation de modules _CommonJS_ nécessite une étape de compilation avant de pouvoir fonctionner nativement dans le navigateur.
 C'est quelque chose que nous adresserons dans la section <<../chapter-05/index.adoc#automation,automatisation des tâches>> du chapitre 5.
 
 L'étape de compilation sera également nécessaire si les navigateurs cibles de votre applications ne sont pas compatibles nativement avec les _modules ECMAScript 2015_. +
@@ -81,6 +81,8 @@ Pour cela nous aurons recours à un _transpilateur_, pour convertir du code ECMA
 Nous en reparlerons dans la section <<transpilation,Transpilation>> de ce même chapitre.
 
 Certains auteurs de paquets _npm_ proposent du code préalablement compilé et prêt à l'emploi, en général et par convention dans un répertoire `dist/`.
+
+==== Comprendre _npm_ et son organisation du répertoire _node_modules_
 
 _npm_ organise les dépendances selon une structure dite _plate_ (_flat tree structure_).
 Ainsi, si deux modules distincts se basent sur une *version compatible d'une même dépendance* selon _semver_ — ici, jQuery v2 —  voici l'arbre de dépendance de _npm_ et la disposition sur le système de fichiers qui en résultent :
@@ -165,10 +167,11 @@ Qu'il s'agisse de vos propres composants ou de modules tiers, l'écosystème Nod
 Outre l'uniformisation de l'installation de vos composants et dépendances, *vous rendez explicite et partagez le même processus* avec tous les membres de votre équipe.
 Et même si vous êtes seul(e) sur le projet, vous construisez une documentation d'utilisation pour les prochaines personnes susceptibles de participer au projet.
 
-Autre avantage indéniable : l'ubiquité des utilitaires.
-S'ils peuvent être utilisés de manière indépendante, ils s'intègrent très bien avec des outils d'automatisation ou des _frameworks_ populaires.
+L'*ubiquité des utilitaires* est un autre avantage indéniable.
+Ils s'intègrent en général très bien avec des outils d'automatisation ou des _frameworks_ populaires.
+Par exemple _express_ et _less_, _express_ et _React_ etc.
 
-Vous trouverez ci-après une suggestion non-exhaustive de modules utiles à tout développeur _frontend_.
+Vous trouverez ci-après une suggestion non-exhaustive de modules utiles à tout développeur _frontend_ ou toute personne voulant réaliser des applications web modernes.
 
 ==== Vérification syntaxique
 
@@ -244,7 +247,7 @@ Ces arguments sont documentés dans le répertoire `lib/rules` de la bibliothèq
 Il serait fastidieux de répéter ou copier/coller la configuration de projet en projet.
 Ça tombe bien, _eslint_ fournit un mécanisme d'extension.
 Ce mécanisme accepte aussi bien des chemins relatifs vers un fichier de configuration mais aussi vers des modules npm.
-
+  
 L'exemple suivant illustre l'utilisation combinée de deux configurations _eslint_ :
 
 [source,json]
