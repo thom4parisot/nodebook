@@ -11,8 +11,7 @@ endif::[]
 
 Les chapitres précédents ont démontré l'utilité de Node pour la création de modules réutilisables ainsi que pour le développement d'applications et d'utilitaires.
 
-Ce chapitre nous apprendra le _rôle utilitaire_ de Node pour le développement _frontend_.
-C'est à dire l'utilisation de Node comme outil de productivité et d'automatisation du développement de composants web.
+Ce chapitre nous apprendra le rôle de Node pour le développement _frontend_ et la réalisation d'applications web.
 
 ====
 .Sommaire
@@ -23,16 +22,13 @@ C'est à dire l'utilisation de Node comme outil de productivité et d'automatisa
 - Tester dans le navigateur
 ====
 
-Node en tant que plate-forme ne fournit rien de spécial à part des fondations communes avec les navigateurs web.
-C'est la richesse et la versatilité de l'écosystème npm qui nous permet de mieux outiller nos projets.
-
-Avant l'apparition de Node, rare était l'outillage n'imposant pas une plateforme de développement entière.
+Avant l'apparition de Node, rare était l'outillage n'imposant pas une plateforme entière de développement.
 Il faut se contenter de programmes tels que _YUICompressor_, _Google Closure Compiler_, _sprockets_ ou encore _pngquant_.
-Leur installation requiert des dépendances variées comme Ruby, Java ou des librairies, parfois incompatibles entre elles et dont la procédure d'installation diffère selon les systèmes d'exploitation — lorsqu'ils sont multi-plateformes.
+Leur utilisation requiert des dépendances variées comme Ruby, Java ou des librairies, parfois incompatibles entre elles et dont la procédure d'installation diffère selon les systèmes d'exploitation — lorsqu'ils sont multi-plateformes.
 C'est sans parler des difficultés d'intégration et de leur systématisation au sein des projets.
 
 Bref c'était lourd, complexe et compliqué à moins de disposer d'une infrastructure industrialisée. +
-Node homogénéise cet outillage et ce, de la découverte et le téléchargement des bibliothèques tierces à la compilation, à la phase d'optimisation et à l'exécution des tests de vos composants et applications web.
+L'existence de Node a favorisé le développement d'un écosystème entier d'outillage et ce, de la découverte et le téléchargement des bibliothèques tierces à la compilation, à la phase d'optimisation et à l'exécution des tests de vos composants et applications web.
 
 [TIP]
 .[RemarquePreTitre]#Remarque# Versions de Node et npm
@@ -41,6 +37,21 @@ Le contenu de ce chapitre se réfère aux versions de *Node {nodeCurrentVersion}
 ====
 
 toc::[]
+
+=== Node pour le navigateur ?
+
+Ce chapitre peut sembler confus au premier abord :
+si Node s'exécute au niveau du système d'exploitation, en quoi  est-il lié au développement _frontend_ ?
+
+Commençons par comprendre la répartition des responsabilités :
+
+- *modules npm* : _fonctions_, _librairies_ et _outils_ prêt à l'emploi sur simple utilisation de la fonction `require()` ;
+- *npm* : client permettant de télécharger et de publier des _modules npm_ afin de les consommer dans notre code applicatif ;
+- *Node* : environnement d'exécution des différentes tâches et outils pour rendre les applications web digestes par les navigateurs web.
+
+Autrement dit, *nous n'exécutons pas Node dans un navigateur web*.
+Nous l'utilisons pour *assembler du code* et *le transformer* de sorte à le rendre fonctionnel dans une paire de balises `<script></script>`. +
+Ce code peut être aussi bien fourni par des librairies tierces (type _jQuery_, _Angular_, _React_ etc.) que par de l'outillage (optimiseurs, suite de tests, orchestration de tâches etc.) ou encore par le code réutilisable de notre propre application web.
 
 === Gestion des dépendances
 
@@ -573,15 +584,13 @@ Répondre aux questions :
 
 Le concept d'*applications universelles* (parfois appelées _applications isomorphiques_) a été sur toutes les bouches en 2015.
 
-Imaginez une application où la logique de routage des requêtes HTTP (_routing_), les modèles de données et le rendu HTML ne sont écrits qu'une seule fois.
-Imaginez que ces composants soient fonctionnels du côté de vos serveur ainsi que dans les navigateurs web accédant à votre service en ligne.
+Imaginez une application où la logique de routage des requêtes HTTP (_routing_), l'accès aux données et le rendu HTML s'exécutent aussi bien dans un environnement Node que dans un navigateur web.
+Imaginez un mécanisme permettant de dissocier des comportements spécifiques à un environnement Node de ceux d'un navigateur web — notamment la manipulation d'éléments DOM.
 
-Beaucoup y voient un moyen d'enfin développer des applications web monopages (_single page apps_) rapides et accessibles — souvenez-vous de l'époque des sites entièrement développés en Flash.
+Beaucoup y voient un moyen d'enfin développer des applications web monopages (_single page apps_) rapides et accessibles — souvenez-vous de l'époque des sites entièrement développés en Flash qui étaient invisibles aux yeux des moteurs de recherche.
 
 On peut ainsi *combiner* l'approche web _classique_ et des _interfaces dynamiques_ sans pour autant imposer une page blanche en attendant que les centaines de kilo-octets (voire de méga-octets) de la base de code ECMAScript de votre application soit transférée sur le réseau puis interprétée par le navigateur. +
 C'est sans parler des performances réseau et de puissance de calcul plus réduites sur mobile.
-
-Malheureusement et comme souvent, beaucoup y ont également vu une méthode pour développer _toutes_ les applications.
 
 [TIP]
 .[RemarquePreTitre]#Question# Ai-je besoin d'une application universelle ?
