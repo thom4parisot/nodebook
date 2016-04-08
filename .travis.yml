@@ -1,18 +1,12 @@
-sudo: required
-
 language: node_js
 node_js: v4
+sudo: false
 
 cache:
   directories:
   - node_modules
 
-services:
-- docker
-
-install:
-- npm install
-- make install
+install: make install
 
 script:
 - npm test
