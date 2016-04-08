@@ -1,100 +1,349 @@
-== [titre-nombre]#Annexe X# Contributions sociales
+:nodeCurrentVersion: v4
+:npmCurrentVersion: v3
+:revdate: {docdate}
+:sourceDir: ./examples/src
+:imagesdir: {indir}
+ifdef::env[]
+:imagesdir: .
+endif::[]
 
-[.lead]
-Je me suis souvent servi de Twitter comme moyen de sondage rapide lors de l'écriture du livre.
+== [ChapitreNumero]#Annexe A# Sélection de modules npm
 
-Cette annexe reprend les différentes questions et réponses échangées.
+L'écosystème npm regorge de modules. +
+Comment choisir parmi les centaines de milliers de modules à disposition ?
 
->>>
+Cette annexe est une sélection subjective de modules npm : vous pouvez
+les utiliser les yeux fermés et apprendre à jouer avec Node en toute
+confiance.
 
-Certaines ont apporté de nouveaux éléments tandis que d'autres ont infirmé ou confirmé mes hypothèses.
+====
+.Sommaire
+- TBD.
+====
 
-- réagir aux précédentes conversations
-- crédit
+[TIP]
+.[RemarquePreTitre]#Remarque# Versions de Node et npm
+====
+Le contenu de ce chapitre a été actualisé pour la dernière fois le {revdate}. +
+Il se réfère aux versions de *Node {nodeCurrentVersion}* et *npm {npmCurrentVersion}*.
+====
 
-=== Quelles sont les grosses entreprises françaises qui utilisent Node.js ?
+toc::[]
 
-> https://twitter.com/oncletom/status/444882574322966528
+=== Modules de sécurité applicative
 
-https://twitter.com/tiboll/status/444883182153138176
+TBD.
 
-https://twitter.com/zeroload/status/444884960839999488
+=== Modules d'accès aux bases de données
 
-https://twitter.com/franckverrot/status/444886814441349120
+TBD.
 
-https://twitter.com/j0k/status/444894339735748609
+=== Développement frontend
 
-https://twitter.com/nhoizey/status/444907515114164224
+==== Vérification syntaxique
 
-=== Quelles sont les raisons pour lesquelles vous n'utiliseriez pas Node.js ?
+La vérification syntaxique est un mécanisme s'assurant que votre code respecte la grammaire du langage associé.
+Elle peut autant révéler des anomalies fondamentales (balise mal fermée, expression inconnue etc.) que renforcer des pratiques de programmation réduisant les erreurs potentielles lors de l'exécution du-dit code.
 
-> https://twitter.com/oncletom/status/445287024984338432
+Il s'agit d'une excellente première étape avant d'introduire des tests unitaires ou fonctionnels.
+C'est aussi une pratique rapide à mettre en œuvre — de préférence dès le début du projet — et poussant à harmoniser les pratiques de développement au sein d'un group d'individus.
 
+Les modules à disposition dans npm vous permettront de couvrir vos fichiers CSS, HTML et ECMAScript bien sûr !
 
-https://twitter.com/matti_sg/status/445287019749851136
+*htmlhint* ([URL]#https://npmjs.com/htmlhint#) est un outil en ligne de commande vérifiant la structure de vos documents HTML.
+Il rapporte les doublons d'attributs `id`, la présence de paires de balises mal formées, l'absence de balise fermante ou encore l'existance de chaînes de caractère non-imprimables dans des attributs critiques, entre autre.
 
-https://twitter.com/fcamblor/status/445287901342236672
+Prenons en exemple le document suivant :
 
-https://twitter.com/dascritch/status/445288603191869440
-
-https://twitter.com/euskadi31/status/445295029851271169
-
-https://twitter.com/SamyRabih/status/445310758302519297
-
-https://twitter.com/JulienITARD/status/445313602351005697
-
-https://twitter.com/toutpt/status/445495918109134848
-
-https://twitter.com/antoinelyset/status/445507321956159488
-
-https://twitter.com/antoinelyset/status/445507741936021504
-
-https://twitter.com/goldoraf/status/445529411220418561
-
-https://twitter.com/_kud/status/445531049301651456
-
-https://larlet.fr/david/blog/2014/utiliser-nodejs/
-
-https://twitter.com/GregorySalvan/status/445958649962565632
-
-https://twitter.com/pierremartin/status/446027625329602560
-
-https://twitter.com/edas_public/status/446029052739342338
-https://twitter.com/edas_public/status/446029103125516288
-https://twitter.com/edas_public/status/446029153457160193
-https://twitter.com/edas_public/status/446029216875053056
-
-=== Modules essentiels
-
-> https://twitter.com/oncletom/status/447432700463677441
-
-https://twitter.com/ArnaudRinquin/status/447433247765843968
-https://twitter.com/ArnaudRinquin/status/447435123647328258
-
-https://twitter.com/FGRibreau/status/447433330527838208
-
-https://twitter.com/pgte/status/447436219535093761
-
-https://twitter.com/krachot/status/447449557946085377
-
-https://twitter.com/goldoraf/status/447452882565341184
-
-https://twitter.com/jonathanperret/status/447478654223003648
-
-
-=== Snippets
-
-==== Exposer un composant web avec Node
-
-Il peut arriver que vous ayiez besoin de servir certaines ressources de modules via HTTP sans utiliser de préprocesseur ou d'outil de compilation.
-
-Le _framework_ _express_ ([URL]#http://expressjs.com/#) met à disposition un mécanisme de _montage d'URL_.
-En combinant ce mécanisme avec la méthode `express.static`, il devient alors possible d'exposer n'importe quel fichier inclut dans _npm_modules_ (ou autre répertoire) en tant que ressource web.
-
-[source,javascript]
-.snippets/npm-express.js
+[source,html]
+.snippets/sample.html
 ----
-include::{sourceDir}/snippets/npm-express.js[]
+include::{sourceDir}/snippets/sample.html[]
 ----
-<1> Rend accessible le fichier `jquery.js` à l'adresse `http://localhost:3000/assets/jquery.js` ;
-<2> Rend accessible le répertoire `node_modules` à l'adresse `http://localhost:3000/assets`, et donc d'une autre manière, le fichier `jquery.js` à l'adresse `http://localhost:3000/assets/jquery/dist/jquery.js`.
+
+Une lecture distraite pourrait nous faire passer à côté des erreurs mais également des inconsistances de programmation.
+Sur un document plus réaliste, et donc volumineux, avec de fréquents changements, autant oublier la vérification manuelle.
+
+L'exécution de *htmlhint* avec ses règles par défaut remontera les alertes suivantes :
+
+----
+$ npm run lint-html
+src/snippets/sample.html:
+line 1, col 1: Doctype must be first.
+line 8, col 10: Id redefinition of [ btn ].
+line 10, col 3: Tagname [ BUTTON ] must be lower case.
+line 10, col 10: The value of attribute [ class ] must closed by double quotes.
+line 10, col 52: Tagname [ BUTTON ] must be lower case.
+----
+
+Si elle peuvent paraître opiniatres, sachez qu'elles n'ont pour seul but que de décider une bonne fois pour toute quelle attitude adopter : tout ou rien en miniscule, guillemets simples ou doubles, doctype explicite etc.
+
+*eslint* ([URL]#https://npmjs.com/eslint#) est l'outil de vérification syntaxique pour ECMAScript le plus *complet et modulaire*.
+Il offre un niveau de souplesse extrême au niveau de la configuration des règles à appliquer (utilisation systématique de `use strict`, nombre maximum de paramètres de fonctions, objets non-déclarés, variables inconnues etc.). +
+Il expose également une API relativement simple afin de créer vos propres règles métier.
+Un autre mécanisme permet d'inclure et d'étendre un ou plusieurs  fichiers de configuration afin de les réutiliser dans différents projets.
+
+[TIP]
+.[RemarquePreTitre]#Bon à savoir# Règles par défaut
+====
+*eslint* n'applique aucune règle par défaut.
+Ses premières utilisations nécessiteront donc de prendre connaissance des règles à disposition … ou d'opter pour un module _npm_ définissant une configuration _à votre goût_.
+
+En effet si certaines règles nous alertent de dangers potentiels, d'autres sont totalement subjectives et sujettes à des préférences purement personnelles.
+====
+
+*eslint* lit la section `eslintConfig` du fichier `package.json` pour adapter son comportement. +
+
+L'exemple suivant illustre une configuration d'_eslint_ renforçant la déclaration du mode strict au niveau global, l'emploi des égalités strictes, l'interdiction de l'utilisation de variables non déclarées, la cohérence d'utilisation des accolades ainsi que l'utilisation de guillemets simples uniquement :
+
+[source,json]
+.package.json
+----
+include::{sourceDir}/../package-eslint.json[]
+----
+
+Le niveau de sévérité de chaque règle peut être configuré à l'aide d'un nombre entier :
+
+- `0` : règle désactivée ;
+- `1` : affiche un avertissement ;
+- `2` : affiche une erreur (le processus se terminera avec un code d'erreur).
+
+Certaines règles demandent ou acceptent des arguments supplémentaires.
+Ces arguments sont documentés dans le répertoire `lib/rules` de la bibliothèque _eslint_ ainsi que sur le site web du projet ([URL]#http://eslint.org/docs/rules/#).
+
+Il serait fastidieux de répéter ou copier/coller la configuration de projet en projet.
+Ça tombe bien, _eslint_ fournit un mécanisme d'extension.
+Ce mécanisme accepte aussi bien des chemins relatifs vers un fichier de configuration mais aussi vers des modules npm.
+
+L'exemple suivant illustre l'utilisation combinée de deux configurations _eslint_ :
+
+[source,json]
+.package.json
+----
+include::{sourceDir}/../package-eslint-extend.json[]
+----
+
+Il y a deux éléments combinés dans le précédent exemple :
+
+- l'utilisation d'un module _npm_ pour obtenir de nouvelles règles — spécifiques à l'analyse syntaxique d'applications React ;
+- l'utilisation d'un module _npm_ (_eslint-config-airbnb_) pour configurer _eslint_, à la fois pour du code à destination de Node, des navigateurs web et de React.
+
+Le détail des règles de configuration mises en application sont disponible simplement en parcourant l'arborescence du dépôt de code disponible sur [URL]#https://github.com/airbnb/javascript#.
+
+*csslint* ([URL]#https://npmjs.com/csslint#) est un outil de vérification syntaxique de feuilles de style CSS.
+Il a été créé par deux anciens ingénieurs de _Yahoo!_.
+Leurs anciens travaux dans le domaine de la performance ont influencé l'architecture et le choix des règles par défaut.
+Celles-ci peuvent d'ailleurs être étendues, moins aisément que pour *eslint* certes, mais suffisamment pour adapter l'outil aux besoins modernes, notamment ceux du web mobile.
+
+*csslint* fournit les mécanismes de vérification adéquats pour alerter de possibles effets de bord de _box model_, de déclaration incompatible de `@font-face`, de _vendor prefix_ dépréciés (voir plus loin la section _Optimisation du code_) ou encore de combinaisons de propriétés connues pour casser l'affichage dans certains navigateurs.
+
+Prenons par exemple le fichier CSS suivant :
+
+[source,css]
+.snippets/sample.css
+----
+include::{sourceDir}/snippets/sample.css[]
+----
+
+*csslint* génèrera trois alertes en lisant le fichier `sample.css` et ce, même si celui-ci est syntaxiquement parfaitement valide :
+
+----
+$ csslint src/snippets/sample.css
+
+csslint: There are 3 problems in snippets/sample.css.
+
+sample.css
+1: warning at line 4, col 11
+Values of 0 shouldn't have units specified.
+  border: 0px solid black;
+
+sample.css
+2: warning at line 4, col 3
+Using height with border can sometimes make elements larger than you expect.
+  border: 0px solid black;
+
+sample.css
+3: warning at line 6, col 3
+Using height with padding can sometimes make elements larger than you expect.
+  padding: 10px;
+----
+
+Si la présence d'une mesure en pixels n'est qu'une affaire de micro-optimisation, les deux autres erreurs sont nettement plus problématiques car elles impliquent un manque de consistance d'affichage, selon le navigateur effectuant le rendu. +
+Éviter l'utilisation de ces cas limites évite également d'avoir à empiler des couches de CSS pouvant accentuer encore peu plus l'instabilité d'affichage.
+
+
+*doiuse* ([URL]#https://npmjs.com/doiuse#) est un utilitaire qui se repose sur la base de données de [URL]#caniuse.com#.
+Il vous alerte des possibles incompatibilités de syntaxe en fonction de la compatibilité désirée avec une liste de navigateurs web définie par vos soins.
+Cette liste peut aussi bien concerner des versions spécifiques ou encore cibler en fonction leurs parts de marché.
+
+L'exemple suivant illustre les alertes relevées par _doiuse_ dans le cas d'une recherche de compatibilité avec Internet Explorer 6 et Internet Explorer 7 :
+
+----
+$ doiuse -b 'ie < 8' src/snippets/sample.css
+src/snippets/sample.css:1:1: CSS 2.1 selectors not supported by: IE (6)
+src/snippets/sample.css:8:1: CSS 2.1 selectors not supported by: IE (6)
+src/snippets/sample.css:12:1: CSS3 Transitions not supported by: IE (6,7)
+src/snippets/sample.css:14:1: CSS 2.1 selectors not supported by: IE (6)
+----
+
+
+==== Minification du code
+
+Commentaires, indentations ou encore noms de variables : tout ça occupe de la place, donc des caractères textuels et donc des octets de bande passante.
+
+Sans outillage, l'optimisation repose littéralement entre les mains des développeurs.
+Ces derniers doivent alors compromettre lisibilité et maintenabilité au profit de quelques kilo-octets. +
+Ce que nous chercherons à tout prix à ne pas sacrifier.
+
+Les minifieurs mettent en œuvre différentes techniques pour réduire cette occupation d'espace :
+
+- suppression des commentaires et caractères non-significatifs ;
+- renommage de variables ;
+- factorisation d'occurences multiples similaires ;
+- suppression des instructions relatives au débogage/développement ;
+- suppression de code mort.
+
+Ces différentes techniques de minification chercherons à préserver l'intégrité du fonctionnement ou de l'apparence de vos programmes.
+Un avertissement vous préviendra du contraire le cas échéant.
+
+*cssmin* ([URL]#https://npmjs.com/cssmin#) est un portage ECMAScript du compresseur CSS _YUICompressor_ développé par la compagnie _Yahoo!_ à la fin des années 2000. +
+L'approche de *cssmin* consiste principalement à supprimer les caractères et commentaires non-significatifs.
+Il ne cherche pas à faire davantage que son homologue originel.
+
+*cssmin* est donc un outil simple, exposant un exécutable système ainsi qu'un module Node.
+Il ne fournit en revanche aucun support pour les _Source Maps_. Il vous faudra reposer sur l'outillage proposé par les navigateurs web modernes pour le débogage (reformatage du code, inspection des propriétés etc.).
+
+.Exemples d'utilisation de *cssmin*
+----
+$ cssmin src/snippets/sample.css > sample.min.css # <1>
+
+$ cat src/snippets/sample.css | cssmin | wc -c | awk '{print $1}' # <2>
+----
+<1> Exporte le résultat de la minification dans le fichier `sample.min.css`;
+<2> Utilisation des *pipes* UNIX pour afficher le nombre de caractères d'une version minifiée de `sample.css`.
+
+**UglifyJS** ([URL]#https://npmjs.com/uglify-js2#) est un des premiers compresseurs à utiliser une  représentation syntaxique en arbre (_Abstract Syntax Tree_ — _AST_) en lieu et place des classiques optimisations à coups d'expressions régulières.
+
+Cette méthode permet d'élargir les perspectives de la compression via de la réécriture de code :
+
+- _hoisting_ des variables (remontée de leur déclaration en début de _scope_) ;
+- combinaison des déclarations de variables ;
+- factorisation des valeurs de variables ;
+- réécriture partielle d'expressions ;
+- injection en ligne du contenu de variables.
+
+*UglifyJS* s'utilise de manière autonome, en ligne de commande ou via son API ECMAScript, mais aussi par le biais de plugins grunt, gulp et <<browserify,browserify>> (uglifyify et minifyify). +
+Un exemple plus concret est abordé dans la section <<../chapter-05/index.adoc#automation,automatisation des tâches>> du chapitre 5.
+
+==== Optimisation du code
+
+Parce qu'optimiser le poids ne suffit pas, certains outils et compresseurs proposent de réécrire une partie de votre code.
+Ces optimisations seraient souvent complexes à imaginer et couteuses en temps, à répéter le geste et en maintenance.
+
+La majorité des optimiseurs suggérés vous inciteront à suivre la voie des standards.
+Vous écrivez du code orienté vers le long terme et les outils se chargent du fardeau de la compatibilité avec le quotidien. +
+De ce fait, ils ajouteront des instructions relatives à une plus grande compatibilité ou à l'inverse, ils retireront des portions inutilisées.
+
+Quoiqu'il advienne, en complément des compresseurs ou non, votre code source d'origine reste intact.
+Il est d'autant plus aisé de les tester, de les activer et de les désactiver quand bon vous semble.
+
+*autoprefixer* ([URL]#https://npmjs.com/autoprefixer#) est _le_ module qui vous épargnera l'écriture de centaines de lignes en ajoutant automatiquement les bons préfixes aux bons endroits.
+Travail d'autant plus ingrat si vous n'avez pas envie ni le loisir de recourir à des _mixins_ Less ou Sass. +
+_autoprefixer_ expose une API ECMAScript, un exécutable système ainsi qu'une API de _streaming_ permettant une intégration sans plugin avec <<browserify,browserify>>, entre autre.
+
+.Exemple d'utilisation d'_autoprefixer_ en fonction des besoins en compatibilité navigateur
+----
+$ autoprefixer -o - src/snippets/sample.css | grep transition
+  -webkit-transition: font-weight 0.2s ease;
+          transition: font-weight 0.2s ease;
+
+$ autoprefixer -b 'firefox > 8' -o - src/snippets/sample.css | grep transition
+  -webkit-transition: font-weight 0.2s ease;
+     -moz-transition: font-weight 0.2s ease;
+          transition: font-weight 0.2s ease;
+----
+
+L'exemple précédent illustre comment la propriété `transition` a été préfixée pour couvrir les navigateurs ayant plus de 1% de part de marché, puis en incluant les versions supérieures à Firefox 8 — assez obsolètes il faut se l'avouer. +
+L'utilisation du paramètre `-o -` (_o_ pour _output_) suivi du caractère _trait d'union_ redirige le code réécrit en _sortie standard_ au lieu de modifier le fichier originel.
+
+*uncss* ([URL]#https://npmjs.com/uncss#) est le pendant inverse d'_autoprefixer_ puisqu'il se charge de supprimer le code … mort.
+Pour se faire, _uncss_ charge une ou plusieurs pages de référence et fait la différence entre les règles CSS utilisées … et celles qui ne le sont pas.
+Libre à vous de mentionner une liste blanche de règles à ne jamais supprimer pour éviter qu'elles soient écrémées par mégarde.+
+_uncss_ s'intègre particulièrement facilement dans les projet grâces à des plugins _grunt_ et <<gulp, gulp>>.
+
+Si le monde de l'optimisation ECMAScript a explosé depuis l'apparition d'*esprima*, il en est de même pour CSS avec *PostCSS* ([URL]#https://npmjs.com/postcss#). +
+Cet outil est construit autour du triptyque suivant :
+
+- un parseur CSS ;
+- un arbre syntaxique ;
+- un compilateur texte.
+
+Cette combinaison rend possible la production de _Source Maps_ mais aussi la construction d'une multitude d'outils destinés à faciliter la vie des développeurs.
+Ces outils se greffent sur le parseur, l'arbre ou le compilateur pour parvenir à leurs fins. +
+Avec une ou plusieurs extensions, vous avez ainsi accès à *autoprefixer*, à votre nettoyeur de code mort ou même à votre propre réimplémentation de Sass … entièrement en ECMAScript !
+
+Enfin, il est bon de savoir que d'autres outils existent, complètent voire remplacent les compresseurs et optimiseurs précédemment cités :
+
+- *Google Closure Compiler* ([URL]#https://npmjs.com/closurecompiler#) +
+Un autre compilateur ECMAScript plus poussé qu'_UglifyJS_ mais imposant un style d'écriture plus strict, voire plus contraignant selon votre style d'écriture.
+- *csswring* ([URL]#https://npmjs.com/csswring#) +
+Une alternative plus moderne que _cssmin_.
+Cet outil s'interface optionnellement avec _PostCSS_ et offre un support des _Source Maps_.
+- *csso* ([URL]#https://npmjs.com/csso#) +
+Une autre alternative à _cssmin_ et _csswring_ écrite par l'équipe derrière la méthodologie BEM ([URL]#https://en.bem.info#), moins bien documentée mais plus efficace en terme d'optimisations.
+_csso_ ira jusqu'à réécrire les codes couleurs, les `margin` et `padding` et factorisera les sélecteurs similaires.
+
+==== Optimisation des images
+
+- génération de sprites
+- réduction du poid des fichiers
+- génération de vignettes
+- SVG https://www.npmjs.com/svgo
+
+==== Optimisation des fontes
+
+- optimisation des chemins
+- iconfontes
+- https://npmjs.com/connect-fonts
+
+==== Polyfills
+
+- es5-shim
+- es6-shim
+- es6-promise
+- polyfill.io
+
+==== Accessibilité
+
+- a11y
+- chai-a11y
+
+==== Livereload
+
+- watcher
+- livereload
+- HMR (Hot Module Replacement)
+
+=== Rendu graphique
+
+==== Rendu 2D
+
+TBD.
+
+==== Rendu 3D
+
+TBD.
+
+=== Rendu sonore
+
+==== Codecs
+
+TBD.
+
+==== Web Audio
+
+TBD.
+
+=== Internet of Things
+
+TBD.

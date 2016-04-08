@@ -10,6 +10,7 @@ clean:
 	rm -rf $(BUILD_DIR)
 
 install:
+	npm install --no-spin --no-progress
 	docker pull $(DOCKER_IMAGE)
 
 $(html_files): $(adoc_files)

@@ -8,13 +8,16 @@
 
 Écriture    | Relecture  | Chapitre
 :----------:|:----------:|:--------
-            |            | [Préface de David Bruant](foreword/foreword-fr.adoc)
-:wavy_dash: |            | [Avant-propos](foreword/preamble.adoc)
-:v:         |:wavy_dash: | [Introduction à Node.js](chapter-01/index.adoc)
-:v:         |:wavy_dash: | [Premiers pas avec Node](chapter-02/index.adoc)
-:v:         |:wavy_dash: | [Premier projet](chapter-03/index.adoc)
-:muscle:    |            | [Au service du développement frontend](chapter-04/index.adoc)
-:x:         |            | *Automatiser, déployer et héberger*
+            |            | [Préface de David Bruant][foreword]
+:wavy_dash: |            | [Avant-propos][preamble]
+:v:         |:wavy_dash: | [Introduction à Node.js][ch01]
+:v:         |:wavy_dash: | [Premiers pas avec Node.js][ch02]
+:v:         |:wavy_dash: | [Développer un service web][ch03]
+:muscle:    |            | [Développer pour les navigateurs web][ch04]
+:muscle:    |            | [Développer un automate de traitement de données][ch05]
+:x:         |            | [Développer une application desktop native][ch06]
+:x:         |            | [Déployer et héberger][ch07]
+:x:         |            | [Sélection de modules npm][a01]
 
 # Installation
 
@@ -22,6 +25,13 @@ Cette commande télécharge une copie du livre, les exemples associés ainsi que
 
 ```bash
 npm i -g nodebook@latest
+```
+
+*Remarque* : les dépendances de chaques chapitres sont à installer séparément.
+
+```bash
+cd chapter-01/examples && npm install
+# etc.
 ```
 
 # Participation
@@ -34,7 +44,7 @@ L'interface en ligne de GitHub est la solution la plus simple.
 Il est possible de travailler sur une copie locale de l'épreuve :
 
 ```bash
-git clone https:/github.com/oncletom/nodebokcd nodebook
+git clone https:/github.com/oncletom/nodebok && cd nodebook
 npm install
 make install
 ```
@@ -84,6 +94,15 @@ L’épreuve est soumise à la licence [Creative Commons NC-BY-SA][cc-nc-by-sa] 
 
 Les exemples de code sont soumis à une licence MIT et le cas échéant, à une license spécifiée par l’auteur du programme.
 
-
 [livre-web]: https://oncletom.io/node.js
 [cc-nc-by-sa]: https://creativecommons.org/licenses/by-nc-sa/3.0/deed.fr
+[foreword]: foreword/foreword-fr.adoc
+[preamble]: foreword/preamble.adoc
+[ch01]: chapter-01/index.adoc
+[ch02]: chapter-02/index.adoc
+[ch03]: chapter-03/index.adoc
+[ch04]: chapter-04/index.adoc
+[ch05]: chapter-05/index.adoc
+[ch06]: chapter-06/index.adoc
+[ch07]: chapter-07/index.adoc
+[a01]: appendix-a/index.adoc

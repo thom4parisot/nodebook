@@ -1,67 +1,17 @@
-== Bonnes pratiques pour des applications robustes
+:nodeCurrentVersion: v4
+:npmCurrentVersion: v3
+:revdate: {docdate}
+:sourceDir: ./examples/src
+:imagesdir: {indir}
+ifdef::env[]
+:imagesdir: .
+endif::[]
 
- - Gestion des erreurs
- - Erreurs courantes
- - Environnements de configuration
- - Sécurité
- - Logging
- - Débogage
+== [ChapitreNumero]#6# Développer une application desktop native
 
-  1. Prévenir les plantages
-    1. Erreurs et exceptions
-    1. Le problème des exceptions
-    1. De l'utilisation des `domains`
-    1. Écouter les évènements système
-  1. Cas typiques de code à surveiller
-    1. Erreurs de syntaxe
-    1. Typage inattendu
-    1. Valeurs nulles
-    1. Upload de fichiers
-    1. Évènements via `.on('error')`
-    1. Callbacks
-    1. Épuisement de mémoire
-    1. _Race condition_
-  1. Sécurité des données
-    1. Données malicieuses
-    1. Infiltration du système de fichier
-    1. Échapper les données consommées par les utilisateurs
-    1. RegExp
-    1. CSRF
-    1. XSS
-    1. Attaques par injection
-  1. Déboguer son code
-    1. Node.js en mode debug avec `node --debug`
-    1. Module `node-debug`
-    1. Webstorm IDE
-  1. Tester son code
-    1. Configurer son `package.json`
-    1. Écrire les tests
-    1. Exécuter les tests
-    1. Utilisation des espions, bouchons etc. avec _Sinon.js_
-    1. Connaître sa couverture de code avec _blanket_
-   1. Intégration et déploiement continu
-    1. Principes
-    1. _Travis CI_
-    1. _Coveralls_
-    1. _Jenkins_
-    1. _Strider_
-    1. _Codeship_
- 1. Node.js avancé
-  1. De la bonne utilisation de `package.json`
-  1. `npm`
-    1. Dépendances optionnelles (`optionalDependencies`)
-    1. Dépendances de pairs (`peerDependencies`)
-    1. Variables d'environnement
-    1. `npm run-script`
-    1. Geler les versions avec `npm shrinkwrap`
-    1. Développer son module Node.js avec `npm link`
-  1. Node.js sans JavaScript
-    1. ECMAScript 6 avec traceur
-    1. TypeScript
-  1. `npm` sans Node.js
-    1. Composants Web
-    1. Mozilla Jetpack
-    1. `libc`
-    1. Titanium
-  1. `node-gyp` ou écrire en C++ pour `libuv`
-  1. Flags avancés (`node --v8-options`)
+
+
+[CAUTION]
+====
+Ce chapitre est en plein chantier.
+====

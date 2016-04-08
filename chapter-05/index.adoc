@@ -1,40 +1,36 @@
-== Automatiser, déployer et héberger
+:nodeCurrentVersion: v4
+:npmCurrentVersion: v3
+:revdate: {docdate}
+:sourceDir: ./app/src
+:imagesdir: {indir}
+ifdef::env[]
+:imagesdir: .
+endif::[]
 
- - Modules publics et modules privés
- - Empaqueter et installer
- - Hébergement nu ou PaaS
- - Exposer Node sur les port 80 et 443
- - Outils de déploiement
- - Monitoring
- - Gestion des processus
+== [ChapitreNumero]#5# Développer un automate de traitement de données
 
-1. Déployer ses applications
-  1. Environnements d'exécution (`NODE_ENV`)
-  1. Héberger des applications Node.js
-    1. Heroku
-    1. Sur ses propres machines
-  1. Mettre à jour une application en production
-  1. Monitoring
+Ce chapitre nous apprendra à automatiser le traitement d'un fichier CSV
+hébergé sur une plateforme _open data_ pour faciliter l'accès à l'information.
 
-[[automation]]
-=== Automatisation et assemblage
 
-TBD.
+[CAUTION]
+====
+Ce chapitre est en plein chantier.
+====
 
-==== Quel outil choisir ?
 
-npm/grunt/gulp/brunch/webpack : c'est la jungle j'y comprends rien.
+====
+.Sommaire
+- Gestion des streams
+- Créer son propre stream
+- Manipuler 50 mégaoctets de CSV
+- Interface en ligne de commande (_CLI_)
+====
 
-==== Scripts npm
+[TIP]
+.[RemarquePreTitre]#Remarque# Versions de Node et npm
+====
+Le contenu de ce chapitre se réfère aux versions de *Node {nodeCurrentVersion}* et *npm {npmCurrentVersion}*.
+====
 
-- scripts "natifs"
-- scripts custom
-- composition
-- pre/post
-
-==== Gulp
-
-- par tâche
-- par target
-- tâches personnalisées
-- arguments
+toc::[]
