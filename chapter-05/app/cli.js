@@ -4,10 +4,10 @@ const URL = 'http://data.assemblee-nationale.fr/static/openData/repository/LOI/d
 const request = require('hyperquest');
 const unzip = require('unzip');
 const JSONStream = require('JSONStream');
-const natural = require('natural');
+// const natural = require('natural');
 
-const ngrams = natural.NGrams;
-const tfidf = new natural.TfIdf();
+// const ngrams = natural.NGrams;
+// const tfidf = new natural.TfIdf();
 
 request(URL)
   .pipe(unzip.Parse())
