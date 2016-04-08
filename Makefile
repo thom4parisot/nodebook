@@ -3,7 +3,7 @@ GIT_REPO=oncletom/nodebook
 DOCKER_IMAGE=oncletom/asciidoctor
 DOCKER_COMMAND=docker run -i --rm -v $(CURDIR):/documents $(DOCKER_IMAGE)
 
-adoc_files := index.adoc $(wildcard chapter-*/index.adoc) $(wildcard foreword/*.adoc)
+adoc_files := index.adoc $(wildcard chapter-*/index.adoc) $(wildcard foreword/*.adoc) $(wildcard appendix-*/*.adoc)
 html_files := $(adoc_files:%.adoc=$(BUILD_DIR)/%.html)
 
 clean:
