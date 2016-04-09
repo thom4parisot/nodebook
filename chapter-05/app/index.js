@@ -41,7 +41,7 @@ module.exports = {
 
   analysePopularKeywords(records) {
     return new Promise((resolve, reject) => {
-      const text = Array.isArray(records) ? records.join("\n") : records;
+      const text = Array.isArray(records) ? records.join(`\n`) : records;
 
       retext()
         .use(retextStopwords, { stopwords: stopwordsFr })
