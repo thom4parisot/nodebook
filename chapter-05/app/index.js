@@ -9,7 +9,7 @@ const extname = require('path').extname;
 const words = require('talisman/tokenizers/words/naive').default;
 const freq = require('talisman/stats/frequencies').absolute;
 const trigrams = require('talisman/stats/ngrams').trigrams;
-const stopwords = new Set(require('stopwords/dist/fr.json'));
+const stopwords = require('stopwords/dist/fr.json');
 const map = require('lodash/map');
 
 module.exports = {
@@ -41,11 +41,11 @@ module.exports = {
   },
 
   analysePopularKeywords(records) {
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
       const text = Array.isArray(records) ? records.join(`\n`) : records;
       const tokens = words(text)
-        .filter(token => !stopwords.has(token))
-        .filter(token => !(token == parseFloat(token)));
+        .filter(token => stopwords.indexOf(token) === -1)
+        .filter(token => !(Number.isFinite(parseFloat(token))));
       const grams = trigrams(tokens);
 
       const keywords = map(freq([].concat(...grams)), (v, k) => ({k, v}))
