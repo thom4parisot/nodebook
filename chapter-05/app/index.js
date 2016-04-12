@@ -6,10 +6,11 @@ const unzip = require('unzip');
 const JSONStream = require('JSONStream');
 const extname = require('path').extname;
 
-const retext = require('retext');
-const retextKeywords = require('retext-keywords');
-const retextStopwords = require('./retext-stopwords');
-const stopwordsFr = require('stopwords/dist/fr.json');
+const words = require('talisman/tokenizers/words/naive').default;
+const freq = require('talisman/stats/frequencies').absolute;
+const trigrams = require('talisman/stats/ngrams').trigrams;
+const stopwords = new Set(require('stopwords/dist/fr.json'));
+const map = require('lodash/map');
 
 module.exports = {
   fetchDocument(options) {
@@ -42,20 +43,17 @@ module.exports = {
   analysePopularKeywords(records) {
     return new Promise((resolve, reject) => {
       const text = Array.isArray(records) ? records.join(`\n`) : records;
+      const tokens = words(text)
+        .filter(token => !stopwords.has(token))
+        .filter(token => !(token == parseFloat(token)));
+      const grams = trigrams(tokens);
 
-      retext()
-        .use(retextStopwords, { stopwords: stopwordsFr })
-        .use(retextKeywords)
-        .process(text, (err, file) => {
-            if (err) {
-            return reject(err);
-          }
+      const keywords = map(freq([].concat(...grams)), (v, k) => ({k, v}))
+        .sort((a, b) => b.v - a.v)
+        .slice(0, 20)
+        .map(d => d.k);
 
-          resolve({
-            keywords: file.namespace('retext').keywords,
-            keyphrases: file.namespace('retext').keyphrases
-          });
-        });
+      resolve({ keywords });
     });
   }
 };
