@@ -35,7 +35,6 @@ function abbreviateAsync(words){
 module.exports = function messageAbbr(message){
   return new Promise(function(resolve, reject){
     return uppercaseAsync(message)
-      .then(uppercaseAsync)
       .then(splitWordsAsync)
       .then(abbreviateAsync)
       .then(resolve)
