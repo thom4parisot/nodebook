@@ -610,7 +610,7 @@ _Loupe_ est un visualisateur de boucle évènementielle.
 
 Alors pourquoi dit-on que _libuv_ est non bloquant ?
 L'acquisition d'une ressource système renvoie un descripteur qui est stocké dans une pile d'exécution dédiée tandis que le processus principal poursuit son propre traitement. +
-La pile d'exécution est vérifiée à chaque itération de la boucle — à chaque _Tick_).
+La pile d'exécution est vérifiée à chaque itération de la boucle — à chaque _Tick_.
 _libuv_ libère la ressource lorsqu'elle est résolue et le signale au processus principal via un _callback_.
 
 En clair, au lieu de bloquer l'exécution de l'instruction suivante, la boucle événementielle reporte la vérification à plus tard et se saisit de l'instruction suivante.
