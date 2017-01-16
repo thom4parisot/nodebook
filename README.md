@@ -57,7 +57,7 @@ Un serveur local est également disponible pour prévisualiser vos modifications
 npm start
 ```
 
-Des extensions [Chrome][adoc-chrome] et [Firefox][adoc-firefox] se chargeront du rendu en temps réel dans le navigateur.
+Des extensions [Chrome][adoc-chrome] et [Firefox][adoc-firefox] se chargeront du rendu en temps réel dans le navigateur. Dans les options de l'extension, prenez soin d'autoriser le chargement des fichiers et utilisez le mode Safe pour autoriser le chargement des fichiers d'extrait de code.
 
 [adoc-chrome]: https://chrome.google.com/webstore/detail/asciidoctorjs-live-previe/iaalpfgpbocpdfblpnhhgllgbdbchmia
 [adoc-firefox]: https://addons.mozilla.org/fr/firefox/addon/asciidoctorjs-live-preview/
