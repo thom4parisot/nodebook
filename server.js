@@ -30,7 +30,7 @@ function startServer(port) {
 
   server.listen(port, function(){
     console.log('Book content served at %s', url);
-    console.log('Make sure the Asciidoctor.js Chrome extension is installed – %s', 'https://chrome.google.com/webstore/detail/asciidoctorjs-live-preview/iaalpfgpbocpdfblpnhhgllgbdbchmia');
+    console.log('Make sure the Asciidoctor.js Chrome extension is installed and runs in safe mode – %s', 'https://chrome.google.com/webstore/detail/asciidoctorjs-live-preview/iaalpfgpbocpdfblpnhhgllgbdbchmia');
   });
 }
 
