@@ -57,7 +57,9 @@ Un serveur local est également disponible pour prévisualiser vos modifications
 npm start
 ```
 
-Des extensions [Chrome][adoc-chrome] et [Firefox][adoc-firefox] se chargeront du rendu en temps réel dans le navigateur. Dans les options de l'extension, prenez soin d'autoriser le chargement des fichiers et utilisez le mode Safe pour autoriser le chargement des fichiers d'extrait de code.
+Des extensions [Chrome][adoc-chrome] et [Firefox][adoc-firefox] se chargeront du rendu en temps réel dans le navigateur. Dans les options de l'extension, prenez soin d'autoriser le chargement des fichiers et utilisez le mode `safe` pour autoriser le rendu des exemples de code :
+
+![](asciidoctor-extension-config.png)
 
 [adoc-chrome]: https://chrome.google.com/webstore/detail/asciidoctorjs-live-previe/iaalpfgpbocpdfblpnhhgllgbdbchmia
 [adoc-firefox]: https://addons.mozilla.org/fr/firefox/addon/asciidoctorjs-live-preview/
@@ -84,7 +86,7 @@ L’épreuve est consultable dans un navigateur Web via [oncletom.io/node.js][li
 
 La version Web est générée automatiquement et directement à partir des sources Asciidoc utilisées pour l'épreuve papier.
 
-Le livre sera disponible en rayons lorsque le Bon à Tirer (BAT) aura été signé (première moitié 2016).
+Le livre sera disponible en rayons lorsque le Bon à Tirer (BAT) aura été signé (première moitié 2017).
 
 # Mentions légales
 
