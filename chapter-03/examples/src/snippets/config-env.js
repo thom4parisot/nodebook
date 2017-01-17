@@ -1,8 +1,7 @@
 'use strict';
 
-var server = require('http').createServer();
-
-var defaultPort = process.env.NODE_ENV === 'test' ? 3001 : 3000;
+const server = require('http').createServer();
+const defaultPort = process.env.NODE_ENV === 'test' ? 3001 : 3000;
 
 // …
 

@@ -2,9 +2,9 @@
 
 'use strict';
 
-var join = require('path').join;
+const { join } = require('path');
 
-var argv = require('yargs')
+const argv = require('yargs')
   .usage('Usage: $0 --outdir <path> [--year <YYYY>] [--provider <pkg.config.key>]')
   .options('y', {
     alias: 'year',
@@ -20,16 +20,16 @@ var argv = require('yargs')
   .strict()
   .argv;
 
-var remoteSource = require('../lib/remote-source');
-var filter = require('../lib/filter');
+const remoteSource = require('../lib/remote-source');
+const filter = require('../lib/filter');
 
-var options = {
+const options = {
   provider: argv.provider,
   source: argv.year,
   outdir: argv.outdir && join(argv.outdir, argv.year + '.xls')
 };
 
-remoteSource.request(options, function(response){
+remoteSource.request(options, (response) => {
   remoteSource.saveResponseTo(response, options.outdir);
 
   filter.toJSON(response);

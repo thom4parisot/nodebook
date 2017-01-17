@@ -5,10 +5,12 @@
   "main": "index.js",
   "bin": "server.js",
   "scripts": {
-    "test": "eslint chapter-*/**/*.js"
+    "lint": "eslint chapter-*/**/*.js",
+    "test": "exit 0",
+    "posttest": "npm run lint"
   },
   "engines": {
-    "node": "^4.0.0"
+    "node": "^6.0.0"
   },
   "repository": {
     "type": "git",

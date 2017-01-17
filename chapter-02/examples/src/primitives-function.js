@@ -12,7 +12,7 @@ function isEqualTo (value, compareWith) {
   return compareWith.some(v => v === value);  // <2>
 }
 
-(function(){                              // <3>
+(() => {                              // <3>
   const values = [,3,,,1];
 
   console.log(typeof Date);               // <4>

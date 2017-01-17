@@ -19,16 +19,16 @@ serveStatic.mime.define({ 'text/plain': ['adoc'] });
 /*
  Server definition
  */
-const server = http.createServer(function(req, res){
+const server = http.createServer((req, res) => {
   res.setHeader('X-Content-Type-Options', 'nosniff');
 
   staticResponse(req, res, finalhandler(req, res));
 });
 
-function startServer(port) {
+const startServer = (port) => {
   const url = `http://localhost:${port}/index.adoc`;
 
-  server.listen(port, function(){
+  return server.listen(port, () => {
     console.log('Book content served at %s', url);
     console.log('Make sure the Asciidoctor.js Chrome extension is installed and runs in safe mode – %s', 'https://chrome.google.com/webstore/detail/asciidoctorjs-live-preview/iaalpfgpbocpdfblpnhhgllgbdbchmia');
   });
@@ -37,4 +37,4 @@ function startServer(port) {
 /*
  Starting the server after finding a proper port
 */
-PORT ? startServer(PORT) : getPort().then(startServer);
+(PORT ? Promise.resolve(PORT) : getPort()).then(startServer);

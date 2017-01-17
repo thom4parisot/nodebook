@@ -5,7 +5,7 @@ const FIND = 'stram';			// <1>
 let found;
 
 // Avant ES2015
-DATA.some(function(value){
+DATA.some((value) => {
   if (value === FIND) {
     found = value;
     return true;

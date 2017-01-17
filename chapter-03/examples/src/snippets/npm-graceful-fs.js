@@ -1,10 +1,10 @@
 'use strict';
 
-var fs = require('graceful-fs');
-var join = require('path').join;
+const fs = require('graceful-fs');
+const { join } = require('path');
 
-var filepath = join(__dirname, '..', '..', 'package.json');
+const filepath = join(__dirname, '..', '..', 'package.json');
 
-fs.readFile(filepath, { encoding: 'utf-8'}, function(err, content){
+fs.readFile(filepath, { encoding: 'utf-8'}, (err, content) => {
   console.log(JSON.parse(content).name); // <1>
 });

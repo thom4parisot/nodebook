@@ -1,17 +1,17 @@
 'use strict';
 
-var client = require('redis').createClient();
-var Promise = require('bluebird');
-var uuid = require('uuid').v4;
+const client = require('redis').createClient();
+const Promise = require('bluebird');
+const uuid = require('uuid').v4;
 
 Promise.promisifyAll(client);
 
 Promise.all([
-  client.hset('book:' + uuid(), 'title', 'Node.js'),
-  client.hset('book:' + uuid(), 'title', 'CSS maintenables'),
-  client.hset('book:' + uuid(), 'title', 'Open Sky')
+  client.hset(`book:${uuid()}`, 'title', 'Node.js'),
+  client.hset(`book:${uuid()}`, 'title', 'CSS maintenables'),
+  client.hset(`book:${uuid()}`, 'title', 'Open Sky')
 ])
-.then(function(){
+.then(() => {
   console.log('Enregistrements créés.');
   client.end();
 });

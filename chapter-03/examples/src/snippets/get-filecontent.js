@@ -1,14 +1,14 @@
 'use strict';
 
-var fs = require('fs');
+const fs = require('fs');
 
-module.exports = function getFilecontent(filename, onSuccess, onError){
-  fs.exists(filename, function(exists){
+const getFilecontent = (filename, onSuccess, onError) => {
+  fs.exists(filename, (exists) => {
     if (!exists){
       return onError(new Error('File does not exist.'));
     }
 
-    fs.readFile(filename, function(err, fileBuffer){
+    fs.readFile(filename, (err, fileBuffer) => {
       if (err) {
         return onError(err);
       }
@@ -17,3 +17,5 @@ module.exports = function getFilecontent(filename, onSuccess, onError){
     });
   });
 };
+
+module.exports = getFilecontent;

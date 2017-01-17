@@ -1,11 +1,11 @@
 'use strict';
 
-var maxTries = parseInt(process.argv[2], 10) || 5;
+const maxTries = parseInt(process.argv[2], 10) || 5;
 
-function terminateIn(tries){
-  return function(){
+const terminateIn = (tries) => {
+  return () => {
     if (--tries === 0){
-      console.log('Arrêt du programme…')
+      console.log('Arrêt du programme…');
       process.exit(0);
 
       return;

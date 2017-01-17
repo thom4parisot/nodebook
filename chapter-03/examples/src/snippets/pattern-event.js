@@ -4,6 +4,22 @@ const messageAbbr = require('./message-abbr-evented');
 const { writeFile } = require('fs');
 const timeStart = process.hrtime();
 
+const logErr = (err) => console.error(err);
+const logData = (data) => console.log(data);
+
+const logPerformance = (functionName, timeDiff) => {
+  const duration = timeDiff[0] + (timeDiff[1] / 1e9);
+  console.log('[%s] executed in %ss.', functionName, duration);
+}
+
+const storeData = (filename, data) => {
+  writeFile(filename, data, { encoding: 'utf-8' }, (err) => {
+    if (err) return logErr(err);
+
+    console.log('Data written to %s.', filename);
+  });
+}
+
 const event = messageAbbr('good morning england!');
 
 event.on('error', logErr);
@@ -14,24 +30,3 @@ event.on('data', () => {
 });
 
 module.exports = event; // <1>
-
-function logErr(err){
-  console.error(err);
-}
-
-function logData(data){
-  console.log(data);
-}
-
-function logPerformance(functioName, timeDiff){
-  const duration = timeDiff[0] + (timeDiff[1] / 1e9);
-  console.log('[%s] executed in %ss.', functioName, duration);
-}
-
-function storeData(filename, data){
-  writeFile(filename, data, { encoding: 'utf-8' }, function(err){
-    if (err) return logErr(err);
-
-    console.log('Data written to %s.', filename);
-  });
-}

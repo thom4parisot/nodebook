@@ -1,16 +1,14 @@
 'use strict';
 
-var fs = require('fs');
-var join = require('path').join;
-var dataDir = join(__dirname, '..', '..', 'data');
-var filename = join(dataDir, 'package.json');
+const fs = require('fs');
+const { join } = require('path');
+const dataDir = join(__dirname, '..', '..', 'data');
+const filename = join(dataDir, 'package.json');
 
 fs.createReadStream(filename)
-  .on('data', function(chunk){
-    var jsonContent = JSON.parse(String(chunk));
+  .on('data', (chunk) => {
+    const jsonContent = JSON.parse(String(chunk));
 
     console.log(jsonContent.dependencies);
   })
-  .on('error', function(err){
-    console.error(err);
-  });
+  .on('error', (err) => console.error(err));

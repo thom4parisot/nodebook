@@ -1,9 +1,9 @@
 'use strict';
 
-var assert = require('assert');
+const assert = require('assert');
 
-describe('Date', function(){
-  it('be greater than my birthday date', function(){
+describe('Date', () => {
+  it('be greater than my birthday date', () => {
     assert(Date.now() > new Date('2013-03-24').getTime());
   });
 });

@@ -1,8 +1,7 @@
 'use strict';
 
-var EventEmitter = require('eventemitter3');
-
-var emitter = new EventEmitter();
+const EventEmitter = require('eventemitter3');
+const emitter = new EventEmitter();
 
 emitter.on('ping', pingData => console.log('on: %s', pingData));
 emitter.once('ping', pingData => console.log('once: %s', pingData));

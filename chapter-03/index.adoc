@@ -253,8 +253,8 @@ Les modules installés sont désormais manipulables via la fonction `require` au
 
 [source,javascript]
 ----
-var async = require('async');
-vars argv = require('yargs').argv;
+const async = require('async');
+const { argv } = require('yargs');
 ----
 
 Maintenant que nous savons installer et sauvegarder des dépendances par le biais du fichier `package.json`, sauvegardons l'état actuel du projet avec un gestionnaire de versions.
@@ -767,7 +767,7 @@ foreman start -c api=2
 ====
 D'autres fonctionnalités et paramètres de configuration sont expliqués dans la documentation officielle du projet :
 
-- [URL]#http://ddollar.github.io/foreman/#
+- [URL]#https://ddollar.github.io/foreman/#
 - [URL]#https://devcenter.heroku.com/articles/getting-started-with-nodejs#define-a-procfile#
 ====
 
@@ -1106,9 +1106,9 @@ C'est quelque chose de facilement identifiable à l'œil nu :
 
 [source,javascript]
 ----
-var User = require('../../lib/model/user.js');
-var Validator = require('../app/middlewares/validator');
-var csvParser = require('../../lib/parsers/csv');
+const User = require('../../lib/model/user.js');
+const Validator = require('../app/middlewares/validator');
+const csvParser = require('../../lib/parsers/csv');
 ----
 
 Dans le cas présent, ces trois modules pourrait être extraits dans les modules indépendants suivants :
@@ -2111,7 +2111,7 @@ L'exemple suivant est une démonstration de code synchrone :
 
 [source,javascript]
 ----
-var date = Date.now();
+const date = Date.now();
 ----
 
 En effet, le résultat est retourné _immédiatement_ à la suite de l'invocation de la fonction.
@@ -2228,16 +2228,16 @@ Ce n'est pas un signe de mauvais code mais on peut sentir une certaine répétit
 
 [source,javascript]
 ----
-var Person = require('./lib/models/person.js');
-var Vehicle = require('./lib/models/vehicle.js');
-var Location = require('./lib/models/location.js');
-var Transaction = require('./lib/models/transaction.js');
+const Person = require('./lib/models/person.js');
+const Vehicle = require('./lib/models/vehicle.js');
+const Location = require('./lib/models/location.js');
+const Transaction = require('./lib/models/transaction.js');
 
-var rental = new Transaction({
+const rental = new Transaction({
   // ...
 });
 
-rental.save(function(err, commit){
+rental.save((err, commit) => {
   if (err) {
     throw err;
 	}
@@ -2251,9 +2251,9 @@ L'exemple précédent se résumerait alors à ceci :
 
 [source,javascript]
 ----
-var models = require('./lib/models');
+const models = require('./lib/models');
 
-var rental = new models.Transaction({
+const rental = new models.Transaction({
   // ...
 });
 ----
@@ -2325,7 +2325,7 @@ L'exemple suivant illustre la volonté de déporter la configuration d'une hypot
 [source,javascript]
 .app.js
 ----
-var app = module.exports = new AppServer();
+const app = module.exports = new AppServer();
 
 require('./app-configure.js');
 ----
@@ -2335,8 +2335,8 @@ Ce module de configuration requiert à son tour l'application pour en configurer
 [source,javascript]
 .app-configure.js
 ----
-var app = require('./app.js');
-var ejsEngine = require('consolidate').ejs;
+const app = require('./app.js');
+const ejsEngine = require('consolidate').ejs;
 
 app.set('X-Powered-By', 'ACME Corp.');
 app.set('view engine', ejsEngine);
@@ -2354,7 +2354,7 @@ L'injection de variable est un _pattern_ intéressant car il résout ce dilemme 
 [source,javascript]
 .app-reworked.js
 ----
-var app = new App();
+const app = new App();
 
 require('./app-configure-reworked.js')(app);
 ----
@@ -2364,7 +2364,7 @@ Le module de configuration devient alors une fonction recevant l'objet applicati
 [source,javascript]
 .app-configure-reworked.js
 ----
-var ejsEngine = require('consolidate').ejs;
+const ejsEngine = require('consolidate').ejs;
 
 module.exports = function(app){
   app.set('X-Powered-By', 'ACME Corp.');
@@ -2750,9 +2750,9 @@ Cet exemple précédent pourrait être écrit de la manière suivante avec Node 
 
 [source,javascript]
 ----
-var head = require('head');
-var grep = require('stream-grep');
-var fs = require('fs');
+const head = require('head');
+const grep = require('stream-grep');
+const fs = require('fs');
 
 fs.createReadStream('/etc/networks')
   .pipe(head({ count: 3 }))

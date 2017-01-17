@@ -1,20 +1,19 @@
 'use strict';
 
-var assert = require('assert');
-var sinon = require('sinon');
+const assert = require('assert');
+const sinon = require('sinon');
 
-describe('Date', function(){
-  var d = Date, stub;
+describe('Date', () => {
+  const d = Date;
+  let stub;
 
-  beforeEach(function(){
+  beforeEach(() => {
     stub = sinon.stub(d, 'now');
   });
 
-  afterEach(function(){
-    stub.restore();
-  });
+  afterEach(() => stub.restore());
 
-  it('should be greater than my birthday date', function(){
+  it('should be greater than my birthday date', () => {
     stub.returns(9999999999999);
 
     d.now();
@@ -23,7 +22,7 @@ describe('Date', function(){
     assert(stub.returnValues[0] > new Date('2013-03-24').getTime());
   });
 
-  it('should fail if smaller than my birthday date', function(){
+  it('should fail if smaller than my birthday date', () => {
     stub.returns(100);
 
     d.now();

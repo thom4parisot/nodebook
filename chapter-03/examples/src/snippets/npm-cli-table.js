@@ -1,12 +1,12 @@
 'use strict';
 
-var CliTable = require('cli-table');
-var pkg = require('../../package.json');
-var table = new CliTable({
+const CliTable = require('cli-table');
+const pkg = require('../../package.json');
+const table = new CliTable({
   head: ['Module', 'Version']
 });
 
-var modules = Object.keys(pkg.dependencies).map(function(moduleName){
+const modules = Object.keys(pkg.dependencies).map((moduleName) => {
   return [moduleName, pkg.dependencies[moduleName]];
 });
 

@@ -1,13 +1,13 @@
 'use strict';
 
-function uppercaseAsync(message, callback){
-  process.nextTick(function(){
+const uppercaseAsync = (message, callback) => {
+  process.nextTick(() => {
     callback(null, message.toLocaleUpperCase ? message.toLocaleUpperCase() : message);
   });
 }
 
-function splitWordsAsync(message, callback){
-  process.nextTick(function(){
+const splitWordsAsync = (message, callback) => {
+  process.nextTick(() => {
     if (typeof message !== 'string'){
       callback(new TypeError('message is not a String'));
     }
@@ -17,12 +17,10 @@ function splitWordsAsync(message, callback){
   });
 }
 
-function abbreviateAsync(words, callback){
-  process.nextTick(function(){
+const abbreviateAsync = (words, callback) => {
+  process.nextTick(() => {
     try {
-      var abbr = words.reduce(function(abbr, word){
-        return abbr + word[0];
-      }, '');
+      const abbr = words.reduce((abbr, word) => abbr + word[0], '');
 
       callback(null, abbr);
     }
@@ -32,13 +30,13 @@ function abbreviateAsync(words, callback){
   });
 }
 
-module.exports = function messageAbbr(message, callback){
-  uppercaseAsync(message, function(err, message){
+const messageAbbr = (message, callback) => {
+  uppercaseAsync(message, (err, message) => {
     if (err) {
       return callback(err);
     }
 
-    splitWordsAsync(message, function(err, words){
+    splitWordsAsync(message, (err, words) => {
       if (err) {
         return callback(err);
       }
@@ -47,3 +45,5 @@ module.exports = function messageAbbr(message, callback){
     });
   });
 };
+
+module.exports = messageAbbr;

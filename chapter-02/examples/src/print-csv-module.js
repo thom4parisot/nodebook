@@ -1,16 +1,18 @@
 'use strict';
 
-var fs = require('fs');
-var csv = require('comma-separated-values');
+const fs = require('fs');
+const csv = require('comma-separated-values');
 
-module.exports = function readCSVFile(filepath, rowFn){
-  fs.readFile(filepath, { encoding: 'utf-8' }, function(err, content){
+const readCSVFile = (filepath, rowFn) => {
+  fs.readFile(filepath, { encoding: 'utf-8' }, (err, content) => {
     if (err){
       throw err;
     }
 
-    (new csv(content, { header: true, delimiter: ';' }))
+    new csv(content, { header: true, delimiter: ';' })
       .parse()
       .forEach(rowFn);
   });
 };
+
+module.exports = readCSVFile;
