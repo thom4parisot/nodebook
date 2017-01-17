@@ -742,7 +742,7 @@ Une documentation détaillée accompagnée d'exemples est disponible sur le dép
 
 _Foreman_ est un programme écrit en Ruby.
 Il est destiné à gérer les multiples processus d'une même application. +
-C'est l'outil que vous devrez utiliser pour démarrer vos applications sur par la plateforme Heroku après déploiement.
+C'est l'outil de déclaration de services utilisé par la plateforme _Heroku_.
 
 Vos différents processus sont à déclarer dans un fichier `Procfile`, somme toute assez simpliste :
 
@@ -768,6 +768,7 @@ foreman start -c api=2
 D'autres fonctionnalités et paramètres de configuration sont expliqués dans la documentation officielle du projet :
 
 - [URL]#http://ddollar.github.io/foreman/#
+- [URL]#https://devcenter.heroku.com/articles/getting-started-with-nodejs#define-a-procfile#
 ====
 
 Il ne nous manque qu'une seule chose désormais : pouvoir démarrer nos processus avec le système d'exploitation, après un démarrage ou redémarrage.
@@ -2346,7 +2347,7 @@ app.set('view engine', ejsEngine);
 Cette approche pose toutefois deux problèmes :
 
 - l'inclusion cyclique — même si Node s'en sortira, on pressent une erreur de _design_ ;
-- quid de l'utilisation de ce module de configuration si l'on souhaite configurer un autre fichier qu'`app.js` ?
+- quid de l'utilisation de ce module de configuration si l'on souhaite configurer un autre fichier que `app.js` ?
 
 L'injection de variable est un _pattern_ intéressant car il résout ce dilemme sans présenter d'inconvénient :
 
@@ -2381,12 +2382,30 @@ Ce _pattern_ est intéressant à plus d'un titre :
 
 ==== Callback
 
-Le _pattern_ _callback_ est très couramment employé et pour cause : il est systématiquement employé dans les API asynchrones de Node.
+Le _pattern_ _callback_ est très couramment employé et pour cause : il est systématiquement employé dans les API asynchrones de Node. Par exemple, pour lire un fichier :
 
-Le _pattern_ implique une fonction ayant un ou plusieurs arguments ; le premier d'entre eux étant systématiquement un objet d'erreur. +
-Ce mécanisme permet de *propager une erreur* le long de la chaîne de _callbacks_.
+[source,javascript]
+----
+'use strict';
 
-Forçons le trait en créant une fonction asynchrone faisant appel à deux autres fonctions asynchrones :
+const fs = require('fs');
+
+fs.readFile('path/to/file', callback(err, fileContent) {
+  if (err) { // <1>
+    // ...
+  }
+});
+----
+<1> `err` est généralement une instance de `Error`, sinon la variable est égale à `undefined` ou `null`.
+
+Le _pattern_ implique une fonction ayant un ou plusieurs arguments ; le premier d'entre eux étant par convention un objet d'erreur. +
+Ce mécanisme permet de *signaler une erreur* ou un *résultat* de manière asynchrone.
+Cepndant on se rend vite compte que la simplicité du _pattern_ cache une complexité dans la gestion des erreurs.
+Comment les déclarer ?
+Comment les intercepter ?
+Comment les propager ailleurs dans notre application ?
+
+Forçons le trait en créant une fonction asynchrone (`messageAbbr`) faisant appel à trois autres fonctions asynchrones (`uppercaseAsync`, `splitWordsAsync` et `abbreviateAsync`) :
 
 [source,javascript]
 .message-abbr.js
@@ -2398,18 +2417,19 @@ Plusieurs remarques :
 
 - `process.nextTick` est utilisé pour déporter l'exécution du process principal vers l'_Event Loop_ ;
 - chaque niveau de _callback_ appellera la fonction de callback initiale avec l'objet d'erreur en premier argument ;
-- l'imbrication rend difficilement contrôlable la possibilité d'interagir avant que l'intégralité de la chaîne soit accomplie.
+- on constate que l'imbrication des fonctions rend difficilement contrôlable la possibilité d'interagir avant que l'intégralité de la chaîne soit accomplie.
 
-Le module suivant exécute la fonction asynchrone précédemment exportée à trois reprises, pour illustrer différents cas de figure :
+L'exemple suivant repose sur les fonctions précédemment listées de `message-abbr.js`.
+La fonction `messageAbbr` est exécutée de trois manières différentes pour souligner plusieurs cas de figure :
 
 [source,javascript]
 .pattern-callback.js
 ----
 include::{sourceDir}/snippets/pattern-callback.js[]
 ----
-<1> Affiche la chaîne `GME` ;
-<2> Affiche le message d'erreur `[TypeError: message is not a String]` ;
-<3> Affiche une exception `TypeError: Cannot read property 'toLocaleUpperCase' of null` et termine le script de manière prématurée.
+<1> _Premier appel_ : affiche la chaîne `GME` ;
+<2> _Deuxième appel_ : affiche le message d'erreur `[TypeError: message is not a String]` ;
+<3> _Troisième appel_ : affiche une exception `TypeError: Cannot read property 'toLocaleUpperCase' of null` et termine le script de manière prématurée.
 
 Le premier appel à `messageAbbr` se déroule dans des conditions optimales.
 La fonction de callback transmet un premier paramètre `err` équivalent à `null`, et une valeur conforme aux attentes.
@@ -2418,10 +2438,11 @@ Le deuxième appel illustre une interception maîtrisée d'un cas d'erreur.
 C'est bien `console.error(err)` qui sera interprété suite à une erreur renvoyée par la fonction `splitWordsAsync`.
 
 Le troisième et dernier appel interpelle : pourquoi le bloc `try/catch` est-il resté sans effet ?
-Et bien pour la simple et bonne raison que `try/catch` ne fonctionne que sur du _code synchrone_. +
-Dans notre cas, l'exception n'étant pas interceptée dans les rouages asynchrones, elle remonte jusqu'au processus initial et génère un événement `uncaughtException`.
+Pour la simple et bonne raison que `try/catch` ne fonctionne que sur du _code synchrone_. +
+L'exception n'étant pas interceptée par notre code, elle continue de remonter jusqu'au processus initial qui émet un événement `uncaughtException`.
+Processus qui se terminera avec un code d'erreur si aucune fonction n'écoute ce dit événement `uncaughtException`.
 
-Autrement dit, un code asynchrone requiert encore plus de précautions du fait de la potentielle difficulté à intercepter les erreurs, et donc à éviter le plantage de notre application.
+Autrement dit, un code asynchrone basé sur des _callbacks_ requiert beaucoup de précautions du fait du crash potentiel de l'application si une erreur n'est pas interceptée.
 
 Enfin, on notera que l'ordre d'affichage des deux premiers appels n'est pas nécessairement le même que l'ordre d'exécution.
 
@@ -2440,7 +2461,7 @@ Le mécanisme `waterfall` exécute chaque callback de manière séquentielle, en
 ====
 Vous aurez beau rendre non-bloquant la majorité de votre code, il n'en sera pas nécessairement exécuté plus rapidement.
 
-Alors certes votre application pourra _accepter_ davantage de sollicitation mais votre code, lui, ira à la vitesse prescrite par l'enchainement logique du flux de données.
+Certes votre application pourra _accepter_ davantage de sollicitation mais votre code, lui, ira à la vitesse induite par l'enchainement logique du flux de données.
 
 Le temps d'exécution des callbacks correspond à la _somme du temps d'exécution de chaque callback_. +
 Un excellent moyen pour gérer du code _asynchrone_ et _parallèle_ est le _pattern_ _promesse_, abordé dans les pages suivantes.
@@ -2460,11 +2481,10 @@ Il s'agit d'un _pattern_ particulièrement intéressant adresser ces besoins :
 - gérer des cas de figure ayant trait à une progression ;
 - gérer des cas de figure plus complexes qu'une logique binaire de réussite ou d'échec ;
 - séparer la logique d'exécution d'un résultat unique (éviter de mettre tous les _callbacks_ dans le même panier dirait-on …);
-- transmettre des résultats au travers de plusieurs couches applicatives.
+- transmettre des résultats au travers de plusieurs couches applicatives (un émetteur, plusieurs récepteurs).
 
-Reprenons l'exemple de la section précédente à propos des callbacks.
-Au lieu d'exécuter trois la fonction `messageAbbr`, nous voulons au contraire exécuter trois traitements différents sur le résultat. +
-Le changement le plus rapide reviendrait à transformer le code de la manière suivante :
+Dans l'exemple suivant, nous allons réutiliser la fonction `messageAbbr` développée dans la précédente section _callbacks_.
+Cette fois-ci, nous allons exécuter des _opérations synchrones et asynchrones_ en _callback_ de la fonction `messageAbbr` :
 
 [source,javascript]
 .pattern-callback-naive.js
@@ -2472,21 +2492,22 @@ Le changement le plus rapide reviendrait à transformer le code de la manière s
 include::{sourceDir}/snippets/pattern-callback-naive.js[]
 ----
 
-C'est visuellement propre mais il est difficile de savoir en quoi les fonctions exécutées dans le _callback_ sont liées.
-Quid de nos besoins de maintenance et de logique applicative ? +
-Sans compter qu'il est virtuellement impossible pour un autre module de greffer un quelconque traitement.
+Les fonctions `logData`, `logPerformance` et `storeData` sont exécutées en cas de succès du _callback_ de `messageAbbr`. +
+Mais que se passe-t'il si une de ces trois fonctions génère une erreur ? Et si l'une d'entre elle s'exécute de manière asynchrone ? Comment faire remonter l'erreur en dehors de `messageAbbr` ?
 
-Moins de cinq minutes suffisent à implémenter un traitement événementiel dans notre module Node :
+Retravaillons le précédent exemple pour explorer une approche événementielle :
 
 [source,javascript]
 .pattern-event.js
 ----
 include::{sourceDir}/snippets/pattern-event.js[]
 ----
-<1> L'utilisation de `module.exports` permet d'exposer l'émetteur d'événement en dehors de notre module, par exemple `require('./pattern-events').on('data', ...)`.
+<1> L'utilisation de `module.exports` permet d'exposer l'émetteur d'événement à d'autres modules, par exemple `require('./pattern-events').on('data', ...)`.
 
-Cette fois-ci notre fonction va retourner une instance de l'objet `EventEmitter`, de manière synchrone.
-Le traitement reste asynchrone.
+La fonction `messageAbbr` retourne désormais une instance de l'objet `EventEmitter` de manière synchrone.
+Des écouteurs sont branchés sur l'objet retourné et sont exécutés de manière asynchrone, lorsque leur événement respectif est émis.
+
+Observons maintenant le code source modifié de `messageAbbr` ayant permis d'exposer cette interface événementielle :
 
 [source,javascript]
 .message-abbr-evented.js
@@ -2494,8 +2515,10 @@ Le traitement reste asynchrone.
 include::{sourceDir}/snippets/message-abbr-evented.js[]
 ----
 
-On notera qu'aucun code n'est injecté dans notre module retravaillé.
-Le module se contente d'exposer une API et d'émettre des données aux moments adéquats.
+Le seul changement se situe dans la fonction `messageAbbr` : elle retourne désormais un objet `EventEmitter`.
+Cet objet est interfacé dans les moments critiques de la fonction `waterfall` et en relaie son cycle de vie _en dehors_ de la fonction `messageAbbr`. +
+À noter que le nommage des événements est libre.
+Certains noms sont utilisés de manière conventionnelle pour identifier des actions – par exemple, `error`, `data`, `end` etc.
 
 [TIP]
 .[RemarquePreTitre]#Astuce# `emitter.setMaxListeners`
@@ -2514,10 +2537,11 @@ Il est important de bien connaître et de bien comprendre ce _pattern_ car il es
 ==== Promesses
 
 Le concept des promesses (_promises_) est extrêmement puissant pour gérer, ordonner et organiser un ou plusieurs enchaînements d'exécutions asynchrones.
+Nous en avons déjà parlé dans la <<../chapter-02/index.adoc#_promise,section Promise du Chapitre 2>>.
 
-Historiquement, de nombreuses bibliothèques ont proposé leur propre implémentation du _pattern_ mais sans être réellement interopérables.
+Historiquement, de nombreuses bibliothèques ont proposé leur propre implémentation du _pattern_ mais avec le défaut de ne pas être interopérables entre elles.
 La spécification _Promise/A+_ a émergé pour établir un standard de compatibilité.
-ECMAScript 6 introduit nativement cette API, la rendant alors disponible pour le web ou pour Node, avec ou sans _polyfill_.
+ECMAScript 6 introduit nativement cette API, la rendant alors disponible pour le web et pour Node, avec ou sans _polyfill_.
 
 Les cas d'utilisation des promesses sont multiples :
 
@@ -2533,7 +2557,7 @@ Faisons évoluer notre exemple de _pattern_ _callback_ et d'événement :
 include::{sourceDir}/snippets/pattern-promise.js[]
 ----
 
-La lecture du code est similaire à un enchaînement d'événements.
+La lecture du code est similaire à celle du code écrit pour le _pattern_ d'événements.
 Les méthodes `then` et `catch` se chaînent mais nous verrons un peu plus tard leur subtilité.
 
 Tournons-nous vers l'implémentation de la fonction `messageAbbr` :
@@ -2546,14 +2570,13 @@ include::{sourceDir}/snippets/message-abbr-promisified.js[]
 
 Plusieurs choses notables sont à relever :
 
-- chaque fonction `*Async` retourne une promesse ;
-- les callbacks ne sont plus des arguments des fonctions de traitement ;
+- toutes les fonctions retournent désormais une promesse ;
 - les fonctions `reject` et `resolve` remplacent le _pattern_ `callback(error, result)` ;
 - l'enchaînement final de `then` laisse supposer que chaque promesse consomme le résultat de la promesse précédente;
 - `messageAbbr` est elle-même une promesse dont le résultat se base sur un enchaînement de promesses.
 
-Un atout essentiel des promesses est leur gestion des erreurs.
-Et d'une manière plus élégante qu'avec les _callbacks_ : les exceptions que nous n'avons pas englobé avec des `try/catch` seront quand même capturées :
+Un atout essentiel des promesses est la _gestion des erreurs_.
+Elle est plus élégante qu'avec les _callbacks_ : les exceptions que nous n'avons pas englobé avec des `try/catch` seront quand même capturées :
 
 [source,javascript]
 .pattern-promise-errors.js
@@ -2561,9 +2584,11 @@ Et d'une manière plus élégante qu'avec les _callbacks_ : les exceptions que n
 include::{sourceDir}/snippets/pattern-promise-errors.js[]
 ----
 <1> Comme dans le _pattern_ _callback_, le message d'exception est affiché `[TypeError: Cannot read property 'toLocaleUpperCase' of null]` ;
-<2> Cette fois-ci, le cas d'erreur imprévu de la valeur nulle ne nous échappe pas et fait remonter une exception remontée à la fonction `logErr`.
+<2> Contrairement à notre exemple du _pattern_ _callback_, le cas d'erreur imprévu de la valeur `null` ne nous échappe pas et transmet l'erreur à la fonction `logErr` ;
+<3> `logErr` ne va pas capturer l'exception lancée sur la même ligne mais uniquement de la précédente occurence de `.then()` dans la chaîne – donc uniquement si `logData` génère une exception ;
+<4> Affiche `Error: Erreur volontaire dans .catch()` — il est important de conclure une chaîne de promesses avec `.catch()` pour s'assurer qu'aucune erreur ne nous échappe.
 
-Enfin, la méthode statique `Promise.all` nous permet d'exécuter un _callback_ lorsque _toutes_ les promesses sont résolues.
+Enfin, la méthode statique `Promise.all` nous permet d'exécuter une fonction lorsque _toutes_ les promesses sont résolues.
 Le résultat de l'intégralité des promesses est alors retourné en argument de `then`.
 
 [source,javascript]
@@ -2571,11 +2596,11 @@ Le résultat de l'intégralité des promesses est alors retourné en argument de
 ----
 include::{sourceDir}/snippets/pattern-promise-multiple.js[]
 ----
-<1> Affiche `Promesse tenue !` ;
-<2> Affiche `[ 'H&M', 'HMS', 'GO' ]`
+<1> Affiche `Promesse tenue !` en premier ;
+<2> Puis affiche `[ 'H&M', 'HMS', 'GO' ]`
 
-Aussi logique que cela puisse paraître, cette technique est plus rapidement qu'un enchainement de promesse.
-Le temps d'exécution correspond à celui de la plus lente promesse au lieu d'une accumulation séquentielle de temps d'exécution.
+Aussi logique que cela puisse paraître, cette technique est plus rapide qu'un enchainement de promesses du fait de leur _exécution en parallèle_.
+Le temps d'exécution correspond à celui de la plus lente promesse au lieu d'une accumulation du temps d'exécution de chaque promesse.
 
 ==== Streams
 

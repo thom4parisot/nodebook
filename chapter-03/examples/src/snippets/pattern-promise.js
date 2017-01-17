@@ -4,15 +4,13 @@ var messageAbbr = require('./message-abbr-promisified');
 var fs = require('fs');
 var timeStart = process.hrtime();
 
-var messagePromise = messageAbbr('good morning england!');
-
-module.exports = messagePromise
-  .catch(logErr)
+messageAbbr('good morning england!')
   .then(logData)
   .then(storeData.bind(null, '/dev/null'))
   .then(function(){
     logPerformance('messageAbbr', process.hrtime(timeStart));
-  });
+  })
+  .catch(logErr);
 
 function logErr(err){
   console.error(err);
