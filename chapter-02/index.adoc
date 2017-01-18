@@ -1,5 +1,5 @@
-:nodeCurrentVersion: v4
-:nodeNextMajorVersion: v5
+:nodeCurrentVersion: v6
+:nodeNextMajorVersion: v7
 :es: ECMAScript 2015
 :esNext: ECMAScript 2016
 :sourceDir: ./examples/src
@@ -128,7 +128,7 @@ Un paquet `deb` est également proposé pour les utilisateurs du système d'expl
 
 .Installation de la dernière version stable de Node sur un Raspberry Pi sous _Raspbian_.
 ----
-curl --silent --location https://deb.nodesource.com/setup_4.x | bash -
+curl --silent --location https://deb.nodesource.com/setup_6.x | bash -
 apt-get install --yes nodejs build-essential
 ----
 
@@ -142,9 +142,9 @@ _nvm_ est l'équivalent de _rvm_ dans le monde Ruby, de _phpenv_ dans le monde P
 
 .Installation de _nvm_ et de Node {nodeCurrentVersion} sur un environnement Linux.
 ----
-curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.26.1/install.sh | bash
-nvm install v4
-nvm alias default v4   <1>
+curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.0/install.sh | bash
+nvm install v6
+nvm alias default v6   <1>
 ----
 <1> La version par défaut est désormais la dernière version stable de Node {nodeCurrentVersion}.
 
@@ -201,9 +201,9 @@ La procédure de compilation ressemble fortement à ceci :
 .Étapes de compilation de Node
 ----
 curl -sS \
-  https://nodejs.org/dist/v4.1.1/node-v4.1.1.tar.gz \
+  https://nodejs.org/dist/v6.9.4/node-v6.9.4.tar.gz \
   | tar -zxf -
-cd node-v4.1.1
+cd node-v6.9.4
 ./configure && make && make install
 ----
 
@@ -235,7 +235,7 @@ Le site officiel de _WebStorm_ met à disposition une documentation lisible et c
 
 Le téléchargement du logiciel inclut une période d'essai de 30 jours.
 
-- http://www.jetbrains.com/webstorm/
+- https://www.jetbrains.com/webstorm/
 ====
 
 image::images/webstorm.png[align="center",scaledwidth="85%"]
@@ -256,7 +256,7 @@ TBD.
 
 - https://sublimecodeintel.github.io/SublimeCodeIntel/
 - https://sublime.wbond.net/search/node.js
-- http://www.sublimetext.com/3
+- https://www.sublimetext.com/3
 
 image::images/sublime-text3.png[align="center",scaledwidth="85%"]
 
@@ -264,7 +264,7 @@ image::images/sublime-text3.png[align="center",scaledwidth="85%"]
 
 TBD.
 
-- http://brackets.io/
+- https://brackets.io/
 - https://brackets-registry.aboutweb.com/
 
 image::images/brackets.png[align="center",scaledwidth="85%"]
@@ -297,7 +297,7 @@ Elle est gratuite mais permet l'ajout d'extensions.
 Afin de bénéficier de l'intégration complète de l'écosystème Node, il est nécessaire d'installer l'extensions _Node.js Tools for Visual Studio_ (aussi nommée _NTVS_).
 Elle est gratuite, open source et disponible sur GitHub.
 
-- http://www.visualstudio.com/
+- https://www.visualstudio.com/
 - https://github.com/Microsoft/nodejstools
 
 image::images/visual-studio.png[align="center",scaledwidth="85%"]
@@ -306,7 +306,7 @@ image::images/visual-studio.png[align="center",scaledwidth="85%"]
 
 TBD.
 
-- http://code.visualstudio.com/
+- https://code.visualstudio.com/
 
 image::images/visual-studio-code.png[align="center",scaledwidth="85%"]
 
@@ -353,7 +353,7 @@ Il s'agit d'une évolution majeure, dix ans après sa précédente édition, ECM
 ECMAScript 5 introduit le mode strict limitant fortement les effets de bord indésirables, de nouvelles fonctionnalités pour `Object` et `Array`, le support natif de _JSON_ et `Function.prototype.bind`.
 
 - https://kangax.github.io/compat-table/es5/
-- [URL]#http://www.ecma-international.org/ecma-262/5.1/#
+- [URL]#https://www.ecma-international.org/ecma-262/5.1/#
 
 ==== Standard ECMA-262 Edition 2015
 
@@ -363,7 +363,7 @@ La spécification _ES2015_ a successivement été appelée _ECMAScript Harmony_ 
 La page Web suivante référence l'état de l'implémentation d'ECMAScript 2015 sur différentes plates-formes, dont Node :
 
 - https://kangax.github.io/compat-table/es6/
-- [URL]#http://www.ecma-international.org/ecma-262/6.0/#
+- [URL]#https://www.ecma-international.org/ecma-262/6.0/#
 
 
 ==== Rappel des primitives ECMAScript
@@ -1113,7 +1113,7 @@ JSON.stringify({ ECMAScript: 5.1 }, null, 2); <2>
 L'ensemble de la spécification ECMAScript est disponible aux formats PDF et HTML.
 Il s'agit d'une mine d'or pour comprendre les mécanismes internes du langage, les types et primitives à disposition.
 
-- http://www.ecma-international.org/ecma-262/5.1/
+- https://www.ecma-international.org/ecma-262/5.1/
 ====
 
 ==== Variables globales dans Node.js
