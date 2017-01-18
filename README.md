@@ -15,9 +15,9 @@
 :v:         |:wavy_dash: | [Développer un service web][ch03]
 :muscle:    |            | [Développer pour les navigateurs web][ch04]
 :muscle:    |            | [Développer un automate de traitement de données][ch05]
-:x:         |            | [Développer une application desktop native][ch06]
-:x:         |            | [Déployer et héberger][ch07]
-:x:         |            | [Sélection de modules npm][a01]
+:x:         |            | [Développer une application native][ch06]
+:x:         |            | [Héberger, déployer et monitorer][ch07]
+:x:         |            | _Annexe A_ : [Sélection de modules npm][a01]
 
 # Installation
 
@@ -57,7 +57,9 @@ Un serveur local est également disponible pour prévisualiser vos modifications
 npm start
 ```
 
-Des extensions [Chrome][adoc-chrome] et [Firefox][adoc-firefox] se chargeront du rendu en temps réel dans le navigateur.
+Des extensions [Chrome][adoc-chrome] et [Firefox][adoc-firefox] se chargeront du rendu en temps réel dans le navigateur. Dans les options de l'extension, prenez soin d'autoriser le chargement des fichiers et utilisez le mode `safe` pour autoriser le rendu des exemples de code :
+
+![](asciidoctor-extension-config.png)
 
 [adoc-chrome]: https://chrome.google.com/webstore/detail/asciidoctorjs-live-previe/iaalpfgpbocpdfblpnhhgllgbdbchmia
 [adoc-firefox]: https://addons.mozilla.org/fr/firefox/addon/asciidoctorjs-live-preview/
@@ -84,7 +86,7 @@ L’épreuve est consultable dans un navigateur Web via [oncletom.io/node.js][li
 
 La version Web est générée automatiquement et directement à partir des sources Asciidoc utilisées pour l'épreuve papier.
 
-Le livre sera disponible en rayons lorsque le Bon à Tirer (BAT) aura été signé (première moitié 2016).
+Le livre sera disponible en rayons lorsque le Bon à Tirer (BAT) aura été signé (première moitié 2017).
 
 # Mentions légales
 
