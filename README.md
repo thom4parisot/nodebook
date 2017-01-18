@@ -15,9 +15,9 @@
 :v:         |:wavy_dash: | [Développer un service web][ch03]
 :muscle:    |            | [Développer pour les navigateurs web][ch04]
 :muscle:    |            | [Développer un automate de traitement de données][ch05]
-:x:         |            | [Développer une application desktop native][ch06]
-:x:         |            | [Déployer et héberger][ch07]
-:x:         |            | [Sélection de modules npm][a01]
+:x:         |            | [Développer une application native][ch06]
+:x:         |            | [Héberger, déployer et monitorer][ch07]
+:x:         |            | _Annexe A_ : [Sélection de modules npm][a01]
 
 # Installation
 
