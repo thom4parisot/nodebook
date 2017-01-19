@@ -13,8 +13,8 @@ Dans ce chapitre, nous allons faire le point sur ce qu'est Node.js pour mieux co
 ====
 .Sommaire
 - Comprendre ce qu'est Node.js
-- Savoir qui gère Node.js au quotidien
-- Décider si Node.js peut compléter ou remplacer un système en place
+- Savoir qui assure la gouvernance de Node.js
+- Décider si Node.js et JavaScript peuvent compléter ou remplacer le langage de programmation de votre entreprise/organisation
 - Pourquoi autant de _hype_ ?
 ====
 
@@ -23,7 +23,7 @@ Node.js est-il un _framework_ JavaScript ?
 Qu'en restera-t-il une fois la frénésie retombée ?
 
 Ce chapitre n'est pas essentiel à l'apprentissage de Node.js.
-Il permet de comprendre pourquoi et comment Node a émergé.
+Il permet de *comprendre pourquoi Node a émergé*, et comment.
 Surtout, il vous permettra de comprendre les choix techniques à l'origine des fondations de Node et ce que l'utiliser peut vous apporter, que ce soit dans un contexte personnel ou professionnel.
 
 Qu'on se le dise : *un langage de programmation en lui-même n'a jamais résolu quelconque problème*.
@@ -60,8 +60,8 @@ _Websockets_ est un protocole basé sur TCP.
 
 Il permet de maintenir une connexion HTTP active entre un client et un serveur et d'y faire transiter les données de manière bidirectionnelle.
 
-Ce protocole sera probablement rendu obsolète par le successeur d'_HTTP 1.1_, à savoir _HTTP 2.0_.
-_HTTP 2.0_ a été initié par Google en tant que protocole _SPDY_ (prononcer _speedy_).
+Ce protocole sera probablement rendu obsolète par le successeur d'_HTTP/1.1_, à savoir _HTTP/2_.
+_HTTP/2_ a été initié par Google en tant que protocole _SPDY_ (prononcer _speedy_).
 ====
 
 [TIP]
@@ -102,10 +102,10 @@ Il est séduit par deux choses :
 La quête initiale se dirige alors sur la possibilité de créer *un serveur web non bloquant*.
 En d'autres termes, un serveur capable dans un même processus de traiter d'autres requêtes en attendant de renvoyer la réponse initiale.
 
-Nous sommes alors en 2008 et le site de partage de photos Flickr innove avec un nouveau système de téléversement d'images.
-Ce système remplace la sensation de page figée par une… *barre de progression*.
+Nous sommes alors en 2008 et le site de partage de photos Flickr innove avec un nouveau système de téléversement d'images : une *barre de progression* représentant le statut du téléversement remplace alors la page figée – effet  inhérent à l'envoi de fichiers depuis un formulaire HTML.
 
-.Nouvelle et ancienne interface d’upload de Flickr.
+
+.Interface du service Flickr après et avant l'introduction du téléversement progressif.
 image::images/7112862941_3b8c8e9916_o_d.png[align="center", link="https://www.flickr.com/photos/schill/7112862941/",scaledwidth="85%"]
 
 [TIP]
@@ -116,20 +116,22 @@ L'équipe d'ingénierie de Flickr explique comment elle a contourné le problèm
 - https://wp.me/p2DMyG-ok
 ====
 
-C'est le *déclic* pour Ryan : _Mongrel_ avait déjà un plug-in pour ça mais il fallait que ça soit encore plus simple pour le développeur.
+C'est le *déclic* pour Ryan : _Mongrel_ avait déjà un plug-in pour cette fonctionnalité mais il souhaitait simplifier davantage le travail pour les développeurs.
 Il reproduit le mécanisme avec succès en C.
 Les développeurs web jugeant la solution trop complexe, Ryan tente la même approche avec d'autres langages, comme Python, Lua ou même Haskell.
 Il se heurte au sempiternel problème des ressources bloquantes des différents interpréteurs.
 
 Le deuxième *déclic* se produit en janvier 2009 lorsque _JavaScript_ émerge dans une discussion entre développeurs.
 _Eurêka_ !
-La machine virtuelle JavaScript V8 de Google a été libérée en _open source_ depuis quelques mois et Apple, Microsoft, Mozilla et Google se battent pour rendre la pierre angulaire JavaScript toujours plus performante.
+La machine virtuelle JavaScript V8 de Google a été libérée en _open source_ depuis quelques mois et Apple, Microsoft, Mozilla et Google se livrent à une course à la performance de leur machine virtuelle respective.
+En ligne de mire, rendre la navigation sur _mobile_ et sur _ordinateur_ plus rapide et moins gourmande en ressources.
 
-Ryan admet que JavaScript dispose des caractéristiques idéales, même s'il n'est pas un adepte du langage : fonctions anonymes, _closures_ et l'_event loop_ (dans le DOM en tous cas).
-Il lui manque juste la capacité d'accéder à des _sockets_, au système de fichiers et à d'autres fonctions système.
+Ryan admet que JavaScript dispose des caractéristiques idéales même s'il n'est pas un adepte du langage : fonctions anonymes, _closures_ et l'_event loop_ (dans le DOM en tous cas).
+Il manque juste aux machines virtuelles JavaScript la capacité d'accéder à des _sockets_, au système de fichiers et à d'autres fonctions système.
 
-Il quitte alors son travail, s'inspire de ses travaux de modules non bloquants pour Nginx et se concentre pendant six mois à marier JavaScript, V8 et l'environnement système : Node.js. +
-Sa démonstration de serveur IRC écrit en 400 lignes de JavaScript lors de la conférence JSConf Europe suscite l'enthousiasme et attire l'attention.
+Ryan quitte alors son travail, s'inspire de ses travaux de modules non bloquants pour Nginx et s'affaire pendant six mois à marier JavaScript, V8 et l'environnement du système d'exploitation.
+De ces efforts nait Node.js. +
+Il effectue une démonstration de link:https://gist.github.com/ry/a3d0bbbff196af633995[serveur IRC écrit en 400 lignes de JavaScript] lors de la link:https://www.youtube.com/watch?v=ztspvPYybIY[conférence JSConf.eu 2009] suscite l'enthousiasme et attire l'attention.
 
 L'entreprise américaine _Joyent_ l'embauche à plein temps pour continuer le développement de Node.
 Ils pressentent que la plate-forme Node répond à leurs projets de _datacenter_ et d'hébergement.
@@ -145,7 +147,7 @@ C'est la première fois qu'il intervient pour expliquer son parcours et la genè
 
 Peut-être un élément qui figurera dans les livres d'histoire !
 
-- https://www.youtube.com/watch?v=SAc0vQCC6UQ
+- [URL]#https://www.youtube.com/watch?v=SAc0vQCC6UQ#
 ====
 
 === Les raisons du succès
