@@ -26,16 +26,20 @@
   },
   "homepage": "https://oncletom.io/node.js",
   "devDependencies": {
-    "eslint": "^1.10.3",
+    "eslint": "^3.13.1",
     "finalhandler": "^0.4.0",
     "get-port": "^2.1.0",
     "serve-static": "^1.5.1"
   },
   "eslintConfig": {
     "root": true,
+    "extends": [
+      "eslint:recommended"
+    ],
     "env": {
       "es6": true,
-      "node": true
+      "node": true,
+      "commonjs": true
     },
     "rules": {
       "callback-return": 2,
@@ -43,13 +47,19 @@
       "eqeqeq": 2,
       "global-require": 2,
       "handle-callback-err": 2,
-      "quotes": [2, "single"],
       "no-path-concat": 1,
       "no-sync": 1,
       "no-undef": 2,
       "no-unused-vars": 1,
       "no-use-before-define": 1,
-      "strict": [2, "global"]
+      "quotes": [
+        "error",
+        "single"
+      ],
+      "strict": [
+        2,
+        "global"
+      ]
     }
   }
 }

@@ -43,7 +43,7 @@ module.exports = {
 
   analysePopularKeywords(records, maxKeywords = 20) {
     return new Promise((resolve) => {
-      const text = Array.isArray(records) ? records.join(`\n`) : records;
+      const text = Array.isArray(records) ? records.join('\n') : records;
       const tokens = words(text)
         .filter(token => stopwords.indexOf(token) === -1)
         .filter(token => !(Number.isFinite(parseFloat(token))));
