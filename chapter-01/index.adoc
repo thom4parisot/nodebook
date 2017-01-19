@@ -13,8 +13,8 @@ Dans ce chapitre, nous allons faire le point sur ce qu'est Node.js pour mieux co
 ====
 .Sommaire
 - Comprendre ce qu'est Node.js
-- Savoir qui gère Node.js au quotidien
-- Décider si Node.js peut compléter ou remplacer un système en place
+- Savoir qui assure la gouvernance de Node.js
+- Décider si Node.js et JavaScript peuvent compléter ou remplacer le langage de programmation de votre entreprise/organisation
 - Pourquoi autant de _hype_ ?
 ====
 
@@ -23,7 +23,7 @@ Node.js est-il un _framework_ JavaScript ?
 Qu'en restera-t-il une fois la frénésie retombée ?
 
 Ce chapitre n'est pas essentiel à l'apprentissage de Node.js.
-Il permet de comprendre pourquoi et comment Node a émergé.
+Il permet de *comprendre pourquoi Node a émergé*, et comment.
 Surtout, il vous permettra de comprendre les choix techniques à l'origine des fondations de Node et ce que l'utiliser peut vous apporter, que ce soit dans un contexte personnel ou professionnel.
 
 Qu'on se le dise : *un langage de programmation en lui-même n'a jamais résolu quelconque problème*.
@@ -60,8 +60,8 @@ _Websockets_ est un protocole basé sur TCP.
 
 Il permet de maintenir une connexion HTTP active entre un client et un serveur et d'y faire transiter les données de manière bidirectionnelle.
 
-Ce protocole sera probablement rendu obsolète par le successeur d'_HTTP 1.1_, à savoir _HTTP 2.0_.
-_HTTP 2.0_ a été initié par Google en tant que protocole _SPDY_ (prononcer _speedy_).
+Ce protocole sera probablement rendu obsolète par le successeur d'_HTTP/1.1_, à savoir _HTTP/2_.
+_HTTP/2_ a été initié par Google en tant que protocole _SPDY_ (prononcer _speedy_).
 ====
 
 [TIP]
@@ -102,10 +102,10 @@ Il est séduit par deux choses :
 La quête initiale se dirige alors sur la possibilité de créer *un serveur web non bloquant*.
 En d'autres termes, un serveur capable dans un même processus de traiter d'autres requêtes en attendant de renvoyer la réponse initiale.
 
-Nous sommes alors en 2008 et le site de partage de photos Flickr innove avec un nouveau système de téléversement d'images.
-Ce système remplace la sensation de page figée par une… *barre de progression*.
+Nous sommes alors en 2008 et le site de partage de photos Flickr innove avec un nouveau système de téléversement d'images : une *barre de progression* représentant le statut du téléversement remplace alors la page figée – effet  inhérent à l'envoi de fichiers depuis un formulaire HTML.
 
-.Nouvelle et ancienne interface d’upload de Flickr.
+
+.Interface du service Flickr après et avant l'introduction du téléversement progressif.
 image::images/7112862941_3b8c8e9916_o_d.png[align="center", link="https://www.flickr.com/photos/schill/7112862941/",scaledwidth="85%"]
 
 [TIP]
@@ -116,20 +116,22 @@ L'équipe d'ingénierie de Flickr explique comment elle a contourné le problèm
 - https://wp.me/p2DMyG-ok
 ====
 
-C'est le *déclic* pour Ryan : _Mongrel_ avait déjà un plug-in pour ça mais il fallait que ça soit encore plus simple pour le développeur.
+C'est le *déclic* pour Ryan : _Mongrel_ avait déjà un plug-in pour cette fonctionnalité mais il souhaitait simplifier davantage le travail pour les développeurs.
 Il reproduit le mécanisme avec succès en C.
 Les développeurs web jugeant la solution trop complexe, Ryan tente la même approche avec d'autres langages, comme Python, Lua ou même Haskell.
 Il se heurte au sempiternel problème des ressources bloquantes des différents interpréteurs.
 
 Le deuxième *déclic* se produit en janvier 2009 lorsque _JavaScript_ émerge dans une discussion entre développeurs.
 _Eurêka_ !
-La machine virtuelle JavaScript V8 de Google a été libérée en _open source_ depuis quelques mois et Apple, Microsoft, Mozilla et Google se battent pour rendre la pierre angulaire JavaScript toujours plus performante.
+La machine virtuelle JavaScript V8 de Google a été libérée en _open source_ depuis quelques mois et Apple, Microsoft, Mozilla et Google se livrent à une course à la performance de leur machine virtuelle respective.
+En ligne de mire, rendre la navigation sur _mobile_ et sur _ordinateur_ plus rapide et moins gourmande en ressources.
 
-Ryan admet que JavaScript dispose des caractéristiques idéales, même s'il n'est pas un adepte du langage : fonctions anonymes, _closures_ et l'_event loop_ (dans le DOM en tous cas).
-Il lui manque juste la capacité d'accéder à des _sockets_, au système de fichiers et à d'autres fonctions système.
+Ryan admet que JavaScript dispose des caractéristiques idéales même s'il n'est pas un adepte du langage : fonctions anonymes, _closures_ et l'_event loop_ (dans le DOM en tous cas).
+Il manque juste aux machines virtuelles JavaScript la capacité d'accéder à des _sockets_, au système de fichiers et à d'autres fonctions système.
 
-Il quitte alors son travail, s'inspire de ses travaux de modules non bloquants pour Nginx et se concentre pendant six mois à marier JavaScript, V8 et l'environnement système : Node.js. +
-Sa démonstration de serveur IRC écrit en 400 lignes de JavaScript lors de la conférence JSConf Europe suscite l'enthousiasme et attire l'attention.
+Ryan quitte alors son travail, s'inspire de ses travaux de modules non bloquants pour Nginx et s'affaire pendant six mois à marier JavaScript, V8 et l'environnement du système d'exploitation.
+De ces efforts nait Node.js. +
+Il effectue une démonstration de link:https://gist.github.com/ry/a3d0bbbff196af633995[serveur IRC écrit en 400 lignes de JavaScript] lors de la link:https://www.youtube.com/watch?v=ztspvPYybIY[conférence JSConf.eu 2009] suscite l'enthousiasme et attire l'attention.
 
 L'entreprise américaine _Joyent_ l'embauche à plein temps pour continuer le développement de Node.
 Ils pressentent que la plate-forme Node répond à leurs projets de _datacenter_ et d'hébergement.
@@ -145,7 +147,7 @@ C'est la première fois qu'il intervient pour expliquer son parcours et la genè
 
 Peut-être un élément qui figurera dans les livres d'histoire !
 
-- https://www.youtube.com/watch?v=SAc0vQCC6UQ
+- [URL]#https://www.youtube.com/watch?v=SAc0vQCC6UQ#
 ====
 
 === Les raisons du succès
@@ -185,7 +187,7 @@ Cela concerne aussi bien la lecture de fichiers CSV, JSON ou XML de plusieurs gi
 La compatibilité de Node avec les modules CommonJS incite à concevoir de multiples modules respectant le _principe de responsabilité unique_. +
 Node encourage ainsi à créer de *multiples applications autonomes et modulaires au lieu d'une seule application monolithique*.
 
-Avec Grunt et Gulp, les développeurs verront dans Node leur *compagnon idéal pour compiler, générer, assembler et minifier* leurs différents fichiers. +
+Avec Grunt, Gulp, babel, browserify et Webpack, les développeurs verront dans Node leur *compagnon idéal pour compiler, générer, assembler et minifier* leurs différents fichiers. +
 Le bénéfice évident est le partage du même outillage CSS, JavaScript et HTML entre développeurs, par projet.
 Finies les ambiguïtés… et place à l'automatisation !
 
@@ -205,23 +207,23 @@ Il faut toutefois noter que la majorité des raisons sont liées à une _culture
 Ce serait d'ailleurs la première et principale raison de ne pas utiliser Node ; si votre équipe dispose déjà de fortes compétences, d'habitudes et d'aisance dans un autre langage. +
 Il n'y a pas de raison d'utiliser Node *si vous parvenez à un résultat similaire avec des performances comparables*.
 
-L'*offre logicielle est également à prendre en compte* : CMS, systèmes e-commerce ou autre application prête à l'emploi que la communauté Node n'offrirait pas. +
-En {revisionYear}, on dénombrait encore peu d'applications de ce genre et pour cause : la mode est aux modules à assembler soi-même.
+L'*offre logicielle est également à prendre en compte* : CMS, systèmes e-commerce ou autre application prête à l'emploi que la communauté Node n'offrirait pas.
 
 Un facteur important et souvent oublié est *l'acceptation et la compréhension de l'utilisation de Node* par une ou plusieurs équipes.
 Il est alors plus intéressant de comprendre les raisons d'un blocage que de forcer ou d'imposer Node. +
 Cela peut être simple : balayer des idées reçues, animer un atelier technique ou inviter un expert pour répondre aux questions, interrogations et utilité d'un tel changement.
 
-Node n'est pas forcément une solution adaptée si *vos besoins de performance dépassent les capacités de Node*. Certains cas de très haute performance nécessitent d'être au plus près du système ou utilisent fortement le CPU. +
+Node n'est pas forcément une solution adaptée si *vos besoins de performance dépassent les capacités de Node*. Certains cas de très haute performance nécessitent une gestion fine de la mémoire ou d'utiliser plusieurs CPU en parallèle. +
 Un langage comme C sera certainement davantage approprié.
 Toutefois des solutions comme `node-gyp` vous offrent un accès bas niveau aux éléments internes de la plate-forme Node.
 
-Node ne vous aidera probablement pas si vous cherchez à *réaliser des choses qui seraient compliquées de par la nature même de JavaScript*, par exemple des opérations mathématiques de très haute précision. +
+Node ne vous aidera probablement pas si vous cherchez à *réaliser des choses qui seraient compliquées de par la nature même de JavaScript*, par exemple des opérations mathématiques de très haute précision, du _machine learning_ avancé ou du calcul scientifique poussé.
+Difficile d'égaler la richesse fonctionnelle de Python et de ses librairies SciPy, NumPy ou scikit-learn. +
 ECMAScript suit le standard IEEE 754 pour la représentation des nombres à virgule flottante — de même que C#, Ruby et Java, entre autres.
 Vous pouvez toutefois pallier ce problème via l'utilisation des `Buffer` ou des _Typed Array_ (_Int32_, _UInt32_ etc.).
-Les module `bignumber.js` et `bignum` reposent sur ces mécanismes tout en vous facilitant le travail.
+Les module `bignumber.js` ([URL]#https://npmjs.com/bignumber.js#) et `bignum` ([URL]#https://npmjs.com/bignum#) reposent sur ces mécanismes tout en vous facilitant le travail.
 
-Enfin si vous croyez que Node va *résoudre des problèmes de compétences en développement* ou résoudre _de facto_ une erreur de conception logicielle, c'est bien évidemment une erreur.
+Enfin si vous croyez que Node va *résoudre les problèmes par magie* — qu'ils soient de nature technique, de performance ou de compétences* — c'est une croyance dont il va falloir se séparer.
 
 === Écosystème
 
@@ -230,7 +232,7 @@ Le modèle qui en émerge est assez unique : la majorité des développements in
 
 L'écosystème contribuant au développement de la plate-forme a évolué d'un faible nombre d'entreprises privées vers une fondation non-commerciale impliquant plusieurs dizaines d'individus, la plupart financés par leur employeur.
 
-En 2015, après avoir traversé des périodes incertaines, l'avenir de Node est au beau fixe avec plus de 300 contributeurs à la plateforme et plus de 190 000 paquets publics hébergés par le registre _npm_.
+En 2017, après avoir traversé des périodes incertaines, l'avenir de Node est au beau fixe avec plus de 1200 contributeurs à la plateforme et plus de 400 000 paquets publics hébergés sur le registre _npm_.
 
 [[joyent]]
 ==== Joyent
@@ -272,15 +274,15 @@ La société _Joyent_ reste propriétaire de la marque _Node.js_ et de son logo.
 
 ==== npm
 
-_npm_ est une dénomination qui abrite plusieurs concepts.
+_npm_ est une dénomination qui abrite plusieurs concepts : un *outil en ligne de commande*, un *registre de modules* ainsi qu'une *entreprise privée*.
 
 _npm_ est originellement un module Node créé par Isaacs Schlueter.
 Ce module permet d'installer des modules tiers et de les lier sous forme d'un arbre de dépendances.
 Il est l’équivalent de https://rubygems.org/[rubygems.org] pour Ruby, de http://www.cpan.org/[cpan.org] pour Perl ou encore de https://pypi.python.org/pypi[pypi.python.org] pour Python.
 
-Nous reviendrons plus en détail sur son utilisation dans le <<../chapter-02/index.adoc,chapitre 2 _Utiliser des modules tiers_>> de cet ouvrage.
+Nous reviendrons plus en détail sur son utilisation dans le <<../chapter-02/index.adoc,chapitre 2 _Utiliser des modules tiers_>>.
 
-_npm_ peut également désigner le _registre_ principal qui héberge les modules des communautés Node : [URL]#https://www.npmjs.com/#.
+_npm_ désigne également le _registre_ principal qui héberge les modules des communautés Node : [URL]#https://www.npmjs.com/#.
 
 [TIP]
 .[RemarquePreTitre]#Lien# Annonce de l’inclusion de _npm_ dans Node
@@ -288,7 +290,7 @@ _npm_ peut également désigner le _registre_ principal qui héberge les modules
 _npm_ est installé par défaut avec Node depuis la version 0.6.3, sortie en novembre 2011.
 Auparavant, il fallait installer le module _npm_ séparément.
 
-- https://nodejs.org/en/blog/release/v0.6.3/
+- [URL]#https://nodejs.org/en/blog/release/v0.6.3/#
 ====
 
 [[npm-inc]]
@@ -314,7 +316,13 @@ Les objectifs initiaux du projet _io.js_ sont doubles :
 
 Les efforts du projet et de sa communauté ont abouti à la création de la <<node-foundation,Node.js Foundation>> et du <<governance,Node.js Advisory Board>>, respectivement l'organe de gestion du projet et le groupe d'individus en charge de la gestion du projet Node.
 
-Le projet _io.js_ continue sur la même lancée mais contribue désormais directement à la base de code de Node au lieu du _fork_ initial.
+[TIP]
+.[RemarquePreTitre]#Lien# Une fin heureuse pour la communauté
+====
+Le projet _io.js_ s'arrête en 2015 suite à l'émergence de la nouvelle gouvernance, de la fusion réussie avec le code source de Node et de la sortie de Node v4.
+
+- [URL]#https://nodejs.org/en/blog/announcements/foundation-v4-announce/#
+====
 
 ==== Nodejitsu
 
@@ -341,9 +349,9 @@ Cette initiative a suscité une controverse dans la mesure où l’opération s�
 - https://scalenpm.nodejitsu.com/
 ====
 
-==== Node Security Project
+==== Node Security Platform
 
-Le _Node Security Project_ est un projet à but non lucratif soutenu par la société américaine _&yet_.
+Le _Node Security Platform_ ([URL]#https://nodesecurity.io/# — anciennement _Node Security Project_) est un projet à but lucratif soutenu par la société américaine _&yet_ ([URL]#https://andyet.com/#).
 Il a été initié au début de l'année 2013.
 
 Son but est triple :
@@ -352,17 +360,10 @@ Son but est triple :
 2. communiquer les failles auprès des auteurs de modules ;
 3. permettre à quiconque de savoir si un module donné dépend de module vulnérable.
 
-Le projet met un point d'honneur à impliquer la communauté Node dans la gestion de la sécurité.
+Le projet met à disposition des _services_ et des _modules_ tout en cherchant à impliquer la communauté Node dans le processus.
 Cela concerne aussi bien la déclaration des vulnérabilités que leur résolution ou l'éducation des développeurs à la sécurité.
 
-[TIP]
-.[RemarquePreTitre]#Module npm# retire.js
-====
-_retire.js_ est un module npm permettant de scanner soi-même des vulnérabilités connues dans le code JavaScript de son choix.
-Il fonctionne aussi bien pour du JavaScript interprété par un navigateur web que dans Node.
-
-- https://npmjs.com/retire
-====
+Nous en parlerons plus en détail les modules développés par la _Node Security Platform_ et leur inclusion dans un cycle de vie projet dans le <<../chapter-07/index.adoc,Chapitre 7>>.
 
 [[governance]]
 ==== Qui gère Node.js ?
