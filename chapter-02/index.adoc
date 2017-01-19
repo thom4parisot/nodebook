@@ -27,11 +27,11 @@ Il est fortement recommandé d'utiliser un interpréteur de commandes (terminal 
 
 Si vous n'utilisez pas encore de terminal, voici une liste de recommandations non exhaustive pour vous aider :
 
-- *OS X* : iTerm2, Terminal.app ;
+- *macOS* : iTerm2, Terminal.app ;
 - *Linux* : GNOME Shell, Terminator ;
 - *Windows* : PowerShell, Console.
 
-.Terminal iTerm2 sous OS X.
+.Terminal iTerm2 sous macOS.
 image::images/terminal.png[align="center",scaledwidth="85%"]
 
 Tous les exemples de ce chapitre sont relatifs à la *branche {nodeCurrentVersion} de Node*. +
@@ -92,9 +92,9 @@ Si votre système d'exploitation ne dispose pas de paquet pour Node, essayez dan
 2. le téléchargement du binaire Node sur son site officiel ;
 3. la compilation manuelle de Node.
 
-===== OS X
+===== macOS
 
-_OS X_ ne dispose pas de gestionnaire de paquet par défaut.
+_macOS_ ne dispose pas de gestionnaire de paquet par défaut.
 Quelques projets populaires permettent toutefois d'y remédier :
 
 - *homebrew* : `brew install node`
@@ -180,7 +180,7 @@ Dans les deux cas, leur installation est très simple.
 
 _Docker_ est un outil d'isolation de processus système qui a le vent en poupe depuis 2014.
 Sa qualité principale est d'isoler les dépendances logicielles du système qui exécute le-dit processus.
-Une image Docker aura la même recette d'installation même si celle-ci est exécutée sous Linux, OSX ou encore Windows.
+Une image Docker aura la même recette d'installation même si celle-ci est exécutée sous Linux, macOS ou encore Windows.
 
 Lancer un interpréteur Node _sans polluer_ le système hôte revient à exécuter l'image suivante :
 
@@ -225,7 +225,7 @@ Il est dédié au développement Web, ce qui inclut JavaScript, Node, mais aussi
 
 _JetBrains_ est une entreprise connue dans d'autres écosystèmes pour ses _IDE_ _Pycharm_ (pour Python) et _IntelliJ IDEA_ (pour Java).
 
-_WebStorm_ est compatible Windows, Linux et OS X.
+_WebStorm_ est compatible Windows, Linux et macOS.
 Ses forces résident dans sa relative légèreté (en comparaison à son concurrent _Eclipse_), une auto-complétion intelligente prenant en compte les modules CommonJS et AMD, une intégration des outils populaires dans l'écosystème Node (npm, JSHint, Mocha, Karma, Grunt, Bower etc.) et un débogage avancé.
 
 [TIP]
