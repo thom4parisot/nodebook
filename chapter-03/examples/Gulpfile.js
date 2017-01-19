@@ -1,16 +1,16 @@
 'use strict';
 
-var gulp = require('gulp');
-var less = require('gulp-less');
-var zip = require('gulp-zip');
+const gulp = require('gulp');
+const less = require('gulp-less');
+const zip = require('gulp-zip');
 
-gulp.task('less', function(){
+gulp.task('less', () => {
   return gulp.src('src/less/**/*.less')
     .pipe(less({ compress: true }))
     .pipe(gulp.dest('src/css/'))
 });
 
-gulp.task('zip', function(){
+gulp.task('zip', () => {
   // production build
   gulp.src(['src/**/*', '!**/*-beta.*'])
     .pipe(zip('<%= version %>.zip'))
@@ -22,6 +22,4 @@ gulp.task('zip', function(){
     .pipe(gulp.dest('dist/'));
 });
 
-gulp.task('default', ['less'], function(){
-  gulp.start('zip');
-});
+gulp.task('default', ['less'], () => gulp.start('zip'));

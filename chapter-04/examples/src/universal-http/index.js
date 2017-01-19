@@ -1,6 +1,6 @@
 'use strict';
 
-if (typeof require === 'function') {         // <1>
+if (typeof require === 'function') {      // <1>
   var superagent = require('superagent');
 }
 
@@ -11,5 +11,5 @@ superagent
       throw err;
     }
 
-    console.log(response.body.cheeses);      // <2>
+    console.log(response.body.cheeses);   // <2>
   });

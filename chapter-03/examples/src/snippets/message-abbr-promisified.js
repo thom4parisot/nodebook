@@ -1,13 +1,13 @@
 'use strict';
 
-function uppercaseAsync(message){
-  return new Promise(function(resolve){
+const uppercaseAsync = (message) => {
+  return new Promise((resolve) => {
     resolve(message.toLocaleUpperCase ? message.toLocaleUpperCase() : message)
   });
 }
 
-function splitWordsAsync(message){
-  return new Promise(function(resolve, reject){
+const splitWordsAsync = (message) => {
+  return new Promise((resolve, reject) => {
     if (typeof message !== 'string'){
       reject(new TypeError('message is not a String'));
     }
@@ -17,12 +17,10 @@ function splitWordsAsync(message){
   });
 }
 
-function abbreviateAsync(words){
-  return new Promise(function(resolve, reject){
+const abbreviateAsync = (words) => {
+  return new Promise((resolve, reject) => {
     try {
-      var abbr = words.reduce(function(abbr, word){
-        return abbr + word[0];
-      }, '');
+      const abbr = words.reduce((abbr, word) => abbr + word[0], '');
 
       resolve(abbr);
     }
@@ -32,8 +30,8 @@ function abbreviateAsync(words){
   });
 }
 
-module.exports = function messageAbbr(message){
-  return new Promise(function(resolve, reject){
+const messageAbbr = (message) => {
+  return new Promise((resolve, reject) => {
     return uppercaseAsync(message)
       .then(splitWordsAsync)
       .then(abbreviateAsync)
@@ -41,3 +39,5 @@ module.exports = function messageAbbr(message){
       .catch(reject);
   });
 };
+
+module.exports = messageAbbr;

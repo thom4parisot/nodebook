@@ -2,7 +2,7 @@
 
 /*eslint global-require: 0 */
 
-module.exports = function(grunt){
+module.exports = (grunt) => {
   grunt.initConfig({
     pkg: require('./package.json'),
     less: {

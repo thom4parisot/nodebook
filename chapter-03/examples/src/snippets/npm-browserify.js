@@ -1,8 +1,8 @@
 'use strict';
 
-var $ = require('cheerio');
+const $ = require('cheerio');
 
-var $list = $('<ul/>');
+const $list = $('<ul/>');
 
 $list.append('<li>Node.js</li>');
 $list.append('<li>CSS maintenables</li>');

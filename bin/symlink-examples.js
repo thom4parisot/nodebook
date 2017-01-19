@@ -2,36 +2,34 @@
 
 'use strict';
 
-var fs = require('fs');
-var path = require('path');
-var rootPath = path.join(__dirname, '..');
+const fs = require('fs');
+const path = require('path');
+const rootPath = path.join(__dirname, '..');
 
-fs.readdir(rootPath, function(err, files){
+fs.readdir(rootPath, (err, files) => {
   if (err) {
     throw err;
   }
 
   files
-    .filter(function keepChapterFolders(file){
-      return /^chapter-\d{2}/.test(file);
-    })
-    .forEach(function(chapter){
+    .filter(file => /^chapter-\d{2}/.test(file))
+    .forEach((chapter) => {
       try {
-        var sourcePath = path.dirname(require.resolve('nodebook.' + chapter));
+        const sourcePath = path.dirname(require.resolve('nodebook.' + chapter));
       }
       catch (err){
         return console.log('symlinking %s [skipped]', chapter);
       }
-    
-      var targetPath = path.join(rootPath, chapter, 'examples');
-    
+
+      const targetPath = path.join(rootPath, chapter, 'examples');
+
       fs.symlink(sourcePath, targetPath, 'dir', onSymlinked(chapter));
     });
 });
 
 function onSymlinked(chapter) {
-  return function(err){
-   
+  return (err) => {
+
     if (err && err.code === 'EEXIST') {
       return console.log('symlinking %s [exists]', chapter);
     }
@@ -40,6 +38,6 @@ function onSymlinked(chapter) {
     }
     else {
       return console.log('symlinking %s [DONE]', chapter);
-    } 
+    }
   }
 }

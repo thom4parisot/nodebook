@@ -1,21 +1,23 @@
 'use strict';
 
-var currencies = {
+const currencies = {
   FR: {
     symbol: '€',
     decimal: ','
   }
 };
 
-function formatNumber(separator, precision, number){
+const formatNumber = (separator, precision, number) => {
   return number.toFixed(precision).replace('.', separator);
-}
+};
 
-module.exports = function setupFormatter(currencyId){
-  var currency = currencies[currencyId];
-  var f = formatNumber.bind(null, currency.decimal, 2);
+const setupFormatter = (currencyId) => {
+  const currency = currencies[currencyId];
+  const f = formatNumber.bind(null, currency.decimal, 2);
 
   return function formatCurrency(amount){
     return f(amount) + currency.symbol;
   };
 };
+
+module.exports = setupFormatter;

@@ -72,7 +72,7 @@ Rhino est toujours utile dès qu'un projet Java implique du JavaScript.
 Google l'utilise comme environnement d'exécution de ses https://gsuite-developers.googleblog.com/2012/11/using-open-source-libraries-in-apps.html[Apps Scripts].
 Ces scripts permettent à tout un chacun de développer des extensions et des interactions supplémentaires pour les documents Google Drive.
 
-Rhino est également employé dans http://yui.github.io/yuicompressor/[yuicompressor], un optimiseur CSS et JavaScript créé par Yahoo.
+Rhino est également employé dans https://yui.github.io/yuicompressor/[yuicompressor], un optimiseur CSS et JavaScript créé par Yahoo.
 _yuicompressor_ a été surpassé par https://developers.google.com/closure/compiler/[Closure Compiler] et https://npmjs.com/uglify-js[UglifyJS].
 Ce dernier est écrit en JavaScript et repose sur… Node. +
 La boucle est bouclée.
@@ -417,7 +417,7 @@ Ils servent de base à la création d'autres modules plus faciles d'accès et pa
 [source,javascript]
 .api.js
 ----
-var fs = require('fs');
+const fs = require('fs');
 ----
 
 Dans cet exemple, la fonction `require` charge l'API d'accès au système de fichier contenue dans le module `fs`.
@@ -445,9 +445,9 @@ L'exemple suivant illustre avec du code ce qu'est un module CommonJS.
 [source,javascript]
 .increment-module.js
 ----
-var privateValue = 0;
+const privateValue = 0;
 
-module.exports = function incrementValue(){
+module.exports = () => {
   privateValue++;
 
   return privateValue;
@@ -458,7 +458,7 @@ La spécification _Module_ de CommonJS fait usage de la portée lexicale (_lexic
 
 [source,javascript]
 ----
-var increment = require('./increment-module.js');
+const increment = require('./increment-module.js');
 
 increment();    // <1>
 increment();    // <2>
@@ -491,7 +491,7 @@ L'interpréteur s'arrêtera prématurément si une erreur se déclare et que cet
 [source,javascript]
 .print-date.js
 ----
-var now = new Date();
+const now = new Date();
 console.log(now.toString());
 ----
 
@@ -575,10 +575,8 @@ Ajouter un graph explicatif pour l'aspect "boucle".
 [source,javascript]
 .timeout.js
 ----
-var referenceTime = process.hrtime();   // <1>
-var printT = function(){                // <2>
-  console.log(process.hrtime(referenceTime)[0]);
-};
+const referenceTime = process.hrtime(); // <1>
+const printT = () => console.log(process.hrtime(referenceTime)[0]); // <2>
 
 printT();                               // <3>
 setTimeout(printT, 1000);               // <4>

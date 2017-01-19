@@ -1,6 +1,6 @@
 'use strict';
 
-var cycles = 0;
+let cycles = 0;
 
 while(cycles++ < 1000000000);
 

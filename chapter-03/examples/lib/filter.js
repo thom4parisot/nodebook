@@ -1,10 +1,10 @@
 'use strict';
 
-var excel = require('excel-stream');
-var JSONStream = require('JSONStream');
+const excel = require('excel-stream');
+const JSONStream = require('JSONStream');
 
 module.exports = {
-  toJSON: function toJSON(inStream, outStream){
+  toJSON: (inStream, outStream) => {
     return inStream
       .pipe(excel())
       .pipe(JSONStream.stringify())

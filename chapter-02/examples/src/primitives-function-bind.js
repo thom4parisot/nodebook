@@ -10,8 +10,8 @@ const UK = {
   currency: 'GBP'
 };
 
-const formatCurrency = function(amount){
-  return amount + ' ' + this.currency;
+const formatCurrency = function (amount){
+  return `${amount} ${this.currency}`;
 };
 
 const priceInEUR = formatCurrency.bind(FR);

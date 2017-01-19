@@ -1,7 +1,7 @@
 {
   "name": "nodebook.chapter-04",
-  "version": "1.0.0",
   "private": true,
+  "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -12,9 +12,8 @@
     "lint-html": "node node_modules/.bin/htmlhint src/snippets/sample.html",
     "start": "static -p 4000 -H '{\"Access-Control-Allow-Origin\":\"*\"}'"
   },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/oncletom/nodebook.git"
+  "engines": {
+    "node": "^6.0.0"
   },
   "author": "Thomas Parisot (https://oncletom.io)",
   "license": "MIT",

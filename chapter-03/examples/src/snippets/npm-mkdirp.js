@@ -1,11 +1,11 @@
 'use strict';
 
-var mkdirp = require('mkdirp');
-var rm = require('rimraf');
-var join = require('path').join;
-var fs = require('fs');
+const mkdirp = require('mkdirp');
+const rm = require('rimraf');
+const { join } = require('path');
+const fs = require('fs');
 
-var filepath = join(__dirname, '..', '..', 'tmp', 'blah', 'blah');
+const filepath = join(__dirname, '..', '..', 'tmp', 'blah', 'blah');
 
 rm(filepath, () => {
   mkdirp(filepath, err => {

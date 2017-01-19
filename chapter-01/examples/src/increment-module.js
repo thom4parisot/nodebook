@@ -1,7 +1,5 @@
-var privateValue = 0;
+let privateValue = 0;
 
-module.exports = function incrementValue(){
-  privateValue++;
+const incrementValue = () => privateValue++;
 
-  return privateValue;
-};
+module.exports = incrementValue;

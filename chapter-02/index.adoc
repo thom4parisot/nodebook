@@ -254,7 +254,7 @@ image::images/atom.png[align="center",scaledwidth="85%"]
 
 TBD.
 
-- http://sublimecodeintel.github.io/SublimeCodeIntel/
+- https://sublimecodeintel.github.io/SublimeCodeIntel/
 - https://sublime.wbond.net/search/node.js
 - https://www.sublimetext.com/3
 
@@ -428,10 +428,8 @@ On peut remplacer les occurrences correspondantes à un masque de caractères vi
 
 [source,javascript]
 ----
-'I ♥ JavaScript'.replace('♥', 'love'); <1>
-'I ♥ JavaScript'.replace(/[A-Z]/g, function(char){
-  return char.toLowerCase();
-}); <2>
+'I ♥ JavaScript'.replace('♥', 'love'); // <1>
+'I ♥ JavaScript'.replace(/[A-Z]/g, (char) => char.toLowerCase()); // <2>
 ----
 <1> Retourne `'I love JavaScript'` ;
 <2> Retourne `'i ♥ javascript'`.
@@ -445,9 +443,9 @@ L'opérateur `typeof` permet d'identifier un nombre :
 
 [source,javascript]
 ----
-typeof 42; <1>
-typeof 13.37; <1>
-typeof NaN; <2>
+typeof 42;    // <1>
+typeof 13.37; // <1>
+typeof NaN;   // <2>
 ----
 <1> Retourne `'number'` ;
 <2> Retourne également `'number'`, ce qui est souvent source de confusion.
@@ -459,10 +457,10 @@ Dès qu'une chaîne est détectée, l'opération d'addition est remplacée par u
 
 [source,javascript]
 ----
-1 + 2; <1>
-'1' + 2; <2>
-1 + '2'; <2>
-undefined + 2; <3>
+1 + 2;    // <1>
+'1' + 2;  // <2>
+1 + '2';  // <2>
+undefined + 2; // <3>
 ----
 <1> Retourne `3` ;
 <2> Retourne `'12'` ;
@@ -475,8 +473,8 @@ Les fonctions `parseInt` et `parseFloat` permettent de respectivement de convert
 typeof 2.10 === 'number';
 typeof '2.10' === 'string';
 
-parseInt('2.10', 10); <1>
-parseFloat('2.10'); <2>
+parseInt('2.10', 10); // <1>
+parseFloat('2.10');   // <2>
 ----
 <1> Retourne `2` ;
 <2> Retourne `2.10`.
@@ -491,9 +489,9 @@ La méthode `isNaN` permet d'être sûr de ne pas manipuler un nombre indésirab
 
 [source,javascript]
 ----
-Number.isNaN(undefined + 1); <1>
-Number.isNaN(2.10); <2>
-Number.isNaN(undefined); <2>
+Number.isNaN(undefined + 1);  // <1>
+Number.isNaN(2.10);           // <2>
+Number.isNaN(undefined);      // <2>
 ----
 <1> Retourne `true` ;
 <2> Retourne `false`.
@@ -503,9 +501,9 @@ Attention toutefois, la valeur retournée est de type `String` :
 
 [source,javascript]
 ----
-10.0101.toFixed(2); <1>
-10.0101.toFixed(0); <2>
-parseInt(10.0101, 10); <3>
+10.0101.toFixed(2);   // <1>
+10.0101.toFixed(0);   // <2>
+parseInt(10.0101, 10);// <3>
 ----
 <1> Retourne `'10.01'` ;
 <2> Retourne `'10'` ;
@@ -517,9 +515,9 @@ L'opérateur `typeof` ne permet pas d'identifier une date. Il convient d'utilise
 
 [source,javascript]
 ----
-typeof (new Date('2014-03-24')); <1>
-(new Date('2014-03-24 13:37')) instanceof Date; <2>
-typeof Date.parse('2014-03-24 13:37'); <3>
+typeof (new Date('2014-03-24'));  // <1>
+(new Date('2014-03-24 13:37')) instanceof Date; // <2>
+typeof Date.parse('2014-03-24 13:37');          // <3>
 ----
 <1> Retourne `'object'` ;
 <2> Retourne `true` ;
@@ -529,8 +527,8 @@ Il également possible d'obtenir la date actuelle exprimée en millisecondes ave
 
 [source,javascript]
 ----
-Date.parse(new Date()); <1>
-Date.now(); <2>
+Date.parse(new Date()); // <1>
+Date.now();             // <2>
 ----
 <1> Retourne `1397381941000` ;
 <2> Retourne `1397381941031`, équivalent à la syntaxe précédente donc, la précision à la milliseconde près en plus.
@@ -541,8 +539,8 @@ L'opérateur `typeof` ne permet pas d'identifier un tableau. Il faut pour cela p
 
 [source,javascript]
 ----
-typeof []; <1>
-Array.isArray([]); <2>
+typeof [];        // <1>
+Array.isArray([]);// <2>
 ----
 <1> Retourne `'object'` ;
 <2> Retourne `true`.
@@ -551,7 +549,7 @@ Il est possible de connaître la longueur d'un tableau en utilisant la propriét
 
 [source,javascript]
 ----
-[1, 2, 3].length; <1>
+[1, 2, 3].length; // <1>
 ----
 <1> Retourne `3`.
 
@@ -559,7 +557,7 @@ La méthode `join` permet de concaténer tous les éléments d'un tableau avec l
 
 [source,javascript]
 ----
-[1, 2, 3].join(', ') + '… soleil'; <1>
+[1, 2, 3].join(', ') + '… soleil';  // <1>
 ----
 <1> Retourne `'1, 2, 3… soleil'`.
 
@@ -588,17 +586,10 @@ La fonction de tri via la méthode `sort` se base sur des comparaisons positives
 
 [source,javascript]
 ----
-[1, 3, 2].sort(function ascSort(a, b){
-  return a - b;
-}); <1>
+[1, 3, 2].sort((a, b) => a - b);  // <1>
+[1, 3, 2].sort((a, b) => b - a);  // <2>
 
-[1, 3, 2].sort(function descSort(a, b){
-  return b - a;
-}); <2>
-
-['A', 'b', 'c', 'a'].sort(function ascSort(a, b){
-  return (a < b) ? -1 : ((a > b) ? 1 : 0);
-}); <3>
+['A', 'b', 'c', 'a'].sort((a, b) => a.localeCompare(b))); // <3>
 ----
 <1> Retourne `[1, 2, 3]` ;
 <2> Retourne `[3, 2, 1]` ;
@@ -611,9 +602,7 @@ La méthode `map` permet de retourner un nouveau tableau avec des valeurs modifi
 
 [source,javascript]
 ----
-['a', ' B', 'c '].map(function(value){
-  return value.trim().toUpperCase();
-}); <1>
+['a', ' B', 'c '].map(value => value.trim().toUpperCase()); // <1>
 ----
 <1> Retourne `['A', 'B', 'C']`.
 
@@ -621,10 +610,8 @@ La méthode `filter` quant à elle retourne un nouveau tableau ne contenant que 
 
 [source,javascript]
 ----
-var values = [1, 'a', 120, undefined, 4];
-values.filter(function smallerThanTen(value){
-  return value < 10;
-}); <1>
+const values = [1, 'a', 120, undefined, 4];
+values.filter(value => value < 10); // <1>
 ----
 <1> Retourne `[1, 4]`.
 
@@ -632,10 +619,8 @@ De manière similaire, les méthodes `some` et `every` retournent un booléen si
 
 [source,javascript]
 ----
-var values = [1, 'a', 120, undefined, 4];
-var isUndefined = function(value){
-  return value === undefined;
-};
+const values = [1, 'a', 120, undefined, 4];
+const isUndefined = (value) => value === undefined);
 
 values.some(isUndefined); <1>
 values.every(isUndefined); <2>
@@ -659,17 +644,15 @@ La méthode `reduce` a un comportement similaire à `sort` mais fonctionne de ma
 
 [source,javascript]
 ----
-var pairs = [[1, 2], [3, 4], [5, 6]];
+const pairs = [[1, 2], [3, 4], [5, 6]];
 
-pairs.reduce(function sumItAll(left, right){
-  return left + right[0] + right[1];
-}, 0); <1>
+pairs.reduce((acc, pair) => acc + pair[0] + pair[1], 0); // <1>
 
-pairs.reduce(function pairSum(left, right){
-  left[0] += right[0];
-  left[1] += right[1];
-  return left;
-}, [0, 0]); <2>
+pairs.reduce((acc, pair) =>
+  acc[0] += pair[0];
+  acc[1] += pair[1];
+  return acc;
+}, [0, 0]); // <2>
 ----
 <1> Retourne `21` ;
 <2> Retourne `[9, 12]`.
@@ -683,11 +666,11 @@ On dit alors que les valeurs ne sont pas contiguës.
 Cela affecte les fonctions itératives et peut se révéler problématique si vous cherchez à conserver cette absence de valeurs :
 
 ----
-var a = [1,, 3, undefined, null];
-var print = function(value){ console.log(value); };
+const a = [1,, 3, undefined, null];
+coonst print = (value) => console.log(value);
 
-a.length; <1>
-a.forEach(print); <2>
+a.length;         // <1>
+a.forEach(print); // <2>
 ----
 <1> Retourne `5` ;
 <2> Affiche 4 valeurs : `1`, `3`, `undefined` puis `null`.
@@ -704,7 +687,7 @@ Les fonctions permettent d'isoler des portions de code et de les rendre réutili
 
 Vous pouvez les déclarer via une expression ou une déclaration assignée à une variable.
 La déclaration d'une fonction est soumise à la portée du contexte dans lequel le bloc de code est placé.
-Une fonction peut être nommée (`function nomDeLaFonction(){ ... }') ou anonyme (`function (){ ... }`).
+Une fonction peut être _nommée_ (`function nomDeLaFonction(){ ... }`), _anonyme_ (`function (){ ... }`) ou _lexicale_ (`() => ({ ... })`).
 
 Les fonctions anonymes sont fréquemment employées en tant que _callbacks_ ou dans des contextes itératifs (tels `Array.map` etc.)
 
@@ -735,7 +718,7 @@ Une syntaxe abrégée est disponible via les _arrow functions_ :
 | `x => x*2` | `function(x){ return x*2 }`
 | `x => { x*2 }` | `function(x){ x*2 }`
 | `(x, y) => x+y` | `function (x, y){ return x+y }`
-| x => { const y = 2; return x*y } | `function(x){ const y = 2; return x*y }`
+| `x => { const y = 2; return x*y }` | `function(x){ const y = 2; return x*y }`
 |=========
 
 Il est possible de composer des fonctions à partir d'autres fonctions en utilisant la méthode `bind`.
@@ -800,7 +783,7 @@ include::{sourceDir}/primitives-object-typeof-instanceof.js[]
 <2> Affiche `object` ;
 <3> Affiche `true` ;
 <4> Affiche `[object Object]` ;
-<5> Affiche `pseudoBookClass`.
+<5> Affiche `PseudoBookClass`.
 
 `Object.keys` extrait les propriétés énumérables d'un objet, à la différence de `Object.getOwnPropertyNames()` :
 
@@ -847,8 +830,8 @@ include::{sourceDir}/class-view.js[]
 La définition de la classe `View` comporte trois fonctions :
 
 - `constructor` : le constructeur invoqué à chaque nouvelle instantiation via l'opérateur `new` ;
-- `render` : une méthode partagée par toutes les instances de `View` — équivalent à `View.prototype.render = function(){ ... }` ;
-- `removeDuplicates` : une méthode statique, utilisable indépendamment des instances de `View` — équivalent à `View.removeDuplicates = function(){ ... }`.
+- `render` : une méthode partagée par toutes les instances de `View` — équivalent à `View.prototype.render = () => ({ ... })` ;
+- `removeDuplicates` : une méthode statique, utilisable indépendamment des instances de `View` — équivalent à `View.removeDuplicates = () => ({ ... })`.
 
 L'exemple suivant illustre le comportement de la classe `View` :
 
@@ -1043,8 +1026,8 @@ Plusieurs drapeaux peuvent être utilisés :
 
 [source,javascript]
 ----
-var re;
-var text = ['JavaScript', 'ECMAScript'].join("\n");
+let re;
+const text = ['JavaScript', 'ECMAScript'].join("\n");
 
 re = /^([a-z]+)(Script)/;
 re.exec(text); <1>
@@ -1096,11 +1079,11 @@ La fonction `JSON.parse` tente de convertir une chaîne de texte supposée au fo
 
 [source,javascript]
 ----
-var jsonContent = '{ "ECMAScript": 5.1 }';
+const jsonContent = '{ "ECMAScript": 5.1 }';
 
 typeof jsonContent; <1>
 
-var content = JSON.parse(jsonContent);
+const content = JSON.parse(jsonContent);
 content.ECMAScript; <2>
 
 try {
@@ -1360,8 +1343,8 @@ Cela permet de garantir l'ordre de chargement des modules.
 
 [source,javascript]
 ----
-var path = require('path'); <1>
-var setupFormatter = require('./currency-format.js'); <2>
+const path = require('path'); <1>
+const setupFormatter = require('./currency-format.js'); <2>
 ----
 <1> Node interprète d'abord cette ligne… ;
 <2> … puis interprète celle-ci dès que le module `path` est chargé.
@@ -1466,13 +1449,13 @@ Ces fonctions exécutent une fonction respectivement une seule fois dans un dél
 
 [source,javascript]
 ----
-var print = function(message){
+const print = (message) => {
   return print(){
-    console.log(message); <1> <2> <3>
+    console.log(message); // <1> <2> <3>
   }
 };
 
-var timer = setInterval(print('interval'), 250);
+const timer = setInterval(print('interval'), 250);
 setTimeout(print('timeout'), 200);
 setImmediate(print('immediate'));
 ----
@@ -1604,12 +1587,12 @@ Itérons une première fois sur l'accès au données.
 [source,javascript]
 .print-csv.js
 ----
-var fs = require('fs');
-var join = require('path').join;
+const fs = require('fs');
+const { join } = require('path');
 
-var FILENAME = join(__dirname, 'data', 'books.csv');
+const FILENAME = join(__dirname, 'data', 'books.csv');
 
-fs.readFile(FILENAME, function(err, binaryContent){
+fs.readFile(FILENAME, (err, binaryContent) => {
   if (err){
     throw err;
   }
@@ -1636,11 +1619,11 @@ L'exécution de `fs.readFile` est asynchrone _et_ non bloquante.
 
 [source,javascript]
 ----
-var FS_OPTIONS = {
+const FS_OPTIONS = {
   encoding: 'utf8'
 };
 
-fs.readFile(FILENAME, FS_OPTIONS, function(err, textContent){
+fs.readFile(FILENAME, FS_OPTIONS, (err, textContent) => {
   if (err){
     throw err;
   }
@@ -1660,26 +1643,20 @@ Maintenant que nous avons accédé aux données, le reste du code est de la logi
 
 [source,javascript]
 ----
-fs.readFile(FILENAME, function(err, binaryContent){
+const parseRows = (content) => String(content).split('\n');
+const parseRow = (rowContent) => rowContent.split(';');
+
+fs.readFile(FILENAME, (err, binaryContent) => {
   if (err){
     throw err;
   }
 
   parseRows(binaryContent) // <1>
-    .map(parseRow) <2>
-    .slice(1) // <3>
-    .forEach(function(row){
-      console.log('"%s" a été écrit par %s', row[0], row[1]);
-    });
+    .map(parseRow)         //<2>
+    .slice(1)              // <3>
+    .forEach(row => console.log('"%s" a été écrit par %s', row[0], row[1]));
 });
 
-function parseRows(content){
-  return String(content).split('\n');
-}
-
-function parseRow(rowContent){
-  return rowContent.split(';');
-}
 ----
 <1> transforme le contenu du fichier en tableau de lignes ;
 <2> éclate chaque ligne de texte en tableau de cellules ;
@@ -1755,11 +1732,11 @@ Lire un fichier CSV et en afficher son contenu deviendrait aussi simple que le s
 
 [code,javascript]
 ----
-var fs = require('fs');
-var csv = require('comma-separated-values'); // <1>
+const fs = require('fs');
+const csv = require('comma-separated-values'); // <1>
 
-fs.readFile('./data/books.csv', function(err, binaryContent){
-  var csvFile = new csv(String(binaryContent), { header: true, delimiter: ';' }); // <2>
+fs.readFile('./data/books.csv', (err, binaryContent) => {
+  const csvFile = new csv(String(binaryContent), { header: true, delimiter: ';' }); // <2>
 
   console.log(csvFile.parse()); // <3>
 });

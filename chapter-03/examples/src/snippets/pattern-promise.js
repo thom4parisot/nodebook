@@ -1,34 +1,27 @@
 'use strict';
 
-var messageAbbr = require('./message-abbr-promisified');
-var fs = require('fs');
-var timeStart = process.hrtime();
+const messageAbbr = require('./message-abbr-promisified');
+const fs = require('fs');
+const timeStart = process.hrtime();
 
-messageAbbr('good morning england!')
-  .then(logData)
-  .then(storeData.bind(null, '/dev/null'))
-  .then(function(){
-    logPerformance('messageAbbr', process.hrtime(timeStart));
-  })
-  .catch(logErr);
+const logErr = (err) => console.error(err);
+const logData = (data) => console.log(data);
 
-function logErr(err){
-  console.error(err);
+const logPerformance = (functionName, timeDiff) => {
+  const duration = timeDiff[0] + (timeDiff[1] / 1e9);
+  console.log('[%s] executed in %ss.', functionName, duration);
 }
 
-function logData(data){
-  console.log(data);
-}
-
-function logPerformance(functioName, timeDiff){
-  var duration = timeDiff[0] + (timeDiff[1] / 1e9);
-  console.log('[%s] executed in %ss.', functioName, duration);
-}
-
-function storeData(filename, data){
-  fs.writeFile(filename, data, { encoding: 'utf-8' }, function(err){
+const storeData = (filename, data) => {
+  fs.writeFile(filename, data, { encoding: 'utf-8' }, (err) => {
     if (err) return logErr(err);
 
     console.log('Data written to %s.', filename);
   });
 }
+
+messageAbbr('good morning england!')
+  .then(logData)
+  .then(storeData.bind(null, '/dev/null'))
+  .then(() => logPerformance('messageAbbr', process.hrtime(timeStart))
+  .catch(logErr);

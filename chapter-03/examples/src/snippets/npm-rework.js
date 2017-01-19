@@ -1,20 +1,20 @@
 'use strict';
 
-var rework = require('rework');
-var fs = require('fs');
-var join = require('path').join;
+const rework = require('rework');
+const fs = require('fs');
+const { join } = require('path');
 
-var colors = require('rework-plugin-colors');
-var whitespace = require('css-whitespace');
-var vars = require('rework-vars');
-var math = require('rework-math');
+const colors = require('rework-plugin-colors');
+const whitespace = require('css-whitespace');
+const vars = require('rework-vars');
+const math = require('rework-math');
 
-fs.readFile(join(__dirname, 'stylesheet.css'), function(err, binaryContent){
-  var r = rework(whitespace(String(binaryContent)), { source: 'stylesheet.css' })
+fs.readFile(join(__dirname, 'stylesheet.css'), (err, binaryContent) => {
+  const textContent = whitespace(String(binaryContent));
+  const r = rework(textContent, { source: 'stylesheet.css' })
     .use(vars())
     .use(math())
     .use(colors());
 
   console.log(r.toString());
 });
-
