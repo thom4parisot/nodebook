@@ -18,4 +18,4 @@ const terminateIn = (tries) => {
 
 console.log('Appuyer %s fois sur CTRL+C arrêtera le programme.', maxTries);
 process.on('SIGINT', terminateIn(maxTries));
-process.stdin.on('data', function(){});
+process.stdin.on('data', () => {});

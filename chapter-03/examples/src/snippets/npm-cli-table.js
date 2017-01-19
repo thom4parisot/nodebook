@@ -10,6 +10,6 @@ const modules = Object.keys(pkg.dependencies).map((moduleName) => {
   return [moduleName, pkg.dependencies[moduleName]];
 });
 
-table.push.apply(table, modules);
+table.push(...modules);
 
 console.log(table.toString());
