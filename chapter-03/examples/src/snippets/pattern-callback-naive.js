@@ -1,10 +1,26 @@
 'use strict';
 
-var messageAbbr = require('./message-abbr');
-var fs = require('fs');
-var timeStart = process.hrtime();
+const messageAbbr = require('./message-abbr');
+const fs = require('fs');
+const timeStart = process.hrtime();
 
-messageAbbr('good morning england!', function(err, abbr){
+const logErr = (err) => console.error(err);
+const logData = (data) => console.log(data);
+
+const logPerformance = (functionName, timeDiff) => {
+  const duration = timeDiff[0] + (timeDiff[1] / 1e9);
+  console.log('[%s] executed in %ss.', functionName, duration);
+}
+
+const storeData = (filename, data) => {
+  fs.writeFile(filename, data, { encoding: 'utf-8' }, (err) => {
+    if (err) return logErr(err);
+
+    console.log('Data written to %s.', filename);
+  });
+}
+
+messageAbbr('good morning england!', (err, abbr) => {
   if (err) {
     logErr(err);
   }
@@ -13,24 +29,3 @@ messageAbbr('good morning england!', function(err, abbr){
   logPerformance('messageAbbr', process.hrtime(timeStart));
   storeData('/dev/null', abbr);
 });
-
-function logErr(err){
-  console.error(err);
-}
-
-function logData(data){
-  console.log(data);
-}
-
-function logPerformance(functioName, timeDiff){
-  var duration = timeDiff[0] + (timeDiff[1] / 1e9);
-  console.log('[%s] executed in %ss.', functioName, duration);
-}
-
-function storeData(filename, data){
-  fs.writeFile(filename, data, { encoding: 'utf-8' }, function(err){
-    if (err) return logErr(err);
-
-    console.log('Data written to %s.', filename);
-  });
-}

@@ -1,13 +1,11 @@
 'use strict';
 
-var request = require('request');
-var fs = require('fs');
+const request = require('request');
+const fs = require('fs');
 
-var url = 'https://raw.githubusercontent.com' +
-  '/oncletom/nodebook.chapter-03/master/package.json';
+const url = 'https://raw.githubusercontent.com' +
+  '/oncletom/nodebook/master/chapter-03/examples/package.json';
 
 request(url)
   .pipe(fs.createWriteStream('/tmp/nodebook-chap03.json'))
-  .on('finish', function(){
-    console.log('Fichier archivé !');
-  });
+  .on('finish', () => console.log('Fichier archivé !'));

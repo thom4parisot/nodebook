@@ -7,9 +7,7 @@ const files = ['chapter-02', 'chapter-01', 'chapter-03'].map(dir => {
   return join(__dirname, '..', '..', '..', dir, 'examples', 'package.json');
 });
 
-function logError(err) {
-  console.error(err);
-}
+const logError = (err) => console.error(err);
 
 const logPackageDeps = (pkg) => console.log(Object.keys(pkg.dependencies || {}));
 

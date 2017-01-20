@@ -1,5 +1,5 @@
 'use strict';
 
-var config = require('../../package.json').config;
+const { config } = require('../../package.json');
 
 console.log(config); // <1>

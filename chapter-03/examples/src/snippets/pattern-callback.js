@@ -1,15 +1,13 @@
 'use strict';
 
-var messageAbbr = require('./message-abbr');
+const messageAbbr = require('./message-abbr');
 
-function printAbbr(err, abbr){
-  err ? console.error(err) : console.log(abbr);
-}
+const printAbbr = (err, abbr) => err ? console.error(err) : console.log(abbr);
 
-messageAbbr('good morning england!', printAbbr); // <1>
-messageAbbr(['good', 'morning', 'london!'], printAbbr);  // <2>
+messageAbbr('good morning england!', printAbbr);        // <1>
+messageAbbr(['good', 'morning', 'london!'], printAbbr); // <2>
 
-setTimeout(function(){
+setTimeout(() => {
   try {
     messageAbbr(null, printAbbr); // <3>
   }

@@ -1,11 +1,14 @@
 'use strict';
 
-var fs = require('fs');
-var join = require('path').join;
+const fs = require('fs');
+const { join } = require('path');
 
-var FILENAME = join(__dirname, 'data', 'books.csv');
+const FILENAME = join(__dirname, 'data', 'books.csv');
 
-fs.readFile(FILENAME, function(err, binaryContent){
+const parseRows = (content) => content.split('\n');
+const parseRow = (rowContent) => rowContent.split(';');
+
+fs.readFile(FILENAME, (err, binaryContent) => {
   if (err){
     throw err;
   }
@@ -13,15 +16,5 @@ fs.readFile(FILENAME, function(err, binaryContent){
   parseRows(String(binaryContent).trim())
     .map(parseRow)
     .slice(1)
-    .forEach(function(row){
-      console.log('"%s" a été écrit par %s', row[0], row[1]);
-    });
+    .forEach(row => console.log('"%s" a été écrit par %s', row[0], row[1]));
 });
-
-function parseRows(content){
-  return content.split('\n');
-}
-
-function parseRow(rowContent){
-  return rowContent.split(';');
-}

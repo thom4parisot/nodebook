@@ -15,5 +15,5 @@ api.fetchDocument({
   'export.dossiersLegislatifs.dossier.*.dossierParlementaire.titreDossier.titre'
 ))
 .then(records => api.analysePopularKeywords(records))
-.then(stats => console.log(stats.keywords))
-.catch(err => console.error(err));
+.then(stats => process.stdout.write(stats.keywords))
+.catch(err => process.stderr.write(err));

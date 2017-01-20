@@ -1,22 +1,20 @@
 'use strict';
 
-var routes = require('express').Router();
-var Users = require('../lib/models/users.js');
+const routes = require('express').Router();
+const Users = require('../lib/models/users.js');
 
-function findByUserId(req, res, next){
+const findByUserId = (req, res, next) => {
   Users
     .findOneBy('id', req.param('user_id'))
-    .on('data', function(user){
+    .on('data', (user) => {
       res.locals.user = user;
 
       next();
     })
-    .on('error', function(err){
-      next(new Error('Unknown user identifier.'));
-    });
+    .on('error', err => next(new Error('Unknown user identifier.')));
 }
 
-routes.get('/:user_id', findByUserId, function(req, res){
+routes.get('/:user_id', findByUserId, (req, res) => {
   res.render('user_profile');
 });
 

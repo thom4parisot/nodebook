@@ -1,8 +1,8 @@
 'use strict';
 
-var fs = require('fs');
+const fs = require('fs');
 
-module.exports = function getFilecontent(filename){
+const getFilecontent = (filename) => {
   if (fs.existsSync(filename)) {
     try {
       return String(fs.readFileSync(filename));
@@ -15,3 +15,5 @@ module.exports = function getFilecontent(filename){
     return new Error('File does not exist.');
   }
 };
+
+module.exports = getFilecontent;

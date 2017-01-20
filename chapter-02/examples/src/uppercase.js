@@ -1,5 +1,5 @@
 'use strict';
 
-process.stdin.on('data', function(buffer){
+process.stdin.on('data', (buffer) => {
   process.stdout.write(buffer.toString().toUpperCase() + '\n');
 });

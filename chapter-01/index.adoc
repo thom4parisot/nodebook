@@ -13,8 +13,8 @@ Dans ce chapitre, nous allons faire le point sur ce qu'est Node.js pour mieux co
 ====
 .Sommaire
 - Comprendre ce qu'est Node.js
-- Savoir qui gère Node.js au quotidien
-- Décider si Node.js peut compléter ou remplacer un système en place
+- Savoir qui assure la gouvernance de Node.js
+- Décider si Node.js et JavaScript peuvent compléter ou remplacer le langage de programmation de votre entreprise/organisation
 - Pourquoi autant de _hype_ ?
 ====
 
@@ -23,7 +23,7 @@ Node.js est-il un _framework_ JavaScript ?
 Qu'en restera-t-il une fois la frénésie retombée ?
 
 Ce chapitre n'est pas essentiel à l'apprentissage de Node.js.
-Il permet de comprendre pourquoi et comment Node a émergé.
+Il permet de *comprendre pourquoi Node a émergé*, et comment.
 Surtout, il vous permettra de comprendre les choix techniques à l'origine des fondations de Node et ce que l'utiliser peut vous apporter, que ce soit dans un contexte personnel ou professionnel.
 
 Qu'on se le dise : *un langage de programmation en lui-même n'a jamais résolu quelconque problème*.
@@ -60,8 +60,8 @@ _Websockets_ est un protocole basé sur TCP.
 
 Il permet de maintenir une connexion HTTP active entre un client et un serveur et d'y faire transiter les données de manière bidirectionnelle.
 
-Ce protocole sera probablement rendu obsolète par le successeur d'_HTTP 1.1_, à savoir _HTTP 2.0_.
-_HTTP 2.0_ a été initié par Google en tant que protocole _SPDY_ (prononcer _speedy_).
+Ce protocole sera probablement rendu obsolète par le successeur d'_HTTP/1.1_, à savoir _HTTP/2_.
+_HTTP/2_ a été initié par Google en tant que protocole _SPDY_ (prononcer _speedy_).
 ====
 
 [TIP]
@@ -72,7 +72,7 @@ Rhino est toujours utile dès qu'un projet Java implique du JavaScript.
 Google l'utilise comme environnement d'exécution de ses https://gsuite-developers.googleblog.com/2012/11/using-open-source-libraries-in-apps.html[Apps Scripts].
 Ces scripts permettent à tout un chacun de développer des extensions et des interactions supplémentaires pour les documents Google Drive.
 
-Rhino est également employé dans http://yui.github.io/yuicompressor/[yuicompressor], un optimiseur CSS et JavaScript créé par Yahoo.
+Rhino est également employé dans https://yui.github.io/yuicompressor/[yuicompressor], un optimiseur CSS et JavaScript créé par Yahoo.
 _yuicompressor_ a été surpassé par https://developers.google.com/closure/compiler/[Closure Compiler] et https://npmjs.com/uglify-js[UglifyJS].
 Ce dernier est écrit en JavaScript et repose sur… Node. +
 La boucle est bouclée.
@@ -102,10 +102,10 @@ Il est séduit par deux choses :
 La quête initiale se dirige alors sur la possibilité de créer *un serveur web non bloquant*.
 En d'autres termes, un serveur capable dans un même processus de traiter d'autres requêtes en attendant de renvoyer la réponse initiale.
 
-Nous sommes alors en 2008 et le site de partage de photos Flickr innove avec un nouveau système de téléversement d'images.
-Ce système remplace la sensation de page figée par une… *barre de progression*.
+Nous sommes alors en 2008 et le site de partage de photos Flickr innove avec un nouveau système de téléversement d'images : une *barre de progression* représentant le statut du téléversement remplace alors la page figée – effet  inhérent à l'envoi de fichiers depuis un formulaire HTML.
 
-.Nouvelle et ancienne interface d’upload de Flickr.
+
+.Interface du service Flickr après et avant l'introduction du téléversement progressif.
 image::images/7112862941_3b8c8e9916_o_d.png[align="center", link="https://www.flickr.com/photos/schill/7112862941/",scaledwidth="85%"]
 
 [TIP]
@@ -116,20 +116,22 @@ L'équipe d'ingénierie de Flickr explique comment elle a contourné le problèm
 - https://wp.me/p2DMyG-ok
 ====
 
-C'est le *déclic* pour Ryan : _Mongrel_ avait déjà un plug-in pour ça mais il fallait que ça soit encore plus simple pour le développeur.
+C'est le *déclic* pour Ryan : _Mongrel_ avait déjà un plug-in pour cette fonctionnalité mais il souhaitait simplifier davantage le travail pour les développeurs.
 Il reproduit le mécanisme avec succès en C.
 Les développeurs web jugeant la solution trop complexe, Ryan tente la même approche avec d'autres langages, comme Python, Lua ou même Haskell.
 Il se heurte au sempiternel problème des ressources bloquantes des différents interpréteurs.
 
 Le deuxième *déclic* se produit en janvier 2009 lorsque _JavaScript_ émerge dans une discussion entre développeurs.
 _Eurêka_ !
-La machine virtuelle JavaScript V8 de Google a été libérée en _open source_ depuis quelques mois et Apple, Microsoft, Mozilla et Google se battent pour rendre la pierre angulaire JavaScript toujours plus performante.
+La machine virtuelle JavaScript V8 de Google a été libérée en _open source_ depuis quelques mois et Apple, Microsoft, Mozilla et Google se livrent à une course à la performance de leur machine virtuelle respective.
+En ligne de mire, rendre la navigation sur _mobile_ et sur _ordinateur_ plus rapide et moins gourmande en ressources.
 
-Ryan admet que JavaScript dispose des caractéristiques idéales, même s'il n'est pas un adepte du langage : fonctions anonymes, _closures_ et l'_event loop_ (dans le DOM en tous cas).
-Il lui manque juste la capacité d'accéder à des _sockets_, au système de fichiers et à d'autres fonctions système.
+Ryan admet que JavaScript dispose des caractéristiques idéales même s'il n'est pas un adepte du langage : fonctions anonymes, _closures_ et l'_event loop_ (dans le DOM en tous cas).
+Il manque juste aux machines virtuelles JavaScript la capacité d'accéder à des _sockets_, au système de fichiers et à d'autres fonctions système.
 
-Il quitte alors son travail, s'inspire de ses travaux de modules non bloquants pour Nginx et se concentre pendant six mois à marier JavaScript, V8 et l'environnement système : Node.js. +
-Sa démonstration de serveur IRC écrit en 400 lignes de JavaScript lors de la conférence JSConf Europe suscite l'enthousiasme et attire l'attention.
+Ryan quitte alors son travail, s'inspire de ses travaux de modules non bloquants pour Nginx et s'affaire pendant six mois à marier JavaScript, V8 et l'environnement du système d'exploitation.
+De ces efforts nait Node.js. +
+Il effectue une démonstration de link:https://gist.github.com/ry/a3d0bbbff196af633995[serveur IRC écrit en 400 lignes de JavaScript] lors de la link:https://www.youtube.com/watch?v=ztspvPYybIY[conférence JSConf.eu 2009] suscite l'enthousiasme et attire l'attention.
 
 L'entreprise américaine _Joyent_ l'embauche à plein temps pour continuer le développement de Node.
 Ils pressentent que la plate-forme Node répond à leurs projets de _datacenter_ et d'hébergement.
@@ -145,7 +147,7 @@ C'est la première fois qu'il intervient pour expliquer son parcours et la genè
 
 Peut-être un élément qui figurera dans les livres d'histoire !
 
-- https://www.youtube.com/watch?v=SAc0vQCC6UQ
+- [URL]#https://www.youtube.com/watch?v=SAc0vQCC6UQ#
 ====
 
 === Les raisons du succès
@@ -185,7 +187,7 @@ Cela concerne aussi bien la lecture de fichiers CSV, JSON ou XML de plusieurs gi
 La compatibilité de Node avec les modules CommonJS incite à concevoir de multiples modules respectant le _principe de responsabilité unique_. +
 Node encourage ainsi à créer de *multiples applications autonomes et modulaires au lieu d'une seule application monolithique*.
 
-Avec Grunt et Gulp, les développeurs verront dans Node leur *compagnon idéal pour compiler, générer, assembler et minifier* leurs différents fichiers. +
+Avec Grunt, Gulp, babel, browserify et Webpack, les développeurs verront dans Node leur *compagnon idéal pour compiler, générer, assembler et minifier* leurs différents fichiers. +
 Le bénéfice évident est le partage du même outillage CSS, JavaScript et HTML entre développeurs, par projet.
 Finies les ambiguïtés… et place à l'automatisation !
 
@@ -205,23 +207,23 @@ Il faut toutefois noter que la majorité des raisons sont liées à une _culture
 Ce serait d'ailleurs la première et principale raison de ne pas utiliser Node ; si votre équipe dispose déjà de fortes compétences, d'habitudes et d'aisance dans un autre langage. +
 Il n'y a pas de raison d'utiliser Node *si vous parvenez à un résultat similaire avec des performances comparables*.
 
-L'*offre logicielle est également à prendre en compte* : CMS, systèmes e-commerce ou autre application prête à l'emploi que la communauté Node n'offrirait pas. +
-En {revisionYear}, on dénombrait encore peu d'applications de ce genre et pour cause : la mode est aux modules à assembler soi-même.
+L'*offre logicielle est également à prendre en compte* : CMS, systèmes e-commerce ou autre application prête à l'emploi que la communauté Node n'offrirait pas.
 
 Un facteur important et souvent oublié est *l'acceptation et la compréhension de l'utilisation de Node* par une ou plusieurs équipes.
 Il est alors plus intéressant de comprendre les raisons d'un blocage que de forcer ou d'imposer Node. +
 Cela peut être simple : balayer des idées reçues, animer un atelier technique ou inviter un expert pour répondre aux questions, interrogations et utilité d'un tel changement.
 
-Node n'est pas forcément une solution adaptée si *vos besoins de performance dépassent les capacités de Node*. Certains cas de très haute performance nécessitent d'être au plus près du système ou utilisent fortement le CPU. +
+Node n'est pas forcément une solution adaptée si *vos besoins de performance dépassent les capacités de Node*. Certains cas de très haute performance nécessitent une gestion fine de la mémoire ou d'utiliser plusieurs CPU en parallèle. +
 Un langage comme C sera certainement davantage approprié.
 Toutefois des solutions comme `node-gyp` vous offrent un accès bas niveau aux éléments internes de la plate-forme Node.
 
-Node ne vous aidera probablement pas si vous cherchez à *réaliser des choses qui seraient compliquées de par la nature même de JavaScript*, par exemple des opérations mathématiques de très haute précision. +
+Node ne vous aidera probablement pas si vous cherchez à *réaliser des choses qui seraient compliquées de par la nature même de JavaScript*, par exemple des opérations mathématiques de très haute précision, du _machine learning_ avancé ou du calcul scientifique poussé.
+Difficile d'égaler la richesse fonctionnelle de Python et de ses librairies SciPy, NumPy ou scikit-learn. +
 ECMAScript suit le standard IEEE 754 pour la représentation des nombres à virgule flottante — de même que C#, Ruby et Java, entre autres.
 Vous pouvez toutefois pallier ce problème via l'utilisation des `Buffer` ou des _Typed Array_ (_Int32_, _UInt32_ etc.).
-Les module `bignumber.js` et `bignum` reposent sur ces mécanismes tout en vous facilitant le travail.
+Les module `bignumber.js` ([URL]#https://npmjs.com/bignumber.js#) et `bignum` ([URL]#https://npmjs.com/bignum#) reposent sur ces mécanismes tout en vous facilitant le travail.
 
-Enfin si vous croyez que Node va *résoudre des problèmes de compétences en développement* ou résoudre _de facto_ une erreur de conception logicielle, c'est bien évidemment une erreur.
+Enfin si vous croyez que Node va *résoudre les problèmes par magie* — qu'ils soient de nature technique, de performance ou de compétences* — c'est une croyance dont il va falloir se séparer.
 
 === Écosystème
 
@@ -230,7 +232,7 @@ Le modèle qui en émerge est assez unique : la majorité des développements in
 
 L'écosystème contribuant au développement de la plate-forme a évolué d'un faible nombre d'entreprises privées vers une fondation non-commerciale impliquant plusieurs dizaines d'individus, la plupart financés par leur employeur.
 
-En 2015, après avoir traversé des périodes incertaines, l'avenir de Node est au beau fixe avec plus de 300 contributeurs à la plateforme et plus de 190 000 paquets publics hébergés par le registre _npm_.
+En 2017, après avoir traversé des périodes incertaines, l'avenir de Node est au beau fixe avec plus de 1200 contributeurs à la plateforme et plus de 400 000 paquets publics hébergés sur le registre _npm_.
 
 [[joyent]]
 ==== Joyent
@@ -272,15 +274,15 @@ La société _Joyent_ reste propriétaire de la marque _Node.js_ et de son logo.
 
 ==== npm
 
-_npm_ est une dénomination qui abrite plusieurs concepts.
+_npm_ est une dénomination qui abrite plusieurs concepts : un *outil en ligne de commande*, un *registre de modules* ainsi qu'une *entreprise privée*.
 
 _npm_ est originellement un module Node créé par Isaacs Schlueter.
 Ce module permet d'installer des modules tiers et de les lier sous forme d'un arbre de dépendances.
 Il est l’équivalent de https://rubygems.org/[rubygems.org] pour Ruby, de http://www.cpan.org/[cpan.org] pour Perl ou encore de https://pypi.python.org/pypi[pypi.python.org] pour Python.
 
-Nous reviendrons plus en détail sur son utilisation dans le <<../chapter-02/index.adoc,chapitre 2 _Utiliser des modules tiers_>> de cet ouvrage.
+Nous reviendrons plus en détail sur son utilisation dans le <<../chapter-02/index.adoc,chapitre 2 _Utiliser des modules tiers_>>.
 
-_npm_ peut également désigner le _registre_ principal qui héberge les modules des communautés Node : [URL]#https://www.npmjs.com/#.
+_npm_ désigne également le _registre_ principal qui héberge les modules des communautés Node : [URL]#https://www.npmjs.com/#.
 
 [TIP]
 .[RemarquePreTitre]#Lien# Annonce de l’inclusion de _npm_ dans Node
@@ -288,7 +290,7 @@ _npm_ peut également désigner le _registre_ principal qui héberge les modules
 _npm_ est installé par défaut avec Node depuis la version 0.6.3, sortie en novembre 2011.
 Auparavant, il fallait installer le module _npm_ séparément.
 
-- https://nodejs.org/en/blog/release/v0.6.3/
+- [URL]#https://nodejs.org/en/blog/release/v0.6.3/#
 ====
 
 [[npm-inc]]
@@ -314,7 +316,13 @@ Les objectifs initiaux du projet _io.js_ sont doubles :
 
 Les efforts du projet et de sa communauté ont abouti à la création de la <<node-foundation,Node.js Foundation>> et du <<governance,Node.js Advisory Board>>, respectivement l'organe de gestion du projet et le groupe d'individus en charge de la gestion du projet Node.
 
-Le projet _io.js_ continue sur la même lancée mais contribue désormais directement à la base de code de Node au lieu du _fork_ initial.
+[TIP]
+.[RemarquePreTitre]#Lien# Une fin heureuse pour la communauté
+====
+Le projet _io.js_ s'arrête en 2015 suite à l'émergence de la nouvelle gouvernance, de la fusion réussie avec le code source de Node et de la sortie de Node v4.
+
+- [URL]#https://nodejs.org/en/blog/announcements/foundation-v4-announce/#
+====
 
 ==== Nodejitsu
 
@@ -324,7 +332,7 @@ Son activité en fait un concurrent direct de <<joyent,Joyent>> et de <<npm-inc,
 
 _Nodejitsu_ démontre un investissement fort dans la communauté Node en contribuant à plusieurs centaines de modules et en prenant en charge l'hébergement du registre _npm_ de 2010 jusqu'en décembre 2013.
 
-En 2013, _Nodejitsu_ lance l'initiative _#scalenpm_ visant à collecter des fonds pour améliorer la performance et la stabilité du registre https://www.npmjs.com/[npmjs.com]. +
+En 2013, _Nodejitsu_ lance l'initiative controversée _#scalenpm_ visant à collecter des fonds pour améliorer la performance et la stabilité du registre https://www.npmjs.com/[npmjs.com]. +
 Elle attise les tensions avec la compagnie _npm, Inc._ en tentant de lui couper l'herbe sous le pied, sans succès.
 
 En février 2015, la compagnie de vente de noms de domaine et d'hébergement _GoDaddy_ rachète _Nodejitsu_, absorbe son équipe et met fin à ses activités commerciales.
@@ -338,12 +346,12 @@ Son effort se poursuit dans le but de fournir une meilleure instrumentation et u
 
 Cette initiative a suscité une controverse dans la mesure où l’opération s’est déroulée lors de la naissance de _npm, Inc_ et du dépôt de marque associé… mais sans entente apparente entre les deux parties.
 
-- https://scalenpm.nodejitsu.com/
+- [URL]#http://web.archive.org/web/20160506191542/https://scalenpm.nodejitsu.com/#
 ====
 
-==== Node Security Project
+==== Node Security Platform
 
-Le _Node Security Project_ est un projet à but non lucratif soutenu par la société américaine _&yet_.
+Le _Node Security Platform_ ([URL]#https://nodesecurity.io/# — anciennement _Node Security Project_) est un projet à but lucratif soutenu par la société américaine _&yet_ ([URL]#https://andyet.com/#).
 Il a été initié au début de l'année 2013.
 
 Son but est triple :
@@ -352,17 +360,10 @@ Son but est triple :
 2. communiquer les failles auprès des auteurs de modules ;
 3. permettre à quiconque de savoir si un module donné dépend de module vulnérable.
 
-Le projet met un point d'honneur à impliquer la communauté Node dans la gestion de la sécurité.
+Le projet met à disposition des _services_ et des _modules_ tout en cherchant à impliquer la communauté Node dans le processus.
 Cela concerne aussi bien la déclaration des vulnérabilités que leur résolution ou l'éducation des développeurs à la sécurité.
 
-[TIP]
-.[RemarquePreTitre]#Module npm# retire.js
-====
-_retire.js_ est un module npm permettant de scanner soi-même des vulnérabilités connues dans le code JavaScript de son choix.
-Il fonctionne aussi bien pour du JavaScript interprété par un navigateur web que dans Node.
-
-- https://npmjs.com/retire
-====
+Nous en parlerons plus en détail les modules développés par la _Node Security Platform_ et leur inclusion dans un cycle de vie projet dans le <<../chapter-07/index.adoc,Chapitre 7>>.
 
 [[governance]]
 ==== Qui gère Node.js ?
@@ -416,7 +417,7 @@ Ils servent de base à la création d'autres modules plus faciles d'accès et pa
 [source,javascript]
 .api.js
 ----
-var fs = require('fs');
+const fs = require('fs');
 ----
 
 Dans cet exemple, la fonction `require` charge l'API d'accès au système de fichier contenue dans le module `fs`.
@@ -444,9 +445,9 @@ L'exemple suivant illustre avec du code ce qu'est un module CommonJS.
 [source,javascript]
 .increment-module.js
 ----
-var privateValue = 0;
+const privateValue = 0;
 
-module.exports = function incrementValue(){
+module.exports = () => {
   privateValue++;
 
   return privateValue;
@@ -457,7 +458,7 @@ La spécification _Module_ de CommonJS fait usage de la portée lexicale (_lexic
 
 [source,javascript]
 ----
-var increment = require('./increment-module.js');
+const increment = require('./increment-module.js');
 
 increment();    // <1>
 increment();    // <2>
@@ -482,7 +483,7 @@ Le site officiel de CommonJS documente différentes spécifications vouées à p
 
 L'interpréteur Node est un programme écrit en C++.
 
-L'interpréteur crée un environnement d'exécution, initialise la boucle événementielle (_Event Loop_, voir ci-après), lit le code JavaScript, crée l'arbre de dépendance des modules puis demande à exécuter le tout. +
+L'interpréteur crée un environnement d'exécution, initialise la boucle événementielle (<<event-loop,_Event Loop_>>, voir ci-après), lit le code JavaScript, crée l'arbre de dépendance des modules puis demande à exécuter le tout. +
 Il considère l'exécution terminée lorsque la boucle événementielle n'a plus d'instructions à traiter, ni maintenant ni dans le futur.
 
 L'interpréteur s'arrêtera prématurément si une erreur se déclare et que cette dite erreur n'est pas prise en charge par le programme.
@@ -490,7 +491,7 @@ L'interpréteur s'arrêtera prématurément si une erreur se déclare et que cet
 [source,javascript]
 .print-date.js
 ----
-var now = new Date();
+const now = new Date();
 console.log(now.toString());
 ----
 
@@ -503,11 +504,6 @@ Dans cet exemple, l'interpréteur Node lit le contenu du fichier `print-date.js`
 
 La compilation du code est effectuée par la machine virtuelle V8. +
 La liaison avec le shell système est effectuée par _libuv_.
-
-[CAUTION]
-====
-J'ai pas dit de bêtises ci-dessus ?
-====
 
 [TIP]
 .[RemarquePreTitre]#Lien# Code Source de Node
@@ -540,12 +536,12 @@ Cette documentation est accompagnée d'un guide pour intégrer V8 dans d'autres 
 
 ==== libuv
 
-_libuv_ est une librairie C++ focalisée sur l'accès aux ressources système de manière non bloquante.
+_libuv_ ([URL]#http://libuv.org/#)est une librairie C++ focalisée sur l'accès aux ressources système de manière non bloquante.
 
 Cette librairie est compatible avec de nombreux systèmes d'exploitation comme Windows, Linux ou encore FreeBSD. +
 D'autres logiciels sont basés sur _libuv_ mais Node est la première plate-forme à en avoir fait l'usage… et pour cause, _libuv_ a été créée pour les besoins propres de Node.
 
-_libuv_ implémente notamment la fameuse boucle événementielle (_Event Loop_, voir ci-après), la file de priorité (_priority queue_), délègue les accès réseaux au système d'exploitation et expose la plupart des fonctions UNIX nécessaires à la manipulation de fichiers et d'autres actions bas niveau.
+_libuv_ implémente notamment la fameuse boucle événementielle (<<event-loop,_Event Loop_>>, voir ci-après), la file de priorité (_priority queue_), délègue les accès réseaux au système d'exploitation et expose la plupart des fonctions UNIX nécessaires à la manipulation de fichiers et d'autres actions bas niveau.
 
 *La performance de Node réside clairement dans _libuv_*.
 JavaScript n'y est pour rien, si ce n'est à travers la puissance de la machine virtuelle V8.
@@ -558,6 +554,7 @@ Le code source de _libuv_ est disponible sur GitHub. Le parcourir permet de mieu
 - https://github.com/libuv/libuv
 ====
 
+[[event-loop]]
 ==== Boucle événementielle
 
 La boucle événementielle (_Event Loop_) est un mécanisme d'exécution des tâches apporté par _libuv_ et déléguée au système d'exploitation.
@@ -566,18 +563,12 @@ Elle s'inspire très fortement du modèle de boucle événementielle telle qu'im
 C'est grâce à ce mécanisme que l'exécution d'une fonction peut être reportée à plus tard.
 C'est la fameuse _exécution asynchrone_.
 
-[CAUTION]
-====
-Ajouter un graph explicatif pour l'aspect "boucle".
-====
 
 [source,javascript]
 .timeout.js
 ----
-var referenceTime = process.hrtime();   // <1>
-var printT = function(){                // <2>
-  console.log(process.hrtime(referenceTime)[0]);
-};
+const referenceTime = process.hrtime(); // <1>
+const printT = () => console.log(process.hrtime(referenceTime)[0]); // <2>
 
 printT();                               // <3>
 setTimeout(printT, 1000);               // <4>
@@ -636,64 +627,129 @@ Ceci reste valide tant que la boucle événementielle n'est pas implémentée na
 
 === Philosophie de développement
 
-Node a connu une forte croissance entre 2012 et 2014.
+Node a connu une *forte croissance depuis 2012*.
 Cela concerne aussi bien le nombre de modules publiés sur le registre npm que le nombre de contributeurs.
-C'est sans compter le nombre d'articles faisant l'éloge de la plate-forme et les annonces de migration vers Node.
+C'est sans compter le nombre d'articles faisant l'éloge de la plate-forme et les annonces de migration d'entreprises vers Node.
 
 Il n'aura fallu que deux ans pour que Node devienne vraiment stable et utilisable en production.
 
-Essayons de comprendre pourquoi.
-
+[[semver]]
 ==== Versioning sémantique
 
-Le versioning sémantique explicite deux choses importantes :
+Le versioning sémantique définit deux concepts importants :
 
-- le principe de numérotation de version ;
-- les motifs de numérotation afin de spécifier des plages de dépendance strictes ou souples.
+- le principe de *numérotation* de version ;
+- les *plages de compatibilité* de versions.
 
-Un numéro de version doit respecter la forme `MAJEUR.MINEUR.CORRECTIF`.
-Ainsi, si on considère le numéro de version `0.0.3` :
+Un numéro de version doit respecter la forme `MAJEUR.MINEUR.CORRECTIF` (`MAJOR.MINOR.PATCH`).
 
-- `0.0.4` est une version corrigeant un défaut ;
-- `0.1.0` est une version ajoutant ou modifiant des fonctionnalités mais ne cassant pas la compatibilité descendante ;
-- `1.0.0` est une version cassant la compatibilité descendante.
+Si on considère le numéro de version `1.0.0` :
 
-Ce mécanisme relativement simple associé à la gestion de dépendances du programme `npm` renforce la stabilité des mises à jour.
+- `1.0.1` est une version corrigeant un défaut ;
+- `1.1.0` est une version ajoutant ou modifiant des fonctionnalités mais ne cassant pas la compatibilité avec le reste de la branche `1.x.x` ;
+- `2.0.0` est une version cassant la compatibilité descendante.
 
-Nous verrons ultérieurement comment _effectivement_ gérer des dépendances _npm_ au sein d'un projet.
+Par convention, les versions `0.x.x` sont considérées comme des versions _instables_ en préparation d'une future branche stable (`1.x.x`).
 
 [TIP]
-.[RemarquePreTitre]#Lien# SemVer
+.[RemarquePreTitre]#Lien# Spécification Semver
 =====
 La spécification _semver_ est disponible sous forme textuelle mais également en tant que module npm.
 
-- http://semver.org/lang/fr/
-- https://npmjs.com/semver
+- [URL]#https://npmjs.com/semver#
+- [URL]#http://semver.org/lang/fr/#
 =====
+
+L'utilisation de certains caractères permet d'exprimer des *plages de compatibilité*, très utiles lors de l'installation ou de la mise à jour de modules _npm_ :
+
+- `~1.0.0` : mises à jour mineures de la branche `1.0.0` (`1.0.1`, `1.0.2` etc.) ;
+- `1.0.x` : idem ;
+- `^1.0.0` : mises à jour mineures et correctives de la branche `1.0.0` (`1.0.1`, `1.1.0`, `1.1.1` etc.) ;
+- `1.x.x` : idem ;
+- `>1.0.0` : mises à jour majeures, mineures et correctives au-delà de la branche `1.0.0` (`1.0.1` mais pas `1.0.0`, `1.1.0`, `2.0.0`, `3.1.0` etc.) ;
+- `>1 <3` : mises à jour majeures, mineures et correctives entre la branche `1.0.0` et `3.0.0` (`2.0.0`, `2.0.1`, `2.1.0` etc.) ;
+- `>1` : mises à jour majeures, mineures et mineures au-delà de la branche `1.0.0` (`2.0.0`, `2.0.1`, `3.1.0` etc.).
+
+Cette syntaxe est notamment employée pour spécifier les plages de mises à jour  acceptées pour les paquets `npm`.
+Cela permet entre autre de bénéficier de mises à jour de manière consentante (_opt-in_) à chaque installation ou mise à jour de vos applications.
+Vous en apprendrez davantage sur diverses opérations de routine de vos applications dans le <<../chapter-03/index.adoc,chapitre 3>>, notamment la <<../chapter-03/index.adoc#npm-outdated,vérification de l'état des dépendances>>.
+
+[TIP]
+.[RemarquePreTitre]#Outil# Calculateur de version
+====
+Un outil est à disposition pour tester la syntaxe des plages de versions en temps réel sur des données de véritables paquets.
+
+- [URL]#https://semver.npmjs.com/#
+====
+
+Le mécanisme de versionnement sémantique est appliqué au <<node-lifecycle,cycle de développement de Node>> depuis la version `4.0.0` ainsi qu'aux modules _npm_ – à la discrétion de leurs auteurs.
+
+Nous verrons ultérieurement les différentes stratégies de gestion des dépendances _npm_ au sein d'un projet.
+
+
+[TIP]
+.[RemarquePreTitre]#Lien# Versioning romantique
+=====
+Certaines personnes pensent que l'aspect _sémantique_ n'est pas assez clair pour véhiculer l'_intention_ des auteurs quant à la publication d'une nouvelle version.
+Ils en sont venus à proposer plus ou moins sérieusement les notions de *versioning sentimental* et de *versioning romantique*.
+
+- [URL]#http://dafoster.net/articles/2015/03/14/semantic-versioning-vs-romantic-versioning/#
+=====
+
+
+[[node-lifecycle]]
+==== Cycle de développement de Node
+
+La vitesse et la croissance sont des facteurs propices à l'immaturité et à l'instabilité d'une plateforme et de son écosystème.
+
+Le développement de la plate-forme Node prend en compte ces facteurs afin de *sortir deux versions majeures par année* dont *une version majeure supportée à long terme* (_Long Term Support_, _LTS_).
+
+La notion de versions supportées à long terme (_LTS_) a été introduite pour aider à maitriser et anticiper les migrations vers des versions majeures ultérieures.
+
+image::images/schedule.png[align="center",scaledwidth="85%",link="https://github.com/nodejs/LTS/blob/master/schedule.png"]
+
+Les deux versions annuelles suivent un cycle différent :
+
+* versions *paires* (_LTS_, v4, v6 etc.) :
+  . création en _avril_
+  . développement actif de _six mois_
+  . _LTS_ pendant _dix-huit mois_
+  . maintenance pendant _douze mois_
+  . fin de vie
+* versions *impaires* (v5, v7 etc.):
+  . création en _octobre_
+  . développement actif de _neuf mois_
+  . fin de vie
+
+On remarque que les versions _impaires_ nourissent le développement de la version _paire_ suivante.
+Il n'est pas important de migrer vers celles-ci.
+En revanche il est intéressant de garder un œil dessus pour se préparer à l'arrivée de la version majeure suivante.
+
+Cette planification garantit une plate-forme et un ensemble de fonctionnalités stables de manière prédictible, à la fois pour les projets reposant sur Node mais aussi pour l'écosystème de contributeurs de modules _npm_.
+
+[[lts]]
+[TIP]
+.[RemarquePreTitre]#À propos# Long Term Support (LTS)
+=====
+Le plan de maintenance de Node est maintenu publiquement dans un dépôt GitHub.
+Référez-vous à lui pour des informations plus à jour que l'épreuve papier de cet ouvrage.
+
+- [URL]#https://github.com/nodejs/LTS#lts-schedule#
+=====
+
 
 ==== Node et son API
 
-La vitesse et la croissance sont des facteurs propices à l'immaturité et à l'instabilité.
+Node communique un indice de stabilité pour chacune de ses API publiques selon une échelle discrète graduée de 0 à 5.
 
-Le développement de la plate-forme Node prend en compte ces facteurs afin de *sortir au mieux une version majeure par année*.
-Des versions intermédiaires sont publiées pour corriger des bugs, maintenir la sécurité et inclure des fonctionnalités compatibles avec les projets existants.
+.Example avec l'api `punycode`, dont le statut est marqué comme déprécié depuis la v7.
+image::images/node-api-deprecation.png[align="center",scaledwidth="85%"]
 
-Depuis la version 4.0 de Node, des versions dites LTS (_Long Term Support_) sont créées tous les douze mois, contribuées pendant dix-huit mois et maintenues pendant douze mois. +
-Ceci garantit une plate-forme et un ensemble de fonctionnalités stables de manière prédictible, à la fois pour les projets reposant sur Node mais aussi pour l'écosystème de contributeurs de modules _npm_.
+Cette échelle se décompose de la manière suivante :
 
-Node suit la convention <<semver,SemVer>> depuis la version 4.0.
-Précédemment, elle opérait selon le modèle de numérotation de version pair/impair :
-
-- les versions `0.8.x`, `0.10.x`, `0.12.x` représentaient les évolutions stables de Node ;
-- les versions `0.7.x`, `0.9.x`, `0.11.x` représentaient les branches de développement.
-
-Ainsi, la version `0.9.12` est devenue la version `0.10.0` une fois jugée suffisamment stable et aboutie.
-
-Sur le plan interne, Node indique un indice de stabilité pour chacune de ses API publiques selon une échelle discrète graduée de 0 à 5 :
-
-- 0 : le module est *déprécié* et ne devrait être utilisé qu'en toute connaissance de cause ;
+- 0 : le module est *déprécié* et peut être supprimé dans une prochaine version majeure ;
 - 1 : le module est *expérimental*, instable et nécessite des retours utilisateur ;
-- 2 : le module est *instable* et nécessite davantage de tests grandeur nature avant d'être considéré comme stable ;
+- 2 : le module est *instable*, son API peut changer et nécessite davantage de tests grandeur nature avant d'être considéré comme stable ;
 - 3 : le module est *stable* mais peut être sujet à des changements mineurs d'API ;
 - 4 : le module est *gelé*, son API ne devrait plus du tout changer ;
 - 5 : le module est *verrouillé*, son code interne ne changera plus.

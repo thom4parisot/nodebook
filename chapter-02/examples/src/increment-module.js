@@ -1,11 +1,9 @@
 'use strict';
 
-var counter = 0;
+let counter = 0;
 
 console.log(module.id);
 
 module.exports = {
-  run: function(){
-    return counter++;
-  }
+  run: () => counter++,
 };

@@ -2,13 +2,14 @@
 
 'use strict';
 
-var join = require('path').join;
-var chalk = require('chalk');
-var filepath = join(__dirname, 'data', 'books.csv');
+const { join } = require('path');
+const chalk = require('chalk');
+const printCSV = require('./print-csv-module');
+const filepath = join(__dirname, 'data', 'books.csv');
 
-var titleColor = chalk.bgGreen.bold;
-var authorColor = chalk.blue.bold;
+const titleColor = chalk.bgGreen.bold;
+const authorColor = chalk.blue.bold;
 
-require('./print-csv-module')(filepath, function printRow(row){
+printCSV(filepath, (row) => {
   console.log('%s a été écrit par %s', titleColor(row['Titre']), authorColor(row['Auteur(s)']));
 });

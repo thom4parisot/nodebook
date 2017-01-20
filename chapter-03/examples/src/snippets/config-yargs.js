@@ -1,6 +1,6 @@
 'use strict';
 
-var argv = require('yargs')
+const argv = require('yargs')
   .default('y', 2014)
   .required('title')
   .argv;

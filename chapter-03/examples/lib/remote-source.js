@@ -1,8 +1,8 @@
 'use strict';
 
-var fs = require('fs');
-var http = require('http');
-var path = require('path');
+const fs = require('fs');
+const http = require('http');
+const path = require('path');
 
 module.exports = {
   /**
@@ -11,8 +11,8 @@ module.exports = {
    * @param onRequest
    * @returns {*}
    */
-  request: function request(config, onRequest){
-    var sources = this.getProviderFromConfig(config.provider);
+  request (config, onRequest){
+    const sources = this.getProviderFromConfig(config.provider);
 
     this.requestFromURL(sources[config.source], onRequest);
   },
@@ -21,7 +21,7 @@ module.exports = {
    * @param url
    * @param onRequest
    */
-  requestFromURL: function requestFromURL(url, onRequest){
+  requestFromURL (url, onRequest){
     http.request(url, onRequest).end();
   },
   /**
@@ -30,12 +30,12 @@ module.exports = {
    * @param filename
    * @returns {boolean}
    */
-  saveResponseTo: function saveResponseTo(responseStream, filename){
+  saveResponseTo (responseStream, filename){
     if (!filename){
       return false;
     }
 
-    var file = fs.createWriteStream(filename);
+    const file = fs.createWriteStream(filename);
 
     responseStream.pipe(file);
   },
@@ -44,11 +44,11 @@ module.exports = {
    * @param providerId
    * @returns {*}
    */
-  getProviderFromConfig: function getProviderFromConfig(providerId){
-    var provider = require('../package.json').config[providerId];
+  getProviderFromConfig(providerId){
+    const provider = require('../package.json').config[providerId];
 
     if (!provider){
-      throw new TypeError('Provider not found, was ' + providerId);
+      throw new TypeError(`Provider not found, was ${providerId}`);
     }
 
     return provider;

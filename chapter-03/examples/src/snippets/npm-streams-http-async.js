@@ -1,13 +1,13 @@
 'use strict';
 
-var request = require('request');
-var fs = require('fs');
+const request = require('request');
+const fs = require('fs');
 
-var url = 'https://raw.githubusercontent.com' +
-  '/oncletom/nodebook.chapter-03/master/package.json';
+const url = 'https://raw.githubusercontent.com' +
+  '/oncletom/nodebook/master/chapter-03/examples/package.json';
 
-request(url, function(err, response, body){
-  fs.writeFile('/tmp/nodebook-chap03.json', body, function(err){
+request(url, (err, response, body) => {
+  fs.writeFile('/tmp/nodebook-chap03.json', body, (err) => {
     if (err){
       return console.error(err);
     }

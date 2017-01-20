@@ -1,16 +1,16 @@
 'use strict';
 
-var waterfall = require('async').waterfall;
-var EventEmitter = require('events').EventEmitter;
+const waterfall = require('async').waterfall;
+const EventEmitter = require('events').EventEmitter;
 
-function uppercaseAsync(message, callback){
-  process.nextTick(function(){
+const uppercaseAsync = (message, callback) => {
+  process.nextTick(() => {
     callback(null, message.toLocaleUpperCase ? message.toLocaleUpperCase() : message);
   });
 }
 
-function splitWordsAsync(message, callback){
-  process.nextTick(function(){
+const splitWordsAsync = (message, callback) => {
+  process.nextTick(() => {
     if (typeof message !== 'string'){
       callback(new TypeError('message is not a String'));
     }
@@ -20,12 +20,10 @@ function splitWordsAsync(message, callback){
   });
 }
 
-function abbreviateAsync(words, callback){
-  process.nextTick(function(){
+const abbreviateAsync = (words, callback) => {
+  process.nextTick(() => {
     try {
-      var abbr = words.reduce(function(abbr, word){
-        return abbr + word[0];
-      }, '');
+      const abbr = words.reduce((abbr, word) => abbr + word[0], '');
 
       callback(null, abbr);
     }
@@ -35,17 +33,15 @@ function abbreviateAsync(words, callback){
   });
 }
 
-module.exports = function messageAbbr(message){
-  var emitter = new EventEmitter();
+const messageAbbr = (message){
+  const emitter = new EventEmitter();
 
   waterfall([
-    function(done){
-      done(null, message);
-    },
+    (done) => done(null, message),
     uppercaseAsync,
     splitWordsAsync,
     abbreviateAsync
-  ], function(err, abbr){
+  ], (err, abbr) => {
     if (err) {
       return emitter.emit('error', err);
     }
@@ -55,3 +51,5 @@ module.exports = function messageAbbr(message){
 
   return emitter;
 };
+
+module.exports = messageAbbr;

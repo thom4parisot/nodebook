@@ -1,5 +1,5 @@
 :nodeCurrentVersion: v6
-:npmCurrentVersion: v3
+:npmCurrentVersion: v4
 :revdate: {docdate}
 :sourceDir: ./examples/src
 :imagesdir: {indir}
@@ -148,10 +148,10 @@ Il est *préférable de faire appel à `require.resolve`* pour déterminer le ch
 [source,javascript]
 ----
 // À ne surtout pas faire
-var jqueryCore = require('./node_modules/jquery/src/core.js');
+const jqueryCore = require('./node_modules/jquery/src/core.js');
 
 // À faire
-var jQueryCore = require('jquery/src/core.js');
+const jQueryCore = require('jquery/src/core.js');
 ----
 ====
 
