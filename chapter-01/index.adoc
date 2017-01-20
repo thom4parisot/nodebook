@@ -505,11 +505,6 @@ Dans cet exemple, l'interpréteur Node lit le contenu du fichier `print-date.js`
 La compilation du code est effectuée par la machine virtuelle V8. +
 La liaison avec le shell système est effectuée par _libuv_.
 
-[CAUTION]
-====
-J'ai pas dit de bêtises ci-dessus ?
-====
-
 [TIP]
 .[RemarquePreTitre]#Lien# Code Source de Node
 ====
@@ -568,10 +563,6 @@ Elle s'inspire très fortement du modèle de boucle événementielle telle qu'im
 C'est grâce à ce mécanisme que l'exécution d'une fonction peut être reportée à plus tard.
 C'est la fameuse _exécution asynchrone_.
 
-[CAUTION]
-====
-Ajouter un graph explicatif pour l'aspect "boucle".
-====
 
 [source,javascript]
 .timeout.js
