@@ -1,4 +1,5 @@
 :nodeCurrentVersion: v6
+:npmCurrentVersion: v4
 :revdate: {docdate}
 :imagesdir: {indir}
 ifdef::env[]
@@ -28,6 +29,13 @@ Surtout, il vous permettra de comprendre les choix techniques à l'origine des f
 
 Qu'on se le dise : *un langage de programmation en lui-même n'a jamais résolu quelconque problème*.
 Cela reste avant tout une affaire de compétences et d'expérience, <<avoiding-node,cf. Pourquoi éviter Node ?>>.
+
+[TIP]
+.[RemarquePreTitre]#Remarque# Versions de Node et npm
+====
+Le contenu de ce chapitre se réfère aux versions de *Node {nodeCurrentVersion}* et *npm {npmCurrentVersion}*.
+====
+
 
 toc::[]
 
@@ -280,7 +288,7 @@ _npm_ est originellement un module Node créé par Isaacs Schlueter.
 Ce module permet d'installer des modules tiers et de les lier sous forme d'un arbre de dépendances.
 Il est l’équivalent de https://rubygems.org/[rubygems.org] pour Ruby, de http://www.cpan.org/[cpan.org] pour Perl ou encore de https://pypi.python.org/pypi[pypi.python.org] pour Python.
 
-Nous reviendrons plus en détail sur son utilisation dans le <<../chapter-02/index.adoc,chapitre 2 _Utiliser des modules tiers_>>.
+Nous reviendrons plus en détail sur son utilisation dans le <<../chapter-02/index.adoc#,chapitre 2 _Utiliser des modules tiers_>>.
 
 _npm_ désigne également le _registre_ principal qui héberge les modules des communautés Node : [URL]#https://www.npmjs.com/#.
 
@@ -363,7 +371,7 @@ Son but est triple :
 Le projet met à disposition des _services_ et des _modules_ tout en cherchant à impliquer la communauté Node dans le processus.
 Cela concerne aussi bien la déclaration des vulnérabilités que leur résolution ou l'éducation des développeurs à la sécurité.
 
-Nous en parlerons plus en détail les modules développés par la _Node Security Platform_ et leur inclusion dans un cycle de vie projet dans le <<../chapter-07/index.adoc,Chapitre 7>>.
+Nous en parlerons plus en détail les modules développés par la _Node Security Platform_ et leur inclusion dans un cycle de vie projet dans le <<../chapter-07/index.adoc#security,Chapitre 7>>.
 
 [[governance]]
 ==== Qui gère Node.js ?

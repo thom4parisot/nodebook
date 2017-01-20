@@ -1,5 +1,5 @@
 :nodeCurrentVersion: v6
-:nodeNextMajorVersion: v7
+:npmCurrentVersion: v4
 :es: ECMAScript 2015
 :esNext: ECMAScript 2016
 :sourceDir: ./examples/src
@@ -34,9 +34,11 @@ Si vous n'utilisez pas encore de terminal, voici une liste de recommandations no
 .Terminal iTerm2 sous macOS.
 image::images/terminal.png[align="center",scaledwidth="85%"]
 
-Tous les exemples de ce chapitre sont relatifs à la *branche {nodeCurrentVersion} de Node*. +
-Il se peut qu'une nouvelle branche stable soit sortie depuis l'édition de cet ouvrage, par exemple Node {nodeNextMajorVersion}.
-Il suffit d'adapter les numéros de version adéquats dans les différents exemples fournis.
+[TIP]
+.[RemarquePreTitre]#Remarque# Versions de Node et npm
+====
+Le contenu de ce chapitre se réfère aux versions de *Node {nodeCurrentVersion}* et *npm {npmCurrentVersion}*.
+====
 
 toc::[]
 
@@ -44,11 +46,11 @@ toc::[]
 
 Installer Node n'est pas très compliqué.
 Il existe cependant plusieurs mécanismes d'installation.
-Ces mécanismes vont du téléchargement d'un installateur à une compilation manuelle _via_ un terminal.
+Ces mécanismes vont du téléchargement d'un installeur à une compilation manuelle _via_ un terminal.
 
 Voici mes recommandations pour savoir quelle solution d'installation choisir :
 
-- *néophyte ou pressé(e)* : installateur du site nodejs.org, paquet fourni par le système d'exploitation ;
+- *néophyte ou pressé(e)* : installeur du site nodejs.org, paquet fourni par le système d'exploitation ;
 - *vous commencez à maîtriser* : Node Version Manager ;
 - *à l'aise avec un terminal* : Node Version Manager ;
 - *envie ou besoin de mettre en production* : Node Version Manager ;
@@ -70,8 +72,8 @@ Si malgré tout votre système n'y était pas listé, le mieux reste encore d'*u
 [TIP]
 .[RemarquePreTitre]#URL# Téléchargements officiels
 ====
-Les installateurs, les binaires et les sources de Node sont disponibles sur le site officiel [URL]#nodejs.org#. +
-Si vous vous sentez perdu(e), téléchargez l'installateur adapté, ouvrez un terminal et sautez quelques pages pour plonger dans l'utilisation de Node.
+Les installeurs, les binaires et les sources de Node sont disponibles sur le site officiel [URL]#nodejs.org#. +
+Si vous vous sentez perdu(e), téléchargez l'installeur adapté, ouvrez un terminal et sautez quelques pages pour plonger dans l'utilisation de Node.
 
 - https://nodejs.org/download/
 ====
@@ -108,7 +110,7 @@ Si vous n'utilisez aucun de ces gestionnaires de paquet, vous pouvez essayez :
 
 ===== Windows
 
-Le moyen le plus simple d'installer Node sous Windows est de *télécharger l'installateur officiel* depuis la page de téléchargements de Node.
+Le moyen le plus simple d'installer Node sous Windows est de *télécharger l'installeur officiel* depuis la page de téléchargements de Node.
 
 Toutefois si vous utilisez déjà un gestionnaire de paquet, voici quelques recommandations :
 
@@ -120,7 +122,7 @@ Toutefois si vous utilisez déjà un gestionnaire de paquet, voici quelques reco
 Node a effectué des changements dans son architecture dans sa version 0.8.
 Ces changements ont permis d'éviter la compilation systématique sur des architectures processeur autre que l'Intel x86.
 
-Des binaires et installateurs sont de ce fait disponibles pour Raspberry Pi, à base de processeur _ARM_, et très probablement pour d'autres plates-formes de ce genre.
+Des binaires et installeurs sont de ce fait disponibles pour Raspberry Pi, à base de processeur _ARM_, et très probablement pour d'autres plates-formes de ce genre.
 
 Des binaires et instructions sont disponibles sur le site officiel de Node, pour ARMv6, ARMv7 et ARMv8 : [URL]#https://nodejs.org/en/download/#.
 
@@ -185,10 +187,10 @@ Une image Docker aura la même recette d'installation même si celle-ci est exé
 Lancer un interpréteur Node _sans polluer_ le système hôte revient à exécuter l'image suivante :
 
 ----
-docker run -ti --rm node:4-slim
+docker run -ti --rm node:6-slim
 ----
 
-Nous nous repencherons sur Docker dans la <<../chapter-05/index.adoc,section _Déploiement_>> du chapitre 5.
+Nous nous repencherons sur Docker dans la <<../chapter-07/index.adoc#docker,section _Déploiement_ du chapitre 7>>.
 
 ==== Compiler depuis les sources
 
@@ -249,6 +251,11 @@ L'éditeur de _WebStorm_, _JetBrains_, propose une licence gratuite sous réserv
 ==== Atom
 
 image::images/atom.png[align="center",scaledwidth="85%"]
+
+Atom est un éditeur open-source développé avec Electron, un framework pour développer des applications de bureau multiplate-formes avec Node. Il intègre des packages qui facilitent le développement sous Node en proposant l'auto-complétion et l'exécution de processus Node directement depuis l'éditeur.
+
+- https://atom.io/
+- https://atom.io/packages/atom-ternjs
 
 ==== SublimeText 3
 
@@ -879,6 +886,7 @@ S'il est désormais plus sûr d'utiliser l'extension de chaîne prototypale, *il
 
 Il est en effet bien plus simple de réutiliser (et de tester) des fonctions agnostiques de contexte — de `this` — que de maintenir de grosses classes héritant sur plusieurs niveaux.
 
+[[promise]]
 ===== Promise
 
 La nature asynchrone et non-bloquante des opérations coûteuses en cycles CPU est quelque chose d'appréciable dans Node.
