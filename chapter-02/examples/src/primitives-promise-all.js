@@ -9,8 +9,6 @@ const files = ['chapter-02', 'chapter-01', 'chapter-03'].map(dir => {
 
 const logError = (err) => console.error(err);
 
-const logPackageDeps = (pkg) => console.log(Object.keys(pkg.dependencies || {}));
-
 Promise.all(files.map(readFilePromise))
   .then(allPkgs => {                    // <1>
     const deps = allPkgs.reduce((deps, pkg) => {

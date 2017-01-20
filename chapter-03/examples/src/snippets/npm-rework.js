@@ -10,6 +10,10 @@ const vars = require('rework-vars');
 const math = require('rework-math');
 
 fs.readFile(join(__dirname, 'stylesheet.css'), (err, binaryContent) => {
+  if (err) {
+    // ...
+  }
+  
   const textContent = whitespace(String(binaryContent));
   const r = rework(textContent, { source: 'stylesheet.css' })
     .use(vars())

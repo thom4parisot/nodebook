@@ -8,4 +8,10 @@ const options = {
   ignore: 'node_modules/**'
 };
 
-glob('**/cli*.{js,json}', options, (err, files) => console.log(files)); // <1>
+glob('**/cli*.{js,json}', options, (err, files) => {
+  if (err) {
+    return console.error(err);
+  }
+
+   console.log(files); // <1>
+});

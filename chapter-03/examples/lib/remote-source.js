@@ -2,7 +2,6 @@
 
 const fs = require('fs');
 const http = require('http');
-const path = require('path');
 
 module.exports = {
   /**
@@ -45,6 +44,7 @@ module.exports = {
    * @returns {*}
    */
   getProviderFromConfig(providerId){
+    // eslint-disable-next-line global-require
     const provider = require('../package.json').config[providerId];
 
     if (!provider){

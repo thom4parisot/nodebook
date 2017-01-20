@@ -5,7 +5,7 @@ class View {
     this.config = Object.assign({}, config);
   }
 
-  render (data) {
+  render () {
     throw new Error('Extend the View class to render content.')
   }
 

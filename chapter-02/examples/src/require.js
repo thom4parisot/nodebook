@@ -1,5 +1,7 @@
 'use strict';
 
+/* eslint-disable */
+
 const fs = require('fs'); // <1>
 const setupFormatter = require('./currency-format'); // <2>
 const chap2Index = require('../chapitre-02'); // <3>

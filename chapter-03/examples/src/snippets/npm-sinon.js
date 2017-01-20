@@ -1,5 +1,7 @@
 'use strict';
 
+/* global describe,beforeEach,afterEach,it */
+
 const assert = require('assert');
 const sinon = require('sinon');
 

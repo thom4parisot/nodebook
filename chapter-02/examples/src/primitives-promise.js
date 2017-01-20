@@ -15,7 +15,8 @@ readFilePromise(files.next().value)
     logPackageDeps(chapter02Package);             // <1>
   })
   .then(chapter02Package => {                     // <2>
-    // ...
+    console.log(chapter02Package);
+    
     return readFilePromise(files.next().value);   // <3>
   })
   .then(logPackageDeps, logError)                 // <4>

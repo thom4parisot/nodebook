@@ -1,3 +1,5 @@
+'use strict';
+
 const a = [1, 2];
 
 console.log(a.concat(3));		// <1>

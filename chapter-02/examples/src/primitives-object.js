@@ -1,6 +1,7 @@
+'use strict';
+
 const litteral = { literally: 'lateral' };
 const litteralCopy = litteral;
-const constructed = new Date();
 const objectCreated = Object.create(litteral);
 
 console.log(litteral.literally);        // <1>

@@ -9,6 +9,7 @@ inquirer.prompt({
   filter: (input) => sanitize(input),
   validate: (input) => {
     try {
+      // eslint-disable-next-line global-require
       require(sanitize(input));
       return true;
     }

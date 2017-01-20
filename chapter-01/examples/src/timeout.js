@@ -1,3 +1,5 @@
+'use strict';
+
 const referenceTime = process.hrtime();
 const printT = () => console.log(process.hrtime(referenceTime)[0]);
 

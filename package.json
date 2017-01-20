@@ -5,7 +5,7 @@
   "main": "index.js",
   "bin": "server.js",
   "scripts": {
-    "lint": "eslint chapter-*/**/*.js",
+    "lint": "eslint --ignore-path .gitignore --fix '**/*.js'",
     "test": "exit 0",
     "posttest": "npm run lint"
   },
@@ -49,6 +49,7 @@
       "eqeqeq": 2,
       "global-require": 2,
       "handle-callback-err": 2,
+      "no-console": 0,
       "no-path-concat": 1,
       "no-sync": 1,
       "no-undef": 2,

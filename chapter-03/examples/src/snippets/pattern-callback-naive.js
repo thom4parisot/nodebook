@@ -14,7 +14,9 @@ const logPerformance = (functionName, timeDiff) => {
 
 const storeData = (filename, data) => {
   fs.writeFile(filename, data, { encoding: 'utf-8' }, (err) => {
-    if (err) return logErr(err);
+    if (err) {
+      return logErr(err);
+    }
 
     console.log('Data written to %s.', filename);
   });

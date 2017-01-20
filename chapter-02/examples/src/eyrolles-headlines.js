@@ -9,6 +9,7 @@ const getHeadlinesFromHtmlSource = (html) => {
   const re = /h2 itemprop="Headline"><a href="([^"]+)">(.+)<\/a><\/h2/gm;
   let title = '';
 
+  // eslint-disable-next-line no-cond-assign
   while(title = re.exec(html)){
     newTitles.push({ url: title[1], title: title[2] });
   }

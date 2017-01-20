@@ -23,6 +23,7 @@ watcher.on('change', filepath => {
 });
 
 setTimeout(() => {
+  // eslint-disable-next-line global-require
   require('./npm-mkdirp');
 
   setTimeout(watcher.close.bind(watcher), 200);

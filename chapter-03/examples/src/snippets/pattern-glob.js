@@ -5,13 +5,13 @@ const options = {
   cwd: __dirname
 };
 
-const displayFiles = (err, files){
+const displayFiles = (err, files) => {
   if (err) {
     throw err;
   }
 
   console.log(files);
-}
+};
 
 glob('template.*', options, displayFiles);        // <1>
 glob('template.{hbs,ej*}', options, displayFiles);// <2>

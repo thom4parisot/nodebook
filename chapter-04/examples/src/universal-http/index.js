@@ -1,6 +1,7 @@
 'use strict';
 
 if (typeof require === 'function') {      // <1>
+  // eslint-disable-next-line global-require
   var superagent = require('superagent');
 }
 

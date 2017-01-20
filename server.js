@@ -6,7 +6,6 @@ const http = require('http');
 const finalhandler = require('finalhandler');
 const getPort = require('get-port');
 
-const doOpen = parseInt(process.env.BROWSER_OPEN || 0, 10) === 1;
 const PORT = process.env.PORT;
 
 /*

@@ -9,11 +9,10 @@ const uppercaseAsync = (message, callback) => {
 const splitWordsAsync = (message, callback) => {
   process.nextTick(() => {
     if (typeof message !== 'string'){
-      callback(new TypeError('message is not a String'));
+      return callback(new TypeError('message is not a String'));
     }
-    else {
-      callback(null, message.split(' '));
-    }
+
+    return callback(null, message.split(' '));
   });
 }
 
@@ -22,10 +21,10 @@ const abbreviateAsync = (words, callback) => {
     try {
       const abbr = words.reduce((abbr, word) => abbr + word[0], '');
 
-      callback(null, abbr);
+      return callback(null, abbr);
     }
     catch (err){
-      callback(err);
+      return callback(err);
     }
   });
 }

@@ -1,5 +1,7 @@
 'use strict';
 
+/* eslint-disable no-sync */
+
 const fs = require('fs');
 
 const getFilecontent = (filename) => {

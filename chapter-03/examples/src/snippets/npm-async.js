@@ -11,4 +11,10 @@ async.waterfall([
   (string, done) => done(null, string.split(',')),
   (array, done) => done(null, mapStringFn('trim', array)),
   (array, done) => done(null, mapStringFn('toLocaleUpperCase', array)),
-], (err, result) => console.log(result)); // <1>
+], (err, result) => {
+  if (err) {
+    return console.error(err);
+  }
+
+  console.log(result); // <1>
+});

@@ -15,5 +15,9 @@ if (process.env.NODE_ENV !== 'production'){
 }
 
 server.on('error', (err) => {
+  if (err) {
+    // ...  
+  }
+
   // ...
 });

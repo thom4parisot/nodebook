@@ -9,6 +9,6 @@ let count = 0;
 
 fs.createReadStream(filename)
   .pipe(JSONStream.parse('*'))
-  .on('data', (chunk) => count++)
+  .on('data', () => count++)
   .on('end', () => console.log(count)) // <1>
   .on('error', (err) => console.error(err));

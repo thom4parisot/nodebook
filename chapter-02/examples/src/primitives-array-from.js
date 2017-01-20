@@ -1,3 +1,5 @@
+'use strict';
+
 function logArguments() {
   console.log(Array.from(arguments));
 }

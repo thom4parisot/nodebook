@@ -11,7 +11,7 @@ const findByUserId = (req, res, next) => {
 
       next();
     })
-    .on('error', err => next(new Error('Unknown user identifier.')));
+    .on('error', () => next(new Error('Unknown user identifier.')));
 }
 
 routes.get('/:user_id', findByUserId, (req, res) => {

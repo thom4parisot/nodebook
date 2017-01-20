@@ -1,6 +1,6 @@
 'use strict';
 
-conxt test = require('tape');
+const test = require('tape');
 
 test('Date test', (t) => {
   t.plan(1);

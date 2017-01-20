@@ -1,16 +1,16 @@
 'use strict';
 
-const _ = require('lodash');
+const { partial, compose } = require('lodash');
 
 const charSplit = (char, string) => string.split(char);
-const mapStringFn = (fn, array) {
+const mapStringFn = (fn, array) => {
   return array.map(Function.prototype.call, String.prototype[fn]);
 };
 
-const mapUppercase = _.partial(mapStringFn, 'toLocaleUpperCase');
-const mapTrim = _.partial(mapStringFn, 'trim');
-const commaSplit = _.partial(charSplit, ',');
+const mapUppercase = partial(mapStringFn, 'toLocaleUpperCase');
+const mapTrim = partial(mapStringFn, 'trim');
+const commaSplit = partial(charSplit, ',');
 
-const splitAndUppercase = _.compose(mapUppercase, mapTrim, commaSplit);
+const splitAndUppercase = compose(mapUppercase, mapTrim, commaSplit);
 
 console.log(splitAndUppercase(' a , b , c , d ')); // <1>

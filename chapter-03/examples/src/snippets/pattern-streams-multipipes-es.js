@@ -10,7 +10,9 @@ const filename = join(dataDir, 'datalocale-20140320-daily.json');
 const readStream = fs.createReadStream(filename);
 const resourcesStream = readStream
   .pipe(JSONStream.parse('*.resources.*'))
-  .pipe(es.mapSync(resource => JSON.stringify(resource)));
+  .pipe(es.map((resource, next) => {
+    next(null, JSON.stringify(resource));
+  }));
 
 readStream
   .pipe(fs.createWriteStream('/tmp/datalocale-daily-backup.json'));

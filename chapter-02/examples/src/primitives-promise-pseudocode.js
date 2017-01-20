@@ -1,3 +1,7 @@
+'use strict';
+
+/* eslint-disable no-undef */
+
 // Avec des callbacks
 fs.readFile(filepath, (err, buffer) => {
   if (err) {
