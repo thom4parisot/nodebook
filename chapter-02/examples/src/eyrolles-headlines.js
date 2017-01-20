@@ -1,10 +1,7 @@
 'use strict';
 
 const http = require('http');
-const jsdom = require('jsdom').jsdom;
-
 const url = 'http://www.eyrolles.com/Informatique/Nouveautes/';
-
 const request = http.get(url);
 
 const getHeadlinesFromHtmlSource = (html) => {
@@ -21,7 +18,7 @@ const getHeadlinesFromHtmlSource = (html) => {
 
 const formatTitles = (list, book) => `${list}'\n- ${book.title} (${book.url})`;
 
-const titles = [];
+let titles = [];
 
 request.on('error', (err) => {
   console.log('La demande a échoué : ', err.message);
