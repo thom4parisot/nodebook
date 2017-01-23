@@ -117,6 +117,15 @@ Toutefois si vous utilisez déjà un gestionnaire de paquet, voici quelques reco
 - *scoop.sh* : `scoop install nodejs`
 - *Chocolatey* : `cinst nodejs.install`
 
+[CAUTION]
+.[RemarquePreTitre]#Attention# Versions supportées de Windows
+====
+Windows XP, Windows Vista et les versions antérieures à celles-ci ne sont pas supportées.
+
+Il est déconseillé d'utiliser une version plus ancienne de Node pour contourner ce comportement.
+Il en va de la *sécurité de vos applications*.
+====
+
 ===== Raspberry Pi
 
 Node a effectué des changements dans son architecture dans sa version 0.8.
@@ -714,7 +723,9 @@ Une syntaxe abrégée est disponible via les _arrow functions_ :
 .Tableau d'équivalence de syntaxe
 |=========
 | `x => x*2` | `function(x){ return x*2 }`
-| `x => { x*2 }` | `function(x){ x*2 }`
+| `x => { x }` | `function(x){ x }`
+| `x => ({ x })` | `function(x){ return { x }; }`
+| `(x, y) => ({ x: y })` | `function(x, y){ return { x: y }; }`
 | `(x, y) => x+y` | `function (x, y){ return x+y }`
 | `x => { const y = 2; return x*y }` | `function(x){ const y = 2; return x*y }`
 |=========
