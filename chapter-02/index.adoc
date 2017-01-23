@@ -561,6 +561,7 @@ Date.now();             // <2>
 <1> Retourne `1397381941000` ;
 <2> Retourne `1397381941031`, équivalent à la syntaxe précédente donc, la précision à la milliseconde près en plus.
 
+[[primitives-array]]
 ===== Array
 
 L'opérateur `typeof` ne permet pas d'identifier un tableau. Il faut pour cela privilégier la méthode `isArray` :
@@ -608,7 +609,7 @@ include::{sourceDir}/primitives-array-concat.js[]
 ----
 <1> Retourne `[ 1, 2, 3 ]` ;
 <2> Retourne `[ 1, 2, 3, 4 ]` ;
-<3> Retourne `[ 1, 2, 3, 4, 4, 5 ]` — cf. <<primitive-set,Set>>.
+<3> Retourne `[ 1, 2, 3, 4, 4, 5 ]` — cf. <<primitive-map-set,Map et Set>>.
 
 La fonction de tri via la méthode `sort` se base sur des comparaisons positives, négatives ou neutres pour retourner un nouveau tableau, réindexé :
 
@@ -704,11 +705,6 @@ a.forEach(print); // <2>
 <2> Affiche 4 valeurs : `1`, `3`, `undefined` puis `null`.
 ====
 
-[[primitive-set]]
-===== Set
-
-TBD.
-
 ===== Function
 
 Les fonctions permettent d'isoler des portions de code et de les rendre réutilisables via l'utilisation de paramètres.
@@ -726,7 +722,7 @@ Il est important de noter que la déclaration d'une fonction et son exécution s
 ----
 include::{sourceDir}/primitives-function.js[]
 ----
-<1> Utilisation d'une _arrow function_ en tant que fonction anonyme de _callback_ ;
+<1> Utilisation d'une fonction fléchée (_arrow function_) en tant que fonction anonyme de _callback_ ;
 <2> Utilisation d'une fonction nommée comme _callback_ de la méthode `Array.map` ;
 <3> Illustration d'une _Immediatly Invocked Function Expression_, aka _IIFE_ aka _fonction immédiatement exécutée_ ;
 <4> Retourne `'function'` ;
@@ -739,7 +735,7 @@ Il s'agit d'une excellente manière d'isoler des variables, notamment pour évit
 
 L'exemple précédent illustre un tel cas de portée en contenant la constante `values` dans l'_IIFE_ : le contexte parent n'a aucune connaissance de son existence — et c'est tant mieux.
 
-Une syntaxe abrégée est disponible via les _arrow functions_ :
+Une syntaxe abrégée est disponible via les fonctions fléchées :
 
 .Tableau d'équivalence de syntaxe
 |=========
@@ -784,7 +780,7 @@ include::{sourceDir}/primitives-function-call-apply.js[]
 ----
 <1> Retourne `'<title>'` dans les deux cas.
 
-
+[[primitives-object]]
 ===== Object
 
 Dans ECMAScript, tout est objet. C'est le _prototype_ qui détermine le comportement dudit objet.
@@ -838,10 +834,75 @@ include::{sourceDir}/primitives-object-assign.js[]
 <3> Affiche `[ 'img', 'h1' ]` ;
 <4> Affiche `[ 'url', 'env', 'tags' ]` — l'objet `testOptions` est donc modifié.
 
-===== Map
+
+[[primitive-destructuring]]
+===== Décomposition
+
+L'affectation par _décomposition_ (_destructuring_) est une manière élégante et intuitive de piocher dans un <<primitives-array,tableau>> ou dans un <<primitives-object,objet>>.
+La décomposition n'altère pas le contenu des variables destructurées.
+
+Les valeurs d'un tableau sont décomposées dans l'ordre tandis que l'opérateur _spread_ (`...`) permet d'assigner le _reste_ des valeurs dans une seule et même variable ou constante :
+
+[source,javascript]
+.primitives-destructuring-array.js
+----
+include::{sourceDir}/primitives-destructuring-array.js[]
+----
+<1> Décompose la première valeur du tableau et assigne _le reste_ dans une autre constante ;
+<2> Affiche `Bordeaux` ;
+<3> Affiche `[ 'Toulouse', 'Montpellier', 'Aix-en-Provence' ]` ;
+<4> Affiche `[ 'Bordeaux', 'Toulouse', 'Montpellier', 'Aix-en-Provence' ]`.
+
+Il est également possible de _sauter_ des valeurs en ne nommant pas _autant_ de variables ou de constantes lors de la décomposition :
+
+[source,javascript]
+.primitives-destructuring-spread.js
+----
+include::{sourceDir}/primitives-destructuring-spread.js[]
+----
+<1> Assigne la première valeur dans la constante `first`, saute la seconde et assigne le reste des valeurs dans `end` ;
+<2> Affiche `un` ;
+<3> Affiche `[ 'deux', 'trois', 'quatre' ]`.
+
+Le même mécanisme existe pour les <<primitives-object,objets>>, y compris dans des arguments de fonction :
+
+[source,javascript]
+.primitives-destructuring-object.js
+----
+include::{sourceDir}/primitives-destructuring-object.js[]
+----
+<1> Destructure la fonction `join` directement depuis le `require` de module ;
+<2> Destructure la valeur `debug` du premier argument;
+<3> Affiche `folder/filename.txt` – `folder\filename.txt` sous Windows ;
+<4> Affiche `true` ;
+<5> Affiche `undefined` – cette valeur n'existe pas dans l'objet `config` ;
+<6> Affiche `Demo` – cette valeur est complétée par défaut dans l'assignation ;
+<7> Affiche `true`.
+
+[[primitive-rest]]
+===== Paramètres du reste
+
+Les _paramètres du reste_ (_rest parameters_) utilisent une syntaxe identique à la _décomposition_ mais opèrent au niveau des arguments de fonctions :
+
+[source,javascript]
+.primitives-rest.js
+----
+include::{sourceDir}/primitives-rest.js[]
+----
+<1> Assigne la constante destructurée `args` en tant que constante `cheeses` ;
+<2> Affiche `Fromages` ;
+<3> Affiche `[ { name: 'Cabécou' }, { name: 'Chaource' } ]` –
+
+En bref, ils sont l'équivalent de l'ancienne variable _magique_ `arguments` mais avec une meilleure finesse quant aux paramètres concernés.
+Les éléments retournée par les _paramètres du reste_ interface ont aussi l'avantage d'être un véritable objet de <<primitives-array,tableau>> – `arguments` est _itérable_ mais n'est pas un tableau, et donc ne bénéficie pas des méthodes de compréhension telles que `forEach`, `map`, etc.
+
+[[primitive-map-set]]
+===== Map et Set
 
 TBD.
 
+
+[[primitive-class]]
 ===== Class
 
 ECMAScript 2015 ajoute au langage des sucres syntaxiques facilitant la création et maintenance d'objets métier.
@@ -1027,6 +1088,14 @@ Des librairies de promesses ajoutent des sucres syntaxiques pour faciliter encor
 Enfin, il est toujours possible de jeter un œil aux _générateurs_ ainsi qu'aux fonctions _async_ (prévues pour ES2016).
 ====
 
+
+[[primitive-async-await]]
+===== async/await
+
+TBD.
+
+
+[[primitive-regexp]]
 ===== RegExp
 
 Les expressions régulières en JavaScript permettent de pratiquer des recherches de motifs simples et complexes au sein de chaînes de caractères.
@@ -1101,6 +1170,8 @@ Il faut juste veiller à ce que ce soit un résultat escompté pour éviter tout
 ----
 <1> Retourne `true`.
 
+
+[[primitive-json]]
 ===== JSON
 
 L'introduction du support natif du parsing JSON dans ECMAScript 5 a apporté un grand confort dans la consommation de données issues d'API.
@@ -1147,6 +1218,8 @@ Il s'agit d'une mine d'or pour comprendre les mécanismes internes du langage, l
 - https://www.ecma-international.org/ecma-262/5.1/
 ====
 
+
+[[globals]]
 ==== Variables globales dans Node.js
 
 En plus des primitives ECMAScript, Node introduit des variables globales supplémentaires.
@@ -1167,7 +1240,7 @@ Ce contenu est envoyé vers la sortie standard, `process.stdout` :
 
 [source,javascript]
 ----
-console.log('ECMA%s', 'script'); <1>
+console.log('ECMA%s', 'script'); // <1>
 ----
 <1> Affiche `'ECMAScript'`.
 
