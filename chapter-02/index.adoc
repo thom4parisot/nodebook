@@ -441,6 +441,27 @@ On peut remplacer les occurrences correspondantes à un masque de caractères vi
 <1> Retourne `'I love JavaScript'` ;
 <2> Retourne `'i ♥ javascript'`.
 
+Les _template literals_ servent à composer des chaînes de caractère multilignes et/ou contenant des expressions ECMAScript :
+
+[source,javascript]
+.primivite-template-literals.js
+----
+include::{sourceDir}/primitives-template-literals.js[]
+----
+<1> Retourne `'I ♥ JavaScript.\nCet exemple se trouve dans le fichier "primitives-template-literals.js"'`.
+
+Les _template literals_ peuvent se préfixer d'un nom de fonction.
+Ce mécanisme nommé _tagged template literals_ sert de filtre pour interpréter et interpoler le contenu de chaque _template_ (élément contenu dans `${}`). Vous pouvez écrire vos propres fonctions mais aussi utiliser des modules _npm_. +
+L'exemple suivant illustre une sécurisation de contenu tiers à l'aide de la fonction `safeHtml` fournie par le module `common-tags` ([URL]#https://npmjs.com/common-tags#) :
+
+[source,javascript]
+.primivite-template-literal-tags.js
+----
+include::{sourceDir}/primitives-tagged-template-literals.js[]
+----
+<1> Affiche `<div class="user-content">\n<script>alert(document.cookie)</script>\n</div>` ;
+<2> Affiche `<div class="user-content">\n\&lt;script\&gt;alert(document.cookie)\&lt;/script\&gt;\n</div>`.
+
 ===== Number
 
 Tous les nombres en ECMAScript sont des flottants (double précision) respectant le standard link:https://fr.wikipedia.org/wiki/IEEE_754[_IEEE 754_].
