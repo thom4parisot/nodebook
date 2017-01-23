@@ -4,7 +4,27 @@ Pour en savoir plus: [oncletom.io/2017/residence-nodejs/](https://oncletom.io/20
 
 # Journal
 
+## Lundi 23 janvier
+
+- _Chapitre 2_ : décomposition, paramètres du reste, _template literals_
+- _Chapitre 2_ : mention de [node.green](http://node.green)
+- _Chapitre 2_ : diverses mises à jour, suppression de Brackets
+- Maintenance des _issues_
+
+## Vendredi 20 janvier
+
+Merci [@JoliCode](https://github.com/jolicode) pour le coin de bureau 👋
+
+- _Chapitre 2_ : complétion d'un exemple de parsing HTML synchrone et streamé
+- _Chapitre 2_ : ménage ici et là ;
+- Maintenance des _issues_
+
+Journée peu productive en écriture mais riche en préparations.
+
+
 ## Jeudi 19 janvier
+
+Merci [@BetaGouv](https://github.com/sgmap) pour le coin de bureau 👋
 
 - _Chapitre 1_ : mises à jour du _Node Security Projet_, des chiffres liées à _npm_ et Node
 - _Chapitre 1_ : semver, cycle de vie rendu et LTS ([#54](https://github.com/oncletom/nodebook/issues/54), [#53](https://github.com/oncletom/nodebook/issues/53))
