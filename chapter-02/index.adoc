@@ -362,16 +362,32 @@ ECMAScript 5 introduit le mode strict limitant fortement les effets de bord ind�
 - [URL]#https://kangax.github.io/compat-table/es5/#
 - [URL]#https://www.ecma-international.org/ecma-262/5.1/#
 
-==== Standard ECMA-262 Edition 2015
+image::images/compat-table.png[align="center",scaledwidth="85%"]
+
+==== Standard ECMA-262 Edition 2015, 2016 etc.
 
 La spécification *ECMAScript 2015* (_ES2015_) a été publiée en juin 2015 et succède à *ECMAScript 5*. +
 La spécification _ES2015_ a successivement été appelée _ECMAScript Harmony_ puis _ECMAScript 6_.
 
-La page Web suivante référence l'état de l'implémentation d'ECMAScript 2015 sur différentes plates-formes, dont Node :
+La page Web suivante référence l'état de l'implémentation d'ECMAScript 2015 ainsi que des versions ultérieures sur différentes plates-formes, dont Node :
 
-- https://kangax.github.io/compat-table/es6/
+- [URL]#https://kangax.github.io/compat-table/es6/#
 - [URL]#https://www.ecma-international.org/ecma-262/6.0/#
 
+Un autre site web se focalise uniquement sur les avancées de l'implémentation des versions *ECMAScript* pour Node : [URL]#http://node.green/#.
+
+image::images/compat-table-node.png[align="center",scaledwidth="85%"]
+
+Certaines fonctionnalités sont disponibles uniquement en utilisant une option de démarrage spécifique, par exemple :
+
+----
+$ node --harmony script.js                # <1>
+$ node --harmony-async-await script.js    # <2>
+----
+<1> Active toutes les fonctionnalités préliminaires ;
+<2> Active uniquement la fonctionnalité <<primitives-async-await,async/await>>.
+
+Une page explicative (en anglais) sur le site `nodejs.org` contient des indications à jour sur la compatibilité générale avec __ECMAScript 2015_ : [URL]#https://nodejs.org/en/docs/es6/#
 
 ==== Rappel des primitives ECMAScript
 
