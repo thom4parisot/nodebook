@@ -182,8 +182,8 @@ Certains modules tels que _Yeoman_ ou _Express Generator_ mettent à disposition
 
 Servez-vous en pour automatiser l’initialisation de vos projets — surtout s’il s’agit d’une opération récurrente.
 
-- https://npmjs.com/yo
-- https://npmjs.com/express-generator
+- [URL]#https://npmjs.com/yo#
+- [URL]#https://npmjs.com/express-generator#
 =====
 
 Intéressons-nous plus particulièrement au répertoire _node_modules_.
@@ -371,9 +371,9 @@ La procédure d'installation est relativement simple :
 Dans le cadre des exemples contenus dans ce chapitre, il suffirait d'exécuter ces commandes :
 
 ----
-git clone https://github.com/oncletom/nodebook.chapter-03.git
-cd nodebook.chapter-03
-npm install
+$ git clone https://github.com/oncletom/nodebook.git
+$ cd nodebook/chapter-03/examples
+$ npm install
 ----
 
 Vous remarquerez que la commande `npm install` est utilisée seule, sans npm de module.
@@ -556,7 +556,7 @@ Des modules comme _nconf_ proposent des abstractions gérant de multiples cas de
 
 Ils vont jusqu'à la prise en charge des notions d'héritage et de cascade pour faciliter la maintenance et ne gérer que les différences entre environnement, plutôt que d'avoir à tout spécifier à chaque fois.
 
-- https://npmjs.com/nconf
+- [URL]#https://npmjs.com/nconf#
 ====
 
 Une autre approche, tout aussi voire plus simple consiste à réutiliser le fichier `package.json` en y ajoutant des propriétés supplémentaires.
@@ -610,7 +610,7 @@ Il existe plusieurs méthodes, allant de la simple exécution d'un script Node �
 L'utilisation seule de l'interpréteur Node pour démarrer une application est évidemment la plus simple mais également la moins robuste.
 
 ----
-node server.js
+$ node server.js
 ----
 
 Elle est pratique et acceptable dans le cadre d'un développement local voire encore dans le cadre d'un exécutable à usage ponctuel.
@@ -624,20 +624,20 @@ Dès qu'un fichier est modifié, le module interrompt le serveur et le relance a
 Installez le module globalement et ensuite, au lieu d'exécuter `node server.js`, exécutez `nodemon server.js`.
 C'est tout !
 
-- https://npmjs.com/nodemon
+- [URL]#https://npmjs.com/nodemon#
 ====
 
 Une technique "de pauvre" consisterait à utiliser le symbole _&_ afin de rendre la main au système — sans pour autant transformer le processus en _daemon_. +
 L'inconvénient de cette méthode est que le processus sera interrompu par le système si vous quittez votre session shell — ce qui sera le cas lors d'une connexion distante via SSH :
 
 ----
-node server.js &
+$ node server.js &
 ----
 
 Enfin, dernière alternative : l'utilisation de la commande `nohup` pour demander au système de ne pas interrompre le processus en cas de fin de session.
 
 ----
-nohup server.js &
+$ nohup server.js &
 ----
 
 Quoiqu'il advienne, les solutions précédemment citées n'adresseront pas les problématiques suivantes :
@@ -657,7 +657,7 @@ La commande npm propose des fonctionnalités additionnelles complétant et facil
 Une de ces fonctionnalités est `npm start` :
 
 ----
-npm start
+$ npm start
 ----
 
 Cette commande ne fait rien en soit si ce n'est exécuter la commande contenue dans la section `scripts.start` de votre fichier `package.json` :
@@ -709,7 +709,7 @@ _forever_ est un module populaire dédié à la gestion et au monitoring de proc
 La commande suivante aura pour effet de démarrer et de placer le processus `server.js` — un _daemon_.
 
 ----
-forever start server.js
+$ forever start server.js
 ----
 
 Il y a deux gains évidents à cet outillage :

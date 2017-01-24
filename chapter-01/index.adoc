@@ -48,10 +48,10 @@ La différence entre ces trois désignations peut sembler subtile, futile voire 
 
 L'entreprise _Netscape_ s'y est déjà essayée au début des années 1990 avec _Netscape Enterprise Server_, juste après l'avoir introduit dans son navigateur web _Netscape Navigator_.
 
-En 1997, _Netscape_ s'est attelée à créer https://www.mozilla.org/rhino/[Rhino], une implémentation de JavaScript en Java disponible sous licence libre.
+En 1997, _Netscape_ s'est attelée à créer _Rhino_ ([URL]#https://www.mozilla.org/rhino/#), une implémentation de JavaScript en Java disponible sous licence libre.
 _Rhino_ était un des projets liés à la réécriture de _Netscape Navigator_ en Java. Si _Netscape_ a depuis fermé ses portes, _Rhino_ a permis l'émergence de projets utiles aux développeurs web.
 
-D'autres initiatives plus récentes comme http://ape-project.org/[APE (Ajax Push Engine)] ont mis en œuvre JavaScript côté serveur. JavaScript était surtout un choix logique de partage de code entre client et serveur pour Comet, le précurseur des Websockets.
+D'autres initiatives plus récentes comme _APE_ (_Ajax Push Engine_, [URL]#http://ape-project.org/#) ont mis en œuvre JavaScript côté serveur. JavaScript était surtout un choix logique de partage de code entre client et serveur pour Comet, le précurseur des Websockets.
 
 [TIP]
 .[RemarquePreTitre]#Glossaire# Comet
@@ -80,8 +80,8 @@ Rhino est toujours utile dès qu'un projet Java implique du JavaScript.
 Google l'utilise comme environnement d'exécution de ses https://gsuite-developers.googleblog.com/2012/11/using-open-source-libraries-in-apps.html[Apps Scripts].
 Ces scripts permettent à tout un chacun de développer des extensions et des interactions supplémentaires pour les documents Google Drive.
 
-Rhino est également employé dans https://yui.github.io/yuicompressor/[yuicompressor], un optimiseur CSS et JavaScript créé par Yahoo.
-_yuicompressor_ a été surpassé par https://developers.google.com/closure/compiler/[Closure Compiler] et https://npmjs.com/uglify-js[UglifyJS].
+Rhino est également employé dans _yuicompressor_ ([URL]#https://yui.github.io/yuicompressor/#), un optimiseur CSS et JavaScript créé par Yahoo.
+_yuicompressor_ a été surpassé par _Closure Compiler_ ([URL]#https://developers.google.com/closure/compiler/#) et _UglifyJS_ (https://npmjs.com/uglify-js#).
 Ce dernier est écrit en JavaScript et repose sur… Node. +
 La boucle est bouclée.
 ====
@@ -121,7 +121,7 @@ image::images/7112862941_3b8c8e9916_o_d.png[align="center", link="https://www.fl
 ====
 L'équipe d'ingénierie de Flickr explique comment elle a contourné le problème de l'upload via un formulaire classique ; problème qui gelait la fenêtre du navigateur pendant la durée du téléversement.
 
-- https://wp.me/p2DMyG-ok
+- [URL]#https://wp.me/p2DMyG-ok#
 ====
 
 C'est le *déclic* pour Ryan : _Mongrel_ avait déjà un plug-in pour cette fonctionnalité mais il souhaitait simplifier davantage le travail pour les développeurs.
@@ -263,7 +263,7 @@ En février 2015, Joyent transfère la gestion de Node à la <<node-foundation,N
 ====
 Ryan Dahl, alors développeur actif de Node, annonce le dépôt de marque par l'entreprise Joyent sur le blog officiel du projet Node.
 
-- https://nodejs.org/en/blog/uncategorized/trademark/
+- [URL]#https://nodejs.org/en/blog/uncategorized/trademark/#
 ====
 
 anchor:node-foundation[]
@@ -286,7 +286,7 @@ _npm_ est une dénomination qui abrite plusieurs concepts : un *outil en ligne d
 
 _npm_ est originellement un module Node créé par Isaacs Schlueter.
 Ce module permet d'installer des modules tiers et de les lier sous forme d'un arbre de dépendances.
-Il est l’équivalent de https://rubygems.org/[rubygems.org] pour Ruby, de http://www.cpan.org/[cpan.org] pour Perl ou encore de https://pypi.python.org/pypi[pypi.python.org] pour Python.
+Il est l’équivalent de _Rubygems_ ([URL]#https://rubygems.org/#) pour Ruby, de _CPAN_ ([URL]#http://www.cpan.org/#) pour Perl ou encore de _pypi_ ([URL]#https://pypi.python.org/pypi#) pour Python.
 
 Nous reviendrons plus en détail sur son utilisation dans le <<../chapter-02/index.adoc#,chapitre 2 _Utiliser des modules tiers_>>.
 
@@ -340,7 +340,7 @@ Son activité en fait un concurrent direct de <<joyent,Joyent>> et de <<npm-inc,
 
 _Nodejitsu_ démontre un investissement fort dans la communauté Node en contribuant à plusieurs centaines de modules et en prenant en charge l'hébergement du registre _npm_ de 2010 jusqu'en décembre 2013.
 
-En 2013, _Nodejitsu_ lance l'initiative controversée _#scalenpm_ visant à collecter des fonds pour améliorer la performance et la stabilité du registre https://www.npmjs.com/[npmjs.com]. +
+En 2013, _Nodejitsu_ lance l'initiative controversée _#scalenpm_ visant à collecter des fonds pour améliorer la performance et la stabilité du _registre npm_ ([URL]#https://www.npmjs.com/#). +
 Elle attise les tensions avec la compagnie _npm, Inc._ en tentant de lui couper l'herbe sous le pied, sans succès.
 
 En février 2015, la compagnie de vente de noms de domaine et d'hébergement _GoDaddy_ rachète _Nodejitsu_, absorbe son équipe et met fin à ses activités commerciales.
@@ -408,7 +408,7 @@ L'architecture se décompose en plusieurs couches, partant du plus haut niveau (
 4. _libuv_
 5. Système d'exploitation
 
-.Via https://twitter.com/busyrich/status/496344440559378432
+.Via [URL]#https://twitter.com/busyrich/status/496344440559378432#
 image::images/event-loop.svg[align="center", link="https://twitter.com/busyrich/status/496344440559378432",scaledwidth="85%"]
 
 ==== API Node
@@ -484,7 +484,7 @@ L'essentiel est d'en retenir que Node se base sur ce mécanisme de chargement de
 ====
 Le site officiel de CommonJS documente différentes spécifications vouées à promouvoir l'interopérabilité et la réutilisabilité de JavaScript sur divers environnement d'exécution.
 
-- http://www.commonjs.org/
+- [URL]#http://www.commonjs.org/#
 ====
 
 ==== Interpréteur Node
@@ -519,7 +519,7 @@ La liaison avec le shell système est effectuée par _libuv_.
 Le code source de Node est disponible sur GitHub.
 Le parcourir permet de mieux comprendre la magie de son fonctionnement… ou d'avoir subitement mal à la tête !
 
-- https://github.com/nodejs/node
+- [URL]#https://github.com/nodejs/node#
 ====
 
 ==== Machine Virtuelle V8
@@ -539,7 +539,7 @@ Cela concerne aussi bien la prise en charge des nouveautés d'ECMAScript (versio
 Google propose une documentation en ligne du projet V8.
 Cette documentation est accompagnée d'un guide pour intégrer V8 dans d'autres programmes C++.
 
-- https://developers.google.com/v8/
+- [URL]#https://developers.google.com/v8/#
 ====
 
 ==== libuv
@@ -559,7 +559,7 @@ JavaScript n'y est pour rien, si ce n'est à travers la puissance de la machine 
 ====
 Le code source de _libuv_ est disponible sur GitHub. Le parcourir permet de mieux comprendre les adaptations à chaque système d'exploitation, par exemple.
 
-- https://github.com/libuv/libuv
+- [URL]#https://github.com/libuv/libuv#
 ====
 
 [[event-loop]]
@@ -769,7 +769,7 @@ Ce mécanisme aide au choix des composants pour bâtir des applications robustes
 ====
 La documentation de l'API Node est disponible au format HTML sur le site officiel du projet.
 
-- https://nodejs.org/api/
+- [URL]#https://nodejs.org/api/#
 ====
 
 ==== Modules npm
