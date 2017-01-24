@@ -1711,14 +1711,15 @@ include::{sourceDir}/print-csv.js[]
 ----
 
 Le premier bloc décrit l'assignation des modules Node `fs` et `path` vers des variables.
-Dans un cas on assigne le module entier tandis que dans le second, on n'exporte _que la méthode `join`_.
+Dans un cas on assigne le module entier tandis que dans le second, on n'exporte _que_ la fonction `join`.
 L'intérêt d'utiliser l'une ou l'autre des méthodes est une *question de lisibilité*.
 
 La construction du chemin vers le fichier `data/books.csv` en utilisant la méthode `join` du module `path` est une bonne habitude à prendre.
-Elle garantit la compatibilité avec le séparateur de répertoires du système d'exploitation sur lequel est exécuté le script Node.
+Elle *garantit une compatibilité* de chemin d'accès avec tous les systèmes d'exploitation. +
+Ce chemin sera construit en tant que `./data/books.csv` sur les systèmes UNIX tandis qu'il sera équivalent à `.\data\books.csv` sous Windows ou encore `@.data.books/csv` sous RISC OS.
 
-La présence de `__dirname` garantit quant à elle une construction du chemin à partir du _fichier exécuté_ et non depuis le répertoire de travail actuel (`process.cwd()`). +
-Ce chemin sera construit comme `./data/books.csv` sur les systèmes UNIX tandis qu'il pourra être construit comme `.\data\books.csv` sous Windows ou encore `@.data.books/csv` sous RISC OS. +
+La présence de `\__dirname` garantit quant à elle une construction du chemin à partir du _module courant_.
+Sans utilisation de `\__dirname`, le chemin sera construit depuis le répertoire de travail courant (`process.cwd()`).
 
 L'exécution de `fs.readFile` est asynchrone _et_ non bloquante.
 À la manière des requêtes Ajax dans les navigateurs Web, la fonction ne retourne pas de résultat mais elle exécute la fonction de _callback_ dès que la lecture est effectuée avec succès … ou qu'un problème est survenu :
@@ -1761,18 +1762,17 @@ fs.readFile(FILENAME, (err, binaryContent) => {
   }
 
   parseRows(binaryContent) // <1>
-    .map(parseRow)         //<2>
+    .map(parseRow)         // <2>
     .slice(1)              // <3>
     .forEach(row => console.log('"%s" a été écrit par %s', row[0], row[1]));
 });
-
 ----
-<1> transforme le contenu du fichier en tableau de lignes ;
-<2> éclate chaque ligne de texte en tableau de cellules ;
-<3> supprime la première ligne d'entête.
+<1> Transforme le contenu du fichier en tableau de lignes ;
+<2> Éclate chaque ligne de texte en tableau de cellules ;
+<3> Supprime la première ligne d'entête.
 
 La syntaxe employée rend explicite l'enchaînement des opérations tout en spécialisant les actions de chaque fonction.
-Elles gagnent ainsi en réutilisabilité.
+Elles pourront être réutilisées et exportées plus facilement par la suite.
 
 C'est autant de temps de gagné pour un possible _refactoring_ si jamais certaines fonctions devenaient utiles dans d'autres modules de votre application.
 
@@ -1785,18 +1785,16 @@ Le code final est relativement élégant et lisible mais souffre de plusieurs in
 - la manipulation d'une ligne sous forme d'un tableau peut rapidement devenir illisible en cas de nombreuses colonnes ;
 - quid de l'utilisation de ce code dans un autre contexte que celui de la ligne de commande ?
 
-Enfin on notera un autre problème, celui de la performance.
-Il ne se révèlera qu'à l'usage, en fonction de la taille du fichier CSV et de sa concurrence d'accès.
-En clair, lorsqu'il sera déjà trop tard.
+Enfin on notera un autre problème, celui de la _performance_.
+Le procédé actuel oblige à charger l'intégralité du fichier CSV en mémoire ainsi qu'à attendre que sa lecture soit terminée avant de démarrer le traitement et son affichage.
 
-Autrement dit, plus le fichier est gros, plus la phase de lecture sera longue et plus nombreuses seront les chances d'obtenir une erreur.
-
-Autant de problèmes dont nous n'avons pas nécessairement envie de nous soucier mais que l'on aimerait pour autant éviter. +
-Et ça tombe bien, d'autres personnes se sont déjà frottés à la lecture de fichiers CSV et ont mis à disposition du code réutilisable donc ne réinventons pas la roue et *utilisons des modules tiers* !
+Ça tombe bien, d'autres personnes se sont déjà frottés à la lecture de fichiers CSV et ont mis à disposition du code réutilisable.
+Ne réinventons pas la roue et apprenons à *utiliser des modules tiers* !
 
 === Introduction aux modules Node
 
-Nous avons évoqué la notion de _modules_ dans les pages précédentes et il est désormais temps de plonger plus en détails dans le sujet pour mieux comprendre une des pierres angulaires de Node.
+Nous avons évoqué la notion de _modules_ dans les pages précédentes.
+Il est temps de plonger plus en détails dans le sujet pour mieux comprendre une des pierres angulaires de Node.
 
 Lorsque la fonction globale `require` est invoquée, plusieurs scénarios de chargement peuvent se dérouler, en fonction de la syntaxe employée :
 
@@ -1814,7 +1812,7 @@ Cette communauté a créé, conçu et contribue à alimenter le registre `npm` p
 C'est de loin le mécanisme privilégié pour installer des modules Node de la manière la plus simple qu'il soit.
 
 Si vous avez installé Node depuis les binaires officiels, `npm` est inclus par défaut.
-Autrement, il convient de vérifier que le programme `npm` est installé sur votre machine avant de continuer.
+Véfifions que le programme `npm` est installé sur notre machine :
 
 ----
 $ npm --version
@@ -1829,15 +1827,15 @@ Nous voulons un module Node permettant de parser et d'itérer facilement sur un 
 Après quelques recherches, il se trouve que le module `comma-separated-values` est un bon candidat pour améliorer notre précédent script.
 La documentation et les informations relatives à son utilisation sont accessibles sur [URL]#https://npmjs.com/comma-separated-values#.
 
-Après avoir préalablement navigué dans le répertoire `examples/chapitre-02/`, l'installation du module se déroule en invoquant la commande `npm install` de la manière suivante :
+Après avoir préalablement navigué dans le répertoire `chapitre-02/examples`, l'installation du module se déroule en invoquant la commande `npm install` de la manière suivante :
 
 ----
 npm install comma-separated-values
 ----
 
-Le module est désormais installé dans le répertoire `examples/chapitre-02/node_modules/comma-separated-values` et est disponible pour tout script invoqué dans le répertoire `examples/chapitre-02/`.
+Le module est désormais installé dans le répertoire `chapitre-02/examples/node_modules/comma-separated-values` et est disponible pour tout script invoqué dans le répertoire `chapitre-02/examples`.
 
-Lire un fichier CSV et en afficher son contenu deviendrait aussi simple que le script suivant :
+Lire un fichier CSV et en afficher son contenu devient aussi simple que le script suivant :
 
 [code,javascript]
 .print-csv-reloaded.js
