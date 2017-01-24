@@ -65,7 +65,7 @@ Une fois l'étape de l'installation terminée, la suite du livre ne fera plus de
 Certains systèmes d'exploitation fournissent leur propre mouture de Node.
 Les procédures les plus courantes sont décrites ci-après.
 
-Une liste complète mais non exhaustive est mise jour sur le wiki du dépôt GitHub de Node à cette adresse : [URL]#https://github.com/joyent/node/wiki/Installing-Node.js-via-package-manager#.
+Une liste complète mais non exhaustive est mise jour sur le wiki du dépôt GitHub de Node à cette adresse : [URL]#https://github.com/nodejs/node/wiki/Installing-Node.js-via-package-manager#.
 
 Si malgré tout votre système n'y était pas listé, le mieux reste encore d'*utiliser un binaire*, de *compiler depuis les sources* ou de demander à votre *moteur de recherche* favori !
 
@@ -218,7 +218,7 @@ cd node-v6.9.4
 ./configure && make && make install
 ----
 
-Les instructions pouvant varier fortement d'un système d'exploitation à l'autre, consultez les dépendances et instructions complètes à cette adresse [URL]#https://github.com/joyent/node/wiki/installation#.
+Les instructions pouvant varier fortement d'un système d'exploitation à l'autre, consultez les dépendances et instructions complètes à cette adresse [URL]#https://github.com/nodejs/node/wiki/installation#.
 
 === Outils de développement
 
@@ -283,7 +283,7 @@ TBD.
 - [URL]#http://www.vim.org/#
 - [URL]#https://github.com/moll/vim-node#
 - [URL]#https://github.com/Valloric/YouCompleteMe#
-- [URL]#https://github.com/joyent/node/wiki/Vim-Plugins#
+- [URL]#https://github.com/nodejs/node/wiki/Vim-Plugins#
 
 
 [WARNING]
@@ -577,7 +577,7 @@ Date.now();             // <2>
 <1> Retourne `1397381941000` ;
 <2> Retourne `1397381941031`, équivalent à la syntaxe précédente donc, la précision à la milliseconde près en plus.
 
-[[primitives-array]]
+[[primitive-array]]
 ===== Array
 
 L'opérateur `typeof` ne permet pas d'identifier un tableau. Il faut pour cela privilégier la méthode `isArray` :
@@ -1741,7 +1741,7 @@ C'est une opération utile pour rendre un programme accessible s'il est situé d
 Pour qu'un fichier soit rendu exécutable, nous devons nous assurer de deux choses :
 
 . du _mode exécutable_ du fichier ;
-. de la présence de l'entête _sheebang_.
+. de la présence de l'entête _shebang_.
 
 Il faut pour cela respectivement :
 
