@@ -1609,6 +1609,7 @@ La plateforme Node fournit un exécutable système : `node`. C'est lui qui digè
 - `node` invoquera le _REPL_, un interpréteur interactif ;
 - `node votre-script.js` invoquera le dit script.
 
+[[node-repl]]
 ==== REPL
 
 Un _REPL_ est un interpréteur interactif exécuté dans votre terminal.
@@ -1624,6 +1625,7 @@ image::images/node-repl.png[align="center",scaledwidth="85%"]
 Le _REPL_ lui-même est écrit en ECMAScript.
 Il est disponible dans le module Node natif `repl` dont la documentation est disponible à l'adresse suivante : [URL]#https://nodejs.org/api/repl.html#.
 
+[[node-exec]]
 ==== Exécution de script
 
 L'exécution d'un script est très certainement l'invocation la plus classique de Node.
@@ -1634,15 +1636,63 @@ Le processus Node reste actif tant que l'_Event Loop_ a des instructions à trai
 Un certain nombre d'options sont acceptées par l'exécutable et modifient son comportement en conséquent :
 
 - `node debug votre-script.js` : active le mode débogage ;
-- `NODE_ENV=production node votre-script` : transmet une variable d'environnement au processus, et est accessible sous la forme `process.env.NODE_ENV`.
+- `NODE_ENV=production node votre-script.js` : transmet une variable d'environnement au processus, et est accessible sous la forme `process.env.NODE_ENV`.
 
 image::images/node-exec.png[align="center",scaledwidth="85%"]
 
 Pour connaître l'ensemble des options disponibles de l'exécutable Node, tapez `node --help` dans votre terminal.
+Plusieurs options pourraient vous intéresser :
 
+- `-e` (ou `--eval`) : évalue du code ;
+- `-p` (ou `--print`) : évalue et affiche le code ;
+- `-r` (ou `--require`) : inclue un module ;
+- `--harmony` (ou tout sous-ensemble de type `--harmony-async-await`, `--harmony-xx`) : active des fonctionnalités expérimentales ;
+- `--v8-options` : passe des options à la <<../chapter-01.adoc#v8,VM V8>>.
+
+L'option `-p` est idéale pour évaluer du code en une ligne et visualier un résultat :
+
+----
+$ node -p 'Date()';
+Tue Jan 24 2017 12:42:02 GMT+0100 (CET)
+
+$ FIRST_NAME='Thomas' node -p '`Bonjour ${process.env.FIRST_NAME}`'
+Bonjour Thomas
+----
+
+[[node-sh]]
 ==== Script shell
 
-TBD.
+Une autre alternative est de créer un fichier exécutable et de spécifier Node en tant qu'interpréteur.
+C'est une opération utile pour rendre un programme accessible s'il est situé dans le `$PATH` système ou pour rendre un programme accessible lors de l'installation globale d'un _paquet npm_, entre autre.
+
+Pour qu'un fichier soit rendu exécutable, nous devons nous assurer de deux choses :
+
+. du _mode exécutable_ du fichier ;
+. de la présence de l'entête _sheebang_.
+
+Il faut pour cela respectivement :
+
+. ajouter le marqueur `x` avec le programme `chmod` ;
+. démarrer le fichier par `#!<chemin vers l'interpréteur node>`.
+
+Voici le contenu d'un fichier (non suffixé avec l'extension `.js`) qui affiche les arguments passé à ce dit-script :
+
+[source,javascript]
+.print-args
+----
+include::{sourceDir}/print-args[]
+----
+<1> Demande au programme `/usr/bin/env` de retourner le chemin vers l'exécutable système `node` ;
+<2> Plus d'informations sur cette syntaxe dans la section <<primitive-destructuring,décomposition>> de ce même chapitre.
+
+Le bloc suivant rend le fichier exécutable et l'exécute avec des arguments :
+
+----
+$ chmod +x src/print-args
+$ ./src/print-args Affiche moi
+[ 'Affiche', 'moi' ]
+----
+
 
 === Mon premier script Node.js : lire un fichier CSV
 
