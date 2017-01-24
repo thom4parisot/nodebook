@@ -29,7 +29,7 @@ fs.readFile(files.next().value, (err, chapter02Buffer) => {
         JSON.parse(chapter03Buffer).dependencies
       );
 
-      console.log(Object.keys(mergedDependencies).length);  // <1>
+      console.log(Object.keys(mergedDependencies));  // <1>
     });
   })
 });
