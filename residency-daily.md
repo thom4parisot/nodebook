@@ -4,6 +4,22 @@ Pour en savoir plus: [oncletom.io/2017/residence-nodejs/](https://oncletom.io/20
 
 # Journal
 
+## Mardi 24 janvier
+
+- _Chapitre 2_ : async/await ([#77](https://github.com/oncletom/nodebook/issues/77))
+- _Chapitre 2_ : scripts shell ([#80](https://github.com/oncletom/nodebook/issues/80))
+- _Chapitre 2_ : Map et Set ([#75](https://github.com/oncletom/nodebook/issues/75))
+- _Chapitre 2_ : ([#77](https://github.com/oncletom/nodebook/issues/77))
+- _Chapitre 2_ : réécriture et ajout d'exemples pour _Object_, _Promise_ notamment
+- Maintenance, nettoyages et PR :
+  - Chemin du fichier data/books.csv ([#69](https://github.com/oncletom/nodebook/issues/69))
+  - Correction coquille ([#79](https://github.com/oncletom/nodebook/issues/79))
+
+**Moral** : 🤓
+
+Merci [@ArnaudRinquin](https://github.com/arnaudrinquin) pour le canap' et le bon temps passé avec [@DavidBruant](https://github.com/DavidBruant) ☺️
+![](resources/daily-20170122-trio.jpg)
+
 ## Lundi 23 janvier
 
 - _Chapitre 2_ : décomposition, paramètres du reste, _template literals_
@@ -14,8 +30,7 @@ Pour en savoir plus: [oncletom.io/2017/residence-nodejs/](https://oncletom.io/20
   ![](resources/daily-20170123-pizza1.jpg)
   ![](resources/daily-20170123-pizza2.jpg)
 
-Thank you [@ArnaudRinquin](https://github.com/arnaudrinquin) for the couch and the good time with [@DavidBruant](https://github.com/DavidBruant) !
-![](resources/daily-20170122-trio.jpg)
+**Moral** : 🤓
 
 ## Vendredi 20 janvier
 
@@ -27,7 +42,7 @@ Merci [@JoliCode](https://github.com/jolicode) pour le coin de bureau 👋
 - Heaven from the oven:
   ![](resources/daily-20170120-bread.jpg)
 
-Journée peu productive en écriture mais riche en préparations.
+**Moral** : 😣 (peu productif mais riche en préparations)
 
 ## Jeudi 19 janvier
 
@@ -40,12 +55,14 @@ Merci [@BetaGouv](https://github.com/sgmap) pour le coin de bureau 👋
 - Heaven from the oven:
   ![](resources/daily-20170119-pizza.jpg)
 
+**Moral** : 😊
+
 ## Mercredi 18 janvier
 
 - _Chapitre 1_ : début du travail sur LTS ([#54](https://github.com/oncletom/nodebook/issues/54))
 - Quelques revues et échanges par rapport à la migration du code vers ES2015 Migration des exemples de code vers ES2015 ([#63](https://github.com/oncletom/nodebook/pull/63))
 
-Pas top comme journée, je me suis laissé distraire. Mais j'ai fait du pain et avancé sur la mise en forme d'une galerie photo …
+**Moral** : 😣 (je me suis laissé distraire. Mais j'ai fait du pain et avancé sur la mise en forme d'une galerie photo …)
 
 ## Mardi 17 janvier
 
@@ -54,7 +71,11 @@ Pas top comme journée, je me suis laissé distraire. Mais j'ai fait du pain et 
 - Migration des exemples de code vers ES2015 ([#63](https://github.com/oncletom/nodebook/pull/63))
 - Suivi des mises à jour du module [talisman](https://github.com/Yomguithereal/talisman/issues/28)
 
+**Moral** : 😣
+
 ## Lundi 16 janvier
 
 - Triage et acceptation de pull requests
 - _Chapitre 3_ : réorganisation et réécriture du texte associé aux _callbacks_, _events_ et _promesses_ – [#49](https://github.com/oncletom/nodebook/issues/49)
+
+**Moral** : 😊
