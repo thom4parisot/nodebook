@@ -10,8 +10,5 @@ Object.defineProperty(busStop, 'internal_code', {
   enumerable: false
 });
 
-console.log(Object.keys(busStop));    // <1>
-
-for (let prop of Object.getOwnPropertyNames(busStop)) {
-  console.log(prop);                  // <2>
-}
+console.log(Object.keys(busStop));                // <1>
+console.log(Object.getOwnPropertyNames(busStop)); // <2>

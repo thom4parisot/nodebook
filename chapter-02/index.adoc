@@ -721,13 +721,127 @@ a.forEach(print); // <2>
 <2> Affiche 4 valeurs : `1`, `3`, `undefined` puis `null`.
 ====
 
+[[primitive-object]]
+===== Object
+
+Dans ECMAScript, tout est objet. C'est le _prototype_ qui détermine le comportement dudit objet.
+Les objets peuvent être créés de manière littérale, avec la fonction `Object.create` ou via un constructeur. +
+À la différence d'un `Array`, il est possible de nommer une clé par une chaîne de caractère – statique ou dynamique – ou avec un <<primitive-symbol,symbole>>.
+
+[source,javascript]
+.primitives-object.js
+----
+include::{sourceDir}/primitives-object.js[]
+----
+<1> Retourne `'lateral'` ;
+<2> Retourne également `'lateral'` ;
+<3> Retourne `true`, les deux objets étant la même instance ;
+<4> Retourne `false`, les deux objets étant deux instances différentes.
+
+L'opérateur `typeof` permet d'identifier la primitive d'une variable — au sens d'ECMAScript, pas au sens logique de votre application, c'est à dire le prototype d'un objet.
+
+L'opérateur `instanceof` ou la méthode `getPrototypeOf` permettent justement de comparer les appartenances logiques.
+
+[source,javascript]
+.primitives-object-typeof-instanceof.js
+----
+include::{sourceDir}/primitives-object-typeof-instanceof.js[]
+----
+<1> Affiche `function` ;
+<2> Affiche `object` ;
+<3> Affiche `true` ;
+<4> Affiche `[object Object]` ;
+<5> Affiche `PseudoBookClass`.
+
+`Object.keys` extrait les propriétés énumérables d'un objet, à la différence de `Object.getOwnPropertyNames()` :
+
+[source,javascript]
+.primitives-object-keys.js
+----
+include::{sourceDir}/primitives-object-keys.js[]
+----
+<1> Affiche `[ 'name', 'services' ]` ;
+<2> Affiche `[ 'name', 'services', 'internal_code' ]`.
+
+`Object.assign` étend des structures existantes et la définition de valeurs par défaut.
+Les clés et valeurs sont copiées de gauche à droite avant d'être assignées dans le premier paramètre :
+
+[source,javascript]
+.primitives-object-assign.js
+----
+include::{sourceDir}/primitives-object-assign.js[]
+----
+<1> Les clés et valeurs de `DEFAULT` et celles de `userOptions` sont copiées dans un objet vide puis retournées dans `mergedOptions` ;
+<2> Affiche `{ concurrency: 10, timeout: 'https', tags: [] }` ;
+<3> Affiche `[ 'img', 'h1' ]` ;
+<4> Affiche `[ 'url', 'env', 'tags' ]` — l'objet `testOptions` est donc modifié.
+
+
+[[primitive-destructuring]]
+===== Décomposition
+
+L'affectation par _décomposition_ (_destructuring_) est une manière élégante et intuitive de piocher dans un <<primitives-array,tableau>> ou dans un <<primitives-object,objet>>.
+La décomposition n'altère pas le contenu des variables destructurées.
+
+Les valeurs d'un tableau sont décomposées dans l'ordre tandis que l'opérateur _spread_ (`...`) permet d'assigner le _reste_ des valeurs dans une seule et même variable ou constante :
+
+[source,javascript]
+.primitives-destructuring-array.js
+----
+include::{sourceDir}/primitives-destructuring-array.js[]
+----
+<1> Décompose la première valeur du tableau et assigne _le reste_ dans une autre constante ;
+<2> Affiche `Bordeaux` ;
+<3> Affiche `[ 'Toulouse', 'Montpellier', 'Aix-en-Provence' ]` ;
+<4> Affiche `[ 'Bordeaux', 'Toulouse', 'Montpellier', 'Aix-en-Provence' ]`.
+
+Il est également possible de _sauter_ des valeurs en ne nommant pas _autant_ de variables ou de constantes lors de la décomposition :
+
+[source,javascript]
+.primitives-destructuring-spread.js
+----
+include::{sourceDir}/primitives-destructuring-spread.js[]
+----
+<1> Assigne la première valeur dans la constante `first`, saute la seconde et assigne le reste des valeurs dans `end` ;
+<2> Affiche `un` ;
+<3> Affiche `[ 'deux', 'trois', 'quatre' ]`.
+
+Le même mécanisme existe pour les <<primitives-object,objets>>, y compris dans des arguments de fonction :
+
+[source,javascript]
+.primitives-destructuring-object.js
+----
+include::{sourceDir}/primitives-destructuring-object.js[]
+----
+<1> Destructure la fonction `join` directement depuis le `require` de module ;
+<2> Destructure la valeur `debug` du premier argument;
+<3> Affiche `folder/filename.txt` – `folder\filename.txt` sous Windows ;
+<4> Affiche `true` ;
+<5> Affiche `undefined` – cette valeur n'existe pas dans l'objet `config` ;
+<6> Affiche `Demo` – cette valeur est complétée par défaut dans l'assignation ;
+<7> Affiche `true`.
+
+Comme indiqué en début de section, il est possible de nommer les clés de manière dynamique mais aussi d'utiliser une syntaxe raccourcie d'assignation de valeur :
+
+[source,javascript]
+.primitive-object-advanced.js
+----
+include::{sourceDir}/primitive-object-advanced.js[]
+----
+<1> Utilise la valeur d'une variable comme nom de clé ;
+<2> Syntaxe alternative possible, utile lorsqu'un objet existe déjà ;
+<3> Affiche `{ SNCF: { country: 'France' }, Reinfe: { country: 'Spain' } }` ;
+<4> Utilise la syntaxe d'assignation raccourcie, donc assigne la valeur de `sncf` à la clé `sncf` — affiche `{ sncf: 'SNCF', foo: 'bar' }` ;
+<5> _Idem_ mais sans la syntaxe d'assignation raccourcie.
+
+[[primitive-function]]
 ===== Function
 
 Les fonctions permettent d'isoler des portions de code et de les rendre réutilisables via l'utilisation de paramètres.
 
 Vous pouvez les déclarer via une expression ou une déclaration assignée à une variable.
 La déclaration d'une fonction est soumise à la portée du contexte dans lequel le bloc de code est placé.
-Une fonction peut être _nommée_ (`function nomDeLaFonction(){ ... }`), _anonyme_ (`function (){ ... }`) ou _lexicale_ (`() => ({ ... })`).
+Une fonction peut être _nommée_ (`function nomDeLaFonction(){ ... }`), _anonyme_ (`function (){ ... }`) ou dite _fléchée_ (`() => { ... }`).
 
 Les fonctions anonymes sont fréquemment employées en tant que _callbacks_ ou dans des contextes itératifs (tels `Array.map` etc.)
 
@@ -795,105 +909,6 @@ Le seul élément différenciant correspond à la syntaxe d'application des argu
 include::{sourceDir}/primitives-function-call-apply.js[]
 ----
 <1> Retourne `'<title>'` dans les deux cas.
-
-[[primitives-object]]
-===== Object
-
-Dans ECMAScript, tout est objet. C'est le _prototype_ qui détermine le comportement dudit objet.
-Les objets peuvent être créés de manière littérale, avec la fonction `Object.create` ou via un constructeur.
-
-[source,javascript]
-.primitives-object.js
-----
-include::{sourceDir}/primitives-object.js[]
-----
-<1> Retourne `'lateral'` ;
-<2> Retourne également `'lateral'` ;
-<3> Retourne `true`, les deux objets étant la même instance ;
-<4> Retourne `false`, les deux objets étant deux instances différentes.
-
-L'opérateur `typeof` permet d'identifier la primitive d'une variable — au sens d'ECMAScript, pas au sens logique de votre application, c'est à dire le prototype d'un objet.
-
-L'opérateur `instanceof` ou la méthode `getPrototypeOf` permettent justement de comparer les appartenances logiques.
-
-[source,javascript]
-.primitives-object-typeof-instanceof.js
-----
-include::{sourceDir}/primitives-object-typeof-instanceof.js[]
-----
-<1> Affiche `function` ;
-<2> Affiche `object` ;
-<3> Affiche `true` ;
-<4> Affiche `[object Object]` ;
-<5> Affiche `PseudoBookClass`.
-
-`Object.keys` extrait les propriétés énumérables d'un objet, à la différence de `Object.getOwnPropertyNames()` :
-
-[source,javascript]
-.primitives-object-keys.js
-----
-include::{sourceDir}/primitives-object-keys.js[]
-----
-<1> Affiche `[ 'name', 'services' ]` ;
-<2> Affiche successivement `name`, `services` et `internal_code`.
-
-`Object.assign` étend des structures existantes et la définition de valeurs par défaut.
-Les clés et valeurs sont copiées de gauche à droite avant d'être assignées dans le premier paramètre :
-
-[source,javascript]
-.primitives-object-assign.js
-----
-include::{sourceDir}/primitives-object-assign.js[]
-----
-<1> Les clés et valeurs de `DEFAULT` et celles de `userOptions` sont copiées dans un objet vide puis retournées dans `mergedOptions` ;
-<2> Affiche `{ concurrency: 10, timeout: 'https', tags: [] }` ;
-<3> Affiche `[ 'img', 'h1' ]` ;
-<4> Affiche `[ 'url', 'env', 'tags' ]` — l'objet `testOptions` est donc modifié.
-
-
-[[primitive-destructuring]]
-===== Décomposition
-
-L'affectation par _décomposition_ (_destructuring_) est une manière élégante et intuitive de piocher dans un <<primitives-array,tableau>> ou dans un <<primitives-object,objet>>.
-La décomposition n'altère pas le contenu des variables destructurées.
-
-Les valeurs d'un tableau sont décomposées dans l'ordre tandis que l'opérateur _spread_ (`...`) permet d'assigner le _reste_ des valeurs dans une seule et même variable ou constante :
-
-[source,javascript]
-.primitives-destructuring-array.js
-----
-include::{sourceDir}/primitives-destructuring-array.js[]
-----
-<1> Décompose la première valeur du tableau et assigne _le reste_ dans une autre constante ;
-<2> Affiche `Bordeaux` ;
-<3> Affiche `[ 'Toulouse', 'Montpellier', 'Aix-en-Provence' ]` ;
-<4> Affiche `[ 'Bordeaux', 'Toulouse', 'Montpellier', 'Aix-en-Provence' ]`.
-
-Il est également possible de _sauter_ des valeurs en ne nommant pas _autant_ de variables ou de constantes lors de la décomposition :
-
-[source,javascript]
-.primitives-destructuring-spread.js
-----
-include::{sourceDir}/primitives-destructuring-spread.js[]
-----
-<1> Assigne la première valeur dans la constante `first`, saute la seconde et assigne le reste des valeurs dans `end` ;
-<2> Affiche `un` ;
-<3> Affiche `[ 'deux', 'trois', 'quatre' ]`.
-
-Le même mécanisme existe pour les <<primitives-object,objets>>, y compris dans des arguments de fonction :
-
-[source,javascript]
-.primitives-destructuring-object.js
-----
-include::{sourceDir}/primitives-destructuring-object.js[]
-----
-<1> Destructure la fonction `join` directement depuis le `require` de module ;
-<2> Destructure la valeur `debug` du premier argument;
-<3> Affiche `folder/filename.txt` – `folder\filename.txt` sous Windows ;
-<4> Affiche `true` ;
-<5> Affiche `undefined` – cette valeur n'existe pas dans l'objet `config` ;
-<6> Affiche `Demo` – cette valeur est complétée par défaut dans l'assignation ;
-<7> Affiche `true`.
 
 [[primitive-rest]]
 ===== Paramètres du reste
