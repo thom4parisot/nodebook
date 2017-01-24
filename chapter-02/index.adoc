@@ -1202,8 +1202,47 @@ Un dépôt sur GitHub permet d'y contribuer.
 [[primitive-async-await]]
 ===== async/await
 
-TBD.
+Nous avons beaucoup appris sur les différents moyens d'organiser notre code de manière asynchrone.
+Peut-être avec une indigestion de `then()`. +
+Les opérateurs `async` et `await` sont là pour respectivement :
 
+. déclarer une fonction comme pouvant _être mise en pause_ ;
+. mise en pause effectuée avec l'opérateur `await`, pause suivie jusqu'à ce qu'une… promesse retourne un résultat.
+
+Une promesse placée derrière un `await` jettera une exception.
+Cette exception est interceptable avec un bloc `try/catch`, comme du code synchrone.
+
+[CAUTION]
+.[RemarquePreTitre]#Preview# Fonctionnalité expérimentale
+====
+
+Les opérateurs `async` et `await` ne sont pas disponibles dans Node v6.
+Ils sont accessibles dans Node à partir de la v7 et nécessitent l'activation d'une option spécifique :
+
+----
+$ node --harmony-async-await un-script.js
+----
+
+====
+
+Reprenons une nouvelle fois notre exemple précédent, en combinant la transformation en promesses et les opérateurs `async` et `await` :
+
+[source,javascript]
+.primitives-async-await.js
+----
+include::{sourceDir}/primitives-async-await.js[]
+----
+<1> Déclaration de la fonction `getAllDeps` en tant que fonction asynchrone ;
+<2> On itère comme de manière synchrone, en demandant à l'interpréteur d'attendre que la promesse `readFilePromise` soit résolue ;
+<3> Le contenu de `fileBuffer` est disponible à la ligne d'après, sans utiliser `readFilePromise.then()` ;
+<4> La fonction `getAllDeps` retourne une promesse ;
+<5> <2> Résultat identique à celui calculé dans `callback-hell.js`, `primitives-promise-all.js` et `primitives-promise-all-promisified.js`.
+
+À travers cet exemple on comprend qu'une fonction `async` retourne en réalité une promesse.
+Promesse résolue lorsque toutes ses conditions `await` sont elles aussi résolues séquentiellement.
+
+L'inconvénient de notre exemple est que la lecture des fichiers ne se fait plus en _parallèle_ mais bel et bien de manière _séquentielle_.
+En effet, notre code est mis en pause à chaque itération de boucle, lors de l'appel de `readFilePromise`.
 
 [[primitive-regexp]]
 ===== RegExp
