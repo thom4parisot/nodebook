@@ -10,7 +10,6 @@ const readCSVFile = (filepath, rowFn) => {
     }
 
     new csv(content, { header: true, delimiter: ';' })
-      .parse()
       .forEach(rowFn);
   });
 };

@@ -1679,7 +1679,7 @@ Nous avons besoin d'utiliser deux modules Node pour accéder au système de fich
 Le contenu du fichier CSV est le suivant :
 
 [source]
-./data/books.csv
+.data/books.csv
 ----
 include::{sourceDir}/../data/books.csv[]
 ----
@@ -1707,18 +1707,7 @@ Itérons une première fois sur l'accès au données.
 [source,javascript]
 .print-csv.js
 ----
-const fs = require('fs');
-const { join } = require('path');
-
-const FILENAME = join(__dirname, 'data', 'books.csv');
-
-fs.readFile(FILENAME, (err, binaryContent) => {
-  if (err){
-    throw err;
-  }
-
-  console.log(String(binaryContent));
-});
+include::{sourceDir}/print-csv.js[]
 ----
 
 Le premier bloc décrit l'assignation des modules Node `fs` et `path` vers des variables.
@@ -1851,15 +1840,9 @@ Le module est désormais installé dans le répertoire `examples/chapitre-02/nod
 Lire un fichier CSV et en afficher son contenu deviendrait aussi simple que le script suivant :
 
 [code,javascript]
+.print-csv-reloaded.js
 ----
-const fs = require('fs');
-const csv = require('comma-separated-values'); // <1>
-
-fs.readFile('./data/books.csv', (err, binaryContent) => {
-  const csvFile = new csv(String(binaryContent), { header: true, delimiter: ';' }); // <2>
-
-  console.log(csvFile.parse()); // <3>
-});
+include::{sourceDir}/print-csv-reloaded.js[]
 ----
 <1> importe le module `comma-separated-values` dans la variable `csv` ;
 <2> configure un nouvel objet _CSV_ ;

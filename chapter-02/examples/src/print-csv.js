@@ -3,7 +3,7 @@
 const fs = require('fs');
 const { join } = require('path');
 
-const FILENAME = join(__dirname, 'data', 'books.csv');
+const FILENAME = join(__dirname, '..', 'data', 'books.csv');
 
 const parseRows = (content) => content.split('\n');
 const parseRow = (rowContent) => rowContent.split(';');
