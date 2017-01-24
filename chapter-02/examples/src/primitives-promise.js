@@ -1,6 +1,6 @@
 'use strict';
 
-const join = require('path').join;
+const { join } = require('path');
 const readFilePromise = require('./readfile-promise');
 
 const files = new Set(['chapter-02', 'chapter-01', 'chapter-03'].map(dir => {
@@ -16,7 +16,7 @@ readFilePromise(files.next().value)
   })
   .then(chapter02Package => {                     // <2>
     console.log(chapter02Package);
-    
+
     return readFilePromise(files.next().value);   // <3>
   })
   .then(logPackageDeps, logError)                 // <4>

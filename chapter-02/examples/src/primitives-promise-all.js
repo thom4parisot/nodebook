@@ -1,6 +1,6 @@
 'use strict';
 
-const join = require('path').join;
+const { join } = require('path');
 const readFilePromise = require('./readfile-promise');
 
 const files = ['chapter-02', 'chapter-01', 'chapter-03'].map(dir => {

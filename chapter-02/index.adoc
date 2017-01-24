@@ -1163,18 +1163,39 @@ include::{sourceDir}/primitives-promise-all.js[]
 <1> L'unique argument du _callback_ de succès est un tableau des ressources retournées par chaque promesse, en suivant leur ordre respectif d'exécution ;
 <2> Résultat identique à celui affiché par `callback-hell.js` — la fierté d'un code maintenable en plus !
 
-Usez et abusez des promesses : elles sont un des meilleurs moyens d'aplatir votre code, d'organiser son déroulement tout en  facilitant sa modularité et sa testabilité.
+[TIP]
+.[RemarquePreTitre]#npm# Librairies de promesses
+====
+Des librairies de promesses ajoutent des sucres syntaxiques pour faciliter la manipulation des promesses :
+
+- [URL]#https://npmjs.com/pify#
+- [URL]#https://npmjs.com/bluebird#
+- [URL]#https://npmjs.com/when#
+- [URL]#https://npmjs.com/es6-promise# (un polyfill pour d'anciennes versions de Node et des navigateurs Web peu récents)
+====
+
+Nous avons vu comment exposer une fonction à _callback_ existante en promesse mais en réalité, ce n'est pas un travail que nous avons envie de faire régulièrement.
+Pour celà, une librairie comme `bluebird` ou `pify` exposent une fonction pour transformer en promesse une fonction ou un module retournant un objet de fonctions. +
+La réécriture de notre exemple précédent en serait simplifié car elles nous affranchirait du fichier `./readfile-promise.js` :
+
+[source,javascript]
+.primitives-promise-all-promisified.js
+----
+include::{sourceDir}/primitives-promise-promisified.js[]
+----
+<1> Les méthodes du module `fs` sont transformées en promesses et nous en décomposons la fonction `readFile` en la renommant en `readFilePromise` ;
+<2> Résultat identique à celui calculé dans `callback-hell.js` et `primitives-promise-all.js`.
+
+Usez et abusez des promesses : elles sont un des meilleurs moyens à notre disposition pour *modulariser*, *linéariser* et *clarifier le sens* du flot de notre code.
 
 [TIP]
-.Pour aller plus loin
+.[RemarquePreTitre]#Lien# Guide des promesses
 ====
-Des librairies de promesses ajoutent des sucres syntaxiques pour faciliter encore davantage la manipulation des promesses :
+Un guide _très_ complet — en anglais — est publié en libre consultation sur le site du W3C.
+Un dépôt sur GitHub permet d'y contribuer.
 
-- [URL]#https://npmjs.com/bluebird
-- [URL]#https://npmjs.com/when
-- [URL]#https://npmjs.com/es6-promise (un polyfill pour Node et les navigateurs Web)
-
-Enfin, il est toujours possible de jeter un œil aux _générateurs_ ainsi qu'aux fonctions _async_ (prévues pour ES2016).
+- [URL]#https://www.w3.org/2001/tag/doc/promises-guide#
+- [URL]#https://github.com/w3ctag/promises-guide#
 ====
 
 
