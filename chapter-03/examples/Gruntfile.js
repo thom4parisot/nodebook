@@ -4,7 +4,7 @@
 
 module.exports = (grunt) => {
   grunt.initConfig({
-    pkg: require('./package.json'),
+    pkg: require('../package.json'),
     less: {
       src: 'src/less/**/*.less',
       dest: 'src/css/main.css',

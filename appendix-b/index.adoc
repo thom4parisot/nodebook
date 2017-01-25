@@ -92,9 +92,9 @@ Le _framework_ _express_ ([URL]#https://expressjs.com/#) met à disposition un m
 En combinant ce mécanisme avec la méthode `express.static`, il devient alors possible d'exposer n'importe quel fichier inclut dans _npm_modules_ (ou autre répertoire) en tant que ressource web.
 
 [source,javascript]
-.snippets/npm-express.js
+.npm-express.js
 ----
-include::{sourceDir}/snippets/npm-express.js[]
+include::{sourceDir}/npm-express.js[]
 ----
 <1> Rend accessible le fichier `jquery.js` à l'adresse `http://localhost:3000/assets/jquery.js` ;
 <2> Rend accessible le répertoire `node_modules` à l'adresse `http://localhost:3000/assets`, et donc d'une autre manière, le fichier `jquery.js` à l'adresse `http://localhost:3000/assets/jquery/dist/jquery.js`.

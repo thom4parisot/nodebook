@@ -1,7 +1,7 @@
 :nodeCurrentVersion: v6
 :npmCurrentVersion: v4
 :revdate: {docdate}
-:sourceDir: ./examples/src
+:sourceDir: ./examples
 :imagesdir: {indir}
 ifdef::env[]
 :imagesdir: .
@@ -62,9 +62,9 @@ Il rapporte les doublons d'attributs `id`, la présence de paires de balises mal
 Prenons en exemple le document suivant :
 
 [source,html]
-.snippets/sample.html
+.sample.html
 ----
-include::{sourceDir}/snippets/sample.html[]
+include::{sourceDir}/sample.html[]
 ----
 
 Une lecture distraite pourrait nous faire passer à côté des erreurs mais également des inconsistances de programmation.
@@ -74,7 +74,7 @@ L'exécution de *htmlhint* avec ses règles par défaut remontera les alertes su
 
 ----
 $ npm run lint-html
-src/snippets/sample.html:
+sample.html:
 line 1, col 1: Doctype must be first.
 line 8, col 10: Id redefinition of [ btn ].
 line 10, col 3: Tagname [ BUTTON ] must be lower case.
@@ -105,7 +105,7 @@ L'exemple suivant illustre une configuration d'_eslint_ renforçant la déclarat
 [source,json]
 .package.json
 ----
-include::{sourceDir}/../package-eslint.json[]
+include::{sourceDir}/package-eslint.json[]
 ----
 
 Le niveau de sévérité de chaque règle peut être configuré à l'aide d'un nombre entier :
@@ -126,7 +126,7 @@ L'exemple suivant illustre l'utilisation combinée de deux configurations _eslin
 [source,json]
 .package.json
 ----
-include::{sourceDir}/../package-eslint-extend.json[]
+include::{sourceDir}/package-eslint-extend.json[]
 ----
 
 Il y a deux éléments combinés dans le précédent exemple :
@@ -146,17 +146,17 @@ Celles-ci peuvent d'ailleurs être étendues, moins aisément que pour *eslint* 
 Prenons par exemple le fichier CSS suivant :
 
 [source,css]
-.snippets/sample.css
+.sample.css
 ----
-include::{sourceDir}/snippets/sample.css[]
+include::{sourceDir}/sample.css[]
 ----
 
 *csslint* génèrera trois alertes en lisant le fichier `sample.css` et ce, même si celui-ci est syntaxiquement parfaitement valide :
 
 ----
-$ csslint src/snippets/sample.css
+$ csslint sample.css
 
-csslint: There are 3 problems in snippets/sample.css.
+csslint: There are 3 problems in sample.css.
 
 sample.css
 1: warning at line 4, col 11
@@ -185,11 +185,11 @@ Cette liste peut aussi bien concerner des versions spécifiques ou encore cibler
 L'exemple suivant illustre les alertes relevées par _doiuse_ dans le cas d'une recherche de compatibilité avec Internet Explorer 6 et Internet Explorer 7 :
 
 ----
-$ doiuse -b 'ie < 8' src/snippets/sample.css
-src/snippets/sample.css:1:1: CSS 2.1 selectors not supported by: IE (6)
-src/snippets/sample.css:8:1: CSS 2.1 selectors not supported by: IE (6)
-src/snippets/sample.css:12:1: CSS3 Transitions not supported by: IE (6,7)
-src/snippets/sample.css:14:1: CSS 2.1 selectors not supported by: IE (6)
+$ doiuse -b 'ie < 8' sample.css
+sample.css:1:1: CSS 2.1 selectors not supported by: IE (6)
+sample.css:8:1: CSS 2.1 selectors not supported by: IE (6)
+sample.css:12:1: CSS3 Transitions not supported by: IE (6,7)
+sample.css:14:1: CSS 2.1 selectors not supported by: IE (6)
 ----
 
 
@@ -221,9 +221,9 @@ Il ne fournit en revanche aucun support pour les _Source Maps_. Il vous faudra r
 
 .Exemples d'utilisation de *cssmin*
 ----
-$ cssmin src/snippets/sample.css > sample.min.css # <1>
+$ cssmin sample.css > sample.min.css # <1>
 
-$ cat src/snippets/sample.css | cssmin | wc -c | awk '{print $1}' # <2>
+$ cat sample.css | cssmin | wc -c | awk '{print $1}' # <2>
 ----
 <1> Exporte le résultat de la minification dans le fichier `sample.min.css`;
 <2> Utilisation des *pipes* UNIX pour afficher le nombre de caractères d'une version minifiée de `sample.css`.
@@ -259,11 +259,11 @@ _autoprefixer_ expose une API ECMAScript, un exécutable système ainsi qu'une A
 
 .Exemple d'utilisation d'_autoprefixer_ en fonction des besoins en compatibilité navigateur
 ----
-$ autoprefixer -o - src/snippets/sample.css | grep transition
+$ autoprefixer -o - sample.css | grep transition
   -webkit-transition: font-weight 0.2s ease;
           transition: font-weight 0.2s ease;
 
-$ autoprefixer -b 'firefox > 8' -o - src/snippets/sample.css | grep transition
+$ autoprefixer -b 'firefox > 8' -o - sample.css | grep transition
   -webkit-transition: font-weight 0.2s ease;
      -moz-transition: font-weight 0.2s ease;
           transition: font-weight 0.2s ease;

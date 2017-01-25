@@ -1,7 +1,7 @@
 :nodeCurrentVersion: v6
 :npmCurrentVersion: v4
 :revdate: {docdate}
-:sourceDir: ./examples/src
+:sourceDir: ./examples
 :imagesdir: {indir}
 ifdef::env[]
 :imagesdir: .
@@ -74,7 +74,7 @@ Certaines réponses seront pré-remplies, par exemple si un dépôt Git ou un fi
 Ensuite libre à vous de le compléter avec d'autres éléments optionnels de configuration.
 
 .Exemple de questions posées lors de la séquence `npm init`
-image::images/npm-init.png[align="center",scaledwidth="85%"]
+image::images/npm/init.png[align="center",scaledwidth="85%"]
 
 [TIP]
 .[RemarquePreTitre]#Commande# npm help json
@@ -213,7 +213,7 @@ La commande précédente effectue plusieurs opérations :
 5. inscription de _async_ et de _yargs_ dans la configuration _dependencies_ de notre fichier `package.json`.
 
 .Exemple de résultat de la commande `npm install`
-image::images/npm-install-save.png[align="center",scaledwidth="85%"]
+image::images/npm/install-save.png[align="center",scaledwidth="85%"]
 
 La commande npm prend soin de télécharger et de persister les dépendances, à la fois dans le répertoire _node_modules_ et dans le fichier _package.json_.
 Ce dernier contient désormais une section _dependencies_ :
@@ -325,26 +325,26 @@ Cela revient à constamment _designer_ des API et à les exposer, que ce soit au
 Une application en ligne de commande devrait contenir une orchestration d'API mettant en relation l'intention exprimée par un shell système envers une bibliothèque Node :
 
 [source,javascript]
-.snippets/cli-app.js
+.cli-app.js
 ----
-include::{sourceDir}/snippets/cli-app.js[]
+include::{sourceDir}/cli-app.js[]
 ----
 
 Une application HTTP devrait contenir une orchestration d'API mettant en relation l'intention exprimée par une requête HTTP envers une application Node :
 
 
 [source,javascript]
-.snippets/http-app.js
+.http-app.js
 ----
-include::{sourceDir}/snippets/http-app.js[]
+include::{sourceDir}/http-app.js[]
 ----
 
 Une route obéissant elle-aussi au même principe :
 
 [source,javascript]
-.snippets/route.js
+.route.js
 ----
-include::{sourceDir}/snippets/route.js[]
+include::{sourceDir}/route.js[]
 ----
 
 Nous verrons dans un chapitre ultérieur comment utiliser cette même logique de développement et l'exécuter du côté du navigateur.
@@ -450,17 +450,17 @@ Ces variables sont accessibles via l'objet `process.env` et ce, quel que soit le
 L'exemple suivant décrit comment définir le port sur lequel écoutera le serveur HTTP en fonction d'un contexte d'exécution (environnement de test ou environnement de production) ou d'un réglage surchargeant le dit contexte.
 
 [source,javascript]
-.snippets/config-env.js
+.config/env.js
 ----
-include::{sourceDir}/snippets/config-env.js[]
+include::{sourceDir}/config/env.js[]
 ----
 
 Ainsi que l'illustration de leur définition (ou non) :
 
 ----
-PORT=8000 node src/snippets/config-env.js <1>
-NODE_ENV=test node src/snippets/config-env.js <2>
-node src/snippets/config-env.js <3>
+PORT=8000 node config/env.js <1>
+NODE_ENV=test node config/env.js <2>
+node config/env.js <3>
 ----
 <1> Le port sélectionné est le port 8000 ;
 <2> Le port sélectionné est le port 3001 ;
@@ -477,15 +477,15 @@ Cette approche est recommandée si la passation d'informations fait partie de la
 Le script suivant illustre leur lecture par l'interpréteur Node :
 
 [source,javascript]
-.snippets/config-argv.js
+.config/argv.js
 ----
-include::{sourceDir}/snippets/config-argv.js[]
+include::{sourceDir}/config/argv.js[]
 ----
 
 Et leur invocation :
 
 ----
-node src/snippets/config-argv.js -y 2014 2012 --title 'fromage baguette' #<1>
+node config/argv.js -y 2014 2012 --title 'fromage baguette' #<1>
 ----
 <1> Affiche `["-y", "2014", "2012", "--title", "fromage baguette"]`.
 
@@ -496,15 +496,15 @@ L'un de ces modules est `yargs`.
 Nous l'avons évoqué et installé précédemment dans ce chapitre.
 
 [source,javascript]
-.snippets/config-yargs.js
+.config/yargs.js
 ----
-include::{sourceDir}/snippets/config-yargs.js[]
+include::{sourceDir}/config/yargs.js[]
 ----
 
 Et leur invocation :
 
 ----
-node src/snippets/config-yargs.js 2012 --title 'fromage baguette' <1> <2> <3>
+node config/yargs.js 2012 --title 'fromage baguette' <1> <2> <3>
 ----
 <1> 2014 (sa valeur étant définie par défaut si `-y` n'est pas spécifié comme argument shell) ;
 <2> fromage baguette ;
@@ -513,7 +513,7 @@ node src/snippets/config-yargs.js 2012 --title 'fromage baguette' <1> <2> <3>
 L'invocation suivante omet volontairement l'argument `--title` afin de tester le comportement du module :
 
 ----
-node src/snippets/config-yargs.js <1>
+node config/yargs.js <1>
 ----
 <1> Affiche le message suivant en flux d'erreur (`process.stderr`) : `Missing required arguments: title`.
 
@@ -537,9 +537,9 @@ En revanche nous allons voir comment _techniquement_ mettre en œuvre ces possib
 Commençons par l'approche par environnement d'exécution, reposant sur la notion d'un fichier de configuration par environnement.
 
 [source,javascript]
-.snippets/config-file.js
+.config/file.js
 ----
-include::{sourceDir}/snippets/config-file.js[]
+include::{sourceDir}/config/file.js[]
 ----
 
 Ainsi, un appel au module précédent chargera :
@@ -562,26 +562,26 @@ Ils vont jusqu'à la prise en charge des notions d'héritage et de cascade pour 
 Une autre approche, tout aussi voire plus simple consiste à réutiliser le fichier `package.json` en y ajoutant des propriétés supplémentaires.
 
 [source,javascript]
-.snippets/config-file-package.js
+.config/file-package.js
 ----
-include::{sourceDir}/snippets/config-file-package.js[]
+include::{sourceDir}/config/file-package.js[]
 ----
 <1> Affiche `{ port: '3000' }`.
 
 On peut également se passer de l'étape `require()` si la commande npm invoque un script Node :
 
 [source,javascript]
-.snippets/config-file-npm.js
+.config/file-npm.js
 ----
-include::{sourceDir}/snippets/config-file-npm.js[]
+include::{sourceDir}/config/file-npm.js[]
 ----
 
 npm aplatira la structure d'objet du fichier `package.json` et séparera chaque niveau de profondeur par le caractère `_`, le préfixera par `npm_package_` et l'injectera dans l'objet `process.env`. +
 Par exemple, `require('./package.json').config.port` sera accessible via `process.env.npm_package_config_port`.
 
 ----
-node src/snippets/config-file-npm.js <1>
-npm run display-config-port <2>
+node config/file-npm.js <1>
+npm run display-config/port <2>
 ----
 <1> Affiche `undefined` ;
 <2> Affiche `3000`.
@@ -686,7 +686,7 @@ L'avantage de cette approche est double :
   "name": "nodebook",
   ...
   "scripts": {
-    "test": "jshint ./src" <1>
+    "test": "jshint ." <1>
   },
   "devDependencies": {
     "jshint": "~2.5.1"
@@ -839,7 +839,7 @@ Ces deux commandes vous assureront un état d'installation similaire à ce qu'un
 ====
 Il se peut qu'une erreur _EPEERINVALID_ se déclare lors d'une mise à jour ou d'une fraîche installation.
 
-image::images/npm-outdated-peerinvalid.png[align="center",scaledwidth="85%"]
+image::images/npm/outdated-peerinvalid.png[align="center",scaledwidth="85%"]
 
 Cela signifie qu'un paquet réclame une dépendance d'une version différente et incompatible avec celle que vous déclarer dans votre fichier `package.json`.
 
@@ -909,7 +909,7 @@ En se basant sur ce principe de chaîne, vous pouvez faire évoluer votre comman
   ...
   "scripts": {
     "test": "npm run code-quality && npm run unit-tests",
-    "code-quality": "jshint src/",
+    "code-quality": "jshint ",
     "unit-tests": "mocha tests/**/*.js"
   },
   "devDependencies": {
@@ -1044,7 +1044,7 @@ npm outdated
 La lecture de sa sortie peut être déroutante au premier abord, notamment dans le cas d'un module qui n'a pas été mis à jour via `npm update` depuis un moment :
 
 .Résultats obsolètes issus de `npm outdated`
-image::images/npm-outdated.png[align="center",scaledwidth="85%"]
+image::images/npm/outdated.png[align="center",scaledwidth="85%"]
 
 Le tableau ne liste que les dépendances considérées comme obsolètes en l'état actuel d'installation de votre projet.
 Il se peut donc que le résultat varie d'une machine à l'autre, en fonction des versions installées localement. +
@@ -1065,7 +1065,7 @@ Toute dépendance listée dans le fichier `package.json` mais absente du tableau
 La première action à mener est de procéder à l'exécution de la commande `npm update`, puis de relancer la commande `npm outdated` :
 
 .Résultats `npm outdated` après mise à jour
-image::images/npm-outdated-wanted.png[align="center",scaledwidth="85%"]
+image::images/npm/outdated-wanted.png[align="center",scaledwidth="85%"]
 
 Le résultat est probant : de nombreuses dépendances précédemment listées en rouge on disparu.
 Il ne reste que trois dépendances sur lesquelles nous pouvons avoir une action directe en modifiant la version référencées dans le fichier `package.json`.
@@ -1108,9 +1108,9 @@ C'est quelque chose de facilement identifiable à l'œil nu :
 
 [source,javascript]
 ----
-const User = require('../../lib/model/user.js');
-const Validator = require('../app/middlewares/validator');
-const csvParser = require('../../lib/parsers/csv');
+const User = require('.lib/model/user.js');
+const Validator = require('./app/middlewares/validator');
+const csvParser = require('./lib/parsers/csv');
 ----
 
 Dans le cas présent, ces trois modules pourrait être extraits dans les modules indépendants suivants :
@@ -1163,7 +1163,7 @@ Son algorithme d'affichage est d'ailleurs identique. +
 Astuce : si le motif de recherche est encadré par le caractère `/`, la commande npm effectuera la requête via une expression régulière :
 
 .npm search /slug/
-image::images/npm-search-cli.png[align="center",scaledwidth="85%"]
+image::images/npm/search-cli.png[align="center",scaledwidth="85%"]
 
 Enfin, le projet _npmsearch_ ([URL]#https://npmsearch.com#) est une initiative indépendante dont le but est de proposer une interface optimisée pour la recherche de modules Node.
 Ses principaux avantages sont la rapidité d'affichage des résultats, ainsi qu'un tri par défaut orienté sur la *pertinence*.
@@ -1219,9 +1219,9 @@ Compatible Node et navigateurs Web. +
 [URL]#https://npmjs.com/lodash#
 
 [source,javascript]
-.npm-lodash.js
+.npm/lodash.js
 ----
-include::{sourceDir}/snippets/npm-lodash.js[]
+include::{sourceDir}/npm/lodash.js[]
 ----
 <1> Affiche `['A', 'B', 'C', 'D']`.
 
@@ -1235,9 +1235,9 @@ Compatible Node et navigateurs Web. +
 [URL]#https://npmjs.com/async#
 
 [source,javascript]
-.npm-async.js
+.npm/async.js
 ----
-include::{sourceDir}/snippets/npm-async.js[]
+include::{sourceDir}/npm/async.js[]
 ----
 <1> Affiche `['A', 'B', 'C', 'D']`.
 
@@ -1250,9 +1250,9 @@ Compatible Node et navigateurs Web. +
 [URL]#https://npmjs.com/string#
 
 [source,javascript]
-.npm-string.js
+.npm/string.js
 ----
-include::{sourceDir}/snippets/npm-string.js[]
+include::{sourceDir}/npm/string.js[]
 ----
 <1> `blog-post` ;
 <2> `<h1>Blog Post</h1>` ;
@@ -1266,9 +1266,9 @@ Cela concerne aussi bien l'envoi de formulaires, l'obtention de jeton OAuth que 
 [URL]#https://npmjs.com/request#
 
 [source,javascript]
-.npm-request.js
+.npm/request.js
 ----
-include::{sourceDir}/snippets/npm-request.js[]
+include::{sourceDir}/npm/request.js[]
 ----
 
 ====== moment
@@ -1280,9 +1280,9 @@ Compatible Node et navigateurs Web. +
 [URL]#https://npmjs.com/moment#
 
 [source,javascript]
-.npm-moment.js
+.npm/moment.js
 ----
-include::{sourceDir}/snippets/npm-moment.js[]
+include::{sourceDir}/npm/moment.js[]
 ----
 <1> Affiche `2014-09-10T23:00:00.000Z` ;
 <2> Affiche `13/09/14` ;
@@ -1296,9 +1296,9 @@ Compatible Node et navigateurs Web. +
 [URL]#https://npmjs.com/eventemitter2#
 
 [source,javascript]
-.npm-eventemitter3.js
+.npm/eventemitter3.js
 ----
-include::{sourceDir}/snippets/npm-eventemitter3.js[]
+include::{sourceDir}/npm/eventemitter3.js[]
 ----
 <1> Affiche `[ [Function], [Function] ]` ;
 <2> Affiche `on: ping,ping\nonce: ping,ping` ;
@@ -1317,9 +1317,9 @@ C'est à dire que les répertoires seront créés récursivement s'ils n'existen
 [URL]#https://npmjs.com/mkdirp#
 
 [source,javascript]
-.npm-mkdirp.js
+.npm/mkdirp.js
 ----
-include::{sourceDir}/snippets/npm-mkdirp.js[]
+include::{sourceDir}/npm/mkdirp.js[]
 ----
 
 L'exemple précédent illustre l'écriture de la date courante dans un fichier.
@@ -1333,9 +1333,9 @@ Encore une fois, sans la complexité d'avoir à gérer un enchevêtrement de fon
 [URL]#https://npmjs.com/rimraf#
 
 [source,javascript]
-.npm-rimraf.js
+.npm/rimraf.js
 ----
-include::{sourceDir}/snippets/npm-rimraf.js[]
+include::{sourceDir}/npm/rimraf.js[]
 ----
 
 ====== glob
@@ -1347,11 +1347,11 @@ Sa syntaxe équivalente à ce qui se fait dans le monde UNIX évite une écritur
 [URL]#https://npmjs.com/glob#
 
 [source,javascript]
-.npm-glob.js
+.npm/glob.js
 ----
-include::{sourceDir}/snippets/npm-glob.js[]
+include::{sourceDir}/npm/glob.js[]
 ----
-<1> Affiche `['bin/cli.js', 'src/snippets/cli-app.js']`.
+<1> Affiche `[ 'examples/cli-app.js', 'examples/npm/cli-table.js' ]`.
 
 ====== fs-extra
 
@@ -1360,9 +1360,9 @@ _fs-extra_ complète _rimraf_ et _mkdirp_ et ajoute d'autres fonctions utilitair
 [URL]#https://npmjs.com/fs-extra#
 
 [source,javascript]
-.npm-fs-extra.js
+.npm/fs-extra.js
 ----
-include::{sourceDir}/snippets/npm-fs-extra.js[]
+include::{sourceDir}/npm/fs-extra.js[]
 ----
 
 ====== graceful-fs
@@ -1374,9 +1374,9 @@ Un module qui vous sera utile si l'activité de lecture et d'écriture sur disqu
 [URL]#https://npmjs.com/graceful-fs#
 
 [source,javascript]
-.npm-graceful-fs.js
+.npm/graceful-fs.js
 ----
-include::{sourceDir}/snippets/npm-graceful-fs.js[]
+include::{sourceDir}/npm/graceful-fs.js[]
 ----
 <1> Affiche `nodebook.chapter-03`.
 
@@ -1388,12 +1388,12 @@ La bibliothèque ajoute quelques fonctionnalités de filtre, de persistance d'ob
 [URL]#https://npmjs.com/chokidar#
 
 [source,javascript]
-.npm-chokidar.js
+.npm/chokidar.js
 ----
-include::{sourceDir}/snippets/npm-chokidar.js[]
+include::{sourceDir}/npm/chokidar.js[]
 ----
 
-L'exemple ci-contre surveille un répertoire dans lequel le script `npm-mkdirp.js` écrit.
+L'exemple ci-contre surveille un répertoire dans lequel le script `npm/mkdirp.js` écrit.
 Sans surprise, la sortie reflète les actions décrites quelques pages auparavant :
 
 ----
@@ -1419,9 +1419,9 @@ Les auteurs de _knex_ ont également créé la surcouche _bookshelf_ pour la par
 [URL]#https://npmjs.com/knex# et [URL]#https://npmjs.com/bookshelf#.
 
 [source,javascript]
-.npm-knex.js
+.npm/knex.js
 ----
-include::{sourceDir}/snippets/npm-knex.js[]
+include::{sourceDir}/npm/knex.js[]
 ----
 <1> Affiche `[ { id: 1, title: 'Node.js ', created_at: '2015-10-09 16:06:17' } ]`.
 
@@ -1435,9 +1435,9 @@ Il vous aidera à composer vos modèles, gérer la connexion à la base de donn�
 [URL]#https://npmjs.com/mongoose#
 
 [source,javascript]
-.npm-mongoose.js
+.npm/mongoose.js
 ----
-include::{sourceDir}/snippets/npm-mongoose.js[]
+include::{sourceDir}/npm/mongoose.js[]
 ----
 <1> Affiche `3 enregistrements créés`.
 
@@ -1448,9 +1448,9 @@ _LevelDB_ est un système de base de données clé/valeur extrêmement modulaire
 [URL]#https://npmjs.com/levelup#
 
 [source,javascript]
-.npm-levelup.js
+.npm/levelup.js
 ----
-include::{sourceDir}/snippets/npm-levelup.js[]
+include::{sourceDir}/npm/levelup.js[]
 ----
 
 ====== redis
@@ -1464,9 +1464,9 @@ Il permet de travailler directement avec des buffers plutôt qu'avec des convers
 [URL]#https://npmjs.com/hiredis#
 
 [source,javascript]
-.npm-redis.js
+.npm/redis.js
 ----
-include::{sourceDir}/snippets/npm-redis.js[]
+include::{sourceDir}/npm/redis.js[]
 ----
 
 ===== Ligne de commande
@@ -1492,14 +1492,14 @@ Oubliez les code ANSI, _chalk_ ne vous demandera que deux appels de fonction pou
 [URL]#https://npmjs.com/chalk#
 
 [source,javascript]
-.npm-chalk.js
+.npm/chalk.js
 ----
-include::{sourceDir}/snippets/npm-chalk.js[]
+include::{sourceDir}/npm/chalk.js[]
 ----
 
 Ce script produira l'affichage suivant :
 
-image::images/npm-chalk.png[align="center",scaledwidth="85%"]
+image::images/npm/chalk.png[align="center",scaledwidth="85%"]
 
 ====== cli-table
 
@@ -1509,14 +1509,14 @@ Des options vous permettent de gérer la ligne d'entête et la largeur des colon
 [URL]#https://npmjs.com/cli-table#
 
 [source,javascript]
-.npm-cli-table.js
+.npm/cli-table.js
 ----
-include::{sourceDir}/snippets/npm-cli-table.js[]
+include::{sourceDir}/npm/cli-table.js[]
 ----
 
 Ce script produira l'affichage suivant :
 
-image::images/npm-cli-table.png[align="center",scaledwidth="85%"]
+image::images/npm/cli-table.png[align="center",scaledwidth="85%"]
 
 ====== inquirer
 
@@ -1525,9 +1525,9 @@ _inquirer_ est le composant qu'il vous faut pour gérer l'interactivité avec un
 [URL]#https://npmjs.com/inquirer#
 
 [source,javascript]
-.npm-inquirer.js
+.npm/inquirer.js
 ----
-include::{sourceDir}/snippets/npm-inquirer.js[]
+include::{sourceDir}/npm/inquirer.js[]
 ----
 
 Le programme précédent tente de charger le module Node saisi par l'utilisateur et rejette la réponse s'il n'existe pas.
@@ -1574,9 +1574,9 @@ Elle rend possible le débogage complet à partir de _dtrace_, la gestion des ve
 [URL]#https://npmjs.com/restify#
 
 [source,javascript]
-.npm-restify.js
+.npm/restify.js
 ----
-include::{sourceDir}/snippets/npm-restify.js[]
+include::{sourceDir}/npm/restify.js[]
 ----
 
 L'exemple précédent expose une même route permettant d'obtenir des informations sur les déclarations de versions d'un fichier `package.json`.
@@ -1604,9 +1604,9 @@ Compatible Node et navigateurs Web. +
 [URL]#https://npmjs.com/faye# et [URL]#https://npmjs.com/socket.io#
 
 [source,javascript]
-.npm-faye.js
+.npm/faye.js
 ----
-include::{sourceDir}/snippets/npm-faye.js[]
+include::{sourceDir}/npm/faye.js[]
 ----
 
 Ce serveur extrêmement minimaliste expose un point d'entrée qui peut être accédé via le client _Faye_, dans un navigateur web ou via un autre script Node.
@@ -1631,7 +1631,7 @@ Compatible Node et navigateurs Web. +
 [source]
 .stylesheet.less
 ----
-include::{sourceDir}/snippets/stylesheet.less[]
+include::{sourceDir}/stylesheet.less[]
 ----
 
 L'exécutable `lessc` compile le fichier LESS:
@@ -1676,16 +1676,16 @@ Par défaut _rework_ ne fournit qu'un lot réduit de fonctionnalités.
 Il faut donc rajouter des extensions pour étendre le comportement et modeler le _parsing_ à notre goût.
 
 [source,javascript]
-.npm-rework.js
+.npm/rework.js
 ----
-include::{sourceDir}/snippets/npm-rework.js[]
+include::{sourceDir}/npm/rework.js[]
 ----
 
 Cette configuration permet de parser la feuille de style suivante :
 
 [source]
 ----
-include::{sourceDir}/snippets/stylesheet.css[]
+include::{sourceDir}/stylesheet.css[]
 ----
 
 Le résultat à l'issu de la compilation est identique à la sortie du module _less_.
@@ -1702,9 +1702,9 @@ Aux fonctionnalités précédemment listées s'ajoutent une prise en charge plus
 [URL]#https://npmjs.com/browserify# et [URL]#https://npmjs.com/webpack#
 
 [source,javascript]
-.npm-browserify.js
+.npm/browserify.js
 ----
-include::{sourceDir}/snippets/npm-browserify.js[]
+include::{sourceDir}/npm/browserify.js[]
 ----
 <1> Affiche `Open Sky`.
 
@@ -1728,10 +1728,10 @@ include::{sourceDir}/snippets/npm-browserify.js[]
 La commande `browserify` remplacera l'appel au module _cheerio_ par un appel au module _jquery_ :
 
 ----
-browserify npm-browserify.js -o npm-browserify.bundle.js
+browserify npm/browserify.js -o npm/browserify.bundle.js
 ----
 
-Inclus dans un navigateur Web, le fichier `npm-browserify.bundle.js` affichera le même résultat que l'interpréteur Node.
+Inclus dans un navigateur Web, le fichier `npm/browserify.bundle.js` affichera le même résultat que l'interpréteur Node.
 
 ====== babel
 
@@ -1741,13 +1741,13 @@ Il peut être utilisé en complément de _browserify_ et de _webkpack_.
 [URL]#https://npmjs.com/babel#
 
 [source,javascript]
-.npm-babel.js
+.npm/babel.js
 ----
-include::{sourceDir}/snippets/npm-babel.js[]
+include::{sourceDir}/npm/babel.js[]
 ----
 
 ----
-babel-node npm-babel.js <1> <2>
+babel-node npm/babel.js <1> <2>
 ----
 <1> Affiche `passport@^0.3.0` ;
 <2> Affiche `passport-local@^1.0.0`.
@@ -1801,7 +1801,7 @@ Compatible Node et navigateurs Web. +
 [source,javascript]
 .template.swig
 ----
-include::{sourceDir}/snippets/template.swig[]
+include::{sourceDir}/template.swig[]
 ----
 
 ====== handlebars
@@ -1817,7 +1817,7 @@ Compatible Node et navigateurs Web. +
 [source,javascript]
 .template.hbs
 ----
-include::{sourceDir}/snippets/template.hbs[]
+include::{sourceDir}/template.hbs[]
 ----
 
 Cela présuppose que les données adéquates soient passées à la fonction de template `Handlebars.template['template.hbs']`.
@@ -1833,7 +1833,7 @@ Compatible Node et navigateurs Web. +
 [source,javascript]
 .template.jade
 ----
-include::{sourceDir}/snippets/template.jade[]
+include::{sourceDir}/template.jade[]
 ----
 
 ====== ejs
@@ -1847,7 +1847,7 @@ Compatible Node et navigateurs Web. +
 [source,javascript]
 .template.ejs
 ----
-include::{sourceDir}/snippets/template.ejs[]
+include::{sourceDir}/template.ejs[]
 ----
 
 ====== react
@@ -1861,7 +1861,7 @@ Compatible Node et navigateurs Web. +
 [source,javascript]
 .template.jsx
 ----
-include::{sourceDir}/snippets/template.jsx[]
+include::{sourceDir}/template.jsx[]
 ----
 
 ===== Tests
@@ -1888,9 +1888,9 @@ Compatible Node et navigateurs Web. +
 [URL]#https://npmjs.com/tape#
 
 [source,javascript]
-.npm-tape.js
+.npm/tape.js
 ----
-include::{sourceDir}/snippets/npm-tape.js[]
+include::{sourceDir}/npm/tape.js[]
 ----
 
 ====== mocha
@@ -1902,9 +1902,9 @@ Compatible Node et navigateurs Web. +
 [URL]#https://npmjs.com/mocha#
 
 [source,javascript]
-.npm-mocha.js
+.npm/mocha.js
 ----
-include::{sourceDir}/snippets/npm-mocha.js[]
+include::{sourceDir}/npm/mocha.js[]
 ----
 
 ====== chai
@@ -1916,9 +1916,9 @@ Compatible Node et navigateurs Web. +
 [URL]#https://npmjs.com/chai#
 
 [source,javascript]
-.npm-chai.js
+.npm/chai.js
 ----
-include::{sourceDir}/snippets/npm-chai.js[]
+include::{sourceDir}/npm/chai.js[]
 ----
 
 ====== sinon
@@ -1932,9 +1932,9 @@ Compatible Node et navigateurs Web. +
 [URL]#https://npmjs.com/sinon#
 
 [source,javascript]
-.npm-sinon.js
+.npm/sinon.js
 ----
-include::{sourceDir}/snippets/npm-sinon.js[]
+include::{sourceDir}/npm/sinon.js[]
 ----
 
 ====== blanket
@@ -1975,7 +1975,7 @@ Son petit-frère _eslint_ a également le même but à la différence près que 
 Et la commande exécutant la vérification récursive du code contenu dans le répertoire `src/` :
 
 ----
-jshint src/
+jshint
 ----
 
 ===== Automatisation
@@ -1994,7 +1994,7 @@ L'utilisation de Node pour le développement _frontend_ est expliqué dans le _c
 [source,javascript]
 .Gruntfile.js
 ----
-include::{sourceDir}/../Gruntfile.js[]
+include::{sourceDir}/Gruntfile.js[]
 ----
 
 Cet exemple illustre comment compiler une extension Chrome, ainsi que ses feuilles de style LESS ([URL]#http://lesscss.org/#), à la demande et en temps réel.
@@ -2025,7 +2025,7 @@ Le fichier de configuration de _Gulp_ décrit les séquences d'exécution néces
 [source,javascript]
 .Gulpfile.js
 ----
-include::{sourceDir}/../Gulpfile.js[]
+include::{sourceDir}/Gulpfile.js[]
 ----
 
 Le concept de _streams_ est décrit en fin de chapitre.
@@ -2122,9 +2122,9 @@ La notion d'_immédiateté_ correspond en réalité à un temps variable — dan
 Maintenant tentons de lire de manière asynchrone le contenu d'un fichier après s'être assuré de son existence :
 
 [source,javascript]
-.pattern-async.js
+.pattern/async.js
 ----
-include::{sourceDir}/snippets/pattern-async.js[]
+include::{sourceDir}/pattern/async.js[]
 ----
 
 Puisque les méthodes `exists` et `readFile` ne retournent pas de résultat dans le même cycle d'_Event loop_, il faut bien que le résultat soit transmis d'une manière ou d'une autre.
@@ -2143,9 +2143,9 @@ Ces problèmes seront amplifiés à mesure que la complexité de votre code, et 
 Tentons une approche plus modulaire, toujours asynchrone :
 
 [source,javascript]
-.pattern-async-reusable.js
+.pattern/async-reusable.js
 ----
-include::{sourceDir}/snippets/pattern-async-reusable.js[]
+include::{sourceDir}/pattern/async-reusable.js[]
 ----
 
 La séparation entre succès et échec est désormais évidente.
@@ -2153,17 +2153,17 @@ Le code est également plus lisible.
 Son abstraction en module indépendant le rend réutilisable à tout niveau dans l'application — et testable par la même occasion :
 
 [source,javascript]
-.get-filecontent.js
+.filecontent/index.js
 ----
-include::{sourceDir}/snippets/get-filecontent.js[]
+include::{sourceDir}/filecontent/index.js[]
 ----
 
 Voyons à quoi ressemblerait ce code s'il était synchrone :
 
 [source,javascript]
-.pattern-sync.js
+.pattern/sync.js
 ----
-include::{sourceDir}/snippets/pattern-sync.js[]
+include::{sourceDir}/pattern/sync.js[]
 ----
 
 Finalement le code n'est pas nécessairement plus clair.
@@ -2172,9 +2172,9 @@ On doit activement essayer de faire la distinction entre un résultat d'une vale
 Le module d'accès synchrone au contenu d'un fichier ressemblerait à ceci :
 
 [source,javascript]
-.get-filecontent-sync.js
+.filecontent/sync.js
 ----
-include::{sourceDir}/snippets/get-filecontent-sync.js[]
+include::{sourceDir}/filecontent/sync.js[]
 ----
 
 Il y a légèrement moins de lignes et le gain de lisibilité n'est pas flagrant.
@@ -2193,18 +2193,18 @@ Mais alors, *quelle différence entre code asynchrone et code non-bloquant* ?
 Considérons le code suivant :
 
 [source,javascript]
-.pattern-async-fake.js
+.pattern/async-fake.js
 ----
-include::{sourceDir}/snippets/pattern-async-fake.js[]
+include::{sourceDir}/pattern/async-fake.js[]
 ----
 
 Il ressemble en tout point à un de nos exemples précédent de code _non-bloquant_.
 Pourtant il est bloquant car le code sur lequel il repose propose certes un mécanisme de _callback_, mais exécuté dans le même cycle d'_Event loop_ :
 
 [source,javascript]
-.get-filecontent-async-fake.js
+.filecontent/async-fake.js
 ----
-include::{sourceDir}/snippets/get-filecontent-async-fake.js[]
+include::{sourceDir}/filecontent/async-fake.js[]
 ----
 <1> Premier accès bloquant ;
 <2> Second accès bloquant.
@@ -2299,9 +2299,9 @@ Parcourir et filtrer le contenu d'un répertoire devient un jeu d'enfant — bie
 Au final, c'est ce qui est effectué mais sans que nous ayions à écrire ce code nous-même.
 
 [source,javascript]
-.pattern-glob.js
+.pattern/glob.js
 ----
-include::{sourceDir}/snippets/pattern-glob.js[]
+include::{sourceDir}/pattern/glob.js[]
 ----
 <1> fichiers débutant par `template` ;
 <2> fichiers débutant par `template` et suffixés par `hbs` ou dont le suffixe débute par `ej` ;
@@ -2410,9 +2410,9 @@ Comment les propager ailleurs dans notre application ?
 Forçons le trait en créant une fonction asynchrone (`messageAbbr`) faisant appel à trois autres fonctions asynchrones (`uppercaseAsync`, `splitWordsAsync` et `abbreviateAsync`) :
 
 [source,javascript]
-.message-abbr.js
+.message-abbr/index.js
 ----
-include::{sourceDir}/snippets/message-abbr.js[]
+include::{sourceDir}/message-abbr/index.js[]
 ----
 
 Plusieurs remarques :
@@ -2421,13 +2421,13 @@ Plusieurs remarques :
 - chaque niveau de _callback_ appellera la fonction de callback initiale avec l'objet d'erreur en premier argument ;
 - on constate que l'imbrication des fonctions rend difficilement contrôlable la possibilité d'interagir avant que l'intégralité de la chaîne soit accomplie.
 
-L'exemple suivant repose sur les fonctions précédemment listées de `message-abbr.js`.
+L'exemple suivant repose sur les fonctions précédemment listées de `message-abbr/index.js`.
 La fonction `messageAbbr` est exécutée de trois manières différentes pour souligner plusieurs cas de figure :
 
 [source,javascript]
-.pattern-callback.js
+.pattern/callback.js
 ----
-include::{sourceDir}/snippets/pattern-callback.js[]
+include::{sourceDir}/pattern/callback.js[]
 ----
 <1> _Premier appel_ : affiche la chaîne `GME` ;
 <2> _Deuxième appel_ : affiche le message d'erreur `[TypeError: message is not a String]` ;
@@ -2451,9 +2451,9 @@ Enfin, on notera que l'ordre d'affichage des deux premiers appels n'est pas néc
 Le code initial peut être rendu légèrement plus lisible sans toucher à l'API de callback en utilisant la méthode `waterfall` de la bibliothèque `async` ([URL]#https://npmjs.com/async#) :
 
 [source,javascript]
-.message-abbr-waterfall.js
+.message-abbr/waterfall.js
 ----
-include::{sourceDir}/snippets/message-abbr-waterfall.js[]
+include::{sourceDir}/message-abbr/waterfall.js[]
 ----
 
 Le mécanisme `waterfall` exécute chaque callback de manière séquentielle, en transmettant l'erreur et le résultat au callback suivant.
@@ -2489,9 +2489,9 @@ Dans l'exemple suivant, nous allons réutiliser la fonction `messageAbbr` dével
 Cette fois-ci, nous allons exécuter des _opérations synchrones et asynchrones_ en _callback_ de la fonction `messageAbbr` :
 
 [source,javascript]
-.pattern-callback-naive.js
+.pattern/callback-naive.js
 ----
-include::{sourceDir}/snippets/pattern-callback-naive.js[]
+include::{sourceDir}/pattern/callback-naive.js[]
 ----
 
 Les fonctions `logData`, `logPerformance` et `storeData` sont exécutées en cas de succès du _callback_ de `messageAbbr`. +
@@ -2500,11 +2500,11 @@ Mais que se passe-t'il si une de ces trois fonctions génère une erreur ? Et si
 Retravaillons le précédent exemple pour explorer une approche événementielle :
 
 [source,javascript]
-.pattern-event.js
+.pattern/event.js
 ----
-include::{sourceDir}/snippets/pattern-event.js[]
+include::{sourceDir}/pattern/event.js[]
 ----
-<1> L'utilisation de `module.exports` permet d'exposer l'émetteur d'événement à d'autres modules, par exemple `require('./pattern-events').on('data', ...)`.
+<1> L'utilisation de `module.exports` permet d'exposer l'émetteur d'événement à d'autres modules, par exemple `require('./pattern/events').on('data', ...)`.
 
 La fonction `messageAbbr` retourne désormais une instance de l'objet `EventEmitter` de manière synchrone.
 Des écouteurs sont branchés sur l'objet retourné et sont exécutés de manière asynchrone, lorsque leur événement respectif est émis.
@@ -2512,9 +2512,9 @@ Des écouteurs sont branchés sur l'objet retourné et sont exécutés de maniè
 Observons maintenant le code source modifié de `messageAbbr` ayant permis d'exposer cette interface événementielle :
 
 [source,javascript]
-.message-abbr-evented.js
+.message-abbr/evented.js
 ----
-include::{sourceDir}/snippets/message-abbr-evented.js[]
+include::{sourceDir}/message-abbr/evented.js[]
 ----
 
 Le seul changement se situe dans la fonction `messageAbbr` : elle retourne désormais un objet `EventEmitter`.
@@ -2530,7 +2530,7 @@ C'est en général un nombre suffisant mais cette limite peut être augmentée (
 
 [source,javascript]
 ----
-include::{sourceDir}/tips/events-setmaxlisteners.js[]
+include::{sourceDir}/events-setmaxlisteners.js[]
 ----
 ====
 
@@ -2554,9 +2554,9 @@ Les cas d'utilisation des promesses sont multiples :
 Faisons évoluer notre exemple de _pattern_ _callback_ et d'événement :
 
 [source,javascript]
-.pattern-promise.js
+.pattern/promise.js
 ----
-include::{sourceDir}/snippets/pattern-promise.js[]
+include::{sourceDir}/pattern/promise.js[]
 ----
 
 La lecture du code est similaire à celle du code écrit pour le _pattern_ d'événements.
@@ -2565,9 +2565,9 @@ Les méthodes `then` et `catch` se chaînent mais nous verrons un peu plus tard 
 Tournons-nous vers l'implémentation de la fonction `messageAbbr` :
 
 [source,javascript]
-.message-abbr-promisified.js
+.message-abbr/promisified.js
 ----
-include::{sourceDir}/snippets/message-abbr-promisified.js[]
+include::{sourceDir}/message-abbr/promisified.js[]
 ----
 
 Plusieurs choses notables sont à relever :
@@ -2581,9 +2581,9 @@ Un atout essentiel des promesses est la _gestion des erreurs_.
 Elle est plus élégante qu'avec les _callbacks_ : les exceptions que nous n'avons pas englobé avec des `try/catch` seront quand même capturées :
 
 [source,javascript]
-.pattern-promise-errors.js
+.pattern/promise-errors.js
 ----
-include::{sourceDir}/snippets/pattern-promise-errors.js[]
+include::{sourceDir}/pattern/promise-errors.js[]
 ----
 <1> Comme dans le _pattern_ _callback_, le message d'exception est affiché `[TypeError: Cannot read property 'toLocaleUpperCase' of null]` ;
 <2> Contrairement à notre exemple du _pattern_ _callback_, le cas d'erreur imprévu de la valeur `null` ne nous échappe pas et transmet l'erreur à la fonction `logErr` ;
@@ -2594,9 +2594,9 @@ Enfin, la méthode statique `Promise.all` nous permet d'exécuter une fonction l
 Le résultat de l'intégralité des promesses est alors retourné en argument de `then`.
 
 [source,javascript]
-.pattern-promise-multiple.js
+.pattern/promise-multiple.js
 ----
-include::{sourceDir}/snippets/pattern-promise-multiple.js[]
+include::{sourceDir}/pattern/promise-multiple.js[]
 ----
 <1> Affiche `Promesse tenue !` en premier ;
 <2> Puis affiche `[ 'H&M', 'HMS', 'GO' ]`
@@ -2616,9 +2616,9 @@ Mais les _patterns_ précédents n'adressent pas la problématique de mémoire.
 Prenons un exemple courant : télécharger un fichier distant et le stocker sur disque.
 
 [source,javascript]
-.npm-streams-http-async.js
+.npm/streams-http-async.js
 ----
-include::{sourceDir}/snippets/npm-streams-http-async.js[]
+include::{sourceDir}/npm/streams-http-async.js[]
 ----
 
 Que se passe-t-il dans le précédent exemple ?
@@ -2637,9 +2637,9 @@ Les _streams_ servent très précisément à résoudre ces inconvénients.
 Rectifions notre précédent exemple :
 
 [source,javascript]
-.npm-streams-http.js
+.npm/streams-http.js
 ----
-include::{sourceDir}/snippets/npm-streams-http.js[]
+include::{sourceDir}/npm/streams-http.js[]
 ----
 
 Que se passe-t-il dans cet exemple ?
@@ -2678,9 +2678,9 @@ Nous souhaitons le lire, le parser et en afficher le contenu avant de pouvoir pr
 Voilà comment nous procéderions avec une approche classique non-bloquante :
 
 [source,javascript]
-.pattern-streams-async.js
+.pattern/streams-async.js
 ----
-include::{sourceDir}/snippets/pattern-streams-async.js[]
+include::{sourceDir}/pattern/streams-async.js[]
 ----
 
 C'est certes non-bloquant mais nous faisons face à un problème de performance lié à la montée en charge, en relation avec la taille du fichier à charger et à parser :
@@ -2695,9 +2695,9 @@ En clair, ce modèle ne fonctionnera pas si vous exposez des archives de fichier
 Sur la base de notre premier essai avec les _streams_, transformons donc la lecture ponctuelle en lecture progressive :
 
 [source,javascript]
-.pattern-streams.js
+.pattern/streams.js
 ----
-include::{sourceDir}/snippets/pattern-streams.js[]
+include::{sourceDir}/pattern/streams.js[]
 ----
 
 Que se passe-t-il lors de l'exécution de la méthode `createReadStream` :
@@ -2711,9 +2711,9 @@ Recyclons notre précédent exemple avec un fichier JSON plus volumineux.
 Le fichier en question est issu de la _ressourcerie Datalocale_ ([URL]#https://www.datalocale.fr/drupal7/dataset/catalogue-datalocale#), en date du 19 mars 2014 :
 
 [source,javascript]
-.pattern-streams-large.js
+.pattern/streams-large.js
 ----
-include::{sourceDir}/snippets/pattern-streams-large.js[]
+include::{sourceDir}/pattern/streams-large.js[]
 ----
 <1> Jette une exception `SyntaxError: Unexpected end of input`.
 
@@ -2730,9 +2730,9 @@ C'est exactement ce que nous propose le module npm `JSONStream` ([URL]#https://n
 Notre script se transforme légèrement et nécessite l'emploi de la méthode `pipe()` sur laquelle nous nous pencherons juste après :
 
 [source,javascript]
-.pattern-streams-jsonstream.js
+.pattern/streams-jsonstream.js
 ----
-include::{sourceDir}/snippets/pattern-streams-jsonstream.js[]
+include::{sourceDir}/pattern/streams-jsonstream.js[]
 ----
 <1> Affiche `208`.
 
@@ -2766,12 +2766,12 @@ Cette manipulation équivaut à une transmission de pointeur de données.
 Autrement dit, vous pouvez router un _stream_ vers plusieurs autres _streams_ sans pénaliser les ressources système !
 
 [source,javascript]
-.pattern-streams-multipipes.js
+.pattern/streams-multipipes.js
 ----
-include::{sourceDir}/snippets/pattern-streams-multipipes.js[]
+include::{sourceDir}/pattern/streams-multipipes.js[]
 ----
 
-Tout comme dans notre exemple précédent `pattern-streams-jsonstream.js`, nous avons recours à l'évènement `data`.
+Tout comme dans notre exemple précédent `pattern/streams-jsonstream.js`, nous avons recours à l'évènement `data`.
 Le module _JSONStream_ met temporairement en mémoire la structure de données parsée avant de l'émettre.
 
 Mais cela empêche de _piper_ à nouveau.
@@ -2781,9 +2781,9 @@ Elles créent un nouveau _stream_ et écrivent dedans à chaque émission de l'�
 On peut ainsi diriger notre _stream_ principal vers un fichier sur disque, mais aussi vers le parseur JSON qui lui aussi est dirigé vers le disque et la sortie standard :
 
 [source,javascript]
-.pattern-streams-multipipes-es.js
+.pattern/streams-multipipes-es.js
 ----
-include::{sourceDir}/snippets/pattern-streams-multipipes-es.js[]
+include::{sourceDir}/pattern/streams-multipipes-es.js[]
 ----
 
 De nombreuses API Node exposent des _streams_ : requête HTTP, serveur HTTP, lecture et écriture de fichier, cryptographie, entrée/sortie standard du processus etc.

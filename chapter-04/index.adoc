@@ -1,7 +1,7 @@
 :nodeCurrentVersion: v6
 :npmCurrentVersion: v4
 :revdate: {docdate}
-:sourceDir: ./examples/src
+:sourceDir: ./examples
 :imagesdir: {indir}
 ifdef::env[]
 :imagesdir: .
@@ -84,9 +84,9 @@ Quelles sont les raisons de choisir npm comme gestionnaire de dépendances _fron
 L'exemple suivant illustre plusieurs moyens d'inclure jQuery dans une page HTML, via une simple balise script, via un module _CommonJS_ (syntaxe Node) ou via la syntaxe des _modules_ d'ECMAScript 2015 :
 
 [source,html]
-.snippets/dependency-npm.html
+.dependency-npm.html
 ----
-include::{sourceDir}/snippets/dependency-npm.html[]
+include::{sourceDir}/dependency-npm.html[]
 ----
 
 L'utilisation de modules _CommonJS_ nécessite une étape de compilation avant de pouvoir fonctionner nativement dans le navigateur.
@@ -360,7 +360,7 @@ Ce même fichier `index.js` doit être inclus dans une page HTML afin d'être in
 include::{sourceDir}/universal-http/index.html[]
 ----
 <1> Puisque la fonction `require()` n'est pas disponible nativement dans les navigateurs, on se charge d'injecter `superagent` dans l'espace global ;
-<2> Affiche `[ 'Chaource', 'Stilton', 'Camembert' ]` lorsque le navigateur est dirigé vers `http://localhost:4000/src/universal-http/index.html`.
+<2> Affiche `[ 'Chaource', 'Stilton', 'Camembert' ]` lorsque le navigateur est dirigé vers `http://localhost:4000/universal-http/index.html`.
 
 Nous avons créé notre premier code universel, fonctionnant aussi bien dans un navigateur qu'avec Node !
 Toutefois, on est tenté d'_hésiter entre magie et bricolage_ … Est-on obligé de recourir à des conditions ECMAScript pour éviter d'exécuter des APIs propres à Node ? Et surtout, *que se passe-t-il sous le capot de _superagent_* pour parvenir à un tel résultat ?
@@ -465,11 +465,11 @@ _browserify_ inclut le code nécessaire à l'exécution de l'arbre de dépendanc
 La conversion de code peut s'effectuer depuis l'API Node de _browserify_ mais aussi depuis un terminal :
 
 ----
-$ npm run browserify
+$ npm run bundle
 # tâche présente dans `package.json` équivalente à
 $ browserify \
- --entrypoint src/universal-http/index-browserify \
- --output src/universal-http/bundle.js
+ --entrypoint universal-http/index-browserify \
+ --output universal-http/bundle.js
 ----
 
 Le fichier HTML varie à peine par rapport à notre première tentative — à noter que nous n'incluons désormais que le fichier généré par _browserify_ :
@@ -525,7 +525,7 @@ TBD.
 === Tester son code
 
 
-==== Écrire des tests avec mocha et chai
+==== Écrire des tests avec tape et chai
 
 TBD.
 
