@@ -2003,9 +2003,19 @@ Son architecture entièrement basée sur les _Streams_ rend cette bibliothèque 
 Le concept de <<streams,streams>> est décrit en fin de chapitre.
 Il vous aidera à mieux comprendre les rouages du fonctionnement de _Gulp_.
 
+[[npm-run-all]]
+====== npm-run-all
 
-Le concept de _streams_ est décrit en fin de chapitre.
-Il vous aidera à mieux comprendre la magie du fonctionnement de _Gulp_.
+_npm-run-all_ est mon outil favori pour composer avec les _scripts npm_.
+Il a l'avantage d'être versatile, de permettre de régler finement ce qui doit être exécuté en parallèle ou en série et transfère les options aux sous-scripts.
+
+[source,javascript]
+.package.npm-run-all.json
+----
+include::{sourceDir}/package.npm-run-all.json[]
+----
+
+[URL]#https://npmjs.com/npm-run-all#
 
 ==== Internet of Things
 
