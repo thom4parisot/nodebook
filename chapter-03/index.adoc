@@ -225,7 +225,7 @@ Ce dernier contient désormais une section _dependencies_ :
   ...
   "dependencies": {
     "async": "~1.3.1",
-    "yargs": "~0.9.0"
+    "yargs": "^4.0.0"
   }
 }
 ----
@@ -418,7 +418,7 @@ L'installation globale est une installation rendant disponible votre module sur 
 Il s'agit d'une installation à privilégier pour les modules Node exposant un ou plusieurs exécutables — ces exécutables ayant une vocation utilitaire pour l'utilisateur final ou pour interagir avec d'autres programmes informatiques.
 
 ----
-npm install -g npm
+$ npm install -g npm
 ----
 
 L'exécution de la précédente commande installera la dernière version de npm et rendra disponible l'exécutable du même nom au niveau du système.
@@ -431,8 +431,8 @@ Bravo, vous venez d'apprendre à mettre à jour l'exécutable npm !
 npm se charge de créer les liens symboliques pour vous.
 Et ce, en fonction du contexte d'installation — qu'il soit global ou local donc.
 
-- `npm install -g jshint` : exécutable mis à disposition dans le répertoire `\`npm config get npm config get prefix\`/bin` (par exemple `/usr/local/node/bin`) ;
-- `npm install jshint` : exécutable mis à disposition dans le répertoire `./node_modules/.bin`.
+- `npm install -g eslint` : exécutable mis à disposition dans le répertoire `$(npm config get prefix)/bin` (par exemple `/usr/local/node/bin`) ;
+- `npm install eslint` : exécutable mis à disposition dans le répertoire `./node_modules/.bin`.
 ====
 
 ==== Configuration
@@ -686,14 +686,14 @@ L'avantage de cette approche est double :
   "name": "nodebook",
   ...
   "scripts": {
-    "test": "jshint ." <1>
+    "test": "eslint ." // <1>
   },
   "devDependencies": {
-    "jshint": "~2.5.1"
+    "eslint": "^3.0.0"
   }
 }
 ----
-<1> Équivaut donc à `./node_modules/.bin/jshint ./src`.
+<1> Équivaut donc à `./node_modules/.bin/eslint ./src`.
 
 Depuis sa version `2.0`, npm expose également les commandes `npm stop` et `npm restart`.
 
@@ -839,7 +839,7 @@ Ces deux commandes vous assureront un état d'installation similaire à ce qu'un
 ====
 Il se peut qu'une erreur _EPEERINVALID_ se déclare lors d'une mise à jour ou d'une fraîche installation.
 
-image::images/npm/outdated-peerinvalid.png[align="center",scaledwidth="85%"]
+image::images/npm-outdated-peerinvalid.png[align="center",scaledwidth="85%"]
 
 Cela signifie qu'un paquet réclame une dépendance d'une version différente et incompatible avec celle que vous déclarer dans votre fichier `package.json`.
 
@@ -908,13 +908,13 @@ En se basant sur ce principe de chaîne, vous pouvez faire évoluer votre comman
   "name": "nodebook",
   ...
   "scripts": {
-    "test": "npm run code-quality && npm run unit-tests",
-    "code-quality": "jshint ",
+    "test": "npm run lint-code && npm run unit-tests",
+    "lint-code": "eslint ",
     "unit-tests": "mocha tests/**/*.js"
   },
   "devDependencies": {
     "mocha": "*",
-    "jshint": "*"
+    "eslint": "^3.0.0"
   }
 }
 ----
@@ -1963,20 +1963,15 @@ Autrement dit, au lieu de tester directement le code de votre application, vous 
 
 [URL]#https://npmjs.com/superagent#
 
-====== jshint
+====== eslint
 
-_jshint_ teste la qualité de votre code et signale des pratiques de programmation à risque.
+_eslint_ teste la qualité de votre code et signale des pratiques de programmation à risque.
+
+Disponible via une invocation en ligne de commande, libre à vous de paramétrer le comportement du _linter_ selon vos propres règles, ou selon des règles pré-établies, partagées sur le registre _npm_.
+
 C'est un excellent moyen d'éviter des bugs tout en uniformisant vos pratiques de codage au sein de vos applications.
 
-Son petit-frère _eslint_ a également le même but à la différence près que les règles de vérification sont programmables … et vous pouvez créer les vôtres.
-
-[URL]#https://npmjs.com/jshint# et [URL]#https://npmjs.com/eslint#
-
-Et la commande exécutant la vérification récursive du code contenu dans le répertoire `src/` :
-
-----
-jshint
-----
+[URL]#https://npmjs.com/eslint#
 
 ===== Automatisation
 
