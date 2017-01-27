@@ -367,7 +367,7 @@ image::images/compat-table.png[align="center",scaledwidth="85%"]
 ==== Standard ECMA-262 Edition 2015, 2016 etc.
 
 La spécification *ECMAScript 2015* (_ES2015_) a été publiée en juin 2015 et succède à *ECMAScript 5*. +
-La spécification _ES2015_ a successivement été appelée _ECMAScript Harmony_ puis _ECMAScript 6_.
+La spécification _ES2015_ a successivement été appelée _ECMAScript Harmony_ puis _ECMAScript 2015_.
 
 La page Web suivante référence l'état de l'implémentation d'ECMAScript 2015 ainsi que des versions ultérieures sur différentes plates-formes, dont Node :
 
@@ -1056,57 +1056,61 @@ S'il est désormais plus sûr d'utiliser l'extension de chaîne prototypale, *il
 Il est en effet bien plus simple de réutiliser (et de tester) des fonctions agnostiques de contexte — de `this` — que de maintenir de grosses classes héritant sur plusieurs niveaux.
 
 [[primitive-promise]]
-===== Promise
+==== Promise
 
-La nature asynchrone et non-bloquante des opérations coûteuses en cycles CPU est quelque chose d'appréciable dans Node.
-L'avantage d'un _callback_ est sa possible asynchronicité.
-En revanche son inconvénient est la difficulté à être tenu informé de ce qui s'y passe.
+L'organisation du code autour des _callbacks_ est difficile et ce, que ce soit en terme de maintenance, de gestion des erreurs ou de propagation d'information.
 
-Que faire si l'on souhaite exécuter trois fonctions différentes lors de la lecture d'un fichier ?
-Et comment gérer les erreurs si l'une de ces fonctions échoue ?
-Certainement pas en imbriquant les _callbacks_ les uns dans les autres comme ceci :
+Un motif a émergé en réponse à cette complexité grandissante : les *promesses*.
+*Il s'agit d'une primitive à maitriser* et disponible _nativement_ à la fois dans Node et les navigateurs modernes.
 
-[source,javascript]
-.callback-hell.js
-----
-include::{sourceDir}/callback-hell.js[]
-----
-<1> Affiche le nombre de dépendances combinées pour les trois premiers chapitres de cet ouvrage.
+Historiquement, de nombreuses bibliothèques ont proposé leur propre implémentation de promesses mais avec le défaut de ne pas être interopérables entre elles.
+La spécification _Promise/A+_ a émergé pour établir un standard de compatibilité.
+ECMAScript 2015 introduit nativement cette API, la rendant alors disponible pour le web et pour Node, avec ou sans _polyfill_.
 
-À l'œil nu, on se rend compte de la répétition de la gestion des erreurs — difficilement capturable soit dit en passant — et du caractère monolithique de la structure.
-Il est impossible d'exécuter autre chose qu'un `console.log` dans le dernier _callback_ sans en modifier son contenu.
+Les cas d'utilisation des promesses sont multiples :
 
-Un motif a émergé en réponse à cette complexité grandissante, à mi-chemin entre les _callbacks_ et les événements : les *promesses*.
-*Il s'agit d'une primitive à maitriser* et disponible nativement à la fois dans Node et les navigateurs modernes.
+- exécuter une continuité d'actions asynchrones ;
+- paralléliser des actions asynchrones et exécuter des instructions lorsqu'une ou plusieurs de ces actions sont terminées ;
+- simplifier la gestion des erreurs à n'importe quelle étape du processus asynchrone.
 
 [TIP]
 .[RemarquePreTitre]#Définition# Promesse
 ====
-Une promesse est *objet retourné immédiatement* et résolu _positivement_ ou _négativement_ *une seule et _unique_ fois dans le futur*.
+Une promesse est *objet retourné immédiatement* et qui exécute une fonction de résolution *une seule et _unique_ fois dans le futur*.
+Cette résolution peut être soit _positive_ soit _négative_.
 
-C'est un peu comme envoyer un courrier en recommandé :
+C'est un peu comme envoyer un _courrier suivi_ :
 
 - le bureau de poste vous remet une preuve de dépôt (la promesse) ;
-- vous recevez un accusé de réception lorsque le destinataire atteste sa réception (le _callback_ de succès) ;
-- vous recevez un accusé de non-délivrance si le destinataire n'a pas signé, ou récupéré son courrier dans un délai imparti (le _callback_ équivalent d'un _timeout_).
+- les services postaux acheminent l'accusé de réception lorsque le destinataire a reçu le courrier et signé l'avis de délivrance (_résolution positive_) ;
+- les services postaux émettent un accusé de non-délivrance si le destinataire n'a pas signé ni récupéré son courrier dans un délai imparti (_résolution négative_).
 ====
 
-`Promise` implémente plusieurs méthodes dont les plus utiles sont certainement `then` et `catch`.
-Le pseudocode suivant illustre la migration d'un mécanisme de _callback_ vers les promesses :
+La création d'une `Promise` consiste à appeler un _constructeur_.
+Le constructeur implémente le _pattern_ _Executor_.
+Le constructeur transmet les fonctions d'exécution permettant de _résoudre_ la promesse, _positivement_ en appelant `resolve` ou _négativement_, en appelant `reject`. +
+`resolve` et `reject` transmettent les valeurs passées en argument à vos _callbacks_ souscrivant respectivement à `then` et `catch`.
+
+L'exemple suivant illustre une encapsulation de la fonction `fs.readFile` de Node en tant que promesse :
 
 [source,javascript]
-.primitives/promise-pseudocode.js
+.primitives/readfile-promise.js
 ----
-include::{sourceDir}/primitives/promise-pseudocode.js[]
+include::{sourceDir}/primitives/readfile-promise.js[]
 ----
+<1> Les fonctions de résolution `resolve` et `reject` sont mises à disposition par l'API des `Promise` ;
+<2> La promesse englobe l'exécution asynchrone — toute exception levée revient à implicitement appeler `reject` ;
+<3> Résout négativement la promesse en passant le contenu de la dite erreur ;
+<4> Résout positivement la promesse — si le _parsing_ échoue, la promesse sera rejetée.
 
-Le résultat est une *lecture séquentielle du code*, plus facile à appréhender mais également la *souscription de multiples fonctions* en cas de succès ou d'erreur grâce aux méthodes `then` et `catch` :
+Une instance de `Promise` expose plusieurs méthodes pour propager le statut de son exécution.
+Les plus courramment employées sont `then` et `catch`:
 
-- `then(onSuccess[, onError])` : fonction acceptant un _callback_ de succès obligatoire et un _callback_ d'erreur facultatif ;
-- `catch(onError)` : fonction acceptant un _callback_ d'erreur obligatoire, commun à toute la chaine de promesses.
+- `then(onSuccess[, onError])` : fonction acceptant un _callback_ de succès et un _callback_ d'erreur (facultatif) ;
+- `catch(onError)` : fonction acceptant un _callback_ d'erreur.
 
 [TIP]
-.[RemarquePreTitre]#Bon à savoir# `then` et `return`
+.[RemarquePreTitre]#Bon à savoir# L'ordre de chaînage compte
 ====
 Le _callback_ de succès contient le résultat de la promesse précédente.
 
@@ -1117,72 +1121,35 @@ Il y a trois cas de figure si vous chainez plusieurs `then` :
 - le callback de succès retourne une nouvelle promesse : le prochain `then` retournera la valeur de cette dite promesse, une fois résolue.
 ====
 
-L'implémentation d'une promesse consiste en la création d'un objet `Promise` acceptant comme argument une fonction.
-Cette fonction contient la logique d'exécution, résolue positivement en appelant `resolve` ou à l'inverse, en appelant `reject`.
-
-`resolve` et `reject` transmettent les valeurs passées en argument à vos _callbacks_ souscrivant respectivement à `then` et `catch`.
-
-L'implémentation de `readFilePromise` évoquée dans le pseudocode précédent pourrait se faire de la manière suivante :
-
-[source,javascript]
-.readfile-promise.js
-----
-include::{sourceDir}/readfile-promise.js[]
-----
-<1> Les fonctions de résolution `resolve` et `reject` sont mises à disposition par l'API des `Promise` ;
-<2> La promesse englobe l'exécution asynchrone — toute exception levée revient à implicitement appeler `reject` ;
-<3> Résout négativement la promesse en passant le contenu de la dite erreur ;
-<4> Résout positivement la promesse — si le _parsing_ échoue, la promesse sera rejetée.
-
-Reprenons maintenant le premier exemple de cette section en utilisant ce que nous venons d'apprendre à propos des `Promise` :
+Illustrons désormais la consommation d'une promesse en se basant sur le code précédent :
 
 [source,javascript]
 .primitives/promise.js
 ----
 include::{sourceDir}/primitives/promise.js[]
 ----
+<1> Création d'une `Promise` ;
+<2> Consommation du résultat et propagation d'une nouvelle promesse retournant le nombre de dépendances contenu dans le `package.json` de ce chapitre ;
+<3> Consommation du nouveau résultat ;
+<4> Cette fonction sera appelée si une erreur se déclenche en amont de la chaîne de promeses.
 
-S'il y un léger mieux — nous n'avons plus d'imbrication de _callbacks_ — nous avons en revanche un problème : comment itérer sur le résultat de plusieurs appels asynchrones sur un nombre indéterminé d'éléments ?
+`Promise.all` est une méthode statique de l'API _Promise_ qui retourne elle-mêm une promesse.
+Elle sera résolue positivement lorsque toutes les promesses passées en argument seront résolues ou négativement dès que l'une d'entre elles échoue.
 
-Tout d'abord, nous n'avons pas besoin de récupérer les fichiers séquentiellement : laissons le système gérer au mieux les cycles CPU et opérer avec la charge système pour obtenir les ressources demandées.
-En d'autres termes : *parallélisons les appels asynchrones*.
-
-Et combinons le tout avec `Promise.all`, une méthode créant une _promesse de promesses_ : elle résoudra positivement ou négativement lorsque toutes les promesses passées en argument seront résolues.
-
-Notre exemple initial s'en trouve simplifié au maximum :
+Reprenons le précédent exemple pour compter _en parallèle_ les dépendences de trois fichiers `package.json` :
 
 [source,javascript]
 .primitives/promise-all.js
 ----
 include::{sourceDir}/primitives/promise-all.js[]
 ----
-<1> L'unique argument du _callback_ de succès est un tableau des ressources retournées par chaque promesse, en suivant leur ordre respectif d'exécution ;
-<2> Résultat identique à celui affiché par `callback-hell.js` — la fierté d'un code maintenable en plus !
-
-[TIP]
-.[RemarquePreTitre]#npm# Librairies de promesses
-====
-Des librairies de promesses ajoutent des sucres syntaxiques pour faciliter la manipulation des promesses :
-
-- [URL]#https://npmjs.com/pify#
-- [URL]#https://npmjs.com/bluebird#
-- [URL]#https://npmjs.com/when#
-- [URL]#https://npmjs.com/es6-promise# (un polyfill pour d'anciennes versions de Node et des navigateurs Web peu récents)
-====
-
-Nous avons vu comment exposer une fonction à _callback_ existante en promesse mais en réalité, ce n'est pas un travail que nous avons envie de faire régulièrement.
-Pour celà, une librairie comme `bluebird` ou `pify` exposent une fonction pour transformer en promesse une fonction ou un module retournant un objet de fonctions. +
-La réécriture de notre exemple précédent en serait simplifié car elles nous affranchirait du fichier `./readfile-promise.js` :
-
-[source,javascript]
-.primitives/promise-all-promisified.js
-----
-include::{sourceDir}/primitives/promise-promisified.js[]
-----
-<1> Les méthodes du module `fs` sont transformées en promesses et nous en décomposons la fonction `readFile` en la renommant en `readFilePromise` ;
-<2> Résultat identique à celui calculé dans `callback-hell.js` et `primitives/promise-all.js`.
+<1> On passe un tableau de promesses non-résolues à `Promise.all` ;
+<2> Cette fonction est exécutée dès que le tableau est résolu, avec le contenu de chaque fichier – dont nous comptons un par un le nombre de dépendances ;
+<3> Cette ligne ne change pas par rapport au précédent exemple — un bénéfice d'une bonne découpe de code.
 
 Usez et abusez des promesses : elles sont un des meilleurs moyens à notre disposition pour *modulariser*, *linéariser* et *clarifier le sens* du flot de notre code.
+
+Nous aborderons à nouveau les <<../chapter-03/index.adoc#pattern-promise,promesses en tant que _design pattern_>> dans le <<../chapter-03/index.adoc#,chapitre 3>>.
 
 [TIP]
 .[RemarquePreTitre]#Lien# Guide des promesses
@@ -1192,6 +1159,14 @@ Un dépôt sur GitHub permet d'y contribuer.
 
 - [URL]#https://www.w3.org/2001/tag/doc/promises-guide#
 - [URL]#https://github.com/w3ctag/promises-guide#
+====
+
+[TIP]
+.[RemarquePreTitre]#Documentation# Pour en savoir plus
+====
+La documentation complète de `Promise` est disponible en français sur la ressource communautaire MDN :
+
+- [URL]#https://developer.mozilla.org/fr/docs/Web/JavaScript/Reference/Objets_globaux/Promise#
 ====
 
 
@@ -1232,7 +1207,7 @@ include::{sourceDir}/primitives/async-await.js[]
 <2> On itère comme de manière synchrone, en demandant à l'interpréteur d'attendre que la promesse `readFilePromise` soit résolue ;
 <3> Le contenu de `fileBuffer` est disponible à la ligne d'après, sans utiliser `readFilePromise.then()` ;
 <4> La fonction `getAllDeps` retourne une promesse ;
-<5> <2> Résultat identique à celui calculé dans `callback-hell.js`, `primitives/promise-all.js` et `primitives/promise-all-promisified.js`.
+<5> <2> Résultat identique à celui calculé dans `primitives/promise-all.js` et `primitives/promise-all-promisified.js`.
 
 À travers cet exemple on comprend qu'une fonction `async` retourne en réalité une promesse.
 Promesse résolue lorsque toutes ses conditions `await` sont elles aussi résolues séquentiellement.

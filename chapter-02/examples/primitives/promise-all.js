@@ -1,7 +1,7 @@
 'use strict';
 
 const { join } = require('path');
-const readFilePromise = require('../readfile-promise');
+const readFilePromise = require('./readfile-promise');
 
 const files = ['chapter-02', 'chapter-01', 'chapter-03'].map(dir => {
   return join(__dirname, '..', '..', '..', dir, 'package.json');
@@ -9,12 +9,9 @@ const files = ['chapter-02', 'chapter-01', 'chapter-03'].map(dir => {
 
 const logError = (err) => console.error(err);
 
-Promise.all(files.map(readFilePromise))
-  .then(allPkgs => {                      // <1>
-    const deps = allPkgs.reduce((deps, pkg) => {
-      return Object.assign(deps, pkg.dependencies)
-    }, {});
-
-    console.log(Object.keys(deps).length);// <2>
-  })
+Promise.all(files.map(readFilePromise))               // <1>
+  .then(allPkgs => allPkgs.reduce((count, pkg) => {   // <2>
+    return count + Object.keys(pkg.dependencies || {}).length;
+  }, 0))
+  .then(count => console.log(count))                  // <3>
   .catch(logError);

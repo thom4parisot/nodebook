@@ -15,4 +15,3 @@ const readFilePromise = (file) => {
 };
 
 module.exports = readFilePromise;
-// readFilePromise(file).then(onSuccess, onError)
