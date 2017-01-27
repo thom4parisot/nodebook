@@ -1982,51 +1982,27 @@ jshint
 
 L'automatisation de tâches et leur inclusion dans vos projets sont d'excellents moyens pour rendre explicite votre outillage tout en le rendant reproductible et vérifiable.
 
+[[grunt]]
 ====== grunt
 
-_grunt_ est l'outil qui a propulsé Node dans la cours des développeurs _frontend_.
+_grunt_ est l'outil qui a propulsé Node dans la cours des développeurs _frontend_ (voir <<../chapter-04/index.adoc#>>).
 Son écosystème de modules particulièrement fourni en terme de performance, d'assemblage et de fonctionnalités a définitivement aidé de nombreux développeurs à automatiser bon nombre de tâches dans leurs projets.
 
-L'utilisation de Node pour le développement _frontend_ est expliqué dans le _chapitre 5 : au service du développement frontend_.
 
 [URL]#https://npmjs.com/grunt# et [URL]#https://npmjs.com/grunt-cli#
 
-[source,javascript]
-.Gruntfile.js
-----
-include::{sourceDir}/Gruntfile.js[]
-----
-
-Cet exemple illustre comment compiler une extension Chrome, ainsi que ses feuilles de style LESS ([URL]#http://lesscss.org/#), à la demande et en temps réel.
-
-Ces tâches peuvent ensuite être invoquées en intégralité ou individuellement :
-
-----
-# Exécuter toutes les tâches
-grunt build
-
-# Compiler uniquement les feuilles de style
-grunt css
-
-# Compilation en temps réel
-grunt watch
-----
-
+[[gulp]]
 ====== gulp
 
-_gulp_ est un outil de _build_ — en opposition à _grunt_ qui est un outil d'exécution de tâches.
+_gulp_ est un outil de _build_ orienté sur l'enchainement d'actions pour traiter des ensembles de fichiers.
 
 Son architecture entièrement basée sur les _Streams_ rend cette bibliothèque particulièrement rapide et efficace pour les traitements de fichiers impliquant plusieurs étapes de transformation.
 
 [URL]#https://npmjs.com/gulp#
 
-Le fichier de configuration de _Gulp_ décrit les séquences d'exécution nécessaires à la production de vos artéfacts :
+Le concept de <<streams,streams>> est décrit en fin de chapitre.
+Il vous aidera à mieux comprendre les rouages du fonctionnement de _Gulp_.
 
-[source,javascript]
-.Gulpfile.js
-----
-include::{sourceDir}/Gulpfile.js[]
-----
 
 Le concept de _streams_ est décrit en fin de chapitre.
 Il vous aidera à mieux comprendre la magie du fonctionnement de _Gulp_.
