@@ -2358,6 +2358,7 @@ Ce _pattern_ est intéressant à plus d'un titre :
 - le module d'injection peut baser son comportement sur l'état des objets passés en paramètre ;
 - il n'impose qu'une seule chose : respecter la signature de la fonction d'injection.
 
+[[pattern-callback]]
 ==== Callback
 
 Le _pattern_ _callback_ est très couramment employé et pour cause : il est systématiquement employé dans les API asynchrones de Node. Par exemple, pour lire un fichier :
@@ -2512,62 +2513,63 @@ include::{sourceDir}/events-setmaxlisteners.js[]
 
 Il est important de bien connaître et de bien comprendre ce _pattern_ car il est fréquemment employé au sein des API natives de Node et dans de nombreux modules npm.
 
+[[pattern-promise]]
 ==== Promesses
 
-Le concept des promesses (_promises_) est extrêmement puissant pour gérer, ordonner et organiser un ou plusieurs enchaînements d'exécutions asynchrones.
+Le concept des promesses est extrêmement puissant pour gérer, ordonner et organiser un ou plusieurs enchaînements d'exécutions asynchrones.
 Nous en avons déjà parlé dans la <<../chapter-02/index.adoc#primitive-promise,section Promise du Chapitre 2>>.
 
-Historiquement, de nombreuses bibliothèques ont proposé leur propre implémentation du _pattern_ mais avec le défaut de ne pas être interopérables entre elles.
-La spécification _Promise/A+_ a émergé pour établir un standard de compatibilité.
-ECMAScript 6 introduit nativement cette API, la rendant alors disponible pour le web et pour Node, avec ou sans _polyfill_.
+Il y a plusieurs enjeux dans l'organisation du code liés aux promesses :
 
-Les cas d'utilisation des promesses sont multiples :
+- intercepter les *erreurs* ;
+- intégrer du code *à base de _callbacks_* ;
+- *intégrer du code* qui n'est pas au courant d'être dans une promesse ;
+- *modulariser* son code ;
+- profiter de la *parallélisation*.
 
-- exécuter une continuité d'actions asynchrones ;
-- paralléliser des actions asynchrones et exécuter des instructions lorsqu'une ou plusieurs de ces actions sont terminées ;
-- simplifier la gestion des erreurs à n'importe quelle étape du processus asynchrone.
-
-Faisons évoluer notre exemple de _pattern_ _callback_ et d'événement :
-
-[source,javascript]
-.pattern/promise.js
-----
-include::{sourceDir}/pattern/promise.js[]
-----
-
-La lecture du code est similaire à celle du code écrit pour le _pattern_ d'événements.
-Les méthodes `then` et `catch` se chaînent mais nous verrons un peu plus tard leur subtilité.
-
-Tournons-nous vers l'implémentation de la fonction `messageAbbr` :
+Le fichier `message-abbr/index.js` exporte une fonction asynchrone dont l'argument final est un <<pattern-callback,callback>>.
+Une première approche pour utiliser cette fonction _comme une promesse_ serait de l'encapsuler de la manière suivante :
 
 [source,javascript]
-.message-abbr/promisified.js
+.pattern/promise-callback.js
 ----
-include::{sourceDir}/message-abbr/promisified.js[]
+include::{sourceDir}/pattern/promise-callback.js[]
 ----
 
-Plusieurs choses notables sont à relever :
+C'est minimal mais on crée un code _fragile_ : nous devons faire en sorte que les interfaces de l'encapsulation évoluent en simultané.
+La réalité c'est que nous n'avons pas envie d'encapsuler toutes les fonctions asynchrones pour les intégrer dans des chaînes de promesses.
 
-- toutes les fonctions retournent désormais une promesse ;
-- les fonctions `reject` et `resolve` remplacent le _pattern_ `callback(error, result)` ;
-- l'enchaînement final de `then` laisse supposer que chaque promesse consomme le résultat de la promesse précédente;
-- `messageAbbr` est elle-même une promesse dont le résultat se base sur un enchaînement de promesses.
+Pour celà, une librairie comme `bluebird` ou `pify` exposent une fonction pour transformer en promesse une fonction ou un module retournant un objet de fonctions. +
+L'exemple précédent serait réécrit de la manière suivante :
 
-Un atout essentiel des promesses est la _gestion des erreurs_.
-Elle est plus élégante qu'avec les _callbacks_ : les exceptions que nous n'avons pas englobé avec des `try/catch` seront quand même capturées :
+[source,javascript]
+.pattern/promise-promisified.js
+----
+include::{sourceDir}/pattern/promise-promisified.js[]
+----
+
+C'est tout.
+
+Explorons désormais une *gestion robuste des erreurs* : toute exception entraine la _résolution négative_ de la promesse – même si on ne fait pas appel à la fonction `reject()`.
+Il est possible de gérer les erreurs finement en ayant recourt à `.catch()`.
 
 [source,javascript]
 .pattern/promise-errors.js
 ----
 include::{sourceDir}/pattern/promise-errors.js[]
 ----
-<1> Comme dans le _pattern_ _callback_, le message d'exception est affiché `[TypeError: Cannot read property 'toLocaleUpperCase' of null]` ;
-<2> Contrairement à notre exemple du _pattern_ _callback_, le cas d'erreur imprévu de la valeur `null` ne nous échappe pas et transmet l'erreur à la fonction `logErr` ;
-<3> `logErr` ne va pas capturer l'exception lancée sur la même ligne mais uniquement de la précédente occurence de `.then()` dans la chaîne – donc uniquement si `logData` génère une exception ;
-<4> Affiche `Error: Erreur volontaire dans .catch()` — il est important de conclure une chaîne de promesses avec `.catch()` pour s'assurer qu'aucune erreur ne nous échappe.
+<1> Ce `.catch()` se déclenchera si `messageAbbr()` ou `logData()` génèrent une exception ;
+<2> Génère une exception — elle ne sera pas intercepée par la fonction `logErr()` située sur la même ligne ;
+<3> Ce `.catch()` affichera l'erreur générée à l'élément _précédent_ dans la chaîne de promesses ;
+<4> La fonction `messageAbbr()` génère une exception, gérée par l'élément _suivant_ dans la chaîne de promesses ;
+<5> La fonction `messageAbbr()` génère une exception, qui n'est pas interceptée – Node affiche un _warning_ dans la _sortie erreur_ : `UnhandledPromiseRejectionWarning: Unhandled promise rejection`.
 
-Enfin, la méthode statique `Promise.all` nous permet d'exécuter une fonction lorsque _toutes_ les promesses sont résolues.
-Le résultat de l'intégralité des promesses est alors retourné en argument de `then`.
+Ce dernier cas de figure illustre une des limitations des promesses : c'est à nous de faire attention à intercepter les erreurs.
+Celles-ci ne seront pas toutes remontées si un `.catch()` final n'est pas ajouté à la chaîne de promesses. +
+Node affichera un message d'erreur avec une trace incomplète.
+
+`Promise.all()` nous permet d'exécuter une fonction lorsque _toutes_ les promesses sont résolues.
+Détail important cependant, _toutes_ les promesses passées en argument de `Promise.all()` sont exécutées en *parallèle* :
 
 [source,javascript]
 .pattern/promise-multiple.js
@@ -2577,8 +2579,19 @@ include::{sourceDir}/pattern/promise-multiple.js[]
 <1> Affiche `Promesse tenue !` en premier ;
 <2> Puis affiche `[ 'H&M', 'HMS', 'GO' ]`
 
-Aussi logique que cela puisse paraître, cette technique est plus rapide qu'un enchainement de promesses du fait de leur _exécution en parallèle_.
-Le temps d'exécution correspond à celui de la plus lente promesse au lieu d'une accumulation du temps d'exécution de chaque promesse.
+Cette technique est plus rapide qu'un enchainement de promesses du fait de leur _exécution en parallèle_.
+Le temps d'exécution total correspond à celui de la plus lente promesse..
+
+[TIP]
+.[RemarquePreTitre]#npm# Librairies de promesses
+====
+Des librairies de promesses ajoutent des sucres syntaxiques pour faciliter la manipulation des promesses :
+
+- [URL]#https://npmjs.com/pify#
+- [URL]#https://npmjs.com/bluebird#
+- [URL]#https://npmjs.com/when#
+- [URL]#https://npmjs.com/es6-promise# (un polyfill pour d'anciennes versions de Node et des navigateurs Web peu récents)
+====
 
 [[streams]]
 ==== Streams

@@ -1207,7 +1207,7 @@ include::{sourceDir}/primitives/async-await.js[]
 <2> On itère comme de manière synchrone, en demandant à l'interpréteur d'attendre que la promesse `readFilePromise` soit résolue ;
 <3> Le contenu de `fileBuffer` est disponible à la ligne d'après, sans utiliser `readFilePromise.then()` ;
 <4> La fonction `getAllDeps` retourne une promesse ;
-<5> <2> Résultat identique à celui calculé dans `primitives/promise-all.js` et `primitives/promise-all-promisified.js`.
+<5> <2> Résultat identique à celui calculé dans `primitives/promise-all.js`.
 
 À travers cet exemple on comprend qu'une fonction `async` retourne en réalité une promesse.
 Promesse résolue lorsque toutes ses conditions `await` sont elles aussi résolues séquentiellement.
