@@ -4,17 +4,13 @@
 
 const fs = require('fs');
 
-const getFilecontent = (filename, onSuccess, onError) => {
-  if (fs.existsSync(filename)) { // <1>
-    try {
-      onSuccess(String(fs.readFileSync(filename))); // <2>
-    }
-    catch (e){
-      onError(e);
-    }
+const getFilecontent = (filename, onSuccess, onError) => { // <1>
+  try {
+    const fileBuffer = fs.readFileSync(filename);          // <2>
+    onSuccess(String(fileBuffer));
   }
-  else {
-    onError(new Error('File does not exist.'));
+  catch (e){
+    onError(e);
   }
 };
 
