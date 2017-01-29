@@ -30,7 +30,7 @@ En plus de vous faire gagner un temps précieux, ils vous éviteront de réinven
 Nous terminerons le chapitre par un ensemble de _design patterns_ utiles et récurrents.
 Les connaître vous facilitera la lecture du code source de modules tiers, tout en vous donnant les moyens de développer des applications optimisant au maximum l'usage des ressources systèmes.
 
-Ces millisecondes et méga-octets de mémoire peuvent avoir l'air de rien du tout … mais ces techniques vous aideront à créer et maintenir des applications résistant à la charge, de quelques dizaines à plusieurs milliers d'utilisateurs en simultané !
+Ces millisecondes et méga-octets de mémoire peuvent avoir l'air de rien du tout… mais ces techniques vous aideront à créer et maintenir des applications résistant à la charge, de quelques dizaines à plusieurs milliers d'utilisateurs en simultané !
 
 toc::[]
 
@@ -94,7 +94,7 @@ Ils indiqueront aux utilisateurs les intentions du projet ainsi que l'emplacemen
 
 - *name* : il s'agit de l'identifiant du module lorsqu'il est chargé via la fonction `require()`. Ce sera également l'identifiant npm si vous publiez ce module dans un registre public ou privé. Par exemple, si la propriété *name* vaut _nodebook_, le module se chargera via `require('nodebook')` et s'installera avec la commande `npm install nodebook` ;
 - *description* : une indication textuelle des objectifs et fonctionnalités du module, écrite généralement en anglais ;
-- *version* : chaîne respectant la sémantique _semver_ — par exemple `1.0.0`. Nous verrons un peu plus loin dans ce chapitre comment utiliser intelligemment cette valeur pour assurer des mises à jour tout en préservant la compatibilité descendante au sein des projets dépendant de ce module ;
+- *version* : chaîne respectant la sémantique _semver_ — par exemple `1.0.0`. Nous verrons un peu plus loin dans ce chapitre comment utiliser intelligemment cette valeur pour assurer des mises à jour tout en préservant la compatibilité descendante au sein des projets dépendants de ce module ;
 - *main* : emplacement du fichier Node chargé par défaut lors d'un appel à `require(<name>)`. S'il n'est pas spécifié, Node tentera de charger par défaut le fichier `index.js` ;
 - *repository* : objet spécifiant le type de dépôt de code ainsi que son URL. Présent essentiellement à titre informatif ;
 - *preferGlobal* : booléen indiquant si ce module a davantage vocation à être installé globalement au niveau du système ou non (`false` par défaut) ;
@@ -111,7 +111,7 @@ Il existe plusieurs types de dépendances, chacune ayant sa propre utilité :
 - *dependencies* : dépendances utiles à un fonctionnement en production ;
 - *devDependencies* : dépendances utiles uniquement dans le cadre du développement, par exemple pour exécuter des tests ou s'assurer de la qualité du code ou encore empaqueter le projet ;
 - *optionalDependencies* : dépendances dont l'installation ne sera pas nécessairement satisfaite, notamment pour des raisons de compatibilité. En général votre code prévoira que le chargement de ces modules via `require()` pourra échouer en prévoyant le traitement des exceptions avec un `try {} catch ()` ;
-- *peerDependencies* : module dont l'installation vous est recommandée ; pratique couramment employée dans le cas de _plugins_. +
+- *peerDependencies* : modules dont l'installation vous est recommandée ; pratique couramment employée dans le cas de _plugins_. +
 Par exemple, si votre projet `A` installe `gulp-webserver` en `devDependencies` et que `gulp-webserver` déclare `gulp` en `peerDependencies`, npm vous recommandera d'installer également `gulp` en tant que `devDependencies` de votre projet `A`.
 ====
 
@@ -207,7 +207,7 @@ npm install --save async yargs
 La commande précédente effectue plusieurs opérations :
 
 1. requête du registre _npmjs.com_ à propos des deux modules _async_ et _yargs_ ;
-2. si les modules existent, la version compatible la plus récente est retournée (équivalent à `npm view async version` et `npm view async version` — respectivement `0.9.0` et `1.3.1`) ;
+2. si les modules existent, la version compatible la plus récente est retournée (équivalent à `npm view async version` et `npm view yargs version` — respectivement `2.1.4` et `6.6.0`) ;
 3. téléchargement et décompression des paquets dans les répertoire `node_modules/async` et `node_modules/yargs` ;
 4. introspection récursive des dépendances de ces modules et si besoin est, téléchargement et décompression dans leur répertoire _node_modules_ respectif (ici `node_modules/async/node_modules` et `node_modules/yargs/node_modules`) ;
 5. inscription de _async_ et de _yargs_ dans la configuration _dependencies_ de notre fichier `package.json`.
@@ -224,13 +224,13 @@ Ce dernier contient désormais une section _dependencies_ :
 {
   ...
   "dependencies": {
-    "async": "~1.3.1",
-    "yargs": "^4.0.0"
+    "async": "^2.1.4",
+    "yargs": "^6.6.0"
   }
 }
 ----
 
-Vous remarquerez que les numéros de versions sont préfixés du symbole `~` (ou `^` selon la version de npm).
+Vous remarquerez que les numéros de versions sont préfixés du symbole `^` (ou `~` selon la version de npm).
 Nous y reviendrons dans <<semver, Choisir un bon numéro de version>>.
 
 [TIP]
@@ -387,9 +387,9 @@ Si vous suffixez la commande `npm install` avec l'option `--production`, toutes 
 Il s'agit d'un moyen d'installer moins de dépendance lors d'une livraison — à condition de ne pas avoir besoin de l'outillage de tests.
 ====
 
-Le clonage du dépôt pour être remplacé par des méthodes alternatives, de type empaquetage sous forme de fichier DEB, de module Puppet, d'archive ZIP … ou encore d'archive Node via la commande `npm pack`.
+Le clonage du dépôt pour être remplacé par des méthodes alternatives, de type empaquetage sous forme de fichier DEB, de module Puppet, d'archive ZIP… ou encore d'archive Node via la commande `npm pack`.
 
-Ces méthodes permettent entre autre d'inclure les dépendances contenues dans le répertoire _node_modules_ et de garantir la version exacte de l'intégralité de l'arbre de dépendance.
+Ces méthodes permettent entre autres d'inclure les dépendances contenues dans le répertoire _node_modules_ et de garantir la version exacte de l'intégralité de l'arbre de dépendance.
 
 ===== Locale
 
@@ -439,7 +439,7 @@ Et ce, en fonction du contexte d'installation — qu'il soit global ou local don
 
 Certaines applications ou modules nécessitent d'en savoir plus sur le contexte d'exécution, l'emplacement de ressources ou la manière de se connecter à des serveurs distants, par exemple.
 
-C'est à la fois une bonne pratique en terme de flexibilité … et en même temps, vous n'aurez surement pas envie de partager publiquement vos identifiants de base de données, qu'elles contiennent ou pas des informations sensibles.
+C'est à la fois une bonne pratique en terme de flexibilité… et en même temps, vous n'aurez surement pas envie de partager publiquement vos identifiants de base de données, qu'elles contiennent ou pas des informations sensibles.
 
 ===== Variables d'environnement
 
@@ -699,10 +699,10 @@ Depuis sa version `2.0`, npm expose également les commandes `npm stop` et `npm 
 
 ===== Orchestration des services
 
-Nous venons de voir différentes manières d'instancier des applications … mais aucune d'entre elle n'est vraiment satisfaisante en terme de résistance.
+Nous venons de voir différentes manières d'instancier des applications… mais aucune d'entre elles n'est vraiment satisfaisante en terme de résistance.
 À la moindre erreur, tout tombe !
 
-C'est sans compter sur le fait que vos modules contiendront plusieurs serveurs ou _daemons_ à initialiser … voire encore, vous aurez plusieurs serveurs ou _daemons_ répartis dans plusieurs projets différents.
+C'est sans compter sur le fait que vos modules contiendront plusieurs serveurs ou _daemons_ à initialiser… voire encore, vous aurez plusieurs serveurs ou _daemons_ répartis dans plusieurs projets différents.
 
 _forever_ est un module populaire dédié à la gestion et au monitoring de process, et pas spécifiquement Node d'ailleurs. +
 
@@ -798,7 +798,7 @@ Une introduction ainsi qu'une documentation détaillée d'_Upstart_ est disponib
 - [URL]#http://upstart.ubuntu.com/cookbook/# (en anglais)
 ====
 
-L'apprentissage et le débogage de tels scripts peut se révéler fastidieuse et rébarbative … _foreman_ dispose d'une fonctionnalité d'export adressant le problème.
+L'apprentissage et le débogage de tels scripts peut se révéler fastidieuse et rébarbative… _foreman_ dispose d'une fonctionnalité d'export adressant le problème.
 Pensez-y !
 
 Nous avons progressivement outillé l'exécution et la prise en charge de nos applications.
@@ -806,19 +806,19 @@ Maintenant intéressons-nous aux impacts de la modification d'une application en
 
 ==== Modification de l'application
 
-Vous disposez d'une application qui démarre et dont le versionning est mis en place … mais concrètement, on fait quoi quand le code change ?
+Vous disposez d'une application qui démarre et dont le versionning est mis en place… mais concrètement, on fait quoi quand le code change ?
 
 Cette section s'intéresse aux habitudes à prendre avant de pousser le code modifié dans votre dépôt.
 
 ===== Mise à jour des dépendances
 
 L'erreur classique : l'application fonctionne sur votre machine mais pas sur celle de votre collègue.
-Un module manque mais vous ne comprenez pas pourquoi …
+Un module manque mais vous ne comprenez pas pourquoi…
 
-Ça se résume en deux points :
+Cela se résume en deux points :
 
 - vous avez une dépendance installée dans votre projet qui n'est pas déclarée dans le fichier `package.json` ;
-- la version de vos dépendances et celle de l'autre personne diffèrent.
+- la version de vos dépendances et celles de l'autre personne diffèrent.
 
 La commande npm adresse très exactement ces problèmes grâce aux actions suivantes :
 
@@ -987,9 +987,9 @@ Dans le cas où votre module est publié dans un dépôt Git public accessible a
 [TIP]
 .[RemarquePreTitre]#npm# Mise à jour d'une dépendance Git
 ====
-La commande `npm update` actualise vos dépendances … sauf les dépendances Git.
+La commande `npm update` actualise vos dépendances… sauf les dépendances Git.
 
-Pour mettre à jour une dépendance Git, il vous faut recourir à la commande … `npm install`.
+Pour mettre à jour une dépendance Git, il vous faut recourir à la commande… `npm install`.
 ====
 
 Enfin, optez pour une publication dans le registre npm si vous considérez votre projet comme étant suffisamment solide et testé pour être partagé avec les communautés Node.
@@ -1003,19 +1003,19 @@ npm publish
 `npm publish` téléversera une archive compressée associée au numéro de version déclaré par le fichier `package.json` et contenant tous les fichiers du projet.
 Tous les fichiers sauf ceux correspondant aux motifs déclarés dans les fichiers `.gitignore` et `.npmignore`.
 
-Pour résumer, si le module est nommé `nodebook` et est en version `1.3.0`, `npm publish` enregistrera cette version dans le registre npm.
+Pour résumer, si le module est nommé `nodebook` et est en version `0.4.0`, `npm publish` enregistrera cette version dans le registre npm.
 L'installation du module fraichement publié est accessible à travers ces différentes variantes :
 
 ----
 npm install nodebook
 npm install nodebook@latest
-npm install nodebook@1.3.0
+npm install nodebook@0.4.0
 ----
 
 Utilisez l'installation versionnée pour installer spécifiquement cette version à tout moment :
 
 ----
-npm install --save-exact nodebook@1.3.0
+npm install --save-exact nodebook@0.4.0
 ----
 
 ==== Opérations de routine
@@ -1080,7 +1080,7 @@ Et ainsi de suite pour les autres dépendances de premier niveau.
 La commande `npm outdated` ne devrait pas retourner de résultats, sauf si une de vos dépendances n'est pas à jour elle-même.
 
 [TIP]
-.[RemarquePreTitre]#Outil# David et Greenkeeper
+	.[RemarquePreTitre]#Outil# David et Greenkeeper
 ====
 L'outil en ligne _David_ se charge de vérifier l'état des dépendances de chaque module publié dans le registre npm.
 
@@ -1121,7 +1121,7 @@ Dans le cas présent, ces trois modules pourrait être extraits dans les modules
 - *csv-parser* : pour bénéficier d'un parseur CSV utilisable dans toutes vos applications — avez-vous pensé à regarder dans le registre npm avant de réinventer la roue ? ;-)
 
 Il s'agit d'une logique de maintenabilité et d'expression des intentions de votre application.
-Elle sera plus facile à maintenir si elle rend isole et rend explicite les dépendances entre les différents modules. +
+Elle sera plus facile à maintenir si elle isole et rend explicite les dépendances entre les différents modules. +
 À moins que vous ne soyiez fan du code spaghetti ;-)
 
 ===== Alertes de sécurité
@@ -1154,7 +1154,7 @@ Le site web du registre npm ([URL]#https://npmjs.com#) est _la_ ressource incont
 
 Le site liste l'intégralité des modules récents, des modules populaires et des auteurs populaires.
 
-Les résultats sont triés en fonction de la correspondance avec l'expression recherchée … ce qui peut se révéler compliqué si vous cherchez avec les mauvais termes ou que vous ne connaissez pas le terme anglo-saxon adapté.
+Les résultats sont triés en fonction de la correspondance avec l'expression recherchée… ce qui peut se révéler compliqué si vous cherchez avec les mauvais termes ou que vous ne connaissez pas le terme anglo-saxon adapté.
 
 Pour en savoir plus sur la manière de choisir un module, et de séparer le grain de l'ivraie, reportez-vous à la section suivante.
 
@@ -1172,7 +1172,7 @@ Cette pertinence est évaluée selon certains des critères évoqués ci-après.
 
 ==== Critères de sélection d'un module
 
-La sélection d'un module est un choix subjectif : la qualité, la pertinence et la popularité sont corrélé sans pour autant être des critères impératifs. +
+	La sélection d'un module est un choix subjectif : la qualité, la pertinence et la popularité sont corrélés sans pour autant être des critères impératifs. +
 Un module peu populaire sera-t-il moins bon pour autant ? Un module populaire est-il plus performant qu'une alternative ? Un module bien testé sera-t-il plus aisé à utiliser ?
 
 Bref, pour vous aider à choisir — et ce peu importe le contexte — voici une liste subjective de critères et leur impact sur votre processus de décision :
@@ -1191,12 +1191,12 @@ image::images/module-npm-ok.png[align="center",scaledwidth="85%"]
 image::images/module-npm-ko.png[align="center",scaledwidth="85%"]
 
 Enfin, n'oubliez pas qu'il s'agit de critères subjectifs.
-Les mainteneurs du module ne sont peut-être pas de bons communicants ou n'ont que peu d'expérience en terme de tests … ou ils n'ont tout simplement pas eu le temps. +
+Les mainteneurs du module ne sont peut-être pas de bons communicants ou n'ont que peu d'expérience en terme de tests… ou ils n'ont tout simplement pas eu le temps. +
 N'hésitez pas à les encourager si vos expérimentations se révèlent concluantes.
 Contribuez des tests et de la documentation à hauteur de votre temps.
 Même s'il ne s'agit _que_ de cinq lignes de code, d'un exemple supplémentaire ou d'une faute d'orthographe en moins.
 
-C'est comme cela que l'écosystème s'améliore petit à petit … et que vous apprenez par la même occasion.
+C'est comme cela que l'écosystème s'améliore petit à petit… et que vous apprenez par la même occasion.
 
 ==== Sélection de modules npm
 
@@ -1216,7 +1216,7 @@ _lodash_ est une excellente bibliothèque de manipulation de tableaux, d'objets,
 Vous pourrez ainsi boucler, filtrer, extraire et composer sans vous soucier de la compatibilité de l'environnement d'exécution.
 
 Compatible Node et navigateurs Web. +
-[URL]#https://npmjs.com/lodash#
+[URL]#https://www.npmjs.com/package/lodash#
 
 [source,javascript]
 .npm/lodash.js
@@ -1232,7 +1232,7 @@ Son but ?
 Pouvoir itérer sur des tableaux de manière asynchrone, exécuter des _callbacks_ de manière séquentielle ou gérer une pile d'exécution de _n_ fonctions en parallèle.
 
 Compatible Node et navigateurs Web. +
-[URL]#https://npmjs.com/async#
+[URL]#https://npmjs.com/package/async#
 
 [source,javascript]
 .npm/async.js
@@ -1244,10 +1244,10 @@ include::{sourceDir}/npm/async.js[]
 ====== string
 
 _string_ est un utilitaire de manipulation de chaînes de caractère.
-Le module fournit des méthodes pour échapper, nettoyer, tronquer, remplacer, compter … entre autre.
+Le module fournit des méthodes pour échapper, nettoyer, tronquer, remplacer, compter… entre autres.
 
 Compatible Node et navigateurs Web. +
-[URL]#https://npmjs.com/string#
+[URL]#https://npmjs.com/package/string#
 
 [source,javascript]
 .npm/string.js
@@ -1263,7 +1263,7 @@ include::{sourceDir}/npm/string.js[]
 _request_ est un module facilitant la manipulation de requêtes HTTP.
 Cela concerne aussi bien l'envoi de formulaires, l'obtention de jeton OAuth que l'obtention d'une ressource distante et son écriture sur le système de fichiers.
 
-[URL]#https://npmjs.com/request#
+[URL]#https://npmjs.com/package/request#
 
 [source,javascript]
 .npm/request.js
@@ -1277,7 +1277,7 @@ _moment_ est une bibliothèque de gestion de temps.
 Elle simplifie énormément le _parsing_ des chaînes, l'ajout/soustraction de durées et propose des utilitaires de formatage d'affichage qui vous feront gagner un temps précieux.
 
 Compatible Node et navigateurs Web. +
-[URL]#https://npmjs.com/moment#
+[URL]#https://npmjs.com/package/moment#
 
 [source,javascript]
 .npm/moment.js
@@ -1293,7 +1293,7 @@ include::{sourceDir}/npm/moment.js[]
 _eventemitter3_ est une bibliothèque performante de gestion d'événements.
 
 Compatible Node et navigateurs Web. +
-[URL]#https://npmjs.com/eventemitter2#
+[URL]#https://www.npmjs.com/package/eventemitter3#
 
 [source,javascript]
 .npm/eventemitter3.js
@@ -1314,7 +1314,7 @@ Ces bibliothèques adressent des besoins quotidiens de manipulation de fichiers,
 _mkdirp_ est identique à la commande UNIX `mkdir -p`.
 C'est à dire que les répertoires seront créés récursivement s'ils n'existent pas au préalable.
 
-[URL]#https://npmjs.com/mkdirp#
+[URL]#https://npmjs.com/package/mkdirp#
 
 [source,javascript]
 .npm/mkdirp.js
@@ -1327,10 +1327,10 @@ Ce fichier n'est écrit que lorsque l'arborescence est préalablement créée.
 
 ====== rimraf
 
-_rimraf_ se situe dans la lignée _mkdirp_ : il supprime une arborescence de manière récursive — équivalent de la commande `rm -rf`.
+_rimraf_ se situe dans la lignée de  _mkdirp_ : il supprime une arborescence de manière récursive — équivalent de la commande `rm -rf`.
 Encore une fois, sans la complexité d'avoir à gérer un enchevêtrement de fonctions asynchrones.
 
-[URL]#https://npmjs.com/rimraf#
+[URL]#https://npmjs.com/package/rimraf#
 
 [source,javascript]
 .npm/rimraf.js
@@ -1344,7 +1344,7 @@ _glob_ est un utilitaire très pratique pour filtrer une recherche récursive au
 
 Sa syntaxe équivalente à ce qui se fait dans le monde UNIX évite une écriture de code complexe reposant sur l'API `fs`.
 
-[URL]#https://npmjs.com/glob#
+[URL]#https://npmjs.com/package/glob#
 
 [source,javascript]
 .npm/glob.js
@@ -1357,7 +1357,7 @@ include::{sourceDir}/npm/glob.js[]
 
 _fs-extra_ complète _rimraf_ et _mkdirp_ et ajoute d'autres fonctions utilitaires telles que la copie et le déplacement récursifs.
 
-[URL]#https://npmjs.com/fs-extra#
+[URL]#https://npmjs.com/package/fs-extra#
 
 [source,javascript]
 .npm/fs-extra.js
@@ -1371,7 +1371,7 @@ _graceful-fs_ n'apporte aucune API supplémentaire à l'API native Node `fs`.
 Sous le capot la bibliothèque simplifie l'écriture de notre code en tentant plusieurs fois d'accéder à un fichier si celui-ci n'est pas disponible.
 Un module qui vous sera utile si l'activité de lecture et d'écriture sur disque dépasse les capacités du système.
 
-[URL]#https://npmjs.com/graceful-fs#
+[URL]#https://npmjs.com/package/graceful-fs#
 
 [source,javascript]
 .npm/graceful-fs.js
@@ -1385,7 +1385,7 @@ include::{sourceDir}/npm/graceful-fs.js[]
 _chokidar_ normalise l'observation du système de fichiers pour une très grande majorité de systèmes d'exploitation.
 La bibliothèque ajoute quelques fonctionnalités de filtre, de persistance d'observation et permet de dynamiquement ajouter ou retirer des fichiers de l'observation.
 
-[URL]#https://npmjs.com/chokidar#
+[URL]#https://npmjs.com/package/chokidar#
 
 [source,javascript]
 .npm/chokidar.js
@@ -1443,7 +1443,7 @@ include::{sourceDir}/npm/mongoose.js[]
 
 ====== levelup
 
-_LevelDB_ est un système de base de données clé/valeur extrêmement modulaire, avec un stockage sur disque par défaut mais pouvant évoluer vers du stockage en mémoire … et dans un contexte de navigateur web !
+_LevelDB_ est un système de base de données clé/valeur extrêmement modulaire, avec un stockage sur disque par défaut mais pouvant évoluer vers du stockage en mémoire… et dans un contexte de navigateur web !
 
 [URL]#https://npmjs.com/levelup#
 
@@ -1467,7 +1467,7 @@ Il permet de travailler directement avec des buffers plutôt qu'avec des convers
 .npm/redis.js
 ----
 include::{sourceDir}/npm/redis.js[]
-----
+----Le
 
 ===== Ligne de commande
 
@@ -1504,7 +1504,7 @@ image::images/npm/chalk.png[align="center",scaledwidth="85%"]
 ====== cli-table
 
 _cli-table_ est un utilitaire permettant de transformer un tableau de primitives ou d'objets ECMAScript en un tableau visuel dans le terminal.
-Des options vous permettent de gérer la ligne d'entête et la largeur des colonnes, entre autre.
+Des options vous permettent de gérer la ligne d'entête et la largeur des colonnes, entre autres.
 
 [URL]#https://npmjs.com/cli-table#
 
@@ -1668,7 +1668,7 @@ Compatible Node. +
 
 ====== rework
 
-_rework_ est une alternative à Less et Sass dans le sens où vous définissez les règles de votre préprocesseur … y compris si cela revient à écrire vos propres règles.
+_rework_ est une alternative à Less et Sass dans le sens où vous définissez les règles de votre préprocesseur… y compris si cela revient à écrire vos propres règles.
 
 [URL]#https://npmjs.com/rework#
 
@@ -2464,7 +2464,7 @@ Il s'agit d'un _pattern_ particulièrement intéressant adresser ces besoins :
 
 - gérer des cas de figure ayant trait à une progression ;
 - gérer des cas de figure plus complexes qu'une logique binaire de réussite ou d'échec ;
-- séparer la logique d'exécution d'un résultat unique (éviter de mettre tous les _callbacks_ dans le même panier dirait-on …);
+- séparer la logique d'exécution d'un résultat unique (éviter de mettre tous les _callbacks_ dans le même panier dirait-on…);
 - transmettre des résultats au travers de plusieurs couches applicatives (un émetteur, plusieurs récepteurs).
 
 Dans l'exemple suivant, nous allons réutiliser la fonction `messageAbbr` développée dans la précédente section _callbacks_.
@@ -2716,7 +2716,7 @@ En quoi le simple changement de la source de données peut-il affecter notre scr
 
 Le mécanisme des _streams_ est ici mis en évidence par le volume de données contenus dans le fichier JSON (un peu plus d'un méga-octet) : seule une dizaine d'éléments ont été retournés ; le dernier étant même partiellement tronqué.
 
-En pratique, chaque _buffer_ correspond plus ou moins à 4Ko de données … mais 4Ko de données brutes. +
+En pratique, chaque _buffer_ correspond plus ou moins à 4Ko de données… mais 4Ko de données brutes. +
 La fonction `JSON.parse` devient alors inefficace car elle impose d'avoir à disposition une structure JSON finie et complète.
 
 Il nous faudrait un parseur JSON compatible avec les _streams_ ; c'est à dire qui soit capable de parser une structure JSON au fur et à mesure de sa lecture. +
@@ -2770,7 +2770,7 @@ Tout comme dans notre exemple précédent `pattern/streams-jsonstream.js`, nous 
 Le module _JSONStream_ met temporairement en mémoire la structure de données parsée avant de l'émettre.
 
 Mais cela empêche de _piper_ à nouveau.
-Pour ce faire, il faut reconstituer un _stream_ … tâche ardue mais simplifiée grâce au module _event-stream_ et à ses méthodes `map` et `mapSync`. +
+Pour ce faire, il faut reconstituer un _stream_… tâche ardue mais simplifiée grâce au module _event-stream_ et à ses méthodes `map` et `mapSync`. +
 Elles créent un nouveau _stream_ et écrivent dedans à chaque émission de l'évènement _data_ du _stream_ précédent.
 
 On peut ainsi diriger notre _stream_ principal vers un fichier sur disque, mais aussi vers le parseur JSON qui lui aussi est dirigé vers le disque et la sortie standard :
@@ -2792,4 +2792,4 @@ Ce chapitre vous a permis d'apprendre à mener un projet Node de bout en bout : 
 La sélection de module, l'heuristique de choix et les _design patterns_ vous ont permis de vous familiariser davantage avec l'écosystème de fonctionnalités avancées de Node.
 
 Mais nous n'avons fait qu'effleurer leur fonctionnement en nous focalisant sur des exemples synthétiques. +
-Il est désormais temps de plonger dans des cas pratiques que ce soit dans un environnement professionnel, personnel ou open source … voire pour utiliser Node comment plateforme de développement pour des applications HTML5, mobiles ou embarquées.
+Il est désormais temps de plonger dans des cas pratiques que ce soit dans un environnement professionnel, personnel ou open source… voire pour utiliser Node comment plateforme de développement pour des applications HTML5, mobiles ou embarquées.
