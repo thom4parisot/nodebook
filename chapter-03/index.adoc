@@ -1937,14 +1937,21 @@ Compatible Node et navigateurs Web. +
 include::{sourceDir}/npm/sinon.js[]
 ----
 
-====== blanket
+====== nyc
 
-_blanket_ génère une couverture de code en inspectant le code exécuté par vos tests unitaires et en vous signalant les portions de votre applications qui ne sont pas prises en compte par vos tests.
+_nyc_ génère une couverture de code en inspectant le code exécuté par vos tests unitaires.
+Les portions de votre applications ignorées par vos tests sont signalées et une exception peut être lancée si un seuil de couverture n'est pas atteint.
 
-[URL]#https://npmjs.com/blanket#
+.Résultat de couverture visualisée dans le terminal
+image::images/nyc-cli.png[align="center",scaledwidth="85%"]
 
-.Résultat de couverture de code généré par _blanket_
-image::images/blanket.png[align="center",scaledwidth="85%"]
+_nyc_ se greffe sur n'importe quel librairie d'exécution de tests et se base sur la librairie _istanbul_ pour calculer la couverture de code.
+
+[URL]#https://npmjs.com/nyc# +
+[URL]#https://npmjs.com/istanbul#
+
+.Résultat de couverture visualisée dans un navigateur web
+image::images/nyc-web.png[align="center",scaledwidth="85%"]
 
 ====== karma
 
