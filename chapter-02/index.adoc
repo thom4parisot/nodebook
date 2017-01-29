@@ -72,8 +72,8 @@ Si malgré tout votre système n'y était pas listé, le mieux reste encore d'*u
 [TIP]
 .[RemarquePreTitre]#URL# Téléchargements officiels
 ====
-Les installeurs, les binaires et les sources de Node sont disponibles sur le site officiel [URL]#nodejs.org#. +
-Si vous vous sentez perdu(e), téléchargez l'installeur adapté, ouvrez un terminal et sautez quelques pages pour plonger dans l'utilisation de Node.
+Les installeurs, les binaires et les sources de Node sont disponibles sur le site officiel de Node. +
+Téléchargez l'installeur adapté, ouvrez un terminal et sautez quelques pages pour plonger dans l'utilisation de Node.
 
 - [URL]#https://nodejs.org/download/#
 ====
@@ -90,7 +90,7 @@ Node est disponible dans les dépôts des systèmes suivants :
 
 Si votre système d'exploitation ne dispose pas de paquet pour Node, essayez dans l'ordre :
 
-1. <<nvm,Node Version Manager>>;
+1. <<nvm,Node Version Manager>> (voir ci-après) ;
 2. le téléchargement du binaire Node sur son site officiel ;
 3. la compilation manuelle de Node.
 
@@ -104,7 +104,7 @@ Quelques projets populaires permettent toutefois d'y remédier :
 
 Si vous n'utilisez aucun de ces gestionnaires de paquet, vous pouvez essayez :
 
-1. _Node Version Manager_ (voir ci-après) ;
+1. <<nvm,Node Version Manager>> (voir ci-après) ;
 2. le téléchargement du binaire Node sur son site officiel ;
 3. la compilation manuelle de Node.
 
@@ -115,7 +115,11 @@ Le moyen le plus simple d'installer Node sous Windows est de *télécharger l'in
 Toutefois si vous utilisez déjà un gestionnaire de paquet, voici quelques recommandations :
 
 - *scoop.sh* : `scoop install nodejs`
-- *Chocolatey* : `cinst nodejs.install`
+- *Chocolatey* : `choco install nodejs`
+
+image::images/node-on-windows.png[align="center",scaledwidth="85%"]
+
+Un raccourci pour lancer un terminal préparé pour Node et les commandes _npm_ sera mis à disposition dans le _menu Windows_ (voir capture ci-contre).
 
 [CAUTION]
 .[RemarquePreTitre]#Attention# Versions supportées de Windows
@@ -155,7 +159,7 @@ _nvm_ est l'équivalent de _rvm_ dans le monde Ruby, de _phpenv_ dans le monde P
 ----
 curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.0/install.sh | bash
 nvm install v6
-nvm alias default v6   <1>
+nvm alias default v6  # <1>
 ----
 <1> La version par défaut est désormais la dernière version stable de Node {nodeCurrentVersion}.
 
@@ -223,100 +227,84 @@ Les instructions pouvant varier fortement d'un système d'exploitation à l'autr
 === Outils de développement
 
 Programmer pour Node revient dans la majorité des cas à écrire du JavaScript.
-Donc même si un éditeur de texte suffit, il est intéressant de connaître l'offre en outillage autour de Node.
+Donc même si un éditeur de texte suffit, il est intéressant de connaître l'offre en outillage autour de Node et du développement front-end.
 
 Les logiciels présentés dans les pages suivantes couvrent un large spectre de besoins : écriture du code, coloration syntaxique, inspection dynamique, débogage, productivité et intégration à l'écosystème Node.
 
 Ceci a pour but de vous aider à piocher au plus près de vos goûts, à défaut de continuer à utiliser votre logiciel habituel.
 
-==== WebStorm
-
-_WebStorm_ est un environnement de développement _(IDE)_ commercialisé par la société _JetBrains_.
-Il est dédié au développement Web, ce qui inclut JavaScript, Node, mais aussi CSS et HTML.
-
-_JetBrains_ est une entreprise connue dans d'autres écosystèmes pour ses _IDE_ _Pycharm_ (pour Python) et _IntelliJ IDEA_ (pour Java).
-
-_WebStorm_ est compatible Windows, Linux et macOS.
-Ses forces résident dans sa relative légèreté, une auto-complétion intelligente prenant en compte la résolution des modules CommonJS et AMD, une intégration des outils populaires dans l'écosystème Node (npm, eslint, Mocha, Karma, Bower etc.) et un débogage avancé.
-
-[TIP]
-.[RemarquePreTitre]#Lien# Site officiel
-====
-Le site officiel de _WebStorm_ met à disposition une documentation lisible et complète ainsi que des vidéos illustrant les fonctionnalités clés du logiciel.
-
-Le téléchargement du logiciel inclut une période d'essai de 30 jours.
-
-- [URL]#https://www.jetbrains.com/webstorm/#
-====
-
-image::images/webstorm.png[align="center",scaledwidth="85%"]
-
-[TIP]
-.[RemarquePreTitre]#Astuce# Licence open source.
-====
-L'éditeur de _WebStorm_, _JetBrains_, propose une licence gratuite sous réserve d'une contribution active à un projet open source.
-====
-
+[[atom]]
 ==== Atom
 
 image::images/atom.png[align="center",scaledwidth="85%"]
 
-Atom est un éditeur open-source développé avec Electron, un framework pour développer des applications de bureau multiplate-formes avec Node. Il intègre des packages qui facilitent le développement sous Node en proposant l'auto-complétion et l'exécution de processus Node directement depuis l'éditeur.
+_Atom_ est un éditeur de code open-source, multilingue et multi plate-forme dont le développement a été initié par la société _GitHub_.
+Le logiciel est basé sur _Electron_, un environnent d'exécution d'applications de bureau reposant sur Node et HTML5.
+Le développement de telles applications est abordé dans le <<../chapter-06/index.adoc#,chapitre 6>>.
+
+_Atom_ offre un écosystème de paquets pour étendre les fonctionnalités de l'éditeur à la carte.
+L'expérience de développement sous Node en est ainsi facilitée grâce à des paquets dédiés à l'auto-complétion, un débogueur intégré mais aussi une vérification syntaxique sur mesure. +
+Une sélection de paquets vous attend dans l'<<../appendix-a.adoc#atom,annexe A>>.
 
 - [URL]#https://atom.io/#
 - [URL]#https://atom.io/packages/#
 
-==== SublimeText 3
+[[vs-code]]
+==== Visual Studio Code
 
-TBD.
+image::images/visual-studio-code.png[align="center",scaledwidth="85%"]
 
-- [URL]#https://sublimecodeintel.github.io/SublimeCodeIntel/#
-- [URL]#https://sublime.wbond.net/search/node.js#
-- [URL]#https://www.sublimetext.com/3#
+_Visual Studio Code_ est un éditeur de code open-source, multilingue et multi plate-forme dont le développement a été initié par la société _Microsoft_.
+Le logiciel est basé sur _Electron_, un environnent d'exécution d'applications de bureau reposant sur Node et HTML5.
 
-image::images/sublime-text3.png[align="center",scaledwidth="85%"]
+Un de ses atouts principaux réside dans son système _IntelliSense_.
+Il se sert du contexte disponible pour offrir une auto-complétion et des bulles d'aide pertinentes.
 
-==== vim
+_Visual Studio Code_ offre également un écosystème de paquets pour étendre les fonctionnalités de l'éditeur à la carte.
 
-TBD.
+- [URL]#https://code.visualstudio.com/#
+- [URL]#https://marketplace.visualstudio.com/VSCode#
 
-- [URL]#http://www.vim.org/#
-- [URL]#https://github.com/moll/vim-node#
-- [URL]#https://github.com/Valloric/YouCompleteMe#
-- [URL]#https://github.com/nodejs/node/wiki/Vim-Plugins#
+[[webstorm]]
+==== WebStorm
 
+image::images/webstorm.png[align="center",scaledwidth="85%"]
 
-[WARNING]
+_WebStorm_ est un environnement de développement (_IDE_) dédié au développement Web HTML5, JavaScript et Node. +
+Le logiciel est commercialisé par la société _JetBrains_, principalement connue pour ses _IDE_ _Pycharm_ (pour Python), _PhpStorm_ (pour PHP) et _IntelliJ IDEA_ (pour Java).
+
+_WebStorm_ est compatible Windows, Linux et macOS.
+Ses forces résident dans sa relative légèreté, une auto-complétion intelligente prenant en compte la résolution des modules CommonJS et AMD, une intégration des outils populaires dans l'écosystème Node (npm, eslint, Mocha, Karma, Bower etc.) ainsi qu'un débogage avancé.
+
+Le téléchargement de _WebStorm_ inclut une période d'essai de 30 jours.
+
+[URL]#https://www.jetbrains.com/webstorm/#
+
+[TIP]
+.[RemarquePreTitre]#Astuce# Licence open source.
 ====
-Rajouter une image similaire à Webstorm.
+Vous pouvez demander à bénéficier d'une licence gratuite sous réserve d'une contribution active à un ou plusieurs projets open source.
+
+- [URL]#https://www.jetbrains.com/buy/opensource/#
 ====
 
+[[vs-ide]]
 ==== Visual Studio IDE
+
+image::images/visual-studio.png[align="center",scaledwidth="85%"]
 
 _Visual Studio_ est un environnement de développement _(IDE)_ édité par  _Microsoft_.
 Historiquement dédié au développement sur Windows (Visual Basic, Visual C++), il gère aujourd'hui bien plus de langages (dont C#, HTML, CSS, JavaScript, ASP.Net).
 Il est surtout extensible, ce qui permet, entre autre, de lui apporter le support de _Python_ ou encore Node.
 
-_Visual Studio_ est uniquement compatible Windows, et existe en plusieurs éditions.
-La plus intéressante est la Community Edition.
-Elle est gratuite mais permet l'ajout d'extensions.
+_Visual Studio_ est uniquement compatible Windows et existe en plusieurs éditions dont la _Community Edition_.
+Elle est gratuite et permet aussi l'ajout d'extensions.
 
 Afin de bénéficier de l'intégration complète de l'écosystème Node, il est nécessaire d'installer l'extensions _Node.js Tools for Visual Studio_ (aussi nommée _NTVS_).
 Elle est gratuite, open source et disponible sur GitHub.
 
 - [URL]#https://www.visualstudio.com/vs/#
 - [URL]#https://www.visualstudio.com/vs/node-js/#
-
-image::images/visual-studio.png[align="center",scaledwidth="85%"]
-
-==== Visual Studio Code
-
-TBD.
-
-- [URL]#https://code.visualstudio.com/#
-
-image::images/visual-studio-code.png[align="center",scaledwidth="85%"]
-
 
 === Node, JavaScript et ECMAScript
 
@@ -1708,7 +1696,7 @@ $ node
 
 C'est bien beau de parler d'histoire, d'architecture et d'interpréteur mais concrètement, comment exécuter du code écrit pour Node ?
 
-La plateforme Node fournit un exécutable système : `node`. C'est lui qui digèrera votre code, préparé à l'avance ou non :
+La plate-forme Node fournit un exécutable système : `node`. C'est lui qui digèrera votre code, préparé à l'avance ou non :
 
 - `node` invoquera le _REPL_, un interpréteur interactif ;
 - `node votre-script.js` invoquera le dit script.
