@@ -2194,10 +2194,10 @@ Pourtant il est bloquant car le code sur lequel il repose propose certes un méc
 ----
 include::{sourceDir}/filecontent/async-fake.js[]
 ----
-<1> Premier accès bloquant ;
-<2> Second accès bloquant.
+<1> Cette interface de fonction suggère une fonction _asynchrone_…
+<2> … tandis que cette ligne est en réalité *bloquante*.
 
-Le fait que Node explicite tout accès bloquant permet de repérer rapidement les potentiels goulots d'étrangement.
+Le fait que Node explicite tout accès bloquant permet de repérer facilement ces goulots d'étrangement.
 
 Que se passe-t'il du côté de Node si le code exécuté est :
 

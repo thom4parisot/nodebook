@@ -5,16 +5,12 @@
 const fs = require('fs');
 
 const getFilecontent = (filename) => {
-  if (fs.existsSync(filename)) {
-    try {
-      return String(fs.readFileSync(filename));
-    }
-    catch (e){
-      return e;
-    }
+  try {
+    const fileBuffer = fs.readFileSync(filename);
+    return String(fileBuffer);
   }
-  else {
-    return new Error('File does not exist.');
+  catch (e){
+    return e;
   }
 };
 
