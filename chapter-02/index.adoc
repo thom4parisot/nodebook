@@ -65,7 +65,7 @@ Une fois l'étape de l'installation terminée, la suite du livre ne fera plus de
 Certains systèmes d'exploitation fournissent leur propre mouture de Node.
 Les procédures les plus courantes sont décrites ci-après.
 
-Une liste complète mais non exhaustive est mise jour sur le wiki du dépôt GitHub de Node à cette adresse : [URL]#https://github.com/nodejs/node/wiki/Installing-Node.js-via-package-manager#.
+Une liste complète des systèmes supportés est maintenue à jour à cette adresse : [URL]#https://nodejs.org/en/download/package-manager/#.
 
 Si malgré tout votre système n'y était pas listé, le mieux reste encore d'*utiliser un binaire*, de *compiler depuis les sources* ou de demander à votre *moteur de recherche* favori !
 
@@ -80,11 +80,12 @@ Téléchargez l'installeur adapté, ouvrez un terminal et sautez quelques pages 
 
 ===== Linux
 
-Node est disponible dans les dépôts des systèmes suivants :
+Node est disponible dans les dépôts officiels des systèmes suivants :
 
 - *Gentoo* : `emerge nodejs`
-- *Ubuntu >= 12.04*, *Debian >= jessie*, *Mint* : `sudo apt-get install nodejs`
+- *Ubuntu >= 12.04*, *Debian >= jessie*, *Mint* : <<install-ubuntu,voir ci-après>>
 - *Fedora >= 18* : `sudo yum install nodejs npm`
+- *Red Hat Enterprise* et *CentOS* : `sudo yum install nodejs npm --enablerepo=epel`
 - *Arch Linux* : `pacman -S nodejs`
 - *FreeBSD*, *OpenBSD* : `pkg install node`
 
@@ -94,6 +95,25 @@ Si votre système d'exploitation ne dispose pas de paquet pour Node, essayez dan
 2. le téléchargement du binaire Node sur son site officiel ;
 3. la compilation manuelle de Node.
 
+[[install-ubuntu]]
+===== La famille Debian et Ubuntu
+
+Le paquet officiel `nodejs` fourni dans les dépôts `apt` est à éviter pour deux raisons :
+
+. le client _npm_ n'est pas installé par défaut ;
+. le paquet n'est ni à jour ni bien maintenu.
+
+La société _NodeSource_ ([URL]#https://nodesource.com/#) maintient des binaires ainsi que des dépôts pour différentes distributions Linux. +
+L'installation d'une version à jour Node sous Debian, Ubuntu et consors devient aussi simple que les deux commandes suivantes :
+
+----
+curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash -
+sudo apt-get install -y nodejs
+----
+
+D'autres informations et architectures sont détaillées sur le dépôt GitHub des distributions _NodeSource_ : [URL]#https://github.com/nodesource/distributions#.
+
+[[install-macos]]
 ===== macOS
 
 _macOS_ ne dispose pas de gestionnaire de paquet par défaut.
@@ -130,22 +150,25 @@ Il est déconseillé d'utiliser une version plus ancienne de Node pour contourne
 Il en va de la *sécurité de vos applications*.
 ====
 
+[[install-rpi]]
 ===== Raspberry Pi
 
 Node a effectué des changements dans son architecture dans sa version 0.8.
 Ces changements ont permis d'éviter la compilation systématique sur des architectures processeur autre que l'Intel x86.
 
-Des binaires et installeurs sont de ce fait disponibles pour Raspberry Pi, à base de processeur _ARM_, et très probablement pour d'autres plates-formes de ce genre.
+Des binaires et installeurs sont de ce fait disponibles pour Raspberry Pi, à base de processeur _ARM_, entre autre.
 
 Des binaires et instructions sont disponibles sur le site officiel de Node, pour ARMv6, ARMv7 et ARMv8 : [URL]#https://nodejs.org/en/download/#.
 
-Un paquet `deb` est également proposé pour les utilisateurs du système d'exploitation _Raspbian_.
+.Installation de Node {nodeCurrentVersion} sur Raspberry Pi Model 3 ARMv8
+----
+curl -SLO https://nodejs.org/dist/v6.9.4/node-v6.9.4-linux-arm64.tar.xz
+tar -xJf "node-v6.9.4-linux-arm64.tar.xz" -C /usr/local --strip-components=1
+ln -s /usr/local/bin/node /usr/local/bin/nodejs
+----
 
-.Installation de la dernière version stable de Node sur un Raspberry Pi sous _Raspbian_.
-----
-curl --silent --location https://deb.nodesource.com/setup_6.x | bash -
-apt-get install --yes nodejs build-essential
-----
+Un paquet `deb` est également proposé pour les utilisateurs du système d'exploitation _Raspbian_.
+Les instructions sont identiques à celles décrites dans la section précédente relative à <<install-ubuntu,la famille Debian et Ubuntu>>.
 
 [[nvm]]
 ==== Node Version Manager
@@ -191,6 +214,7 @@ Dans les deux cas, leur installation est très simple.
 - [URL]#https://github.com/marcelklehr/nodist#
 ====
 
+[[install-docker]]
 ==== Docker
 
 _Docker_ est un outil d'isolation de processus système qui a le vent en poupe depuis 2014.
@@ -202,6 +226,8 @@ Lancer un interpréteur Node _sans polluer_ le système hôte revient à exécut
 ----
 docker run -ti --rm node:6-slim
 ----
+
+L'intégralité des versions et architectures supportées est disponible sur le _Docker Hub_ : [URL]#https://hub.docker.com/_/node/#
 
 Nous nous repencherons sur Docker dans la <<../chapter-07/index.adoc#docker,section _Déploiement_ du chapitre 7>>.
 
@@ -1044,7 +1070,7 @@ S'il est désormais plus sûr d'utiliser l'extension de chaîne prototypale, *il
 Il est en effet bien plus simple de réutiliser (et de tester) des fonctions agnostiques de contexte — de `this` — que de maintenir de grosses classes héritant sur plusieurs niveaux.
 
 [[primitive-promise]]
-==== Promise
+===== Promise
 
 L'organisation du code autour des _callbacks_ est difficile et ce, que ce soit en terme de maintenance, de gestion des erreurs ou de propagation d'information.
 
@@ -1378,6 +1404,7 @@ Trace: Level 5
 
 Pour en savoir plus sur les méthodes et fonctions disponibles, reportez-vous à la documentation en ligne du module `console` sur [URL]#https://nodejs.org/api/console.html#.
 
+[[api-process]]
 ===== process
 
 L'objet `process` correspond à l'instance de l'environnement Node en cours d'exécution.
@@ -1467,7 +1494,24 @@ node interrupt.js 3 <1>
 <3> Affiche `Nombre d'essais restants: 1` ;
 <4> Affiche `Arrêt du programme…`.
 
-Enfin nous pourrions parler de `process.nextTick()` mais nous développerons davantage cette méthode dans _Comprendre les accès non bloquants_.
+
+`process.title` est une API intéressante pour assigner un _titre_ de process.
+Cela concerne notamment les commandes de liste de processus actifs (comme `ls`).
+On pourrait penser que cela offre l'avantage de rendre un processus singuler et donc plus facile à repérer :
+
+----
+$ node
+> process.title='hey!'
+----
+
+Le résultat lorsqu'on liste les processus :
+
+image::images/process-title.png[align="center",scaledwidth="85%"]
+
+*Attention* toutefois car il se trouve que le résultat de ce nommage peut se révéler imprédictible en fonction des systèmes d'exploitation où le programme est exécuté.
+
+Il est recommandé de *ne pas utiliser `process.title`* et s'il y a besoin d'identifier un processus, de passer par d'autres mécanismes de gestion de processus.
+Nous aborderons ce sujet au <<../chapter-07/index.adoc#,chapitre 7 _Héberger, déployer et monitorer_>>.
 
 Pour en savoir plus sur les méthodes et fonctions disponibles, reportez-vous à la documentation en ligne du module `process` sur [URL]#https://nodejs.org/api/process.html#.
 
