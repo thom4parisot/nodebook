@@ -5,7 +5,8 @@ const db = require('knex')({
   connection: {
     // filename: path.join(__dirname, '..', '..', 'db.sqlite')
     filename: ':memory:'
-  }
+  },
+  useNullAsDefault: true
 });
 
 db.schema.dropTableIfExists('books')
