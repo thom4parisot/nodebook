@@ -329,9 +329,12 @@ Une application en ligne de commande devrait contenir une orchestration d'API me
 ----
 include::{sourceDir}/cli-app.js[]
 ----
+<1> `.argv` retourne l'objet `process.argv` filtré et transformé par `yargs` ;
+<2> `argv.year` contient soit la valeur du paramètre `--year` passé par l'utilisateur au programme, sinon à sa valeur par défaut définie auparavant.
+
+Un exemple d'application en ligne de commande est développé plus en détail dans le <<../chapter-05/index.adoc#,chapitre 5>>.
 
 Une application HTTP devrait contenir une orchestration d'API mettant en relation l'intention exprimée par une requête HTTP envers une application Node :
-
 
 [source,javascript]
 .http-app.js
