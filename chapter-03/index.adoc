@@ -329,9 +329,12 @@ Une application en ligne de commande devrait contenir une orchestration d'API me
 ----
 include::{sourceDir}/cli-app.js[]
 ----
+<1> `.argv` retourne l'objet `process.argv` filtré et transformé par `yargs` ;
+<2> `argv.year` contient soit la valeur du paramètre `--year` passé par l'utilisateur au programme, sinon à sa valeur par défaut définie auparavant.
+
+Un exemple d'application en ligne de commande est développé plus en détail dans le <<../chapter-05/index.adoc#,chapitre 5>>.
 
 Une application HTTP devrait contenir une orchestration d'API mettant en relation l'intention exprimée par une requête HTTP envers une application Node :
-
 
 [source,javascript]
 .http-app.js
@@ -351,6 +354,7 @@ Nous verrons dans un chapitre ultérieur comment utiliser cette même logique de
 
 Non seulement la modularité renforcera la facilité à tester votre code, à expliciter ses intentions mais en plus il accentuera l'ubiquité de son utilisation.
 
+[[install]]
 ==== Installation
 
 À ce stade, nous avons toutes les cartes en main pour créer une application Node.
@@ -601,10 +605,11 @@ CONFIG_FILE=~/.secured/config.json node app.js
 ==== Exécution de l'application
 
 Nous avons vu les différentes manières d'utiliser l'interpréteur Node dans le _chapitre 2_.
-Pour autant, comment exécuter une application — un programme dont la durée d'exécution est indéfini et de longue durée ?
+Pour autant, comment exécuter une application de longue durée… par exemple un serveur HTTP ?
 
 Il existe plusieurs méthodes, allant de la simple exécution d'un script Node à l'utilisation de gestionnaire de processus voire même des gestionnaires système tels que _System V_ ou _systemd_.
 
+[[node-exec]]
 ===== Invocation Node
 
 L'utilisation seule de l'interpréteur Node pour démarrer une application est évidemment la plus simple mais également la moins robuste.
@@ -615,52 +620,70 @@ $ node server.js
 
 Elle est pratique et acceptable dans le cadre d'un développement local voire encore dans le cadre d'un exécutable à usage ponctuel.
 
-[TIP]
-.[RemarquePreTitre]#module# nodemon
-====
-_nodemon_ est un excellent moyen d'automatiser le rechargement de votre application quand vous la développez.
-Dès qu'un fichier est modifié, le module interrompt le serveur et le relance aussitôt avec les arguments originels.
+===== Plantage applicatif
 
-Installez le module globalement et ensuite, au lieu d'exécuter `node server.js`, exécutez `nodemon server.js`.
-C'est tout !
+Un programme Node s'arrête en général pour deux raisons :
 
-- [URL]#https://npmjs.com/nodemon#
-====
+. la *pile d'exécution est terminée* et il n'y a plus rien à exécuter ;
+. une *erreur s'est produite* et n'a pas été capturée.
 
-Une technique "de pauvre" consisterait à utiliser le symbole _&_ afin de rendre la main au système — sans pour autant transformer le processus en _daemon_. +
-L'inconvénient de cette méthode est que le processus sera interrompu par le système si vous quittez votre session shell — ce qui sera le cas lors d'une connexion distante via SSH :
+C'est souvent le cas lorsqu'une erreur se produit dans un endroit imprévu de notre code, lorsqu'une variable inexistante est appelée dans une branche de notre code appelée de manière asynchrone etc.
 
+C'est une *bonne chose* que le programme s'arrête car cela nous permet de repérer l'erreur, de lire la trace et d'éventuellement patcher notre programme pour éviter cette même erreur dans le futur.
+
+Quand un programme s'arrête de manière imprévue, le `process` émet un événement `uncaughtException`.
+Il existe des cas où il est intéressant de l'écouter, notamment si la route d'un serveur cause une erreur et que l'on souhaite maintenir le service disponible malgré tout.
+
+Dans ce cas, il convient d'écouter cet événement et de déterminer quelle est la meilleure action à suivre :
+
+[source,javascript]
+.server-crash.js
 ----
-$ node server.js &
+include::{sourceDir}/server-crash.js[]
 ----
+<1> En cas de réception d'une requête HTTP sur le port `4001`, nous allons parser l'URL appélée — sauf qu'une _typo_ s'est glissée (`reb` au lieu de `req`), et provoquera une exception ;
+<2> Cette exception remontera jusqu'au niveau du `process` qui déclenchera l'événement `uncaughtException` ;
+<3> Une seconde après voir lancé le script, une requête HTTP est envoyée au serveur, entrainant l'exécution du _point 1_.
 
-Enfin, dernière alternative : l'utilisation de la commande `nohup` pour demander au système de ne pas interrompre le processus en cas de fin de session.
+Encore une fois, *il vaut mieux qu'un programme plante* plutôt que de le protéger faiblement avec `uncaughtException`.
 
-----
-$ nohup server.js &
-----
+Il se peut qu'un aucun code ne capture une erreur dans une <<../chapter-02/index.adoc#primitive-promise,promesse>>.
+C'est notamment le cas s'il n'y a aucun appel à `.catch()` après un `.then()`.
 
-Quoiqu'il advienne, les solutions précédemment citées n'adresseront pas les problématiques suivantes :
+L'événement du `process` `unhandledRejection` est alors émis, sans pour autant faire planter le programme.
+Ce comportement est toutefois amené à être modifié dans Node v8.
+Il conviendrait alors de gérer le plantage d'une programme avec l'événement `uncaughtException` de la même manière que vous le feriez avec `uncaughtException`.
 
-- démarrage automatique du processus ;
-- notification et reprise sur erreur en cas de plantage de l'application ;
-- redémarrage ou arrêt des services.
+Dans tous les cas, il est recommandé de gérer le redémarrage de votre application Node _en dehors_ de Node.
+Différentes stratégies sont présentées dans le <<../chapter-07/index.adoc#,chapitre 7>>.
 
-===== Invocation npm
+===== Pendant le développement
 
-L'invocation npm diffère peu de l'invocation Node précédemment décrite : elle souffre en effet des mêmes défauts de résilience.
+Seulement voilà, il est fréquent qu'une application plante pendant le développement, ou que l'on souhaite la relancer suite à un changement de code.
 
-Alors pourquoi parler de npm ?
-N'est-ce pas un outil simplement dédié à la gestion des modules externes ?
+_nodemon_ est un excellent moyen d'y parvenir lorsque vous développez sur votre ordinateur (et _certainement pas_ en production).
+Dès qu'un fichier est modifié, _nodemon_ interrompt le serveur et le relance aussitôt avec les arguments originels.
 
-La commande npm propose des fonctionnalités additionnelles complétant et facilitant la gestion du processus applicatif. +
-Une de ces fonctionnalités est `npm start` :
+Au lieu d'exécuter `node server.js`, exécutez `nodemon server.js`.
+
+[URL]#https://npmjs.com/nodemon#
+
+[[npm-scripts]]
+===== Scripts npm
+
+L'utilisation de _scripts npm_ permet d'invoquer Node de manière légèrement différente tout en masquant la complexité des scripts au niveau du fichier `package.json`.
+
+L'invocation d'un _script npm_ peut se faire de deux manières :
+
+. `npm <script-natif>` pour les scripts natifs à _npm_ (`start`, `publish`, `test` etc.) ;
+. `npm run <script>` pour les scripts additionnels définis par l'utilisateur.
 
 ----
 $ npm start
+# équivalent de `npm run start`
 ----
 
-Cette commande ne fait rien en soit si ce n'est exécuter la commande contenue dans la section `scripts.start` de votre fichier `package.json` :
+Cette action exécute la commande contenue dans la section `scripts.start` du fichier `package.json` :
 
 [source]
 .package.json
@@ -677,7 +700,10 @@ Cette commande ne fait rien en soit si ce n'est exécuter la commande contenue d
 L'avantage de cette approche est double :
 
 - uniformisation du _workflow_ au sein de tous les projets ;
-- npm modifie la variable système `$PATH` et rend disponible les exécutables contenus dans le répertoire `./node_modules/.bin` (voir l'encadré _Répertoires et exécutables_ de la section _Installation_).
+- npm modifie la *variable système `$PATH`*.
+
+Ce dernier point est important.
+Cela signifie que l'exécution d'un _script npm_ rend disponible les exécutables contenus dans le répertoire `./node_modules/.bin` (voir l'encadré _Répertoires et exécutables_ de la section <<install,Installation>>).
 
 [source]
 .package.json
@@ -695,114 +721,16 @@ L'avantage de cette approche est double :
 ----
 <1> Équivaut donc à `./node_modules/.bin/eslint ./src`.
 
-Depuis sa version `2.0`, npm expose également les commandes `npm stop` et `npm restart`.
+La liste détaillées des commandes supportées nativement par _npm_ est documentée sur [URL]#https://docs.npmjs.com/misc/scripts#.
 
-===== Orchestration des services
+Toutefois les solutions précédemment citées n'adresseront pas les problématiques suivantes :
 
-Nous venons de voir différentes manières d'instancier des applications… mais aucune d'entre elles n'est vraiment satisfaisante en terme de résistance.
-À la moindre erreur, tout tombe !
+- *démarrage automatique* du processus ;
+- notification et *reprise sur erreur* en cas de plantage de l'application ;
+- *redémarrage* ou arrêt des services.
 
-C'est sans compter sur le fait que vos modules contiendront plusieurs serveurs ou _daemons_ à initialiser… voire encore, vous aurez plusieurs serveurs ou _daemons_ répartis dans plusieurs projets différents.
+Nous aborderons les différentes stratégies de _provisionning_ d'applications Node dans le <<../chapter-07/index.adoc#,chapitre 7 : Héberger, déployer et monitorer>>.
 
-_forever_ est un module populaire dédié à la gestion et au monitoring de process, et pas spécifiquement Node d'ailleurs. +
-
-La commande suivante aura pour effet de démarrer et de placer le processus `server.js` — un _daemon_.
-
-----
-$ forever start server.js
-----
-
-Il y a deux gains évidents à cet outillage :
-
-- le processus persistera à la fermeture de la session ;
-- la gestion centralisée des processus.
-
-_forever_ créera autant de processus que vous le désirez tout en fournissant un interface pour redémarrer les services, les arrêter, consulter leur logs ou encore afficher à l'écran l'ensemble processus actifs :
-
-----
-$ forever list
-info:    Forever processes running
-data:        uid  command                  script  pid   logfile           uptime
-data:    [0] _sHw /usr/bin/node www.js     15594   15610 /var/log/_sHw.log 0:0:1:59.865
-data:    [1] vytX /usr/bin/node api.js     15655   15671 /var/log/vytX.log 0:0:1:38.980
-data:    [2] MOrx /usr/bin/node bin/cli.js 15769   15785 /var/log/MOrx.log 0:0:0:57.960
-----
-
-Cerise sur le gâteau : une application qui plante sera relancée automatiquement par _forever_.
-À vous ensuite d'inspecter les logs d'erreurs et de mettre en place un mécanisme d'alerte pour ne pas faire perdurer ces exceptions.
-
-Toutefois, revers de la médaille : il vous faudra exécuter _forever_ autant de fois qu'une application a de processus à démarrer.
-
-[TIP]
-.[RemarquePreTitre]#Outil# forever
-====
-Une documentation détaillée accompagnée d'exemples est disponible sur le dépôt GitHub du projet :
-
-- [URL]#https://github.com/nodejitsu/forever#
-====
-
-_Foreman_ est un programme écrit en Ruby.
-Il est destiné à gérer les multiples processus d'une même application. +
-C'est l'outil de déclaration de services utilisé par la plateforme _Heroku_.
-
-Vos différents processus sont à déclarer dans un fichier `Procfile`, somme toute assez simpliste :
-
-[source]
-.Procfile
-----
-web: node www.js
-api: PORT=$PORT node api.js
-worker: node bin/cli.js --retries 3
-----
-
-Le précédent exemple fait état de trois processus à démarrer, dont certains avec des arguments spécifiques.
-
-La commande suivante démarrera ces trois services, créera deux processus pour le module `api.js` en leur attribuant automatiquement un port différent grâce à :
-
-----
-foreman start -c api=2
-----
-
-[TIP]
-.[RemarquePreTitre]#Outil# foreman
-====
-D'autres fonctionnalités et paramètres de configuration sont expliqués dans la documentation officielle du projet :
-
-- [URL]#https://ddollar.github.io/foreman/#
-- [URL]#https://devcenter.heroku.com/articles/getting-started-with-nodejs#define-a-procfile#
-====
-
-Il ne nous manque qu'une seule chose désormais : pouvoir démarrer nos processus avec le système d'exploitation, après un démarrage ou redémarrage.
-Un bénéfice non-négligeable de l'intégration avec le système d'exploitation est la combinaison avec les outils de monitoring et d'agrégation de logs.
-
-_Upstart_ est l'outil de gestion de processus de la distribution Linux Ubuntu.
-Sa configuration est une des plus faciles à apprendre :
-
-[source]
-./etc/init/your-app
-----
-start on runlevel [2345] and net-device-up IFACE=eth0
-
-exec /usr/bin/node /path/to/your/app.js
-----
-
-Cette configuration ultra simpliste décrit la commande à exécuter, et quand lancer automatiquement le service.
-Dans ce cas, au démarrage du système, une fois le réseau disponible sur l'interface `eth0`.
-
-[TIP]
-.[RemarquePreTitre]#Outil# Upstart
-====
-Une introduction ainsi qu'une documentation détaillée d'_Upstart_ est disponible à l'adresse suivante :
-
-- [URL]#https://doc.ubuntu-fr.org/upstart# (en français)
-- [URL]#http://upstart.ubuntu.com/cookbook/# (en anglais)
-====
-
-L'apprentissage et le débogage de tels scripts peut se révéler fastidieuse et rébarbative… _foreman_ dispose d'une fonctionnalité d'export adressant le problème.
-Pensez-y !
-
-Nous avons progressivement outillé l'exécution et la prise en charge de nos applications.
-Maintenant intéressons-nous aux impacts de la modification d'une application en service.
 
 ==== Modification de l'application
 
