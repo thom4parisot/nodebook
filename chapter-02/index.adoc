@@ -777,6 +777,46 @@ include::{sourceDir}/primitives/object-keys.js[]
 <1> Affiche `[ 'name', 'services' ]` ;
 <2> Affiche `[ 'name', 'services', 'internal_code' ]`.
 
+[[primitive-object-getset]]
+`Object.defineProperty` permet de régler finement d'autres spécificités d'un objet, dont des *accesseurs* (_getters_) et des *mutateurs* (_setters_).
+Ces attributs spéciaux nous autorisent la création de _propriétés calculées_, de _propriétés en lecture seule_ ou de _maitriser l'écriture d'une propriété_ :
+
+[source,javascript]
+.primitives/object-getters.js
+----
+include::{sourceDir}/primitives/object-getters.js[]
+----
+<1> Nous définissons de nouvelles propriétés pour l'objet `book` ;
+<2> Définition d'un _mutateur_ pour la propriété `date_published` ;
+<3> La valeur `date` est convertie en objet et stockée dans la propriété `_date_published` ;
+<4> Définition d'un _accesseur_ pour la propriété `date_published` ;
+<5> Appel du _mutateur_ qui, en interne, convertit la chaîne de caractère en objet `Date` ;
+<6> Appel de l'_accesseur_ et affiche `true` car il s'agit bien d'une instance de `Date` ;
+<7> Lance une exception car la chaîne assignée n'est pas une date valide.
+
+Trois choses sont à souligner dans cet exemple.
+
+Tout d'abord, notre définition de _mutateur_ ajoute de la sécurité.
+Sa valeur est _garantie_ et nous savons que `book.date_published` sera systématiquement une date.
+
+Inconvénient, nous n'avons d'autre choix que de stocker la date dans une autre propriété, ici `book.\_published_at`.
+Et rien ne nous empêche de la modifier directement et d'invalider une partie de notre raisonnement… +
+Il nous faudrait trouver un moyen de stocker la valeur du _mutateur_ et de l'_accesseur_ de manière _privée_.
+
+Enfin, les propriétés sont assignées _uniquement_ à l'objet `book`. Si nous voulions les généraliser à plusieurs instances d'objets se ressemblant, nous les définirions alors dans une <<primitive-class,classe>>.
+
+Nous pouvons définir des _accesseurs_ et des _mutateurs_ avec une notation raccourcie, ayant exactement le même effet.
+Reprenons l'exemple précédent :
+
+[source,javascript]
+.primitives/object-getters-shorthand.js
+----
+include::{sourceDir}/primitives/object-getters-shorthand.js[]
+----
+<1> Définition _raccourcie_ du _mutateur_ pour la propriété `date_published` ;
+<2> Définition _raccourcie_ de l'_accesseur_ pour la proriété `year_published` – notez qu'on ne définit pas de _mutateur_ cette même propriété ;
+<3> Lance une _exception_ car la propriété `year_published` est définie en tant qu'_accesseur_ uniquement ; on ne peut donc pas lui _assigner_ de valeur.
+
 `Object.assign` étend des structures existantes et la définition de valeurs par défaut.
 Les clés et valeurs sont copiées de gauche à droite avant d'être assignées dans le premier paramètre :
 
@@ -1036,8 +1076,8 @@ include::{sourceDir}/primitives/class-constructor.js[]
 <4> Affiche `Node.js` ;
 <5> Affiche une exception personnalisée.
 
-ECMAScript permet de définir des accesseurs, sur des propriétés existantes ou de manière ad-hoc. +
-Dans l'exemple suivant, nous créons la propriété `EAN13` pour coordonner la logique avec les propriétés `GS1` et `ISBN` … mais sans pour autant stocker la valeur `EAN13` à proprement parler :
+Nous l'avons vu précédemment au niveau des <<primitive-object,objets>>, ECMAScript permet de définir des accesseurs. +
+L'exemple suivant illustre leur définition au sein d'une classe :
 
 [source,javascript]
 .primitives/class-accessors.js
@@ -1048,14 +1088,9 @@ include::{sourceDir}/primitives/class-accessors.js[]
 <2> Retourne `'2212136401'` ;
 <3> Retourne `'978-2212136401'`.
 
-Étendre les classes ouvre la porte à des _patterns_ d'interface plus explicites et moins prompts à abimer la chaine prototypale.
+La logique des accesseurs est ainsi partagée entre _tous les objets_ étant des instances de `Book`.
 
-L'exemple suivant illustre deux classes héritant de notre classe `View`.
-
-`HTMLView` surcharge le constructeur tandis que `TextView` se contente du comportement par défaut défini par le constructeur de `View`.
-
-L'appel à la fonction `super` revient à _appeler le constructeur de la classe que l'on étend_.
-Ne pas l'appeler revient à ne pas exécuter le constructeur de la classe parent.
+L'exemple suivant illustre deux classes héritant de notre classe `View` :
 
 [source,javascript]
 .primitives/class-extends.js
@@ -1065,9 +1100,14 @@ include::{sourceDir}/primitives/class-extends.js[]
 <1> Retourne une chaîne de HTML après avoir interpolé les variables avec leur valeur respective ;
 <2> Retourne la chaîne de texte `# Node.js\n#{empty}#\#{empty}#\#{empty}#\#{empty}#{empty}#\n\nHello World!`.
 
+`HTMLView` surcharge le constructeur tandis que `TextView` se contente du comportement par défaut défini par le constructeur de `View`.
+
+L'appel à la fonction `super` revient à _appeler le constructeur de la classe que l'on étend_.
+Ne pas l'appeler revient à ne pas exécuter le constructeur de la classe parent.
+
 S'il est désormais plus sûr d'utiliser l'extension de chaîne prototypale, *il ne faut pas abandonner la composition* pour autant.
 
-Il est en effet bien plus simple de réutiliser (et de tester) des fonctions agnostiques de contexte — de `this` — que de maintenir de grosses classes héritant sur plusieurs niveaux.
+Il est en effet bien plus simple de réutiliser (et de tester) des fonctions agnostiques de contexte — agnostiques du `this` — que de maintenir de grosses classes héritant sur plusieurs niveaux.
 
 [[primitive-promise]]
 ===== Promise
