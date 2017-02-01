@@ -1,6 +1,8 @@
 'use strict';
 
 const { join } = require('path');
+
+const fs = require('fs-extra');
 const pify = require('pify');
 const fs = pify(require('fs-extra'));
 
