@@ -4,6 +4,45 @@ Pour en savoir plus: [oncletom.io/2017/residence-nodejs/](https://oncletom.io/20
 
 # Journal
 
+## Lundi 30 janvier
+
+- Début de notre résidence au [Fab Lab 127°](https://www.fablab127.net) avec mes compères de [dtc innovation](https://dtc-innovation.org)
+- _Chapitre 3_ : ajout d'informations complémentaires à propos de `.argv` ([#21](https://github.com/oncletom/nodebook/issues/21))
+- _Chapitre 3_ : ajout d'informations complémentaires à propos des crashs applicatifs et d'`uncaughtException` ([#10](https://github.com/oncletom/nodebook/issues/10))
+
+## Dimanche 29 janvier
+
+- Merci [@DirtyF](https://github.com/DirtyF) pour ton travail de _corrections_ et d'_amélioration_ d'exemples pour apprendre Node ([#98](https://github.com/oncletom/nodebook/pull/98))
+- _Chapitre 2_ : suppression des appels à `fs.exists` (API dépréciée)
+- _Chapitre 3_ : remplacement de _blanket_ par _nyc_
+- _Chapitre 2_ : explication de l'API `process.title`
+- _Chapitre 2_ : installation de Node pour Ubuntu, Debian et Raspberry Pi
+- _Chapitre 2_ : textes et captures d'écran pour les éditeurs de code
+- Heaven from the oven:
+  ![](resources/daily-20170129-baguettes.jpg)
+
+**Moral** : 😊 🥖 🧀
+
+## Vendredi 27 janvier
+
+- _Chapitre 3_ : suppression des exemples de code pour Gulp et Grunt
+- _Chapitre 3_ : réécriture de certains exemples car peu explicite à mon goût (chai, mocha) et ajout de `npm-run-all` et d'`eslint`
+- _Chapitre 2_ et _Chapitre 3_ : réécriture de la section liée aux `Promise` pour qu'elles se complètent au lieu des redites et mélanges de contenu (des _patterns_ étaient expliqués dans les _primitives_)
+
+**Moral** : 😊
+
+## Jeudi 26 janvier
+
+Une journée _sans_ comme on dit.
+
+**Moral** : 😞
+
+## Mercredi 25 janvier
+
+- Réorganisation des exemples en vue de simplifier l'explication quant à leur utilisation (maintenant présents directement dans `<chapitre>/examples`)
+
+**Moral** : 🤓
+
 ## Mardi 24 janvier
 
 - _Chapitre 2_ : async/await ([#77](https://github.com/oncletom/nodebook/issues/77))
