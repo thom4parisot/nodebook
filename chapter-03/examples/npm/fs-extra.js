@@ -1,22 +1,16 @@
 'use strict';
 
 const { join } = require('path');
-const fs = require('fs-extra');
+const pify = require('pify');
+const fs = pify(require('fs-extra'));
 
 const tmp = join(__dirname, '..', '..', 'tmp');
 const dirpath = join(tmp, 'nodebook-examples');
 
-fs.ensureDir(tmp, function (err) {
-    console.log('Dossier crée :', tmp);
-});
-
-fs.remove(dirpath, () => {
-  fs.copy(__dirname, dirpath, (err) => {
-    if (err) {
-      return console.error('Une erreur s\'est produite.', err);
-    }
-    else {
-      return console.log('Dossier copié :', dirpath);
-    }
-  });
-});
+Promise.resolve(tmp)
+  .then(tmp => fs.ensureDir(tmp))
+  .then((result) => result && console.log('Dossier créé : %s', result))
+  .then(() => fs.remove(dirpath))
+  .then(() => fs.copy(__dirname, dirpath))
+  .then(() => console.log('Dossier copié : %s', dirpath))
+  .catch(err => console.error('Une erreur s\'est produite.', err));
