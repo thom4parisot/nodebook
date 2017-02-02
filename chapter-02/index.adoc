@@ -332,6 +332,194 @@ Elle est gratuite, open source et disponible sur GitHub.
 - [URL]#https://www.visualstudio.com/vs/#
 - [URL]#https://www.visualstudio.com/vs/node-js/#
 
+[[unix-legacy]]
+=== L'héritage UNIX
+
+Node peut paraître étrange selon notre propre familiarité avec la programmation système, avec les environnements UNIX (et dont découle GNU/Linux) et certains de leurs concepts.
+
+Node étant une plate-forme utilisant JavaScript pour discuter avec une machine virtuelle connectée au système d'exploitation, il est intéressant de se remémorer des aspects un peu plus bas niveau.
+
+==== Variables d'environnement
+
+Lorsqu'un système d'exploitation est en état de marche, différents programmes fonctionnent pour fournir différents servives : transmission du son, affichage vidéo, coordination des processus et de leurs ressources etc.
+
+Ces programmes utilisent des espaces mémoire exclusifs, d'autres des espaces mémoire partagés.
+Un de ces espaces partagés contient des *variables* décrivant l'_environnement_ dans lequel l'ensemble des programmes évoluent.
+Ces variables peuvent être utilisées par chacun de ces programmes.
+
+Il est possible de les lister en utilisant la commande `env` :
+
+image::images/unix-env.png[align="center",scaledwidth="85%"]
+
+Il nous est également possible d'en créer de nouvelles avec un syntaxe de `CLÉ=VALEUR`.
+L'exemple suivant illustre la création d'une telle variable, son affichage puis son affichage en faisant appel à un autre programme, en l'occurence Node :
+
+----
+$ TEST=1
+$ echo $TEST
+$ node -p 'process.env.TEST'
+----
+
+Nous nous heurtons à la portée des variables, locale à la session de notre terminal mais pas à l'interpréteur Node.
+La _portée_ est réduite à notre session uniquement.
+
+L'exemple suivant assigne une valeur à une variable d'environnement au niveau de l'_exécution d'un programme_ :
+
+----
+$ TEST=1 node -p 'process.env.TEST'
+$ echo $TEST
+----
+
+La valeur `1` est affichée dans le processus Node mais pas dans notre session.
+La _portée_ est réduite à l'invocation uniquement.
+
+Un opérateur permet de propager une variable, de l'_exporter_ :
+
+----
+$ export TEST=1
+$ node -p 'process.env.TEST'
+----
+
+Cet exemple nous a permis de définir une variable en dehors d'une invocation et de la rendre utilisable dans un autre processus.
+
+`env` affiche toutes les variables _exportées_.
+`local` ou `set` affichent toutes les variables _locales_ et _exportées_.
+
+==== La variable `$PATH`
+
+La variable d'environnement `$PATH` est importante.
+C'est son contenu qui régit où le système d'exploitation va chercher quel programme exécuter lorsque son nom est invoqué dans un terminal.
+
+Prenons par exemple cette commande :
+
+----
+$ node --version
+----
+
+Où se trouve `node` sur notre système ?
+Une autre commande nous permet de le savoir :
+
+----
+$ which node
+/usr/bin/node
+----
+
+La valeur de `$PATH` est une liste de chemins séparés par le symbole `:`, par exemple :
+
+----
+/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin
+----
+
+Lorsque l'on demande l'exécution d'un programme – `node` par exemple – le système d'exploitation balaie chacun des répertoires du `$PATH` à la recherche d'un fichier exécutable nommé `node`.
+L'algorithme est le suivant :
+
+. `node` trouvé dans `/usr/local/bin` ? Non ;
+. `node` trouvé dans `/usr/bin` ? Oui.
+
+La recherche s'arrête là, le chemin du programme est retourné et ledit programme est alors exécuté.
+
+Certaines sections du livre feront mention à cette variable `$PATH`.
+
+==== Processus
+
+Un processus est un ensemble comprenant un _programme_, les _variables_ actives et la _mémoire_ allouée.
+Chaque processus est identifié de manière unique avec un identifiant (`pid` – _process identifier_)
+
+Un même programme peut être exécuté plusieurs fois en parallèle, à quelques exceptions près.
+Chaque exécution se déroule dans un espace de mémoire isolé de tout autre exécution du même programme. +
+Une exception notable est le cas des _sous-process_ (_child process_) où certaines ressources peuvent être partagées.
+
+Dans les architectures processeur classiques (les `x86` notamment), un processus fonctionne sur un seul processeur (_CPU_).
+
+==== Interpréteur
+
+Quand un programme est exécuté, le système d'exploitation fait face à deux options :
+
+. le fichier est un _binaire_ compilé pour une architecture _CPU_ compatible ;
+. le fichier est un _script exécutable_ (code source lisible à l'œil nu), auquel cas il doit recourir à un _interpréteur_.
+
+On peut avoir recourt à un interpréteur directement en faisant :
+
+----
+$ bash mon-script.sh
+----
+
+Ou bien en débutant `mon-script.sh` par `#!/usr/bin/env bash` pour sélectionner l'interpréteur `bash` (généralement disponible en tant que `/bin/bash`) puis en exécutant :
+
+----
+$ chmod +x mon-script.sh
+$ ./mon-script.sh
+----
+
+On peut ainsi décider quel interpréteur sera employé pour comprendre le script, le transformer en langage machine et l'exécuter à la volée.
+
+==== Arguments de processus (`argv`)
+
+Exécuter un programme peut parfois nécessiter un paramétrage contextuel et indépendant de la valeur des variables d'environnement.
+On lui passe ainsi des _paramètres_ ou _arguments_ qui lui sont spécifiques.
+
+----
+$ FOO_VAL='bar'
+$ ./argv.sh --foo=$FOO_VAL toto
+----
+
+Ces arguments de processus sont disponibles de manière brute, itérable sous forme de liste :
+
+[source]
+.argv.sh
+----
+include::{sourceDir}/argv.sh[]
+----
+<1> Affiche `--foo=bar toto` ;
+<2> Affiche tour à tour `--foo=bar` puis `toto`.
+
+Dans Node, vous retrouverez ces arguments dans la variable <<api-process,process.argv>>, détaillée par ailleurs dans ce même chapitre.
+
+==== Streams et redirections
+
+La dernière pierre angulaire des concepts UNIX est la présence des _flux de données_ (_streams_) et de _redirection de flux_ (_pipes_).
+L'idée est de pouvoir créer des programmes _solides_, résistant au temps et interopérables entre eux – peu importe leur interpréteur.
+
+Un programme peut être amené à produire un *flux de données* et à le *rediriger* vers un emplacement, que ce soit un _fichier_ (avec `>`), un _terminal_ d'affichage ou un _autre programme_ (avec `|`) :
+
+----
+$ date                    # <1>
+$ date > date.txt         # <2>
+$ date | grep -Eo "\d{4}" # <3>
+----
+<1> Redirection implicite vers le _terminal_ – affiche la date du jour ;
+<2> Redirection vers un _fichier_ – rien n'est affiché.
+<3> Redirection vers un _programme_ puis vers le _terminal_ – affiche l'année courante.
+
+Un programme peut ainsi être spécialisé dans l'_affichage_ des processus, un autre dans le _filtrage_ puis un autre dans l'_extraction_ de valeurs.
+Cette pratique poussée de la modularité encourage la *combinaison* plutôt que le *tout-en-un*.
+
+L'exemple suivant illustre l'affichage de données d'une session utilisateur, dans l'optique d'obtenir le nom du terminal (`TTY`) :
+
+----
+$ w
+10:33  up 5 days, 18:48, 5 users, load averages: 1.36 1.62 1.75
+USER     TTY      FROM              LOGIN@  IDLE WHAT
+oncletom console  -                Fri15   5days -
+----
+
+Nous isolons la troisième ligne :
+
+----
+$ w | head -n 3 | tail -n 1 # <1>
+----
+<1> En vrai, nous isolons les trois premières lignes avec `head` pour n'en garder que la dernière avec `tail`.
+
+Et finalement la valeur contenue dans la deuxième colonne avec `awk` :
+
+----
+$ w | head -n 3 | tail -n 1 | awk '{ print $2 }'
+----
+
+Vous pourrez en savoir plus sur le sujet dans la sections <<../chapter-03/index.adoc#streams, streams du chapitre 3>>.
+
+Maintenant que nous avons vu tous ces concepts, reposons-nous le cerveau en parlant JavaScript.
+
 === Node, JavaScript et ECMAScript
 
 Nous l'avons vu dans le premier chapitre, Node utilise JavaScript comme principal langage de développement.
