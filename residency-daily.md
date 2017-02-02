@@ -4,11 +4,36 @@ Pour en savoir plus: [oncletom.io/2017/residence-nodejs/](https://oncletom.io/20
 
 # Journal
 
+## Jeudi 2 février
+
+- _Quatrième jour de résidence au [Fab Lab 127°](https://www.fablab127.net) avec mes compères de [dtc innovation](https://dtc-innovation.org)_
+- _Chapitre 2_ : fondamentaux UNIX
+- Conclusions du _Chapitre 1_ et du _Chapitre 2_
+
+**Moral** : 😊
+
+## Mercredi 1 février
+
+- _Troisième jour de résidence au [Fab Lab 127°](https://www.fablab127.net) avec mes compères de [dtc innovation](https://dtc-innovation.org)_
+- _Chapitre 3_ : amélioration de l'exemple `fs-extra`, merci [@DirtyF](https://github.com/DirtyF) ([#100](https://github.com/oncletom/nodebook/pull/100))
+- _Chapitre 2_ : ajout d'une section sur les _accesseurs_ et _mutateurs_
+
+**Moral** : 😊 😴
+
+## Mardi 31 janvier
+
+- _Deuxième jour de résidence au [Fab Lab 127°](https://www.fablab127.net) avec mes compères de [dtc innovation](https://dtc-innovation.org)_
+- _Chapitre 3_ : explications à propos du cycle de vie d'un process et d'`uncaughtException`
+
+**Moral** : 😊 😴
+
 ## Lundi 30 janvier
 
 - Début de notre résidence au [Fab Lab 127°](https://www.fablab127.net) avec mes compères de [dtc innovation](https://dtc-innovation.org)
 - _Chapitre 3_ : ajout d'informations complémentaires à propos de `.argv` ([#21](https://github.com/oncletom/nodebook/issues/21))
 - _Chapitre 3_ : ajout d'informations complémentaires à propos des crashs applicatifs et d'`uncaughtException` ([#10](https://github.com/oncletom/nodebook/issues/10))
+
+**Moral** : 😊
 
 ## Dimanche 29 janvier
 
