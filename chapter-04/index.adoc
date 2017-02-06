@@ -199,9 +199,8 @@ TBD.
 [[transpilation]]
 === Transpilation
 
-Pendant longtemps, transformer de l'ECMAScript en ECMAScript — par exemple de l'ES5 en ES3 ou un autre langage en ECMAScript nécessitait l'utilisation d'un autre environnement qu'ECMAScript lui-même. +
+Pendant longtemps, transformer du code ECMAScript ou un autre langage en ECMAScript — par exemple du code _ECMAScript 3_ en code _ECMAScript 2015_ — nécessitait l'utilisation d'un autre environnement qu'ECMAScript lui-même. +
 Rhino nécessitait Java, Spidermonkey nécessitait C++ et Trident nécessitait un environnement Windows en plus de C++.
-Même Node et V8 requièrent C++ pour interpréter de l'ECMAScript.
 
 Pour autant, un projet va chambouler les règles du jeu en décembre 2011 : *esprima*.
 _esprima_ est un parseur ECMAScript écrit en… ECMAScript.
@@ -242,14 +241,14 @@ Il y présente notamment des comparatifs de performances d'exécution sur diffé
 
 ==== Traceur
 
-_Traceur_ est un des premiers transpilateurs ES6 vers ES5 à avoir émergé dans l'écosystème Node.
+_Traceur_ est un des premiers transpilateurs _ECMAScript 2015_ vers _ECMAScript 5_ à avoir émergé dans l'écosystème Node.
 Il est le fruit d'ingénieurs de *Google*.
 
 L'avantage de _traceur_ ?
-Avoir permis d'*écrire des modules en ES6 avant que la spécification ne soit entièrement terminée*.
+Avoir permis d'*écrire des modules en _ECMAScript 2015 avant que la spécification ne soit entièrement terminée*.
 Et donc de pouvoir anticiper son apprentissage tout en mettant le langage à l'épreuve avant sa finalisation.
 
-Il a depuis été dépassé en terme d'intégration, de modularité et de complétion d'implémentation de fonctionnalités ES6 par <<babel,Babel>> (voir ci-après).
+Il a depuis été dépassé en terme d'intégration, de modularité et de complétion d'implémentation de fonctionnalités _ECMAScript 2015 par <<babel,Babel>> (voir ci-après).
 
 [[babel]]
 ==== Babel
