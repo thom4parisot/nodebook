@@ -7,24 +7,19 @@ ifdef::env[]
 :imagesdir: .
 endif::[]
 
-== [ChapitreNumero]#4# Au service du développement frontend
+== [ChapitreNumero]#4# Développer pour les navigateurs web
 
 Les chapitres précédents ont démontré l'utilité de Node pour la création de modules réutilisables ainsi que pour le développement d'applications et d'utilitaires.
 
 Ce chapitre nous apprendra le rôle de Node pour le développement _frontend_ et la réalisation d'applications web.
 
-[CAUTION]
-====
-Ce chapitre est en pleine réorgnanisation.
-====
-
 ====
 .Sommaire
-- Choisir un gestionnaire de paquets
-- Un outillage sur mesure
-- Automatiser les projets
+- Gérer les dépendances externes
+- Créer des interfaces réactives
 - Partager du code entre Node et le navigateur
-- Tester dans le navigateur
+- Automatiser des tâches pénibles et répétitives
+- Automatiser les tests navigateurs
 ====
 
 Avant l'apparition de Node, rare était l'outillage n'imposant pas une plateforme entière de développement.
@@ -43,7 +38,7 @@ Le contenu de ce chapitre se réfère aux versions de *Node {nodeCurrentVersion}
 
 toc::[]
 
-=== Node pour le navigateur ?
+=== Éxécuter Node dans les navigateurs web ?
 
 Ce chapitre peut sembler confus au premier abord :
 si Node s'exécute au niveau du système d'exploitation, en quoi  est-il lié au développement _frontend_ ?
@@ -58,146 +53,8 @@ Autrement dit, *nous n'exécutons pas Node dans un navigateur web*.
 Nous l'utilisons pour *assembler du code* et *le transformer* de sorte à le rendre fonctionnel dans une paire de balises `<script></script>`. +
 Ce code peut être aussi bien fourni par des librairies tierces (type _jQuery_, _Angular_, _React_ etc.) que par de l'outillage (optimiseurs, suite de tests, orchestration de tâches etc.) ou encore par le code réutilisable de notre propre application web.
 
-=== Gestion des dépendances
 
-Avant Node, l'obtention d'une bibliothèque se faisait en allant sur son site web respectif puis en téléchargeant manuellement une archive avant de la décompresser dans votre répertoire de travail.
-C'est sans compter sur les téléchargements sur-mesure dont il fallait mémoriser les options de mise à jour en mise à jour.
-
-Tout ceci a bien évolué grâce aux gestionnaires de paquets.
-Ils rendent explicites la liste des dépendances, le spectre des versions compatibles ainsi que l'automatisation des opérations d'installation et de mises à jour.
-
-==== npm
-
-_npm_ est le gestionnaire de dépendances inclus dans les distributions courantes de Node.
-Pourquoi en parler s'il ne fonctionne que pour Node ?
-Car contrairement aux à prioris, *npm ne se limite pas à la gestion des dépendances spécifiques à Node*.
-npm utilise Node comme moteur d'exécution mais vous pouvez tout  fait empaqueter des images, fichiers CSS, Sass, <<typescript,TypeScript>> etc.
-
-Quelles sont les raisons de choisir npm comme gestionnaire de dépendances _frontend_ ?
-
-- *déclaration explicite* des points d'entrée via la propriété _main_ du fichier _package.json_ ;
-- gestion des dépendances de dépendances et quasi-absence de conflits de version ;
-- outillage et *écosystème riche* et complet ;
-- transformation des appels _CommonJS_ en modules _ECMAScript 2015_ et vice-versa via des transpilateurs ou _transforms_ ;
-- c'est le meilleur moyen d'*atteindre l'_isomorphisme applicatif_* (lire <<universal-applications,Vers un code universel et modulaire>> dans ce même chapitre).
-
-L'exemple suivant illustre plusieurs moyens d'inclure jQuery dans une page HTML, via une simple balise script, via un module _CommonJS_ (syntaxe Node) ou via la syntaxe des _modules_ d'ECMAScript 2015 :
-
-[source,html]
-.dependency-npm.html
-----
-include::{sourceDir}/dependency-npm.html[]
-----
-
-L'utilisation de modules _CommonJS_ nécessite une étape de compilation avant de pouvoir fonctionner nativement dans le navigateur.
-C'est quelque chose que nous adresserons dans la section <<../chapter-05/index.adoc#automation,automatisation des tâches>> du chapitre 5.
-
-L'étape de compilation sera également nécessaire si les navigateurs cibles de votre applications ne sont pas compatibles nativement avec les _modules ECMAScript 2015_. +
-Pour cela nous aurons recours à un _transpilateur_, pour convertir du code ECMAScript 2015 en ECMAScript 5.
-Nous en reparlerons dans la section <<transpilation,Transpilation>> de ce même chapitre.
-
-Certains auteurs de paquets _npm_ proposent du code préalablement compilé et prêt à l'emploi, en général et par convention dans un répertoire `dist/`.
-
-==== Comprendre _npm_ et son organisation du répertoire _node_modules_
-
-_npm_ organise les dépendances selon une structure dite _plate_ (_flat tree structure_).
-Ainsi, si deux modules distincts se basent sur une *version compatible d'une même dépendance* selon _semver_ — ici, jQuery v2 —  voici l'arbre de dépendance de _npm_ et la disposition sur le système de fichiers qui en résultent :
-
-----
-$ npm ls
-my-app@1.0.0
-├── module-a@1.0.0
-|   └── jquery@2.1.0
-└── module-b@1.0.0
-    └── jquery@2.1.4
-
-$ tree node_modules
-node_modules
-├── jquery
-├── module-a
-└── module-b
-----
-
-Dans le cas où plusieurs modules dépendant d'un même paquet mais dans une version _semver_ incompatible — ici jQuery v1 et jQuery v2 — la version la plus _ancienne_ se trouvera à la racine du répertoire _node_modules_ tandis que les autres seront _encapsulées_ au plus près du module en dépendant :
-
-----
-$ npm ls
-my-app@1.0.0
-├── module-a@1.0.0
-|   └── jquery@1.11.3
-└── module-b@1.0.0
-    └── jquery@2.1.4
-
-$ tree node_modules
-node_modules
-├── jquery
-├── module-a
-└── module-b
-    └── jquery
-----
-
-L'utilisation de `npm dedupe` peut être un ultime recours pour optimiser un arbre plus complexe que celui-ci.
-Ceci dans l'optique de diminuer les inclusions multiples d'une librairie techniquement compatible avec d'autres versions mineures.
-
-[CAUTION]
-.[RemarquePreTitre]#Remarque# Résolution de chemins
-====
-Il est fortement *déconseillé de se baser sur des chemins en dur* tapant dans le répertoire _node_modules_.
-Il est *préférable de faire appel à `require.resolve`* pour déterminer le chemin vers un fichier compris dans une dépendance.
-
-[source,javascript]
-----
-// À ne surtout pas faire
-const jqueryCore = require('./node_modules/jquery/src/core.js');
-
-// À faire
-const jQueryCore = require('jquery/src/core.js');
-----
-====
-
-Nous verrons davantage d'exemples, plus complets et tendant vers une même base de code compatible à la fois avec les API de Node et des navigateurs web dans la section <<universal-applications, Vers un code universel et modulaire>>.
-
-==== bower
-
-_bower_ est un gestionnaire de dépendances entièrement dédié aux composants _frontend_.
-Son interface est très proche de celle la commande npm.
-Les dépendances sont quant à elles listées dans un fichier `bower.json`, lui-même très similaire au fichier `package.json`.
-
-Ce projet a rencontré une forte popularité à une époque où les développeurs pensaient que _npm_ était dédié uniquement à Node et de ce fait, que _npm_ n'était pas adapté à la gestion des dépendances _front-end_.
-
-Toutefois je *déconseille d'utiliser _bower_* pour les raisons suivantes :
-
-- les fonctionnalités sont identiques à peu de chose près à celles de _npm_ ;
-- vous aurez la plupart besoin d'un peu d'outillage complémentaire via _npm_, donc autant n'utiliser qu'un seul outil ;
-- _bower_ ne sait pas gérer la présence d'un même module dans deux versions conflictuelles — ce qui représente un frein aux installations automatisées ;
-- les composants _bower_ ne peuvent être employées pour la création d'<<universal-applications,applications universelles>>.
-
-_bower_ dispose d'un seul avantage : la capacité à collecter des  librairies qui ne sont pas déclarées dans un registre.
-Cela peut se révéler pratique pour l'inclusion de code tiers assez ancien.
-
-
-=== Un outillage sur mesure
-
-Qu'il s'agisse de vos propres composants ou de modules tiers, l'écosystème Node regorge d'utilitaires facilitant la vie de tout développeur _frontend_.
-
-Outre l'uniformisation de l'installation de vos composants et dépendances, *vous rendez explicite et partagez le même processus* avec tous les membres de votre équipe.
-Et même si vous êtes seul(e) sur le projet, vous construisez une documentation d'utilisation pour les prochaines personnes susceptibles de participer au projet.
-
-L'*ubiquité des utilitaires* est un autre avantage indéniable.
-Ils s'intègrent en général très bien avec des outils d'automatisation ou des _frameworks_ populaires.
-Par exemple _express_ et _less_, _express_ et _React_ etc.
-
-Vous trouverez ci-après une suggestion non-exhaustive de modules utiles à tout développeur _frontend_ ou toute personne voulant réaliser des applications web modernes.
-
-
-
-=== Échanges de données client/serveur
-
-TBD.
-
-
-[[transpilation]]
-=== Transpilation
+=== Écrire dès à présent le code du futur
 
 Pendant longtemps, transformer du code ECMAScript ou un autre langage en ECMAScript — par exemple du code _ECMAScript 3_ en code _ECMAScript 2015_ — nécessitait l'utilisation d'un autre environnement qu'ECMAScript lui-même. +
 Rhino nécessitait Java, Spidermonkey nécessitait C++ et Trident nécessitait un environnement Windows en plus de C++.
@@ -208,27 +65,15 @@ Donc capable de fonctionner aussi bien dans Node que dans un navigateur web. +
 Si ça n'a l'air de rien, ce projet ouvre la voie à un écosystème entier de modules qui vont faire de Node la plateforme de prédilection pour assembler ses projets _frontend_ : minifieurs plus performants, _linters_ dynamiques, mais aussi et surtout, l'avènement des *transpilateurs*.
 Ces derniers compilent de l'ECMAScript (ou une surcouche d'ECMAScript) en ECMAScript interprétable par une VM ECMAScript classique.
 
-_Coffeescript_ est un exemple populaire de surcouche ECMAScript.
-Ce langage a fortement contribué à transvaser nombre de ses fonctionnalités vers la spécification ECMAScript 2015 : classes, fonctions fléchées, chaînes multi-lignes, destructuration etc.
+_Coffeescript_ a été un exemple populaire de surcouche ECMAScript.
+Ce langage a fortement contribué à l'émergence de fonctionnalités de la spécification _ECMAScript 2015_ : classes, fonctions fléchées, chaînes multi-lignes, destructuration etc.
 
-On parle de _transpilation_ et non de _compilation_ car le processus de transformation traduit un langage en un autre langage qui n'est pas un langage machine.
-On compile un certain langage en ECMAScript qui nécessite une VM ECMAScript pour que les instructions soient enfin traduites en opérations CPU.
-
-[WARNING]
-.[RemarquePreTitre]#Attention# Coffeescript ou pas Coffeescript ?
-====
-Il n'est pas recommandé d'utiliser _Coffescript_ sur de nouveaux projets depuis la sortie d'ECMAScript 2015.
-
-Si vous souhaitez un langage davantage typé qu'ESCMAScript, je vous recommande de vous pencher sur <<typescript,TypeScript>>.
-====
+On parle de _transpilation_ (ou de _compilation_) : le langage écrit est transformé dans un autre langage, compris par l'interpréteur.
 
 La transpilation offre plusieurs avantages face à la création d'un langage compilé à part entière :
 
-- le code transpilé est un *artéfact durable* — souvent lisible et modifiable par un humain — qui permet éventuellement de se passer du langage transpilé initial ;
-- la *complémentarité* avec l'écosystème ECMAScript — c'est quand même plus sympa que de devoir tout réinventer ;
-- l'orientation vers des *langages davantage maintenables* bénéficiant à terme à la spécification ECMAScript.
-
-La suite de cette section s'intéressera à des transpilateurs modernes et singuliers pour vous aider à vous faire une idée de leur utilité au sein d'un projet web géré seul, en équipe ou en communauté.
+- la *versatilité des environnements d'exécution* d'_ECMAScript_ en fait un langage cible de choix ;
+- la *complémentarité* avec l'écosystème ECMAScript — c'est quand même plus sympa que de devoir tout réinventer.
 
 [TIP]
 .[RemarquePreTitre]#Lien# Annonce d'esprima
@@ -239,286 +84,82 @@ Il y présente notamment des comparatifs de performances d'exécution sur diffé
 - [URL]#https://ariya.io/2011/12/introducing-esprima#
 ====
 
-==== Traceur
+==== L'approche traditionnelle du dénominateur commun
+
+[[transpilation]]
+==== Écrire au plus proche des standards
+
+TBD.
+
+
+[TIP]
+.[RemarquePreTitre]#Histoire# Traceur
+====
 
 _Traceur_ est un des premiers transpilateurs _ECMAScript 2015_ vers _ECMAScript 5_ à avoir émergé dans l'écosystème Node.
-Il est le fruit d'ingénieurs de *Google*.
 
-L'avantage de _traceur_ ?
-Avoir permis d'*écrire des modules en _ECMAScript 2015 avant que la spécification ne soit entièrement terminée*.
+Il a permis de commencer à *écrire des modules en _ECMAScript 2015 bien avant que la spécification ne soit entièrement terminée*.
 Et donc de pouvoir anticiper son apprentissage tout en mettant le langage à l'épreuve avant sa finalisation.
+====
 
-Il a depuis été dépassé en terme d'intégration, de modularité et de complétion d'implémentation de fonctionnalités _ECMAScript 2015 par <<babel,Babel>> (voir ci-après).
-
-[[babel]]
-==== Babel
+[[polyfills]]
+==== Combler les manques avec des _polyfills_
 
 TBD.
+
 
 [[typescript]]
-==== TypeScript
+==== Écrire dans un autre langage : l'exemple TypeScript
 
 TBD.
 
-==== Publication sur npm
-
-Répondre aux questions :
-
-- quels impacts si on publie uniquement les sources d'un module non-interprétable directement par Node
-- quel fichier déclarer dans le `main` ?
-- comment faire pour publier ? Et pour tester ?
-
-
-[[universal-applications]]
-=== browserify, pierre angulaire d'un code universel
-
-Le concept d'*applications universelles* (parfois appelées _applications isomorphiques_) a été sur toutes les bouches en 2015.
-
-Imaginez une application où la logique de routage des requêtes HTTP (_routing_), l'accès aux données et le rendu HTML s'exécutent aussi bien dans un environnement Node que dans un navigateur web.
-Imaginez un mécanisme permettant de dissocier des comportements spécifiques à un environnement Node de ceux d'un navigateur web — notamment la manipulation d'éléments DOM.
-
-Beaucoup y voient un moyen d'enfin développer des applications web monopages (_single page apps_) rapides et accessibles — souvenez-vous de l'époque des sites entièrement développés en Flash qui étaient invisibles aux yeux des moteurs de recherche.
-
-On peut ainsi *combiner* l'approche web _classique_ et des _interfaces dynamiques_ sans pour autant imposer une page blanche en attendant que les centaines de kilo-octets (voire de méga-octets) de la base de code ECMAScript de votre application soit transférée sur le réseau puis interprétée par le navigateur. +
-C'est sans parler des performances réseau et de puissance de calcul plus réduites sur mobile.
-
-[TIP]
-.[RemarquePreTitre]#Question# Ai-je besoin d'une application universelle ?
-====
-Il y a trois principales raisons _de tendre vers_ la conception  d'applications universelles :
-
-- vous éditez une application web monopage sans alternative accessible ou sans pré-rendu HTML ;
-- vous remarquez des doublons de code entre l'application web et son pendant côté serveur ;
-- vous pensez qu'une partie de la logique côté serveur pourrait être réutilisée côté web.
-
-Le cas échéant, on peut penser que vous n'avez qu'une faible fraction de votre métier à partager entre les deux environnements.
-====
-
-Je vais volontairement _tendre_ vers la notion d'applications universelles sans pour autant l'_atteindre_ entièrement.
-Il s'agit d'un univers extrêmement mouvant et les techniques deviennent rapidement obsolètes.
-
-Enfin, je préfère opter pour une approche hybride où l'on va progressivement partager une partie de nos composants entre Node et un navigateur web.
-L'universalité implique encore une certaine complexité et je préfère que l'on se concentre sur une approche incrémentale, respectueuse des compétences et connaissances techniques à disposition dans votre environnement de travail.
-
-Nous parlerons d'abord de partage modulaire, de chaîne de construction, de remplacement de code à la volée avant de nous intéresser à un mécanisme de rendu universel basé sur la librairie React.
-
-Nous traiterons éventuellement des applications entièrement universelles dans une autre édition de ce même ouvrage.
-Entre temps, je vous encourage à regarder ce qui se dit et ce qui se fait ailleurs.
-
-==== Une fonction pour Node et un navigateur web
-
-[CAUTION]
-.[RemarquePreTitre]#Pré-requis# Démarrage du serveur local
-====
-Les exemples suivant s'appuient sur un serveur embarqué présent dans le dépôt GitHub des exemples du chapitre 4.
-
-Il sert statiquement le répertoire d'exemples sur le port 4000 de la manière suivante :
-
-.chapter-04/examples
-----
-$ npm start
-----
-====
-
-Il est fréquent d'avoir à effectuer des requêtes HTTP pour obtenir des données distantes.
-L'implémentation, les contraintes techniques et les mesures de sécurité d'une telle requête sont pourtant foncièrement différentes entre Node et un navigateur web.
-Node fait appel aux modules *http* et *https* tandis que le navigateur dispose nativement de l'objet *XMLHttpRequest*, *XMLHttpRequest level 2* (depuis HTML5) ainsi que de *fetch* (depuis _ES2015_).
-
-Nous n'avons pas encore attaqué l'implémentation technique que la _simple requête_ paraît déjà compliquée en terme d'_universalité_.
-
-Le module _superagent_ émerge en tête des résultats si l'on recherche _browser_ et _http_ dans le registre _npm_.
-Le module promet de fonctionner aussi bien avec Node qu'avec différents navigateurs web, Internet Explorer 8 inclus.
-Prometteur non ?
-
-
-[TIP]
-.[RemarquePreTitre]#npm# superagent
-====
-Le module _superagent_ abstrait l'accès au réseau via une API fluide et chainable.
-Sa documentation en ligne détaille la gestion des verbes HTTP, l'envoi des données et la construction des paramètres d'URL.
-
-- [URL]#https://npmjs.com/superagent#
-- [URL]#https://visionmedia.github.io/superagent/#
-====
-
-Notre exemple se focalise sur l'interrogation d'une URL et l'affichage de sa réponse dans la console :
-
-[source,javascript]
-.universal-http/index.js
-----
-include::{sourceDir}/universal-http/index.js[]
-----
-<1> La fonction `require()` n'existe pas nativement dans le navigateur donc on ne charge le module _superagent_ que dans Node ;
-<2> Affiche `[ 'Chaource', 'Stilton', 'Camembert' ]`.
-
-Ce même fichier `index.js` doit être inclus dans une page HTML afin d'être interprété et exécuté par un navigateur web :
-
-[source,html]
-.universal-http/index.html
-----
-include::{sourceDir}/universal-http/index.html[]
-----
-<1> Puisque la fonction `require()` n'est pas disponible nativement dans les navigateurs, on se charge d'injecter `superagent` dans l'espace global ;
-<2> Affiche `[ 'Chaource', 'Stilton', 'Camembert' ]` lorsque le navigateur est dirigé vers `http://localhost:4000/universal-http/index.html`.
-
-Nous avons créé notre premier code universel, fonctionnant aussi bien dans un navigateur qu'avec Node !
-Toutefois, on est tenté d'_hésiter entre magie et bricolage_ … Est-on obligé de recourir à des conditions ECMAScript pour éviter d'exécuter des APIs propres à Node ? Et surtout, *que se passe-t-il sous le capot de _superagent_* pour parvenir à un tel résultat ?
-
-Il est grand temps de parler de _browserify_.
-
-[[browserify]]
-==== Utilisation de _browserify_
-
-Le développement de *browserify* a débuté fin 2010 mais a vraiment pris son envol début 2013 avec sa version 2. +
-L'objectif de _browserify_ est de permettre l'utilisation de l'API CommonJS (`require()` etc.) et de réécrire des parties spécifiques de code pour générer du code ECMAScript fonctionnel dans un environnement de navigateur web.
-
-_browserify_ ne cherche pas à être intelligent sur les éléments à remplacer mais offre une interface de transformation (les _transforms_) pour permettre à tout un chacun de réécrire selon ses besoins. +
-Ces transformations s'appliquent à deux niveaux :
-
-- les *fichiers*, en les interchangeant lors des appels à la fonction `require()` ;
-- l'*arbre syntaxique*, en délégant aux _transforms_ la réécriture des déclarations et des éléments de syntaxe dont ils sont responsables.
-
-Voici quelques exemples de _transforms_ utiles et fréquemment rencontrés dans différents modules :
-
-- _brfs_ : injecte le contenu de fichiers chargés via l'API `fs` ;
-- _browserify-hmr_ : remplace les modules à volée dans le navigateur lors d'un changement de code source ;
-- _envify_ : remplacement les appels à `process.env` par leur valeur respective au moment de la transformation ;
-- _babelify_ : délègue la transpilation de code ECMAScript et JSX à <<babel,Babel>> ;
-- _sassify_ : transpile les inclusions de fichiers Sass en code CSS, optionnellement injecté dans le navigateur au chargement du module en question ;
-- _es3ify_ : remplace certains éléments de langage en code ECMAScript 3, afin de supporter d'anciens navigateurs comme Internet Explorer 8.
-
-Les _transforms_ peuvent être appliqués de deux manières :
-
-- via l'option `--transform` en *ligne de commande* ;
-- via le champ `browserify.transform` du fichier `package.json`.
-
-Débutons avec l'utilisation des options en ligne de commande :
-
-----
-$ browserify -e index.js -t brfs -t [ babelify --presets [es2015] ] -o dist/index.js
-----
-
-Le _transform_ _brfs_ est employé tel quel tandis que _babelify_  fait appel à des options de configurations supplémentaires.
-
-La configuration de ces mêmes _transform_ dans le fichier `package.json` ressemble à ceci :
-
-[source]
-.package.json
-----
-{
-  "name": "name": "nodebook.chapter-04",
-  "...": "...,
-  "browserify": {
-    "transform": [
-      "brfs",
-      ["babelify", { "presets": ["es2015"] }]
-    ]
-  },
-  "dependencies": {
-    "babel-preset-es2015": "^6.3.0",
-    "babelify": "^7.0.0",
-    "brfs": "^1.4.0"
-  },
-  "devDependencies": {
-    "browserify": "^12.0.0"
-  }
-}
-----
-
-L'utilisation de _browserify_ en ligne de commande s'en retrouve simplifiée :
-
-----
-$ browserify -e index.js -o dist/index.js
-----
-
-Il y a deux choses importantes à retenir à propos du fonctionnement de _browserify_ :
-
-1. _browserify_ suit tous les appels à `require()` et s'applique donc en cascade aux modules descendants ;
-2. les _transform_ ne s'appliquent qu'au niveau du module dans lequel ils sont déclarés (sauf à utiliser l'option `--global-transform` auquel cas ce _transform_ sera appliqué à tous les niveaux de l'arbre de dépendances).
-
-[TIP]
-.[RemarquePreTitre]#Astuce# Pourquoi utiliser le champ `browserify.transform` ?
-====
-L'utilisation du champ `browserify.transform` est très utile pour appliquer automatiquement des _transform_ de manière isolée et discrète sans polluer la chaîne de dépendances.
-
-Vous pouvez ainsi combiner une arborescence de modules qui se basent sur des versions différentes d'ECMAScript, utilisent Sass et Less etc.
-
-À l'inverse, vous ne souhaiterez pas déclarer un _transform_ si son usage est ponctuel, par exemple pour des besoins de développement.
-
-À noter que les modules employés par les _transform_ du fichier `package.json` doivent être déclarés en tant que `dependencies` afin qu'ils soient disponibles lors de leur inclusion par _browserify_.
-====
-
-Il est également possible de forcer l'application d'un _transform_ sur l'intégralité de la chaîne de dépendances via l'option `--global-transform`.
-
-==== Une fonction universelle
-
-L'exemple suivant illustre une réécriture de notre précédent code de sorte à le rendre agnostique à son environnement d'exécution :
-
-[source,javascript]
-.universal-http/index-browserify.js
-----
-include::{sourceDir}/universal-http/index-browserify.js[]
-----
-
-_browserify_ inclut le code nécessaire à l'exécution de l'arbre de dépendances dessiné par les multiples appels à `require()` lors de l'opération de transformation. +
-La conversion de code peut s'effectuer depuis l'API Node de _browserify_ mais aussi depuis un terminal :
-
-----
-$ npm run bundle
-# tâche présente dans `package.json` équivalente à
-$ browserify \
- --entrypoint universal-http/index-browserify \
- --output universal-http/bundle.js
-----
-
-Le fichier HTML varie à peine par rapport à notre première tentative — à noter que nous n'incluons désormais que le fichier généré par _browserify_ :
-
-[source,html]
-.universal-http/index-browserify.html
-----
-include::{sourceDir}/universal-http/index-browserify.html[]
-----
-
-On commence à se rendre compte qu'il y a plusieurs notions d'universalité :
-
-- du code ECMAScript interprétable à la fois par Node et par un navigateur web ;
-- du code ECMAScript interprétable par Node et converti pour fonctionner dans un navigateur web.
-
-C'est sans compter sur du code interprétable par un navigateur web mais outillé par Node.
-Mais nous quittons là les terres de l'universalité.
-
-==== Cibler spécifiquement Node ou le navigateur
+=== Une conception orientée composant
 
 TBD.
 
-=== Templating universel avec React
-
-
-==== Présentation de React
+==== Le syndrôme du plugin jQuery
 
 TBD.
 
-==== Rendu avec Node
+==== Vers une approche jQuery composite
 
 TBD.
 
-==== Rendu dans le navigateur
+==== Partager le code métier avec Node
 
 TBD.
 
-==== Exemple d'intégration avec _express_
+==== Séparation du fond et de la forme : données, rendu et interactions
 
 TBD.
 
-==== Vers des applications universelles ?
+==== Rapprocher présentation et interactions avec React
 
 TBD.
 
-=== Stratégies de gestion des ressources frontend
+==== Lier composants et feuilles de style
 
-- build externe
-- inlining
-- extraction
+TBD.
+
+[[io]]
+=== Des requêtes AJAX au temps-réel
+
+TBD.
+
+[[io-fetch]]
+==== Consommer des données hétérogènes avec `fetch()`
+
+TBD.
+
+[[io-sse]]
+==== Approche unidirectionnelle avec _Server Sent Events_
+
+TBD.
+
+[[io-websockets]]
+==== Échanges en temps-réel avec _Websockets_
+
+TBD.
 
 
 === Tester son code
@@ -529,6 +170,10 @@ TBD.
 TBD.
 
 ==== Exécuter les suites de tests avec Karma
+
+TBD.
+
+==== Tester les éléments de lisibilité et de performance
 
 TBD.
 
