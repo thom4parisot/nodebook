@@ -9,9 +9,9 @@ endif::[]
 
 == [ChapitreNumero]#4# Développer pour les navigateurs web
 
-Les chapitres précédents ont démontré l'utilité de Node pour la création de modules réutilisables ainsi que pour le développement d'applications et d'utilitaires.
+La popularité de Node s'est établie également pour la profusion d'outillage apportée au développement web _frontend_.
 
-Ce chapitre nous apprendra le rôle de Node pour le développement _frontend_ et la réalisation d'applications web.
+Ce chapitre nous apprendra le rôle de Node en tant qu'extension au développement _frontend_.
 
 ====
 .Sommaire
@@ -22,13 +22,15 @@ Ce chapitre nous apprendra le rôle de Node pour le développement _frontend_ et
 - Automatiser les tests navigateurs
 ====
 
-Avant l'apparition de Node, rare était l'outillage n'imposant pas une plateforme entière de développement.
-Il faut se contenter de programmes tels que _YUICompressor_, _Google Closure Compiler_, _sprockets_ ou encore _pngquant_.
-Leur utilisation requiert des dépendances variées comme Ruby, Java ou des librairies, parfois incompatibles entre elles et dont la procédure d'installation diffère selon les systèmes d'exploitation — lorsqu'ils sont multi-plateformes.
-C'est sans parler des difficultés d'intégration et de leur systématisation au sein des projets.
+Avant l'apparition de Node, rare était l'outillage n'imposant pas une ou plusieurs plates-formes de développement : _YUICompressor_ demandait Java, _Google Closure Compiler_ demandait Java, _sprockets_ Ruby et _pngquant_ quelques dépendances système comme _libpng_.
 
-Bref c'était lourd, complexe et compliqué à moins de disposer d'une infrastructure industrialisée. +
-L'existence de Node a favorisé le développement d'un écosystème entier d'outillage et ce, de la découverte et le téléchargement des bibliothèques tierces à la compilation, à la phase d'optimisation et à l'exécution des tests de vos composants et applications web.
+Leur installation n'était pas triviale.
+Leur coordination encore moins.
+Les adapter aux différents systèmes d'exploitation et au système d'intégration continue n'était pas non plus aisé. +
+Bref c'était lourd, complexe et compliqué à moins de disposer d'une infrastructure industrialisée.
+
+L'existence de Node et du registre _npm_ a favorisé le développement d'un écosystème orienté _frontend_.
+Cela s'étend de la découverte au téléchargement des bibliothèques tierces ainsi qu'à la compilation, l'optimisation et l'exécution des tests des applications web côté client.
 
 [TIP]
 .[RemarquePreTitre]#Remarque# Versions de Node et npm
