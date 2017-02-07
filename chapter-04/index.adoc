@@ -42,43 +42,42 @@ toc::[]
 
 === Éxécuter Node dans les navigateurs web ?
 
-Ce chapitre peut sembler confus au premier abord :
-si Node s'exécute au niveau du système d'exploitation, en quoi  est-il lié au développement _frontend_ ?
+Ce chapitre peut sembler confus au premier abord.
+Si Node s'exécute au niveau du système d'exploitation — "côté serveur" — en quoi est-il lié au développement _frontend_ — "côté client" ?
+Est-ce parce que du code écrit pour Node peut aussi fonctionner dans un navigateur web ?
+_Quid_ de l'utilisation de `require('fs')` pour accéder au système de fichiers ?
 
-Commençons par comprendre la répartition des responsabilités :
+La réponse _courte_ est : *nous n'exécutons pas Node dans un navigateur web*.
 
-- *modules npm* : _fonctions_, _librairies_ et _outils_ prêt à l'emploi sur simple utilisation de la fonction `require()` ;
-- *npm* : client permettant de télécharger et de publier des _modules npm_ afin de les consommer dans notre code applicatif ;
-- *Node* : environnement d'exécution des différentes tâches et outils pour rendre les applications web digestes par les navigateurs web.
+Et la réponse _longue_ : *Node est utilisé pour assembler du code*, le _transformer_ et le rendre fonctionnel dans une paire de balises `<script></script>`. +
+Ce code peut être aussi bien fourni par des *librairies tierces* installées via _npm_ (_jQuery_, _React_ ou _d3_ par exemple) que par de l'*outillage* (optimiseurs, suite de tests, orchestration de tâches etc.) ou encore par le *code réutilisable* de notre propre application web.
 
-Autrement dit, *nous n'exécutons pas Node dans un navigateur web*.
-Nous l'utilisons pour *assembler du code* et *le transformer* de sorte à le rendre fonctionnel dans une paire de balises `<script></script>`. +
-Ce code peut être aussi bien fourni par des librairies tierces (type _jQuery_, _Angular_, _React_ etc.) que par de l'outillage (optimiseurs, suite de tests, orchestration de tâches etc.) ou encore par le code réutilisable de notre propre application web.
+Il faut également bien comprendre qu'il y a plusieurs "problèmes" cachés sous une même question :
+
+- Les navigateurs web et Node utilisent différentes machines virtuelles JavaScript, avec différents niveaux de complétion dans l'implémentation d'_ECMAScript_ ;
+- Les navigateurs web et Node n'ont pas accès aux mêmes APIs – Node accède à `fs` et `http` tandis que les navigateurs ont `File` et `fetch`/`XmlHttpRequest` ;
+- Les navigateurs web et Node ne gèrent pas le chargement de modules de la même manière – voir la section <<managing-dependencies,gestion des dépendances>> ;
+- L'implémentation même d'_ECMAScript_ va différer selon les versions de Node employées – un navigateur moderne et Node 6 comprendraient l'objet natif `Promise` mais pas Node 0.12.
+
+Ce processus n'est _pas magique_ et nous verrons graduellement au cours des prochaines sections comment tout ceci fonctionne.
 
 
 === Écrire dès à présent le code du futur
 
-Pendant longtemps, transformer du code ECMAScript ou un autre langage en ECMAScript — par exemple du code _ECMAScript 3_ en code _ECMAScript 2015_ — nécessitait l'utilisation d'un autre environnement qu'ECMAScript lui-même. +
-Rhino nécessitait Java, Spidermonkey nécessitait C++ et Trident nécessitait un environnement Windows en plus de C++.
+Transformer du code ECMAScript a pendant longtemps été chose pénible.
+Je pense par exemple à de la minification de code (pour réduire les temps de transfert sur les antiques lignes ADSL 128K) ou à de la conversion automatique de code _ECMAScript 3_ en _ECMAScript 5_.
+Cela nécessitait systématiquement l'utilisation d'un autre environnement qu'ECMAScript lui-même: Rhino nécessitait Java, Spidermonkey nécessitait C++ et Trident nécessitait un environnement Windows en plus de C++.
 
-Pour autant, un projet va chambouler les règles du jeu en décembre 2011 : *esprima*.
-_esprima_ est un parseur ECMAScript écrit en… ECMAScript.
-Donc capable de fonctionner aussi bien dans Node que dans un navigateur web. +
-Si ça n'a l'air de rien, ce projet ouvre la voie à un écosystème entier de modules qui vont faire de Node la plateforme de prédilection pour assembler ses projets _frontend_ : minifieurs plus performants, _linters_ dynamiques, mais aussi et surtout, l'avènement des *transpilateurs*.
-Ces derniers compilent de l'ECMAScript (ou une surcouche d'ECMAScript) en ECMAScript interprétable par une VM ECMAScript classique.
+*esprima* chamboule les règles du jeu en décembre 2011 : ce parseur _ECMAScript_ — lui-même écrit en _ECMAScript_ – exporte une compréhension de code sous forme d'arbre syntaxique abstrait (_abstract syntax tree_, _AST_).
+Cet arbre est lui-même analysable par de *nouveaux outils émergents* :
 
-_Coffeescript_ a été un exemple populaire de surcouche ECMAScript.
-Ce langage a fortement contribué à l'émergence de fonctionnalités de la spécification _ECMAScript 2015_ : classes, fonctions fléchées, chaînes multi-lignes, destructuration etc.
-
-On parle de _transpilation_ (ou de _compilation_) : le langage écrit est transformé dans un autre langage, compris par l'interpréteur.
-
-La transpilation offre plusieurs avantages face à la création d'un langage compilé à part entière :
-
-- la *versatilité des environnements d'exécution* d'_ECMAScript_ en fait un langage cible de choix ;
-- la *complémentarité* avec l'écosystème ECMAScript — c'est quand même plus sympa que de devoir tout réinventer.
+- les _source maps_ pour associer le code transformé au code d'origine, notamment dans les outils de développement des navigateurs web ;
+- des _minifieurs_ plus efficaces et ayant connaissance des portions de code exécutées ;
+- des _analyseurs de code_ pour informer le développeur d'erreurs de syntaxe, de non-respect de styles de développement etc. ;
+- des _convertisseurs de code_ pour passer d'_ECMAScript_ vers _CoffeeScript_, de modules _CommonJS_ vers des modules _ECMAScript 2015_ etc.
 
 [TIP]
-.[RemarquePreTitre]#Lien# Annonce d'esprima
+.[RemarquePreTitre]#Lien# Annonce d'_esprima_
 ====
 _Aryia Hidayat_ introduit exprima dans un billet de blog.
 Il y présente notamment des comparatifs de performances d'exécution sur différentes VM ECMAScript et face à d'autres parseurs.
@@ -86,7 +85,12 @@ Il y présente notamment des comparatifs de performances d'exécution sur diffé
 - [URL]#https://ariya.io/2011/12/introducing-esprima#
 ====
 
-==== L'approche traditionnelle du dénominateur commun
+Le champ d'action de Node augmente, la versatilité d'_ECMAScript_ aussi. +
+Toutefois si on ne devait retenir qu'une chose de tout ceci c'est qu'il est désormais normal d'*écrire du code moderne en anticipation des futurs standards et de le faire fonctionner sur les navigateurs actuels et anciens*.
+
+==== La fin de l'approche par le dénominateur commun
+
+TBD
 
 [[transpilation]]
 ==== Écrire au plus proche des standards
