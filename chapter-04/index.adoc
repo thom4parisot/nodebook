@@ -90,13 +90,51 @@ Toutefois si on ne devait retenir qu'une chose de tout ceci c'est qu'il est dés
 
 ==== La fin de l'approche par le dénominateur commun
 
-TBD
+Qui n'a pas déjà entamé un projet en posant la question à un client, en regardant les statistiques de traffic ou en se posant une question à soi-même : quelle est la liste des versions de navigateurs avec lequel notre site ou application web doit être compatible ?
+
+La version de navigateur la plus ancienne ou la moins conforme aux standards était celle qui donnait le _la_ (qui a prononcé _Internet Explorer 7_ dans la salle ?). +
+Cela voulait dire se priver de techniques modernes, standardisées ou en cours en de standardisation.
+Cela voulait dire des _hacks_ dans ses CSS, dans son code _ECMAScript_ et dans ses ressources graphiques.
+
+Alors que dire si on inclut une librairie tierce qui fait l'affaire mais n'offre pas une compatabilité aussi antique que désirée ?
 
 [[transpilation]]
 ==== Écrire au plus proche des standards
 
-TBD.
+Fort heureusement l'arrivée d'_esprima_ a changé la donne et permet d'écrire un code proche des standards, qui résiste au temps, et d'automatiser les transformations de code pour satisfaire nos besoins spécifiques.
 
+Il y a plusieurs éléments à prendre en compte concernant la standardisation de nouvelles versions et fonctionnalités dans _ECMAScript_ :
+
+. la *cadence de standardisation* a été revue pour devenir prédictible – une volonté d'une fois par an ;
+. les *fonctionnalités sont implémentées une par une*, à des vitesses différentes par les différents concepteurs de navigateurs web ;
+. les navigateurs majoritaires fonctionnent sur des *rythmes de mises à jour en cycle court* – on parle de six à neuf semaines pour la plupart.
+
+Il vaut mieux *parier sur les standards comme stratégie à long terme* si on tient compte du _temps de développement_ et du _temps de maintenance_ d'une base de code.
+
+[TIP]
+.[RemarquePreTitre]#Question# Standards, quels standards ?
+====
+Il y a plusieurs organismes prenant part à la standardisation de langages et d'APIs lorsque l'on touche aux navigateurs web :
+
+- Pour le _langage HTML_ : WHATWG ([URL]#https://html.spec.whatwg.org/#) ;
+- Pour l'_API DOM_ : WHATWG ([URL]#https://dom.spec.whatwg.org/#) ;
+- Pour le _langage CSS_ : W3C ([URL]#https://www.w3.org/standards/techs/css#) ;
+- Pour le _langage ECMAScript_ : TC39 ([URL]#https://github.com/tc39#) ;
+====
+
+Lorsque nous écrivons du code, nous pouvons rencontrer quatre cas de figure :
+
+- *fonctionnalité non-implémentée* : transformer le code pour l'adapter aux navigateurs cibles ;
+- *fonctionnalité partiellement implémentée* : utiliser l'implémentation native des navigateurs et à défaut, transformer le code pour l'adapter aux autres navigateurs ;
+- *fonctionnalité totalement implémentée* : utiliser l'implémentation native des navigateurs.
+
+Il arrive que certaines fonctionnalités soient *abandonnées* juste avant d'être standardisées – ou que leur implémentation change beaucoup (on pensera à _CSS Flexbox_).
+
+La question qui nous taraude est : *comment transformer le code* pour satisfaire à la fois les navigateurs compatibles et les autres ? +
+*Babel* est un outil de choix  pour parvenir à ces fins d'écriture de code résistant au(x standards du) temps.
+
+Ce module convertit de manière sélective toute syntaxe _ECMAScript 2015_ – ainsi que _ECMAScript 2016_, etc. – vers de l'_ECMAScript 5_, compréhensible par les _navigateurs web modernes_.
+L'intérêt de sa _sélectivité_ fait que l'on peut progressivement arrêter de convertir certaines fonctionnalités couvertes par 100% des navigateurs web modernes.
 
 [TIP]
 .[RemarquePreTitre]#Histoire# Traceur
@@ -104,9 +142,78 @@ TBD.
 
 _Traceur_ est un des premiers transpilateurs _ECMAScript 2015_ vers _ECMAScript 5_ à avoir émergé dans l'écosystème Node.
 
-Il a permis de commencer à *écrire des modules en _ECMAScript 2015 bien avant que la spécification ne soit entièrement terminée*.
+Il a permis de commencer à *écrire des modules en _ECMAScript 2015_ bien avant que la spécification ne soit entièrement terminée*.
 Et donc de pouvoir anticiper son apprentissage tout en mettant le langage à l'épreuve avant sa finalisation.
 ====
+
+L'exemple suivant illustre un code utilisant quelques fonctionnalités _ECMAScript 2015_.
+
+[source,javascript]
+.babel-es2015.js
+----
+include::{sourceDir}/babel-es2015.js[]
+----
+<1> Nous destructurons l'_agent utilisateur_ du navigateur – à noter que ce même code exécuté par Node lancerait une exception car `window` n'existe pas dans cet environnement ;
+<2> Affiche un objet content le _nom_ de votre système d'exploitation ainsi que sa _version_.
+
+Ce code représente l'*idéal de ce que l'on souhaite écrire*.
+Le seul obstacle consiste à _traduire_ ce code pour l'ensemble des navigateurs web compatibles avec _ECMAScript 5_.
+
+Éxécutons cette commande :
+
+----
+$ npm run babel -- --no-babelrc examples/babel-es2015.js
+----
+
+La sortie affichée correspond _exactement_ à notre code d'origine.
+C'est parce que sans configuration, _babel_ ne transforme rien. +
+L'ouvrage contient un fichier de configuration `.babelrc`.
+Nous expliquerons son contenu après en avoir observé son impact :
+
+----
+$ npm run babel -- examples/babel-es2015.js
+----
+
+La sortie a changé et renvoie un code totalement fonctionnel sur des navigateurs web ne supportant pas _ECMAScript 2015_ :
+
+[source,javascript]
+.babel-es2015ified.js
+----
+include::{sourceDir}/babel-es2015ified.js[]
+----
+
+Il existe de nombreuses règles de transformation mais heureusement pour nous, des modules _npm_ nous permettent de *choisir quels éléments de syntaxe transformer*.
+Ce sont les _presets_.
+
+Voici quelques _presets_ qui vous seront utiles :
+
+- `preset-env` ([URL]#https://github.com/babel/babel-preset-env#) ;
+- `preset-es2015` ([URL]#https://babeljs.io/docs/plugins/preset-es2015/#) ;
+- `preset-es2016` ([URL]#https://babeljs.io/docs/plugins/preset-es2016/#) ;
+- `preset-es2017` ([URL]#https://babeljs.io/docs/plugins/preset-es2017/#) ;
+- `preset-latest` ([URL]#https://babeljs.io/docs/plugins/preset-latest/#).
+
+Ils sont à placer dans un fichier de configuration nommé `.babelrc` :
+
+.{empty}.babelrc
+----
+{
+  "presets": [
+    "es2015",
+    "es2016"
+  ]
+}
+----
+
+[TIP]
+.[RemarquePreTitre]#Lien# Documentation de _babel_
+====
+Une liste d'options ainsi qu'une aide à la configuration sont disponibles sur le site officiel de _babel_ :
+
+- [URL]#https://babeljs.io/docs/usage/api/#options#
+- [URL]#https://babeljs.io/docs/usage/babelrc/#
+====
+
 
 [[polyfills]]
 ==== Combler les manques avec des _polyfills_
