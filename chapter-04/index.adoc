@@ -103,10 +103,10 @@ Alors que dire si on inclut une librairie tierce qui fait l'affaire mais n'offre
 
 Fort heureusement l'arrivée d'_esprima_ a changé la donne et permet d'écrire un code proche des standards, qui résiste au temps, et d'automatiser les transformations de code pour satisfaire nos besoins spécifiques.
 
-Il y a plusieurs éléments à prendre en compte concernant la standardisation de nouvelles versions et fonctionnalités dans _ECMAScript_ :
+Il y a plusieurs éléments à prendre en compte concernant la standardisation de nouvelles versions d'_ECMAScript_ et les évolutions de sa syntaxe :
 
 . la *cadence de standardisation* a été revue pour devenir prédictible – une volonté d'une fois par an ;
-. les *fonctionnalités sont implémentées une par une*, à des vitesses différentes par les différents concepteurs de navigateurs web ;
+. les *fonctionnalités et éléments de syntaxe sont implémentés un par un*, à des vitesses différentes par les différents concepteurs de navigateurs web ;
 . les navigateurs majoritaires fonctionnent sur des *rythmes de mises à jour en cycle court* – on parle de six à neuf semaines pour la plupart.
 
 Il vaut mieux *parier sur les standards comme stratégie à long terme* si on tient compte du _temps de développement_ et du _temps de maintenance_ d'une base de code.
@@ -124,17 +124,17 @@ Il y a plusieurs organismes prenant part à la standardisation de langages et d'
 
 Lorsque nous écrivons du code, nous pouvons rencontrer quatre cas de figure :
 
-- *fonctionnalité non-implémentée* : transformer le code pour l'adapter aux navigateurs cibles ;
-- *fonctionnalité partiellement implémentée* : utiliser l'implémentation native des navigateurs et à défaut, transformer le code pour l'adapter aux autres navigateurs ;
-- *fonctionnalité totalement implémentée* : utiliser l'implémentation native des navigateurs.
+- *élément de syntaxe non-implémenté* : transformer le code pour l'adapter aux navigateurs cibles ;
+- *élément de syntaxe partiellement implémenté* : utiliser l'implémentation native des navigateurs et à défaut, transformer le code pour l'adapter aux autres navigateurs ;
+- *élément de syntaxe totalement implémenté* : utiliser l'implémentation native des navigateurs.
 
-Il arrive que certaines fonctionnalités soient *abandonnées* juste avant d'être standardisées – ou que leur implémentation change beaucoup (on pensera à _CSS Flexbox_).
+Il arrive que certains éléments de syntaxe soient *abandonnés* pendant le processus de standardisation – ou que leur implémentation change beaucoup (on pensera à `Object.observe`).
 
 La question qui nous taraude est : *comment transformer le code* pour satisfaire à la fois les navigateurs compatibles et les autres ? +
 *Babel* est un outil de choix  pour parvenir à ces fins d'écriture de code résistant au(x standards du) temps.
 
 Ce module convertit de manière sélective toute syntaxe _ECMAScript 2015_ – ainsi que _ECMAScript 2016_, etc. – vers de l'_ECMAScript 5_, compréhensible par les _navigateurs web modernes_.
-L'intérêt de sa _sélectivité_ fait que l'on peut progressivement arrêter de convertir certaines fonctionnalités couvertes par 100% des navigateurs web modernes.
+L'intérêt de sa _sélectivité_ fait que l'on peut progressivement arrêter de convertir les éléments de syntaxe couverts par 100% des navigateurs web modernes.
 
 [TIP]
 .[RemarquePreTitre]#Histoire# Traceur
@@ -146,7 +146,7 @@ Il a permis de commencer à *écrire des modules en _ECMAScript 2015_ bien avant
 Et donc de pouvoir anticiper son apprentissage tout en mettant le langage à l'épreuve avant sa finalisation.
 ====
 
-L'exemple suivant illustre un code utilisant quelques fonctionnalités _ECMAScript 2015_.
+L'exemple suivant illustre un code utilisant des éléments de syntaxe d'_ECMAScript 2015_.
 
 [source,javascript]
 .babel-es2015.js
@@ -185,7 +185,7 @@ include::{sourceDir}/babel-es2015ified.js[]
 Il existe de nombreuses règles de transformation mais heureusement pour nous, des modules _npm_ nous permettent de *choisir quels éléments de syntaxe transformer*.
 Ce sont les _presets_.
 
-Voici quelques _presets_ qui vous seront utiles :
+Voici quelques _presets_ qui nous seront utiles :
 
 - `preset-env` ([URL]#https://github.com/babel/babel-preset-env#) ;
 - `preset-es2015` ([URL]#https://babeljs.io/docs/plugins/preset-es2015/#) ;
@@ -214,11 +214,25 @@ Une liste d'options ainsi qu'une aide à la configuration sont disponibles sur l
 - [URL]#https://babeljs.io/docs/usage/babelrc/#
 ====
 
-
 [[polyfills]]
 ==== Combler les manques avec des _polyfills_
 
-TBD.
+Des outils comme _babel_ nous permettent d'écrire avec une *syntaxe moderne*.
+Les *polyfills* quant à eux nous permettent de *combler les fonctionnalités manquantes*, leur implémentation.
+
+La destructuration, les constantes et les classes sont des _éléments de syntaxe_ d'_ECMAScript 2015_.
+L'objet `Promise` et la méthode `Array.from` sont des _fonctionnalités_ d'_ECMAScript 2015_.
+La fonction `fetch`, l'objet `File` et l'API `WebSocket` sont des _fonctionnalités_ d'_HTML5_.
+
+Un *polyfill nous garantit l'usage d'une fonctionnalité*, peu importe l'ancienneté du navigateur.
+
+[TIP]
+.[RemarquePreTitre]#Guide# Bonnes pratiques constatées
+====
+Un guide édité par le W3C explique les bons usages et risques d'utilisation des _polyfills_ et de leur utilisation constatée sur le web.
+
+- [URL]#https://w3ctag.github.io/polyfills/#
+====
 
 
 [[typescript]]
