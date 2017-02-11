@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 var getOS = function getOS(userAgent) {
   var _userAgent$match = userAgent.match(/\(([^;]+)\s?;\s?([^\)]+)\)/),
