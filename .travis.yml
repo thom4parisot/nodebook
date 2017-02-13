@@ -14,12 +14,14 @@ install:
 - npm install
 - make install
 
-script:
-- npm test
-- make clean build
+script: npm test
 
-after_success:
-- if [ "$TRAVIS_PULL_REQUEST" = 'false' ] && [ "$TRAVIS_BRANCH" = "master" ]; then make deploy-html; fi
+deploy:
+  provider: script
+  script: make clean build deploy-html
+  skip_cleanup: true
+  on: 
+    branch: master
 
 env:
   global:

@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Exemple polyfill custom</title>
+    <script>
+      import 'es6-promise/auto';        // <1>
+      import 'core-js/fn/number/is-nan';// <2>
+    </script>
+  </head>
+  <body>
+    <script>
+      Promise.resolve(Number.isNaN(NaN))
+        .then(msg => console.log(msg));
+    </script>
+  </body>
+</html>

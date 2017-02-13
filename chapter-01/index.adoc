@@ -44,14 +44,16 @@ toc::[]
 Node.js n'est pas un langage de programmation. Node.js n'est pas non plus un _framework_ JavaScript. *Node.js est une plate-forme de programmation JavaScript*. +
 La différence entre ces trois désignations peut sembler subtile, futile voire inutile mais le terme *plate-forme* est la véritable nature de Node.
 
-*Exécuter du JavaScript côté serveur n'est pas non plus une révolution*.
-
+*Exécuter du JavaScript côté serveur n'est pas non plus une révolution*. +
 L'entreprise _Netscape_ s'y est déjà essayée au début des années 1990 avec _Netscape Enterprise Server_, juste après l'avoir introduit dans son navigateur web _Netscape Navigator_.
 
 En 1997, _Netscape_ s'est attelée à créer _Rhino_ ([URL]#https://www.mozilla.org/rhino/#), une implémentation de JavaScript en Java disponible sous licence libre.
-_Rhino_ était un des projets liés à la réécriture de _Netscape Navigator_ en Java. Si _Netscape_ a depuis fermé ses portes, _Rhino_ a permis l'émergence de projets utiles aux développeurs web.
+_Rhino_ était un des projets liés à la réécriture de _Netscape Navigator_ en Java.
+Si _Netscape_ a depuis fermé ses portes, _Rhino_ a permis l'émergence de projets utiles aux développeurs web.
 
-D'autres initiatives plus récentes comme _APE_ (_Ajax Push Engine_, [URL]#http://ape-project.org/#) ont mis en œuvre JavaScript côté serveur. JavaScript était surtout un choix logique de partage de code entre client et serveur pour Comet, le précurseur des Websockets.
+Entre temps le langage JavaScript évolue, le _Web 2.0_ émerge des cendres de la première bulle Internet et d'autres initiatives émergent dans les années 2000 comme _APE_ (_Ajax Push Engine_, [URL]#http://ape-project.org/#).
+Elles mettent également en œuvre JavaScript côté serveur.
+JavaScript était surtout un choix logique de partage de code entre client et serveur pour Comet, le précurseur des <<../chapter-04/index.adoc#websockets,Websockets>>.
 
 [TIP]
 .[RemarquePreTitre]#Glossaire# Comet
@@ -81,14 +83,15 @@ Google l'utilise comme environnement d'exécution de ses https://gsuite-develope
 Ces scripts permettent à tout un chacun de développer des extensions et des interactions supplémentaires pour les documents Google Drive.
 
 Rhino est également employé dans _yuicompressor_ ([URL]#https://yui.github.io/yuicompressor/#), un optimiseur CSS et JavaScript créé par Yahoo.
-_yuicompressor_ a été surpassé par _Closure Compiler_ ([URL]#https://developers.google.com/closure/compiler/#) et _UglifyJS_ (https://npmjs.com/uglify-js#).
+_yuicompressor_ a été surpassé par _Closure Compiler_ ([URL]#https://developers.google.com/closure/compiler/#) et _UglifyJS_ ([URL]#https://npmjs.com/uglify-js#).
 Ce dernier est écrit en JavaScript et repose sur… Node. +
 La boucle est bouclée.
 ====
 
 Node représente un *environnement d'exécution* (_runtime_), un *ensemble d'API JavaScript* ainsi qu'une *machine virtuelle (VM) JavaScript* performante (parseur, interpréteur et compilateur) pouvant accéder à des ressources système telles que des fichiers (_filesystem_) ou des connexions réseau (_sockets_).
 
-Typiquement, une personne développant en Node écrit du code se basant sur les API à disposition. Ce code est lu par le _runtime_ Node qui le transmet à la VM JavaScript. Enfin, la VM traduit le programme en langage machine (_bytecode_) avant que le programme soit effectivement exécuté par le processeur.
+Typiquement, une personne développant en Node écrit du code se basant sur les API à disposition.
+Ce code est lu par le _runtime_ Node qui le transmet à la VM JavaScript. Enfin, la VM traduit le programme en langage machine (_bytecode_) avant que le programme soit effectivement exécuté par le processeur.
 
 Pour comprendre comment Node a opté pour cette approche, retournons en 2009, lorsque son créateur **Ryan Dahl** cherchait à résoudre élégamment un problème de performance de programmation.
 
@@ -340,7 +343,7 @@ Son activité en fait un concurrent direct de <<joyent,Joyent>> et de <<npm-inc,
 
 _Nodejitsu_ démontre un investissement fort dans la communauté Node en contribuant à plusieurs centaines de modules et en prenant en charge l'hébergement du registre _npm_ de 2010 jusqu'en décembre 2013.
 
-En 2013, _Nodejitsu_ lance l'initiative controversée _#scalenpm_ visant à collecter des fonds pour améliorer la performance et la stabilité du _registre npm_ ([URL]#https://www.npmjs.com/#). +
+En 2013, _Nodejitsu_ lance l'initiative controversée _scalenpm_ visant à collecter des fonds pour améliorer la performance et la stabilité du _registre npm_ ([URL]#https://www.npmjs.com/#). +
 Elle attise les tensions avec la compagnie _npm, Inc._ en tentant de lui couper l'herbe sous le pied, sans succès.
 
 En février 2015, la compagnie de vente de noms de domaine et d'hébergement _GoDaddy_ rachète _Nodejitsu_, absorbe son équipe et met fin à ses activités commerciales.
@@ -371,7 +374,7 @@ Son but est triple :
 Le projet met à disposition des _services_ et des _modules_ tout en cherchant à impliquer la communauté Node dans le processus.
 Cela concerne aussi bien la déclaration des vulnérabilités que leur résolution ou l'éducation des développeurs à la sécurité.
 
-Nous en parlerons plus en détail les modules développés par la _Node Security Platform_ et leur inclusion dans un cycle de vie projet dans le <<../chapter-07/index.adoc#security,Chapitre 7>>.
+Nous parlerons plus en détail des modules développés par la _Node Security Platform_ et de leur inclusion dans le cycle de vie d'un projet dans le <<../chapter-07/index.adoc#security,Chapitre 7>>.
 
 [[governance]]
 ==== Qui gère Node.js ?
@@ -787,4 +790,6 @@ Il explicite l'algorithme employé par _npm_ lors du processus d'installation et
 
 === Conclusion
 
-TBD.
+Nous venons d'en apprendre davantage sur les *origines de Node*, les différentes parties prenantes dans son développment mais aussi sa *philosophie* en terme de _conception_, de _distribution_ et d'_évolution_.
+
+Nous allons voir dans le prochain chapitre comment installer, modifier du code ECMAScript et appeler les principales API de Node.
