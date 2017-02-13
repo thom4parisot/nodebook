@@ -218,13 +218,13 @@ Une liste d'options ainsi qu'une aide à la configuration sont disponibles sur l
 ==== Combler les manques avec des _polyfills_
 
 Des outils comme _babel_ nous permettent d'écrire avec une *syntaxe moderne*.
-Les *polyfills* quant à eux nous permettent de *combler les fonctionnalités manquantes*, leur implémentation.
+Les *polyfills* nous permettent de *combler les fonctionnalités manquantes*, leur implémentation.
 
 La destructuration, les constantes et les classes sont des _éléments de syntaxe_ d'_ECMAScript 2015_.
 L'objet `Promise` et la méthode `Array.from` sont des _fonctionnalités_ d'_ECMAScript 2015_.
 La fonction `fetch`, l'objet `File` et l'API `WebSocket` sont des _fonctionnalités_ d'_HTML5_.
 
-Un *polyfill nous garantit l'usage d'une fonctionnalité*, peu importe l'ancienneté du navigateur.
+Un *polyfill nous garantit la présence d'une fonctionnalité*, peu importe l'ancienneté du code et du navigateur l'exécutant.
 
 [TIP]
 .[RemarquePreTitre]#Guide# Bonnes pratiques constatées
@@ -234,11 +234,117 @@ Un guide édité par le W3C explique les bons usages et risques d'utilisation de
 - [URL]#https://w3ctag.github.io/polyfills/#
 ====
 
+Prenons le bloc de code suivant :
+
+[source,javascript]
+----
+'use strict';
+
+Promise.resolve('ok');
+----
+
+Comprenons que :
+
+- cette syntaxe est *valide dans toutes les versions* d'_ECMAScript_ (_babel_ ne changera rien à ce code) ;
+- l'objet global `Promise` existe dans un navigateur moderne ;
+- l'objet global `Promise` n'existe pas dans _Internet Explorer 9_, entre autres.
+
+Ce code fonctionnerait sur un navigateur moderne mais pas dans _IE9_.
+L'inclusion d'un _polyfill `Promise`_ résoudrait le problème.
+
+Parlons maintenant des méthodes d'inclusion des _polyfills_ pour mieux comprendre comment procéder.
+
+Le *service polyfill.io* est de loin la méthode la plus simple à utiliser.
+Il suffit d'inclure un script dans toutes vos pages web.
+_polyfill.io_ déterminera les _polyfills_ à charger en fonction de la compatibilité du navigateur chargeant la page :
+
+[source,html]
+.polyfill.io.html
+----
+include::{sourceDir}/polyfill.io.html[]
+----
+
+[TIP]
+.[RemarquePreTitre]#Documentation# polyfill.io
+====
+_polyfill.io_ possède une documentation très complète et illustrative de son fonctionnement.
+Elle vous aidera à configurer finement le service en fonction de vos besoins.
+
+- [URL]#https://qa.polyfill.io/v2/docs/#
+====
+
+Nous pouvons déduire *deux règles* de l'exemple précédent :
+
+. inclure les _polyfills_ en *tout premier* ;
+. inclure les _polyfills_ *en dehors* de notre code.
+
+La deuxième méthode est d'*embarquer les polyfills* dans notre base de code.
+L'avantage est de maitriser notre base de code et de ne pas dépendre d'un service externe.
+L'inconvénient est que nous chargeons du code qui sera inutile les navigateurs et environnements disposant déjà de ces fonctionnalités :
+
+[source,html]
+.polyfill.io.html
+----
+include::{sourceDir}/polyfill-import.html[]
+----
+<1> Nous verrons <<modules,comment importer des modules>> ci-après ;
+<2> On importe un deuxième _polyfill_, celui de la méthode `Number.isNaN`.
+
+Le module _npm_ `core-js` est une librairie exhaustive de _polyfills_ pouvant être inclus un à un, ou par versions d'_ECMAScript_.
+
+[TIP]
+.[RemarquePreTitre]#Documentation# `core-js`
+====
+La documentation en ligne de `core-js` liste l'ensemble des _polyfills_ supportés par ainsi que des exemples d'utilisation.
+
+- [URL]#https://npmjs.com/core-js#
+====
+
+_babel_ et son _preset_ `babel-preset-env` nous facilitent l'inclusion de _polyfills_ selon la compatibilité navigateurs que l'on souhaite maintenir au sein de notre application. Le fichier suivant illustre la configuration du _preset_ à l'aide des clés `useBuiltIns` et `targets` :
+
+[source,javascript]
+.{empty}.babelrc
+----
+include::{sourceDir}/.babelrc[]
+----
+
+Cette configuration illustre un souhait de compatibilité avec _Internet Explorer 9_ et les navigateurs web disposant d'une part de marché supérieure à 5%.
+
+[CAUTION]
+.[RemarquePreTitre]#Attention# Performance et duplication
+====
+Il faut veiller à ne pas allourdir inutilement une application.
+
+Si le code est *redistributé* (en tant que module _npm_ public), laissons la responsabilité de _polyfiller_ aux personnes utilisant notre code.
+
+Si plusieurs scripts nécessitent des polyfills, mieux vaut inclure ces derniers _en une fois fois_ et _en premier_ :
+
+[source,html]
+----
+<script src="polyfills.js"></script>
+<script src="script-a.js"></script>
+<script src="script-b.js"></script>
+----
+====
+
+Enfin, une dernière méthode est l'*appel explicite de _polyfill_*.
+Nous faisons une référence _explicite_ au polyfill mais à l'inverse, nous ne modifions pas les objets globaux :
+
+[source,javascript]
+.polyfill-require.js
+----
+include::{sourceDir}/polyfill-require.js[]
+----
 
 [[typescript]]
 ==== Écrire dans un autre langage : l'exemple TypeScript
 
 TBD.
+
+[[modules]]
+=== Importer des modules
+
+==== Syntaxe de modules _ECMAScript 2015_
 
 === Une conception orientée composant
 

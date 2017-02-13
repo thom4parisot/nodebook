@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Example polyfill.io</title>
+    <script src="https://cdn.polyfill.io/v2/polyfill.min.js"></script>
+  </head>
+  <body>
+    <script>
+      Promise.resolve('ok')
+        .then(msg => console.log(msg));
+    </script>
+  </body>
+</html>
