@@ -2421,6 +2421,7 @@
               else hide(O, key, val);
             }
           }
+
           // add fake Function#toString for correct work wrapped methods / constructors with methods like LoDash isNative
         })(Function.prototype, TO_STRING, function toString() {
           return typeof this == 'function' && this[SRC] || $toString.call(this);
