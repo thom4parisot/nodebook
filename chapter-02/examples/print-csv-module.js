@@ -4,13 +4,12 @@ const fs = require('fs');
 const csv = require('comma-separated-values');
 
 const readCSVFile = (filepath, rowFn) => {
-  fs.readFile(filepath, { encoding: 'utf-8' }, (err, content) => {
-    if (err){
+  fs.readFile(filepath, {encoding: 'utf-8'}, (err, content) => {
+    if (err) {
       throw err;
     }
 
-    new csv(content, { header: true, delimiter: ';' })
-      .forEach(rowFn);
+    new csv(content, {header: true, delimiter: ';'}).forEach(rowFn);
   });
 };
 

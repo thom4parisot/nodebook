@@ -1,11 +1,11 @@
 'use strict';
 
 const http = require('http');
-const { parse } = require('url');
+const {parse} = require('url');
 
 const server = http.createServer((req, res) => {
-  // eslint-disable-next-line no-undef
-  const { query } = parse(reb.url, true); // <1>
+  // eslint-disable-next-line
+  const {query} = parse(reb.url, true); // <1>
 
   res.end();
 });

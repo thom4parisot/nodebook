@@ -13,13 +13,13 @@ let titles = [];
 
 request.on('error', err => console.log('La demande a échoué : ', err.message));
 
-request.on('response', (response) => {
+request.on('response', response => {
   response.setEncoding('utf8');
 
   tr.selectAll('[itemprop="Headline"] > a', a => {
     a.createReadStream().on('data', headline => {
       a.getAttribute('href', url => {
-        titles.push({ url, title: String(headline) });
+        titles.push({url, title: String(headline)});
       });
     });
   });
