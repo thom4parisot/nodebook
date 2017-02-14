@@ -9,15 +9,15 @@
 Écriture    | Relecture  | Chapitre
 :----------:|:----------:|:--------
             |            | [Préface de David Bruant][foreword]
-:wavy_dash: |            | [Avant-propos][preamble]
-:v:         |:wavy_dash: | [Introduction à Node.js][ch01]
-:v:         |:wavy_dash: | [Premiers pas avec Node.js][ch02]
-:v:         |:wavy_dash: | [Développer un service web][ch03]
-:muscle:    |            | [Développer pour les navigateurs web][ch04]
-:muscle:    |            | [Développer un automate de traitement de données][ch05]
-:x:         |            | [Développer une application native][ch06]
-:x:         |            | [Héberger, déployer et monitorer][ch07]
-:x:         |            | _Annexe A_ : [Sélection de modules npm][a01]
+:memo:      |:x:         | [Avant-propos][preamble]
+:ok:        |:ok:        | [Introduction à Node.js][ch01]
+:ok:        |:x:         | [Premiers pas avec Node.js][ch02]
+:construction: |:x:      | [Développer un service web][ch03]
+:memo:      |:x:         | [Développer pour les navigateurs web][ch04]
+:x:         |:x:         | [Développer un automate de traitement de données][ch05]
+:x:         |:x:         | [Développer une application native][ch06]
+:x:         |:x:         | [Héberger, déployer et monitorer][ch07]
+:x:         |:x:         | _Annexe A_ : [Sélection de modules npm][a01]
 
 # Installation
 

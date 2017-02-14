@@ -76,8 +76,19 @@ Ensuite libre à vous de le compléter avec d'autres éléments optionnels de co
 .Exemple de questions posées lors de la séquence `npm init`
 image::images/npm-init.png[align="center",scaledwidth="85%"]
 
+On peut gagner du temps en utilisant l'option `--yes` (et son raccourci `-y`) pour créer le fichier `package.json` sans avoir à répondre aux questions :
+
+----
+$ npm init -y
+----
+
+===== Configurer package.json
+
+Que votre projet soit public ou non, il est important de renseigner les champs décrits ci-après.
+Ils indiqueront aux utilisateurs les intentions du projet ainsi que l'emplacement des ressources pour en savoir davantage à son propos ou tout simplement, pour y contribuer.
+
 [TIP]
-.[RemarquePreTitre]#Commande# npm help json
+.[RemarquePreTitre]#Commande# `npm help json`
 ====
 Le détail de chaque clé de configuration est expliqué _via_ cette commande.
 Des exemples vous permettront également de mieux comprendre leur utilité.
@@ -86,11 +97,6 @@ Cette même documentation est disponible en ligne, en anglais :
 
 - [URL]#https://docs.npmjs.com/files/package.json#
 ====
-
-===== Configurer package.json
-
-Que votre projet soit public ou non, il est important de renseigner les champs décrits ci-après.
-Ils indiqueront aux utilisateurs les intentions du projet ainsi que l'emplacement des ressources pour en savoir davantage à son propos ou tout simplement, pour y contribuer.
 
 - *name* : il s'agit de l'identifiant du module lorsqu'il est chargé via la fonction `require()`. Ce sera également l'identifiant npm si vous publiez ce module dans un registre public ou privé. Par exemple, si la propriété *name* vaut _nodebook_, le module se chargera via `require('nodebook')` et s'installera avec la commande `npm install nodebook` ;
 - *description* : une indication textuelle des objectifs et fonctionnalités du module, écrite généralement en anglais ;
@@ -273,7 +279,7 @@ Deux règles suffisent dans la majorité des cas :
 
 
 [source]
-.gitignore
+.{empty}.gitignore
 ----
 # Code source des dépendances externes
 node_modules
