@@ -1756,18 +1756,18 @@ include::{sourceDir}/template.hbs[]
 
 Cela présuppose que les données adéquates soient passées à la fonction de template `Handlebars.template['template.hbs']`.
 
-====== jade
+====== pug
 
-_jade_ s'inspire de _yaml_ en optant pour un parti pris à base d'indentation et d'un balisage dépourvu de chevron.
+_pug_ s'inspire de _yaml_ en optant pour un parti pris à base d'indentation et d'un balisage dépourvu de chevron.
 Son mécanisme de blocs facilite la réutilisation de logiques d'affichage au sein de votre application.
 
-Compatible Node et navigateurs Web. +
-[URL]#https://npmjs.com/jade#
+Compatible Node et navigateurs Web . +
+[URL]#https://npmjs.com/pug#
 
 [source,javascript]
-.template.jade
+.template.pug
 ----
-include::{sourceDir}/template.jade[]
+include::{sourceDir}/template.pug[]
 ----
 
 ====== ejs
