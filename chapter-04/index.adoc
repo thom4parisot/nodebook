@@ -283,7 +283,7 @@ L'avantage est de maitriser notre base de code et de ne pas dépendre d'un servi
 L'inconvénient est que nous chargeons du code qui sera inutile les navigateurs et environnements disposant déjà de ces fonctionnalités :
 
 [source,html]
-.polyfill.io.html
+.polyfill-import.html
 ----
 include::{sourceDir}/polyfill-import.html[]
 ----
@@ -300,7 +300,7 @@ La documentation en ligne de `core-js` liste l'ensemble des _polyfills_ support�
 - [URL]#https://npmjs.com/core-js#
 ====
 
-_babel_ et son _preset_ `babel-preset-env` nous facilitent l'inclusion de _polyfills_ selon la compatibilité navigateurs que l'on souhaite maintenir au sein de notre application. Le fichier suivant illustre la configuration du _preset_ à l'aide des clés `useBuiltIns` et `targets` :
+_babel_ et son _preset_ `babel-preset-env` nous facilitent l'inclusion de _polyfills_ selon la compatibilité navigateurs que l'on souhaite maintenir au sein de notre application. Le fichier `.babelrc` suivant configure l'inclusion des _polyfills_ à l'aide des clés `useBuiltIns` et `targets` :
 
 [source,javascript]
 .{empty}.babelrc
@@ -315,7 +315,7 @@ Cette configuration illustre un souhait de compatibilité avec _Internet Explore
 ====
 Il faut veiller à ne pas allourdir inutilement une application.
 
-Si le code est *redistributé* (en tant que module _npm_ public), laissons la responsabilité de _polyfiller_ aux personnes utilisant notre code.
+Laissons la responsabilité de _polyfiller_ aux utilisateurs de notre code ; particulièrement si celui-ci est *redistribué* en tant que module _npm_ public.
 
 Si plusieurs scripts nécessitent des polyfills, mieux vaut inclure ces derniers _en une fois fois_ et _en premier_ :
 
@@ -344,9 +344,135 @@ TBD.
 [[modules]]
 === Importer des modules
 
-==== Syntaxe de modules _ECMAScript 2015_
+Importer des modules est une pratique courante avec Node.
+Ça l'est en revanche beaucoup moins dans l'univers du web puisqu'il n'existait rien de _natif_ avant les <<modules-es2015,modules ECMAScript 2015>>.
 
-=== Une conception orientée composant
+On a vu débarquer les modules _AMD_ pour gérer les dépendances _entre scripts_.
+Les librairies _Dojo_, _RequireJS_ et _YUI_ ont popularisé ce mécanisme.
+Un désir d'universalité a ensuite émergé avec le gain de popularité croissant de Node avec les modules _UMD_, conciliant modules _AMD_ et _CommonJS_.
+
+Les modules _ECMAScript 2015_ ont émergé de ce bouillonnement.
+
+[[modules-script]]
+==== La balise `<script>`
+
+Rappelons-le, la méthode incontournable pour charger du code dans un navigateur web est l'utilisation de la base `<script>`.
+Le chargement puis l'évaluation et l'exécution du script bloque le temps nécessaire le rendu d'un document HTML.
+
+[source,html]
+.modules/script.html
+----
+include::{sourceDir}/modules/script.html[]
+----
+
+Les différents _scripts_ partagent le même espace mémoire, permettant ainsi à `script.js` d'avoir accès à la fonction `log` définie dans `global-dom-log.js`.
+
+[source,javascript]
+.modules/global-dom-log.js
+----
+include::{sourceDir}/modules/global-dom-log.js[]
+----
+
+[source,javascript]
+.modules/script.js
+----
+include::{sourceDir}/modules/script.js[]
+----
+<1> Affiche une erreur car `<div id="logs">` n'existe pas encore dans le document à ce stade de l'exécution ;
+<2> Cette ligne est exécutée une fois le document chargé – `<div id="logs">` contient désormais le texte `OK`.
+
+S'il est facile d'ajouter du code dans le navigateur, on constate plusieurs problèmes :
+
+- partager du code entre script repose sur une *attente explicite* ;
+- le partage de variables entre scripts peut entrainer des *collisions* (par exemple, deux variables du même nom définies dans des scripts différents) ;
+- il n'y a pas de moyen évident de rendre des bouts de code _privé_ au sein de chaque script.
+
+Le développement frontend basé sur de l'outillage Node va justement nous aider à *solidifier et renforcer la réutilisabilité de notre code*.
+
+[[modules-es2015]]
+==== Les modules _ECMAScript 2015_
+
+Nous avons évoqué les <<../chapter-02/index.adoc#primitives,primitives _ECMAScript 2015_>> dans le Chapitre 2.
+Les modules font partie des fonctionnalités tant attendues.
+
+.Utilisation des modules _ECMAScript 2015_ dans un navigateur web (ici, Safari pour macOS).
+image::images/module-import.png[align="center",scaledwidth="85%"]
+
+L'attribut `type="module"` a été introduit pour maintenir une compatibilité entre scripts classiques et les modules _ECMAScript 2015_.
+Ce mécanisme de modules introduit plusieurs concepts importants :
+
+- *toute variable est privée* sauf si elle est _exportée_ avec l'opérateur `export` ;
+- les *modules sont explicitement inclus* avec l'opérateur `import` ;
+- les *variables globales* définies par l'utilisateur ne sont pas accessibles depuis un module.
+
+Retravaillons le document HTML de la section précédente :
+
+[source,html]
+.modules/import.html
+----
+include::{sourceDir}/modules/import.html[]
+----
+
+Nous voulons maintenant (sa)voir si la variable `pro` définie avant l'inclusion du module `script-import.js` est constatée.
+Nous voulons également savoir si la syntaxe d'import de la fonction `log` fonctionne :
+
+[source,javascript]
+.modules/script-import.js
+----
+include::{sourceDir}/modules/script-import.js[]
+----
+<1> Affiche `undefined` ;
+<2> Affiche `function` ;
+<2> Affiche `object`.
+
+De même que nous avons utilisé `import` pour sélectivement importer une fonction du module `dom-log.js`, l'opérateur `export` nous aide à sélectivement exposer des objets, fonctions et variables :
+
+[source,javascript]
+.modules/dom-log.js
+----
+include::{sourceDir}/modules/dom-log.js[]
+----
+
+==== Importer des modules _npm_ pour le web
+
+Qu'en est-il alors des modules _npm_ ?
+Nous pouvons transpiler et importer du code, ce serait très utile si nous pouvions également importer du _code tiers_.
+Cela nous éviterait de réinventer la roue, d'avoir accès à du code bien testé et trop coûteux à écrire nous-même.
+
+Nous avons vu comment <<../chapter-02/index.adoc#api-require,charger des modules _npm_>> dans le Chapitre 2.
+Si seulement nous pouvions faire la même chose côté client. +
+Continuons sur la lancée de nos exemples précédents pour tenter d'inclure la librairie _jQuery_ afin de manipuler notre document HTML :
+
+[source,javascript]
+.modules/script-import-jquery.js
+----
+include::{sourceDir}/modules/script-import-jquery.js[]
+----
+<1> `$.fn.jquery` contient le numéro de version de jQuery ;
+<2> Substitut jQuery pour remplacer le texte dans `<div id="logs">`.
+
+Le document HTML chargeant ce module est en tout point similaire au précédent exemple :
+
+[source,html]
+.modules/import-jquery.html
+----
+include::{sourceDir}/modules/import-jquery.html[]
+----
+
+Le seul _hic_, c'est que *cela ne fonctionne pas* :
+
+- le navigateur _ne peut pas savoir_ où se trouve la dépendance demandée ;
+- rien ne garantit que `jquery` expose son code en tant que module _ECMAScript 2015_ ;
+- on n'a certainement pas envie d'exposer publiquement le répertoire `node_modules`.
+
+==== Récapitulatif
+
+En résumé, nous avons besoin de nous baser sur _deux ou trois outils_ pour écrire un code modulaire et compatible avec n'importe quel type de syntaxe :
+
+==== Les modules _npm_
+
+
+=== Conception modulaire
 
 TBD.
 

@@ -591,6 +591,7 @@ $ node --harmony-async-await script.js    # <2>
 
 Une page explicative (en anglais) sur le site `nodejs.org` contient des indications à jour sur la compatibilité générale avec __ECMAScript 2015_ : [URL]#https://nodejs.org/en/docs/es6/#
 
+[[primitives]]
 ==== Rappel des primitives ECMAScript
 
 Un des conforts apporté par l'utilisation d'ECMAScript dans Node est qu'il n'y a pas à se soucier de la compatibilité navigateur : vous pouvez utiliser le meilleur de JavaScript !
@@ -1804,6 +1805,7 @@ Ainsi, exécuter `require('lodash');` revient à peu près à faire `require('./
 
 Pour en savoir plus sur les méthodes et fonctions disponibles, reportez-vous à la documentation en ligne des modules sur [URL]#https://nodejs.org/api/modules.html#.
 
+[[api-require]]
 ===== require
 
 Nous avons abordé le mécanisme de chargement de modules dans le point précédent.
@@ -2206,7 +2208,7 @@ Le procédé actuel oblige à charger l'intégralité du fichier CSV en mémoire
 Ça tombe bien, d'autres personnes se sont déjà frottés à la lecture de fichiers CSV et ont mis à disposition du code réutilisable.
 Ne réinventons pas la roue et apprenons à *utiliser des modules tiers* !
 
-=== Introduction aux modules Node
+=== Gestion des dépendances externes avec npm
 
 Nous avons évoqué la notion de _modules_ dans les pages précédentes.
 Il est temps de plonger plus en détails dans le sujet pour mieux comprendre une des pierres angulaires de Node.
