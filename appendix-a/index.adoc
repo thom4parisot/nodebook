@@ -57,7 +57,7 @@ C'est aussi une pratique rapide à mettre en œuvre — de préférence dès le 
 Les modules à disposition dans npm vous permettront de couvrir vos fichiers CSS, HTML et ECMAScript bien sûr !
 
 *htmlhint* ([URL]#https://npmjs.com/htmlhint#) est un outil en ligne de commande vérifiant la structure de vos documents HTML.
-Il rapporte les doublons d'attributs `id`, la présence de paires de balises mal formées, l'absence de balise fermante ou encore l'existance de chaînes de caractère non-imprimables dans des attributs critiques, entre autre.
+Il rapporte les doublons d'attributs `id`, la présence de paires de balises mal formées, l'absence de balise fermante ou encore l'existance de chaînes de caractère non-imprimables dans des attributs critiques, entre autres.
 
 Prenons en exemple le document suivant :
 
@@ -68,7 +68,7 @@ include::{sourceDir}/sample.html[]
 ----
 
 Une lecture distraite pourrait nous faire passer à côté des erreurs mais également des inconsistances de programmation.
-Sur un document plus réaliste, et donc volumineux, avec de fréquents changements, autant oublier la vérification manuelle.
+Sur un document plus réaliste et donc volumineux, avec de fréquents changements, autant oublier la vérification manuelle.
 
 L'exécution de *htmlhint* avec ses règles par défaut remontera les alertes suivantes :
 
@@ -151,7 +151,7 @@ Prenons par exemple le fichier CSS suivant :
 include::{sourceDir}/sample.css[]
 ----
 
-*csslint* génèrera trois alertes en lisant le fichier `sample.css` et ce, même si celui-ci est syntaxiquement parfaitement valide :
+*csslint* génèrera trois alertes en lisant le fichier `sample.css`, et ce, même si celui-ci est syntaxiquement parfaitement valide :
 
 ----
 $ csslint sample.css
@@ -255,7 +255,7 @@ Il est d'autant plus aisé de les tester, de les activer et de les désactiver q
 
 *autoprefixer* ([URL]#https://npmjs.com/autoprefixer#) est _le_ module qui vous épargnera l'écriture de centaines de lignes en ajoutant automatiquement les bons préfixes aux bons endroits.
 Travail d'autant plus ingrat si vous n'avez pas envie ni le loisir de recourir à des _mixins_ Less ou Sass. +
-_autoprefixer_ expose une API ECMAScript, un exécutable système ainsi qu'une API de _streaming_ permettant une intégration sans plugin avec <<browserify,browserify>>, entre autre.
+_autoprefixer_ expose une API ECMAScript, un exécutable système ainsi qu'une API de _streaming_ permettant une intégration sans plugin avec <<browserify,browserify>>, entre autres.
 
 .Exemple d'utilisation d'_autoprefixer_ en fonction des besoins en compatibilité navigateur
 ----

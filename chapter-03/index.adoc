@@ -58,7 +58,7 @@ Donc tant qu'à faire, autant le créer dès le début d'un projet — même si 
 
 ==== Initialisation
 
-L'initialisation d'un projet Node passe par la création du fichier `package.json` et ce, quelle que soit sa taille : petit ou grand, application ou module, public ou privé.
+L'initialisation d'un projet Node passe par la création du fichier `package.json`, et ce, quelle que soit sa taille : petit ou grand, application ou module, public ou privé.
 
 Nous pourrions créer ce fichier à la main et le compléter en suivant la spécification.
 Cependant il existe une commande bien utile qui réduit le risque d'erreurs et en accélère sa complétion : `npm init`.
@@ -386,7 +386,7 @@ $ cd nodebook/chapter-03/examples
 $ npm install
 ----
 
-Vous remarquerez que la commande `npm install` est utilisée seule, sans npm de module.
+Vous remarquerez que la commande `npm install` est utilisée seule, sans nom de module.
 Dans ce cas, npm se contente d'installer récursivement les dépendances listées dans le fichier `package.json`.
 
 [TIP]
@@ -394,7 +394,7 @@ Dans ce cas, npm se contente d'installer récursivement les dépendances listée
 ====
 Si vous suffixez la commande `npm install` avec l'option `--production`, toutes les dépendances seront installées à _l'exception_ de celles listées en tant que _devDependences_.
 
-Il s'agit d'un moyen d'installer moins de dépendance lors d'une livraison — à condition de ne pas avoir besoin de l'outillage de tests.
+Il s'agit d'un moyen d'installer moins de dépendances lors d'une livraison — à condition de ne pas avoir besoin de l'outillage de tests.
 ====
 
 Le clonage du dépôt pour être remplacé par des méthodes alternatives, de type empaquetage sous forme de fichier DEB, de module Puppet, d'archive ZIP… ou encore d'archive Node via la commande `npm pack`.
@@ -455,7 +455,7 @@ C'est à la fois une bonne pratique en terme de flexibilité… et en même temp
 
 L'utilisation d'une variable d'environnement pour configurer l'exécution d'une application est la solution la plus aisée à implémenter.
 
-Ces variables sont accessibles via l'objet `process.env` et ce, quel que soit le contexte d'exécution de Node.
+Ces variables sont accessibles via l'objet `process.env`, et ce, quel que soit le contexte d'exécution de Node.
 
 L'exemple suivant décrit comment définir le port sur lequel écoutera le serveur HTTP en fonction d'un contexte d'exécution (environnement de test ou environnement de production) ou d'un réglage surchargeant le dit contexte.
 
@@ -525,7 +525,7 @@ L'invocation suivante omet volontairement l'argument `--title` afin de tester le
 ----
 node config/yargs.js <1>
 ----
-<1> Affiche le message suivant en flux d'erreur (`process.stderr`) : `Missing required arguments: title`.
+<1> Affiche le message suivant en flux d'erreur (`process.stderr`) : `Argument requis manquant: title`.
 
 Consultez la documentation de ce module pour davantage d'exemples variés et avancés.
 
@@ -647,7 +647,7 @@ Dans ce cas, il convient d'écouter cet événement et de déterminer quelle est
 ----
 include::{sourceDir}/server-crash.js[]
 ----
-<1> En cas de réception d'une requête HTTP sur le port `4001`, nous allons parser l'URL appélée — sauf qu'une _typo_ s'est glissée (`reb` au lieu de `req`), et provoquera une exception ;
+<1> En cas de réception d'une requête HTTP sur le port `4001`, nous allons parser l'URL appélée — sauf qu'une _typo_ s'est glissée (`reb` au lieu de `req`) et provoquera une exception ;
 <2> Cette exception remontera jusqu'au niveau du `process` qui déclenchera l'événement `uncaughtException` ;
 <3> Une seconde après voir lancé le script, une requête HTTP est envoyée au serveur, entrainant l'exécution du _point 1_.
 
@@ -740,7 +740,7 @@ Nous aborderons les différentes stratégies de _provisionning_ d'applications N
 
 ==== Modification de l'application
 
-Vous disposez d'une application qui démarre et dont le versionning est mis en place… mais concrètement, on fait quoi quand le code change ?
+Vous disposez d'une application qui démarre et dont le versioning est mis en place… mais concrètement, on fait quoi quand le code change ?
 
 Cette section s'intéresse aux habitudes à prendre avant de pousser le code modifié dans votre dépôt.
 
@@ -1001,7 +1001,7 @@ La première action à mener est de procéder à l'exécution de la commande `np
 .Résultats `npm outdated` après mise à jour
 image::images/npm-outdated-wanted.png[align="center",scaledwidth="85%"]
 
-Le résultat est probant : de nombreuses dépendances précédemment listées en rouge on disparu.
+Le résultat est probant : de nombreuses dépendances précédemment listées en rouge ont disparu.
 Il ne reste que trois dépendances sur lesquelles nous pouvons avoir une action directe en modifiant la version référencées dans le fichier `package.json`.
 
 Pour forcer l'installation de la version correspondant à la colonne _Latest_ de la commande `npm outdated`, il suffit d'utiliser le suffixe `@latest` lors de l'installation :
@@ -1056,14 +1056,14 @@ Dans le cas présent, ces trois modules pourrait être extraits dans les modules
 
 Il s'agit d'une logique de maintenabilité et d'expression des intentions de votre application.
 Elle sera plus facile à maintenir si elle isole et rend explicite les dépendances entre les différents modules. +
-À moins que vous ne soyiez fan du code spaghetti ;-)
+À moins que vous ne soyez fan du code spaghetti ;-)
 
 ===== Alertes de sécurité
 
 Il existe quatre niveaux où des failles de sécurité peuvent s'immiscer :
 
 - votre propre code — des revues de code, une amélioration de vos connaissances et la commande d'audits vous aideront à identifier les possibles failles et vulnérabilités ;
-- des vulnérabilités contenues dans vos dépendances, et dépendances de vos dépendances ;
+- des vulnérabilités contenues dans vos dépendances et dans les dépendances de vos dépendances ;
 - des vulnérabilités occasionnées par Node ;
 - des vulnérabilités occasionnées par V8, dont le développement est indépendant du projet Node.
 
@@ -1090,7 +1090,7 @@ Le site liste l'intégralité des modules récents, des modules populaires et de
 
 Les résultats sont triés en fonction de la correspondance avec l'expression recherchée… ce qui peut se révéler compliqué si vous cherchez avec les mauvais termes ou que vous ne connaissez pas le terme anglo-saxon adapté.
 
-Pour en savoir plus sur la manière de choisir un module, et de séparer le grain de l'ivraie, reportez-vous à la section suivante.
+Pour en savoir plus sur la manière de choisir un module et de séparer le grain de l'ivraie, reportez-vous à la section suivante.
 
 La commande `npm search` est une alternative au site Web.
 Son algorithme d'affichage est d'ailleurs identique. +
@@ -1348,7 +1348,7 @@ _knex_ est une bibliothèque de manipulation de base de données SQL.
 Elle est notamment compatible avec PostgreSQL, MariaDB, MySQL et SQLite.
 Son API fluide basée sur des _callbacks_ et des _promesses_ vous sera précieuse pour ne pas écrire de requête à la main.
 
-Les auteurs de _knex_ ont également créé la surcouche _bookshelf_ pour la partie ORM, et donc gérer des modèles de données au lieu de requêtes SQL.
+Les auteurs de _knex_ ont également créé la surcouche _bookshelf_ pour la partie ORM et donc gérer des modèles de données au lieu de requêtes SQL.
 
 [URL]#https://npmjs.com/knex# et [URL]#https://npmjs.com/bookshelf#.
 
@@ -1669,7 +1669,7 @@ Inclus dans un navigateur Web, le fichier `npm/browserify.bundle.js` affichera l
 
 ====== babel
 
-_babel_ transforme tout code ECMAScript 2015, ECMAScript 2016 et  JSX en code compatible ECMAScript 5.
+_babel_ transforme tout code ECMAScript 2015, ECMAScript 2016 et JSX en code compatible ECMAScript 5.
 Il peut être utilisé en complément de _browserify_ et de _webkpack_.
 
 [URL]#https://npmjs.com/babel#
@@ -1726,7 +1726,7 @@ Tous les exemples suivant généreront cette sortie HTML :
 
 ====== swig
 
-_swig_ est un portage de _Twig_, bien connu par les développeurs PHP proche de l'écosystème Symfony.
+_swig_ est un portage de _Twig_, bien connu par les développeurs PHP proches de l'écosystème Symfony.
 Sa syntaxe inclut des fonctionnalités comme les filtres, les blocs ou l'héritage de gabarit.
 
 Compatible Node et navigateurs Web. +
@@ -1787,7 +1787,7 @@ include::{sourceDir}/template.ejs[]
 ====== react
 
 _react_ est une bibliothèque de présentation essentiellement connue pour son approche efficace du côté des navigateurs Web.
-Ce qui est moins connu en revanche est sa capacité à pouvoir également générer du balisage côté Node, et de servir de moteur de rendu pour des _frameworks_ comme _express_.
+Ce qui est moins connu en revanche est sa capacité à pouvoir également générer du balisage côté Node et de servir de moteur de rendu pour des _frameworks_ comme _express_.
 
 Compatible Node et navigateurs Web. +
 [URL]#https://npmjs.com/react#
@@ -1921,9 +1921,8 @@ L'automatisation de tâches et leur inclusion dans vos projets sont d'excellents
 [[grunt]]
 ====== grunt
 
-_grunt_ est l'outil qui a propulsé Node dans la cours des développeurs _frontend_ (voir <<../chapter-04/index.adoc#>>).
+_grunt_ est l'outil qui a propulsé Node dans la cour des développeurs _frontend_ (voir <<../chapter-04/index.adoc#>>).
 Son écosystème de modules particulièrement fourni en terme de performance, d'assemblage et de fonctionnalités a définitivement aidé de nombreux développeurs à automatiser bon nombre de tâches dans leurs projets.
-
 
 [URL]#https://npmjs.com/grunt# et [URL]#https://npmjs.com/grunt-cli#
 
@@ -1965,7 +1964,7 @@ La bibliothèque se base sur un mécanisme déclaratif de fonctionnalités et de
 
 ===== serialport
 
-_serialport_ est une bibliothèque pour communiquer avec tout appareil bénéficiant d'un port série, et relié à un périphérique via un port USB.
+_serialport_ est une bibliothèque pour communiquer avec tout appareil bénéficiant d'un port série et relié à un périphérique via un port USB.
 
 [URL]#https://npmjs.com/serialport#
 
@@ -2024,7 +2023,7 @@ La liste suivante est non-exhaustive et référence des contributeurs de qualit�
 
 Certains concepts de programmation sont utiles à connaître pour écrire un code plus concis, mieux organisé et davantage consistant.
 
-Ils vous permettront de mieux comprendre la différence entre du code bloquant et non-bloquant, asynchrone et synchrone, et comment organiser votre code de manière robuste tout en apprenant à réagir aux erreurs.
+Ils vous permettront de mieux comprendre la différence entre du code bloquant et non-bloquant, asynchrone et synchrone et comment organiser votre code de manière robuste tout en apprenant à réagir aux erreurs.
 
 ==== Code synchrone et asynchrone
 
@@ -2060,7 +2059,7 @@ Si ce code est tout à fait fonctionnel, il présente quelques inconvénients :
 - il est difficile de discerner _où_ manipuler le résultat attendu au premier abord ;
 - où intercepter les erreurs ? Et qu'en faire ?
 
-Ces problèmes seront amplifiés à mesure que la complexité de votre code, et la profondeur des _callbacks_ augmentera.
+Ces problèmes seront amplifiés à mesure que la complexité de votre code et la profondeur des _callbacks_ augmentera.
 
 Tentons une approche plus modulaire, toujours asynchrone :
 
@@ -2357,7 +2356,7 @@ include::{sourceDir}/pattern/callback.js[]
 <3> _Troisième appel_ : affiche une exception `TypeError: Cannot read property 'toLocaleUpperCase' of null` et termine le script de manière prématurée.
 
 Le premier appel à `messageAbbr` se déroule dans des conditions optimales.
-La fonction de callback transmet un premier paramètre `err` équivalent à `null`, et une valeur conforme aux attentes.
+La fonction de callback transmet un premier paramètre `err` équivalent à `null` et une valeur conforme aux attentes.
 
 Le deuxième appel illustre une interception maîtrisée d'un cas d'erreur.
 C'est bien `console.error(err)` qui sera interprété suite à une erreur renvoyée par la fonction `splitWordsAsync`.
