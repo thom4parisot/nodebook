@@ -665,7 +665,7 @@ Différentes stratégies sont présentées dans le <<../chapter-07/index.adoc#,c
 
 ===== Pendant le développement
 
-Seulement voilà, il est fréquent qu'une application plante pendant le développement, ou que l'on souhaite la relancer suite à un changement de code.
+Seulement voilà, il est fréquent qu'une application plante pendant le développement ou que l'on souhaite la relancer suite à un changement de code.
 
 _nodemon_ est un excellent moyen d'y parvenir lorsque vous développez sur votre ordinateur (et _certainement pas_ en production).
 Dès qu'un fichier est modifié, _nodemon_ interrompt le serveur et le relance aussitôt avec les arguments originels.
@@ -1908,7 +1908,7 @@ Autrement dit, au lieu de tester directement le code de votre application, vous 
 
 _eslint_ teste la qualité de votre code et signale des pratiques de programmation à risque.
 
-Disponible via une invocation en ligne de commande, libre à vous de paramétrer le comportement du _linter_ selon vos propres règles, ou selon des règles pré-établies, partagées sur le registre _npm_.
+Disponible via une invocation en ligne de commande, libre à vous de paramétrer le comportement du _linter_ selon vos propres règles ou selon des règles pré-établies, partagées sur le registre _npm_.
 
 C'est un excellent moyen d'éviter des bugs tout en uniformisant vos pratiques de codage au sein de vos applications.
 
@@ -2324,7 +2324,7 @@ fs.readFile('path/to/file', callback(err, fileContent) {
 
 Le _pattern_ implique une fonction ayant un ou plusieurs arguments ; le premier d'entre eux étant par convention un objet d'erreur. +
 Ce mécanisme permet de *signaler une erreur* ou un *résultat* de manière asynchrone.
-Cepndant on se rend vite compte que la simplicité du _pattern_ cache une complexité dans la gestion des erreurs.
+Cependant on se rend vite compte que la simplicité du _pattern_ cache une complexité dans la gestion des erreurs.
 Comment les déclarer ?
 Comment les intercepter ?
 Comment les propager ailleurs dans notre application ?
@@ -2363,8 +2363,7 @@ C'est bien `console.error(err)` qui sera interprété suite à une erreur renvoy
 
 Le troisième et dernier appel interpelle : pourquoi le bloc `try/catch` est-il resté sans effet ?
 Pour la simple et bonne raison que `try/catch` ne fonctionne que sur du _code synchrone_. +
-L'exception n'étant pas interceptée par notre code, elle continue de remonter jusqu'au processus initial qui émet un événement `uncaughtException`.
-Processus qui se terminera avec un code d'erreur si aucune fonction n'écoute ce dit événement `uncaughtException`.
+L'exception n'étant pas interceptée par notre code, elle continue de remonter jusqu'au processus initial qui émet un événement `uncaughtException`, processus qui se terminera avec un code d'erreur si aucune fonction n'écoute ce dit événement `uncaughtException`.
 
 Autrement dit, un code asynchrone basé sur des _callbacks_ requiert beaucoup de précautions du fait du crash potentiel de l'application si une erreur n'est pas interceptée.
 
@@ -2393,11 +2392,11 @@ Un excellent moyen pour gérer du code _asynchrone_ et _parallèle_ est le _patt
 
 ==== Event
 
-Les _callbacks_ nous permettent d'agir lorsqu'un exécution asynchrone est en mesure de nous retourner un résultat, ou une erreur. +
+Les _callbacks_ nous permettent d'agir lorsqu'un exécution asynchrone est en mesure de nous retourner un résultat ou une erreur. +
 Leur fonctionnement est toutefois encapsulé et limité à la portée de la portion de code dans laquelle nous pouvons insérer des instructions.
 Difficile donc d'exposer notre logique applicative en dehors de ces _callbacks_.
 
-Les événements nous offrent un tel mécanisme d'exposition, en permettant la connection de plusieurs écouteurs (_listeners_).
+Les événements nous offrent un tel mécanisme d'exposition, en permettant la connexion de plusieurs écouteurs (_listeners_).
 Plusieurs composants indépendants peuvent alors utiliser les résultats pour leurs propres besoins.
 
 Il s'agit d'un _pattern_ particulièrement intéressant adresser ces besoins :
@@ -2417,7 +2416,7 @@ include::{sourceDir}/pattern/callback-naive.js[]
 ----
 
 Les fonctions `logData`, `logPerformance` et `storeData` sont exécutées en cas de succès du _callback_ de `messageAbbr`. +
-Mais que se passe-t'il si une de ces trois fonctions génère une erreur ? Et si l'une d'entre elle s'exécute de manière asynchrone ? Comment faire remonter l'erreur en dehors de `messageAbbr` ?
+Mais que se passe-t-il si une de ces trois fonctions génère une erreur ? Et si l'une d'entre elles s'exécute de manière asynchrone ? Comment faire remonter l'erreur en dehors de `messageAbbr` ?
 
 Retravaillons le précédent exemple pour explorer une approche événementielle :
 
@@ -2484,7 +2483,7 @@ include::{sourceDir}/pattern/promise-callback.js[]
 C'est minimal mais on crée un code _fragile_ : nous devons faire en sorte que les interfaces de l'encapsulation évoluent en simultané.
 La réalité c'est que nous n'avons pas envie d'encapsuler toutes les fonctions asynchrones pour les intégrer dans des chaînes de promesses.
 
-Pour celà, une librairie comme `bluebird` ou `pify` exposent une fonction pour transformer en promesse une fonction ou un module retournant un objet de fonctions. +
+Pour cela, une librairie comme `bluebird` ou `pify` exposent une fonction pour transformer en promesse une fonction ou un module retournant un objet de fonctions. +
 L'exemple précédent serait réécrit de la manière suivante :
 
 [source,javascript]
@@ -2504,7 +2503,7 @@ Il est possible de gérer les erreurs finement en ayant recourt à `.catch()`.
 include::{sourceDir}/pattern/promise-errors.js[]
 ----
 <1> Ce `.catch()` se déclenchera si `messageAbbr()` ou `logData()` génèrent une exception ;
-<2> Génère une exception — elle ne sera pas intercepée par la fonction `logErr()` située sur la même ligne ;
+<2> Génère une exception — elle ne sera pas interceptée par la fonction `logErr()` située sur la même ligne ;
 <3> Ce `.catch()` affichera l'erreur générée à l'élément _précédent_ dans la chaîne de promesses ;
 <4> La fonction `messageAbbr()` génère une exception, gérée par l'élément _suivant_ dans la chaîne de promesses ;
 <5> La fonction `messageAbbr()` génère une exception, qui n'est pas interceptée – Node affiche un _warning_ dans la _sortie erreur_ : `UnhandledPromiseRejectionWarning: Unhandled promise rejection`.
@@ -2525,7 +2524,7 @@ include::{sourceDir}/pattern/promise-multiple.js[]
 <2> Puis affiche `[ 'H&M', 'HMS', 'GO' ]`
 
 Cette technique est plus rapide qu'un enchainement de promesses du fait de leur _exécution en parallèle_.
-Le temps d'exécution total correspond à celui de la plus lente promesse..
+Le temps d'exécution total correspond à celui de la promesse la plus lente.
 
 [TIP]
 .[RemarquePreTitre]#npm# Librairies de promesses
