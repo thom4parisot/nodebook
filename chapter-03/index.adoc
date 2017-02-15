@@ -658,7 +658,7 @@ C'est notamment le cas s'il n'y a aucun appel à `.catch()` après un `.then()`.
 
 L'événement du `process` `unhandledRejection` est alors émis, sans pour autant faire planter le programme.
 Ce comportement est toutefois amené à être modifié dans Node v8.
-Il conviendrait alors de gérer le plantage d'une programme avec l'événement `uncaughtException` de la même manière que vous le feriez avec `uncaughtException`.
+Il conviendrait alors de gérer le plantage d'un programme avec l'événement `uncaughtException` de la même manière que vous le feriez avec `uncaughtException`.
 
 Dans tous les cas, il est recommandé de gérer le redémarrage de votre application Node _en dehors_ de Node.
 Différentes stratégies sont présentées dans le <<../chapter-07/index.adoc#,chapitre 7>>.
@@ -727,7 +727,7 @@ Cela signifie que l'exécution d'un _script npm_ rend disponible les exécutable
 ----
 <1> Équivaut donc à `./node_modules/.bin/eslint ./src`.
 
-La liste détaillées des commandes supportées nativement par _npm_ est documentée sur [URL]#https://docs.npmjs.com/misc/scripts#.
+La liste détaillée des commandes supportées nativement par _npm_ est documentée sur [URL]#https://docs.npmjs.com/misc/scripts#.
 
 Toutefois les solutions précédemment citées n'adresseront pas les problématiques suivantes :
 
