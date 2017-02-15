@@ -2,7 +2,7 @@
 
 const rework = require('rework');
 const fs = require('fs');
-const { join } = require('path');
+const {join} = require('path');
 
 const colors = require('rework-plugin-colors');
 const whitespace = require('css-whitespace');
@@ -15,7 +15,7 @@ fs.readFile(join(__dirname, '..', 'stylesheet.css'), (err, binaryContent) => {
   }
 
   const textContent = whitespace(String(binaryContent));
-  const r = rework(textContent, { source: 'stylesheet.css' })
+  const r = rework(textContent, {source: 'stylesheet.css'})
     .use(vars())
     .use(math())
     .use(colors());

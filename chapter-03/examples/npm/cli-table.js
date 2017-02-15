@@ -3,10 +3,10 @@
 const CliTable = require('cli-table');
 const pkg = require('../../package.json');
 const table = new CliTable({
-  head: ['Module', 'Version']
+  head: ['Module', 'Version'],
 });
 
-const modules = Object.keys(pkg.dependencies).map((moduleName) => {
+const modules = Object.keys(pkg.dependencies).map(moduleName => {
   return [moduleName, pkg.dependencies[moduleName]];
 });
 

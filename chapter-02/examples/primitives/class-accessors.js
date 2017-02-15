@@ -22,6 +22,6 @@ class Book {
 const cssBook = new Book('CSS maintenables');
 cssBook.EAN13 = '978-2212136401';
 
-console.log(cssBook.GS1);  // <1>
+console.log(cssBook.GS1); // <1>
 console.log(cssBook.ISBN); // <2>
-console.log(cssBook.EAN13);// <3>
+console.log(cssBook.EAN13); // <3>

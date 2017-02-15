@@ -2,7 +2,7 @@
 
 const mkdirp = require('mkdirp');
 const rm = require('rimraf');
-const { join } = require('path');
+const {join} = require('path');
 const fs = require('fs');
 
 const filepath = join(__dirname, '..', '..', 'tmp', 'blah', 'blah');

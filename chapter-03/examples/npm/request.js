@@ -9,9 +9,7 @@ request.get('https://google.fr/search?q=open+data', (err, res, body) => {
   }
 
   const $ = cheerio.load(body);
-  const hrefs = $('a[href^="/url?"]')
-    .map((i, el) => $(el).attr('href'))
-    .get();
+  const hrefs = $('a[href^="/url?"]').map((i, el) => $(el).attr('href')).get();
 
   console.log(hrefs);
 });

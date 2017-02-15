@@ -10,9 +10,9 @@ request(url, (err, response, body) => {
   if (err) {
     //...
   }
-  
-  fs.writeFile('/tmp/nodebook-chap03.json', body, (err) => {
-    if (err){
+
+  fs.writeFile('/tmp/nodebook-chap03.json', body, err => {
+    if (err) {
       return console.error(err);
     }
 

@@ -4,12 +4,11 @@
 
 const fs = require('fs');
 
-const getFilecontent = (filename) => {
+const getFilecontent = filename => {
   try {
     const fileBuffer = fs.readFileSync(filename);
     return String(fileBuffer);
-  }
-  catch (e){
+  } catch (e) {
     return e;
   }
 };
