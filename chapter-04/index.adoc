@@ -360,23 +360,23 @@ Rappelons-le, la méthode incontournable pour charger du code dans un navigateur
 Le chargement puis l'évaluation et l'exécution du script bloque le temps nécessaire le rendu d'un document HTML.
 
 [source,html]
-.modules/script.html
+.import/script.html
 ----
-include::{sourceDir}/modules/script.html[]
+include::{sourceDir}/import/script.html[]
 ----
 
 Les différents _scripts_ partagent le même espace mémoire, permettant ainsi à `script.js` d'avoir accès à la fonction `log` définie dans `global-dom-log.js`.
 
 [source,javascript]
-.modules/global-dom-log.js
+.import/global-dom-log.js
 ----
-include::{sourceDir}/modules/global-dom-log.js[]
+include::{sourceDir}/import/global-dom-log.js[]
 ----
 
 [source,javascript]
-.modules/script.js
+.import/script.js
 ----
-include::{sourceDir}/modules/script.js[]
+include::{sourceDir}/import/script.js[]
 ----
 <1> Affiche une erreur car `<div id="logs">` n'existe pas encore dans le document à ce stade de l'exécution ;
 <2> Cette ligne est exécutée une fois le document chargé – `<div id="logs">` contient désormais le texte `OK`.
@@ -408,18 +408,18 @@ Ce mécanisme de modules introduit plusieurs concepts importants :
 Retravaillons le document HTML de la section précédente :
 
 [source,html]
-.modules/import.html
+.import/import.html
 ----
-include::{sourceDir}/modules/import.html[]
+include::{sourceDir}/import/import.html[]
 ----
 
 Nous voulons maintenant (sa)voir si la variable `pro` définie avant l'inclusion du module `script-import.js` est constatée.
 Nous voulons également savoir si la syntaxe d'import de la fonction `log` fonctionne :
 
 [source,javascript]
-.modules/script-import.js
+.import/script-import.js
 ----
-include::{sourceDir}/modules/script-import.js[]
+include::{sourceDir}/import/script-import.js[]
 ----
 <1> Affiche `undefined` ;
 <2> Affiche `function` ;
@@ -428,9 +428,9 @@ include::{sourceDir}/modules/script-import.js[]
 De même que nous avons utilisé `import` pour sélectivement importer une fonction du module `dom-log.js`, l'opérateur `export` nous aide à sélectivement exposer des objets, fonctions et variables :
 
 [source,javascript]
-.modules/dom-log.js
+.import/dom-log.js
 ----
-include::{sourceDir}/modules/dom-log.js[]
+include::{sourceDir}/import/dom-log.js[]
 ----
 
 === Importer des modules _npm_ pour le web
@@ -444,19 +444,19 @@ Si seulement nous pouvions faire la même chose côté client… +
 Continuons sur la lancée de nos exemples précédents pour tenter d'inclure la librairie _jQuery_ afin de manipuler notre document HTML :
 
 [source,javascript]
-.modules/script-import-jquery.js
+.import/script-import-jquery.js
 ----
-include::{sourceDir}/modules/script-import-jquery.js[]
+include::{sourceDir}/import/script-import-jquery.js[]
 ----
-<1> `$.fn.jquery` contient le numéro de version de jQuery ;
+<1> `$.fn.jquery` contient le numéros de version de jQuery ;
 <2> Substitut jQuery pour remplacer le texte dans `<div id="logs">`.
 
 Le document HTML chargeant ce module est en tout point similaire au précédent exemple :
 
 [source,html]
-.modules/import-jquery.html
+.import/import-jquery.html
 ----
-include::{sourceDir}/modules/import-jquery.html[]
+include::{sourceDir}/import/import-jquery.html[]
 ----
 
 Le seul _hic_, c'est que *cela ne fonctionne pas* :
@@ -498,8 +498,8 @@ Nous allons maintenant chercher à transformer le fichier `script-import-jquery.
 ----
 $ npm run browserify -- \
   -t babelify \
-  -e examples/modules/script-import-jquery.js \
-  -o examples/modules/script-import-jquery-browserify.js
+  -e examples/import/script-import-jquery.js \
+  -o examples/import/script-import-jquery-browserify.js
 ----
 
 Cette commande exécute trois choses :
@@ -512,9 +512,9 @@ Il en résultera un fichier nommé `script-import-jquery-browserify.js` compatib
 Il ne nous reste plus qu'à charger le fichier transformé dans notre page web pour voir le résultat :
 
 [source,html]
-.modules/import-jquery-browserify.html
+.import/import-jquery-browserify.html
 ----
-include::{sourceDir}/modules/import-jquery-browserify.html[]
+include::{sourceDir}/import/import-jquery-browserify.html[]
 ----
 
 === Récapitulatif
@@ -530,15 +530,50 @@ Nous pourrons aussi nous tourner vers d'autres outils de transformation de code 
 
 == Conception modulaire
 
-TBD.
+Un autre paradigme change avec la mise à disposition des modules et de l'outillage à disposition : le code que l'on écrit dépend surtout d'_ECMAScript_ et de l'environnement dans lequel on l'exécute, à savoir Node ou un navigateur web.
 
-=== Le syndrôme du plugin jQuery
+La section suivante s'intéresse à l'*évolution de d'écriture du code*, autrefois dirigée par la *structure du document* HTML vers un monde de *fonctions consommant des données*, transformées pour un type d'affichage, que ce soit HTML ou autre.
 
-TBD.
+=== Le syndrome du plugin _jQuery_
 
-=== Vers une approche jQuery composite
+Ce que j'appelle le "syndrome du plugin _jQuery_" c'est une combinaison des éléments suivants :
 
-TBD.
+- création de code métier inutilisable en dehors de _jQuery_ ;
+- flou artistique entre ce qui relève de la présentation des données et de l'organisation du code métier ;
+- un code _aveugle_ car éloigné de la structure HTML nécessaire à son fonctionnement ;
+- fragilité du code en cas de changement de la structure HTML associée ;
+- en général, un code difficilement testable – difficile de ne pas aboutir à une interface boguée.
+
+Voici un exemple de document HTML _fragile_ et _mélangeant_ tous les concepts en même temps.
+Il est parfaitement valide mais illustre un ensemble de pratiques courantes que nous allons chercher à _désapprendre_.
+
+[source,html]
+.modules/jquery.html
+----
+include::{sourceDir}/modules/jquery.html[]
+----
+
+[source,html]
+.modules/jquery-plugin.js
+----
+include::{sourceDir}/modules/jquery-plugin.js[]
+----
+
+
+=== Vers une approche _jQuery_ composite
+
+
+[source,html]
+.modules/jquery-module.html
+----
+include::{sourceDir}/modules/jquery.html[]
+----
+
+[source,html]
+.modules/jquery-app.js
+----
+include::{sourceDir}/modules/jquery-app.js[]
+----
 
 === Partager le code métier avec Node
 
