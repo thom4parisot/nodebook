@@ -7,7 +7,7 @@ ifdef::env[]
 :imagesdir: .
 endif::[]
 
-== [ChapitreNumero]#4# Développer pour les navigateurs web
+= [ChapitreNumero]#4# Développer pour les navigateurs web
 
 La popularité de Node s'est établie également pour la profusion d'outillage apportée au développement web _frontend_.
 
@@ -40,7 +40,7 @@ Le contenu de ce chapitre se réfère aux versions de *Node {nodeCurrentVersion}
 
 toc::[]
 
-=== Éxécuter Node dans les navigateurs web ?
+== Éxécuter Node dans les navigateurs web ?
 
 Ce chapitre peut sembler confus au premier abord.
 Si Node s'exécute au niveau du système d'exploitation — "côté serveur" — en quoi est-il lié au développement _frontend_ — "côté client" ?
@@ -62,7 +62,7 @@ Il faut également bien comprendre qu'il y a plusieurs "problèmes" cachés sous
 Ce processus n'est _pas magique_ et nous verrons graduellement au cours des prochaines sections comment tout ceci fonctionne.
 
 
-=== Écrire dès à présent le code du futur
+== Écrire dès à présent le code du futur
 
 Transformer du code ECMAScript a pendant longtemps été chose pénible.
 Je pense par exemple à de la minification de code (pour réduire les temps de transfert sur les antiques lignes ADSL 128K) ou à de la conversion automatique de code _ECMAScript 3_ en _ECMAScript 5_.
@@ -88,7 +88,7 @@ Il y présente notamment des comparatifs de performances d'exécution sur diffé
 Le champ d'action de Node augmente, la versatilité d'_ECMAScript_ aussi. +
 Toutefois si on ne devait retenir qu'une chose de tout ceci c'est qu'il est désormais normal d'*écrire du code moderne en anticipation des futurs standards et de le faire fonctionner sur les navigateurs actuels et anciens*.
 
-==== La fin de l'approche par le dénominateur commun
+=== La fin de l'approche par le dénominateur commun
 
 Qui n'a pas déjà entamé un projet en posant la question à un client, en regardant les statistiques de traffic ou en se posant une question à soi-même : quelle est la liste des versions de navigateurs avec lequel notre site ou application web doit être compatible ?
 
@@ -99,7 +99,7 @@ Cela voulait dire des _hacks_ dans ses CSS, dans son code _ECMAScript_ et dans s
 Alors que dire si on inclut une librairie tierce qui fait l'affaire mais n'offre pas une compatabilité aussi antique que désirée ?
 
 [[transpilation]]
-==== Écrire au plus proche des standards
+=== Écrire au plus proche des standards
 
 Fort heureusement l'arrivée d'_esprima_ a changé la donne et permet d'écrire un code proche des standards, qui résiste au temps, et d'automatiser les transformations de code pour satisfaire nos besoins spécifiques.
 
@@ -215,7 +215,7 @@ Une liste d'options ainsi qu'une aide à la configuration sont disponibles sur l
 ====
 
 [[polyfills]]
-==== Combler les manques avec des _polyfills_
+=== Combler les manques avec des _polyfills_
 
 Des outils comme _babel_ nous permettent d'écrire avec une *syntaxe moderne*.
 Les *polyfills* nous permettent de *combler les fonctionnalités manquantes*, leur implémentation.
@@ -337,12 +337,12 @@ include::{sourceDir}/polyfill-require.js[]
 ----
 
 [[typescript]]
-==== Écrire dans un autre langage : l'exemple TypeScript
+=== Écrire dans un autre langage : l'exemple TypeScript
 
 TBD.
 
 [[modules]]
-=== Importer des modules
+== Importer des modules
 
 Importer des modules est une pratique courante avec Node.
 Ça l'est en revanche beaucoup moins dans l'univers du web puisqu'il n'existait rien de _natif_ avant les <<modules-es2015,modules ECMAScript 2015>>.
@@ -354,7 +354,7 @@ Un désir d'universalité a ensuite émergé avec le gain de popularité croissa
 Les modules _ECMAScript 2015_ ont émergé de ce bouillonnement.
 
 [[modules-script]]
-==== La balise `<script>`
+=== La balise `<script>`
 
 Rappelons-le, la méthode incontournable pour charger du code dans un navigateur web est l'utilisation de la base `<script>`.
 Le chargement puis l'évaluation et l'exécution du script bloque le temps nécessaire le rendu d'un document HTML.
@@ -390,7 +390,7 @@ S'il est facile d'ajouter du code dans le navigateur, on constate plusieurs prob
 Le développement frontend basé sur de l'outillage Node va justement nous aider à *solidifier et renforcer la réutilisabilité de notre code*.
 
 [[modules-es2015]]
-==== Les modules _ECMAScript 2015_
+=== Les modules _ECMAScript 2015_
 
 Nous avons évoqué les <<../chapter-02/index.adoc#primitives,primitives _ECMAScript 2015_>> dans le Chapitre 2.
 Les modules font partie des fonctionnalités tant attendues.
@@ -433,14 +433,14 @@ De même que nous avons utilisé `import` pour sélectivement importer une fonct
 include::{sourceDir}/modules/dom-log.js[]
 ----
 
-==== Importer des modules _npm_ pour le web
+=== Importer des modules _npm_ pour le web
 
 Qu'en est-il alors des modules _npm_ ?
 Nous pouvons transpiler et importer du code, ce serait très utile si nous pouvions également importer du _code tiers_.
 Cela nous éviterait de réinventer la roue, d'avoir accès à du code bien testé et trop coûteux à écrire nous-même.
 
 Nous avons vu comment <<../chapter-02/index.adoc#api-require,charger des modules _npm_>> dans le Chapitre 2.
-Si seulement nous pouvions faire la même chose côté client. +
+Si seulement nous pouvions faire la même chose côté client… +
 Continuons sur la lancée de nos exemples précédents pour tenter d'inclure la librairie _jQuery_ afin de manipuler notre document HTML :
 
 [source,javascript]
@@ -465,85 +465,158 @@ Le seul _hic_, c'est que *cela ne fonctionne pas* :
 - rien ne garantit que `jquery` expose son code en tant que module _ECMAScript 2015_ ;
 - on n'a certainement pas envie d'exposer publiquement le répertoire `node_modules`.
 
-==== Récapitulatif
+C'est alors qu'entre en jeu *browserify*.
+_browserify_ est un outil générique de transformation de code.
+Il peut être utilisé en ligne de commande, via son API Node mais aussi par le biais de plugins pour d'autres outils (comme Gulp, Grunt etc.).
+
+_browserify_ a été initialement créé pour transformer du code écrit pour Node en code fonctionnel dans les navigateurs web.
+Il expose notamment un concept d'intégrations (les _transforms_) afin d'effectuer des remplacements ligne à ligne.
+
+Là où _babel_ cherche uniquement à traduire un langage vers un autre, _browserify_ est le couteau suisse pour effectuer des remplacements majeurs dans le code :
+
+- portage de la fonction `require()` et inclusion du code des modules sous-jascent ;
+- suppression de code conditionnel ;
+- remplacement d'API spécifiques à Node par des polyfills pour le web ;
+- extraction de CSS ;
+- etc.
+
+_browserify_ est intéressant au sens où il nous apprend à nous constituer nous-même notre outillage, pour nos propres besoins.
+
+[TIP]
+.[RemarquePreTitre]#Guide# Utiliser browserify
+====
+_browserify_ est un outil extrêmement versatile, modulaire et puissant.
+Son apprentissage progressif peut faire de lui un allié de choix dans tous vos projets Node et web.
+
+- [URL]#https://npmjs.com/browserify#
+- [URL]#https://github.com/substack/browserify-handbook#
+====
+
+Revenons maintenant à notre code auquel il manque la compréhension des modules _npm_.
+Nous allons maintenant chercher à transformer le fichier `script-import-jquery.js` pour à la fois rendre la syntaxe `import` intelligible par les navigateurs web (c'est le rôle de _babel_) mais aussi pour faire le lien avec les modules _npm_ :
+
+----
+$ npm run browserify -- \
+  -t babelify \
+  -e examples/modules/script-import-jquery.js \
+  -o examples/modules/script-import-jquery-browserify.js
+----
+
+Cette commande exécute trois choses :
+
+. `-t babelify` indique d'utiliser une intégration _babel_ (un _transform_) pour transformer la syntaxe _ECMAScript 2015_ ;
+. `-e …` indique le script d'entrée à transformer ;
+. `-o …` indique où stocker le script transformé.
+
+Il en résultera un fichier nommé `script-import-jquery-browserify.js` compatible _ECMAScript 5_ et qui inclut désormais le code source de jQuery. +
+Il ne nous reste plus qu'à charger le fichier transformé dans notre page web pour voir le résultat :
+
+[source,html]
+.modules/import-jquery-browserify.html
+----
+include::{sourceDir}/modules/import-jquery-browserify.html[]
+----
+
+=== Récapitulatif
 
 En résumé, nous avons besoin de nous baser sur _deux ou trois outils_ pour écrire un code modulaire et compatible avec n'importe quel type de syntaxe :
 
-==== Les modules _npm_
+- *babel* pour transformer la syntaxe ;
+- des *polyfills* pour harmoniser les fonctionnalités ;
+- *browserify* pour l'intégration avec les modules _npm_.
 
+Ceux-ci ont l'avantage d'être _faciles_ à prendre en main, _modulaires_ et _évolutifs_.
+Nous pourrons aussi nous tourner vers d'autres outils de transformation de code pour explorer d'autres horizons – et il en existe énormément : _webpack_, _rollup_, _broccoli_ etc.
 
-=== Conception modulaire
-
-TBD.
-
-==== Le syndrôme du plugin jQuery
-
-TBD.
-
-==== Vers une approche jQuery composite
+== Conception modulaire
 
 TBD.
 
-==== Partager le code métier avec Node
+=== Le syndrôme du plugin jQuery
 
 TBD.
 
-==== Séparation du fond et de la forme : données, rendu et interactions
+=== Vers une approche jQuery composite
 
 TBD.
 
-==== Rapprocher présentation et interactions avec React
+=== Partager le code métier avec Node
 
 TBD.
 
-==== Lier composants et feuilles de style
+=== Séparation du fond et de la forme : données, rendu et interactions
+
+TBD.
+
+=== Rapprocher présentation et interactions avec React
 
 TBD.
 
 [[io]]
-=== Des requêtes AJAX au temps-réel
+== Des requêtes AJAX au temps-réel
 
 TBD.
 
 [[io-fetch]]
-==== Consommer des données hétérogènes avec `fetch()`
+=== Consommer des données hétérogènes avec `fetch()`
 
 TBD.
 
 [[io-sse]]
-==== Approche unidirectionnelle avec _Server Sent Events_
+=== Approche unidirectionnelle avec _Server Sent Events_
 
 TBD.
 
 [[io-websockets]]
-==== Échanges en temps-réel avec _Websockets_
+=== Échanges en temps-réel avec _Websockets_
 
 TBD.
 
+== Développer au quotidien
 
-=== Tester son code
-
-
-==== Écrire des tests avec tape et chai
+=== Reconstruire en continu avec `watchify`
 
 TBD.
 
-==== Exécuter les suites de tests avec Karma
+=== Changements en temps-réel dans le navigateur
 
 TBD.
 
-==== Tester les éléments de lisibilité et de performance
+=== Modulariser ses feuilles de style avec _Sass_
 
 TBD.
 
-==== Tester la compatibilité navigateurs avec BrowserStack
+=== Lier composants et feuilles de style
 
 TBD.
 
-==== Le cas Internet Explorer et ievms
+=== Optimiser ses ressources graphiques
 
 TBD.
 
-=== Conclusion
+== Tester son code
+
+
+=== Écrire des tests avec tape et chai
+
+TBD.
+
+=== Exécuter les suites de tests avec Karma
+
+TBD.
+
+=== Tester les éléments de lisibilité et de performance
+
+TBD.
+
+=== Tester la compatibilité navigateurs avec BrowserStack
+
+TBD.
+
+=== Le cas Internet Explorer et ievms
+
+TBD.
+
+== Conclusion
 
 TBD.
