@@ -18,5 +18,6 @@ server.on('error', err => {
   if (err) {
     // ...
   }
+
   // ...
 });

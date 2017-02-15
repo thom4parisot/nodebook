@@ -2265,6 +2265,63 @@ include::{sourceDir}/print-csv-reloaded.js[]
 
 Nous verrons dans le chapitre suivant comment utiliser efficacement le programme `npm` pour initialiser et gérer un projet de bout en bout.
 
+==== Comprendre _npm_ et son organisation du répertoire _node_modules_
+
+_npm_ organise les dépendances selon une structure dite _plate_ (_flat tree structure_).
+Ainsi, si deux modules distincts se basent sur une *version compatible d'une même dépendance* selon _semver_ — ici, jQuery v2 —  voici l'arbre de dépendance de _npm_ et la disposition sur le système de fichiers qui en résultent :
+
+----
+$ npm ls
+my-app@1.0.0
+├── module-a@1.0.0
+|   └── jquery@2.1.0
+└── module-b@1.0.0
+    └── jquery@2.1.4
+
+$ tree node_modules
+node_modules
+├── jquery
+├── module-a
+└── module-b
+----
+
+Dans le cas où plusieurs modules dépendant d'un même paquet mais dans une version _semver_ incompatible — ici jQuery v1 et jQuery v2 — la version la plus _ancienne_ se trouvera à la racine du répertoire _node_modules_ tandis que les autres seront _encapsulées_ au plus près du module en dépendant :
+
+----
+$ npm ls
+my-app@1.0.0
+├── module-a@1.0.0
+|   └── jquery@1.11.3
+└── module-b@1.0.0
+    └── jquery@2.1.4
+
+$ tree node_modules
+node_modules
+├── jquery
+├── module-a
+└── module-b
+    └── jquery
+----
+
+L'utilisation de `npm dedupe` peut être un ultime recours pour optimiser un arbre plus complexe que celui-ci.
+Ceci dans l'optique de diminuer les inclusions multiples d'une librairie techniquement compatible avec d'autres versions mineures.
+
+[CAUTION]
+.[RemarquePreTitre]#Remarque# Résolution de chemins
+====
+Il est fortement *déconseillé de se baser sur des chemins en dur* tapant dans le répertoire _node_modules_.
+Il est *préférable de faire appel à `require.resolve`* pour déterminer le chemin vers un fichier compris dans une dépendance.
+
+[source,javascript]
+----
+// À ne surtout pas faire
+const jqueryCore = require('./node_modules/jquery/src/core.js');
+
+// À faire
+const jQueryCore = require('jquery/src/core.js');
+----
+====
+
 === Mon premier script Node.js : lire un fichier CSV (bis)
 
 Reprenons désormais notre premier module Node.
@@ -2306,6 +2363,14 @@ De ce fait, nous avons rendu le code générique et réutilisable dans tout cont
 ----
 include::{sourceDir}/print-csv-module.js[]
 ----
+
+==== Publication sur npm
+
+Répondre aux questions :
+
+- quels impacts si on publie uniquement les sources d'un module non-interprétable directement par Node
+- quel fichier déclarer dans le `main` ?
+- comment faire pour publier ? Et pour tester ?
 
 === Conclusion
 
