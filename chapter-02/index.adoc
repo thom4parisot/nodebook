@@ -156,7 +156,7 @@ Il en va de la *sécurité de vos applications*.
 Node a effectué des changements dans son architecture dans sa version 0.8.
 Ces changements ont permis d'éviter la compilation systématique sur des architectures processeur autre que l'Intel x86.
 
-Des binaires et installeurs sont de ce fait disponibles pour Raspberry Pi, à base de processeur _ARM_, entre autre.
+Des binaires et installeurs sont de ce fait disponibles pour Raspberry Pi, à base de processeur _ARM_, entre autres.
 
 Des binaires et instructions sont disponibles sur le site officiel de Node, pour ARMv6, ARMv7 et ARMv8 : [URL]#https://nodejs.org/en/download/#.
 
@@ -321,7 +321,7 @@ image::images/visual-studio.png[align="center",scaledwidth="85%"]
 
 _Visual Studio_ est un environnement de développement _(IDE)_ édité par  _Microsoft_.
 Historiquement dédié au développement sur Windows (Visual Basic, Visual C++), il gère aujourd'hui bien plus de langages (dont C#, HTML, CSS, JavaScript, ASP.Net).
-Il est surtout extensible, ce qui permet, entre autre, de lui apporter le support de _Python_ ou encore Node.
+Il est surtout extensible, ce qui permet, entre autres, de lui apporter le support de _Python_ ou encore Node.
 
 _Visual Studio_ est uniquement compatible Windows et existe en plusieurs éditions dont la _Community Edition_.
 Elle est gratuite et permet aussi l'ajout d'extensions.
@@ -1168,7 +1168,7 @@ include::{sourceDir}/primitives/rest.js[]
 <3> Affiche `[ { name: 'Cabécou' }, { name: 'Chaource' } ]` –
 
 En bref, ils sont l'équivalent de l'ancienne variable _magique_ `arguments` mais avec une meilleure finesse quant aux paramètres concernés.
-Les éléments retournée par les _paramètres du reste_ interface ont aussi l'avantage d'être un véritable objet de <<primitives/array,tableau>> – `arguments` est _itérable_ mais n'est pas un tableau, et donc ne bénéficie pas des méthodes de compréhension telles que `forEach`, `map`, etc.
+Les éléments retournée par les _paramètres du reste_ interface ont aussi l'avantage d'être un véritable objet de <<primitives/array,tableau>> – `arguments` est _itérable_ mais n'est pas un tableau et ne bénéficie donc pas des méthodes de compréhension telles que `forEach`, `map`, etc.
 
 [[primitive-map-set]]
 ===== Map et Set
@@ -1187,7 +1187,7 @@ Elles font penser respectivement à `Object` et `Array` mais diffèrent de ces p
 include::{sourceDir}/primitives/set.js[]
 ----
 <1> Construit un `Set` depuis un `Array` ;
-<2> Reconstruit un `Array` à partir des valeurs du `Set`, et affiche `[ 11, 13 ]`;
+<2> Reconstruit un `Array` à partir des valeurs du `Set` et affiche `[ 11, 13 ]`;
 <3> Ce tableau sera ajouté car s'il est identique au précédent, il s'agit d'un objet différent, donc d'une référence d'objet différente ;
 <4> On peut ajouter un `Set` en tant que valeur de `Set` si on le souhaite ;
 <5> À l'inverse du point 3, l'ajout multiple d'une référence à un même objet (ici, `primesArray`) ne fonctionnera pas ;
@@ -1301,7 +1301,7 @@ Il est en effet bien plus simple de réutiliser (et de tester) des fonctions agn
 [[primitive-promise]]
 ===== Promise
 
-L'organisation du code autour des _callbacks_ est difficile et ce, que ce soit en terme de maintenance, de gestion des erreurs ou de propagation d'information.
+L'organisation du code autour des _callbacks_ est difficile, et ce, que ce soit en terme de maintenance, de gestion des erreurs ou de propagation d'information.
 
 Un motif a émergé en réponse à cette complexité grandissante : les *promesses*.
 *Il s'agit d'une primitive à maitriser* et disponible _nativement_ à la fois dans Node et les navigateurs modernes.
@@ -1483,7 +1483,7 @@ La méthode `exec` permet de capturer les occurrences d'une expression réguliè
 
 Plusieurs drapeaux peuvent être utilisés :
 
-- `g` pour chercher dans toute la chaîne, et ne pas s'arrêter à la première occurrence trouvée ;
+- `g` pour chercher dans toute la chaîne et ne pas s'arrêter à la première occurrence trouvée ;
 - `i` pour ne pas tenir compte de la casse ;
 - `m` pour que les caractères `^` et `$` correspondent respectivement au début et à la fin d'une ligne au lieu du début et de la fin de la chaîne ;
 
@@ -2002,7 +2002,7 @@ Le processus Node reste actif tant que l'_Event Loop_ a des instructions à trai
 Un certain nombre d'options sont acceptées par l'exécutable et modifient son comportement en conséquent :
 
 - `node debug votre-script.js` : active le mode débogage ;
-- `NODE_ENV=production node votre-script.js` : transmet une variable d'environnement au processus, et est accessible sous la forme `process.env.NODE_ENV`.
+- `NODE_ENV=production node votre-script.js` : transmet une variable d'environnement au processus et est accessible sous la forme `process.env.NODE_ENV`.
 
 image::images/node-exec.png[align="center",scaledwidth="85%"]
 
@@ -2029,7 +2029,7 @@ Bonjour Thomas
 ==== Script shell
 
 Une autre alternative est de créer un fichier exécutable et de spécifier Node en tant qu'interpréteur.
-C'est une opération utile pour rendre un programme accessible s'il est situé dans le `$PATH` système ou pour rendre un programme accessible lors de l'installation globale d'un _paquet npm_, entre autre.
+C'est une opération utile pour rendre un programme accessible s'il est situé dans le `$PATH` système ou pour rendre un programme accessible lors de l'installation globale d'un _paquet npm_, entre autres.
 
 Pour qu'un fichier soit rendu exécutable, nous devons nous assurer de deux choses :
 
