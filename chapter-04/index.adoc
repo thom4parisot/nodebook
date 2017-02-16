@@ -7,7 +7,7 @@ ifdef::env[]
 :imagesdir: .
 endif::[]
 
-== [ChapitreNumero]#4# Développer pour les navigateurs web
+= [ChapitreNumero]#4# Développer pour les navigateurs web
 
 La popularité de Node s'est établie également pour la profusion d'outillage apportée au développement web _frontend_.
 
@@ -40,7 +40,7 @@ Le contenu de ce chapitre se réfère aux versions de *Node {nodeCurrentVersion}
 
 toc::[]
 
-=== Éxécuter Node dans les navigateurs web ?
+== Éxécuter Node dans les navigateurs web ?
 
 Ce chapitre peut sembler confus au premier abord.
 Si Node s'exécute au niveau du système d'exploitation — "côté serveur" — en quoi est-il lié au développement _frontend_ — "côté client" ?
@@ -62,7 +62,7 @@ Il faut également bien comprendre qu'il y a plusieurs "problèmes" cachés sous
 Ce processus n'est _pas magique_ et nous verrons graduellement au cours des prochaines sections comment tout ceci fonctionne.
 
 
-=== Écrire dès à présent le code du futur
+== Écrire dès à présent le code du futur
 
 Transformer du code ECMAScript a pendant longtemps été chose pénible.
 Je pense par exemple à de la minification de code (pour réduire les temps de transfert sur les antiques lignes ADSL 128K) ou à de la conversion automatique de code _ECMAScript 3_ en _ECMAScript 5_.
@@ -79,7 +79,7 @@ Cet arbre est lui-même analysable par de *nouveaux outils émergents* :
 [TIP]
 .[RemarquePreTitre]#Lien# Annonce d'_esprima_
 ====
-_Aryia Hidayat_ introduit exprima dans un billet de blog.
+_Aryia Hidayat_ introduit esprima dans un billet de blog.
 Il y présente notamment des comparatifs de performances d'exécution sur différentes VM ECMAScript et face à d'autres parseurs.
 
 - [URL]#https://ariya.io/2011/12/introducing-esprima#
@@ -88,7 +88,7 @@ Il y présente notamment des comparatifs de performances d'exécution sur diffé
 Le champ d'action de Node augmente, la versatilité d'_ECMAScript_ aussi. +
 Toutefois si on ne devait retenir qu'une chose de tout ceci c'est qu'il est désormais normal d'*écrire du code moderne en anticipation des futurs standards et de le faire fonctionner sur les navigateurs actuels et anciens*.
 
-==== La fin de l'approche par le dénominateur commun
+=== La fin de l'approche par le dénominateur commun
 
 Qui n'a pas déjà entamé un projet en posant la question à un client, en regardant les statistiques de traffic ou en se posant une question à soi-même : quelle est la liste des versions de navigateurs avec lequel notre site ou application web doit être compatible ?
 
@@ -96,12 +96,12 @@ La version de navigateur la plus ancienne ou la moins conforme aux standards ét
 Cela voulait dire se priver de techniques modernes, standardisées ou en cours en de standardisation.
 Cela voulait dire des _hacks_ dans ses CSS, dans son code _ECMAScript_ et dans ses ressources graphiques.
 
-Alors que dire si on inclut une librairie tierce qui fait l'affaire mais n'offre pas une compatabilité aussi antique que désirée ?
+Alors que dire si on inclut une librairie tierce qui fait l'affaire mais n'offre pas une compatibilité aussi antique que désirée ?
 
 [[transpilation]]
-==== Écrire au plus proche des standards
+=== Écrire au plus proche des standards
 
-Fort heureusement l'arrivée d'_esprima_ a changé la donne et permet d'écrire un code proche des standards, qui résiste au temps, et d'automatiser les transformations de code pour satisfaire nos besoins spécifiques.
+Fort heureusement l'arrivée d'_esprima_ a changé la donne et permet d'écrire un code proche des standards, qui résiste au temps et d'automatiser les transformations de code pour satisfaire nos besoins spécifiques.
 
 Il y a plusieurs éléments à prendre en compte concernant la standardisation de nouvelles versions d'_ECMAScript_ et les évolutions de sa syntaxe :
 
@@ -159,7 +159,7 @@ include::{sourceDir}/babel-es2015.js[]
 Ce code représente l'*idéal de ce que l'on souhaite écrire*.
 Le seul obstacle consiste à _traduire_ ce code pour l'ensemble des navigateurs web compatibles avec _ECMAScript 5_.
 
-Éxécutons cette commande :
+Exécutons cette commande :
 
 ----
 $ npm run babel -- --no-babelrc examples/babel-es2015.js
@@ -215,12 +215,12 @@ Une liste d'options ainsi qu'une aide à la configuration sont disponibles sur l
 ====
 
 [[polyfills]]
-==== Combler les manques avec des _polyfills_
+=== Combler les manques avec des _polyfills_
 
 Des outils comme _babel_ nous permettent d'écrire avec une *syntaxe moderne*.
 Les *polyfills* nous permettent de *combler les fonctionnalités manquantes*, leur implémentation.
 
-La destructuration, les constantes et les classes sont des _éléments de syntaxe_ d'_ECMAScript 2015_.
+La déstructuration, les constantes et les classes sont des _éléments de syntaxe_ d'_ECMAScript 2015_.
 L'objet `Promise` et la méthode `Array.from` sont des _fonctionnalités_ d'_ECMAScript 2015_.
 La fonction `fetch`, l'objet `File` et l'API `WebSocket` sont des _fonctionnalités_ d'_HTML5_.
 
@@ -283,14 +283,14 @@ L'avantage est de maitriser notre base de code et de ne pas dépendre d'un servi
 L'inconvénient est que nous chargeons du code qui sera inutile les navigateurs et environnements disposant déjà de ces fonctionnalités :
 
 [source,html]
-.polyfill.io.html
+.polyfill-import.html
 ----
 include::{sourceDir}/polyfill-import.html[]
 ----
 <1> Nous verrons <<modules,comment importer des modules>> ci-après ;
 <2> On importe un deuxième _polyfill_, celui de la méthode `Number.isNaN`.
 
-Le module _npm_ `core-js` est une librairie exhaustive de _polyfills_ pouvant être inclus un à un, ou par versions d'_ECMAScript_.
+Le module _npm_ `core-js` est une librairie exhaustive de _polyfills_ pouvant être inclus un à un ou par versions d'_ECMAScript_.
 
 [TIP]
 .[RemarquePreTitre]#Documentation# `core-js`
@@ -300,7 +300,7 @@ La documentation en ligne de `core-js` liste l'ensemble des _polyfills_ support�
 - [URL]#https://npmjs.com/core-js#
 ====
 
-_babel_ et son _preset_ `babel-preset-env` nous facilitent l'inclusion de _polyfills_ selon la compatibilité navigateurs que l'on souhaite maintenir au sein de notre application. Le fichier suivant illustre la configuration du _preset_ à l'aide des clés `useBuiltIns` et `targets` :
+_babel_ et son _preset_ `babel-preset-env` nous facilitent l'inclusion de _polyfills_ selon la compatibilité navigateurs que l'on souhaite maintenir au sein de notre application. Le fichier `.babelrc` suivant configure l'inclusion des _polyfills_ à l'aide des clés `useBuiltIns` et `targets` :
 
 [source,javascript]
 .{empty}.babelrc
@@ -313,9 +313,9 @@ Cette configuration illustre un souhait de compatibilité avec _Internet Explore
 [CAUTION]
 .[RemarquePreTitre]#Attention# Performance et duplication
 ====
-Il faut veiller à ne pas allourdir inutilement une application.
+Il faut veiller à ne pas alourdir inutilement une application.
 
-Si le code est *redistributé* (en tant que module _npm_ public), laissons la responsabilité de _polyfiller_ aux personnes utilisant notre code.
+Laissons la responsabilité de _polyfiller_ aux utilisateurs de notre code ; particulièrement si celui-ci est *redistribué* en tant que module _npm_ public.
 
 Si plusieurs scripts nécessitent des polyfills, mieux vaut inclure ces derniers _en une fois fois_ et _en premier_ :
 
@@ -337,87 +337,321 @@ include::{sourceDir}/polyfill-require.js[]
 ----
 
 [[typescript]]
-==== Écrire dans un autre langage : l'exemple TypeScript
+=== Écrire dans un autre langage : l'exemple TypeScript
 
 TBD.
 
 [[modules]]
-=== Importer des modules
+== Importer des modules
 
-==== Syntaxe de modules _ECMAScript 2015_
+Importer des modules est une pratique courante avec Node.
+Ça l'est en revanche beaucoup moins dans l'univers du web puisqu'il n'existait rien de _natif_ avant les <<modules-es2015,modules ECMAScript 2015>>.
 
-=== Une conception orientée composant
+On a vu débarquer les modules _AMD_ pour gérer les dépendances _entre scripts_.
+Les librairies _Dojo_, _RequireJS_ et _YUI_ ont popularisé ce mécanisme.
+Un désir d'universalité a ensuite émergé avec le gain de popularité croissant de Node avec les modules _UMD_, conciliant modules _AMD_ et _CommonJS_.
+
+Les modules _ECMAScript 2015_ ont émergé de ce bouillonnement.
+
+[[modules-script]]
+=== La balise `<script>`
+
+Rappelons-le, la méthode incontournable pour charger du code dans un navigateur web est l'utilisation de la base `<script>`.
+Le chargement puis l'évaluation et l'exécution du script bloque le temps nécessaire le rendu d'un document HTML.
+
+[source,html]
+.import/script.html
+----
+include::{sourceDir}/import/script.html[]
+----
+
+Les différents _scripts_ partagent le même espace mémoire, permettant ainsi à `script.js` d'avoir accès à la fonction `log` définie dans `global-dom-log.js`.
+
+[source,javascript]
+.import/global-dom-log.js
+----
+include::{sourceDir}/import/global-dom-log.js[]
+----
+
+[source,javascript]
+.import/script.js
+----
+include::{sourceDir}/import/script.js[]
+----
+<1> Affiche une erreur car `<div id="logs">` n'existe pas encore dans le document à ce stade de l'exécution ;
+<2> Cette ligne est exécutée une fois le document chargé – `<div id="logs">` contient désormais le texte `OK`.
+
+S'il est facile d'ajouter du code dans le navigateur, on constate plusieurs problèmes :
+
+- partager du code entre scripts repose sur une *attente explicite* ;
+- le partage de variables entre scripts peut entrainer des *collisions* (par exemple, deux variables du même nom définies dans des scripts différents) ;
+- il n'y a pas de moyen évident de rendre des bouts de code _privé_ au sein de chaque script.
+
+Le développement frontend basé sur de l'outillage Node va justement nous aider à *solidifier et renforcer la réutilisabilité de notre code*.
+
+[[modules-es2015]]
+=== Les modules _ECMAScript 2015_
+
+Nous avons évoqué les <<../chapter-02/index.adoc#primitives,primitives _ECMAScript 2015_>> dans le Chapitre 2.
+Les modules font partie des fonctionnalités tant attendues.
+
+.Utilisation des modules _ECMAScript 2015_ dans un navigateur web (ici, Safari pour macOS).
+image::images/module-import.png[align="center",scaledwidth="85%"]
+
+L'attribut `type="module"` a été introduit pour maintenir une compatibilité entre scripts classiques et les modules _ECMAScript 2015_.
+Ce mécanisme de modules introduit plusieurs concepts importants :
+
+- *toute variable est privée* sauf si elle est _exportée_ avec l'opérateur `export` ;
+- les *modules sont explicitement inclus* avec l'opérateur `import` ;
+- les *variables globales* définies par l'utilisateur ne sont pas accessibles depuis un module.
+
+Retravaillons le document HTML de la section précédente :
+
+[source,html]
+.import/import.html
+----
+include::{sourceDir}/import/import.html[]
+----
+
+Nous voulons maintenant (sa)voir si la variable `pro` définie avant l'inclusion du module `script-import.js` est constatée.
+Nous voulons également savoir si la syntaxe d'import de la fonction `log` fonctionne :
+
+[source,javascript]
+.import/script-import.js
+----
+include::{sourceDir}/import/script-import.js[]
+----
+<1> Affiche `undefined` ;
+<2> Affiche `function` ;
+<2> Affiche `object`.
+
+De même que nous avons utilisé `import` pour sélectivement importer une fonction du module `dom-log.js`, l'opérateur `export` nous aide à sélectivement exposer des objets, fonctions et variables :
+
+[source,javascript]
+.import/dom-log.js
+----
+include::{sourceDir}/import/dom-log.js[]
+----
+
+=== Importer des modules _npm_ pour le web
+
+Qu'en est-il alors des modules _npm_ ?
+Nous pouvons transpiler et importer du code, ce serait très utile si nous pouvions également importer du _code tiers_.
+Cela nous éviterait de réinventer la roue, d'avoir accès à du code bien testé et trop coûteux à écrire nous-même.
+
+Nous avons vu comment <<../chapter-02/index.adoc#api-require,charger des modules _npm_>> dans le Chapitre 2.
+Si seulement nous pouvions faire la même chose côté client… +
+Continuons sur la lancée de nos exemples précédents pour tenter d'inclure la librairie _jQuery_ afin de manipuler notre document HTML :
+
+[source,javascript]
+.import/script-import-jquery.js
+----
+include::{sourceDir}/import/script-import-jquery.js[]
+----
+<1> `$.fn.jquery` contient le numéros de version de jQuery ;
+<2> Substitut jQuery pour remplacer le texte dans `<div id="logs">`.
+
+Le document HTML chargeant ce module est en tout point similaire au précédent exemple :
+
+[source,html]
+.import/import-jquery.html
+----
+include::{sourceDir}/import/import-jquery.html[]
+----
+
+Le seul _hic_, c'est que *cela ne fonctionne pas* :
+
+- le navigateur _ne peut pas savoir_ où se trouve la dépendance demandée ;
+- rien ne garantit que `jquery` expose son code en tant que module _ECMAScript 2015_ ;
+- on n'a certainement pas envie d'exposer publiquement le répertoire `node_modules`.
+
+C'est alors qu'entre en jeu *browserify*.
+_browserify_ est un outil générique de transformation de code.
+Il peut être utilisé en ligne de commande, via son API Node mais aussi par le biais de plugins pour d'autres outils (comme Gulp, Grunt etc.).
+
+_browserify_ a été initialement créé pour transformer du code écrit pour Node en code fonctionnel dans les navigateurs web.
+Il expose notamment un concept d'intégrations (les _transforms_) afin d'effectuer des remplacements ligne à ligne.
+
+Là où _babel_ cherche uniquement à traduire un langage vers un autre, _browserify_ est le couteau suisse pour effectuer des remplacements majeurs dans le code :
+
+- portage de la fonction `require()` et inclusion du code des modules sous-jacent ;
+- suppression de code conditionnel ;
+- remplacement d'API spécifiques à Node par des polyfills pour le web ;
+- extraction de CSS ;
+- etc.
+
+_browserify_ est intéressant au sens où il nous apprend à nous constituer nous-même notre outillage, pour nos propres besoins.
+
+[TIP]
+.[RemarquePreTitre]#Guide# Utiliser browserify
+====
+_browserify_ est un outil extrêmement versatile, modulaire et puissant.
+Son apprentissage progressif peut faire de lui un allié de choix dans tous vos projets Node et web.
+
+- [URL]#https://npmjs.com/browserify#
+- [URL]#https://github.com/substack/browserify-handbook#
+====
+
+Revenons maintenant à notre code auquel il manque la compréhension des modules _npm_.
+Nous allons maintenant chercher à transformer le fichier `script-import-jquery.js` pour à la fois rendre la syntaxe `import` intelligible par les navigateurs web (c'est le rôle de _babel_) mais aussi pour faire le lien avec les modules _npm_ :
+
+----
+$ npm run browserify -- \
+  -t babelify \
+  -e examples/import/script-import-jquery.js \
+  -o examples/import/script-import-jquery-browserify.js
+----
+
+Cette commande exécute trois choses :
+
+. `-t babelify` indique d'utiliser une intégration _babel_ (un _transform_) pour transformer la syntaxe _ECMAScript 2015_ ;
+. `-e …` indique le script d'entrée à transformer ;
+. `-o …` indique où stocker le script transformé.
+
+Il en résultera un fichier nommé `script-import-jquery-browserify.js` compatible _ECMAScript 5_ et qui inclut désormais le code source de jQuery. +
+Il ne nous reste plus qu'à charger le fichier transformé dans notre page web pour voir le résultat :
+
+[source,html]
+.import/import-jquery-browserify.html
+----
+include::{sourceDir}/import/import-jquery-browserify.html[]
+----
+
+=== Récapitulatif
+
+En résumé, nous avons besoin de nous baser sur _deux ou trois outils_ pour écrire un code modulaire et compatible avec n'importe quel type de syntaxe :
+
+- *babel* pour transformer la syntaxe ;
+- des *polyfills* pour harmoniser les fonctionnalités ;
+- *browserify* pour l'intégration avec les modules _npm_.
+
+Ceux-ci ont l'avantage d'être _faciles_ à prendre en main, _modulaires_ et _évolutifs_.
+Nous pourrons aussi nous tourner vers d'autres outils de transformation de code pour explorer d'autres horizons – et il en existe énormément : _webpack_, _rollup_, _broccoli_ etc.
+
+== Conception modulaire
+
+Un autre paradigme change avec la mise à disposition des modules et de l'outillage à disposition : le code que l'on écrit dépend surtout d'_ECMAScript_ et de l'environnement dans lequel on l'exécute, à savoir Node ou un navigateur web.
+
+La section suivante s'intéresse à l'*évolution de d'écriture du code*, autrefois dirigée par la *structure du document* HTML vers un monde de *fonctions consommant des données*, transformées pour un type d'affichage, que ce soit HTML ou autre.
+
+=== Le syndrome du plugin _jQuery_
+
+Ce que j'appelle le "syndrome du plugin _jQuery_" c'est une combinaison des éléments suivants :
+
+- création de code métier inutilisable en dehors de _jQuery_ ;
+- flou artistique entre ce qui relève de la présentation des données et de l'organisation du code métier ;
+- un code _aveugle_ car éloigné de la structure HTML nécessaire à son fonctionnement ;
+- fragilité du code en cas de changement de la structure HTML associée ;
+- en général, un code difficilement testable – difficile de ne pas aboutir à une interface boguée.
+
+Voici un exemple de document HTML _fragile_ et _mélangeant_ tous les concepts en même temps.
+Il est parfaitement valide mais illustre un ensemble de pratiques courantes que nous allons chercher à _désapprendre_.
+
+[source,html]
+.modules/jquery.html
+----
+include::{sourceDir}/modules/jquery.html[]
+----
+
+[source,html]
+.modules/jquery-plugin.js
+----
+include::{sourceDir}/modules/jquery-plugin.js[]
+----
+
+
+=== Vers une approche _jQuery_ composite
+
+
+[source,html]
+.modules/jquery-module.html
+----
+include::{sourceDir}/modules/jquery.html[]
+----
+
+[source,html]
+.modules/jquery-app.js
+----
+include::{sourceDir}/modules/jquery-app.js[]
+----
+
+=== Partager le code métier avec Node
 
 TBD.
 
-==== Le syndrôme du plugin jQuery
+=== Séparation du fond et de la forme : données, rendu et interactions
 
 TBD.
 
-==== Vers une approche jQuery composite
-
-TBD.
-
-==== Partager le code métier avec Node
-
-TBD.
-
-==== Séparation du fond et de la forme : données, rendu et interactions
-
-TBD.
-
-==== Rapprocher présentation et interactions avec React
-
-TBD.
-
-==== Lier composants et feuilles de style
+=== Rapprocher présentation et interactions avec React
 
 TBD.
 
 [[io]]
-=== Des requêtes AJAX au temps-réel
+== Des requêtes AJAX au temps-réel
 
 TBD.
 
 [[io-fetch]]
-==== Consommer des données hétérogènes avec `fetch()`
+=== Consommer des données hétérogènes avec `fetch()`
 
 TBD.
 
 [[io-sse]]
-==== Approche unidirectionnelle avec _Server Sent Events_
+=== Approche unidirectionnelle avec _Server Sent Events_
 
 TBD.
 
 [[io-websockets]]
-==== Échanges en temps-réel avec _Websockets_
+=== Échanges en temps-réel avec _Websockets_
 
 TBD.
 
+== Développer au quotidien
 
-=== Tester son code
-
-
-==== Écrire des tests avec tape et chai
+=== Reconstruire en continu avec `watchify`
 
 TBD.
 
-==== Exécuter les suites de tests avec Karma
+=== Changements en temps-réel dans le navigateur
 
 TBD.
 
-==== Tester les éléments de lisibilité et de performance
+=== Modulariser ses feuilles de style avec _Sass_
 
 TBD.
 
-==== Tester la compatibilité navigateurs avec BrowserStack
+=== Lier composants et feuilles de style
 
 TBD.
 
-==== Le cas Internet Explorer et ievms
+=== Optimiser ses ressources graphiques
 
 TBD.
 
-=== Conclusion
+== Tester son code
+
+
+=== Écrire des tests avec tape et chai
+
+TBD.
+
+=== Exécuter les suites de tests avec Karma
+
+TBD.
+
+=== Tester les éléments de lisibilité et de performance
+
+TBD.
+
+=== Tester la compatibilité navigateurs avec BrowserStack
+
+TBD.
+
+=== Le cas Internet Explorer et ievms
+
+TBD.
+
+== Conclusion
 
 TBD.

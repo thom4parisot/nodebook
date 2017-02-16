@@ -4,9 +4,11 @@
   "description": "Node.js, bonnes pratiques de développement.",
   "bin": "server.js",
   "scripts": {
-    "lint": "eslint --ignore-path .gitignore --fix '**/*.js'",
+    "format": "prettier-eslint --write chapter*/**/*.js",
+    "lint": "eslint --fix '**/*.js'",
     "test": "exit 0",
-    "posttest": "npm run lint"
+    "posttest": "npm run format && npm run lint",
+    "prepush": "npm t"
   },
   "engines": {
     "node": "^6.0.0"
@@ -30,6 +32,9 @@
     "eslint": "^3.13.1",
     "finalhandler": "^0.4.0",
     "get-port": "^2.1.0",
+    "husky": "^0.13.1",
+    "prettier-eslint": "^3.0.2",
+    "prettier-eslint-cli": "^1.1.0",
     "serve-static": "^1.5.1"
   },
   "eslintConfig": {

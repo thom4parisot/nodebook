@@ -1,15 +1,14 @@
 'use strict';
 
 const traceAtLevel = (maxLevel, currentLevel) => {
-  currentLevel = typeof currentLevel === 'number' ? currentLevel+1 : 1;
+  currentLevel = typeof currentLevel === 'number' ? currentLevel + 1 : 1;
 
-  if (currentLevel < maxLevel){
+  if (currentLevel < maxLevel) {
     console.log('At level %s', currentLevel);
     traceAtLevel(maxLevel, currentLevel);
-  }
-  else {
+  } else {
     console.trace('Level %s', currentLevel);
   }
-}
+};
 
 traceAtLevel(5);

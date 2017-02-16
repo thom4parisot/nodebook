@@ -2,9 +2,9 @@
 
 const maxTries = parseInt(process.argv[2], 10) || 5;
 
-const terminateIn = (tries) => {
+const terminateIn = tries => {
   return () => {
-    if (--tries === 0){
+    if (--tries === 0) {
       console.log('Arrêt du programme…');
       process.exit(0);
 
@@ -12,9 +12,8 @@ const terminateIn = (tries) => {
     }
 
     console.log('Nombre d\'essais restants: %s', tries);
-  }
-}
-
+  };
+};
 
 console.log('Appuyer %s fois sur CTRL+C arrêtera le programme.', maxTries);
 process.on('SIGINT', terminateIn(maxTries));

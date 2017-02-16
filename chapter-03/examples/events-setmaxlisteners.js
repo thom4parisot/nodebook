@@ -10,13 +10,13 @@ server.on('request', (req, res) => {
   res.end();
 });
 
-if (process.env.NODE_ENV !== 'production'){
-  server.on('request', (req) => console.log(req.headers));
+if (process.env.NODE_ENV !== 'production') {
+  server.on('request', req => console.log(req.headers));
 }
 
-server.on('error', (err) => {
+server.on('error', err => {
   if (err) {
-    // ...  
+    // ...
   }
 
   // ...

@@ -5,11 +5,11 @@ class View {
     this.config = Object.assign({}, config);
   }
 
-  render () {
-    throw new Error('Extend the View class to render content.')
+  render() {
+    throw new Error('Extend the View class to render content.');
   }
 
-  static removeDuplicates (char, content) {
+  static removeDuplicates(char, content) {
     return content.replace(new RegExp(`[${char}]{2,}`), char);
   }
 }
