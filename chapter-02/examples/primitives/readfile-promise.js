@@ -2,14 +2,16 @@
 
 const fs = require('fs');
 
-const readFilePromise = (file) => {
-  return new Promise((resolve, reject) => {       // <1>
-    fs.readFile(file, (err, buffer) => {          // <2>
+const readFilePromise = file => {
+  return new Promise((resolve, reject) => {
+    // <1>
+    fs.readFile(file, (err, buffer) => {
+      // <2>
       if (err) {
-        return reject(err);                       // <3>
+        return reject(err); // <3>
       }
 
-      resolve(JSON.parse(buffer));                // <4>
+      resolve(JSON.parse(buffer)); // <4>
     });
   });
 };

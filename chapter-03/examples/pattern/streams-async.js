@@ -1,7 +1,7 @@
 'use strict';
 
 const fs = require('fs');
-const { join } = require('path');
+const {join} = require('path');
 const dataDir = join(__dirname, '..', '..');
 const filename = join(dataDir, 'package.json');
 

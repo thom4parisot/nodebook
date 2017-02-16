@@ -1,6 +1,6 @@
 'use strict';
 
-const { dependencies } = require('../../package.json');
+const {dependencies} = require('../../package.json');
 let pattern = /^passport/;
 
 for (let moduleName in dependencies) {

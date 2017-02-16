@@ -3,7 +3,7 @@
 const test = require('tape');
 const sinon = require('sinon');
 
-test('Date', (t) => {
+test('Date', t => {
   t.plan(3);
 
   const d = Date;

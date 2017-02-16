@@ -7,7 +7,7 @@ const rootDir = path.join(__dirname, '..', '..');
 const options = {
   ignoreInitial: true,
   ignored: /node_modules/,
-  persistent: true
+  persistent: true,
 };
 
 const watcher = chokidar.watch(rootDir, options);
@@ -22,9 +22,12 @@ watcher.on('change', filepath => {
   console.log('change - %s', path.relative(rootDir, filepath));
 });
 
-setTimeout(() => {
-  // eslint-disable-next-line global-require
-  require('./mkdirp');
+setTimeout(
+  () => {
+    // eslint-disable-next-line global-require
+    require('./mkdirp');
 
-  setTimeout(watcher.close.bind(watcher), 200);
-}, 400);
+    setTimeout(watcher.close.bind(watcher), 200);
+  },
+  400,
+);

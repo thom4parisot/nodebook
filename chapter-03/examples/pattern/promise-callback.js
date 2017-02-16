@@ -2,7 +2,7 @@
 
 const messageAbbrAsync = require('../message-abbr');
 
-const messageAbbr = (text) => {
+const messageAbbr = text => {
   return new Promise((resolve, reject) => {
     messageAbbrAsync(text, (err, abbr) => {
       if (err) {
@@ -10,12 +10,11 @@ const messageAbbr = (text) => {
       }
 
       resolve(abbr);
-    })
+    });
   });
 };
 
-const logErr = (err) => console.error(err);
-const logData = (data) => console.log(data);
+const logErr = err => console.error(err);
+const logData = data => console.log(data);
 
-messageAbbr('good morning Bordeaux!')
-  .then(logData, logErr);  // <3>
+messageAbbr('good morning Bordeaux!').then(logData, logErr); // <3>

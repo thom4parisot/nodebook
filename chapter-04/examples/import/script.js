@@ -1,6 +1,6 @@
 /* global log */
 window.addEventListener('load', () => {
-  log('OK');// <2>
+  log('OK'); // <2>
 });
 
-log('KO');  // <1>
+log('KO'); // <1>

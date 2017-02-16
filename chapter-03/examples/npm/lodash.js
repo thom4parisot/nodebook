@@ -1,6 +1,6 @@
 'use strict';
 
-const { partial, compose } = require('lodash');
+const {partial, compose} = require('lodash');
 
 const charSplit = (char, string) => string.split(char);
 const mapStringFn = (fn, array) => {

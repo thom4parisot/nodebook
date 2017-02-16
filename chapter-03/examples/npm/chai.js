@@ -4,7 +4,7 @@
 
 /* global describe, it */
 
-const { expect } = require('chai');
+const {expect} = require('chai');
 const messageAbbr = require('../message-abbr');
 
 describe('Date assertion sandbox', () => {
@@ -14,7 +14,7 @@ describe('Date assertion sandbox', () => {
 });
 
 describe('messageAbbr', () => {
-  it('should return a capitalised abbr', (done) => {
+  it('should return a capitalised abbr', done => {
     messageAbbr('hello world', (err, abbr) => {
       expect(err).to.be.null;
       expect(abbr).to.equal('HW');
@@ -23,8 +23,8 @@ describe('messageAbbr', () => {
   });
 
   it('should populate the callback error argument if it fails', () => {
-    messageAbbr(null, (err) => {
+    messageAbbr(null, err => {
       expect(err).to.be.an(Error);
-    })
+    });
   });
 });

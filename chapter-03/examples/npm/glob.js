@@ -5,7 +5,7 @@ const join = require('path').join;
 
 const options = {
   cwd: join(__dirname, '..', '..'),
-  ignore: 'node_modules/**'
+  ignore: 'node_modules/**',
 };
 
 glob('**/cli*.{sh,js}', options, (err, files) => {
@@ -13,5 +13,5 @@ glob('**/cli*.{sh,js}', options, (err, files) => {
     return console.error(err);
   }
 
-   console.log(files); // <1>
+  console.log(files); // <1>
 });

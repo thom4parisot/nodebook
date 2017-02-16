@@ -2,19 +2,22 @@
 
 const uppercaseAsync = (message, callback) => {
   process.nextTick(() => {
-    callback(null, message.toLocaleUpperCase ? message.toLocaleUpperCase() : message);
+    callback(
+      null,
+      message.toLocaleUpperCase ? message.toLocaleUpperCase() : message,
+    );
   });
-}
+};
 
 const splitWordsAsync = (message, callback) => {
   process.nextTick(() => {
-    if (typeof message !== 'string'){
+    if (typeof message !== 'string') {
       return callback(new TypeError('message is not a String'));
     }
 
     return callback(null, message.split(' '));
   });
-}
+};
 
 const abbreviateAsync = (words, callback) => {
   process.nextTick(() => {
@@ -22,12 +25,11 @@ const abbreviateAsync = (words, callback) => {
       const abbr = words.reduce((abbr, word) => abbr + word[0], '');
 
       return callback(null, abbr);
-    }
-    catch (err){
+    } catch (err) {
       return callback(err);
     }
   });
-}
+};
 
 const messageAbbr = (message, callback) => {
   uppercaseAsync(message, (err, message) => {

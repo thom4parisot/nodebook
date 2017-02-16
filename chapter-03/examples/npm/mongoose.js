@@ -13,19 +13,20 @@ mongoose.connect(MONGODB_URL || 'mongodb://localhost:27017/nodebook');
 const BookSchema = new Schema({
   id: Schema.ObjectId,
   title: String,
-  created_at: { type: Date, default: Date.now }
+  created_at: {type: Date, default: Date.now},
 });
 
 BookSchema.path('title').set(title => title.trim());
 
 const Book = mongoose.model('Book', BookSchema);
 
-Promise.all([
-  new Book({ title: 'Node.js' }).save(),
-  new Book({ title: 'CSS maintenables' }).save(),
-  new Book({ title: 'Open Sky' }).save()
-])
-.then(records => {
-  console.log('%d enregistrements créés.', records.length);   // <1>
-  mongoose.disconnect();
-});
+Promise
+  .all([
+    new Book({title: 'Node.js'}).save(),
+    new Book({title: 'CSS maintenables'}).save(),
+    new Book({title: 'Open Sky'}).save(),
+  ])
+  .then(records => {
+    console.log('%d enregistrements créés.', records.length); // <1>
+    mongoose.disconnect();
+  });

@@ -4,7 +4,7 @@
   "description": "Node.js, bonnes pratiques de développement.",
   "bin": "server.js",
   "scripts": {
-    "format": "prettier-eslint --write chapter*/**/*.js",
+    "format": "prettier-eslint --write --log 'chapter*/**/*.js'",
     "lint": "eslint --fix '**/*.js'",
     "test": "exit 0",
     "posttest": "npm run format && npm run lint",
