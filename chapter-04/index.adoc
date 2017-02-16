@@ -79,7 +79,7 @@ Cet arbre est lui-même analysable par de *nouveaux outils émergents* :
 [TIP]
 .[RemarquePreTitre]#Lien# Annonce d'_esprima_
 ====
-_Aryia Hidayat_ introduit exprima dans un billet de blog.
+_Aryia Hidayat_ introduit esprima dans un billet de blog.
 Il y présente notamment des comparatifs de performances d'exécution sur différentes VM ECMAScript et face à d'autres parseurs.
 
 - [URL]#https://ariya.io/2011/12/introducing-esprima#
@@ -96,7 +96,7 @@ La version de navigateur la plus ancienne ou la moins conforme aux standards ét
 Cela voulait dire se priver de techniques modernes, standardisées ou en cours en de standardisation.
 Cela voulait dire des _hacks_ dans ses CSS, dans son code _ECMAScript_ et dans ses ressources graphiques.
 
-Alors que dire si on inclut une librairie tierce qui fait l'affaire mais n'offre pas une compatabilité aussi antique que désirée ?
+Alors que dire si on inclut une librairie tierce qui fait l'affaire mais n'offre pas une compatibilité aussi antique que désirée ?
 
 [[transpilation]]
 === Écrire au plus proche des standards
@@ -159,7 +159,7 @@ include::{sourceDir}/babel-es2015.js[]
 Ce code représente l'*idéal de ce que l'on souhaite écrire*.
 Le seul obstacle consiste à _traduire_ ce code pour l'ensemble des navigateurs web compatibles avec _ECMAScript 5_.
 
-Éxécutons cette commande :
+Exécutons cette commande :
 
 ----
 $ npm run babel -- --no-babelrc examples/babel-es2015.js
@@ -220,7 +220,7 @@ Une liste d'options ainsi qu'une aide à la configuration sont disponibles sur l
 Des outils comme _babel_ nous permettent d'écrire avec une *syntaxe moderne*.
 Les *polyfills* nous permettent de *combler les fonctionnalités manquantes*, leur implémentation.
 
-La destructuration, les constantes et les classes sont des _éléments de syntaxe_ d'_ECMAScript 2015_.
+La déstructuration, les constantes et les classes sont des _éléments de syntaxe_ d'_ECMAScript 2015_.
 L'objet `Promise` et la méthode `Array.from` sont des _fonctionnalités_ d'_ECMAScript 2015_.
 La fonction `fetch`, l'objet `File` et l'API `WebSocket` sont des _fonctionnalités_ d'_HTML5_.
 
@@ -290,7 +290,7 @@ include::{sourceDir}/polyfill-import.html[]
 <1> Nous verrons <<modules,comment importer des modules>> ci-après ;
 <2> On importe un deuxième _polyfill_, celui de la méthode `Number.isNaN`.
 
-Le module _npm_ `core-js` est une librairie exhaustive de _polyfills_ pouvant être inclus un à un, ou par versions d'_ECMAScript_.
+Le module _npm_ `core-js` est une librairie exhaustive de _polyfills_ pouvant être inclus un à un ou par versions d'_ECMAScript_.
 
 [TIP]
 .[RemarquePreTitre]#Documentation# `core-js`
@@ -313,7 +313,7 @@ Cette configuration illustre un souhait de compatibilité avec _Internet Explore
 [CAUTION]
 .[RemarquePreTitre]#Attention# Performance et duplication
 ====
-Il faut veiller à ne pas allourdir inutilement une application.
+Il faut veiller à ne pas alourdir inutilement une application.
 
 Laissons la responsabilité de _polyfiller_ aux utilisateurs de notre code ; particulièrement si celui-ci est *redistribué* en tant que module _npm_ public.
 
@@ -383,7 +383,7 @@ include::{sourceDir}/import/script.js[]
 
 S'il est facile d'ajouter du code dans le navigateur, on constate plusieurs problèmes :
 
-- partager du code entre script repose sur une *attente explicite* ;
+- partager du code entre scripts repose sur une *attente explicite* ;
 - le partage de variables entre scripts peut entrainer des *collisions* (par exemple, deux variables du même nom définies dans des scripts différents) ;
 - il n'y a pas de moyen évident de rendre des bouts de code _privé_ au sein de chaque script.
 
@@ -474,7 +474,7 @@ Il expose notamment un concept d'intégrations (les _transforms_) afin d'effectu
 
 Là où _babel_ cherche uniquement à traduire un langage vers un autre, _browserify_ est le couteau suisse pour effectuer des remplacements majeurs dans le code :
 
-- portage de la fonction `require()` et inclusion du code des modules sous-jascent ;
+- portage de la fonction `require()` et inclusion du code des modules sous-jacent ;
 - suppression de code conditionnel ;
 - remplacement d'API spécifiques à Node par des polyfills pour le web ;
 - extraction de CSS ;
