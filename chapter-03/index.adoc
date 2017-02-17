@@ -1,3 +1,4 @@
+:sectnums:
 :nodeCurrentVersion: v6
 :npmCurrentVersion: v4
 :revdate: {docdate}
@@ -7,7 +8,12 @@ ifdef::env[]
 :imagesdir: .
 endif::[]
 
-== [ChapitreNumero]#3# Premier projet
+= Développer un service web
+
+[CAUTION]
+====
+Ce chapitre va prochainement être remanié.
+====
 
 Maintenant que nous en savons davantage sur Node en théorie et en pratique, il est temps de plonger dans quelque chose de plus ambitieux : la gestion d'un projet entier.
 
@@ -34,7 +40,7 @@ Ces millisecondes et méga-octets de mémoire peuvent avoir l'air de rien du tou
 
 toc::[]
 
-=== Cycles de vie d'un projet
+== Cycles de vie d'un projet
 
 La pierre angulaire d'un projet Node est le fichier `package.json`.
 Incontournable, il décrit les composants essentiels du projet.
@@ -47,7 +53,7 @@ Il se situe à la racine de chaque module et contient plusieurs catégories d'in
 - *divers* : données de configuration ou utilisées par des modules Node.
 
 .Exemple minimaliste d'un fichier `package.json`
-image::images/package-json.png[align="center",scaledwidth="85%"]
+image::images/package-json.png[align="center",width="85%"]
 
 Le fichier `package.json` est un mécanisme de description, d'installation et de documentation distribué avec les sources de tout projet.
 
@@ -56,14 +62,14 @@ Il explicite les dépendances, facilite leur installation et leurs mises à jour
 
 Donc tant qu'à faire, autant le créer dès le début d'un projet — même si on ne sait pas encore ce dont on va avoir besoin de manière exhaustive.
 
-==== Initialisation
+=== Initialisation
 
 L'initialisation d'un projet Node passe par la création du fichier `package.json`, et ce, quelle que soit sa taille : petit ou grand, application ou module, public ou privé.
 
 Nous pourrions créer ce fichier à la main et le compléter en suivant la spécification.
 Cependant il existe une commande bien utile qui réduit le risque d'erreurs et en accélère sa complétion : `npm init`.
 
-===== npm init
+==== npm init
 
 L'utilisation de la commande `npm init` est une bonne habitude à prendre pour débuter tout projet Node.
 
@@ -74,7 +80,7 @@ Certaines réponses seront pré-remplies, par exemple si un dépôt Git ou un fi
 Ensuite libre à vous de le compléter avec d'autres éléments optionnels de configuration.
 
 .Exemple de questions posées lors de la séquence `npm init`
-image::images/npm-init.png[align="center",scaledwidth="85%"]
+image::images/npm-init.png[align="center",width="85%"]
 
 On peut gagner du temps en utilisant l'option `--yes` (et son raccourci `-y`) pour créer le fichier `package.json` sans avoir à répondre aux questions :
 
@@ -82,7 +88,7 @@ On peut gagner du temps en utilisant l'option `--yes` (et son raccourci `-y`) po
 $ npm init -y
 ----
 
-===== Configurer package.json
+==== Configurer package.json
 
 Que votre projet soit public ou non, il est important de renseigner les champs décrits ci-après.
 Ils indiqueront aux utilisateurs les intentions du projet ainsi que l'emplacement des ressources pour en savoir davantage à son propos ou tout simplement, pour y contribuer.
@@ -123,7 +129,7 @@ Par exemple, si votre projet `A` installe `gulp-webserver` en `devDependencies` 
 
 Voyons maintenant comment organiser notre code au sein de notre espace de travail.
 
-===== Organiser l'espace de travail
+==== Organiser l'espace de travail
 
 Chaque développeur possède sa propre manière de ranger et d'organiser son code.
 
@@ -194,7 +200,7 @@ Servez-vous en pour automatiser l’initialisation de vos projets — surtout s�
 
 Intéressons-nous plus particulièrement au répertoire _node_modules_.
 
-===== Ajouter des dépendances
+==== Ajouter des dépendances
 
 Comme nous l'avons vu auparavant, le répertoire _node_modules_ contient les dépendances requises par la fonction `require()` (lire la section _modules_ du _Chapitre 2_).
 
@@ -219,7 +225,7 @@ La commande précédente effectue plusieurs opérations :
 5. inscription de _async_ et de _yargs_ dans la configuration _dependencies_ de notre fichier `package.json`.
 
 .Exemple de résultat de la commande `npm install`
-image::images/npm-install-save.png[align="center",scaledwidth="85%"]
+image::images/npm-install-save.png[align="center",width="85%"]
 
 La commande npm prend soin de télécharger et de persister les dépendances, à la fois dans le répertoire _node_modules_ et dans le fichier _package.json_.
 Ce dernier contient désormais une section _dependencies_ :
@@ -266,7 +272,7 @@ const { argv } = require('yargs');
 
 Maintenant que nous savons installer et sauvegarder des dépendances par le biais du fichier `package.json`, sauvegardons l'état actuel du projet avec un gestionnaire de versions.
 
-===== Versionner son code
+==== Versionner son code
 
 Node s'intègre parfaitement avec les gestionnaires de version de code.
 Nous illustrerons la démarche à l'aide de Git mais sachez qu'il est tout à fait possible d'utiliser Mercurial, SVN, Team Foundation Server ou tout autre gestionnaire de version gérant les fichiers texte.
@@ -310,7 +316,7 @@ La suite du cycle de vie Git sera similaire à ce que vous aviez l'habitude de p
 
 À ce stade, nous savons initialiser un projet Node, installer des dépendances et maintenir son état dans un gestionnaire de version.
 
-===== Approche modulaire
+==== Approche modulaire
 
 La force de Node réside dans sa facilité à créer et réutiliser du code dont la portée est contenue.
 C'est un atout considérable pour créer et maintenir du code modulaire ne se limitant pas qu'à une seule application.
@@ -361,7 +367,7 @@ Nous verrons dans un chapitre ultérieur comment utiliser cette même logique de
 Non seulement la modularité renforcera la facilité à tester votre code, à expliciter ses intentions mais en plus il accentuera l'ubiquité de son utilisation.
 
 [[install]]
-==== Installation
+=== Installation
 
 À ce stade, nous avons toutes les cartes en main pour créer une application Node.
 
@@ -369,7 +375,7 @@ Il ne reste plus qu'à pouvoir l'installer, dans un état identique sur un autre
 
 Dans tous les cas décrits ci-après, que ce soit via Git ou via une archive, npm requiert que le fichier `package.json` soit situé à sa racine.
 
-===== Autonome
+==== Autonome
 
 Une installation autonome concerne aussi bien un développeur ayant besoin de contribuer à un projet qu'un projet exposant une ou plusieurs interfaces.
 
@@ -401,7 +407,7 @@ Le clonage du dépôt pour être remplacé par des méthodes alternatives, de ty
 
 Ces méthodes permettent entre autres d'inclure les dépendances contenues dans le répertoire _node_modules_ et de garantir la version exacte de l'intégralité de l'arbre de dépendance.
 
-===== Locale
+==== Locale
 
 Dans le cas où votre projet n'est pas autonome et/ou expose une API Node _mais_ n'est pas disponible dans un registre npm, il existe tout de même une méthode d'installation à partir d'un dépôt Git :
 
@@ -421,7 +427,7 @@ npm install --save git+ssh://git@github.com:oncletom/nodebook.chapter-03.git#mas
 npm install --save https://github.com/oncletom/nodebook.chapter-03/archive/master.tar.gz
 ----
 
-===== Globale
+==== Globale
 
 L'installation globale est une installation rendant disponible votre module sur tout le système d'exploitation.
 
@@ -445,13 +451,13 @@ Et ce, en fonction du contexte d'installation — qu'il soit global ou local don
 - `npm install eslint` : exécutable mis à disposition dans le répertoire `./node_modules/.bin`.
 ====
 
-==== Configuration
+=== Configuration
 
 Certaines applications ou modules nécessitent d'en savoir plus sur le contexte d'exécution, l'emplacement de ressources ou la manière de se connecter à des serveurs distants, par exemple.
 
 C'est à la fois une bonne pratique en terme de flexibilité… et en même temps, vous n'aurez surement pas envie de partager publiquement vos identifiants de base de données, qu'elles contiennent ou pas des informations sensibles.
 
-===== Variables d'environnement
+==== Variables d'environnement
 
 L'utilisation d'une variable d'environnement pour configurer l'exécution d'une application est la solution la plus aisée à implémenter.
 
@@ -478,7 +484,7 @@ node config/env.js <3>
 
 Ces variables d'environnement ont l'avantage d'avoir une portée au niveau du processus uniquement ou d'être propagées à l'échelle du système — via `export` en bash, par exemple.
 
-===== Arguments
+==== Arguments
 
 Les arguments correspondent à un tableau de chaînes exposé par `process.argv`.
 
@@ -530,7 +536,7 @@ node config/yargs.js <1>
 Consultez la documentation de ce module pour davantage d'exemples variés et avancés.
 
 [[project-configuration]]
-===== Fichier de configuration
+==== Fichier de configuration
 
 Opter pour un fichier de configuration fait sens si de nombreux paramètres sont à fournir à l'application — ou si certains de ces paramètres impliquent des arborescences d'objets ou de tableaux ECMAScript.
 
@@ -608,7 +614,7 @@ CONFIG_FILE=~/.secured/config.json node app.js
 ----
 ====
 
-==== Exécution de l'application
+=== Exécution de l'application
 
 Nous avons vu les différentes manières d'utiliser l'interpréteur Node dans le _chapitre 2_.
 Pour autant, comment exécuter une application de longue durée… par exemple un serveur HTTP ?
@@ -616,7 +622,7 @@ Pour autant, comment exécuter une application de longue durée… par exemple u
 Il existe plusieurs méthodes, allant de la simple exécution d'un script Node à l'utilisation de gestionnaire de processus voire même des gestionnaires système tels que _System V_ ou _systemd_.
 
 [[node-exec]]
-===== Invocation Node
+==== Invocation Node
 
 L'utilisation seule de l'interpréteur Node pour démarrer une application est évidemment la plus simple mais également la moins robuste.
 
@@ -626,7 +632,7 @@ $ node server.js
 
 Elle est pratique et acceptable dans le cadre d'un développement local voire encore dans le cadre d'un exécutable à usage ponctuel.
 
-===== Plantage applicatif
+==== Plantage applicatif
 
 Un programme Node s'arrête en général pour deux raisons :
 
@@ -663,7 +669,7 @@ Il conviendrait alors de gérer le plantage d'un programme avec l'événement `u
 Dans tous les cas, il est recommandé de gérer le redémarrage de votre application Node _en dehors_ de Node.
 Différentes stratégies sont présentées dans le <<../chapter-07/index.adoc#,chapitre 7>>.
 
-===== Pendant le développement
+==== Pendant le développement
 
 Seulement voilà, il est fréquent qu'une application plante pendant le développement ou que l'on souhaite la relancer suite à un changement de code.
 
@@ -675,7 +681,7 @@ Au lieu d'exécuter `node server.js`, exécutez `nodemon server.js`.
 [URL]#https://npmjs.com/nodemon#
 
 [[npm-scripts]]
-===== Scripts npm
+==== Scripts npm
 
 L'utilisation de _scripts npm_ permet d'invoquer Node de manière légèrement différente tout en masquant la complexité des scripts au niveau du fichier `package.json`.
 
@@ -738,13 +744,13 @@ Toutefois les solutions précédemment citées n'adresseront pas les problémati
 Nous aborderons les différentes stratégies de _provisionning_ d'applications Node dans le <<../chapter-07/index.adoc#,chapitre 7 : Héberger, déployer et monitorer>>.
 
 
-==== Modification de l'application
+=== Modification de l'application
 
 Vous disposez d'une application qui démarre et dont le versioning est mis en place… mais concrètement, on fait quoi quand le code change ?
 
 Cette section s'intéresse aux habitudes à prendre avant de pousser le code modifié dans votre dépôt.
 
-===== Mise à jour des dépendances
+==== Mise à jour des dépendances
 
 L'erreur classique : l'application fonctionne sur votre machine mais pas sur celle de votre collègue.
 Un module manque mais vous ne comprenez pas pourquoi…
@@ -773,7 +779,7 @@ Ces deux commandes vous assureront un état d'installation similaire à ce qu'un
 ====
 Il se peut qu'une erreur _EPEERINVALID_ se déclare lors d'une mise à jour ou d'une fraîche installation.
 
-image::images/npm-outdated-peerinvalid.png[align="center",scaledwidth="85%"]
+image::images/npm-outdated-peerinvalid.png[align="center",width="85%"]
 
 Cela signifie qu'un paquet réclame une dépendance d'une version différente et incompatible avec celle que vous déclarer dans votre fichier `package.json`.
 
@@ -784,7 +790,7 @@ Trois solutions s'offrent à vous :
 - en dernier recours, supprimer le contenu de _node_modules_ et tout réinstaller proprement — des fois cela suffit à écarter les conflits de version.
 ====
 
-===== Exécution des tests
+==== Exécution des tests
 
 L'écriture de tests et la vérification de la qualité de votre code sont un excellent moyen de vous assurez que de nouveaux bugs ne sont pas introduits dans votre application.
 
@@ -857,7 +863,7 @@ La commande `npm test` est alors composée de deux autres commandes personnalis�
 Vous maintenez ainsi une lisibilité au sein de votre fichier `package.json` tout en bénéficiant d'une indépendance d'exécution de vos commandes.
 
 [[semver]]
-===== Choisir un bon numéro de version
+==== Choisir un bon numéro de version
 
 Bien versionner chaque publication de votre projet n'apporte que des avantages.
 Et ce, que vous choisissiez ou non de publier vos modules dans un registre npm public ou privé.
@@ -885,7 +891,7 @@ Autrement dit, si vous modifier le numéro de version de `1.1.1` vers :
 
 À ce stade, nous sommes dans le déclaratif : chaque projet ajoutant une dépendance vers un autre module _choisit_ sa manière d'accepter les nouvelles versions.
 
-===== Publication du code
+==== Publication du code
 
 Puisque nous utilisons un outil de suivi de version comme Git, il est facile non seulement d'installer le projet sur les machines autorisées.
 Mais il est aussi aisé d'utiliser ce même mécanisme pour déclarer notre code comme dépendance d'un autre de nos projets.
@@ -952,7 +958,7 @@ Utilisez l'installation versionnée pour installer spécifiquement cette version
 npm install --save-exact nodebook@0.4.0
 ----
 
-==== Opérations de routine
+=== Opérations de routine
 
 Votre projet fonctionne de manière autonome.
 Mieux encore : il n'y a plus de bug à corriger ni de nouvelle fonctionnalité à apporter pour le moment.
@@ -960,7 +966,7 @@ Mieux encore : il n'y a plus de bug à corriger ni de nouvelle fonctionnalité �
 Alors que faire d'une application Node en production avant qu'elle ne prenne la poussière ?
 
 [[npm-outdated]]
-===== Vérifier l'état des dépendances
+==== Vérifier l'état des dépendances
 
 Maintenir ses dépendances à jour est important pour deux raisons :
 
@@ -978,7 +984,7 @@ npm outdated
 La lecture de sa sortie peut être déroutante au premier abord, notamment dans le cas d'un module qui n'a pas été mis à jour via `npm update` depuis un moment :
 
 .Résultats obsolètes issus de `npm outdated`
-image::images/npm-outdated.png[align="center",scaledwidth="85%"]
+image::images/npm-outdated.png[align="center",width="85%"]
 
 Le tableau ne liste que les dépendances considérées comme obsolètes en l'état actuel d'installation de votre projet.
 Il se peut donc que le résultat varie d'une machine à l'autre, en fonction des versions installées localement. +
@@ -999,7 +1005,7 @@ Toute dépendance listée dans le fichier `package.json` mais absente du tableau
 La première action à mener est de procéder à l'exécution de la commande `npm update`, puis de relancer la commande `npm outdated` :
 
 .Résultats `npm outdated` après mise à jour
-image::images/npm-outdated-wanted.png[align="center",scaledwidth="85%"]
+image::images/npm-outdated-wanted.png[align="center",width="85%"]
 
 Le résultat est probant : de nombreuses dépendances précédemment listées en rouge ont disparu.
 Il ne reste que trois dépendances sur lesquelles nous pouvons avoir une action directe en modifiant la version référencées dans le fichier `package.json`.
@@ -1025,7 +1031,7 @@ Il notifie votre projet et propose automatiquement une _pull request_ en cas de 
 - [URL]#https://greenkeeper.io/#
 ====
 
-===== Éclater sa base de code
+==== Éclater sa base de code
 
 Le temps sédimente votre base de code.
 Elle grossit, se densifie et devient à chaque fois un peu plus difficile à lire et naviguer.
@@ -1058,7 +1064,7 @@ Il s'agit d'une logique de maintenabilité et d'expression des intentions de vot
 Elle sera plus facile à maintenir si elle isole et rend explicite les dépendances entre les différents modules. +
 À moins que vous ne soyez fan du code spaghetti ;-)
 
-===== Alertes de sécurité
+==== Alertes de sécurité
 
 Il existe quatre niveaux où des failles de sécurité peuvent s'immiscer :
 
@@ -1075,14 +1081,14 @@ Plusieurs canaux sont à votre disposition pour être notifié très rapidement 
 - *Failles de sécurité de Node* : son flux RSS [URL]#https://nodejs.org/en/feed/vulnerability.xml# ;
 - *Mises à jour de Node* : [URL]#https://nodejs.org/en/blog/# — et son flux RSS [URL]#https://nodejs.org/en/feed/blog.xml#.
 
-=== Bien utiliser npm
+== Bien utiliser npm
 
 Le registre npm fourmille de modules en tous genres.
 Ils fournissent de simples fonctions, des bibliothèques ou des _frameworks_ complets pour gérer vos accès réseau, vos bases de données, la qualité de vos projets et leur automatisation.
 
 Mais comment se retrouver dans cette jungle contenant plusieurs dizaines de milliers de modules ?
 
-==== Chercher un module
+=== Chercher un module
 
 Le site web du registre npm ([URL]#https://npmjs.com#) est _la_ ressource incontournable.
 
@@ -1097,14 +1103,14 @@ Son algorithme d'affichage est d'ailleurs identique. +
 Astuce : si le motif de recherche est encadré par le caractère `/`, la commande npm effectuera la requête via une expression régulière :
 
 .npm search /slug/
-image::images/npm-search-cli.png[align="center",scaledwidth="85%"]
+image::images/npm-search-cli.png[align="center",width="85%"]
 
 Enfin, le projet _npmsearch_ ([URL]#https://npmsearch.com#) est une initiative indépendante dont le but est de proposer une interface optimisée pour la recherche de modules Node.
 Ses principaux avantages sont la rapidité d'affichage des résultats, ainsi qu'un tri par défaut orienté sur la *pertinence*.
 
 Cette pertinence est évaluée selon certains des critères évoqués ci-après.
 
-==== Critères de sélection d'un module
+=== Critères de sélection d'un module
 
 La sélection d'un module est un choix subjectif : la qualité, la pertinence et la popularité sont corrélés sans pour autant être des critères impératifs. +
 Un module peu populaire sera-t-il moins bon pour autant ? Un module populaire est-il plus performant qu'une alternative ? Un module bien testé sera-t-il plus aisé à utiliser ?
@@ -1119,10 +1125,10 @@ Bref, pour vous aider à choisir — et ce peu importe le contexte — voici une
 - *état des contributions* : les mainteneurs répondent-ils aux contributeurs ? Les contributions de code sont-elles acceptées dans des conditions légitimes ? Ou tout simplement, y'a-t-il beaucoup de déclaration de bugs en suspens ? Telles sont les indicateurs de vitalité pour estimer la gravité et la probabilité que la bibliothèque nous explose au visage lorsqu'on ne s'y attendra pas.
 
 .Page npm d'un module populaire et fiable
-image::images/module-npm-ok.png[align="center",scaledwidth="85%"]
+image::images/module-npm-ok.png[align="center",width="85%"]
 
 .Page npm peu encourageante
-image::images/module-npm-ko.png[align="center",scaledwidth="85%"]
+image::images/module-npm-ko.png[align="center",width="85%"]
 
 Enfin, n'oubliez pas qu'il s'agit de critères subjectifs.
 Les mainteneurs du module ne sont peut-être pas de bons communicants ou n'ont que peu d'expérience en terme de tests… ou ils n'ont tout simplement pas eu le temps. +
@@ -1132,18 +1138,18 @@ Même s'il ne s'agit _que_ de cinq lignes de code, d'un exemple supplémentaire 
 
 C'est comme cela que l'écosystème s'améliore petit à petit… et que vous apprenez par la même occasion.
 
-==== Sélection de modules npm
+=== Sélection de modules npm
 
 Débuter dans un océan de plusieurs dizaines de milliers de modules npm reste une chose peu aisée.
 
 Les prochaines pages de l'ouvrage dressent une liste non-exhaustive de modules fréquemment employés et appréciés par les communautés de développeurs Node.
 
-===== Manipulations diverses
+==== Manipulations diverses
 
 Ces bibliothèques adressent des besoins quotidiens en terme de manipulation de chaînes ou de dates.
 Elles vous permettront aussi d'organiser votre code en exécutant des fonctions de manière séquentielle, parallèle ou en boucles asynchrones.
 
-====== lodash
+===== lodash
 
 _lodash_ est une excellente bibliothèque de manipulation de tableaux, d'objets, de fonctions et de chaînes.
 
@@ -1159,7 +1165,7 @@ include::{sourceDir}/npm/lodash.js[]
 ----
 <1> Affiche `['A', 'B', 'C', 'D']`.
 
-====== async
+===== async
 
 _async_ est une bibliothèque de gestion de fonctions asynchrones.
 Son but ?
@@ -1175,7 +1181,7 @@ include::{sourceDir}/npm/async.js[]
 ----
 <1> Affiche `['A', 'B', 'C', 'D']`.
 
-====== string
+===== string
 
 _string_ est un utilitaire de manipulation de chaînes de caractère.
 Le module fournit des méthodes pour échapper, nettoyer, tronquer, remplacer, compter… entre autres.
@@ -1192,7 +1198,7 @@ include::{sourceDir}/npm/string.js[]
 <2> `<h1>Blog Post</h1>` ;
 <3> `\&lt;h1\&gt;Blog Post\&lt;/h1\&gt;`.
 
-====== request
+===== request
 
 _request_ est un module facilitant la manipulation de requêtes HTTP.
 Cela concerne aussi bien l'envoi de formulaires, l'obtention de jeton OAuth que l'obtention d'une ressource distante et son écriture sur le système de fichiers.
@@ -1205,7 +1211,7 @@ Cela concerne aussi bien l'envoi de formulaires, l'obtention de jeton OAuth que 
 include::{sourceDir}/npm/request.js[]
 ----
 
-====== moment
+===== moment
 
 _moment_ est une bibliothèque de gestion de temps.
 Elle simplifie énormément le _parsing_ des chaînes, l'ajout/soustraction de durées et propose des utilitaires de formatage d'affichage qui vous feront gagner un temps précieux.
@@ -1222,7 +1228,7 @@ include::{sourceDir}/npm/moment.js[]
 <2> Affiche `13/09/14` ;
 <3> Affiche `2 jours`.
 
-====== eventemitter3
+===== eventemitter3
 
 _eventemitter3_ est une bibliothèque performante de gestion d'événements.
 
@@ -1239,11 +1245,11 @@ include::{sourceDir}/npm/eventemitter3.js[]
 <3> Affiche `on: ping,ping` ;
 <4> N'affiche rien, l'événement étant désormais déconnecté.
 
-===== Système de fichier
+==== Système de fichier
 
 Ces bibliothèques adressent des besoins quotidiens de manipulation de fichiers, que ce soit leur création, suppression mais aussi leur sélection ou l'écoute d'événements liés à ces activités.
 
-====== mkdirp
+===== mkdirp
 
 _mkdirp_ est identique à la commande UNIX `mkdir -p`.
 C'est à dire que les répertoires seront créés récursivement s'ils n'existent pas au préalable.
@@ -1259,7 +1265,7 @@ include::{sourceDir}/npm/mkdirp.js[]
 L'exemple précédent illustre l'écriture de la date courante dans un fichier.
 Ce fichier n'est écrit que lorsque l'arborescence est préalablement créée.
 
-====== rimraf
+===== rimraf
 
 _rimraf_ se situe dans la lignée de  _mkdirp_ : il supprime une arborescence de manière récursive — équivalent de la commande `rm -rf`.
 Encore une fois, sans la complexité d'avoir à gérer un enchevêtrement de fonctions asynchrones.
@@ -1272,7 +1278,7 @@ Encore une fois, sans la complexité d'avoir à gérer un enchevêtrement de fon
 include::{sourceDir}/npm/rimraf.js[]
 ----
 
-====== glob
+===== glob
 
 _glob_ est un utilitaire très pratique pour filtrer une recherche récursive au sein du système de fichiers.
 
@@ -1287,7 +1293,7 @@ include::{sourceDir}/npm/glob.js[]
 ----
 <1> Affiche `[ 'examples/cli-app.js', 'examples/npm/cli-table.js' ]`.
 
-====== fs-extra
+===== fs-extra
 
 _fs-extra_ complète _rimraf_ et _mkdirp_ et ajoute d'autres fonctions utilitaires telles que la copie et le déplacement récursifs.
 
@@ -1299,7 +1305,7 @@ _fs-extra_ complète _rimraf_ et _mkdirp_ et ajoute d'autres fonctions utilitair
 include::{sourceDir}/npm/fs-extra.js[]
 ----
 
-====== graceful-fs
+===== graceful-fs
 
 _graceful-fs_ n'apporte aucune API supplémentaire à l'API native Node `fs`.
 Sous le capot la bibliothèque simplifie l'écriture de notre code en tentant plusieurs fois d'accéder à un fichier si celui-ci n'est pas disponible.
@@ -1314,7 +1320,7 @@ include::{sourceDir}/npm/graceful-fs.js[]
 ----
 <1> Affiche `nodebook.chapter-03`.
 
-====== chokidar
+===== chokidar
 
 _chokidar_ normalise l'observation du système de fichiers pour une très grande majorité de systèmes d'exploitation.
 La bibliothèque ajoute quelques fonctionnalités de filtre, de persistance d'observation et permet de dynamiquement ajouter ou retirer des fichiers de l'observation.
@@ -1337,12 +1343,12 @@ addDir - tmp/blah/blah
 add - tmp/blah/blah/now.txt
 ----
 
-===== Base de données
+==== Base de données
 
 Node supporte un vaste ensemble de bases de données grâce aux modules npm.
 Favorisez toujours les modules faisant état de _driver_ natif/binaire : la communication vers la base de données n'en sera que plus rapide.
 
-====== knex
+===== knex
 
 _knex_ est une bibliothèque de manipulation de base de données SQL.
 Elle est notamment compatible avec PostgreSQL, MariaDB, MySQL et SQLite.
@@ -1361,7 +1367,7 @@ include::{sourceDir}/npm/knex.js[]
 
 L'exemple précédent se charge de créer une table dans une base de données SQLite, puis y insère trois nouveaux enregistrements.
 
-====== mongoose
+===== mongoose
 
 _mongoose_ est un _ODM_ (_Object Document Model_) pour MongoDB.
 Il vous aidera à composer vos modèles, gérer la connexion à la base de données mais aussi à définir des comportements annexes comme des mixins ou des _accesseurs_ dynamiques.
@@ -1375,7 +1381,7 @@ include::{sourceDir}/npm/mongoose.js[]
 ----
 <1> Affiche `3 enregistrements créés`.
 
-====== levelup
+===== levelup
 
 _LevelDB_ est un système de base de données clé/valeur extrêmement modulaire, avec un stockage sur disque par défaut mais pouvant évoluer vers du stockage en mémoire… et dans un contexte de navigateur web !
 
@@ -1387,7 +1393,7 @@ _LevelDB_ est un système de base de données clé/valeur extrêmement modulaire
 include::{sourceDir}/npm/levelup.js[]
 ----
 
-====== redis
+===== redis
 
 _redis_ est une autre base de données clé/valeur focalisée sur la performance et la distribution sur de multiples serveurs.
 
@@ -1403,11 +1409,11 @@ Il permet de travailler directement avec des buffers plutôt qu'avec des convers
 include::{sourceDir}/npm/redis.js[]
 ----
 
-===== Ligne de commande
+==== Ligne de commande
 
 Nous l'avions déjà entraperçu dans le chapitre 2 mais Node nous révèle un outillage facilitant les interactions dans un environnement _bash_.
 
-====== yargs
+===== yargs
 
 _yargs_ est une bibliothèque de _parsing_ et de validation d'arguments.
 Elle vous aidera à gérer les valeurs par défaut, à rejeter toute option inconnue ou encore à accumuler les valeurs d'options identiques.
@@ -1418,7 +1424,7 @@ Si seul le _parsing_ vous intéresse, optez pour _minimist_.
 
 Référez-vous à la section _Approche modulaire_ de ce même chapitre pour un exemple plus détaillé de cette bibliothèque.
 
-====== chalk
+===== chalk
 
 _chalk_ est un simple outil de colorisation et de mise en forme de texte dans un terminal.
 Oubliez les code ANSI, _chalk_ ne vous demandera que deux appels de fonction pour afficher un texte en bleu, italique et souligné !
@@ -1433,9 +1439,9 @@ include::{sourceDir}/npm/chalk.js[]
 
 Ce script produira l'affichage suivant :
 
-image::images/npm-chalk.png[align="center",scaledwidth="85%"]
+image::images/npm-chalk.png[align="center",width="85%"]
 
-====== cli-table
+===== cli-table
 
 _cli-table_ est un utilitaire permettant de transformer un tableau de primitives ou d'objets ECMAScript en un tableau visuel dans le terminal.
 Des options vous permettent de gérer la ligne d'entête et la largeur des colonnes, entre autres.
@@ -1450,9 +1456,9 @@ include::{sourceDir}/npm/cli-table.js[]
 
 Ce script produira l'affichage suivant :
 
-image::images/npm-cli-table.png[align="center",scaledwidth="85%"]
+image::images/npm-cli-table.png[align="center",width="85%"]
 
-====== inquirer
+===== inquirer
 
 _inquirer_ est le composant qu'il vous faut pour gérer l'interactivité avec un utilisateur dans le terminal : questions à choix multiple, validation de saisie, texte libre multiple etc.
 
@@ -1468,14 +1474,14 @@ Le programme précédent tente de charger le module Node saisi par l'utilisateur
 
 La saisie est préalablement nettoyée pour éviter que le chargement d'un module local puisse aboutir.
 
-===== HTTP et API
+==== HTTP et API
 
 Une majorité d'articles et de tutoriaux pour Node ont pour habitude d'illustrer la création d'un serveur HTTP.
 S'il est vrai que Node rend les interactions réseaux aisées grâce à leur gestion non-bloquante, créer un serveur respectant réellement la spécification du protocole HTTP est une autre paire de manches.
 
 La plupart des modules n'imposant pas de choix d'architecture, vous aurez souvent à composer vous-même votre application HTTP en fonction de vos besoins.
 
-====== express
+===== express
 
 _express_ est probablement la bibliothèque la plus populaire.
 Elle gère le routage HTTP et la passation de données vers le moteur de rendu de votre choix.
@@ -1488,7 +1494,7 @@ Il est fortement recommandé de lui adjoindre _helmet_ ou d'opter pour _kraken_,
 
 Référez-vous à la section _Approche modulaire_ de ce même chapitre pour un exemple plus détaillé de cette bibliothèque.
 
-====== passport
+===== passport
 
 _passport_ est une bibliothèque de gestion d'authentification.
 De nombreux modules complémentaires permettent de gérer une authentification par mot de passe, par OAuth, par compte Google Apps etc.
@@ -1499,7 +1505,7 @@ Elle fonctionne particulièrement bien puisqu'elle n'impose pas de mécanisme de
 
 Référez-vous à sa documentation pour des exemples détaillés d'utilisation et d'implémentation au sein de votre application.
 
-====== restify
+===== restify
 
 _restify_ est une alternative à _express_ si votre application n'a pour seul but que d'exposer une API REST, sans rendu HTML ou nécessitant un templating particulier.
 
@@ -1529,7 +1535,7 @@ $ curl -H 'Accept-version: ~1' http://localhost:8080/modules/express
 "^4.9.5"
 ----
 
-====== faye
+===== faye
 
 _faye_ est à la fois un serveur et un client de communication en temps réel entre un client et un serveur.
 Il utilisera Websocket, Ajax ou JSON-P selon les capacités technologiques du client.
@@ -1548,13 +1554,13 @@ Ce serveur extrêmement minimaliste expose un point d'entrée qui peut être acc
 Tout message émit par un client sera relayé auprès des autres clients connectés.
 Un mécanisme de canaux et d'authentification vous permettra de canaliser les messages en fonction des besoins de votre application.
 
-===== Préprocesseurs
+==== Préprocesseurs
 
 Les préprocesseurs sont des outils de productivité transformant un langage vers un autre langage, en général compatible avec une majorité de navigateurs.
 
 Certains vous permettront même de compiler du code Node vers du code compatible avec un navigateur Web.
 
-====== less
+===== less
 
 _less_ est un préprocesseur permettant de compiler vers du code CSS.
 Ses atouts résident dans la gestion des variables, de _mixins_ et de fonctions encourageant une écriture modulaire, plus logique et plus succincte.
@@ -1592,7 +1598,7 @@ La sortie de la commande précédente génère ce résultat :
 }
 ----
 
-====== sass
+===== sass
 
 Sass est un autre préprocesseur populaire issu du monde Ruby.
 Un portage en C++ est disponible via le module _node-sass_ et ne requiert pas l'installation de Ruby.
@@ -1600,7 +1606,7 @@ Un portage en C++ est disponible via le module _node-sass_ et ne requiert pas l'
 Compatible Node. +
 [URL]#https://npmjs.com/node-sass# et [URL]#http://sass-lang.com/libsass#
 
-====== rework
+===== rework
 
 _rework_ est une alternative à Less et Sass dans le sens où vous définissez les règles de votre préprocesseur… y compris si cela revient à écrire vos propres règles.
 
@@ -1624,7 +1630,7 @@ include::{sourceDir}/stylesheet.css[]
 
 Le résultat à l'issu de la compilation est identique à la sortie du module _less_.
 
-====== browserify
+===== browserify
 
 _browserify_ transforme des modules CommonJS et des appels aux API Node en un code ECMAScript capable d'être exécuté dans un navigateur Web.
 
@@ -1667,7 +1673,7 @@ browserify npm/browserify.js -o npm/browserify.bundle.js
 
 Inclus dans un navigateur Web, le fichier `npm/browserify.bundle.js` affichera le même résultat que l'interpréteur Node.
 
-====== babel
+===== babel
 
 _babel_ transforme tout code ECMAScript 2015, ECMAScript 2016 et JSX en code compatible ECMAScript 5.
 Il peut être utilisé en complément de _browserify_ et de _webkpack_.
@@ -1686,7 +1692,7 @@ babel-node npm/babel.js <1> <2>
 <1> Affiche `passport@^0.3.0` ;
 <2> Affiche `passport-local@^1.0.0`.
 
-====== uglify-js
+===== uglify-js
 
 _uglify-js_ compile de l'ECMAScript en ECMAScript mais en plus de concaténer plusieurs fichiers en un seul, il peut également minifier voire supprimer le code inutilisé par votre application.
 
@@ -1699,7 +1705,7 @@ Certaines options vous seront très utiles, comme par exemple :
 - `--compress` : définit des options de compression supplémentaires telles que la suppression des appels à `console.log` et la suppression du code non-utilisé ;
 - `--source-map` : produit un fichier _Source Maps_ facilitant le débogage du code minifié .
 
-===== Templating
+==== Templating
 
 Les bibliothèques de templating proposent chacune à leur manière d'associer une structure de données à une logique de présentation.
 
@@ -1724,7 +1730,7 @@ Tous les exemples suivant généreront cette sortie HTML :
 </html>
 ----
 
-====== swig
+===== swig
 
 _swig_ est un portage de _Twig_, bien connu par les développeurs PHP proches de l'écosystème Symfony.
 Sa syntaxe inclut des fonctionnalités comme les filtres, les blocs ou l'héritage de gabarit.
@@ -1738,7 +1744,7 @@ Compatible Node et navigateurs Web. +
 include::{sourceDir}/template.swig[]
 ----
 
-====== handlebars
+===== handlebars
 
 _handlebars_ et son prédécesseur _mustache_ sont les vétérans du templating Node.
 Leur parti pris est de proposer le minimum de logique afin que celle-ci reste au plus près des données.
@@ -1756,7 +1762,7 @@ include::{sourceDir}/template.hbs[]
 
 Cela présuppose que les données adéquates soient passées à la fonction de template `Handlebars.template['template.hbs']`.
 
-====== pug
+===== pug
 
 _pug_ s'inspire de _yaml_ en optant pour un parti pris à base d'indentation et d'un balisage dépourvu de chevron.
 Son mécanisme de blocs facilite la réutilisation de logiques d'affichage au sein de votre application.
@@ -1770,7 +1776,7 @@ Compatible Node et navigateurs Web . +
 include::{sourceDir}/template.pug[]
 ----
 
-====== ejs
+===== ejs
 
 _ejs_ part du principe qu'il n'y a pas besoin d'un langage de templating autre qu'ECMAScript.
 Donc c'est tout simplement ce qui vous sera proposé, impliquant de ce fait une faible courbe d'apprentissage.
@@ -1784,7 +1790,7 @@ Compatible Node et navigateurs Web. +
 include::{sourceDir}/template.ejs[]
 ----
 
-====== react
+===== react
 
 _react_ est une bibliothèque de présentation essentiellement connue pour son approche efficace du côté des navigateurs Web.
 Ce qui est moins connu en revanche est sa capacité à pouvoir également générer du balisage côté Node et de servir de moteur de rendu pour des _frameworks_ comme _express_.
@@ -1798,7 +1804,7 @@ Compatible Node et navigateurs Web. +
 include::{sourceDir}/template.jsx[]
 ----
 
-===== Tests
+==== Tests
 
 L'outillage permettant de tester vos applications est également richement fourni.
 Il y a bien sûr de quoi couvrir les tests unitaires, générer des couverture de code, exécuter les tests dans différents navigateurs, tester vos API HTTP ou encore créer des _stubs_ et des _mocks_.
@@ -1813,7 +1819,7 @@ Une exception sera levée à chaque fois qu'une assertion ne sera pas satisfaite
 - [URL]#https://nodejs.org/api/assert.html#
 ====
 
-====== tape
+===== tape
 
 _tape_ est probablement la bibliothèque d'exécution de tests et d'assertion la plus simple qui soit.
 Extrêmement simpliste, elle se base sur la sortie de `console.log` pour s'assurer de l'état global d'exécution des tests.
@@ -1827,7 +1833,7 @@ Compatible Node et navigateurs Web. +
 include::{sourceDir}/npm/tape.js[]
 ----
 
-====== mocha
+===== mocha
 
 _mocha_ est une bibliothèque d'exécution de tests offrant des interfaces TDD, BDD et QUnit — cette dernière facilitant la transition depuis la bibliothèque du même nom.
 Sa simplicité et flexibilité d'utilisation en font un choix pertinent pour la majorité de vos projets.
@@ -1841,7 +1847,7 @@ Compatible Node et navigateurs Web. +
 include::{sourceDir}/npm/mocha.js[]
 ----
 
-====== chai
+===== chai
 
 _chai_ est une bibliothèque d'assertion exposant des interfaces BDD et TDD.
 Elle est particulièrement bien fournie pour tester des structures d'objets complètes ou partielles.
@@ -1855,7 +1861,7 @@ Compatible Node et navigateurs Web. +
 include::{sourceDir}/npm/chai.js[]
 ----
 
-====== sinon
+===== sinon
 
 _sinon_ est votre compagnon idéal pour gérer _spys_, _stubs_ et _mocks_.
 En d'autres termes, vous prenez la main sur des portions de votre propre API pour vérifier que leur _comportement_ répond comme prévu aux signaux de leur environnement.
@@ -1871,13 +1877,13 @@ Compatible Node et navigateurs Web. +
 include::{sourceDir}/npm/sinon.js[]
 ----
 
-====== nyc
+===== nyc
 
 _nyc_ génère une couverture de code en inspectant le code exécuté par vos tests unitaires.
 Les portions de votre applications ignorées par vos tests sont signalées et une exception peut être lancée si un seuil de couverture n'est pas atteint.
 
 .Résultat de couverture visualisée dans le terminal
-image::images/nyc-cli.png[align="center",scaledwidth="85%"]
+image::images/nyc-cli.png[align="center",width="85%"]
 
 _nyc_ se greffe sur n'importe quel librairie d'exécution de tests et se base sur la librairie _istanbul_ pour calculer la couverture de code.
 
@@ -1885,9 +1891,9 @@ _nyc_ se greffe sur n'importe quel librairie d'exécution de tests et se base su
 [URL]#https://npmjs.com/istanbul#
 
 .Résultat de couverture visualisée dans un navigateur web
-image::images/nyc-web.png[align="center",scaledwidth="85%"]
+image::images/nyc-web.png[align="center",width="85%"]
 
-====== karma
+===== karma
 
 _karma_ est un utilitaire d'exécution de tests unitaires dans un contexte de navigateur Web.
 Ces navigateurs peuvent tout aussi bien être ceux présents sur votre machine, que des navigateurs résidant dans une VM ou exécutés à distance via des services comme SauceLabs ou BrowserStack.
@@ -1895,16 +1901,16 @@ Ces navigateurs peuvent tout aussi bien être ceux présents sur votre machine, 
 [URL]#https://npmjs.com/karma#
 
 .Exemple d'exécution continues de tests avec Karma
-image::images/karma.png[align="center",scaledwidth="85%"]
+image::images/karma.png[align="center",width="85%"]
 
-====== superagent
+===== superagent
 
 _superagent_ est une bibliothèque de tests pour API HTTP.
 Autrement dit, au lieu de tester directement le code de votre application, vous testez le comportement de votre API au travers des codes HTTP et des structures de données exposées.
 
 [URL]#https://npmjs.com/superagent#
 
-====== eslint
+===== eslint
 
 _eslint_ teste la qualité de votre code et signale des pratiques de programmation à risque.
 
@@ -1914,12 +1920,12 @@ C'est un excellent moyen d'éviter des bugs tout en uniformisant vos pratiques d
 
 [URL]#https://npmjs.com/eslint#
 
-===== Automatisation
+==== Automatisation
 
 L'automatisation de tâches et leur inclusion dans vos projets sont d'excellents moyens pour rendre explicite votre outillage tout en le rendant reproductible et vérifiable.
 
 [[grunt]]
-====== grunt
+===== grunt
 
 _grunt_ est l'outil qui a propulsé Node dans la cour des développeurs _frontend_ (voir <<../chapter-04/index.adoc#>>).
 Son écosystème de modules particulièrement fourni en terme de performance, d'assemblage et de fonctionnalités a définitivement aidé de nombreux développeurs à automatiser bon nombre de tâches dans leurs projets.
@@ -1927,7 +1933,7 @@ Son écosystème de modules particulièrement fourni en terme de performance, d'
 [URL]#https://npmjs.com/grunt# et [URL]#https://npmjs.com/grunt-cli#
 
 [[gulp]]
-====== gulp
+===== gulp
 
 _gulp_ est un outil de _build_ orienté sur l'enchainement d'actions pour traiter des ensembles de fichiers.
 
@@ -1939,7 +1945,7 @@ Le concept de <<streams,streams>> est décrit en fin de chapitre.
 Il vous aidera à mieux comprendre les rouages du fonctionnement de _Gulp_.
 
 [[npm-run-all]]
-====== npm-run-all
+===== npm-run-all
 
 _npm-run-all_ est mon outil favori pour composer avec les _scripts npm_.
 Il a l'avantage d'être versatile, de permettre de régler finement ce qui doit être exécuté en parallèle ou en série et transfère les options aux sous-scripts.
@@ -1952,9 +1958,9 @@ include::{sourceDir}/package.npm-run-all.json[]
 
 [URL]#https://npmjs.com/npm-run-all#
 
-==== Internet of Things
+=== Internet of Things
 
-===== nitrogen
+==== nitrogen
 
 _nitrogen_ est une plateforme permettant de gérer les interactions entre différents périphériques, sur un même réseau local et à travers Internet.
 
@@ -1962,13 +1968,13 @@ La bibliothèque se base sur un mécanisme déclaratif de fonctionnalités et de
 
 [URL]#https://npmjs.com/nitrogen#
 
-===== serialport
+==== serialport
 
 _serialport_ est une bibliothèque pour communiquer avec tout appareil bénéficiant d'un port série et relié à un périphérique via un port USB.
 
 [URL]#https://npmjs.com/serialport#
 
-===== firmata
+==== firmata
 
 _firmata_ est un _firmware_, un protocole de communication ainsi qu'une bibliothèque de communication pour microcontrôleur Arduino.
 Le module Node permet de communiquer via ce protocole avec un Arduino préalablement flashé avec Firmata.
@@ -1976,7 +1982,7 @@ Le module Node permet de communiquer via ce protocole avec un Arduino préalable
 [URL]#https://npmjs.com/firmata#
 
 
-===== johnny-five
+==== johnny-five
 
 _johnny-five_ est une bibliothèque haut niveau pour Arduino, Raspberry Pi et autres microcontrôleurs.
 Son API expose des fonctionnalités de manipulations avancées pour simplifier les interactions avec des moteurs, des servo-contrôleurs, des capteurs etc.
@@ -1985,7 +1991,7 @@ Compatible Node et navigateurs Web. +
 [URL]#https://npmjs.com/johnny-five#
 
 
-===== cylon
+==== cylon
 
 _cylon_ est une autre bibliothèque haut niveau orientée vers la programmation d'interactions pour robots.
 Son interface est particulièrement adaptée pour manipuler et réagir plusieurs robots entre eux.
@@ -1993,7 +1999,7 @@ Son interface est particulièrement adaptée pour manipuler et réagir plusieurs
 Compatible Node et navigateurs Web. +
 [URL]#https://npmjs.com/cylon#
 
-===== node-red
+==== node-red
 
 _node-red_ est une interface visuelle de programmation d'objets connectés.
 Le module Node démarre un serveur web dont l'interface a pour but de relier des sources de données, des interactions possibles ainsi que les objets devant recevoir les instructions.
@@ -2002,7 +2008,7 @@ Compatible Node et navigateurs Web. +
 [URL]#https://npmjs.com/node-red#
 
 
-==== Auteurs et communautés de confiance
+=== Auteurs et communautés de confiance
 
 Des organisations et des individus contribuent activement à Node en mettant à disposition une large majorité de leurs créations.
 
@@ -2019,13 +2025,13 @@ La liste suivante est non-exhaustive et référence des contributeurs de qualit�
 - mikeal ([URL]#https://npmjs.com/~mikeal#) ;
 - rwaldron ([URL]#https://npmjs.com/~rwaldron#).
 
-=== Design patterns
+== Design patterns
 
 Certains concepts de programmation sont utiles à connaître pour écrire un code plus concis, mieux organisé et davantage consistant.
 
 Ils vous permettront de mieux comprendre la différence entre du code bloquant et non-bloquant, asynchrone et synchrone et comment organiser votre code de manière robuste tout en apprenant à réagir aux erreurs.
 
-==== Code synchrone et asynchrone
+=== Code synchrone et asynchrone
 
 Certains langages et la programmation DOM nous ont déjà habitué à gérer du code de manière asynchrone.
 De manière générale, la différence réside dans l'accès au(x) résultat(s) de nos différentes invocations.
@@ -2105,7 +2111,7 @@ Parce que l'asynchronicité est le seul moyen de ne pas bloquer le processus en 
 
 *Node nous procure en réalité une API non-bloquante*.
 
-==== Code bloquant et non-bloquant
+=== Code bloquant et non-bloquant
 
 Node est fréquemment acclamé pour son API asynchrone.
 Toutefois le facteur le plus important est son caractère non-bloquant.
@@ -2143,7 +2149,7 @@ Par effet mécanique, à puissance CPU équivalente, un code non-bloquant pourra
 Ne vous fiez pas nécessairement à l'API mise à disposition par les modules employés mais vérifiez bien qu'elles emploient un minimum d'instructions bloquantes. +
 Un seul module bloquant et peu performant peut réduire à néant les performances de vos applications.
 
-==== index.js
+=== index.js
 
 Il arrive que la modularisation de votre code nécessite l'utilisation de multiples appels à `require()` pour charger l'intégralité des modules nécessaires.
 
@@ -2202,7 +2208,7 @@ module.exports = {
 
 Ce _pattern_ est utile pour réduire l'encombrement visuel et regrouper des modules par logique applicative.
 
-==== Globbing
+=== Globbing
 
 Le _globbing_ est un _pattern_ fréquemment employé dans le monde UNIX.
 Au lieu de nommer des fichiers un par un, le mécanisme permet de désigner des motifs de sélection, de profondeur de recherche et d'exclusion.
@@ -2238,7 +2244,7 @@ Certains modules de _globbing_ sont bloquants, comme `globule@~0.2.0`.
 Méfiez-vous donc de leur API séduisante car leur performance s'en trouvera amoindrie.
 ====
 
-==== Injection de module
+=== Injection de module
 
 Il est tentant de créer des modules pour abstraire certaines parties de votre logique applicative.
 C'est d'autant plus pertinent si vous souhaitez partager ce code au sein d'un même projet ou entre plusieurs projets similaires.
@@ -2304,7 +2310,7 @@ Ce _pattern_ est intéressant à plus d'un titre :
 - il n'impose qu'une seule chose : respecter la signature de la fonction d'injection.
 
 [[pattern-callback]]
-==== Callback
+=== Callback
 
 Le _pattern_ _callback_ est très couramment employé et pour cause : il est systématiquement employé dans les API asynchrones de Node. Par exemple, pour lire un fichier :
 
@@ -2390,7 +2396,7 @@ Le temps d'exécution des callbacks correspond à la _somme du temps d'exécutio
 Un excellent moyen pour gérer du code _asynchrone_ et _parallèle_ est le _pattern_ _promesse_, abordé dans les pages suivantes.
 ====
 
-==== Event
+=== Event
 
 Les _callbacks_ nous permettent d'agir lorsqu'un exécution asynchrone est en mesure de nous retourner un résultat ou une erreur. +
 Leur fonctionnement est toutefois encapsulé et limité à la portée de la portion de code dans laquelle nous pouvons insérer des instructions.
@@ -2458,7 +2464,7 @@ include::{sourceDir}/events-setmaxlisteners.js[]
 Il est important de bien connaître et de bien comprendre ce _pattern_ car il est fréquemment employé au sein des API natives de Node et dans de nombreux modules npm.
 
 [[pattern-promise]]
-==== Promesses
+=== Promesses
 
 Le concept des promesses est extrêmement puissant pour gérer, ordonner et organiser un ou plusieurs enchaînements d'exécutions asynchrones.
 Nous en avons déjà parlé dans la <<../chapter-02/index.adoc#primitive-promise,section Promise du Chapitre 2>>.
@@ -2538,7 +2544,7 @@ Des librairies de promesses ajoutent des sucres syntaxiques pour faciliter la ma
 ====
 
 [[streams]]
-==== Streams
+=== Streams
 
 Les _streams_ représentent un concept déjà connu par les pratiquants du monde UNIX.
 Nous en avons déjà parlé dans le chapitre 2 et dans certains exemples de ce même chapitre.
@@ -2724,7 +2730,7 @@ De nombreuses API Node exposent des _streams_ : requête HTTP, serveur HTTP, lec
 
 Pour être explicite : toute API vous permettra à un moment ou à un autre de manipuler des ensembles de données dont vous ne maitrisez pas la taille sans affecter les performances du système.
 
-=== Conclusion
+== Conclusion
 
 Ce chapitre vous a permis d'apprendre à mener un projet Node de bout en bout : de l'initialisation à sa maintenance ainsi que l'évolution de la gestion du code via un gestionnaire de versions.
 

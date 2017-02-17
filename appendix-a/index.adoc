@@ -1,3 +1,5 @@
+:sectnums:
+:appendix-caption: Annexe
 :nodeCurrentVersion: v6
 :npmCurrentVersion: v4
 :revdate: {docdate}
@@ -7,7 +9,8 @@ ifdef::env[]
 :imagesdir: .
 endif::[]
 
-== [ChapitreNumero]#Annexe A# Sélection de modules npm
+[appendix]
+= Sélection de modules npm
 
 L'écosystème npm regorge de modules. +
 Comment choisir parmi les centaines de milliers de modules à disposition ?
@@ -21,7 +24,7 @@ confiance.
 - TBD.
 ====
 
-[[TIP]
+[TIP]
 .[RemarquePreTitre]#Remarque# Versions de Node et npm
 ====
 Le contenu de ce chapitre se réfère aux versions de *Node {nodeCurrentVersion}* et *npm {npmCurrentVersion}*.
@@ -29,7 +32,7 @@ Le contenu de ce chapitre se réfère aux versions de *Node {nodeCurrentVersion}
 
 toc::[]
 
-=== Modules de sécurité applicative
+== Modules de sécurité applicative
 
 [TIP]
 .[RemarquePreTitre]#Module npm# retire.js
@@ -40,13 +43,13 @@ Il fonctionne aussi bien pour du JavaScript interprété par un navigateur web q
 - [URL]#https://npmjs.com/retire#
 ====
 
-=== Modules d'accès aux bases de données
+== Modules d'accès aux bases de données
 
 TBD.
 
-=== Développement frontend
+== Développement frontend
 
-==== Vérification syntaxique
+=== Vérification syntaxique
 
 La vérification syntaxique est un mécanisme s'assurant que votre code respecte la grammaire du langage associé.
 Elle peut autant révéler des anomalies fondamentales (balise mal fermée, expression inconnue etc.) que renforcer des pratiques de programmation réduisant les erreurs potentielles lors de l'exécution du-dit code.
@@ -193,7 +196,7 @@ sample.css:14:1: CSS 2.1 selectors not supported by: IE (6)
 ----
 
 
-==== Minification du code
+=== Minification du code
 
 Commentaires, indentations ou encore noms de variables : tout ça occupe de la place, donc des caractères textuels et donc des octets de bande passante.
 
@@ -241,7 +244,7 @@ Cette méthode permet d'élargir les perspectives de la compression via de la r�
 *UglifyJS* s'utilise de manière autonome, en ligne de commande ou via son API ECMAScript, mais aussi par le biais de plugins grunt, gulp et <<browserify,browserify>> (uglifyify et minifyify). +
 Un exemple plus concret est abordé dans la section <<../chapter-05/index.adoc#automation,automatisation des tâches>> du chapitre 5.
 
-==== Optimisation du code
+=== Optimisation du code
 
 Parce qu'optimiser le poids ne suffit pas, certains outils et compresseurs proposent de réécrire une partie de votre code.
 Ces optimisations seraient souvent complexes à imaginer et couteuses en temps, à répéter le geste et en maintenance.
@@ -298,57 +301,57 @@ Cet outil s'interface optionnellement avec _PostCSS_ et offre un support des _So
 Une autre alternative à _cssmin_ et _csswring_ écrite par l'équipe derrière la méthodologie BEM ([URL]#https://en.bem.info#), moins bien documentée mais plus efficace en terme d'optimisations.
 _csso_ ira jusqu'à réécrire les codes couleurs, les `margin` et `padding` et factorisera les sélecteurs similaires.
 
-==== Optimisation des images
+=== Optimisation des images
 
 - génération de sprites
 - réduction du poid des fichiers
 - génération de vignettes
 - SVG [URL]#https://www.npmjs.com/svgo#
 
-==== Optimisation des fontes
+=== Optimisation des fontes
 
 - optimisation des chemins
 - iconfontes
 - [URL]#https://npmjs.com/connect-fonts#
 
-==== Polyfills
+=== Polyfills
 
 - es5-shim
 - es6-shim
 - es6-promise
 - polyfill.io
 
-==== Accessibilité
+=== Accessibilité
 
 - a11y
 - chai-a11y
 
-==== Livereload
+=== Livereload
 
 - watcher
 - livereload
 - HMR (Hot Module Replacement)
 
-=== Rendu graphique
+== Rendu graphique
 
-==== Rendu 2D
-
-TBD.
-
-==== Rendu 3D
+=== Rendu 2D
 
 TBD.
 
-=== Rendu sonore
-
-==== Codecs
+=== Rendu 3D
 
 TBD.
 
-==== Web Audio
+== Rendu sonore
+
+=== Codecs
 
 TBD.
 
-=== Internet of Things
+=== Web Audio
+
+TBD.
+
+== Internet of Things
 
 TBD.
