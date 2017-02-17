@@ -5,15 +5,60 @@ var _jquery = require('jquery');
 
 var _jquery2 = _interopRequireDefault(_jquery);
 
+var _timer = require('./timer.js');
+
+var _timer2 = _interopRequireDefault(_timer);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-console.log(_jquery2.default.fn.jquery); // <1>
+// <4>
+
+var displaySeconds = function displaySeconds(tickData, dateElement) {
+  // <5>
+  var className = tickData.className,
+      now = tickData.now;
+
+
+  (0, _jquery2.default)(dateElement) // <6>
+  .attr('class', className).attr('datetime', now.toISOString()).text(now.toLocaleTimeString());
+};
 
 (0, _jquery2.default)(document).ready(function () {
-  (0, _jquery2.default)('#logs').text('OK'); // <2>
+  var dateElements = (0, _jquery2.default)('time').get(); // <1>
+  var onTick = function onTick(tickData) {
+    dateElements.forEach(function (el) {
+      return displaySeconds(tickData, el);
+    }); // <2>
+  };
+
+  (0, _timer2.default)({ interval: 1000, onTick: onTick }); // <3>
 });
 
-},{"jquery":2}],2:[function(require,module,exports){
+},{"./timer.js":2,"jquery":3}],2:[function(require,module,exports){
+'use strict';
+
+var tick = function tick() {
+  // <1>
+  var now = new Date();
+
+  return { // <2>
+    now: now,
+    className: now.getSeconds() % 2 ? 'impair' : 'pair'
+  };
+};
+
+module.exports = function timer(_ref) {
+  var onTick = _ref.onTick,
+      interval = _ref.interval;
+  // <3>
+  setInterval(function () {
+    return onTick(tick());
+  }, interval); // <4>
+
+  return tick(); // <5>
+};
+
+},{}],3:[function(require,module,exports){
 /*!
  * jQuery JavaScript Library v3.1.1
  * https://jquery.com/

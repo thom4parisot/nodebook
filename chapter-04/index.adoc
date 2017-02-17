@@ -1,13 +1,15 @@
+:sectnums:
 :nodeCurrentVersion: v6
 :npmCurrentVersion: v4
 :revdate: {docdate}
 :sourceDir: ./examples
+:httpRoot: http://localhost:4000/examples
 :imagesdir: {indir}
 ifdef::env[]
 :imagesdir: .
 endif::[]
 
-= [ChapitreNumero]#4# Développer pour les navigateurs web
+= Développer pour les navigateurs web
 
 La popularité de Node s'est établie également pour la profusion d'outillage apportée au développement web _frontend_.
 
@@ -347,8 +349,8 @@ TBD.
 Importer des modules est une pratique courante avec Node.
 Ça l'est en revanche beaucoup moins dans l'univers du web puisqu'il n'existait rien de _natif_ avant les <<modules-es2015,modules ECMAScript 2015>>.
 
-On a vu débarquer les modules _AMD_ pour gérer les dépendances _entre scripts_.
-Les librairies _Dojo_, _RequireJS_ et _YUI_ ont popularisé ce mécanisme.
+Auparavant, on aura vu débarquer les modules _AMD_ (_Asynchronous Module Definition_) pour gérer les dépendances _entre scripts_.
+Les librairies _Dojo_, _RequireJS_ et _YUI_ ont popularisé ce motif de conception.
 Un désir d'universalité a ensuite émergé avec le gain de popularité croissant de Node avec les modules _UMD_, conciliant modules _AMD_ et _CommonJS_.
 
 Les modules _ECMAScript 2015_ ont émergé de ce bouillonnement.
@@ -396,7 +398,7 @@ Nous avons évoqué les <<../chapter-02/index.adoc#primitives,primitives _ECMASc
 Les modules font partie des fonctionnalités tant attendues.
 
 .Utilisation des modules _ECMAScript 2015_ dans un navigateur web (ici, Safari pour macOS).
-image::images/module-import.png[align="center",scaledwidth="85%"]
+image::images/module-import.png[align="center",width="85%"]
 
 L'attribut `type="module"` a été introduit pour maintenir une compatibilité entre scripts classiques et les modules _ECMAScript 2015_.
 Ce mécanisme de modules introduit plusieurs concepts importants :
@@ -534,58 +536,235 @@ Un autre paradigme change avec la mise à disposition des modules et de l'outill
 
 La section suivante s'intéresse à l'*évolution de d'écriture du code*, autrefois dirigée par la *structure du document* HTML vers un monde de *fonctions consommant des données*, transformées pour un type d'affichage, que ce soit HTML ou autre.
 
+Nous illustrerons cette évolution au travers d'un exemple relativement simple : une balise HTML affichant l'heure dont nous actualisons le contenu toutes les secondes.
+
+.Résultat de l'exemple développé dans les sections suivantes.
+image::images/modules-time.png[align="center",width="85%"]
+
+[TIP]
+.[RemarquePreTitre]#Documentation# _jQuery_
+====
+Les exemples suivants se basent sur l'utilisation de la librairie _jQuery_.
+Elle facilite la manipulation du _DOM_ tout en gérant les incompatibilités des différents navigateurs web.
+Son utilisation est devenue moins dominante du fait d'une nette amélioration de la qualité de ces derniers.
+
+- [URL]#https://api.jquery.com/#
+- [URL]#http://learn.jquery.com/using-jquery-core/#
+====
+
 === Le syndrome du plugin _jQuery_
 
-Ce que j'appelle le "syndrome du plugin _jQuery_" c'est une combinaison des éléments suivants :
+Ce que j'appelle le "syndrome du plugin _jQuery_", c'est une combinaison des éléments suivants :
 
-- création de code métier inutilisable en dehors de _jQuery_ ;
-- flou artistique entre ce qui relève de la présentation des données et de l'organisation du code métier ;
-- un code _aveugle_ car éloigné de la structure HTML nécessaire à son fonctionnement ;
-- fragilité du code en cas de changement de la structure HTML associée ;
-- en général, un code difficilement testable – difficile de ne pas aboutir à une interface boguée.
+- création de *code métier inutilisable* en dehors de _jQuery_ ;
+- *mélange de la présentation* des données et de l'organisation du code métier ;
+- un code _aveugle_ car *éloigné de la structure HTML* nécessaire à son fonctionnement ;
+- *fragilité* du code en cas de changement de la structure HTML associée ;
+- en général, un code *difficilement testable* – difficile de ne pas aboutir à une interface boguée.
 
 Voici un exemple de document HTML _fragile_ et _mélangeant_ tous les concepts en même temps.
 Il est parfaitement valide mais illustre un ensemble de pratiques courantes que nous allons chercher à _désapprendre_.
 
 [source,html]
-.modules/jquery.html
+.modules/jquery-plugin.html
 ----
-include::{sourceDir}/modules/jquery.html[]
+include::{sourceDir}/modules/jquery-plugin.html[]
 ----
 
-[source,html]
+Maintenant que la structure HTML est définie, nous devons désormais écrire le code affichant l'heure dans un élément HTML toutes les secondes{nbsp}:
+
+[source,javascript]
 .modules/jquery-plugin.js
 ----
 include::{sourceDir}/modules/jquery-plugin.js[]
 ----
+<1> Ce bloc de code est exécuté toutes les secondes ;
+<2> La donnée de _temps_ est obtenue chaque seconde par notre _plugin jQuery_ ;
+<3> Certaines décisions métier sont mélangées avec l'affichage de la données _temps_ ;
+<4> L'intervalle est déterminé par la _valeur de l'attribut "data-interval"_ ;
+<5> Ce bloc de code est exécuté dès que le document HTML est prêt — toute sa structure HTML est disponible ;
+<6> Le _plugin jQuery_ est appliqué à toutes les occurences de `<time>` dans lequel le _plugin_ est exécuté.
 
+Certains motifs illustrés dans la section <<modules,Importer des modules>> refont surface :
+
+- variables globales : que faire si `jQuery` n'existe pas ?
+- connaissance implicite du document : que faire si une personne tierce remplace la balise `<time>` par une autre balise ?
+- code JavaScript piloté par le document : que faire si une personne tierce exprime l'intervalle en secondes et non en millisecondes ?
+
+La faute n'est pas vraiment celle de _jQuery_ mais plutôt la notre — enfin, la _mienne_ icon:smile-o[].
+Nous avons *mélangé règles de fonctionnement* (contenu de balise, classe CSS à ajouter/enlever) et données (date courante, parité des secondes, événement de mise à jour `setInterval`).
 
 === Vers une approche _jQuery_ composite
 
+Nous allons maintenant reprendre les concepts appris précédemment et conserver le même outil, à savoir _jQuery_.
+Certains outils encouragent de bons _motifs de conception_ et donnent la sensation de résoudre des problèmes.
+Apprendre ces motifs et à capitaliser sur les outils que nous connaissons déjà peuvent nous emmener tout aussi loin.
 
 [source,html]
-.modules/jquery-module.html
+.modules/jquery-app.html
 ----
-include::{sourceDir}/modules/jquery.html[]
+include::{sourceDir}/modules/jquery-app.html[]
 ----
 
-[source,html]
+Le changement majeur réside dans la réorganisation du code applicatif{nbsp}:
+
+[source,javascript]
 .modules/jquery-app.js
 ----
 include::{sourceDir}/modules/jquery-app.js[]
 ----
+<1> Nous sélectionnons les éléments de la page à actualiser chaque seconde ;
+<2> Nous définissons quoi faire avec les données transmises chaque seconde ;
+<3> Nous démarrons un minuteur ;
+<4> Le minuteur est une fonction externe, dont le comportement n'est pas régi par _jQuery_ ou autre librairie ;
+<5> Cette fonction est responsable de l'affichage de _données_ dans un _élément HTML_ ;
+<6> Cette fois-ci, nous nous contentons de seulement mettre à jour attributs et contenus – la logique métier a été déplacée dans le module `timer.js`.
+
+Le code a été divisé en deux sections distinctes :
+
+. celui qui décrit la *réaction à une donnée* ;
+. *celui qui intègre* le minuteur avec les éléments du _DOM_.
+
+Nous n'avons pas réellement besoin de savoir comment fonctionne le minuteur à ce niveau – nous avons juste besoin de pouvoir compter sur les données qu'il nous fournit.
+
+[source,javascript]
+.modules/timer.js
+----
+include::{sourceDir}/modules/timer.js[]
+----
+<1> Cette fonction (privée) est responsable de décrire le _temps présent_ sous forme d'une *structure de données* ;
+<2> Cette _structure de données_ pourra retourner de nouvelles clés/valeurs sans remettre en cause le fonctionnement du code y ayant recours ;
+<3> Le paramètre `onTick` est une fonction passée en argument qui sera appelée à chaque nouvel intervalle de temps ;
+<4> La responsabilité de `timer` est de communiquer une nouvelle _structure de données_ à un intervalle de temps donné ;
+<5> On retourne immédiatement une structure de données par commodité et de manière synchrone.
+
+Pour un résultat identique, nous avons désormais séparé notre code en trois *domaines distincts* : le _minuteur_, l'_intégration_ du minuteur, la _représentation_ du minuteur sous forme HTML.
+Cerise sur le gâteau, cette _distinction se constate visuellement_, au premier coup d'œil.
+
+Tout n'est pas parfait car nous sommes encore lié à la structure du document HTML.
 
 === Partager le code métier avec Node
 
-TBD.
+Cette _séparation de principes_ (_separation of concerns_) va au-delà du plaisir de l'esthète.
+Nous venons sans le savoir de créer du *code _ECMAScript_ universel*.
+
+Pourquoi _universel_ ?
+Parce que nous pouvons tout aussi bien l'inclure et l'exécuter dans Node que dans un navigateur web :
+
+[source,javascript]
+.modules/node-timer.js
+----
+include::{sourceDir}/modules/node-timer.js[]
+----
+
+L'exécution du script `node-timer.js` afficherait quelque chose du genre dans votre terminal :
+
+----
+$ node examples/modules/node-timer.js
+{ now: 2017-02-17T11:07:29.752Z, className: 'impair' }
+{ now: 2017-02-17T11:07:30.762Z, className: 'pair' }
+{ now: 2017-02-17T11:07:31.768Z, className: 'impair' }
+{ now: 2017-02-17T11:07:32.770Z, className: 'pair' }
+{ now: 2017-02-17T11:07:33.775Z, className: 'impair' }
+{ now: 2017-02-17T11:07:34.779Z, className: 'pair' }
+^C
+----
+
+Chaque seconde, la fonction `console.log` est appelée et affiche la _structure de données_ de notre minuteur dans la _sortie standard_ du terminal.
+
+Nous pourrions dès à présent utiliser le minuteur dans d'autres applications, côté client, côté serveur et pourquoi pas un jour, le publier sur le _registre npm_.
 
 === Séparation du fond et de la forme : données, rendu et interactions
 
-TBD.
+Les praticien·ne·s de l'intégration web nous le dirons souvent : il faut *séparer le fond de la forme*.
+Il en est de même dans notre code – et pas que pour le développement _frontend_.
 
-=== Rapprocher présentation et interactions avec React
+Un code maintenable n'a pas besoin d'être complexe.
+Un code maintenable a surtout besoin de bien _isoler_ ses périmètres d'intervention.
 
-TBD.
+Les exemples précédents nous ont permis de déceler trois périmètres phares :
+
+- *données* : des structures prédictibles, obtenues ou modifiées ;
+- *rendu* : la représentation des données en _contexte_, que ce soit une page HTML, un terminal ou un fichier CSV ;
+- *interactions* : des événements déclenchés par les utilisateurs, par des facteurs externes ou des règles métier – ils impactent les _données_ et leur _représentation_.
+
+=== Rapprocher données, rendu et interactions avec _React_
+
+_React_ a atteint un pic de popularité certain en 2015 et 2016.
+Pas seulement parce qu'il s'agit d'un outil bien conçu mais justement parce qu'il encourage cette pratique de la *représentation des données*.
+
+[TIP]
+.[RemarquePreTitre]#Documentation# API React
+====
+Les exemples suivants se basent sur la librairie _React_.
+Sa documentation offrent de bons exemples pour se familiariser avec son utilisation.
+
+- [URL]#https://facebook.github.io/react/#
+- [URL]#https://facebook.github.io/react/docs/thinking-in-react.html#
+====
+
+Notre code HTML n'est qu'un *résultat* exposant des *surfaces d'interaction*.
+Notre code se structure en *composants*.
+Un _composant_ est responsable de deux choses : la *représentation de données* et la *réaction à des événéments*.
+
+Cela se traduira par un changement de taille : l'exemple que nous avons fait évoluer ne fait plus mention de balise `<time>` mais expose une balise dédiée à contenir notre _composant minuteur_ :
+
+[source,html]
+.modules/react-app.html
+----
+include::{sourceDir}/modules/react-app.html[]
+----
+
+Notre code applicatif est réduit à son plus strict minimum :
+
+[source,javascript]
+.modules/react-app.js
+----
+include::{sourceDir}/modules/react-app.js[]
+----
+<1> Méthode responsable du rendu HTML de notre composant `TimeInterval` dans l'élément `<div id="app">` ;
+<2> Création de notre composant minuteur avec un intervalle de mise à jour de 1000 millisecondes ;
+<3> Indication que le rendu du composant sera effectué _dans_ l'élément `<div id="app">`.
+
+Cela ressemble fortement au contenu de nos précédentes invocations de `$(document).ready()` mais sans avoir à se soucier du fonctionnement interne du minuteur.
+
+La représentation et le fonctionnement du minuteur sont désormais regroupés dans un seul composant :
+
+[source,jsx]
+.modules/date-interval.jsx
+----
+include::{sourceDir}/modules/date-interval.jsx[]
+----
+<1> Nous exportons un composant _React_ grâce à l'opérateur _ECMAScript 2015_ `extends` – cf. la <<../chapter-02/index.adoc#primitive-class,section Class du Chapitre 2>> ;
+<2> Le `constructor` est exécuté quand le composant est rendu dans le document ;
+<3> La propriété `interval` nous est fournie dans `react-app.js` et nous stockons la _structure de donnée_ retournée par le minuteur tout en déclenchant son actualisation toutes les 1000 millisecondes ;
+<4> À chaque intervalle, nous mettons à jour la valeur `tickData` de l'état interne du composant (`this.state`) ;
+<5> La méthode `render()` est exécutée quand le composant est inséré dans un document pour la première fois et dès que l'état interne (`this.state`) change ;
+<6> Nous destructurons la valeur connue de `tickData` pour effectuer une opération qui nous rappelle les différents appels à `.attr('class')` et `.text()` de _jQuery_.
+
+_React_ introduit quatre concepts au sein des composants :
+
+- un *cycle de vie* basé sur des _propriétés_ (_props_) et un _état interne_ (_state_) ;
+- des *propriétés immutables* pour le paramétrage initial ;
+- un *état interne mutable* pour contenir les changements et demander une actualisation de leur représentation dans le document.
+
+_React_ détermine les opérations à effectuer dans le document HTML en fonction de la lourdeur des opérations : (re)création complète de `<time>` dans le nœud parent, simple mise à jour d'un ou ou plusieurs attributs ou encore déplacement du composant ailleurs dans le document HTML etc.
+
+L'intelligence d'une librairie comme _React_ est d'encourager à décrire les données et leur rendu pour se charger des opérations d'écriture dans le DOM.
+Cela permet de créer des composants faciles à isoler, à réutiliser et à tester.
+
+Cette approche nous a permis de réutiliser notre minuteur simplement en adaptant son utilisation.
+_React_ nous permet de *diriger l'affichage* du document plutôt que d'en dépendre.
+
+[TIP]
+.[RemarquePreTitre]#Outil# React Developer Tools
+====
+Cette extension pour le navigateur Chrome détaille l'arborescence des composants montés dans le document HTML ainsi qu'une vue de leurs propriétés respectives.
+
+image::images/react-devtools.png[align="center",width="85%"]
+
+- [URL]#https://chrome.google.com/webstore/detail/fmkadmapgofadopljbjfkapdkoienihi#
+====
 
 [[io]]
 == Des requêtes AJAX au temps-réel
@@ -597,15 +776,36 @@ TBD.
 
 TBD.
 
+[TIP]
+.[RemarquePreTitre]#Guide# Collection d'exemples
+====
+Le guide communautaire _MDN_ met à disposition une dizaine d'exemples pour illustrer différents cas d'utilisation de `fetch()`.
+
+- [URL]#https://github.com/mdn/fetch-examples#
+====
+
 [[io-sse]]
-=== Approche unidirectionnelle avec _Server Sent Events_
+=== Approche unidirectionnelle avec _EventSource_
 
 TBD.
+
+
+[TIP]
+====
+
+- [URL]#https://html.spec.whatwg.org/#server-sent-events#
+====
 
 [[io-websockets]]
 === Échanges en temps-réel avec _Websockets_
 
 TBD.
+
+[TIP]
+====
+
+- [URL]#https://html.spec.whatwg.org/#network#
+====
 
 == Développer au quotidien
 

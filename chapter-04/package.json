@@ -5,8 +5,11 @@
   "description": "",
   "scripts": {
     "babel": "babel",
+    "build": "npm-run-all --parallel 'build:import:*' 'build:modules:*'",
     "build:polyfills": "echo 'require(\"core-js/shim\")' | browserify -o examples/polyfills.js -",
-    "browserify": "browserify",
+    "build:import:script-jquery": "browserify -t babelify -e examples/import/script-import-jquery.js -o examples/import/script-import-jquery-browserify.js",
+    "build:modules:jquery-app": "browserify -t babelify -e examples/modules/jquery-app.js -o examples/modules/jquery-app-browserify.js",
+    "build:modules:react-app": "browserify -t babelify -e examples/modules/react-app.js -o examples/modules/react-app-browserify.js",
     "start": "static -p 4000 -H '{\"Access-Control-Allow-Origin\":\"*\"}'"
   },
   "engines": {
@@ -23,12 +26,19 @@
     "babel-cli": "^6.22.2",
     "babel-preset-env": "^1.1.8",
     "babelify": "^7.3.0",
+    "browser-sync": "^2.18.8",
     "browserify": "^14.0.0",
+    "browserify-hmr": "^0.3.5",
+    "budo": "^9.4.7",
     "core-js": "^2.4.0",
-    "date-fns": "^1.27.2",
     "es6-promise": "^4.0.0",
+    "express": "^4.14.1",
+    "express-sse": "^0.4.1",
+    "faye-websocket": "^0.11.1",
     "jquery": "^3.1.1",
-    "jquery-dateformat": "^1.0.3"
+    "npm-run-all": "^4.0.1",
+    "ud": "^3.1.0",
+    "watchify": "^3.9.0"
   },
   "devDependencies": {
     "node-static": "^0.7.7"
