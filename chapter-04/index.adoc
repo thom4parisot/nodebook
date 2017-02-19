@@ -450,7 +450,7 @@ Continuons sur la lancée de nos exemples précédents pour tenter d'inclure la 
 ----
 include::{sourceDir}/import/script-import-jquery.js[]
 ----
-<1> `$.fn.jquery` contient le numéros de version de jQuery ;
+<1> `$.fn.jquery` contient le numéro de version de jQuery ;
 <2> Substitut jQuery pour remplacer le texte dans `<div id="logs">`.
 
 Le document HTML chargeant ce module est en tout point similaire au précédent exemple :
@@ -476,7 +476,7 @@ Il expose notamment un concept d'intégrations (les _transforms_) afin d'effectu
 
 Là où _babel_ cherche uniquement à traduire un langage vers un autre, _browserify_ est le couteau suisse pour effectuer des remplacements majeurs dans le code :
 
-- portage de la fonction `require()` et inclusion du code des modules sous-jacent ;
+- portage de la fonction `require()` et inclusion du code des modules sous-jacents ;
 - suppression de code conditionnel ;
 - remplacement d'API spécifiques à Node par des polyfills pour le web ;
 - extraction de CSS ;
@@ -583,7 +583,7 @@ include::{sourceDir}/modules/jquery-plugin.js[]
 <3> Certaines décisions métier sont mélangées avec l'affichage de la données _temps_ ;
 <4> L'intervalle est déterminé par la _valeur de l'attribut "data-interval"_ ;
 <5> Ce bloc de code est exécuté dès que le document HTML est prêt — toute sa structure HTML est disponible ;
-<6> Le _plugin jQuery_ est appliqué à toutes les occurences de `<time>` dans lequel le _plugin_ est exécuté.
+<6> Le _plugin jQuery_ est appliqué à toutes les occurrences de `<time>` dans lequel le _plugin_ est exécuté.
 
 Certains motifs illustrés dans la section <<modules,Importer des modules>> refont surface :
 
@@ -697,7 +697,7 @@ Pas seulement parce qu'il s'agit d'un outil bien conçu mais justement parce qu'
 .[RemarquePreTitre]#Documentation# API React
 ====
 Les exemples suivants se basent sur la librairie _React_.
-Sa documentation offrent de bons exemples pour se familiariser avec son utilisation.
+Sa documentation offre de bons exemples pour se familiariser avec son utilisation.
 
 - [URL]#https://facebook.github.io/react/#
 - [URL]#https://facebook.github.io/react/docs/thinking-in-react.html#
@@ -705,7 +705,7 @@ Sa documentation offrent de bons exemples pour se familiariser avec son utilisat
 
 Notre code HTML n'est qu'un *résultat* exposant des *surfaces d'interaction*.
 Notre code se structure en *composants*.
-Un _composant_ est responsable de deux choses : la *représentation de données* et la *réaction à des événéments*.
+Un _composant_ est responsable de deux choses : la *représentation de données* et la *réaction à des événements*.
 
 Cela se traduira par un changement de taille : l'exemple que nous avons fait évoluer ne fait plus mention de balise `<time>` mais expose une balise dédiée à contenir notre _composant minuteur_ :
 
@@ -740,7 +740,7 @@ include::{sourceDir}/modules/date-interval.jsx[]
 <3> La propriété `interval` nous est fournie dans `react-app.js` et nous stockons la _structure de donnée_ retournée par le minuteur tout en déclenchant son actualisation toutes les 1000 millisecondes ;
 <4> À chaque intervalle, nous mettons à jour la valeur `tickData` de l'état interne du composant (`this.state`) ;
 <5> La méthode `render()` est exécutée quand le composant est inséré dans un document pour la première fois et dès que l'état interne (`this.state`) change ;
-<6> Nous destructurons la valeur connue de `tickData` pour effectuer une opération qui nous rappelle les différents appels à `.attr('class')` et `.text()` de _jQuery_.
+<6> Nous déstructurons la valeur connue de `tickData` pour effectuer une opération qui nous rappelle les différents appels à `.attr('class')` et `.text()` de _jQuery_.
 
 _React_ introduit quatre concepts au sein des composants :
 
