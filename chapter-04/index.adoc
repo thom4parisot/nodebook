@@ -777,7 +777,7 @@ Des applications web comme Google Maps, Gmail ou la recherche instantanée de Go
 Toutefois son API est peu intuitive et est unidirectionnelle, dirigée *du client vers le serveur*.
 Le terme `XMLHttpRequest` est parfois nommé `AJAX` ou `xhr`.
 
-Un même exemple côté client sera développé et successivement adapté aux technologies `fetch()`, _Event Source_ puis _Websocket_.
+Un même exemple côté client sera développé et successivement adapté aux technologies `fetch()`, _EventSource_ puis _WebSocket_.
 Il nous permettra d'en faire émerger les principes, leurs cas d'usage ainsi que leur possible intégration avec Node. +
 L'implémentation côté serveur est basée sur un serveur <<../chapter-03/index.adoc#express,Express.js>> dont l'usage est expliqué au chapitre 3.
 
@@ -787,7 +787,7 @@ image::images/io-example.png[align="center", width="85%"]
 [TIP]
 .[RemarquePreTitre]#Remarque# Node, mais pas que.
 ====
-`fetch()`, _Event Source_ et _Websocket_ reposent sur le protocole HTTP/1 et ses extensions.
+`fetch()`, _EventSource_ et _WebSocket_ reposent sur le protocole HTTP/1 et ses extensions.
 Il est important de comprendre que leur contrepartie "côté serveur" existe aussi dans d'autres langages et environnements comme Ruby, Python et PHP.
 
 Il se trouve que la nature asynchrone même de Node rend cette intégration relativement aisée et triviale, aussi et en grande partie grâce à l'écosystème _npm_.
@@ -816,7 +816,7 @@ Plusieurs _décodeurs de réponse_ sont fournis nativement : texte (`response.te
 ----
 include::{sourceDir}/io/fetch-client.js[]
 ----
-<1> Exécution de la requête HTTP _GET_ vers `/new-users` ;
+<1> Exécution de la requête HTTP _GET_ vers `/new-users` depuis le navigateur web courant ;
 <2> Décodage progressif de la réponse ;
 <3> Une fois le décodage terminé, le résultat de la requête HTTP est mis à disposition – ici, sous forme de chaîne de caractères.
 
@@ -845,7 +845,7 @@ Le module _npm_ `node-fetch` ([URL]#https://npmjs.com/node-fetch#) est une impl�
 [[io-eventsource]]
 === Approche unidirectionnelle avec _EventSource_
 
-_Event Source_ est un mécanisme moins connu que `fetch()` ou _Websocket_ mais tire ses origines de la technologie _Comet_.
+_EventSource_ est un mécanisme moins connu que `fetch()` ou _WebSocket_ mais tire ses origines de la technologie _Comet_.
 On peut l'assimiler à une inversion de `fetch()` : le client appelle une ressource serveur, maintient une connexion de longue durée et attend un ou plusieurs _messages_ dudit serveur.
 
 Chaque connexion est ouverte en faisant appel à la construction d'un objet `EventSource`.
@@ -859,20 +859,20 @@ Cet objet émet alors plusieurs types d'événements en fonction des actions :
 Ce modèle de connexion permet tout aussi bien d'avoir un canal de données unique avec chaque utilisateur ou encore d'émettre les mêmes données en temps réel à destination de tous les usagers.
 
 L’exemple associé est accessible sur [URL]#http://localhost:4000/examples/io/eventsource.html#.
-Nous pouvons vérifier la compatibilité navigateur de _Event Source_ sur [URL]#http://caniuse.com#feat=eventsource#.
+Nous pouvons vérifier la compatibilité navigateur de _EventSource_ sur [URL]#http://caniuse.com#feat=eventsource#.
 
 [source,javascript]
 .io/eventsource-client.js
 ----
 include::{sourceDir}/io/eventsource-client.js[]
 ----
-<1> Une nouvelle connexion longue durée vers la ressource `/new-users` est ouverte ;
+<1> Nous ouvrons une nouvelle connexion _Event Source_ de longue durée depuis le navigateur web courant ;
 <2> Fonction appelée à chaque fois que le serveur transmet un message au client.
 
-.Plusieurs messages peuvent être transmis par le biais d'une seule connexion HTTP avec _Event Source_.
+.Plusieurs messages peuvent être transmis par le biais d'une seule connexion HTTP avec _EventSource_.
 image::images/eventsource-frames.png[align="center", width="85%"]
 
-L'implémentation d'_Event Source_ demande un peu d'efforts côté serveur mais ne nécessite pas de _framework_ particulier.
+L'implémentation d'_EventSource_ demande un peu d'efforts côté serveur mais ne nécessite pas de _framework_ particulier.
 La complexité réside dans le maintient d'une transmission de données dédiée à chaque client ainsi qu'à la libération de la connexion lorsque le client se déconnecte.
 
 [source,javascript]
@@ -880,31 +880,92 @@ La complexité réside dans le maintient d'une transmission de données dédiée
 ----
 include::{sourceDir}/io/eventsource-server.js[]
 ----
-<1> Une connexion _Event Source_ s'effectue (presque) comme une requête HTTP classique – il convient de vérifier qu'elle s'annonce en tant que telle ;
+<1> Une connexion _EventSource_ s'effectue (presque) comme une requête HTTP classique – il convient de vérifier qu'elle s'annonce en tant que telle ;
 <2> Création d'un canal unique entre le client et le serveur ;
 <3> Chaque appel à `es.send` enverra un nouveau message au client.
 
 Le serveur est responsable de la gestion des connexions demandées par les différents clients.
 
 [TIP]
-.[RemarquePreTitre]#Guide# Utiliser _Event Source_
+.[RemarquePreTitre]#Guide# Utiliser _EventSource_
 ====
-Les liens suivants détaillent le protocole _Event Source_, documentent son API et décrivent des exemples d'utilisation.
+Les liens suivants détaillent le protocole _EventSource_, documentent son API et décrivent des exemples d'utilisation.
 
 - [URL]#https://html.spec.whatwg.org/#server-sent-events#
 - [URL]#https://developer.mozilla.org/fr/docs/Server-sent_events/Using_server-sent_events#
 ====
 
-[[io-websockets]]
-=== Échanges en temps-réel avec _Websockets_
+En résumé, _EventSource_ est idéal pour maintenir une connexion avec le serveur et souscrire à des mises à jour en continu.
+Chaque connexion _EventSource_ devrait concerner qu'un seul et même type d'événement.
 
-TBD.
+[[io-websocket]]
+=== Échanges en temps-réel avec _WebSocket_
+
+_WebSocket_ est une technologie web favorisant les échanges bi-directionnels entre client et serveur.
+
+À l'inverse du protocole HTTP/1, tout message envoyé par le client ou par le serveur n'appelle pas à une réponse de la part du receveur.
+Cet élément ainsi que le maintient d'une connexion permanente expliquent la rapidité du protocole en comparaison avec le modèle requête/réponse.
+
+L’exemple associé est accessible sur [URL]#http://localhost:4000/examples/io/websocket.html#.
+Nous pouvons vérifier la compatibilité navigateur de _WebSocket_ sur [URL]#http://caniuse.com#feat=websocket#.
+
+[source,javascript]
+.io/websocket-client.js
+----
+include::{sourceDir}/io/websocket-client.js[]
+----
+<1> Nous ouvrons une connexion _WebSocket_ depuis le navigateur web courant ;
+<2> Émission d'un message à destination du serveur ;
+<3> Réaction à un message émis par le serveur.
+
+.Trame de messages envoyés par le client (sur fond vert) et par le serveur.
+image::images/websocket-frames.png[align="center", width="85%"]
+
+L'implémentation côté serveur est légèrement plus compliquée qu'avec _EventSource_ pour la simple et bonne raison que _Websocket_ est une surcouche du protocole `ws`.
+HTTP n'est utilisé que comme canal de communication pour établir un lien avec le serveur `ws`.
+HTTP sert de tunnel tandis que le dialogue entre client et serveur s'effectue dans un dialecte compréhensible uniquement de clients _WebSocket_.
+
+Il est nécessaire d'utiliser un module _npm_ _WebSocket_ comme _faye_ ([URL]#https://npmjs.com/faye-websocket#) ou _socket.io_ ([URL]#https://npmjs.com/socket-io#) à moins de vouloir réimplémenter le protocole soi-même.
+Le motif de conception est similaire à _EventSource_, à la différence près qu'il faut aussi écouter les messages transmis par le client.
 
 [TIP]
+.[RemarquePreTitre]#Remarque# HTTP et le statut `101 Switching Protocols`
+====
+Voici ce qui se passe lorsqu'un client _WebSocket_ se connecte sur `ws://example.com` :
+
+. requête HTTP `http://example.com` standard contenant les entêtes `Upgrade: websocket` et `Connection: Upgrade` ;
+. le serveur HTTP répond avec un statut `101 Switching Protocols` ;
+. le serveur _WebSocket_ prend le relais dans le dialogue client/serveur ;
+. client et serveur communiquent désormais via le protocole `ws` au sein de la connexion HTTP initiale.
 ====
 
-- [URL]#https://html.spec.whatwg.org/#network#
+Par extension et de par la nature même du protocole `ws`, il serait tout à fait possible que _et_ clients _et_ serveur soient des agents Node.
+Autrement dit, un client _WebSocket_ n'a pas nécessairement à être un navigateur web.
+
+[source,javascript]
+.io/websocket-server.js
+----
+include::{sourceDir}/io/websocket-server.js[]
+----
+<1> Le serveur HTTP vient de répondre avec un statut `101 Switching Protocols` et délègue désormais la responsabilité du dialogue client/serveur ;
+<2> Nous vérifions que le changement de protocole concerne le protocole `ws` ;
+<3> La connexion réseau (`socket`) est transmise au serveur _WebSocket_ pour amorcer le dialogue client/serveur avec le protocole `ws` ;
+<4> Réaction à la réception d'un message client ;
+<5> Émission d'un message à destination d'un client.
+
+Là aussi, le serveur est responsable de la gestion des connexions demandées par les différents clients.
+
+[TIP]
+.[RemarquePreTitre]#Guide# Utiliser _WebSocket_
 ====
+Les liens suivants détaillent le protocole _WebSocket_, documentent son API et décrivent des exemples d'utilisation.
+
+- [URL]#https://html.spec.whatwg.org/#network#
+- [URL]#https://developer.mozilla.org/fr/docs/WebSockets/Writing_WebSocket_client_applications#
+====
+
+En résumé, _WebSocket_ est idéal pour maintenir une connexion en temps-réel et pour relayer plusieurs messages à l'initiative du serveur serveur et de tout client connecté – qu'il s'agisse d'un navigateur web ou d'un agent Node.
+Chaque connexion _WebSocket_ peut encapsuler plusieurs types de messages.
 
 == Développer au quotidien
 

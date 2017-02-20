@@ -54,7 +54,7 @@ Si _Netscape_ a depuis fermé ses portes, _Rhino_ a permis l'émergence de proje
 
 Entre temps le langage JavaScript évolue, le _Web 2.0_ émerge des cendres de la première bulle Internet et d'autres initiatives émergent dans les années 2000 comme _APE_ (_Ajax Push Engine_, [URL]#http://ape-project.org/#).
 Elles mettent également en œuvre JavaScript côté serveur.
-JavaScript était surtout un choix logique de partage de code entre client et serveur pour Comet, le précurseur des <<../chapter-04/index.adoc#websockets,Websockets>>.
+JavaScript était surtout un choix logique de partage de code entre client et serveur pour Comet, le précurseur des <<../chapter-04/index.adoc#websockets,WebSockets>>.
 
 [TIP]
 .[RemarquePreTitre]#Glossaire# Comet
@@ -65,9 +65,9 @@ Parmi ces techniques, on retrouve le _long polling_, consistant à conserver une
 ====
 
 [TIP]
-.[RemarquePreTitre]#Glossaire# Websockets
+.[RemarquePreTitre]#Glossaire# WebSockets
 ====
-_Websockets_ est un protocole basé sur TCP.
+_WebSockets_ est un protocole basé sur TCP.
 
 Il permet de maintenir une connexion HTTP active entre un client et un serveur et d'y faire transiter les données de manière bidirectionnelle.
 
@@ -180,7 +180,7 @@ Dès lors, un simple `npm install node-playground` suffit pour inclure le module
 Partager un module est tout aussi simple puisqu'un simple `npm publish` le rend disponible à tous en un instant.
 
 npm devient une telle pierre angulaire qu'il est inclus par défaut dans l'installation de Node à partir de novembre 2011, lors de la publication de Node 0.6.3.
-La communauté Node et ses contributeurs ont fait le reste du travail en fournissant un écosystème de modules riche et varié : frameworks, templating, drivers de bases de données, serveurs HTTP, serveurs Websockets, préprocesseurs CSS, CoffeeScript, parseurs, proxy, serveurs de log, librairies de tests, langages de _templating_, etc.
+La communauté Node et ses contributeurs ont fait le reste du travail en fournissant un écosystème de modules riche et varié : frameworks, templating, drivers de bases de données, serveurs HTTP, serveurs WebSockets, préprocesseurs CSS, CoffeeScript, parseurs, proxy, serveurs de log, librairies de tests, langages de _templating_, etc.
 
 Malgré ses défauts de jeunesse, Node réussit également le tour de force de la performance : la recette de l'accès non bloquant aux ressources aurait-elle fonctionné ?
 À en croire les personnes ayant migré vers Node pour ces raisons, la réponse est *oui*.
