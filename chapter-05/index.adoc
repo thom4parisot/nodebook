@@ -1,8 +1,10 @@
-:sectnums:
+:chapterNumber: 5
+:sourceDir: ./examples
+:sourceSample: TODO.js
 :nodeCurrentVersion: v6
 :npmCurrentVersion: v4
+:sectnums:
 :revdate: {docdate}
-:sourceDir: ./examples
 :imagesdir: {indir}
 ifdef::env[]
 :imagesdir: .
@@ -28,10 +30,7 @@ Ce chapitre est en plein chantier.
 - Interface en ligne de commande (_CLI_)
 ====
 
-[TIP]
-.[RemarquePreTitre]#Remarque# Versions de Node et npm
-====
-Le contenu de ce chapitre se réfère aux versions de *Node {nodeCurrentVersion}* et *npm {npmCurrentVersion}*.
-====
+include::../resources/tip-versions.adoc[]
+include::../resources/tip-examples.adoc[]
 
 toc::[]

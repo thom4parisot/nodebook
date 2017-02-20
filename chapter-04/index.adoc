@@ -1,9 +1,11 @@
-:sectnums:
+:chapterNumber: 4
+:sourceDir: ./examples
+:sourceSample: modules/node-timer.js
+:httpRoot: http://localhost:4000/examples
 :nodeCurrentVersion: v6
 :npmCurrentVersion: v4
+:sectnums:
 :revdate: {docdate}
-:sourceDir: ./examples
-:httpRoot: http://localhost:4000/examples
 :imagesdir: {indir}
 ifdef::env[]
 :imagesdir: .
@@ -34,11 +36,8 @@ Bref c'était lourd, complexe et compliqué à moins de disposer d'une infrastru
 L'existence de Node et du registre _npm_ a favorisé le développement d'un écosystème orienté _frontend_.
 Cela s'étend de la découverte au téléchargement des bibliothèques tierces ainsi qu'à la compilation, l'optimisation et l'exécution des tests des applications web côté client.
 
-[TIP]
-.[RemarquePreTitre]#Remarque# Versions de Node et npm
-====
-Le contenu de ce chapitre se réfère aux versions de *Node {nodeCurrentVersion}* et *npm {npmCurrentVersion}*.
-====
+include::../resources/tip-versions.adoc[]
+include::../resources/tip-examples.adoc[]
 
 toc::[]
 

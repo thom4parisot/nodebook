@@ -1,0 +1,27 @@
+[TIP]
+.[RemarquePreTitre]#Remarque# Utilisation des exemples
+====
+Les exemples légendés avec un _nom de fichier_ sont disponibles dans le module _npm_ dédié à cet ouvrage.
+Ils sont fonctionnels et destinés à être exécutés sur votre ordinateur :
+
+[subs="attributes"]
+.Exemple d'exécution du bloc de code légendé par `{sourceSample}`.
+----
+$ npm install --global nodebook@latest
+$ nodebook chapter {chapterNumber}
+$ node {sourceDir}/{sourceSample}
+----
+
+ifdef::httpRoot[]
+Certains exemples de ce chapitre correspondent à des pages HTML destinées à être utilisées dans des navigateurs web modernes comme Firefox, Chrome, Edge ou encore Safari.
+
+Ils sont accessible en démarrant le serveur web dédié aux exemples de de chapitre :
+
+[subs="attributes"]
+----
+$ nodebook chapter {chapterNumber}
+$ npm start
+$ open {httpRoot}
+----
+endif::[]
+====

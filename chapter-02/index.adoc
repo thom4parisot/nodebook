@@ -1,9 +1,11 @@
-:sectnums:
-:nodeCurrentVersion: v6
-:npmCurrentVersion: v4
 :es: ECMAScript 2015
 :esNext: ECMAScript 2016
+:chapterNumber: 2
 :sourceDir: ./examples
+:sourceSample: currency-main.js
+:nodeCurrentVersion: v6
+:npmCurrentVersion: v4
+:sectnums:
 :revdate: {docdate}
 :imagesdir: {indir}
 ifdef::env[]
@@ -35,11 +37,8 @@ Si vous n'utilisez pas encore de terminal, voici une liste de recommandations no
 .Terminal iTerm2 sous macOS.
 image::images/terminal.png[align="center",width="85%"]
 
-[TIP]
-.[RemarquePreTitre]#Remarque# Versions de Node et npm
-====
-Le contenu de ce chapitre se réfère aux versions de *Node {nodeCurrentVersion}* et *npm {npmCurrentVersion}*.
-====
+include::../resources/tip-versions.adoc[]
+include::../resources/tip-examples.adoc[]
 
 toc::[]
 
