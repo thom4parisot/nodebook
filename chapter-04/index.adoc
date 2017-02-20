@@ -845,13 +845,54 @@ Le module _npm_ `node-fetch` ([URL]#https://npmjs.com/node-fetch#) est une impl�
 [[io-eventsource]]
 === Approche unidirectionnelle avec _EventSource_
 
-TBD.
+_Event Source_ est un mécanisme moins connu que `fetch()` ou _Websocket_ mais tire ses origines de la technologie _Comet_.
+On peut l'assimiler à une inversion de `fetch()` : le client appelle une ressource serveur, maintient une connexion de longue durée et attend un ou plusieurs _messages_ dudit serveur.
 
+Chaque connexion est ouverte en faisant appel à la construction d'un objet `EventSource`.
+Cet objet émet alors plusieurs types d'événements en fonction des actions :
+
+- `open` : lorsque le client a effectué une connexion au serveur ;
+- `message` : lorsque le serveur émet des données à destination du client ;
+- `close` : lorsque la connexion est fermée par le serveur ;
+- `error` : lorsque la connexion est accidentellement interrompue.
+
+Ce modèle de connexion permet tout aussi bien d'avoir un canal de données unique avec chaque utilisateur ou encore d'émettre les mêmes données en temps réel à destination de tous les usagers.
+
+L’exemple associé est accessible sur [URL]#http://localhost:4000/examples/io/eventsource.html#.
+Nous pouvons vérifier la compatibilité navigateur de _Event Source_ sur [URL]#http://caniuse.com#feat=eventsource#.
+
+[source,javascript]
+.io/eventsource-client.js
+----
+include::{sourceDir}/io/eventsource-client.js[]
+----
+<1> Une nouvelle connexion longue durée vers la ressource `/new-users` est ouverte ;
+<2> Fonction appelée à chaque fois que le serveur transmet un message au client.
+
+.Plusieurs messages peuvent être transmis par le biais d'une seule connexion HTTP avec _Event Source_.
+image::images/eventsource-frames.png[align="center", width="85%"]
+
+L'implémentation d'_Event Source_ demande un peu d'efforts côté serveur mais ne nécessite pas de _framework_ particulier.
+La complexité réside dans le maintient d'une transmission de données dédiée à chaque client ainsi qu'à la libération de la connexion lorsque le client se déconnecte.
+
+[source,javascript]
+.io/eventsource-server.js
+----
+include::{sourceDir}/io/eventsource-server.js[]
+----
+<1> Une connexion _Event Source_ s'effectue (presque) comme une requête HTTP classique – il convient de vérifier qu'elle s'annonce en tant que telle ;
+<2> Création d'un canal unique entre le client et le serveur ;
+<3> Chaque appel à `es.send` enverra un nouveau message au client.
+
+Le serveur est responsable de la gestion des connexions demandées par les différents clients.
 
 [TIP]
+.[RemarquePreTitre]#Guide# Utiliser _Event Source_
 ====
+Les liens suivants détaillent le protocole _Event Source_, documentent son API et décrivent des exemples d'utilisation.
 
 - [URL]#https://html.spec.whatwg.org/#server-sent-events#
+- [URL]#https://developer.mozilla.org/fr/docs/Server-sent_events/Using_server-sent_events#
 ====
 
 [[io-websockets]]
