@@ -769,12 +769,67 @@ image::images/react-devtools.png[align="center",width="85%"]
 [[io]]
 == Des requêtes AJAX au temps-réel
 
-TBD.
+Les technologies web offrent un panel de fonctionnalités créatives et versatiles.
+Le boom du _Web 2.0_ a coïncidé avec la redécouverte de `XMLHttpRequest`, une API initialement créée par Microsoft pour *transférer des données entre client et serveur*, de _manière non-bloquante_.
+Cette fonctionnalité a permis de basculer vers un monde de pages dynamiques et rapides à charger.
+Des applications web comme Google Maps, Gmail ou la recherche instantanée de Google ont parachevé la popularisation de cette technique.
+
+Toutefois son API est peu intuitive et est unidirectionnelle, dirigée *du client vers le serveur*.
+Le terme `XMLHttpRequest` est parfois nommé `AJAX` ou `xhr`.
+
+Un même exemple côté client sera développé et successivement adapté aux technologies `fetch()`, _Event Source_ puis _Websocket_.
+Il nous permettra d'en faire émerger les principes, leurs cas d'usage ainsi que leur possible intégration avec Node. +
+L'implémentation côté serveur est basée sur un serveur <<../chapter-03/index.adoc#express,Express.js>> dont l'usage est expliqué au chapitre 3.
+
+.Résultat attendu dans les exemples des sections suivantes.
+image::images/io-example.png[align="center", width="85%"]
+
+[TIP]
+.[RemarquePreTitre]#Remarque# Node, mais pas que.
+====
+`fetch()`, _Event Source_ et _Websocket_ reposent sur le protocole HTTP/1 et ses extensions.
+Il est important de comprendre que leur contrepartie "côté serveur" existe aussi dans d'autres langages et environnements comme Ruby, Python et PHP.
+
+Il se trouve que la nature asynchrone même de Node rend cette intégration relativement aisée et triviale, aussi et en grande partie grâce à l'écosystème _npm_.
+====
 
 [[io-fetch]]
-=== Consommer des données hétérogènes avec `fetch()`
+=== Échange ponctuel de données avec `fetch()`
 
-TBD.
+`fetch()` offre une interface très simple pour appeler une ressource HTTP.
+Le résultat est retourné sous forme de _promesse_ (voir la <<../chapter-02/index.adoc#primitive-promise,section _Promise_>> du Chapitre 2).
+Cette fonction set aussi bien à obtenir des ressources avec des requêtes de type `GET` et `HEAD` qu'à en créer et modifier avec des requêtes de type `POST`, `PUT`, `DELETE` et `PATCH`.
+
+L'exemple associé est accessible sur [URL]#{httpRoot}/io/fetch.html#.
+Nous pouvons vérifier la compatibilité navigateur de `fetch()` sur [URL]#http://caniuse.com#feat=fetch#.
+
+Le déroulé d'exécution d'un appel à `fetch()` est le suivant :
+
+. construction de la *requête* (_URL_ ou objet `Request`, options) ;
+. *réception* des entêtes de la _réponse_ (objet `Response`) ;
+. *décodage* de la _réponse_.
+
+Plusieurs _décodeurs de réponse_ sont fournis nativement : texte (`response.text()`), JSON (`response.json()`), ArrayBuffer (`response.arrayBuffer()`), Blob (`response.blob()`) et FormData (`response.formData()`).
+
+[source,javascript]
+.io/fetch-client.js
+----
+include::{sourceDir}/io/fetch-client.js[]
+----
+<1> Exécution de la requête HTTP _GET_ vers `/new-users` ;
+<2> Décodage progressif de la réponse ;
+<3> Une fois le décodage terminé, le résultat de la requête HTTP est mis à disposition – ici, sous forme de chaîne de caractères.
+
+.Traces réseau d'appels successifs à `fetch()` ; chacun résultant en une nouvelle requête HTTP.
+image::images/fetch-frames.png[align="center", width="85%"]
+
+L'implémentation d'une ressource HTTP côté serveur s'effectue simplement en retournant une _réponse_ lors d'une _requête_ HTTP :
+
+[source,javascript]
+.io/fetch-server.js
+----
+include::{sourceDir}/io/fetch-server.js[]
+----
 
 [TIP]
 .[RemarquePreTitre]#Guide# Collection d'exemples
@@ -784,7 +839,10 @@ Le guide communautaire _MDN_ met à disposition une dizaine d'exemples pour illu
 - [URL]#https://github.com/mdn/fetch-examples#
 ====
 
-[[io-sse]]
+En _résumé_, `fetch()` est idéal pour des demandes ponctuelles de données, du client vers le serveur.
+Le module _npm_ `node-fetch` ([URL]#https://npmjs.com/node-fetch#) est une implémentation de `fetch()` pour Node.
+
+[[io-eventsource]]
 === Approche unidirectionnelle avec _EventSource_
 
 TBD.
