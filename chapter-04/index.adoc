@@ -434,6 +434,7 @@ De même que nous avons utilisé `import` pour sélectivement importer une fonct
 include::{sourceDir}/import/dom-log.js[]
 ----
 
+[[browserify]]
 === Importer des modules _npm_ pour le web
 
 Qu'en est-il alors des modules _npm_ ?
@@ -968,9 +969,42 @@ Chaque connexion _WebSocket_ peut encapsuler plusieurs types de messages.
 
 == Développer au quotidien
 
+Nous avons beaucoup parlé de nouvelles techniques et de modularisation.
+Cela peut sembler rebutant, notamment par l'introduction d'outils auxquels nous ne sommes pas encore familiers.
+
+L'écosystème Node fournit énormément d'outils qui devraient nous faire du *gagner du temps*, en nous aidant à exécuter des actions *lorsqu'un fichier est modifié*, en nous aidant à *organiser notre travail* mais aussi en *actualisant automatiquement notre application web* au fil du développement (fini les appuis répétés sur la touche `F5`) ou encore en *optimisant nos fichiers graphiques*.
+
 === Reconstruire en continu avec `watchify`
 
-TBD.
+L'utilisation de <<browserify,browserify>> nous apporte le confort de pouvoir inclure des modules _npm_ dans les navigateurs web.
+En revanche, ça nous demande de générer des artéfacts – des _bundles_ – à chaque modification pour consolider ces changements.
+
+C'est à ce moment qu'intervient le module _watchify_ ([URL]#https://npmjs.com/watchify#).
+Il fonctionnement *exactement comme _browserify_* mais au lieu de compiler une seule fois, il compilera dès qu'un changement sera détecté – où que ce soit dans l'arbre de dépendance du point d'entrée (paramètre `-e`, `--entrypoint`).
+
+La commande suivante compilerait le fichier `examples/modules/react-app.js` une fois et une seule :
+
+----
+$ ./node_modules/.bin/browserify -t babelify -e examples/modules/react-app.js -o examples/modules/react-app-browserify.js
+----
+
+Il suffit de remplacer `browserify` par `watchify` – le programme garde la main et indique chaque nouvelle compilation sur une nouvelle ligne :
+
+----
+$ ./node_modules/.bin/watchify -dv -t babelify -e examples/modules/react-app.js -o examples/modules/react-app-browserify.js
+1840601 bytes written to examples/modules/react-app-browserify.js (2.58 seconds) at 4:44:28 PM
+352482 bytes written to examples/modules/react-app-browserify.js (0.10 seconds) at 4:45:09 PM
+1840605 bytes written to examples/modules/react-app-browserify.js (0.25 seconds) at 4:45:15 PM
+----
+
+_watchify_ utilise un mécanisme dit de *compilation incrémentale* : _watchify_ ne recompile pas tout mais uniquement les différences depuis le dernier changement.
+C'est beaucoup plus rapide et tout aussi efficace.
+
+Trois arguments sont utiles à _watchify_ :
+
+- `-v` (`--verbose`) : force la création du fichier compilé au lancement de la commande ;
+- `-o` (`--outfile`) : spécifie le chemin d'enregistrement du fichier compilé – il est impossible d'utiliser la <<../chapter-02/index.adoc#stdio,sortie standard>> (cf. Chapitre 2) ;
+- `-d` (`--debug`) : (lire <<browserify-sourcemaps,_Source Maps_>> dans ce même chapitre).
 
 === Changements en temps-réel dans le navigateur
 

@@ -11,6 +11,7 @@ Merci pour tes contributions [@dirtyF](https://github.com/DirtyF).
 - _Chapitre 4_ : Consommer des données hétérogènes avec fetch()
 - _Chapitre 4_ : Event Source
 - _Chapitre 4_ : WebSocket
+- _Chapitre 4_ : watchify
 
 ## Samedi 18 février
 

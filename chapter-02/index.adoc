@@ -1673,6 +1673,7 @@ node <arguments node> chemin/vers/script.js <arguments script>
 Ces arguments se retrouveront respectivement dans `process.execArgv` et `process.argv`.
 ====
 
+[[stdio]]
 Le deuxième ensemble d'objets à connaître est le trio `process.stdin`, `process.stdout` et `process.stderr`.
 Ce sont trois flux (_Streams_) qui permettent d'accéder respectivement à l'entrée standard, à la sortie standard et à l'erreur standard.
 
