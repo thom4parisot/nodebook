@@ -24,14 +24,14 @@
 Cette commande télécharge une copie du livre, les exemples associés ainsi que leurs dépendances pour une utilisation hors-ligne.
 
 ```bash
-npm i -g nodebook@latest
-```
+$ nodebook --help
+Commands:
+  chapter <number> <install|open|start>  Installe, ouvre ou démarre un chapitre.
+  read                                   Démarre la lecture du livre au format
+                                         HTML
 
-*Remarque* : les dépendances de chaques chapitres sont à installer séparément.
-
-```bash
-cd chapter-01/examples && npm install
-# etc.
+Options:
+  --help  Show help                                                    [boolean]
 ```
 
 # Participation
@@ -54,7 +54,7 @@ make install
 Un serveur local est également disponible pour prévisualiser vos modifications sans être connecté à Internet.
 
 ```bash
-npm start
+$ nodebook read
 ```
 
 Des extensions [Chrome][adoc-chrome] et [Firefox][adoc-firefox] se chargeront du rendu en temps réel dans le navigateur. Dans les options de l'extension, prenez soin d'autoriser le chargement des fichiers et utilisez le mode `safe` pour autoriser le rendu des exemples de code :

@@ -2,7 +2,7 @@
   "name": "nodebook",
   "version": "0.4.0",
   "description": "Node.js, bonnes pratiques de développement.",
-  "bin": "server.js",
+  "bin": "node bin/cli.js",
   "scripts": {
     "format": "prettier-eslint --write 'chapter*/**/*.js'",
     "lint": "eslint --fix '**/*.js'",
@@ -72,5 +72,9 @@
         "global"
       ]
     }
+  },
+  "dependencies": {
+    "opn": "^4.0.2",
+    "yargs": "^6.6.0"
   }
 }

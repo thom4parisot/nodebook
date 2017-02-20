@@ -36,4 +36,10 @@ const startServer = (port) => {
 /*
  Starting the server after finding a proper port
 */
-(PORT ? Promise.resolve(PORT) : getPort()).then(startServer);
+
+module.exports = startServer;
+
+if (require.main === module) {
+  (PORT ? Promise.resolve(PORT) : getPort())
+    .then(startServer)
+}
