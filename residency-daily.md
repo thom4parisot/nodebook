@@ -4,7 +4,20 @@ Pour en savoir plus: [oncletom.io/2017/residence-nodejs/](https://oncletom.io/20
 
 # Journal
 
+## Mardi 21 février
+
+Merci [@NinjaSquad][ninja-squad] et [@LaCordeeLyon][la-cordee] pour le coin de bureau 👋
+
+Merci pour vos contributions [@dirtyF](https://github.com/DirtyF) et [@jbpionnier](https://github.com/jbpionnier).
+
+- _Chapitre 4_ : browserify-hmr
+- _Chapitre 4_ : browser-sync
+
+**Moral** : 😊
+
 ## Lundi 20 février
+
+Merci [@NinjaSquad][ninja-squad] et [@LaCordeeLyon][la-cordee] pour le coin de bureau 👋
 
 Merci pour tes contributions [@dirtyF](https://github.com/DirtyF).
 
@@ -12,6 +25,8 @@ Merci pour tes contributions [@dirtyF](https://github.com/DirtyF).
 - _Chapitre 4_ : Event Source
 - _Chapitre 4_ : WebSocket
 - _Chapitre 4_ : watchify
+
+**Moral** : 🚂 😊
 
 ## Samedi 18 février
 
@@ -30,11 +45,15 @@ Merci pour tes contributions [@dirtyF](https://github.com/DirtyF).
 
 ## Jeudi 16 février
 
+Merci [@clever_cloud][clever-cloud] pour le coin de bureau 👋
+
 Merci pour vos contributions [@lellex](https://github.com/lellex), [@graphidev](https://github.com/graphidev) et [@dirtyF](https://github.com/DirtyF).
 
 **Moral** : 🚂 😊
 
 ## Mercredi 15 février
+
+Merci [@ByteClubFR][byte-club] pour le coin de bureau 👋
 
 Merci pour vos contributions [@lellex](https://github.com/lellex), [@ThomasG77](https://github.com/ThomasG77) et [@dirtyF](https://github.com/DirtyF).
 
@@ -47,6 +66,8 @@ Merci pour vos contributions [@lellex](https://github.com/lellex), [@ThomasG77](
 
 ## Mardi 14 février
 
+Merci [@matlo][matlo] pour le coin de bureau 👋
+
 Merci pour tes contributions [@dirtyF](https://github.com/DirtyF).
 
 - Heaven from the oven:<br>
@@ -55,6 +76,8 @@ Merci pour tes contributions [@dirtyF](https://github.com/DirtyF).
 **Moral** : 😊 🥖
 
 ## Lundi 13 février
+
+Merci [@matlo][matlo] pour le coin de bureau 👋
 
 - _Chapitre 4_ : polyfills
 
@@ -253,3 +276,9 @@ Merci [@BetaGouv](https://github.com/sgmap) pour le coin de bureau 👋
 - _Chapitre 3_ : réorganisation et réécriture du texte associé aux _callbacks_, _events_ et _promesses_ – [#49](https://github.com/oncletom/nodebook/issues/49)
 
 **Moral** : 😊
+
+[ninja-squad]: https://twitter.com/NinjaSquad
+[la-cordee]: https://twitter.com/LaCordeeLyon
+[clever-cloud]: https://twitter.com/clever_cloud
+[byte-club]: https://twitter.com/ByteClubFR
+[matlo]: https://twitter.com/matlo
