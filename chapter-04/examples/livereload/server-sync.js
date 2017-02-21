@@ -5,9 +5,7 @@ module.exports = (server) => {             // <1>
     const PUBLIC_PORT = 4000;              // <3>
     const bs = browserSync.create();
 
-    server.listen(port, () => {            // <4>
-      console.log(`Listening on http://localhost:${PUBLIC_PORT}`);
-    });
+    server.listen(port);                   // <4>
 
     bs.init({                              // <5>
       files: ['./examples'],

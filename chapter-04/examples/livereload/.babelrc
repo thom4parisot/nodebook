@@ -1,0 +1,18 @@
+{
+  "presets": [
+    "react",
+    "env"
+  ],
+  "env": {
+    "development": {
+      "plugins": [
+        ["react-transform", {
+          "transforms": [{
+            "transform": "livereactload/babel-transform",
+            "imports": ["react"]
+          }]
+        }]
+      ]
+    }
+  }
+}
