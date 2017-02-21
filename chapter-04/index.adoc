@@ -1052,6 +1052,13 @@ include::{sourceDir}/livereload/server-sync.js[]
 <5> Initialisation de _browser-sync_ ;
 <6> Interfaçage avec le serveur web créé au point 4.
 
+La synchronisation peut être activée avec tous les exemples du chapitre en suffixant la commande `npm start` :
+
+----
+$ nodebook chapter 4
+$ npm start -- --with-sync
+----
+
 [TIP]
 .[RemarquePreTitre]#Documentation# _browser-sync_
 ====
