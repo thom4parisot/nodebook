@@ -1006,10 +1006,64 @@ Trois arguments sont utiles à _watchify_ :
 - `-o` (`--outfile`) : spécifie le chemin d'enregistrement du fichier compilé – il est impossible d'utiliser la <<../chapter-02/index.adoc#stdio,sortie standard>> (cf. Chapitre 2) ;
 - `-d` (`--debug`) : (lire <<browserify-sourcemaps,_Source Maps_>> dans ce même chapitre).
 
+[[livereload]]
 === Changements en temps-réel dans le navigateur
 
-TBD.
+Modifier un fichier. Changer de fenêtre. Recharger. Changer de fenêtre. Remodifier un fichier. Changer de fenêtre. Recharger. _Là_ c'est bon. +
+La quantité d'outils à disposition et leurs différentes opinions sur notre manière de travailler nous obligent à prendre des postures de travail qui ne vont *pas nécessairement dans le sens de la productivité*.
 
+L'intégration de Node avec le système d'exploitation va nous aider à déclencher des actions lorsqu'un ou plusieurs fichiers sont modifiés.
+Ces modifications peuvent être de notre fait, directement ou par le biais d'un autre logiciel (un optimiseur d'images ou la <<node-sass,compilation d'un fichier _Sass_>> par exemple).
+
+Nous allons explorer _deux stratégies_ d'actualisation :
+
+- le *rafraichissement automatique du navigateur* ;
+- le *remplacement de modules à chaud* (_Hot Module Replacement_, _HMR_).
+
+_browser-sync_ est un outil formidable de développement pour *rafraichir automatiquement une page web* si son contenu ou une des ressources associées change.
+Il offre également la possibilité de *propager les changements sur plusieurs fenêtres et terminaux* – y compris les clics, _scrolls_ et toute interaction avec des formulaires.
+
+ifeval::["{backend}" == "html5"]
+.Exemple de synchronisation d'affichage et de contenus entre deux fenêtres avec _browser-sync_.
+image::images/browser-sync.gif[align="center"]
+endif::[]
+
+_browser-sync_ maintient la position du scroll lors d'un rechargement de contenu.
+L'outil se lance soit de manière autonome, soit en _proxy_ entre l'utilisateur et tout autre serveur web.
+Il ne nécessite pas non plus de _plugin_ ou d'extension navigateur pour fonctionner, le rendant idéal pour du prototypage, de la recherche utilisateur ou du développement local.
+
+.Lancement d'un serveur web autonome avec synchronisation sur le port 4000.
+----
+$ ./node_modules/.bin/browser-sync start --server --port 4000 .
+----
+
+L'exemple suivant illustre l'intégration de _browser-sync_ avec le serveur web exposant les exemples de ce chapitre (voir le détail dans le fichier `server.js`) :
+
+[source,javascript]
+.livereload/server-sync.js
+----
+include::{sourceDir}/livereload/server-sync.js[]
+----
+<1> On passe serveur http en argument (obtenu via `http.createServer()` par exemple) ;
+<2> Ce port sera assigné au serveur web mais ne sera pas voué à être public ;
+<3> Ce port, lui, est celui qui sera public ;
+<4> Démarrage du serveur web sur le port privé ;
+<5> Initialisation de _browser-sync_ ;
+<6> Interfaçage avec le serveur web créé au point 4.
+
+[TIP]
+.[RemarquePreTitre]#Documentation# _browser-sync_
+====
+_browser-sync_ est richement documenté et illustré, y compris ses intégrations avec les outils _gulp_ et _grunt_.
+
+- [URL]#https://browsersync.io/#
+- [URL]#https://npmjs.com/browser-sync#
+====
+
+_browser-sync_ a beau maintenir la position du _scroll_, il n'en reste pas moins que *chaque changement remet à zéro* l'espace mémoire de la page.
+C'est là qu'entre en jeu le *Hot Module Replacement*.
+
+[[node-sass]]
 === Modulariser ses feuilles de style avec _Sass_
 
 TBD.
