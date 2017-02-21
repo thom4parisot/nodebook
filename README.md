@@ -24,6 +24,7 @@
 Cette commande télécharge une copie du livre, les exemples associés ainsi que leurs dépendances pour une utilisation hors-ligne.
 
 ```bash
+$ npm install --global nodebook@latest
 $ nodebook --help
 Commands:
   chapter <number> <install|open|start>  Installe, ouvre ou démarre un chapitre.
