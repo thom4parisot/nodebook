@@ -925,7 +925,7 @@ L'implémentation côté serveur est légèrement plus compliquée qu'avec _Even
 HTTP n'est utilisé que comme canal de communication pour établir un lien avec le serveur `ws`.
 HTTP sert de tunnel tandis que le dialogue entre client et serveur s'effectue dans un dialecte compréhensible uniquement de clients _WebSocket_.
 
-Il est nécessaire d'utiliser un module _npm_ _WebSocket_ comme _faye_ ([URL]#https://npmjs.com/faye-websocket#) ou _socket.io_ ([URL]#https://npmjs.com/socket-io#) à moins de vouloir réimplémenter le protocole soi-même.
+Il est nécessaire d'utiliser un module _npm_ _WebSocket_ comme _faye_ ([URL]#https://npmjs.com/faye-websocket#) ou _socket.io_ ([URL]#https://npmjs.com/socket.io#) à moins de vouloir réimplémenter le protocole soi-même.
 Le motif de conception est similaire à _EventSource_, à la différence près qu'il faut aussi écouter les messages transmis par le client.
 
 [TIP]
