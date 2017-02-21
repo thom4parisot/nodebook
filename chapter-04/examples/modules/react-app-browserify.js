@@ -51,7 +51,7 @@ var DateInterval = function (_Component) {
 
     return _react2.default.createElement(
       'time',
-      { className: className, dateTime: now.toISOString() },
+      { dateTime: now.toISOString() },
       now.toLocaleTimeString()
     );
   };

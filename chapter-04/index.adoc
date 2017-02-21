@@ -974,6 +974,7 @@ Cela peut sembler rebutant, notamment par l'introduction d'outils auxquels nous 
 
 L'écosystème Node fournit énormément d'outils qui devraient nous faire du *gagner du temps*, en nous aidant à exécuter des actions *lorsqu'un fichier est modifié*, en nous aidant à *organiser notre travail* mais aussi en *actualisant automatiquement notre application web* au fil du développement (fini les appuis répétés sur la touche `F5`) ou encore en *optimisant nos fichiers graphiques*.
 
+[[watchify]]
 === Reconstruire en continu avec `watchify`
 
 L'utilisation de <<browserify,browserify>> nous apporte le confort de pouvoir inclure des modules _npm_ dans les navigateurs web.
@@ -1061,7 +1062,85 @@ _browser-sync_ est richement documenté et illustré, y compris ses intégration
 ====
 
 _browser-sync_ a beau maintenir la position du _scroll_, il n'en reste pas moins que *chaque changement remet à zéro* l'espace mémoire de la page.
-C'est là qu'entre en jeu le *Hot Module Replacement*.
+C'est là qu'entre en jeu le *remplacement des modules à chaud*.
+
+Le *remplacement des modules à chaud* (_Hot Module Replacement_ ou _HMR_) est une technique basée sur le remplacement de fonctions ou d'objets tout en assurant le maintient de leurs variables ou états internes.
+Cette technique a notamment été popularisée par la combinaison de la librairie _React_ et de l'outil d'assemblage _Webpack_.
+Il est bien entendu possible de procéder à du _remplacement à chaud_ sans _React_ et sans _Webpack_.
+
+Quatre actions sont effectuées :
+
+. un *serveur de remplacement à chaud* est démarré localement ;
+. l'outil d'assemblage (_browserify_, _Webpack_ etc.) *insère du code client* permettant d'établir un lien entre la page web et le sreveur de remplacement à chaud ;
+. l'outil d'assemblage *déclare les fichiers modifiés*, transmis par le serveur de remplacement à chaud vers le navigateur web ;
+. le *code client remplace les modules* et maintient leur état interne.
+
+ifeval::["{backend}" == "html5"]
+.Exemple de rechargement à chaud avec des composants _React_.
+video::videos/react-hmr.mp4[align="center",width="100%"]
+endif::[]
+
+Le _plugin browserify_ nommé _livereactload_ est très certainement le plus facile à mettre en place pour remplacer des modules _React_ à la volée.
+Il nécessite une ligne de configuration côté _browserify_ et ne nécessite aucun changement de code côté client.
+
+[TIP]
+.[RemarquePreTitre]#Documentation# _livereactload_
+====
+Des aides à l'installation du module _livereactload_ sont disponibles dans son fichier README.
+
+- [URL]#https://npmjs.com/livereactload#
+====
+
+Le remplacement à chaud n'est possible que lorsque nous sommes dans un état de reconstruction en continu, par exemple avec <<watchify,watchify>>.
+
+Nous pouvons constater les effets du remplacement à chaud avec un des exemples de ce chapitre accessible sur [URL]#{httpRoot}/livereload/react-app-hmr.html#.
+La commande `npm run watch` de ce chapitre démarre un serveur web et reconstruit en continu le fichier `{sourceDir}/livereload/react-app-hmr.js` :
+
+----
+$ nodebook chapter 4
+$ npm run watch
+----
+
+Qui n'est autre qu'un équivalent de :
+
+[subs="attributes"]
+----
+$ watchify -dv \
+  -t babelify \         # <1>
+  -p livereactload \    # <2>
+  -e {sourceDir}/livereload/react-app-hmr.js \
+  -o {sourceDir}/livereload/react-app-hmr-browserify.js
+----
+<1> Le _transform_ (`-t`) modifie le code à la volée ;
+<2> Le _plugin_ (`-p`) encapsule le fonctionnement de _watchify_ pour effectuer des opérations plus complexes et impossibles à effectuer autrement.
+
+Il faudra ensuite modifier l'un des deux fichiers suivants – en décommentant les lignes concernées par exemple – pour constater les changements dans notre navigateur.
+
+[source,javascript]
+.livereload/react-app-hmr.js
+----
+include::{sourceDir}/livereload/react-app-hmr.js[]
+----
+
+Chaque instance du composant `livereload/button-count.jsx` gère un état interne indépendant des autres instances de même type.
+Nous aurions perdu cet état interne en cas d'utilisation de _browser-sync_, sans _remplacement à chaud_ :
+
+[source,jsx]
+.livereload/button-count.jsx
+----
+include::{sourceDir}/livereload/button-count.jsx[]
+----
+<1> Initialisation du compteur de clics propre à chaque instance de `ButtonCount` ;
+<2> Incrémentation du compteur de clics en réaction à un clic sur le composant `ButtonCount`.
+
+[TIP]
+.[RemarquePreTitre]#Alternative# _ud_ et _browserify-hmr_
+====
+Deux modules sont à disposition pour respectivement déclarer des modules remplaçables et pour démarrer un serveur de remplacement à chaud minimaliste.
+
+- [URL]#https://npmjs.com/ud#
+- [URL]#https://npmjs.com/browserify-hmr#
+====
 
 [[node-sass]]
 === Modulariser ses feuilles de style avec _Sass_

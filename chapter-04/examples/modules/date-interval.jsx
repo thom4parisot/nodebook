@@ -14,7 +14,7 @@ export default class DateInterval extends Component {        // <1>
   }
 
   onTick (tickData) {
-    this.setState({ tickData });  // <4>
+    this.setState({ tickData });                   // <4>
   }
 
   render() {                                       // <5>

@@ -6,10 +6,12 @@
   "scripts": {
     "babel": "babel",
     "build": "npm-run-all --parallel 'build:*:*'",
+    "watch": "npm-run-all --parallel 'watch:*:*' start",
     "build:polyfills": "echo 'require(\"core-js/shim\")' | browserify -o examples/polyfills.js -",
     "build:import:script-jquery": "browserify -t babelify -e examples/import/script-import-jquery.js -o examples/import/script-import-jquery-browserify.js",
     "build:modules:jquery-app": "browserify -t babelify -e examples/modules/jquery-app.js -o examples/modules/jquery-app-browserify.js",
     "build:modules:react-app": "browserify -t babelify -e examples/modules/react-app.js -o examples/modules/react-app-browserify.js",
+    "watch:modules:react-app-hmr": "watchify -dv -p livereactload -t babelify -e examples/livereload/react-app-hmr.js -o examples/livereload/react-app-hmr-browserify.js",
     "start": "node ./server.js"
   },
   "engines": {
@@ -24,13 +26,12 @@
   "dependencies": {
     "babel": "^6.5.2",
     "babel-cli": "^6.22.2",
+    "babel-plugin-react-transform": "^2.0.2",
     "babel-preset-env": "^1.1.8",
     "babel-preset-react": "^6.23.0",
     "babelify": "^7.3.0",
     "browser-sync": "^2.18.8",
     "browserify": "^14.0.0",
-    "browserify-hmr": "^0.3.5",
-    "budo": "^9.4.7",
     "chance": "^1.0.4",
     "core-js": "^2.4.0",
     "es6-promise": "^4.0.0",
@@ -38,10 +39,11 @@
     "faye-websocket": "^0.11.1",
     "get-port": "^2.1.0",
     "jquery": "^3.1.1",
+    "livereactload": "^3.2.0",
     "npm-run-all": "^4.0.1",
     "react": "^15.4.2",
     "react-dom": "^15.4.2",
-    "ud": "^3.1.0",
+    "react-proxy": "^1.1.8",
     "watchify": "^3.9.0"
   },
   "devDependencies": {}
