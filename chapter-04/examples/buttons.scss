@@ -1,0 +1,21 @@
+$sizes: (                             // <1>
+  small: .8,
+  regular: 1,
+  large: 1.2
+);
+
+.btn {
+  @each $size, $factor in $sizes {    // <2>
+    &.btn--#{$size} {                 // <3>
+      font-size: $factor * 1em;       // <4>
+    }
+  }
+
+  &.btn--icon {                       // <5>
+    svg {
+      height: 16px;
+      width: 16px;
+      margin-right: .5em;
+    }
+  }
+}
