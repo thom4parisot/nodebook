@@ -19,5 +19,5 @@ app.use('/', express.static('./'));
 
 getPort()
   .then(WITH_SYNC ? serverSync(server) : server.listen.bind(server, 4000))
-  .then(PORT => console.log('Listening on http://localhost:4000'))
+  .then(() => console.log('Listening on http://localhost:4000'))
   .catch(console.error);
