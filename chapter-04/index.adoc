@@ -688,6 +688,7 @@ Les exemples précédents nous ont permis de déceler trois périmètres phares 
 - *rendu* : la représentation des données en _contexte_, que ce soit une page HTML, un terminal ou un fichier CSV ;
 - *interactions* : des événements déclenchés par les utilisateurs, par des facteurs externes ou des règles métier – ils impactent les _données_ et leur _représentation_.
 
+[[react]]
 === Rapprocher données, rendu et interactions avec _React_
 
 _React_ a atteint un pic de popularité certain en 2015 et 2016.
@@ -1171,9 +1172,9 @@ Il décrit très bien les tenants et aboutissants de Sass ainsi que de bonnes m�
 _node-sass_ offre un outil en ligne de commande pour compiler un fichier Sass, plusieurs fichiers Sass ou encore une arborescence de répertoires contenant des fichiers Sass vers des fichiers CSS compréhensibles par les navigateurs web.
 
 [source,sass]
-.buttons.scss
+.ui/buttons.scss
 ----
-include::{sourceDir}/buttons.scss[]
+include::{sourceDir}/ui/buttons.scss[]
 ----
 <1> Définition d'une `Map` nommée `$sizes` (ensemble clé/valeur) décrivant des tailles et leur facteur multiplicateur ;
 <2> Itération et extraction des clés/valeurs de `$sizes` ;
@@ -1183,18 +1184,17 @@ include::{sourceDir}/buttons.scss[]
 
 La compilation des fichiers s'effectue très simplement :
 
+[subs="attributes"]
 ----
-$ ./node_modules/.bin/node-sass \
-  -o examples/buttons.css \
-  examples/buttons.scss
+$ ./node_modules/.bin/node-sass -o {sourceDir} {sourceDir}/buttons.scss
 ----
 
 La compilation générera le fichier CSS `button.css`, lisible par tout navigateur web :
 
 [source,css]
-.buttons.css
+.ui/buttons.css
 ----
-include::{sourceDir}/buttons.css[]
+include::{sourceDir}/ui/buttons.css[]
 ----
 
 [TIP]
@@ -1209,9 +1209,61 @@ Ces deux modules nous facilitent la vie en préfixant et réécrivant automatiqu
 - [URL]#https://npmjs.com/postcss#
 ====
 
-=== Lier composants et feuilles de style
+[[ui-bundling]]
+=== Lier composants visuels et feuilles de style
 
-TBD.
+Souvenons-nous de la section expliquant le <<react,rapprochement entre données, rendu et interactions avec _React_>> de ce même chapitre.
+Finalement nous avons presque tout rapproché, exception faite de la présentation avec _Sass_ ou CSS.
+
+En suivant la logique de notre approche modulaire, nous pourrions imaginer un _transform browserify_ pour compiler et/ou extraire notre code _Sass_ ou CSS depuis nos composants _CommonJS_ ou _ECMAScript 2015_.
+
+C'est exactement la proposition du module _sassify_.
+Il intègre _node-sass_ en tant que _transform browserify_ et le transforme le code à la volée durant la phase de compilation.
+Il se charge lui-même d'ajouter les styles dans le document HTML ou expose le code CSS compilé via la fonction `require()`.
+
+Une saine stratégie serait de charger des CSS de base dans une feuille de style en tête de `<head>` puis de laisser les composants graphiques injecter leurs feuilles CSS respectives après coup.
+
+L'exemple suivant expose deux composants _React_, regroupés dans une thématique de composants de boutons HTML.
+Une feuille de style est importée à même le module afin de *gérer à un même niveau, présentation, rendu et interactions* :
+
+[source,jsx]
+.ui/Buttons.jsx
+----
+include::{sourceDir}/ui/Buttons.jsx[]
+----
+<1> Import d'un fichier _Sass_ qui sera par la suite compilé en CSS par le _transform sassify_.
+
+Sans surprise, le module _sassify_ se charge comme la majorité des _transform browserify_ comme vu dans la section <<browserify,Importer des modules npm pour le web>> dans ce même chapitre :
+
+[subs="attributes"]
+----
+$ ./node_modules/.bin/browserify \
+  -t sassify \
+  -t babelify \
+  -e {sourceDir}/Buttons.jsx \
+  -o {sourceDir}/Button-browserify.js
+----
+
+La commande suivante injectera automatiquement les feuilles de style compilées dans le document HTML lors de son exécution dans un navigateur web :
+
+[subs="attributes"]
+----
+$ ./node_modules/.bin/browserify \
+  -t [ sassify --auto-inject ] \
+  -t babelify \
+  -e {sourceDir}/Buttons.jsx \
+  -o {sourceDir}/Button-browserify.js
+----
+
+[TIP]
+.[RemarquePreTitre]#Alternative# CSS Modules
+====
+Une autre philosophie émergente est de continuer à transformer son code _Sass_ ou CSS en styles en ligne, à leur adjoindre un préfixe unique et à les insérer directement dans le code HTML. +
+Elle demande moins d'outillage et s'applique pleinement à des composants visuels modulaires :
+
+- [URL]#https://npmjs.com/css-modules#
+- [URL]#https://npmjs.com/css-modulesify#
+====
 
 === Optimiser ses ressources graphiques
 
