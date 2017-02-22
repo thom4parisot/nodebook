@@ -27,17 +27,24 @@ Cette commande télécharge une copie du livre, les exemples associés ainsi que
 $ npm install --global nodebook@latest
 $ nodebook --help
 Commands:
-  chapter <number> <install|open|start>  Installe, ouvre ou démarre un chapitre.
-  read                                   Démarre la lecture du livre au format
-                                         HTML
+  chapter <number> [install|examples]  Installe, ouvre les examples ou
+                                       positionne dans un chapitre.
+  read                                 Démarre la lecture du livre au format
+                                       HTML
 
 Options:
   --help  Show help                                                    [boolean]
+
+Examples:
+  nodebook chapter 4          Positionne le terminal dans le chapitre 4
+  nodebook chapter 4 install  Installe les dépendances du chapitre 4
+  nodebook chapter 4 open     Ouvre le chapitre 4 dans un explorateur de
+                                fichiers
 ```
 
 # Participation
 
-Le moyen le plus simple de contribuer est de proposer une *pull request*.
+Le moyen le plus simple de contribuer est de proposer une _pull request_.
 L'interface en ligne de GitHub est la solution la plus simple.
 
 ## Installation
@@ -91,9 +98,9 @@ Le livre sera disponible en rayons lorsque le Bon à Tirer (BAT) aura été sign
 
 # Mentions légales
 
-*Node.js — bonnes pratiques pour la programmation JavaScript applicative, universelle et modulaire* est un ouvrage rédigé par [Thomas Parisot](https://oncletom.io) et publié aux éditions [Eyrolles](http://www.eyrolles.fr).
+_Node.js — bonnes pratiques pour la programmation JavaScript applicative, universelle et modulaire_ est un ouvrage rédigé par [Thomas Parisot](https://oncletom.io) et publié aux éditions [Eyrolles](http://www.eyrolles.fr).
 
-L’épreuve est soumise à la licence [Creative Commons NC-BY-SA][cc-nc-by-sa] (*Attribution, Non-Commercial, Share Alike*).
+L’épreuve est soumise à la licence [Creative Commons NC-BY-SA][cc-nc-by-sa] (_Attribution, Non-Commercial, Share Alike_).
 
 Les exemples de code sont soumis à une licence MIT et le cas échéant, à une license spécifiée par l’auteur du programme.
 

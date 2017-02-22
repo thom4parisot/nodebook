@@ -4,60 +4,43 @@ const {spawn} = require('child_process');
 const {join} = require('path');
 const opn = require('opn');
 
+const DEFAULTS_OPEN = {
+  stdio: 'inherit',
+  env: process.env,
+  shell: true
+};
+
+const dir = (chapter) => join(__dirname, '..', '..', `chapter-${chapter}`);
+
 const actions = {
   install: (chapter) => {
     return new Promise((resolve, reject) => {
-      const npmi = spawn('npm install', {
-        cwd: join(__dirname, '..', '..', `chapter-${chapter}`),
-        stdio: 'inherit',
-        env: process.env,
-        shell: true
-      });
+      const cwd = dir(chapter);
 
-      npmi.on('close', () => resolve());
-      npmi.on('error', (err) => reject(err));
+      spawn('npm install', Object.assign({}, {cwd}, DEFAULTS_OPEN))
+        .on('close', () => resolve())
+        .on('error', (err) => reject(err));
     });
   },
 
-  start: (chapter) => {
-    return spawn('npm start', {
-      cwd: join(__dirname, '..', '..', `chapter-${chapter}`),
-      stdio: 'inherit',
-      env: process.env,
-      shell: true
-    });
-  },
+  cd: (chapter) => opn(dir(chapter), { wait: false, app: 'terminal' }),
 
-  open: (chapter) => {
-    const path = join(__dirname, '..', '..', `chapter-${chapter}`);
-
-    return opn(path, {
-      wait: false
-    });
-  }
+  examples: (chapter) => opn(dir(chapter), { wait: false }),
 }
 
 module.exports = {
-  command: 'chapter <number> <install|open|start>',
-  desc: 'Installe, ouvre ou démarre un chapitre.',
+  command: 'chapter <number> [install|examples]',
+  desc: 'Installe, ouvre les examples ou positionne dans un chapitre.',
   builder: (yargs) => {
     return yargs
-      .options({
-        number: {
-          type: 'number',
-        }
-      })
+      .option('number', { type: 'number' })
       .coerce('number', arg => `${arg < 10 ? 0 : ''}${arg}`);
   },
   handler: (args) => {
     const {number} = args;
 
-    ['install', 'open', 'start'].some(action => {
-      if (args[action] === action) {
+    const action = Object.keys(actions).filter(d => args[d] === d).pop();
 
-        actions[action](number);
-        return true;
-      }
-    });
+    actions[action || 'cd'](number);
   }
 };
