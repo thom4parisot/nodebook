@@ -1152,7 +1152,62 @@ Deux modules sont à disposition pour respectivement déclarer des modules rempl
 [[node-sass]]
 === Modulariser ses feuilles de style avec _Sass_
 
-TBD.
+La modularité et l'écriture d'un code isolé facilitent sa réutilisation et préviennent les effets de bord. +
+Dans le cas des feuilles de style CSS, cela peut aider à éviter de faire _déborder_ la cascade – si l'on peut dire.
+
+Avec le _langage Sass_ ([URL]#http://sass-lang.com#), nous pourrions songer à générer des blocs de code selon des *listes* (idéal pour des thèmes de couleurs, des rubriques produits etc.), à concevoir des *composants comme des fonctions* ou à bénéficier de fonctions de *calcul de couleurs* ou d'unités de mesure.
+
+Le langage _Sass_ est originaire du monde Ruby mais il a été depuis rendu accessible nativement à l'écosystème Node par le biais de _node-sass_ ([URL]#https://npmjs.com/node-sass#)– et par extension, par la librairie C _libsass_.
+
+[TIP]
+.[RemarquePreTitre]#Lecture# CSS maintenables avec Sass et Compass
+====
+Je recommande la lecture de cet ouvrage de référence écrit par _Kaelig Deloumeau-Prigent_ aux éditions _Eyrolles_.
+Il décrit très bien les tenants et aboutissants de Sass ainsi que de bonnes méthodes d'organisation du code et de maintenabilité au sein d'une équipe de travail.
+
+- [URL]#http://editions-eyrolles.com/Livre/9782212136401#
+====
+
+_node-sass_ offre un outil en ligne de commande pour compiler un fichier Sass, plusieurs fichiers Sass ou encore une arborescence de répertoires contenant des fichiers Sass vers des fichiers CSS compréhensibles par les navigateurs web.
+
+[source,sass]
+.buttons.scss
+----
+include::{sourceDir}/buttons.scss[]
+----
+<1> Définition d'une `Map` nommée `$sizes` (ensemble clé/valeur) décrivant des tailles et leur facteur multiplicateur ;
+<2> Itération et extraction des clés/valeurs de `$sizes` ;
+<3> Interpolation d'une variable pour composer un sélecteur CSS (`.btn--small`, `.btn--regular` etc.) ;
+<4> Calcul de la taille de la police de caractères (`.8em`, `1em` etc.);
+<5> Composition d'un sélecteur de classe à partir du sélecteur courant (`.btn.btn--icon`).
+
+La compilation des fichiers s'effectue très simplement :
+
+----
+$ ./node_modules/.bin/node-sass \
+  -o examples/buttons.css \
+  examples/buttons.scss
+----
+
+La compilation générera le fichier CSS `button.css`, lisible par tout navigateur web :
+
+[source,css]
+.buttons.css
+----
+include::{sourceDir}/buttons.css[]
+----
+
+[TIP]
+.[RemarquePreTitre]#Astuce# Oublions les _vendor prefix_
+====
+Les navigateurs évoluent plus vite que le cycle de vie de nos projets.
+Certaines propriétés CSS sont abritées derrière des préfixes (`-moz`, `-webkit` etc.) avant d'être standardisées.
+
+Ces deux modules nous facilitent la vie en préfixant et réécrivant automatiquement les attributs en fonction de nos exigences de compatibilité navigateurs.
+
+- [URL]#https://npmjs.com/autoprefixer#
+- [URL]#https://npmjs.com/postcss#
+====
 
 === Lier composants et feuilles de style
 
