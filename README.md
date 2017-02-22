@@ -24,19 +24,27 @@
 Cette commande télécharge une copie du livre, les exemples associés ainsi que leurs dépendances pour une utilisation hors-ligne.
 
 ```bash
-npm i -g nodebook@latest
-```
+$ npm install --global nodebook@latest
+$ nodebook --help
+Commands:
+  chapter <number> [install|examples]  Installe, ouvre les examples ou
+                                       positionne dans un chapitre.
+  read                                 Démarre la lecture du livre au format
+                                       HTML
 
-*Remarque* : les dépendances de chaques chapitres sont à installer séparément.
+Options:
+  --help  Show help                                                    [boolean]
 
-```bash
-cd chapter-01/examples && npm install
-# etc.
+Examples:
+  nodebook chapter 4          Positionne le terminal dans le chapitre 4
+  nodebook chapter 4 install  Installe les dépendances du chapitre 4
+  nodebook chapter 4 open     Ouvre le chapitre 4 dans un explorateur de
+                                fichiers
 ```
 
 # Participation
 
-Le moyen le plus simple de contribuer est de proposer une *pull request*.
+Le moyen le plus simple de contribuer est de proposer une _pull request_.
 L'interface en ligne de GitHub est la solution la plus simple.
 
 ## Installation
@@ -54,7 +62,7 @@ make install
 Un serveur local est également disponible pour prévisualiser vos modifications sans être connecté à Internet.
 
 ```bash
-npm start
+$ nodebook read
 ```
 
 Des extensions [Chrome][adoc-chrome] et [Firefox][adoc-firefox] se chargeront du rendu en temps réel dans le navigateur. Dans les options de l'extension, prenez soin d'autoriser le chargement des fichiers et utilisez le mode `safe` pour autoriser le rendu des exemples de code :
@@ -90,9 +98,9 @@ Le livre sera disponible en rayons lorsque le Bon à Tirer (BAT) aura été sign
 
 # Mentions légales
 
-*Node.js — bonnes pratiques pour la programmation JavaScript applicative, universelle et modulaire* est un ouvrage rédigé par [Thomas Parisot](https://oncletom.io) et publié aux éditions [Eyrolles](http://www.eyrolles.fr).
+_Node.js — bonnes pratiques pour la programmation JavaScript applicative, universelle et modulaire_ est un ouvrage rédigé par [Thomas Parisot](https://oncletom.io) et publié aux éditions [Eyrolles](http://www.eyrolles.fr).
 
-L’épreuve est soumise à la licence [Creative Commons NC-BY-SA][cc-nc-by-sa] (*Attribution, Non-Commercial, Share Alike*).
+L’épreuve est soumise à la licence [Creative Commons NC-BY-SA][cc-nc-by-sa] (_Attribution, Non-Commercial, Share Alike_).
 
 Les exemples de code sont soumis à une licence MIT et le cas échéant, à une license spécifiée par l’auteur du programme.
 
