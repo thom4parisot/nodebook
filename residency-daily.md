@@ -4,6 +4,15 @@ Pour en savoir plus: [oncletom.io/2017/residence-nodejs/](https://oncletom.io/20
 
 # Journal
 
+## Jeudi 23 février
+
+On m'a volé mon ordi pendant mon sommeil. Quelques commits et "quelques" euros de perdus.
+
+- _Chapitre 2_ : async/await sans flag dans node@7.6
+- Réécriture de l'_Avant-propos_
+
+**Moral** : 😰 👮 🚌
+
 ## Mercredi 22 février
 
 Merci [@laMYNE_][la-myne] pour le coin de bureau, [Maxime](https://twitter.com/maxlath) et [Tobias](https://twitter.com/tobikabla) pour les super conversations 👋
