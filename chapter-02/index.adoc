@@ -584,10 +584,8 @@ Certaines fonctionnalités sont disponibles uniquement en utilisant une option d
 
 ----
 $ node --harmony script.js                # <1>
-$ node --harmony-async-await script.js    # <2>
 ----
-<1> Active toutes les fonctionnalités préliminaires ;
-<2> Active uniquement la fonctionnalité <<primitives/async-await,async/await>>.
+<1> Active toutes les fonctionnalités préliminaires.
 
 Une page explicative (en anglais) sur le site `nodejs.org` contient des indications à jour sur la compatibilité générale avec __ECMAScript 2015_ : [URL]#https://nodejs.org/en/docs/es6/#
 
@@ -1431,10 +1429,11 @@ Cette exception est interceptable avec un bloc `try/catch`, comme du code synchr
 ====
 
 Les opérateurs `async` et `await` ne sont pas disponibles dans Node v6.
-Ils sont accessibles dans Node à partir de la v7 et nécessitent l'activation d'une option spécifique :
+Il nous faudra installer _a minima_ Node v7.6 :
 
 ----
-$ node --harmony-async-await un-script.js
+$ nvm install v7
+$ node un-script.js
 ----
 
 ====
@@ -2013,7 +2012,7 @@ Plusieurs options pourraient vous intéresser :
 - `-e` (ou `--eval`) : évalue du code ;
 - `-p` (ou `--print`) : évalue et affiche le code ;
 - `-r` (ou `--require`) : inclue un module ;
-- `--harmony` (ou tout sous-ensemble de type `--harmony-async-await`, `--harmony-xx`) : active des fonctionnalités expérimentales ;
+- `--harmony` (ou tout sous-ensemble de type `--harmony-xx`) : active des fonctionnalités expérimentales ;
 - `--v8-options` : passe des options à la <<../chapter-01.adoc#v8,VM V8>>.
 
 L'option `-p` est idéale pour évaluer du code en une ligne et visualier un résultat :
