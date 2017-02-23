@@ -1702,7 +1702,7 @@ L'héritage prototypal est utilisé pour le rendre capable d'émettre des évèn
 Cette méthode est utilisée pour écouter les évènements système et permettre à nos programmes de réagir convenablement.
 
 L'exemple suivant illustre la réaction face à un signal d'interruption (abrégé en `SIGINT`, pour _Signal Interrupt_).
-Ce signal est notamment émis en pressant les touches [Menu]#CTRL# et [Menu]#C#.
+Ce signal est notamment émis en pressant les touches kbd:[CTRL+C].
 
 [source,javascript]
 .interrupt.js
@@ -1979,9 +1979,9 @@ La plate-forme Node fournit un exécutable système : `node`. C'est lui qui dig�
 === REPL
 
 Un _REPL_ est un interpréteur interactif exécuté dans votre terminal.
-Une fois invoqué, toutes les instructions écrites dans le terminal seront interprétées dès que vous presserez la touche [KEY]#Entrée#.
+Une fois invoqué, toutes les instructions écrites dans le terminal seront interprétées dès que vous presserez la touche kbd:[ENTRÉE]
 
-L'intérêt principal d'utiliser le _REPL_ est de prototyper rapidement du code ; code que l'on pourra éventuellement sauvegarder en tapant `.save` [KEY]#Entrée#.
+L'intérêt principal d'utiliser le _REPL_ est de prototyper rapidement du code ; code que l'on pourra éventuellement sauvegarder en tapant kbd:[.+S+A+V+E+ENTRÉE].
 
 Autre exemple : vous écrivez un programme qui nécessite que l'utilisateur saisisse lui-même du code à faire interpréter par Node.
 On pourrait penser à un programme en ligne de commande éducatif ou encore à une interface web qui commanderait un _REPL_ distant.
