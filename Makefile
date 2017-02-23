@@ -25,6 +25,7 @@ $(html_files): $(adoc_files)
             -a env=ci \
             -a hide-uri-scheme \
             -a docinfo1 \
+            -a experimental \
             -D $(dir $@) \
             -b html5 \
             -d book $(ADOC_FILE)
