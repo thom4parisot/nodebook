@@ -12,10 +12,9 @@
 :ok:        |            | [Avant-propos][preamble]
 :ok:        |:ok:        | [Introduction à Node.js][ch01]
 :ok:        |            | [Premiers pas avec Node.js][ch02]
-:construction: |         | [Développer un service web][ch03]
+:construction: |         | [Développer une application web][ch03]
 :memo:      |            | [Développer pour les navigateurs web][ch04]
             |            | [Développer un automate de traitement de données][ch05]
-            |            | [Développer une application native][ch06]
             |            | [Héberger, déployer et monitorer][ch07]
             |            | _Annexe A_ : [Sélection de modules npm][a01]
 

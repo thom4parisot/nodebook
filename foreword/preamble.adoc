@@ -1,98 +1,124 @@
 [dedication]
 = Avant-propos
 
-[CAUTION]
-====
-Cette section est en cours de rédaction.
-====
+*Node.js* – appelons-le *Node* dès à présent – est né dans le cerveau de Ryan Dahl, ancien étudiant sans le sou et au parcours informatique atypique.
+Son talent a été de s'obstiner à *résoudre un problème d'expérience utilisateur* fréquent sur le web : *l'attente devant un navigateur web figé*.
+Son but ? Rendre possible et facile la création de *barres de progression* dans les navigateurs Web.
 
-Node.js est une plateforme de développement qui a une histoire différente des pairs auxquels on la compare souvent. J'ai nommé Ruby, Python, Java ou encore PHP.
+J'ai utilisé Node pour la première fois en 2010, par curiosité.
+On n'en était alors qu'à la version `0.4`.
+Pouvoir créer mon propre serveur HTTP me semblait étrange, moi qui était un habitué du duo PHP et Apache.
+*L'effet _wahou_ était pourtant là* : une installation en quelques secondes, quelques lignes de JavaScript et j'avais une API REST câblée avec une base de données _CouchDB_ pour impressionner mes collègues de l'agence _Clever Age_.
 
-*Node.js* (que l'on dénommera plus simplement *Node* dans le reste de l'ouvrage) est né dans le cerveau de Ryan Dahl, ancien étudiant sans le sou ni de véritable parcours informatique.
-Son talent a été de penser et de s'obstiner à résoudre un problème alors fréquent, l'attente.
-Son but ? Rendre plus simple la création de barres de chargement dans les navigateurs Web. +
-Qui l'eût cru ?
+Je bascule dans un *contexte startup* fin 2011 : nous sommes 4 développeurs avec des bagages différents.
+Nous partons sur Node que notre hébergeur _Alwaysdata_ installe sans encombre.
+Nous avions la *sensation de progresser rapidement*.
+Nous allions _réellement_ vite. +
+*JavaScript était devenu notre langue commune grâce à Node*.
 
-Et qui aurait cru que Node aurait été propulsé sur les devants de la scène à une vitesse aussi fulgurante ?
-Pas Ryan Dahl en tous cas.
+Depuis, de nombreuses entreprises ont communiqué sur leur adoption de Node :  Paypal, LinkedIn, eBay, Airbnb, British Gaz, Allociné, The New York Times, Yahoo!, Microsoft, Mozilla, Flickr ou encore Twitter.
+Leur utilisation couvre aussi bien l'outillage métier que les transactions bancaires, des serveurs LDAP, des web services ou des sites web.
 
-J'ai utilisé Node pour la première fois en 2010, par curiosité. +
-Le concept de pouvoir créer son propre serveur HTTP me semblait étrange.
-Étant alors développeur PHP et frontend, j'étais *habitué* à ce que cet aspect soit pris en charge par un serveur Apache ou nginx.
-
-*C'était pourtant pratique* : un peu de JavaScript, une ligne de commande et j'avais une API REST pour montrer à mes collègues comment nous pouvions mettre à disposition des données de transport en temps réel.
-
-En 2011, je réalise une API REST avec le framework PHP Symfony2.
-Au fur et à mesure où je programme, j'hésite fortement à basculer vers Node qui me paraissait alors beaucoup plus simple et adapté.
-Je me résigne, de crainte d'emmener mon client sur un terrain inexploré.
-
-De fin 2011 à mi-2012, je bascule dans un *contexte startup* : nous sommes 4 développeurs avec des bagages différents.
-Nous savons tous faire du PHP et du JavaScript mais Node nous attire.
-Notre hébergeur l'installe sans encombre tandis que de notre côté, nos premiers essais se révèlent concluants.
-
-Chose inhabituelle, nous avions la *sensation de progresser rapidement*.
-Et ce n'était pas qu'une sensation : nous allions réellement vite.
-Mieux encore, la _satisfaction_, la _simplicité d'utilisation_ et l'_aisance de déploiement_ nous grisent.
-
-Node était devenu plus qu'un simple langage de programmation : *JavaScript était notre langage de communication*.
-
-Depuis, de nombreuses grosses entreprises ont communiqué sur leur adoption de Node : Viadeo, Paypal, LinkedIn, eBay, The New York Times, Yahoo!, Microsoft, Mozilla, Flickr ou encore Twitter.
-
-Elles en font un usage varié : cela couvre aussi bien l'outillage, des transactions bancaires, des serveurs LDAP, des Web services ou des sites Web.
-
-En 2014, l'écosystème de modules est en pleine expansion, l'API de Node est mature et séduit chaque jour un peu plus développeurs et entreprises.
+Pourtant, nombre d'ouvrages et de ressources se focalisent uniquement sur le dernier _framework_ ou librairie à la mode en passant à côté de l'essentiel.
 
 == Pourquoi ce livre ?
 
-Node est devenu mon outil de travail au quotidien depuis 2011 : outillage, tests, API, applications, prototypes et automatisation.
+*Node est un environnement plaisant et agréable à utiliser*, c'est ce que j'aime et aspire à partager avec vous au cours des prochaines pages de cet ouvrage.
 
-Sa simplicité et son architecture m'ont fait *progresser dans l'usage de JavaScript*.
+Node est *mon outil de travail principal* depuis 2011.
+Outillage, tests, API, applications, prototypes et automatisation.
+Sa simplicité, son architecture et l'emphase sur la modularité m'ont fait *progresser dans l'usage de JavaScript* ainsi que sur la compréhension bas-niveau des systèmes d'exploitation.
 
-À travers cet ouvrage, je souhaite rendre justice à Node en permettant de s'y intéresser par le biais qui parait le plus naturel pour la lecture :
-pour l'histoire de Node, par ses aspects techniques, par l'open source, par la philosophie UNIX, par le développement _frontend_, par l'art ou encore les objets connectés… bref, par vos centres d'intérêt.
+Je souhaite offrir un *contenu moins technique que d'ordinaire*, plus pratique et encourageant la bidouille : le livre lui-même peut être installé avec Node, lu et pratiqué dans un _shell_.
 
-Il est plus facile d'écrire de bons programmes lorsque l'on connaît mieux les fondamentaux de la plate-forme.
-Il suffit de connaître quelques bons motifs de développement (_design patterns_) pour éviter les pièges et leurs inhérentes frustrations.
-Finalement, cela revient à utiliser les _bons aspects_ de JavaScript avec une immense bibliothèque de fonctionnalités prêtes à l'emploi.
+Je souhaite aussi *partager les principes clés de Node* et de la programmation JavaScript.
+Ces principes traversent le temps et vous donnerons, je l'espère, un appétit et des bases plus solides pour créer de petits programmes, faire un prototype rapide ou déployer une application complète.
 
-Cet ouvrage va vous aider à vous poser les bonnes questions : du choix des modules à l'architecture de vos applications en passant par la qualité du code.
+Enfin, l'écriture de ce livre est également pour moi l'occasion d'*apprendre de mes pairs*, de leurs heures d'expérience en tant que formateurs, d'explorer des sujets qui me font peurs et sur lesquels je ne me sens pas à l'aise.
 
-S'il se révèle aussi sympathique à l'usage qu'il l'est pour moi, j'espère avoir l'occasion d'utiliser un module `npm` que vous aurez publié grâce à cette saine lecture !
+Indirectement, je veux *déconstruire la posture de l'expert et du lecteur* en ouvrant le contenu pendant le processus d'écriture, dans un endroit où éditeur, lecteurs et auteurs apprennent les uns des autres.
 
 == À qui s'adresse cet ouvrage ?
 
-Une personne avec un infime bagage informatique devrait être en mesure de suivre la progression de l'ouvrage. +
-Certaines parties seront plus complexes car liées à des protocoles de communication ou des notions système.
-Qu'à cela ne tienne : c'est une excellente excuse pour jeter un œil à Wikipédia et en apprendre plus sur cette machinerie complexe mais malléable qu'est l'informatique !
+Réponse _courte_ : *tout le monde*. Vraiment.
 
-Si vous voulez des noms, voici qui peut profiter de cet ouvrage :
+Réponse _informelle_ : toute *personne curieuse* ou *souhaitant apprendre* ou *s'améliorer en programmation*, sans forcément trop savoir par où commencer.
+Je crois fermement qu'apprendre à programmer n'implique pas de faire de la programmation son métier ni de pratiquer sans erreur – on peut avoir envie de *découvrir par plaisir*, par *envie de comprendre* ses pairs ou pour *engager une conversation* avec ses collègues.
 
-* des développeurs _backend_ pratiquant déjà ou pas du tout JavaScript ;
-* des développeurs _frontend_ qui cherchent à mieux s'outiller ;
-* des personnes ayant besoin de prototyper rapidement des applications ;
-* des personnes ayant besoin d'applications performantes supportant de multiples connexions en simultané ;
-* des personnes cherchant à débuter la programmation sans avoir à apprendre plusieurs langages.
+Réponse _formelle_ :
+
+* des personnes dont la *programmation est leur métier* mais pratiquant peu ou pas assez JavaScript ;
+* des personnes adeptes du *développement _frontend_* et cherchant à mieux s'outiller ;
+* des *personnes non-techniques* qui chercheraient à prototyper une idée d'application dans le cadre d'un projet perso ou d'une startup ;
+* des personnes souhaitant *introduire de nouvelles pratiques* dans leur équipe ;
+* des personnes cherchant à faire de JavaScript une *langue commune entre le _backend_ et le _frontend_* de leurs applications.
 
 == Structure de l'ouvrage
 
-TBD.
+Cet ouvrage a été conçu pour être lu dans _deux ordres_ : *séquentiel*, comme une histoire et *transversal*, en fonction de vos envies.
+
+Cette édition se compose de _six chapitres_ :
+
+. *Introduction à Node.js* +
+  Comprendre d'où vient Node, les acteurs de son histoire, ses relations avec JavaScript, son architecture technique ainsi que sa philosophie de développement.
+. *Premiers pas avec Node.js* +
+  Installer Node sur son ordinateur, quels outils choisir pour développer, découvrir les concepts UNIX dont Node hérite, comment créer et gérer un projet Node, (re)découvrir les primitives et motifs de conception JavaScript… mais au fait, c'est quoi _ECMAScript_ ?
+. *Développer une application web* +
+  Comprendre le modèle de serveur de Node, comment créer une application web et une API RESTful, la connecter avec plusieurs types de base de données, la tester unitairement et fonctionnellement tout en découvrant comment partager des blocs de présentation entre serveur et client.
+. *Développer pour les navigateurs web* +
+  Peut-on exécuter Node ou importer des modules _npm_ dans les navigateurs web ? Découvrir comment écrire du code au plus proche des standards — JavaScript et CSS mais aussi comment s'outiller pour éliminer les tâches répétitives tout en augmentant qualité de vie et qualité de code.
+. *Développer un automate de traitement de données* +
+  Comment manipuler un fichier dont la taille est plus importante que la quantité de mémoire disponible ? Apprendre à appliquer des transformations successives sans accéder au disque grâce au _streaming_ de données.
+. *Héberger, déployer et monitorer* +
+  Quel type d'hébergement choisir, comment déployer ses applications, s'assurer de leur fonctionnement et de leur santé sans compromettre leur sécurité.
+
+Une *annexe* présente une sélection de modules _npm_ pour explorer d'autres horizons – énième démonstration de la versatilité de Node.
+
+Cet ouvrage est également consultable sur _quatre supports_ :
+
+- *livre*, idéal pour les annotations ;
+- *e-book*, idéal pour consommer les batteries de votre liseuse numérique ;
+- *web*, idéal pour bénéficier des contenus multimédia, des ajouts récents et des corrections diverses;
+- *npm*, idéal pour exécuter les exemples dans votre terminal et apprendre en bidouillant.
 
 [TIP]
+.[RemarquePreTitre]#Ressources# Contenu en [line-through]#livre# libre accès
 ====
-.[tip-titre]#Ressources# Code source des examples du livre
+Le contenu de cet ouvrage est géré grâce à la plate-forme collaborative _GitHub_.
+Cette plate-forme me permet d'obtenir des retours, idées et suggestions d'un peu tout le monde… peut-être vous ?
 
-Le code source des exemples est accessible depuis le site dédié à l'ouvrage.
-L'ensemble de l'ouvrage et les exemples sont disponibles, à jour et ouverts aux corrections et améliorations depuis le dépôt GitHub correspondant.
-
-- [URL]#https://oncletom.io/node.js#
 - [URL]#https://github.com/oncletom/nodebook#
 - [URL]#https://npmjs.com/nodebook#
-
 ====
 
 == Remerciements
 
-TBD.
+Cet ouvrage a été rédigé sur près de _trois années_ – longue est la liste exhaustive des personnes à remercier.
+Longue aussi est la liste de celles et ceux à qui je dois m'excuser pour mes sautes d'humeur, mes absences ou mes passages à vide.
+Écrire est une activité éprouvante qui nécessite une attention vis à vis de soi-même pour ne pas (trop) en souffrir.
+
+Mes premiers remerciements vont à _Eyrolles_, mon éditeur.
+Je pense à Karine, Laurène et Elza mais aussi à Alexandre pour leur patience infinie, leurs remarques et leur confiance malgré tous ces rebondissements.
+
+Je te remercie tellement Noémie.
+Ta joie, tes encouragements et ta présence sont essentiels à mon équilibre.
+Ils me donnent confiance, m'inspirent et atténuent les peurs qui peuvent me paralyser.
+
+Je me dois aussi de remercier mes anciens collègues de BBC R&D pour leur soutien, leur confiance et leur tolérance aux jeux de mots.
+Olivier, Sean, Katie, Chris N et Chris L… c'était un plaisir et un honneur d'être à vos côtés.
+
+Certain·e·s d'entre vous m'ont beaucoup aidé de par leurs conseils, leurs relectures et leurs encouragements.
+Alors un grand merci Frank, Thierry, Boris, Béa, Efi, Alexandra, Thomas, Xavier, Bastien, Nicolas C, n1k0 et Loic.
+
+J'ai organisé une résidence d'écriture itinérante de janvier à mars 2017.
+On m'a hébergé, nourri et parfois blanchi.
+Merci beaucoup beaucoup Maxime W, Brice F, Nicolas F, les gens du Yelloworking  à Aix, Antoine F, les gens de la Coop à Grenoble, Cédric et Hélyette, Agnès, les gens de Mix-IT, les gens de la Cordée à Lyon, Maxime L, les gens de la Myne à Villeurbane, Clément D et Quentin A, les gens de Clever Cloud, Thomas M et Lilian M, les gens du ByteClub, Alexis J, les gens de Matlo, les gens du Fab Lab 127°, Arnaud R, Ismaël H et les gens de BetaGouv.
+
+Enfin, entre meta-remerciements et méga-encouragements, je suis heureux et fier d'œuvrer d'ensemble, avec David et Clémentine, afin de porter nos valeurs et nos idées vers les Communs et la mutualisation de moyens.
+
+Mes amis. Ma famille. Je vous aime.
+
+Bonne lecture icon:smile-o[]
 
 — Thomas Parisot
 [URL]#https://oncletom.io#
