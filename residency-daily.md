@@ -4,6 +4,16 @@ Pour en savoir plus: [oncletom.io/2017/residence-nodejs/](https://oncletom.io/20
 
 # Journal
 
+## Mercredi 22 février
+
+Merci [@laMYNE_][la-myne] pour le coin de bureau, [Maxime](https://twitter.com/maxlath) et [Tobias](https://twitter.com/tobikabla) pour les super conversations 👋
+
+- _Chapitre 4_ : Modulariser ses feuilles de style avec Sass
+- _Chapitre 4_ : Lier composants visuels et feuilles de style
+- _Outillage_ : Manipulation du livre en ligne de commande ([#122](https://github.com/oncletom/nodebook/pull/122))
+
+**Moral** : 😀
+
 ## Mardi 21 février
 
 Merci [@NinjaSquad][ninja-squad] et [@LaCordeeLyon][la-cordee] pour le coin de bureau 👋
@@ -277,6 +287,7 @@ Merci [@BetaGouv](https://github.com/sgmap) pour le coin de bureau 👋
 
 **Moral** : 😊
 
+[la-myne]: https://twitter.com/lamyne_
 [ninja-squad]: https://twitter.com/NinjaSquad
 [la-cordee]: https://twitter.com/LaCordeeLyon
 [clever-cloud]: https://twitter.com/clever_cloud
