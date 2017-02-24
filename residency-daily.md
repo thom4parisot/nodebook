@@ -8,10 +8,14 @@ Pour en savoir plus: [oncletom.io/2017/residence-nodejs/](https://oncletom.io/20
 
 On m'a volé mon ordi pendant mon sommeil. Quelques commits et "quelques" euros de perdus.
 
-- _Chapitre 2_ : async/await sans flag dans node@7.6
-- Réécriture de l'_Avant-propos_
+![](resources/daily-20170223-meetup.jpg)
 
-**Moral** : 😰 👮 🚌
+Merci à l'[infolab La Coop][la-coop] pour le coin de bureau, le fromage et la facilitation du meetup 👋
+
+- _Chapitre 2_ : async/await sans flag dans node@7.6
+- _Avant-propos_ : pourquoi, pour qui et merci qui
+
+**Moral** : 😰 👮 🚌 🧀 😀
 
 ## Mercredi 22 février
 
@@ -296,6 +300,7 @@ Merci [@BetaGouv](https://github.com/sgmap) pour le coin de bureau 👋
 
 **Moral** : 😊
 
+[la-coop]: http://www.la-coop.net/
 [la-myne]: https://twitter.com/lamyne_
 [ninja-squad]: https://twitter.com/NinjaSquad
 [la-cordee]: https://twitter.com/LaCordeeLyon
