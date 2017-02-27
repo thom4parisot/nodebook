@@ -2,7 +2,11 @@
 
 'use strict';
 
+const updateNotifier = require('update-notifier');
+const pkg = require('../package.json');
 const yargs = require('yargs');
+
+updateNotifier({ pkg }).notify();
 
 yargs
   .commandDir('commands')
