@@ -11,7 +11,8 @@ cache:
 services:
 - docker
 
-script: npm test
+before_install:
+- git lfs pull
 
 before_deploy:
 - make clean install build-html
