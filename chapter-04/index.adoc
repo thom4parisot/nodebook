@@ -1341,12 +1341,61 @@ Les _scripts_ sont alors à invoquer manuellement, sur un _crochet git_ (_git ho
 
 == Tester son code
 
+C'est bien connu que lorsqu'on produit du code de qualité, écrire des tests est amplement superflu et ne sert qu'à nous ralentir.
 
-=== Écrire des tests avec tape et chai
+La réalité est toute autre et suit un paradigme très simple : *plus il y a de lignes de code, plus il y a de chances de faire des erreurs*.
+Cela vaut aussi bien pour du HTML que du CSS ou encore de l'_ECMAScript_.
 
-TBD.
+Cette ultime et dernière section de ce chapitre nous aidera à comprendre quoi et comment tester pour *diminuer le coût de maintenance de nos applications*.
 
-=== Exécuter les suites de tests avec Karma
+=== Que tester ?
+
+L'idée d'écrire des tests pour améliorer la qualité de son code est attrayante mais quand on en sait pas quoi tester et ni à qui demander pour se lancer, il est évident qu'on ne va pas s'y mettre pour s'assurer que 1+1 valent bien [line-through]#3# 2.
+
+Je pense à ces _trois règles_ lorsque je souhaite écrire des tests :
+
+. qu'est-ce qui est *public/exporté* ?
+. qu'est-ce qui crée des *branches dans mon code* ?
+. qu'est-ce qui *vient du monde extérieur* ?
+
+La syntaxe de modules _ECMAScript 2015_ est idéale pour visualiser les segments de code qui sont exportés par nos différents fichiers.
+Élément marquant : ce code est simple et devrait arriver à compter le nombre de mots mais nous n'avons aucune idée s'il fera correctement le travail sans l'exécuter dans une application.
+
+[source,javascript]
+.test-export.js
+----
+include::{sourceDir}/test-export.js[]
+----
+<1> La fonction `countWords` le seul élément exporté par notre module et devrait donc être le seul sujet de nos tests.
+
+Une _branche_ est une portion de *code qui s'exécute de manière ponctuelle*.
+Ces sections de code s'activent ou non selon l'état d'une structure de données.
+Il faut *prévoir _au moins autant_ de tests que de branches* pour valider les attentes.
+
+[source,javascript]
+.test-branches.js
+----
+include::{sourceDir}/test-branches.js[]
+----
+<1> Première branche activée dans _deux_ cas de figure ;
+<2> Seconde branche ;
+<3> Troisième branche.
+
+Enfin, l'*accès à toute donnée externe* est susceptible de mal fonctionner sans que nous puissions maitriser l'origine des problèmes.
+En revanche l'écriture de tests nous aidera à *accepter ce cas de figure* et à le signaler à nos applications.
+
+[source,javascript]
+.test-outside-world.js
+----
+include::{sourceDir}/test-outside-world.js[]
+----
+<1> `linkElement` peut ne pas être un lien hypertexte (`document.querySelector` retourne `null`) ;
+<2> Ici tout peut arriver : `href` n'est pas une URL valide (balise `href` vide), serveur indisponible etc ;
+<3> Et là, le fichier JSON peut être mal mal formé ou la réponse est exprimée dans un autre format que JSON.
+
+Nous savons désormais à peu près tout ce qu'il faut _flairer_ pour renforcer nos applications en écrivant quelques tests.
+
+=== Tester ses composants React sans navigateur web
 
 TBD.
 
@@ -1354,11 +1403,11 @@ TBD.
 
 TBD.
 
-=== Tester la compatibilité navigateurs avec BrowserStack
+=== Intégration continue et compatibilité navigateurs avec _BrowserStack_
 
 TBD.
 
-=== Le cas Internet Explorer et ievms
+=== Tester les éléments de lisibilité et de performance
 
 TBD.
 
