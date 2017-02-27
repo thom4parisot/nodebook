@@ -3,36 +3,39 @@ GIT_REPO=oncletom/nodebook
 DOCKER_IMAGE=oncletom/asciidoctor
 DOCKER_COMMAND=docker run -i --rm -v $(CURDIR):/documents $(DOCKER_IMAGE)
 
-adoc_files := index.adoc $(wildcard chapter-*/index.adoc) $(wildcard foreword/*.adoc) $(wildcard appendix-*/*.adoc)
-html_files := $(adoc_files:%.adoc=$(BUILD_DIR)/%.html)
+ADOC_FILES = $(wildcard index.adoc chapter-*/index.adoc appendix-*/index.adoc foreword/*.adoc)
+HTML_FILES = $(ADOC_FILES:%.adoc=$(BUILD_DIR)/%.html)
+VIDEO_FILES := $(wildcard chapter-*/videos/*.mp4)
+VIDEO_FILES_DIST := $(VIDEO_FILES:%=$(BUILD_DIR)/%)
 
 clean:
 	rm -rf $(BUILD_DIR)
 
 install:
-	npm install --no-spin --no-progress
 	docker pull $(DOCKER_IMAGE)
 
-$(html_files): $(adoc_files)
-	$(eval ADOC_FILE = $(@:dist/%.html=%.adoc) )
+$(VIDEO_FILES_DIST): $(VIDEO_FILES)
+	@mkdir -p $(dir $@)
+	cp $< $@
 
+$(HTML_FILES): $(ADOC_FILES)
 	$(DOCKER_COMMAND) \
-            -a data-uri \
-            -a toc=macro \
-            -a toclevels=4 \
-            -a icons=font \
-            -a lang=fr \
-            -a env=ci \
-            -a hide-uri-scheme \
-            -a docinfo1 \
-            -a experimental \
-            -D $(dir $@) \
-            -b html5 \
-            -d book $(ADOC_FILE)
+		-a data-uri \
+		-a toc=macro \
+		-a toclevels=4 \
+		-a icons=font \
+		-a lang=fr \
+		-a env=ci \
+		-a hide-uri-scheme \
+		-a docinfo1 \
+		-a experimental \
+		-D $(dir $@) \
+		-b html5 \
+		-d book $(@:dist/%.html=%.adoc)
 
-build: $(html_files)
+build-html: $(HTML_FILES) $(VIDEO_FILES_DIST)
 
-deploy-html: $(html_files)
+deploy-html: $(HTML_FILES) $(VIDEO_FILES_DIST)
 	rm -rf /tmp/deploy && cp -r $(BUILD_DIR) /tmp/deploy
 	cd /tmp/deploy \
           && git init \
@@ -42,4 +45,5 @@ deploy-html: $(html_files)
           && git commit -am 'Build HTML book' \
           && git push -q -f origin gh-pages
 
-.PHONY: build clean deploy-html install
+.PHONY: build-html clean deploy-html install
+.SILENT: deploy-html
