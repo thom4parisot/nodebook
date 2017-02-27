@@ -19,6 +19,7 @@ $(VIDEO_FILES_DIST): $(VIDEO_FILES)
 	cp $< $@
 
 $(HTML_FILES): $(ADOC_FILES)
+	@mkdir -p $(dir $@)
 	$(DOCKER_COMMAND) \
 		-a data-uri \
 		-a toc=macro \
@@ -35,7 +36,7 @@ $(HTML_FILES): $(ADOC_FILES)
 
 build-html: $(HTML_FILES) $(VIDEO_FILES_DIST)
 
-deploy-html: $(HTML_FILES) $(VIDEO_FILES_DIST)
+deploy-html: $(VIDEO_FILES_DIST) $(HTML_FILES)
 	rm -rf /tmp/deploy && cp -r $(BUILD_DIR) /tmp/deploy
 	cd /tmp/deploy \
           && git init \
