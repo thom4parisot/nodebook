@@ -11,7 +11,10 @@ cache:
 services:
 - docker
 
-script: npm test
+before_install:
+- mkdir -p /tmp/git-lfs
+- curl -L https://github.com/git-lfs/git-lfs/releases/download/v1.5.6/git-lfs-linux-amd64-1.5.6.tar.gz | tar -xz -C /tmp/git-lfs --strip-components 1
+- /tmp/git-lfs/git-lfs pull
 
 before_deploy:
 - make clean install build-html
