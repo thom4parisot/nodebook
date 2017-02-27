@@ -16,7 +16,8 @@
     "build:livereload:react-app-hmr": "browserify -t babelify -e examples/livereload/react-app-hmr.js -o examples/livereload/react-app-hmr-browserify.js",
     "watch:buttons": "watchify -dv -p livereactload -t [ sassify --auto-inject ] -t babelify -e ./examples/ui/app.js -o ./examples/ui/app-browserify.js",
     "watch:livereload:react-app-hmr": "watchify -dv -p livereactload -t babelify -e examples/livereload/react-app-hmr.js -o examples/livereload/react-app-hmr-browserify.js",
-    "start": "node ./server.js"
+    "start": "node ./server.js",
+    "test": "mocha --compilers js:babel-register examples/tests"
   },
   "engines": {
     "node": "^6.0.0"
@@ -33,9 +34,11 @@
     "babel-plugin-react-transform": "^2.0.2",
     "babel-preset-env": "^1.1.8",
     "babel-preset-react": "^6.23.0",
+    "babel-register": "^6.23.0",
     "babelify": "^7.3.0",
     "browser-sync": "^2.18.8",
     "browserify": "^14.0.0",
+    "chai": "^3.5.0",
     "chance": "^1.0.4",
     "core-js": "^2.4.0",
     "es6-promise": "^4.0.0",
@@ -46,6 +49,7 @@
     "imagemin-cli": "^3.0.0",
     "jquery": "^3.1.1",
     "livereactload": "^3.2.0",
+    "mocha": "^3.2.0",
     "node-sass": "^4.5.0",
     "npm-run-all": "^4.0.1",
     "react": "^15.4.2",
