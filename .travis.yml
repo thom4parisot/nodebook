@@ -13,9 +13,12 @@ services:
 
 script: npm test
 
+before_deploy:
+- make clean install build-html
+
 deploy:
   provider: script
-  script: make clean install build-html deploy-html
+  script: make deploy-html
   skip_cleanup: true
   on:
     branch: master
