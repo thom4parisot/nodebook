@@ -1,4 +1,5 @@
-sudo: required
+dist: trusty
+sudo: false
 
 language: node_js
 node_js: v6
@@ -10,17 +11,13 @@ cache:
 services:
 - docker
 
-install:
-- npm install
-- make install
-
 script: npm test
 
 deploy:
   provider: script
-  script: make clean build deploy-html
+  script: make clean install build-html deploy-html
   skip_cleanup: true
-  on: 
+  on:
     branch: master
 
 env:
