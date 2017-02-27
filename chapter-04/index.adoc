@@ -1267,7 +1267,23 @@ Elle demande moins d'outillage et s'applique pleinement à des composants visuel
 
 === Optimiser ses ressources graphiques
 
-TBD.
+Node est un outil de choix lorque l'on souhaite s'atteler au développement _frontend_ et ce n'est pas sans raison.
+Outre l'outillage lié à la réécriture du code – comme <<babel,Babel>> et <<browserify,browserify>> évoqués ci-avant – Node regorge de modules _npm_ réduisant les tâches manuelles répétitives et possiblement sujettes à erreur.
+
+Nous retrouvons l'optimisation des ressources graphiques parmi cet ensemble de tâches rébarbatives.
+Quand j'écris _ressources graphiques_, j'entends par là le redimensionnement ou la création de vignettes d'images, l'optimisation de leur poids, la fusion de fichiers SVG sous forme de symboles, la création de piles de polices de caractère et même l'encodage audio/vidéo – via des _bindings_ avec des logiciels spécialisés comme _ffmpeg_ ou _lame_.
+
+L'outil en ligne de commande _imagemin-cli_ ([URL]#https://npmjs.com/imagemin-cli#) est le module de référence pour optimiser les fichiers graphiques.
+Il est basé sur la librairie _imagemin_ ([URL]#https://npmjs.com/imagemin#) et se chargera de réduire le poids de nos images JPEG, PNG mais aussi GIF (animés et statiques) ainsi que le format vectoriel SVG.
+
+----
+$ ./node_modules/.bin/imagemin images/* --out-dir images
+8 images minified
+----
+
+L'utilisation d'un <<../chapter-03/index.adoc#npm-scripts,script npm>> (cf. Chapitre 3) est idéale pour décrire les différentes actions d'optimisation.
+Les _scripts_ sont alors à invoquer manuellement, sur un _crochet git_ (_git hook_) ou automatiquement, lors du déploiement avec un <<../chapter-07/index.adoc#ci,service d'intégration continue>>.
+
 
 == Tester son code
 
