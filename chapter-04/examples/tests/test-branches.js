@@ -1,8 +1,6 @@
 import isOdd from '../test-branches.js'
 import {expect} from 'chai';
 
-/* global describe,it */
-
 describe('isOdd', () => {
   it('jette une exception si le paramètre n\'est pas un nombre', () => {
     expect(() => isOdd(NaN)).to.throw(/devrait être un nombre/);

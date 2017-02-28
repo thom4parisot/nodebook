@@ -1,8 +1,6 @@
 import countWords from '../test-export.js'
 import {expect} from 'chai';
 
-/* global describe,it */
-
 describe('countWords', () => {
   it('identifie trois mots si séparés par un espace', () => {
     expect(countWords('un deux trois')).to.equal(3);
