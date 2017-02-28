@@ -1395,6 +1395,79 @@ include::{sourceDir}/test-outside-world.js[]
 
 Nous savons désormais à peu près tout ce qu'il faut _flairer_ pour renforcer nos applications en écrivant quelques tests.
 
+=== S'outiller pour écrire des assertions
+
+Avant de nous lancer directement dans la conception et l'écriture des tests, intéressons-nous à comprendre comment l'outillage se structure.
+
+* l'*assertion* +
+  C'est la _vérification_ d'une vérité, d'une attente, du résultat d'une opération.
+  Une _assertion_ couvre _une branche_ de code.
+* le *test* +
+  C'est un _regroupement d'assertions_ couvrant toutes les _branches_ des fonctionnalités _publiques_ de notre code.
+* la *suite de tests* +
+  C'est un _ensemble de tests_ couvrant un aspect logique d'un code applicatif.
+  Une application peut comporter plusieurs suites selon sa complexité :
+** tests *unitaires* pour s'assurer du fonctionnement de l'interface de code ;
+** tests *fonctionnels* pour s'assurer du fonctionnement de scénarios d'utilisation d'une application ;
+** tests d'*intégration* pour s'assurer du fonctionnement d'une application en relation avec d'autres applications lui fournissant données et services ;
+* l'*exécuteur de tests* +
+  C'est le logiciel responsable de créer l'environnement d'exécution d'une _suite de tests_.
+  Ils expriment une opinion sur la structuration des tests ainsi que sur des automatismes à fournir pour accélérer l'écriture des tests.
+
+L'outillage varie selon chacun de ces niveaux.
+Certains outils offrent une écriture d'assertion plus fluide, d'autre spécifiquement adaptée.
+
+Les sections suivantes sont complémentaires.
+J'ai favorisé des approches itératives et modulaires pour faciliter l'ajout ou le retrait de tout outil de notre outillage :
+
+* la librairie _chai_ pour les _assertions_ ;
+* la librairie _mocha_ pour les _tests_ ;
+* la librairie _mocha_ pour la _suite de tests_ exécutable par Node ;
+* l'_exécuteur de tests_ nommé  _karma_ pour faire fonctionner la _suite de tests_ dans les navigateur web.
+
+
+[TIP]
+.[RemarquePreTitre]#Documentation# _chai_, _mocha_ et _karma_
+====
+Ces trois librairies disposent d'une documentation en ligne expliquant leurs options respectives ainsi que des exemples d'utilisation.
+
+- [URL]#http://chaijs.com/api/bdd/#
+- [URL]#https://mochajs.org/#
+- [URL]#https://karma-runner.github.io/#
+====
+
+[code,javascript]
+.Exemple d'assertion avec la librairie _chai_
+----
+import {expect} from 'chai';
+
+expect(2+2).to.equal(4);
+----
+
+[code,javascript]
+.Exemple de test avec la librairie _mocha_
+----
+describe('functionName', () => {
+  it('should succeed with parameter cheese', () => {
+    // ...
+  });
+
+  it('should throw an error with parameter meat', () => {
+    // ...
+  });
+});
+----
+
+.Exemple d'exécution de suites de tests avec _mocha_ et _karma_
+----
+$ mocha tests/**/*.js
+$ karma start
+----
+
+L'exécuteur de tests _karma_ se configure par le biais d'un fichier `karma.conf.js`.
+Nous en trouverons un à la racine du répertoire des ressources de ce chapitre 4.
+
+
 === Tester ses composants React sans navigateur web
 
 TBD.
