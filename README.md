@@ -44,16 +44,17 @@ Examples:
 # Participation
 
 Le moyen le plus simple de contribuer est de proposer une _pull request_.
-L'interface en ligne de GitHub est la solution la plus simple.
+L'**interface en ligne de GitHub** est de loin la plus simple à prendre en main.
 
 ## Installation
 
-Il est possible de travailler sur une copie locale de l'épreuve :
+Il est possible de travailler sur une copie locale de l'épreuve en la dupliquant avec Git. [git-lfs](https://git-lfs.github.com/) est nécessaire à la récupération des fichiers volumineux.
 
 ```bash
-git clone https:/github.com/oncletom/nodebok && cd nodebook
-npm install
-make install
+$ git clone --single-branch https:/github.com/oncletom/nodebok
+$ cd nodebook
+$ npm install
+$ git lfs pull # si vous avez installé git-lfs après avoir cloné le dépôt
 ```
 
 ## Prévisualiser
@@ -61,7 +62,7 @@ make install
 Un serveur local est également disponible pour prévisualiser vos modifications sans être connecté à Internet.
 
 ```bash
-$ nodebook read
+$ PORT=3000 npm start
 ```
 
 Des extensions [Chrome][adoc-chrome] et [Firefox][adoc-firefox] se chargeront du rendu en temps réel dans le navigateur. Dans les options de l'extension, prenez soin d'autoriser le chargement des fichiers et utilisez le mode `safe` pour autoriser le rendu des exemples de code :
@@ -77,13 +78,13 @@ Le code des exemples est vérifié à l'aide d'[ESLint](http://eslint.org/).
 La commande suivante vérifiera que la syntaxe ECMAScript n'entraine pas d'effet secondaires indésirables.
 
 ```bash
-npm test
+$ npm test
 ```
 
 ## Génération de l'épreuve HTML
 
 ```bash
-make build && open ./public
+$ make build-html && open ./dist
 ```
 
 
