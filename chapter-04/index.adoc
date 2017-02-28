@@ -1470,7 +1470,68 @@ Nous en trouverons un à la racine du répertoire des ressources de ce chapitre 
 
 === Tester ses composants React sans navigateur web
 
-TBD.
+Un des points forts de <<react,React>> évoqué dans ce chapitre est la _description de son rendu_ à même le composant.
+Nous bénéficions ainsi du résultat final (son HTML par exemple) ainsi que d'un arbre représentant une structure de sous-éléments et de propriétés.
+
+Nous disposons de deux stratégies pour tester un composant _React_ afin d'en tester les différents comportements :
+
+- *tester le rendu* en comparant des chaînes de caractères ;
+- *tester l'état* en validant la présence d'attributs ou le déclenchement de certaines méthodes du composant.
+
+La librairie _Enzyme_ ([URL]#https://npmjs.com/enzyme#) s'occupe très bien des deux, en plus de s'intégrer avec n'importe quelle librairie de tests.
+Dans tous les cas, elle nous permettra de monter nos composants soit de manière isolée, soit dans un véritable arbre DOM soit en rendu HTML.
+
+[TIP]
+.[RemarquePreTitre]#Documentation# _Enzyme_
+====
+L'équipe d'Airbnb offre une documentation exhaustive ainsi que des exemples complets d'intégration avec des outils comme _mocha_, _webpack_, _tape_ ou encore _ava_.
+
+- [URL]#http://airbnb.io/enzyme/#
+- [URL]#http://airbnb.io/enzyme/docs/api/#
+====
+
+Nous allons nous baser sur le composant créé dans la section <<react,rapprocher données, rendu et interactions avec React>> pour s'assurer de son comportement _avant même de l'inclure_ dans notre application.
+
+[source,javascript]
+.tests/date-interval.js
+----
+include::{sourceDir}/tests/date-interval.js[]
+----
+<1> Import du module `DateInterval` ;
+<2> Création d'un _test_ destiné à vérifier la nature de la balise HTML à générer ;
+<3> Création du composant isolé (_shallow_) – aucun élément DOM ne sera créé ni inséré dans le document ;
+<4> On écrit une _assertion_ garantissant que l'on retourne un élément `<time>` ;
+<5> Création d'un second composant isolé dont l'état est indépendant du premier ;
+<6> Récupération de l'état (_state_) du composant ;
+<7> Assertion vérifiant que la date utilisée par le composant est proche de la date courante (à quelques millisecondes près);
+<8> Assertion vérifiant qu'une propriété de l'état ne peut être qu'une des deux valeurs parmi `pair` et `impair`.
+
+
+En complément à ceci, la librairie _chai-enzyme_ ([URL]#https://npmjs.com/chai-enzyme#) étend le vocabulaire de _chai_ pour ajouter des assertions de composants.
+C'est une question de goût plus qu'une nécessité. +
+L'exemple suivant reprend le composant créé dans la section <<livereload,changements en temps-réel dans le navigateur>> et illustre une assertion suite à un clic sur le bouton :
+
+[source,javascript]
+.tests/button-count.js
+----
+include::{sourceDir}/tests/button-count.js[]
+----
+<1> Le libellé du test décrit le résultat attendu dans les assertions ;
+<2> Simulation du clic sur le composant ;
+<3> L'état interne a bien été changé et correspond à la valeur attendue.
+
+Le fichier `package.json` des ressources du chapitre 4 contient une tâche exécutant les tests exécutables dans un environnement Node uniquement.
+Elle se lance de la manière suivante :
+
+----
+$ npm run test:node
+----
+
+.Extrait de la sortie de la commande `npm run test:node`
+image::images/mocha-react.png[width="80%", align="center"]
+
+
+
 
 [TIP]
 .[RemarquePreTitre]#Alternative# _jest_
@@ -1481,6 +1542,12 @@ Au moment d'écrire cet ouvrage, il n'était pas encore possible de l'exécuter 
 - [URL]#https://npmjs.com/jest#
 - [URL]#https://facebook.github.io/jest/#
 ====
+
+Il est intéressant de retenir que les tests navigateurs ne sont pas indispensables pour s'assurer du bon fonctionnement de nos composants.
+Des librairies comme _React_ sont déjà solidement testées.
+Cela nous laisse l'opportunité de nous concentrer uniquement sur notre logique métier.
+
+Les tests navigateurs sont en revanche utiles pour tester la compatibilité navigateurs, que ce soit au niveau de la syntaxe _ECMAScript_ ou du rendu CSS.
 
 === Tester code et composants dans les navigateurs web
 

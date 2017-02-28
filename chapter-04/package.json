@@ -17,7 +17,8 @@
     "watch:buttons": "watchify -dv -p livereactload -t [ sassify --auto-inject ] -t babelify -e ./examples/ui/app.js -o ./examples/ui/app-browserify.js",
     "watch:livereload:react-app-hmr": "watchify -dv -p livereactload -t babelify -e examples/livereload/react-app-hmr.js -o examples/livereload/react-app-hmr-browserify.js",
     "start": "node ./server.js",
-    "test": "mocha --compilers js:babel-register examples/tests"
+    "test": "npm-run-all 'test:*'",
+    "test:node": "mocha --compilers js:babel-register examples/tests"
   },
   "engines": {
     "node": "^6.0.0"
@@ -39,8 +40,10 @@
     "browser-sync": "^2.18.8",
     "browserify": "^14.0.0",
     "chai": "^3.5.0",
+    "chai-enzyme": "^0.6.1",
     "chance": "^1.0.4",
     "core-js": "^2.4.0",
+    "enzyme": "^2.7.1",
     "es6-promise": "^4.0.0",
     "express": "^4.14.1",
     "faye-websocket": "^0.11.1",
@@ -53,6 +56,7 @@
     "node-sass": "^4.5.0",
     "npm-run-all": "^4.0.1",
     "react": "^15.4.2",
+    "react-addons-test-utils": "^15.4.2",
     "react-dom": "^15.4.2",
     "react-proxy": "^1.1.8",
     "sassify": "^2.0.0",
