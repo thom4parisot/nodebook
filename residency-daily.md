@@ -4,13 +4,44 @@ Pour en savoir plus: [oncletom.io/2017/residence-nodejs/](https://oncletom.io/20
 
 # Journal
 
+## Mardi 28 février
+
+Merci au [Yelloworking][yelloworking] pour le coin de bureau et la facilitation du meetup 👋
+
+[![](resources/daily-20170228-yelloworking.jpg)](https://www.instagram.com/p/BRDhNsmg-Ri/)
+
+- _Chapitre 4_ : Tester ses composants React sans navigateur web
+- _Chapitre 4_ : S’outiller pour écrire des assertions
+- _Chapitre 4_ : jest comme alternative à mocha
+- Documentation de git-lfs dans le README
+
+## Lundi 27 février
+
+Merci [Guillaume](https://github.com/Mogztter) pour tes contributions 👋
+
+- _Chapitre 4_ : Que tester ?
+- _Tooling_ : utilise update-notifier pour signaler une mise à jour aux utilisateurs
+- _Tooling_ : installe git-lfs
+- _Chapitre 4_ : Optimiser ses ressources graphiques
+
+## Dimanche 26 février
+
+Merci [Frank](https://github.com/DirtyF) pour tes contributions 👋
+
+- Heaven from the oven:<br>
+  ![](resources/daily-20170226-baguettes.jpg)
+
+## Vendredi 24 février
+
+Off.
+
 ## Jeudi 23 février
+
+Merci à l'[infolab La Coop][la-coop] pour le coin de bureau, le fromage et la facilitation du meetup 👋
 
 On m'a volé mon ordi pendant mon sommeil. Quelques commits et "quelques" euros de perdus.
 
 ![](resources/daily-20170223-meetup.jpg)
-
-Merci à l'[infolab La Coop][la-coop] pour le coin de bureau, le fromage et la facilitation du meetup 👋
 
 - _Chapitre 2_ : async/await sans flag dans node@7.6
 - _Avant-propos_ : pourquoi, pour qui et merci qui
@@ -300,6 +331,7 @@ Merci [@BetaGouv](https://github.com/sgmap) pour le coin de bureau 👋
 
 **Moral** : 😊
 
+[yelloworking]: http://yelloworking.com/
 [la-coop]: http://www.la-coop.net/
 [la-myne]: https://twitter.com/lamyne_
 [ninja-squad]: https://twitter.com/NinjaSquad
