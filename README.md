@@ -9,14 +9,14 @@
 Écriture    | Relecture  | Chapitre
 :----------:|:----------:|:--------
             |            | [Préface de David Bruant][foreword]
-:ok:        |            | [Avant-propos][preamble]
+:ok:        |:ok:        | [Avant-propos][preamble]
 :ok:        |:ok:        | [Introduction à Node.js][ch01]
 :ok:        |            | [Premiers pas avec Node.js][ch02]
 :construction: |         | [Développer une application web][ch03]
-:memo:      |            | [Développer pour les navigateurs web][ch04]
+:ok:        |            | [Développer pour les navigateurs web][ch04]
             |            | [Développer un automate de traitement de données][ch05]
-            |            | [Héberger, déployer et monitorer][ch07]
-            |            | _Annexe A_ : [Sélection de modules npm][a01]
+:memo:      |            | [Héberger, déployer et monitorer][ch07]
+:construction: |         | _Annexe A_ : [Sélection de modules npm][a01]
 
 # Installation
 
