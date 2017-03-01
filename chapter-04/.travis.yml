@@ -1,0 +1,15 @@
+sudo: false
+
+language: node_js       # <1>
+node_js: v6             # <2>
+
+addons:
+  firefox: latest       # <3>
+
+script: xvfb-run npm run test:browser -- --browsers Firefox # <4>
+
+env:
+  BROWSER_STACK_USERNAME:
+    - secure: …         # <5>
+  BROWSER_STACK_ACCESS_KEY:
+    - secure: …         # <5>

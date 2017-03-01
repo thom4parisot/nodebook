@@ -1676,7 +1676,127 @@ La question qui se pose désormais est la suivante : *comment faire pour tester 
 [[ci]]
 === Intégration continue et compatibilité navigateurs
 
- TBD.
+Plusieurs cas de figure se posent en complément de la section précédente :
+
+* la *difficulté d'accès* à certaines combinaisons _navigateur web_ + _système d'exploitation_ ;
+* l'envie d'*automatiser les tests* de navigateurs web.
+
+En étant sous _Windows_, il nous sera difficile de tester _Safari pour macOS_.
+Inversement, en étant sous _macOS_ il nous sera difficile de tester _Internet Explorer pour Windows XP_ ou _Edge pour Windows 10_.
+Que dire d'anciennes versions de navigateurs Android dont la rapidité de développement et donc la compatibilité est bien en deça des versions de Chrome pour ordinateur ou mobile.
+
+ifeval::["{backend}" == "html5"]
+.Exemple de tests multi-navigateurs en continu avec _karma_ et _BrowserStack_.
+video::videos/karma-browserstack.mp4[align="center", width="70%"]
+endif::[]
+
+L'écosystème de modules _npm_ liés à _karma_ s'est déjà penché sur la question.
+C'est le cas notamment du produit _BrowserStack_ qui offre une intégration pour déléguer l'exécution des tests sur leur plate-forme commerciale.
+Il s'agit du module `karma-browserstack-launcher` ([URL]#https://npmjs.com/karma-browserstack-launcher#).
+
+
+[TIP]
+.[RemarquePreTitre]#Documentation# _BrowserStack_
+====
+La documentation de _BrowserStack_ décrit les différents systèmes d'exploitation à disposition ainsi que les navigateurs web compatibles, pour PC, Mac, iOS et Android.
+L'intégration avec Node est également documentée au cas où vous souhaiteriez effectuer des tests sans passer par _karma_.
+
+- [URL]#https://www.browserstack.com/automate/node#
+- [URL]#https://www.browserstack.com/list-of-browsers-and-platforms#
+====
+
+_BrowserStack_ n'est pas un navigateur en soi mais offre un accès à une multitude de navigateurs.
+Il faut donc créer de nouvelles configurations de navigateurs dans la propriété de configuration `customLaunchers`.
+L'extrait de configuration suivant illustre la création d'un navigateur _Safari_ pour _iPhone 4S_ sous _iOS 5.1_ :
+
+[source,javascript,indent=0]
+.karma.conf.js#L84-91
+----
+include::karma.conf.js[lines=84..91]
+----
+
+L'utilisation de _BrowserStack_ nécessite un compte et l'obtention d'une clé d'API afin d'utiliser leur service.
+Notre _npm d'utilisateur_ et la _clé d'API_ doivent être renseignés en tant que *variables d'environnement* pour établir une connexion au service et démarrer notre bon vieil iPhone 4 :
+
+----
+$ export BROWSER_STACK_USERNAME=…
+$ export BROWSER_STACK_ACCESS_KEY=…
+$ npm run test:browser -- --browsers iphone4
+----
+
+_BrowserStack_ peut être configuré plus finement selon vos besoins.
+Le réglage suivant s'assure de faire transiter les données HTTP (scripts, HTML etc.) via la connexion sécurisée entre notre ordinateur et _BrowserStack_.
+C'est un réglage utile en cas de *proxy exigeant* ou de *réglages de connexion à Internet* bien spécifiques.
+
+[source,javascript,indent=0]
+.karma.conf.js#L52-54
+----
+include::karma.conf.js[lines=52..54]
+----
+
+[TIP]
+.[RemarquePreTitre]#Alternative# _Sauce Labs_
+====
+_Sauce Labs_ est un concurrent de _BrowserStack_ et offre des fonctionnalités similaires.
+Il est gratuit pour les projets _open source_.
+
+- [URL]#https://saucelabs.com#
+====
+
+Indépendamment de _BrowserStack_, l'*intégration continue* est un mécanisme permettant l'*exécution automatique* des tests, de manière *reproductible* et dans un *environnement systématiquement propre* – sans trace d'exécution d'un précédent test.
+
+Cela a deux avantages indéniables :
+
+- exécuter les *tests pour tout changement de code*, peu importe qui en est l'auteur ;
+- s'assurer de l'*exécution systématique des tests* ;
+- *mettre en commun* la logique d'exécution de tests.
+
+On évite ainsi les _oublis_ tout en enlevant le coût de mise en place de l'infrastructure de tests chez des personnes contribuant de manière occasionnelle.
+Cerise sur le gâteau, on prévient en partie les régressions – changement qui casse le fonctionnement attendu d'une fonctionnalité.
+
+Le service _Travis CI_ ([URL]#https://travis-ci.org#) est un service d'intégration continue (_Continuous Integration_, _CI_) parmi d'autres mais qui a été rendu populaire pour son intégration avec _GitHub_.
+Il est gratuit pour les projets _open source_.
+
+[TIP]
+.[RemarquePreTitre]#Astuce# Installer le programme `travis`
+====
+Le service _Travis CI_ met à disposition un programme en ligne de commande écrit en Ruby.
+Ce programme offre divers utilitaires comme le suivi des derniers jobs ainsi que la possibilité de crypter des secrets.
+
+----
+$ gem install travis --no-doc --no-ri
+$ travis login
+$ travis help
+----
+====
+
+Un service d'intégration continue est configuré pour définir ce qui est exécuté _avant_, _pendant_ et _après_ les tests.
+Il a donc l'avantage de faciliter l'automatisation des tests de navigateurs web à même la _machine virtuelle_ (_Virtual Machine_, _VM_) de test ou bien vers des plates-formes comme _BrowserStack_.
+Son mécanisme de *variables d'environnement cryptées* nous évitera de donner accès à notre compte au premier venu.
+
+Un fichier de configuration minimal au format YAML est nécessaire.
+Des services comme _GitHub_ facilitent la connexion avec _Travis CI_ et déclenchent automatiquement l'exécution des tests à chaque commit ou _pull request_.
+
+[source,yaml,subs="attributes"]
+.{empty}.travis.yml
+----
+include::.travis.yml[]
+----
+<1> Configuration de la _VM_ pour utiliser _Node_ ;
+<2> Configuration de la _VM_ pour utiliser la version la plus récente de Node v6 ;
+<3> Installation de la dernière version stable de _Firefox_ ;
+<4> `xvfb-run` est un programme Linux émulant le rendu d'une carte graphique vers un écran d'affichage – il nous aide à lancer Firefox alors que nous n'avons pas d'écran ;
+<5> Les codes d'accès à _BrowserStack_ sont cryptés à l'aide du programme Ruby `travis` via la commande `travis encrypt`.
+
+[TIP]
+.[RemarquePreTitre]#Documentation# _Travis CI_
+====
+Des services comme _Travis CI_ sont puissants et amplement configurable pour de nombreux besoins, y compris la connexion à des bases de données Postgres ou MariaDB.
+
+- [URL]#https://docs.travis-ci.com/user/languages/javascript-with-nodejs/#
+- [URL]#https://docs.travis-ci.com/user/gui-and-headless-browsers/#
+- [URL]#https://docs.travis-ci.com/user/firefox/#
+====
 
 == Conclusion
 
