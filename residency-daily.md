@@ -4,9 +4,19 @@ Pour en savoir plus: [oncletom.io/2017/residence-nodejs/](https://oncletom.io/20
 
 # Journal
 
+## Mercredi 1er mars
+
+Merci au [Yelloworking][yelloworking] et [Nicolas](https://twitter.com/ferrouzzz) pour le coin de bureau 👋
+
+- _Chapitre 4_ : Tester code et composants dans les navigateurs web
+- _Chapitre 4_ : Intégration continue et compatibilité navigateurs
+- _Chapitre 4_ : Conclusion
+
+**Moral** : 😊 🚂
+
 ## Mardi 28 février
 
-Merci au [Yelloworking][yelloworking] pour le coin de bureau et la facilitation du meetup 👋
+Merci au [Yelloworking][yelloworking] et [Nicolas](https://twitter.com/ferrouzzz) pour le coin de bureau et la facilitation du meetup 👋
 
 [![](resources/daily-20170228-yelloworking.jpg)](https://www.instagram.com/p/BRDhNsmg-Ri/)
 
@@ -14,6 +24,8 @@ Merci au [Yelloworking][yelloworking] pour le coin de bureau et la facilitation 
 - _Chapitre 4_ : S’outiller pour écrire des assertions
 - _Chapitre 4_ : jest comme alternative à mocha
 - Documentation de git-lfs dans le README
+
+**Moral** : 😊
 
 ## Lundi 27 février
 
@@ -23,6 +35,8 @@ Merci [Guillaume](https://github.com/Mogztter) pour tes contributions 👋
 - _Tooling_ : utilise update-notifier pour signaler une mise à jour aux utilisateurs
 - _Tooling_ : installe git-lfs
 - _Chapitre 4_ : Optimiser ses ressources graphiques
+
+**Moral** : 😊
 
 ## Dimanche 26 février
 
@@ -37,9 +51,9 @@ Off.
 
 ## Jeudi 23 février
 
-Merci à l'[infolab La Coop][la-coop] pour le coin de bureau, le fromage et la facilitation du meetup 👋
+🚨 On m'a volé mon ordi pendant mon sommeil. Quelques commits et une machine à racheter. 🚨
 
-On m'a volé mon ordi pendant mon sommeil. Quelques commits et "quelques" euros de perdus.
+Merci à l'[infolab La Coop][la-coop] pour le coin de bureau, le fromage et la facilitation du meetup 👋
 
 ![](resources/daily-20170223-meetup.jpg)
 
