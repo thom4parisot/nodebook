@@ -841,7 +841,7 @@ Le guide communautaire _MDN_ met à disposition une dizaine d'exemples pour illu
 ====
 
 En _résumé_, `fetch()` est idéal pour des demandes ponctuelles de données, du client vers le serveur.
-Le module _npm_ `node-fetch` ([URL]#https://npmjs.com/node-fetch#) est une implémentation de `fetch()` pour Node.
+Le module _npm_ `node-fetch` ([URL]#https://npmjs.com/node-fetch#) est une implémentation de `fetch()` pour Node tandis que `whatwg-fetch` ([URL]#https://npmjs.com/whatwg-fetch#) s'adresse uniquement à polyfiller les navigateurs web.
 
 [[io-eventsource]]
 === Approche unidirectionnelle avec _EventSource_
@@ -1348,6 +1348,7 @@ Cela vaut aussi bien pour du HTML que du CSS ou encore de l'_ECMAScript_.
 
 Cette ultime et dernière section de ce chapitre nous aidera à comprendre quoi et comment tester pour *diminuer le coût de maintenance de nos applications*.
 
+[[testing-101]]
 === Que tester ?
 
 L'idée d'écrire des tests pour améliorer la qualité de son code est attrayante mais quand on en sait pas quoi tester et ni à qui demander pour se lancer, il est évident qu'on ne va pas s'y mettre pour s'assurer que 1+1 valent bien [line-through]#3# 2.
@@ -1551,15 +1552,131 @@ Les tests navigateurs sont en revanche utiles pour tester la compatibilité navi
 
 === Tester code et composants dans les navigateurs web
 
-TBD.
+C'est bien beau de tester uniquement l'interface de composants _React_ (ou autre technologie) mais comment faire lorsqu'on a besoin de tester avec un vrai DOM ou dans plusieurs navigateurs web ?
 
-=== Intégration continue et compatibilité navigateurs avec _BrowserStack_
+On a besoin de tester dans un ou plusieurs navigateurs web pour :
 
-TBD.
+* s'assurer de la *compatibilité de notre code* avec les variations d'implémentation de navigateurs web ;
+* valider notre choix de _polyfills_ ;
+* *tester fidèlement* contre des APIs de navigateurs ou du DOM (comme _Web Audio_, _Service Workers_ etc.).
 
-=== Tester les éléments de lisibilité et de performance
+Autrement dit, nous avons besoin d'un *exécuteur de tests* qui les fasse fonctionner dans l'environnement d'un navigateur web.
+Idéalement, nous voulons que cet _exécuteur de tests_ n'influent pas sur l'outillage employé pour écrire nos tests et donc nous permette d'utiliser _mocha_ et _chai_ comme dans la section précédente.
 
-TBD.
+_karma_ ([URL]#https://npmjs.com/karma#) est l'outil phare de l'écosystème Node dédié aux tests dans les navigateurs web.
+Il a été créé en 2012 pour faciliter l'exécution des suites de tests de la librairie _Angular_ et s'exécute en *ligne de commande*, assez simplement.
+
+Les fonctionnalités de _karma_ s'étendent à l'aide de modules _npm_ :
+
+* *intégrations* avec des _suites de tests_ ;
+* *lanceurs* de navigateurs web ;
+* *préprocesseurs* pour transformer des fichiers, les servir et/ou les inclure dans l'environnement de tests.
+
+ifeval::["{backend}" == "html5"]
+.Exemple de tests multi-navigateurs en continu avec _karma_.
+video::videos/karma-browsers.mp4[align="center", width="70%"]
+endif::[]
+
+Le pilotage de _karma_ se fait via un fichier de configuration `karma.conf.js`.
+Il est possible de surcharger ultérieurement cette configuration avec des arguments de la ligne de commande.
+
+.Initialisation automatique d'un fichier de configuration `karma.conf.js`
+----
+$ ./node_modules/.bin/karma init
+----
+
+_karma_ fonctionne avec des navigateurs installés sur notre machine de développement tout comme avec des services distants comme _SauceLabs_ ou _BrowserStack_ (voir <<ci,intégration continue et compatibilité navigateurs>>).
+Les navigateurs doivent déjà être disponibles sur la machine de test (Firefox et Chrome par exemple) et nous devons en parallèle installer les *lanceurs* (`karma-firefox-launcher` et `karma-chrome-launcher` respectivement).
+
+Les navigateurs lancés par défaut lors des tests sont listés dans l'option `browsers` :
+
+[source,javascript,indent=0]
+.karma.conf.js#L82
+----
+include::karma.conf.js[lines=82]
+----
+
+_karma_ se charge d'*inclure les fichiers JavaScript* ou de *servir des fichiers statiques* en fonction de _motifs_ de chemins.
+Ces fichiers peuvent être locaux (de préférence) ou distants et même être de types différents comme JSON ou HTML :
+
+[source,javascript,indent=0]
+.karma.conf.js#L17-23
+----
+include::karma.conf.js[lines=17..23]
+----
+<1> Il suffirait de décommenter cette ligne pour inclure les <<polyfills,_polyfills_ de navigateurs web>> sans toucher à notre code ;
+<2> Inclusion des fichiers de tests spécifiques aux navigateurs web ;
+<3> Inclusion de fichiers HTML, sans effet à moins ;
+<4> Mise à disposition du fichier `package.json`, accessible via une requête HTTP vers `/base/package.json`.
+
+Des _intégrations_ doivent être déclarés pour augmenter les fonctionnalités de base de _karma_.
+Les fonctionnalités de base de _karma_ se résument à charger des fichiers _ECMAScript_ dans une balise `<script>`.
+
+L'extrait de configuration suivant illustre le chargement des _plugins_ pour _browserify_ (modules _CommonJS_ et transpilation), _mocha_ (_suites de tests_) et _fixture_ (données représentant des cas d'utilisation) – respectivement les modules _npm_ `karma-browserify`, `karma-mocha` et `karma-fixture` :
+
+[source,javascript,indent=0]
+.karma.conf.js#L13
+----
+include::karma.conf.js[lines=13]
+----
+
+Une fois encore des _motifs de chemins_ sont utilisés pour indiquer aux  _plugins_ leur responsabilité de prise en charge.
+
+[source,javascript,indent=0]
+.karma.conf.js#L33-37
+----
+include::karma.conf.js[lines=33..37]
+----
+<1> Ces fichiers seront transpilés par _browserify_ avant d'être chargés dans les tests de navigateurs web ;
+<2> Ces fichiers seront pris en charge par le _préprocesseur_ nommé _html2js_, utilisé par `karma-fixture` pour transformer du HTML en arbre DOM.
+
+Nous avons vu un exemple de code reposant sur un élément du DOM dans la section <<testing-101,que tester ?>> de ce chapitre.
+Nous allons nous intéresser à une manière possible de tester la fonction exportée `getLinkElementContent` en se basant sur un *véritable appel HTTP* et un *véritable élément du DOM*, créé à partir du fichier de _fixture_ suivant :
+
+[source,html]
+.tests-browser/fixtures/link-package.html
+----
+include::{sourceDir}/tests-browser/fixtures/link-package.html[]
+----
+
+Ce fichier de _fixture_ est chargé dans le DOM par le _plugin_ `karma-fixture` pour prouver que l'on peut récupérer les dépendances exposées par le fichier `package.json` des ressources de ce chapitre :
+
+[source,javascript]
+.tests-browser/test-outside-world.js
+----
+include::{sourceDir}/tests-browser/test-outside-world.js[]
+----
+<1> `before()` indique à _mocha_ d'exécuter ce bloc de code avant tout _test_ ;
+<2> Appel du _plugin_ de _fixture_ pour obtenir l'élément du DOM nécessaire à la fonction `getLinkElementContent` ;
+<3> Appel réel de la fonction `getLinkElementContent`, résolu comme une <<../chapter-02/index.adoc#primitive-promise,promesse>> et dont nous testons le résultat à la ligne suivante ;
+<4> _Assertion_ vérifiant que le résultat contient bien des clés de dépendances _npm_ attendues – nous avons bien récupéré le bon fichier et le bon contenu !
+
+L'invocation de _karma_ se fait en invoquant `./node_modules/.bin/karma start`.
+Par mesure de simplicité, cette commande a été abstraite en tant que <<../chapter-02/index.adoc#npm-scripts,script _npm_>> :
+
+.Exécution ponctuelle de _karma_.
+----
+$ npm run test:browser
+----
+
+Les tests peuvent être relancés en continu – dès qu'un fichier change – en désactivant l'exécution unique (_single run_).
+C'est idéal lorsque les tests sont écrits en parallèle de l'implémentation du code ou que des ajustements fréquents ont lieu en phase de développement :
+
+.Exécution continue de _karma_.
+----
+$ npm run test:browser -- --no-single-run
+----
+
+Comme tout process de longue durée, il s'interrompt à l'aide de la combinaison de touches kbd:[CTRL+C].
+
+Nous en savons désormais suffisamment pour *tester dans les conditions des navigateurs web* avec du *code modulaire et réutilisable*.
+
+La question qui se pose désormais est la suivante : *comment faire pour tester plusieurs versions d'un même navigateur*, pour tester sur un système d'exploitation que l'on n'a pas ou encore plusieurs *terminaux mobiles* de type _smartphone_ ou tablette.
+
+[[ci]]
+=== Intégration continue et compatibilité navigateurs
+
+ TBD.
 
 == Conclusion
 
