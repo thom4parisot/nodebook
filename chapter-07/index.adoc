@@ -12,10 +12,12 @@ endif::[]
 
 = Héberger, déployer et monitorer
 
-
 ====
 .Sommaire
-- TBD
+- Gérer le cycle de vie d'une application Node
+- Héberger une application
+- Déploiement d'une application
+- Monitorer et déboguer une application
 ====
 
 include::../resources/tip-versions.adoc[]
@@ -31,23 +33,57 @@ toc::[]
 - variables d'environnement
 - services type etcd
 
-=== Exécution
-
-TBD.
-
 === Persistence des données
 
 TBD.
 
-=== Une application = plusieurs services
+=== Scénarios d'exécution d'une application Node
 
 TBD.
 
-
-=== Scénarios possibles en fonctionnement
+=== Renforcer la sécurité
 
 TBD.
 
+- http://nodegoat.herokuapp.com/tutorial
+- permissions d'exécution du processus
+
+=== Intégration en tant que service système
+
+TBD.
+
+_Upstart_ est l'outil de gestion de processus de la distribution Linux Ubuntu.
+Sa configuration est une des plus faciles à apprendre :
+
+[source]
+./etc/init/your-app
+----
+start on runlevel [2345] and net-device-up IFACE=eth0
+
+exec /usr/bin/node /path/to/your/app.js
+----
+
+Cette configuration ultra simpliste décrit la commande à exécuter et quand lancer automatiquement le service.
+Dans ce cas, au démarrage du système, une fois le réseau disponible sur l'interface `eth0`.
+
+[TIP]
+.[RemarquePreTitre]#Outil# Upstart
+====
+Une introduction ainsi qu'une documentation détaillée d'_Upstart_ est disponible à l'adresse suivante :
+
+- [URL]#https://doc.ubuntu-fr.org/upstart# (en français)
+- [URL]#http://upstart.ubuntu.com/cookbook/# (en anglais)
+====
+
+L'apprentissage et le débogage de tels scripts peut se révéler fastidieuse et rébarbative… _foreman_ dispose d'une fonctionnalité d'export adressant le problème.
+Pensez-y !
+
+=== Démarrage avec un gestionnaire de processus
+
+TBD.
+
+- Strongloop Process Manager
+- PM2
 
 == Héberger une application Node
 
@@ -64,7 +100,7 @@ TBD.
 - Apache
 - nginx
 
-=== Gestionnaire d'applications
+=== Serveur d'applications web
 
 TBD.
 
@@ -76,7 +112,7 @@ TBD.
 
 - Alwaysdata
 
-=== Plate-forme de services (_Platform As A Service_)
+=== Plate-forme de services (_Platform as a Service_)
 
 TBD.
 
@@ -127,9 +163,9 @@ TBD.
 - AMI EC2
 - Beanstalk
 
-== Déploiement d'une application Node
+== Déployer une application Node
 
-=== Vers un déploiement automatisé
+=== Déploiement automatisé
 
 TBD.
 
@@ -138,52 +174,35 @@ TBD.
 TBD.
 
 - deb/etc.
+- `slc build`
 - tar
 
-=== Le cas des dépendances privées
+=== Dépendances _npm_ privées
 
 TBD.
 
 - git+ssh
 - private npm
 
-=== Scripter le déploiement
+=== Scripter le scénario de déploiement Node
 
 TBD.
 
 - Ansible
 
-=== Gestion des services
+=== Migration de base de données
 
 TBD.
 
-_Upstart_ est l'outil de gestion de processus de la distribution Linux Ubuntu.
-Sa configuration est une des plus faciles à apprendre :
+== Monitorer et déboguer une application
 
-[source]
-./etc/init/your-app
-----
-start on runlevel [2345] and net-device-up IFACE=eth0
+=== Déboguer une application Node
 
-exec /usr/bin/node /path/to/your/app.js
-----
+TBD.
 
-Cette configuration ultra simpliste décrit la commande à exécuter et quand lancer automatiquement le service.
-Dans ce cas, au démarrage du système, une fois le réseau disponible sur l'interface `eth0`.
-
-[TIP]
-.[RemarquePreTitre]#Outil# Upstart
-====
-Une introduction ainsi qu'une documentation détaillée d'_Upstart_ est disponible à l'adresse suivante :
-
-- [URL]#https://doc.ubuntu-fr.org/upstart# (en français)
-- [URL]#http://upstart.ubuntu.com/cookbook/# (en anglais)
-====
-
-L'apprentissage et le débogage de tels scripts peut se révéler fastidieuse et rébarbative… _foreman_ dispose d'une fonctionnalité d'export adressant le problème.
-Pensez-y !
-
-== Monitorer une application
+- module debug
+- node --inspect
+- devtool
 
 === Déceler les erreurs et exceptions
 
@@ -196,6 +215,14 @@ TBD.
 === Identifier les problèmes de performance
 
 TBD.
+
+=== Se tenir à jour des alertes de sécurité
+
+TBD.
+
+- https://snyk.io/
+- https://nodesecurity.io/
+- greenkeeper
 
 == Conclusion
 
