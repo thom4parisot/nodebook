@@ -1,4 +1,4 @@
-:chapterNumber: 6
+:chapterNumber: 7
 :sourceDir: ./examples
 :sourceSample: TODO.js
 :nodeCurrentVersion: v6
@@ -13,19 +13,9 @@ endif::[]
 = Héberger, déployer et monitorer
 
 
-[CAUTION]
-====
-Ce chapitre est en cours de rédaction.
-====
-
-
 ====
 .Sommaire
-- Cycle de vie d'un processus Node
-- Héberger sur une machine administrée
-- Déployer sur une plateforme de services
-- Gestion des dépendances privées
-- Stratégies d'installation
+- TBD
 ====
 
 include::../resources/tip-versions.adoc[]
@@ -33,7 +23,7 @@ include::../resources/tip-examples.adoc[]
 
 toc::[]
 
-== Cycle de vie d'un processus Node
+== Cycle de vie d'une application Node
 
 === Configuration
 
@@ -41,57 +31,57 @@ toc::[]
 - variables d'environnement
 - services type etcd
 
-=== Démarrage
-
-TBD.
-
 === Exécution
 
 TBD.
 
-=== Orchestration des services
+=== Persistence des données
 
-Nous venons de voir différentes manières d'instancier des applications… mais aucune d'entre elles n'est vraiment satisfaisante en terme de résistance.
-À la moindre erreur, tout tombe !
+TBD.
 
-C'est sans compter sur le fait que vos modules contiendront plusieurs serveurs ou _daemons_ à initialiser… voire encore, vous aurez plusieurs serveurs ou _daemons_ répartis dans plusieurs projets différents.
+=== Une application = plusieurs services
 
-_forever_ est un module populaire dédié à la gestion et au monitoring de process et pas spécifiquement Node d'ailleurs. +
+TBD.
 
-La commande suivante aura pour effet de démarrer et de placer le processus `server.js` — un _daemon_.
 
-----
-$ forever start server.js
-----
+=== Scénarios possibles en fonctionnement
 
-Il y a deux gains évidents à cet outillage :
+TBD.
 
-- le processus persistera à la fermeture de la session ;
-- la gestion centralisée des processus.
 
-_forever_ créera autant de processus que vous le désirez tout en fournissant un interface pour redémarrer les services, les arrêter, consulter leur logs ou encore afficher à l'écran l'ensemble processus actifs :
+== Héberger une application Node
 
-----
-$ forever list
-info:    Forever processes running
-data:        uid  command                  script  pid   logfile           uptime
-data:    [0] _sHw /usr/bin/node www.js     15594   15610 /var/log/_sHw.log 0:0:1:59.865
-data:    [1] vytX /usr/bin/node api.js     15655   15671 /var/log/vytX.log 0:0:1:38.980
-data:    [2] MOrx /usr/bin/node bin/cli.js 15769   15785 /var/log/MOrx.log 0:0:0:57.960
-----
+=== Directement sur le port 80
 
-Cerise sur le gâteau : une application qui plante sera relancée automatiquement par _forever_.
-À vous ensuite d'inspecter les logs d'erreurs et de mettre en place un mécanisme d'alerte pour ne pas faire perdurer ces exceptions.
+TBD.
 
-Toutefois, revers de la médaille : il vous faudra exécuter _forever_ autant de fois qu'une application a de processus à démarrer.
+tl;dr ne pas le faire
 
-[TIP]
-.[RemarquePreTitre]#Outil# forever
-====
-Une documentation détaillée accompagnée d'exemples est disponible sur le dépôt GitHub du projet :
+=== Reverse Proxy
 
-- [URL]#https://github.com/nodejitsu/forever#
-====
+TBD.
+
+- Apache
+- nginx
+
+=== Gestionnaire d'applications
+
+TBD.
+
+- Phusion Passenger
+
+=== Hébergement mutualisé
+
+TBD.
+
+- Alwaysdata
+
+=== Plate-forme de services (_Platform As A Service_)
+
+TBD.
+
+- Heroku
+- Clever Cloud
 
 _Foreman_ est un programme écrit en Ruby.
 Il est destiné à gérer les multiples processus d'une même application. +
@@ -124,8 +114,48 @@ D'autres fonctionnalités et paramètres de configuration sont expliqués dans l
 - [URL]#https://devcenter.heroku.com/articles/getting-started-with-nodejs#define-a-procfile#
 ====
 
-Il ne nous manque qu'une seule chose désormais : pouvoir démarrer nos processus avec le système d'exploitation, après un démarrage ou redémarrage.
-Un bénéfice non-négligeable de l'intégration avec le système d'exploitation est la combinaison avec les outils de monitoring et d'agrégation de logs.
+=== Invocation éphémère (_Function as a Service_)
+
+TBD.
+
+- Lambda
+
+=== Amazon Web Services (_AWS_)
+
+TBD.
+
+- AMI EC2
+- Beanstalk
+
+== Déploiement d'une application Node
+
+=== Vers un déploiement automatisé
+
+TBD.
+
+=== Déploiement immutable
+
+TBD.
+
+- deb/etc.
+- tar
+
+=== Le cas des dépendances privées
+
+TBD.
+
+- git+ssh
+- private npm
+
+=== Scripter le déploiement
+
+TBD.
+
+- Ansible
+
+=== Gestion des services
+
+TBD.
 
 _Upstart_ est l'outil de gestion de processus de la distribution Linux Ubuntu.
 Sa configuration est une des plus faciles à apprendre :
@@ -153,80 +183,20 @@ Une introduction ainsi qu'une documentation détaillée d'_Upstart_ est disponib
 L'apprentissage et le débogage de tels scripts peut se révéler fastidieuse et rébarbative… _foreman_ dispose d'une fonctionnalité d'export adressant le problème.
 Pensez-y !
 
-Nous avons progressivement outillé l'exécution et la prise en charge de nos applications.
-Maintenant intéressons-nous aux impacts de la modification d'une application en service.
+== Monitorer une application
 
-=== Arrêt involontaire
-
-TBD.
-
-=== Arrêt volontaire
+=== Déceler les erreurs et exceptions
 
 TBD.
 
-== Héberger sur une machine administrée
-
-=== Exposer le port 80
+=== Surveiller la santé de l'application
 
 TBD.
 
-=== Derrière Apache HTTP Server
+=== Identifier les problèmes de performance
 
 TBD.
 
-=== Derrière NGINX
-
-TBD.
-
-=== Phusion Passenger
-
-TBD.
-
-== Déployer sur une plateforme de services
-
-=== Heroku
-
-TBD.
-
-=== Digital Ocean
-
-TBD.
-
-=== OVH
-
-TBD.
-
-=== Clever Cloud
-
-TBD.
-
-=== Amazon Elastic Beanstalk
-
-TBD.
-
-
-== Gestion des dépendances privées
-
-=== Via git+ssh
-
-TBD.
-
-=== Via un registre privé
-
-- npmE / private npm
-- Bintray
-- sinopia
-
-== Stratégies d'installation
-
-=== npm install
-
-- `git clone && npm install --production`
-
-=== npm pack
-
-TBD.
-
-=== Avec Docker
+== Conclusion
 
 TBD.
