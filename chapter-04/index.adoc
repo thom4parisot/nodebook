@@ -318,7 +318,7 @@ Il faut veiller à ne pas alourdir inutilement une application.
 
 Laissons la responsabilité de _polyfiller_ aux utilisateurs de notre code ; particulièrement si celui-ci est *redistribué* en tant que module _npm_ public.
 
-Si plusieurs scripts nécessitent des polyfills, mieux vaut inclure ces derniers _en une fois fois_ et _en premier_ :
+Si plusieurs scripts nécessitent des polyfills, mieux vaut inclure ces derniers _en une fois_ et _en premier_ :
 
 [source,html]
 ----
@@ -426,7 +426,7 @@ include::{sourceDir}/import/script-import.js[]
 <2> Affiche `function` ;
 <2> Affiche `object`.
 
-De même que nous avons utilisé `import` pour sélectivement importer une fonction du module `dom-log.js`, l'opérateur `export` nous aide à sélectivement exposer des objets, fonctions et variables :
+De même que nous avons utilisé `import` pour importer de manière sélective une fonction du module `dom-log.js`, l'opérateur `export` nous aide à exposer de manière sélective des objets, fonctions et variables :
 
 [source,javascript]
 .import/dom-log.js
@@ -439,7 +439,7 @@ include::{sourceDir}/import/dom-log.js[]
 
 Qu'en est-il alors des modules _npm_ ?
 Nous pouvons transpiler et importer du code, ce serait très utile si nous pouvions également importer du _code tiers_.
-Cela nous éviterait de réinventer la roue, d'avoir accès à du code bien testé et trop coûteux à écrire nous-même.
+Cela nous éviterait de réinventer la roue, d'avoir accès à du code bien testé et trop coûteux à écrire nous-mêmes.
 
 Nous avons vu comment <<../chapter-02/index.adoc#api-require,charger des modules _npm_>> dans le Chapitre 2.
 Si seulement nous pouvions faire la même chose côté client… +
@@ -482,7 +482,7 @@ Là où _babel_ cherche uniquement à traduire un langage vers un autre, _browse
 - extraction de CSS ;
 - etc.
 
-_browserify_ est intéressant au sens où il nous apprend à nous constituer nous-même notre outillage, pour nos propres besoins.
+_browserify_ est intéressant au sens où il nous apprend à nous constituer nous-mêmes notre outillage, pour nos propres besoins.
 
 [TIP]
 .[RemarquePreTitre]#Guide# Utiliser browserify
@@ -616,7 +616,7 @@ include::{sourceDir}/modules/jquery-app.js[]
 <1> Nous sélectionnons les éléments de la page à actualiser chaque seconde ;
 <2> Nous définissons quoi faire avec les données transmises chaque seconde ;
 <3> Nous démarrons un minuteur ;
-<4> Le minuteur est une fonction externe, dont le comportement n'est pas régi par _jQuery_ ou autre librairie ;
+<4> Le minuteur est une fonction externe, dont le comportement n'est pas régi par _jQuery_ ou une autre librairie ;
 <5> Cette fonction est responsable de l'affichage de _données_ dans un _élément HTML_ ;
 <6> Cette fois-ci, nous nous contentons de seulement mettre à jour attributs et contenus – la logique métier a été déplacée dans le module `timer.js`.
 
@@ -799,7 +799,7 @@ Il se trouve que la nature asynchrone même de Node rend cette intégration rela
 
 `fetch()` offre une interface très simple pour appeler une ressource HTTP.
 Le résultat est retourné sous forme de _promesse_ (voir la <<../chapter-02/index.adoc#primitive-promise,section _Promise_>> du Chapitre 2).
-Cette fonction set aussi bien à obtenir des ressources avec des requêtes de type `GET` et `HEAD` qu'à en créer et modifier avec des requêtes de type `POST`, `PUT`, `DELETE` et `PATCH`.
+Cette fonction sert aussi bien à obtenir des ressources avec des requêtes de type `GET` et `HEAD` qu'à en créer et modifier avec des requêtes de type `POST`, `PUT`, `DELETE` et `PATCH`.
 
 L'exemple associé est accessible sur [URL]#{httpRoot}/io/fetch.html#.
 Nous pouvons vérifier la compatibilité navigateur de `fetch()` sur [URL]#http://caniuse.com#feat=fetch#.
@@ -874,7 +874,7 @@ include::{sourceDir}/io/eventsource-client.js[]
 image::images/eventsource-frames.png[align="center", width="85%"]
 
 L'implémentation d'_EventSource_ demande un peu d'efforts côté serveur mais ne nécessite pas de _framework_ particulier.
-La complexité réside dans le maintient d'une transmission de données dédiée à chaque client ainsi qu'à la libération de la connexion lorsque le client se déconnecte.
+La complexité réside dans le maintien d'une transmission de données dédiée à chaque client ainsi qu'à la libération de la connexion lorsque le client se déconnecte.
 
 [source,javascript]
 .io/eventsource-server.js
@@ -905,7 +905,7 @@ Chaque connexion _EventSource_ devrait concerner qu'un seul et même type d'év�
 _WebSocket_ est une technologie web favorisant les échanges bi-directionnels entre client et serveur.
 
 À l'inverse du protocole HTTP/1, tout message envoyé par le client ou par le serveur n'appelle pas à une réponse de la part du receveur.
-Cet élément ainsi que le maintient d'une connexion permanente expliquent la rapidité du protocole en comparaison avec le modèle requête/réponse.
+Cet élément ainsi que le maintien d'une connexion permanente expliquent la rapidité du protocole en comparaison avec le modèle requête/réponse.
 
 L’exemple associé est accessible sur [URL]#http://localhost:4000/examples/io/websocket.html#.
 Nous pouvons vérifier la compatibilité navigateur de _WebSocket_ sur [URL]#http://caniuse.com#feat=websocket#.
@@ -982,7 +982,7 @@ L'utilisation de <<browserify,browserify>> nous apporte le confort de pouvoir in
 En revanche, ça nous demande de générer des artéfacts – des _bundles_ – à chaque modification pour consolider ces changements.
 
 C'est à ce moment qu'intervient le module _watchify_ ([URL]#https://npmjs.com/watchify#).
-Il fonctionnement *exactement comme _browserify_* mais au lieu de compiler une seule fois, il compilera dès qu'un changement sera détecté – où que ce soit dans l'arbre de dépendance du point d'entrée (paramètre `-e`, `--entrypoint`).
+Il fonctionnement *exactement comme _browserify_* mais au lieu de compiler une seule fois, il compilera dès qu'un changement sera détecté – où que ce soit dans l'arbre de dépendances du point d'entrée (paramètre `-e`, `--entrypoint`).
 
 La commande suivante compilerait le fichier `examples/modules/react-app.js` une fois et une seule :
 
@@ -1046,7 +1046,7 @@ L'exemple suivant illustre l'intégration de _browser-sync_ avec le serveur web 
 ----
 include::{sourceDir}/livereload/server-sync.js[]
 ----
-<1> On passe serveur http en argument (obtenu via `http.createServer()` par exemple) ;
+<1> On passe un serveur http en argument (obtenu via `http.createServer()` par exemple) ;
 <2> Ce port sera assigné au serveur web mais ne sera pas voué à être public ;
 <3> Ce port, lui, est celui qui sera public ;
 <4> Démarrage du serveur web sur le port privé ;
@@ -1072,14 +1072,14 @@ _browser-sync_ est richement documenté et illustré, y compris ses intégration
 _browser-sync_ a beau maintenir la position du _scroll_, il n'en reste pas moins que *chaque changement remet à zéro* l'espace mémoire de la page.
 C'est là qu'entre en jeu le *remplacement des modules à chaud*.
 
-Le *remplacement des modules à chaud* (_Hot Module Replacement_ ou _HMR_) est une technique basée sur le remplacement de fonctions ou d'objets tout en assurant le maintient de leurs variables ou états internes.
+Le *remplacement des modules à chaud* (_Hot Module Replacement_ ou _HMR_) est une technique basée sur le remplacement de fonctions ou d'objets tout en assurant le maintien de leurs variables ou états internes.
 Cette technique a notamment été popularisée par la combinaison de la librairie _React_ et de l'outil d'assemblage _Webpack_.
-Il est bien entendu possible de procéder à du _remplacement à chaud_ sans _React_ et sans _Webpack_.
+Il est toutefois possible de procéder à du _remplacement à chaud_ sans _React_ et sans _Webpack_.
 
 Quatre actions sont effectuées :
 
 . un *serveur de remplacement à chaud* est démarré localement ;
-. l'outil d'assemblage (_browserify_, _Webpack_ etc.) *insère du code client* permettant d'établir un lien entre la page web et le sreveur de remplacement à chaud ;
+. l'outil d'assemblage (_browserify_, _Webpack_ etc.) *insère du code client* permettant d'établir un lien entre la page web et le serveur de remplacement à chaud ;
 . l'outil d'assemblage *déclare les fichiers modifiés*, transmis par le serveur de remplacement à chaud vers le navigateur web ;
 . le *code client remplace les modules* et maintient leur état interne.
 
@@ -1267,7 +1267,7 @@ Elle demande moins d'outillage et s'applique pleinement à des composants visuel
 
 === Optimiser ses ressources graphiques
 
-Node est un outil de choix lorque l'on souhaite s'atteler au développement _frontend_ et ce n'est pas sans raison.
+Node est un outil de choix lorsque l'on souhaite s'atteler au développement _frontend_ et ce n'est pas sans raison.
 Outre l'outillage lié à la réécriture du code – comme <<babel,Babel>> et <<browserify,browserify>> évoqués ci-avant – Node regorge de modules _npm_ réduisant les tâches manuelles répétitives et possiblement sujettes à erreur.
 
 Nous retrouvons l'*optimisation des ressources graphiques* parmi cet ensemble de tâches rébarbatives.
@@ -1287,14 +1287,14 @@ $ ./node_modules/.bin/imagemin images/* --out-dir images
 Il existe deux types de compression : avec et sans perte (_lossless_).
 Elles ont toutes deux des caractéristiques distinctes :
 
-- *destrutive* : poids réduit au maximum, possibles artéfacts visuels, destruction potentielle de couleurs dans le cas d'images complexes ;
+- *destructive* : poids réduit au maximum, possibles artéfacts visuels, destruction potentielle de couleurs dans le cas d'images complexes ;
 - *sans perte* : poids réduit, les couleurs supprimées ne sont pas perceptibles à l'œil nu.
 
 Il vaut mieux privilégier la _compression sans perte_ pour éviter les artéfacts visuels et respecter fidèlement la création d'origine.
 ====
 
 Le *redimensionnement d'images* est une autre de ces tâches courantes et récurrentes qui tombe rapidement aux oubliettes de par sa gourmandise en temps.
-On voudra par exemple redimensionner des photos depuis des fichiers originaux, générer des *vignettes* ou encore *dériver plusieurs tailles d'images* adaptées aux différentes dispositions d'un site web _responsive_.
+On voudra par exemple redimensionner des photos depuis des fichiers originaux, générer des *vignettes* ou encore *générer différentes tailles d'images* adaptées aux différentes dispositions d'un site web _responsive_.
 
 _sharp-cli_ ([URL]#https://npmjs.com/sharp-cli#) répond exactement à ce cahier des charges.
 Ce module en ligne de commande est basé sur _sharp_ ([URL]#https://npmjs.com/sharp#), une librairie Node de modification d'images écrite en _ECMAScript_ et _C++_.
@@ -1416,7 +1416,7 @@ Avant de nous lancer directement dans la conception et l'écriture des tests, in
   Ils expriment une opinion sur la structuration des tests ainsi que sur des automatismes à fournir pour accélérer l'écriture des tests.
 
 L'outillage varie selon chacun de ces niveaux.
-Certains outils offrent une écriture d'assertion plus fluide, d'autre spécifiquement adaptée.
+Certains outils offrent une écriture d'assertion plus fluide, d'autres proposent une écriture plus spécifiquement adaptée.
 
 Les sections suivantes sont complémentaires.
 J'ai favorisé des approches itératives et modulaires pour faciliter l'ajout ou le retrait de tout outil de notre outillage :
@@ -1620,7 +1620,7 @@ L'extrait de configuration suivant illustre le chargement des _plugins_ pour _br
 include::karma.conf.js[lines=13]
 ----
 
-Une fois encore des _motifs de chemins_ sont utilisés pour indiquer aux  _plugins_ leur responsabilité de prise en charge.
+Une fois encore des _motifs de chemins_ sont utilisés pour indiquer aux _plugins_ leur responsabilité de prise en charge.
 
 [source,javascript,indent=0]
 .karma.conf.js#L33-37
@@ -1683,7 +1683,7 @@ Plusieurs cas de figure se posent en complément de la section précédente :
 
 En étant sous _Windows_, il nous sera difficile de tester _Safari pour macOS_.
 Inversement, en étant sous _macOS_ il nous sera difficile de tester _Internet Explorer pour Windows XP_ ou _Edge pour Windows 10_.
-Que dire d'anciennes versions de navigateurs Android dont la rapidité de développement et donc la compatibilité est bien en deça des versions de Chrome pour ordinateur ou mobile.
+Que dire d'anciennes versions de navigateurs Android dont la rapidité de développement et donc la compatibilité est bien en deçà des versions de Chrome pour ordinateur ou mobile.
 
 ifeval::["{backend}" == "html5"]
 .Exemple de tests multi-navigateurs en continu avec _karma_ et _BrowserStack_.
