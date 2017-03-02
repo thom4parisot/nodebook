@@ -178,22 +178,22 @@ Il faudra attendre la création du registre _npm_ au tout début 2010 pour facil
 Dès lors, un simple `npm install node-playground` suffit pour inclure le module `node-playground` à son propre projet.
 Partager un module est tout aussi simple puisqu'un simple `npm publish` le rend disponible à tous en un instant.
 
-npm devient une telle pierre angulaire qu'il est inclus par défaut dans l'installation de Node à partir de novembre 2011, lors de la publication de Node 0.6.3.
+npm devient une telle pierre angulaire qui est inclu par défaut dans l'installation de Node à partir de novembre 2011, lors de la publication de Node 0.6.3.
 La communauté Node et ses contributeurs ont fait le reste du travail en fournissant un écosystème de modules riche et varié : frameworks, templating, drivers de bases de données, serveurs HTTP, serveurs WebSockets, préprocesseurs CSS, CoffeeScript, parseurs, proxy, serveurs de log, librairies de tests, langages de _templating_, etc.
 
-Malgré ses défauts de jeunesse, Node réussit également le tour de force de la performance : la recette de l'accès non bloquant aux ressources aurait-elle fonctionné ?
+Malgré ses défauts de jeunesse, Node réussit également le tour de force de la performance : la recette de l'accès non bloquant aux ressources aurait-elle fonctionnée ?
 À en croire les personnes ayant migré vers Node pour ces raisons, la réponse est *oui*.
 
 == Pourquoi choisir Node.js ?
 
-Il y a plusieurs raisons d'utiliser Node, en complément ou remplacement d'un langage existant.
+Il y a plusieurs raisons d'utiliser Node, en complément ou en remplacement d'un langage existant.
 Il est préférable que cela soit avant tout une *volonté ou une curiosité et que cela se fasse en considérant la plate-forme Node pour ce qu'elle est* et non pour ce que vous voudriez qu'elle soit.
 
 Si l'on tient compte des raisons historiques de la création de Node, il est évident que Node est tout désigné dès lors que l'on parle d'*applications à nombreuses actions concurrentes*. +
 Autrement dit, dès que plusieurs requêtes impliquent des accès réseau, aux fichiers ou au système.
 
 Grâce aux _streams_, Node est également un excellent choix pour *travailler et transformer de gros flux de données* en utilisant peu de mémoire. +
-Cela concerne aussi bien la lecture de fichiers CSV, JSON ou XML de plusieurs giga-octets ou la lecture en continu de l'API Twitter ou Facebook.
+Cela concerne aussi bien la lecture de fichiers CSV, JSON ou XML de plusieurs giga-octets ou la lecture en continue de l'API Twitter ou Facebook.
 
 La compatibilité de Node avec les modules CommonJS incite à concevoir de multiples modules respectant le _principe de responsabilité unique_. +
 Node encourage ainsi à créer de *multiples applications autonomes et modulaires au lieu d'une seule application monolithique*.
@@ -239,11 +239,11 @@ Enfin si vous croyez que Node va *résoudre les problèmes par magie* — qu'ils
 == Écosystème
 
 Un certain nombre d'acteurs gravitent autour de Node.
-Le modèle qui en émerge est assez unique : la majorité des développements initiaux était financée par *Joyent* suite à l'embauche de Ryan Dahl.
+Le modèle qui en émerge est assez unique : la majorité des développements initiaux était financée par _Joyent_ suite à l'embauche de Ryan Dahl.
 
 L'écosystème contribuant au développement de la plate-forme a évolué d'un faible nombre d'entreprises privées vers une fondation non-commerciale impliquant plusieurs dizaines d'individus, la plupart financés par leur employeur.
 
-En 2017, après avoir traversé des périodes incertaines, l'avenir de Node est au beau fixe avec plus de 1200 contributeurs à la plateforme et plus de 400 000 paquets publics hébergés sur le registre _npm_.
+En 2017, après avoir traversé des périodes incertaines, l'avenir de Node est au beau fixe avec plus de 1200 contributeurs à la plate-forme et plus de 400 000 paquets publics hébergés sur le registre _npm_.
 
 [[joyent]]
 === Joyent
@@ -252,14 +252,14 @@ Joyent est une entreprise américaine fondée en 2004.
 Elle proposait à l'origine des services de collaborations en ligne : documents, calendriers, e-mails, etc.
 
 Elle se lance sur le marché de l'hébergement fin 2005 par le biais d'une acquisition-fusion.
-Parmi ses clients, on peut dénombrer le site de Ruby on Rails (société Basecamp), WordPress.com (société Automattic) ou encore l'historique site _A List Apart_.
+Parmi ses clients, on peut dénombrer le site de Ruby on Rails (société Basecamp), WordPress.com (société Automattic) ou encore le site historique _A List Apart_.
 
-Depuis 2009, Joyent s'est orientée et spécialisée dans les infrastructures et plate-formes à la demande et à haute performance.
-Elle se spécialise dans les solutions dites temps réel pour les réseaux sociaux, applications mobiles et compagnies de jeux vidéo en ligne.
+Depuis 2009, Joyent s'est orienté et s'est spécialisé dans les infrastructures et plate-formes à la demande et à haute performance.
+L'entreprise se spécialise dans les solutions dites temps réel pour les réseaux sociaux, applications mobiles et compagnies de jeux vidéo en ligne.
 
 En avril 2011, Joyent enregistre _Node.js_ et son logo en tant que marque déposée.
 
-En février 2015, Joyent transfère la gestion de Node à la <<node-foundation,Node.js Foundation>>.
+En février 2015, Joyent transfère la gestion de Node à la <<node-foundation,Node.js Foundation>>. La société _Joyent_ reste propriétaire de la marque _Node.js_ et de son logo.
 
 [TIP]
 .[RemarquePreTitre]#Lien# Annonce du dépôt de marque
@@ -277,11 +277,9 @@ anchor:node-foundation[]
 La _Node.js Foundation_ est l'organe de gouvernance officiel du projet Node depuis juin 2015.
 Il s'agit d'une organisation à but non lucratif faisant partie elle-même de la link:http://collabprojects.linuxfoundation.org/[Linux Foundation], au même titre que des projets comme _Open Container_, _Let's Encrypt_ ou _Xen_.
 
-La gouvernance de la fondation est effectuée par un comité de direction technique, constituée de membres ayant prouvé une expertise technique dans le _design_ de Node et de sa communauté.
+La gouvernance de la fondation est effectuée par un comité de direction technique, constitué de membres ayant prouvé une expertise technique dans le _design_ de Node et de sa communauté.
 
 La tâche première de la fondation a été d'opérer la fusion entre la base de code de _Node_ et d'<<iojs,io.js>>, Node v4.0.0, en septembre 2015.
-
-La société _Joyent_ reste propriétaire de la marque _Node.js_ et de son logo.
 
 === npm
 
@@ -309,7 +307,7 @@ Auparavant, il fallait installer le module _npm_ séparément.
 
 Isaacs Schlueter a été embauché par Joyent en septembre 2010 et a succédé à Ryan Dahl dans la gestion du projet Node de janvier 2012 jusqu’à janvier 2014.
 
-_npm, Inc_ est une entreprise privée américaine fondée en janvier 2014 par Isaacs Schlueter, directement après son départ de Joyent. Le but de _npm, Inc_ est fournir des solutions professionnelles basées sur _npm_ tout en soutenant l’effort open source et les coûts d’infrastructure du registre _npm_.
+_npm, Inc_ est une entreprise privée américaine fondée en janvier 2014 par Isaacs Schlueter, directement après son départ de Joyent. Le but de _npm, Inc_ est de fournir des solutions professionnelles basées sur _npm_ tout en soutenant l’effort open source et les coûts d’infrastructure du registre _npm_.
 
 Elle lève 2,6 millions de dollars en février 2014 pour élaborer une nouvelle architecture du registre _npm_ ainsi que pour mettre en place une stratégie commerciale, notamment les modules privés.
 
@@ -355,7 +353,7 @@ L'initiative _#scalenpm_ a réuni quelques 326 000 $ auprès d'entreprises priv�
 
 Son effort se poursuit dans le but de fournir une meilleure instrumentation et une architecture résistant à la montée en puissance de l'utilisation des modules _npm_.
 
-Cette initiative a suscité une controverse dans la mesure où l’opération s’est déroulée lors de la naissance de _npm, Inc_ et du dépôt de marque associé… mais sans entente apparente entre les deux parties.
+Cette initiative a suscitée une controverse dans la mesure où l’opération s’est déroulée lors de la naissance de _npm, Inc_ et du dépôt de marque associé… mais sans entente apparente entre les deux parties.
 
 - [URL]#http://web.archive.org/web/20160506191542/https://scalenpm.nodejitsu.com/#
 ====
