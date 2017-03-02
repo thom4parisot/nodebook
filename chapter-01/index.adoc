@@ -456,13 +456,7 @@ L'exemple suivant illustre avec du code ce qu'est un module CommonJS.
 [source,javascript]
 .increment-module.js
 ----
-let privateValue = 0;
-
-module.exports = () => {
-  privateValue++;
-
-  return privateValue;
-};
+include::{sourceDir}/increment-module.js[]
 ----
 
 La spécification _Module_ de CommonJS fait usage de la portée lexicale (_lexical scope_) pour isoler ce qui appartient au module (la variable `privateValue`) et ce qu'il expose (une fonction incrémentant et retournant la variable privée).
