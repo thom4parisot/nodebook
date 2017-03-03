@@ -1253,7 +1253,7 @@ include::{sourceDir}/class-view.js[]
 La définition de la classe `View` comporte trois fonctions :
 
 - `constructor` : le constructeur invoqué à chaque nouvelle instantiation via l'opérateur `new` ;
-- `render` : une méthode partagée par toutes les instances de `View` — équivalent à `View.prototype.render = () => ({ ... })` ;
+- `render` : une méthode partagée par toutes les instances de `View` — équivalent à `View.prototype.render = function () { ... }` ;
 - `removeDuplicates` : une méthode statique, utilisable indépendamment des instances de `View` — équivalent à `View.removeDuplicates = () => ({ ... })`.
 
 L'exemple suivant illustre le comportement de la classe `View` :
