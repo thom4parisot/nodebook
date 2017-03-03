@@ -350,19 +350,6 @@ include::{sourceDir}/npm/string.js[]
 <2> `<h1>Blog Post</h1>` ;
 <3> `\&lt;h1\&gt;Blog Post\&lt;/h1\&gt;`.
 
-=== request
-
-_request_ est un module facilitant la manipulation de requêtes HTTP.
-Cela concerne aussi bien l'envoi de formulaires, l'obtention de jeton OAuth que l'obtention d'une ressource distante et son écriture sur le système de fichiers.
-
-[URL]#https://npmjs.com/request#
-
-[source,javascript]
-.npm/request.js
-----
-include::{sourceDir}/npm/request.js[]
-----
-
 === moment
 
 _moment_ est une bibliothèque de gestion de temps.
@@ -443,7 +430,7 @@ Sa syntaxe équivalente à ce qui se fait dans le monde UNIX évite une écritur
 ----
 include::{sourceDir}/npm/glob.js[]
 ----
-<1> Affiche `[ 'examples/cli-app.js', 'examples/npm/cli-table.js' ]`.
+<1> Affiche `[ 'examples/npm/cli-table.js' ]`.
 
 === fs-extra
 
@@ -825,25 +812,6 @@ browserify npm/browserify.js -o npm/browserify.bundle.js
 
 Inclus dans un navigateur Web, le fichier `npm/browserify.bundle.js` affichera le même résultat que l'interpréteur Node.
 
-=== babel
-
-_babel_ transforme tout code ECMAScript 2015, ECMAScript 2016 et JSX en code compatible ECMAScript 5.
-Il peut être utilisé en complément de _browserify_ et de _webkpack_.
-
-[URL]#https://npmjs.com/babel#
-
-[source,javascript]
-.npm/babel.js
-----
-include::{sourceDir}/npm/babel.js[]
-----
-
-----
-babel-node npm/babel.js <1> <2>
-----
-<1> Affiche `passport@^0.3.0` ;
-<2> Affiche `passport-local@^1.0.0`.
-
 === uglify-js
 
 _uglify-js_ compile de l'ECMAScript en ECMAScript mais en plus de concaténer plusieurs fichiers en un seul, il peut également minifier voire supprimer le code inutilisé par votre application.
@@ -983,34 +951,6 @@ Compatible Node et navigateurs Web. +
 .npm/tape.js
 ----
 include::{sourceDir}/npm/tape.js[]
-----
-
-=== mocha
-
-_mocha_ est une bibliothèque d'exécution de tests offrant des interfaces TDD, BDD et QUnit — cette dernière facilitant la transition depuis la bibliothèque du même nom.
-Sa simplicité et flexibilité d'utilisation en font un choix pertinent pour la majorité de vos projets.
-
-Compatible Node et navigateurs Web. +
-[URL]#https://npmjs.com/mocha#
-
-[source,javascript]
-.npm/mocha.js
-----
-include::{sourceDir}/npm/mocha.js[]
-----
-
-=== chai
-
-_chai_ est une bibliothèque d'assertion exposant des interfaces BDD et TDD.
-Elle est particulièrement bien fournie pour tester des structures d'objets complètes ou partielles.
-
-Compatible Node et navigateurs Web. +
-[URL]#https://npmjs.com/chai#
-
-[source,javascript]
-.npm/chai.js
-----
-include::{sourceDir}/npm/chai.js[]
 ----
 
 === sinon

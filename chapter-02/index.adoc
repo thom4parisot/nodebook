@@ -522,7 +522,7 @@ Et finalement la valeur contenue dans la deuxième colonne avec `awk` :
 $ w | head -n 3 | tail -n 1 | awk '{ print $2 }'
 ----
 
-Vous pourrez en savoir plus sur le sujet dans la sections <<../chapter-03/index.adoc#streams, streams du chapitre 3>>.
+Vous pourrez en savoir plus sur le sujet dans la section <<streams,streams>> de ce même chapitre.
 
 Maintenant que nous avons vu tous ces concepts, reposons-nous le cerveau en parlant JavaScript.
 
@@ -723,7 +723,7 @@ include::{sourceDir}/server-crash.js[]
 
 Encore une fois, *il vaut mieux qu'un programme plante* plutôt que de le protéger faiblement avec `uncaughtException`.
 
-Il se peut qu'un aucun code ne capture une erreur dans une <<../chapter-02/index.adoc#primitive-promise,promesse>>.
+Il se peut qu'un aucun code ne capture une erreur dans une <<primitive-promise,promesse>>.
 C'est notamment le cas s'il n'y a aucun appel à `.catch()` après un `.then()`.
 
 L'événement du `process` `unhandledRejection` est alors émis, sans pour autant faire planter le programme.
@@ -1601,7 +1601,7 @@ include::{sourceDir}/primitives/promise-all.js[]
 
 Usez et abusez des promesses : elles sont un des meilleurs moyens à notre disposition pour *modulariser*, *linéariser* et *clarifier le sens* du flot de notre code.
 
-Nous aborderons à nouveau les <<../chapter-03/index.adoc#pattern-promise,promesses en tant que _design pattern_>> dans le <<../chapter-03/index.adoc#,chapitre 3>>.
+Nous aborderons à nouveau les <<pattern-promise,promesses en tant que _design pattern_>> dans ce même chapitre.
 
 [TIP]
 .[RemarquePreTitre]#Lien# Guide des promesses
@@ -2339,7 +2339,7 @@ const rental = new models.Transaction({
 });
 ----
 
-Comme nous l'avons vu dans le _chapitre 2_, lorsque le chemin indiqué en paramètre de la fonction `require()` est un répertoire, l'heuristique veut que Node vérifie l'existence d'un fichier `index.js` et le charge le cas échéant.
+Lorsque le chemin indiqué en paramètre de la fonction `require()` est un répertoire, l'heuristique veut que Node vérifie l'existence d'un fichier `index.js` et le charge le cas échéant.
 
 Ainsi, `require('./lib/models')` est équivalent à `require('./lib/models/index.js')`.
 
@@ -2619,7 +2619,6 @@ Il est important de bien connaître et de bien comprendre ce _pattern_ car il es
 === Promesses
 
 Le concept des promesses est extrêmement puissant pour gérer, ordonner et organiser un ou plusieurs enchaînements d'exécutions asynchrones.
-Nous en avons déjà parlé dans la <<../chapter-02/index.adoc#primitive-promise,section Promise du Chapitre 2>>.
 
 Il y a plusieurs enjeux dans l'organisation du code liés aux promesses :
 
@@ -2699,25 +2698,22 @@ Des librairies de promesses ajoutent des sucres syntaxiques pour faciliter la ma
 === Streams
 
 Les _streams_ représentent un concept déjà connu par les pratiquants du monde UNIX.
-Nous en avons déjà parlé dans le chapitre 2 et dans certains exemples de ce même chapitre.
-Il est donc temps de comprendre ce que sont les _streams_, ce qu'ils apportent et leurs inconvénients.
-
 Nous avons déjà vu dans cette section qu'une opération asynchrone ne bloque pas le reste de l'exécution du programme.
 Mais les _patterns_ précédents n'adressent pas la problématique de mémoire.
 
 Prenons un exemple courant : télécharger un fichier distant et le stocker sur disque.
 
 [source,javascript]
-.npm/streams-http-async.js
+.streams-http-async.js
 ----
-include::{sourceDir}/npm/streams-http-async.js[]
+include::{sourceDir}/streams-http-async.js[]
 ----
 
 Que se passe-t-il dans le précédent exemple ?
 
 1. une requête est envoyée ;
 2. la réponse arrive morceau par morceau et s'accumule en mémoire ;
-3. la réponse est transmise au _callback_ de _request_ ;
+3. ce _callback_ est exécuté lorsque la lecture de données est épuisée ;
 4. les données sont écrites en un bloc sur le système de fichier local.
 
 Ça fonctionne, c'est non-bloquant mais il y a deux possibles inconvénients :
@@ -2729,14 +2725,14 @@ Les _streams_ servent très précisément à résoudre ces inconvénients.
 Rectifions notre précédent exemple :
 
 [source,javascript]
-.npm/streams-http.js
+.streams-http.js
 ----
-include::{sourceDir}/npm/streams-http.js[]
+include::{sourceDir}/streams-http.js[]
 ----
 
 Que se passe-t-il dans cet exemple ?
 
-1. le module _request_ retourne un _ReadableStream_ ;
+1. la requête passe un objet de type _IncomingMessage_ et qui se trouve implémenter un _ReadableStream_ ;
 2. `fs.createWriteStream` retourne un _WriteableStream_ ;
 3. la méthode `pipe()` déverse les données dans le _WritableStream_ ;
 4. le _WritableStream_ écrit sur disque au fur et à mesure de la réception des données du _ReadableStream_ ;
