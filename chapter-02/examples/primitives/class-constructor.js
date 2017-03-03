@@ -1,6 +1,6 @@
 'use strict';
 
-const View = require('.../class-view.js');
+const View = require('../class-view.js');
 
 const htmlView = new View({ blacklist: ['object', 'iframe']});
 
