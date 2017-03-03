@@ -254,7 +254,7 @@ cd node-v6.9.4
 
 Les instructions pouvant varier fortement d'un système d'exploitation à l'autre, consultez les dépendances et instructions complètes à cette adresse [URL]#https://github.com/nodejs/node/wiki/installation#.
 
-== Outils de développement
+=== Outils de développement
 
 Programmer pour Node revient dans la majorité des cas à écrire du JavaScript.
 Donc même si un éditeur de texte suffit, il est intéressant de connaître l'offre en outillage autour de Node et du développement front-end.
@@ -264,7 +264,7 @@ Les logiciels présentés dans les pages suivantes couvrent un large spectre de 
 Ceci a pour but de vous aider à piocher au plus près de vos goûts, à défaut de continuer à utiliser votre logiciel habituel.
 
 [[atom]]
-=== Atom
+==== Atom
 
 image::images/atom.png[align="center",width="85%"]
 
@@ -280,7 +280,7 @@ Une sélection de paquets vous attend dans l'<<../appendix-a.adoc#atom,annexe A>
 - [URL]#https://atom.io/packages/#
 
 [[vs-code]]
-=== Visual Studio Code
+==== Visual Studio Code
 
 image::images/visual-studio-code.png[align="center",width="85%"]
 
@@ -298,7 +298,7 @@ _Visual Studio Code_ offre également un écosystème de paquets pour étendre l
 - [URL]#https://code.visualstudio.com/Docs/runtimes/nodejs#
 
 [[webstorm]]
-=== WebStorm
+==== WebStorm
 
 image::images/webstorm.png[align="center",width="85%"]
 
@@ -321,7 +321,7 @@ Vous pouvez demander à bénéficier d'une licence gratuite sous réserve d'une 
 ====
 
 [[vs-ide]]
-=== Visual Studio IDE
+==== Visual Studio IDE
 
 image::images/visual-studio.png[align="center",width="85%"]
 
@@ -618,6 +618,118 @@ $ chmod +x print-args
 $ ./print-args Affiche moi
 [ 'Affiche', 'moi' ]
 ----
+
+[[npm-scripts]]
+==== Scripts npm
+
+L'utilisation de _scripts npm_ permet d'invoquer Node de manière légèrement différente tout en masquant la complexité des scripts au niveau du fichier `package.json`.
+
+L'invocation d'un _script npm_ peut se faire de deux manières :
+
+. `npm <script-natif>` pour les scripts natifs à _npm_ (`start`, `publish`, `test` etc.) ;
+. `npm run <script>` pour les scripts additionnels définis par l'utilisateur.
+
+----
+$ npm start
+# équivalent de `npm run start`
+----
+
+Cette action exécute la commande contenue dans la section `scripts.start` du fichier `package.json` :
+
+[source]
+.package.json
+----
+{
+  "name": "nodebook",
+  ...
+  "scripts": {
+    "start": "node server.js"
+  }
+}
+----
+
+L'avantage de cette approche est double :
+
+- uniformisation du _workflow_ au sein de tous les projets ;
+- npm modifie la *variable système `$PATH`*.
+
+Ce dernier point est important.
+Cela signifie que l'exécution d'un _script npm_ rend disponible les exécutables contenus dans le répertoire `./node_modules/.bin` (voir l'encadré _Répertoires et exécutables_ de la section <<install,Installation>>).
+
+[source,javascript]
+.package.json
+----
+{
+  "name": "nodebook",
+  ...
+  "scripts": {
+    "test": "eslint ." // <1>
+  },
+  "devDependencies": {
+    "eslint": "^3.0.0"
+  }
+}
+----
+<1> Équivaut donc à `./node_modules/.bin/eslint ./src`.
+
+=== Arguments d'invocation
+
+Les arguments correspondent à un tableau de chaînes exposé par la propriété `argv` de la <<api-process,variable globale `process`>>.
+
+Cette approche est recommandée pour *créer du code générique* et le *personnaliser avec des arguments*.
+Le script suivant illustre leur lecture par l'interpréteur Node :
+
+[source,javascript]
+.config/argv.js
+----
+include::{sourceDir}/argv.js[]
+----
+
+Ce script peut être invoqué de la manière suivante :
+
+----
+$ node argv.js -y 2014 2012 --title 'fromage baguette' #<1>
+----
+<1> Affiche `["-y", "2014", "2012", "--title", "fromage baguette"]`.
+
+Des librairies sont disponibles pour *transformer les arguments en objets JavaScript*, configurer des valeurs par défaut, de valider les valeurs, de les rendre obligatoire et même de générer automatiquement une aide à l'utilisateur.
+
+Nous aborderons ces techniques avancées dans le <<../chapter-05/index.adoc#,Chapitre 5>>.
+
+=== Plantage applicatif
+
+Un programme Node s'arrête en général pour deux raisons :
+
+. la *pile d'exécution est terminée* et il n'y a plus rien à exécuter ;
+. une *erreur s'est produite* et n'a pas été capturée.
+
+C'est souvent le cas lorsqu'une erreur se produit dans un endroit imprévu de notre code, lorsqu'une variable inexistante est appelée dans une branche de notre code appelée de manière asynchrone etc.
+
+C'est une *bonne chose* que le programme s'arrête car cela nous permet de repérer l'erreur, de lire la trace et d'éventuellement patcher notre programme pour éviter cette même erreur dans le futur.
+
+Quand un programme s'arrête de manière imprévue, le `process` émet un événement `uncaughtException`.
+Il existe des cas où il est intéressant de l'écouter, notamment si la route d'un serveur cause une erreur et que l'on souhaite maintenir le service disponible malgré tout.
+
+Dans ce cas, il convient d'écouter cet événement et de déterminer quelle est la meilleure action à suivre :
+
+[source,javascript]
+.server-crash.js
+----
+include::{sourceDir}/server-crash.js[]
+----
+<1> En cas de réception d'une requête HTTP sur le port `4001`, nous allons parser l'URL appélée — sauf qu'une _typo_ s'est glissée (`reb` au lieu de `req`) et provoquera une exception ;
+<2> Cette exception remontera jusqu'au niveau du `process` qui déclenchera l'événement `uncaughtException` ;
+<3> Une seconde après voir lancé le script, une requête HTTP est envoyée au serveur, entrainant l'exécution du _point 1_.
+
+Encore une fois, *il vaut mieux qu'un programme plante* plutôt que de le protéger faiblement avec `uncaughtException`.
+
+Il se peut qu'un aucun code ne capture une erreur dans une <<../chapter-02/index.adoc#primitive-promise,promesse>>.
+C'est notamment le cas s'il n'y a aucun appel à `.catch()` après un `.then()`.
+
+L'événement du `process` `unhandledRejection` est alors émis, sans pour autant faire planter le programme.
+Ce comportement est toutefois amené à être modifié dans Node v8.
+Il conviendrait alors de gérer le plantage d'un programme avec l'événement `uncaughtException` de la même manière que vous le feriez avec `uncaughtException`.
+
 
 == Node, JavaScript et ECMAScript
 
@@ -2770,7 +2882,7 @@ De nombreuses API Node exposent des _streams_ : requête HTTP, serveur HTTP, lec
 
 Pour être explicite : toute API vous permettra à un moment ou à un autre de manipuler des ensembles de données dont vous ne maitrisez pas la taille sans affecter les performances du système.
 
-== Gestion des dépendances externes avec npm
+== Bien utiliser npm au quotidien
 
 Nous avons évoqué la notion de _modules_ dans les pages précédentes.
 Il est temps de plonger plus en détails dans le sujet pour mieux comprendre une des pierres angulaires de Node.
@@ -2798,7 +2910,60 @@ $ npm --version
 4.1.1
 ----
 
-=== Installer un module
+=== Initialiser un projet Node
+
+La pierre angulaire d'un projet Node est le fichier `package.json`.
+Il décrit les composants essentiels du projet.
+Il se situe à la racine de chaque projet et contient plusieurs catégories d'informations :
+
+- *textuels* : titre, descriptions, liens et licence ;
+- *version* : une chaîne respectant le fonctionnement de _node-semver_ ([URL]#https://github.com/npm/node-semver#) ;
+- *dépendances* : emplacement du module principal et liste explicite de modules nécessaires au bon fonctionnement du projet ;
+- *actions* : commandes à exécuter lors des différentes étapes du cycle de vie du projet ;
+- *divers* : données de configuration ou utilisées par des modules Node.
+
+L'utilisation de la commande `npm init` est une bonne habitude à prendre pour débuter tout projet Node.
+À l'issue de la série de questions, le fichier `package.json` sera créé dans le répertoire courant.
+Ensuite libre à vous de le compléter avec d'autres éléments optionnels de configuration.
+
+.Exemple de questions posées lors de la séquence `npm init`
+image::images/npm-init.png[align="center",width="85%"]
+
+On peut gagner du temps en utilisant l'option `--yes` (et son raccourci `-y`) pour créer le fichier `package.json` sans avoir à répondre aux questions :
+
+----
+$ npm init -y
+----
+Que votre projet soit public ou non, il est important de renseigner les champs décrits ci-après.
+Ils indiqueront aux utilisateurs les intentions du projet ainsi que l'emplacement des ressources pour en savoir davantage à son propos ou tout simplement, pour y contribuer.
+
+[TIP]
+.[RemarquePreTitre]#Commande# `npm help json`
+====
+Le détail de chaque clé de configuration est expliqué _via_ cette commande.
+Des exemples vous permettront également de mieux comprendre leur utilité.
+
+Cette même documentation est disponible en ligne, en anglais :
+
+- [URL]#https://docs.npmjs.com/files/package.json#
+====
+
+- *name* : il s'agit de l'identifiant du module lorsqu'il est chargé via la fonction `require()`. Ce sera également l'identifiant npm si vous publiez ce module dans un registre public ou privé. Par exemple, si la propriété *name* vaut _nodebook_, le module se chargera via `require('nodebook')` et s'installera avec la commande `npm install nodebook` ;
+- *description* : une indication textuelle des objectifs et fonctionnalités du module, écrite généralement en anglais ;
+- *version* : chaîne respectant la sémantique _semver_ — par exemple `1.0.0`. Nous verrons un peu plus loin dans ce chapitre comment utiliser intelligemment cette valeur pour assurer des mises à jour tout en préservant la compatibilité descendante au sein des projets dépendants de ce module ;
+- *main* : emplacement du fichier Node chargé par défaut lors d'un appel à `require(<name>)`. S'il n'est pas spécifié, Node tentera de charger par défaut le fichier `index.js` ;
+- *repository* : objet spécifiant le type de dépôt de code ainsi que son URL. Présent essentiellement à titre informatif ;
+- *preferGlobal* : booléen indiquant si ce module a davantage vocation à être installé globalement au niveau du système ou non (`false` par défaut) ;
+- *bin* : emplacement du fichier. npm effectue un lien symbolique pour rendre `<name>` disponible en tant qu'exécutable système lors d'une installation globale ;
+- *private* : boolean spécifiant que le module ne doit pas être publié dans un registre npm (`false` par défaut) ;
+- *dependencies* : objet représentant respectivement en clé/valeur les noms/versions des modules dont le projet dépend ;
+- *engines* : objet spécifiant des contraintes de compatibilité avec la version de Node — cette valeur est exprimée selon la notation <<../chapter-01/index.adoc#semver,_semver_>>.
+
+=== Installer une application Node
+
+TBD.
+
+=== Installer un module _npm_
 
 Revenons à notre exemple précédent.
 Nous voulons un module Node permettant de parser et d'itérer facilement sur un fichier CSV sans avoir à nous soucier des cas limites.
@@ -2825,7 +2990,60 @@ include::{sourceDir}/print-csv-reloaded.js[]
 <2> configure un nouvel objet _CSV_ ;
 <3> décode le contenu initial et affiche la structure JavaScript appropriée.
 
-Nous verrons dans le chapitre suivant comment utiliser efficacement le programme `npm` pour initialiser et gérer un projet de bout en bout.
+Il est toutefois recommandé d'installer les modules localement, afin de limiter leur portée uniquement au projet tout en maintenant une dépendance explicite et gérable via le fichier _package.json_.
+
+Déroulons ensemble l'algorithme d'installation de `npm install` par le biais de cet exemple :
+
+----
+npm install --save async yargs
+----
+
+La commande précédente effectue plusieurs opérations :
+
+1. requête du registre _npmjs.com_ à propos des deux modules _async_ et _yargs_ ;
+2. si les modules existent, la version compatible la plus récente est retournée (équivalent à `npm view async version` et `npm view yargs version` — respectivement `2.1.4` et `6.6.0`) ;
+3. téléchargement et décompression des paquets dans les répertoire `node_modules/async` et `node_modules/yargs` ;
+4. introspection récursive des dépendances de ces modules et si besoin est, téléchargement et décompression dans leur répertoire _node_modules_ respectif (ici `node_modules/async/node_modules` et `node_modules/yargs/node_modules`) ;
+5. inscription de _async_ et de _yargs_ dans la configuration _dependencies_ de notre fichier `package.json`.
+
+.Exemple de résultat de la commande `npm install`
+image::images/npm-install-save.png[align="center",width="85%"]
+
+La commande npm prend soin de télécharger et de persister les dépendances, à la fois dans le répertoire _node_modules_ et dans le fichier _package.json_.
+Ce dernier contient désormais une section _dependencies_ :
+
+[source,javascript]
+.package.json
+----
+{
+  ...
+  "dependencies": {
+    "async": "^2.1.4",
+    "yargs": "^6.6.0"
+  }
+}
+----
+
+[TIP]
+.[RemarquePreTitre]#Aide# Plusieurs types de dépendances
+====
+Il existe plusieurs types de dépendances, chacune ayant sa propre utilité :
+
+- *dependencies* : dépendances utiles à un fonctionnement en production ;
+- *devDependencies* : dépendances utiles uniquement dans le cadre du développement, par exemple pour exécuter des tests ou s'assurer de la qualité du code ou encore empaqueter le projet ;
+- *optionalDependencies* : dépendances dont l'installation ne sera pas nécessairement satisfaite, notamment pour des raisons de compatibilité. En général votre code prévoira que le chargement de ces modules via `require()` pourra échouer en prévoyant le traitement des exceptions avec un `try {} catch ()` ;
+- *peerDependencies* : modules dont l'installation vous est recommandée ; pratique couramment employée dans le cas de _plugins_. +
+Par exemple, si votre projet `A` installe `gulp-webserver` en `devDependencies` et que `gulp-webserver` déclare `gulp` en `peerDependencies`, npm vous recommandera d'installer également `gulp` en tant que `devDependencies` de votre projet `A`.
+====
+Les modules installés sont désormais manipulables via la fonction `require` au sein de notre code :
+
+[source,javascript]
+----
+const async = require('async');
+const { argv } = require('yargs');
+----
+
+Maintenant que nous savons installer et sauvegarder des dépendances par le biais du fichier `package.json`, sauvegardons l'état actuel du projet avec un gestionnaire de versions.
 
 === Comprendre _npm_ et son organisation du répertoire _node_modules_
 
@@ -2915,9 +3133,9 @@ Même s'il ne s'agit _que_ de cinq lignes de code, d'un exemple supplémentaire 
 
 C'est comme cela que l'écosystème s'améliore petit à petit… et que vous apprenez par la même occasion.
 
-
-=== Auteurs et communautés de confiance
-
+[TIP]
+.[RemarquePreTitre]#Communauté# Des personnes de confiance
+====
 Des organisations et des individus contribuent activement à Node en mettant à disposition une large majorité de leurs créations.
 
 La liste suivante est non-exhaustive et référence des contributeurs de qualité :
@@ -2932,7 +3150,133 @@ La liste suivante est non-exhaustive et référence des contributeurs de qualit�
 - fgribreau ([URL]#https://npmjs.com/~fgribreau#) ;
 - mikeal ([URL]#https://npmjs.com/~mikeal#) ;
 - rwaldron ([URL]#https://npmjs.com/~rwaldron#).
+====
 
+=== Exécuter les tests
+
+L'écriture de tests et la vérification de la qualité de votre code sont un excellent moyen de vous assurez que de nouveaux bugs ne sont pas introduits dans votre application.
+
+Écrire des modules et les empiler sans écrire de tests revient à construire un château de carte : le moindre changement accentue le risque de propager des erreurs dans tous les applications en dépendant.
+
+Nous verrons ultérieurement comment écrire des tests unitaires pour vos applications et votre code exécuté dans un contexte Web.
+
+À la manière du démarrage d'une application, la commande npm fournit un contexte d'exécution dédié aux tests :
+
+----
+npm test
+----
+
+Cette commande effectue deux choses :
+
+- elle règle la variable d'environnement `NODE_ENV` à `test` ;
+- elle exécute l'instruction du script `test` déclarée dans le fichier `package.json` :
+
+[source]
+.package.json
+----
+{
+  "name": "nodebook",
+  ...
+  "scripts": {
+    "test": "mocha tests/**/*.js"
+  },
+  "devDependencies": {
+    "mocha": "*"
+  }
+}
+----
+
+Dans cet exemple, exécuter la commande `npm test` revient à actionner l'exécutable déclaré par le module _mocha_ avec comme argument l'ensemble des fichiers JavaScript contenus dans le répertoire `tests/` de notre projet.
+
+En cas de test fautif, l'exécutable de tests affichera des précisions quant à leur origine et se terminera avec un code de sortie différent de 0.
+
+Ce qui signifie en jargon Unixien que vous pouvez chaîner la commande avec d'autres actions basées sur un état de réussite des tests :
+
+----
+npm test && git push
+----
+
+Cette précédente commande a deux scénarios possibles :
+
+1. `npm test` échoue et `git push` ne sera pas exécuté ;
+2. `npm test` réussit et `git push` sera exécuté.
+
+En se basant sur ce principe de chaîne, vous pouvez faire évoluer votre commande de test en quelque chose de plus poussé :
+
+[source]
+.package.json
+----
+{
+  "name": "nodebook",
+  ...
+  "scripts": {
+    "test": "npm run lint-code && npm run unit-tests",
+    "lint-code": "eslint ",
+    "unit-tests": "mocha tests/**/*.js"
+  },
+  "devDependencies": {
+    "mocha": "*",
+    "eslint": "^3.0.0"
+  }
+}
+----
+
+La commande `npm test` est alors composée de deux autres commandes personnalisées.
+Vous maintenez ainsi une lisibilité au sein de votre fichier `package.json` tout en bénéficiant d'une indépendance d'exécution de vos commandes.
+
+[[npm-outdated]]
+=== Vérifier et mettre à jour les dépendances
+
+Maintenir ses dépendances à jour est important pour deux raisons :
+
+- *colmater des bugs* qui pourraient se répercuter sur votre application ;
+- se *prémunir de faille de sécurité* mettant en danger vos données et votre système informatique.
+
+En dernier recours, vérifier la fraîcheur de ses dépendances permet de prendre connaissance de nouvelles versions majeures ou mineures dont vous pourriez bénéficier.
+
+Quoiqu'il en soit, une commande npm nous aidera une fois de plus à obtenir les informations voulues :
+
+----
+$ npm outdated
+----
+
+La lecture de sa sortie peut être déroutante au premier abord, notamment dans le cas d'un module qui n'a pas été mis à jour via `npm update` depuis un moment :
+
+.Résultats obsolètes issus de `npm outdated`
+image::images/npm-outdated.png[align="center",width="85%"]
+
+Le tableau ne liste que les dépendances considérées comme obsolètes en l'état actuel d'installation de votre projet.
+Il se peut donc que le résultat varie d'une machine à l'autre, en fonction des versions installées localement. +
+Les résultats est divisé en cinq colonnes :
+
+- *Package* : npm du paquet concerné — en jaune une dépendance qui sera satisfaite en cas de `npm update`, en rouge une dépendance qui nécessite une mise à jour manuelle ;
+- *Current* : version installée localement — _MISSING_ sera affiché si la dépendance n'est pas encore installée, _git_ indique que la dépendance est installée via git ;
+- *Wanted* : version installée après exécution de `npm update` ;
+- *Latest* : version la plus récente publiée dans le registre npm ;
+- *Location* : emplacement de la dépendance — dépendance directe ou dépendance incluse dans une autre dépendance etc.
+
+[TIP]
+.[RemarquePreTitre]#Remarque# Et si une dépendance n'est pas listée ?
+====
+Toute dépendance listée dans le fichier `package.json` mais absente du tableau est considérée comme à jour.
+====
+
+La première action à mener est de procéder à l'exécution de la commande `npm update`, puis de relancer la commande `npm outdated` :
+
+.Résultats `npm outdated` après mise à jour
+image::images/npm-outdated-wanted.png[align="center",width="85%"]
+
+Le résultat est probant : de nombreuses dépendances précédemment listées en rouge ont disparu.
+Il ne reste que trois dépendances sur lesquelles nous pouvons avoir une action directe en modifiant la version référencées dans le fichier `package.json`.
+
+Pour forcer l'installation de la version correspondant à la colonne _Latest_ de la commande `npm outdated`, il suffit d'utiliser le suffixe `@latest` lors de l'installation :
+
+----
+npm install --save-dev mocha@latest karma@latest …
+----
+
+Et ainsi de suite pour les autres dépendances de premier niveau.
+La commande `npm outdated` ne devrait pas retourner de résultats, sauf si une de vos dépendances n'est pas à jour elle-même.
 
 
 == Conclusion
