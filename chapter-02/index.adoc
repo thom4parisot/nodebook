@@ -872,7 +872,7 @@ De manière similaire, les méthodes `some` et `every` retournent un booléen si
 [source,javascript]
 ----
 const values = [1, 'a', 120, undefined, 4];
-const isUndefined = (value) => typeof value === 'undefined');
+const isUndefined = (value) => value === undefined);
 
 values.some(isUndefined); <1>
 values.every(isUndefined); <2>
