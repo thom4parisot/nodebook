@@ -820,7 +820,7 @@ La méthode `join` permet de concaténer tous les éléments d'un tableau avec l
 ----
 include::{sourceDir}/primitives/array-from.js[]
 ----
-<1> Retourne `[ 'c', 'a', 'm', 'e', 'm', 'b', 'e', 'r', 't' ] ;
+<1> Retourne `[ 'c', 'a', 'm', 'e', 'm', 'b', 'e', 'r', 't' ]` ;
 <2> Retourne `[ 1, 'b', 3, 'd' ]` ;
 <3> Retourne `[ 1, 'b', 3, 'd' ]`.
 
@@ -919,7 +919,7 @@ Cela affecte les fonctions itératives et peut se révéler problématique si vo
 
 ----
 const a = [1,, 3, undefined, null];
-coonst print = (value) => console.log(value);
+const print = (value) => console.log(value);
 
 a.length;         // <1>
 a.forEach(print); // <2>
@@ -981,7 +981,7 @@ include::{sourceDir}/primitives/object-getters.js[]
 ----
 <1> Nous définissons de nouvelles propriétés pour l'objet `book` ;
 <2> Définition d'un _mutateur_ pour la propriété `date_published` ;
-<3> La valeur `date` est convertie en objet et stockée dans la propriété `_date_published` ;
+<3> La valeur `date` est convertie en objet et stockée dans la propriété `_published_at` ;
 <4> Définition d'un _accesseur_ pour la propriété `date_published` ;
 <5> Appel du _mutateur_ qui, en interne, convertit la chaîne de caractère en objet `Date` ;
 <6> Appel de l'_accesseur_ et affiche `true` car il s'agit bien d'une instance de `Date` ;
@@ -1172,7 +1172,7 @@ include::{sourceDir}/primitives/rest.js[]
 <3> Affiche `[ { name: 'Cabécou' }, { name: 'Chaource' } ]` –
 
 En bref, ils sont l'équivalent de l'ancienne variable _magique_ `arguments` mais avec une meilleure finesse quant aux paramètres concernés.
-Les éléments retournée par les _paramètres du reste_ interface ont aussi l'avantage d'être un véritable objet de <<primitives/array,tableau>> – `arguments` est _itérable_ mais n'est pas un tableau et ne bénéficie donc pas des méthodes de compréhension telles que `forEach`, `map`, etc.
+Les éléments retournés par les _paramètres du reste_ interface ont aussi l'avantage d'être un véritable objet de <<primitives/array,tableau>> – `arguments` est _itérable_ mais n'est pas un tableau et ne bénéficie donc pas des méthodes de compréhension telles que `forEach`, `map`, etc.
 
 [[primitive-map-set]]
 ==== Map et Set
@@ -1323,7 +1323,7 @@ Les cas d'utilisation des promesses sont multiples :
 [TIP]
 .[RemarquePreTitre]#Définition# Promesse
 ====
-Une promesse est *objet retourné immédiatement* et qui exécute une fonction de résolution *une seule et _unique_ fois dans le futur*.
+Une promesse est *un objet retourné immédiatement* et qui exécute une fonction de résolution *une seule et _unique_ fois dans le futur*.
 Cette résolution peut être soit _positive_ soit _négative_.
 
 C'est un peu comme envoyer un _courrier suivi_ :
@@ -1591,7 +1591,7 @@ Il s'agit d'une mine d'or pour comprendre les mécanismes internes du langage, l
 === Variables globales dans Node.js
 
 En plus des primitives ECMAScript, Node introduit des variables globales supplémentaires.
-Elles vous seront utiles pour faciliter le débogage ou tout simplement pour la développement et le partage de vos modules.
+Elles vous seront utiles pour faciliter le débogage ou tout simplement pour le développement et le partage de vos modules.
 
 ==== console
 
@@ -1703,7 +1703,7 @@ echo "Entrée standard" | node uppercase.js <1>
 Le concept de _Streams_ sera développé petit à petit au fil de ce chapitre et dans le reste du livre.
 C'est un concept puissant mais il y a des fonctionnalités plus simples à appréhender pour débuter.
 
-Nous venons de voir que `process` est un objet contenant plusieurs attributes précieux.
+Nous venons de voir que `process` est un objet contenant plusieurs attributs précieux.
 L'héritage prototypal est utilisé pour le rendre capable d'émettre des évènements via la méthode `process.on()`.
 Cette méthode est utilisée pour écouter les évènements système et permettre à nos programmes de réagir convenablement.
 
@@ -1959,7 +1959,7 @@ Pour en savoir plus sur les méthodes et fonctions disponibles, reportez-vous à
 
 ==== _
 
-La variable globale `_` est un cas spécial.
+La variable globale `\_` est un cas spécial.
 Elle n'est prédéfinie que dans le terminal interactif (_REPL_).
 
 Cette variable _magique_ contient systématiquement le résultat de la dernière évaluation de code.
