@@ -1,10 +1,14 @@
 {
-  "name": "nodebook.chapter-03",
+  "name": "nodebook.chapter-07",
   "private": true,
   "version": "1.0.0",
-  "description": "Exemples de code du chapitre 3 du livre \"Node.js\" publié aux éditions Eyrolles.",
+  "description": "Exemples de code du chapitre 7 du livre \"Node.js\" publié aux éditions Eyrolles.",
   "scripts": {
+    "display-config-port": "node examples/config/file-npm.js",
     "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "config": {
+    "port": "3000"
   },
   "engines": {
     "node": "^6.0.0"
@@ -13,8 +17,5 @@
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/oncletom/nodebook/issues"
-  },
-  "homepage": "https://oncletom.io/node.js",
-  "dependencies": {
   }
 }
