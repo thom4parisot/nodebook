@@ -20,11 +20,12 @@ Ce chapitre nous apprendra le rôle de Node en tant qu'extension au développeme
 
 ====
 .Sommaire
-- Gérer les dépendances externes
-- Créer des interfaces réactives
-- Partager du code entre Node et le navigateur
-- Automatiser des tâches pénibles et répétitives
-- Automatiser les tests navigateurs
+- Polyfills et compatibilité _ECMASCript_
+- Importer des modules _npm_ pour le web
+- Créer du code modulaire, avec ou sans _framework_
+- Échanges de données en temps-réel
+- Outillage utile au quotidien
+- Tester son code et la compatibilité avec les navigateurs web
 ====
 
 [abstract]
@@ -45,7 +46,7 @@ include::../resources/tip-examples.adoc[]
 
 toc::[]
 
-== Éxécuter Node dans les navigateurs web ?
+== Quel rapport entre Node et les navigateurs web ?
 
 Ce chapitre peut sembler confus au premier abord.
 Si Node s'exécute au niveau du système d'exploitation — "côté serveur" — en quoi est-il lié au développement _frontend_ — "côté client" ?
