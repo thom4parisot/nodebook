@@ -1,7 +1,5 @@
 BUILD_DIR=dist
 GIT_REPO=oncletom/nodebook
-DOCKER_IMAGE=oncletom/asciidoctor
-DOCKER_COMMAND=docker run -i --rm -v $(CURDIR):/documents $(DOCKER_IMAGE)
 
 ADOC_FILES = $(wildcard index.adoc chapter-*/index.adoc appendix-*/index.adoc foreword/*.adoc)
 HTML_FILES = $(ADOC_FILES:%.adoc=$(BUILD_DIR)/%.html)
