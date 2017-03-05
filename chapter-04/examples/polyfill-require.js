@@ -1,3 +1,6 @@
-import {Promise} from 'es6-promise';
+import {Promise as PromisePolyfill} from 'es6-promise';
 
-Promise.resolve('ok').then(msg => console.log(msg));
+PromisePolyfill.resolve('ok').then(msg => console.log(msg));
+
+console.log('Promise' in window);                // <1>
+console.log(PromisePolyfill === window.Promise); // <2>
