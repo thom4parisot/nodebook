@@ -1514,7 +1514,7 @@ L'organisation du code autour des _callbacks_ est difficile, et ce, que ce soit 
 Un motif a émergé en réponse à cette complexité grandissante : les *promesses*.
 *Il s'agit d'une primitive à maitriser* et disponible _nativement_ à la fois dans Node et les navigateurs modernes.
 
-Historiquement, de nombreuses bibliothèques ont proposé leur propre implémentation de promesses mais avec le défaut de ne pas être interopérables entre elles.
+Historiquement, de nombreuses librairies ont proposé leur propre implémentation de promesses mais avec le défaut de ne pas être interopérables entre elles.
 La spécification _Promise/A+_ a émergé pour établir un standard de compatibilité.
 ECMAScript 2015 introduit nativement cette API, la rendant alors disponible pour le web et pour Node, avec ou sans _polyfill_.
 
@@ -2524,7 +2524,7 @@ Autrement dit, un code asynchrone basé sur des _callbacks_ requiert beaucoup de
 
 Enfin, on notera que l'ordre d'affichage des deux premiers appels n'est pas nécessairement le même que l'ordre d'exécution.
 
-Le code initial peut être rendu légèrement plus lisible sans toucher à l'API de callback en utilisant la méthode `waterfall` de la bibliothèque `async` ([URL]#https://npmjs.com/async#) :
+Le code initial peut être rendu légèrement plus lisible sans toucher à l'API de callback en utilisant la méthode `waterfall` de la librairie `async` ([URL]#https://npmjs.com/async#) :
 
 [source,javascript]
 .message-abbr/waterfall.js
@@ -3098,7 +3098,7 @@ const jQueryCore = require('jquery/src/core.js');
 === Trouver son bonheur dans le _registre npm_
 
 Le _registre npm_ ([URL]#https://npmjs.com#) fourmille de modules en tous genres.
-Ils fournissent de simples fonctions, des bibliothèques ou des _frameworks_ complets pour gérer vos accès réseau, vos bases de données, la qualité de vos projets et leur automatisation.
+Ils fournissent de simples fonctions, des librairies ou des _frameworks_ complets pour gérer vos accès réseau, vos bases de données, la qualité de vos projets et leur automatisation.
 
 La *sélection d'un module est un choix subjectif* : la qualité, la pertinence et la popularité sont corrélées sans pour autant être des critères impératifs. +
 Un module peu populaire sera-t-il moins bon pour autant ? Un module populaire est-il plus performant qu'une alternative ? Un module bien testé sera-t-il plus aisé à utiliser ?
@@ -3110,7 +3110,7 @@ Bref, pour vous aider à choisir — et ce peu importe le contexte — voici une
 - *dépendances* : l'existence de modules reposant sur un autre démontre une *marque de confiance* d'autres développeurs. Confiance suffisante dans la solidité des fondations sur lesquelles ils s'appuient pour bâtir leur propre module ;
 - *date de mise à jour* : une ou plusieurs versions majeures de Node sont-elles sorties entre temps ? Si oui, des *risques d'incompatibilité* peuvent se présenter. Certaines dépendances peuvent également être devenues obsolètes ou avoir présenté des failles de sécurité ;
 - *maintenance* : si personne ne met à jour le module alors que des contributions se présentent, cela peut se révéler bloquant, dénoter une *obsolescence* d'idée ou impliquer l'existence d'un _fork_ de ce module ;
-- *état des contributions* : les mainteneurs répondent-ils aux contributeurs ? Les contributions de code sont-elles acceptées dans des conditions légitimes ? Ou tout simplement, y'a-t-il beaucoup de déclaration de bugs en suspens ? Telles sont les indicateurs de vitalité pour estimer la gravité et la probabilité que la bibliothèque nous explose au visage lorsqu'on ne s'y attendra pas.
+- *état des contributions* : les mainteneurs répondent-ils aux contributeurs ? Les contributions de code sont-elles acceptées dans des conditions légitimes ? Ou tout simplement, y'a-t-il beaucoup de déclaration de bugs en suspens ? Telles sont les indicateurs de vitalité pour estimer la gravité et la probabilité que la librairie nous explose au visage lorsqu'on ne s'y attendra pas.
 
 .Page npm d'un module populaire et fiable
 image::images/module-npm-ok.png[align="center",width="85%"]
