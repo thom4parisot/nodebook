@@ -96,18 +96,17 @@ La version de navigateur la plus ancienne ou la moins conforme aux standards ét
 Cela voulait dire se priver de techniques modernes, standardisées ou en cours de standardisation.
 Cela voulait dire des _hacks_ dans ses CSS, dans son code _ECMAScript_ et dans ses ressources graphiques.
 
-Alors que dire si on inclut une librairie tierce qui fait l'affaire mais n'offre pas une compatibilité aussi antique que désirée ?
-
 [[transpilation]]
 === Écrire au plus proche des standards
 
-Fort heureusement l'arrivée d'_esprima_ a changé la donne et permet d'écrire un code proche des standards, qui résiste au temps et d'automatiser les transformations de code pour satisfaire nos besoins spécifiques.
+Fort heureusement l'arrivée d'_esprima_ change la donne et permet d'écrire un code proche des standards qui résiste au temps.
+Son existence facilite l'*émergence d'outils automatisant les transformations de code* pour satisfaire nos besoins spécifiques.
 
 Il y a plusieurs éléments à prendre en compte concernant la standardisation de nouvelles versions d'_ECMAScript_ et les évolutions de sa syntaxe :
 
 . la *cadence de standardisation* a été revue pour devenir prédictible – une volonté d'une fois par an ;
-. les *fonctionnalités et éléments de syntaxe sont implémentés un par un*, à des vitesses différentes par les différents concepteurs de navigateurs web ;
-. les navigateurs majoritaires fonctionnent sur des *rythmes de mises à jour en cycle court* – on parle de six à neuf semaines pour la plupart.
+. les *fonctionnalités et éléments de syntaxe sont implémentés un par un*, à des vitesses différentes par les différents navigateurs web ;
+. _deux tiers_ de navigateurs fonctionnent sur des *rythmes de mises à jour en cycle court* (de six à neuf semaines) – le _tiers_ restant est cadencé à *une seule mise à jour par an*.
 
 Il vaut mieux *parier sur les standards comme stratégie à long terme* si on tient compte du _temps de développement_ et du _temps de maintenance_ d'une base de code.
 
@@ -251,10 +250,10 @@ Comprenons que :
 
 - cette syntaxe est *valide dans toutes les versions* d'_ECMAScript_ (_babel_ ne changera rien à ce code) ;
 - l'objet global `Promise` existe dans un navigateur moderne ;
-- l'objet global `Promise` n'existe pas dans _Internet Explorer 9_, entre autres.
+- l'objet global `Promise` n'existe pas dans _Internet Explorer 11_, entre autres.
 
-Ce code fonctionnerait sur un navigateur moderne mais pas dans _IE9_.
-L'inclusion d'un _polyfill `Promise`_ résoudrait le problème.
+Ce code fonctionnerait sur un navigateur moderne mais pas dans _IE11_.
+L'inclusion d'un _polyfill_ de `Promise` résoudrait le problème.
 
 Parlons maintenant des méthodes d'inclusion des _polyfills_ pour mieux comprendre comment procéder.
 
@@ -498,7 +497,7 @@ Son apprentissage progressif peut faire de lui un allié de choix dans tous vos 
 ====
 
 Revenons maintenant à notre code auquel il manque la compréhension des modules _npm_.
-Nous allons maintenant chercher à transformer le fichier `script-import-jquery.js` pour à la fois rendre la syntaxe `import` intelligible par les navigateurs web (c'est le rôle de _babel_) mais aussi pour faire le lien avec les modules _npm_ :
+Nous allons maintenant chercher à transformer le fichier `script-import-jquery.js` pour à la fois rendre la syntaxe `import` intelligible  (c'est le rôle de _babel_) mais aussi pour faire le lien avec les modules _npm_ :
 
 ----
 $ npm run browserify -- \
