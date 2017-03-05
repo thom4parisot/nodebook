@@ -22,32 +22,29 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var DateInterval = function (_Component) {
   _inherits(DateInterval, _Component);
 
-  // <1>
   function DateInterval(props) {
     _classCallCheck(this, DateInterval);
 
-    var _this = _possibleConstructorReturn(this, _Component.call(this, props)); // <2>
-
+    var _this = _possibleConstructorReturn(this, _Component.call(this, props));
 
     var interval = props.interval;
 
     _this.onTick = _this.onTick.bind(_this);
 
     _this.state = {
-      tickData: (0, _timer2.default)({ interval: interval, onTick: _this.onTick }) // <3>
-    };
+      tickData: (0, _timer2.default)({ interval: interval, onTick: _this.onTick }) };
     return _this;
   }
 
   DateInterval.prototype.onTick = function onTick(tickData) {
-    this.setState({ tickData: tickData }); // <4>
+    this.setState({ tickData: tickData });
   };
 
   DateInterval.prototype.render = function render() {
-    // <5>
     var _state$tickData = this.state.tickData,
         className = _state$tickData.className,
-        now = _state$tickData.now; // <6>
+        now = _state$tickData.now;
+
 
     return _react2.default.createElement(
       'time',
@@ -76,19 +73,15 @@ var _dateInterval2 = _interopRequireDefault(_dateInterval);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-_reactDom2.default.render( // <1>
-(0, _react.createElement)(_dateInterval2.default, { interval: 1000 }), // <2>
-document.querySelector('#app') // <3>
-);
+_reactDom2.default.render((0, _react.createElement)(_dateInterval2.default, { interval: 1000 }), document.querySelector('#app'));
 
 },{"./date-interval.jsx":1,"react":180,"react-dom":29}],3:[function(require,module,exports){
 'use strict';
 
 var tick = function tick() {
-  // <1>
   var now = new Date();
 
-  return { // <2>
+  return {
     now: now,
     className: now.getSeconds() % 2 ? 'impair' : 'pair'
   };
@@ -97,12 +90,12 @@ var tick = function tick() {
 module.exports = function timer(_ref) {
   var onTick = _ref.onTick,
       interval = _ref.interval;
-  // <3>
+
   setInterval(function () {
     return onTick(tick());
-  }, interval); // <4>
+  }, interval);
 
-  return tick(); // <5>
+  return tick();
 };
 
 },{}],4:[function(require,module,exports){
