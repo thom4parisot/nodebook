@@ -14,7 +14,7 @@ before_install:
 
 before_deploy:
 - /tmp/git-lfs/git-lfs pull
-- make clean install build-html
+- make clean build-html 
 
 deploy:
   provider: script
