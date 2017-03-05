@@ -188,18 +188,21 @@ La sortie a changé et renvoie un code totalement fonctionnel sur des navigateur
 include::{sourceDir}/babel-es2015ified.js[]
 ----
 
-Il existe de nombreuses règles de transformation mais heureusement pour nous, des modules _npm_ nous permettent de *choisir quels éléments de syntaxe transformer*.
-Ce sont les _presets_.
+Il existe de nombreuses règles de transformation.
+Chacune d'entre elles ciblent une fonctionnalité spécifique d'une version d'_ECMAScript_.
+Les *_presets_ des modules _npm_ faisant office de groupes logiques*.
 
-Voici quelques _presets_ qui nous seront utiles :
+Les _presets_ suivants nous aideront à convertir chaque édition de spécification _ECMAScript_ vers _ECMASCript 5_.
+Le *dernier _preset_ est le plus simple à utiliser* car il se base sur les parts de marché des navigateurs web pour déterminer les règles de conversion :
 
-- `preset-env` ([URL]#https://github.com/babel/babel-preset-env#) ;
-- `preset-es2015` ([URL]#https://babeljs.io/docs/plugins/preset-es2015/#) ;
-- `preset-es2016` ([URL]#https://babeljs.io/docs/plugins/preset-es2016/#) ;
-- `preset-es2017` ([URL]#https://babeljs.io/docs/plugins/preset-es2017/#) ;
-- `preset-latest` ([URL]#https://babeljs.io/docs/plugins/preset-latest/#).
+* `preset-es2015` ([URL]#https://babeljs.io/docs/plugins/preset-es2015/#) ;
+* `preset-es2016` ([URL]#https://babeljs.io/docs/plugins/preset-es2016/#) ;
+* `preset-es2017` ([URL]#https://babeljs.io/docs/plugins/preset-es2017/#) ;
+* `preset-latest` ([URL]#https://babeljs.io/docs/plugins/preset-latest/#) ;
+* `preset-env` ([URL]#https://npmjs.com/babel-preset-env#).
 
-Ils sont à placer dans un fichier de configuration nommé `.babelrc` :
+Ils sont à placer dans un fichier de configuration nommé `.babelrc`.
+L'exemple suivant illustre la _combinaison_ de deux _presets_ pour convertir la syntaxe _ECMAScript 2015_ et _ECMAScript 2016_ vers _ECMAScript 5_ :
 
 .{empty}.babelrc
 ----
@@ -214,7 +217,8 @@ Ils sont à placer dans un fichier de configuration nommé `.babelrc` :
 [TIP]
 .[RemarquePreTitre]#Lien# Documentation de _babel_
 ====
-Une liste d'options ainsi qu'une aide à la configuration sont disponibles sur le site officiel de _babel_ :
+Toutes les options de configuration sont documentées sur le site officiel de _babel_.
+Une autre page explique où placer et quoi mettre dans les fichiers `.babelrc`.
 
 - [URL]#https://babeljs.io/docs/usage/api/#options#
 - [URL]#https://babeljs.io/docs/usage/babelrc/#
