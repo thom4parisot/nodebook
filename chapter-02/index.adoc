@@ -809,7 +809,7 @@ Ce résumé des primitives et fonctionnalités principales d'_ECMAScript_ a pour
 
 ==== String
 
-Chaque élément d'une chaîne de caractère est encodé au format UTF-16 et peut donc contenir 16 bits de données.
+Chaque élément d'une chaîne de caractères est encodé au format UTF-16 et peut donc contenir 16 bits de données.
 
 L'opérateur `typeof` permet d'identifier une chaîne :
 
@@ -869,7 +869,7 @@ On peut remplacer les occurrences correspondantes à un masque de caractères vi
 <1> Retourne `'I love JavaScript'` ;
 <2> Retourne `'i ♥ javascript'`.
 
-Les _template literals_ servent à composer des chaînes de caractère multilignes et/ou contenant des expressions ECMAScript :
+Les _template literals_ servent à composer des chaînes de caractères multilignes et/ou contenant des expressions ECMAScript :
 
 [source,javascript]
 .primivite-template-literals.js
@@ -938,7 +938,7 @@ parseFloat('2.10');   // <2>
 [TIP]
 .[RemarquePreTitre]#FAQ# Le second argument de parseInt
 ====
-Le second argument de la fonction `parseInt` indique dans quelle base la valeur est représentée dans la chaîne. La base décimale (10) est la plus souvent utilisée, mais il est également possible de convertir une chaîne représentant un nombre binaire (base 2) ou héxadécimal (base 16).
+Le second argument de la fonction `parseInt` indique dans quelle base la valeur est représentée dans la chaîne. La base décimale (10) est la plus souvent utilisée, mais il est également possible de convertir une chaîne représentant un nombre binaire (base 2) ou hexadécimal (base 16).
 ====
 
 La méthode `isNaN` permet d'être sûr de ne pas manipuler un nombre indésirable :
@@ -1138,7 +1138,7 @@ a.forEach(print); // <2>
 
 Dans ECMAScript, tout est objet. C'est le _prototype_ qui détermine le comportement dudit objet.
 Les objets peuvent être créés de manière littérale, avec la fonction `Object.create` ou via un constructeur. +
-À la différence d'un `Array`, il est possible de nommer une clé par une chaîne de caractère – statique ou dynamique – ou avec un <<primitive-symbol,symbole>>.
+À la différence d'un `Array`, il est possible de nommer une clé par une chaîne de caractères – statique ou dynamique – ou avec un <<primitive-symbol,symbole>>.
 
 [source,javascript]
 .primitives/object.js
@@ -1188,7 +1188,7 @@ include::{sourceDir}/primitives/object-getters.js[]
 <2> Définition d'un _mutateur_ pour la propriété `date_published` ;
 <3> La valeur `date` est convertie en objet et stockée dans la propriété `_published_at` ;
 <4> Définition d'un _accesseur_ pour la propriété `date_published` ;
-<5> Appel du _mutateur_ qui, en interne, convertit la chaîne de caractère en objet `Date` ;
+<5> Appel du _mutateur_ qui, en interne, convertit la chaîne de caractères en objet `Date` ;
 <6> Appel de l'_accesseur_ et affiche `true` car il s'agit bien d'une instance de `Date` ;
 <7> Lance une exception car la chaîne assignée n'est pas une date valide.
 
@@ -1212,7 +1212,7 @@ Reprenons l'exemple précédent :
 include::{sourceDir}/primitives/object-getters-shorthand.js[]
 ----
 <1> Définition _raccourcie_ du _mutateur_ pour la propriété `date_published` ;
-<2> Définition _raccourcie_ de l'_accesseur_ pour la proriété `year_published` – notez qu'on ne définit pas de _mutateur_ cette même propriété ;
+<2> Définition _raccourcie_ de l'_accesseur_ pour la propriété `year_published` – notez qu'on ne définit pas de _mutateur_ pour cette même propriété ;
 <3> Lance une _exception_ car la propriété `year_published` est définie en tant qu'_accesseur_ uniquement ; on ne peut donc pas lui _assigner_ de valeur.
 
 `Object.assign` étend des structures existantes et la définition de valeurs par défaut.
@@ -1330,7 +1330,7 @@ Une syntaxe abrégée est disponible via les fonctions fléchées :
 |=========
 
 Il est possible de composer des fonctions à partir d'autres fonctions en utilisant la méthode `bind`.
-Ce _pattern_ est extrêmement puissante car il permet de modifier le contexte d'exécution de ladite fonction.
+Ce _pattern_ est extrêmement puissant car il permet de modifier le contexte d'exécution de ladite fonction.
 
 [source,javascript]
 .primitives/function-bind.js
@@ -1377,7 +1377,7 @@ include::{sourceDir}/primitives/rest.js[]
 <3> Affiche `[ { name: 'Cabécou' }, { name: 'Chaource' } ]` –
 
 En bref, ils sont l'équivalent de l'ancienne variable _magique_ `arguments` mais avec une meilleure finesse quant aux paramètres concernés.
-Les éléments retournés par les _paramètres du reste_ interface ont aussi l'avantage d'être un véritable objet de <<primitives/array,tableau>> – `arguments` est _itérable_ mais n'est pas un tableau et ne bénéficie donc pas des méthodes de compréhension telles que `forEach`, `map`, etc.
+Les éléments retournés par les _paramètres du reste_ ont aussi l'avantage d'être un véritable objet de <<primitives/array,tableau>> – `arguments` est _itérable_ mais n'est pas un tableau et ne bénéficie donc pas des méthodes de compréhension telles que `forEach`, `map`, etc.
 
 [[primitive-map-set]]
 ==== Map et Set
@@ -1401,7 +1401,7 @@ include::{sourceDir}/primitives/set.js[]
 <4> On peut ajouter un `Set` en tant que valeur de `Set` si on le souhaite ;
 <5> À l'inverse du point 3, l'ajout multiple d'une référence à un même objet (ici, `primesArray`) ne fonctionnera pas ;
 <6> Affiche `Set { 2, 3, [ 5, 7 ], [ 5, 7 ], Set { 11, 13 }, [ 11, 13 ] }` ;
-<7> Utilise la <<primitive-destructuring,décomposition>> pour extraires les valeurs du `Set` et affiche `[ 2, 3, [ 5, 7 ], [ 5, 7 ], Set { 11, 13 }, [ 11, 13 ] ]`.
+<7> Utilise la <<primitive-destructuring,décomposition>> pour extraire les valeurs du `Set` et affiche `[ 2, 3, [ 5, 7 ], [ 5, 7 ], Set { 11, 13 }, [ 11, 13 ] ]`.
 
 `Map` offre quelques avantages à l'utilisation d'un `Object` :
 
@@ -1416,7 +1416,7 @@ include::{sourceDir}/primitives/set.js[]
 include::{sourceDir}/primitives/map.js[]
 ----
 <1> Assigne un objet en référence de `Map` vers un objet de type `Set` ;
-<2> Parcourt chaque enregistrements de `Map` et en affiche sa clé et sa valeur ;
+<2> Parcourt chaque enregistrement de `Map` et en affiche sa clé et sa valeur ;
 <3> _Ditto_ mais avec l'expression `for..of` ;
 <4> Affiche `2` car notre `Map` comporte 2 enregistrements ;
 <5> Affiche les enregistrements de la `Map` sous forme de paires `[clé, valeur]`;
@@ -1556,7 +1556,7 @@ include::{sourceDir}/primitives/readfile-promise.js[]
 <4> Résout positivement la promesse — si le _parsing_ échoue, la promesse sera rejetée.
 
 Une instance de `Promise` expose plusieurs méthodes pour propager le statut de son exécution.
-Les plus courramment employées sont `then` et `catch`:
+Les plus couramment employées sont `then` et `catch`:
 
 - `then(onSuccess[, onError])` : fonction acceptant un _callback_ de succès et un _callback_ d'erreur (facultatif) ;
 - `catch(onError)` : fonction acceptant un _callback_ d'erreur.
@@ -1583,12 +1583,12 @@ include::{sourceDir}/primitives/promise.js[]
 <1> Création d'une `Promise` ;
 <2> Consommation du résultat et propagation d'une nouvelle promesse retournant le nombre de dépendances contenu dans le `package.json` de ce chapitre ;
 <3> Consommation du nouveau résultat ;
-<4> Cette fonction sera appelée si une erreur se déclenche en amont de la chaîne de promeses.
+<4> Cette fonction sera appelée si une erreur se déclenche en amont de la chaîne de promesses.
 
-`Promise.all` est une méthode statique de l'API _Promise_ qui retourne elle-mêm une promesse.
-Elle sera résolue positivement lorsque toutes les promesses passées en argument seront résolues ou négativement dès que l'une d'entre elles échoue.
+`Promise.all` est une méthode statique de l'API _Promise_ qui retourne elle-même une promesse.
+Elle sera résolue positivement lorsque toutes les promesses passées en argument seront résolues ou négativement dès que l'une d'entre elles échouera.
 
-Reprenons le précédent exemple pour compter _en parallèle_ les dépendences de trois fichiers `package.json` :
+Reprenons le précédent exemple pour compter _en parallèle_ les dépendances de trois fichiers `package.json` :
 
 [source,javascript]
 .primitives/promise-all.js
@@ -1683,7 +1683,7 @@ L'opérateur `instanceof` permet d'identifier une instance d'expression réguli�
 ----
 <1> Retourne `true`.
 
-La méthode `exec` permet de capturer les occurrences d'une expression régulières au sein d'une chaîne de caractères :
+La méthode `exec` permet de capturer les occurrences d'une expression régulière au sein d'une chaîne de caractères :
 
 [source,javascript]
 ----
@@ -1772,7 +1772,7 @@ catch (err) {
 <2> Retourne `5.1` ;
 <3> Affiche `Unexpected end of input` car `JSON.parse` a lancé une exception `SyntaxError`.
 
-À l'inverse, la fonction `JSON.stringify` convertit un objet natif en chaîne de caractère au format JSON :
+À l'inverse, la fonction `JSON.stringify` convertit un objet natif en chaîne de caractères au format JSON :
 
 [source,javascript]
 ----
@@ -1890,7 +1890,7 @@ Ce sont trois flux (_Streams_) qui permettent d'accéder respectivement à l'ent
 Si ces noms ne vous parlent peut-être pas, c'est parce qu'ils sont directement inspirés d'UNIX.
 Ils sont directement accessibles via l'interface JavaScript de Node.
 
-Le script suivant convertit toute chaine de caractère envoyée vers l'entrée standard en lettres majuscules :
+Le script suivant convertit toute chaîne de caractères envoyée vers l'entrée standard en lettres majuscules :
 
 [source,javascript]
 .uppercase.js
@@ -1937,7 +1937,7 @@ node interrupt.js 3 <1>
 
 `process.title` est une API intéressante pour assigner un _titre_ de process.
 Cela concerne notamment les commandes de liste de processus actifs (comme `ls`).
-On pourrait penser que cela offre l'avantage de rendre un processus singuler et donc plus facile à repérer :
+On pourrait penser que cela offre l'avantage de rendre un processus singulier et donc plus facile à repérer :
 
 ----
 $ node
@@ -2080,7 +2080,7 @@ Prenons le cas de ce module :
 include::{sourceDir}/increment-module.js[]
 ----
 
-Le précédent module affichera son identifiant unique à chaque fois qu'il est _chargé_.
+Le précédent module affichera son identifiant unique à chaque fois qu'il sera _chargé_.
 Dès que la méthode `run()` de l'objet exporté sera appelée, elle incrémentera la variable privée `counter` et retournera sa nouvelle valeur.
 
 Le module suivant fait deux fois appel à `increment-module.js` et assigne le résultat dans deux variables différentes.
@@ -2158,7 +2158,7 @@ setImmediate(print('immediate'));
 ----
 <1> Affichera d'abord `immediate`… ;
 <2> … suivi de `timeout` environ 200ms plus tard… ;
-<3> … puis `interval` environ 50ms plus tard, et ce, toutes les 250ms tant que le programme ne sera pas arrêté ou que `clearTimeout` n'annule pas l'intervalle.
+<3> … puis `interval` environ 50ms plus tard, et ce, toutes les 250ms tant que le programme ne sera pas arrêté ou que `clearTimeout` n'annulera pas l'intervalle.
 
 Pour en savoir plus sur les méthodes et fonctions disponibles, reportez-vous à la documentation en ligne du module `timers` sur [URL]#https://nodejs.org/api/timers.html#.
 
@@ -2246,7 +2246,7 @@ include::{sourceDir}/pattern/sync.js[]
 ----
 
 Finalement le code n'est pas nécessairement plus clair.
-On doit activement essayer de faire la distinction entre un résultat d'une valeur _fausse_ et un résultat issu d'une erreur (système surchargé, fichier inexistant, lecture interrompu, _timeout_ etc.).
+On doit activement essayer de faire la distinction entre un résultat d'une valeur _fausse_ et un résultat issu d'une erreur (système surchargé, fichier inexistant, lecture interrompue, _timeout_ etc.).
 
 Le module d'accès synchrone au contenu d'un fichier ressemblerait à ceci :
 
@@ -2367,15 +2367,15 @@ Au lieu de nommer des fichiers un par un, le mécanisme permet de désigner des 
 
 Les motifs utilisables sont les suivants :
 
-- `*` : n'importe quelle chaîne de caractère ;
+- `*` : n'importe quelle chaîne de caractères ;
 - `**` : n'importe quel répertoire ;
-- `{js,css}` : la chaîne `js` ou `css ;
+- `{js,css}` : la chaîne `js` ou `css` ;
 - `[js]` : un caractère dans l'ensemble `j` et `s` ;
 - `!(js)` : sauf la chaîne _js_.
 
 Parcourir et filtrer le contenu d'un répertoire devient un jeu d'enfant — bien plus que s'il avait fallu utiliser soi-même l'API Node `fs` à coup de `readDir` récursif.
 
-Au final, c'est ce qui est effectué mais sans que nous ayions à écrire ce code nous-même.
+Au final, c'est ce qui est effectué mais sans que nous ayons à écrire ce code nous-même.
 
 [source,javascript]
 .pattern/glob.js
@@ -2550,14 +2550,14 @@ Un excellent moyen pour gérer du code _asynchrone_ et _parallèle_ est le _patt
 
 === Event
 
-Les _callbacks_ nous permettent d'agir lorsqu'un exécution asynchrone est en mesure de nous retourner un résultat ou une erreur. +
+Les _callbacks_ nous permettent d'agir lorsqu'une exécution asynchrone est en mesure de nous retourner un résultat ou une erreur. +
 Leur fonctionnement est toutefois encapsulé et limité à la portée de la portion de code dans laquelle nous pouvons insérer des instructions.
 Difficile donc d'exposer notre logique applicative en dehors de ces _callbacks_.
 
 Les événements nous offrent un tel mécanisme d'exposition, en permettant la connexion de plusieurs écouteurs (_listeners_).
 Plusieurs composants indépendants peuvent alors utiliser les résultats pour leurs propres besoins.
 
-Il s'agit d'un _pattern_ particulièrement intéressant adresser ces besoins :
+Il s'agit d'un _pattern_ particulièrement intéressant pour adresser ces besoins :
 
 - gérer des cas de figure ayant trait à une progression ;
 - gérer des cas de figure plus complexes qu'une logique binaire de réussite ou d'échec ;
@@ -3103,7 +3103,7 @@ const jQueryCore = require('jquery/src/core.js');
 Le _registre npm_ ([URL]#https://npmjs.com#) fourmille de modules en tous genres.
 Ils fournissent de simples fonctions, des bibliothèques ou des _frameworks_ complets pour gérer vos accès réseau, vos bases de données, la qualité de vos projets et leur automatisation.
 
-La *sélection d'un module est un choix subjectif* : la qualité, la pertinence et la popularité sont corrélés sans pour autant être des critères impératifs. +
+La *sélection d'un module est un choix subjectif* : la qualité, la pertinence et la popularité sont corrélées sans pour autant être des critères impératifs. +
 Un module peu populaire sera-t-il moins bon pour autant ? Un module populaire est-il plus performant qu'une alternative ? Un module bien testé sera-t-il plus aisé à utiliser ?
 
 Bref, pour vous aider à choisir — et ce peu importe le contexte — voici une liste subjective de critères et leur impact sur votre processus de décision :
@@ -3150,9 +3150,9 @@ La liste suivante est non-exhaustive et référence des contributeurs de qualit�
 
 === Exécuter les tests
 
-L'écriture de tests et la vérification de la qualité de votre code sont un excellent moyen de vous assurez que de nouveaux bugs ne sont pas introduits dans votre application.
+L'écriture de tests et la vérification de la qualité de votre code sont un excellent moyen de vous assurer que de nouveaux bugs ne sont pas introduits dans votre application.
 
-Écrire des modules et les empiler sans écrire de tests revient à construire un château de carte : le moindre changement accentue le risque de propager des erreurs dans tous les applications en dépendant.
+Écrire des modules et les empiler sans écrire de tests revient à construire un château de carte : le moindre changement accentue le risque de propager des erreurs dans toutes les applications en dépendant.
 
 Nous verrons ultérieurement comment écrire des tests unitaires pour vos applications et votre code exécuté dans un contexte Web.
 
