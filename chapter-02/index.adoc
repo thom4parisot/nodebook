@@ -890,6 +890,52 @@ include::{sourceDir}/primitives/tagged-template-literals.js[]
 <1> Affiche `<div class="user-content">\n<script>alert(document.cookie)</script>\n</div>` ;
 <2> Affiche `<div class="user-content">\n\&lt;script\&gt;alert(document.cookie)\&lt;/script\&gt;\n</div>`.
 
+
+[[primitive-boolean]]
+==== Boolean
+
+Un booléen est une donnée de type logique qui peut être _vraie_ ou _fausse_ en prenant respectivement la valeur `true` ou `false`.
+C'est un type de choix pour effectuer des _assertions_ et vérifier des _conditions_.
+
+[source,javascript]
+.primitives/bool.js
+----
+include::{sourceDir}/primitives/bool.js[]
+----
+<1> Affiche `3` ;
+<2> Affiche `true` car la condition est vérifiée ;
+<3> Affiche `false` car la condition n'est pas vérifiée ;
+<4> Affiche `true` car `3` _équivaut strictement_ à `3` ;
+<5> Affiche `true` car la condition est vérifiée.
+
+Une donnée peut être convertie en un booléen à l'aide de la fonction `Boolean`.
+Toute valeur non-nulle convertie en booléen retournera `true`.
+On dit alors que cette valeur est `truthy`.
+À l'inverse, une valeur nulle, vide ou indéfinie sera dite `falsy` – `null`, `0`, `''`, `undefined`, `false` et `NaN`.
+
+[source,javascript]
+.primitives/bool-truthy-falsy.js
+----
+include::{sourceDir}/primitives/bool-truthy-falsy.js[]
+----
+<1> Affiche `false` car il s'agit d'une _chaîne vide_ convertie en booléen ;
+<2> Affiche `true` car il s'agit d'un _nombre différent de 0_ converti en booléen ;
+<3> `counter` vaut `3` donc la _condition est vérifiée_ – elle est _truthy_ – et exécutera la ligne d'après.
+
+[CAUTION]
+.[RemarquePreTitre]#Méfiance# Double égalité vs. triple égalité
+====
+Il est recommandé d'utiliser l'opérateur de _triple égalité_ pour s'assurer que deux éléments sont *de même type et de même valeur*.
+Les cas de figure où la _double égalité_ évite les effets de bord indésirables sont peu nombreux…
+
+----
+console.log('' == 0);   // <1>
+console.log('' === 0);  // <2>
+----
+<1> Affiche `true` car les deux valeurs sont _falsy_ ;
+<2> Affiche `false` car les deux valeurs ne sont pas _strictement identiques_ (même type et même valeur).
+====
+
 ==== Number
 
 Tous les nombres en ECMAScript sont des flottants (double précision) respectant le standard link:https://fr.wikipedia.org/wiki/IEEE_754[_IEEE 754_].
