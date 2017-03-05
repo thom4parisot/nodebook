@@ -13,11 +13,8 @@ $(VIDEO_FILES_DIST): $(VIDEO_FILES)
 	@mkdir -p $(dir $@)
 	cp $< $@
 
-$(HTML_FILES): $(ADOC_FILES)
-	@mkdir -p $(dir $@)
-
-build-html: $(HTML_FILES) $(VIDEO_FILES_DIST)
-	node build.js
+build-html: $(VIDEO_FILES_DIST)
+	npm run build:html
 
 deploy-html: $(VIDEO_FILES_DIST) $(HTML_FILES)
 	rm -rf /tmp/deploy && cp -r $(BUILD_DIR) /tmp/deploy
