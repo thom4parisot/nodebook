@@ -84,7 +84,8 @@ $ npm test
 ## Génération de l'épreuve HTML
 
 ```bash
-$ make build-html && open ./dist
+$ npm run build:html
+$ open ./dist
 ```
 
 
