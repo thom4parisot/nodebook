@@ -32,13 +32,10 @@ Ce chapitre nous apprendra le rôle de Node en tant qu'extension au développeme
 --
 Avant l'apparition de Node, rare était l'outillage n'imposant pas une ou plusieurs plates-formes de développement : _YUICompressor_ demandait Java, _Google Closure Compiler_ demandait Java, _sprockets_ Ruby et _pngquant_ quelques dépendances système comme _libpng_.
 
-Leur installation n'était pas triviale.
-Leur coordination encore moins.
-Les adapter aux différents systèmes d'exploitation et au système d'intégration continue n'était pas non plus aisé. +
-Bref c'était lourd, complexe et compliqué à moins de disposer d'une infrastructure industrialisée.
-
-L'existence de Node et du registre _npm_ a favorisé le développement d'un écosystème orienté _frontend_.
+L'existence de Node et du registre _npm_ a favorisé le développement d'un écosystème orienté _frontend_ plus simple à appréhender.
 Cela s'étend de la découverte au téléchargement des librairies tierces ainsi qu'à la compilation, l'optimisation et l'exécution des tests des applications web côté client.
+
+Cet *écosystème rend l'écriture de code moderne normale* ; un code anticipant les futurs standards d'_ECMAScript_ et _HTML5_, sur les navigateurs actuels et anciens.
 --
 
 include::../resources/tip-versions.adoc[]
@@ -72,7 +69,7 @@ Ce processus n'est _pas magique_ et nous verrons graduellement au cours des proc
 
 Transformer du code ECMAScript a pendant longtemps été chose pénible.
 Je pense par exemple à de la minification de code (pour réduire les temps de transfert sur les antiques lignes ADSL 128K) ou à de la conversion automatique de code _ECMAScript 3_ en _ECMAScript 5_.
-Cela nécessitait systématiquement l'utilisation d'un autre environnement qu'ECMAScript lui-même: Rhino nécessitait Java, Spidermonkey nécessitait C++ et Trident nécessitait un environnement Windows en plus de C++.
+Cela nécessitait systématiquement l'utilisation d'un autre environnement qu'ECMAScript lui-même: _Rhino_ nécessitait Java, _Spidermonkey_ nécessitait {cpp} et _Trident_ nécessitait un environnement Windows en plus de {cpp}.
 
 *esprima* chamboule les règles du jeu en décembre 2011 : ce parseur _ECMAScript_ — lui-même écrit en _ECMAScript_ – exporte une compréhension de code sous forme d'arbre syntaxique abstrait (_abstract syntax tree_, _AST_).
 Cet arbre est lui-même analysable par de *nouveaux outils émergents* :
@@ -90,9 +87,6 @@ Il y présente notamment des comparatifs de performances d'exécution sur diffé
 
 - [URL]#https://ariya.io/2011/12/introducing-esprima#
 ====
-
-Le champ d'action de Node augmente, la versatilité d'_ECMAScript_ aussi. +
-Toutefois si on ne devait retenir qu'une chose de tout ceci c'est qu'il est désormais normal d'*écrire du code moderne en anticipation des futurs standards et de le faire fonctionner sur les navigateurs actuels et anciens*.
 
 === La fin de l'approche par le dénominateur commun
 
