@@ -221,21 +221,11 @@ Une autre page explique où placer et quoi mettre dans les fichiers `.babelrc`.
 === Combler les manques avec des _polyfills_
 
 Des outils comme _babel_ nous permettent d'écrire avec une *syntaxe moderne*.
-Les *polyfills* nous permettent de *combler les fonctionnalités manquantes*, leur implémentation.
+Les *polyfills* sont des bouts de code qui nous permettent de *combler les fonctionnalités manquantes* – leur implémentation.
 
-La déstructuration, les constantes et les classes sont des _éléments de syntaxe_ d'_ECMAScript 2015_.
-L'objet `Promise` et la méthode `Array.from` sont des _fonctionnalités_ d'_ECMAScript 2015_.
-La fonction `fetch`, l'objet `File` et l'API `WebSocket` sont des _fonctionnalités_ d'_HTML5_.
-
-Un *polyfill nous garantit la présence d'une fonctionnalité*, peu importe l'ancienneté du code et du navigateur l'exécutant.
-
-[TIP]
-.[RemarquePreTitre]#Guide# Bonnes pratiques constatées
-====
-Un guide édité par le W3C explique les bons usages et risques d'utilisation des _polyfills_ et de leur utilisation constatée sur le web.
-
-- [URL]#https://w3ctag.github.io/polyfills/#
-====
+Un *polyfill harmonise la présence d'une fonctionnalité* au sein d'une variété de navigateurs web et d'environnements JavaScript.
+Cela se fera au détriment de *quelques kilo-octets de code* à charger en plus dans nos applications.
+L'appel à un service de polyfill externe entrainera un *léger ralentissement du chargement* de notre page.
 
 Prenons le bloc de code suivant :
 
@@ -248,12 +238,21 @@ Promise.resolve('ok');
 
 Comprenons que :
 
-- cette syntaxe est *valide dans toutes les versions* d'_ECMAScript_ (_babel_ ne changera rien à ce code) ;
+- cette *syntaxe est valide* dans toutes les versions d'_ECMAScript_ (_babel_ ne changera rien à ce code) ;
 - l'objet global `Promise` existe dans un navigateur moderne ;
 - l'objet global `Promise` n'existe pas dans _Internet Explorer 11_, entre autres.
 
-Ce code fonctionnerait sur un navigateur moderne mais pas dans _IE11_.
+Ce code fonctionnerait donc sur un navigateur moderne mais pas dans _IE11_.
 L'inclusion d'un _polyfill_ de `Promise` résoudrait le problème.
+
+[TIP]
+.[RemarquePreTitre]#Bonne pratique# Quand inclure les _polyfills_ ?
+====
+*Un polyfill se charge toujours en premier*.
+On incluera tous les polyfills d'un coup *avant notre propre code*.
+
+Nous garantissons ainsi une *cohérence et stabilité de comportement* au sein de notre application, peu importe l'ordre d'exécution de nos scripts.
+====
 
 Parlons maintenant des méthodes d'inclusion des _polyfills_ pour mieux comprendre comment procéder.
 
@@ -270,8 +269,8 @@ include::{sourceDir}/polyfill.io.html[]
 [TIP]
 .[RemarquePreTitre]#Documentation# polyfill.io
 ====
-_polyfill.io_ possède une documentation très complète et illustrative de son fonctionnement.
-Elle vous aidera à configurer finement le service en fonction de vos besoins.
+_polyfill.io_ possède une documentation très complète.
+Elle nous aidera à configurer finement le service en fonction de nos besoins.
 
 - [URL]#https://qa.polyfill.io/v2/docs/#
 ====
@@ -283,7 +282,7 @@ Nous pouvons déduire *deux règles* de l'exemple précédent :
 
 La deuxième méthode est d'*embarquer les polyfills* dans notre base de code.
 L'avantage est de maitriser notre base de code et de ne pas dépendre d'un service externe.
-L'inconvénient est que nous chargeons du code qui sera inutile les navigateurs et environnements disposant déjà de ces fonctionnalités :
+L'inconvénient est que nous chargeons du code qui sera inutile dans les navigateurs et environnements disposant déjà de ces fonctionnalités :
 
 [source,html]
 .polyfill-import.html
@@ -320,7 +319,7 @@ Il faut veiller à ne pas alourdir inutilement une application.
 
 Laissons la responsabilité de _polyfiller_ aux utilisateurs de notre code ; particulièrement si celui-ci est *redistribué* en tant que module _npm_ public.
 
-Si plusieurs scripts nécessitent des polyfills, mieux vaut inclure ces derniers _en une fois_ et _en premier_ :
+Si plusieurs scripts nécessitent des polyfills, mieux vaut inclure ces derniers _en une fois_ :
 
 [source,html]
 ----
@@ -330,19 +329,26 @@ Si plusieurs scripts nécessitent des polyfills, mieux vaut inclure ces derniers
 ----
 ====
 
-Enfin, une dernière méthode est l'*appel explicite de _polyfill_*.
-Nous faisons une référence _explicite_ au polyfill mais à l'inverse, nous ne modifions pas les objets globaux :
+Enfin, une dernière méthode est d'*importer la fonction de _polyfill_ sans réécrire les objets globaux*.
+Cette pratique a l'avantage de _ne pas entrainer d'effets secondaires_ et de garantir le _même comportement_ dans tous les navigateurs web.
+L'inconvénient est qu'on n'utilise pas la fonctionnalité native des navigateurs lorsqu'elle est présente.
+Nous nous retrouvons tributaires de la qualité d'implémentation du _polyfill_.
 
 [source,javascript]
 .polyfill-require.js
 ----
 include::{sourceDir}/polyfill-require.js[]
 ----
+<1> Affiche `true` si le navigateur implémente l'API _Promise_ – sinon affiche `false` et l'utilisation d'un _polyfill_ prend tout son sens ;
+<2> Affiche `false` car le _polyfill_ de _Promise_ est une function strictement différente de `window.Promise`.
 
-[[typescript]]
-=== Écrire dans un autre langage : l'exemple TypeScript
+[TIP]
+.[RemarquePreTitre]#Guide# Bonnes pratiques constatées
+====
+De bons usages des _polyfills_ ainsi les risques liés à leur utilisation sont compilés dans un guide édité par le W3C.
 
-TBD.
+- [URL]#https://w3ctag.github.io/polyfills/#
+====
 
 [[modules]]
 == Importer des modules
