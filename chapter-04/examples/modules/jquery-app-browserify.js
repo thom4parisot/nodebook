@@ -11,37 +11,32 @@ var _timer2 = _interopRequireDefault(_timer);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-// <4>
-
 var displaySeconds = function displaySeconds(tickData, dateElement) {
-  // <5>
   var className = tickData.className,
       now = tickData.now;
 
 
-  (0, _jquery2.default)(dateElement) // <6>
-  .attr('class', className).attr('datetime', now.toISOString()).text(now.toLocaleTimeString());
+  (0, _jquery2.default)(dateElement).attr('class', className).attr('datetime', now.toISOString()).text(now.toLocaleTimeString());
 };
 
 (0, _jquery2.default)(document).ready(function () {
-  var dateElements = (0, _jquery2.default)('time').get(); // <1>
+  var dateElements = (0, _jquery2.default)('time').get();
   var onTick = function onTick(tickData) {
     dateElements.forEach(function (el) {
       return displaySeconds(tickData, el);
-    }); // <2>
+    });
   };
 
-  (0, _timer2.default)({ interval: 1000, onTick: onTick }); // <3>
+  (0, _timer2.default)({ interval: 1000, onTick: onTick });
 });
 
 },{"./timer.js":2,"jquery":3}],2:[function(require,module,exports){
 'use strict';
 
 var tick = function tick() {
-  // <1>
   var now = new Date();
 
-  return { // <2>
+  return {
     now: now,
     className: now.getSeconds() % 2 ? 'impair' : 'pair'
   };
@@ -50,12 +45,12 @@ var tick = function tick() {
 module.exports = function timer(_ref) {
   var onTick = _ref.onTick,
       interval = _ref.interval;
-  // <3>
+
   setInterval(function () {
     return onTick(tick());
-  }, interval); // <4>
+  }, interval);
 
-  return tick(); // <5>
+  return tick();
 };
 
 },{}],3:[function(require,module,exports){
