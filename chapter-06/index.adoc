@@ -2,6 +2,7 @@
 :sourceDir: ./examples
 :sourceSample: TODO.js
 :nodeCurrentVersion: v6
+:nodeNextVersion: v7
 :npmCurrentVersion: v4
 :toc-title: Table des matières
 :sectnums:
@@ -30,19 +31,69 @@ include::../resources/tip-examples.adoc[]
 
 toc::[]
 
-== Exécution d'une application Node
+== Passage en production d'une application Node
+
+Nous avons déjà vu dans le chapitre 2 <<../chapter-02/index.adoc#invoke,comment invoquer Node>>.
+Cette section va nous aider à préparer notre application Node pour l'exécuter sur *d'autres environnements* que notre machine de développement sans changer une seule ligne de code.
+
+Nous allons aussi nous interroger sur les raisons qui pourraient emmener une application à s'interrompre mais aussi comment confortablement *inspecter les problèmes* sur notre machine.
+
+Enfin nous nous intéresserons aux différents mécanismes de *démarrage automatique* d'applications Node et aux actions renforçant leur *sécurité*.
 
 === Configuration
 
-- fichiers
-- variables d'environnement
-- services type etcd
+L'*environnement change entre notre machine de développement et la production*, le serveur de tests ou encore une plate-forme de services.
+Le nom et paramètres d'accès à une base de données diffèrent, le système d'exploitation n'est pas le même ni même les codes d'accès pour accéder à certaines APIs.
+Dans certains cas, nous n'avons même pas la main sur la décision d'un élément de configuration : il nous est fourni par l'environnement.
+À nous donc de nous adapter.
 
-L'utilisation d'une variable d'environnement pour configurer l'exécution d'une application est la solution la plus aisée à implémenter.
+Le premier élément que nous souhaitons maitriser est la *bonne version de Node* pour exécuter une application donnée.
+Je recommande l'*utilisation d'un environnement par application* ou à défaut, d'une technologie de _conteneurs_ (comme LXC, Docker etc.) pour héberger plusieurs applications sur un même environnement.
+
+Gérer plusieurs applications sur un même environnement implique soit de *_forcer_ toutes les applications* à se baser sur la même version de Node (mauvaise idée) soit à permettre à *chaque application d'expliciter sa préférence* (meilleure idée). +
+Les _outils de gestion de version pour Node_ exposent justement un mécanisme pour indiquer la version désirée de *manière déclarative* via un fichier texte – ici, `.nvmrc` dans le cas de <<../chapter-02/index.adoc#nvm,nvm>> (cf. Chapitre 2).
+
+.{empty}.nvmrc
+----
+include::.nvmrc[]
+----
+
+Les commandes exposées par _nvm_ ont _connaissance_ de la version de Node déclarée dans le fichier `.nvmrc`.
+Elles s'adapteront à cette version sauf à demander une version explicite :
+
+[subs="attributes"]
+----
+$ nvm install
+$ nvm install {nodeNextVersion}
+$ nvm run config/version.js
+$ nvm run {nodeNextVersion} config/version.js
+$ nvm exec npm start
+----
+
+Les cinq précédentes commandes permettent de :
+
+. installer Node {nodeCurrentVersion} – version obtenue via `.npmrc` ;
+. installer Node {nodeNextVersion} – version explicite ;
+. exécuter le script `config/version.js` avec Node {nodeCurrentVersion} – version obtenue via `.npmrc` ;
+. exécuter le script `config/version.js` avec Node {nodeNextVersion} – version explicite ;
+. exécuter la commande `npm start` dans un environnement Node {nodeCurrentVersion}.
+
+[CAUTION]
+.[RemarquePreTitre]#Performance# Temps de démarrage
+====
+L'utilisation de _nvm_ entraine une pénalité d'environ _une seconde_ lors du _démarrage_ de l'application.
+====
+
+Nous n'avons certainement *pas envie de modifier le code* de notre application pour refléter ces différences.
+C'est également l'*horreur de maintenir un fichier de configuration* par environnement.
+Alors comment faire ?
+
+L'utilisation de *variables d'environnement pour configurer une application* est la solution la plus aisée à implémenter.
 
 Ces variables sont accessibles via l'objet `process.env`, et ce, quel que soit le contexte d'exécution de Node.
 
-L'exemple suivant décrit comment définir le port sur lequel écoutera le serveur HTTP en fonction d'un contexte d'exécution (environnement de test ou environnement de production) ou d'un réglage surchargeant le dit contexte.
+L'exemple suivant décrit comment définir le _port réseau_ sur lequel écoutera le serveur HTTP.
+Le numéro du port sera déterminé soit par le contexte d'exécution (_environnement de test_ ou _environnement de production_) soit par un numéro de port explicitement passée en tant que _variable d'environnement_.
 
 [source,javascript]
 .config/env.js
@@ -53,29 +104,25 @@ include::{sourceDir}/config/env.js[]
 Ainsi que l'illustration de leur définition (ou non) :
 
 ----
-PORT=8000 node config/env.js <1>
-NODE_ENV=test node config/env.js <2>
-node config/env.js <3>
+$ PORT=8000 node config/env.js     # <1>
+$ NODE_ENV=test node config/env.js # <2>
+$ node config/env.js               # <3>
 ----
 <1> Le port sélectionné est le port 8000 ;
 <2> Le port sélectionné est le port 3001 ;
 <3> Le port sélectionné (par défaut) est le port 3000.
 
-Ces variables d'environnement ont l'avantage d'avoir une portée au niveau du processus uniquement ou d'être propagées à l'échelle du système — via `export` en bash, par exemple.
-
----
+Le mécanisme des _variables d'environnement_ est détaillé dans la section <<../chapter-02/index.adoc#process-env,variables d'environnement>> du chapitre 2.
 
 Opter pour un fichier de configuration fait sens si de nombreux paramètres sont à fournir à l'application — ou si certains de ces paramètres impliquent des arborescences d'objets ou de tableaux ECMAScript.
 
 Plusieurs stratégies s'offrent à vous :
 
-- un fichier unique pour éviter les valeurs en dur dans le code ;
-- un fichier par environnement d'exécution (test, préprod, production etc.) ;
-- un fichier par domaine d'application (base de données, API etc.) ;
-- un fichier par domaine de sécurité (backend, frontend etc.).
+- un *fichier unique* pour éviter les valeurs en dur dans le code ;
+- un *fichier par environnement d'exécution* (test, préprod, production etc.) ;
+- un *fichier par domaine d'application* (base de données, backend, frontend API etc.).
 
-Le choix reste ouvert et le votre.
-En revanche nous allons voir comment _techniquement_ mettre en œuvre ces possibles stratégies.
+Cette liste n'est pas exhaustive – l'essentiel étant de facilement maintenir ce ou ces fichiers.
 
 Commençons par l'approche par environnement d'exécution, reposant sur la notion d'un fichier de configuration par environnement.
 
@@ -111,7 +158,7 @@ include::{sourceDir}/config/file-package.js[]
 ----
 <1> Affiche `{ port: '3000' }`.
 
-On peut également se passer de l'étape `require()` si la commande npm invoque un script Node :
+On peut également se passer de l'étape `require()` si l'on invoque un <<../chapter-02/index.adoc#npm-scripts,script npm>> (cf. chapitre 2) :
 
 [source,javascript]
 .config/file-npm.js
@@ -123,8 +170,8 @@ npm aplatira la structure d'objet du fichier `package.json` et séparera chaque 
 Par exemple, `require('./package.json').config.port` sera accessible via `process.env.npm_package_config_port`.
 
 ----
-node config/file-npm.js <1>
-npm run display-config/port <2>
+$ node config/file-npm.js     # <1>
+$ npm run display-config/port # <2>
 ----
 <1> Affiche `undefined` ;
 <2> Affiche `3000`.
