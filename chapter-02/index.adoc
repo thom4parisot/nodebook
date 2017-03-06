@@ -1010,29 +1010,85 @@ parseInt(10.0101, 10);// <3>
 <2> Retourne `'10'` ;
 <3> Retourne `10`.
 
-==== Date
+[[primitive-function]]
+==== Function
 
-L'opérateur `typeof` ne permet pas d'identifier une date. Il convient d'utiliser `instanceof` :
+Les fonctions permettent d'isoler des portions de code et de les rendre réutilisables via l'utilisation de paramètres.
+
+Vous pouvez les déclarer via une expression ou une déclaration assignée à une variable.
+La déclaration d'une fonction est soumise à la portée du contexte dans lequel le bloc de code est placé.
+Une fonction peut être créée de trois manières :
+
+* *nommée* `function nomDeLaFonction(){ ... }` ;
+* *anonyme* `function (){ ... }`
+* *fléchée* `() => { ... }`.
+
+Les fonctions anonymes sont fréquemment employées en tant que _callbacks_ ou dans des contextes itératifs (tels `Array.map` etc.)
+
+Il est important de noter que la déclaration d'une fonction et son exécution sont deux choses différentes.
 
 [source,javascript]
+.primitives/function.js
 ----
-typeof (new Date('2014-03-24'));  // <1>
-(new Date('2014-03-24 13:37')) instanceof Date; // <2>
-typeof Date.parse('2014-03-24 13:37');          // <3>
+include::{sourceDir}/primitives/function.js[]
 ----
-<1> Retourne `'object'` ;
-<2> Retourne `true` ;
-<3> Retourne `'number'`, car il s'agit d'une date exprimée en millisecondes depuis le 1er janvier 1970 (temps _EPOCH_).
+<1> Utilisation d'une fonction fléchée (_arrow function_) en tant que fonction anonyme de _callback_ ;
+<2> Utilisation d'une fonction nommée comme _callback_ de la méthode `Array.map` ;
+<3> Illustration d'une _Immediatly Invocked Function Expression_, aka _IIFE_ aka _fonction immédiatement exécutée_ ;
+<4> Retourne `'function'` ;
+<5> Retourne `false` — la valeur étant nulle ;
+<6> Retourne `[ 3, 1 ]` — un tableau filtré des valeurs nulles ou égales à `undefined` ;
+<7> Lève une exception car la constante `values` n'est pas définie dans ce _scope_.
 
-Il également possible d'obtenir la date actuelle exprimée en millisecondes avec `Date.now` :
+Le code contenu dans le bloc déclaratif d'une fonction crée une _portée_ (ou _scope_) qui est invisible au contexte parent de l'exécution de cette fonction.
+Il s'agit d'une excellente manière d'isoler des variables, notamment pour éviter des effets de bord indésirables liés à l'état d'exécution de vos scripts.
+
+L'exemple précédent illustre un tel cas de portée en contenant la constante `values` dans l'_IIFE_ : le contexte parent n'a aucune connaissance de son existence — et c'est tant mieux.
+
+Une syntaxe abrégée est disponible via les fonctions fléchées :
+
+.Tableau d'équivalence de syntaxe
+|=========
+| `x => x*2` | `function(x){ return x*2 }`
+| `x => { x }` | `function(x){ x }`
+| `x => ({ x })` | `function(x){ return { x }; }`
+| `(x, y) => ({ x: y })` | `function(x, y){ return { x: y }; }`
+| `(x, y) => x+y` | `function (x, y){ return x+y }`
+| `x => { const y = 2; return x*y }` | `function(x){ const y = 2; return x*y }`
+|=========
+
+Il est possible de composer des fonctions à partir d'autres fonctions en utilisant la méthode `bind`.
+Ce _pattern_ est extrêmement puissant car il permet de modifier le contexte d'exécution de ladite fonction.
 
 [source,javascript]
+.primitives/function-bind.js
 ----
-Date.parse(new Date()); // <1>
-Date.now();             // <2>
+include::{sourceDir}/primitives/function-bind.js[]
 ----
-<1> Retourne `1397381941000` ;
-<2> Retourne `1397381941031`, équivalent à la syntaxe précédente donc, la précision à la milliseconde près en plus.
+<1> Retourne `'100 EUR'` ;
+<2> Retourne `'100 GBP'`.
+
+`bind` est également capable de créer une nouvelle fonction à laquelle vous auriez appliqué partiellement des arguments :
+
+[source,javascript]
+.primitives/function-partials.js
+----
+include::{sourceDir}/primitives/function-partials.js[]
+----
+<1> Affiche `'Hello World'` ;
+<2> Affiche `'Hello Paris'`.
+
+Ce procédé est particulièrement utile pour rendre des fonctions génériques et composer des dérivées, notamment dans le cas de pagination.
+
+Les méthodes `call` et `apply` reposent sur le même principe mais à la différence de `bind`, elles exécutent immédiatement la fonction.
+Le seul élément différenciant correspond à la syntaxe d'application des arguments :
+
+[source,javascript]
+.primitives/function-call-apply.js
+----
+include::{sourceDir}/primitives/function-call-apply.js[]
+----
+<1> Retourne `'<title>'` dans les deux cas.
 
 [[primitive-array]]
 ==== Array
@@ -1322,82 +1378,6 @@ include::{sourceDir}/primitives/object-advanced.js[]
 <3> Affiche `{ SNCF: { country: 'France' }, Reinfe: { country: 'Spain' } }` ;
 <4> Utilise la syntaxe d'assignation raccourcie, donc assigne la valeur de `sncf` à la clé `sncf` — affiche `{ sncf: 'SNCF', foo: 'bar' }` ;
 <5> _Idem_ mais sans la syntaxe d'assignation raccourcie.
-
-[[primitive-function]]
-==== Function
-
-Les fonctions permettent d'isoler des portions de code et de les rendre réutilisables via l'utilisation de paramètres.
-
-Vous pouvez les déclarer via une expression ou une déclaration assignée à une variable.
-La déclaration d'une fonction est soumise à la portée du contexte dans lequel le bloc de code est placé.
-Une fonction peut être _nommée_ (`function nomDeLaFonction(){ ... }`), _anonyme_ (`function (){ ... }`) ou dite _fléchée_ (`() => { ... }`).
-
-Les fonctions anonymes sont fréquemment employées en tant que _callbacks_ ou dans des contextes itératifs (tels `Array.map` etc.)
-
-Il est important de noter que la déclaration d'une fonction et son exécution sont deux choses différentes.
-
-[source,javascript]
-.primitives/function.js
-----
-include::{sourceDir}/primitives/function.js[]
-----
-<1> Utilisation d'une fonction fléchée (_arrow function_) en tant que fonction anonyme de _callback_ ;
-<2> Utilisation d'une fonction nommée comme _callback_ de la méthode `Array.map` ;
-<3> Illustration d'une _Immediatly Invocked Function Expression_, aka _IIFE_ aka _fonction immédiatement exécutée_ ;
-<4> Retourne `'function'` ;
-<5> Retourne `false` — la valeur étant nulle ;
-<6> Retourne `[ 3, 1 ]` — un tableau filtré des valeurs nulles ou égales à `undefined` ;
-<7> Lève une exception car la constante `values` n'est pas définie dans ce _scope_.
-
-Le code contenu dans le bloc déclaratif d'une fonction crée une _portée_ (ou _scope_) qui est invisible au contexte parent de l'exécution de cette fonction.
-Il s'agit d'une excellente manière d'isoler des variables, notamment pour éviter des effets de bord indésirables liés à l'état d'exécution de vos scripts.
-
-L'exemple précédent illustre un tel cas de portée en contenant la constante `values` dans l'_IIFE_ : le contexte parent n'a aucune connaissance de son existence — et c'est tant mieux.
-
-Une syntaxe abrégée est disponible via les fonctions fléchées :
-
-.Tableau d'équivalence de syntaxe
-|=========
-| `x => x*2` | `function(x){ return x*2 }`
-| `x => { x }` | `function(x){ x }`
-| `x => ({ x })` | `function(x){ return { x }; }`
-| `(x, y) => ({ x: y })` | `function(x, y){ return { x: y }; }`
-| `(x, y) => x+y` | `function (x, y){ return x+y }`
-| `x => { const y = 2; return x*y }` | `function(x){ const y = 2; return x*y }`
-|=========
-
-Il est possible de composer des fonctions à partir d'autres fonctions en utilisant la méthode `bind`.
-Ce _pattern_ est extrêmement puissant car il permet de modifier le contexte d'exécution de ladite fonction.
-
-[source,javascript]
-.primitives/function-bind.js
-----
-include::{sourceDir}/primitives/function-bind.js[]
-----
-<1> Retourne `'100 EUR'` ;
-<2> Retourne `'100 GBP'`.
-
-`bind` est également capable de créer une nouvelle fonction à laquelle vous auriez appliqué partiellement des arguments :
-
-[source,javascript]
-.primitives/function-partials.js
-----
-include::{sourceDir}/primitives/function-partials.js[]
-----
-<1> Affiche `'Hello World'` ;
-<2> Affiche `'Hello Paris'`.
-
-Ce procédé est particulièrement utile pour rendre des fonctions génériques et composer des dérivées, notamment dans le cas de pagination.
-
-Les méthodes `call` et `apply` reposent sur le même principe mais à la différence de `bind`, elles exécutent immédiatement la fonction.
-Le seul élément différenciant correspond à la syntaxe d'application des arguments :
-
-[source,javascript]
-.primitives/function-call-apply.js
-----
-include::{sourceDir}/primitives/function-call-apply.js[]
-----
-<1> Retourne `'<title>'` dans les deux cas.
 
 [[primitive-rest]]
 ==== Paramètres du reste
