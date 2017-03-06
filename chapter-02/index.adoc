@@ -1321,12 +1321,35 @@ include::{sourceDir}/primitives/object-assign.js[]
 <3> Affiche `[ 'img', 'h1' ]` ;
 <4> Affiche `[ 'url', 'env', 'tags' ]` — l'objet `testOptions` est donc modifié.
 
+==== Date
+
+L'opérateur `typeof` ne permet pas d'identifier une date. Il convient d'utiliser `instanceof` :
+
+[source,javascript]
+----
+typeof (new Date('2014-03-24'));  // <1>
+(new Date('2014-03-24 13:37')) instanceof Date; // <2>
+typeof Date.parse('2014-03-24 13:37');          // <3>
+----
+<1> Retourne `'object'` ;
+<2> Retourne `true` ;
+<3> Retourne `'number'`, car il s'agit d'une date exprimée en millisecondes depuis le 1er janvier 1970 (temps _EPOCH_).
+
+Il également possible d'obtenir la date actuelle exprimée en millisecondes avec `Date.now` :
+
+[source,javascript]
+----
+Date.parse(new Date()); // <1>
+Date.now();             // <2>
+----
+<1> Retourne `1397381941000` ;
+<2> Retourne `1397381941031`, équivalent à la syntaxe précédente donc, la précision à la milliseconde près en plus.
 
 [[primitive-destructuring]]
 ==== Décomposition
 
 L'affectation par _décomposition_ (_destructuring_) est une manière élégante et intuitive de piocher dans un <<primitives/array,tableau>> ou dans un <<primitives/object,objet>>.
-La décomposition n'altère pas le contenu des variables destructurées.
+La décomposition n'altère pas le contenu des variables décomposées.
 
 Les valeurs d'un tableau sont décomposées dans l'ordre tandis que l'opérateur _spread_ (`...`) permet d'assigner le _reste_ des valeurs dans une seule et même variable ou constante :
 
@@ -1361,7 +1384,7 @@ include::{sourceDir}/primitives/destructuring-object.js[]
 <1> Destructure la fonction `join` directement depuis le `require` de module ;
 <2> Destructure la valeur `debug` du premier argument;
 <3> Affiche `folder/filename.txt` – `folder\filename.txt` sous Windows ;
-<4> Affiche `true` ;
+<4> Affiche `true` car la clé `debug` a été décomposée en `configDebug` ;
 <5> Affiche `undefined` – cette valeur n'existe pas dans l'objet `config` ;
 <6> Affiche `Demo` – cette valeur est complétée par défaut dans l'assignation ;
 <7> Affiche `true`.
@@ -1389,7 +1412,7 @@ Les _paramètres du reste_ (_rest parameters_) utilisent une syntaxe identique �
 ----
 include::{sourceDir}/primitives/rest.js[]
 ----
-<1> Assigne la constante destructurée `args` en tant que constante `cheeses` ;
+<1> Assigne la constante décomposée `args` en tant que constante `cheeses` ;
 <2> Affiche `Fromages` ;
 <3> Affiche `[ { name: 'Cabécou' }, { name: 'Chaource' } ]` –
 
@@ -1793,7 +1816,7 @@ JSON.stringify({ ECMAScript: 5.1 }); <1>
 JSON.stringify({ ECMAScript: 5.1 }, null, 2); <2>
 ----
 <1> Retourne `'{"ECMAScript":5.1}'` ;
-<2> Retourne `'{\n  "ECMAScript": 5.1\n}'`, le troisième argument formate proprement avec la taille d'indentation spécifiée, exprimée en nombre d'espaces par niveau de profondeur.
+<2> Retourne `'{\n{nbsp}{nbsp}"ECMAScript": 5.1\n}'`, le troisième argument formate proprement avec la taille d'indentation spécifiée, exprimée en nombre d'espaces par niveau de profondeur.
 
 [TIP]
 .[RemarquePreTitre]#URL# Spécification ECMAScript
@@ -2962,7 +2985,7 @@ Cette même documentation est disponible en ligne, en anglais :
 - *repository* : objet spécifiant le type de dépôt de code ainsi que son URL. Présent essentiellement à titre informatif ;
 - *preferGlobal* : booléen indiquant si ce module a davantage vocation à être installé globalement au niveau du système ou non (`false` par défaut) ;
 - *bin* : emplacement du fichier. npm effectue un lien symbolique pour rendre `<name>` disponible en tant qu'exécutable système lors d'une installation globale ;
-- *private* : boolean spécifiant que le module ne doit pas être publié dans un registre npm (`false` par défaut) ;
+- *private* : booléen spécifiant que le module ne doit pas être publié dans un registre npm (`false` par défaut) ;
 - *dependencies* : objet représentant respectivement en clé/valeur les noms/versions des modules dont le projet dépend ;
 - *engines* : objet spécifiant des contraintes de compatibilité avec la version de Node — cette valeur est exprimée selon la notation <<../chapter-01/index.adoc#semver,_semver_>>.
 
