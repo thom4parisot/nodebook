@@ -16,10 +16,11 @@ endif::[]
 
 ====
 .Sommaire
-- Gérer le cycle de vie d'une application Node
-- Héberger une application
-- Déploiement d'une application
-- Monitorer et déboguer une application
+- Considérations avant une mise en production
+- Où héberger une application Node ?
+- Déployer une application manuellement ou automatiquement
+- S'assurer du bon fonctionnement d'une application
+- Inspecter les erreurs et ralentissements d'une application
 ====
 
 [abstract]
@@ -192,9 +193,31 @@ CONFIG_FILE=~/.secured/config.json node app.js
 
 TBD.
 
-=== Scénarios d'exécution d'une application Node
+=== Causes et raisons d'un plantage applicatif
 
 TBD.
+
+////
+* erreur de syntaxe dans module chargé
+* erreur de runtime
+** utilisation structure inexistante (variable indispo, opération)
+** exception qui n'est pas gérée
+** effet de bord d'un module tiers
+**
+* ressource liée qui devient indisponible (bdd, mémoire, disque, connexion réseau)
+** parce que notre application mange les ressources
+** système mal configuré (rotation de logs etc.)
+////
+
+=== Déboguer une application Node
+
+TBD.
+
+////
+- module debug
+- node --inspect
+- devtool
+////
 
 === Renforcer la sécurité
 
@@ -207,6 +230,7 @@ TBD.
 
 === Démarrage automatique
 
+[[system]]
 ==== Intégration en tant que service système
 
 TBD.
@@ -237,6 +261,7 @@ Une introduction ainsi qu'une documentation détaillée d'_Upstart_ est disponib
 L'apprentissage et le débogage de tels scripts peut se révéler fastidieuse et rébarbative… _foreman_ dispose d'une fonctionnalité d'export adressant le problème.
 Pensez-y !
 
+[[application-manager]]
 ==== Serveur d'applications web
 
 TBD.
@@ -245,6 +270,7 @@ TBD.
 - Phusion Passenger
 ////
 
+[[process-manager]]
 ==== Démarrage avec un gestionnaire de processus
 
 TBD.
@@ -254,9 +280,10 @@ TBD.
 - PM2
 ////
 
+[[hosting]]
 == Héberger une application Node
 
-=== Directement sur le port 80
+=== Directement sur le port 80 ou 443
 
 TBD.
 
@@ -264,6 +291,7 @@ TBD.
 tl;dr ne pas le faire
 ////
 
+[[reverse-proxy]]
 === Reverse Proxy
 
 TBD.
@@ -273,6 +301,7 @@ TBD.
 - nginx
 ////
 
+[[shared-hosting]]
 === Hébergement mutualisé
 
 TBD.
@@ -280,6 +309,7 @@ TBD.
 - Alwaysdata
 ////
 
+[[paas]]
 === Plate-forme de services (_Platform as a Service_)
 
 TBD.
@@ -320,14 +350,7 @@ D'autres fonctionnalités et paramètres de configuration sont expliqués dans l
 - [URL]#https://devcenter.heroku.com/articles/getting-started-with-nodejs#define-a-procfile#
 ====
 
-=== Invocation éphémère (_Function as a Service_)
-
-TBD.
-
-////
-- Lambda
-////
-
+[[aws]]
 === Amazon Web Services (_AWS_)
 
 TBD.
@@ -337,6 +360,16 @@ TBD.
 - Beanstalk
 ////
 
+[[lambda]]
+=== Invocation éphémère (_Function as a Service_)
+
+TBD.
+
+////
+- Lambda
+////
+
+[[deploy]]
 == Déployer une application Node
 
 ////
@@ -368,6 +401,7 @@ TBD.
 - tar
 ////
 
+[[private-npm]]
 === Dépendances _npm_ privées
 
 TBD.
@@ -385,27 +419,19 @@ TBD.
 - Ansible
 ////
 
+[[database-migration]]
 === Migration de base de données
 
 TBD.
 
 == Monitorer et déboguer une application
 
-=== Déboguer une application Node
+Cette section s'intéresse à la *détection proactive des incidents* et au *suivi de la santé de notre application* une fois mise en ligne.
+Nous allons ainsi apprendre à *dresser un diagnostic sans nous connecter* sur la ou les machines hébergeant l'application… en partie car nous n'y avons pas toujours accès.
+Et c'est tant mieux.
 
-TBD.
 
-////
-- module debug
-- node --inspect
-- devtool
-////
-
-=== Déceler les erreurs et exceptions
-
-TBD.
-
-[[security]]
+[[healtcheck]]
 === Surveiller la santé de l'application
 
 TBD.
@@ -414,10 +440,17 @@ TBD.
 webping
 ////
 
+[[exceptions]]
+=== Déceler les erreurs et exceptions
+
+TBD.
+
+[[performance]]
 === Identifier les problèmes de performance
 
 TBD.
 
+[[security]]
 === Se tenir à jour des alertes de sécurité
 
 TBD.
