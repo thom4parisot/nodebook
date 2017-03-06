@@ -233,7 +233,7 @@ docker run -ti --rm node:6-slim
 
 L'intégralité des versions et architectures supportées est disponible sur le _Docker Hub_ : [URL]#https://hub.docker.com/_/node/#
 
-Nous nous repencherons sur Docker dans la <<../chapter-07/index.adoc#docker,section _Déploiement_ du chapitre 7>>.
+Nous nous repencherons sur Docker dans la section  <<../chapter-06/index.adoc#immutable-deploy,section _Déploiement immutable_>> du Chapitre 6.
 
 === Compiler depuis les sources
 
@@ -270,7 +270,6 @@ image::images/atom.png[align="center",width="85%"]
 
 _Atom_ est un éditeur de code open-source, multilingue et multi plate-forme dont le développement a été initié par la société _GitHub_.
 Le logiciel est basé sur _Electron_, un environnent d'exécution d'applications de bureau reposant sur Node et HTML5.
-Le développement de telles applications est abordé dans le <<../chapter-06/index.adoc#,chapitre 6>>.
 
 _Atom_ offre un écosystème de paquets pour étendre les fonctionnalités de l'éditeur à la carte.
 L'expérience de développement sous Node en est ainsi facilitée grâce à des paquets dédiés à l'auto-complétion, un débogueur intégré mais aussi une vérification syntaxique sur mesure. +
@@ -1949,9 +1948,7 @@ Le résultat lorsqu'on liste les processus :
 image::images/process-title.png[align="center",width="85%"]
 
 *Attention* toutefois car il se trouve que le résultat de ce nommage peut se révéler imprédictible en fonction des systèmes d'exploitation où le programme est exécuté.
-
-Il est recommandé de *ne pas utiliser `process.title`* et s'il y a besoin d'identifier un processus, de passer par d'autres mécanismes de gestion de processus.
-Nous aborderons ce sujet au <<../chapter-07/index.adoc#,chapitre 7 _Héberger, déployer et monitorer_>>.
+Il est donc recommandé de *ne pas utiliser `process.title`*.
 
 Pour en savoir plus sur les méthodes et fonctions disponibles, reportez-vous à la documentation en ligne du module `process` sur [URL]#https://nodejs.org/api/process.html#.
 

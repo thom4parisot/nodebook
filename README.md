@@ -15,7 +15,7 @@
 :construction: |         | [Développer une application web][ch03]
 :ok:        |            | [Développer pour les navigateurs web][ch04]
             |            | [Développer un automate de traitement de données][ch05]
-:memo:      |            | [Héberger, déployer et monitorer][ch07]
+:memo:      |            | [Héberger, déployer et monitorer][ch06]
 :construction: |         | _Annexe A_ : [Sélection de modules npm][a01]
 
 # Installation
@@ -115,5 +115,4 @@ Les exemples de code sont soumis à une licence MIT et le cas échéant, à une 
 [ch04]: chapter-04/index.adoc
 [ch05]: chapter-05/index.adoc
 [ch06]: chapter-06/index.adoc
-[ch07]: chapter-07/index.adoc
 [a01]: appendix-a/index.adoc
