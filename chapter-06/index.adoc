@@ -11,17 +11,14 @@ ifdef::env[]
 :imagesdir: .
 endif::[]
 
-= Développer une application native
-
-
-[CAUTION]
-====
-Ce chapitre est en cours de rédaction.
-====
+= Héberger, déployer et monitorer
 
 ====
 .Sommaire
-- N/C
+- Gérer le cycle de vie d'une application Node
+- Héberger une application
+- Déploiement d'une application
+- Monitorer et déboguer une application
 ====
 
 [abstract]
@@ -32,3 +29,375 @@ include::../resources/tip-versions.adoc[]
 include::../resources/tip-examples.adoc[]
 
 toc::[]
+
+== Exécution d'une application Node
+
+=== Configuration
+
+- fichiers
+- variables d'environnement
+- services type etcd
+
+L'utilisation d'une variable d'environnement pour configurer l'exécution d'une application est la solution la plus aisée à implémenter.
+
+Ces variables sont accessibles via l'objet `process.env`, et ce, quel que soit le contexte d'exécution de Node.
+
+L'exemple suivant décrit comment définir le port sur lequel écoutera le serveur HTTP en fonction d'un contexte d'exécution (environnement de test ou environnement de production) ou d'un réglage surchargeant le dit contexte.
+
+[source,javascript]
+.config/env.js
+----
+include::{sourceDir}/config/env.js[]
+----
+
+Ainsi que l'illustration de leur définition (ou non) :
+
+----
+PORT=8000 node config/env.js <1>
+NODE_ENV=test node config/env.js <2>
+node config/env.js <3>
+----
+<1> Le port sélectionné est le port 8000 ;
+<2> Le port sélectionné est le port 3001 ;
+<3> Le port sélectionné (par défaut) est le port 3000.
+
+Ces variables d'environnement ont l'avantage d'avoir une portée au niveau du processus uniquement ou d'être propagées à l'échelle du système — via `export` en bash, par exemple.
+
+---
+
+Opter pour un fichier de configuration fait sens si de nombreux paramètres sont à fournir à l'application — ou si certains de ces paramètres impliquent des arborescences d'objets ou de tableaux ECMAScript.
+
+Plusieurs stratégies s'offrent à vous :
+
+- un fichier unique pour éviter les valeurs en dur dans le code ;
+- un fichier par environnement d'exécution (test, préprod, production etc.) ;
+- un fichier par domaine d'application (base de données, API etc.) ;
+- un fichier par domaine de sécurité (backend, frontend etc.).
+
+Le choix reste ouvert et le votre.
+En revanche nous allons voir comment _techniquement_ mettre en œuvre ces possibles stratégies.
+
+Commençons par l'approche par environnement d'exécution, reposant sur la notion d'un fichier de configuration par environnement.
+
+[source,javascript]
+.config/file.js
+----
+include::{sourceDir}/config/file.js[]
+----
+
+Ainsi, un appel au module précédent chargera :
+
+- `production.json` lors du premier appel ;
+- `dev.json` lors du second appel ;
+- `test.json` lors du premier appel si `NODE_ENV=test` ;
+- `dev.json` lors du second appel si `NODE_ENV=test`.
+
+[TIP]
+.[RemarquePreTitre]#npm# Le module nconf
+====
+Des modules comme _nconf_ proposent des abstractions gérant de multiples cas de figure.
+
+Ils vont jusqu'à la prise en charge des notions d'héritage et de cascade pour faciliter la maintenance et ne gérer que les différences entre environnement, plutôt que d'avoir à tout spécifier à chaque fois.
+
+- [URL]#https://npmjs.com/nconf#
+====
+
+Une autre approche, tout aussi voire plus simple consiste à réutiliser le fichier `package.json` en y ajoutant des propriétés supplémentaires.
+
+[source,javascript]
+.config/file-package.js
+----
+include::{sourceDir}/config/file-package.js[]
+----
+<1> Affiche `{ port: '3000' }`.
+
+On peut également se passer de l'étape `require()` si la commande npm invoque un script Node :
+
+[source,javascript]
+.config/file-npm.js
+----
+include::{sourceDir}/config/file-npm.js[]
+----
+
+npm aplatira la structure d'objet du fichier `package.json` et séparera chaque niveau de profondeur par le caractère `_`, le préfixera par `npm_package_` et l'injectera dans l'objet `process.env`. +
+Par exemple, `require('./package.json').config.port` sera accessible via `process.env.npm_package_config_port`.
+
+----
+node config/file-npm.js <1>
+npm run display-config/port <2>
+----
+<1> Affiche `undefined` ;
+<2> Affiche `3000`.
+
+On comprend ainsi que l'exposition du contenu du fichier `package.json` sous forme de variables d'environnement est l'œuvre de la commande npm.
+
+[TIP]
+.[RemarquePreTitre]#Astuce# Combinaison avec les variables d'environnement
+====
+Un bon moyen de ne pas inscrire en dur l'emplacement d'un fichier de configuration est encore d'indiquer son emplacement via une variable d'environnement :
+
+----
+CONFIG_FILE=~/.secured/config.json node app.js
+----
+====
+
+=== Persistence des données
+
+TBD.
+
+=== Scénarios d'exécution d'une application Node
+
+TBD.
+
+=== Renforcer la sécurité
+
+TBD.
+
+////
+- http://nodegoat.herokuapp.com/tutorial
+- permissions d'exécution du processus
+////
+
+=== Démarrage automatique
+
+==== Intégration en tant que service système
+
+TBD.
+
+_Upstart_ est l'outil de gestion de processus de la distribution Linux Ubuntu.
+Sa configuration est une des plus faciles à apprendre :
+
+[source]
+./etc/init/your-app
+----
+start on runlevel [2345] and net-device-up IFACE=eth0
+
+exec /usr/bin/node /path/to/your/app.js
+----
+
+Cette configuration ultra simpliste décrit la commande à exécuter et quand lancer automatiquement le service.
+Dans ce cas, au démarrage du système, une fois le réseau disponible sur l'interface `eth0`.
+
+[TIP]
+.[RemarquePreTitre]#Outil# Upstart
+====
+Une introduction ainsi qu'une documentation détaillée d'_Upstart_ est disponible à l'adresse suivante :
+
+- [URL]#https://doc.ubuntu-fr.org/upstart# (en français)
+- [URL]#http://upstart.ubuntu.com/cookbook/# (en anglais)
+====
+
+L'apprentissage et le débogage de tels scripts peut se révéler fastidieuse et rébarbative… _foreman_ dispose d'une fonctionnalité d'export adressant le problème.
+Pensez-y !
+
+==== Serveur d'applications web
+
+TBD.
+
+////
+- Phusion Passenger
+////
+
+==== Démarrage avec un gestionnaire de processus
+
+TBD.
+
+////
+- Strongloop Process Manager
+- PM2
+////
+
+== Héberger une application Node
+
+=== Directement sur le port 80
+
+TBD.
+
+////
+tl;dr ne pas le faire
+////
+
+=== Reverse Proxy
+
+TBD.
+
+////
+- Apache
+- nginx
+////
+
+=== Hébergement mutualisé
+
+TBD.
+////
+- Alwaysdata
+////
+
+=== Plate-forme de services (_Platform as a Service_)
+
+TBD.
+
+////
+- Heroku
+- Clever Cloud
+////
+
+_Foreman_ est un programme écrit en Ruby.
+Il est destiné à gérer les multiples processus d'une même application. +
+C'est l'outil de déclaration de services utilisé par la plateforme _Heroku_.
+
+Vos différents processus sont à déclarer dans un fichier `Procfile`, somme toute assez simpliste :
+
+[source]
+.Procfile
+----
+web: node www.js
+api: PORT=$PORT node api.js
+worker: node bin/cli.js --retries 3
+----
+
+Le précédent exemple fait état de trois processus à démarrer, dont certains avec des arguments spécifiques.
+
+La commande suivante démarrera ces trois services, créera deux processus pour le module `api.js` en leur attribuant automatiquement un port différent grâce à :
+
+----
+foreman start -c api=2
+----
+
+[TIP]
+.[RemarquePreTitre]#Outil# foreman
+====
+D'autres fonctionnalités et paramètres de configuration sont expliqués dans la documentation officielle du projet :
+
+- [URL]#https://ddollar.github.io/foreman/#
+- [URL]#https://devcenter.heroku.com/articles/getting-started-with-nodejs#define-a-procfile#
+====
+
+=== Invocation éphémère (_Function as a Service_)
+
+TBD.
+
+////
+- Lambda
+////
+
+=== Amazon Web Services (_AWS_)
+
+TBD.
+
+////
+- AMI EC2
+- Beanstalk
+////
+
+== Déployer une application Node
+
+////
+Préciser que pour aller rapidement faut aller sur le PaaS (git push)
+////
+
+[TIP]
+.[RemarquePreTitre]#npm# --production
+====
+Si vous suffixez la commande `npm install` avec l'option `--production`, toutes les dépendances seront installées à _l'exception_ de celles listées en tant que _devDependences_.
+
+Il s'agit d'un moyen d'installer moins de dépendances lors d'une livraison — à condition de ne pas avoir besoin de l'outillage de tests.
+====
+
+[[automated-deploy]]
+=== Déploiement automatisé
+
+TBD.
+
+
+[[immutable-deploy]]
+=== Déploiement immutable
+
+TBD.
+
+////
+- deb/etc.
+- `slc build`
+- tar
+////
+
+=== Dépendances _npm_ privées
+
+TBD.
+
+////
+- git+ssh
+- private npm
+////
+
+=== Scripter le scénario de déploiement Node
+
+TBD.
+
+////
+- Ansible
+////
+
+=== Migration de base de données
+
+TBD.
+
+== Monitorer et déboguer une application
+
+=== Déboguer une application Node
+
+TBD.
+
+////
+- module debug
+- node --inspect
+- devtool
+////
+
+=== Déceler les erreurs et exceptions
+
+TBD.
+
+[[security]]
+=== Surveiller la santé de l'application
+
+TBD.
+
+////
+webping
+////
+
+=== Identifier les problèmes de performance
+
+TBD.
+
+=== Se tenir à jour des alertes de sécurité
+
+TBD.
+
+
+Il existe quatre niveaux où des failles de sécurité peuvent s'immiscer :
+
+- votre propre code — des revues de code, une amélioration de vos connaissances et la commande d'audits vous aideront à identifier les possibles failles et vulnérabilités ;
+- des vulnérabilités contenues dans vos dépendances et dans les dépendances de vos dépendances ;
+- des vulnérabilités occasionnées par Node ;
+- des vulnérabilités occasionnées par V8, dont le développement est indépendant du projet Node.
+
+On n'oubliera pas les vulnérabilités liés à votre système d'exploitation, à ses logiciels ainsi qu'à son exposition au monde extérieur — mais ce n'est pas l'objet de cet ouvrage.
+
+Plusieurs canaux sont à votre disposition pour être notifié très rapidement de mises à jour correctives :
+
+- *Failles de sécurité de modules npm* : [URL]#https://nodesecurity.io/advisories# — et son flux RSS [URL]#https://nodesecurity.io/rss.xml# ;
+- *Failles de sécurité de Node* : son flux RSS [URL]#https://nodejs.org/en/feed/vulnerability.xml# ;
+- *Mises à jour de Node* : [URL]#https://nodejs.org/en/blog/# — et son flux RSS [URL]#https://nodejs.org/en/feed/blog.xml#.
+
+////
+- https://snyk.io/
+- https://nodesecurity.io/
+- greenkeeper
+////
+
+
+== Conclusion
+
+TBD.
