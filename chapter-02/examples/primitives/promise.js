@@ -1,13 +1,13 @@
 'use strict';
 
-const { join } = require('path');
-const readFilePromise = require('./readfile-promise');
+const p = new Promise((resolve, reject) => resolve('deux'));
 
-const file = join(__dirname, '..', '..', 'package.json');
+p.then(label => {
+    console.log(label);                 // <2>
 
-const logError = (err) => console.error(err);
+    return label.toUpperCase();
+  })
+  .then(LABEL => console.log(LABEL))    // <3>
+  .then(LABEL => console.log(LABEL))    // <4>
 
-readFilePromise(file)                                 // <1>
-  .then(pkg => Object.keys(pkg.dependencies).length)  // <2>
-  .then(count => console.log(count))                  // <3>
-  .catch(logError);                                   // <4>
+console.log('un');                      // <1>
