@@ -1103,30 +1103,28 @@ Elles facilitent énormément les itérations sur les tableaux tout en ajoutant 
 La méthode `map` permet de retourner un nouveau tableau avec des valeurs modifiées :
 
 [source,javascript]
+.primitives/array-map.js
 ----
-['a', ' B', 'c '].map(value => value.trim().toUpperCase()); // <1>
+include::{sourceDir}/primitives/array-map.js[]
 ----
 <1> Retourne `['A', 'B', 'C']`.
 
-La méthode `filter` quant à elle retourne un nouveau tableau ne contenant que les éléments retournant une _valeur positive_ :
+La méthode `filter` quant à elle retourne un nouveau tableau ne contenant que les éléments retournant un <<primitive-boolean,booléen _truthy_>> :
 
 [source,javascript]
+.primitives/array-filter.js
 ----
-const values = [1, 'a', 120, undefined, 4];
-values.filter(value => value < 10); // <1>
+include::{sourceDir}/primitives/array-filter.js[]
 ----
-<1> Retourne `[1, 4]`.
+<1> Retourne `[1, 0]` ;
+<1> Retourne `[1, 'a', 120]` ;
 
 De manière similaire, les méthodes `some` et `every` retournent un booléen si _au moins une itération_ et _toutes les itérations_ ont renvoyé une _valeur positive_ :
 
 [source,javascript]
+.primitives/array-some.js
 ----
-const values = [1, 'a', 120, undefined, 4];
-const isUndefined = (value) => value === undefined);
-
-values.some(isUndefined); <1>
-values.every(isUndefined); <2>
-[undefined, undefined].every(isUndefined); <3>
+include::{sourceDir}/primitives/array-some.js[]
 ----
 <1> Renvoie `true` puisqu'au moins une valeur équivaut à `undefined` ;
 <2> Renvoie `false` puisque toutes les valeurs n'équivalent pas à `undefined` ;
@@ -1135,6 +1133,7 @@ values.every(isUndefined); <2>
 ECMAScript 2015 introduit les méthodes `find` et `findIndex`, respectivement pour retourner une valeur et son index selon une fonction prédicat :
 
 [source,javascript]
+.primitives/array-find.js
 ----
 include::{sourceDir}/primitives/array-find.js[]
 ----
@@ -1145,19 +1144,12 @@ include::{sourceDir}/primitives/array-find.js[]
 La méthode `reduce` a un comportement similaire à `sort` mais fonctionne de manière accumulative :
 
 [source,javascript]
+.primitives/array-reduce.js
 ----
-const pairs = [[1, 2], [3, 4], [5, 6]];
-
-pairs.reduce((acc, pair) => acc + pair[0] + pair[1], 0); // <1>
-
-pairs.reduce((acc, pair) =>
-  acc[0] += pair[0];
-  acc[1] += pair[1];
-  return acc;
-}, [0, 0]); // <2>
+include::{sourceDir}/primitives/array-reduce.js[]
 ----
-<1> Retourne `21` ;
-<2> Retourne `[9, 12]`.
+<1> Affiche `21` ;
+<2> Affiche `[9, 12]`.
 
 [TIP]
 .[RemarquePreTitre]#FAQ# Tableau non contigu.
