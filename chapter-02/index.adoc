@@ -1575,47 +1575,43 @@ C'est un peu comme envoyer un _courrier suivi_ :
 - les services postaux émettent un accusé de non-délivrance si le destinataire n'a pas signé ni récupéré son courrier dans un délai imparti (_résolution négative_).
 ====
 
-La création d'une `Promise` consiste à appeler un _constructeur_.
-Le constructeur implémente le _pattern_ _Executor_.
+Une `Promise` consiste à appeler un _constructeur_ implémentant le _pattern_ _Executor_.
 Le constructeur transmet les fonctions d'exécution permettant de _résoudre_ la promesse, _positivement_ en appelant `resolve` ou _négativement_, en appelant `reject`. +
 `resolve` et `reject` transmettent les valeurs passées en argument à vos _callbacks_ souscrivant respectivement à `then` et `catch`.
-
-L'exemple suivant illustre une encapsulation de la fonction `fs.readFile` de Node en tant que promesse :
-
-[source,javascript]
-.primitives/readfile-promise.js
-----
-include::{sourceDir}/primitives/readfile-promise.js[]
-----
-<1> Les fonctions de résolution `resolve` et `reject` sont mises à disposition par l'API des `Promise` ;
-<2> La promesse englobe l'exécution asynchrone — toute exception levée revient à implicitement appeler `reject` ;
-<3> Résout négativement la promesse en passant le contenu de la dite erreur ;
-<4> Résout positivement la promesse — si le _parsing_ échoue, la promesse sera rejetée.
-
-Une instance de `Promise` expose plusieurs méthodes pour propager le statut de son exécution.
-Les plus couramment employées sont `then` et `catch`:
-
-- `then(onSuccess[, onError])` : fonction acceptant un _callback_ de succès et un _callback_ d'erreur (facultatif) ;
-- `catch(onError)` : fonction acceptant un _callback_ d'erreur.
-
-[TIP]
-.[RemarquePreTitre]#Bon à savoir# L'ordre de chaînage compte
-====
-Le _callback_ de succès contient le résultat de la promesse précédente.
-
-Il y a trois cas de figure si vous chainez plusieurs `then` :
-
-- le callback de succès ne retourne rien : le prochain `then` transmet à nouveau le résultat de la promesse ;
-- le callback de succès retourne une valeur arbitraire : le prochain `then` contiendra cette dite valeur ;
-- le callback de succès retourne une nouvelle promesse : le prochain `then` retournera la valeur de cette dite promesse, une fois résolue.
-====
-
-Illustrons désormais la consommation d'une promesse en se basant sur le code précédent :
 
 [source,javascript]
 .primitives/promise.js
 ----
 include::{sourceDir}/primitives/promise.js[]
+----
+<1> Affiche `un` car la promesse est résolue de manière asynchrone, donc après l'exécution de cette ligne synchrone ;
+<2> Affiche `deux` ;
+<3> Affiche `DEUX` car la promesse précédente résoud la valeur _DEUX_ ;
+<4> Affiche `undefined` car la promesse précédent ne résoud _rien_.
+
+L'exemple suivant illustre une encapsulation de la fonction `fs.readFile` de Node en tant que promesse :
+
+[source,javascript]
+.primitives/readfile.js
+----
+include::{sourceDir}/primitives/readfile.js[]
+----
+<1> La promesse englobe l'exécution asynchrone — toute exception levée revient à implicitement appeler `reject` ;
+<2> Résout négativement la promesse en passant le contenu de la dite erreur ;
+<3> Résout positivement la promesse — si le _parsing_ échoue, la promesse sera rejetée.
+
+Une instance de `Promise` expose plusieurs méthodes pour propager le statut de son exécution.
+Les plus couramment employées sont `then` et `catch`:
+
+- `then(onSuccess[, onError])` : fonction acceptant un _callback_ de résolution et un _callback_ de rejet facultatif ;
+- `catch(onError)` : fonction acceptant un _callback_ de rejet.
+
+Illustrons désormais la consommation d'une promesse en se basant sur le code précédent :
+
+[source,javascript]
+.primitives/promise-readfile.js
+----
+include::{sourceDir}/primitives/promise-readfile.js[]
 ----
 <1> Création d'une `Promise` ;
 <2> Consommation du résultat et propagation d'une nouvelle promesse retournant le nombre de dépendances contenu dans le `package.json` de ce chapitre ;
