@@ -474,23 +474,24 @@ TBD.
 [[security]]
 === Se tenir à jour des alertes de sécurité
 
-TBD.
-
-
 Il existe quatre niveaux où des failles de sécurité peuvent s'immiscer :
 
-- votre propre code — des revues de code, une amélioration de vos connaissances et la commande d'audits vous aideront à identifier les possibles failles et vulnérabilités ;
-- des vulnérabilités contenues dans vos dépendances et dans les dépendances de vos dépendances ;
-- des vulnérabilités occasionnées par Node ;
-- des vulnérabilités occasionnées par V8, dont le développement est indépendant du projet Node.
+* *notre propre code* +
+  Des revues de code, une amélioration de vos connaissances et la commande d'audits nous aideront à identifier les possibles failles et vulnérabilités ;
+* *nos dépendances* +
+  Mais aussi dans les dépendances de nos dépendances ;
+* *Node* +
+  Le code de certains modules Node – ou leur intégration avec un système d'exploitation spécifique – contient des failles ou fuites mémoire qui sont corrigées au fil des versions ;
+* *dépendances de Node*
+  Il est arrivé à plusieurs reprises que des vulnérabilités soient décelées dans _libuv_, _OpenSSL_ ou _V8_ — seule une mise à jour de Node peut mettre à ces dépendances.
 
-On n'oubliera pas les vulnérabilités liés à votre système d'exploitation, à ses logiciels ainsi qu'à son exposition au monde extérieur — mais ce n'est pas l'objet de cet ouvrage.
+On n'oubliera pas les vulnérabilités liés à notre système d'exploitation et celui de nos serveurs de production ainsi qu'à leur exposition au monde extérieur.
 
-Plusieurs canaux sont à votre disposition pour être notifié très rapidement de mises à jour correctives :
+Plusieurs canaux sont à notre disposition pour être notifié très rapidement de mises à jour correctives :
 
-- *Failles de sécurité de modules npm* : [URL]#https://nodesecurity.io/advisories# — et son flux RSS [URL]#https://nodesecurity.io/rss.xml# ;
-- *Failles de sécurité de Node* : son flux RSS [URL]#https://nodejs.org/en/feed/vulnerability.xml# ;
-- *Mises à jour de Node* : [URL]#https://nodejs.org/en/blog/# — et son flux RSS [URL]#https://nodejs.org/en/feed/blog.xml#.
+* *Failles de sécurité de modules npm* : [URL]#https://nodesecurity.io/advisories# — et son flux RSS [URL]#https://nodesecurity.io/rss.xml# ;
+* *Failles de sécurité de Node* : son flux RSS [URL]#https://nodejs.org/en/feed/vulnerability.xml# ;
+* *Mises à jour de Node* : [URL]#https://nodejs.org/en/blog/# — et son flux RSS [URL]#https://nodejs.org/en/feed/blog.xml#.
 
 ////
 - https://snyk.io/
