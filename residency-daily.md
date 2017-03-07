@@ -4,7 +4,49 @@ Pour en savoir plus: [oncletom.io/2017/residence-nodejs/](https://oncletom.io/20
 
 # Journal
 
-## Mercredi 1er mars
+## Lundi 6 mars
+
+Merci au [ToulouseJS][toulouse-js]+[Aperoweb Toulouse][aperoweb-toulouse] pour la relecture collective, à [At Home][at-home] pour nous avoir hébergé ainsi qu'à [Frank](https://frank.taillandier.me/) et [Maxime](https://twitter.com/maxdow) pour la facilitation 👋
+
+- Le chapitre 7 devient le chapitre 6 (on s'occupera des applications natives dans une seconde édition)
+- _Chapitre 6_ : Configuration
+- _Chapitre 6_ : ancres et chapitrage
+
+## Dimanche 5 mars
+
+Merci [@fvsch](https://github.com/fvsch), [@Balkoth](https://github.com/Balkoth) et [Julien](https://github.com/JulienPradet) pour vos retours et contributions 👋
+
+- _Chapitre 4_ : simplification de l'introduction
+- _Chapitre 4_ : explications supplémentaires sur babel et les presets
+- _Chapitre 2_ : précisions sur les polyfills
+- _Chapitre 2_ : Boolean
+- _Chapitre 2_ : corrections de Array
+- _Chapitre 2_ : corrections de Promise
+
+## Samedi 4 mars
+
+Merci [@Mogztter](https://twitter.com/Mogztter) pour ta contribution 👋
+
+- Tooling : la publication du livre est entièrement effectuée avec Node grâce à [asciidoctor.js](https://github.com/asciidoctor/asciidoctor.js)
+- Heaven from the oven:<br>
+  ![](resources/daily-20170304-baguette.jpg)
+  ![](resources/daily-20170304-baguettes-dough.jpg)
+  ![](resources/daily-20170304-baguettes.jpg)
+
+## Vendredi 3 mars
+
+Merci [Julien](https://github.com/JulienPradet), [Amanda](https://github.com/Amanda-Martinez), [Frank](https://github.com/DirtyF) pour vos retours et contributions 👋
+
+- _Chapitre 4_ : remembrement (on jette, on ventile et on trace un meilleur chapitrage)
+- _Chapitre 4_ : actualisation du sommaire
+
+## Jeudi 2 mars
+
+Merci au [MontpellierJS][montpellier-js] pour la relecture collective, à [Teads][teads] pour nous avoir hébergé ainsi qu'à [Brice](https://twitter.com/briceatwork) pour la facilitation 👋
+
+Merci [Julien](https://github.com/JulienPradet) pour tes retours et contributions 👋
+
+## Mercredi 1<sup>er</sup> mars
 
 Merci au [Yelloworking][yelloworking] et [Nicolas](https://twitter.com/ferrouzzz) pour le coin de bureau 👋
 
@@ -345,6 +387,11 @@ Merci [@BetaGouv](https://github.com/sgmap) pour le coin de bureau 👋
 
 **Moral** : 😊
 
+[at-home]: http://athome-startup.fr/
+[aperoweb-toulouse]: http://toulouse.aperoweb.fr
+[toulouse-js]: https://twitter.com/ToulouseJS
+[teads]: https://teads.tv/
+[montpellier-js]: https://www.meetup.com/MontpellierJS/
 [yelloworking]: http://yelloworking.com/
 [la-coop]: http://www.la-coop.net/
 [la-myne]: https://twitter.com/lamyne_
