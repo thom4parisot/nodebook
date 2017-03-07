@@ -91,7 +91,7 @@ Alors comment faire ?
 
 L'utilisation de *variables d'environnement pour configurer une application* est la solution la plus aisée à implémenter.
 
-Ces variables sont accessibles via l'objet `process.env`, et ce, quel que soit le contexte d'exécution de Node.
+Ces variables sont accessibles via l'objet `process.env` et ce, quel que soit le contexte d'exécution de Node.
 
 L'exemple suivant décrit comment définir le _port réseau_ sur lequel écoutera le serveur HTTP.
 Le numéro du port sera déterminé soit par le contexte d'exécution (_environnement de test_ ou _environnement de production_) soit par un numéro de port explicitement passée en tant que _variable d'environnement_.
