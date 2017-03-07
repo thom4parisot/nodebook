@@ -101,19 +101,39 @@ Le numéro du port sera déterminé soit par le contexte d'exécution (_environn
 ----
 include::{sourceDir}/config/env.js[]
 ----
+<1> Décompose `PORT` de `process.env` et si la clé n'existe pas, assigne la valeur de `defaultPort`.
 
-Ainsi que l'illustration de leur définition (ou non) :
+Jouons avec le script `config/env.js` pour illustrer ces différents scénarios :
 
 ----
 $ PORT=8000 node config/env.js     # <1>
 $ NODE_ENV=test node config/env.js # <2>
 $ node config/env.js               # <3>
 ----
-<1> Le port sélectionné est le port 8000 ;
-<2> Le port sélectionné est le port 3001 ;
-<3> Le port sélectionné (par défaut) est le port 3000.
+<1> Affiche `En écoute sur http://localhost:8000` ;
+<2> Affiche `En écoute sur http://localhost:3001` ;
+<3> Affiche `En écoute sur http://localhost:3000`.
 
 Le mécanisme des _variables d'environnement_ est détaillé dans la section <<../chapter-02/index.adoc#process-env,variables d'environnement>> du chapitre 2.
+
+[TIP]
+.[RemarquePreTitre]#À savoir# `NODE_ENV`
+====
+La variable d'environnement `NODE_ENV` a été adoptée par de nombreux outils et _frameworks_ pour déterminer le contexte d'exécution d'une application, effectuer des optimisations ou afficher des informations de débug supplémentaires.
+
+Il est *recommandé d'utiliser `NODE_ENV=production`… en production*.
+
+* `development` +
+  C'est le contexte assumé par défaut lorsqu'une personne développe sur sa machine.
+  Les exceptions sont affichées de manière verbeuse et du code supplémentaire .
+  Des informations sensibles peuvent être contenues dans les traces d'erreurs ;
+* `test` +
+  C'est la valeur que l'on choisit pour exécuter des tests applicatifs, augmenter la verbosité des _logs_ et activer les _Source Maps_ pour faciliter le débogage de fichiers transpilés.
+  Certains _frameworks_ de test et outils d'_intégration continue_ assignent cette variable d'environnement par défaut ;
+* `production` +
+  Les exceptions n'affichent pas de détails – il faut aller <<exceptions,inspecter les erreurs et exceptions>>, l'outillage d'introspection est désactivé et la verbosité des _logs_ est supposée être moins verbeuse.
+  On constate généralement des *améliorations de performance*.
+====
 
 Opter pour un fichier de configuration fait sens si de nombreux paramètres sont à fournir à l'application — ou si certains de ces paramètres impliquent des arborescences d'objets ou de tableaux ECMAScript.
 
