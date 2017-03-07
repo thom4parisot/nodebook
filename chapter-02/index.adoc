@@ -1552,7 +1552,7 @@ Il est en effet bien plus simple de réutiliser (et de tester) des fonctions agn
 [[primitive-promise]]
 ==== Promise
 
-L'organisation du code autour des _callbacks_ est difficile, et ce, que ce soit en terme de maintenance, de gestion des erreurs ou de propagation d'information.
+L'organisation du code autour des _callbacks_ est difficile et ce, que ce soit en terme de maintenance, de gestion des erreurs ou de propagation d'information.
 
 Un motif a émergé en réponse à cette complexité grandissante : les *promesses*.
 *Il s'agit d'une primitive à maitriser* et disponible _nativement_ à la fois dans Node et les navigateurs modernes.
@@ -2194,7 +2194,7 @@ setImmediate(print('immediate'));
 ----
 <1> Affichera d'abord `immediate`… ;
 <2> … suivi de `timeout` environ 200ms plus tard… ;
-<3> … puis `interval` environ 50ms plus tard, et ce, toutes les 250ms tant que le programme ne sera pas arrêté ou que `clearTimeout` n'annulera pas l'intervalle.
+<3> … puis `interval` environ 50ms plus tard et ce, toutes les 250ms tant que le programme ne sera pas arrêté ou que `clearTimeout` n'annulera pas l'intervalle.
 
 Pour en savoir plus sur les méthodes et fonctions disponibles, reportez-vous à la documentation en ligne du module `timers` sur [URL]#https://nodejs.org/api/timers.html#.
 
