@@ -32,7 +32,7 @@ include::../resources/tip-examples.adoc[]
 
 toc::[]
 
-== Passage en production d'une application Node
+== Considérations avant une mise en production
 
 Nous avons déjà vu dans le chapitre 2 <<../chapter-02/index.adoc#invoke,comment invoquer Node>>.
 Cette section va nous aider à préparer notre application Node pour l'exécuter sur *d'autres environnements* que notre machine de développement sans changer une seule ligne de code.
@@ -209,7 +209,7 @@ CONFIG_FILE=~/.secured/config.json node app.js
 ----
 ====
 
-=== Persistence des données
+=== Persistance des données
 
 TBD.
 
@@ -234,12 +234,12 @@ TBD.
 TBD.
 
 ////
-- module debug
+- require('debug')
 - node --inspect
 - devtool
 ////
 
-=== Renforcer la sécurité
+=== Principes de sécurité
 
 TBD.
 
@@ -458,6 +458,7 @@ TBD.
 
 ////
 webping
+Nagios
 ////
 
 [[exceptions]]
@@ -497,6 +498,13 @@ Plusieurs canaux sont à votre disposition pour être notifié très rapidement 
 - greenkeeper
 ////
 
+=== Tester la montée en charge
+
+TBD.
+
+////
+minigun
+////
 
 == Conclusion
 
