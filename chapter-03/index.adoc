@@ -75,13 +75,29 @@ TBD.
 TBD.
 
 
+[[database]]
 == Connexion à des bases de données
 
-TBD.
 
 === Quelle base de données chosisir ?
 
-TBD.
+* *en mémoire* +
+  Le stockage est dit _éphémère_ car l'information est stockée dans la mémoire vive de la machine et disparait dès que l'application est interrompue ;
+* sous forme de *fichiers* +
+  Le stockage est _physiquement lié_ à la machine hébergeant l'application.
+  Ce support est davantage adapté à un _cache_ n'ayant pas besoin d'être actualisé après l'initialisation de l'application ;
+* via une *API* +
+  Le stockage est _nécessairement dissocié_ à la machine hébergeant l'application.
+  L'accès à la lecture et à l'écriture de l'information se fait au travers d'une _interface de données_ accessible via HTTPS. +
+  Nous pourrions tout à fait envisager d'utiliser les APIs de GitHub, Kinto, Google Drive ou KeyBase.io pour persister et collecter des données brutes ou transformées ;
+* en *base de données* +
+  Le stockage n'est _pas nécessairement lié_ à la machine hébergeant l'application.
+  L'information persiste si l'application est interrompue.
+
+Doit-on nécessairement *utiliser _MongoDB_*, une base de données _orientée documents_ ou _JSON_ avec une application Node ?
+La réponse est catégorique : c'est *non*.
+
+*Tout type de base de données s'interface avec Node*, qu'elle soit _relationnelle_ (Postgres, MariaDB, MySQL), _clé/valeur_ (Redis), en _colonnes_ (Cassandra) ou _orientée documents_ (MongoDB, ElasticSearch).
 
 === Modèles de données
 
