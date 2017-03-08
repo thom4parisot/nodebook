@@ -17,11 +17,18 @@ before_deploy:
 - make clean build-html
 
 deploy:
-  provider: script
-  script: make deploy-html
-  skip_cleanup: true
-  on:
-    branch: master
+  matrix:
+  - provider: script
+    script: make deploy-html
+    skip_cleanup: true
+    on:
+      branch: master
+  - provider: npm
+    skip_cleanup: true
+    on:
+      tags: true
+    api_key:
+      secure: "GL2RVpkQ48gRmQxjXH1mD4w+pUiKkwO9NshqD2tStLMtHBcQwI5HxXsNzZw6kut2N7BGm0U5V67X4EJLMQqlp/MdOHHJyv5YwMmvZae1fKzHThA4j3PT7dx5Z35Jpv9QSrPKAv3qKiNhPDzWjiVCNeHKlsu2AIR1ECrK4RF/h7c="
 
 env:
   global:
