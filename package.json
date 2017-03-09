@@ -29,15 +29,20 @@
     "url": "https://github.com/oncletom/nodebook/issues"
   },
   "homepage": "https://oncletom.io/node.js",
+  "dependencies": {
+    "finalhandler": "^0.4.0",
+    "get-port": "^2.1.0",
+    "opn": "^4.0.2",
+    "serve-static": "^1.5.1",
+    "update-notifier": "^2.1.0",
+    "yargs": "^6.6.0"
+  },
   "devDependencies": {
     "eslint": "^3.13.1",
     "eslint-plugin-react": "^6.10.0",
-    "finalhandler": "^0.4.0",
-    "get-port": "^2.1.0",
     "husky": "^0.13.1",
     "prettier-eslint": "^3.0.2",
     "prettier-eslint-cli": "^1.1.0",
-    "serve-static": "^1.5.1",
     "asciidoctor.js": "1.5.5-4"
   },
   "eslintConfig": {
@@ -74,10 +79,5 @@
         "global"
       ]
     }
-  },
-  "dependencies": {
-    "opn": "^4.0.2",
-    "update-notifier": "^2.1.0",
-    "yargs": "^6.6.0"
   }
 }
