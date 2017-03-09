@@ -17,7 +17,6 @@ before_deploy:
 - make clean build-html
 
 deploy:
-  matrix:
   - provider: script
     script: make deploy-html
     skip_cleanup: true
