@@ -4,7 +4,6 @@ const processor = require('asciidoctor.js')();
 const BUILD_DIR = 'dist';
 
 var DEFAULT_ATTRIBUTES = [
-  'data-uri',
   'toc=macro',
   'toclevels=4',
   'icons=font',
