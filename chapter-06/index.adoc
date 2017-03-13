@@ -182,13 +182,32 @@ CONFIG_FILE=~/.secured/config.json node app.js
 ----
 ====
 
+[[data-persistence]]
 === Persistance des données
 
-[TIP]
-.[RemarquePreTitre]#Question# Quelle base de données choisir ?
-====
-Nous avons répondu à cette question dans la section <<../chapter-03/index.adoc#database,choix d'une base de données>> au chapitre 3.
-====
+Développer une application sur sa machine et la tester nous met à l'abri de certaines questions et considérations. +
+Que se passe-t-il en cas de redémarrage de notre application ?
+Et du système d'exploitation ?
+Et si l'on doit installer l'application sur une nouvelle machine ?
+
+On voudra s'assurer que nous ne perdrons pas de données lors d'une mise en production ou d'une mise à jour en production.
+Autrement dit, il nous faut nous assurer que le bon support de persistence a été choisi pour les différents cas d'usage des données gérées.
+Par exemple :
+
+* une *liste d'utilisateurs inscrits* sur un service – on ne peut pas la perdre ;
+* une *liste de sessions* – c'est acceptable de les remettre à zéro ;
+* des *paramètres en cache* – on peut les reconstruire à la volée ;
+* des *tâches de fond* – on veut les dissocier du processus applicatif.
+
+*Arrêter et démarrer une application ne devrait pas entrainer de perte de données*.
+Démarrer une application et l'accès à la source d'informations devrait *toujours fonctionner de la même manière* et ce, que ce soit son premier lancement, suite à une mise à jour ou après avoir déplacé l'application sur un différent support physique.
+
+Enfin, il faut se poser la question de la _multiplicité_ : lancer plusieurs fois la même application Node—sur la même machine ou sur une machine différente—impacte-t-il la manière dont l'information est stockée et accédée ?
+Cela entraine-t-il doublon ou corruption de données dans les valeurs enregistrées ?
+
+Toutes ces questions devraient nous aiguiller vers le *choix d'un ou de plusieurs supports de persistence de données*.
+Nous répondons au <<../chapter-03/index.adoc#database,choix d'une base de données>> dans le chapitre 3.
+Nous verrons plus loin dans ce chapitre comment <<database-migration,effectuer des migrations de base de données>> afin de répercuter des évolutions dans leur structure et ce, sans intervention manuelle.
 
 === Causes et raisons d'un plantage applicatif
 
