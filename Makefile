@@ -1,10 +1,10 @@
 BUILD_DIR=dist
 GIT_REPO=oncletom/nodebook
 
-ADOC_FILES = $(wildcard index.adoc chapter-*/index.adoc appendix-*/index.adoc foreword/*.adoc)
-HTML_FILES = $(ADOC_FILES:%.adoc=$(BUILD_DIR)/%.html)
-VIDEO_FILES := $(wildcard chapter-*/videos/*.mp4)
-IMAGE_FILES := $(wildcard cover.png chapter-*/images/*.png chapter-*/images/*.jpg)
+ADOC_FILES := $(wildcard **/*.adoc)
+HTML_FILES := $(ADOC_FILES:%.adoc=$(BUILD_DIR)/%.html)
+VIDEO_FILES := $(wildcard **/videos/*.mp4)
+IMAGE_FILES := $(wildcard cover.png **/images/*.png **/images/*.jpg)
 VIDEO_FILES_DIST := $(VIDEO_FILES:%=$(BUILD_DIR)/%)
 IMAGE_FILES_DIST := $(IMAGE_FILES:%=$(BUILD_DIR)/%)
 
@@ -13,11 +13,11 @@ clean:
 
 $(VIDEO_FILES_DIST): $(VIDEO_FILES)
 	@mkdir -p $(dir $@)
-	cp $< $@
+	cp $(@:dist/%=%) $@
 
 $(IMAGE_FILES_DIST): $(IMAGE_FILES)
 	@mkdir -p $(dir $@)
-	cp $< $@
+	cp $(@:dist/%=%) $@
 
 build-html: $(VIDEO_FILES_DIST) $(IMAGE_FILES_DIST)
 	npm run build:html
