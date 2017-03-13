@@ -1,7 +1,7 @@
 BUILD_DIR=dist
 GIT_REPO=oncletom/nodebook
 
-ADOC_FILES := $(wildcard **/*.adoc)
+ADOC_FILES := $(wildcard **/index.adoc foreword/*.adoc)
 HTML_FILES := $(ADOC_FILES:%.adoc=$(BUILD_DIR)/%.html)
 VIDEO_FILES := $(wildcard **/videos/*.mp4)
 IMAGE_FILES := $(wildcard cover.png **/images/*.png **/images/*.jpg)
