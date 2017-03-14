@@ -6,6 +6,8 @@ Pour en savoir plus: [oncletom.io/2017/residence-nodejs/](https://oncletom.io/20
 
 ## Mars 14 mars
 
+- _Chapitre 6_ : Causes et raisons d'un plantage applicatif
+
 **Modal** : 😕 — je me perds un peu dans les tâches admin
 
 ## Lundi 13 mars

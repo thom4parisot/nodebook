@@ -211,19 +211,42 @@ Nous verrons plus loin dans ce chapitre comment <<database-migration,effectuer d
 
 === Causes et raisons d'un plantage applicatif
 
-TBD.
+C'est vendredi.
+On vient de faire un dernier commit avant de mettre en production.
+Le serveur redémarre et *rien n'a planté avant de partir* se détendre en week-end en mode bivouac à la belle étoile.
 
-////
-* erreur de syntaxe dans module chargé
-* erreur de runtime
-** utilisation structure inexistante (variable indispo, opération)
-** exception qui n'est pas gérée
-** effet de bord d'un module tiers
-**
-* ressource liée qui devient indisponible (bdd, mémoire, disque, connexion réseau)
-** parce que notre application mange les ressources
-** système mal configuré (rotation de logs etc.)
-////
+Lundi, retour au boulot.
+Quelle n'est pas notre surprise de voir un message d'erreur en visitant notre application web…
+
+.Message d'erreur du serveur _nginx_ lorsque l'application Node ne répond plus.
+image::images/nginx-proxy-error.png[align="center",width="85%"]
+
+Il y a bien des facteurs qui font qu'une application peut tomber sans crier gare :
+
+* *erreurs de syntaxe* +
+  Ce sont les erreurs classiques qui fâchent l'interpréteur Node dès le lancement.
+  L'interpréteur parcourt tout le code chargé et s'arrête s'il n'arrive pas à l'interpréter en expliquant la raison.
+  La mise en place d'outils comme <<../appendix-a/index.adoc#eslint,eslint>> aide à se prémunir contre les erreurs de syntaxe dans son éditeur de code mais aussi avant/après l'exécution des tests. +
+  Ce type d'erreur se produit si l'on *charge un module _npm_ incompatible avec la version de Node* utilisée par notre application.
+* *erreurs au _runtime_* +
+  D'autres erreurs sont directement liées à l'écriture de notre code : un _paramètre oublié_, un objet mal étendu, une exception qui n'est pas interceptée, un bug dans module _npm_, un cas non testé, mais aussi une *variable indéfinie*—erreur de frappe (`Math.randmo()` au lieu de `Math.random()`) ou l'assomption fausse de son existence (comme `window.location` dans un programme Node). +
+  L'écriture et l'exécution systématique de tests unitaires aide à se prémunir contre les erreurs de _runtime_.
+  On cherchera entres autres à tester la réaction de notre code face à des erreurs provoquées volontairement (cf. <<../chapter-03/index.adoc#testing,tester son code>> au chapitre 3).
+* *ressources indisponibles* +
+  Il arrive aussi que notre code ne soit pas incriminé… mais que la base de données devienne inaccessible pendant l'exécution de notre application.
+  Ou qu'une clé d'API soit révoquée.
+  Ou encore qu'une API soit indisponible, peu importe la raison—panne réseau, attaque destinée à faire tomber le système etc. +
+  Le mieux que l'on puisse faire est d'utiliser des *modules _npm_ favorisant la reconnexion* aux bases de données, à *gérer l'indisponibilité de la ressource* (en ayant un modèle de réponse dégradé) ou encore en utilisant la technique du _backoff_ exponentiel pour retenter un certain nombre de fois en augmentant le temps entre temps chaque essai.
+* *effets de bord système* +
+  Le système d'exploitation peut nous jouer des tours sans que notre application ne soit réellement au courant.
+  C'est le cas lorsque la _charge système_ dépasse la capacité de traitement des processeurs : notre application mettra plus de temps à exécuter toutes les opérations.
+  Cela se produira également si l'espace disque tend à devenir faible : le système _swappera_ et ralentira l'écriture de fichiers, notamment les _logs_ générés par le trafic de notre application. +
+  La mise en place en place de <<monitoring,_monitoring_>> nous aidera à être *prévenu _avant_* que le problème ne se déclare… ou au moins d'avoir une vue d'ensemble des ressources disponibles de notre parc machine.
+
+Certaines erreurs dépendent de la *qualité de notre application* (_Dev_).
+D'autres erreurs dépendent des *soins apportés aux opérations* (_Ops_) et à l'infrastructure.
+
+Le <<hosting,choix de la solution d'hébergement>> sera influencé par le temps,  les connaissances et les ressources financières disponibles pour adresser ce genre de problèmes.
 
 === Déboguer une application Node
 
