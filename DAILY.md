@@ -4,12 +4,60 @@ Pour en savoir plus: [oncletom.io/2017/residence-nodejs/](https://oncletom.io/20
 
 # Journal
 
+## Mars 14 mars
+
+**Modal** : 😕 — je me perds un peu dans les tâches admin
+
+## Lundi 13 mars
+
+Aprem off – réunion [FING](http://fing.org)+[dtc][dtc] et mentoring [Women on Rails](http://www.womenonrails.com/).
+
+- _Chapitre 6_ : Persistance des données
+- _Tooling_ : déploiement des images sans encodage base64
+- _Tooling_ : correction du déploiement des vidéos (la même vidéo était déployée)
+
+**Moral** : 🙂
+
+## Dimanche 12 mars
+
+- Heaven from the oven:<br>
+  ![](resources/daily-20170312-baguettes.jpg)
+
+## Vendredi 10 mars
+
+Journée off – rétrospective avec [dtc][dtc].
+
+**Moral** : 😊
+
+## Jeudi 9 mars
+
+Merci [Frank](https://github.com/DirtyF) pour tes contributions 👋
+
+Journée off – dédiée aux projets [dtc][dtc].
+
+- Rétrospective avec [Stéphane Langlois] à propos du meetup [MontpellierJS][montpellier-js]
+- _Tooling_ : mise à jour du module [npmjs.com/nodebook](https://npmjs.com/nodebook) pour correspondre au didacticiel de l'ouvrage
+
+**Moral** : 😊
+
+## Mercredi 8 mars
+
+- _Chapitre 3_ : quelle base de données choisir (partiel)
+- _Chapitre 6_ : persistance des données (partiel)
+
+**Moral** : 😊 🚂
+
+## Mardi 7 mars
+
+- _Chapitre 6_ : Configuration
+
+**Moral** : 😴
+
 ## Lundi 6 mars
 
 Merci au [ToulouseJS][toulouse-js]+[Aperoweb Toulouse][aperoweb-toulouse] pour la relecture collective, à [At Home][at-home] pour nous avoir hébergé ainsi qu'à [Frank](https://frank.taillandier.me/) et [Maxime](https://twitter.com/maxdow) pour la facilitation 👋
 
 - Le chapitre 7 devient le chapitre 6 (on s'occupera des applications natives dans une seconde édition)
-- _Chapitre 6_ : Configuration
 - _Chapitre 6_ : ancres et chapitrage
 
 ## Dimanche 5 mars
@@ -400,3 +448,4 @@ Merci [@BetaGouv](https://github.com/sgmap) pour le coin de bureau 👋
 [clever-cloud]: https://twitter.com/clever_cloud
 [byte-club]: https://twitter.com/ByteClubFR
 [matlo]: https://twitter.com/matlo
+[dtc]: https://dtc-innovation.org/
