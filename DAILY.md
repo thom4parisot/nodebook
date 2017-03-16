@@ -4,11 +4,25 @@ Pour en savoir plus: [oncletom.io/2017/residence-nodejs/](https://oncletom.io/20
 
 # Journal
 
-## Mars 14 mars
+## Jeudi 16 mars
+
+Merci aux copains d'[ut7][ut7] pour le coin de bureau et les conversations 👋
+
+- _Chapitre 6_ : Déboguer une application Node
+
+**Moral** : 😕 — pas très productif
+
+## Mercredi 15 mars
+
+Aprem off – mission [dtc][dtc].
+
+**Moral** : 😕 — pas très productif
+
+## Mardi 14 mars
 
 - _Chapitre 6_ : Causes et raisons d'un plantage applicatif
 
-**Modal** : 😕 — je me perds un peu dans les tâches admin
+**Moral** : 😕 — je me perds un peu dans les tâches admin
 
 ## Lundi 13 mars
 
@@ -437,6 +451,7 @@ Merci [@BetaGouv](https://github.com/sgmap) pour le coin de bureau 👋
 
 **Moral** : 😊
 
+[ut7]: https://ut7.fr/
 [at-home]: http://athome-startup.fr/
 [aperoweb-toulouse]: http://toulouse.aperoweb.fr
 [toulouse-js]: https://twitter.com/ToulouseJS
