@@ -250,13 +250,129 @@ Le <<hosting,choix de la solution d'hébergement>> sera influencé par le temps,
 
 === Déboguer une application Node
 
-TBD.
+Cette section s'intéresse à présenter différentes techniques pour *déboguer une application sur notre ordinateur*.
+Nous aborderons les mécanismes de <<exceptions,détection des erreurs et exceptions en production>> dans la section <<monitoring,monitorer en production>>.
 
-////
-- require('debug')
-- node --inspect
-- devtool
-////
+Node expose les capacités d'inspection de <<../chapter-01/index.adoc#v8,_v8_>>.
+Cela sert à connecter tout outil capable de comprendre le protocole de débogage et de _profiling_ de V8.
+C'est le cas notamment du navigateur _Chrome_ et ses outils de développement intégrés.
+
+Les outils de développement nous permettent de :
+
+* pauser l'exécution avec des *points d'arrêt*—y compris conditionnels en faisant menu:clic droit[Ajouter un point d'arrêt conditionnel…] ;
+* inspecter la valeur des *variables locales* ou des *variables héritées* ;
+* *naviguer dans la pile d'appels*—utile pour inspecter des variables créées dans une _fonction appelante_ ;
+* *profiler* son code pour déceler les _appels répétés_ ou _peu performants_ de notre script ;
+* *interagir avec la console* pour tester des hypothèses avec du code.
+
+.Outils de développement Chrome inspectant un processus Node en temps réel.
+image::images/node-chrome-devtools.png[align="center",width="85%"]
+
+L'option d'invocation Node `--inspect` démarre l'inspecteur en même temps que notre script Node.
+L'URL de connexion à l'inspecteur est alors affichée.
+À nous de la copier/coller dans la barre d'adresse du navigateur _Chrome_ pour afficher les outils de débogage.
+
+----
+$ node --inspect config/file-npm.js
+Debugger listening on port 9229.
+Warning: This is an experimental feature and could change at any time.
+To start debugging, open the following URL in Chrome:
+    chrome-devtools://devtools/bundled/inspector.html?experiments=true&v8only=true&ws=127.0.0.1:9229/1168a3e9-cd6e-45b7-9897-0cc0b096e5a1
+----
+
+L'option d'invocation `--inspect` est adaptée à des processus de longue durée (type serveur HTTP) tandis que l'option `--inspect-brk` est adaptée à des processus de courte durée.
+Ce dernier met en *pause le script dès sa première ligne*.
+Un clic sur l'icône icon:play[] continue son exécution jusqu'au _prochain point d'arrêt_ ou à défaut, jusqu'à la _dernière instruction_.
+
+----
+$ node --inspect-brk config/file-npm.js
+----
+
+[CAUTION]
+.[RemarquePreTitre]#Compatibilité# Node v7
+====
+La pause en démarrage de script (`--inspect-brk`) ne fonctionne qu'à partir de Node v7.
+====
+
+Le module _npm_ `devtool` ([URL]#https://npmjs.com/devtool#) est une manière alternative de déboguer sur des versions antérieures à Node  {nodeCurrentVersion} ou s'il est impossible d'avoir accès à un navigateur _Chrome_.
+Ce module embarque un équivalent du navigateur _Chrome_ ainsi que son propre environnement Node, indépendante de celle de notre ordinateur.
+
+.Module _npm_ `devtool` inspectant un processus Node en temps réel.
+image::images/devtool.png[align="center",width="85%"]
+
+_devtool_ offre exactement les mêmes fonctionnalités que l'inspecteur Node, y compris le point d'arrêt sur la première ligne avec l'option `--break` :
+
+----
+$ ../node_modules/.bin/devtool config/file-npm.js
+$ ../node_modules/.bin/devtool config/file-npm.js --break
+----
+
+Le module _npm_ `debug` ([URL]#https://npmjs.com/debug#) suit une approche différente des deux précédentes.
+Elle consiste à baliser son code d'*appels à une fonction de _debug_* et à afficher ces appels à la demande en paramétrant la variable d'environnement `DEBUG`.
+C'est en quelque sorte un affichage conditionnel de `console.log` piloté par la <<../chapter-02/index.adoc#process-env,variable d'environnement>>.
+
+Le module _debug_ est pratique pour afficher un *journal précis d'actions réparties dans plusieurs modules* pour l'observer dans un terminal.
+Il est particulièrement adapté dans ces situations complexes où le cheminement applicatif dépend de nombreuses conditions et si ce code est destiné à être redistribué en tant que module _npm_ public ou privé.
+Cela favorise ainsi la *compréhension de la logique applicative* par les personnes consommant ce code.
+
+L'exemple suivant illustre la création de deux fonctions de _debug_ :
+
+[source,javascript]
+.debug.js
+----
+include::{sourceDir}/debug.js[]
+----
+<1> Création d'une première fonction de _debug_ avec l'_espace de nom_ `nodebook:ch06` ;
+<2> Création d'une seconde fonction de _debug_ avec l'_espace de nom_ `nodebook:interval` cette fois-ci ;
+<3> `%o` interpole un objet/tableau en chaîne de caractère ;
+<4> `%d` interpole une valeur en nombre.
+
+Nous lançons le script comme d'habitude :
+
+----
+$ node debug.js
+----
+
+Pourtant, rien ne se passe ne s'affiche dans notre terminal : il faut en effet *spécifier l'espace de nom* à afficher avec la variable d'environnement `DEBUG`.
+
+L'affichage des appels à la fonction de _debug_ de l'espace de nom `nodebook:ch06` se ferait ainsi :
+
+----
+$ DEBUG='nodebook:ch06' node debug.js
+  nodebook:ch06 fromages [ 'livarot', 'chaource' ] +0ms
+----
+
+De même, l'affichage des appels à la fonction de _debug_ de l'espace de nom `nodebook:interval` se ferait ainsi :
+
+----
+$ DEBUG='nodebook:interval' node debug.js
+  nodebook:interval count 1 +0ms
+  nodebook:interval count 2 +1s
+  nodebook:interval count 3 +1s
+  nodebook:interval count 4 +1s
+  nodebook:interval count 5 +1s
+----
+
+L'utilisation du caractère `*` sert de motif de remplacement universel et affiche les appels à la fonction de _debug_ préfixé par `nodebook:` :
+
+----
+$ DEBUG='nodebook:*' node debug.js
+  nodebook:ch06 fromages [ 'livarot', 'chaource' ] +0ms
+  nodebook:interval count 1 +1s
+  nodebook:interval count 2 +1s
+  nodebook:interval count 3 +1s
+  nodebook:interval count 4 +1s
+  nodebook:interval count 5 +1s
+----
+
+[CAUTION]
+.[RemarquePreTitre]#À ne pas faire# _logging_
+====
+Ce module *n'est pas* destiné à faire du _logging_ en production.
+====
+
+Ces méthodes de débogage peuvent être complétées et agrémentées par les fonctionnalités de nos <<../chapter-02/index.adoc#ide,outils de développement>> (cf. chapitre 2).
+Les éditeurs les plus avancés nous proposent exactement les *mêmes fonctionnalités que l'inspecteur Node au sein de l'éditeur*.
 
 === Principes de sécurité
 
@@ -463,7 +579,8 @@ TBD.
 
 TBD.
 
-== Monitorer et déboguer une application
+[[monitoring]]
+== Monitorer en production
 
 Cette section s'intéresse à la *détection proactive des incidents* et au *suivi de la santé de notre application* une fois mise en ligne.
 Nous allons ainsi apprendre à *dresser un diagnostic sans nous connecter* sur la ou les machines hébergeant l'application… en partie car nous n'y avons pas toujours accès.
