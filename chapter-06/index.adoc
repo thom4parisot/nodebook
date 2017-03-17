@@ -248,6 +248,7 @@ D'autres erreurs dépendent des *soins apportés aux opérations* (_Ops_) et à 
 
 Le <<hosting,choix de la solution d'hébergement>> sera influencé par le temps,  les connaissances et les ressources financières disponibles pour adresser ce genre de problèmes.
 
+[[inspect]]
 === Déboguer une application Node
 
 Cette section s'intéresse à présenter différentes techniques pour *déboguer une application sur notre ordinateur*.
@@ -292,6 +293,15 @@ $ node --inspect-brk config/file-npm.js
 .[RemarquePreTitre]#Compatibilité# Node v7
 ====
 La pause en démarrage de script (`--inspect-brk`) ne fonctionne qu'à partir de Node v7.
+====
+
+[TIP]
+.[RemarquePreTitre]#Outil# Node Inspector Manager (NIM)
+====
+L'URL de connexion à l'inspecteur change chaque fois où l'on relance l'application.
+Cette extension pour le navigateur _Chrome_ évite la frénésie de copier/coller et va jusqu'à *ouvrir automatiquement l'onglet de débogage* pour nous.
+
+- [URL]#https://chrome.google.com/webstore/detail/gnhhdgbaldcilmgcpfddgdbkhjohddkj#
 ====
 
 Le module _npm_ `devtool` ([URL]#https://npmjs.com/devtool#) est une manière alternative de déboguer sur des versions antérieures à Node  {nodeCurrentVersion} ou s'il est impossible d'avoir accès à un navigateur _Chrome_.
