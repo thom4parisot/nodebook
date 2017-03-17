@@ -386,12 +386,64 @@ Les éditeurs les plus avancés nous proposent exactement les *mêmes fonctionna
 
 === Principes de sécurité
 
-TBD.
+*Toute application est exposée à des risques de sécurité* à partir du moment où la machine l'hébergeant est accessible sur un réseau informatique.
+Il est de notre *devoir de réduire la surface d'attaque* d'une application pour éviter intrusions, vols et rançons.
 
-////
-- http://nodegoat.herokuapp.com/tutorial
-- permissions d'exécution du processus
-////
+Une application peut exposer des failles exploitables à plusieurs niveaux :
+
+* le *code applicatif* lui-même—c'est _à nous_ d'éviter de créer des failles de sécurité ;
+* une *dépendance _npm_*—c'est _à nous_ de nous maintenir à jour et d'obtenir des correctifs de sécurité ;
+* les *permissions d'exécution* de l'application—c'est le lien entre Node et le système d'exploitation ;
+* l'*accès réseau*—un port malencontreusement ouvert ouvre une porte d'accès aux secrets de notre application ;
+* le *système d'exploitation*—via une faille ou une mise en défaut de sa capacité à résister.
+
+Les *permissions d'exécution* sont _héritées_ de l'utilisateur système exécutant l'application Node.
+Autrement dit, le *script Node bénéficie de _toutes_ les permissions* de l'utilisateur le démarrant.
+Si cet utilisateur a le droit d'installer des logiciels ou de modifier des fichiers systèmes, cela signifie que l'exploitation d'une faille de notre script ou application Node pourra faire de même.
+
+Il est donc très important de ne *jamais exécuter une application Node* avec des privilèges d'administrateur système.
+
+[TIP]
+.[RemarquePreTitre]#Sécurité# Utilisateur sans privilèges
+====
+Un utilisateur sans privilège nommé `nobody` existe sur la plupart des systèmes d'exploitation.
+Nous pouvons l'utiliser pour exécuter un processus critique. +
+Cet utilisateur aura tout de même accès en lecture et en écriture aux fichiers et répertoires ouverts à tous les utilisateurs du système—l'impact devrait être limité.
+
+----
+$ sudo -u nobody node debug.js
+$ ps aux | grep nobody
+----
+
+L'exécution de ces deux commandes lance un des exemples de ce chapitre en tant que `nobody`.
+La liste des processus montre ensuite que le script `debug.js` est bien pris en charge par l'utilisateur `nobody`.
+====
+
+L'organisme _Open Web Application Security Project_ (_OWASP_) recueille et diffuse nombre de critères de sécurité à connaître et vérifier pour déjouer au mieux des attaques.
+Citons quelques uns de ces critères :
+
+* *dépendences logicielles* ;
+* *injection de code arbitraire* ;
+* *données d'authentification* (vols, interceptions, brute force etc.) ;
+* *contrôles d'accès* (impersonnification etc.) ;
+* *optimisme sécuritaire* et *absences de vérifications* ;
+* exposition de *données critiques* ;
+* attaques *CSRF* (un script tiers actionne des commandes à notre insu) ;
+* *uploads de fichiers* (poids limite, formats, chevaux de Troie etc.)
+* *redirections* non-contrôlées.
+
+[TIP]
+.[RemarquePreTitre]#Ressources# [URL]#owasp.org#
+====
+Le site d'OWASP offre guides, référentiels, fiches récapitulatives, applications types, outils et tutoriaux pour sensibiliser à la sécurité applicative.
+
+- [URL]#https://www.owasp.org/#
+- [URL]#https://nodegoat.herokuapp.com/tutorial#
+====
+
+La section <<../chapter-03/index.adoc#security,sécurité>> du chapitre 3 nous aidera à apprendre comment renforcer la sécurité d'une application web.
+
+La section <<security,sécurité>> de ce même chapitre nous apprendra à nous prémunir des failles présentes dans nos _dépendances_.
 
 === Démarrage automatique
 
