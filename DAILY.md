@@ -4,6 +4,15 @@ Pour en savoir plus: [oncletom.io/2017/residence-nodejs/](https://oncletom.io/20
 
 # Journal
 
+## Vendredi 17 mars
+
+Aprem off pour se préserver un bout de week-end (début d'une mission dimanche).
+
+- _Chapitre 6_ : Node Inspector Manager
+- _Chapitre 6_ : Principes de sécurité
+
+**Moral** : 😕
+
 ## Jeudi 16 mars
 
 Merci aux copains d'[ut7][ut7] pour le coin de bureau et les conversations 👋
