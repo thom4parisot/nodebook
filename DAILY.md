@@ -1,8 +1,18 @@
 # Daily Standup
 
-Pour en savoir plus: [oncletom.io/2017/residence-nodejs/](https://oncletom.io/2017/residence-nodejs/).
+Pour en savoir plus: [annonce la résidence itinérante](https://oncletom.io/2017/residence-nodejs/) et [résumé de la résidence itinérante](https://oncletom.io/2017/without-a-home/) (en anglais).
 
 # Journal
+
+## Jeudi 26 avril
+
+- _Chapitre 6_ : Intégration en tant que service système
+
+**Moral** : 😊 🚲
+
+---
+_Petite pause pour récupérer, voyager un peu, déménager et donner des formations._
+---
 
 ## Vendredi 17 mars
 
