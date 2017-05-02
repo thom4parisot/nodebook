@@ -484,7 +484,8 @@ include::{sourceDir}/upstart/nodebook.conf[]
 ----
 
 L'exemple précédent décrit l'initialisation notre service après le démarrage du programme en charge des interfaces réseau (`network-services`).
-Il exécute la commande `npm start` dans le répertoire précisé par la directive _Upstart_ `chdir`.
+Il exécute la commande `npm start` dans le répertoire précisé par la directive _Upstart_ `chdir`. +
+Enfin, _Upstart_ redémarrera le service en cas d'erreur et ce, avec une limite de 5 tentatives en l'espace de 2 minutes (120 secondes).
 
 Si le fichier de configuration est accessible en tant que `/etc/init/nodebook.conf`, le service `nodebook` peut être démarré manuellement comme suit :
 
