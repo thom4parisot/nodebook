@@ -458,7 +458,7 @@ Lorsqu'il s'agit d'un environnement de production, nous avons à _automatiser_ c
 Nous allons voir différentes méthodes aboutissant à un résultat similaire.
 
 [[system]]
-==== Intégration en tant que service système
+==== Service système
 
 On l'oublierait presque mais il n'y a pas besoin d'installer de logiciel pour démarrer une application automatiquement.
 Après tout, c'est une des *responsabilités du système d'exploitation*.
@@ -467,42 +467,40 @@ Chaque système d'exploitation se base sur un *gestionnaire de processus*.
 Nous pouvons lui communiquer les informations relatives au lancement de notre programme :
 
 * *quelle(s) commande(s) exécuter* ;
-* dans *quel ordre* (quand le réseau est disponible, après un ou plusieurs autres services comme un serveur HTTP et une base de données) ;
+* dans *quel ordre*, à *quel moment* et *après* quel(s) service(s) ;
 * la *stratégie de reprise* (laisser le processus hors-service, redémarrer automatiquement etc.) ;
 * *quelles opérations* effectuer avant et/ou après son démarrage, arrêt, redémarrage.
 
-Ces informations sont déclarées dans un fichier de configuration, souvent à raison d'un par programme.
-La syntaxe de configuration varie selon les gestionnaires de processus mais la philosophie reste identique.
-
-_Upstart_ est l'outil de gestion de processus de la distribution link:http://www.ubuntu-fr.org/[Linux Ubuntu].
-Ses fichiers de configuration de services sont des fichiers textuels situés dans le répertoire `/etc/init` et suffixés avec l'extension `.conf`.
+Nous déclarons ces informations dans un fichier de configuration, sous forme textuelle, souvent à raison d'un fichier de configuration par programme.
+La syntaxe varie selon les gestionnaires de processus mais la philosophie reste identique. +
+*systemd* est l'outil de gestion de processus de la distribution link:http://www.ubuntu-fr.org/[Linux Ubuntu] mais aussi d'autres distributions populaires comme _Debian_, _Fedora_ et _CentOS_.
 
 [source]
-.upstart/nodebook.conf
+.systemd/nodebook.d/app.conf
 ----
-include::{sourceDir}/upstart/nodebook.conf[]
-----
-
-L'exemple précédent décrit l'initialisation notre service après le démarrage du programme en charge des interfaces réseau (`network-services`).
-Il exécute la commande `npm start` dans le répertoire précisé par la directive _Upstart_ `chdir`. +
-Enfin, _Upstart_ redémarrera le service en cas d'erreur et ce, avec une limite de 5 tentatives en l'espace de 2 minutes (120 secondes).
-
-Si le fichier de configuration est accessible en tant que `/etc/init/nodebook.conf`, le service `nodebook` peut être démarré manuellement comme suit :
-
-----
-$ sudo service nodebook start
+include::{sourceDir}/systemd/nodebook.d/app.conf[]
 ----
 
-D'autres commandes comme `reload`, `stop` et `restart` nous donnent le contrôle sur le cycle de vie de notre service. +
+L'exemple précédent décrit l'initialisation notre service après le démarrage du service en charge des interfaces réseau (`NetworkManager.service`).
+_systemd_ exécute la commande `npm start` en tant qu'utilisateur `nobody` (sans privilèges donc) dans le répertoire précisé par la directive `WorkingDirectory` et injecte la variable d'environnement `NODE_ENV`.
+Enfin, _systemd_ redémarrera le service en cas d'erreur, dans une limite de 5 tentatives en l'espace de 120 secondes.
+
+Si le fichier de configuration est accessible en tant que `/etc/systemd/nodebook.d/app.conf`, le service `nodebook` peut être démarré manuellement comme suit :
+
+----
+$ sudo systemctl start nodebook.service
+----
+
+D'autres commandes comme `reload`, `stop` et `restart` nous donnent le contrôle sur le cycle de vie de nos services. +
 Dans tous les cas, le service sera démarré automatiquement au prochain démarrage du système d'exploitation.
 
 [TIP]
-.[RemarquePreTitre]#Documentation# Upstart
+.[RemarquePreTitre]#Documentation# systemd
 ====
-Une introduction ainsi qu'une documentation détaillée d'_Upstart_ est disponible à l'adresse suivante :
+Une introduction ainsi qu'une documentation détaillée de _systemd_ sont disponibles en ligne :
 
-- [URL]#https://doc.ubuntu-fr.org/upstart# (en français)
-- [URL]#http://upstart.ubuntu.com/cookbook/# (en anglais)
+- [URL]#https://doc.ubuntu-fr.org/systemd# (en français)
+- [URL]#https://freedesktop.org/software/systemd/man/# (en anglais)
 ====
 
 [TIP]
