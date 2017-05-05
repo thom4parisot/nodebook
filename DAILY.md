@@ -4,6 +4,16 @@ Pour en savoir plus: [annonce la résidence itinérante](https://oncletom.io/201
 
 # Journal
 
+## Vendredi 5 mai
+
+Merci au [Remix][remix] et à la [Mutinerie Coworking][mutinerie] pour m'avoir hébergé dans leurs locaux 👋
+
+- _Chapitre 6_ : migration d'_Upstart_ vers _systemd_ en tant que gestionnaire de services systèmes
+- _Chapitre 6_ : Démarrage automatique avec serveur d’applications web
+- _Chapitre 6_ : Démarrage d'application tout automatique
+
+**Moral** : 😊
+
 ## Jeudi 26 avril
 
 - _Chapitre 6_ : Intégration en tant que service système
@@ -470,6 +480,9 @@ Merci [@BetaGouv](https://github.com/sgmap) pour le coin de bureau 👋
 
 **Moral** : 😊
 
+
+[remix]: https://remixcoworking.com
+[mutinerie]: http://mutinerie.org/
 [ut7]: https://ut7.fr/
 [at-home]: http://athome-startup.fr/
 [aperoweb-toulouse]: http://toulouse.aperoweb.fr
