@@ -444,7 +444,8 @@ Le site d'OWASP offre guides, référentiels, fiches récapitulatives, applicati
 La section <<../chapter-03/index.adoc#security,sécurité>> du chapitre 3 nous aidera à apprendre comment renforcer la sécurité de l'interface HTTP d'une application web.
 La section <<security,sécurité>> de ce même chapitre nous apprendra à nous prémunir des failles présentes dans toute application déployée en production.
 
-=== Démarrage automatique
+[[application-startup]]
+=== Démarrage d'application
 
 Qu'est-ce qui différencie le fonctionnement d'une application Node sur un _ordinateur de développement_ d'un _serveur de production_ ?
 La manière de démarrer cette application.
@@ -515,14 +516,51 @@ Le service peut être manuellement créé depuis le *menu Services* ou scripté 
 [[application-manager]]
 ==== Serveur d'applications web
 
-TBD.
+Un serveur d'application web a deux objectifs majeurs : *gérer le trafic HTTP* de manière optimale et *gérer le cycle de vie* d'une application web lors d'incidents ou de mises à jour par exemple.
+Ce type de logiciel se _place entre_ une application Web et le monde extérieur.
+Il peut être installé soit de manière *autonome* soit en tant que *module d'un serveur HTTP* tiers.
 
-////
-- Phusion Passenger
-////
+Leur *excellente gestion d'HTTP* permet de nous reposer sur les serveurs d'applications web pour gérer la charge des requêtes, de se protéger contre servir et mettre en cache les fichiers statiques, rester disponible même si l'application Node est tombée, entre autres.
+
+Leur *intégration avec des plates-formes comme Node* alloue aux serveurs d'applications web la capacité de redémarrer une application Node si elle a planté ou a été mise à jour et ce, sans discontinuité de service (_zero downtime_).
+Certains serveurs ont également la faculté de passer à l'échelle en *attribuant les applications Node aux CPU disponibles* afin de répartir la charge en fonction des ressources disponibles.
+
+*Phusion Passenger* est un serveur d'applications web open source et compatible avec des applications Ruby, Node et Python.
+Il s'installe de manière autonome ou en module pour _nginx_ ([URL]#http://nginx.org/#) et _Apache httpd_ ([URL]#https://httpd.apache.org/#).
+
+[source]
+.phusion-passenger/sites-available/webapp-nodebook.conf
+----
+include::{sourceDir}/phusion-passenger/sites-available/webapp-nodebook.conf[lines=2..-1]
+----
+
+L'exemple de configuration précédent déclare une application Node `app.js` placée dans le répertoire `/var/www/webapp-nodebook` et dont les fichiers statiques (JavaScript, CSS, images etc.) sont placés dans le sous-répertoire `public/`.
+
+_Passenger_ démarrera au minimum 1 processus du fichier `app.js` dans une limite de 10, en fonction du traffic HTTP.
+Chacun des processus sera démarré sous l'_utilisateur_ et le _groupe Unix_ propriétaire du fichier `app.js`.
+
+_Passenger_ peut être contrôlé par l'intermédiaire du programme `passenger-config`, notamment avec la sous-commande `restart-app` :
+
+----
+$ passenger-config restart-app /var/www/webapp-nodebook
+----
+
+[TIP]
+.[RemarquePreTitre]#Documentation# Phusion Passenger
+====
+Un guide pas à pas de configuration d'une application Node avec Passenger est disponible sur leur site officiel.
+
+- [URL]#https://phusionpassenger.com/library/walkthroughs/deploy/nodejs/#
+- [URL]#https://phusionpassenger.com/library/config/nginx/reference/#
+====
+
+Je recommande fortement cette approche, relativement facile à installer et à configurer, notamment de manière automatisée avec un serveur d'intégration continue.
+
+Nous trouverons des informations sur le fonctionnement de Node derrière un <reverse-proxy,_reverse proxy_> dans une autre section de ce chapitre.
+
 
 [[process-manager]]
-==== Démarrage avec un gestionnaire de processus
+==== Gestionnaire de processus
 
 TBD.
 
@@ -543,7 +581,7 @@ tl;dr ne pas le faire
 ////
 
 [[reverse-proxy]]
-=== Reverse Proxy
+=== Derrière un serveur HTTP (_Reverse Proxy_)
 
 TBD.
 
