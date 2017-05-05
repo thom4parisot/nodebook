@@ -564,10 +564,15 @@ Nous trouverons des informations sur le fonctionnement de Node derrière un <rev
 
 TBD.
 
-////
-- Strongloop Process Manager
-- PM2
-////
+
+==== Tout automatique
+
+Certains services d'hébergement prennent en charge le démarrage automatique de nos applications.
+C'est le cas notamment des hébergements de type _Platform as a Service_ (_PaaS_).
+
+Ces services vont se baser sur des *conventions* ou des fichiers de *configuration* pour comprendre la structure de notre application et déterminer de son intégration dans leur plate-forme.
+
+Nous aborderons les principes de fonctionnement des <paas,_Platform as a Service_> dans une section ci-après.
 
 [[hosting]]
 == Héberger une application Node
