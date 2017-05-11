@@ -24,13 +24,13 @@ build-html: $(VIDEO_FILES_DIST) $(IMAGE_FILES_DIST)
 
 deploy-html: $(VIDEO_FILES_DIST) $(IMAGE_FILES_DIST) $(HTML_FILES)
 	rm -rf /tmp/deploy && cp -r $(BUILD_DIR) /tmp/deploy
-	@cd /tmp/deploy \
-    && git init \
-    && git remote add origin https://$(GH_TOKEN)@github.com/$(GIT_REPO).git \
-    && git checkout --orphan gh-pages \
-    && git add . \
-    && git commit -am 'Build HTML book' \
-    && git push -q -f origin gh-pages
+	cd /tmp/deploy
+  git init
+  @git remote add origin https://$(GH_TOKEN):x-oauth-basic@github.com/$(GIT_REPO).git  >/dev/null 2>&1
+  @git checkout --orphan gh-pages >/dev/null 2>&1
+  git add .
+  git commit -am "Build HTML book at $(TRAVIS_COMMIT)"
+  @git push -q -f origin gh-pages >/dev/null 2>&1
 
 .PHONY: build-html clean deploy-html
 .SILENT: deploy-html
