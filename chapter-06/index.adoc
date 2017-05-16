@@ -527,6 +527,7 @@ Certains serveurs ont également la faculté de passer à l'échelle en *attribu
 
 *Phusion Passenger* est un serveur d'applications web open source et compatible avec des applications Ruby, Node et Python.
 Il s'installe de manière autonome ou en module pour _nginx_ ([URL]#http://nginx.org/#) et _Apache httpd_ ([URL]#https://httpd.apache.org/#).
+Regardons ensemble l'intégration de _Passenger_ au travers de la configuration de son module _nginx_ :
 
 [source]
 .phusion-passenger/sites-available/webapp-nodebook.conf
@@ -556,7 +557,7 @@ Un guide pas à pas de configuration d'une application Node avec Passenger est d
 
 Je recommande fortement cette approche, relativement facile à installer et à configurer, notamment de manière automatisée avec un serveur d'intégration continue.
 
-Nous trouverons des informations sur le fonctionnement de Node derrière un <reverse-proxy,_reverse proxy_> dans une autre section de ce chapitre.
+Nous trouverons des informations sur le fonctionnement de Node derrière un <<reverse-proxy,_reverse proxy_>> dans une autre section de ce chapitre.
 
 
 [[process-manager]]
@@ -570,9 +571,10 @@ TBD.
 Certains services d'hébergement prennent en charge le démarrage automatique de nos applications.
 C'est le cas notamment des hébergements de type _Platform as a Service_ (_PaaS_).
 
-Ces services vont se baser sur des *conventions* ou des fichiers de *configuration* pour comprendre la structure de notre application et déterminer de son intégration dans leur plate-forme.
+Ces services vont se baser sur des *conventions* ou des fichiers de *configuration* pour comprendre la typologie de notre application et l'intégrer automatiquement.
+Ils se baseront souvent sur le <<../chapter-02/index.adoc#npm-scripts,script `npm start`>> et d'autres informations contenues dans le fichier `package.json`.
 
-Nous aborderons les principes de fonctionnement des <paas,_Platform as a Service_> dans une section ci-après.
+Nous aborderons les principes de fonctionnement des <<paas,_Platform as a Service_>> dans une section ci-après.
 
 [[hosting]]
 == Héberger une application Node
