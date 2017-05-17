@@ -4,6 +4,18 @@ Pour en savoir plus: [annonce la résidence itinérante](https://oncletom.io/201
 
 # Journal
 
+## Mardi 16 mai
+
+- _Chapitre 6_ : reformulations diverses et correction d'ancres internes
+
+**Moral** : 🙃 ☀️
+
+## Jeudi 11 mai
+
+- _Tooling_ : changement du [jeton OAuth suite à une faille de sécurité chez Travis CI](https://blog.travis-ci.com/2017-05-08-security-advisory)
+
+**Moral** : 🙃 (y'a pas une émoji _procrastination_ ?)
+
 ## Vendredi 5 mai
 
 Merci au [Remix][remix] et à la [Mutinerie Coworking][mutinerie] pour m'avoir hébergé dans leurs locaux 👋
