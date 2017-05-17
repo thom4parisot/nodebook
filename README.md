@@ -6,17 +6,17 @@
 
 # Table des matières
 
-Écriture    | Relecture  | Chapitre
-:----------:|:----------:|:--------
-            |            | [Préface de David Bruant][foreword]
-:ok:        |:ok:        | [Avant-propos][preamble]
-:ok:        |:ok:        | [Introduction à Node.js][ch01]
-:construction: |         | [Premiers pas avec Node.js][ch02]
-            |            | [Développer une application web][ch03]
-:ok:        |            | [Développer pour les navigateurs web][ch04]
-            |            | [Développer un automate de traitement de données][ch05]
-:memo:      |            | [Héberger, déployer et monitorer][ch06]
-:construction: |         | _Annexe A_ : [Sélection de modules npm][a01]
+| Écriture    | Relecture  | Chapitre
+| ------------|------------|---------
+|             |            | [Préface de David Bruant][foreword]
+| :ok:        |:ok:        | [Avant-propos][preamble]
+| :ok:        |:ok:        | [Introduction à Node.js][ch01]
+| :construction: |         | [Premiers pas avec Node.js][ch02]
+|             |            | [Développer une application web][ch03]
+| :ok:        |            | [Développer pour les navigateurs web][ch04]
+|             |            | [Développer un automate de traitement de données][ch05]
+| :memo:      |            | [Héberger, déployer et monitorer][ch06]
+| :construction: |         | _Annexe A_ : [Sélection de modules npm][a01]
 
 # Installation
 
