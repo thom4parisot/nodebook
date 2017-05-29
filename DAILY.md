@@ -4,6 +4,12 @@ Pour en savoir plus: [annonce la résidence itinérante](https://oncletom.io/201
 
 # Journal
 
+## Lundi 29 mai
+
+- _Chapitre 6_ : Gestionnaire de processus
+
+**Moral** : 😤
+
 ## Mardi 16 mai
 
 - _Chapitre 6_ : reformulations diverses et correction d'ancres internes
