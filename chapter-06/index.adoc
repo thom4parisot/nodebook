@@ -458,7 +458,7 @@ Lorsqu'il s'agit d'un environnement de production, nous avons à _automatiser_ c
 
 Nous allons voir différentes méthodes aboutissant à un résultat similaire.
 
-[[system]]
+[[system-service]]
 ==== Service système
 
 On l'oublierait presque mais il n'y a pas besoin d'installer de logiciel pour démarrer une application automatiquement.
@@ -525,7 +525,7 @@ Leur *excellente gestion d'HTTP* permet de nous reposer sur les serveurs d'appli
 Leur *intégration avec des plates-formes comme Node* alloue aux serveurs d'applications web la capacité de redémarrer une application Node si elle a planté ou a été mise à jour et ce, sans discontinuité de service (_zero downtime_).
 Certains serveurs ont également la faculté de passer à l'échelle en *attribuant les applications Node aux CPU disponibles* afin de répartir la charge en fonction des ressources disponibles.
 
-*Phusion Passenger* est un serveur d'applications web open source et compatible avec des applications Ruby, Node et Python.
+*Phusion Passenger* ([URL]#https://phusionpassenger.com/#) est un serveur d'applications web open source et compatible avec des applications Ruby, Node et Python.
 Il s'installe de manière autonome ou en module pour _nginx_ ([URL]#http://nginx.org/#) et _Apache httpd_ ([URL]#https://httpd.apache.org/#).
 Regardons ensemble l'intégration de _Passenger_ au travers de la configuration de son module _nginx_ :
 
@@ -563,15 +563,69 @@ Nous trouverons des informations sur le fonctionnement de Node derrière un <<re
 [[process-manager]]
 ==== Gestionnaire de processus
 
-TBD.
+Les _gestionnaires de processus_ s'intègrent entre le système d'exploitation et nos applications.
+Ils servent à *gérer leur démarrage* que ce soit en développement ou en production.
+Ils déclarent nos applications en tant que *services système de manière universelle*, peu importe le système d'exploitation.
 
+Autrement dit, un gestionnaire de processus prend en charge le *démarrage d'un processus* en tâche de fond, le *suivi de leur statut* ainsi que l'<<system-service,intégration en tant que *service système*>>.
+Certains gestionnaires vont jusqu'à l'*inspection des logs* et le *passage à l'échelle* afin notamment de répartir les processus applicatifs sur chaque CPU de la machine.
+
+*pm2* ([URL]#http://pm2.io/#) est un gestionnaire de processus populaire dans la communauté Node.
+Il est lui-même écrit en ECMAScript et fonctionne aussi bien sous Linux, Windows que macOS.
+
+La commande suivante démarrera une application web en lui attribuant un nom (ici, _nodebook-ch06-testapp_).
+L'application sera démarrée en mode _cluster_ à raison d'un processus par CPU afin de répartir le trafic en fonction de la charge.
+
+----
+$ pm2 start app.js -i 0 --name nodebook-ch06-testapp
+----
+
+.Liste des processus gérés par _pm2_.
+image::images/pm2-status.png[align="center",width="85%"]
+
+L'ordinateur servant à la rédaction de l'ouvrage dispose de 4 CPU donc _pm2_ crée autant de processus en parallèle.
+
+L'application de démonstration affiche un nom aléatoire de Pokémon ainsi que l'identifiant du processus au sein du _cluster_ lors de la consultation de la page [URL]#http://localhost:4000#. +
+On s'en rend compte notamment en utilisant le programme `curl` (ou équivalent) :
+
+----
+$ curl --location http://localhost:4000
+> [cluster #2] Jynx
+
+$ curl --location http://localhost:4000
+> [cluster #1] Starmie
+----
+
+Les processus peuvent être stoppés indépendamment.
+L'application peut être redémarrée automatiquement en cas de plantage, et sans interruption après une mise à jour de la base de code, entre autres.
+
+[TIP]
+.[RemarquePreTitre]#Documentation# pm2
+====
+La documentation du projet _pm2_ liste en détails les actions et modules du programme.
+Des tutoriaux sont également à disposition pour décrire pas à pas différentes intégration, notamment avec le serveur HTTP _nginx_ ou d'autres langages comme _TypeScript_.
+
+- `$ pm2 --help`
+- [URL]#http://pm2.keymetrics.io/#
+- [URL]#https://github.com/Unitech/pm2#
+====
+
+[TIP]
+.[RemarquePreTitre]#Alternative# foreman
+====
+_foreman_ est un gestionnaire de processus très simple à appréhender.
+Il est utilisé pour déclarer et démarrer des applications sur la plate-forme d'<<paas,hébergement Heroku>>.
+
+- [URL]#https://rubygems.org/gems/foreman#
+- [URL]#http://ddollar.github.io/foreman/#
+====
 
 ==== Tout automatique
 
 Certains services d'hébergement prennent en charge le démarrage automatique de nos applications.
 C'est le cas notamment des hébergements de type _Platform as a Service_ (_PaaS_).
 
-Ces services vont se baser sur des *conventions* ou des fichiers de *configuration* pour comprendre la typologie de notre application et l'intégrer automatiquement.
+Ces services vont se baser sur des *conventions* ou des fichiers de *configuration* pour comprendre la nature de notre application et l'intégrer automatiquement.
 Ils se baseront souvent sur le <<../chapter-02/index.adoc#npm-scripts,script `npm start`>> et d'autres informations contenues dans le fichier `package.json`.
 
 Nous aborderons les principes de fonctionnement des <<paas,_Platform as a Service_>> dans une section ci-après.
@@ -611,7 +665,7 @@ TBD.
 TBD.
 
 ////
-- Heroku
+- Zeit
 - Clever Cloud
 ////
 
