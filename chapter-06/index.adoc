@@ -4,6 +4,7 @@
 :nodeCurrentVersion: v6
 :nodeNextVersion: v7
 :npmCurrentVersion: v4
+:revisionYear: 2017
 :toc-title: Table des matières
 :sectnums:
 :revdate: {docdate}
@@ -698,6 +699,18 @@ D'autres fonctionnalités et paramètres de configuration sont expliqués dans l
 
 - [URL]#https://ddollar.github.io/foreman/#
 - [URL]#https://devcenter.heroku.com/articles/getting-started-with-nodejs#define-a-procfile#
+====
+
+[TIP]
+.[RemarquePreTitre]#Alternative# Zeit Now
+====
+Zeit édite un service de _déploiements immutables_ nommé _now_.
+Ce mécanisme permet de créer une nouvelle instance d'application par déploiement et de désigner celui qui correspondra à l'instance de production.
+
+En {revisionYear}, _now_ est "juste" capable d'héberger des sites statiques, des applications web Node et des conteneurs Docker.
+Il faut passer par des plates-formes de services complémentaires telles que des bases de données, de la persistance de fichiers, de l'emailing transactionnel etc.
+
+- [URL]#https://zeit.co/now#
 ====
 
 [[aws]]
