@@ -385,6 +385,7 @@ Ce module *n'est pas* destiné à faire du _logging_ en production.
 Ces méthodes de débogage peuvent être complétées et agrémentées par les fonctionnalités de nos <<../chapter-02/index.adoc#ide,outils de développement>> (cf. chapitre 2).
 Les éditeurs les plus avancés nous proposent exactement les *mêmes fonctionnalités que l'inspecteur Node au sein de l'éditeur*.
 
+[[system-security]]
 === Principes de sécurité
 
 *Toute application est exposée à des risques de sécurité* à partir du moment où la machine l'hébergeant est accessible sur un réseau informatique.
@@ -634,13 +635,37 @@ Nous aborderons les principes de fonctionnement des <<paas,_Platform as a Servic
 [[hosting]]
 == Héberger une application Node
 
+Où faire vivre nos applications Node en dehors de notre ordinateur servant au développement ?
+Nous allons nous intéresser aux différents mécanismes exposant des applications Node au monde extérieur, que ce soit sur une machine dédiée ou sur des services en ligne.
+
 === Directement sur le port 80 ou 443
 
-TBD.
+Retenez une chose : *ne démarrez pas une application directement sur le port 80 ou 443* — ports utilisés par convention pour parler respectivement les protocoles HTTP et HTTPS.
 
-////
-tl;dr ne pas le faire
-////
+L'exemple suivant illustre un serveur web Node qui écoutera sur le port 80 :
+
+[source,javascript]
+.server-port80.js
+----
+include::{sourceDir}/server-port80.js[]
+----
+
+Cela ne fonctionnera pas, y compris si le port est libre.
+Tous les ports inférieurs à 1024 nécessitent que le programme soit lancé avec un utilisateur privilégié, comme _root_ par exemple.
+
+Alors pourquoi ne pas utiliser _root_ pour avoir accès au port 80 ou 443 ?
+<<system-security,Pour des raisons de sécurité>> comme évoqué précédemment dans ce chapitre.
+Donc même si c'est techniquement faisable, *non nous le ferons pas* et nous privilégierons d'autres mécanismes, notamment celui du <<reverse-proxy,_reverse proxy_>>.
+
+[TIP]
+.[RemarquePreTitre]#Alternative# authbind
+====
+Le logiciel libre pour Linux _authbind_ comble le besoin impérieux d'assigner un port privilégié mais à un _utilisateur sans privilège_.
+
+Il conviendra quand même de créer un utilisateur système avec des permissions limitées spécifiquement pour chaque application Node.
+
+- [URL]#http://manpages.ubuntu.com/authbind#
+====
 
 [[reverse-proxy]]
 === Derrière un serveur HTTP (_Reverse Proxy_)
