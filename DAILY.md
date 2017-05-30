@@ -4,6 +4,12 @@ Pour en savoir plus: [annonce la résidence itinérante](https://oncletom.io/201
 
 # Journal
 
+## Mardi 30 mai
+
+- _Chapitre 6_ : Héberger sur le port 80/443
+
+**Moral** : 🙂
+
 ## Lundi 29 mai
 
 - _Chapitre 6_ : Gestionnaire de processus
