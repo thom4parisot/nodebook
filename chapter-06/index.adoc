@@ -651,61 +651,52 @@ Ce modèle est incompatible avec le démarrage d'un processus par application No
 [[paas]]
 === Plate-forme de services (_Platform as a Service_)
 
-TBD.
+Les plates-formes de services *automatisent la configuration* et *facilitent le déploiement* de nos applications Node mais également Ruby, Python et PHP.
+Elles se spécialisent dans les déploiements rapides, l'allocation des ressources et le passage à l'échelle des applications.
+Leur philosophie est de *tout penser en terme de ressources et de services*.
 
-////
-- Zeit
-- Clever Cloud
-////
+Chaque instance peut être dimensionnée en _puissance_ (de peu de CPU à beaucoup de CPU) et en _nombre_ (de 1 à plusieurs instances en parallèle).
+La plate-forme gère la distribution équilibrée du trafic web.
+Des *ressources complémentaires* sont disponibles séparément et à la demande : bases de données MySQL ou postgreSQL, envoi d'emails, moteur de recherche, monitoring, aggrégation des logs etc.
 
-_Foreman_ est un programme écrit en Ruby.
-Il est destiné à gérer les multiples processus d'une même application. +
-C'est l'outil de déclaration de services utilisé par la plateforme _Heroku_.
+Le principe de déploiement sur les plates-formes de services est réduit au quasi-minimum :
 
-Vos différents processus sont à déclarer dans un fichier `Procfile`, somme toute assez simpliste :
+. création d'une nouvelle application sur la plate-forme en ligne ;
+. nous _poussons_ notre code applicatif — généralement avec `git` ;
+. la plate-formùe prépare la mise en ligne en installant les dépendances _npm_ et en démarrant l'application web ;
+. notre application est fonctionnelle quelques secondes plus tard.
 
-[source]
-.Procfile
+Voici une sélection de services en ligne fournissant des plates-formes à la demande :
+
+- [URL]#https://zeit.co#
+- [URL]#https://clever-cloud.com/#
+- [URL]#https://gandi.net/hosting/simple#
+- [URL]#https://dashboard.heroku.com/#
+
+
+La startup californienne Zeit ([URL]#https://zeit.co#) édite un service de _déploiements immutables_ nommé _now_ ([URL]#https://zeit.co/now#) qui est focalisée sur l'hébergement de sites statiques, d'applications web Node et de conteneurs Docker.
+
+Sa particularité est de créer une *nouvelle instance d'application par déploiement* — à nous de désigner le déploiement associé à l'instance de production.
+
 ----
-web: node www.js
-api: PORT=$PORT node api.js
-worker: node bin/cli.js --retries 3
-----
-
-Le précédent exemple fait état de trois processus à démarrer, dont certains avec des arguments spécifiques.
-
-La commande suivante démarrera ces trois services, créera deux processus pour le module `api.js` en leur attribuant automatiquement un port différent grâce à :
-
-----
-foreman start -c api=2
+$ npm i -g now
+$ now
 ----
 
 [TIP]
-.[RemarquePreTitre]#Outil# foreman
+.[RemarquePreTitre]#Documentation# now
 ====
-D'autres fonctionnalités et paramètres de configuration sont expliqués dans la documentation officielle du projet :
+Le fonctionnement de l'application _now_ est illustré et documenté à la fois en ligne et via un terminal de commandes.
 
-- [URL]#https://ddollar.github.io/foreman/#
-- [URL]#https://devcenter.heroku.com/articles/getting-started-with-nodejs#define-a-procfile#
-====
-
-[TIP]
-.[RemarquePreTitre]#Alternative# Zeit Now
-====
-Zeit édite un service de _déploiements immutables_ nommé _now_.
-Ce mécanisme permet de créer une nouvelle instance d'application par déploiement et de désigner celui qui correspondra à l'instance de production.
-
-En {revisionYear}, _now_ est "juste" capable d'héberger des sites statiques, des applications web Node et des conteneurs Docker.
-Il faut passer par des plates-formes de services complémentaires telles que des bases de données, de la persistance de fichiers, de l'emailing transactionnel etc.
-
-- [URL]#https://zeit.co/now#
+- `now --help`
+- [URL]#https://zeit.co/docs#
 ====
 
 === Serveur dédié, machine virtuelle etc.
 
-- [URL]#https://www.gandi.net/hosting/iaas#
-- [URL]#https://www.ovh.com/#
-- [URL]#https://www.digitalocean.com/#
+- [URL]#https://gandi.net/hosting/iaas#
+- [URL]#https://ovh.com/fr/#
+- [URL]#https://digitalocean.com/#
 - [URL]#https://aws.amazon.com/fr/ec2/#
 
 [TIP]
@@ -715,11 +706,9 @@ Il faut passer par des plates-formes de services complémentaires telles que des
 - [URL]#https://aws.amazon.com/fr/elasticbeanstalk/#
 ====
 
-
-
 ==== Directement sur le port 80 ou 443
 
-Retenez une chose : *ne démarrez pas une application directement sur le port 80 ou 443* — ports utilisés par convention pour parler respectivement les protocoles HTTP et HTTPS.
+Retenez une chose : *ne démarrez _jamais_ une application Node sur le port 80 ou 443* — ports utilisés par convention pour parler respectivement les protocoles HTTP et HTTPS.
 
 L'exemple suivant illustre un serveur web Node qui écoutera sur le port 80 :
 
