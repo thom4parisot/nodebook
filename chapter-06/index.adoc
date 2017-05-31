@@ -636,54 +636,17 @@ Nous aborderons les principes de fonctionnement des <<paas,_Platform as a Servic
 == Héberger une application Node
 
 Où faire vivre nos applications Node en dehors de notre ordinateur servant au développement ?
+
 Nous allons nous intéresser aux différents mécanismes exposant des applications Node au monde extérieur, que ce soit sur une machine dédiée ou sur des services en ligne.
-
-=== Directement sur le port 80 ou 443
-
-Retenez une chose : *ne démarrez pas une application directement sur le port 80 ou 443* — ports utilisés par convention pour parler respectivement les protocoles HTTP et HTTPS.
-
-L'exemple suivant illustre un serveur web Node qui écoutera sur le port 80 :
-
-[source,javascript]
-.server-port80.js
-----
-include::{sourceDir}/server-port80.js[]
-----
-
-Cela ne fonctionnera pas, y compris si le port est libre.
-Tous les ports inférieurs à 1024 nécessitent que le programme soit lancé avec un utilisateur privilégié, comme _root_ par exemple.
-
-Alors pourquoi ne pas utiliser _root_ pour avoir accès au port 80 ou 443 ?
-<<system-security,Pour des raisons de sécurité>> comme évoqué précédemment dans ce chapitre.
-Donc même si c'est techniquement faisable, *non nous le ferons pas* et nous privilégierons d'autres mécanismes, notamment celui du <<reverse-proxy,_reverse proxy_>>.
-
-[TIP]
-.[RemarquePreTitre]#Alternative# authbind
-====
-Le logiciel libre pour Linux _authbind_ comble le besoin impérieux d'assigner un port privilégié mais à un _utilisateur sans privilège_.
-
-Il conviendra quand même de créer un utilisateur système avec des permissions limitées spécifiquement pour chaque application Node.
-
-- [URL]#http://manpages.ubuntu.com/authbind#
-====
-
-[[reverse-proxy]]
-=== Derrière un serveur HTTP (_Reverse Proxy_)
-
-TBD.
-
-////
-- Apache
-- nginx
-////
 
 [[shared-hosting]]
 === Hébergement mutualisé
 
-TBD.
-////
-- Alwaysdata
-////
+En {revisionYear}, aucun service d'hébergement mutualisé ne proposait de mécanisme pour déployer une application Node.
+
+Les hébergements mutualisés sont bon marché car ils se "contentent" de mutualiser un frontal HTTP et de servir des fichiers statiques et des scripts interprétés (écrits en PHP par exemple).
+
+Ce modèle est incompatible avec le démarrage d'un processus par application Node.
 
 [[paas]]
 === Plate-forme de services (_Platform as a Service_)
@@ -738,14 +701,59 @@ Il faut passer par des plates-formes de services complémentaires telles que des
 - [URL]#https://zeit.co/now#
 ====
 
-[[aws]]
-=== Amazon Web Services (_AWS_)
+=== Serveur dédié, machine virtuelle etc.
+
+- [URL]#https://www.gandi.net/hosting/iaas#
+- [URL]#https://www.ovh.com/#
+- [URL]#https://www.digitalocean.com/#
+- [URL]#https://aws.amazon.com/fr/ec2/#
+
+[TIP]
+.[RemarquePreTitre]#Alternative# AWS Elastic Beanstalk
+====
+
+- [URL]#https://aws.amazon.com/fr/elasticbeanstalk/#
+====
+
+
+
+==== Directement sur le port 80 ou 443
+
+Retenez une chose : *ne démarrez pas une application directement sur le port 80 ou 443* — ports utilisés par convention pour parler respectivement les protocoles HTTP et HTTPS.
+
+L'exemple suivant illustre un serveur web Node qui écoutera sur le port 80 :
+
+[source,javascript]
+.server-port80.js
+----
+include::{sourceDir}/server-port80.js[]
+----
+
+Cela ne fonctionnera pas, y compris si le port est libre.
+Tous les ports inférieurs à 1024 nécessitent que le programme soit lancé avec un utilisateur privilégié, comme _root_ par exemple.
+
+Alors pourquoi ne pas utiliser _root_ pour avoir accès au port 80 ou 443 ?
+<<system-security,Pour des raisons de sécurité>> comme évoqué précédemment dans ce chapitre.
+Donc même si c'est techniquement faisable, *non nous le ferons pas* et nous privilégierons d'autres mécanismes, notamment celui du <<reverse-proxy,_reverse proxy_>>.
+
+[TIP]
+.[RemarquePreTitre]#Alternative# authbind
+====
+Le logiciel libre pour Linux _authbind_ comble le besoin impérieux d'assigner un port privilégié mais à un _utilisateur sans privilège_.
+
+Il conviendra quand même de créer un utilisateur système avec des permissions limitées spécifiquement pour chaque application Node.
+
+- [URL]#http://manpages.ubuntu.com/authbind#
+====
+
+[[reverse-proxy]]
+==== Derrière un serveur HTTP (_Reverse Proxy_)
 
 TBD.
 
 ////
-- AMI EC2
-- Beanstalk
+- Apache
+- nginx
 ////
 
 [[lambda]]
