@@ -9,6 +9,7 @@ cache:
   - node_modules
 
 before_install:
+- npm i -g npm@latest
 - mkdir -p /tmp/git-lfs
 - curl -sSL https://github.com/git-lfs/git-lfs/releases/download/v2.0.0/git-lfs-linux-amd64-2.0.0.tar.gz | tar -xz -C /tmp/git-lfs --strip-components 1
 
