@@ -4,6 +4,12 @@ Pour en savoir plus: [annonce la résidence itinérante](https://oncletom.io/201
 
 # Journal
 
+## Jeudi 1 juin
+
+- _Chapitre 6_ : Plate-forme en tant que service
+
+**Moral** : 🙂
+
 ## Mardi 30 mai
 
 - _Chapitre 6_ : Héberger sur le port 80/443
