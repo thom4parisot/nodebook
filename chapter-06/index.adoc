@@ -4,6 +4,7 @@
 :nodeCurrentVersion: v6
 :nodeNextVersion: v7
 :npmCurrentVersion: v4
+:revisionYear: 2017
 :toc-title: Table des matières
 :sectnums:
 :revdate: {docdate}
@@ -384,6 +385,7 @@ Ce module *n'est pas* destiné à faire du _logging_ en production.
 Ces méthodes de débogage peuvent être complétées et agrémentées par les fonctionnalités de nos <<../chapter-02/index.adoc#ide,outils de développement>> (cf. chapitre 2).
 Les éditeurs les plus avancés nous proposent exactement les *mêmes fonctionnalités que l'inspecteur Node au sein de l'éditeur*.
 
+[[system-security]]
 === Principes de sécurité
 
 *Toute application est exposée à des risques de sécurité* à partir du moment où la machine l'hébergeant est accessible sur un réseau informatique.
@@ -458,7 +460,7 @@ Lorsqu'il s'agit d'un environnement de production, nous avons à _automatiser_ c
 
 Nous allons voir différentes méthodes aboutissant à un résultat similaire.
 
-[[system]]
+[[system-service]]
 ==== Service système
 
 On l'oublierait presque mais il n'y a pas besoin d'installer de logiciel pour démarrer une application automatiquement.
@@ -525,7 +527,7 @@ Leur *excellente gestion d'HTTP* permet de nous reposer sur les serveurs d'appli
 Leur *intégration avec des plates-formes comme Node* alloue aux serveurs d'applications web la capacité de redémarrer une application Node si elle a planté ou a été mise à jour et ce, sans discontinuité de service (_zero downtime_).
 Certains serveurs ont également la faculté de passer à l'échelle en *attribuant les applications Node aux CPU disponibles* afin de répartir la charge en fonction des ressources disponibles.
 
-*Phusion Passenger* est un serveur d'applications web open source et compatible avec des applications Ruby, Node et Python.
+*Phusion Passenger* ([URL]#https://phusionpassenger.com/#) est un serveur d'applications web open source et compatible avec des applications Ruby, Node et Python.
 Il s'installe de manière autonome ou en module pour _nginx_ ([URL]#http://nginx.org/#) et _Apache httpd_ ([URL]#https://httpd.apache.org/#).
 Regardons ensemble l'intégration de _Passenger_ au travers de la configuration de son module _nginx_ :
 
@@ -563,15 +565,69 @@ Nous trouverons des informations sur le fonctionnement de Node derrière un <<re
 [[process-manager]]
 ==== Gestionnaire de processus
 
-TBD.
+Les _gestionnaires de processus_ s'intègrent entre le système d'exploitation et nos applications.
+Ils servent à *gérer leur démarrage* que ce soit en développement ou en production.
+Ils déclarent nos applications en tant que *services système de manière universelle*, peu importe le système d'exploitation.
 
+Autrement dit, un gestionnaire de processus prend en charge le *démarrage d'un processus* en tâche de fond, le *suivi de leur statut* ainsi que l'<<system-service,intégration en tant que *service système*>>.
+Certains gestionnaires vont jusqu'à l'*inspection des logs* et le *passage à l'échelle* afin notamment de répartir les processus applicatifs sur chaque CPU de la machine.
+
+*pm2* ([URL]#http://pm2.io/#) est un gestionnaire de processus populaire dans la communauté Node.
+Il est lui-même écrit en ECMAScript et fonctionne aussi bien sous Linux, Windows que macOS.
+
+La commande suivante démarrera une application web en lui attribuant un nom (ici, _nodebook-ch06-testapp_).
+L'application sera démarrée en mode _cluster_ à raison d'un processus par CPU afin de répartir le trafic en fonction de la charge.
+
+----
+$ pm2 start app.js -i 0 --name nodebook-ch06-testapp
+----
+
+.Liste des processus gérés par _pm2_.
+image::images/pm2-status.png[align="center",width="85%"]
+
+L'ordinateur servant à la rédaction de l'ouvrage dispose de 4 CPU donc _pm2_ crée autant de processus en parallèle.
+
+L'application de démonstration affiche un nom aléatoire de Pokémon ainsi que l'identifiant du processus au sein du _cluster_ lors de la consultation de la page [URL]#http://localhost:4000#. +
+On s'en rend compte notamment en utilisant le programme `curl` (ou équivalent) :
+
+----
+$ curl --location http://localhost:4000
+> [cluster #2] Jynx
+
+$ curl --location http://localhost:4000
+> [cluster #1] Starmie
+----
+
+Les processus peuvent être stoppés indépendamment.
+L'application peut être redémarrée automatiquement en cas de plantage, et sans interruption après une mise à jour de la base de code, entre autres.
+
+[TIP]
+.[RemarquePreTitre]#Documentation# pm2
+====
+La documentation du projet _pm2_ liste en détails les actions et modules du programme.
+Des tutoriaux sont également à disposition pour décrire pas à pas différentes intégration, notamment avec le serveur HTTP _nginx_ ou d'autres langages comme _TypeScript_.
+
+- `$ pm2 --help`
+- [URL]#http://pm2.keymetrics.io/#
+- [URL]#https://github.com/Unitech/pm2#
+====
+
+[TIP]
+.[RemarquePreTitre]#Alternative# foreman
+====
+_foreman_ est un gestionnaire de processus très simple à appréhender.
+Il est utilisé pour déclarer et démarrer des applications sur la plate-forme d'<<paas,hébergement Heroku>>.
+
+- [URL]#https://rubygems.org/gems/foreman#
+- [URL]#http://ddollar.github.io/foreman/#
+====
 
 ==== Tout automatique
 
 Certains services d'hébergement prennent en charge le démarrage automatique de nos applications.
 C'est le cas notamment des hébergements de type _Platform as a Service_ (_PaaS_).
 
-Ces services vont se baser sur des *conventions* ou des fichiers de *configuration* pour comprendre la typologie de notre application et l'intégrer automatiquement.
+Ces services vont se baser sur des *conventions* ou des fichiers de *configuration* pour comprendre la nature de notre application et l'intégrer automatiquement.
 Ils se baseront souvent sur le <<../chapter-02/index.adoc#npm-scripts,script `npm start`>> et d'autres informations contenues dans le fichier `package.json`.
 
 Nous aborderons les principes de fonctionnement des <<paas,_Platform as a Service_>> dans une section ci-après.
@@ -579,81 +635,114 @@ Nous aborderons les principes de fonctionnement des <<paas,_Platform as a Servic
 [[hosting]]
 == Héberger une application Node
 
-=== Directement sur le port 80 ou 443
+Où faire vivre nos applications Node en dehors de notre ordinateur servant au développement ?
 
-TBD.
+Nous allons nous intéresser aux différents mécanismes exposant des applications Node au monde extérieur, que ce soit sur une machine dédiée ou sur des services en ligne.
 
-////
-tl;dr ne pas le faire
-////
+[[shared-hosting]]
+=== Hébergement mutualisé
+
+En {revisionYear}, aucun service d'hébergement mutualisé ne proposait de mécanisme pour déployer une application Node.
+
+Les hébergements mutualisés sont bon marché car ils se "contentent" de mutualiser un frontal HTTP et de servir des fichiers statiques et des scripts interprétés (écrits en PHP par exemple).
+
+Ce modèle est incompatible avec le démarrage d'un processus par application Node.
+
+[[paas]]
+=== Plate-forme de services (_Platform as a Service_)
+
+Les plates-formes de services *automatisent la configuration* et *facilitent le déploiement* de nos applications Node mais également Ruby, Python et PHP.
+Elles se spécialisent dans les déploiements rapides, l'allocation des ressources et le passage à l'échelle des applications.
+Leur philosophie est de *tout penser en terme de ressources et de services*.
+
+Chaque instance peut être dimensionnée en _puissance_ (de peu de CPU à beaucoup de CPU) et en _nombre_ (de 1 à plusieurs instances en parallèle).
+La plate-forme gère la distribution équilibrée du trafic web.
+Des *ressources complémentaires* sont disponibles séparément et à la demande : bases de données MySQL ou postgreSQL, envoi d'emails, moteur de recherche, monitoring, aggrégation des logs etc.
+
+Le principe de déploiement sur les plates-formes de services est réduit au quasi-minimum :
+
+. création d'une nouvelle application sur la plate-forme en ligne ;
+. nous _poussons_ notre code applicatif — généralement avec `git` ;
+. la plate-formùe prépare la mise en ligne en installant les dépendances _npm_ et en démarrant l'application web ;
+. notre application est fonctionnelle quelques secondes plus tard.
+
+Voici une sélection de services en ligne fournissant des plates-formes à la demande :
+
+- [URL]#https://zeit.co#
+- [URL]#https://clever-cloud.com/#
+- [URL]#https://gandi.net/hosting/simple#
+- [URL]#https://dashboard.heroku.com/#
+
+
+La startup californienne Zeit ([URL]#https://zeit.co#) édite un service de _déploiements immutables_ nommé _now_ ([URL]#https://zeit.co/now#) qui est focalisée sur l'hébergement de sites statiques, d'applications web Node et de conteneurs Docker.
+
+Sa particularité est de créer une *nouvelle instance d'application par déploiement* — à nous de désigner le déploiement associé à l'instance de production.
+
+----
+$ npm i -g now
+$ now
+----
+
+[TIP]
+.[RemarquePreTitre]#Documentation# now
+====
+Le fonctionnement de l'application _now_ est illustré et documenté à la fois en ligne et via un terminal de commandes.
+
+- `now --help`
+- [URL]#https://zeit.co/docs#
+====
+
+=== Serveur dédié, machine virtuelle etc.
+
+- [URL]#https://gandi.net/hosting/iaas#
+- [URL]#https://ovh.com/fr/#
+- [URL]#https://digitalocean.com/#
+- [URL]#https://aws.amazon.com/fr/ec2/#
+
+[TIP]
+.[RemarquePreTitre]#Alternative# AWS Elastic Beanstalk
+====
+
+- [URL]#https://aws.amazon.com/fr/elasticbeanstalk/#
+====
+
+==== Directement sur le port 80 ou 443
+
+Retenez une chose : *ne démarrez _jamais_ une application Node sur le port 80 ou 443* — ports utilisés par convention pour parler respectivement les protocoles HTTP et HTTPS.
+
+L'exemple suivant illustre un serveur web Node qui écoutera sur le port 80 :
+
+[source,javascript]
+.server-port80.js
+----
+include::{sourceDir}/server-port80.js[]
+----
+
+Cela ne fonctionnera pas, y compris si le port est libre.
+Tous les ports inférieurs à 1024 nécessitent que le programme soit lancé avec un utilisateur privilégié, comme _root_ par exemple.
+
+Alors pourquoi ne pas utiliser _root_ pour avoir accès au port 80 ou 443 ?
+<<system-security,Pour des raisons de sécurité>> comme évoqué précédemment dans ce chapitre.
+Donc même si c'est techniquement faisable, *non nous le ferons pas* et nous privilégierons d'autres mécanismes, notamment celui du <<reverse-proxy,_reverse proxy_>>.
+
+[TIP]
+.[RemarquePreTitre]#Alternative# authbind
+====
+Le logiciel libre pour Linux _authbind_ comble le besoin impérieux d'assigner un port privilégié mais à un _utilisateur sans privilège_.
+
+Il conviendra quand même de créer un utilisateur système avec des permissions limitées spécifiquement pour chaque application Node.
+
+- [URL]#http://manpages.ubuntu.com/authbind#
+====
 
 [[reverse-proxy]]
-=== Derrière un serveur HTTP (_Reverse Proxy_)
+==== Derrière un serveur HTTP (_Reverse Proxy_)
 
 TBD.
 
 ////
 - Apache
 - nginx
-////
-
-[[shared-hosting]]
-=== Hébergement mutualisé
-
-TBD.
-////
-- Alwaysdata
-////
-
-[[paas]]
-=== Plate-forme de services (_Platform as a Service_)
-
-TBD.
-
-////
-- Heroku
-- Clever Cloud
-////
-
-_Foreman_ est un programme écrit en Ruby.
-Il est destiné à gérer les multiples processus d'une même application. +
-C'est l'outil de déclaration de services utilisé par la plateforme _Heroku_.
-
-Vos différents processus sont à déclarer dans un fichier `Procfile`, somme toute assez simpliste :
-
-[source]
-.Procfile
-----
-web: node www.js
-api: PORT=$PORT node api.js
-worker: node bin/cli.js --retries 3
-----
-
-Le précédent exemple fait état de trois processus à démarrer, dont certains avec des arguments spécifiques.
-
-La commande suivante démarrera ces trois services, créera deux processus pour le module `api.js` en leur attribuant automatiquement un port différent grâce à :
-
-----
-foreman start -c api=2
-----
-
-[TIP]
-.[RemarquePreTitre]#Outil# foreman
-====
-D'autres fonctionnalités et paramètres de configuration sont expliqués dans la documentation officielle du projet :
-
-- [URL]#https://ddollar.github.io/foreman/#
-- [URL]#https://devcenter.heroku.com/articles/getting-started-with-nodejs#define-a-procfile#
-====
-
-[[aws]]
-=== Amazon Web Services (_AWS_)
-
-TBD.
-
-////
-- AMI EC2
-- Beanstalk
 ////
 
 [[lambda]]

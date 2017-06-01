@@ -2,8 +2,6 @@
 
 > Bonnes pratiques pour la programmation JavaScript applicative, universelle et modulaire
 
-![](cover.png?raw=1)
-
 # Table des matières
 
 | Écriture    | Relecture  | Chapitre
@@ -95,7 +93,7 @@ L’épreuve est consultable dans un navigateur Web via [oncletom.io/node.js][li
 
 La version Web est générée automatiquement et directement à partir des sources Asciidoc utilisées pour l'épreuve papier.
 
-Le livre sera disponible en rayons lorsque le Bon à Tirer (BAT) aura été signé (première moitié 2017).
+Le livre sera disponible en rayons lorsque le Bon à Tirer (BAT) aura été signé.
 
 # Mentions légales
 
