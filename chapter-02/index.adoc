@@ -725,7 +725,7 @@ include::{sourceDir}/server-crash.js[]
 
 Encore une fois, *il vaut mieux qu'un programme plante* plutôt que de le protéger faiblement avec `uncaughtException`.
 
-Il se peut qu'un aucun code ne capture une erreur dans une <<primitive-promise,promesse>>.
+Il se peut qu'aucun code ne capture une erreur dans une <<primitive-promise,promesse>>.
 C'est notamment le cas s'il n'y a aucun appel à `.catch()` après un `.then()`.
 
 L'événement du `process` `unhandledRejection` est alors émis, sans pour autant faire planter le programme.
