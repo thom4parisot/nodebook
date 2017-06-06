@@ -673,7 +673,7 @@ Service,Déploiement,Add-ons,Tarif
 [URL]#https://zeit.co#,API,-,15$/mois/10 apps
 [URL]#https://clever-cloud.com#,git,oui,5€/mois/app
 [URL]#https://gandi.net/hosting/simple#,"git, SSH ou API",-,5€/mois/app
-[URL]#https://heroku.com#,git,oui,7$/mois/app
+[URL]#https://heroku.com#,"git, GitHub ou Dropbox",oui,7$/mois/app
 |===
 
 La startup californienne Zeit ([URL]#https://zeit.co#) édite le service de _déploiements immutables_ nommé _now_ ([URL]#https://zeit.co/now#).
@@ -711,13 +711,27 @@ Il ne nous reste alors plus qu'à <<app-configuration,configurer nos application
 .Ensemble de ressources complémentaires à une application Node hébergée sur Heroku.
 image::images/heroku-addons.png[align="center",width="85%"]
 
-Les plates-formes en tant que service sont facturées à l'heure consommée et peuvent être mis en _pause_.
-Elles ont l'avantage d'être rapidement déployables, faciles à prendre en main et ne nécessitent que peu (voire pas) de connaissance en administration de machine informatique.
+ifeval::["{backend}" == "html5"]
+.Exemple de déploiement applicatif vers Heroku.
+video::videos/heroku-deploy.mp4[align="center", width="70%"]
+endif::[]
 
-Le paiement à l'heure _et_ à l'instance peut rapidement saler l'addition et questionner l'utilisation de ce type de services en lieu et place d'un serveur dédié par exemple. +
+ifeval::["{backend}" != "html5"]
+.Exemple de déploiement applicatif vers Heroku.
+image::images/heroku-deploy.png[align="center",width="85%"]
+endif::[]
+
+Les plates-formes en tant que service facturent à l'heure consommée.
+Elles sont en génral faciles à prendre en main et ne nécessitent pas de connaissance en administration de machine informatique. +
+Les instances d'application ont l'avantage d'être rapidement déployées, peuvent être mises en _pause_ et s'adapter au trafic ainsi qu'à notre budget.
+
+Le paiement à l'heure _et_ à l'instance peut rapidement saler l'addition et questionner l'utilisation de ce type de services en lieu et place d'un <<vm-hosting,serveur dédié ou d'une machine virtuelle>>. +
 La question est de savoir combien de notre temps nous souhaitons passer à maintenir une infrastructure — du temps qui coûte également de l'argent.
 
+[[vm-hosting]]
 === Serveur dédié, machine virtuelle etc.
+
+
 
 - [URL]#https://gandi.net/hosting/iaas#
 - [URL]#https://ovh.com/fr/#
