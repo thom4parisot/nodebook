@@ -663,15 +663,18 @@ Le principe de déploiement sur les plates-formes de services est réduit au qua
 
 . création d'une nouvelle application sur la plate-forme en ligne ;
 . nous _poussons_ notre code applicatif — généralement avec `git` ;
-. la plate-formùe prépare la mise en ligne en installant les dépendances _npm_ et en démarrant l'application web ;
+. la plate-forme prépare la mise en ligne en installant les dépendances _npm_ et en démarrant l'application web ;
 . notre application est fonctionnelle quelques secondes plus tard.
 
-Voici une sélection raisonnable de plates-formes à la demande :
-
-- [URL]#https://zeit.co#
-- [URL]#https://clever-cloud.com/#
-- [URL]#https://gandi.net/hosting/simple#
-- [URL]#https://dashboard.heroku.com/#
+[format="csv", options="header"]
+.Sélection de plates-formes en tant que service
+|===
+Service,Déploiement,Add-ons,Tarif
+[URL]#https://zeit.co#,API,-,15$/mois/10 apps
+[URL]#https://clever-cloud.com#,git,oui,5€/mois/app
+[URL]#https://gandi.net/hosting/simple#,"git, SSH ou API",-,5€/mois/app
+[URL]#https://heroku.com#,git,oui,7$/mois/app
+|===
 
 La startup californienne Zeit ([URL]#https://zeit.co#) édite le service de _déploiements immutables_ nommé _now_ ([URL]#https://zeit.co/now#).
 Ce service est focalisée sur l'hébergement de sites statiques, d'applications web Node et de conteneurs Docker.
