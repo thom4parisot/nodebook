@@ -4,6 +4,13 @@ Pour en savoir plus: [annonce la résidence itinérante](https://oncletom.io/201
 
 # Journal
 
+## Mardi 6 juin
+
+- _Chapitre 6_ : fournisseurs de Plate-forme en tant que service sous forme de tableau
+- _Chapitre 6_ : exemple de déploiement d'une application sur Heroku
+
+**Moral** : 🙂
+
 ## Jeudi 1 juin
 
 - _Chapitre 6_ : Plate-forme en tant que service
