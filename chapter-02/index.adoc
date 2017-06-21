@@ -2083,7 +2083,7 @@ const setupFormatter = require('./currency-format.js'); <2>
 <1> Node interprète d'abord cette ligne… ;
 <2> … puis interprète celle-ci dès que le module `path` est chargé.
 
-Qui dit bloquant dit que si du code exécuté dans le module _avant_ l'export ralentira l'exécution tant que le module n'aura pas été mis en cache. +
+Qui dit bloquant dit que si du code est exécuté dans le module _avant_ l'export, il ralentira l'exécution tant que le module n'aura pas été mis en cache. +
 L'exemple suivant illustre le phénomène :
 
 [source,javascript]
