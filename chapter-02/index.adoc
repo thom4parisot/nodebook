@@ -2235,7 +2235,7 @@ const date = Date.now();
 En effet, le résultat est retourné _immédiatement_ à la suite de l'invocation de la fonction.
 La notion d'_immédiateté_ correspond en réalité à un temps variable — dans le cas de cette fonction, à quelques nano-secondes.
 
-Maintenant tentons de lire de manière asynchrone le contenu d'un fichier après s'être assuré de son existence :
+Maintenant tentons de lire de manière asynchrone le contenu d'un fichier :
 
 [source,javascript]
 .pattern/async.js
@@ -2243,7 +2243,7 @@ Maintenant tentons de lire de manière asynchrone le contenu d'un fichier après
 include::{sourceDir}/pattern/async.js[]
 ----
 
-Puisque les méthodes `exists` et `readFile` ne retournent pas de résultat dans le même cycle d'_Event loop_, il faut bien que le résultat soit transmis d'une manière ou d'une autre.
+Puisque la méthode `readFile` ne retourne pas de résultat dans le même cycle d'_Event loop_, il faut bien que le résultat soit transmis d'une manière ou d'une autre.
 
 Le design pattern _callback_ est employé pour retourner le résultat et le cas échéant, une erreur.
 Ce design pattern est expliqué plus en détail dans une section suivante de ce même chapitre.
