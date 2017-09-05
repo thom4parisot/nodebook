@@ -1,6 +1,8 @@
 'use strict'
 
+const {join} = require('path');
 const processor = require('asciidoctor.js')();
+const runnerExtension = require('asciidoctor-extension-interactive-runner');
 const BUILD_DIR = 'dist';
 
 var DEFAULT_ATTRIBUTES = [
@@ -15,11 +17,13 @@ var DEFAULT_ATTRIBUTES = [
 
 const FILES = process.argv.slice(2);
 
+processor.Extensions.register(runnerExtension);
+
 FILES.forEach(SOURCE_FILE => {
   const destinationFile = SOURCE_FILE.replace('.adoc', '.html');
-  // FIXME: Add docinfo1 attribute when Asciidoctor.js will handle missing docinfo file correctly
+  console.log(`${SOURCE_FILE} -> ${destinationFile}`);
 
-  processor.convertFile(SOURCE_FILE, {
+  processor.convertFile(join(__dirname, '..', SOURCE_FILE), {
     'to_file': `${BUILD_DIR}/${destinationFile}`,
     'mkdirs': true,
     'safe': 'unsafe',
