@@ -815,7 +815,7 @@ Chaque élément d'une chaîne de caractères est encodé au format UTF-16 et pe
 
 L'opérateur `typeof` permet d'identifier une chaîne :
 
-[source,javascript]
+[source%interactive,javascript]
 ----
 typeof 'Eyrolles'; <1>
 ----
@@ -823,7 +823,7 @@ typeof 'Eyrolles'; <1>
 
 On peut connaître la longueur d'une chaîne via son attribut `length`.
 
-[source,javascript]
+[source%interactive,javascript]
 ----
 'I ♥ JavaScript'.length; <1>
 ----
@@ -831,7 +831,7 @@ On peut connaître la longueur d'une chaîne via son attribut `length`.
 
 On peut nettoyer les espaces englobant une chaîne avec la méthode `trim` :
 
-[source,javascript]
+[source%interactive,javascript]
 ----
 '  w w w  '.trim(); <1>
 ----
@@ -839,7 +839,7 @@ On peut nettoyer les espaces englobant une chaîne avec la méthode `trim` :
 
 On peut connaître la position d'un ou plusieurs caractères via la méthode `indexOf` :
 
-[source,javascript]
+[source%interactive,javascript]
 ----
 'I ♥ JavaScript'.indexOf('JavaScript'); <1>
 'I ♥ JavaScript'.indexOf('I'); <2>
@@ -851,7 +851,7 @@ On peut connaître la position d'un ou plusieurs caractères via la méthode `in
 
 On peut collecter les occurrences correspondantes à un masque de caractères via la méthode `match` :
 
-[source,javascript]
+[source%interactive,javascript]
 ----
 'I ♥ JavaScript'.match('♥'); <1>
 'I ♥ JavaScript'.match(/\wa/g); <2>
@@ -863,7 +863,7 @@ On peut collecter les occurrences correspondantes à un masque de caractères vi
 
 On peut remplacer les occurrences correspondantes à un masque de caractères via la méthode `replace` :
 
-[source,javascript]
+[source%interactive,javascript]
 ----
 'I ♥ JavaScript'.replace('♥', 'love'); // <1>
 'I ♥ JavaScript'.replace(/[A-Z]/g, (char) => char.toLowerCase()); // <2>
@@ -873,7 +873,7 @@ On peut remplacer les occurrences correspondantes à un masque de caractères vi
 
 Les _template literals_ servent à composer des chaînes de caractères multilignes et/ou contenant des expressions ECMAScript :
 
-[source,javascript]
+[source%interactive,javascript]
 .primivite-template-literals.js
 ----
 include::{sourceDir}/primitives/template-literals.js[]
@@ -884,7 +884,7 @@ Les _template literals_ peuvent se préfixer d'un nom de fonction.
 Ce mécanisme nommé _tagged template literals_ sert de filtre pour interpréter et interpoler le contenu de chaque _template_ (élément contenu dans `${}`). Vous pouvez écrire vos propres fonctions mais aussi utiliser des modules _npm_. +
 L'exemple suivant illustre une sécurisation de contenu tiers à l'aide de la fonction `safeHtml` fournie par le module `common-tags` ([URL]#https://npmjs.com/common-tags#) :
 
-[source,javascript]
+[source%interactive,javascript]
 .primivite-template-literal-tags.js
 ----
 include::{sourceDir}/primitives/tagged-template-literals.js[]
@@ -899,7 +899,7 @@ include::{sourceDir}/primitives/tagged-template-literals.js[]
 Un booléen est une donnée de type logique qui peut être _vraie_ ou _fausse_ en prenant respectivement la valeur `true` ou `false`.
 C'est un type de choix pour effectuer des _assertions_ et vérifier des _conditions_.
 
-[source,javascript]
+[source%interactive,javascript]
 .primitives/bool.js
 ----
 include::{sourceDir}/primitives/bool.js[]
@@ -915,7 +915,7 @@ Toute valeur non-nulle convertie en booléen retournera `true`.
 On dit alors que cette valeur est `truthy`.
 À l'inverse, une valeur nulle, vide ou indéfinie sera dite `falsy` – `null`, `0`, `''`, `undefined`, `false` et `NaN`.
 
-[source,javascript]
+[source%interactive,javascript]
 .primitives/bool-truthy-falsy.js
 ----
 include::{sourceDir}/primitives/bool-truthy-falsy.js[]
@@ -945,7 +945,7 @@ Un nombre peut donc contenir 64 bits de données, comme en Python et PHP, entre 
 
 L'opérateur `typeof` permet d'identifier un nombre :
 
-[source,javascript]
+[source%interactive,javascript]
 ----
 typeof 42;    // <1>
 typeof 13.37; // <1>
@@ -959,7 +959,7 @@ On peut effectuer des opérations mathématiques grâce aux opérateurs `+` (add
 L'exception dont il faut se méfier est l'addition, car le signe `+` est également l'opérateur de concaténation de chaîne. +
 Dès qu'une chaîne est détectée, l'opération d'addition est remplacée par une concaténation.
 
-[source,javascript]
+[source%interactive,javascript]
 ----
 1 + 2;    // <1>
 '1' + 2;  // <2>
@@ -972,7 +972,7 @@ undefined + 2; // <3>
 
 Les fonctions `parseInt` et `parseFloat` permettent de respectivement de convertir en nombre entier et nombre flottant :
 
-[source,javascript]
+[source%interactive,javascript]
 ----
 typeof 2.10 === 'number';
 typeof '2.10' === 'string';
@@ -991,7 +991,7 @@ Le second argument de la fonction `parseInt` indique dans quelle base la valeur 
 
 La méthode `isNaN` permet d'être sûr de ne pas manipuler un nombre indésirable :
 
-[source,javascript]
+[source%interactive,javascript]
 ----
 Number.isNaN(undefined + 1);  // <1>
 Number.isNaN(2.10);           // <2>
@@ -1003,7 +1003,7 @@ Number.isNaN(undefined);      // <2>
 Il également possible de choisir le nombre de décimales après la virgule avec la méthode `toFixed`. +
 Attention toutefois, la valeur retournée est de type `String` :
 
-[source,javascript]
+[source%interactive,javascript]
 ----
 10.0101.toFixed(2);   // <1>
 10.0101.toFixed(0);   // <2>
@@ -1030,7 +1030,7 @@ Les fonctions anonymes sont fréquemment employées en tant que _callbacks_ ou d
 
 Il est important de noter que la déclaration d'une fonction et son exécution sont deux choses différentes.
 
-[source,javascript]
+[source%interactive,javascript]
 .primitives/function.js
 ----
 include::{sourceDir}/primitives/function.js[]
@@ -1063,7 +1063,7 @@ Une syntaxe abrégée est disponible via les fonctions fléchées :
 Il est possible de composer des fonctions à partir d'autres fonctions en utilisant la méthode `bind`.
 Ce _pattern_ est extrêmement puissant car il permet de modifier le contexte d'exécution de ladite fonction.
 
-[source,javascript]
+[source%interactive,javascript]
 .primitives/function-bind.js
 ----
 include::{sourceDir}/primitives/function-bind.js[]
@@ -1073,7 +1073,7 @@ include::{sourceDir}/primitives/function-bind.js[]
 
 `bind` est également capable de créer une nouvelle fonction à laquelle vous auriez appliqué partiellement des arguments :
 
-[source,javascript]
+[source%interactive,javascript]
 .primitives/function-partials.js
 ----
 include::{sourceDir}/primitives/function-partials.js[]
@@ -1086,7 +1086,7 @@ Ce procédé est particulièrement utile pour rendre des fonctions génériques 
 Les méthodes `call` et `apply` reposent sur le même principe mais à la différence de `bind`, elles exécutent immédiatement la fonction.
 Le seul élément différenciant correspond à la syntaxe d'application des arguments :
 
-[source,javascript]
+[source%interactive,javascript]
 .primitives/function-call-apply.js
 ----
 include::{sourceDir}/primitives/function-call-apply.js[]
@@ -1098,7 +1098,7 @@ include::{sourceDir}/primitives/function-call-apply.js[]
 
 L'opérateur `typeof` ne permet pas d'identifier un tableau. Il faut pour cela privilégier la méthode `isArray` :
 
-[source,javascript]
+[source%interactive,javascript]
 ----
 typeof [];        // <1>
 Array.isArray([]);// <2>
@@ -1108,7 +1108,7 @@ Array.isArray([]);// <2>
 
 Il est possible de connaître la longueur d'un tableau en utilisant la propriété `length` :
 
-[source,javascript]
+[source%interactive,javascript]
 ----
 [1, 2, 3].length; // <1>
 ----
@@ -1116,7 +1116,7 @@ Il est possible de connaître la longueur d'un tableau en utilisant la propriét
 
 La méthode `join` permet de concaténer tous les éléments d'un tableau avec le séparateur de votre choix :
 
-[source,javascript]
+[source%interactive,javascript]
 ----
 [1, 2, 3].join(', ') + '… soleil';  // <1>
 ----
@@ -1124,7 +1124,7 @@ La méthode `join` permet de concaténer tous les éléments d'un tableau avec l
 
 À l'inverse, la méthode `from` prend en charge la création de tableau à partir d'_itérables_ ou de structures similaires à des tableaux, comme `arguments` ou `NodeList` (dans un navigateur).
 
-[source,javascript]
+[source%interactive,javascript]
 .primivite-array-from.js
 ----
 include::{sourceDir}/primitives/array-from.js[]
@@ -1135,7 +1135,7 @@ include::{sourceDir}/primitives/array-from.js[]
 
 En complément, la méthode `concat` permet de concaténer d'autres éléments :
 
-[source,javascript]
+[source%interactive,javascript]
 ----
 include::{sourceDir}/primitives/array-concat.js[]
 ----
@@ -1145,7 +1145,7 @@ include::{sourceDir}/primitives/array-concat.js[]
 
 La fonction de tri via la méthode `sort` se base sur des comparaisons positives, négatives ou neutres pour retourner un nouveau tableau, réindexé :
 
-[source,javascript]
+[source%interactive,javascript]
 ----
 [1, 3, 2].sort((a, b) => a - b);  // <1>
 [1, 3, 2].sort((a, b) => b - a);  // <2>
@@ -1161,7 +1161,7 @@ Elles facilitent énormément les itérations sur les tableaux tout en ajoutant 
 
 La méthode `map` permet de retourner un nouveau tableau avec des valeurs modifiées :
 
-[source,javascript]
+[source%interactive,javascript]
 .primitives/array-map.js
 ----
 include::{sourceDir}/primitives/array-map.js[]
@@ -1170,7 +1170,7 @@ include::{sourceDir}/primitives/array-map.js[]
 
 La méthode `filter` quant à elle retourne un nouveau tableau ne contenant que les éléments retournant un <<primitive-boolean,booléen _truthy_>> :
 
-[source,javascript]
+[source%interactive,javascript]
 .primitives/array-filter.js
 ----
 include::{sourceDir}/primitives/array-filter.js[]
@@ -1180,7 +1180,7 @@ include::{sourceDir}/primitives/array-filter.js[]
 
 De manière similaire, les méthodes `some` et `every` retournent un booléen si _au moins une itération_ et _toutes les itérations_ ont renvoyé une _valeur positive_ :
 
-[source,javascript]
+[source%interactive,javascript]
 .primitives/array-some.js
 ----
 include::{sourceDir}/primitives/array-some.js[]
@@ -1191,7 +1191,7 @@ include::{sourceDir}/primitives/array-some.js[]
 
 ECMAScript 2015 introduit les méthodes `find` et `findIndex`, respectivement pour retourner une valeur et son index selon une fonction prédicat :
 
-[source,javascript]
+[source%interactive,javascript]
 .primitives/array-find.js
 ----
 include::{sourceDir}/primitives/array-find.js[]
@@ -1202,7 +1202,7 @@ include::{sourceDir}/primitives/array-find.js[]
 
 La méthode `reduce` a un comportement similaire à `sort` mais fonctionne de manière accumulative :
 
-[source,javascript]
+[source%interactive,javascript]
 .primitives/array-reduce.js
 ----
 include::{sourceDir}/primitives/array-reduce.js[]
@@ -1236,7 +1236,7 @@ Dans ECMAScript, tout est objet. C'est le _prototype_ qui détermine le comporte
 Les objets peuvent être créés de manière littérale, avec la fonction `Object.create` ou via un constructeur. +
 À la différence d'un `Array`, il est possible de nommer une clé par une chaîne de caractères – statique ou dynamique – ou avec un <<primitive-symbol,symbole>>.
 
-[source,javascript]
+[source%interactive,javascript]
 .primitives/object.js
 ----
 include::{sourceDir}/primitives/object.js[]
@@ -1250,7 +1250,7 @@ L'opérateur `typeof` permet d'identifier la primitive d'une variable — au sen
 
 L'opérateur `instanceof` ou la méthode `getPrototypeOf` permettent justement de comparer les appartenances logiques.
 
-[source,javascript]
+[source%interactive,javascript]
 .primitives/object-typeof-instanceof.js
 ----
 include::{sourceDir}/primitives/object-typeof-instanceof.js[]
@@ -1263,7 +1263,7 @@ include::{sourceDir}/primitives/object-typeof-instanceof.js[]
 
 `Object.keys` extrait les propriétés énumérables d'un objet, à la différence de `Object.getOwnPropertyNames()` :
 
-[source,javascript]
+[source%interactive,javascript]
 .primitives/object-keys.js
 ----
 include::{sourceDir}/primitives/object-keys.js[]
@@ -1275,7 +1275,7 @@ include::{sourceDir}/primitives/object-keys.js[]
 `Object.defineProperty` permet de régler finement d'autres spécificités d'un objet, dont des *accesseurs* (_getters_) et des *mutateurs* (_setters_).
 Ces attributs spéciaux nous autorisent la création de _propriétés calculées_, de _propriétés en lecture seule_ ou de _maitriser l'écriture d'une propriété_ :
 
-[source,javascript]
+[source%interactive,javascript]
 .primitives/object-getters.js
 ----
 include::{sourceDir}/primitives/object-getters.js[]
@@ -1302,7 +1302,7 @@ Enfin, les propriétés sont assignées _uniquement_ à l'objet `book`. Si nous 
 Nous pouvons définir des _accesseurs_ et des _mutateurs_ avec une notation raccourcie, ayant exactement le même effet.
 Reprenons l'exemple précédent :
 
-[source,javascript]
+[source%interactive,javascript]
 .primitives/object-getters-shorthand.js
 ----
 include::{sourceDir}/primitives/object-getters-shorthand.js[]
@@ -1314,7 +1314,7 @@ include::{sourceDir}/primitives/object-getters-shorthand.js[]
 `Object.assign` étend des structures existantes et la définition de valeurs par défaut.
 Les clés et valeurs sont copiées de gauche à droite avant d'être assignées dans le premier paramètre :
 
-[source,javascript]
+[source%interactive,javascript]
 .primitives/object-assign.js
 ----
 include::{sourceDir}/primitives/object-assign.js[]
@@ -1328,7 +1328,7 @@ include::{sourceDir}/primitives/object-assign.js[]
 
 L'opérateur `typeof` ne permet pas d'identifier une date. Il convient d'utiliser `instanceof` :
 
-[source,javascript]
+[source%interactive,javascript]
 ----
 typeof (new Date('2014-03-24'));  // <1>
 (new Date('2014-03-24 13:37')) instanceof Date; // <2>
@@ -1340,7 +1340,7 @@ typeof Date.parse('2014-03-24 13:37');          // <3>
 
 Il également possible d'obtenir la date actuelle exprimée en millisecondes avec `Date.now` :
 
-[source,javascript]
+[source%interactive,javascript]
 ----
 Date.parse(new Date()); // <1>
 Date.now();             // <2>
@@ -1356,7 +1356,7 @@ La décomposition n'altère pas le contenu des variables décomposées.
 
 Les valeurs d'un tableau sont décomposées dans l'ordre tandis que l'opérateur _spread_ (`...`) permet d'assigner le _reste_ des valeurs dans une seule et même variable ou constante :
 
-[source,javascript]
+[source%interactive,javascript]
 .primitives/destructuring-array.js
 ----
 include::{sourceDir}/primitives/destructuring-array.js[]
@@ -1368,7 +1368,7 @@ include::{sourceDir}/primitives/destructuring-array.js[]
 
 Il est également possible de _sauter_ des valeurs en ne nommant pas _autant_ de variables ou de constantes lors de la décomposition :
 
-[source,javascript]
+[source%interactive,javascript]
 .primitives/destructuring-spread.js
 ----
 include::{sourceDir}/primitives/destructuring-spread.js[]
@@ -1379,7 +1379,7 @@ include::{sourceDir}/primitives/destructuring-spread.js[]
 
 Le même mécanisme existe pour les <<primitives/object,objets>>, y compris dans des arguments de fonction :
 
-[source,javascript]
+[source%interactive,javascript]
 .primitives/destructuring-object.js
 ----
 include::{sourceDir}/primitives/destructuring-object.js[]
@@ -1394,7 +1394,7 @@ include::{sourceDir}/primitives/destructuring-object.js[]
 
 Comme indiqué en début de section, il est possible de nommer les clés de manière dynamique mais aussi d'utiliser une syntaxe raccourcie d'assignation de valeur :
 
-[source,javascript]
+[source%interactive,javascript]
 .primitive-object-advanced.js
 ----
 include::{sourceDir}/primitives/object-advanced.js[]
@@ -1410,7 +1410,7 @@ include::{sourceDir}/primitives/object-advanced.js[]
 
 Les _paramètres du reste_ (_rest parameters_) utilisent une syntaxe identique à la _décomposition_ mais opèrent au niveau des arguments de fonctions :
 
-[source,javascript]
+[source%interactive,javascript]
 .primitives/rest.js
 ----
 include::{sourceDir}/primitives/rest.js[]
@@ -1433,7 +1433,7 @@ Elles font penser respectivement à `Object` et `Array` mais diffèrent de ces p
 - elles exposent la *même interface* de navigation et de manipulation ;
 - elles peuvent être créées à partir d'un __itérable__ ou d'un tableau (de valeurs ou de clés+valeurs).
 
-[source,javascript]
+[source%interactive,javascript]
 .primitive-set.js
 ----
 include::{sourceDir}/primitives/set.js[]
@@ -1453,7 +1453,7 @@ include::{sourceDir}/primitives/set.js[]
 - l'itération est très simple avec `for..of`, `forEach` ou même en utilisant la <<primitive-destructuring,décomposition>>.
 
 
-[source,javascript]
+[source%interactive,javascript]
 .primitive-map.js
 ----
 include::{sourceDir}/primitives/map.js[]
@@ -1492,7 +1492,7 @@ Tout ce que nous attachions auparavant à une _fonction_, nous nous référons d
 En voici un exemple de définition :
 
 
-[source,javascript]
+[source%interactive,javascript]
 .class-view.js
 ----
 include::{sourceDir}/class-view.js[]
@@ -1506,7 +1506,7 @@ La définition de la classe `View` comporte trois fonctions :
 
 L'exemple suivant illustre le comportement de la classe `View` :
 
-[source,javascript]
+[source%interactive,javascript]
 .primitives/class-constructor.js
 ----
 include::{sourceDir}/primitives/class-constructor.js[]
@@ -1520,7 +1520,7 @@ include::{sourceDir}/primitives/class-constructor.js[]
 Nous l'avons vu précédemment au niveau des <<primitive-object,objets>>, ECMAScript permet de définir des accesseurs. +
 L'exemple suivant illustre leur définition au sein d'une classe :
 
-[source,javascript]
+[source%interactive,javascript]
 .primitives/class-accessors.js
 ----
 include::{sourceDir}/primitives/class-accessors.js[]
@@ -1533,7 +1533,7 @@ La logique des accesseurs est ainsi partagée entre _tous les objets_ étant des
 
 L'exemple suivant illustre deux classes héritant de notre classe `View` :
 
-[source,javascript]
+[source%interactive,javascript]
 .primitives/class-extends.js
 ----
 include::{sourceDir}/primitives/class-extends.js[]
@@ -1585,7 +1585,7 @@ Une `Promise` consiste à appeler un _constructeur_ implémentant le _pattern_ _
 Le constructeur transmet les fonctions d'exécution permettant de _résoudre_ la promesse, _positivement_ en appelant `resolve` ou _négativement_, en appelant `reject`. +
 `resolve` et `reject` transmettent les valeurs passées en argument à vos _callbacks_ souscrivant respectivement à `then` et `catch`.
 
-[source,javascript]
+[source%interactive,javascript]
 .primitives/promise.js
 ----
 include::{sourceDir}/primitives/promise.js[]
@@ -1597,7 +1597,7 @@ include::{sourceDir}/primitives/promise.js[]
 
 L'exemple suivant illustre une encapsulation de la fonction `fs.readFile` de Node en tant que promesse :
 
-[source,javascript]
+[source%interactive,javascript]
 .primitives/readfile.js
 ----
 include::{sourceDir}/primitives/readfile.js[]
@@ -1614,7 +1614,7 @@ Les plus couramment employées sont `then` et `catch`:
 
 Illustrons désormais la consommation d'une promesse en se basant sur le code précédent :
 
-[source,javascript]
+[source%interactive,javascript]
 .primitives/promise-readfile.js
 ----
 include::{sourceDir}/primitives/promise-readfile.js[]
@@ -1629,7 +1629,7 @@ Elle sera résolue positivement lorsque toutes les promesses passées en argumen
 
 Reprenons le précédent exemple pour compter _en parallèle_ les dépendances de trois fichiers `package.json` :
 
-[source,javascript]
+[source%interactive,javascript]
 .primitives/promise-all.js
 ----
 include::{sourceDir}/primitives/promise-all.js[]
@@ -1690,7 +1690,7 @@ $ node un-script.js
 
 Reprenons une nouvelle fois notre exemple précédent, en combinant la transformation en promesses et les opérateurs `async` et `await` :
 
-[source,javascript]
+[source%interactive,javascript]
 .primitives/async-await.js
 ----
 include::{sourceDir}/primitives/async-await.js[]
@@ -1715,7 +1715,7 @@ Elles sont inspirées de l'implémentation dans Perl 5.
 
 L'opérateur `instanceof` permet d'identifier une instance d'expression régulière :
 
-[source,javascript]
+[source%interactive,javascript]
 ----
 /Eyroll?es/g instanceof RegExp; <1>
 (new RegExp('Eyroll?es', 'g')) instanceof RegExp; <1>
@@ -1724,7 +1724,7 @@ L'opérateur `instanceof` permet d'identifier une instance d'expression réguli�
 
 La méthode `exec` permet de capturer les occurrences d'une expression régulière au sein d'une chaîne de caractères :
 
-[source,javascript]
+[source%interactive,javascript]
 ----
 /(.+)(Script)/.exec('ECMAScript'); <1>
 ----
@@ -1736,7 +1736,7 @@ Plusieurs drapeaux peuvent être utilisés :
 - `i` pour ne pas tenir compte de la casse ;
 - `m` pour que les caractères `^` et `$` correspondent respectivement au début et à la fin d'une ligne au lieu du début et de la fin de la chaîne ;
 
-[source,javascript]
+[source%interactive,javascript]
 ----
 let re;
 const text = ['JavaScript', 'ECMAScript'].join("\n");
@@ -1776,7 +1776,7 @@ Il faut juste veiller à ce que ce soit un résultat escompté pour éviter tout
 
 À la manière de `exec`, la méthode `test` se contente de renvoyer un booléen si un motif a été trouvé ou non :
 
-[source,javascript]
+[source%interactive,javascript]
 ----
 /(.+)(Script)/.test('ECMAScript'); <1>
 ----
@@ -1791,7 +1791,7 @@ La sécurité de cette consommation a été améliorée de par sa prise en charg
 
 La fonction `JSON.parse` tente de convertir une chaîne de texte supposée au format JSON en un objet natif :
 
-[source,javascript]
+[source%interactive,javascript]
 ----
 const jsonContent = '{ "ECMAScript": 5.1 }';
 
@@ -1813,7 +1813,7 @@ catch (err) {
 
 À l'inverse, la fonction `JSON.stringify` convertit un objet natif en chaîne de caractères au format JSON :
 
-[source,javascript]
+[source%interactive,javascript]
 ----
 JSON.stringify({ ECMAScript: 5.1 }); <1>
 JSON.stringify({ ECMAScript: 5.1 }, null, 2); <2>
@@ -1850,7 +1850,7 @@ Trois fonctions sont à garder dans un coin de la tête :
 `console.log` affiche une représentation textuelle d'une expression et la formate avec des motifs équivalents à la fonction C `printf()`. +
 Ce contenu est envoyé vers la sortie standard, `process.stdout` :
 
-[source,javascript]
+[source%interactive,javascript]
 ----
 console.log('ECMA%s', 'script'); // <1>
 ----
@@ -1891,7 +1891,7 @@ Il permet de s'interfacer avec le système, en écoutant les évènements qu'il 
 
 Le tableau `process.argv` contient le chemin du script exécuté ainsi que les différents arguments transmis à Node :
 
-[source,javascript]
+[source%interactive,javascript]
 .process.js
 ----
 include::{sourceDir}/process.js[]
@@ -2163,7 +2163,7 @@ Pour en savoir plus sur le fonctionnement de la fonction `require`, reportez-vou
 
 `\__filename` et `__dirname` sont des constantes indiquant respectivement le chemin absolu du fichier exécuté et le chemin absolu du répertoire contenant le fichier exécuté.
 
-[source,javascript]
+[source%interactive,javascript]
 .filename-dirname.js
 ----
 include::{sourceDir}/filename-dirname.js[]
@@ -2181,7 +2181,7 @@ Pour rappel, ces fonctions de temps ne font pas partie de JavaScript mais de la 
 
 Ces fonctions exécutent une fonction respectivement une seule fois dans un délai imparti, un nombre de fois indéterminé à un intervalle imparti et une seule fois immédiatement :
 
-[source,javascript]
+[source%interactive,javascript]
 ----
 const print = (message) => {
   return print(){
@@ -2740,7 +2740,7 @@ Mais les _patterns_ précédents n'adressent pas la problématique de mémoire.
 
 Prenons un exemple courant : télécharger un fichier distant et le stocker sur disque.
 
-[source,javascript]
+[source%interactive,javascript]
 .streams-http-async.js
 ----
 include::{sourceDir}/streams-http-async.js[]
@@ -2761,7 +2761,7 @@ Que se passe-t-il dans le précédent exemple ?
 Les _streams_ servent très précisément à résoudre ces inconvénients.
 Rectifions notre précédent exemple :
 
-[source,javascript]
+[source%interactive,javascript]
 .streams-http.js
 ----
 include::{sourceDir}/streams-http.js[]
@@ -3070,7 +3070,7 @@ Par exemple, si votre projet `A` installe `gulp-webserver` en `devDependencies` 
 ====
 Les modules installés sont désormais manipulables via la fonction `require` au sein de notre code :
 
-[source,javascript]
+[source%interactive,javascript]
 ----
 const async = require('async');
 const { argv } = require('yargs');

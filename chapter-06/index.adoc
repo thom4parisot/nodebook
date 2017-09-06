@@ -122,7 +122,7 @@ Il est *recommandé d'utiliser `NODE_ENV=production`… en production*.
 L'exemple suivant décrit comment définir le _port réseau_ sur lequel écoutera le serveur HTTP.
 Le numéro du port sera déterminé soit par le contexte d'exécution (_environnement de test_ ou _environnement de production_) soit par un numéro de port explicitement passée en tant que _variable d'environnement_.
 
-[source,javascript]
+[source%interactive,javascript,nodeVersion={nodeCurrentVersion}]
 .config/env.js
 ----
 include::{sourceDir}/config/env.js[]
