@@ -9,6 +9,7 @@ Pour en savoir plus: [annonce la résidence itinérante](https://oncletom.io/201
 - _Tous les chapitres_ : passage de `node@6` à `node@8`
 - _Tous les chapitres_ : quelques corrections de typo texte/`eslint`
 - _npm_ : la prévisualisation du livre fonctionne dans tous les navigateurs, sans l'extension Asciidoctor
+- _web_ : active la coloration syntaxique des blocs de code
 
 ---
 

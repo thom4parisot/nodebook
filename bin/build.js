@@ -12,7 +12,8 @@ var DEFAULT_ATTRIBUTES = [
   'lang=fr',
   'env=ci',
   'hide-uri-scheme',
-  'experimental'
+  'experimental',
+  'source-highlighter=highlightjs'
 ];
 
 const FILES = process.argv.slice(2);
