@@ -7,9 +7,10 @@
     "build:html": "node bin/build.js index.adoc chapter-*/index.adoc foreword/*.adoc appendix-*/*.adoc",
     "format": "prettier-eslint --write 'chapter*/**/*.js'",
     "lint": "eslint --fix '**/*.js'",
+    "prestart": "npm run build:html",
+    "start": "node server.js",
     "test": "exit 0",
-    "posttest": "npm run lint",
-    "prepush": "npm t"
+    "posttest": "npm run lint"
   },
   "engines": {
     "node": "^8.0.0"
@@ -30,26 +31,29 @@
   },
   "homepage": "https://oncletom.io/node.js",
   "dependencies": {
-    "finalhandler": "^0.4.0",
-    "get-port": "^2.1.0",
-    "opn": "^4.0.2",
-    "serve-static": "^1.5.1",
-    "update-notifier": "^2.1.0",
+    "finalhandler": "^1.1.0",
+    "get-port": "^3.2.0",
+    "opn": "^5.1.0",
+    "serve-static": "^1.13.1",
+    "update-notifier": "^2.3.0",
     "yargs": "^6.6.0"
   },
   "devDependencies": {
     "asciidoctor-extension-interactive-runner": "^1.0.0",
-    "asciidoctor.js": "^1.5.6-preview.3",
-    "eslint": "^3.13.1",
-    "eslint-plugin-react": "^6.10.0",
-    "husky": "^0.13.1",
+    "asciidoctor.js": "^1.5.6-preview.4",
+    "chokidar": "^2.0.0",
+    "eslint": "^4.14.0",
+    "eslint-plugin-react": "^7.5.1",
     "prettier-eslint": "^3.0.2",
     "prettier-eslint-cli": "^1.1.0"
   },
   "eslintConfig": {
     "root": true,
     "parserOptions": {
-      "ecmaVersion": 2017
+      "ecmaVersion": 2017,
+      "ecmaFeatures": {
+        "jsx": true
+      }
     },
     "extends": [
       "eslint:recommended"

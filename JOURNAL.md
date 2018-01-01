@@ -6,7 +6,9 @@ Pour en savoir plus: [annonce la résidence itinérante](https://oncletom.io/201
 
 - _Chapitre 2_ : utilisation de `util.promisify` au lieu de `pify`
 - _README_ : clarification du contenu ; lien vers le _journal de bord_
-- _*_ : passage de `node@6` à `node@8`
+- _Tous les chapitres_ : passage de `node@6` à `node@8`
+- _Tous les chapitres_ : quelques corrections de typo texte/`eslint`
+- _npm_ : la prévisualisation du livre fonctionne dans tous les navigateurs, sans l'extension Asciidoctor
 
 ---
 

@@ -79,13 +79,6 @@ Un serveur local est également disponible pour prévisualiser vos modifications
 $ PORT=3000 npm start
 ```
 
-Des extensions [Chrome][adoc-chrome] et [Firefox][adoc-firefox] se chargeront du rendu en temps réel dans le navigateur. Dans les options de l'extension, prenez soin d'autoriser le chargement des fichiers et utilisez le mode `safe` pour autoriser le rendu des exemples de code :
-
-![](asciidoctor-extension-config.png)
-
-[adoc-chrome]: https://chrome.google.com/webstore/detail/asciidoctorjs-live-previe/iaalpfgpbocpdfblpnhhgllgbdbchmia
-[adoc-firefox]: https://addons.mozilla.org/fr/firefox/addon/asciidoctorjs-live-preview/
-
 ## Tests
 
 Le code des exemples est vérifié à l'aide d'[ESLint](http://eslint.org/).
