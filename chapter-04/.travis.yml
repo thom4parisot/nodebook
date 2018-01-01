@@ -1,7 +1,7 @@
 sudo: false
 
-language: node_js       # <1>
-node_js: v6             # <2>
+language: node_js             # <1>
+node_js: {nodeCurrentVersion} # <2>
 
 addons:
   firefox: latest       # <3>

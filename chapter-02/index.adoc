@@ -3,7 +3,8 @@
 :chapterNumber: 2
 :sourceDir: ./examples
 :sourceSample: currency-main.js
-:nodeCurrentVersion: v6
+:nodeCurrentVersion: v8
+:vX: v8.9.3
 :npmCurrentVersion: v4
 :toc-title: Table des matières
 :sectnums:
@@ -164,10 +165,11 @@ Des binaires et installeurs sont de ce fait disponibles pour Raspberry Pi, à ba
 
 Des binaires et instructions sont disponibles sur le site officiel de Node, pour ARMv6, ARMv7 et ARMv8 : [URL]#https://nodejs.org/en/download/#.
 
+[subs="attributes"]
 .Installation de Node {nodeCurrentVersion} sur Raspberry Pi Model 3 ARMv8
 ----
-curl -SLO https://nodejs.org/dist/v6.9.4/node-v6.9.4-linux-arm64.tar.xz
-tar -xJf "node-v6.9.4-linux-arm64.tar.xz" -C /usr/local --strip-components=1
+curl -SLO https://nodejs.org/dist/{vX}/node-{vX}-linux-arm64.tar.xz
+tar -xJf "node-{vX}-linux-arm64.tar.xz" -C /usr/local --strip-components=1
 ln -s /usr/local/bin/node /usr/local/bin/nodejs
 ----
 
@@ -182,11 +184,12 @@ Il est communément abrégé en _nvm_.
 
 _nvm_ est l'équivalent de _rvm_ dans le monde Ruby, de _phpenv_ dans le monde PHP ou encore de _virtualenv_ pour Python.
 
+[subs="attributes"]
 .Installation de _nvm_ et de Node {nodeCurrentVersion} sur un environnement Linux.
 ----
 curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.0/install.sh | bash
-nvm install v6
-nvm alias default v6  # <1>
+nvm install {nodeCurrentVersion}
+nvm alias default {nodeCurrentVersion}  # <1>
 ----
 <1> La version par défaut est désormais la dernière version stable de Node {nodeCurrentVersion}.
 
@@ -243,12 +246,13 @@ Ce sera le cas si vous cherchez à tirer parti au maximum des instructions de vo
 La compilation manuelle requiert la présence de _GCC_ 4.2+, de _Python_ 2.6+ et de _GNU Make_ 3.81+. +
 La procédure de compilation ressemble fortement à ceci :
 
+[subs="attributes"]
 .Étapes de compilation de Node
 ----
 curl -sS \
-  https://nodejs.org/dist/v6.9.4/node-v6.9.4.tar.gz \
+  https://nodejs.org/dist/{vX}/node-{vX}.tar.gz \
   | tar -zxf -
-cd node-v6.9.4
+cd node-{vX}
 ./configure && make && make install
 ----
 
@@ -1673,20 +1677,6 @@ Les opérateurs `async` et `await` sont là pour respectivement :
 
 Une promesse placée derrière un `await` jettera une exception.
 Cette exception est interceptable avec un bloc `try/catch`, comme du code synchrone.
-
-[CAUTION]
-.[RemarquePreTitre]#Preview# Fonctionnalité expérimentale
-====
-
-Les opérateurs `async` et `await` ne sont pas disponibles dans Node v6.
-Il nous faudra installer _a minima_ Node v7.6 :
-
-----
-$ nvm install v7
-$ node un-script.js
-----
-
-====
 
 Reprenons une nouvelle fois notre exemple précédent, en combinant la transformation en promesses et les opérateurs `async` et `await` :
 

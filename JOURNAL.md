@@ -6,6 +6,7 @@ Pour en savoir plus: [annonce la résidence itinérante](https://oncletom.io/201
 
 - _Chapitre 2_ : utilisation de `util.promisify` au lieu de `pify`
 - _README_ : clarification du contenu ; lien vers le _journal de bord_
+- _*_ : passage de `node@6` à `node@8`
 
 ---
 

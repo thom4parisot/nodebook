@@ -2,7 +2,7 @@
 :sourceDir: ./examples
 :sourceSample: modules/node-timer.js
 :httpRoot: http://localhost:4000/examples
-:nodeCurrentVersion: v6
+:nodeCurrentVersion: v8
 :npmCurrentVersion: v4
 :toc-title: Table des matières
 :sectnums:
@@ -1792,7 +1792,7 @@ Des services comme _GitHub_ facilitent la connexion avec _Travis CI_ et déclenc
 include::.travis.yml[]
 ----
 <1> Configuration de la _VM_ pour utiliser _Node_ ;
-<2> Configuration de la _VM_ pour utiliser la version la plus récente de Node v6 ;
+<2> Configuration de la _VM_ pour utiliser la version la plus récente de Node {nodeCurrentVersion} ;
 <3> Installation de la dernière version stable de _Firefox_ ;
 <4> `xvfb-run` est un programme Linux émulant le rendu d'une carte graphique vers un écran d'affichage – il nous aide à lancer Firefox alors que nous n'avons pas d'écran ;
 <5> Les codes d'accès à _BrowserStack_ sont cryptés à l'aide du programme Ruby `travis` via la commande `travis encrypt`.

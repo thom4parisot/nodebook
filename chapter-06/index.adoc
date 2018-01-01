@@ -1,8 +1,8 @@
 :chapterNumber: 6
 :sourceDir: ./examples
 :sourceSample: TODO.js
-:nodeCurrentVersion: v6
-:nodeNextVersion: v7
+:nodeCurrentVersion: v8
+:nodeNextVersion: v9
 :npmCurrentVersion: v4
 :revisionYear: 2017
 :toc-title: Table des matières
@@ -56,6 +56,7 @@ Je recommande l'*utilisation d'un environnement par application* ou à défaut, 
 Gérer plusieurs applications sur un même environnement implique soit de *_forcer_ toutes les applications* à se baser sur la même version de Node (mauvaise idée) soit à permettre à *chaque application d'expliciter sa préférence* (meilleure idée). +
 Les _outils de gestion de version pour Node_ exposent justement un mécanisme pour indiquer la version désirée de *manière déclarative* via un fichier texte – ici, `.nvmrc` dans le cas de <<../chapter-02/index.adoc#nvm,nvm>> (cf. Chapitre 2).
 
+[subs="attributes"]
 .{empty}.nvmrc
 ----
 include::.nvmrc[]
