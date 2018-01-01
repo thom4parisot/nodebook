@@ -1,5 +1,5 @@
 const isWord = (word) => {
-  return /^[\w\s\.,\-\?!;+]{2,}$/.test(word) && Number.isNaN(Number(word));
+  return /^[\w\s.,\-?!;+]{2,}$/.test(word) && Number.isNaN(Number(word));
 };
 
 export default function countWords (sentence) { // <1>

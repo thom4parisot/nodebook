@@ -1,5 +1,5 @@
 const getOS = userAgent => {
-  const [, os, version] = userAgent.match(/\(([^;]+)\s?;\s?([^\)]+)\)/);
+  const [, os, version] = userAgent.match(/\(([^;]+)\s?;\s?([^)]+)\)/);
   return {os, version};
 };
 
