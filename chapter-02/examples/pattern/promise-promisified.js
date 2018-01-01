@@ -1,8 +1,8 @@
 'use strict';
 
-const pify = require('pify');
+const {promisify} = require('util');
 const messageAbbrAsync = require('../message-abbr');
-const messageAbbr = pify(messageAbbrAsync);    // <1>
+const messageAbbr = promisify(messageAbbrAsync);    // <1>
 
 const logErr = (err) => console.error(err);
 const logData = (data) => console.log(data);

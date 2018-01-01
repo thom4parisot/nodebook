@@ -2677,7 +2677,7 @@ include::{sourceDir}/pattern/promise-callback.js[]
 C'est minimal mais on crée un code _fragile_ : nous devons faire en sorte que les interfaces de l'encapsulation évoluent en simultané.
 La réalité c'est que nous n'avons pas envie d'encapsuler toutes les fonctions asynchrones pour les intégrer dans des chaînes de promesses.
 
-Pour cela, une librairie comme `bluebird` ou `pify` exposent une fonction pour transformer en promesse une fonction ou un module retournant un objet de fonctions. +
+L'API native `util.promisify` permet de transformer une fonction de callback en promesse. +
 L'exemple précédent serait réécrit de la manière suivante :
 
 [source,javascript]
@@ -2686,7 +2686,17 @@ L'exemple précédent serait réécrit de la manière suivante :
 include::{sourceDir}/pattern/promise-promisified.js[]
 ----
 
-C'est tout.
+[TIP]
+.[RemarquePreTitre]#Alternatives# Des callbacks aux promesses
+====
+Des modules comme `bluebird` et `pify` sont capables d'étendre des objets et des modules en plus de fonctions nommées. +
+Le gain ?
+Transformer plusieurs fonctions en une seule ligne.
+
+- [URL]#https://npmjs.com/bluebird#
+- [URL]#https://npmjs.com/pify#
+====
+
 
 Explorons désormais une *gestion robuste des erreurs* : toute exception entraine la _résolution négative_ de la promesse – même si on ne fait pas appel à la fonction `reject()`.
 Il est possible de gérer les erreurs finement en ayant recourt à `.catch()`.
@@ -2723,9 +2733,8 @@ Le temps d'exécution total correspond à celui de la promesse la plus lente.
 [TIP]
 .[RemarquePreTitre]#npm# Librairies de promesses
 ====
-Des librairies de promesses ajoutent des sucres syntaxiques pour faciliter la manipulation des promesses :
+Les librairies de promesses suivantes ajoutent de nouveaux comportements et des sucres syntaxiques :
 
-- [URL]#https://npmjs.com/pify#
 - [URL]#https://npmjs.com/bluebird#
 - [URL]#https://npmjs.com/when#
 - [URL]#https://npmjs.com/es6-promise# (un polyfill pour d'anciennes versions de Node et des navigateurs Web peu récents)

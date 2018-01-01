@@ -1,7 +1,7 @@
 'use strict';
 
-const pify = require('pify');
-const messageAbbr = pify(require('../message-abbr'));
+const {promisify} = require('util');
+const messageAbbr = promisify(require('../message-abbr'));
 
 Promise.all([
   messageAbbr('Hennes & Mauritz'),

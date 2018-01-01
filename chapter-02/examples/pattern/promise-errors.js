@@ -1,7 +1,7 @@
 'use strict';
 
-const pify = require('pify');
-const messageAbbr = pify(require('../message-abbr'));
+const {promisify} = require('util');
+const messageAbbr = promisify(require('../message-abbr'));
 
 const logErr = (err) => console.error(err);
 const logFinalErr = (err) => console.error('Erreur dans .catch() final', err);

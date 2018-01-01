@@ -1,9 +1,9 @@
 'use strict';
 
-const { join } = require('path');
+const {join} = require('path');
 const fs = require('fs');
-const promisify = require('pify');
-const { readFile:readFilePromise } = promisify(fs);
+const {promisify} = require('util');
+const readFilePromise = promisify(fs.readFile);
 
 const files = ['chapter-02', 'chapter-01', 'chapter-03'].map(dir => {
   return join(__dirname, '..', '..', '..', dir, 'examples', 'package.json');
