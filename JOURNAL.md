@@ -1,8 +1,13 @@
-# Daily Standup
+# Journal
 
 Pour en savoir plus: [annonce la résidence itinérante](https://oncletom.io/2017/residence-nodejs/) et [résumé de la résidence itinérante](https://oncletom.io/2017/without-a-home/) (en anglais).
 
-# Journal
+## Lundi 1 janvier 2018
+
+- _Chapitre 2_ : utilisation de `util.promisify` au lieu de `pify`
+- _README_ : clarification du contenu ; lien vers le _journal de bord_
+
+---
 
 ## Mardi 6 juin
 

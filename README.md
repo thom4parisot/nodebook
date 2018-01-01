@@ -1,6 +1,8 @@
-# Node.js [![Build Status](https://travis-ci.org/oncletom/nodebook.svg)](https://travis-ci.org/oncletom/nodebook)
+# Node.js [![Build Status][]](https://travis-ci.org/oncletom/nodebook)
 
 > Bonnes pratiques pour la programmation JavaScript applicative, universelle et modulaire
+
+Le contenu est actuellement **en cours d'écriture**. La progression est documentée dans le [journal de bord][].
 
 # Table des matières
 
@@ -16,7 +18,21 @@
 | :memo:      |            | [Héberger, déployer et monitorer][ch06]
 | :construction: |         | _Annexe A_ : [Sélection de modules npm][a01]
 
-# Installation
+# Lire
+
+## En ligne
+
+L’épreuve est consultable gratuitement dans un navigateur Web via [oncletom.io/node.js][livre-web].
+
+De nombreux exemples sont interactifs sans avoir à installer le moindre logiciel sur son ordinateur.
+
+**Fonctionnalités** : exemples interactifs, vidéos, renvois.
+
+## Au format papier / e-book
+
+À venir.
+
+## Avec Node.js
 
 Cette commande télécharge une copie du livre, les exemples associés ainsi que leurs dépendances pour une utilisation hors-ligne.
 
@@ -39,7 +55,7 @@ Examples:
                                 fichiers
 ```
 
-# Participation
+# Contribuer
 
 Le moyen le plus simple de contribuer est de proposer une _pull request_.
 L'**interface en ligne de GitHub** est de loin la plus simple à prendre en main.
@@ -86,24 +102,18 @@ $ npm run build:html
 $ open ./dist
 ```
 
-
-# Lire le livre
-
-L’épreuve est consultable dans un navigateur Web via [oncletom.io/node.js][livre-web].
-
-La version Web est générée automatiquement et directement à partir des sources Asciidoc utilisées pour l'épreuve papier.
-
-Le livre sera disponible en rayons lorsque le Bon à Tirer (BAT) aura été signé.
-
 # Mentions légales
 
-_Node.js — bonnes pratiques pour la programmation JavaScript applicative, universelle et modulaire_ est un ouvrage rédigé par [Thomas Parisot](https://oncletom.io) et publié aux éditions [Eyrolles](http://www.eyrolles.fr).
+_Node.js — bonnes pratiques pour la programmation JavaScript applicative, universelle et modulaire_ est un ouvrage rédigé par [Thomas Parisot](https://oncletom.io). Il est édité et publié en format papier et e-book par [Eyrolles](http://www.eyrolles.fr).
 
 L’épreuve est soumise à la licence [Creative Commons NC-BY-SA][cc-nc-by-sa] (_Attribution, Non-Commercial, Share Alike_).
 
-Les exemples de code sont soumis à une licence MIT et le cas échéant, à une license spécifiée par l’auteur du programme.
+Les exemples de code sont soumis à une [licence MIT][] et le cas échéant, à une license spécifiée par l’auteur du programme.
 
+[Build Status]: https://travis-ci.org/oncletom/nodebook.svg
+[journal de bord]: JOURNAL.md
 [livre-web]: https://oncletom.io/node.js
+[licence MIT]: LICENSE
 [cc-nc-by-sa]: https://creativecommons.org/licenses/by-nc-sa/3.0/deed.fr
 [foreword]: foreword/foreword-fr.adoc
 [preamble]: foreword/preamble.adoc
