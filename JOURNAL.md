@@ -2,6 +2,17 @@
 
 Pour en savoir plus: [annonce la résidence itinérante](https://oncletom.io/2017/residence-nodejs/) et [résumé de la résidence itinérante](https://oncletom.io/2017/without-a-home/) (en anglais).
 
+## Mardi 2 janvier
+
+Pas d'écriture aujourd'hui mais de bonnes réflexions autour du contenu.
+
+- [Intentions quant à la _première édition_](https://docs.google.com/document/d/1yUVaBCkaiDtviOCvEbchabMM9oVLwyWYSrJ9NsyYCUQ/edit?usp=sharing)
+- [Repenser le chapitrage](https://github.com/oncletom/nodebook/issues/184)
+- [Trouver une autre baseline](https://github.com/oncletom/nodebook/issues/181)
+- Plusieurs idées : [Pouvoir copier les exemples de code dans le presse-papier](https://github.com/oncletom/nodebook/issues/185), Annexe _Ce livre est construit avec Node.js_, Chapitre _Jouer avec les microservices_
+
+**Météo** : 😄
+
 ## Lundi 1 janvier 2018
 
 - _Chapitre 2_ : utilisation de `util.promisify` au lieu de `pify`
@@ -11,9 +22,23 @@ Pour en savoir plus: [annonce la résidence itinérante](https://oncletom.io/201
 - _npm_ : la prévisualisation du livre fonctionne dans tous les navigateurs, sans l'extension Asciidoctor
 - _web_ : active la coloration syntaxique des blocs de code
 
+**Météo** : 😄 💪
+
 ---
 
-## Mardi 6 juin
+## Novembre 2017
+
+Présentation à la [conférence Codeurs en Seine](http://www.codeursenseine.com/2017/speakers.html#orateur-Thomas+Parisot) ([vidéo](https://www.youtube.com/watch?v=25wCiZVLNBg)).
+
+## Septembre 2017
+
+Présentation à la [conférence Write the Docs](http://www.writethedocs.org/conf/eu/2017/speakers/#speaker-eu-2017-thomas-parisot) ([vidéo](https://www.youtube.com/watch?v=p2eAXLR3OOk))
+
+Création d'une **extension Asciidoctor.js** : [asciidoctor-extension-interactive-runner](http://npmjs.com/asciidoctor-extension-interactive-runner) • rend exécutable les blocs de code JavaScript dans les navigateurs web.
+
+---
+
+## Mardi 6 juin 2017
 
 - _Chapitre 6_ : fournisseurs de Plate-forme en tant que service sous forme de tableau
 - _Chapitre 6_ : exemple de déploiement d'une application sur Heroku
