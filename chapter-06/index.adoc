@@ -292,12 +292,6 @@ Un clic sur l'icône icon:play[] continue son exécution jusqu'au _prochain poin
 $ node --inspect-brk config/file-npm.js
 ----
 
-[CAUTION]
-.[RemarquePreTitre]#Compatibilité# Node v7
-====
-La pause en démarrage de script (`--inspect-brk`) ne fonctionne qu'à partir de Node v7.
-====
-
 [TIP]
 .[RemarquePreTitre]#Outil# Node Inspector Manager (NIM)
 ====
@@ -670,11 +664,11 @@ Le principe de déploiement sur les plates-formes de services est réduit au qua
 [format="csv", options="header"]
 .Sélection de plates-formes en tant que service
 |===
-Service,Déploiement,Add-ons,Tarif
-[URL]#https://zeit.co#,API,-,15$/mois/10 apps
-[URL]#https://clever-cloud.com#,git,oui,5€/mois/app
-[URL]#https://gandi.net/hosting/simple#,"git, SSH ou API",-,5€/mois/app
-[URL]#https://heroku.com#,"git, GitHub ou Dropbox",oui,7$/mois/app
+Service, Déploiement, Add-ons, Tarif
+[URL]#https://zeit.co#, API, -, 15$/mois/10 apps
+[URL]#https://clever-cloud.com#, git, oui, 5€/mois/app
+[URL]#https://gandi.net/hosting/simple#, git/SSH/API, -, 5€/mois/app
+[URL]#https://heroku.com#, "git/GitHub/Dropbox", oui, 7$/mois/app
 |===
 
 La startup californienne Zeit ([URL]#https://zeit.co#) édite le service de _déploiements immutables_ nommé _now_ ([URL]#https://zeit.co/now#).
