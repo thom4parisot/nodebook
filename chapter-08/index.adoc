@@ -1,0 +1,107 @@
+:chapterNumber: 8
+:sourceDir: ./examples
+:nodeCurrentVersion: v8
+:npmCurrentVersion: v5
+:revisionYear: 2017
+:toc-title: Table des matières
+:sectnums:
+:revdate: {docdate}
+:imagesdir: {indir}
+ifdef::env[]
+:imagesdir: .
+endif::[]
+
+= On fait un outil en ligne de commande
+
+====
+.Sommaire
+====
+
+[abstract]
+--
+--
+
+include::../resources/tip-versions.adoc[]
+
+toc::[]
+
+
+install global : pour quelqu'un qui n'a pas besoin de l'inclure dans un projet. Être autonome. En faire un outil système. Taper la commande sans avoir à se soucier d'autre chose.
+
+utilisation : le nom c'est le même. Plus logique. Plus facile à retenir. Mais ça peut se changer.
+
+== Créer un fichier exécutable
+
+Dans le répertoire `./bin` parce que c'est la convention
+
+> Il faudra faire le lien avec le package.json
+
+----
+node bin/fichier.js
+----
+
+pour le rendre exéutable
+
+----
+chmod +x bin/fichier.js
+----
+
+Warning : +x pour tout le monde
+
+Il faut parler à bash. `#!` sert à ça.
+
+Chemin absolu vers exécutable.
+`/usr/bin/env` vs `which` vs `/usr/bin/node` ?
+
+> Runs a program in a modified environment.
+(chercher plus sur pourquoi env)
+
+----
+env -i
+----
+
+((exemple inDir outDir -- réutiliser du code métier))
+
+== Lire les infos
+
+`process.argv`
+
+Tableau qui contient toutes les chaines de caractère utilisées pour lancer la commande.
+
+(héritage UNIX).
+
+`process.argv.slice(2)`
+
+Créer des variables explicites au lieu de `process.argv[2]`.
+
+== Tester localement
+
+=== package.json
+
+Champ `bin`
+
+=== npm i
+
+----
+npm i -g .
+----
+
+Prend en compte les changements locaux.
+
+== Robustesse
+
+== Tester
+
+Obtenir la surface la plus faible possible entre son code et la lecture des arguments.
+
+=== Interface avec code métier
+
+=== CLI
+
+https://www.npmjs.com/package/coffee
+
+https://www.npmjs.com/package/cli-tester
+
+== Extras
+
+packager l'application (https://www.npmjs.com/package/pkg).
