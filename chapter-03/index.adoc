@@ -172,9 +172,9 @@ Les _template literals_ servent à composer des chaînes de caractères multilig
 [source%interactive,javascript]
 .primivite-template-literals.js
 ----
-include::{sourceDir}/primitives/template-literals.js[]
+include::{sourceDir}/template-literals.js[]
 ----
-<1> Retourne `'I ♥ JavaScript.\nCet exemple se trouve dans le fichier "primitives/template-literals.js"'`.
+<1> Retourne `'I ♥ JavaScript.\nCet exemple se trouve dans le fichier "template-literals.js"'`.
 
 Les _template literals_ peuvent se préfixer d'un nom de fonction.
 Ce mécanisme nommé _tagged template literals_ sert de filtre pour interpréter et interpoler le contenu de chaque _template_ (élément contenu dans `${}`). Vous pouvez écrire vos propres fonctions mais aussi utiliser des modules _npm_. +
@@ -183,7 +183,7 @@ L'exemple suivant illustre une sécurisation de contenu tiers à l'aide de la fo
 [source%interactive,javascript]
 .primivite-template-literal-tags.js
 ----
-include::{sourceDir}/primitives/tagged-template-literals.js[]
+include::{sourceDir}/tagged-template-literals.js[]
 ----
 <1> Affiche `<div class="user-content">\n<script>alert(document.cookie)</script>\n</div>` ;
 <2> Affiche `<div class="user-content">\n\&lt;script\&gt;alert(document.cookie)\&lt;/script\&gt;\n</div>`.
@@ -196,9 +196,9 @@ Un booléen est une donnée de type logique qui peut être _vraie_ ou _fausse_ e
 C'est un type de choix pour effectuer des _assertions_ et vérifier des _conditions_.
 
 [source%interactive,javascript]
-.primitives/bool.js
+.bool.js
 ----
-include::{sourceDir}/primitives/bool.js[]
+include::{sourceDir}/bool.js[]
 ----
 <1> Affiche `3` ;
 <2> Affiche `true` car la condition est vérifiée ;
@@ -212,9 +212,9 @@ On dit alors que cette valeur est `truthy`.
 À l'inverse, une valeur nulle, vide ou indéfinie sera dite `falsy` – `null`, `0`, `''`, `undefined`, `false` et `NaN`.
 
 [source%interactive,javascript]
-.primitives/bool-truthy-falsy.js
+.bool-truthy-falsy.js
 ----
-include::{sourceDir}/primitives/bool-truthy-falsy.js[]
+include::{sourceDir}/bool-truthy-falsy.js[]
 ----
 <1> Affiche `false` car il s'agit d'une _chaîne vide_ convertie en booléen ;
 <2> Affiche `true` car il s'agit d'un _nombre différent de 0_ converti en booléen ;
@@ -327,9 +327,9 @@ Les fonctions anonymes sont fréquemment employées en tant que _callbacks_ ou d
 Il est important de noter que la déclaration d'une fonction et son exécution sont deux choses différentes.
 
 [source%interactive,javascript]
-.primitives/function.js
+.function.js
 ----
-include::{sourceDir}/primitives/function.js[]
+include::{sourceDir}/function.js[]
 ----
 <1> Utilisation d'une fonction fléchée (_arrow function_) en tant que fonction anonyme de _callback_ ;
 <2> Utilisation d'une fonction nommée comme _callback_ de la méthode `Array.map` ;
@@ -360,9 +360,9 @@ Il est possible de composer des fonctions à partir d'autres fonctions en utilis
 Ce _pattern_ est extrêmement puissant car il permet de modifier le contexte d'exécution de ladite fonction.
 
 [source%interactive,javascript]
-.primitives/function-bind.js
+.function-bind.js
 ----
-include::{sourceDir}/primitives/function-bind.js[]
+include::{sourceDir}/function-bind.js[]
 ----
 <1> Retourne `'100 EUR'` ;
 <2> Retourne `'100 GBP'`.
@@ -370,9 +370,9 @@ include::{sourceDir}/primitives/function-bind.js[]
 `bind` est également capable de créer une nouvelle fonction à laquelle vous auriez appliqué partiellement des arguments :
 
 [source%interactive,javascript]
-.primitives/function-partials.js
+.function-partials.js
 ----
-include::{sourceDir}/primitives/function-partials.js[]
+include::{sourceDir}/function-partials.js[]
 ----
 <1> Affiche `'Hello World'` ;
 <2> Affiche `'Hello Paris'`.
@@ -383,9 +383,9 @@ Les méthodes `call` et `apply` reposent sur le même principe mais à la diffé
 Le seul élément différenciant correspond à la syntaxe d'application des arguments :
 
 [source%interactive,javascript]
-.primitives/function-call-apply.js
+.function-call-apply.js
 ----
-include::{sourceDir}/primitives/function-call-apply.js[]
+include::{sourceDir}/function-call-apply.js[]
 ----
 <1> Retourne `'<title>'` dans les deux cas.
 
@@ -423,7 +423,7 @@ La méthode `join` permet de concaténer tous les éléments d'un tableau avec l
 [source%interactive,javascript]
 .primivite-array-from.js
 ----
-include::{sourceDir}/primitives/array-from.js[]
+include::{sourceDir}/array-from.js[]
 ----
 <1> Retourne `[ 'c', 'a', 'm', 'e', 'm', 'b', 'e', 'r', 't' ]` ;
 <2> Retourne `[ 1, 'b', 3, 'd' ]` ;
@@ -433,7 +433,7 @@ En complément, la méthode `concat` permet de concaténer d'autres éléments :
 
 [source%interactive,javascript]
 ----
-include::{sourceDir}/primitives/array-concat.js[]
+include::{sourceDir}/array-concat.js[]
 ----
 <1> Retourne `[ 1, 2, 3 ]` ;
 <2> Retourne `[ 1, 2, 3, 4 ]` ;
@@ -458,18 +458,18 @@ Elles facilitent énormément les itérations sur les tableaux tout en ajoutant 
 La méthode `map` permet de retourner un nouveau tableau avec des valeurs modifiées :
 
 [source%interactive,javascript]
-.primitives/array-map.js
+.array-map.js
 ----
-include::{sourceDir}/primitives/array-map.js[]
+include::{sourceDir}/array-map.js[]
 ----
 <1> Retourne `['A', 'B', 'C']`.
 
 La méthode `filter` quant à elle retourne un nouveau tableau ne contenant que les éléments retournant un <<primitive-boolean,booléen _truthy_>> :
 
 [source%interactive,javascript]
-.primitives/array-filter.js
+.array-filter.js
 ----
-include::{sourceDir}/primitives/array-filter.js[]
+include::{sourceDir}/array-filter.js[]
 ----
 <1> Retourne `[1, 0]` ;
 <1> Retourne `[1, 'a', 120]`.
@@ -477,9 +477,9 @@ include::{sourceDir}/primitives/array-filter.js[]
 De manière similaire, les méthodes `some` et `every` retournent un booléen si _au moins une itération_ et _toutes les itérations_ ont renvoyé une _valeur positive_ :
 
 [source%interactive,javascript]
-.primitives/array-some.js
+.array-some.js
 ----
-include::{sourceDir}/primitives/array-some.js[]
+include::{sourceDir}/array-some.js[]
 ----
 <1> Renvoie `true` puisqu'au moins une valeur équivaut à `undefined` ;
 <2> Renvoie `false` puisque toutes les valeurs n'équivalent pas à `undefined` ;
@@ -488,9 +488,9 @@ include::{sourceDir}/primitives/array-some.js[]
 ECMAScript 2015 introduit les méthodes `find` et `findIndex`, respectivement pour retourner une valeur et son index selon une fonction prédicat :
 
 [source%interactive,javascript]
-.primitives/array-find.js
+.array-find.js
 ----
-include::{sourceDir}/primitives/array-find.js[]
+include::{sourceDir}/array-find.js[]
 ----
 <1> Valeur que l'on recherche ;
 <2> Affiche `stram` (valeur recherchée) ;
@@ -499,9 +499,9 @@ include::{sourceDir}/primitives/array-find.js[]
 La méthode `reduce` a un comportement similaire à `sort` mais fonctionne de manière accumulative :
 
 [source%interactive,javascript]
-.primitives/array-reduce.js
+.array-reduce.js
 ----
-include::{sourceDir}/primitives/array-reduce.js[]
+include::{sourceDir}/array-reduce.js[]
 ----
 <1> Affiche `21` ;
 <2> Affiche `[9, 12]`.
@@ -533,9 +533,9 @@ Les objets peuvent être créés de manière littérale, avec la fonction `Objec
 À la différence d'un `Array`, il est possible de nommer une clé par une chaîne de caractères – statique ou dynamique – ou avec un <<primitive-symbol,symbole>>.
 
 [source%interactive,javascript]
-.primitives/object.js
+.object.js
 ----
-include::{sourceDir}/primitives/object.js[]
+include::{sourceDir}/object.js[]
 ----
 <1> Retourne `'lateral'` ;
 <2> Retourne également `'lateral'` ;
@@ -547,9 +547,9 @@ L'opérateur `typeof` permet d'identifier la primitive d'une variable — au sen
 L'opérateur `instanceof` ou la méthode `getPrototypeOf` permettent justement de comparer les appartenances logiques.
 
 [source%interactive,javascript]
-.primitives/object-typeof-instanceof.js
+.object-typeof-instanceof.js
 ----
-include::{sourceDir}/primitives/object-typeof-instanceof.js[]
+include::{sourceDir}/object-typeof-instanceof.js[]
 ----
 <1> Affiche `function` ;
 <2> Affiche `object` ;
@@ -560,9 +560,9 @@ include::{sourceDir}/primitives/object-typeof-instanceof.js[]
 `Object.keys` extrait les propriétés énumérables d'un objet, à la différence de `Object.getOwnPropertyNames()` :
 
 [source%interactive,javascript]
-.primitives/object-keys.js
+.object-keys.js
 ----
-include::{sourceDir}/primitives/object-keys.js[]
+include::{sourceDir}/object-keys.js[]
 ----
 <1> Affiche `[ 'name', 'services' ]` ;
 <2> Affiche `[ 'name', 'services', 'internal_code' ]`.
@@ -572,9 +572,9 @@ include::{sourceDir}/primitives/object-keys.js[]
 Ces attributs spéciaux nous autorisent la création de _propriétés calculées_, de _propriétés en lecture seule_ ou de _maitriser l'écriture d'une propriété_ :
 
 [source%interactive,javascript]
-.primitives/object-getters.js
+.object-getters.js
 ----
-include::{sourceDir}/primitives/object-getters.js[]
+include::{sourceDir}/object-getters.js[]
 ----
 <1> Nous définissons de nouvelles propriétés pour l'objet `book` ;
 <2> Définition d'un _mutateur_ pour la propriété `date_published` ;
@@ -599,9 +599,9 @@ Nous pouvons définir des _accesseurs_ et des _mutateurs_ avec une notation racc
 Reprenons l'exemple précédent :
 
 [source%interactive,javascript]
-.primitives/object-getters-shorthand.js
+.object-getters-shorthand.js
 ----
-include::{sourceDir}/primitives/object-getters-shorthand.js[]
+include::{sourceDir}/object-getters-shorthand.js[]
 ----
 <1> Définition _raccourcie_ du _mutateur_ pour la propriété `date_published` ;
 <2> Définition _raccourcie_ de l'_accesseur_ pour la propriété `year_published` – notez qu'on ne définit pas de _mutateur_ pour cette même propriété ;
@@ -611,9 +611,9 @@ include::{sourceDir}/primitives/object-getters-shorthand.js[]
 Les clés et valeurs sont copiées de gauche à droite avant d'être assignées dans le premier paramètre :
 
 [source%interactive,javascript]
-.primitives/object-assign.js
+.object-assign.js
 ----
-include::{sourceDir}/primitives/object-assign.js[]
+include::{sourceDir}/object-assign.js[]
 ----
 <1> Les clés et valeurs de `DEFAULT` et celles de `userOptions` sont copiées dans un objet vide puis retournées dans `mergedOptions` ;
 <2> Affiche `{ concurrency: 10, timeout: 'https', tags: [] }` ;
@@ -647,15 +647,15 @@ Date.now();             // <2>
 [[primitive-destructuring]]
 === Décomposition
 
-L'affectation par _décomposition_ (_destructuring_) est une manière élégante et intuitive de piocher dans un <<primitives/array,tableau>> ou dans un <<primitives/object,objet>>.
+L'affectation par _décomposition_ (_destructuring_) est une manière élégante et intuitive de piocher dans un <<array,tableau>> ou dans un <<object,objet>>.
 La décomposition n'altère pas le contenu des variables décomposées.
 
 Les valeurs d'un tableau sont décomposées dans l'ordre tandis que l'opérateur _spread_ (`...`) permet d'assigner le _reste_ des valeurs dans une seule et même variable ou constante :
 
 [source%interactive,javascript]
-.primitives/destructuring-array.js
+.destructuring-array.js
 ----
-include::{sourceDir}/primitives/destructuring-array.js[]
+include::{sourceDir}/destructuring-array.js[]
 ----
 <1> Décompose la première valeur du tableau et assigne _le reste_ dans une autre constante ;
 <2> Affiche `Bordeaux` ;
@@ -665,20 +665,20 @@ include::{sourceDir}/primitives/destructuring-array.js[]
 Il est également possible de _sauter_ des valeurs en ne nommant pas _autant_ de variables ou de constantes lors de la décomposition :
 
 [source%interactive,javascript]
-.primitives/destructuring-spread.js
+.destructuring-spread.js
 ----
-include::{sourceDir}/primitives/destructuring-spread.js[]
+include::{sourceDir}/destructuring-spread.js[]
 ----
 <1> Assigne la première valeur dans la constante `first`, saute la seconde et assigne le reste des valeurs dans `end` ;
 <2> Affiche `un` ;
 <3> Affiche `[ 'deux', 'trois', 'quatre' ]`.
 
-Le même mécanisme existe pour les <<primitives/object,objets>>, y compris dans des arguments de fonction :
+Le même mécanisme existe pour les <<object,objets>>, y compris dans des arguments de fonction :
 
 [source%interactive,javascript]
-.primitives/destructuring-object.js
+.destructuring-object.js
 ----
-include::{sourceDir}/primitives/destructuring-object.js[]
+include::{sourceDir}/destructuring-object.js[]
 ----
 <1> Destructure la fonction `join` directement depuis le `require` de module ;
 <2> Destructure la valeur `debug` du premier argument;
@@ -691,9 +691,9 @@ include::{sourceDir}/primitives/destructuring-object.js[]
 Comme indiqué en début de section, il est possible de nommer les clés de manière dynamique mais aussi d'utiliser une syntaxe raccourcie d'assignation de valeur :
 
 [source%interactive,javascript]
-.primitive-object-advanced.js
+.object-advanced.js
 ----
-include::{sourceDir}/primitives/object-advanced.js[]
+include::{sourceDir}/object-advanced.js[]
 ----
 <1> Utilise la valeur d'une variable comme nom de clé ;
 <2> Syntaxe alternative possible, utile lorsqu'un objet existe déjà ;
@@ -707,16 +707,16 @@ include::{sourceDir}/primitives/object-advanced.js[]
 Les _paramètres du reste_ (_rest parameters_) utilisent une syntaxe identique à la _décomposition_ mais opèrent au niveau des arguments de fonctions :
 
 [source%interactive,javascript]
-.primitives/rest.js
+.rest.js
 ----
-include::{sourceDir}/primitives/rest.js[]
+include::{sourceDir}/rest.js[]
 ----
 <1> Assigne la constante décomposée `args` en tant que constante `cheeses` ;
 <2> Affiche `Fromages` ;
 <3> Affiche `[ { name: 'Cabécou' }, { name: 'Chaource' } ]` –
 
 En bref, ils sont l'équivalent de l'ancienne variable _magique_ `arguments` mais avec une meilleure finesse quant aux paramètres concernés.
-Les éléments retournés par les _paramètres du reste_ ont aussi l'avantage d'être un véritable objet de <<primitives/array,tableau>> – `arguments` est _itérable_ mais n'est pas un tableau et ne bénéficie donc pas des méthodes de compréhension telles que `forEach`, `map`, etc.
+Les éléments retournés par les _paramètres du reste_ ont aussi l'avantage d'être un véritable objet de <<array,tableau>> – `arguments` est _itérable_ mais n'est pas un tableau et ne bénéficie donc pas des méthodes de compréhension telles que `forEach`, `map`, etc.
 
 [[primitive-map-set]]
 === Map et Set
@@ -730,9 +730,9 @@ Elles font penser respectivement à `Object` et `Array` mais diffèrent de ces p
 - elles peuvent être créées à partir d'un __itérable__ ou d'un tableau (de valeurs ou de clés+valeurs).
 
 [source%interactive,javascript]
-.primitive-set.js
+.set.js
 ----
-include::{sourceDir}/primitives/set.js[]
+include::{sourceDir}/set.js[]
 ----
 <1> Construit un `Set` depuis un `Array` ;
 <2> Reconstruit un `Array` à partir des valeurs du `Set` et affiche `[ 11, 13 ]`;
@@ -750,9 +750,9 @@ include::{sourceDir}/primitives/set.js[]
 
 
 [source%interactive,javascript]
-.primitive-map.js
+.map.js
 ----
-include::{sourceDir}/primitives/map.js[]
+include::{sourceDir}/map.js[]
 ----
 <1> Assigne un objet en référence de `Map` vers un objet de type `Set` ;
 <2> Parcourt chaque enregistrement de `Map` et en affiche sa clé et sa valeur ;
@@ -803,9 +803,9 @@ La définition de la classe `View` comporte trois fonctions :
 L'exemple suivant illustre le comportement de la classe `View` :
 
 [source%interactive,javascript]
-.primitives/class-constructor.js
+.class-constructor.js
 ----
-include::{sourceDir}/primitives/class-constructor.js[]
+include::{sourceDir}/class-constructor.js[]
 ----
 <1> Affiche `object` ;
 <2> Affiche `true` ;
@@ -817,9 +817,9 @@ Nous l'avons vu précédemment au niveau des <<primitive-object,objets>>, ECMASc
 L'exemple suivant illustre leur définition au sein d'une classe :
 
 [source%interactive,javascript]
-.primitives/class-accessors.js
+.class-accessors.js
 ----
-include::{sourceDir}/primitives/class-accessors.js[]
+include::{sourceDir}/class-accessors.js[]
 ----
 <1> Retourne `'978'`;
 <2> Retourne `'2212136401'` ;
@@ -830,9 +830,9 @@ La logique des accesseurs est ainsi partagée entre _tous les objets_ étant des
 L'exemple suivant illustre deux classes héritant de notre classe `View` :
 
 [source%interactive,javascript]
-.primitives/class-extends.js
+.class-extends.js
 ----
-include::{sourceDir}/primitives/class-extends.js[]
+include::{sourceDir}/class-extends.js[]
 ----
 <1> Retourne une chaîne de HTML après avoir interpolé les variables avec leur valeur respective ;
 <2> Retourne la chaîne de texte `# Node.js\n#{empty}#\#{empty}#\#{empty}#\#{empty}#{empty}#\n\nHello World!`.
@@ -882,9 +882,9 @@ Le constructeur transmet les fonctions d'exécution permettant de _résoudre_ la
 `resolve` et `reject` transmettent les valeurs passées en argument à vos _callbacks_ souscrivant respectivement à `then` et `catch`.
 
 [source%interactive,javascript]
-.primitives/promise.js
+.promise.js
 ----
-include::{sourceDir}/primitives/promise.js[]
+include::{sourceDir}/promise.js[]
 ----
 <1> Affiche `un` car la promesse est résolue de manière asynchrone, donc après l'exécution de cette ligne synchrone ;
 <2> Affiche `deux` ;
@@ -894,9 +894,9 @@ include::{sourceDir}/primitives/promise.js[]
 L'exemple suivant illustre une encapsulation de la fonction `fs.readFile` de Node en tant que promesse :
 
 [source%interactive,javascript]
-.primitives/readfile.js
+.readfile.js
 ----
-include::{sourceDir}/primitives/readfile.js[]
+include::{sourceDir}/readfile.js[]
 ----
 <1> La promesse englobe l'exécution asynchrone — toute exception levée revient à implicitement appeler `reject` ;
 <2> Résout négativement la promesse en passant le contenu de la dite erreur ;
@@ -911,9 +911,9 @@ Les plus couramment employées sont `then` et `catch`:
 Illustrons désormais la consommation d'une promesse en se basant sur le code précédent :
 
 [source%interactive,javascript]
-.primitives/promise-readfile.js
+.promise-readfile.js
 ----
-include::{sourceDir}/primitives/promise-readfile.js[]
+include::{sourceDir}/promise-readfile.js[]
 ----
 <1> Création d'une `Promise` ;
 <2> Consommation du résultat et propagation d'une nouvelle promesse retournant le nombre de dépendances contenu dans le `package.json` de ce chapitre ;
@@ -926,9 +926,9 @@ Elle sera résolue positivement lorsque toutes les promesses passées en argumen
 Reprenons le précédent exemple pour compter _en parallèle_ les dépendances de trois fichiers `package.json` :
 
 [source%interactive,javascript]
-.primitives/promise-all.js
+.promise-all.js
 ----
-include::{sourceDir}/primitives/promise-all.js[]
+include::{sourceDir}/promise-all.js[]
 ----
 <1> On passe un tableau de promesses non-résolues à `Promise.all` ;
 <2> Cette fonction est exécutée dès que le tableau est résolu, avec le contenu de chaque fichier – dont nous comptons un par un le nombre de dépendances ;
@@ -973,15 +973,15 @@ Cette exception est interceptable avec un bloc `try/catch`, comme du code synchr
 Reprenons une nouvelle fois notre exemple précédent, en combinant la transformation en promesses et les opérateurs `async` et `await` :
 
 [source%interactive,javascript]
-.primitives/async-await.js
+.async-await.js
 ----
-include::{sourceDir}/primitives/async-await.js[]
+include::{sourceDir}/async-await.js[]
 ----
 <1> Déclaration de la fonction `getAllDeps` en tant que fonction asynchrone ;
 <2> On itère comme de manière synchrone, en demandant à l'interpréteur d'attendre que la promesse `readFilePromise` soit résolue ;
 <3> Le contenu de `fileBuffer` est disponible à la ligne d'après, sans utiliser `readFilePromise.then()` ;
 <4> La fonction `getAllDeps` retourne une promesse ;
-<5> <2> Résultat identique à celui calculé dans `primitives/promise-all.js`.
+<5> <2> Résultat identique à celui calculé dans `promise-all.js`.
 
 À travers cet exemple on comprend qu'une fonction `async` retourne en réalité une promesse.
 Promesse résolue lorsque toutes ses conditions `await` sont elles aussi résolues séquentiellement.

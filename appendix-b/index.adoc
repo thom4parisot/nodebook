@@ -49,9 +49,9 @@ La notion d'_immédiateté_ correspond en réalité à un temps variable — dan
 Maintenant tentons de lire de manière asynchrone le contenu d'un fichier :
 
 [source,javascript]
-.pattern/async.js
+.async.js
 ----
-include::{sourceDir}/pattern/async.js[]
+include::{sourceDir}/async.js[]
 ----
 
 Puisque la méthode `readFile` ne retourne pas de résultat dans le même cycle d'_Event loop_, il faut bien que le résultat soit transmis d'une manière ou d'une autre.
@@ -70,9 +70,9 @@ Ces problèmes seront amplifiés à mesure que la complexité de votre code et l
 Tentons une approche plus modulaire, toujours asynchrone :
 
 [source,javascript]
-.pattern/async-reusable.js
+.async-reusable.js
 ----
-include::{sourceDir}/pattern/async-reusable.js[]
+include::{sourceDir}/async-reusable.js[]
 ----
 
 La séparation entre succès et échec est désormais évidente.
@@ -88,9 +88,9 @@ include::{sourceDir}/filecontent/index.js[]
 Voyons à quoi ressemblerait ce code s'il était synchrone :
 
 [source,javascript]
-.pattern/sync.js
+.sync.js
 ----
-include::{sourceDir}/pattern/sync.js[]
+include::{sourceDir}/sync.js[]
 ----
 
 Finalement le code n'est pas nécessairement plus clair.
@@ -120,9 +120,9 @@ Mais alors, *quelle différence entre code asynchrone et code non-bloquant* ?
 Considérons le code suivant :
 
 [source,javascript]
-.pattern/async-fake.js
+.async-fake.js
 ----
-include::{sourceDir}/pattern/async-fake.js[]
+include::{sourceDir}/async-fake.js[]
 ----
 
 Il ressemble en tout point à un de nos exemples précédent de code _non-bloquant_.
@@ -226,9 +226,9 @@ Parcourir et filtrer le contenu d'un répertoire devient un jeu d'enfant — bie
 Au final, c'est ce qui est effectué mais sans que nous ayons à écrire ce code nous-même.
 
 [source,javascript]
-.pattern/glob.js
+.glob.js
 ----
-include::{sourceDir}/pattern/glob.js[]
+include::{sourceDir}/glob.js[]
 ----
 <1> fichiers débutant par `template` ;
 <2> fichiers débutant par `template` et suffixés par `hbs` ou dont le suffixe débute par `ej` ;
@@ -353,9 +353,9 @@ L'exemple suivant repose sur les fonctions précédemment listées de `message-a
 La fonction `messageAbbr` est exécutée de trois manières différentes pour souligner plusieurs cas de figure :
 
 [source,javascript]
-.pattern/callback.js
+.callback.js
 ----
-include::{sourceDir}/pattern/callback.js[]
+include::{sourceDir}/callback.js[]
 ----
 <1> _Premier appel_ : affiche la chaîne `GME` ;
 <2> _Deuxième appel_ : affiche le message d'erreur `[TypeError: message is not a String]` ;
@@ -416,9 +416,9 @@ Dans l'exemple suivant, nous allons réutiliser la fonction `messageAbbr` dével
 Cette fois-ci, nous allons exécuter des _opérations synchrones et asynchrones_ en _callback_ de la fonction `messageAbbr` :
 
 [source,javascript]
-.pattern/callback-naive.js
+.callback-naive.js
 ----
-include::{sourceDir}/pattern/callback-naive.js[]
+include::{sourceDir}/callback-naive.js[]
 ----
 
 Les fonctions `logData`, `logPerformance` et `storeData` sont exécutées en cas de succès du _callback_ de `messageAbbr`. +
@@ -427,11 +427,11 @@ Mais que se passe-t-il si une de ces trois fonctions génère une erreur ? Et si
 Retravaillons le précédent exemple pour explorer une approche événementielle :
 
 [source,javascript]
-.pattern/event.js
+.event.js
 ----
-include::{sourceDir}/pattern/event.js[]
+include::{sourceDir}/event.js[]
 ----
-<1> L'utilisation de `module.exports` permet d'exposer l'émetteur d'événement à d'autres modules, par exemple `require('./pattern/events').on('data', ...)`.
+<1> L'utilisation de `module.exports` permet d'exposer l'émetteur d'événement à d'autres modules, par exemple `require('./events').on('data', ...)`.
 
 La fonction `messageAbbr` retourne désormais une instance de l'objet `EventEmitter` de manière synchrone.
 Des écouteurs sont branchés sur l'objet retourné et sont exécutés de manière asynchrone, lorsque leur événement respectif est émis.
@@ -480,9 +480,9 @@ Le fichier `message-abbr/index.js` exporte une fonction asynchrone dont l'argume
 Une première approche pour utiliser cette fonction _comme une promesse_ serait de l'encapsuler de la manière suivante :
 
 [source,javascript]
-.pattern/promise-callback.js
+.promise-callback.js
 ----
-include::{sourceDir}/pattern/promise-callback.js[]
+include::{sourceDir}/promise-callback.js[]
 ----
 
 C'est minimal mais on crée un code _fragile_ : nous devons faire en sorte que les interfaces de l'encapsulation évoluent en simultané.
@@ -492,9 +492,9 @@ L'API native `util.promisify` permet de transformer une fonction de callback en 
 L'exemple précédent serait réécrit de la manière suivante :
 
 [source,javascript]
-.pattern/promise-promisified.js
+.promise-promisified.js
 ----
-include::{sourceDir}/pattern/promise-promisified.js[]
+include::{sourceDir}/promise-promisified.js[]
 ----
 
 [TIP]
@@ -513,9 +513,9 @@ Explorons désormais une *gestion robuste des erreurs* : toute exception entrain
 Il est possible de gérer les erreurs finement en ayant recourt à `.catch()`.
 
 [source,javascript]
-.pattern/promise-errors.js
+.promise-errors.js
 ----
-include::{sourceDir}/pattern/promise-errors.js[]
+include::{sourceDir}/promise-errors.js[]
 ----
 <1> Ce `.catch()` se déclenchera si `messageAbbr()` ou `logData()` génèrent une exception ;
 <2> Génère une exception — elle ne sera pas interceptée par la fonction `logErr()` située sur la même ligne ;
@@ -531,9 +531,9 @@ Node affichera un message d'erreur avec une trace incomplète.
 Détail important cependant, _toutes_ les promesses passées en argument de `Promise.all()` sont exécutées en *parallèle* :
 
 [source,javascript]
-.pattern/promise-multiple.js
+.promise-multiple.js
 ----
-include::{sourceDir}/pattern/promise-multiple.js[]
+include::{sourceDir}/promise-multiple.js[]
 ----
 <1> Affiche `Promesse tenue !` en premier ;
 <2> Puis affiche `[ 'H&M', 'HMS', 'GO' ]`
@@ -623,9 +623,9 @@ Nous souhaitons le lire, le parser et en afficher le contenu avant de pouvoir pr
 Voilà comment nous procéderions avec une approche classique non-bloquante :
 
 [source,javascript]
-.pattern/streams-async.js
+.streams-async.js
 ----
-include::{sourceDir}/pattern/streams-async.js[]
+include::{sourceDir}/streams-async.js[]
 ----
 
 C'est certes non-bloquant mais nous faisons face à un problème de performance lié à la montée en charge, en relation avec la taille du fichier à charger et à parser :
@@ -640,9 +640,9 @@ En clair, ce modèle ne fonctionnera pas si vous exposez des archives de fichier
 Sur la base de notre premier essai avec les _streams_, transformons donc la lecture ponctuelle en lecture progressive :
 
 [source,javascript]
-.pattern/streams.js
+.streams.js
 ----
-include::{sourceDir}/pattern/streams.js[]
+include::{sourceDir}/streams.js[]
 ----
 
 Que se passe-t-il lors de l'exécution de la méthode `createReadStream` :
@@ -656,9 +656,9 @@ Recyclons notre précédent exemple avec un fichier JSON plus volumineux.
 Le fichier en question est issu de la _ressourcerie Datalocale_ ([URL]#https://www.datalocale.fr/drupal7/dataset/catalogue-datalocale#), en date du 19 mars 2014 :
 
 [source,javascript]
-.pattern/streams-large.js
+.streams-large.js
 ----
-include::{sourceDir}/pattern/streams-large.js[]
+include::{sourceDir}/streams-large.js[]
 ----
 <1> Jette une exception `SyntaxError: Unexpected end of input`.
 
@@ -675,9 +675,9 @@ C'est exactement ce que nous propose le module npm `JSONStream` ([URL]#https://n
 Notre script se transforme légèrement et nécessite l'emploi de la méthode `pipe()` sur laquelle nous nous pencherons juste après :
 
 [source,javascript]
-.pattern/streams-jsonstream.js
+.streams-jsonstream.js
 ----
-include::{sourceDir}/pattern/streams-jsonstream.js[]
+include::{sourceDir}/streams-jsonstream.js[]
 ----
 <1> Affiche `208`.
 
@@ -711,12 +711,12 @@ Cette manipulation équivaut à une transmission de pointeur de données.
 Autrement dit, vous pouvez router un _stream_ vers plusieurs autres _streams_ sans pénaliser les ressources système !
 
 [source,javascript]
-.pattern/streams-multipipes.js
+.streams-multipipes.js
 ----
-include::{sourceDir}/pattern/streams-multipipes.js[]
+include::{sourceDir}/streams-multipipes.js[]
 ----
 
-Tout comme dans notre exemple précédent `pattern/streams-jsonstream.js`, nous avons recours à l'évènement `data`.
+Tout comme dans notre exemple précédent `streams-jsonstream.js`, nous avons recours à l'évènement `data`.
 Le module _JSONStream_ met temporairement en mémoire la structure de données parsée avant de l'émettre.
 
 Mais cela empêche de _piper_ à nouveau.
@@ -726,9 +726,9 @@ Elles créent un nouveau _stream_ et écrivent dedans à chaque émission de l'�
 On peut ainsi diriger notre _stream_ principal vers un fichier sur disque, mais aussi vers le parseur JSON qui lui aussi est dirigé vers le disque et la sortie standard :
 
 [source,javascript]
-.pattern/streams-multipipes-es.js
+.streams-multipipes-es.js
 ----
-include::{sourceDir}/pattern/streams-multipipes-es.js[]
+include::{sourceDir}/streams-multipipes-es.js[]
 ----
 
 De nombreuses API Node exposent des _streams_ : requête HTTP, serveur HTTP, lecture et écriture de fichier, cryptographie, entrée/sortie standard du processus etc.
