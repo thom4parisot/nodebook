@@ -6,10 +6,10 @@ Le contenu est actuellement **en cours d'écriture** 🚧. Certaines sections so
 
 # Table des matières
 
-| Statut | Chapitre                  | Objectif d'apprentissage |
-| -------|---------------------------|--------- |---
-| 🚧      | [Préface de David Bruant][foreword] | - |
-| ✅      | [Avant-propos][preamble] | - |
+| Statut | Chapitre                  | Objectif d'apprentissage | |
+| -------|---------------------------|--------- |---|
+| 🚧      | [Préface de David Bruant][foreword] | - | -
+| ✅      | [Avant-propos][preamble] | - | -
 | 🚧      | **[Histoire, écosystème et gouvernance][ch01]** | _ça marche comment la vie de Node et des gens qui le font ?_ | [issues][ch01-issues]
 | 🚧      | **[Installer, mettre à jour et développer][ch02]** | _ça marche comment Node sur une machine ?_ | [issues][ch02-issues]
 | 🚧      | **[Jouer avec JavaScript][ch03]** | _ça marche comment JavaScript ?_ | [issues][ch03-issues]
@@ -40,8 +40,15 @@ De nombreux exemples sont interactifs sans avoir à installer le moindre logicie
 
 Cette commande télécharge une copie du livre, les exemples associés ainsi que leurs dépendances pour une utilisation hors-ligne.
 
+Le livre s'installe de cette manière, via un terminal :
+
 ```bash
 $ npm install --global nodebook@latest
+```
+
+Une fois installé, le manuel d'utilisation s'invoque de cette manière :
+
+```bash
 $ nodebook --help
 Commands:
   chapter <number> [install|examples]  Installe, ouvre les examples ou
