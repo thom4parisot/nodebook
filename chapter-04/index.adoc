@@ -243,8 +243,6 @@ Et finalement la valeur contenue dans la deuxième colonne avec `awk` :
 $ w | head -n 3 | tail -n 1 | awk '{ print $2 }'
 ----
 
-Vous pourrez en savoir plus sur le sujet dans la section <<streams,streams>> de ce même chapitre.
-
 == Architecture technique
 
 Le terme _plate-forme_ prend tout son sens lorsque l'on se penche sur l'architecture de Node.
@@ -526,7 +524,7 @@ Plusieurs options pourraient vous intéresser :
 - `-p` (ou `--print`) : évalue et affiche le code ;
 - `-r` (ou `--require`) : inclue un module ;
 - `--harmony` (ou tout sous-ensemble de type `--harmony-xx`) : active des fonctionnalités expérimentales ;
-- `--v8-options` : passe des options à la <<../chapter-01.adoc#v8,VM V8>>.
+- `--v8-options` : passe des options à la <<../chapter-01/index.adoc#v8,VM V8>>.
 
 L'option `-p` est idéale pour évaluer du code en une ligne et visualier un résultat :
 
@@ -562,7 +560,7 @@ Voici le contenu d'un fichier (non suffixé avec l'extension `.js`) qui affiche 
 include::{sourceDir}/print-args[]
 ----
 <1> Demande au programme `/usr/bin/env` de retourner le chemin vers l'exécutable système `node` ;
-<2> Plus d'informations sur cette syntaxe dans la section <<primitive-destructuring,décomposition>> de ce même chapitre.
+<2> Plus d'informations sur cette syntaxe dans la section <<../chapter-03/index.adoc#primitive-destructuring,décomposition>> du chapitre 3.
 
 Le bloc suivant rend le fichier exécutable et l'exécute avec des arguments :
 
@@ -647,7 +645,7 @@ $ node argv.js -y 2014 2012 --title 'fromage baguette' #<1>
 
 Des librairies sont disponibles pour *transformer les arguments en objets JavaScript*, configurer des valeurs par défaut, de valider les valeurs, de les rendre obligatoire et même de générer automatiquement une aide à l'utilisateur.
 
-Nous aborderons ces techniques avancées dans le <<../chapter-05/index.adoc#,Chapitre 5>>.
+Nous aborderons ces techniques avancées dans le <<../chapter-09/index.adoc#,Chapitre 9>>.
 
 === Plantage applicatif
 
@@ -676,7 +674,7 @@ include::{sourceDir}/server-crash.js[]
 
 Encore une fois, *il vaut mieux qu'un programme plante* plutôt que de le protéger faiblement avec `uncaughtException`.
 
-Il se peut qu'aucun code ne capture une erreur dans une <<primitive-promise,promesse>>.
+Il se peut qu'aucun code ne capture une erreur dans une <<../chapter-03/index.adoc#primitive-promise,promesse>>.
 C'est notamment le cas s'il n'y a aucun appel à `.catch()` après un `.then()`.
 
 L'événement du `process` `unhandledRejection` est alors émis, sans pour autant faire planter le programme.

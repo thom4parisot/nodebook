@@ -78,7 +78,7 @@ L'utilisation de certains caractères permet d'exprimer des *plages de compatibi
 
 Cette syntaxe est notamment employée pour spécifier les plages de mises à jour  acceptées pour les paquets `npm`.
 Cela permet entre autres de bénéficier de mises à jour de manière consentante (_opt-in_) à chaque installation ou mise à jour de vos applications.
-Vous en apprendrez davantage sur diverses opérations de routine de vos applications dans le <<../chapter-02/index.adoc,chapitre 2>>, notamment la <<../chapter-02/index.adoc#npm-outdated,vérification de l'état des dépendances>>.
+Vous en apprendrez davantage sur diverses opérations de routine de vos applications dans le <<../chapter-05/index.adoc,chapitre 5>>, notamment la <<../chapter-05/index.adoc#npm-outdated,vérification de l'état des dépendances>>.
 
 [TIP]
 .[RemarquePreTitre]#Outil# Calculateur de version
@@ -170,7 +170,7 @@ Cette même documentation est disponible en ligne, en anglais :
 - *bin* : emplacement du fichier. npm effectue un lien symbolique pour rendre `<name>` disponible en tant qu'exécutable système lors d'une installation globale ;
 - *private* : booléen spécifiant que le module ne doit pas être publié dans un registre npm (`false` par défaut) ;
 - *dependencies* : objet représentant respectivement en clé/valeur les noms/versions des modules dont le projet dépend ;
-- *engines* : objet spécifiant des contraintes de compatibilité avec la version de Node — cette valeur est exprimée selon la notation <<../chapter-01/index.adoc#semver,_semver_>>.
+- *engines* : objet spécifiant des contraintes de compatibilité avec la version de Node — cette valeur est exprimée selon la notation <<../chapter-05/index.adoc#semver,_semver_>>.
 
 == Installer une application Node
 

@@ -35,7 +35,7 @@ toc::[]
 
 == Considérations avant une mise en production
 
-Nous avons déjà vu dans le chapitre 2 <<../chapter-02/index.adoc#invoke,comment invoquer Node>>.
+Nous avons déjà vu dans le chapitre 4 <<../chapter-04/index.adoc#invoke,comment invoquer Node>>.
 Cette section va nous aider à préparer notre application Node pour l'exécuter sur *d'autres environnements* que notre machine de développement sans changer une seule ligne de code.
 
 Nous allons aussi nous interroger sur les raisons qui pourraient emmener une application à s'interrompre mais aussi comment confortablement *inspecter les problèmes* sur notre machine.
@@ -141,7 +141,7 @@ $ node config/env.js               # <3>
 <2> Affiche `En écoute sur http://localhost:3001` ;
 <3> Affiche `En écoute sur http://localhost:3000`.
 
-Le mécanisme des _variables d'environnement_ est détaillé dans la section <<../chapter-02/index.adoc#process-env,variables d'environnement>> du chapitre 2.
+Le mécanisme des _variables d'environnement_ est détaillé dans la section <<../chapter-04/index.adoc#process-env,variables d'environnement>> du chapitre 4.
 
 L'utilisation de fichiers de configuration peut se révéler être un bon _complément_ aux variables d'environnement.
 Ces fichiers de configuration doivent *s'appliquer à tous les contextes d'exécution* (production comme développement) pour être au plus proche de l'environnement de production à tout moment mais aussi pour simplifier la maintenance.
@@ -157,7 +157,7 @@ Il est idéal pour y stocker différentes _valeurs par défaut_ comme le montre 
 include::package.json[lines=6..12, indent=0]
 ----
 
-L'appel du fichier suivant affichera un résultat différent selon que l'invocation se fasse avec Node ou _npm_ (cf. <<../chapter-02/index.adoc#invoke,invoquer Node.js>>, Chapitre 2) :
+L'appel du fichier suivant affichera un résultat différent selon que l'invocation se fasse avec Node ou _npm_ (cf. <<../chapter-04/index.adoc#invoke,invoquer Node.js>>, Chapitre 4) :
 
 .Exécution de `config/file-npm.js` avec Node puis _npm_.
 ----
@@ -209,7 +209,7 @@ Enfin, il faut se poser la question de la _multiplicité_ : lancer plusieurs foi
 Cela entraine-t-il doublon ou corruption de données dans les valeurs enregistrées ?
 
 Toutes ces questions devraient nous aiguiller vers le *choix d'un ou de plusieurs supports de persistence de données*.
-Nous répondons au <<../chapter-03/index.adoc#database,choix d'une base de données>> dans le chapitre 3.
+Nous répondons au <<../chapter-07/index.adoc#database,choix d'une base de données>> dans le chapitre 7.
 Nous verrons plus loin dans ce chapitre comment <<database-migration,effectuer des migrations de base de données>> afin de répercuter des évolutions dans leur structure et ce, sans intervention manuelle.
 
 === Causes et raisons d'un plantage applicatif
@@ -234,7 +234,7 @@ Il y a bien des facteurs qui font qu'une application peut tomber sans crier gare
 * *erreurs au _runtime_* +
   D'autres erreurs sont directement liées à l'écriture de notre code : un _paramètre oublié_, un objet mal étendu, une exception qui n'est pas interceptée, un bug dans module _npm_, un cas non testé, mais aussi une *variable indéfinie*—erreur de frappe (`Math.randmo()` au lieu de `Math.random()`) ou l'assomption fausse de son existence (comme `window.location` dans un programme Node). +
   L'écriture et l'exécution systématique de tests unitaires aide à se prémunir contre les erreurs de _runtime_.
-  On cherchera entres autres à tester la réaction de notre code face à des erreurs provoquées volontairement (cf. <<../chapter-03/index.adoc#testing,tester son code>> au chapitre 3).
+  On cherchera entres autres à tester la réaction de notre code face à des erreurs provoquées volontairement.
 * *ressources indisponibles* +
   Il arrive aussi que notre code ne soit pas incriminé… mais que la base de données devienne inaccessible pendant l'exécution de notre application.
   Ou qu'une clé d'API soit révoquée.
@@ -316,7 +316,7 @@ $ ../node_modules/.bin/devtool config/file-npm.js --break
 
 Le module _npm_ `debug` ([URL]#https://npmjs.com/debug#) suit une approche différente des deux précédentes.
 Elle consiste à baliser son code d'*appels à une fonction de _debug_* et à afficher ces appels à la demande en paramétrant la variable d'environnement `DEBUG`.
-C'est en quelque sorte un affichage conditionnel de `console.log` piloté par la <<../chapter-02/index.adoc#process-env,variable d'environnement>>.
+C'est en quelque sorte un affichage conditionnel de `console.log` piloté par la <<../chapter-04/index.adoc#process-env,variable d'environnement>>.
 
 Le module _debug_ est pratique pour afficher un *journal précis d'actions réparties dans plusieurs modules* pour l'observer dans un terminal.
 Il est particulièrement adapté dans ces situations complexes où le cheminement applicatif dépend de nombreuses conditions et si ce code est destiné à être redistribué en tant que module _npm_ public ou privé.
@@ -439,7 +439,7 @@ Le site d'OWASP offre guides, référentiels, fiches récapitulatives, applicati
 - [URL]#https://nodegoat.herokuapp.com/tutorial#
 ====
 
-La section <<../chapter-03/index.adoc#security,sécurité>> du chapitre 3 nous aidera à apprendre comment renforcer la sécurité de l'interface HTTP d'une application web.
+La section <<../chapter-07/index.adoc#security,sécurité>> du chapitre 7 nous aidera à apprendre comment renforcer la sécurité de l'interface HTTP d'une application web.
 La section <<security,sécurité>> de ce même chapitre nous apprendra à nous prémunir des failles présentes dans toute application déployée en production.
 
 [[application-startup]]
@@ -450,7 +450,7 @@ La manière de démarrer cette application.
 
 Le démarrage d'une application Node sur notre machine de développement est une chose intuitive car manuelle.
 Nous *démarrons le processus à la main*.
-Nous avons d'ailleurs abordé différentes manières d'<<../chapter-02/index.adoc#invoke,invoquer un processus Node>> dans le <<../chapter-02/index.adoc,chapitre 2>>.
+Nous avons d'ailleurs abordé différentes manières d'<<../chapter-04/index.adoc#invoke,invoquer un processus Node>> dans le <<../chapter-04/index.adoc,chapitre 4>>.
 
 Lorsqu'il s'agit d'un environnement de production, nous avons à _automatiser_ cette opération manuelle.
 
@@ -624,7 +624,7 @@ Certains services d'hébergement prennent en charge le démarrage automatique de
 C'est le cas notamment des hébergements de type <<paas,_Platform as a Service_>> (_PaaS_) que nous explorerons plus en détails dans une section ci-après.
 
 Ces services vont se baser sur des *conventions* ou des fichiers de *configuration* pour comprendre la nature de notre application et l'intégrer automatiquement.
-Ils se baseront souvent sur le <<../chapter-02/index.adoc#npm-scripts,script `npm start`>> et d'autres informations contenues dans le fichier `package.json`.
+Ils se baseront souvent sur le <<../chapter-05/index.adoc#npm-scripts,script `npm start`>> et d'autres informations contenues dans le fichier `package.json`.
 
 [[hosting]]
 == Héberger une application Node

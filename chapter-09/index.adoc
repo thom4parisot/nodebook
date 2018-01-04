@@ -401,7 +401,7 @@ Le développement frontend basé sur de l'outillage Node va justement nous aider
 [[modules-es2015]]
 === Les modules _ECMAScript 2015_
 
-Nous avons évoqué les <<../chapter-02/index.adoc#primitives,primitives _ECMAScript 2015_>> dans le Chapitre 2.
+Nous avons évoqué les <<../chapter-03/index.adoc#primitives,primitives _ECMAScript 2015_>> dans le Chapitre 3.
 Les modules font partie des fonctionnalités tant attendues.
 
 .Utilisation des modules _ECMAScript 2015_ dans un navigateur web (ici, Safari pour macOS).
@@ -449,7 +449,7 @@ Qu'en est-il alors des modules _npm_ ?
 Nous pouvons transpiler et importer du code, ce serait très utile si nous pouvions également importer du _code tiers_.
 Cela nous éviterait de réinventer la roue, d'avoir accès à du code bien testé et trop coûteux à écrire nous-mêmes.
 
-Nous avons vu comment <<../chapter-02/index.adoc#api-require,charger des modules _npm_>> dans le Chapitre 2.
+Nous avons vu comment <<../chapter-04/index.adoc#api-require,charger des modules _npm_>> dans le Chapitre 4.
 Si seulement nous pouvions faire la même chose côté client… +
 Continuons sur la lancée de nos exemples précédents pour tenter d'inclure la librairie _jQuery_ afin de manipuler notre document HTML :
 
@@ -744,7 +744,7 @@ La représentation et le fonctionnement du minuteur sont désormais regroupés d
 ----
 include::{sourceDir}/modules/date-interval.jsx[]
 ----
-<1> Nous exportons un composant _React_ grâce à l'opérateur _ECMAScript 2015_ `extends` – cf. la <<../chapter-02/index.adoc#primitive-class,section Class du Chapitre 2>> ;
+<1> Nous exportons un composant _React_ grâce à l'opérateur _ECMAScript 2015_ `extends` – cf. la <<../chapter-03/index.adoc#primitive-class,section Class du Chapitre 3>> ;
 <2> Le `constructor` est exécuté quand le composant est rendu dans le document ;
 <3> La propriété `interval` nous est fournie dans `react-app.js` et nous stockons la _structure de donnée_ retournée par le minuteur tout en déclenchant son actualisation toutes les 1000 millisecondes ;
 <4> À chaque intervalle, nous mettons à jour la valeur `tickData` de l'état interne du composant (`this.state`) ;
@@ -788,7 +788,7 @@ Le terme `XMLHttpRequest` est parfois nommé `AJAX` ou `xhr`.
 
 Un même exemple côté client sera développé et successivement adapté aux technologies `fetch()`, _EventSource_ puis _WebSocket_.
 Il nous permettra d'en faire émerger les principes, leurs cas d'usage ainsi que leur possible intégration avec Node. +
-L'implémentation côté serveur est basée sur un serveur <<../chapter-03/index.adoc#express,Express.js>> dont l'usage est expliqué au chapitre 3.
+L'implémentation côté serveur est basée sur un serveur <<../chapter-07/index.adoc#express,Express.js>> dont l'usage est expliqué au chapitre 7.
 
 .Résultat attendu dans les exemples des sections suivantes.
 image::images/io-example.png[align="center", width="85%"]
@@ -806,7 +806,7 @@ Il se trouve que la nature asynchrone même de Node rend cette intégration rela
 === Échange ponctuel de données avec `fetch()`
 
 `fetch()` offre une interface très simple pour appeler une ressource HTTP.
-Le résultat est retourné sous forme de _promesse_ (voir la <<../chapter-02/index.adoc#primitive-promise,section _Promise_>> du Chapitre 2).
+Le résultat est retourné sous forme de _promesse_ (voir la <<../chapter-03/index.adoc#primitive-promise,section _Promise_>> du Chapitre 3).
 Cette fonction sert aussi bien à obtenir des ressources avec des requêtes de type `GET` et `HEAD` qu'à en créer et modifier avec des requêtes de type `POST`, `PUT`, `DELETE` et `PATCH`.
 
 L'exemple associé est accessible sur [URL]#{httpRoot}/io/fetch.html#.
@@ -1013,7 +1013,7 @@ C'est beaucoup plus rapide et tout aussi efficace.
 Trois arguments sont utiles à _watchify_ :
 
 - `-v` (`--verbose`) : force la création du fichier compilé au lancement de la commande ;
-- `-o` (`--outfile`) : spécifie le chemin d'enregistrement du fichier compilé – il est impossible d'utiliser la <<../chapter-02/index.adoc#stdio,sortie standard>> (cf. Chapitre 2) ;
+- `-o` (`--outfile`) : spécifie le chemin d'enregistrement du fichier compilé – il est impossible d'utiliser la <<../chapter-04/index.adoc#stdio,sortie standard>> (cf. Chapitre 4) ;
 - `-d` (`--debug`) : (lire <<browserify-sourcemaps,_Source Maps_>> dans ce même chapitre).
 
 [[livereload]]
@@ -1344,7 +1344,7 @@ Cela rend l'utilisation de _gm_ légèrement moins triviale que celle de _sharp_
 - [URL]#https://aheckmann.github.io/gm/#
 ====
 
-L'utilisation d'un <<../chapter-02/index.adoc#npm-scripts,script npm>> (cf. Chapitre 2) est idéale pour décrire les différentes actions d'optimisation.
+L'utilisation d'un <<../chapter-05/index.adoc#npm-scripts,script npm>> (cf. Chapitre 5) est idéale pour décrire les différentes actions d'optimisation.
 Les _scripts_ sont alors à invoquer manuellement, sur un _crochet git_ (_git hook_) ou automatiquement lors du déploiement avec un <<../chapter-06/index.adoc#automated-deploy,service d'intégration continue>>, par exemple.
 
 [[testing]]
@@ -1657,11 +1657,11 @@ include::{sourceDir}/tests-browser/test-outside-world.js[]
 ----
 <1> `before()` indique à _mocha_ d'exécuter ce bloc de code avant tout _test_ ;
 <2> Appel du _plugin_ de _fixture_ pour obtenir l'élément du DOM nécessaire à la fonction `getLinkElementContent` ;
-<3> Appel réel de la fonction `getLinkElementContent`, résolu comme une <<../chapter-02/index.adoc#primitive-promise,promesse>> et dont nous testons le résultat à la ligne suivante ;
+<3> Appel réel de la fonction `getLinkElementContent`, résolu comme une <<../chapter-03/index.adoc#primitive-promise,promesse>> et dont nous testons le résultat à la ligne suivante ;
 <4> _Assertion_ vérifiant que le résultat contient bien des clés de dépendances _npm_ attendues – nous avons bien récupéré le bon fichier et le bon contenu !
 
 L'invocation de _karma_ se fait en invoquant `./node_modules/.bin/karma start`.
-Par mesure de simplicité, cette commande a été abstraite en tant que <<../chapter-02/index.adoc#npm-scripts,script _npm_>> :
+Par mesure de simplicité, cette commande a été abstraite en tant que <<../chapter-05/index.adoc#npm-scripts,script _npm_>> :
 
 .Exécution ponctuelle de _karma_.
 ----
