@@ -6,7 +6,7 @@ const http = require('http');
 const finalhandler = require('finalhandler');
 const getPort = require('get-port');
 const {spawn} = require('child_process');
-const {dirname,sep} = require('path');
+const {dirname,sep,extname,basename} = require('path');
 
 const PORT = process.env.PORT;
 /*
@@ -36,7 +36,8 @@ const startServer = (port) => {
 }
 
 const rebuild = (path) => {
-  const file = `${dirname(path).split(sep).shift()}/index.adoc`;
+  const source = extname(path) === '.adoc' ? basename(path): 'index.adoc';
+  const file = `${dirname(path).split(sep).shift()}/${source}`;
 
   spawn('node', ['bin/build.js', file])
     .on('close', (code) => {
