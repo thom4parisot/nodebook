@@ -2,31 +2,31 @@
 
 > Bonnes pratiques pour la programmation JavaScript applicative, universelle et modulaire
 
-Le contenu est actuellement **en cours d'écriture**. La progression est documentée dans le [journal de bord][].
+Le contenu est actuellement **en cours d'écriture** 🚧. Certaines sections sont terminées ✅. Tu peux suivre la progression en lisant le [journal de bord][].
 
 # Table des matières
 
-| Statut |   | Chapitre                  | Objectif
+| Statut |   | Chapitre                  | Objectif d'apprentissage
 | -------|---|---------------------------|---------
-|        |   | [Préface de David Bruant][foreword] | -
-|        |   | [Avant-propos][preamble] | -
-|        | [issues][ch01-issues] | [Histoire, écosystème et gouvernance][ch01] | _ça marche comment la vie de Node et des gens qui le font ?_
-|        | [issues][ch02-issues] | [Installer, mettre à jour et développer][ch02] | _ça marche comment Node sur une machine ?_
-|        | [issues][ch03-issues] | [Jouer avec JavaScript][ch03] | _ça marche comment JavaScript ?_
-|        | [issues][ch04-issues] | [Jouer avec Node.js][ch04] | _ça marche comment les modules ?_
-|        | [issues][ch05-issues] | [Jouer avec npm][ch05] | _ça marche comment l'outil npm ?_
-|        | [issues][ch06-issues] | [Déployer notre code][ch06] | _ça marche comment côté hosting ?_
-|        | [issues][ch07-issues] | [Faire une application web][ch07] |  _ça marche comment HTTP ?_
-|        | [issues][ch08-issues] | [Faire un outil en ligne de commande][ch08] | _ça marche comment du code métier dans le terminal ?_
-|        | [issues][ch09-issues] | [Faire une application frontend][ch09] | _ça marche comment les modules Node dans les navigateurs web ?_
-|        | [issues][appendix-issues] | _Annexe_ : [Sélection de modules npm][a01] | -
-|        | [issues][appendix-issues] | _Annexe_ : [Design Patterns][a02] | -
+| 🚧      |   | [Préface de David Bruant][foreword] | -
+| ✅      |   | [Avant-propos][preamble] | -
+| 🚧      | [issues][ch01-issues] | **[Histoire, écosystème et gouvernance][ch01]** | _ça marche comment la vie de Node et des gens qui le font ?_
+| 🚧      | [issues][ch02-issues] | **[Installer, mettre à jour et développer][ch02]** | _ça marche comment Node sur une machine ?_
+| 🚧      | [issues][ch03-issues] | **[Jouer avec JavaScript][ch03]** | _ça marche comment JavaScript ?_
+| 🚧      | [issues][ch04-issues] | **[Jouer avec Node.js][ch04]** | _ça marche comment les modules ?_
+| 🚧      | [issues][ch05-issues] | **[Jouer avec npm][ch05]** | _ça marche comment l'outil npm ?_
+| 🚧      | [issues][ch06-issues] | **[Déployer notre code][ch06]** | _ça marche comment côté hosting ?_
+| 🚧      | [issues][ch07-issues] | **[Faire une application web][ch07]** |  _ça marche comment HTTP ?_
+| 🚧      | [issues][ch08-issues] | **[Faire un outil en ligne de commande][ch08]** | _ça marche comment du code métier dans le terminal ?_
+| ✅      | [issues][ch09-issues] | **[Faire une application frontend][ch09]** | _ça marche comment les modules Node dans les navigateurs web ?_
+| 🚧      | [issues][appendix-issues] | **_Annexe_ : [Sélection de modules npm][a01]** | -
+| 🚧      | [issues][appendix-issues] | **_Annexe_ : [Design Patterns][a02]** | -
 
 # Lire
 
 ## En ligne
 
-L’épreuve est consultable gratuitement dans un navigateur Web via [oncletom.io/node.js][livre-web].
+L’épreuve est consultable gratuitement dans un navigateur Web à cette adresse : [https://oncletom.io/node.js/][livre-web] 🌎.
 
 De nombreux exemples sont interactifs sans avoir à installer le moindre logiciel sur son ordinateur.
 
@@ -105,7 +105,7 @@ _Node.js — bonnes pratiques pour la programmation JavaScript applicative, univ
 
 L’épreuve est soumise à la licence [Creative Commons NC-BY-SA][cc-nc-by-sa] (_Attribution, Non-Commercial, Share Alike_).
 
-Les exemples de code sont soumis à une [licence MIT][] et le cas échéant, à une license spécifiée par l’auteur du programme.
+Les exemples de code sont placés sous la [licence MIT][].
 
 [Build Status]: https://travis-ci.org/oncletom/nodebook.svg
 [journal de bord]: JOURNAL.md
