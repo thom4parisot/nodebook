@@ -41,6 +41,63 @@ include::../resources/tip-examples.adoc[]
 
 toc::[]
 
+[[semver]]
+=== Versioning sémantique
+
+Le versioning sémantique définit deux concepts importants :
+
+- le principe de *numérotation* de version ;
+- les *plages de compatibilité* de versions.
+
+Un numéro de version doit respecter la forme `MAJEUR.MINEUR.CORRECTIF` (`MAJOR.MINOR.PATCH`).
+
+Si on considère le numéro de version `1.0.0` :
+
+- `1.0.1` est une version corrigeant un défaut ;
+- `1.1.0` est une version ajoutant ou modifiant des fonctionnalités mais ne cassant pas la compatibilité avec le reste de la branche `1.x.x` ;
+- `2.0.0` est une version cassant la compatibilité descendante.
+
+Par convention, les versions `0.x.x` sont considérées comme des versions _instables_ en préparation d'une future branche stable (`1.x.x`).
+
+=== Spécification
+
+La spécification _semver_ est disponible sous forme textuelle mais également en tant que module npm.
+
+- [URL]#https://npmjs.com/semver#
+- [URL]#http://semver.org/lang/fr/#
+
+L'utilisation de certains caractères permet d'exprimer des *plages de compatibilité*, très utiles lors de l'installation ou de la mise à jour de modules _npm_ :
+
+- `~1.0.0` : mises à jour mineures de la branche `1.0.0` (`1.0.1`, `1.0.2` etc.) ;
+- `1.0.x` : idem ;
+- `^1.0.0` : mises à jour mineures et correctives de la branche `1.0.0` (`1.0.1`, `1.1.0`, `1.1.1` etc.) ;
+- `1.x.x` : idem ;
+- `>1.0.0` : mises à jour majeures, mineures et correctives au-delà de la branche `1.0.0` (`1.0.1` mais pas `1.0.0`, `1.1.0`, `2.0.0`, `3.1.0` etc.) ;
+- `>1 <3` : mises à jour majeures, mineures et correctives entre la branche `1.0.0` et `3.0.0` (`2.0.0`, `2.0.1`, `2.1.0` etc.) ;
+- `>1` : mises à jour majeures, mineures et mineures au-delà de la branche `1.0.0` (`2.0.0`, `2.0.1`, `3.1.0` etc.).
+
+Cette syntaxe est notamment employée pour spécifier les plages de mises à jour  acceptées pour les paquets `npm`.
+Cela permet entre autres de bénéficier de mises à jour de manière consentante (_opt-in_) à chaque installation ou mise à jour de vos applications.
+Vous en apprendrez davantage sur diverses opérations de routine de vos applications dans le <<../chapter-02/index.adoc,chapitre 2>>, notamment la <<../chapter-02/index.adoc#npm-outdated,vérification de l'état des dépendances>>.
+
+[TIP]
+.[RemarquePreTitre]#Outil# Calculateur de version
+====
+Un outil est à disposition pour tester la syntaxe des plages de versions en temps réel sur des données de véritables paquets.
+
+- [URL]#https://semver.npmjs.com/#
+====
+
+
+[TIP]
+.[RemarquePreTitre]#Lien# Versioning romantique
+=====
+Certaines personnes pensent que l'aspect _sémantique_ n'est pas assez clair pour véhiculer l'_intention_ des auteurs quant à la publication d'une nouvelle version.
+Ils en sont venus à proposer plus ou moins sérieusement les notions de *versioning sentimental* et de *versioning romantique*.
+
+- [URL]#http://dafoster.net/articles/2015/03/14/semantic-versioning-vs-romantic-versioning/#
+=====
+
 == npm
 
 Cette communauté a créé, conçu et contribue à alimenter le registre `npm` pour faciliter la distribution, l'installation et la mise à jour des modules.
@@ -53,6 +110,18 @@ Véfifions que le programme `npm` est installé sur notre machine :
 $ npm --version
 4.1.1
 ----
+
+== Modules npm
+
+*Node baigne dans la philosophie UNIX* : le mécanisme de modules incite à suivre le principe de responsabilité unique et de séparation des principes.
+
+Cette philosophie encourage la création de petits modules plutôt que de gros monolithes difficilement configurables.
+
+Il est possible de publier des modules dans le registre en se basant sur d'autres modules tiers.
+Ils n'ont pas à avoir connaissance de leur statut de dépendance : ils doivent juste être responsables de leur numérotation de version pour éviter les problèmes de compatibilité.
+
+Pour garantir au maximum la stabilité des dépendances, le _versioning sémantique_ aka _SemVer_ a fait son apparition.
+Il explicite l'algorithme employé par _npm_ lors du processus d'installation et de mise à jour.
 
 == Initialiser un projet Node
 
