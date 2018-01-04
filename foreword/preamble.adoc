@@ -51,35 +51,61 @@ Réponse _formelle_ :
 * à des personnes adeptes du *développement _frontend_* et cherchant à mieux s'outiller ;
 * à des *personnes non-techniques* qui chercheraient à prototyper une idée d'application dans le cadre d'un projet perso ou d'une startup ;
 * à des personnes souhaitant *introduire de nouvelles pratiques* dans leur équipe ;
-* à des personnes cherchant à faire de JavaScript une *langue commune entre le _backend_ et le _frontend_* de leurs applications.
+* à des personnes cherchant à faire de JavaScript une
+*langue commune entre le _backend_ et le _frontend_* de leurs applications.
 
 == Structure de l'ouvrage
 
-Cet ouvrage a été conçu pour être lu dans _deux ordres_ : *séquentiel*, comme une histoire et *transversal*, en fonction de vos envies.
+Cet ouvrage a été conçu pour être lu dans _deux ordres_ :
+*séquentiel*, comme une histoire et *transversal*, en fonction de vos envies.
 
-Cette édition se compose de _six chapitres_ :
+Cette édition se compose de _neuf chapitres_ :
 
-. *Introduction à Node.js* +
-  Comprendre d'où vient Node, les acteurs de son histoire, ses relations avec JavaScript, son architecture technique ainsi que sa philosophie de développement.
-. *Premiers pas avec Node.js* +
-  Installer Node sur son ordinateur, quels outils choisir pour développer, découvrir les concepts UNIX dont Node hérite, comment créer et gérer un projet Node, (re)découvrir les primitives et motifs de conception JavaScript… mais au fait, c'est quoi _ECMAScript_ ?
-. *Développer une application web* +
-  Comprendre le modèle de serveur de Node, comment créer une application web et une API RESTful, la connecter avec plusieurs types de base de données, la tester unitairement et fonctionnellement tout en découvrant comment partager des blocs de présentation entre serveur et client.
-. *Développer pour les navigateurs web* +
-  Peut-on exécuter Node ou importer des modules _npm_ dans les navigateurs web ? Découvrir comment écrire du code au plus proche des standards — JavaScript et CSS mais aussi comment s'outiller pour éliminer les tâches répétitives tout en augmentant qualité de vie et qualité de code.
-. *Développer un automate de traitement de données* +
-  Comment manipuler un fichier dont la taille est plus importante que la quantité de mémoire disponible ? Apprendre à appliquer des transformations successives sans accéder au disque grâce au _streaming_ de données.
-. *Héberger, déployer et monitorer* +
-  Quel type d'hébergement choisir, comment déployer ses applications, s'assurer de leur fonctionnement et de leur santé sans compromettre leur sécurité.
+. *Histoire, écosystème et gouvernance* +
+  Nous apprendrons d'où vient Node et qui sont les acteurs participant à son histoire.
+. *Installer, mettre à jour et développer* +
+  Nous apprendrons à être autonome pour installer Node.js
+  sur notre ordinateur ou un serveur, se tenir au courant
+  des mises à jour et jongler entre différentes versions.
+  Ce sera aussi l'occasion de découvrir des outils confortables
+  pour écrire du code.
+. *Jouer avec JavaScript* +
+  Nous apprendrons à comprendre les différences entre
+  JavaScript, ECMAScript, le DOM et Node.js.
+  Ce sera aussi l'occasion de revoir les bases du langage
+  pour se sentir plus à l'aise.
+. *Jouer avec Node.js* +
+  Nous apprendrons à manipuler des scripts et des modules Node.js :
+  les notres, ceux fournis par Node et ceux de la communauté.
+. *Jouer avec npm* +
+  Nous apprendrons à tirer parti de l'outil livré par défaut avec Node.js.
+  Ce sera l'occasion de s'amuser à créer nos propres
+  outils dignes d'artisans du logiciel.
+. *Déployer notre code* +
+  Nous apprendrons à déployer notre code le plus tôt possible pour célébrer notre premier programme !
+. *Faire une application web* +
+  Nous apprendrons à créer une application web en partant de zéro,
+  en utilisant un _framework_ puis en parlant à une base de données.
+  Bienvenue dans l'odyssée d'une requête HTTP !
+. *Faire un outil en ligne de commande* +
+  Nous apprendrons à rendre du code métier fonctionnel dans un terminal.
+  La ligne de commande ne sera plus un
+. *Faire une application frontend* +
+  Nous apprendrons à utiliser la richesse de l'écosystème npm
+  et à profiter des modules pour écrire des
+  applications frontend de qualité.
 
-Une *annexe* présente une sélection de modules _npm_ pour explorer d'autres horizons – énième démonstration de la versatilité de Node.
+Des *annexes* complètent l'ouvrage avec une *sélection de modules _npm_*
+et des exemples de *design patterns*.
+De quoi élargir notre perception et écrire du code plus robuste.
 
-Cet ouvrage est également consultable sur _quatre supports_ :
+Cet ouvrage est également consultable sur _cinq supports_ :
 
-- *livre*, idéal pour les annotations ;
+- *livre*, le format par excellence — vendu en librairies et sur Internet ;
+- *web*, idéal pour bénéficier d'exemples interactifs, des exemples vidéo et d'un contenu à jour ;
 - *e-book*, idéal pour consommer les batteries de votre liseuse numérique ;
-- *web*, idéal pour bénéficier des contenus multimédia, des ajouts récents et des corrections diverses;
-- *npm*, idéal pour exécuter les exemples dans votre terminal et apprendre en bidouillant.
+- *npm*, idéal pour apprendre Node.js par la pratique ;
+- *source*, idéal pour proposer ou corriger le contenu et apprendre comment l'ouvrage est constitué.
 
 [TIP]
 .[RemarquePreTitre]#Ressources# Contenu en [line-through]#livre# libre accès
@@ -88,12 +114,11 @@ Le contenu de cet ouvrage est géré grâce à la plate-forme collaborative _Git
 Cette plate-forme me permet d'obtenir des retours, idées et suggestions d'un peu tout le monde… peut-être vous ?
 
 - [URL]#https://github.com/oncletom/nodebook#
-- [URL]#https://npmjs.com/nodebook#
 ====
 
 == Remerciements
 
-Cet ouvrage a été rédigé sur près de _trois années_ – longue est la liste exhaustive des personnes à remercier.
+Cet ouvrage a été rédigé sur près de _quatre années_ – longue est la liste exhaustive des personnes à remercier.
 Longue aussi est la liste de celles et ceux à qui je dois m'excuser pour mes sautes d'humeur, mes absences ou mes passages à vide.
 Écrire est une activité éprouvante qui nécessite une attention vis à vis de soi-même pour ne pas (trop) en souffrir.
 
@@ -114,11 +139,10 @@ J'ai organisé une résidence d'écriture itinérante de janvier à mars 2017.
 On m'a hébergé, nourri et parfois blanchi.
 Merci beaucoup beaucoup Maxime W, Brice F, Nicolas F, les gens du Yelloworking à Aix, Antoine F, les gens de la Coop à Grenoble, Cédric et Hélyette, Agnès, les gens de Mix-IT, les gens de la Cordée à Lyon, Maxime L, les gens de la Myne à Villeurbane, Clément D et Quentin A, les gens de Clever Cloud, Thomas M et Lilian M, les gens du ByteClub, Alexis J, les gens de Matlo, les gens du Fab Lab 127°, Arnaud R, Ismaël H et les gens de BetaGouv.
 
-Enfin, entre meta-remerciements et méga-encouragements, je suis heureux et fier d'œuvrer d'ensemble, avec David et Clémentine, afin de porter nos valeurs et nos idées vers les Communs et la mutualisation de moyens.
+Enfin, entre meta-remerciements et méga-encouragements, je suis heureux et fier d'œuvrer d'ensemble avec David et Clémentine, afin de porter nos valeurs et nos idées vers les Communs et la mutualisation de moyens.
 
 Mes amis. Ma famille. Je vous aime.
 
 Bonne lecture icon:smile-o[]
 
-— Thomas Parisot
-[URL]#https://oncletom.io#
+— Thomas Parisot • [URL]#https://oncletom.io#
