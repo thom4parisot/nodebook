@@ -2,6 +2,23 @@
 
 Pour en savoir plus: [annonce la résidence itinérante](https://oncletom.io/2017/residence-nodejs/) et [résumé de la résidence itinérante](https://oncletom.io/2017/without-a-home/) (en anglais).
 
+
+## Jeudi 4 janvier
+
+- _Tous les chapitres_ : réorganisation des contenus à partir des écrits existants
+- _Outillage_ : chaque Pull Request peut être prévisualisée — pratique pour voir le rendu avant de merger sur `master` 🎉
+
+**Météo** : 😄
+
+## Mercredi 3 janvier
+
+On a fait un atelier de [mob programming][] basé sur un besoin réel pour faire émerger la structure du chapitre 8.
+
+- _Chapitre 8_ : brouillon de la structure du chapitre
+- _Tous les chapitres_ : début de la réorganisation des contenus
+
+**Météo** : 😄 💪
+
 ## Mardi 2 janvier
 
 Pas d'écriture aujourd'hui mais de bonnes réflexions autour du contenu.
@@ -569,3 +586,4 @@ Merci [@BetaGouv](https://github.com/sgmap) pour le coin de bureau 👋
 [byte-club]: https://twitter.com/ByteClubFR
 [matlo]: https://twitter.com/matlo
 [dtc]: https://dtc-innovation.org/
+[mob programming]: https://en.wikipedia.org/wiki/Mob_programming
