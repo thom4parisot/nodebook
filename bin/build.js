@@ -13,6 +13,7 @@ var DEFAULT_ATTRIBUTES = [
   'env=ci',
   'hide-uri-scheme',
   'experimental',
+  'idprefix',
   'source-highlighter=highlightjs'
 ];
 
