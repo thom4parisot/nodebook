@@ -6,6 +6,7 @@ Pour en savoir plus: [annonce la résidence itinérante](https://oncletom.io/201
 
 - _Chapitre 1_ : simplification du style d'écriture, phrases raccourcies etc.
 - _Chapitre 1_ : gouvernance du projet
+- _Chapitre 1_ : affichage des vidéos YouTube sur support HTML
 - _Outillage_ : suppression du préfixe `_` dans les ancres de titres ("npm" donnera `#npm` au lieu de `#_npm`)
 
 **Météo** : 😄
