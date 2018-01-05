@@ -3,6 +3,7 @@
 :sourceSample: currency-main.js
 :nodeCurrentVersion: v8
 :vX: v8.9.3
+:nvmVersion: v0.33.8
 :npmCurrentVersion: v5
 :toc-title: Table des matières
 :sectnums:
@@ -196,7 +197,7 @@ _nvm_ est l'équivalent de _rvm_ dans le monde Ruby, de _phpenv_ dans le monde P
 [subs="attributes"]
 .Installation de _nvm_ et de Node {nodeCurrentVersion} sur un environnement Linux.
 ----
-curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.0/install.sh | bash
+curl -o- https://raw.githubusercontent.com/creationix/nvm/{nvmVersion}/install.sh | bash
 nvm install {nodeCurrentVersion}
 nvm alias default {nodeCurrentVersion}  # <1>
 ----

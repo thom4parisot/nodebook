@@ -4,7 +4,6 @@
 :nodeCurrentVersion: v8
 :nodeNextVersion: v9
 :npmCurrentVersion: v5
-:revisionYear: 2017
 :toc-title: Table des matières
 :sectnums:
 :revdate: {docdate}
@@ -636,11 +635,10 @@ Nous allons nous intéresser aux différents mécanismes exposant des applicatio
 [[shared-hosting]]
 === Hébergement mutualisé
 
-En {revisionYear}, aucun service d'hébergement mutualisé ne proposait de mécanisme pour déployer une application Node.
+Les hébergements mutualisés sont bon marché car ils se "contentent" de mutualiser un frontal HTTP et de servir des fichiers statiques et des scripts interprétés.
+Python ou PHP, par exemple.
 
-Les hébergements mutualisés sont bon marché car ils se "contentent" de mutualiser un frontal HTTP et de servir des fichiers statiques et des scripts interprétés (écrits en PHP par exemple).
-
-Ce modèle est incompatible avec le démarrage d'un processus par application Node.
+(parler d'Alwaydata)
 
 [[paas]]
 === Plate-forme en tant que service (_Platform as a Service_)
