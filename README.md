@@ -10,7 +10,7 @@ Le contenu est actuellement **en cours d'écriture** 🚧. Certaines sections so
 | -------|---------------------------|--------- |---|
 | 🚧      | [Préface de David Bruant][foreword] | - | -
 | ✅      | [Avant-propos][preamble] | - | -
-| 🚧      | **[Histoire, écosystème et gouvernance][ch01]** | _ça marche comment la vie de Node et des gens qui le font ?_ | [issues][ch01-issues]
+| ✅      | **[Histoire, écosystème et gouvernance][ch01]** | _ça marche comment la vie de Node et des gens qui le font ?_ | [issues][ch01-issues]
 | 🚧      | **[Installer, mettre à jour et développer][ch02]** | _ça marche comment Node sur une machine ?_ | [issues][ch02-issues]
 | 🚧      | **[Jouer avec JavaScript][ch03]** | _ça marche comment JavaScript ?_ | [issues][ch03-issues]
 | 🚧      | **[Jouer avec Node.js][ch04]** | _ça marche comment les modules ?_ | [issues][ch04-issues]

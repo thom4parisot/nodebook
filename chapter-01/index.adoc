@@ -3,7 +3,7 @@
 :nodeCurrentVersion: v8
 :npmCurrentVersion: v5
 :sectnums:
-:revisionYear: 2017
+:revisionYear: 2018
 :toc-title: Table des matières
 :revdate: {docdate}
 :imagesdir: {indir}
@@ -34,9 +34,6 @@ Ce chapitre permet de *comprendre pourquoi Node a émergé* et comment.
 Surtout, il vous permettra de comprendre les choix techniques
 à l'origine des fondations de Node et ce que l'utiliser
 peut vous apporter, que ce soit dans un contexte personnel ou professionnel.
-
-Qu'on se le dise : *un langage de programmation en lui-même n'a jamais résolu quelconque problème*.
-Cela reste avant tout une affaire de compétences et d'expérience, <<avoiding-node,cf. Pourquoi éviter Node ?>>.
 --
 
 toc::[]
@@ -97,7 +94,7 @@ Ce code est lu par le _runtime_ Node qui le transmet à la VM JavaScript. Enfin,
 
 Pour comprendre comment Node a opté pour cette approche, retournons en 2009, lorsque son créateur **Ryan Dahl** cherchait à résoudre élégamment un problème de performance de programmation.
 
-== Historique du projet Node.js
+== Bref historique
 
 En 2006, _Ryan Dahl_ est un étudiant américain en troisième année de doctorat de mathématiques.
 Si son but initial était de devenir professeur de mathématiques, il prend la décision de ne pas terminer sa thèse et d'entreprendre un voyage au Chili.
@@ -147,10 +144,14 @@ De ces efforts naît Node.js. +
 Il effectue une démonstration de link:https://gist.github.com/ry/a3d0bbbff196af633995[serveur IRC écrit en 400 lignes de JavaScript] lors de la link:https://www.youtube.com/watch?v=ztspvPYybIY[conférence JSConf.eu 2009] qui suscite l'enthousiasme et attire l'attention.
 
 L'entreprise américaine _Joyent_ l'embauche à plein temps pour continuer le développement de Node.
-Ils pressentent que la plate-forme Node répond à leurs projets de _datacenter_ et d'hébergement.
+Ils pressentent que la plate-forme Node répondra à leurs projets de _datacenter_ et d'hébergement.
 
 *Node et sa communauté sont nés* et ont continué à prospérer depuis lors.
 Pour une simple affaire de _barre de progression_ et une obsession de _perception de rapidité_.
+
+En 2018, l'avenir de Node est au beau fixe avec plus de 1200 contributeurs
+à la plate-forme et plus de 612 000 modules publics hébergés
+sur le registre _npm_.
 
 [TIP]
 .[RemarquePreTitre]#Vidéo# _History of Node.js_
@@ -165,103 +166,142 @@ Peut-être un élément qui figurera dans les livres d'histoire !
 
 == Les raisons du succès
 
-En 2009, la tension et l'attention autour de JavaScript sont énormes.
+La tension et l'attention autour de JavaScript sont énormes en 2009.
 La mode du tout _Ajax_ et des _mashups_ s'est estompée mais une chose en est ressortie : JavaScript n'a plus à rougir ni à être relégué au rang de sous-langage.
 Les initiatives JSLint, CommonJS et les _good parts_ de Douglas Crockford sont pour beaucoup dans la création de code élégant.
 
 D'un autre côté, les entreprises développant des navigateurs web se livrent à une féroce compétition d'optimisation.
-Google, Mozilla et Apple ont en effet besoin de navigateurs rapides pour améliorer leurs parts de marché sur les ordinateurs mais aussi les téléphones et tablettes.
+Google, Mozilla et Apple ont besoin de navigateurs rapides pour améliorer leurs parts de marché sur les ordinateurs mais aussi les téléphones et tablettes.
 On peut considérer que JavaScript est à cette époque le langage de programmation bénéficiant du plus grand investissement financier et humain en R&D.
 
-La communauté JavaScript accueille avec ferveur Node lors de la conférence JSConf Europe en 2009.
-Elle contribue à son amélioration et à la création d'un écosystème de modules réutilisables.
+La communauté JavaScript accueille avec ferveur Node lors
+de la conférence JSConf Europe en 2009.
+Elle contribue à son amélioration et à la création d'un écosystème
+de modules réutilisables.
 
-Il faudra attendre la création du registre _npm_ au tout début 2010 pour faciliter encore plus l'installation et le partage des modules Node autour du globe.
-Dès lors, un simple `npm install node-playground` suffit pour inclure le module `node-playground` à son propre projet.
-Partager un module est tout aussi simple puisqu'un simple `npm publish` le rend disponible à tous en un instant.
+Il faudra attendre la création du registre _npm_ au tout début 2010
+pour faciliter l'installation et l'hébergement de modules tiers.
+Dès lors, une simple commande suffit pour inclure du code écrit par
+d'autres personnes dans ses projets.
 
-npm devient une telle pierre angulaire qu'il est inclus par défaut dans l'installation de Node à partir de novembre 2011, lors de la publication de Node 0.6.3.
-La communauté Node et ses contributeurs ont fait le reste du travail en fournissant un écosystème de modules riche et varié : frameworks, templating, drivers de bases de données, serveurs HTTP, serveurs WebSockets, préprocesseurs CSS, CoffeeScript, parseurs, proxy, serveurs de log, librairies de tests, langages de _templating_, etc.
+_npm_ devient une pierre angulaire.
+À tel point qu'il est inclus dans l'installation de Node
+à partir de la version 0.6.3 en novembre 2011.
+La communauté Node fait le reste du travail
+en constituant un *écosystème de modules riche et varié* :
+frameworks web, drivers de bases de données,
+serveurs HTTP, serveurs WebSockets, préprocesseurs CSS,
+CoffeeScript, parseurs, proxy, serveurs de log, modules de tests,
+langages de _templating_, etc.
 
-Malgré ses défauts de jeunesse, Node réussit également le tour de force de la performance : la recette de l'accès non bloquant aux ressources aurait-elle fonctionné ?
-À en croire les personnes ayant migré vers Node pour ces raisons, la réponse est *oui*.
-
-== Pourquoi choisir Node.js ?
-
-Il y a plusieurs raisons d'utiliser Node, en complément ou en remplacement d'un langage existant.
-Il est préférable que cela soit avant tout une *volonté ou une curiosité et que cela se fasse en considérant la plate-forme Node pour ce qu'elle est* et non pour ce que vous voudriez qu'elle soit.
-
-Si l'on tient compte des raisons historiques de la création de Node, il est évident que Node est tout désigné dès lors que l'on parle d'*applications à nombreuses actions concurrentes*. +
-Autrement dit, dès que plusieurs requêtes impliquent des accès réseau, aux fichiers ou au système.
-
-Grâce aux _streams_, Node est également un excellent choix pour *travailler et transformer de gros flux de données* en utilisant peu de mémoire. +
-Cela concerne aussi bien la lecture de fichiers CSV, JSON ou XML de plusieurs giga-octets ou la lecture en continu de l'API Twitter ou Facebook.
-
-La compatibilité de Node avec les modules CommonJS incite à concevoir de multiples modules respectant le _principe de responsabilité unique_. +
-Node encourage ainsi à créer de *multiples applications autonomes et modulaires au lieu d'une seule application monolithique*.
-
-Avec Grunt, Gulp, babel, browserify et Webpack, les développeurs verront dans Node leur *compagnon idéal pour compiler, générer, assembler et minifier* leurs différents fichiers. +
-Le bénéfice évident est le partage du même outillage CSS, JavaScript et HTML entre développeurs, par projet.
-Finies les ambiguïtés… et place à l'automatisation !
-
-Conséquence directe du point précédent, Node peut se révéler être une opportunité pour *unifier vos équipes de développement _frontend_ et _backend_*. +
-Node devient un langage commun entre les individus.
-Ils peuvent se focaliser sur des fonctionnalités indistinctement de leur périmètre, qu'il s'agisse du navigateur, du serveur ou d'une API.
-
-Enfin, Node est un *environnement adapté à l'apprentissage et l'amélioration des connaissances en JavaScript*. +
-Vous disposez de la maîtrise de la version de Node, des modules employés et n'avez pas à vous soucier de quelconque compatibilité de version de JavaScript.
+Malgré ses défauts de jeunesse, Node réussit le tour
+de force de la performance : la recette de l'accès non bloquant
+aux ressources aurait-elle fonctionné ?
+À en croire les personnes ayant migré vers Node pour ces raisons,
+la réponse est *oui*.
 
 [[avoiding-node]]
 == Pourquoi éviter Node.js ?
 
-S'il y a des raisons d'utiliser ou d'adopter Node, l'inverse est également vrai.
-Il faut toutefois noter que la majorité des raisons sont liées à une _culture_ et des _compétences_ déjà en place dans un environnement donné.
+Il est tentant de vouloir suivre un chemin populaire,
+d'adopter le dernier outil ou _framework_ à la mode.
 
-Ce serait d'ailleurs la première et principale raison de ne pas utiliser Node ; si votre équipe dispose déjà de fortes compétences, d'habitudes et d'aisance dans un autre langage. +
-Il n'y a pas de raison d'utiliser Node *si vous parvenez à un résultat similaire avec des performances comparables*.
+J'ai pourtant envie d'écrire qu'il n'est pas nécessaire
+de passer à Node.
 
-L'*offre logicielle est également à prendre en compte* : CMS, systèmes e-commerce ou autre application prête à l'emploi que la communauté Node n'offrirait pas.
+Si votre équipe dispose déjà de fortes compétences,
+d'aisance et de productivité dans un autre langage,
+il n'y a pas de raison de passer à Node.
+Cette équipe a tout intérêt à capitaliser sur ses
+connaissances pour être efficace et minimiser la dette technique
+de ses applications.
+
+L'*offre logicielle est également à prendre en compte* : CMS,
+systèmes e-commerce ou autre application prête à l'emploi
+que la communauté Node n'offrirait pas.
 
 Un facteur important et souvent oublié est *l'acceptation et la compréhension de l'utilisation de Node* par une ou plusieurs équipes.
-Il est alors plus intéressant de comprendre les raisons d'un blocage que de forcer ou d'imposer Node. +
-Cela peut être simple : balayer des idées reçues, animer un atelier technique ou inviter un expert pour répondre aux questions, interrogations et utilité d'un tel changement.
+Il est alors plus intéressant de comprendre les raisons
+d'un blocage que de forcer ou d'imposer Node. +
+Cela peut être simple : balayer des idées reçues,
+animer un atelier technique ou inviter un expert pour répondre aux questions,
+interrogations et utilité d'un tel changement.
 
-Node n'est pas forcément une solution adaptée si *vos besoins de performance dépassent les capacités de Node*. Certains cas de très haute performance nécessitent une gestion fine de la mémoire ou d'utiliser plusieurs CPU en parallèle. +
-Un langage comme C sera certainement davantage approprié.
-Toutefois des solutions comme `node-gyp` vous offrent un accès bas niveau aux éléments internes de la plate-forme Node.
+Node ne vous aidera probablement pas si vous cherchez
+à *réaliser des choses contre-productive pour JavaScript*.
+Je pense à des opérations mathématiques de très haute précision,
+du _machine learning_ avancé ou du calcul scientifique poussé par exemple.
+Difficile d'égaler la richesse fonctionnelle de Python
+et de ses librairies SciPy, NumPy ou scikit-learn.
+Difficile aussi d'égaler la finesse de gestion de mémoire de _{cpp}_ ou de _Rust_.
 
-Node ne vous aidera probablement pas si vous cherchez à *réaliser des choses qui seraient compliquées de par la nature même de JavaScript*, par exemple des opérations mathématiques de très haute précision, du _machine learning_ avancé ou du calcul scientifique poussé.
-Difficile d'égaler la richesse fonctionnelle de Python et de ses librairies SciPy, NumPy ou scikit-learn. +
-ECMAScript suit le standard IEEE 754 pour la représentation des nombres à virgule flottante — de même que C#, Ruby et Java, entre autres.
-Vous pouvez toutefois pallier ce problème via l'utilisation des `Buffer` ou des _Typed Array_ (_Int32_, _UInt32_ etc.).
-Les module `bignumber.js` ([URL]#https://npmjs.com/bignumber.js#) et `bignum` ([URL]#https://npmjs.com/bignum#) reposent sur ces mécanismes tout en vous facilitant le travail.
+Node ne va *résoudre les problèmes par magie*.
+Cela reste avant tout une affaire de compétences et d'expérience.
 
-Enfin si vous croyez que Node va *résoudre les problèmes par magie* — qu'ils soient de nature technique, de performance ou de compétences* — c'est une croyance dont il va falloir se séparer.
 
-== Écosystème
+== Pourquoi choisir Node.js ?
 
-Un certain nombre d'acteurs gravitent autour de Node.
-Le modèle qui en émerge est assez unique : la majorité des développements initiaux était financée par _Joyent_ suite à l'embauche de Ryan Dahl.
+Node est un choix de langage principal tout à fait viable.
 
-L'écosystème contribuant au développement de la plate-forme a évolué d'un faible nombre d'entreprises privées vers une fondation non-commerciale impliquant plusieurs dizaines d'individus, la plupart financés par leur employeur.
+Il est préférable que ce choix soit une *volonté partagée* entre membres d'une équipe.
+Que ce choix soit motivé par ce que Node apporte et simplifie pour vous.
 
-En {revisionYear}, après avoir traversé des périodes incertaines, l'avenir de Node est au beau fixe avec plus de 1200 contributeurs à la plate-forme et plus de 400 000 paquets publics hébergés sur le registre _npm_.
+Node est tout désigné pour créer des *applications à nombreuses actions concurrentes*.
+Autrement dit, dès qu'une application ou programme fasse appel à des accès réseau, aux fichiers ou au système.
+
+Node est également adapté pour *transformer des flux importants de données*
+en utilisant peu de mémoire.
+Cela concerne aussi bien la lecture de fichiers CSV, JSON ou XML de plusieurs giga-octets.
+
+Le mécanisme de module de Node encourage à respecter le _principe de responsabilité unique_.
+Nos applications peuvent être *modulaires et autonomes* au lieu d'être lourdes et monolithiques.
+
+Les développeurs et développeuses verront dans Node leur *compagnon idéal pour compiler, générer, assembler et minifier* leurs applications frontend.
+Le bénéfice évident est le partage d'un outillage CSS, JavaScript et HTML
+entre équipes, par projet.
+
+Conséquence directe, Node offre l'opportunité d'*unifier vos équipes de développement _frontend_ et _backend_*.
+Node devient un environnement commun, un langage partagé entre les individus.
+Ils peuvent se focaliser sur des fonctionnalités indistinctement de la cible, que ce soit pour le web, un serveur ou une API.
+
+Node est un environnement adapté à *l'apprentissage et l'amélioration de nos connaissances en JavaScript*.
+On peut désormais penser sur du long terme, en se souciant moins de devoir supporter de veilles versions de Node ou de navigateurs web tant il est facile de passer d'une version du langage à une autre.
+
+== L'écosystème des acteurs
+
+La majorité des développements initiaux de Node sont financée par _Joyent_,
+à commencer par l'embauche de Ryan Dahl.
+
+L'écosystème des acteurs se diversifie avec le temps.
+Avec de nouveaux employés chez _Joyent_.
+Puis avec des contributeurs externes qui voyaient un avenir prometteur dans la plate-forme.
+S'ensuivent des entreprises privées comme IBM ou PayPal qui sponsorisent le projet ou le salaire de contributeurs.
 
 [[joyent]]
 === Joyent
 
 Joyent est une entreprise américaine fondée en 2004.
-Elle proposait à l'origine des services de collaborations en ligne : documents, calendriers, e-mails, etc.
+Elle proposait à l'origine des services de collaborations
+en ligne : documents, calendriers, e-mails, etc.
 
-Elle se lance sur le marché de l'hébergement fin 2005 par le biais d'une acquisition-fusion.
-Parmi ses clients, on peut dénombrer le site de Ruby on Rails (société Basecamp), WordPress.com (société Automattic) ou encore le site historique _A List Apart_.
+Elle se lance sur le marché de l'hébergement fin 2005
+par le biais d'une acquisition-fusion.
+Parmi ses clients, on peut dénombrer le site de Ruby on Rails
+(société Basecamp), WordPress.com (société Automattic) ou
+encore le site historique _A List Apart_.
 
-Depuis 2009, Joyent s'est orienté et s'est spécialisé dans les infrastructures et plate-formes à la demande et à haute performance.
-L'entreprise se spécialise dans les solutions dites temps réel pour les réseaux sociaux, applications mobiles et compagnies de jeux vidéo en ligne.
+En 2009, Joyent se spécialise dans les infrastructures et
+plate-formes à la demande et à haute performance.
+L'entreprise se concentre sur des solutions dites temps réel
+pour les réseaux sociaux, applications mobiles et compagnies
+de jeux vidéo en ligne.
 
-En avril 2011, Joyent enregistre _Node.js_ et son logo en tant que marque déposée.
+En avril 2011, Joyent enregistre _Node.js_ et son logo
+en tant que marque déposée.
 
-En février 2015, Joyent transfère la gestion de Node à la <<node-foundation,Node.js Foundation>>. La société _Joyent_ reste propriétaire de la marque _Node.js_ et de son logo.
+En février 2015, Joyent transfère la gestion de Node à la <<node-foundation,Node.js Foundation>>.
+La société _Joyent_ reste propriétaire de la marque _Node.js_
+et de son logo.
 
 [TIP]
 .[RemarquePreTitre]#Lien# Annonce du dépôt de marque
@@ -271,21 +311,9 @@ Ryan Dahl, alors développeur actif de Node, annonce le dépôt de marque par l'
 - [URL]#https://nodejs.org/en/blog/uncategorized/trademark/#
 ====
 
-anchor:node-foundation[]
-
-[[node-foundation]]
-=== Node.js Foundation
-
-La _Node.js Foundation_ est l'organe de gouvernance officiel du projet Node depuis juin 2015.
-Il s'agit d'une organisation à but non lucratif faisant partie elle-même de la link:http://collabprojects.linuxfoundation.org/[Linux Foundation], au même titre que des projets comme _Open Container_, _Let's Encrypt_ ou _Xen_.
-
-La gouvernance de la fondation est effectuée par un comité de direction technique, constitué de membres ayant prouvé une expertise technique dans le _design_ de Node et de sa communauté.
-
-La tâche première de la fondation a été d'opérer la fusion entre la base de code de _Node_ et d'<<iojs,io.js>>, Node v4.0.0, en septembre 2015.
-
 === npm
 
-_npm_ est une dénomination qui abrite plusieurs concepts : un *outil en ligne de commande*, un *registre de modules* ainsi qu'une *entreprise privée*.
+_npm_ est une dénomination qui abrite plusieurs concepts : un *outil en ligne de commande*, un *registre de modules* ainsi qu'une *entreprise privée* à but lucratif (<<npm-inc,npm, Inc>>).
 
 _npm_ est originellement un module Node créé par Isaacs Schlueter.
 Ce module permet d'installer des modules tiers et de les lier sous forme d'un arbre de dépendances.
@@ -307,33 +335,62 @@ Auparavant, il fallait installer le module _npm_ séparément.
 [[npm-inc]]
 === npm, Inc.
 
-Isaacs Schlueter a été embauché par Joyent en septembre 2010 et a succédé à Ryan Dahl dans la gestion du projet Node de janvier 2012 jusqu’à janvier 2014.
+Isaacs Schlueter a été embauché par Joyent en septembre 2010.
+Il a succédé à Ryan Dahl dans la gestion du projet Node de
+janvier 2012 jusqu’à janvier 2014.
 
-_npm, Inc_ est une entreprise privée américaine fondée en janvier 2014 par Isaacs Schlueter, directement après son départ de Joyent. Le but de _npm, Inc_ est de fournir des solutions professionnelles basées sur _npm_ tout en soutenant l’effort open source et les coûts d’infrastructure du registre _npm_.
+_npm, Inc_ est une entreprise privée américaine fondée en janvier 2014 par Isaacs Schlueter, directement après son départ de Joyent.
+Le but de _npm, Inc_ est de fournir des solutions professionnelles basées sur _npm_.
+L'entreprise souhaite en parallèle soutenir l’effort open source
+et les coûts d’infrastructure du registre _npm_.
 
-Elle lève 2,6 millions de dollars en février 2014 pour élaborer une nouvelle architecture du registre _npm_ ainsi que pour mettre en place une stratégie commerciale, notamment les modules privés.
+Elle lève 2,6 millions de dollars en février 2014 pour élaborer une nouvelle architecture du registre _npm_.
+Ce financement a également pour vocation la mise en place d'une stratégie commerciale basée sur les modules privés et les solutions professionnelles.
 
 La société _npm, Inc_ détient la marque _npm_, _npm, Inc_ et le _logo npm_.
 
 [[iojs]]
 === io.js
 
-_io.js_ est un _fork_ de Node initié par la communauté Node en réaction à la main-mise de Joyent sur le développement et la communication erratique de la plate-forme.
+_io.js_ est un _fork_ de Node initié par la communauté Node en décembre 2014.
+La raison ? La main-mise de Joyent sur les développements et la communication erratique de la plate-forme.
 
 Les objectifs initiaux du projet _io.js_ sont doubles :
 
 - offrir à la communauté Node une gestion de la plate-forme transparente, inclusive et ouverte ;
 - fournir une plate-forme technique plus moderne, une version de v8 plus récente ainsi qu'une intégration rapide des nouvelles fonctionnalités ECMAScript.
 
-Les efforts du projet et de sa communauté ont abouti à la création de la <<node-foundation,Node.js Foundation>> et du <<governance,Node.js Advisory Board>>, respectivement l'organe de gestion du projet et le groupe d'individus en charge de la gestion du projet Node.
+Le projet _io.js_ connait une fin heureuse en 2015 :
+les efforts du projet et de sa communauté auront abouti à
+la création de la <<node-foundation,Node.js Foundation>> et
+du _Node.js Advisory Board_, respectivement l'organe
+de gestion du projet et le groupe d'individus en charge
+de la gestion du projet Node.
 
 [TIP]
-.[RemarquePreTitre]#Lien# Une fin heureuse pour la communauté
+.[RemarquePreTitre]#Lien# Clap de fin
 ====
-Le projet _io.js_ s'arrête en 2015 suite à l'émergence de la nouvelle gouvernance, de la fusion réussie avec le code source de Node et de la sortie de Node v4.
+L'annonce de la sortie Node v4 et de la création de la _Node.js Foundation_
+est consultable à cette adresse :
 
 - [URL]#https://nodejs.org/en/blog/announcements/foundation-v4-announce/#
 ====
+
+
+[[node-foundation]]
+=== Node.js Foundation
+
+La _Node.js Foundation_ est l'un des organes officiels de gouvernance du projet Node depuis juin 2015.
+Cette fondation est une organisation à but non lucratif.
+Elle fait elle-même partie de la link:http://collabprojects.linuxfoundation.org/[Linux Foundation], au même titre que des projets comme _Open Container_, _Let's Encrypt_ ou _Xen_.
+
+La tâche première de la fondation a été d'opérer la fusion entre la base de code de _Node_ et d'<<iojs,io.js>> en septembre 2015.
+Cela donne lieu à la sortie de Node v4.0.0.
+
+La fondation fait partie intégrante de la <<governance,gouvernance du projet Node>>.
+
+[URL]#https://foundation.nodejs.org#
+
 
 === Nodejitsu
 
@@ -341,24 +398,33 @@ _Nodejitsu_ est une entreprise privée américaine fondée en 2010.
 Elle vise à fournir des solutions professionnelles autour de Node en tant que _Platform as a Service_ (_PaaS_) ainsi qu'avec des dépôts _npm_ privés. +
 Son activité en fait un concurrent direct de <<joyent,Joyent>> et de <<npm-inc,npm, Inc.>>.
 
-_Nodejitsu_ démontre un investissement fort dans la communauté Node en contribuant à plusieurs centaines de modules et en prenant en charge l'hébergement du registre _npm_ de 2010 jusqu'en décembre 2013.
+_Nodejitsu_ démontre un investissement fort dans la communauté Node en contribuant à plusieurs centaines de modules.
+La société prend en charge l'hébergement du registre _npm_ de 2010 jusqu'en décembre 2013.
 
-En 2013, _Nodejitsu_ lance l'initiative controversée _scalenpm_ visant à collecter des fonds pour améliorer la performance et la stabilité du _registre npm_ ([URL]#https://www.npmjs.com/#). +
-Elle attise les tensions avec la compagnie _npm, Inc._ en tentant de lui couper l'herbe sous le pied, sans succès.
+En 2013, _Nodejitsu_ lance l'initiative controversée <<scalenpm,scalenpm>> (voir l'encadré ci-après).
+Elle vise à collecter des fonds pour améliorer la performance
+et la stabilité du _registre npm_ ([URL]#https://www.npmjs.com/#). +
+_Nodejitsu_ attise les tensions avec la compagnie _npm, Inc._
+en tentant de lui couper l'herbe sous le pied.
+Ce ne sera pas un succès.
 
-En février 2015, la compagnie de vente de noms de domaine et d'hébergement _GoDaddy_ rachète _Nodejitsu_, absorbe son équipe et met fin à ses activités commerciales.
+En février 2015, la société américaine _GoDaddy_ rachète _Nodejitsu_,
+absorbe son équipe et met fin à ses activités commerciales.
 
-[TIP]
+[TIP,id="scalenpm"]
 .[RemarquePreTitre]#Lien# La controverse _#scalenpm_
 ====
-L'initiative _#scalenpm_ a réuni quelques 326 000 $ auprès d'entreprises privées et de la communauté Node.
+L'initiative _#scalenpm_ a réuni quelques 326 000 $ auprès
+d'entreprises privées et de la communauté Node.
 
 Son effort se poursuit dans le but de fournir une meilleure instrumentation et une architecture résistant à la montée en puissance de l'utilisation des modules _npm_.
 
 Cette initiative a suscité une controverse dans la mesure où l’opération s’est déroulée lors de la naissance de _npm, Inc_ et du dépôt de marque associé… mais sans entente apparente entre les deux parties.
 
 - [URL]#http://web.archive.org/web/20160506191542/https://scalenpm.nodejitsu.com/#
+- [URL]#https://twitter.com/hashtag/scalenpm#
 ====
+
 
 === Node Security Platform
 
@@ -367,48 +433,102 @@ Il a été initié au début de l'année 2013.
 
 Son but est triple :
 
-1. auditer la sécurité de tous les modules npm ;
-2. communiquer les failles auprès des auteurs de modules ;
-3. permettre à quiconque de savoir si un module donné dépend de module vulnérable.
+. auditer la sécurité de tous les modules npm ;
+. communiquer les failles auprès des auteurs de modules ;
+. permettre à quiconque de savoir si un module donné dépend de module vulnérable.
 
-Le projet met à disposition des _services_ et des _modules_ tout en cherchant à impliquer la communauté Node dans le processus.
-Cela concerne aussi bien la déclaration des vulnérabilités que leur résolution ou l'éducation des développeurs à la sécurité.
+Le projet met à disposition des _services_ et des _modules_
+tout en cherchant à impliquer la communauté Node dans le processus.
+Cela concerne aussi bien la déclaration des vulnérabilités
+que leur résolution ou l'éducation des développeurs à la sécurité.
 
-Nous apprendrons à protéger nos projects avec _Node Security Platform_ dans la section <<../chapter-06/index.adoc#security,surveiller la santé de l’application>> du Chapitre 6.
+Nous aborderons le sujet de la sécurité tout au long de cet ouvrage :
+
+- au <<../chapter-04/index.adoc#security,Chapitre 4>> : mettre à jour Node en cas de failles de sécurité ;
+- au <<../chapter-06/index.adoc#security,Chapitre 6>> : surveiller la santé d'une application en production ;
+- au <<../chapter-07/index.adoc#security,Chapitre 7>> : identifier les opérations à risques dans une application web.
+
 
 [[governance]]
-=== Qui gère Node.js ?
-
-Joyent est une entreprise privée qui a été responsable de Node depuis l'embauche de son créateur — Ryan Dahl —.
-Cette gérance privée du projet open source a régulièrement fait grincer des dents, notamment en entretenant un climat d'incertitude sur la pérennité à long terme de la plate-forme.
-
-Certaines voix se sont élevées pour critiquer l'absence d'une organisation ouverte, commercialement neutre et ouverte aux contributeurs externes. +
-C'est ce qui a poussé <<iojs,io.js>> a créer un _fork_ de Node, entre autres.
-
-Si bien que depuis juin 2015, la gérance du projet est garantie par un organisme commercialement neutre, la <<node-foundation,Node.js Foundation>>.
-
-L'écosystème de modules _npm_ est quant à lui hébergé sur _npmjs.com_.
-Il sont gratuitement mis à disposition et chaque module est soumis à sa propre licence open source (MIT, Apache 2 etc.).
-
-On distingue deux communautés fortes au sein de Node :
-
-- les *contributeurs Node* — essentiellement des *développeurs C++* ;
-- les *contributeurs de _modules npm_* — essentiellement des *développeurs JavaScript*.
-
-
-
-== Philosophie de développement
+== Gouvernance du projet
 
 Node a connu une *forte croissance depuis 2012*.
-Cela concerne aussi bien le nombre de modules publiés sur le registre npm que le nombre de contributeurs.
-C'est sans compter le nombre d'articles faisant l'éloge de la plate-forme et les annonces de migration d'entreprises vers Node.
+La gouvernance du projet open source a été effectuée
+par la <<joyent,société Joyent>>.
+Ses agissements et la direction donnée au projet ont régulièrement
+fait grincer des dents.
+Notamment en entretenant un climat d'incertitude sur
+la pérennité à long terme de la plate-forme si Node venait à ne plus
+répondre aux intérêts commerciaux de _Joyent_.
 
-Il n'aura fallu que deux ans pour que Node devienne vraiment stable et utilisable en production.
+Des voix se sont élevées pour critiquer l'absence d'une
+organisation ouverte, commercialement neutre et
+ouverte aux contributeurs externes.
+Cela a mené à la création d'un _fork_ de Node : <<iojs,io.js>>.
 
-(partie en travaux)
+La réconciliation entre le projet Node et _io.js_ a sérieusement assaini
+les rapports de gouvernance.
+Cela a également apporté une direction et des opportunités plus claires
+de contribuer à la direction du projet.
+
+Depuis juin 2015, la gérance du projet est garantie par plusieurs entités :
+
+- le _Technical Steering Committee_ (TSC) : planning, décisions techniques, direction du projet, documentation et qualité du projet ;
+- le _<<node-foundation,Node.js Foundation>> Board_ : évangélisation, relations commerciales ;
+- le _<<node-foundation,Node.js Foundation>> Community Committee_ (CommComm) : relation avec la communauté, _onboarding_.
+
+Le _Technical Steering Committee_ réfère ses intentions d'actions
+au _Board_.
+Son fonctionnement régie une charte co-signée avec le _Board_.
+Ce comité est composé de contributeurs et de collaborateurs individuels.
+
+[URL]#https://github.com/nodejs/TSC#
+
+[TIP]
+.[RemarquePreTitre]#Anecdote# Une fois n'est pas coutume
+====
+Le _Technical Steering Committee_ était autrefois dissocié d'une autre entité, le _Core Technical Committee_.
+Les conflits de gouvernance ayant résulté dans la création du <<ayojs,fork ayo.js>> ont mené à la fusion des deux comités.
+
+L'objectif recherché était de rapprocher gouvernance et décisions techniques
+tout en réduisant les opportunités d'abus de pouvoir par les membres
+techniques éminents.
+
+[URL]#https://github.com/nodejs/CTC#
+====
+
+À l'inverse, le _Board_ géré par la <<node-foundation,Node.js Foundation>> est composé essentiellement d'acteurs de l'industrie — dont Google,
+IBM, Joyent et PayPal.
+Certains membres émerites ou choisis par le _Board_ sont des individus
+agissant en leur nom propre.
+
+[URL]#https://github.com/nodejs/board#
+
+Les participant·e·s du _Technical Steering Committee_ ont une obligation
+de régularité, de présence et de vote aux différents rendez-vous
+organisés par le comité. +
+Ce mécanisme a été choisi afin de préserver la vitalité du projet.
+
+Un quota d'appartenance à une même entreprise a été mis en place
+pour maintenir une diversité de représentation.
+Dans une moindre mesure, ce mécanisme vise à réduire les possibles conflits d'intérêt ou une prise en otage du projet Node… comme a pu le faire <<joyent,Joyent>> avant l'apparition de ce modèle de gouvernance.
+
+[TIP]
+.[RemarquePreTitre]#Liens# Documentation
+====
+Les documents clés régissant le fonctionnement du projet Node
+sont répartis dans les dépôts GitHub des différents acteurs :
+
+- [URL]#https://github.com/nodejs/node/blob/master/GOVERNANCE.md#
+- [URL]#https://github.com/nodejs/TSC/blob/master/TSC-Charter.md#
+- [URL]#https://github.com/nodejs/admin/blob/master/CODE_OF_CONDUCT.md#
+- [URL]#https://github.com/nodejs/node/blob/master/COLLABORATOR_GUIDE.md#
+====
+
+
 
 == Conclusion
 
-Nous venons d'en apprendre davantage sur les *origines de Node*, les différentes parties prenantes dans son développment mais aussi sa *philosophie* — de _conception_, de _distribution_ et d'_évolution_.
+Nous venons d'en apprendre davantage sur les *origines de Node*, les différentes parties prenantes dans son développement mais aussi sa *philosophie* — de _conception_, de _distribution_ et d'_évolution_.
 
 Nous allons voir dans le prochain chapitre comment installer un environnement fonctionnel pour développer et exécuter des programmes Node.
