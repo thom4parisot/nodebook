@@ -4,6 +4,10 @@ sudo: false
 language: node_js
 node_js: v8
 
+before_script:
+- npm run install:all
+
+
 before_deploy:
 - git-lfs pull
 - make clean build-html

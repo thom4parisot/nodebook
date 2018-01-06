@@ -6,10 +6,11 @@
   "scripts": {
     "build:html": "node bin/build.js index.adoc chapter-*/index.adoc foreword/*.adoc appendix-*/*.adoc",
     "format": "prettier-eslint --write 'chapter*/**/*.js'",
+    "install:all": "ls . | grep -E '(chapter|appendix)' | xargs -I '{}' -L 1 bash -c 'cd $(realpath {}) && echo $(pwd) && npm install'",
     "lint": "eslint --fix '**/*.js'",
     "prestart": "npm run build:html",
     "start": "node server.js",
-    "test": "exit 0",
+    "test": "tape -r babel-register 'tests/*.js' | faucet",
     "posttest": "npm run lint"
   },
   "engines": {
@@ -36,17 +37,22 @@
     "lodash": "^4.17.4",
     "opn": "^5.1.0",
     "serve-static": "^1.13.1",
+    "tap-bail": "^1.0.0",
     "update-notifier": "^2.3.0",
     "yargs": "^6.6.0"
   },
   "devDependencies": {
     "asciidoctor-extension-interactive-runner": "^1.0.0",
     "asciidoctor.js": "^1.5.6-preview.4",
+    "babel-register": "^6.26.0",
+    "blue-tape": "^1.0.0",
     "chokidar": "^2.0.0",
     "eslint": "^4.14.0",
     "eslint-plugin-react": "^7.5.1",
+    "faucet": "0.0.1",
     "prettier-eslint": "^3.0.2",
-    "prettier-eslint-cli": "^1.1.0"
+    "prettier-eslint-cli": "^1.1.0",
+    "tape-spawn": "^1.4.2"
   },
   "eslintConfig": {
     "root": true,
