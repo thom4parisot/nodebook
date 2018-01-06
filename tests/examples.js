@@ -2,11 +2,15 @@
 
 const test = require('blue-tape');
 const spawn = require('tape-spawn');
-const {dirname} = require('path');
 const glob = require('glob');
 
 const chapters = glob.sync('*/examples');
 const examples = glob.sync('*/examples/*.js');
+const serverSide = (file) => /chapter-09/.test(file) === false;
+
+const EXTRAS = {
+  'chapter-04/examples/uppercase.js': {},
+};
 
 test('chapters', t => {
   t.plan(1);
@@ -14,16 +18,17 @@ test('chapters', t => {
   t.equal(chapters.length, 10);
 });
 
-examples.forEach(example => {
-  test(example, {timeout: 1000}, t => {
-    t.plan(1);
+examples.filter(serverSide).forEach(FILE => {
+  test(FILE, {timeout: 5000}, t => {
+    if (FILE in EXTRAS) {
+      t.skip();
+      return t.end();
+    }
 
-    const p = spawn(t, `node ${example}`, {
-      // cwd: dirname(example)
-    });
+    const p = spawn(t, `node ${FILE}`);
 
-    p.timeout(500);
-    p.exitCode(0);
+    p.timeout(2000);
+    p.succeeds();
 
     return p.end();
   });
