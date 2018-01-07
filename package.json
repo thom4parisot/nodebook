@@ -6,7 +6,7 @@
   "scripts": {
     "build:html": "node bin/build.js index.adoc chapter-*/index.adoc foreword/*.adoc appendix-*/*.adoc",
     "format": "prettier-eslint --write 'chapter*/**/*.js'",
-    "install:all": "ls . | grep -E '(chapter|appendix)' | xargs -I '{}' -L 1 bash -c 'cd $(realpath {}) && echo $(pwd) && npm install'",
+    "install:all": "./bin/cli.js install all",
     "lint": "eslint --fix '**/*.js'",
     "prestart": "npm run build:html",
     "start": "node server.js",
@@ -37,7 +37,7 @@
     "opn": "^5.1.0",
     "serve-static": "^1.13.1",
     "update-notifier": "^2.3.0",
-    "yargs": "^6.6.0"
+    "yargs": "^10.0.3"
   },
   "devDependencies": {
     "asciidoctor-extension-interactive-runner": "^1.0.0",
