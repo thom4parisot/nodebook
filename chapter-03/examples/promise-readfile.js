@@ -1,7 +1,7 @@
 'use strict';
 
 const { join } = require('path');
-const readFilePromise = require('./readfile-promise');
+const readFilePromise = require('./readfile');
 
 const file = join(__dirname, '..', '..', 'package.json');
 

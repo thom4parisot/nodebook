@@ -217,9 +217,9 @@ Les motifs utilisables sont les suivants :
 
 - `*` : n'importe quelle chaîne de caractères ;
 - `**` : n'importe quel répertoire ;
-- `{js,css}` : la chaîne `js` ou `css` ;
-- `[js]` : un caractère dans l'ensemble `j` et `s` ;
-- `!(js)` : sauf la chaîne _js_.
+- `{js,json,adoc}` : la chaîne `js`, `json` ou `adoc` ;
+- `[adoc]` : un caractère dans l'ensemble `a`, `d`, `o` et `c` ;
+- `!(adoc)` : sauf la chaîne _js_.
 
 Parcourir et filtrer le contenu d'un répertoire devient un jeu d'enfant — bien plus que s'il avait fallu utiliser soi-même l'API Node `fs` à coup de `readDir` récursif.
 
@@ -230,11 +230,11 @@ Au final, c'est ce qui est effectué mais sans que nous ayons à écrire ce code
 ----
 include::{sourceDir}/glob.js[]
 ----
-<1> fichiers débutant par `template` ;
-<2> fichiers débutant par `template` et suffixés par `hbs` ou dont le suffixe débute par `ej` ;
-<3> fichiers débutant par `template` et dont le suffixe est précédé par les lettres `e` ou `j` ;
-<4> fichiers débutant par `template`, à l'exception de `template.pug` ;
-<5> fichiers contenus dans le répertoire `src` et suffixés par `css`, peu importe leur emplacement dans l'arborescence.
+<1> fichiers débutant par `package` ;
+<2> fichiers débutant par `index` et suffixés par `adoc` ou une chaîne qui débute par `js` ;
+<3> fichiers débutant par `index` et dont le suffixe est précédé par les lettres `a` ou `s` ;
+<4> fichiers débutant par `index`, à l'exception de `index.js` ;
+<5> fichiers suffixés par `js` contenus dans le répertoire `{sourceDir}` et tous ses sous-répertoires.
 
 [CAUTION]
 .[RemarquePreTitre]#Attention# Certains modules sont bloquants

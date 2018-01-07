@@ -1,6 +1,6 @@
 'use strict';
 
-const messageAbbr = require('../message-abbr');
+const messageAbbr = require('./message-abbr');
 
 const printAbbr = (err, abbr) => err ? console.error(err) : console.log(abbr);
 

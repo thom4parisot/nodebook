@@ -2,7 +2,7 @@
 
 const uppercaseAsync = (message, callback) => {
   process.nextTick(() => {
-    callback(null, message.toLocaleUpperCase ? message.toLocaleUpperCase() : message);
+    callback(null, typeof message === 'string' ? message.toLocaleUpperCase() : message);
   });
 }
 

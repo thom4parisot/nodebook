@@ -1,7 +1,7 @@
 'use strict';
 
 const {promisify} = require('util');
-const messageAbbr = promisify(require('../message-abbr'));
+const messageAbbr = promisify(require('./message-abbr'));
 
 Promise.all([
   messageAbbr('Hennes & Mauritz'),

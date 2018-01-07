@@ -1,6 +1,6 @@
 'use strict';
 
-const messageAbbrAsync = require('../message-abbr');
+const messageAbbrAsync = require('./message-abbr');
 
 const messageAbbr = (text) => {
   return new Promise((resolve, reject) => {

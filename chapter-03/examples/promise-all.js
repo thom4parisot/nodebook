@@ -1,10 +1,10 @@
 'use strict';
 
 const { join } = require('path');
-const readFilePromise = require('./readfile-promise');
+const readFilePromise = require('./readfile');
 
 const files = ['chapter-02', 'chapter-01', 'chapter-03'].map(dir => {
-  return join(__dirname, '..', '..', '..', dir, 'package.json');
+  return join(__dirname, '..', '..', dir, 'package.json');
 });
 
 const logError = (err) => console.error(err);

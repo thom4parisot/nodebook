@@ -6,7 +6,7 @@ const {promisify} = require('util');
 const readFilePromise = promisify(fs.readFile);
 
 const files = ['chapter-02', 'chapter-01', 'chapter-03'].map(dir => {
-  return join(__dirname, '..', '..', '..', dir, 'examples', 'package.json');
+  return join(__dirname, '..', '..', dir, 'package.json');
 });
 
 async function getAllDeps (files) {                      // <1>

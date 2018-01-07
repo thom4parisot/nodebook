@@ -1,12 +1,12 @@
 'use strict';
 
 const { join } = require('path');
-const getFilecontent = require('../filecontent/sync.js');
+const getFilecontent = require('./filecontent/sync.js');
 
 const contentSuccess = fileContent => console.log(fileContent);
 const contentFailure = err => console.error(err);
 
-const fileContent = getFilecontent(join(__dirname, '..', 'route.js'));
+const fileContent = getFilecontent(join(__dirname, '..', 'index.adoc'));
 
 if (fileContent instanceof Error){
   contentFailure(fileContent);

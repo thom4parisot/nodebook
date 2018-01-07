@@ -1,8 +1,9 @@
 'use strict';
 
 const glob = require('glob');
+const {join} = require('path');
 const options = {
-  cwd: __dirname
+  cwd: join(__dirname, '..')
 };
 
 const displayFiles = (err, files) => {
@@ -13,8 +14,8 @@ const displayFiles = (err, files) => {
   console.log(files);
 };
 
-glob('../template.*', options, displayFiles);        // <1>
-glob('../template.{hbs,ej*}', options, displayFiles);// <2>
-glob('../template.[ej]*', options, displayFiles);    // <3>
-glob('../template.!(pug)', options, displayFiles);   // <4>
-glob('../**/*.css', displayFiles);                   // <5>
+glob('package*', options, displayFiles);          // <1>
+glob('index.{adoc,js*}', options, displayFiles);  // <2>
+glob('index.[as]*', options, displayFiles);       // <3>
+glob('index.!(js)', options, displayFiles);       // <4>
+glob('examples/**/*.js', options, displayFiles);  // <5>
