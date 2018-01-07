@@ -2,6 +2,15 @@
 
 Pour en savoir plus: [annonce la résidence itinérante](https://oncletom.io/2017/residence-nodejs/) et [résumé de la résidence itinérante](https://oncletom.io/2017/without-a-home/) (en anglais).
 
+## Samedi 6 et dimanche 7 janvier
+
+- _Tous les chapitres_ : ajustement de certains exemples, simplification notamment, en vue de rendre certains tests plus faciles à tourner
+- _Outillage_ : ajout d'une commande `nodebook install all` pour installer toutes les dépendances
+- _Outillage_ : test d'intégration des exemples Node
+- _Outillage_ : ajustement du build Travis CI pour faire passer les 2 précédents points au vert ✅
+
+**Météo** : 😄 💪
+
 ## Vendredi 5 janvier
 
 - _Chapitre 1_ : simplification du style d'écriture, phrases raccourcies etc.
