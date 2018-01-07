@@ -6,7 +6,6 @@ const glob = require('glob');
 
 const EXTRAS = require('./examples-config.json');
 
-const chapters = glob.sync('*/examples');
 const examples = glob.sync('*/examples/*.js');
 const serverSide = (file) => /chapter-09/.test(file) === false;
 
@@ -14,12 +13,6 @@ const DEFAULT_CONFIG = {
   exitCode: 0,
   timeout: 5000,
 };
-
-test('chapters', t => {
-  t.plan(1);
-
-  t.equal(chapters.length, 10);
-});
 
 examples.filter(serverSide).forEach(FILE => {
   test(FILE, {timeout: 1000}, t => {

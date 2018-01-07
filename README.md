@@ -50,20 +50,23 @@ Une fois installé, le manuel d'utilisation s'invoque de cette manière :
 
 ```bash
 $ nodebook --help
+nodebook
+
 Commands:
-  chapter <number> [install|examples]  Installe, ouvre les examples ou
-                                       positionne dans un chapitre.
-  read                                 Démarre la lecture du livre au format
-                                       HTML
+  cli.js chapters [list]        Liste les chapitres de l'ouvrage.
+  cli.js install <chapter|all>  Installe les dépendances d'un chapitre.
+  cli.js open <chapter>         Ouvre les examples d'un chapitre.
+  cli.js read                   Démarre la lecture du livre au format HTML
 
 Options:
-  --help  Show help                                                    [boolean]
+  --version  Show version number                                       [boolean]
+  --help     Show help                                                 [boolean]
 
 Examples:
-  nodebook chapter 4          Positionne le terminal dans le chapitre 4
-  nodebook chapter 4 install  Installe les dépendances du chapitre 4
-  nodebook chapter 4 open     Ouvre le chapitre 4 dans un explorateur de
-                                fichiers
+  nodebook install chapter-04  Installe les dépendances du chapitre 4
+  nodebook install all         Installe les dépendances de tous les chapitres
+  nodebook open chapter-04     Ouvre le chapitre 4 dans un explorateur de
+                               fichiers
 ```
 
 # Contribuer
