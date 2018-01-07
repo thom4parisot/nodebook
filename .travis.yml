@@ -4,6 +4,11 @@ sudo: false
 language: node_js
 node_js: v8
 
+addons:
+  apt:
+    packages:
+    - realpath
+
 env:
 - DEBUG=tape-spawn
 
