@@ -1,6 +1,6 @@
 'use strict';
 
-const messageAbbr = require('../message-abbr/evented');
+const messageAbbr = require('./message-abbr/evented');
 const { writeFile } = require('fs');
 const timeStart = process.hrtime();
 

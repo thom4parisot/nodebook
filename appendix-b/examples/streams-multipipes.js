@@ -3,15 +3,13 @@
 const fs = require('fs');
 const { join } = require('path');
 const JSONStream = require('JSONStream');
-const dataDir = join(__dirname, '..', '..', 'data');
-const filename = join(dataDir, 'datalocale-20140320-daily.json');
+const filename = join(__dirname, '..', 'package.json');
 
 const readStream = fs.createReadStream(filename);
-const resourcesStream = JSONStream.parse('*.resources');
+const dependencyStream = JSONStream.parse('dependencies.$*');
 
 readStream
-  .pipe(resourcesStream)
+  .pipe(dependencyStream)
   .on('data', resource => console.log(resource));
 
-readStream
-  .pipe(fs.createWriteStream('/tmp/datalocale-daily-backup.json'));
+readStream.pipe(process.stdout);

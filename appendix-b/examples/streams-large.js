@@ -2,8 +2,7 @@
 
 const fs = require('fs');
 const { join } = require('path');
-const dataDir = join(__dirname, '..', '..', 'data');
-const filename = join(dataDir, 'datalocale-20140320-daily.json');
+const filename = join(__dirname, 'datalocale-20140320-daily.json');
 
 fs.createReadStream(filename)
   .on('data', (chunk) => {
