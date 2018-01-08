@@ -13,7 +13,8 @@ endif::[]
 
 = Histoire, écosystème et gouvernance
 
-Node.js génère beaucoup de discussions, d'intérêts et d'envies. +
+Node.js génère beaucoup de discussions, d'intérêts et d'envies.
+
 Dans ce chapitre, nous allons faire le point sur ce qu'est Node.js pour mieux comprendre dans quel cambouis nous allons plonger les mains.
 
 ====
@@ -38,15 +39,15 @@ peut vous apporter, que ce soit dans un contexte personnel ou professionnel.
 
 toc::[]
 
-== Node.js : la plate-forme JavaScript côté serveur
+== Node.js : un environnement d'exécution JavaScript
 
-Node.js n'est pas un langage de programmation. Node.js n'est pas non plus un _framework_ JavaScript. *Node.js est une plate-forme de programmation JavaScript*. +
-La différence entre ces trois désignations peut sembler subtile, futile voire inutile mais le terme *plate-forme* est la véritable nature de Node.
+Node.js n'est pas un langage de programmation. Node.js n'est pas non plus un _framework_ JavaScript. *Node.js est un environnement d'exécution JavaScript*. +
+La différence entre ces trois désignations peut sembler subtile, futile voire inutile mais le terme *environnement* est la véritable nature de Node.
 
-*Exécuter du JavaScript côté serveur n'est pas non plus une révolution*. +
+*Exécuter du JavaScript côté serveur n'est pas une révolution*. +
 L'entreprise _Netscape_ s'y est déjà essayée au début des années 1990 avec _Netscape Enterprise Server_, juste après l'avoir introduit dans son navigateur web _Netscape Navigator_.
 
-En 1997, _Netscape_ s'est attelée à créer _Rhino_ ([URL]#https://www.mozilla.org/rhino/#), une implémentation de JavaScript en Java disponible sous licence libre.
+En 1997, _Netscape_ s'est attelée à créer _Rhino_ ([URL]#https://www.mozilla.org/rhino/#), un environnement d'exécution JavaScript tournant sous Java disponible sous licence libre.
 _Rhino_ était un des projets liés à la réécriture de _Netscape Navigator_ en Java.
 Si _Netscape_ a depuis fermé ses portes, _Rhino_ a permis l'émergence de projets utiles aux développeurs web.
 
@@ -148,13 +149,12 @@ video::ztspvPYybIY[youtube,width=640,height=480]
 endif::[]
 
 L'entreprise américaine _Joyent_ l'embauche à plein temps pour continuer le développement de Node.
-Ils pressentent que la plate-forme Node répondra à leurs projets de _datacenter_ et d'hébergement.
+Ils pressentent que Node répondra à leurs projets de _datacenter_ et d'hébergement.
 
 *Node et sa communauté sont nés* et ont continué à prospérer depuis lors.
 Pour une simple affaire de _barre de progression_ et une obsession de _perception de rapidité_.
 
-En 2018, l'avenir de Node est au beau fixe avec plus de 1200 contributeurs
-à la plate-forme et plus de 612 000 modules publics hébergés
+En 2018, l'avenir de Node est au beau fixe avec plus de 1200 contributeurs et plus de 612 000 modules publics hébergés
 sur le registre _npm_.
 
 [TIP]
@@ -283,7 +283,7 @@ La majorité des développements initiaux de Node sont financée par _Joyent_,
 
 L'écosystème des acteurs se diversifie avec le temps.
 Avec de nouveaux employés chez _Joyent_.
-Puis avec des contributeurs externes qui voyaient un avenir prometteur dans la plate-forme.
+Puis avec des contributeurs externes qui voyaient un avenir prometteur dans le projet.
 S'ensuivent des entreprises privées comme IBM ou PayPal qui sponsorisent le projet ou le salaire de contributeurs.
 
 === Joyent
@@ -361,12 +361,12 @@ La société _npm, Inc_ détient la marque _npm_, _npm, Inc_ et le _logo npm_.
 === io.js
 
 _io.js_ est un _fork_ de Node initié par la communauté Node en décembre 2014.
-La raison ? La main-mise de Joyent sur les développements et la communication erratique de la plate-forme.
+La raison ? La main-mise de Joyent sur les développements et la communication erratique du projet.
 
 Les objectifs initiaux du projet _io.js_ sont doubles :
 
-- offrir à la communauté Node une gestion de la plate-forme transparente, inclusive et ouverte ;
-- fournir une plate-forme technique plus moderne, une version de v8 plus récente ainsi qu'une intégration rapide des nouvelles fonctionnalités ECMAScript.
+- offrir à la communauté Node une gestion transparente, inclusive et ouverte ;
+- fournir un environnement technique plus moderne, une version de v8 plus récente ainsi qu'une intégration rapide des nouvelles fonctionnalités ECMAScript.
 
 Le projet _io.js_ connait une fin heureuse en 2015 :
 les efforts du projet et de sa communauté auront abouti à
@@ -466,7 +466,7 @@ par la <<joyent,société Joyent>>.
 Ses agissements et la direction donnée au projet ont régulièrement
 fait grincer des dents.
 Notamment en entretenant un climat d'incertitude sur
-la pérennité à long terme de la plate-forme si Node venait à ne plus
+la pérennité à long terme, si Node venait à ne plus
 répondre aux intérêts commerciaux de _Joyent_.
 
 Des voix se sont élevées pour critiquer l'absence d'une
