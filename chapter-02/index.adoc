@@ -1,8 +1,8 @@
 :chapterNumber: 2
 :sourceDir: ./examples
-:sourceSample: currency-main.js
 :nodeCurrentVersion: v8
-:vX: v8.9.3
+:vX: v8.9.4
+:vdotX: 8.x
 :nvmVersion: v0.33.8
 :npmCurrentVersion: v5
 :toc-title: Table des matières
@@ -15,51 +15,38 @@ endif::[]
 
 = Installer, mettre à jour et développer
 
-On aura beau discuter de Node et de son architecture, rien ne vaut quelques lignes de code pour mesurer ce à quoi nous avons affaire.
+Il y a plusieurs manières de se préparer à utiliser Node sur un ordinateur.
+On pourra ainsi choisir notre chemin en fonction de notre aisance, que l'on soit débutant·e ou confirmé·e.
 
-Ce chapitre contient tout ce qu'il faut savoir pour installer Node et développer son premier programme avec de bons _design patterns_.
+Ce chapitre contient tout ce qu'il faut savoir pour utiliser Node sur notre ordinateur et se préparer à développer notre premier programme.
 
 ====
 .Sommaire
 - Installer Node.js sur son ordinateur
+- Choisir un éditeur de code pour écrire nos programmes
+- Déterminer quand migrer vers une nouvelle version de Node.js
 ====
 
 [abstract]
 --
-TBD.
+Nous avons vu dans le <<../chapter-01/index.adoc#,premier chapitre>>
+que Node est un _environnement d'exécution JavaScript_.
+
+Les systèmes d'exploitation n'embarquent pas nécessairement Node.
+Certains systèmes le font… mais il peut s'agir d'une vieille version.
+On pourrait donc choisir d'*installer Node* pour en bénéficier sur notre ordinateur.
+
+Les *éditeurs de code* nous facilitent la vie en rendant le code lisible
+en ajoutant de la couleur et des repères visuels.
+Ces logiciels nous invitent à piocher dans leur bibliothèque d'extensions
+pour en faire un outil qui nous ressemble.
 --
 
 toc::[]
 
-== Par où commencer ?
 
-=== En ligne, dans un navigateur web
+== Installer Node.js
 
-TBD.
-
-=== Sur son ordinateur, dans un outil de développement (_IDE_)
-
-TBD.
-
-=== Sur son ordinateur, dans un terminal (_shell_)
-
-La plupart des systèmes d'exploitation proposent un _terminal_,
-y compris les versions récentes de Windows.
-
-Si vous n'utilisez pas encore de terminal, voici une liste de recommandations non exhaustive pour vous aider :
-
-- *macOS* : iTerm2, Terminal.app ;
-- *Linux* : GNOME Shell, Terminator ;
-- *Windows* : PowerShell, Console.
-
-.Terminal iTerm2 sous macOS.
-image::images/terminal.png[align="center",width="85%"]
-
-
-
-== Installer Node
-
-Installer Node n'est pas très compliqué.
 Il existe cependant plusieurs mécanismes d'installation.
 Ces mécanismes vont du téléchargement d'un installeur à une compilation manuelle _via_ un terminal.
 
@@ -71,11 +58,9 @@ Voici mes recommandations pour savoir quelle solution d'installation choisir :
 - *envie ou besoin de mettre en production* : Node Version Manager ;
 - *besoin très spécifique et pointu* : compiler depuis les sources.
 
-L'utilisation et les fonctionnalités de _nvm_ sont détaillées <<nvm,ci-après>>.
+L'utilisation et les fonctionnalités de _===_ sont détaillées <<,ci-après>>.
 
 Une fois l'étape de l'installation terminée, la suite du livre ne fera plus de distinction entre les différents systèmes d'exploitation : c'est Node qui se chargera des abstractions !
-
-=== Pour les différents systèmes d'exploitation
 
 Certains systèmes d'exploitation fournissent leur propre mouture de Node.
 Les procédures les plus courantes sont décrites ci-après.
@@ -93,7 +78,70 @@ Téléchargez l'installeur adapté, ouvrez un terminal et sautez quelques pages 
 - [URL]#https://nodejs.org/download/#
 ====
 
-==== Linux
+
+[[nvm]]
+=== Node Version Manager
+
+_Node Version Manager_ est un logiciel permettant de gérer plusieurs versions de Node en même temps, sur une même machine.
+Il est communément abrégé en _nvm_.
+
+_nvm_ est l'équivalent de _rbenv_ dans le monde Ruby, de _phpenv_ dans le monde PHP ou encore de _virtualenv_ pour Python.
+Il existe des logiciels similaires comme _n_ ([URL]#https://www.npmjs.com/n#).
+
+_nvm_ est un logiciel libre qui fonctionne sur les systèmes d'exploitation
+Linux et macOS.
+Il peut s'obtenir à cette adresse : [URL]#https://github.com/creationix/nvm#.
+
+.Liste des versions installées de Node.
+image::images/nvm-terminal.png[align="center",width="85%"]
+
+[subs="attributes"]
+.Installation de _nvm_ et de Node {nodeCurrentVersion} sur un environnement Linux.
+----
+curl -o- https://raw.githubusercontent.com/creationix/nvm/{nvmVersion}/install.sh | bash
+nvm install {nodeCurrentVersion}
+nvm alias default {nodeCurrentVersion}  # <1>
+----
+<1> La version par défaut est désormais la dernière version stable de Node {nodeCurrentVersion}.
+
+[TIP]
+.[RemarquePreTitre]#Alternative# Et pour Windows ?
+====
+_nvm_ ne fonctionne pas sur les ordinateurs équipés de Windows.
+Il existe trois autres alternatives : _nvm-windows_, __nvmw_ et _nodist_.
+
+Je recommande _nvm-windows_ pour sa simplicité d'installation et d'utilisation.
+Il ne demande pas de privilège système particulier pour fonctionner.
+Il possède la même syntaxe que _nvm_, ce qui en fera un compagnon idéal
+pendant la lecture de cet ouvrage.
+
+- [URL]#https://github.com/coreybutler/nvm-windows#
+- [URL]#https://github.com/hakobera/nvmw#
+- [URL]#https://github.com/marcelklehr/nodist#
+====
+
+
+[[install-ubuntu]]
+=== Distributions Linux : Debian et Ubuntu
+
+Le paquet officiel `nodejs` fourni dans les dépôts `apt` est à éviter pour deux raisons :
+
+. le client _npm_ n'est pas installé par défaut ;
+. le paquet n'est ni à jour ni bien maintenu.
+
+La société _NodeSource_ ([URL]#https://nodesource.com/#) maintient des binaires ainsi que des dépôts pour différentes distributions Linux. +
+L'installation d'une version à jour Node sous Debian, Ubuntu et consors devient aussi simple que les deux commandes suivantes :
+
+[subs="attributes"]
+----
+curl -sL https://deb.nodesource.com/setup_{vdotX} | sudo -E bash -
+sudo apt-get install -y nodejs
+----
+
+D'autres informations et architectures sont détaillées sur le dépôt GitHub des distributions _NodeSource_ : [URL]#https://github.com/nodesource/distributions#.
+
+
+=== Distributions Linux : les autres
 
 Node est disponible dans les dépôts officiels des systèmes suivants :
 
@@ -110,26 +158,8 @@ Si votre système d'exploitation ne dispose pas de paquet pour Node, essayez dan
 2. le téléchargement du binaire Node sur son site officiel ;
 3. la compilation manuelle de Node.
 
-[[install-ubuntu]]
-==== La famille Debian et Ubuntu
-
-Le paquet officiel `nodejs` fourni dans les dépôts `apt` est à éviter pour deux raisons :
-
-. le client _npm_ n'est pas installé par défaut ;
-. le paquet n'est ni à jour ni bien maintenu.
-
-La société _NodeSource_ ([URL]#https://nodesource.com/#) maintient des binaires ainsi que des dépôts pour différentes distributions Linux. +
-L'installation d'une version à jour Node sous Debian, Ubuntu et consors devient aussi simple que les deux commandes suivantes :
-
-----
-curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash -
-sudo apt-get install -y nodejs
-----
-
-D'autres informations et architectures sont détaillées sur le dépôt GitHub des distributions _NodeSource_ : [URL]#https://github.com/nodesource/distributions#.
-
 [[install-macos]]
-==== macOS
+=== macOS
 
 _macOS_ ne dispose pas de gestionnaire de paquet par défaut.
 Quelques projets populaires permettent toutefois d'y remédier :
@@ -143,7 +173,7 @@ Si vous n'utilisez aucun de ces gestionnaires de paquet, vous pouvez essayez :
 2. le téléchargement du binaire Node sur son site officiel ;
 3. la compilation manuelle de Node.
 
-==== Windows
+=== Windows
 
 Le moyen le plus simple d'installer Node sous Windows est de *télécharger l'installeur officiel* depuis la page de téléchargements de Node.
 
@@ -166,7 +196,7 @@ Il en va de la *sécurité de vos applications*.
 ====
 
 [[install-rpi]]
-==== Raspberry Pi
+=== Raspberry Pi
 
 Node a effectué des changements dans son architecture dans sa version 0.8.
 Ces changements ont permis d'éviter la compilation systématique sur des architectures processeur autre que l'Intel x86.
@@ -186,67 +216,6 @@ ln -s /usr/local/bin/node /usr/local/bin/nodejs
 Un paquet `deb` est également proposé pour les utilisateurs du système d'exploitation _Raspbian_.
 Les instructions sont identiques à celles décrites dans la section précédente relative à <<install-ubuntu,la famille Debian et Ubuntu>>.
 
-[[nvm]]
-=== Node Version Manager
-
-_Node Version Manager_ est un logiciel permettant de gérer plusieurs versions de Node en même temps, sur une même machine.
-Il est communément abrégé en _nvm_.
-
-_nvm_ est l'équivalent de _rvm_ dans le monde Ruby, de _phpenv_ dans le monde PHP ou encore de _virtualenv_ pour Python.
-
-[subs="attributes"]
-.Installation de _nvm_ et de Node {nodeCurrentVersion} sur un environnement Linux.
-----
-curl -o- https://raw.githubusercontent.com/creationix/nvm/{nvmVersion}/install.sh | bash
-nvm install {nodeCurrentVersion}
-nvm alias default {nodeCurrentVersion}  # <1>
-----
-<1> La version par défaut est désormais la dernière version stable de Node {nodeCurrentVersion}.
-
-.Liste des versions installées de Node.
-image::images/nvm-terminal.png[align="center",width="85%"]
-
-Les instructions d'installation à jour se trouvent sur [URL]#https://github.com/creationix/nvm#.
-
-[TIP]
-.[RemarquePreTitre]#Alternative# _n_
-====
-_n_ est une alternative à _nvm_ écrite en… JavaScript.
-Elle a l'avantage d'être compatible avec tous les systèmes d'exploitation compatibles avec le Shell Unix _Bash_.
-
-- [URL]#https://www.npmjs.com/n#
-====
-
-[TIP]
-.[RemarquePreTitre]#Alternative# Et pour Windows ?
-====
-_nvm_ ne fonctionne pas sur les ordinateurs équipés de Windows.
-Il existe trois autres alternatives : _nvm-windows_, __nvmw_ et _nodist_.
-
-_nvmw_ nécessite d'avoir Git et Python tandis que _nodist_ se base uniquement sur Node.
-Dans les deux cas, leur installation est très simple.
-
-- [URL]#https://github.com/coreybutler/nvm-windows#
-- [URL]#https://github.com/hakobera/nvmw#
-- [URL]#https://github.com/marcelklehr/nodist#
-====
-
-[[install-docker]]
-=== Docker
-
-_Docker_ est un outil d'isolation de processus système qui a le vent en poupe depuis 2014.
-Sa qualité principale est d'isoler les dépendances logicielles du système qui exécute le-dit processus.
-Une image Docker aura la même recette d'installation même si celle-ci est exécutée sous Linux, macOS ou encore Windows.
-
-Lancer un interpréteur Node _sans polluer_ le système hôte revient à exécuter l'image suivante :
-
-----
-docker run -ti --rm node:6-slim
-----
-
-L'intégralité des versions et architectures supportées est disponible sur le _Docker Hub_ : [URL]#https://hub.docker.com/_/node/#
-
-Nous nous repencherons sur Docker dans la section  <<../chapter-06/index.adoc#immutable-deploy,_Déploiement immutable_>> du Chapitre 6.
 
 === Compiler depuis les sources
 
@@ -267,6 +236,44 @@ cd node-{vX}
 ----
 
 Les instructions pouvant varier fortement d'un système d'exploitation à l'autre, consultez les dépendances et instructions complètes à cette adresse [URL]#https://github.com/nodejs/node/wiki/installation#.
+
+== Utiliser Node.js
+
+=== Dans un terminal (_shell_)
+
+La plupart des systèmes d'exploitation proposent un _terminal_,
+y compris les versions récentes de Windows.
+
+Si vous n'utilisez pas encore de terminal, voici une liste de recommandations non exhaustive pour vous aider :
+
+- *macOS* : iTerm2, Terminal.app ;
+- *Linux* : GNOME Shell, Terminator ;
+- *Windows* : PowerShell, Console.
+
+.Terminal iTerm2 sous macOS.
+image::images/terminal.png[align="center",width="85%"]
+
+=== Sans installation, dans un navigateur web
+
+TBD.
+
+[[install-docker]]
+=== Avec Docker
+
+_Docker_ est un outil d'isolation de processus système qui a le vent en poupe depuis 2014.
+Sa qualité principale est d'isoler les dépendances logicielles du système qui exécute le-dit processus.
+Une image Docker aura la même recette d'installation même si celle-ci est exécutée sous Linux, macOS ou encore Windows.
+
+Lancer un interpréteur Node _sans polluer_ le système hôte revient à exécuter l'image suivante :
+
+----
+docker run -ti --rm node:6-slim
+----
+
+L'intégralité des versions et architectures supportées est disponible sur le _Docker Hub_ : [URL]#https://hub.docker.com/_/node/#
+
+Nous nous repencherons sur Docker dans la section  <<../chapter-06/index.adoc#immutable-deploy,_Déploiement immutable_>> du Chapitre 6.
+
 
 [[ide]]
 == Outils de développement
@@ -353,7 +360,7 @@ Elle est gratuite, open source et disponible sur GitHub.
 - [URL]#https://www.visualstudio.com/vs/#
 - [URL]#https://www.visualstudio.com/vs/node-js/#
 
-== Mettre à jour Node
+== Mettre à jour Node.js
 
 [[node-lifecycle]]
 === Cycle de développement de Node
