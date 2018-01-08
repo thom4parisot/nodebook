@@ -2,6 +2,14 @@
 
 Pour en savoir plus: [annonce la résidence itinérante](https://oncletom.io/2017/residence-nodejs/) et [résumé de la résidence itinérante](https://oncletom.io/2017/without-a-home/) (en anglais).
 
+## Lundi 8 janvier
+
+- _Chapitre 2_ : mais au fait, pourquoi on doit installer Node ?
+- _Chapitre 1_ : je parle de Node comme _environnement d'exécution_ et non plus d'une _plate-forme_
+- _Chapitre 4_, _Chapitre 5_ et _Chapitre 6_ : correction de chemins faisant référence au chapitre 2
+
+**Météo** : 😴
+
 ## Samedi 6 et dimanche 7 janvier
 
 - _Tous les chapitres_ : ajustement de certains exemples, simplification notamment, en vue de rendre certains tests plus faciles à tourner
