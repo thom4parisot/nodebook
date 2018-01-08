@@ -53,10 +53,10 @@ $ nodebook --help
 nodebook
 
 Commands:
-  cli.js chapters [list]        Liste les chapitres de l'ouvrage.
-  cli.js install <chapter|all>  Installe les dépendances d'un chapitre.
-  cli.js open <chapter>         Ouvre les examples d'un chapitre.
-  cli.js read                   Démarre la lecture du livre au format HTML
+  nodebook chapters [list]        Liste les chapitres de l'ouvrage.
+  nodebook install <chapter|all>  Installe les dépendances d'un chapitre.
+  nodebook open <chapter>         Ouvre les examples d'un chapitre.
+  nodebook read                   Démarre la lecture du livre au format HTML
 
 Options:
   --version  Show version number                                       [boolean]
