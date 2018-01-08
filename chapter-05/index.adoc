@@ -78,7 +78,6 @@ L'utilisation de certains caractères permet d'exprimer des *plages de compatibi
 
 Cette syntaxe est notamment employée pour spécifier les plages de mises à jour  acceptées pour les paquets `npm`.
 Cela permet entre autres de bénéficier de mises à jour de manière consentante (_opt-in_) à chaque installation ou mise à jour de vos applications.
-Vous en apprendrez davantage sur diverses opérations de routine de vos applications dans le <<../chapter-05/index.adoc,chapitre 5>>, notamment la <<../chapter-05/index.adoc#npm-outdated,vérification de l'état des dépendances>>.
 
 [TIP]
 .[RemarquePreTitre]#Outil# Calculateur de version
@@ -184,13 +183,13 @@ Nous voulons un module Node permettant de parser et d'itérer facilement sur un 
 Après quelques recherches, il se trouve que le module `comma-separated-values` est un bon candidat pour améliorer notre précédent script.
 La documentation et les informations relatives à son utilisation sont accessibles sur [URL]#https://npmjs.com/comma-separated-values#.
 
-Après avoir préalablement navigué dans le répertoire `chapitre-02/examples`, l'installation du module se déroule en invoquant la commande `npm install` de la manière suivante :
+Après avoir préalablement navigué dans le répertoire `chapter-05`, l'installation du module se déroule en invoquant la commande `npm install` de la manière suivante :
 
 ----
 npm install comma-separated-values
 ----
 
-Le module est désormais installé dans le répertoire `chapitre-02/examples/node_modules/comma-separated-values` et est disponible pour tout script invoqué dans le répertoire `chapitre-02/examples`.
+Le module est désormais installé dans le répertoire `chapter-05/node_modules/comma-separated-values` et est disponible pour tout script invoqué dans le répertoire `chapter-05`.
 
 Lire un fichier CSV et en afficher son contenu devient aussi simple que le script suivant :
 
@@ -228,13 +227,7 @@ Ce dernier contient désormais une section _dependencies_ :
 [source,javascript]
 .package.json
 ----
-{
-  ...
-  "dependencies": {
-    "async": "^2.1.4",
-    "yargs": "^6.6.0"
-  }
-}
+include::package.json[lines=1..2;19..-1]
 ----
 
 [TIP]

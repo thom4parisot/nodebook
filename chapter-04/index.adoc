@@ -61,14 +61,23 @@ La documentation de l'API Node est disponible au format HTML sur le site officie
 [[unix-legacy]]
 == L'héritage UNIX
 
-Node peut paraître étrange selon notre propre familiarité avec la programmation système, avec les environnements UNIX (et dont découle GNU/Linux) et certains de leurs concepts.
+Node est un environnement d'exécution permettant d'exécuter du code écrit en JavaScript.
+C'est aussi un environnement capatable de discuter avec le système d'exploitation.
 
-Node étant une plate-forme utilisant JavaScript pour discuter avec une machine virtuelle connectée au système d'exploitation, il est intéressant de se remémorer des aspects un peu plus bas niveau.
+Node emprunte à ce titre pas mal d'éléments de la philosophie UNIX.
+Apprendre Node, c'est apprendre JavaScript, dialoguer avec
+le système d'exploitation et les concepts d'intéropérabilité
+entre applications systèmes.
+
+Balayons différents concepts qui nous serons utiles pour la conception de nos applications.
 
 [[process-env]]
 === Variables d'environnement
 
-Lorsqu'un système d'exploitation est en état de marche, différents programmes fonctionnent pour fournir différents services : transmission du son, affichage vidéo, coordination des processus et de leurs ressources etc.
+Lorsqu'un système d'exploitation est en état de marche,
+différents programmes fonctionnent pour fournir différents services :
+transmission du son, affichage vidéo, coordination des processus
+et de leurs ressources etc.
 
 Ces programmes utilisent des espaces mémoire exclusifs, d'autres des espaces mémoire partagés.
 Un de ces espaces partagés contient des *variables* décrivant l'_environnement_ dans lequel l'ensemble des programmes évoluent.
@@ -245,11 +254,10 @@ $ w | head -n 3 | tail -n 1 | awk '{ print $2 }'
 
 == Architecture technique
 
-Le terme _plate-forme_ prend tout son sens lorsque l'on se penche sur l'architecture de Node.
+Node est un environnement d'exécution JavaScript qui permet de
+manipuler des ressources système.
 
-Si on devait la résumer en une phrase : *Node est une API JavaScript pour manipuler des ressources système*.
-
-L'architecture se décompose en plusieurs couches, partant du plus haut niveau (exposées au développeur) et allant jusqu'au plus bas niveau (exposées au système d'exploitation) :
+L'architecture de Node se décompose en plusieurs couches, partant du plus haut niveau (exposées au développeur) et allant jusqu'au plus bas niveau (exposées au système d'exploitation) :
 
 1. API Node
 2. Interpréteur Node
@@ -332,18 +340,22 @@ Le site officiel de CommonJS documente différentes spécifications vouées à p
 
 === Interpréteur Node
 
-L'interpréteur Node est un programme écrit en C++.
+L'interpréteur Node est un programme informatique écrit en C++ et en JavaScript.
 
-L'interpréteur crée un environnement d'exécution, initialise la boucle événementielle (<<event-loop,_Event Loop_>>, voir ci-après), lit le code JavaScript, crée l'arbre de dépendance des modules puis demande à exécuter le tout. +
-Il considère l'exécution terminée lorsque la boucle événementielle n'a plus d'instructions à traiter, ni maintenant ni dans le futur.
+L'interpréteur crée un environnement d'exécution,
+initialise la boucle événementielle (voir <<event-loop,_Event Loop_>> ci-après),
+lit le code JavaScript,
+crée l'arbre de dépendance des modules puis demande à exécuter le tout. +
+L'exécution est considérée terminée lorsque la boucle événementielle
+n'a plus d'instructions à traiter, ni maintenant ni dans le futur.
 
-L'interpréteur s'arrêtera prématurément si une erreur se déclare et que cette dite erreur n'est pas prise en charge par le programme.
+L'interpréteur s'arrêtera prématurément si une erreur se déclare et
+que cette dite erreur n'est pas prise en charge par le programme.
 
-[source,javascript]
+[source%interactive,javascript]
 .print-date.js
 ----
-const now = new Date();
-console.log(now.toString());
+include::{sourceDir}/print-date.js[]
 ----
 
 ----
@@ -753,8 +765,8 @@ Exécutons ce même script avec différents arguments :
 node process.js <1>
 node process.js argument1 "argument 2" --option1 <2>
 ----
-<1> Retourne `[ 'node', '…/examples/chapitre-02/process.js' ]` ;
-<2> Retourne `[ 'node', '…/examples/chapitre-02/process.js', 'argument1', 'argument 2', '--option1' ]`.
+<1> Retourne `[ 'node', '…/chapter-04/examples/process.js' ]` ;
+<2> Retourne `[ 'node', '…/chapter-04/examples/process.js', 'argument1', 'argument 2', '--option1' ]`.
 
 Il n'en faut pas davantage pour bâtir votre premier programme en ligne de commande.
 Pour des besoins plus avancés, il existe un certain nombre de modules _npm_ pour exploiter les options et arguments.
@@ -918,7 +930,7 @@ include::{sourceDir}/require.js[]
 ----
 <1> Charge le module Node natif `fs` ;
 <2> Charge le fichier `currency-format.js` : Node suffixe automatiquement le nom du fichier par `.js` (module JavaScript) ou par `.node` (module binaire) si l'extension manque ;
-<3> Charge le fichier `examples/index.js` du répertoire `chapitre-02` car Node détecte que `chapitre-02` est un répertoire, découvre le fichier `package.json` et charge le fichier déclaré dans sa propriété `main` ;
+<3> Charge le fichier `examples/index.js` du répertoire `chapter-04` car Node détecte que `chapitre-04` est un répertoire, découvre le fichier `package.json` et charge le fichier déclaré dans sa propriété `main` ;
 <4> Charge le module Node `lodash`, vraisemblablement depuis le répertoire `node_modules/lodash` ;
 <5> Charge et parse le fichier `package.json` en tant qu'objet ECMAScript.
 
@@ -984,7 +996,7 @@ Il ne reste plus qu'à l'exécuter pour constater ce qu'il se passe :
 ----
 node increment-main.js <1> <2> <3> <4>
 ----
-<1> Affiche `…/examples/chapitre-02/increment-module.js` ;
+<1> Affiche `…/chapter-04/examples/increment-module.js` ;
 <2> Affiche `0` ;
 <3> Affiche `1` ;
 <4> Affiche `true`.
@@ -1018,8 +1030,8 @@ Pour en savoir plus sur le fonctionnement de la fonction `require`, reportez-vou
 ----
 include::{sourceDir}/filename-dirname.js[]
 ----
-<1> Affiche `…/examples/chapitre-02/filename-dirname.js` ;
-<2> Affiche `…/examples/chapitre-02` ;
+<1> Affiche `…/chapter-04/examples/filename-dirname.js` ;
+<2> Affiche `…/chapter-04/examples` ;
 <3> Affiche `true`.
 
 Utiliser `\__filename` et `__dirname` est utile pour travailler avec des chemins absolus, indépendamment du répertoire de travail de Node.
