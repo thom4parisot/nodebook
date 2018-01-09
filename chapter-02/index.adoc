@@ -198,44 +198,54 @@ Il en va de la *sécurité de vos applications*.
 [[install-rpi]]
 === Raspberry Pi
 
-Node a effectué des changements dans son architecture dans sa version 0.8.
-Ces changements ont permis d'éviter la compilation systématique sur des architectures processeur autre que l'Intel x86.
+Des binaires sont disponibles pour les microcontrôleurs fonctionnant avec des processeurs ARMv6, ARMv7 et ARMv8.
+Ces microcontrôleurs sont au cœur de ce que l'on appelle _Internet des Objets_ (_Internet of Things_, _IoT_).
+Ces petits ordinateurs consomment peu d'énergie,
+disposent d'une connectique pour se relier à Internet
+et s'interfacent avec toutes sortes de capteurs.
 
-Des binaires et installeurs sont de ce fait disponibles pour Raspberry Pi, à base de processeur _ARM_, entre autres.
-
-Des binaires et instructions sont disponibles sur le site officiel de Node, pour ARMv6, ARMv7 et ARMv8 : [URL]#https://nodejs.org/en/download/#.
+Un paquet `deb` est également proposé pour les utilisateurs du système d'exploitation _Raspbian_ ([URL]#https://www.raspbian.org/#).
+Les instructions d'installation sont identiques à celles décrites
+dans la section précédente relative aux <<install-ubuntu,distributions Linux : Debian et Ubuntu>>.
 
 [subs="attributes"]
-.Installation de Node {nodeCurrentVersion} sur Raspberry Pi Model 3 ARMv8
+.Installation de Node {nodeCurrentVersion} sur Raspberry Pi Model 3 (CPU ARMv8)
 ----
 curl -SLO https://nodejs.org/dist/{vX}/node-{vX}-linux-arm64.tar.xz
 tar -xJf "node-{vX}-linux-arm64.tar.xz" -C /usr/local --strip-components=1
 ln -s /usr/local/bin/node /usr/local/bin/nodejs
 ----
 
-Un paquet `deb` est également proposé pour les utilisateurs du système d'exploitation _Raspbian_.
-Les instructions sont identiques à celles décrites dans la section précédente relative à <<install-ubuntu,la famille Debian et Ubuntu>>.
+Tous les binaires et les instructions d'installation sont disponibles sur [URL]#https://nodejs.org/en/download/#.
 
 
 === Compiler depuis les sources
 
 Certaines situations exigeront que vous compiliez Node.
-Ce sera le cas si vous cherchez à tirer parti au maximum des instructions de votre CPU ou si aucun binaire n'est disponible pour votre plate-forme.
+C'est le cas si vous cherchez à travailler au plus près du système sur lequel vous comptez déployer vos applications Node.
+Je pense par exemple à des architectures processeur _ARM_, _PowerPC_, _IBM System/390_ ou bien à des systèmes _Android_, _OpenBSD_ ou _AIX_.
 
-La compilation manuelle requiert la présence de _GCC_ 4.2+, de _Python_ 2.6+ et de _GNU Make_ 3.81+. +
-La procédure de compilation ressemble fortement à ceci :
+La compilation manuelle est également intéressante pour régler plus finement certains aspects grand public de Node :
+rendre le binaire indépendant des librairies système (_statique_),
+le module _http/2_,
+les langues et fuseaux horaires fonctionnelles avec l'API _ECMA 402 Intl_,
+les options de sécurité liées à _OpenSSL_,
+mais aussi l'intégration avec des profileurs et débogueurs externes
+(type _XCode_, _GNU Debugger_, _Intel VTune_).
 
 [subs="attributes"]
-.Étapes de compilation de Node
+.Étapes de compilation de Node {vX}
 ----
-curl -sS \
-  https://nodejs.org/dist/{vX}/node-{vX}.tar.gz \
+curl -sS https://nodejs.org/dist/{vX}/node-{vX}.tar.gz \
   | tar -zxf -
 cd node-{vX}
 ./configure && make && make install
 ----
 
-Les instructions pouvant varier fortement d'un système d'exploitation à l'autre, consultez les dépendances et instructions complètes à cette adresse [URL]#https://github.com/nodejs/node/wiki/installation#.
+La compilation manuelle requiert la présence de _GCC_ 4.9+, de _Python_ 2.6+ et de _GNU Make_ 3.81+. +
+Les instructions de compilation varient d'un système d'exploitation à l'autre.
+Consultez les dépendances et instructions complètes à
+cette adresse [URL]#https://github.com/nodejs/node/blob/master/BUILDING.md#.
 
 == Utiliser Node.js
 

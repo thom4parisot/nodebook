@@ -2,6 +2,12 @@
 
 Pour en savoir plus: [annonce la résidence itinérante](https://oncletom.io/2017/residence-nodejs/) et [résumé de la résidence itinérante](https://oncletom.io/2017/without-a-home/) (en anglais).
 
+## Mardi 9 janvier
+
+- _Chapitre 2_ : Raspberry Pi et compiler depuis les sources
+
+**Météo** : 🙂
+
 ## Lundi 8 janvier
 
 - _Chapitre 2_ : mais au fait, pourquoi on doit installer Node ?
