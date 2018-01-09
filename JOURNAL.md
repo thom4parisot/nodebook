@@ -5,12 +5,13 @@ Pour en savoir plus: [annonce la résidence itinérante](https://oncletom.io/201
 ## Mardi 9 janvier
 
 - _Chapitre 2_ : Raspberry Pi et compiler depuis les sources
+- _Chapitre 2_ : mais au fait, pourquoi on doit installer Node ?
 
 **Météo** : 🙂
 
 ## Lundi 8 janvier
 
-- _Chapitre 2_ : mais au fait, pourquoi on doit installer Node ?
+- _Chapitre 2_ : Raspberry Pi et compiler depuis les sources
 - _Chapitre 1_ : je parle de Node comme _environnement d'exécution_ et non plus d'une _plate-forme_
 - _Chapitre 4_, _Chapitre 5_ et _Chapitre 6_ : correction de chemins faisant référence au chapitre 2
 
