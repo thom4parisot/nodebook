@@ -32,9 +32,11 @@ Ce chapitre contient tout ce qu'il faut savoir pour utiliser Node sur notre ordi
 Nous avons vu dans le <<../chapter-01/index.adoc#,premier chapitre>>
 que Node est un _environnement d'exécution JavaScript_.
 
-Les systèmes d'exploitation n'embarquent pas nécessairement Node.
-Certains systèmes le font… mais il peut s'agir d'une vieille version.
-On pourrait donc choisir d'*installer Node* pour en bénéficier sur notre ordinateur.
+Certains systèmes d'exploitation embarquent l'environnement d'exécution Node.
+D'autres ne le font pas.
+Et d'autres embarquent Node mais dans une version bien plus ancienne que la {nodeCurrentVersion}.
+Voire avec une configuration exotique dont il est difficile de connaître les tenants et aboutissants.
+Idéalement, on voudrait pouvoir *installer la version de Node de notre choix* sur notre ordinateur.
 
 Les *éditeurs de code* nous facilitent la vie en rendant le code lisible
 en ajoutant de la couleur et des repères visuels.
@@ -58,80 +60,127 @@ Si l'idée est de jouer avec du code rapidement,
 sans rien installer et avec le premier ordinateur qui vous passe sous la main,
 je vous invite à aller directement à la section <<#online,Utiliser Node.js, sans installation dans un navigateur web>> de ce même chapitre.
 
-Les sections qui suivent ont pour intention de vous guider et de vous aider
-à comprendre comment installer le nécessaire pour être opérationnel avec Node
-sur un ordinateur — que ce soit votre ordinateur personnel ou un serveur au boulot.
+Les sections qui suivent ont pour intention de vous aider à créer
+un environnement Node à jour sur votre ordinateur.
+Ce contenu s'applique également à un serveur destiné à héberger vos applications Node.
 
 == Installer Node.js
 
+Il y a plusieurs manières d'installer Node sur une machine.
+Elles sont _toutes_ correctes.
+Certaines manières sont plus adaptées que d'autres,
+selon votre aisance avec un _terminal_
+et selon le besoin de jongler rapidement entre différentes versions de Node.
 
-Voici mes recommandations pour savoir quelle solution d'installation choisir :
+- *si vous ne vous êtes jamais servi·e d'un terminal* : il est plus simple d'utiliser un _installeur_ depuis le site officiel de Node ;
+- *si vous designez ou développez* : il est plus simple d'utiliser <<nvm,nvm>> (voir section ci-après) ;
+- *si vous souhaitez maitriser les options d'installation* : il serait logique de <<build,compiler depuis les _sources_>> et/ou <<docker,d'utiliser Docker>> ;
+- *si rien de tout ça ne vous parle* : des services en ligne rendent <<online,Node accessible depuis un simple navigateur web>>.
 
-- *néophyte ou pressé(e)* : installeur du site nodejs.org, paquet fourni par le système d'exploitation ;
-- *vous commencez à maîtriser* : Node Version Manager ;
-- *à l'aise avec un terminal* : Node Version Manager ;
-- *envie ou besoin de mettre en production* : Node Version Manager ;
-- *besoin très spécifique et pointu* : compiler depuis les sources.
+Les téléchargements principaux sont disponibles sur le site officiel de Node à l'adresse [URL]#https://nodejs.org/fr/download/#.
 
-Une fois l'étape de l'installation terminée, la suite du livre ne fera plus de distinction entre les différents systèmes d'exploitation : c'est Node qui se chargera des abstractions !
+.Liste des téléchargements principaux
+image::images/nodejs-downloads.png[align="center",width="85%"]
 
-Certains systèmes d'exploitation fournissent leur propre mouture de Node.
-Les procédures les plus courantes sont décrites ci-après.
-
-Une liste complète des systèmes supportés est maintenue à jour à cette adresse : [URL]#https://nodejs.org/en/download/package-manager/#.
-
-Si malgré tout votre système n'y était pas listé, le mieux reste encore d'*utiliser un binaire*, de *compiler depuis les sources* ou de demander à votre *moteur de recherche* favori !
-
-[TIP]
-.[RemarquePreTitre]#URL# Téléchargements officiels
+[NOTE]
+.[RemarquePreTitre]#Question# Pourquoi utiliser un installeur ?
 ====
-Les installeurs, les binaires et les sources de Node sont disponibles sur le site officiel de Node. +
-Téléchargez l'installeur adapté, ouvrez un terminal et sautez quelques pages pour plonger dans l'utilisation de Node.
+Les installeurs permettent d'installer Node facilement, en quelques clics et sans toucher à un terminal.
 
-- [URL]#https://nodejs.org/download/#
+Si vous utilisez un installeur correspondant à une version plus récente de Node,
+cette nouvelle version sera utilisée dans _tous_ vos projets Node.
+
+C'est la *solution la plus simple pour débuter*.
 ====
+
+Une liste encore plus complète ainsi que des instructions détaillées
+pour chaque système d'exploitation est disponible sur une autre
+page du site web officiel de Node à l'adresse
+[URL]#https://nodejs.org/fr/download/package-manager/#.
 
 
 [[nvm]]
-=== Node Version Manager
+=== Node Version Manager (_nvm_)
 
-_Node Version Manager_ est un logiciel permettant de gérer plusieurs versions de Node en même temps, sur une même machine.
-Il est communément abrégé en _nvm_.
+_nvm_ est l'acronyme de _Node Version Manager_.
+Ce logiciel permet d'*installer les versions de Node de son choix*, en parallèle et sur un même ordinateur. +
+Si vous êtes sous Windows, l'alternative <<nvm-windows,_nvm-windows_>> offrira exactement les mêmes fonctionnalités (voir encadré ci-après).
 
+Si vous venez d'un autre univers de programmation,
 _nvm_ est l'équivalent de _rbenv_ dans le monde Ruby, de _phpenv_ dans le monde PHP ou encore de _virtualenv_ pour Python.
-Il existe des logiciels similaires comme _n_ ([URL]#https://www.npmjs.com/n#).
 
-_nvm_ est un logiciel libre qui fonctionne sur les systèmes d'exploitation
-Linux et macOS.
-Il peut s'obtenir à cette adresse : [URL]#https://github.com/creationix/nvm#.
+Le programme s'obtient à cette adresse : [URL]#https://github.com/creationix/nvm#.
 
-.Liste des versions installées de Node.
-image::images/nvm-terminal.png[align="center",width="85%"]
-
-[subs="attributes"]
-.Installation de _nvm_ et de Node {nodeCurrentVersion} sur un environnement Linux.
-----
-curl -o- https://raw.githubusercontent.com/creationix/nvm/{nvmVersion}/install.sh | bash
-nvm install {nodeCurrentVersion}
-nvm alias default {nodeCurrentVersion}  # <1>
-----
-<1> La version par défaut est désormais la dernière version stable de Node {nodeCurrentVersion}.
-
-[TIP]
-.[RemarquePreTitre]#Alternative# Et pour Windows ?
+[TIP, id="nvm-windows"]
+.[RemarquePreTitre]#Alternatives# _nvm_ pour Windows
 ====
 _nvm_ ne fonctionne pas sur les ordinateurs équipés de Windows.
 Il existe trois autres alternatives : _nvm-windows_, __nvmw_ et _nodist_.
 
-Je recommande _nvm-windows_ pour sa simplicité d'installation et d'utilisation.
-Il ne demande pas de privilège système particulier pour fonctionner.
-Il possède la même syntaxe que _nvm_, ce qui en fera un compagnon idéal
-pendant la lecture de cet ouvrage.
+_nvm-windows_ offre les mêmes fonctionnalités que son équivalent pour Linux et macOS _nvm_.
+Il est facile à installer et ne demande pas de privilège système particulier pour fonctionner.
 
 - [URL]#https://github.com/coreybutler/nvm-windows#
+
+Deux autres alternatives sont à essayer si _nvm-windows_ pose problème :
+
 - [URL]#https://github.com/hakobera/nvmw#
 - [URL]#https://github.com/marcelklehr/nodist#
 ====
+
+[subs="attributes"]
+.Commande d'installation du logiciel nvm {nvmVersion}
+----
+$ curl -o- https://raw.githubusercontent.com/creationix/nvm/{nvmVersion}/install.sh | bash
+----
+
+Une fois installé, vous serez libre d'installer les version exactes de Node qui vous intéressent en appelant la commande `nvm` dans un <<shell,terminal>>.
+
+[subs="attributes"]
+.Installation de Node {nodeCurrentVersion} avec la commande `nvm install`
+----
+$ nvm install {nodeCurrentVersion}
+$ nvm alias default {nodeCurrentVersion}
+----
+
+Dans l'exemple précédent,
+la première ligne est responsable de l'*installation de la version de Node la plus récente* dans la branche {vDotX}.
+La deuxième ligne est quant à elle responsable de signaler que l'on veut *en faire _notre_ version par défaut* sur cet ordinateur.
+
+On pourra retrouver à tout moment les versions installées en utilisant la commande `nvm ls`.
+
+.Liste des versions installées de Node avec la commande `nvm ls`
+----
+$ nvm ls
+->       v8.9.4
+         v9.3.0
+         system
+default -> v8 (-> v8.9.4)
+node -> stable (-> v9.3.0) (default)
+stable -> 9.3 (-> v9.3.0) (default)
+lts/* -> lts/carbon (-> v8.9.4)
+lts/argon -> v4.8.7 (-> N/A)
+lts/boron -> v6.12.3 (-> N/A)
+lts/carbon -> v8.9.4
+----
+
+L'exemple précédent détaille 2 choses :
+
+. la liste des versions de Node installées sur le système ;
+. la liste des _alias_, et à quelle version de Node ils correspondent.
+
+Taper `nvm use stable` nous fera basculer vers la branche `9.3`.
+C'est l'équivalent de saisir `nvm use v9.3.0` ou `nvm use v9` si on a la flemme de tout écrire.
+De même, taper `nvm use default` ou `nvm use v8` nous fera basculer vers la branche la version {vX}.
+
+Vous pouvez saisir la commande `nvm --help` à tout moment pour obtenir de l'aide sur la syntaxe des commandes.
+Les plus usitées sont :
+
+- `nvm install` : installe ou met à jour une version de Node ;
+- `nvm ls` : liste les versions installées de Node ;
+- `nvm use` : bascule vers une version données de Node ;
+- `nvm alias <nom> <version>` : crée un alias nommé vers une version de Node ;
+- `nvm run <version> <script>` : exécute un script Node dans une version donnée de Node.
 
 
 [[install-ubuntu]]
@@ -231,7 +280,7 @@ ln -s /usr/local/bin/node /usr/local/bin/nodejs
 
 Tous les binaires et les instructions d'installation sont disponibles sur [URL]#https://nodejs.org/en/download/#.
 
-
+[[build]]
 === Compiler depuis les sources
 
 Certaines situations exigeront que vous compiliez Node.
@@ -262,6 +311,7 @@ cette adresse [URL]#https://github.com/nodejs/node/blob/master/BUILDING.md#.
 
 == Utiliser Node.js
 
+[[shell]]
 === Dans un terminal (_shell_)
 
 La plupart des systèmes d'exploitation proposent un _terminal_,
