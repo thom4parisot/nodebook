@@ -3,6 +3,7 @@
 :nodeCurrentVersion: v8
 :vX: v8.9.4
 :vdotX: 8.x
+:v: 8
 :nvmVersion: v0.33.8
 :npmCurrentVersion: v5
 :toc-title: Table des matières
@@ -232,14 +233,14 @@ Des paquets officiels pour d'autres distributions que Debian, Ubuntu et Mint son
 - *Arch Linux* : `pacman -S nodejs`
 - *FreeBSD*, *OpenBSD* : `pkg install node`
 
-La liste à jour est maintenue sur cette page du site officiel de Node [URL]#https://nodejs.org/en/download/package-manager#.
+La liste à jour est maintenue sur cette page du site officiel de Node [URL]#https://nodejs.org/fr/download/package-manager#.
 
 À noter que vous pouvez aussi utiliser <<nvm,nvm>> pour gérer vos versions de Node indépendamment du cycle de vie de votre système d'exploitation Linux.
 
 [[install-macos]]
 === macOS
 
-Un installeur officiel pour macOS est fourni sur le site de Node à l'adresse [URL]#https://nodejs.org/en/download/#.
+Un installeur officiel pour macOS est fourni sur le site de Node à l'adresse [URL]#https://nodejs.org/fr/download/#.
 
 <<nvm,nvm>> est la voie alternative recommandée pour gérer plusieurs versions de Node en parallèle.
 
@@ -275,16 +276,35 @@ Vous pouvez obtenir des options d'installations et de configuration en tapant `b
 
 === Windows
 
-Le moyen le plus simple d'installer Node sous Windows est de *télécharger l'installeur officiel* depuis la page de téléchargements de Node.
+Un installeur officiel pour Windows est fourni sur le site de Node à l'adresse [URL]#https://nodejs.org/fr/download/#.
 
-Toutefois si vous utilisez déjà un gestionnaire de paquet, voici quelques recommandations :
+<<nvm,nvm-windows>> est la voie alternative recommandée pour gérer plusieurs versions de Node en parallèle.
 
-- *scoop.sh* : `scoop install nodejs`
-- *Chocolatey* : `choco install nodejs`
+.Un des écrans d'installation de Node sous Windows 10
+image::images/windows-node-installer.png[align="center",width="50%"]
 
-image::images/node-on-windows.png[align="center",width="85%"]
+L'installeur officiel créera plusieurs raccourcis dans le dossier _Node.js_ du menu Démarrer :
 
-Un raccourci pour lancer un terminal préparé pour Node et les commandes _npm_ sera mis à disposition dans le _menu Windows_ (voir capture ci-contre).
+.Node.js dans le menu Démarrer sous Windows 10
+image::images/windows-node-menu.png[align="center",width="50%"]
+
+Le menu créé par l'installeur contient deux icônes que nous utiliserons tout au long de la lecture de cet ouvrage :
+
+- _Node.js_ : un terminal pour jouer avec JavaScript et voir les résultats que Node va interpréter ;
+- _Node.js command prompt_ : un terminal pour exécuter nos programmes écrits en JavaScript.
+
+---
+
+Si vous utilisez déjà un gestionnaire de paquet comme _Scoop_ ([URL]#http://scoop.sh/#) ou _Chocolatey_ ([URL]#https://chocolatey.org/#),
+le chemin d'installation vers Node s'en trouvera réduit à une simple commande :
+
+----
+# Avec Scoop
+$ scoop install nodejs
+
+# Avec Chocolatey
+$ choco install nodejs
+----
 
 [WARNING]
 .[RemarquePreTitre]#Attention# Versions supportées de Windows
@@ -316,7 +336,7 @@ tar -xJf "node-{vX}-linux-arm64.tar.xz" -C /usr/local --strip-components=1
 ln -s /usr/local/bin/node /usr/local/bin/nodejs
 ----
 
-Tous les binaires et les instructions d'installation sont disponibles sur [URL]#https://nodejs.org/en/download/#.
+Tous les binaires et les instructions d'installation sont disponibles sur [URL]#https://nodejs.org/fr/download/#.
 
 [[build]]
 === Compiler depuis les sources
@@ -377,8 +397,9 @@ Une image Docker aura la même recette d'installation même si celle-ci est exé
 
 Lancer un interpréteur Node _sans polluer_ le système hôte revient à exécuter l'image suivante :
 
+[subs="attributes"]
 ----
-docker run -ti --rm node:6-slim
+$ docker run -ti --rm node:{v}-slim
 ----
 
 L'intégralité des versions et architectures supportées est disponible sur le _Docker Hub_ : [URL]#https://hub.docker.com/_/node/#
