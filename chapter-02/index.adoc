@@ -134,6 +134,14 @@ Deux autres alternatives sont à essayer si _nvm-windows_ pose problème :
 $ curl -o- https://raw.githubusercontent.com/creationix/nvm/{nvmVersion}/install.sh | bash
 ----
 
+[TIP]
+.[RemarquePreTitre]#Alternative# nvm sous macOS
+====
+_nvm_ et Node peuvent s'installer encore plus facilement sous macOS si vous utilisez le logiciel _Homebrew_.
+
+Rendez-vous dans la section <<install-macos,macOS>> pour en savoir plus.
+====
+
 Une fois installé, vous serez libre d'installer les version exactes de Node qui vous intéressent en appelant la commande `nvm` dans un <<shell,terminal>>.
 
 [subs="attributes"]
@@ -174,7 +182,7 @@ C'est l'équivalent de saisir `nvm use v9.3.0` ou `nvm use v9` si on a la flemme
 De même, taper `nvm use default` ou `nvm use v8` nous fera basculer vers la branche la version {vX}.
 
 Vous pouvez saisir la commande `nvm --help` à tout moment pour obtenir de l'aide sur la syntaxe des commandes.
-Les plus usitées sont :
+J'utilise principalement ces commandes :
 
 - `nvm install` : installe ou met à jour une version de Node ;
 - `nvm ls` : liste les versions installées de Node ;
@@ -184,28 +192,38 @@ Les plus usitées sont :
 
 
 [[install-ubuntu]]
-=== Distributions Linux : Debian et Ubuntu
+=== Distributions Linux : Debian/Ubuntu et RedHat/CentOS
 
-Le paquet officiel `nodejs` fourni dans les dépôts `apt` est à éviter pour deux raisons :
+Les distributions Linux et Debian listent Node dans leurs paquets officiels.
+Un simple `apt-get install nodejs` et ça fonctionne !
+… Ou presque : bien souvent on écopera d'une vieille version de Node.
 
-. le client _npm_ n'est pas installé par défaut ;
-. le paquet n'est ni à jour ni bien maintenu.
+Des paquets officiels pour Debian, Ubuntu, Mint, RedHat Enterprise Linux (RHEL) et CentOS sont maintenus sur [URL]#https://github.com/nodesource/distributions#.
 
-La société _NodeSource_ ([URL]#https://nodesource.com/#) maintient des binaires ainsi que des dépôts pour différentes distributions Linux. +
-L'installation d'une version à jour Node sous Debian, Ubuntu et consors devient aussi simple que les deux commandes suivantes :
+L'installation de node {vDotX} sous Ubuntu et Mint devient aussi simple que les deux commandes suivantes :
 
 [subs="attributes"]
 ----
-curl -sL https://deb.nodesource.com/setup_{vdotX} | sudo -E bash -
-sudo apt-get install -y nodejs
+$ curl -sL https://deb.nodesource.com/setup_{vdotX} | sudo -E bash -
+$ sudo apt-get install -y nodejs
 ----
 
-D'autres informations et architectures sont détaillées sur le dépôt GitHub des distributions _NodeSource_ : [URL]#https://github.com/nodesource/distributions#.
+Pour Debian, il faudra se mettre en `root` et ensuite saisir ces commandes :
 
+[subs="attributes"]
+----
+$ curl -sL https://deb.nodesource.com/setup_{vdotX} | bash -
+$ apt-get install -y nodejs
+----
+
+Pour RHEL et CentOS, il faudra se mettre en `root` et saisir cette commande :
+----
+$ curl -sL https://rpm.nodesource.com/setup_8.x | bash -
+----
 
 === Distributions Linux : les autres
 
-Node est disponible dans les dépôts officiels des systèmes suivants :
+Des paquets officiels pour d'autres distributions que Debian, Ubuntu et Mint sont maintenus et accessibles par le biais des gestionnaires de paquets habituels :
 
 - *Gentoo* : `emerge nodejs`
 - *Ubuntu >= 12.04*, *Debian >= jessie*, *Mint* : <<install-ubuntu,voir ci-après>>
@@ -214,26 +232,46 @@ Node est disponible dans les dépôts officiels des systèmes suivants :
 - *Arch Linux* : `pacman -S nodejs`
 - *FreeBSD*, *OpenBSD* : `pkg install node`
 
-Si votre système d'exploitation ne dispose pas de paquet pour Node, essayez dans l'ordre :
+La liste à jour est maintenue sur cette page du site officiel de Node [URL]#https://nodejs.org/en/download/package-manager#.
 
-1. <<nvm,Node Version Manager>> (voir ci-après) ;
-2. le téléchargement du binaire Node sur son site officiel ;
-3. la compilation manuelle de Node.
+À noter que vous pouvez aussi utiliser <<nvm,nvm>> pour gérer vos versions de Node indépendamment du cycle de vie de votre système d'exploitation Linux.
 
 [[install-macos]]
 === macOS
 
-_macOS_ ne dispose pas de gestionnaire de paquet par défaut.
-Quelques projets populaires permettent toutefois d'y remédier :
+Un installeur officiel pour macOS est fourni sur le site de Node à l'adresse [URL]#https://nodejs.org/en/download/#.
 
-- *homebrew* : `brew install node`
-- *MacPorts* : `port install nodejs`
+<<nvm,nvm>> est la voie alternative recommandée pour gérer plusieurs versions de Node en parallèle.
 
-Si vous n'utilisez aucun de ces gestionnaires de paquet, vous pouvez essayez :
+Il est toutefois possible d'installer Node et _nvm_ via le gestionnaire de paquets _Homebrew_.
+_Homebrew_ ([URL]#https://brew.sh/#) est un logiciel open source populaire.
+Il aide à installer des logiciels qui ne sont pas distribués via le _Mac App Store_.
 
-1. <<nvm,Node Version Manager>> (voir ci-après) ;
-2. le téléchargement du binaire Node sur son site officiel ;
-3. la compilation manuelle de Node.
+L'installation de _Homebrew_ se fait en deux étapes :
+
+. l'installation des _Command Line Tools_ pour compiler des logiciels depuis leur code source ;
+. l'installation de _Homebrew_ en elle-même.
+
+.Installation des _Command Line Tools_ et de _Homebrew_ sous macOS
+----
+$ xcode-select --install
+$ BREWRL=https://raw.githubusercontent.com/Homebrew/install/master/install \
+   /usr/bin/ruby -e "$(curl -fsSL $BREWRL)"
+----
+
+Pour installer _nvm_, il suffira alors de faire :
+
+----
+$ brew install nvm
+----
+
+Ou pour installer une seule version de Node, la plus récente :
+
+----
+$ brew install node
+----
+
+Vous pouvez obtenir des options d'installations et de configuration en tapant `brew info nvm` et/ou `brew info node`.
 
 === Windows
 
@@ -248,13 +286,13 @@ image::images/node-on-windows.png[align="center",width="85%"]
 
 Un raccourci pour lancer un terminal préparé pour Node et les commandes _npm_ sera mis à disposition dans le _menu Windows_ (voir capture ci-contre).
 
-[CAUTION]
+[WARNING]
 .[RemarquePreTitre]#Attention# Versions supportées de Windows
 ====
-Windows XP, Windows Vista et les versions antérieures à celles-ci ne sont pas supportées.
+Node n'est pas compatible avec les versions antérieures à Windows Vista.
+Cela inclut Windows XP.
 
-Il est déconseillé d'utiliser une version plus ancienne de Node pour contourner ce comportement.
-Il en va de la *sécurité de vos applications*.
+Mieux vaudra utiliser un <<online,service en ligne>> pour essayer Node en toute sécurité sur votre ordinateur… ou passer à Linux pour lui redonner une seconde vie en toute sécurité !
 ====
 
 [[install-rpi]]
