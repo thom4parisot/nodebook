@@ -2,6 +2,15 @@
 
 Pour en savoir plus: [annonce la résidence itinérante](https://oncletom.io/2017/residence-nodejs/) et [résumé de la résidence itinérante](https://oncletom.io/2017/without-a-home/) (en anglais).
 
+## Mercredi 10 janvier
+
+- _Chapitre 2_ : Chapitre 2 : installation sous Linux et macOS
+- _Chapitre 2_ : quelle installation choisir et nvm plus en détails
+- _Chapitre 2_ : installation plus détaillée sous Windows
+- _nodejs.org_ : c'était bizarre de renvoyer des gens vers une page de téléchargements en anglais donc j'ai ouvert [une _pull request_ pour traduire nodejs.org/fr/download/ en français](https://github.com/nodejs/nodejs.org/pull/1550)
+
+**Météo** : 🙂 😴
+
 ## Mardi 9 janvier
 
 - _Chapitre 2_ : Raspberry Pi et compiler depuis les sources
