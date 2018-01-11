@@ -4,6 +4,7 @@ Pour en savoir plus: [annonce la résidence itinérante](https://oncletom.io/201
 
 ## Jeudi 11 janvier
 
+- _Chapitre 2_ : Utiliser Node.js avec un terminal
 - _Chapitre 2_ : Sans installation, dans un navigateur web (RunKit, Codenvy, Cloud9)
 - _Tous les chapitres_ : coloration syntaxique des exemples bash
 - _Outillage_ : rend plus explicite le label d'interactivité des exemples

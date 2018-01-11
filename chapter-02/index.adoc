@@ -450,8 +450,8 @@ Plusieurs variantes par version de Node se trouvent à notre disposition :
 L'intégralité des versions et architectures supportées est disponible sur le _Docker Hub_ : [URL]#https://hub.docker.com/_/node/#. +
 Nous nous repencherons sur Docker dans la section  <<../chapter-06/index.adoc#immutable-deploy,_Déploiement immutable_>> du Chapitre 6.
 
-
-== Utiliser Node.js
+[[shell]]
+== Utiliser Node.js avec un terminal (_shell_)
 
 La section précédente nous a permis d'installer l'environnement d'exécution Node sur notre machine.
 Il se peut aussi que vous ayiez privilégié l'utilisation d'un <<online,service en ligne>>.
@@ -459,26 +459,52 @@ Il se peut aussi que vous ayiez privilégié l'utilisation d'un <<online,service
 Nous allons nous assurer dans cette section que nous pouvons
 *voir nos premiers résultats* d'une interaction avec Node.
 
-Le <<shell,terminal>> sera notre compagnon pour dialoguer avec Node et ce,
-que ce soit sur notre ordinateur ou sur un <<online,service en ligne>>.
-
-
-[[shell]]
-=== Le terminal (_shell_)
-
-La plupart des systèmes d'exploitation proposent un _terminal_,
-y compris les versions récentes de Windows.
-
-Si vous n'utilisez pas encore de terminal, voici une liste de recommandations non exhaustive pour vous aider :
-
-- *macOS* : iTerm2, Terminal.app ;
-- *Linux* : GNOME Shell, Terminator ;
-- *Windows* : PowerShell, Console.
+Le <<shell,terminal>> est notre compagnon pour dialoguer avec le système d'exploitation.
+L'_invite de commande_ est son nom véritable.
+Ce nom nous donne un indice sur la fonction de ce type de logiciel :
+inviter l'utilisateur à saisir des commandes pour obtenir des résultats calculés par un ordinateur.
 
 .Terminal iTerm2 sous macOS.
-image::images/terminal.png[align="center",width="85%"]
+image::images/macos-terminal.png[align="center",width="70%"]
 
+[NOTE]
+.[RemarquePreTitre]#Histoire# Terminal physique
+====
+L'histoire des invites de commande remonte au temps où les ordinateurs
+étaient plus volumineux que nos logements.
+Une époque lointaine où les ordinateus étaient véritablement et physiquement distants des claviers qui les interrogeaient.
 
+[URL]#https://fr.wikipedia.org/wiki/Terminal_informatique#
+====
+
+Une application de type _terminal_ sert également à communiquer avec
+Node quand celui-ci est installé sur un ordinateur.
+
+La majorité des systèmes d'exploitation embarquent un logiciel utilitaire permettant d'ouvrir un _terminal_.
+Cela vaut également pour les <<online,services en ligne>> offrant la fonctionnalité d'<<ide,éditeur de code>>.
+
+.Terminal du <<online,service en ligne>> _Cloud9_.
+image::images/cloud9-terminal.png[align="center",width="70%"]
+
+Voici une liste non exhaustive d'applications de type _terminal_ :
+
+macOS::
+* *Terminal.app* : fourni par défaut (dans `Applications / Utilitaires`) ;
+* *iTerm2* : une version améliorée disponible sur [URL]#https://iterm2.com# (ou `brew cask install iterm2`) ;
+Linux::
+* *GNOME Terminal* : fourni par défaut sous Debian, Ubuntu et les distributions utilisant le bureau _GNOME_ ([URL]#https://wiki.gnome.org/Apps/Terminal#) ;
+* *Terminator* : un autre terminal populaire ([URL]#https://gnometerminator.blogspot.com#) ;
+Windows::
+* *Node.js Command Prompt* : fourni avec l'<<windows,installeur Windows>> ;
+* *PowerShell* : fourni par défaut depuis Windows 7, sinon disponible sur [URL]#https://github.com/PowerShell/PowerShell# — également disponible pour macOS et Linux.
+
+.Node.js Command Prompt sous Windows 10.
+image::images/windows-terminal.png[align="center",width="70%"]
+
+Maintenant que nous avons installé Node et compris comment
+y accéder depuis notre système d'exploitation ou navigateur web,
+attaquons-nous au dernier morceau du puzzle :
+*avec quel logiciel écrire du code JavaScript* ?
 
 [[ide]]
 == Choisir un éditeur de texte
