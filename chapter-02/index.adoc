@@ -372,10 +372,51 @@ Les instructions de compilation varient d'un système d'exploitation à l'autre.
 Consultez les dépendances et instructions complètes à
 cette adresse [URL]#https://github.com/nodejs/node/blob/master/BUILDING.md#.
 
+[[install-docker]]
+=== Images Docker
+
+_Docker_ ([URL]#https://docker.com#) est un outil open source dit d'_applications en conteneur_.
+Une de ses qualités principales est d'*isoler l'exécution d'applications de leur environnement d'exécution*.
+Une image Docker décrit la recette d'installation d'une application.
+L'environnement d'exécution Docker fait office de passe-plat avec le syst!me d'exploitation.
+Une image Docker fonctionne ainsi de la même manière qu'elle soit exécutée sous Linux, macOS ou encore Windows.
+
+Les installeurs et instructions d'installation de Docker se trouvent à l'adresse [URL]#https://docker.com/community-edition#.
+
+Une fois Docker installé, on peut exécuter une image officielle pour Node {vDotX} :
+
+[source,bash,subs="attributes"]
+----
+$ docker run -ti --rm node:{v} node --version
+----
+
+Docker télécharge l'image `node:{v}` et exécute la commande `node --version` dans un contexte isolé du système d'exploitation.
+
+Plusieurs variantes par version de Node se trouvent à notre disposition :
+
+- _standard_ (`node:<version>`) : base Linux Debian pour tout type d'applications Node ;
+- _Debian_ (`node:<version>-wheezy`) : idem que _standard_ mais sur des bases Debian différentes, comme _Wheezy_, _Stretch_, etc. ;
+- _Alpine_ (`node:<version>-alpine`) : base minimaliste Linux Alpine ([URL]#http://alpinelinux.org/#) — utile si vous souhaitez économiser de l'espace disque ;
+- _allégée_ (`node:<version>-slim`) : base Linux Debian sans outillage parfois nécessaires à des modules Node — utile si vous souhaitez économiser de l'espace disque.
+
+L'intégralité des versions et architectures supportées est disponible sur le _Docker Hub_ : [URL]#https://hub.docker.com/_/node/#. +
+Nous nous repencherons sur Docker dans la section  <<../chapter-06/index.adoc#immutable-deploy,_Déploiement immutable_>> du Chapitre 6.
+
+
 == Utiliser Node.js
 
+La section précédente nous a permis d'installer l'environnement d'exécution Node sur notre machine.
+Il se peut aussi que vous ayiez privilégié l'utilisation d'un <<online,service en ligne>>.
+
+Nous allons nous assurer dans cette section que nous pouvons
+*voir nos premiers résultats* d'une interaction avec Node.
+
+Le <<shell,terminal>> sera notre compagnon pour dialoguer avec Node et ce,
+que ce soit sur notre ordinateur ou sur un <<online,service en ligne>>.
+
+
 [[shell]]
-=== Dans un terminal (_shell_)
+=== Le terminal (_shell_)
 
 La plupart des systèmes d'exploitation proposent un _terminal_,
 y compris les versions récentes de Windows.
@@ -389,31 +430,10 @@ Si vous n'utilisez pas encore de terminal, voici une liste de recommandations no
 .Terminal iTerm2 sous macOS.
 image::images/terminal.png[align="center",width="85%"]
 
-=== Sans installation, dans un navigateur web
-
-TBD.
-
-[[install-docker]]
-=== Avec Docker
-
-_Docker_ est un outil d'isolation de processus système qui a le vent en poupe depuis 2014.
-Sa qualité principale est d'isoler les dépendances logicielles du système qui exécute le-dit processus.
-Une image Docker aura la même recette d'installation même si celle-ci est exécutée sous Linux, macOS ou encore Windows.
-
-Lancer un interpréteur Node _sans polluer_ le système hôte revient à exécuter l'image suivante :
-
-[source,bash,subs="attributes"]
-----
-$ docker run -ti --rm node:{v}-slim
-----
-
-L'intégralité des versions et architectures supportées est disponible sur le _Docker Hub_ : [URL]#https://hub.docker.com/_/node/#
-
-Nous nous repencherons sur Docker dans la section  <<../chapter-06/index.adoc#immutable-deploy,_Déploiement immutable_>> du Chapitre 6.
 
 
 [[ide]]
-== Outils de développement
+== Choisir un éditeur de texte
 
 Programmer pour Node revient dans la majorité des cas à écrire du JavaScript.
 Donc même si un éditeur de texte suffit, il est intéressant de connaître l'offre en outillage autour de Node et du développement front-end.
