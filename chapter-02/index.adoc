@@ -59,7 +59,7 @@ il y a un petit rituel auquel on coupera difficilement :
 
 Si l'idée est de jouer avec du code rapidement,
 sans rien installer et avec le premier ordinateur qui vous passe sous la main,
-je vous invite à aller directement à la section <<#online,Utiliser Node.js, sans installation dans un navigateur web>> de ce même chapitre.
+je vous invite à aller directement à la section <<#online,Sans installation, dans un navigateur web>> ci-après.
 
 Les sections qui suivent ont pour intention de vous aider à créer
 un environnement Node à jour sur votre ordinateur.
@@ -70,18 +70,13 @@ Ce contenu s'applique également à un serveur destiné à héberger vos applica
 Il y a plusieurs manières d'installer Node sur une machine.
 Elles sont _toutes_ correctes.
 Certaines manières sont plus adaptées que d'autres,
-selon votre aisance avec un _terminal_
+selon votre aisance avec un <<shell,terminal>>
 et selon le besoin de jongler rapidement entre différentes versions de Node.
 
 - *si vous ne vous êtes jamais servi·e d'un terminal* : il est plus simple d'utiliser un _installeur_ depuis le site officiel de Node ;
 - *si vous designez ou développez* : il est plus simple d'utiliser <<nvm,nvm>> (voir section ci-après) ;
 - *si vous souhaitez maitriser les options d'installation* : il serait logique de <<build,compiler depuis les _sources_>> et/ou <<docker,d'utiliser Docker>> ;
 - *si rien de tout ça ne vous parle* : des services en ligne rendent <<online,Node accessible depuis un simple navigateur web>>.
-
-Les téléchargements principaux sont disponibles sur le site officiel de Node à l'adresse [URL]#https://nodejs.org/fr/download/#.
-
-.Liste des téléchargements principaux
-image::images/nodejs-downloads.png[align="center",width="85%"]
 
 [NOTE]
 .[RemarquePreTitre]#Question# Pourquoi utiliser un installeur ?
@@ -91,14 +86,67 @@ Les installeurs permettent d'installer Node facilement, en quelques clics et san
 Si vous utilisez un installeur correspondant à une version plus récente de Node,
 cette nouvelle version sera utilisée dans _tous_ vos projets Node.
 
-C'est la *solution la plus simple pour débuter*.
+C'est la *solution la plus simple pour installer Node*.
 ====
 
-Une liste encore plus complète ainsi que des instructions détaillées
-pour chaque système d'exploitation est disponible sur une autre
-page du site web officiel de Node à l'adresse
-[URL]#https://nodejs.org/fr/download/package-manager/#.
+[[online]]
+=== Sans installation, dans un navigateur web
 
+Il est facile de s'essayer à Node juste avec un navigateur web moderne comme Firefox, Microsoft Edge ou Chrome.
+Des services en ligne combinent un <<ide,éditeur de texte>>
+ainsi qu'un environnement d'exécution Node à distance.
+
+Nous brosserons le portrait de 3 services différents
+de part leurs fonctionnalités et leur rapidité de prise en main :
+_RunKit_, _Codenvy_ et _Cloud9_.
+
+_RunKit_ ([URL]#https://runkit.com#) est de loin le service le plus simple.
+Il s'article autour d'un concept de _bac à sable_,
+notre code ne sera pas plus long qu'un fichier.
+Pour créer un nouveau bac à sable,
+il suffit de se rendre sur [URL]#https://runkit.com/new#.
+
+.Bac à sable sur _RunKit_.
+image::images/runkit-playground.png[align="center", width="85%"]
+
+_Codenvy_ ([URL]#https://codenvy.io#) est un service basé sur le
+logiciel open source _Eclipse_ et édité par la compagnie _Red Hat_. +
+L'interface est organisée exactement comme un des <<ide,éditeurs de texte>> abordé plus loin dans ce chapitre.
+
+.Espace de travail sur _Codenvy_.
+image::images/codenvy-workspace.png[align="center", width="85%"]
+
+Le processus de création de projet est relativement intuitif
+et il est très facile d'importer du code hébergé en ligne, sur _GitHub_
+notamment.
+La configuration minimale d'un projet est gratuite tandis que
+les fonctionnalités avancées et le travail en équipe sont payantes.
+
+.Processus de création d'un espace de travail sur _Codenvy_.
+image::images/codenvy-dashboard.png[align="center", width="85%"]
+
+Enfin, _Cloud9_ ([URL]#https://c9.io#) est un service propriétaire
+édité par la compagnie _Amazon Web Services_ (_AWS_, [URL]#https://aws.amazon.com#).
+Ce service intègre des fonctionnalités similaires à celles de _Codenvy_
+(éditeur en ligne, configuration de machine)
+et s'intègre de manière poussée avec les autres services d'_AWS_,
+dont _EC2_ et <<../chapter-06/index.adoc#lambda,Lambda>> (voir le <<../chapter-06/index.adoc#,chapitre 6>>). +
+Le service est entièrement gratuit.
+C'est la consommation de ressources qui est payante, à l'heure,
+en fonction du dimensionnement des ressources demandées.
+
+.Configuration d'un espace de travail _Cloud9_.
+image::images/cloud9-configuration.png[align="center", width="85%"]
+
+_Cloud9_ a peu d'opinions sur la manière dont votre environnement
+doit être configuré.
+Tout devra être configuré, des accès à votre compte _GitHub_
+jusqu'à… la version de Node à installer.
+
+.Espace de travail sur _Cloud9_.
+image::images/cloud9-workspace.png[align="center", width="85%"]
+
+Ça tombe bien, <<nvm,nvm>> est préinstallé sur chaque espace de travail.
 
 [[nvm]]
 === Node Version Manager (_nvm_)
