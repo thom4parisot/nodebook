@@ -90,6 +90,7 @@ image::images/unix-env.png[align="center",width="85%"]
 Il nous est également possible d'en créer de nouvelles avec un syntaxe de `CLÉ=VALEUR`.
 L'exemple suivant illustre la création d'une telle variable, son affichage puis son affichage en faisant appel à un autre programme, en l'occurence Node :
 
+[source,bash]
 ----
 $ TEST=1
 $ echo $TEST
@@ -101,6 +102,7 @@ La _portée_ est réduite à notre session uniquement.
 
 L'exemple suivant assigne une valeur à une variable d'environnement au niveau de l'_exécution d'un programme_ :
 
+[source,bash]
 ----
 $ TEST=1 node -p 'process.env.TEST'
 $ echo $TEST
@@ -111,6 +113,7 @@ La _portée_ est réduite à l'invocation uniquement.
 
 Un opérateur permet de propager une variable, de l'_exporter_ :
 
+[source,bash]
 ----
 $ export TEST=1
 $ node -p 'process.env.TEST'
@@ -128,6 +131,7 @@ C'est son contenu qui régit où le système d'exploitation va chercher quel pro
 
 Prenons par exemple cette commande :
 
+[source,bash]
 ----
 $ node --version
 ----
@@ -135,6 +139,7 @@ $ node --version
 Où se trouve `node` sur notre système ?
 Une autre commande nous permet de le savoir :
 
+[source,bash]
 ----
 $ which node
 /usr/bin/node
@@ -176,12 +181,14 @@ Quand un programme est exécuté, le système d'exploitation fait face à deux o
 
 On peut avoir recourt à un interpréteur directement en faisant :
 
+[source,bash]
 ----
 $ bash mon-script.sh
 ----
 
 Ou bien en débutant `mon-script.sh` par `#!/usr/bin/env bash` pour sélectionner l'interpréteur `bash` (généralement disponible en tant que `/bin/bash`) puis en exécutant :
 
+[source,bash]
 ----
 $ chmod +x mon-script.sh
 $ ./mon-script.sh
@@ -194,6 +201,7 @@ On peut ainsi décider quel interpréteur sera employé pour comprendre le scrip
 Exécuter un programme peut parfois nécessiter un paramétrage contextuel et indépendant de la valeur des variables d'environnement.
 On lui passe ainsi des _paramètres_ ou _arguments_ qui lui sont spécifiques.
 
+[source,bash]
 ----
 $ FOO_VAL='bar'
 $ ./argv.sh --foo=$FOO_VAL toto
@@ -201,7 +209,7 @@ $ ./argv.sh --foo=$FOO_VAL toto
 
 Ces arguments de processus sont disponibles de manière brute, itérable sous forme de liste :
 
-[source]
+[source,bash]
 .argv.sh
 ----
 include::{sourceDir}/argv.sh[]
@@ -218,6 +226,7 @@ L'idée est de pouvoir créer des programmes _solides_, résistant au temps et i
 
 Un programme peut être amené à produire un *flux de données* et à le *rediriger* vers un emplacement, que ce soit un _fichier_ (avec `>`), un _terminal_ d'affichage ou un _autre programme_ (avec `|`) :
 
+[source,bash]
 ----
 $ date                    # <1>
 $ date > date.txt         # <2>
@@ -232,6 +241,7 @@ Cette pratique poussée de la modularité encourage la *combinaison* plutôt que
 
 L'exemple suivant illustre l'affichage de données d'une session utilisateur, dans l'optique d'obtenir le nom du terminal (`TTY`) :
 
+[source,bash]
 ----
 $ w
 10:33  up 5 days, 18:48, 5 users, load averages: 1.36 1.62 1.75
@@ -241,6 +251,7 @@ oncletom console  -                Fri15   5days -
 
 Nous isolons la troisième ligne :
 
+[source,bash]
 ----
 $ w | head -n 3 | tail -n 1 # <1>
 ----
@@ -248,6 +259,7 @@ $ w | head -n 3 | tail -n 1 # <1>
 
 Et finalement la valeur contenue dans la deuxième colonne avec `awk` :
 
+[source,bash]
 ----
 $ w | head -n 3 | tail -n 1 | awk '{ print $2 }'
 ----
@@ -358,8 +370,9 @@ que cette dite erreur n'est pas prise en charge par le programme.
 include::{sourceDir}/print-date.js[]
 ----
 
+[source,bash]
 ----
-node print-date.js // <1>
+$ node print-date.js // <1>
 ----
 <1> Affiche `Fri Apr 04 2014 20:26:46 GMT+0100 (BST)`.
 
@@ -540,6 +553,7 @@ Plusieurs options pourraient vous intéresser :
 
 L'option `-p` est idéale pour évaluer du code en une ligne et visualier un résultat :
 
+[source,bash]
 ----
 $ node -p 'Date()';
 Tue Jan 24 2017 12:42:02 GMT+0100 (CET)
@@ -576,6 +590,7 @@ include::{sourceDir}/print-args[]
 
 Le bloc suivant rend le fichier exécutable et l'exécute avec des arguments :
 
+[source,bash]
 ----
 $ chmod +x print-args
 $ ./print-args Affiche moi
@@ -592,6 +607,7 @@ L'invocation d'un _script npm_ peut se faire de deux manières :
 . `npm <script-natif>` pour les scripts natifs à _npm_ (`start`, `publish`, `test` etc.) ;
 . `npm run <script>` pour les scripts additionnels définis par l'utilisateur.
 
+[source,bash]
 ----
 $ npm start
 # équivalent de `npm run start`
@@ -650,6 +666,7 @@ include::{sourceDir}/argv.js[]
 
 Ce script peut être invoqué de la manière suivante :
 
+[source,bash]
 ----
 $ node argv.js -y 2014 2012 --title 'fromage baguette' #<1>
 ----
@@ -722,6 +739,7 @@ console.log('ECMA%s', 'script'); // <1>
 
 `console.trace` envoie l'état de la _stack trace_ vers le flux d'erreur :
 
+[source,bash]
 .stack-trace.js
 ----
 $ node stack-trace.js
@@ -761,9 +779,10 @@ include::{sourceDir}/process.js[]
 
 Exécutons ce même script avec différents arguments :
 
+[source,bash]
 ----
-node process.js <1>
-node process.js argument1 "argument 2" --option1 <2>
+$ node process.js <1>
+$ node process.js argument1 "argument 2" --option1 <2>
 ----
 <1> Retourne `[ 'node', '…/chapter-04/examples/process.js' ]` ;
 <2> Retourne `[ 'node', '…/chapter-04/examples/process.js', 'argument1', 'argument 2', '--option1' ]`.
@@ -801,8 +820,9 @@ include::{sourceDir}/uppercase.js[]
 
 Exécutons ce script sur un système Unix :
 
+[source,bash]
 ----
-echo "Entrée standard" | node uppercase.js <1>
+$ echo "Entrée standard" | node uppercase.js <1>
 ----
 <1> Affiche `ENTRÉE STANDARD`.
 
@@ -824,8 +844,9 @@ include::{sourceDir}/interrupt.js[]
 
 Et maintenant son exécution dans un terminal Unix :
 
+[source,bash]
 ----
-node interrupt.js 3 <1>
+$ node interrupt.js 3 <1>
 ^C <2>
 ^C <3>
 ^C <4>
@@ -840,6 +861,7 @@ node interrupt.js 3 <1>
 Cela concerne notamment les commandes de liste de processus actifs (comme `ls`).
 On pourrait penser que cela offre l'avantage de rendre un processus singulier et donc plus facile à repérer :
 
+[source,bash]
 ----
 $ node
 > process.title='hey!'
@@ -886,8 +908,9 @@ include::{sourceDir}/currency-main.js[]
 
 La fonction `require` chargera le fichier `currency-format.js` et assignera le résultat de l'export dans la variable de votre choix, ici, `setupFormatter`.
 
+[source,bash]
 ----
-node currency-main.js <1> <2>
+$ node currency-main.js <1> <2>
 ----
 <1> Affiche `undefined` ;
 <2> Puis affiche `'12,00€'`.
@@ -993,8 +1016,9 @@ include::{sourceDir}/increment-main.js[]
 
 Il ne reste plus qu'à l'exécuter pour constater ce qu'il se passe :
 
+[source,bash]
 ----
-node increment-main.js <1> <2> <3> <4>
+$ node increment-main.js <1> <2> <3> <4>
 ----
 <1> Affiche `…/chapter-04/examples/increment-module.js` ;
 <2> Affiche `0` ;
@@ -1068,6 +1092,7 @@ Elle n'est prédéfinie que dans le terminal interactif (_REPL_).
 
 Cette variable _magique_ contient systématiquement le résultat de la dernière évaluation de code.
 
+[source,bash]
 ----
 $ node
 > 2 + 2

@@ -64,7 +64,7 @@ include::.nvmrc[]
 Les commandes exposées par _nvm_ ont _connaissance_ de la version de Node déclarée dans le fichier `.nvmrc`.
 Elles s'adapteront à cette version sauf à demander une version explicite :
 
-[subs="attributes"]
+[source,bash,subs="attributes"]
 ----
 $ nvm install
 $ nvm install {nodeNextVersion}
@@ -131,6 +131,7 @@ include::{sourceDir}/config/env.js[]
 
 Jouons avec le script `config/env.js` pour illustrer ces différents scénarios :
 
+[source,bash]
 ----
 $ PORT=8000 node config/env.js     # <1>
 $ NODE_ENV=test node config/env.js # <2>
@@ -158,6 +159,7 @@ include::package.json[lines=6..12, indent=0]
 
 L'appel du fichier suivant affichera un résultat différent selon que l'invocation se fasse avec Node ou _npm_ (cf. <<../chapter-04/index.adoc#invoke,invoquer Node.js>>, Chapitre 4) :
 
+[source,bash]
 .Exécution de `config/file-npm.js` avec Node puis _npm_.
 ----
 $ node config/file-npm.js
@@ -275,6 +277,7 @@ L'option d'invocation Node `--inspect` démarre l'inspecteur en même temps que 
 L'URL de connexion à l'inspecteur est alors affichée.
 À nous de la copier/coller dans la barre d'adresse du navigateur _Chrome_ pour afficher les outils de débogage.
 
+[source,bash]
 ----
 $ node --inspect config/file-npm.js
 Debugger listening on port 9229.
@@ -287,6 +290,7 @@ L'option d'invocation `--inspect` est adaptée à des processus de longue durée
 Ce dernier met en *pause le script dès sa première ligne*.
 Un clic sur l'icône icon:play[] continue son exécution jusqu'au _prochain point d'arrêt_ ou à défaut, jusqu'à la _dernière instruction_.
 
+[source,bash]
 ----
 $ node --inspect-brk config/file-npm.js
 ----
@@ -308,6 +312,7 @@ image::images/devtool.png[align="center",width="85%"]
 
 _devtool_ offre exactement les mêmes fonctionnalités que l'inspecteur Node, y compris le point d'arrêt sur la première ligne avec l'option `--break` :
 
+[source,bash]
 ----
 $ ../node_modules/.bin/devtool config/file-npm.js
 $ ../node_modules/.bin/devtool config/file-npm.js --break
@@ -335,6 +340,7 @@ include::{sourceDir}/debug.js[]
 
 Nous lançons le script comme d'habitude :
 
+[source,bash]
 ----
 $ node debug.js
 ----
@@ -343,6 +349,7 @@ Pourtant, rien ne se passe ne s'affiche dans notre terminal : il faut en effet *
 
 L'affichage des appels à la fonction de _debug_ de l'espace de nom `nodebook:ch06` se ferait ainsi :
 
+[source,bash]
 ----
 $ DEBUG='nodebook:ch06' node debug.js
   nodebook:ch06 fromages [ 'livarot', 'chaource' ] +0ms
@@ -350,6 +357,7 @@ $ DEBUG='nodebook:ch06' node debug.js
 
 De même, l'affichage des appels à la fonction de _debug_ de l'espace de nom `nodebook:interval` se ferait ainsi :
 
+[source,bash]
 ----
 $ DEBUG='nodebook:interval' node debug.js
   nodebook:interval count 1 +0ms
@@ -361,6 +369,7 @@ $ DEBUG='nodebook:interval' node debug.js
 
 L'utilisation du caractère `*` sert de motif de remplacement universel et affiche les appels à la fonction de _debug_ préfixé par `nodebook:` :
 
+[source,bash]
 ----
 $ DEBUG='nodebook:*' node debug.js
   nodebook:ch06 fromages [ 'livarot', 'chaource' ] +0ms
@@ -485,6 +494,7 @@ Enfin, _systemd_ redémarrera le service en cas d'erreur, dans une limite de 5 t
 
 Si le fichier de configuration est accessible en tant que `/etc/systemd/nodebook.d/app.conf`, le service `nodebook` peut être démarré manuellement comme suit :
 
+[source,bash]
 ----
 $ sudo systemctl start nodebook.service
 ----
@@ -539,6 +549,7 @@ Chacun des processus sera démarré sous l'_utilisateur_ et le _groupe Unix_ pro
 
 _Passenger_ peut être contrôlé par l'intermédiaire du programme `passenger-config`, notamment avec la sous-commande `restart-app` :
 
+[source,bash]
 ----
 $ passenger-config restart-app /var/www/webapp-nodebook
 ----
@@ -573,6 +584,7 @@ Il est lui-même écrit en ECMAScript et fonctionne aussi bien sous Linux, Windo
 La commande suivante démarrera une application web en lui attribuant un nom (ici, _nodebook-ch06-testapp_).
 L'application sera démarrée en mode _cluster_ à raison d'un processus par CPU afin de répartir le trafic en fonction de la charge.
 
+[source,bash]
 ----
 $ pm2 start app.js -i 0 --name nodebook-ch06-testapp
 ----
@@ -585,6 +597,7 @@ L'ordinateur servant à la rédaction de l'ouvrage dispose de 4 CPU donc _pm2_ c
 L'application de démonstration affiche un nom aléatoire de Pokémon ainsi que l'identifiant du processus au sein du _cluster_ lors de la consultation de la page [URL]#http://localhost:4000#. +
 On s'en rend compte notamment en utilisant le programme `curl` (ou équivalent) :
 
+[source,bash]
 ----
 $ curl --location http://localhost:4000
 > [cluster #2] Jynx
@@ -678,6 +691,7 @@ Chaque déploiement est donc unique.
 
 Une fois notre compte créé et notre terminal positionné dans un répertoire de notre ordinateur contenant la racine du projet à déployer, il suffit d'installer le _client now_ et d'initier le déploiement :
 
+[source,bash]
 ----
 $ npm i -g now
 $ now

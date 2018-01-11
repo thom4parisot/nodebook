@@ -129,7 +129,7 @@ Deux autres alternatives sont à essayer si _nvm-windows_ pose problème :
 - [URL]#https://github.com/marcelklehr/nodist#
 ====
 
-[subs="attributes"]
+[source,bash,subs="attributes"]
 .Commande d'installation du logiciel nvm {nvmVersion}
 ----
 $ curl -o- https://raw.githubusercontent.com/creationix/nvm/{nvmVersion}/install.sh | bash
@@ -145,7 +145,7 @@ Rendez-vous dans la section <<install-macos,macOS>> pour en savoir plus.
 
 Une fois installé, vous serez libre d'installer les version exactes de Node qui vous intéressent en appelant la commande `nvm` dans un <<shell,terminal>>.
 
-[subs="attributes"]
+[source,bash,subs="attributes"]
 .Installation de Node {nodeCurrentVersion} avec la commande `nvm install`
 ----
 $ nvm install {nodeCurrentVersion}
@@ -158,6 +158,7 @@ La deuxième ligne est quant à elle responsable de signaler que l'on veut *en f
 
 On pourra retrouver à tout moment les versions installées en utilisant la commande `nvm ls`.
 
+[source,bash]
 .Liste des versions installées de Node avec la commande `nvm ls`
 ----
 $ nvm ls
@@ -203,7 +204,7 @@ Des paquets officiels pour Debian, Ubuntu, Mint, RedHat Enterprise Linux (RHEL) 
 
 L'installation de node {vDotX} sous Ubuntu et Mint devient aussi simple que les deux commandes suivantes :
 
-[subs="attributes"]
+[source,bash,subs="attributes"]
 ----
 $ curl -sL https://deb.nodesource.com/setup_{vdotX} | sudo -E bash -
 $ sudo apt-get install -y nodejs
@@ -211,13 +212,14 @@ $ sudo apt-get install -y nodejs
 
 Pour Debian, il faudra se mettre en `root` et ensuite saisir ces commandes :
 
-[subs="attributes"]
+[source,bash,subs="attributes"]
 ----
 $ curl -sL https://deb.nodesource.com/setup_{vdotX} | bash -
 $ apt-get install -y nodejs
 ----
 
 Pour RHEL et CentOS, il faudra se mettre en `root` et saisir cette commande :
+[source,bash]
 ----
 $ curl -sL https://rpm.nodesource.com/setup_8.x | bash -
 ----
@@ -253,6 +255,7 @@ L'installation de _Homebrew_ se fait en deux étapes :
 . l'installation des _Command Line Tools_ pour compiler des logiciels depuis leur code source ;
 . l'installation de _Homebrew_ en elle-même.
 
+[source,bash]
 .Installation des _Command Line Tools_ et de _Homebrew_ sous macOS
 ----
 $ xcode-select --install
@@ -262,12 +265,14 @@ $ BREWRL=https://raw.githubusercontent.com/Homebrew/install/master/install \
 
 Pour installer _nvm_, il suffira alors de faire :
 
+[source,bash]
 ----
 $ brew install nvm
 ----
 
 Ou pour installer une seule version de Node, la plus récente :
 
+[source,bash]
 ----
 $ brew install node
 ----
@@ -298,13 +303,13 @@ Le menu créé par l'installeur contient deux icônes que nous utiliserons tout 
 Si vous utilisez déjà un gestionnaire de paquet comme _Scoop_ ([URL]#http://scoop.sh/#) ou _Chocolatey_ ([URL]#https://chocolatey.org/#),
 le chemin d'installation vers Node s'en trouvera réduit à une simple commande :
 
-----
+```bash
 # Avec Scoop
 $ scoop install nodejs
 
 # Avec Chocolatey
 $ choco install nodejs
-----
+```
 
 [WARNING]
 .[RemarquePreTitre]#Attention# Versions supportées de Windows
@@ -328,12 +333,12 @@ Un paquet `deb` est également proposé pour les utilisateurs du système d'expl
 Les instructions d'installation sont identiques à celles décrites
 dans la section précédente relative aux <<install-ubuntu,distributions Linux : Debian et Ubuntu>>.
 
-[subs="attributes"]
+[source,bash,subs="attributes"]
 .Installation de Node {nodeCurrentVersion} sur Raspberry Pi Model 3 (CPU ARMv8)
 ----
-curl -SLO https://nodejs.org/dist/{vX}/node-{vX}-linux-arm64.tar.xz
-tar -xJf "node-{vX}-linux-arm64.tar.xz" -C /usr/local --strip-components=1
-ln -s /usr/local/bin/node /usr/local/bin/nodejs
+$ curl -SLO https://nodejs.org/dist/{vX}/node-{vX}-linux-arm64.tar.xz
+$ tar -xJf "node-{vX}-linux-arm64.tar.xz" -C /usr/local --strip-components=1
+$ ln -s /usr/local/bin/node /usr/local/bin/nodejs
 ----
 
 Tous les binaires et les instructions d'installation sont disponibles sur [URL]#https://nodejs.org/fr/download/#.
@@ -353,13 +358,13 @@ les options de sécurité liées à _OpenSSL_,
 mais aussi l'intégration avec des profileurs et débogueurs externes
 (type _XCode_, _GNU Debugger_, _Intel VTune_).
 
-[subs="attributes"]
+[source,bash,subs="attributes"]
 .Étapes de compilation de Node {vX}
 ----
-curl -sS https://nodejs.org/dist/{vX}/node-{vX}.tar.gz \
+$ curl -sS https://nodejs.org/dist/{vX}/node-{vX}.tar.gz \
   | tar -zxf -
-cd node-{vX}
-./configure && make && make install
+$ cd node-{vX}
+$ ./configure && make && make install
 ----
 
 La compilation manuelle requiert la présence de _GCC_ 4.9+, de _Python_ 2.6+ et de _GNU Make_ 3.81+. +
@@ -397,7 +402,7 @@ Une image Docker aura la même recette d'installation même si celle-ci est exé
 
 Lancer un interpréteur Node _sans polluer_ le système hôte revient à exécuter l'image suivante :
 
-[subs="attributes"]
+[source,bash,subs="attributes"]
 ----
 $ docker run -ti --rm node:{v}-slim
 ----

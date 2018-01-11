@@ -2,6 +2,12 @@
 
 Pour en savoir plus: [annonce la résidence itinérante](https://oncletom.io/2017/residence-nodejs/) et [résumé de la résidence itinérante](https://oncletom.io/2017/without-a-home/) (en anglais).
 
+## Jeudi 11 janvier
+
+- _Tous les chapitres_ : coloration syntaxique des exemples bash
+
+**Météo** : 🙂
+
 ## Mercredi 10 janvier
 
 - _Chapitre 2_ : Chapitre 2 : installation sous Linux et macOS

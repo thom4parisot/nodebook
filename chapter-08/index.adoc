@@ -35,14 +35,16 @@ Dans le répertoire `./bin` parce que c'est la convention
 
 > Il faudra faire le lien avec le package.json
 
+[source,bash]
 ----
-node bin/fichier.js
+$ node bin/fichier.js
 ----
 
-pour le rendre exéutable
+pour le rendre exécutable
 
+[source,bash]
 ----
-chmod +x bin/fichier.js
+$ chmod +x bin/fichier.js
 ----
 
 Warning : +x pour tout le monde
@@ -55,8 +57,9 @@ Chemin absolu vers exécutable.
 > Runs a program in a modified environment.
 (chercher plus sur pourquoi env)
 
+[source,bash]
 ----
-env -i
+$ env -i
 ----
 
 ((exemple inDir outDir -- réutiliser du code métier))
@@ -81,8 +84,9 @@ Champ `bin`
 
 === npm i
 
+[source,bash]
 ----
-npm i -g .
+$ npm i -g .
 ----
 
 Prend en compte les changements locaux.

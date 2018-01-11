@@ -3,6 +3,7 @@
 :sourceSample: TODO.js
 :nodeCurrentVersion: v8
 :npmCurrentVersion: v5
+:npmvX: 5.6.0
 :toc-title: Table des matières
 :sectnums:
 :revdate: {docdate}
@@ -105,9 +106,10 @@ C'est de loin le mécanisme privilégié pour installer des modules Node de la m
 Si vous avez installé Node depuis les binaires officiels, `npm` est inclus par défaut.
 Véfifions que le programme `npm` est installé sur notre machine :
 
+[source,bash,subs="attributes"]
 ----
 $ npm --version
-4.1.1
+{npmvX}
 ----
 
 == Modules npm
@@ -143,6 +145,7 @@ image::images/npm-init.png[align="center",width="85%"]
 
 On peut gagner du temps en utilisant l'option `--yes` (et son raccourci `-y`) pour créer le fichier `package.json` sans avoir à répondre aux questions :
 
+[source,bash]
 ----
 $ npm init -y
 ----
@@ -185,8 +188,9 @@ La documentation et les informations relatives à son utilisation sont accessibl
 
 Après avoir préalablement navigué dans le répertoire `chapter-05`, l'installation du module se déroule en invoquant la commande `npm install` de la manière suivante :
 
+[source,bash]
 ----
-npm install comma-separated-values
+$ npm install comma-separated-values
 ----
 
 Le module est désormais installé dans le répertoire `chapter-05/node_modules/comma-separated-values` et est disponible pour tout script invoqué dans le répertoire `chapter-05`.
@@ -206,8 +210,9 @@ Il est toutefois recommandé d'installer les modules localement, afin de limiter
 
 Déroulons ensemble l'algorithme d'installation de `npm install` par le biais de cet exemple :
 
+[source,bash]
 ----
-npm install --save async yargs
+$ npm install async yargs
 ----
 
 La commande précédente effectue plusieurs opérations :
@@ -256,6 +261,7 @@ Maintenant que nous savons installer et sauvegarder des dépendances par le biai
 _npm_ organise les dépendances selon une structure dite _plate_ (_flat tree structure_).
 Ainsi, si deux modules distincts se basent sur une *version compatible d'une même dépendance* selon _semver_ — ici, jQuery v2 —  voici l'arbre de dépendance de _npm_ et la disposition sur le système de fichiers qui en résultent :
 
+[source,bash]
 ----
 $ npm ls
 my-app@1.0.0
@@ -273,6 +279,7 @@ node_modules
 
 Dans le cas où plusieurs modules dépendant d'un même paquet mais dans une version _semver_ incompatible — ici jQuery v1 et jQuery v2 — la version la plus _ancienne_ se trouvera à la racine du répertoire _node_modules_ tandis que les autres seront _encapsulées_ au plus près du module en dépendant :
 
+[source,bash]
 ----
 $ npm ls
 my-app@1.0.0
@@ -368,8 +375,9 @@ Nous verrons ultérieurement comment écrire des tests unitaires pour vos applic
 
 À la manière du démarrage d'une application, la commande npm fournit un contexte d'exécution dédié aux tests :
 
+[source,bash]
 ----
-npm test
+$ npm test
 ----
 
 Cette commande effectue deux choses :
@@ -398,8 +406,9 @@ En cas de test fautif, l'exécutable de tests affichera des précisions quant à
 
 Ce qui signifie en jargon Unixien que vous pouvez chaîner la commande avec d'autres actions basées sur un état de réussite des tests :
 
+[source,bash]
 ----
-npm test && git push
+$ npm test && git push
 ----
 
 Cette précédente commande a deux scénarios possibles :
@@ -442,6 +451,7 @@ En dernier recours, vérifier la fraîcheur de ses dépendances permet de prendr
 
 Quoiqu'il en soit, une commande npm nous aidera une fois de plus à obtenir les informations voulues :
 
+[source,bash]
 ----
 $ npm outdated
 ----
@@ -477,8 +487,9 @@ Il ne reste que trois dépendances sur lesquelles nous pouvons avoir une action 
 
 Pour forcer l'installation de la version correspondant à la colonne _Latest_ de la commande `npm outdated`, il suffit d'utiliser le suffixe `@latest` lors de l'installation :
 
+[source,bash]
 ----
-npm install --save-dev mocha@latest karma@latest …
+$ npm install --save-dev mocha@latest karma@latest …
 ----
 
 Et ainsi de suite pour les autres dépendances de premier niveau.

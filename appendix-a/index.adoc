@@ -67,6 +67,7 @@ Sur un document plus réaliste et donc volumineux, avec de fréquents changement
 
 L'exécution de *htmlhint* avec ses règles par défaut remontera les alertes suivantes :
 
+[source,bash]
 ----
 $ npm run lint-html
 sample.html:
@@ -148,6 +149,7 @@ include::{sourceDir}/sample.css[]
 
 *csslint* génèrera trois alertes en lisant le fichier `sample.css` et ce, même si celui-ci est syntaxiquement parfaitement valide :
 
+[source,bash]
 ----
 $ csslint sample.css
 
@@ -179,6 +181,7 @@ Cette liste peut aussi bien concerner des versions spécifiques ou encore cibler
 
 L'exemple suivant illustre les alertes relevées par _doiuse_ dans le cas d'une recherche de compatibilité avec Internet Explorer 6 et Internet Explorer 7 :
 
+[source,bash]
 ----
 $ doiuse -b 'ie < 8' sample.css
 sample.css:1:1: CSS 2.1 selectors not supported by: IE (6)
@@ -214,6 +217,7 @@ Il ne cherche pas à faire davantage que son homologue originel.
 *cssmin* est donc un outil simple, exposant un exécutable système ainsi qu'un module Node.
 Il ne fournit en revanche aucun support pour les _Source Maps_. Il vous faudra reposer sur l'outillage proposé par les navigateurs web modernes pour le débogage (reformatage du code, inspection des propriétés etc.).
 
+[source,bash]
 .Exemples d'utilisation de *cssmin*
 ----
 $ cssmin sample.css > sample.min.css # <1>
@@ -251,6 +255,7 @@ Il est d'autant plus aisé de les tester, de les activer et de les désactiver q
 Travail d'autant plus ingrat si vous n'avez pas envie ni le loisir de recourir à des _mixins_ Less ou Sass. +
 _autoprefixer_ expose une API ECMAScript, un exécutable système ainsi qu'une API de _streaming_ permettant une intégration sans plugin avec <<browserify,browserify>>, entre autres.
 
+[source,bash]
 .Exemple d'utilisation d'_autoprefixer_ en fonction des besoins en compatibilité navigateur
 ----
 $ autoprefixer -o - sample.css | grep transition
@@ -658,6 +663,7 @@ L'exemple précédent expose une même route permettant d'obtenir des informatio
 
 Par défaut, la version 2 de l'API est utilisée :
 
+[source,bash]
 ----
 $ curl http://localhost:8080/modules/express
 {"modules":[{"name":"express","version":"4.9.5"}]}
@@ -665,6 +671,7 @@ $ curl http://localhost:8080/modules/express
 
 Une version obsolète de l'API peut toutefois être utilisée si l'on mentionne explicitement cette information :
 
+[source,bash]
 ----
 $ curl -H 'Accept-version: ~1' http://localhost:8080/modules/express
 "^4.9.5"
@@ -711,8 +718,9 @@ include::{sourceDir}/stylesheet.less[]
 
 L'exécutable `lessc` compile le fichier LESS:
 
+[source,bash]
 ----
-lessc stylesheet.less
+$ lessc stylesheet.less
 ----
 
 La sortie de la commande précédente génère ce résultat :
@@ -758,7 +766,7 @@ include::{sourceDir}/npm/rework.js[]
 
 Cette configuration permet de parser la feuille de style suivante :
 
-[source]
+[source,css]
 ----
 include::{sourceDir}/stylesheet.css[]
 ----
@@ -802,8 +810,9 @@ include::{sourceDir}/npm/browserify.js[]
 
 La commande `browserify` remplacera l'appel au module _cheerio_ par un appel au module _jquery_ :
 
+[source,bash]
 ----
-browserify npm/browserify.js -o npm/browserify.bundle.js
+$ browserify npm/browserify.js -o npm/browserify.bundle.js
 ----
 
 Inclus dans un navigateur Web, le fichier `npm/browserify.bundle.js` affichera le même résultat que l'interpréteur Node.

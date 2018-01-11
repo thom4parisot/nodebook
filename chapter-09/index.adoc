@@ -160,6 +160,7 @@ Le seul obstacle consiste à _traduire_ ce code pour l'ensemble des navigateurs 
 
 Exécutons cette commande :
 
+[source,bash]
 ----
 $ npm run babel -- --no-babelrc examples/babel-es2015.js
 ----
@@ -169,6 +170,7 @@ C'est parce que sans configuration, _babel_ ne transforme rien. +
 L'ouvrage contient un fichier de configuration `.babelrc`.
 Nous expliquerons son contenu après en avoir observé son impact :
 
+[source,bash]
 ----
 $ npm run babel -- examples/babel-es2015.js
 ----
@@ -505,6 +507,7 @@ Son apprentissage progressif peut faire de lui un allié de choix dans tous vos 
 Revenons maintenant à notre code auquel il manque la compréhension des modules _npm_.
 Nous allons maintenant chercher à transformer le fichier `script-import-jquery.js` pour à la fois rendre la syntaxe `import` intelligible  (c'est le rôle de _babel_) mais aussi pour faire le lien avec les modules _npm_ :
 
+[source,bash]
 ----
 $ npm run browserify -- \
   -t babelify \
@@ -667,6 +670,7 @@ include::{sourceDir}/modules/node-timer.js[]
 
 L'exécution du script `node-timer.js` afficherait quelque chose du genre dans votre terminal :
 
+[source,bash]
 ----
 $ node examples/modules/node-timer.js
 { now: 2017-02-17T11:07:29.752Z, className: 'impair' }
@@ -994,12 +998,14 @@ Il fonctionnement *exactement comme _browserify_* mais au lieu de compiler une s
 
 La commande suivante compilerait le fichier `examples/modules/react-app.js` une fois et une seule :
 
+[source,bash]
 ----
 $ ./node_modules/.bin/browserify -t babelify -e examples/modules/react-app.js -o examples/modules/react-app-browserify.js
 ----
 
 Il suffit de remplacer `browserify` par `watchify` – le programme garde la main et indique chaque nouvelle compilation sur une nouvelle ligne :
 
+[source,bash]
 ----
 $ ./node_modules/.bin/watchify -dv -t babelify -e examples/modules/react-app.js -o examples/modules/react-app-browserify.js
 1840601 bytes written to examples/modules/react-app-browserify.js (2.58 seconds) at 4:44:28 PM
@@ -1042,6 +1048,7 @@ _browser-sync_ maintient la position du scroll lors d'un rechargement de contenu
 L'outil se lance soit de manière autonome, soit en _proxy_ entre l'utilisateur et tout autre serveur web.
 Il ne nécessite pas non plus de _plugin_ ou d'extension navigateur pour fonctionner, le rendant idéal pour du prototypage, de la recherche utilisateur ou du développement local.
 
+[source,bash]
 .Lancement d'un serveur web autonome avec synchronisation sur le port 4000.
 ----
 $ ./node_modules/.bin/browser-sync start --server --port 4000 .
@@ -1063,6 +1070,7 @@ include::{sourceDir}/livereload/server-sync.js[]
 
 La synchronisation peut être activée avec tous les exemples du chapitre en suffixant la commande `npm start` :
 
+[source,bash]
 ----
 $ nodebook chapter 4
 $ npm start -- --with-sync
@@ -1112,6 +1120,7 @@ Le remplacement à chaud n'est possible que lorsque nous sommes dans un état de
 Nous pouvons constater les effets du remplacement à chaud avec un des exemples de ce chapitre accessible sur [URL]#{httpRoot}/livereload/react-app-hmr.html#.
 La commande `npm run watch` de ce chapitre démarre un serveur web et reconstruit en continu le fichier `{sourceDir}/livereload/react-app-hmr.js` :
 
+[source,bash]
 ----
 $ nodebook chapter 4
 $ npm run watch
@@ -1119,7 +1128,7 @@ $ npm run watch
 
 Qui n'est autre qu'un équivalent de :
 
-[subs="attributes"]
+[source,bash,subs="attributes"]
 ----
 $ watchify -dv \
   -t babelify \         # <1>
@@ -1192,7 +1201,7 @@ include::{sourceDir}/ui/buttons.scss[]
 
 La compilation des fichiers s'effectue très simplement :
 
-[subs="attributes"]
+[source,bash,subs="attributes"]
 ----
 $ ./node_modules/.bin/node-sass -o {sourceDir} {sourceDir}/buttons.scss
 ----
@@ -1243,7 +1252,7 @@ include::{sourceDir}/ui/Buttons.jsx[]
 
 Sans surprise, le module _sassify_ se charge comme la majorité des _transform browserify_ comme vu dans la section <<browserify,Importer des modules npm pour le web>> dans ce même chapitre :
 
-[subs="attributes"]
+[source,bash,subs="attributes"]
 ----
 $ ./node_modules/.bin/browserify \
   -t sassify \
@@ -1254,7 +1263,7 @@ $ ./node_modules/.bin/browserify \
 
 La commande suivante injectera automatiquement les feuilles de style compilées dans le document HTML lors de son exécution dans un navigateur web :
 
-[subs="attributes"]
+[source,bash,subs="attributes"]
 ----
 $ ./node_modules/.bin/browserify \
   -t [ sassify --auto-inject ] \
@@ -1284,6 +1293,7 @@ Quand j'écris _ressources graphiques_, j'entends par là le redimensionnement o
 L'outil en ligne de commande _imagemin-cli_ ([URL]#https://npmjs.com/imagemin-cli#) est le module de référence pour optimiser les fichiers graphiques.
 Il est basé sur la librairie _imagemin_ ([URL]#https://npmjs.com/imagemin#) et se chargera de réduire le poids de nos images JPEG, PNG mais aussi GIF (animés et statiques) ainsi que le format vectoriel SVG.
 
+[source,bash]
 ----
 $ ./node_modules/.bin/imagemin images/* --out-dir images
 8 images minified
@@ -1308,8 +1318,9 @@ _sharp-cli_ ([URL]#https://npmjs.com/sharp-cli#) répond exactement à ce cahier
 Ce module en ligne de commande est basé sur _sharp_ ([URL]#https://npmjs.com/sharp#), une librairie Node de modification d'images écrite en _ECMAScript_ et _C++_.
 _sharp_ nous aidera entre autres à redimensionner, découper, retourner, recentrer, assembler et appliquer des effets graphiques de manière prédictible.
 
+[source,bash]
 ----
-./node_modules/.bin/sharp resize 500 \
+$ ./node_modules/.bin/sharp resize 500 \
   --min \
   -i images/*.png \
   --output ./images/thumbs
@@ -1322,8 +1333,9 @@ La commande précédente illustre une *opération de redimensionnement d'images*
 . ciblant toutes les *images PNG* du répertoire `images` ;
 . puis *exportées dans le répertoire* `images/thumbs`.
 
+[source,bash]
 ----
-./node_modules/.bin/sharp grayscale \
+$ ./node_modules/.bin/sharp grayscale \
   -i images/*.png \
   --output ./images/square
 ----
@@ -1446,7 +1458,7 @@ Ces trois librairies disposent d'une documentation en ligne expliquant leurs opt
 - [URL]#https://karma-runner.github.io/#
 ====
 
-[code,javascript]
+[code%interactive,javascript]
 .Exemple d'assertion avec la librairie _chai_
 ----
 import {expect} from 'chai';
@@ -1468,6 +1480,7 @@ describe('functionName', () => {
 });
 ----
 
+[source,bash]
 .Exemple d'exécution de suites de tests avec _mocha_ et _karma_
 ----
 $ mocha tests/**/*.js
@@ -1533,6 +1546,7 @@ include::{sourceDir}/tests/button-count.js[]
 Le fichier `package.json` des ressources du chapitre 4 contient une tâche exécutant les tests exécutables dans un environnement Node uniquement.
 Elle se lance de la manière suivante :
 
+[source,bash]
 ----
 $ npm run test:node
 ----
@@ -1589,6 +1603,7 @@ endif::[]
 Le pilotage de _karma_ se fait via un fichier de configuration `karma.conf.js`.
 Il est possible de surcharger ultérieurement cette configuration avec des arguments de la ligne de commande.
 
+[source,bash]
 .Initialisation automatique d'un fichier de configuration `karma.conf.js`
 ----
 $ ./node_modules/.bin/karma init
@@ -1663,6 +1678,7 @@ include::{sourceDir}/tests-browser/test-outside-world.js[]
 L'invocation de _karma_ se fait en invoquant `./node_modules/.bin/karma start`.
 Par mesure de simplicité, cette commande a été abstraite en tant que <<../chapter-05/index.adoc#npm-scripts,script _npm_>> :
 
+[source,bash]
 .Exécution ponctuelle de _karma_.
 ----
 $ npm run test:browser
@@ -1671,6 +1687,7 @@ $ npm run test:browser
 Les tests peuvent être relancés en continu – dès qu'un fichier change – en désactivant l'exécution unique (_single run_).
 C'est idéal lorsque les tests sont écrits en parallèle de l'implémentation du code ou que des ajustements fréquents ont lieu en phase de développement :
 
+[source,bash]
 .Exécution continue de _karma_.
 ----
 $ npm run test:browser -- --no-single-run
@@ -1727,6 +1744,7 @@ include::karma.conf.js[lines=84..91]
 L'utilisation de _BrowserStack_ nécessite un compte et l'obtention d'une clé d'API afin d'utiliser leur service.
 Notre _npm d'utilisateur_ et la _clé d'API_ doivent être renseignés en tant que *variables d'environnement* pour établir une connexion au service et démarrer notre bon vieil iPhone 4 :
 
+[source,bash]
 ----
 $ export BROWSER_STACK_USERNAME=…
 $ export BROWSER_STACK_ACCESS_KEY=…
@@ -1772,6 +1790,7 @@ Il est gratuit pour les projets _open source_.
 Le service _Travis CI_ met à disposition un programme en ligne de commande écrit en Ruby.
 Ce programme offre divers utilitaires comme le suivi des derniers jobs ainsi que la possibilité de crypter des secrets.
 
+[source,bash]
 ----
 $ gem install travis --no-doc --no-ri
 $ travis login
