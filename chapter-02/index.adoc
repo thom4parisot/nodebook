@@ -504,33 +504,111 @@ image::images/windows-terminal.png[align="center",width="70%"]
 Maintenant que nous avons installé Node et compris comment
 y accéder depuis notre système d'exploitation ou navigateur web,
 attaquons-nous au dernier morceau du puzzle :
-*avec quel logiciel écrire du code JavaScript* ?
+*avec quel logiciel écrire du code JavaScript pour nos applications Node* ?
 
 [[ide]]
 == Choisir un éditeur de texte
 
 Programmer pour Node revient dans la majorité des cas à écrire du JavaScript.
-Donc même si un éditeur de texte suffit, il est intéressant de connaître l'offre en outillage autour de Node et du développement front-end.
+À cela s'ajoutent le HTML et le CSS dans le cas d'applications ou de sites web.
 
-Les logiciels présentés dans les pages suivantes couvrent un large spectre de besoins : écriture du code, coloration syntaxique, inspection dynamique, débogage, productivité et intégration à l'écosystème Node.
+À la base, si un éditeur de texte suffit pour écrire du code,
+prenons le temps de regarder ce qui pourrait nous apporter un peu de confort
+dans le processus d'écriture.
 
-Ceci a pour but de vous aider à piocher au plus près de vos goûts, à défaut de continuer à utiliser votre logiciel habituel.
+Les logiciels présentés ci-après couvrent bon nombre de fonctionnalités
+qui améliorent de près ou de loin notre capacité à écrire du code de qualité.
+Parmi ces fonctionnalités, on peut retrouver la coloration syntaxique,
+l'inspection dynamique, le débogage, des astuces deproductivité et
+d'intégration à l'écosystème Node.
+
+Cette sélection a pour intention de vous aider à piocher au plus près
+de vos goûts.
+Le meilleur logiciel sera celui qui vous plaira.
+Rien n'empêche d'en changer par la suite.
 
 [[atom]]
 === Atom
 
 image::images/atom.png[align="center",width="85%"]
 
-_Atom_ est un éditeur de code open-source, multilingue et multi plate-forme dont le développement a été initié par la société _GitHub_.
-Le logiciel est basé sur _Electron_, un environnent d'exécution d'applications de bureau reposant sur Node et HTML5.
+_Atom_ ([URL]#https://atom.io#) est un éditeur de code open-source,
+multilingue et multi plate-forme dont le développement a été initié
+par la société commerciale _GitHub_ ([URL]#http://github.com#).
+Le logiciel est basé sur _Electron_, un environnent d'exécution
+d'applications de bureau reposant sur les technologies web et… sur Node !
 
-_Atom_ offre un écosystème de paquets pour étendre les fonctionnalités de l'éditeur à la carte.
-L'expérience de développement sous Node en est ainsi facilitée grâce à des paquets dédiés à l'auto-complétion, un débogueur intégré mais aussi une vérification syntaxique sur mesure.
+_Atom_ offre un écosystème d'extensions pour étendre les fonctionnalités de l'éditeur.
+On retrouvera des extensions dédiées à l'auto-complétion,
+un débogueur Node intégré (pour exécuter nos programmes sans changer de fenêtre)
+mais aussi une vérification syntaxique sur mesure.
 
-(afficher la sélection de paquets)
+L'ensemble des extensions d'_Atom_ sont disponibles sur [URL]#https://atom.io/packages# ;
+voici cependant une liste d'extensions que j'utilise au quotidien :
 
-- [URL]#https://atom.io/#
-- [URL]#https://atom.io/packages/#
+minimap ([URL]#https://atom.io/packages/minimap#)::
+  Une prévisualisation de l'intégralité du code source d'un fichier.
+file-icons ([URL]#https://atom.io/packages/file-icons#)::
+  Une manière plus agréable de visualiser les différents types de fichiers
+  en fonction de leur icône.
+pigments ([URL]#https://atom.io/packages/pigments#)::
+  Affiche les couleurs en marge et dans le code source.
+language-babel ([URL]#https://atom.io/packages/language-babel#)::
+  Coloration syntaxique de tous les langages compris par l'outil
+  Babel ([URL]#https://babeljs.io#) ; dont les versions modernes
+  de JavaScript, JSX, GraphQL, etc.
+emmet ([URL]#https://atom.io/packages/emmet#)::
+  Génère du HTML à partir d'une écriture sous forme de sélecteur CSS.
+linter-eslint ([URL]#https://atom.io/packages/linter-eslint#)::
+  Vérification syntaxique basée sur les règles projet du module
+  ESLint ([URL]#https://eslint.org#, voir
+  l'<<../appendix-a/index.adoc#eslint,annexe A, eslint>>).
+atom-ternjs ([URL]#https://atom.io/packages/atom-ternjs#)::
+  Autocomplétion pour JavaScript, Node et d'autres librairies
+  populaires comme jQuery, chai et underscore.
+editorconfig ([URL]#https://atom.io/packages/editorconfig#)::
+  Adapte les réglages d'indentation et autres styles d'écriture de code
+  documentés dans chaque projet.
+language-sass ([URL]#https://atom.io/packages/language-sass#)::
+  Support du langage Sass.
+markdown-writer ([URL]#https://atom.io/packages/markdown-writer#)::
+  Raccourcis et aides pour formatter du texte au format Markdown.
+autocomplete-modules ([URL]#https://atom.io/packages/autocomplete-modules#)::
+  Étend l'autocomplétion lors des appels aux
+  <<../chapter-05/index.adoc#,modules npm>> (voir Chapitre 5).
+linter-sass-lint ([URL]#https://atom.io/packages/linter-sass-lint#)::
+  Vérification syntaxique des fichiers Sass.
+node-debugger ([URL]#https://atom.io/packages/node-debugger#)::
+  Intégration du débogueur Node.
+tablr ([URL]#https://atom.io/packages/tablr#)::
+  Éditeur de fichiers CSV.
+linter-markdown ([URL]#https://atom.io/packages/linter-markdown#)::
+  Vérification syntaxique des fichiers Markdown.
+node-resolver ([URL]#https://atom.io/packages/node-resolver#)::
+  Navigation au sein des modules <<../chapter-05/index.adoc#,modules npm>>
+  en cliquant sur leurs méthodes ou propriétés.
+
+[TIP]
+.[RemarquePreTitre]#Productivité# Installer vos extensions favorites
+====
+
+Chaque extension peut être ajoutée à nos favoris sur le site [URL]#atom.io#.
+L'intention peut être de signaler notre appréciation d'une extension
+mais aussi de retrouver plus tard celles qui nous plaisent.
+
+.Une extension _Atom_ ajoutée aux favoris.
+image::images/atom-favourite.png[width="65%"]
+
+Et ça tombe bien, le logiciel nous offre une commande à saisir
+dans un terminal pour installer toutes les extensions
+ajoutées à nos favoris !
+
+[source,bash]
+----
+$ apm stars --install
+----
+
+====
 
 [[vs-code]]
 === Visual Studio Code
