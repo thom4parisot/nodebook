@@ -95,8 +95,7 @@ $ PORT=3000 npm start
 
 ## Tests
 
-Le code des exemples est vérifié à l'aide d'[ESLint](http://eslint.org/).
-La commande suivante vérifiera que la syntaxe ECMAScript n'entraine pas d'effet secondaires indésirables.
+La bonne santé des exemples est vérifiée à l'aide d'[ESLint](http://eslint.org/) et de [tape-spawn](https://npmjs.com/tape-spawn).
 
 ```bash
 $ npm test
