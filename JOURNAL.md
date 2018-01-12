@@ -2,6 +2,14 @@
 
 Pour en savoir plus: [annonce la résidence itinérante](https://oncletom.io/2017/residence-nodejs/) et [résumé de la résidence itinérante](https://oncletom.io/2017/without-a-home/) (en anglais).
 
+## Vendredi 12 janvier
+
+- _Chapitre 2_ : les éditeurs de code
+- _Chapitre 2_ : utiliser Node.js dans un terminal
+- _Chapitre 2_ : quand mettre à jour Node.js ?
+
+**Météo** : 😊 💪
+
 ## Jeudi 11 janvier
 
 - _Chapitre 2_ : Utiliser Node.js avec un terminal
