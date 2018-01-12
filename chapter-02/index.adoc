@@ -65,6 +65,7 @@ Les sections qui suivent ont pour intention de vous aider à créer
 un environnement Node à jour sur votre ordinateur.
 Ce contenu s'applique également à un serveur destiné à héberger vos applications Node.
 
+[[install]]
 == Installer Node.js
 
 Il y a plusieurs manières d'installer Node sur une machine.
@@ -351,13 +352,14 @@ Le menu créé par l'installeur contient deux icônes que nous utiliserons tout 
 Si vous utilisez déjà un gestionnaire de paquet comme _Scoop_ ([URL]#http://scoop.sh/#) ou _Chocolatey_ ([URL]#https://chocolatey.org/#),
 le chemin d'installation vers Node s'en trouvera réduit à une simple commande :
 
-```bash
+[source,bash]
+----
 # Avec Scoop
 $ scoop install nodejs
 
 # Avec Chocolatey
 $ choco install nodejs
-```
+----
 
 [WARNING]
 .[RemarquePreTitre]#Attention# Versions supportées de Windows
@@ -690,73 +692,187 @@ Elle est gratuite, open source et disponible à cette adresse
 [URL]#https://www.visualstudio.com/vs/node-js/#.
 
 
+== Quand mettre à jour Node.js ?
 
-_Visual Studio_ est uniquement compatible Windows et existe en plusieurs éditions dont la _Community Edition_.
-Elle est gratuite et permet aussi l'ajout d'extensions.
+Le développement de Node continue pendant que vous lisez ces lignes.
+Les sections suivantes présentent les différentes raisons
+pour lesquelles de nouvelles versions de Node sont distribuées.
 
-Afin de bénéficier de l'intégration complète de l'écosystème Node, il est nécessaire d'installer l'extensions _Node.js Tools for Visual Studio_ (aussi nommée _NTVS_).
-Elle est gratuite, open source et disponible sur GitHub.
+Quelle que soit la raison, le processus de mise à jour est identique
+que pour l'<<install,installation de Node>> :
 
-- [URL]#https://www.visualstudio.com/vs/#
-- [URL]#https://www.visualstudio.com/vs/node-js/#
-
-== Mettre à jour Node.js
-
-[[node-lifecycle]]
-=== Cycle de développement de Node
-
-La vitesse et la croissance sont des facteurs propices à l'immaturité et à l'instabilité d'une plateforme et de son écosystème.
-
-Le développement de la plate-forme Node prend en compte ces facteurs afin de *sortir deux versions majeures par année* dont *une version majeure supportée à long terme* (_Long Term Support_, _LTS_).
-
-La notion de versions supportées à long terme (_LTS_) a été introduite pour aider à maitriser et anticiper les migrations vers des versions majeures ultérieures.
-
-image::images/schedule.png[align="center",width="85%",link="https://github.com/nodejs/LTS/blob/master/schedule.png"]
-
-Les deux versions annuelles suivent un cycle différent :
-
-* versions *paires* (_LTS_, {nodeCurrentversion}, etc.) :
-  . création en _avril_
-  . développement actif de _six mois_
-  . _LTS_ pendant _dix-huit mois_
-  . maintenance pendant _douze mois_
-  . fin de vie
-* versions *impaires* (v5, v7 etc.):
-  . création en _octobre_
-  . développement actif de _neuf mois_
-  . fin de vie
-
-On remarque que les versions _impaires_ nourissent le développement de la version _paire_ suivante.
-Il n'est pas important de migrer vers celles-ci.
-En revanche il est intéressant de garder un œil dessus pour se préparer à l'arrivée de la version majeure suivante.
-
-Cette planification garantit une plate-forme et un ensemble de fonctionnalités stables de manière prédictible, à la fois pour les projets reposant sur Node mais aussi pour l'écosystème de contributeurs de modules _npm_.
-
-[[lts]]
-[TIP]
-.[RemarquePreTitre]#À propos# Long Term Support (LTS)
-=====
-Le plan de maintenance de Node est maintenu publiquement dans un dépôt GitHub.
-Référez-vous à lui pour des informations plus à jour que l'épreuve papier de cet ouvrage.
-
-- [URL]#https://github.com/nodejs/LTS#lts-schedule#
-=====
+- si vous aviez utilisé un *installeur* : téléchargez et installez-en
+la nouvelle version ;
+- si vous aviez utilisé un *gestionnaire de version* : téléchargez la
+nouvelle version et faites-en la nouvelle version par défaut ;
+- si vous aviez *compilé depuis les sources* : téléchargez les sources
+de la nouvelle version et compilez à nouveau ;
+- si vous aviez utilisé une *image Docker* : téléchargez la nouvelle
+version en ayant recourt à la commande `docker pull node:<version>`.
 
 === Mises à jour de sécurité
 
-TBD.
+Node n'est pas exempt de bugs.
+Il y a une catégorie de bugs qui nécessite d'être réactif :
+les failles de sécurité.
+Ces failles offrent une surface d'attaque à des personnes
+mal intentionnées.
+Elles seraient tentées d'accéder sans permission à des serveurs,
+et donc aux données qu'ils contiennent.
 
+L'impact peut être faible pour un site perso… à condition de ne pas laisser
+trainer de mots de passe ici et là.
+Cela peut se révéler beaucoup plus fâcheux pour un site e-commerce
+ou une entreprise dont la santé serait mise en jeu.
 
+L'équipe de Node livre des *versions corrigeant les failles de sécurité
+_aussitôt_ qu'elle le peut*.
+La faille n'est d'ailleurs pas révélée avant que le correctif
+soit disponible, par mesure de précaution.
+
+Que faire si la faille de sécurité affecte la version de Node installée sur :
+
+- notre *ordinateur de développement* : c'est peu risqué - sauf à ce qu'un module tiers exploite cette faille ;
+- notre *site web* : redéployer aussitôt le site en question avec une version corrigeant la faille.
+
+Les versions de Node qui corrigent des failles de sécurité ou des bugs connus
+n'ont quasiment aucune chance de casser une application existante.
+On les appelle les versions _patch_.
+Une version _patch_ est, par exemple, lorsque la version actuelle
+de Node est la `v8.2.3` et que la nouvelle version est la `v8.2.4`.
+
+Plusieurs ressources sont à notre disposition pour se tenir informé·e :
+
+Liste de diffusion ([URL]#https://groups.google.com/group/nodejs-sec#)::
+  Pour recevoir l'alerte par email (moins d'un email par mois).
+Blog Node.js ([URL]#https://nodejs.org/en/blog/vulnerability/#)::
+  Une page web à consulter avec un navigateur web.
+  Les mêmes messages sont relayés sur la _liste de diffusion_
+  mentionnée précédemment.
+Fil RSS du blog Node.js ([URL]#https://nodejs.org/en/feed/vulnerability.xml#)::
+  La même chose que le point précédent mais auquel on peut souscrire
+  avec un lecteur RSS comme _Feedly_ ou _Mozilla Thunderbird_.
+Compte Twitter @nodesecurity ([URL]#https://twitter.com/nodesecurity#)::
+  Annonce des informations liées à la sécurité générale de Node
+  et de son écosystème.
+
+[NOTE]
+.[RemarquePreTitre]#Lien# Groupe de travail Node.js Security
+====
+Un groupe de travail veille à maintenir et améliorer la sécurité de Node.
+Ces personnes se chargent d'être proactives dans la détection
+de failles dans l'architecture de Node mais aussi dans
+l'intégration de code tiers, comme la brique _OpenSSL_
+ou le module _npm_.
+
+[URL]#https://github.com/nodejs/security-wg#
+====
+
+Le <<../chapter-06/index.adoc#,chapitre 6>> décrit
+comment se maintenir à jour sur les
+<<../chapter-06/index.adoc#security,alertes de sécurité>> de nos
+applications Node.
+Celles-ci peuvent être vulnérables du fait des modules npm dont elles
+sont dépendantes — en plus des vulnérabilités de Node.
+
+=== Versions mineures
+
+Les versions mineures de Node sont des versions qui ajoutent de
+nouvelles fonctionnalités à Node.
+Ces nouvelles fonctionnalités n'ont quasiment aucune chance de
+casser une application existante.
+
+Une version mineure est, par exemple, lorsque la version actuelle
+de Node est la `v8.2.3` et que la nouvelle version est la `v8.3.0`. +
+Les versions mineures sortent une petite dizaine de fois par an.
+Une migration ne demande pas nécessairement d'investir beaucoup de temps pour adapter et tester nos applications Node.
+
+Que faire en cas de sortie d'une version mineure sur :
+
+- notre *ordinateur de développement* : on peut migrer si l'on veut tester
+ou bénéficier des nouvelles fonctionnalités de cette version ;
+- notre *site web* : pas d'action immédiate requise ;
+on peut migrer si l'on veut bénéficier des nouvelles fonctionnalités
+de cette version.
+
+=== Versions majeures
+
+Les versions majeures de Node sont des versions qui ajoutent de
+nouvelles fonctionnalités à Node.
+En revanche, ces versions peuvent être amenées à changer des comportements
+qui casseraient une application existante.
+
+Une version majeure est, par exemple, lorsque la version actuelle
+de Node est la `v8.2.3` et que la nouvelle version est la `v9.0.0`. +
+Les versions majeures sortent 2 fois par an.
+Une migration peut demander d'investir un certain temps pour adapter
+et tester nos applications Node.
+
+Que faire en cas de sortie d'une version majeure sur :
+
+- notre *ordinateur de développement* : on cherchera à prendre du temps
+pour tester nos applications sur cette version
+et s'assurer de leur bon fonctionnement ;
+- notre *site web* : pas d'action immédiate requise.
+
+[[lifecycle]]
+=== Comprendre le cycle de vie produit
+
+Le développement de la plate-forme Node prend soin de ne pas
+aller trop vite ni d'altérer la stabilité des applications et des
+outils en fonctionnement.
+Il sort au maximum *deux versions majeures par an*.
+Parmi ces deux versions, *une version majeure est supportée à long terme* (_Long Term Support_, _LTS_).
+
+La notion de version supportée à long terme (_LTS_)
+a été introduit pour donner un repère de stabilité.
+On sait qu'on peut compter dessus sans se poser de question.
+Les versions qui ne sont pas supportées à long terme sont à voir
+comme un coup d'essai, dans l'anticipation d'une migration
+vers une version suivante, supportée à long terme, elle.
+
+.Calendrier de publication des versions de Node.
+image::images/schedule.png[align="center",width="85%",link="https://github.com/nodejs/Release/blob/master/schedule.png"]
+
+[NOTE]
+.[RemarquePreTitre]#Lien# Calendrier de sorties
+=====
+Le calendrier des sorties de Node est tenu à jour à l'adresse ci-après.
+Référez-vous à ce calendrier pour des informations à jour sur
+les prochaines versions et l'arrêt de maintenance d'anciennes versions.
+
+- [URL]#https://github.com/nodejs/Release#
+=====
+
+Si on récapitule :
+
+Les versions *impaires* (v5, v7 etc.)::
+- sont développées pendant _neuf mois_
+- ne sont pas maintenues au-delà
+Les versions *paires* (_LTS_, {nodeCurrentversion}, etc.)::
+- sont basées sur la version _impaire_ précédente
+- sont développées pendant _six mois_
+- sont supportées _LTS_ pendant _dix-huit mois_
+- basculent en maintenance pendant _douze mois_ supplémentaires
+- ne sont pas maintenues au-delà
+
+Les patchs de sécurité ne concernent que les versions en _développement_, _supportées_ ou en _maintenance_.
+
+Cette planification garantit une plate-forme et un ensemble de
+fonctionnalités stables de manière prédictible,
+à la fois pour les projets reposant sur Node mais aussi
+pour l'écosystème de contributeurs de modules _npm_.
 
 
 == Conclusion
 
-Nous sommes désormais en mesure d'installer Node sur notre
-ordinateur et avec quel(s) logiciel(s) développer nos applications.
+Nous sommes désormais en mesure d'installer et mettre à jour Node
+sur notre ordinateur.
+Nous savons aussi avec quel(s) logiciel(s) développer nos applications.
 Nous savons aussi où nous informer pour savoir quand faire nos mises à jour,
 pour corriger des problèmes de sécurité et bénéficier des nouvelles
 fonctionnalités du langage.
 
 Le prochain chapitre nous amènera à reprendre les bases du
-langage JavaScript mais aussi de comprendre les différences
-entre JavaScript, ECMAScript et Node.
+langage JavaScript en jouant avec le <<shell,terminal Node>>.
+On découvrira également les différences entre JavaScript, ECMAScript et Node.
