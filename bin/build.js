@@ -3,6 +3,7 @@
 const {join} = require('path');
 const processor = require('asciidoctor.js')();
 const runnerExtension = require('asciidoctor-extension-interactive-runner');
+const bash$Extension = require('../src/asciidoctor-extension-bash-dollar');
 const BUILD_DIR = 'dist';
 
 var DEFAULT_ATTRIBUTES = [
@@ -20,6 +21,7 @@ var DEFAULT_ATTRIBUTES = [
 const FILES = process.argv.slice(2);
 
 processor.Extensions.register(runnerExtension);
+processor.Extensions.register(bash$Extension);
 
 FILES.forEach(SOURCE_FILE => {
   const destinationFile = SOURCE_FILE.replace('.adoc', '.html');
