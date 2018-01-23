@@ -13,23 +13,62 @@ endif::[]
 
 = Jouer avec JavaScript
 
-TBD.
+Programmer une application Node c'est aussi
+l'occasion d'apprendre JavaScript.
+Ou de se mettre à jour ou de redécouvrir le langage.
+
+Ce chapitre explique ce qu'il faut pour
+comprendre comment fonctionne JavaScript.
+Nous utiliserons une approche par l'exemple.
 
 ====
 .Sommaire
-- TBD.
+- Qu'est-ce que JavaScript, pour de vrai ?
+- Comprendre l'évolution de la spécification ECMAScript
+- Manipuler les différentes structures du langage
+- En savoir plus sur des éléments avancés du langage
 ====
 
 [abstract]
 --
---
+JavaScript est souvent raillé.
+Parce que ce n'est pas un vrai langage.
+Parce qu'il a été créé en 6 jours.
+Parce qu'il n'est pas orienté objet.
 
-include::../resources/tip-versions.adoc[]
-include::../resources/tip-examples.adoc[]
+JavaScript est un langage expressif qui a énormément gagné en maturité
+depuis les années 2010.
+Il se révèle parfaitement opérationnel dès lors que l'on s'intéresse
+à ses fonctionnalités, sans faire de hors-piste.
+
+Les types de données et les méthodes de manipulations qu'elles nous offrent
+permettent d'écrire un code plus simple à lire, et donc plus simple à relire.
+Certaines structures de données nous aident à mieux organiser nos données
+ainsi qu'à mieux les traiter.
+--
 
 toc::[]
 
-== Node, JavaScript et ECMAScript
+[[definition]]
+== Qu'est-ce que JavaScript ?
+
+Au lieu d'écrire plusieurs paragraphes expliquant ce qu'est et
+ce que n'est pas _pas_ JavaScript, regardons ensemble
+un bloc de code contenant plusieurs _expressions_ écrites
+en JavaScript :
+
+[source,javascript]
+.definition.js
+----
+include::{sourceDir}/definition.js[]
+----
+<1> Code JavaScript standard ;
+<2> Code JavaScript pour manipuler la DOM API (documents web) ;
+<3> Code JavaScript pour manipuler des Web API (fonctionnalités des navigateurs web) ;
+<4> Code JavaScript pour manipuler Node.js.
+
+.Écosystème des technologies JavaScript.
+image::images/javascript.svg[]
 
 Nous l'avons vu dans le premier chapitre, Node utilise JavaScript comme principal langage de développement.
 Mais contrairement à Ruby, Python ou PHP dont le numéro de version annonce les fonctionnalités exploitables, qu'en est-il de Node et de JavaScript ?
@@ -60,7 +99,9 @@ Adobe Flash utilise un dérivé d'ECMAScript, ActionScript et bien des machines 
 
 La suite de l'ouvrage emploie principalement le terme _ECMAScript_.
 
-=== Standard ECMA-262 Edition 5
+=== ECMAScript 5 (aka _ES5_)
+
+Standard ECMA-262 Edition
 
 ECMAScript a été standardisé dans sa version 5 en décembre 2009.
 Il s'agit de la version d'ECMAScript supportée depuis les débuts de Node.
@@ -75,7 +116,7 @@ ECMAScript 5 introduit le mode strict limitant fortement les effets de bord ind�
 
 image::images/compat-table.png[align="center",width="85%"]
 
-=== Standard ECMA-262 Edition 2015, 2016 etc.
+=== ECMAScript 2015 (aka _ES6_ puis _ES2015_)
 
 La spécification *ECMAScript 2015* (_ES2015_) a été publiée en juin 2015 et succède à *ECMAScript 5*. +
 La spécification _ES2015_ a successivement été appelée _ECMAScript Harmony_, _ECMAScript 6_, puis _ECMAScript 2015_.
@@ -99,14 +140,34 @@ $ node --harmony script.js                # <1>
 
 Une page explicative (en anglais) sur le site `nodejs.org` contient des indications à jour sur la compatibilité générale avec __ECMAScript 2015_ : [URL]#https://nodejs.org/en/docs/es6/#
 
-[[primitives]]
-== Rappel des primitives ECMAScript
+=== ECMAScript 2016 etc. (aka _ES2016_, …)
+
+TBD.
+
 
 Un des conforts apporté par l'utilisation d'ECMAScript dans Node est qu'il n'y a pas à se soucier de la compatibilité navigateur : vous pouvez utiliser le meilleur de JavaScript !
 
 Ce résumé des primitives et fonctionnalités principales d'_ECMAScript_ a pour but de vous apprendre ou de vous rappeler des fonctionnalités du langage disponibles dans Node {nodeCurrentVersion}.
 
-=== String
+[[primitives]]
+== Les éléments de base du langage
+
+6 primitives : string, number, boolean, null, undefined, symbol.
+
+[URL]#https://developer.mozilla.org/fr/docs/Glossaire/Primitive#
+
+
+[source,javascript]
+----
+
+----
+
+=== Les variables
+
+=== Expressions conditionnelles
+
+[[string]]
+== Manipuler du texte
 
 Chaque élément d'une chaîne de caractères est encodé au format UTF-16 et peut donc contenir 16 bits de données.
 
@@ -146,6 +207,81 @@ On peut connaître la position d'un ou plusieurs caractères via la méthode `in
 <2> Retourne `0` ;
 <3> Retourne `-1`, aucune occurrence n'ayant été trouvée.
 
+[[regexp]]
+=== Expressions régulières
+
+Les expressions régulières en JavaScript permettent de pratiquer des recherches de motifs simples et complexes au sein de chaînes de caractères.
+Elles sont inspirées de l'implémentation dans Perl 5.
+
+L'opérateur `instanceof` permet d'identifier une instance d'expression régulière :
+
+[source%interactive,javascript]
+----
+/Eyroll?es/g instanceof RegExp; <1>
+(new RegExp('Eyroll?es', 'g')) instanceof RegExp; <1>
+----
+<1> Retourne `true`.
+
+La méthode `exec` permet de capturer les occurrences d'une expression régulière au sein d'une chaîne de caractères :
+
+[source%interactive,javascript]
+----
+/(.+)(Script)/.exec('ECMAScript'); <1>
+----
+<1> Retourne `['ECMAScript', 'ECMA', 'Script']`.
+
+Plusieurs drapeaux peuvent être utilisés :
+
+- `g` pour chercher dans toute la chaîne et ne pas s'arrêter à la première occurrence trouvée ;
+- `i` pour ne pas tenir compte de la casse ;
+- `m` pour que les caractères `^` et `$` correspondent respectivement au début et à la fin d'une ligne au lieu du début et de la fin de la chaîne ;
+
+[source%interactive,javascript]
+----
+let re;
+const text = ['JavaScript', 'ECMAScript'].join("\n");
+
+re = /^([a-z]+)(Script)/;
+re.exec(text); <1>
+
+re = /^([a-z]+)(Script)/i;
+re.exec(text); <2>
+
+re = /([a-z]+)(Script)$/i;
+re.exec(text); <3>
+
+re = /([a-z]+)(Script)$/im;
+re.exec(text); <4>
+
+re = /^([a-z]+)(Script)$/gim;
+re.exec(text); <5>
+re.exec(text); <6>
+re.exec(text); <7>
+----
+<1> Retourne `null` ;
+<2> Retourne `['JavaScript', 'Java', 'Script']` ;
+<3> Retourne `['ECMAScript', 'ECMA', 'Script']` ;
+<4> Retourne `['JavaScript', 'Java', 'Script']`, puisque `$` correspond à la fin de ligne et non la fin de chaîne ;
+<5> Retourne `['JavaScript', 'Java', 'Script']` ;
+<6> Retourne `['ECMAScript', 'ECMA', 'Script']` puisque le curseur a effectué la recherche après la position de la précédente occurrence ;
+<7> Retourne `null` puisque le curseur a rencontré la fin de la chaîne ;
+
+[CAUTION]
+.[RemarquePreTitre]#Remarque# Gare à la réutilisation de l'objet _RegExp_ !
+====
+Vous l'aurez remarqué avec le drapeau `g`, le comportement de la méthode `exec` peut renvoyer un résultat différent à chaque appel.
+
+Il faut juste veiller à ce que ce soit un résultat escompté pour éviter tout effet de bord dans vos applications.
+====
+
+À la manière de `exec`, la méthode `test` se contente de renvoyer un booléen si un motif a été trouvé ou non :
+
+[source%interactive,javascript]
+----
+/(.+)(Script)/.test('ECMAScript'); <1>
+----
+<1> Retourne `true`.
+
 On peut collecter les occurrences correspondantes à un masque de caractères via la méthode `match` :
 
 [source%interactive,javascript]
@@ -177,21 +313,9 @@ include::{sourceDir}/template-literals.js[]
 ----
 <1> Retourne `'I ♥ JavaScript.\nCet exemple se trouve dans le fichier "template-literals.js"'`.
 
-Les _template literals_ peuvent se préfixer d'un nom de fonction.
-Ce mécanisme nommé _tagged template literals_ sert de filtre pour interpréter et interpoler le contenu de chaque _template_ (élément contenu dans `${}`). Vous pouvez écrire vos propres fonctions mais aussi utiliser des modules _npm_. +
-L'exemple suivant illustre une sécurisation de contenu tiers à l'aide de la fonction `safeHtml` fournie par le module `common-tags` ([URL]#https://npmjs.com/common-tags#) :
-
-[source%interactive,javascript]
-.primivite-template-literal-tags.js
-----
-include::{sourceDir}/tagged-template-literals.js[]
-----
-<1> Affiche `<div class="user-content">\n<script>alert(document.cookie)</script>\n</div>` ;
-<2> Affiche `<div class="user-content">\n\&lt;script\&gt;alert(document.cookie)\&lt;/script\&gt;\n</div>`.
-
 
 [[primitive-boolean]]
-=== Boolean
+== Manipuler des booléens
 
 Un booléen est une donnée de type logique qui peut être _vraie_ ou _fausse_ en prenant respectivement la valeur `true` ou `false`.
 C'est un type de choix pour effectuer des _assertions_ et vérifier des _conditions_.
@@ -235,7 +359,7 @@ console.log('' === 0);  // <2>
 <2> Affiche `false` car les deux valeurs ne sont pas _strictement identiques_ (même type et même valeur).
 ====
 
-=== Number
+== Manipuler des nombres (_Number_, _Math_)
 
 Tous les nombres en ECMAScript sont des flottants (double précision) respectant le standard link:https://fr.wikipedia.org/wiki/IEEE_754[_IEEE 754_].
 Un nombre peut donc contenir 64 bits de données, comme en Python et PHP, entre autres.
@@ -250,6 +374,8 @@ typeof NaN;   // <2>
 ----
 <1> Retourne `'number'` ;
 <2> Retourne également `'number'`, ce qui est souvent source de confusion.
+
+=== Opérations mathématiques
 
 On peut effectuer des opérations mathématiques grâce aux opérateurs `+` (addition), `-` (soustraction), `*` (multiplication), `/` (division) et `%` (modulo).
 
@@ -267,6 +393,8 @@ undefined + 2; // <3>
 <2> Retourne `'12'` ;
 <3> Retourne `NaN`.
 
+=== Convertir en nombre
+
 Les fonctions `parseInt` et `parseFloat` permettent de respectivement de convertir en nombre entier et nombre flottant :
 
 [source%interactive,javascript]
@@ -280,11 +408,13 @@ parseFloat('2.10');   // <2>
 <1> Retourne `2` ;
 <2> Retourne `2.10`.
 
-[TIP]
+[CAUTION]
 .[RemarquePreTitre]#FAQ# Le second argument de parseInt
 ====
 Le second argument de la fonction `parseInt` indique dans quelle base la valeur est représentée dans la chaîne. La base décimale (10) est la plus souvent utilisée, mais il est également possible de convertir une chaîne représentant un nombre binaire (base 2) ou hexadécimal (base 16).
 ====
+
+=== Les nombres qui n'en sont pas (_NaN_)
 
 La méthode `isNaN` permet d'être sûr de ne pas manipuler un nombre indésirable :
 
@@ -296,6 +426,10 @@ Number.isNaN(undefined);      // <2>
 ----
 <1> Retourne `true` ;
 <2> Retourne `false`.
+
+=== Formatter et arrondir des nombres
+
+Math.ceil, Math.floor
 
 Il également possible de choisir le nombre de décimales après la virgule avec la méthode `toFixed`. +
 Attention toutefois, la valeur retournée est de type `String` :
@@ -311,7 +445,7 @@ parseInt(10.0101, 10);// <3>
 <3> Retourne `10`.
 
 [[primitive-function]]
-=== Function
+== Manipuler des fonctions
 
 Les fonctions permettent d'isoler des portions de code et de les rendre réutilisables via l'utilisation de paramètres.
 
@@ -390,8 +524,26 @@ include::{sourceDir}/function-call-apply.js[]
 ----
 <1> Retourne `'<title>'` dans les deux cas.
 
+
+[[rest-parameters]]
+=== Paramètres du reste (_...params_)
+
+Les _paramètres du reste_ (_rest parameters_) utilisent une syntaxe identique à la _décomposition_ mais opèrent au niveau des arguments de fonctions :
+
+[source%interactive,javascript]
+.rest.js
+----
+include::{sourceDir}/rest.js[]
+----
+<1> Assigne la constante décomposée `args` en tant que constante `cheeses` ;
+<2> Affiche `Fromages` ;
+<3> Affiche `[ { name: 'Cabécou' }, { name: 'Chaource' } ]` –
+
+En bref, ils sont l'équivalent de l'ancienne variable _magique_ `arguments` mais avec une meilleure finesse quant aux paramètres concernés.
+Les éléments retournés par les _paramètres du reste_ ont aussi l'avantage d'être un véritable objet de <<array,tableau>> – `arguments` est _itérable_ mais n'est pas un tableau et ne bénéficie donc pas des méthodes de compréhension telles que `forEach`, `map`, etc.
+
 [[primitive-array]]
-=== Array
+== Manipuler des collections
 
 L'opérateur `typeof` ne permet pas d'identifier un tableau. Il faut pour cela privilégier la méthode `isArray` :
 
@@ -526,8 +678,37 @@ a.forEach(print); // <2>
 <2> Affiche 4 valeurs : `1`, `3`, `undefined` puis `null`.
 ====
 
+[[destructuring-arrays]]
+=== Décomposition (_[...]_)
+
+L'affectation par _décomposition_ (_destructuring_) est une manière élégante et intuitive de piocher dans un <<array,tableau>> ou dans un <<object,objet>>.
+La décomposition n'altère pas le contenu des variables décomposées.
+
+Les valeurs d'un tableau sont décomposées dans l'ordre tandis que l'opérateur _spread_ (`...`) permet d'assigner le _reste_ des valeurs dans une seule et même variable ou constante :
+
+[source%interactive,javascript]
+.destructuring-array.js
+----
+include::{sourceDir}/destructuring-array.js[]
+----
+<1> Décompose la première valeur du tableau et assigne _le reste_ dans une autre constante ;
+<2> Affiche `Bordeaux` ;
+<3> Affiche `[ 'Toulouse', 'Montpellier', 'Aix-en-Provence' ]` ;
+<4> Affiche `[ 'Bordeaux', 'Toulouse', 'Montpellier', 'Aix-en-Provence' ]`.
+
+Il est également possible de _sauter_ des valeurs en ne nommant pas _autant_ de variables ou de constantes lors de la décomposition :
+
+[source%interactive,javascript]
+.destructuring-spread.js
+----
+include::{sourceDir}/destructuring-spread.js[]
+----
+<1> Assigne la première valeur dans la constante `first`, saute la seconde et assigne le reste des valeurs dans `end` ;
+<2> Affiche `un` ;
+<3> Affiche `[ 'deux', 'trois', 'quatre' ]`.
+
 [[primitive-object]]
-=== Object
+== Manipuler des dictionnaires (_Object_)
 
 Dans ECMAScript, tout est objet. C'est le _prototype_ qui détermine le comportement dudit objet.
 Les objets peuvent être créés de manière littérale, avec la fonction `Object.create` ou via un constructeur. +
@@ -568,7 +749,119 @@ include::{sourceDir}/object-keys.js[]
 <1> Affiche `[ 'name', 'services' ]` ;
 <2> Affiche `[ 'name', 'services', 'internal_code' ]`.
 
+[[destructuring-objects]]
+=== Décomposition (_{...}_)
+
+
+Le même mécanisme existe pour les <<object,objets>>, y compris dans des arguments de fonction :
+
+[source%interactive,javascript]
+.destructuring-object.js
+----
+include::{sourceDir}/destructuring-object.js[]
+----
+<1> Destructure la fonction `join` directement depuis le `require` de module ;
+<2> Destructure la valeur `debug` du premier argument;
+<3> Affiche `folder/filename.txt` – `folder\filename.txt` sous Windows ;
+<4> Affiche `true` car la clé `debug` a été décomposée en `configDebug` ;
+<5> Affiche `undefined` – cette valeur n'existe pas dans l'objet `config` ;
+<6> Affiche `Demo` – cette valeur est complétée par défaut dans l'assignation ;
+<7> Affiche `true`.
+
+Comme indiqué en début de section, il est possible de nommer les clés de manière dynamique mais aussi d'utiliser une syntaxe raccourcie d'assignation de valeur :
+
+[source%interactive,javascript]
+.object-advanced.js
+----
+include::{sourceDir}/object-advanced.js[]
+----
+<1> Utilise la valeur d'une variable comme nom de clé ;
+<2> Syntaxe alternative possible, utile lorsqu'un objet existe déjà ;
+<3> Affiche `{ SNCF: { country: 'France' }, Reinfe: { country: 'Spain' } }` ;
+<4> Utilise la syntaxe d'assignation raccourcie, donc assigne la valeur de `sncf` à la clé `sncf` — affiche `{ sncf: 'SNCF', foo: 'bar' }` ;
+<5> _Idem_ mais sans la syntaxe d'assignation raccourcie.
+
+[[object-assign]]
+=== Étendre des objets
+
+`Object.assign` étend des structures existantes et la définition de valeurs par défaut.
+Les clés et valeurs sont copiées de gauche à droite avant d'être assignées dans le premier paramètre :
+
+[source%interactive,javascript]
+.object-assign.js
+----
+include::{sourceDir}/object-assign.js[]
+----
+<1> Les clés et valeurs de `DEFAULT` et celles de `userOptions` sont copiées dans un objet vide puis retournées dans `mergedOptions` ;
+<2> Affiche `{ concurrency: 10, timeout: 'https', tags: [] }` ;
+<3> Affiche `[ 'img', 'h1' ]` ;
+<4> Affiche `[ 'url', 'env', 'tags' ]` — l'objet `testOptions` est donc modifié.
+
+== Manipuler des dates
+
+L'opérateur `typeof` ne permet pas d'identifier une date. Il convient d'utiliser `instanceof` :
+
+[source%interactive,javascript]
+----
+typeof (new Date('2014-03-24'));  // <1>
+(new Date('2014-03-24 13:37')) instanceof Date; // <2>
+typeof Date.parse('2014-03-24 13:37');          // <3>
+----
+<1> Retourne `'object'` ;
+<2> Retourne `true` ;
+<3> Retourne `'number'`, car il s'agit d'une date exprimée en millisecondes depuis le 1er janvier 1970 (temps _EPOCH_).
+
+Il également possible d'obtenir la date actuelle exprimée en millisecondes avec `Date.now` :
+
+[source%interactive,javascript]
+----
+Date.parse(new Date()); // <1>
+Date.now();             // <2>
+----
+<1> Retourne `1397381941000` ;
+<2> Retourne `1397381941031`, équivalent à la syntaxe précédente donc, la précision à la milliseconde près en plus.
+
+
+[[class]]
+== Manipuler des classes d'objet (_Class_)
+
+ECMAScript 2015 ajoute au langage des sucres syntaxiques facilitant la création et maintenance d'objets métier.
+Nous bénéficions d'une véritable notion de constructeur, de méthodes statiques et même d'extension de prototype — on pourrait parler d'héritage mais nous n'avons pas envie d'aller dans cette direction, pas vrai ?
+
+Tout ce que nous attachions auparavant à une _fonction_, nous nous référons désormais à une _classe_ à proprement parler. +
+En voici un exemple de définition :
+
+
+[source%interactive,javascript]
+.class-view.js
+----
+include::{sourceDir}/class-view.js[]
+----
+
+La définition de la classe `View` comporte trois fonctions :
+
+- `constructor` : le constructeur invoqué à chaque nouvelle instantiation via l'opérateur `new` ;
+- `render` : une méthode partagée par toutes les instances de `View` — équivalent à `View.prototype.render = function () { ... }` ;
+- `removeDuplicates` : une méthode statique, utilisable indépendamment des instances de `View` — équivalent à `View.removeDuplicates = () => ({ ... })`.
+
+L'exemple suivant illustre le comportement de la classe `View` :
+
+[source%interactive,javascript]
+.class-constructor.js
+----
+include::{sourceDir}/class-constructor.js[]
+----
+<1> Affiche `object` ;
+<2> Affiche `true` ;
+<3> Affiche `{ blacklist: [ 'object', 'iframe' ] }` — l'objet de configuration initial ;
+<4> Affiche `Node.js` ;
+<5> Affiche une exception personnalisée.
+
+
+
 [[primitive-object-getset]]
+=== Accesseurs et mutateurs
+
 `Object.defineProperty` permet de régler finement d'autres spécificités d'un objet, dont des *accesseurs* (_getters_) et des *mutateurs* (_setters_).
 Ces attributs spéciaux nous autorisent la création de _propriétés calculées_, de _propriétés en lecture seule_ ou de _maitriser l'écriture d'une propriété_ :
 
@@ -608,213 +901,6 @@ include::{sourceDir}/object-getters-shorthand.js[]
 <2> Définition _raccourcie_ de l'_accesseur_ pour la propriété `year_published` – notez qu'on ne définit pas de _mutateur_ pour cette même propriété ;
 <3> Lance une _exception_ car la propriété `year_published` est définie en tant qu'_accesseur_ uniquement ; on ne peut donc pas lui _assigner_ de valeur.
 
-`Object.assign` étend des structures existantes et la définition de valeurs par défaut.
-Les clés et valeurs sont copiées de gauche à droite avant d'être assignées dans le premier paramètre :
-
-[source%interactive,javascript]
-.object-assign.js
-----
-include::{sourceDir}/object-assign.js[]
-----
-<1> Les clés et valeurs de `DEFAULT` et celles de `userOptions` sont copiées dans un objet vide puis retournées dans `mergedOptions` ;
-<2> Affiche `{ concurrency: 10, timeout: 'https', tags: [] }` ;
-<3> Affiche `[ 'img', 'h1' ]` ;
-<4> Affiche `[ 'url', 'env', 'tags' ]` — l'objet `testOptions` est donc modifié.
-
-=== Date
-
-L'opérateur `typeof` ne permet pas d'identifier une date. Il convient d'utiliser `instanceof` :
-
-[source%interactive,javascript]
-----
-typeof (new Date('2014-03-24'));  // <1>
-(new Date('2014-03-24 13:37')) instanceof Date; // <2>
-typeof Date.parse('2014-03-24 13:37');          // <3>
-----
-<1> Retourne `'object'` ;
-<2> Retourne `true` ;
-<3> Retourne `'number'`, car il s'agit d'une date exprimée en millisecondes depuis le 1er janvier 1970 (temps _EPOCH_).
-
-Il également possible d'obtenir la date actuelle exprimée en millisecondes avec `Date.now` :
-
-[source%interactive,javascript]
-----
-Date.parse(new Date()); // <1>
-Date.now();             // <2>
-----
-<1> Retourne `1397381941000` ;
-<2> Retourne `1397381941031`, équivalent à la syntaxe précédente donc, la précision à la milliseconde près en plus.
-
-[[primitive-destructuring]]
-=== Décomposition
-
-L'affectation par _décomposition_ (_destructuring_) est une manière élégante et intuitive de piocher dans un <<array,tableau>> ou dans un <<object,objet>>.
-La décomposition n'altère pas le contenu des variables décomposées.
-
-Les valeurs d'un tableau sont décomposées dans l'ordre tandis que l'opérateur _spread_ (`...`) permet d'assigner le _reste_ des valeurs dans une seule et même variable ou constante :
-
-[source%interactive,javascript]
-.destructuring-array.js
-----
-include::{sourceDir}/destructuring-array.js[]
-----
-<1> Décompose la première valeur du tableau et assigne _le reste_ dans une autre constante ;
-<2> Affiche `Bordeaux` ;
-<3> Affiche `[ 'Toulouse', 'Montpellier', 'Aix-en-Provence' ]` ;
-<4> Affiche `[ 'Bordeaux', 'Toulouse', 'Montpellier', 'Aix-en-Provence' ]`.
-
-Il est également possible de _sauter_ des valeurs en ne nommant pas _autant_ de variables ou de constantes lors de la décomposition :
-
-[source%interactive,javascript]
-.destructuring-spread.js
-----
-include::{sourceDir}/destructuring-spread.js[]
-----
-<1> Assigne la première valeur dans la constante `first`, saute la seconde et assigne le reste des valeurs dans `end` ;
-<2> Affiche `un` ;
-<3> Affiche `[ 'deux', 'trois', 'quatre' ]`.
-
-Le même mécanisme existe pour les <<object,objets>>, y compris dans des arguments de fonction :
-
-[source%interactive,javascript]
-.destructuring-object.js
-----
-include::{sourceDir}/destructuring-object.js[]
-----
-<1> Destructure la fonction `join` directement depuis le `require` de module ;
-<2> Destructure la valeur `debug` du premier argument;
-<3> Affiche `folder/filename.txt` – `folder\filename.txt` sous Windows ;
-<4> Affiche `true` car la clé `debug` a été décomposée en `configDebug` ;
-<5> Affiche `undefined` – cette valeur n'existe pas dans l'objet `config` ;
-<6> Affiche `Demo` – cette valeur est complétée par défaut dans l'assignation ;
-<7> Affiche `true`.
-
-Comme indiqué en début de section, il est possible de nommer les clés de manière dynamique mais aussi d'utiliser une syntaxe raccourcie d'assignation de valeur :
-
-[source%interactive,javascript]
-.object-advanced.js
-----
-include::{sourceDir}/object-advanced.js[]
-----
-<1> Utilise la valeur d'une variable comme nom de clé ;
-<2> Syntaxe alternative possible, utile lorsqu'un objet existe déjà ;
-<3> Affiche `{ SNCF: { country: 'France' }, Reinfe: { country: 'Spain' } }` ;
-<4> Utilise la syntaxe d'assignation raccourcie, donc assigne la valeur de `sncf` à la clé `sncf` — affiche `{ sncf: 'SNCF', foo: 'bar' }` ;
-<5> _Idem_ mais sans la syntaxe d'assignation raccourcie.
-
-[[primitive-rest]]
-=== Paramètres du reste
-
-Les _paramètres du reste_ (_rest parameters_) utilisent une syntaxe identique à la _décomposition_ mais opèrent au niveau des arguments de fonctions :
-
-[source%interactive,javascript]
-.rest.js
-----
-include::{sourceDir}/rest.js[]
-----
-<1> Assigne la constante décomposée `args` en tant que constante `cheeses` ;
-<2> Affiche `Fromages` ;
-<3> Affiche `[ { name: 'Cabécou' }, { name: 'Chaource' } ]` –
-
-En bref, ils sont l'équivalent de l'ancienne variable _magique_ `arguments` mais avec une meilleure finesse quant aux paramètres concernés.
-Les éléments retournés par les _paramètres du reste_ ont aussi l'avantage d'être un véritable objet de <<array,tableau>> – `arguments` est _itérable_ mais n'est pas un tableau et ne bénéficie donc pas des méthodes de compréhension telles que `forEach`, `map`, etc.
-
-[[primitive-map-set]]
-=== Map et Set
-
-Deux nouvelles interfaces d'itération sont disponibles depuis _ECMAScript 2015_ : _Map_ et _Set_.
-Elles font penser respectivement à `Object` et `Array` mais diffèrent de ces primitives sur les points suivants :
-
-- elles garantissent l'*unicité par référence* des valeurs ;
-- elles garantissent l'*ordre* des valeurs ;
-- elles exposent la *même interface* de navigation et de manipulation ;
-- elles peuvent être créées à partir d'un __itérable__ ou d'un tableau (de valeurs ou de clés+valeurs).
-
-[source%interactive,javascript]
-.set.js
-----
-include::{sourceDir}/set.js[]
-----
-<1> Construit un `Set` depuis un `Array` ;
-<2> Reconstruit un `Array` à partir des valeurs du `Set` et affiche `[ 11, 13 ]`;
-<3> Ce tableau sera ajouté car s'il est identique au précédent, il s'agit d'un objet différent, donc d'une référence d'objet différente ;
-<4> On peut ajouter un `Set` en tant que valeur de `Set` si on le souhaite ;
-<5> À l'inverse du point 3, l'ajout multiple d'une référence à un même objet (ici, `primesArray`) ne fonctionnera pas ;
-<6> Affiche `Set { 2, 3, [ 5, 7 ], [ 5, 7 ], Set { 11, 13 }, [ 11, 13 ] }` ;
-<7> Utilise la <<primitive-destructuring,décomposition>> pour extraire les valeurs du `Set` et affiche `[ 2, 3, [ 5, 7 ], [ 5, 7 ], Set { 11, 13 }, [ 11, 13 ] ]`.
-
-`Map` offre quelques avantages à l'utilisation d'un `Object` :
-
-- les clés peuvent être de n'importe quel type (y compris une référence à un autre objet ou tableau ECMAScript) ;
-- `.size` retourne le nombre de clés de la _Map_ ;
-- l'itération est très simple avec `for..of`, `forEach` ou même en utilisant la <<primitive-destructuring,décomposition>>.
-
-
-[source%interactive,javascript]
-.map.js
-----
-include::{sourceDir}/map.js[]
-----
-<1> Assigne un objet en référence de `Map` vers un objet de type `Set` ;
-<2> Parcourt chaque enregistrement de `Map` et en affiche sa clé et sa valeur ;
-<3> _Ditto_ mais avec l'expression `for..of` ;
-<4> Affiche `2` car notre `Map` comporte 2 enregistrements ;
-<5> Affiche les enregistrements de la `Map` sous forme de paires `[clé, valeur]`;
-<6> Affiche `{nbsp}` (_rien_) car la `Map` a été vidée à la ligne précédente.
-
-Toutefois _Map_ et _Set_ ont quelques inconvénients :
-
-- absence des méthodes de compréhension de tableau (`map`, `reduce` etc.) ;
-- pas de conversion native en JSON.
-
-À vous de choisir entre `Object` et `Map` ou entre `Array` et `Set` en fonction de la rigueur de vos besoins.
-
-[TIP]
-.[RemarquePreTitre]#Documentation# Pour en savoir plus
-====
-La documentation complète de `Map` et de `Set` est disponible en français sur la ressource communautaire MDN :
-
-- [URL]#https://developer.mozilla.org/fr/docs/Web/JavaScript/Reference/Objets_globaux/Map#
-- [URL]#https://developer.mozilla.org/fr/docs/Web/JavaScript/Reference/Objets_globaux/Set#
-====
-
-
-[[primitive-class]]
-=== Class
-
-ECMAScript 2015 ajoute au langage des sucres syntaxiques facilitant la création et maintenance d'objets métier.
-Nous bénéficions d'une véritable notion de constructeur, de méthodes statiques et même d'extension de prototype — on pourrait parler d'héritage mais nous n'avons pas envie d'aller dans cette direction, pas vrai ?
-
-Tout ce que nous attachions auparavant à une _fonction_, nous nous référons désormais à une _classe_ à proprement parler. +
-En voici un exemple de définition :
-
-
-[source%interactive,javascript]
-.class-view.js
-----
-include::{sourceDir}/class-view.js[]
-----
-
-La définition de la classe `View` comporte trois fonctions :
-
-- `constructor` : le constructeur invoqué à chaque nouvelle instantiation via l'opérateur `new` ;
-- `render` : une méthode partagée par toutes les instances de `View` — équivalent à `View.prototype.render = function () { ... }` ;
-- `removeDuplicates` : une méthode statique, utilisable indépendamment des instances de `View` — équivalent à `View.removeDuplicates = () => ({ ... })`.
-
-L'exemple suivant illustre le comportement de la classe `View` :
-
-[source%interactive,javascript]
-.class-constructor.js
-----
-include::{sourceDir}/class-constructor.js[]
-----
-<1> Affiche `object` ;
-<2> Affiche `true` ;
-<3> Affiche `{ blacklist: [ 'object', 'iframe' ] }` — l'objet de configuration initial ;
-<4> Affiche `Node.js` ;
-<5> Affiche une exception personnalisée.
-
-Nous l'avons vu précédemment au niveau des <<primitive-object,objets>>, ECMAScript permet de définir des accesseurs. +
 L'exemple suivant illustre leur définition au sein d'une classe :
 
 [source%interactive,javascript]
@@ -827,6 +913,9 @@ include::{sourceDir}/class-accessors.js[]
 <3> Retourne `'978-2212136401'`.
 
 La logique des accesseurs est ainsi partagée entre _tous les objets_ étant des instances de `Book`.
+
+[[class-inheritance]]
+=== Héritage
 
 L'exemple suivant illustre deux classes héritant de notre classe `View` :
 
@@ -847,8 +936,12 @@ S'il est désormais plus sûr d'utiliser l'extension de chaîne prototypale, *il
 
 Il est en effet bien plus simple de réutiliser (et de tester) des fonctions agnostiques de contexte — agnostiques du `this` — que de maintenir de grosses classes héritant sur plusieurs niveaux.
 
-[[primitive-promise]]
-=== Promise
+[[error]]
+=== Les objets d'erreur (_Error_)
+
+
+[[promise]]
+== Manipuler des promesses (_Promise_)
 
 L'organisation du code autour des _callbacks_ est difficile et ce, que ce soit en terme de maintenance, de gestion des erreurs ou de propagation d'information.
 
@@ -921,6 +1014,9 @@ include::{sourceDir}/promise-readfile.js[]
 <3> Consommation du nouveau résultat ;
 <4> Cette fonction sera appelée si une erreur se déclenche en amont de la chaîne de promesses.
 
+[[promise-all]]
+=== Collection de promesses
+
 `Promise.all` est une méthode statique de l'API _Promise_ qui retourne elle-même une promesse.
 Elle sera résolue positivement lorsque toutes les promesses passées en argument seront résolues ou négativement dès que l'une d'entre elles échouera.
 
@@ -958,116 +1054,8 @@ La documentation complète de `Promise` est disponible en français sur la resso
 ====
 
 
-[[primitive-async-await]]
-=== async/await
-
-Nous avons beaucoup appris sur les différents moyens d'organiser notre code de manière asynchrone.
-Peut-être avec une indigestion de `then()`. +
-Les opérateurs `async` et `await` sont là pour respectivement :
-
-. déclarer une fonction comme pouvant _être mise en pause_ ;
-. mise en pause effectuée avec l'opérateur `await`, pause suivie jusqu'à ce qu'une… promesse retourne un résultat.
-
-Une promesse placée derrière un `await` jettera une exception.
-Cette exception est interceptable avec un bloc `try/catch`, comme du code synchrone.
-
-Reprenons une nouvelle fois notre exemple précédent, en combinant la transformation en promesses et les opérateurs `async` et `await` :
-
-[source%interactive,javascript]
-.async-await.js
-----
-include::{sourceDir}/async-await.js[]
-----
-<1> Déclaration de la fonction `getAllDeps` en tant que fonction asynchrone ;
-<2> On itère comme de manière synchrone, en demandant à l'interpréteur d'attendre que la promesse `readFilePromise` soit résolue ;
-<3> Le contenu de `fileBuffer` est disponible à la ligne d'après, sans utiliser `readFilePromise.then()` ;
-<4> La fonction `getAllDeps` retourne une promesse ;
-<5> <2> Résultat identique à celui calculé dans `promise-all.js`.
-
-À travers cet exemple on comprend qu'une fonction `async` retourne en réalité une promesse.
-Promesse résolue lorsque toutes ses conditions `await` sont elles aussi résolues séquentiellement.
-
-L'inconvénient de notre exemple est que la lecture des fichiers ne se fait plus en _parallèle_ mais bel et bien de manière _séquentielle_.
-En effet, notre code est mis en pause à chaque itération de boucle, lors de l'appel de `readFilePromise`.
-
-[[primitive-regexp]]
-=== RegExp
-
-Les expressions régulières en JavaScript permettent de pratiquer des recherches de motifs simples et complexes au sein de chaînes de caractères.
-Elles sont inspirées de l'implémentation dans Perl 5.
-
-L'opérateur `instanceof` permet d'identifier une instance d'expression régulière :
-
-[source%interactive,javascript]
-----
-/Eyroll?es/g instanceof RegExp; <1>
-(new RegExp('Eyroll?es', 'g')) instanceof RegExp; <1>
-----
-<1> Retourne `true`.
-
-La méthode `exec` permet de capturer les occurrences d'une expression régulière au sein d'une chaîne de caractères :
-
-[source%interactive,javascript]
-----
-/(.+)(Script)/.exec('ECMAScript'); <1>
-----
-<1> Retourne `['ECMAScript', 'ECMA', 'Script']`.
-
-Plusieurs drapeaux peuvent être utilisés :
-
-- `g` pour chercher dans toute la chaîne et ne pas s'arrêter à la première occurrence trouvée ;
-- `i` pour ne pas tenir compte de la casse ;
-- `m` pour que les caractères `^` et `$` correspondent respectivement au début et à la fin d'une ligne au lieu du début et de la fin de la chaîne ;
-
-[source%interactive,javascript]
-----
-let re;
-const text = ['JavaScript', 'ECMAScript'].join("\n");
-
-re = /^([a-z]+)(Script)/;
-re.exec(text); <1>
-
-re = /^([a-z]+)(Script)/i;
-re.exec(text); <2>
-
-re = /([a-z]+)(Script)$/i;
-re.exec(text); <3>
-
-re = /([a-z]+)(Script)$/im;
-re.exec(text); <4>
-
-re = /^([a-z]+)(Script)$/gim;
-re.exec(text); <5>
-re.exec(text); <6>
-re.exec(text); <7>
-----
-<1> Retourne `null` ;
-<2> Retourne `['JavaScript', 'Java', 'Script']` ;
-<3> Retourne `['ECMAScript', 'ECMA', 'Script']` ;
-<4> Retourne `['JavaScript', 'Java', 'Script']`, puisque `$` correspond à la fin de ligne et non la fin de chaîne ;
-<5> Retourne `['JavaScript', 'Java', 'Script']` ;
-<6> Retourne `['ECMAScript', 'ECMA', 'Script']` puisque le curseur a effectué la recherche après la position de la précédente occurrence ;
-<7> Retourne `null` puisque le curseur a rencontré la fin de la chaîne ;
-
-[CAUTION]
-.[RemarquePreTitre]#Remarque# Gare à la réutilisation de l'objet _RegExp_ !
-====
-Vous l'aurez remarqué avec le drapeau `g`, le comportement de la méthode `exec` peut renvoyer un résultat différent à chaque appel.
-
-Il faut juste veiller à ce que ce soit un résultat escompté pour éviter tout effet de bord dans vos applications.
-====
-
-À la manière de `exec`, la méthode `test` se contente de renvoyer un booléen si un motif a été trouvé ou non :
-
-[source%interactive,javascript]
-----
-/(.+)(Script)/.test('ECMAScript'); <1>
-----
-<1> Retourne `true`.
-
-
-[[primitive-json]]
-=== JSON
+[[json]]
+== Manipuler des structures de données JSON
 
 L'introduction du support natif du parsing JSON dans ECMAScript 5 a apporté un grand confort dans la consommation de données issues d'API.
 La sécurité de cette consommation a été améliorée de par sa prise en charge par les développeurs de VM ECMAScript.
@@ -1112,3 +1100,117 @@ Il s'agit d'une mine d'or pour comprendre les mécanismes internes du langage, l
 
 - [URL]#https://www.ecma-international.org/ecma-262/5.1/#
 ====
+
+== Usages avancés
+
+
+=== Manipuler des dictionnaires avec garanties (_Map_, _WeakMap_, _Set_ et _WeakSet_)
+
+Deux nouvelles interfaces d'itération sont disponibles depuis _ECMAScript 2015_ : _Map_ et _Set_.
+Elles font penser respectivement à `Object` et `Array` mais diffèrent de ces primitives sur les points suivants :
+
+- elles garantissent l'*unicité par référence* des valeurs ;
+- elles garantissent l'*ordre* des valeurs ;
+- elles exposent la *même interface* de navigation et de manipulation ;
+- elles peuvent être créées à partir d'un __itérable__ ou d'un tableau (de valeurs ou de clés+valeurs).
+
+[source%interactive,javascript]
+.set.js
+----
+include::{sourceDir}/set.js[]
+----
+<1> Construit un `Set` depuis un `Array` ;
+<2> Reconstruit un `Array` à partir des valeurs du `Set` et affiche `[ 11, 13 ]`;
+<3> Ce tableau sera ajouté car s'il est identique au précédent, il s'agit d'un objet différent, donc d'une référence d'objet différente ;
+<4> On peut ajouter un `Set` en tant que valeur de `Set` si on le souhaite ;
+<5> À l'inverse du point 3, l'ajout multiple d'une référence à un même objet (ici, `primesArray`) ne fonctionnera pas ;
+<6> Affiche `Set { 2, 3, [ 5, 7 ], [ 5, 7 ], Set { 11, 13 }, [ 11, 13 ] }` ;
+<7> Utilise la <<primitive-destructuring,décomposition>> pour extraire les valeurs du `Set` et affiche `[ 2, 3, [ 5, 7 ], [ 5, 7 ], Set { 11, 13 }, [ 11, 13 ] ]`.
+
+`Map` offre quelques avantages à l'utilisation d'un `Object` :
+
+- les clés peuvent être de n'importe quel type (y compris une référence à un autre objet ou tableau ECMAScript) ;
+- `.size` retourne le nombre de clés de la _Map_ ;
+- l'itération est très simple avec `for..of`, `forEach` ou même en utilisant la <<primitive-destructuring,décomposition>>.
+
+
+[source%interactive,javascript]
+.map.js
+----
+include::{sourceDir}/map.js[]
+----
+<1> Assigne un objet en référence de `Map` vers un objet de type `Set` ;
+<2> Parcourt chaque enregistrement de `Map` et en affiche sa clé et sa valeur ;
+<3> _Ditto_ mais avec l'expression `for..of` ;
+<4> Affiche `2` car notre `Map` comporte 2 enregistrements ;
+<5> Affiche les enregistrements de la `Map` sous forme de paires `[clé, valeur]`;
+<6> Affiche `{nbsp}` (_rien_) car la `Map` a été vidée à la ligne précédente.
+
+Toutefois _Map_ et _Set_ ont quelques inconvénients :
+
+- absence des méthodes de compréhension de tableau (`map`, `reduce` etc.) ;
+- pas de conversion native en JSON.
+
+À vous de choisir entre `Object` et `Map` ou entre `Array` et `Set` en fonction de la rigueur de vos besoins.
+
+[TIP]
+.[RemarquePreTitre]#Documentation# Pour en savoir plus
+====
+La documentation complète de `Map` et de `Set` est disponible en français sur la ressource communautaire MDN :
+
+- [URL]#https://developer.mozilla.org/fr/docs/Web/JavaScript/Reference/Objets_globaux/Map#
+- [URL]#https://developer.mozilla.org/fr/docs/Web/JavaScript/Reference/Objets_globaux/Set#
+====
+
+=== Littéraux de modèle avec étiquette (_tagged template literals_)
+
+Les _template literals_ peuvent se préfixer d'un nom de fonction.
+Ce mécanisme nommé _tagged template literals_ sert de filtre pour interpréter et interpoler le contenu de chaque _template_ (élément contenu dans `${}`). Vous pouvez écrire vos propres fonctions mais aussi utiliser des modules _npm_. +
+L'exemple suivant illustre une sécurisation de contenu tiers à l'aide de la fonction `safeHtml` fournie par le module `common-tags` ([URL]#https://npmjs.com/common-tags#) :
+
+[source%interactive,javascript]
+.primivite-template-literal-tags.js
+----
+include::{sourceDir}/tagged-template-literals.js[]
+----
+<1> Affiche `<div class="user-content">\n<script>alert(document.cookie)</script>\n</div>` ;
+<2> Affiche `<div class="user-content">\n\&lt;script\&gt;alert(document.cookie)\&lt;/script\&gt;\n</div>`.
+
+[URL]#https://developer.mozilla.org/fr/docs/Web/JavaScript/Reference/Litt%C3%A9raux_gabarits#
+
+
+[[async-await]]
+=== async/await
+
+Nous avons beaucoup appris sur les différents moyens d'organiser notre code de manière asynchrone.
+Peut-être avec une indigestion de `then()`. +
+Les opérateurs `async` et `await` sont là pour respectivement :
+
+. déclarer une fonction comme pouvant _être mise en pause_ ;
+. mise en pause effectuée avec l'opérateur `await`, pause suivie jusqu'à ce qu'une… promesse retourne un résultat.
+
+Une promesse placée derrière un `await` jettera une exception.
+Cette exception est interceptable avec un bloc `try/catch`, comme du code synchrone.
+
+Reprenons une nouvelle fois notre exemple précédent, en combinant la transformation en promesses et les opérateurs `async` et `await` :
+
+[source%interactive,javascript]
+.async-await.js
+----
+include::{sourceDir}/async-await.js[]
+----
+<1> Déclaration de la fonction `getAllDeps` en tant que fonction asynchrone ;
+<2> On itère comme de manière synchrone, en demandant à l'interpréteur d'attendre que la promesse `readFilePromise` soit résolue ;
+<3> Le contenu de `fileBuffer` est disponible à la ligne d'après, sans utiliser `readFilePromise.then()` ;
+<4> La fonction `getAllDeps` retourne une promesse ;
+<5> Résultat identique à celui calculé dans `promise-all.js`.
+
+À travers cet exemple on comprend qu'une fonction `async` retourne en réalité une promesse.
+Promesse résolue lorsque toutes ses conditions `await` sont elles aussi résolues séquentiellement.
+
+L'inconvénient de notre exemple est que la lecture des fichiers ne se fait plus en _parallèle_ mais bel et bien de manière _séquentielle_.
+En effet, notre code est mis en pause à chaque itération de boucle, lors de l'appel de `readFilePromise`.
+
+== Conclusion
+
+TBD.

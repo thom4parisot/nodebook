@@ -2,6 +2,12 @@
 
 Pour en savoir plus: [annonce la résidence itinérante](https://oncletom.io/2017/residence-nodejs/) et [résumé de la résidence itinérante](https://oncletom.io/2017/without-a-home/) (en anglais).
 
+## Mardi 23 janvier
+
+- _Chapitre 3_ : réorganisation du chapitre pour le rendre plus progressif
+
+**Météo** : 😴 🙂
+
 ## Lundi 22 janvier
 
 - Sieste(s)
