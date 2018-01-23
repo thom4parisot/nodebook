@@ -11,7 +11,7 @@ Le contenu est actuellement **en cours d'écriture** 🚧. Certaines sections so
 | 🚧      | [Préface de David Bruant][foreword] | - | -
 | ✅      | [Avant-propos][preamble] | - | -
 | ✅      | **[Histoire, écosystème et gouvernance][ch01]** | _ça marche comment la vie de Node et des gens qui le font ?_ | [issues][ch01-issues]
-| 🚧      | **[Installer, mettre à jour et développer][ch02]** | _ça marche comment Node sur une machine ?_ | [issues][ch02-issues]
+| ✅      | **[Installer, mettre à jour et développer][ch02]** | _ça marche comment Node sur une machine ?_ | [issues][ch02-issues]
 | 🚧      | **[Jouer avec JavaScript][ch03]** | _ça marche comment JavaScript ?_ | [issues][ch03-issues]
 | 🚧      | **[Jouer avec Node.js][ch04]** | _ça marche comment les modules ?_ | [issues][ch04-issues]
 | 🚧      | **[Jouer avec npm][ch05]** | _ça marche comment l'outil npm ?_ | [issues][ch05-issues]
@@ -95,8 +95,7 @@ $ PORT=3000 npm start
 
 ## Tests
 
-Le code des exemples est vérifié à l'aide d'[ESLint](http://eslint.org/).
-La commande suivante vérifiera que la syntaxe ECMAScript n'entraine pas d'effet secondaires indésirables.
+La bonne santé des exemples est vérifiée à l'aide d'[ESLint](http://eslint.org/) et de [tape-spawn](https://npmjs.com/tape-spawn).
 
 ```bash
 $ npm test
