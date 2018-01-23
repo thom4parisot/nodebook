@@ -2,6 +2,21 @@
 
 Pour en savoir plus: [annonce la résidence itinérante](https://oncletom.io/2017/residence-nodejs/) et [résumé de la résidence itinérante](https://oncletom.io/2017/without-a-home/) (en anglais).
 
+## Lundi 22 janvier
+
+- Sieste(s)
+- _Outillage_ : le préfixe `$` dans les commandes bash n'est plus inclus dans la sélection du code des exemples ([#208][])
+
+**Météo** : 😴
+
+[#208]: https://github.com/oncletom/nodebook/pull/208
+
+---
+
+🇬🇧 Semaine off à Bristol pour faciliter le projet [Mind the Gaps](https://dtc-innovation.github.io/mind-the-gaps/).
+
+---
+
 ## Vendredi 12 janvier
 
 - _Chapitre 2_ : les éditeurs de code

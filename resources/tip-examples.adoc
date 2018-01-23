@@ -7,8 +7,9 @@ Ils sont fonctionnels et destinés à être exécutés sur votre ordinateur :
 [subs="attributes"]
 .Exemple d'exécution du bloc de code légendé par `{sourceSample}`.
 ----
-$ npm install --global nodebook@latest
-$ nodebook chapter {chapterNumber}
+$ npm install --global nodebook
+$ nodebook install chapter-{chapterNumber}
+$ nodebook open chapter-{chapterNumber}
 $ node {sourceDir}/{sourceSample}
 ----
 
@@ -19,7 +20,7 @@ Ils sont accessible en démarrant le serveur web dédié aux exemples de de chap
 
 [subs="attributes"]
 ----
-$ nodebook chapter {chapterNumber}
+$ nodebook open chapter-{chapterNumber}
 $ npm start
 $ open {httpRoot}
 ----
