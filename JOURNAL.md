@@ -2,6 +2,19 @@
 
 Pour en savoir plus: [annonce la résidence itinérante](https://oncletom.io/2017/residence-nodejs/) et [résumé de la résidence itinérante](https://oncletom.io/2017/without-a-home/) (en anglais).
 
+## Jeudi 25 janvier
+
+- _Chapitre 3_ : qu'est-ce que JavaScript ?
+
+**Météo** : 🙂
+
+## Mercredi 24 janvier
+
+- _Outillage_ : publication sur GitHub Pages via Travis CI directement
+- _Tous les chapitres_ : corrige la commande explicative des examples dans chaque chapitre
+
+**Météo** : 😴
+
 ## Mardi 23 janvier
 
 - _Chapitre 3_ : réorganisation du chapitre pour le rendre plus progressif
