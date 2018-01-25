@@ -1,23 +1,21 @@
 'use strict';
 
-// <1>
+// On concatène 2 chaînes de caractères <1>
 const baseUrl = 'https://oncletom.io/node.js';
-const imageUrl = `${baseUrl}/cover.png`;
+const filePath = `${baseUrl}/package.json`;
 
-// <2>
-const docBody = document.body;
-const createImage = (src, element) => {
-  const img = document.createElement('img');
-  img.src = src;
+// On affiche un message au clic sur la page <2>
+const docBody = document.querySelector('body');
+docBody.addEventListener('click', () => alert('Hello World!'));
 
-  return element.appendChild(element);
-}
+// On affiche des informations contenues dans un fichier distant <3>
+fetch(filePath)
+  .then(response => response.json())
+  .then(pkg => console.log(`${pkg.name}@${pkg.version}`));
 
-// <3>
-fetch(imageUrl)
-  .then(response => response.blob())
-  .then(blob => URL.createObjectURL(blob))
-  .then(objectUrl => createImage(objectUrl, docBody));
-
-// <4>
-module.exports = createImage;
+// On liste le contenu du répertoire utilisateur <4>
+const {homedir} = require('os');
+const fs = require('fs');
+fs.readdir(homedir(), (err, files) => {
+  err ? console.error(err) : console.log(files);
+});

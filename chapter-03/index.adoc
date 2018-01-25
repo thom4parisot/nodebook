@@ -43,7 +43,7 @@ Il se révèle parfaitement opérationnel dès lors que l'on s'intéresse
 à ses fonctionnalités, sans faire de hors-piste.
 
 Les types de données et les méthodes de manipulations qu'elles nous offrent
-permettent d'écrire un code plus simple à lire, et donc plus simple à relire.
+permettent d'écrire un code plus simple, à lire et à produire.
 Certaines structures de données nous aident à mieux organiser nos données
 ainsi qu'à mieux les traiter.
 --
@@ -68,25 +68,20 @@ include::{sourceDir}/definition.js[]
 <3> Code JavaScript pour manipuler des Web API (fonctionnalités des navigateurs web) ;
 <4> Code JavaScript pour manipuler Node.js.
 
-.Écosystème des technologies JavaScript.
-image::images/javascript.svg[]
+Ce que l'on peut comprendre de l'exemple de code ci-dessus,
+c'est que JavaScript permet de s'interfacer avec plusieurs choses :
 
-Nous l'avons vu dans le premier chapitre, Node utilise JavaScript comme principal langage de développement.
-Mais contrairement à Ruby, Python ou PHP dont le numéro de version annonce les fonctionnalités exploitables, qu'en est-il de Node et de JavaScript ?
+. des documents web représentés par le Document Object Model (DOM) ;
+. des navigateurs web au travers des Web API ;
+. des systèmes informatiques avec Node.
 
-Il faut se tourner du côté de _V8_ pour savoir ce que la machine virtuelle est capable de comprendre.
-Et comme chaque version de Node est associée à une version spécifique de _V8_, il suffit d'aller regarder les notes de version de V8 pour l'apprendre.
+_ECMAScript_ correspond à l'ensemble des expressions du langage.
+Ces expressions sont étendues par des interfaces de programmation (_API_).
+Ces interfaces nous permettent de communiquer avec les documents web, les navigateurs web ou les systèmes informatiques.
 
-De manière générale, _V8_ implémente les spécifications approuvées ou en passe d'être approuvées par le comité gérant l'évolution du langage JavaScript : le *TC39*.
-
-Enfin si vous n'avez pas envie de retourner la moitié du web pour savoir si _V8_, donc Node, supporte telle ou telle fonctionnalité, partez du principe que *le JavaScript supporté par Chrome ou Opera correspond au JavaScript supporté par Node*.
-
-[TIP]
-.[RemarquePreTitre]#FAQ# JavaScript ou ECMAScript ?
+[NOTE]
+.[RemarquePreTitre]#Histoire# À propos de JavaScript
 ====
-On peut lire régulièrement les termes _JavaScript_ et _ECMAScript_ comme s'il s'agissait de la même chose, y compris dans cet ouvrage.
-*JavaScript et ECMAScript sont la même chose*.
-
 JavaScript a été inventé en 1995 par Brendan Eich alors qu'il était employé de la société _Netscape Communications_.
 Microsoft lui emboîte le pas en incluant JavaScript dans son logiciel Internet Explorer, alors en version 3.
 Pour des raisons de droits de marque, il y est dénommé _JScript_.
@@ -95,60 +90,124 @@ La spécification est ensuite validée par l'organisme _Ecma International_ en j
 
 L'utilisation du terme _JavaScript_ est resté dans le vocabulaire courant. Mais c'est bien d'_ECMAScript_ dont on parle, vraiment.
 
-Adobe Flash utilise un dérivé d'ECMAScript, ActionScript et bien des machines virtuelles sont capables d'interpréter partiellement ou intégralement ECMAScript : Rhino en Java, Konq, BESEN en Object Pascal ou encore Esprima en… ECMAScript.
+Adobe Flash utilise un dérivé d'ECMAScript : ActionScript.
+Bien des machines virtuelles sont capables d'interpréter partiellement ou intégralement ECMAScript : Rhino, Konq, BESEN en Object Pascal ou encore Esprima qui est elle-même écrite en… ECMAScript.
 ====
 
-La suite de l'ouvrage emploie principalement le terme _ECMAScript_.
+Si d'autres langages de programmation se cantonnent
+soit au _côté client_ (VBScript, ActionScript, Elm)
+soit au _côté serveur_ (Ruby, Python, Haskell),
+JavaScript a débuté _côté client_ pour s'étendre au _côté serveur_.
+Ce à quoi se réfère l'expression anglophone _full stack_.
+
+.Écosystème des technologies JavaScript.
+image::images/javascript.svg[]
+
+Le langage _ECMAScript_ — appelons-le ainsi à partir de maintenant —
+a évolué au fil du temps.
+Il s'est enrichi au fil du temps de nouvelles fonctionnalités,
+de sucres syntaxiques (raccourcis d'écriture)
+et de rigueur aussi, pour corriger des défauts de _design_.
+
+Le comité de travail _TC39_ (_Technical Committee_,
+[URL]#https://github.com/tc39#) est en charge de l'évolution
+du langage, standardisé sous le doux sobriquet de _standard ECMA-262_.
+À charge ensuite aux différents implémenteurs de suivre les changements
+et de les incorporer dans leurs machines virtuelles.
+
+Node se base sur la machine virtuelle <<../chapter-01/index.adoc#v8,V8 de Google>> pour interpréter les expressions ECMAScript.
+De fait, Node comprend les mêmes expressions ECMAScript que _V8_.
+
+Nous verrons un peu plus tard dans ce chapitre comment suivre la
+compatibilité de Node avec ECMAScript.
+Intéressons-nous à l'évolution du langage, et ce que ça nous apporte.
 
 === ECMAScript 5 (aka _ES5_)
 
-Standard ECMA-262 Edition
-
 ECMAScript a été standardisé dans sa version 5 en décembre 2009.
-Il s'agit de la version d'ECMAScript supportée depuis les débuts de Node.
 La révision 5.1 de juin 2011 est une correction mineure de la spécification.
 
-Il s'agit d'une évolution majeure, dix ans après sa précédente édition, ECMAScript 3.
+Il s'agit d'une évolution majeure dans l'histoire du langage.
+La précédente version — ECMAScript 3 — était agée de… *dix ans*…
 
-ECMAScript 5 introduit le mode strict limitant fortement les effets de bord indésirables, de nouvelles fonctionnalités pour `Object` et `Array`, le support natif de _JSON_ et `Function.prototype.bind`.
+ECMAScript 5 limite drastiquement certains effets indésirables du langage
+grâce au _mode strict_.
+De nouvelles méthodes de manipulation de tableaux et d'objets voient le jour
+ainsi qu'un support natif du format de données _JSON_.
 
-- [URL]#https://kangax.github.io/compat-table/es5/#
-- [URL]#https://www.ecma-international.org/ecma-262/5.1/#
+La standardisation de cette version d'ECMAScript a contribué à redorer
+l'image du langage mais aussi à faire émerger de nouvelles pratiques
+de programmation.
+
+[horizontal]
+Table de compatibilité::
+  [URL]#https://kangax.github.io/compat-table/es5/#
+Spécification::
+  [URL]#https://www.ecma-international.org/ecma-262/5.1/#
 
 image::images/compat-table.png[align="center",width="85%"]
 
 === ECMAScript 2015 (aka _ES6_ puis _ES2015_)
 
-La spécification *ECMAScript 2015* (_ES2015_) a été publiée en juin 2015 et succède à *ECMAScript 5*. +
-La spécification _ES2015_ a successivement été appelée _ECMAScript Harmony_, _ECMAScript 6_, puis _ECMAScript 2015_.
+La spécification *ECMAScript 2015* (_ES2015_) a été publiée en juin 2015.
+Elle succède à *ECMAScript 5* après 6 années de gestation. +
+Cette version a successivement été appelée _ECMAScript Harmony_, _ECMAScript 6_, puis _ECMAScript 2015_.
 
-La page Web suivante référence l'état de l'implémentation d'ECMAScript 2015 ainsi que des versions ultérieures sur différentes plates-formes, dont Node :
+Le processus de standardisation a mis 6 années pour aboutir
+mais cette fois-ci, les choses se sont déroulées différemment. +
+De nombreuses idées ont été piochées dans le langage
+_CoffeeScript_ ([URL]#http://coffeescript.org#).
+Et surtout, un nouveau type d'outillage s'est formé pour commencer
+à utiliser ce JavaScript du futur avec les compilateurs
+_traceur_ de Google dès 2011 ([URL]#https://github.com/google/traceur-compiler#)
+puis le projet indépendant _6to5_ dès 2014.
+_6to5_ a été renommé en _babel_ ([URL]#https://babeljs.io#)
+et son instigateur a par la suite été embauché par Facebook.
 
-- [URL]#https://kangax.github.io/compat-table/es6/#
-- [URL]#https://www.ecma-international.org/ecma-262/6.0/#
+La pratique de compiler du JavaScript en JavaScript était en rupture
+avec ce qui se faisait précédemment :
+attendre qu'une fonctionnalité soit adoptée par un dénominateur commun
+de navigateurs web pour s'en servir.
+Cette fois-ci, on pouvait se servir du futur, dès aujourd'hui.
 
-Un autre site web se focalise uniquement sur les avancées de l'implémentation des versions *ECMAScript* pour Node : [URL]#http://node.green/#.
+De fait, il n'y a pas eu à attendre 6 ans et l'implémentation
+par les différents implémenteurs pour profiter de ce
+qu'il y avait de meilleur.
 
-image::images/compat-table-node.png[align="center",width="85%"]
+Le prix à payer ? Un ticket d'entrée plus élevé lié à la maitrise
+de l'outillage associé.
 
-Certaines fonctionnalités sont disponibles uniquement en utilisant une option de démarrage spécifique, par exemple :
+[horizontal]
+Table de compatibilité (navigateurs web)::
+  [URL]#https://kangax.github.io/compat-table/es6/#
+Table de compatibilité (Node.js)::
+  [URL]#http://node.green/#
+Spécification::
+  [URL]#https://www.ecma-international.org/ecma-262/6.0/#
 
-[source,bash]
-----
-$ node --harmony script.js                # <1>
-----
-<1> Active toutes les fonctionnalités préliminaires.
+.Illustration de l'évolution de la compatibilité ECMAScript au fil des versions de Node.
+image::images/node-green.png[align="center",width="85%"]
 
-Une page explicative (en anglais) sur le site `nodejs.org` contient des indications à jour sur la compatibilité générale avec __ECMAScript 2015_ : [URL]#https://nodejs.org/en/docs/es6/#
 
 === ECMAScript 2016 etc. (aka _ES2016_, …)
 
-TBD.
+Depuis la sortie d'_ECMAScript 2015_, l'intention est de publier une
+nouvelle spécification par an.
+L'envie était de travailler fonctionnalité par fonctionnalité
+et de ne pas attendre trop longtemps avant de les ratifier.
+En conséquent, les nouvelles versions annuelles sont beaucoup plus
+incrémentales.
+Elles se font moins attendre et contiennent moins de grands bouleversements.
 
+Les fonctionnalités en cours de préparation sont listées
+dans ce dépôt GitHub : [URL]#https://github.com/tc39/proposals#.
+Le dernier stade avant la validation d'une fonctionnalité est le _stage 3_.
+Dès qu'une fonctionnalité passe en _stage 4_, elle est incluse
+dans la prochaine version version d'ECMAScript
+— _ECMAScript {docyear}_ une fois l'année {docyear} terminée.
 
-Un des conforts apporté par l'utilisation d'ECMAScript dans Node est qu'il n'y a pas à se soucier de la compatibilité navigateur : vous pouvez utiliser le meilleur de JavaScript !
-
-Ce résumé des primitives et fonctionnalités principales d'_ECMAScript_ a pour but de vous apprendre ou de vous rappeler des fonctionnalités du langage disponibles dans Node {nodeCurrentVersion}.
+Les fonctionnalités approuvées sont consignées dans ce document :
+[URL]#https://github.com/tc39/proposals/blob/master/finished-proposals.md#.
 
 [[primitives]]
 == Les éléments de base du langage
