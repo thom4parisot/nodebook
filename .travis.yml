@@ -15,9 +15,10 @@ before_deploy:
 - make clean build-html
 
 deploy:
-  - provider: script
-    script: make deploy-html
+  - provider: pages
     skip_cleanup: true
+    github-token: "$GH_TOKEN"
+    local-dir: dist
     on:
       branch: master
       tags: false
