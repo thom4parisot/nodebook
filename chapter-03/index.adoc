@@ -212,15 +212,145 @@ Les fonctionnalités approuvées sont consignées dans ce document :
 [[primitives]]
 == Les éléments de base du langage
 
-6 primitives : string, number, boolean, null, undefined, symbol.
+ECMAScript permet de manipuler différents _types_ de données.
+Cette section s'intéresse à décrire les notions nécessaires
+pour s'approprier le reste des exemples de l'ouvrage.
+On apprendra notamment à manipuler des variables, à faire
+des boucles sur des collections et à faire la différence
+entre un objet et une fonction.
+
+Mais qu'entend-t'on par _type de données_ ?
+Faisons nous notre propre idée avec une suite d'exemples.
+Ces notions seront dévelopées dans le reste du chapitre,
+pour mieux comprendre ce que l'on peut en faire.
+
+[source%interactive,javascript]
+.base/string.js
+----
+include::{sourceDir}/base/string.js[]
+----
+
+Une valeur entourée de guillemets est considérée
+par l'interpréteur ECMAScript comme une *chaîne de caractères*, du texte.
+
+Ces guillemets peuvent être des guillemets simples (`'`),
+des guillemets doubles (`"`) ou des guillemets obliques (```).
+
+On peut effectuer des opérations d'identification ou d'assemblage avec une
+valeur de _type chaîne de caractères_.
+
+
+[source%interactive,javascript]
+.base/number.js
+----
+include::{sourceDir}/base/number.js[]
+----
+
+ECMAScript considère les entiers (`3` dans cet exemple)
+et les nombres flottants (`12.3` dans cet exemple) comme des nombres.
+Il ne fait _pas_ de distinction entre les deux.
+
+On peut effectuer des *opérations mathématiques* entre plusieurs
+valeurs de _type nombre_.
+
+[source%interactive,javascript]
+.base/boolean.js
+----
+include::{sourceDir}/base/boolean.js[]
+----
+
+ECMAScript considère deux valeurs pour signifier _vrai_ ou _faux_,
+respectivement `true` et `false`.
+
+On peut effectuer des *opérations logiques* avec une
+valeur de _type booléen_.
+
+
+[source%interactive,javascript]
+.base/null.js
+----
+include::{sourceDir}/base/null.js[]
+----
+
+On utilise `null` pour signifier l'*absence de valeur*.
+
+
+[source%interactive,javascript]
+.base/undefined.js
+----
+include::{sourceDir}/base/undefined.js[]
+----
+
+La valeur `undefined` est utilisée pour signifier
+qu'une *valeur est inconnue*.
+Rare sont les cas où on choisira ce type de données par nous-même.
+
+[NOTE]
+.[RemarquePreTitre]#Documentation# MDN web docs
+====
+Pour en savoir plus sur les primitives, rendez-vous sur
+la documentation en ligne et gratuite _MDN web docs_.
 
 [URL]#https://developer.mozilla.org/fr/docs/Glossaire/Primitive#
+====
+
+Il existe trois autres types de données qui se basent sur ces types
+dits _primitifs_.
+Ces autres types sont destinés à ranger, classer et
+à exprimer de nouvelles valeurs en fonction d'autres.
 
 
-[source,javascript]
+[source%interactive,javascript]
+.base/array.js
+----
+include::{sourceDir}/base/array.js[]
 ----
 
+Un tableau se déclare en encadrant une suite de valeurs entre crochets
+(`[` et `]`).
+Un tableau peut contenir n'importe quel type de valeurs,
+et autant que nécessaire.
+L'ordre des valeurs a généralement une importance.
+
+On peut effectuer des **opérations de tri et de sélection** avec un
+_tableau de valeurs_.
+
+[source%interactive,javascript]
+.base/object.js
 ----
+include::{sourceDir}/base/object.js[lines=2..-1]
+----
+
+Un tableau se déclare en encadrant une suite de _paires de valeurs_
+entre accolade (`{` et `}`).
+Une _clé_ désigne une _valeur_, qui peut être de n'importe quel type.
+Un objet a principe proche d'un _dictionnaire_ : on associe une valeur
+à un intitulé, un label.
+L'ordre des valeurs n'a généralement pas d'importance.
+
+On peut effectuer des **opérations de sélection** avec un
+_objet de valeurs_.
+
+
+[source%interactive,javascript]
+.base/function.js
+----
+include::{sourceDir}/base/function.js[lines=3..-1]
+----
+
+Une fonction accepte des _arguments_, de n'importe quel type et
+autant que nécessaire.
+Une fonction peut _retourner_ un résultat de manière explicite avec le
+mot-clé `return`.
+Si une fonction ne retourne aucun résultat, ECMAScript considère
+que la valeur retournée équivaut implicitement à `undefined`.
+
+On peut effectuer des **opérations de transformation** avec une fonction.
+
+Les fonctions sont destinées à être _appelées_, pour effectuer
+des traitements répétitifs.
+Dès que l'on sent que l'on doit écrire deux fois la même chose,
+on l'écrit dans une fonction et on l'appelle deux fois.
 
 === Les variables
 
