@@ -282,7 +282,7 @@ include::{sourceDir}/base/undefined.js[]
 
 La valeur `undefined` est utilisée pour signifier
 qu'une *valeur est inconnue*.
-Rare sont les cas où on choisira ce type de données par nous-même.
+Rares sont les cas où on choisira ce type de données par nous-même.
 
 [NOTE]
 .[RemarquePreTitre]#Documentation# MDN web docs
@@ -339,9 +339,11 @@ include::{sourceDir}/base/function.js[lines=3..-1]
 
 Une fonction accepte des _arguments_, de n'importe quel type et
 autant que nécessaire.
-Une fonction peut _retourner_ un résultat de manière explicite avec le
+Une déclaration peut être _déclarée_ et être _exécutée_ (dernière ligne de l'exemple précédent).
+
+Une fonction _retourne_ un résultat explicite avec le
 mot-clé `return`.
-Si une fonction ne retourne aucun résultat, ECMAScript considère
+Dans le cas contraire, ECMAScript considère
 que la valeur retournée équivaut implicitement à `undefined`.
 
 On peut effectuer des **opérations de transformation** avec une fonction.
@@ -353,7 +355,137 @@ on l'écrit dans une fonction et on l'appelle deux fois.
 
 === Les variables
 
-=== Expressions conditionnelles
+Les *variables* servent à ranger des valeurs.
+On peut ainsi les réutiliser plus tard, les transmettre et prendre
+des décisions en fonction de ce qu'elles contiennent.
+
+Les variables nous aident à _donner du sens_ à notre code,
+à le rendre intelligible par d'autres personnes
+ainsi qu'à nommer des choses comme on le ferait dans notre quotidien.
+
+[source%interactive,javascript]
+.base/variables.js
+----
+include::{sourceDir}/base/variables.js[lines=3..-1]
+----
+
+À votre avis, combien vaut le prix du livre calculé dans
+l'exemple précédent ?
+Il suffirait de suivre le chemin que prend la nouvelle valeur
+rangée dans la clé `price` de l'objet `book`, calculée par la fonction
+`double` à qui on passe la valeur contenue dans la variable `base_price`.
+
+Le mot-clé `const` nous a servi à _déclarer_ des variables.
+On ne peut étiqueter une variable avec le même nom qu'une seule fois.
+L'exemple suivant générera une erreur si on déclare deux fois la même variable avec `const` :
+
+[source%interactive,javascript]
+.variables/const.js
+----
+include::{sourceDir}/variables/const.js[lines=3..-1]
+----
+
+=== Instructions
+
+Des _instructions_ nous servent à suivre, éviter ou répéter
+des chemins dans notre code.
+
+L'instruction `if` nous aide à exécuter du code qui remplit une condition.
+Cette condition peut être une _valeur_ ou une _expression_.
+Cette expression est interprétée pour savoir à quel _booléen_
+elle correspond.
+
+[source%interactive,javascript]
+.instructions/if.js
+----
+include::{sourceDir}/instructions/if.js[lines=3..-1]
+----
+
+L'exemple précédent vérifie que les deux conditions sont remplies
+(opérateur `&&`) pour afficher un message en conséquent.
+
+On notera au passage que `book.title` n'est pas un booléen.
+ECMAScript regarde dans ce cas que la chaîne de caractères
+contient _au moins 1 caractère_.
+On expliquera ce comportement plus en détail dans la section <<#primitive-boolean,manipuler des booléens>>.
+
+L'instruction `if` peut être complétée avec l'instruction `else`
+pour éxécuter du code qui répondrait au cas contraire.
+On peut imbriquer plusieurs `else if` à la suite.
+
+[source%interactive,javascript]
+.instructions/else-if.js
+----
+include::{sourceDir}/instructions/else-if.js[lines=3..-1]
+----
+
+Notre exemple n'empruntera qu'un seul des chemins mais on peut
+constater qu'on pourrait en emprunter un autre
+en modifiant la valeur des clés `title` et `published`.
+
+=== Portée (_scope_)
+
+La _portée_ est un concept très présent dans ECMAScript.
+On y fait souvent référence en parlant de _variable globale_ et
+de _variable locale_.
+On peut y sentir une notion de frontière d'accès à la valeur
+d'une variable.
+
+
+[source%interactive,javascript]
+.scopes/local.js
+----
+include::{sourceDir}/scopes/local.js[lines=3..-1]
+----
+
+Ce que nous dit l'exemple précédent,
+c'est que la variable `secret` de type fonction a une portée globale
+au script en question.
+Qu'en-est-il de la variable `mot` encapsulée dans cette fonction ?
+
+On pourrait le résumer ainsi : ce qui est défini _en dehors_ d'une fonction
+est accessible _à l'intérieur_ d'une fonction.
+Mais pas l'inverse : la variable `mot` est définie dans la fonction `secret`
+et n'est donc pas accessible en dehors de la portée de la fonction.
+
+La portée de la variable `mot` est locale.
+
+[source%interactive,javascript]
+.scopes/global.js
+----
+include::{sourceDir}/scopes/global.js[lines=3..-1]
+----
+
+Dans le précédent exemple, nous illustrons la portée globale de la variable
+`year`.
+Elle est définie un cran au-dessus des fonctions `next` et `nextYear`.
+On peut y accéder, comme en atteste le de code de la fonction `nextYear`.
+
+À l'inverse, la variable `value` qui est passée en paramètre de la fonction
+`next` a une portée locale à cette fonction.
+ECMAScript génèrera une erreur si on tente
+d'y accéder en dehors de sa portée.
+
+La portée est délimitée par les fonctions.
+En l'absence de fonction, la portée maximale est celle du module (script) dans lequel la variable est déclarée.
+
+Il existe un deuxième type de portée : la _portée lexicale_.
+L'exemple suivant servira à illustrer la nature de sa délimitation.
+
+[source%interactive,javascript]
+.scopes/lexical.js
+----
+include::{sourceDir}/scopes/lexical.js[lines=3..-1]
+----
+
+Le mot-clé `const` crée une variable certes,
+mais une variable dont la portée est _lexicale_.
+La portée est délimitée au bloc d'instructions dans lequel la variable
+est déclarée.
+
+Ainsi la variable `price` n'existe que dans le cadre du bloc `if`.
+C'est utile pour déclarer des variables sans _polluer_ le reste du
+script, pour que son existence soit oubliée aussitôt le bloc exécuté.
 
 [[string]]
 == Manipuler du texte
