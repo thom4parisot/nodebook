@@ -15,7 +15,10 @@ var DEFAULT_ATTRIBUTES = [
   'hide-uri-scheme',
   'experimental',
   'idprefix',
-  'source-highlighter=highlightjs'
+  'source-highlighter=highlightjs',
+  'toc-title=Table des matières',
+  'appendix-caption=Annexe',
+  'last-update-label=Dernière mise à jour'
 ];
 
 const FILES = process.argv.slice(2);
