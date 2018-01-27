@@ -2,6 +2,17 @@
 
 Pour en savoir plus: [annonce la résidence itinérante](https://oncletom.io/2017/residence-nodejs/) et [résumé de la résidence itinérante](https://oncletom.io/2017/without-a-home/) (en anglais).
 
+## Samedi 27 janvier
+
+- _Chapitre 3_ : Manipuler du texte
+
+## Vendredi 26 janvier
+
+- _Chapitre 3_ : Les éléments de base du langage
+- _Chapitre 3_ : Variables, instructions et portée
+
+**Météo** : 🙂
+
 ## Jeudi 25 janvier
 
 - _Chapitre 3_ : qu'est-ce que JavaScript ?

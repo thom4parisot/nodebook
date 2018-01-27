@@ -448,7 +448,7 @@ est accessible _à l'intérieur_ d'une fonction.
 Mais pas l'inverse : la variable `mot` est définie dans la fonction `secret`
 et n'est donc pas accessible en dehors de la portée de la fonction.
 
-La portée de la variable `mot` est locale.
+La portée de la variable `mot` est locale à la fonction `secret`.
 
 [source%interactive,javascript]
 .scopes/global.js
@@ -459,14 +459,14 @@ include::{sourceDir}/scopes/global.js[lines=3..-1]
 Dans le précédent exemple, nous illustrons la portée globale de la variable
 `year`.
 Elle est définie un cran au-dessus des fonctions `next` et `nextYear`.
-On peut y accéder, comme en atteste le de code de la fonction `nextYear`.
+On peut y accéder, comme en atteste le code de la fonction `nextYear`.
 
-À l'inverse, la variable `value` qui est passée en paramètre de la fonction
-`next` a une portée locale à cette fonction.
+À l'inverse, la variable `value` a une portée locale
+— elle est passée en paramètre de la fonction `next`.
 ECMAScript génèrera une erreur si on tente
 d'y accéder en dehors de sa portée.
 
-La portée est délimitée par les fonctions.
+*La portée est délimitée par les fonctions*.
 En l'absence de fonction, la portée maximale est celle du module (script) dans lequel la variable est déclarée.
 
 Il existe un deuxième type de portée : la _portée lexicale_.
@@ -480,53 +480,115 @@ include::{sourceDir}/scopes/lexical.js[lines=3..-1]
 
 Le mot-clé `const` crée une variable certes,
 mais une variable dont la portée est _lexicale_.
-La portée est délimitée au bloc d'instructions dans lequel la variable
-est déclarée.
+*La portée lexicale est délimitée par le bloc d'instructions*
+dans lequel la variable est déclarée.
 
 Ainsi la variable `price` n'existe que dans le cadre du bloc `if`.
-C'est utile pour déclarer des variables sans _polluer_ le reste du
-script, pour que son existence soit oubliée aussitôt le bloc exécuté.
+
+
+L'utilisation de la portée lexicale sert déclarer
+des variables sans _polluer_ le reste du script,
+pour que son existence soit oubliée aussitôt le bloc exécuté.
 
 [[string]]
 == Manipuler du texte
 
-Chaque élément d'une chaîne de caractères est encodé au format UTF-16 et peut donc contenir 16 bits de données.
-
-L'opérateur `typeof` permet d'identifier une chaîne :
-
-[source%interactive,javascript]
-----
-typeof 'Eyrolles'; <1>
-----
-<1> Retourne `'string'`.
-
-On peut connaître la longueur d'une chaîne via son attribut `length`.
+Il est commun d'avoir à manipuler des chaînes de caractères.
+Pour stocker des URLs, des titres, des identifiants,
+des tweets voire même des textes longs.
 
 [source%interactive,javascript]
+.string/base.js
 ----
-'I ♥ JavaScript'.length; <1>
+include::{sourceDir}/string/base.js[]
 ----
-<1> Retourne `14`.
+<1> Utilisation de guillemets simples (`\n` permet de revenir à la ligne) ;
+<2> Utilisation de guillemets doubles — évite d'échaper le guillemet simple ;
+<3> Utilisation de guillemets obliques — autorise le multi-ligne.
 
-On peut nettoyer les espaces englobant une chaîne avec la méthode `trim` :
+On peut utiliser n'importe quel caractère : lettres, chiffres,
+caractères accentués, émojis et même des sinogrammes ou des kanjis.
+Autrement dit, il n'y a pas de limite.
+Les environnements d'exécution se représente les caractères au format
+UTF-16 (tables de stockage Unicode sur 16 bits de données).
+
+Il est fréquent d'avoir à _concaténer_ des chaînes de caractères,
+ou à les composer à partir d'une autre variable.
 
 [source%interactive,javascript]
+.string/concat.js
 ----
-'  w w w  '.trim(); <1>
+include::{sourceDir}/string/concat.js[]
 ----
-<1> Retourne `'w w w'`.
 
-On peut connaître la position d'un ou plusieurs caractères via la méthode `indexOf` :
+Toute chaîne de caractères offre un ensemble
+d'_attributs_ (`.quelque-chose`)
+et de _méthodes_ (`.autre-chose()`) pour en savoir plus
+sur la chaine mais aussi pour la manipuler.
+
+Par exemple, on peut connaître la longueur d'une chaîne via son attribut `length`.
 
 [source%interactive,javascript]
+.string/length.js
 ----
-'I ♥ JavaScript'.indexOf('JavaScript'); <1>
-'I ♥ JavaScript'.indexOf('I'); <2>
-'I ♥ JavaScript'.indexOf('?'); <3>
+include::{sourceDir}/string/length.js[]
+----
+<1> Affiche `14` ;
+<2> Affiche `0`.
+
+On peut aussi accéder à un caractère spécifique en utilisant
+la chaîne comme un tableau, ou en utilisant une méthode dédiée :
+
+[source%interactive,javascript]
+.string/char-at.js
+----
+include::{sourceDir}/string/char-at.js[]
+----
+<1> Affiche `N` ;
+<2> Affiche `o`.
+
+Deux autres fonctions transforment
+un texte en lettres minuscules et majuscules :
+
+[source%interactive,javascript]
+.string/lower-upper-case.js
+----
+include::{sourceDir}/string/lower-upper-case.js[]
+----
+<1> Affiche `node.js` ;
+<2> Affiche `NODE.JS`.
+
+D'autres fonctions nettoient ou complètent les espaces autour,
+au début ou à la fin d'une chaîne de caractères :
+
+[source%interactive,javascript]
+.string/trim-pad.js
+----
+include::{sourceDir}/string/trim-pad.js[]
+----
+<1> Afiche `Node.js` ;
+<2> Afiche `Node.js  ` ;
+<3> Afiche `  Node.js` ;
+<4> Afiche `BARCGB22XXX` ;
+
+Dans cet exemple, la méthode `padEnd` complète jusqu'à `11` caractères,
+avec le caractère `X`.
+La méthode `padStart` fait la même chose mais avec le début de la chaîne.
+
+`indexOf` retourne la position de la _première occurence_
+dans une chaîne.
+Si la valeur n'est pas trouvée, elle renvoie la valeur `-1`.
+À l'inverse, `lastIndexOf` retournera la dernière occurence trouvée :
+
+[source%interactive,javascript]
+.string/index-of.js
+----
+include::{sourceDir}/string/index-of.js[]
 ----
 <1> Retourne `4` ;
-<2> Retourne `0` ;
-<3> Retourne `-1`, aucune occurrence n'ayant été trouvée.
+<2> Retourne `-1` — aucune occurrence n'ayant été trouvée ;
+<3> Retourne `5` — première occurence de la lettre `a` ;
+<4> Retourne `7` — dernière occurence de la lettre `a`.
 
 [[regexp]]
 === Expressions régulières
