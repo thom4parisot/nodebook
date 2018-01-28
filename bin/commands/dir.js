@@ -12,8 +12,8 @@ const DEFAULTS_OPEN = {
 };
 
 module.exports = {
-  command: 'open <chapter>',
-  desc: 'Ouvre les examples d\'un chapitre.',
+  command: 'dir <chapter>',
+  desc: 'Affiche le chemin vers les exemples d\'un chapitre.',
   builder: (yargs) => {
     return yargs
       .positional('chapter', {
@@ -24,8 +24,6 @@ module.exports = {
   handler: (args) => {
     const {chapter} = args;
 
-    console.log(chapter)
-
-    opn(dir(chapter), { wait: false, app: 'terminal' })
+    console.log(dir(chapter));
   }
 };
