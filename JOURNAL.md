@@ -16,11 +16,30 @@ Pour en savoir plus: [annonce la résidence itinérante](https://oncletom.io/201
 - ça a l'air d'aller assez loin tout en restant progressif et pédagogique
 - j'ai bien aimé que ça parle d'histoire et d'architecture
 - j'ai l'impression qu'on peut faire les mêmes choses que dans d'autres langages
+- pouvoir sortir tous les trucs que j'avais dans la tête sur http : écrire ce qui était implicite dans ma tête
+- j'ai l'impression d'aller beaucoup plus vite que seul pour sortir des choses complexes
+- zero préparation : facile à faire
+- refaire ce genre d'exercice avec d'autres volontaire
+- video proj marche très bien : l'outil de base d'un développeur ne devrait pas être un écran mais un vidéoproj
+- voir le processuss intellectuel de Philippe
+- voir que le chemin à faire pour aller vers des corrections n'était pas énorme
+- ennième confirmation de l'approche par étapes régulière plutôt qu'une liste de course / théorique / api (approche des autres bouquins)
+- vu tous ces points qui manquent de clarté.
+- je vois des patterns émmerger
+- je vais pouvoir les découvrir par moi-même
 
 ### Ce qui pourrait être amélioré
 
 - mettre 2 paires de chaussettes — il fait frais
 - suggestions faites au fur et à mesure et bientôt saisies en _issue_
+- on les a amélioré en cours de route ou mis sur des post-it
+- prochaine fois avoir des choses à manger (chocolatines ...)
+
+### Ce que j'ai appris
+
+- appris à donner de l'improtance à fragmenter les exemples
+- mieux identifier l'objectif pédagogique des exemples. Garder le message clair et pas dilué. Se concentrer sur le message.
+- 6 heures ça passe vite et c'est pas assez
 
 ### Qu'est-ce que ça te donnerait envie de faire ou d'apprendre une prochaine fois
 
