@@ -2,9 +2,43 @@
 
 Pour en savoir plus: [annonce la résidence itinérante](https://oncletom.io/2017/residence-nodejs/) et [résumé de la résidence itinérante](https://oncletom.io/2017/without-a-home/) (en anglais).
 
+## Dimanche 28 janvier • Rétrospective avec [Philippe Blayo][]
+
+### Ce qui t'a plu ?
+
+- faire du JavaScript
+- faire du Node
+- la prise en compte des retours au fur et à mesure ; je m'adaptais au rythme, corriger les pensées
+- faire du nvm ; j'ai appris à switcher entre versions de Node et npm
+- j'ai appris la syntaxe de destructuring, de spread, spécifier un élément d'une map (élégant comme annoncé)
+- le cadre c'était cool (projeter sur un mur, les échanges sur le dispositif)
+- caractère inclusif du contenu
+- ça a l'air d'aller assez loin tout en restant progressif et pédagogique
+- j'ai bien aimé que ça parle d'histoire et d'architecture
+- j'ai l'impression qu'on peut faire les mêmes choses que dans d'autres langages
+
+### Ce qui pourrait être amélioré
+
+- mettre 2 paires de chaussettes — il fait frais
+- suggestions faites au fur et à mesure et bientôt saisies en _issue_
+
+### Qu'est-ce que ça te donnerait envie de faire ou d'apprendre une prochaine fois
+
+- de lire les chapitres Histoire et/ou Architecture
+- de creuser l'aspect littéraire, d'utiliser des mots qu'on n'emploie pas forcément pour parler de technique — c'est un langage qui a besoin de ça (c'est le plus utilisé dans le monde), et en montrant ses bons côtés
+- quel rapport entre ce qui se passe dans le navigateur et dans Node ? (cf. `console.log`) Elles sont où les différences ? Est-ce que je pourrai manipuler du DOM dans Node ? Où sont les frontières ? Comment on crée un DOM sans navigateur ?
+
+### Est-ce que tu as des questions ou des choses qui t'interrogent ?
+
+- j'aimerais en savoir plus sur le parcours en itinérance que tu as fait l'an dernier
+- est-ce que je peux parler du dispositif, en parler sur twitter ?
+
 ## Samedi 27 janvier
 
 - _Chapitre 3_ : Manipuler du texte
+- _Chapitre 3_ : Expressions régulières
+
+**Météo** : 🙂
 
 ## Vendredi 26 janvier
 
@@ -690,3 +724,4 @@ Merci [@BetaGouv](https://github.com/sgmap) pour le coin de bureau 👋
 [matlo]: https://twitter.com/matlo
 [dtc]: https://dtc-innovation.org/
 [mob programming]: https://en.wikipedia.org/wiki/Mob_programming
+[Philippe Blayo]: https://twitter.com/pblayo
