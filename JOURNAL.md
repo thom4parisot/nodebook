@@ -23,7 +23,7 @@ Pour en savoir plus: [annonce la résidence itinérante](https://oncletom.io/201
 - video proj marche très bien : l'outil de base d'un développeur ne devrait pas être un écran mais un vidéoproj
 - voir le processuss intellectuel de Philippe
 - voir que le chemin à faire pour aller vers des corrections n'était pas énorme
-- ennième confirmation de l'approche par étapes régulière plutôt qu'une liste de course / théorique / api (approche des autres bouquins)
+- ennième confirmation de l'approche par étapes régulières plutôt qu'une liste de course / théorique / api (approche des autres bouquins)
 - vu tous ces points qui manquent de clarté.
 - je vois des patterns émmerger
 - je vais pouvoir les découvrir par moi-même
@@ -37,8 +37,8 @@ Pour en savoir plus: [annonce la résidence itinérante](https://oncletom.io/201
 
 ### Ce que j'ai appris
 
-- appris à donner de l'improtance à fragmenter les exemples
-- mieux identifier l'objectif pédagogique des exemples. Garder le message clair et pas dilué. Se concentrer sur le message.
+- appris à donner de l'importance à fragmenter les exemples
+- mieux identifier l'objectif pédagogique des exemples. Garder le message clair et pas dilué. Se concentrer sur ce message.
 - 6 heures ça passe vite et c'est pas assez
 
 ### Qu'est-ce que ça te donnerait envie de faire ou d'apprendre une prochaine fois
