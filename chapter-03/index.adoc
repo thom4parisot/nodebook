@@ -732,9 +732,9 @@ Un booléen est une donnée de type logique qui peut être _vraie_ ou _fausse_ e
 C'est un type de choix pour effectuer des _assertions_ et vérifier des _conditions_.
 
 [source%interactive,javascript]
-.bool.js
+.boolean/bool.js
 ----
-include::{sourceDir}/bool.js[]
+include::{sourceDir}/boolean/bool.js[]
 ----
 <1> Affiche `3` ;
 <2> Affiche `true` car la condition est vérifiée ;
@@ -748,9 +748,9 @@ On dit alors que cette valeur est `truthy`.
 À l'inverse, une valeur nulle, vide ou indéfinie sera dite `falsy` – `null`, `0`, `''`, `undefined`, `false` et `NaN`.
 
 [source%interactive,javascript]
-.bool-truthy-falsy.js
+.boolean/truthy-falsy.js
 ----
-include::{sourceDir}/bool-truthy-falsy.js[]
+include::{sourceDir}/boolean/truthy-falsy.js[]
 ----
 <1> Affiche `false` car il s'agit d'une _chaîne vide_ convertie en booléen ;
 <2> Affiche `true` car il s'agit d'un _nombre différent de 0_ converti en booléen ;
@@ -985,9 +985,9 @@ La méthode `join` permet de concaténer tous les éléments d'un tableau avec l
 À l'inverse, la méthode `from` prend en charge la création de tableau à partir d'_itérables_ ou de structures similaires à des tableaux, comme `arguments` ou `NodeList` (dans un navigateur).
 
 [source%interactive,javascript]
-.primivite-array-from.js
+.array/from.js
 ----
-include::{sourceDir}/array-from.js[]
+include::{sourceDir}/array/from.js[]
 ----
 <1> Retourne `[ 'c', 'a', 'm', 'e', 'm', 'b', 'e', 'r', 't' ]` ;
 <2> Retourne `[ 1, 'b', 3, 'd' ]` ;
@@ -997,7 +997,7 @@ En complément, la méthode `concat` permet de concaténer d'autres éléments :
 
 [source%interactive,javascript]
 ----
-include::{sourceDir}/array-concat.js[]
+include::{sourceDir}/array/concat.js[]
 ----
 <1> Retourne `[ 1, 2, 3 ]` ;
 <2> Retourne `[ 1, 2, 3, 4 ]` ;
@@ -1022,18 +1022,18 @@ Elles facilitent énormément les itérations sur les tableaux tout en ajoutant 
 La méthode `map` permet de retourner un nouveau tableau avec des valeurs modifiées :
 
 [source%interactive,javascript]
-.array-map.js
+.array/map.js
 ----
-include::{sourceDir}/array-map.js[]
+include::{sourceDir}/array/map.js[]
 ----
 <1> Retourne `['A', 'B', 'C']`.
 
 La méthode `filter` quant à elle retourne un nouveau tableau ne contenant que les éléments retournant un <<primitive-boolean,booléen _truthy_>> :
 
 [source%interactive,javascript]
-.array-filter.js
+.array/filter.js
 ----
-include::{sourceDir}/array-filter.js[]
+include::{sourceDir}/array/filter.js[]
 ----
 <1> Retourne `[1, 0]` ;
 <1> Retourne `[1, 'a', 120]`.
@@ -1041,9 +1041,9 @@ include::{sourceDir}/array-filter.js[]
 De manière similaire, les méthodes `some` et `every` retournent un booléen si _au moins une itération_ et _toutes les itérations_ ont renvoyé une _valeur positive_ :
 
 [source%interactive,javascript]
-.array-some.js
+.array/some.js
 ----
-include::{sourceDir}/array-some.js[]
+include::{sourceDir}/array/some.js[]
 ----
 <1> Renvoie `true` puisqu'au moins une valeur équivaut à `undefined` ;
 <2> Renvoie `false` puisque toutes les valeurs n'équivalent pas à `undefined` ;
@@ -1052,9 +1052,9 @@ include::{sourceDir}/array-some.js[]
 ECMAScript 2015 introduit les méthodes `find` et `findIndex`, respectivement pour retourner une valeur et son index selon une fonction prédicat :
 
 [source%interactive,javascript]
-.array-find.js
+.array/find.js
 ----
-include::{sourceDir}/array-find.js[]
+include::{sourceDir}/array/find.js[]
 ----
 <1> Valeur que l'on recherche ;
 <2> Affiche `stram` (valeur recherchée) ;
@@ -1063,9 +1063,9 @@ include::{sourceDir}/array-find.js[]
 La méthode `reduce` a un comportement similaire à `sort` mais fonctionne de manière accumulative :
 
 [source%interactive,javascript]
-.array-reduce.js
+.array/reduce.js
 ----
-include::{sourceDir}/array-reduce.js[]
+include::{sourceDir}/array/reduce.js[]
 ----
 <1> Affiche `21` ;
 <2> Affiche `[9, 12]`.
@@ -1580,9 +1580,9 @@ Ce mécanisme nommé _tagged template literals_ sert de filtre pour interpréter
 L'exemple suivant illustre une sécurisation de contenu tiers à l'aide de la fonction `safeHtml` fournie par le module `common-tags` ([URL]#https://npmjs.com/common-tags#) :
 
 [source%interactive,javascript]
-.primivite-template-literal-tags.js
+.template/literal-tags.js
 ----
-include::{sourceDir}/tagged-template-literals.js[]
+include::{sourceDir}/template/tagged-literals.js[]
 ----
 <1> Affiche `<div class="user-content">\n<script>alert(document.cookie)</script>\n</div>` ;
 <2> Affiche `<div class="user-content">\n\&lt;script\&gt;alert(document.cookie)\&lt;/script\&gt;\n</div>`.

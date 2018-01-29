@@ -33,7 +33,7 @@ module.exports = function bash$Extension () {
   });
 
   this.docinfoProcessor(function(){
-    this.process(doc => {
+    this.process(() => {
       return `<style type="text/css">
 .listingblock .dollar::before{
   content: "$ ";
