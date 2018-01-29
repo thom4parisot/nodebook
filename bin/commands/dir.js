@@ -1,29 +1,24 @@
 'use strict';
 
-const {spawn} = require('child_process');
 const {join} = require('path');
-const opn = require('opn');
 const {list,dir} = require('./chapters');
-
-const DEFAULTS_OPEN = {
-  stdio: 'inherit',
-  env: process.env,
-  shell: true
-};
 
 module.exports = {
   command: 'dir <chapter>',
-  desc: 'Affiche le chemin vers les exemples d\'un chapitre.',
+  desc: 'Affiche le chemin vers un chapitre.',
   builder: (yargs) => {
     return yargs
       .positional('chapter', {
         type: 'string',
         choices: list,
-      });
+      })
+      .option('examples', {
+        describe: 'Affiche le répertoire des exemples',
+      })
   },
   handler: (args) => {
-    const {chapter} = args;
+    const {chapter,examples} = args;
 
-    console.log(dir(chapter));
+    console.log(join(dir(chapter), examples ? 'examples' : ''));
   }
 };

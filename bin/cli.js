@@ -13,8 +13,10 @@ yargs
   .usage('nodebook')
   .example('nodebook install chapter-04', 'Installe les dépendances du chapitre 4')
   .example('nodebook install all', 'Installe les dépendances de tous les chapitres')
-  .example('nodebook open chapter-04', 'Ouvre le chapitre 4 dans un explorateur de fichiers')
+  .example('cd $(nodebook dir chapter-04)', 'Place le terminal dans le répertoire du chapitre 4')
+  .example('cd $(nodebook dir chapter-04 --examples)', 'Place le terminal dans le répertoire d\'exemples du chapitre 4')
   .demandCommand(1)
   .strict()
+  .locale('fr')
   .help()
   .argv;

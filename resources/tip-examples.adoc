@@ -9,20 +9,21 @@ Ils sont fonctionnels et destinés à être exécutés sur votre ordinateur :
 ----
 $ npm install --global nodebook
 $ nodebook install {chapterId}
-$ cd $(nodebook dir {chapterId})
-$ node {sourceDir}/{sourceSample}
+$ cd $(nodebook dir {chapterId} --examples)
+$ node {sourceSample}
 ----
 
 ifdef::httpRoot[]
-Certains exemples de ce chapitre correspondent à des pages HTML destinées à être utilisées dans des navigateurs web modernes comme Firefox, Chrome, Edge ou encore Safari.
+Certains exemples de ce chapitre correspondent à des pages HTML.
+Elles sont destinées à être vues dans un navigateur web
+— comme Firefox, Chrome, Edge ou encore Safari.
 
-Ils sont accessible en démarrant le serveur web dédié aux exemples de de chapitre :
+Les exemples sont accessible en démarrant le serveur web de la manière suivante :
 
 [subs="attributes"]
 ----
-$ nodebook open {chapterId}
+$ cd $(nodebook dir {chapterId})
 $ npm start
-$ open {httpRoot}
 ----
 endif::[]
 ====

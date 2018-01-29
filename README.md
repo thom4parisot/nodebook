@@ -43,30 +43,33 @@ Cette commande télécharge une copie du livre, les exemples associés ainsi que
 Le livre s'installe de cette manière, via un terminal :
 
 ```bash
-$ npm install --global nodebook@latest
+$ npm install --global nodebook
 ```
 
 Une fois installé, le manuel d'utilisation s'invoque de cette manière :
 
 ```bash
 $ nodebook --help
-nodebook
 
-Commands:
-  nodebook chapters [list]        Liste les chapitres de l'ouvrage.
+Commandes:
+  nodebook chapters               Liste les chapitres de l'ouvrage.
+  nodebook dir <chapter>          Affiche le chemin vers un chapitre.
   nodebook install <chapter|all>  Installe les dépendances d'un chapitre.
-  nodebook open <chapter>         Ouvre les examples d'un chapitre.
   nodebook read                   Démarre la lecture du livre au format HTML
 
 Options:
-  --version  Show version number                                       [boolean]
-  --help     Show help                                                 [boolean]
+  --version  Affiche le numéro de version                              [booléen]
+  --help     Affiche de l'aide                                         [booléen]
 
-Examples:
-  nodebook install chapter-04  Installe les dépendances du chapitre 4
-  nodebook install all         Installe les dépendances de tous les chapitres
-  nodebook open chapter-04     Ouvre le chapitre 4 dans un explorateur de
-                               fichiers
+Exemples:
+  nodebook install chapter-04               Installe les dépendances du chapitre
+                                            4
+  nodebook install all                      Installe les dépendances de tous les
+                                            chapitres
+  cd $(nodebook dir chapter-04)             Place le terminal dans le répertoire
+                                            du chapitre 4
+  cd $(nodebook dir chapter-04 --examples)  Place le terminal dans le répertoire
+                                            d'exemples du chapitre 4
 ```
 
 # Contribuer

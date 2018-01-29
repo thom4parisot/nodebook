@@ -1,7 +1,6 @@
 'use strict';
 
 const {spawn} = require('child_process');
-const {join} = require('path');
 const {list,dir} = require('./chapters');
 
 const DEFAULTS_OPEN = {
