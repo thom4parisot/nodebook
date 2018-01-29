@@ -34,15 +34,56 @@ include::../resources/tip-examples.adoc[]
 
 toc::[]
 
-== Création d'un serveur HTTP
+== Comment ça marche HTTP ?
 
-=== Le modèle requête/réponse
+Une personne qui vient de PHP + Apache
+--> pourquoi lancer un serveur ?
+Parce que moi j'ai Apache qui fait déjà ça pour moi.
+J'ai mon fichier index.php et ensuite Symfony fait le reste.
 
-TBD.
+- la page PHP est interpétée le temps de la requête, puis tout est mis à la poubelle (en terme de mémoire, donc les valeurs des variables)
+- j'ai apache ou nginx devant, j'ai pas besoin d'un serveur web
+- modèle Apache + script ou Apache + port
+- pourquoi Apache lancerait pas un script Node comme il ferait avec php ?
+  - on cherche à s'éloigner du modèle où on recrée et détruit tout à chaque requête
+  - c'est rassurant parce que ça encapsule
+  - mais le coût il est en terme de perf (charger tous les modules, résoudre les chemins, connecter à la base de données, i/o disque/réseau), pour chaque requête, et donc en terme de perception de l'autre côté de la ligne : le spinner il tourne côté navigateur
+  - au bout de combien de temps un utilisateur quitte un site web s'il ne voit rien s'afficher ?
+  - stats sur la perception d'instantanéité (400ms de Halt & Catch Fire), observé en publicité, effondrement du taux de clic
+  - plus intéressant de servir "à chaud" (réduire les ressources et temps de calcul avant de pouvoir commencer à effectivement traiter la requête)
 
-=== Démarrer un serveur HTTP
+- quand une requête arrive ça veut dire quoi
+  - browser : GET http://monsite.com
+  - montrer une requête HTTP brute
+  - surprise : c'est que du texte
+  - c'est interprété de deux côtés : par le client (programme qui demande, adresse une requête -- un navigateur web c'est un type de client) et le serveur (programme qui reçoit et renvoie des réponses)
+  - et une réponse ça ressemble à quoi ?
+    - dans la réponse y'a un statut (200, etc) (c'est pour ça 404)
+    - dans la réponse y'a un type de contenu (Content-Type)
+    - le corps de la réponse peut être du texte, qui suit un certain format (HTML, texte, XML, JSON, image/jpg, image/png)
+  - le client interprète en fonction de ses capacités et d'hypothèses pragmatiques
+    - un navigateur web : il interprète le HTML, l'affiche, et demande les ressources listées dans les différentes balises (img, video, audio)
+      - fait autant de requêtes que nécessaire pour les obtenir et les afficher
+      - attention s'il y en a trop, ça fait le même effet que retirer un courier à la Poste à la mauvaise heure
+      - le poids des ressources à transférer a un impact (plus c'est lourd, plus c'est gros, plus c'est long à charger — c'est amplifié par la qualité et le débit de la connexion Internet)
+      - [TIP] : les WebView ce sont des navigateurs web, genre pour iOS, Android etc.
+    - un client en ligne de commande (curl, wget) : il n'interpète pas, récupère juste
+      - c'est utilisé pour faire du scrapping
+      - c'est utilisé pour donner ça à d'autres programmes (enjoliver le résultat, extraire des informations)
+      - voir au chapitre 8 pour en savoir plus sur le fonctionnement d'applications en ligne de commande
 
-TBD.
+# Et si je devais créer un serveur web, comment ça se passe ?
+- distingo serveur web/serveur http ? (pas sûr que ça vaille le coup/coût à ce stade là)
+- c'est quoi cette histoire d'ouvrir un port pour lancer un serveur ?
+
+- dans le cas de formulaire, le client _envoie_ des informations en même temps que la requête
+  - comme on est dans un format texte, il faut l'interpréter le parser
+
+- les trucs auxquels il faut faire gaffe
+  - qu'est-ce qui occupe de la mémoire ?
+  - ça a d'autant plus d'impact qu'on est sur des processus longs (aka programme qui tourne en continu — le serveur web)
+  - donc si on nettoie pas (ce qu'on ouvre, si on charge tout d'un coup), les ressources disponibles diminuent jusqu'au plantage
+
 
 ////
 Et https ?
