@@ -16,8 +16,8 @@ endif::[]
 
 = Installer, mettre à jour et développer
 
-Il y a plusieurs manières de se préparer à utiliser Node sur un ordinateur.
-On pourra ainsi choisir notre chemin en fonction de notre aisance, que l'on soit débutant·e ou confirmé·e.
+Selon que tu sois débutant·e ou confirmé·e, il y aura une manière
+d'installer Node qui te correspond.
 
 Ce chapitre contient tout ce qu'il faut savoir pour utiliser Node sur notre ordinateur et se préparer à développer notre premier programme.
 
@@ -35,7 +35,7 @@ que Node est un _environnement d'exécution JavaScript_.
 
 Certains systèmes d'exploitation embarquent l'environnement d'exécution Node.
 D'autres ne le font pas.
-Et d'autres embarquent Node mais dans une version bien plus ancienne que la {nodeCurrentVersion}.
+Et d'autres embarquent Node mais dans une version trop ancienne.
 Voire avec une configuration exotique dont il est difficile de connaître les tenants et aboutissants.
 Idéalement, on voudrait pouvoir *installer la version de Node de notre choix* sur notre ordinateur.
 
@@ -44,6 +44,8 @@ en ajoutant de la couleur et des repères visuels.
 Ces logiciels nous invitent à piocher dans leur bibliothèque d'extensions
 pour en faire un outil qui nous ressemble.
 --
+
+include::../resources/tip-versions.adoc[]
 
 toc::[]
 
@@ -150,10 +152,10 @@ image::images/cloud9-workspace.png[align="center", width="85%"]
 Ça tombe bien, <<nvm,nvm>> est préinstallé sur chaque espace de travail.
 
 [[nvm]]
-=== Node Version Manager (_nvm_)
+=== Plusieurs versions sur la même machine (_nvm_)
 
 _nvm_ est l'acronyme de _Node Version Manager_.
-Ce logiciel permet d'*installer les versions de Node de son choix*, en parallèle et sur un même ordinateur. +
+Ce logiciel permet d'*installer plusieurs versions de Node sur un même ordinateur*. +
 Si vous êtes sous Windows, l'alternative <<nvm-windows,_nvm-windows_>> offrira exactement les mêmes fonctionnalités (voir encadré ci-après).
 
 Si vous venez d'un autre univers de programmation,
@@ -181,7 +183,7 @@ Deux autres alternatives sont à essayer si _nvm-windows_ pose problème :
 [source,bash,subs="attributes"]
 .Commande d'installation du logiciel nvm {nvmVersion}
 ----
-$ curl -o- https://raw.githubusercontent.com/creationix/nvm/{nvmVersion}/install.sh | bash
+$ curl -L https://github.com/creationix/nvm/raw/{nvmVersion}/install.sh | bash
 ----
 
 [TIP]
@@ -436,21 +438,36 @@ Les installeurs et instructions d'installation de Docker se trouvent à l'adress
 Une fois Docker installé, on peut exécuter une image officielle pour Node {vDotX} :
 
 [source,bash,subs="attributes"]
+.Affiche la version de Node
 ----
 $ docker run -ti --rm node:{v} node --version
+{vX}
 ----
 
 Docker télécharge l'image `node:{v}` et exécute la commande `node --version` dans un contexte isolé du système d'exploitation.
 
+Pour lancer un terminal Node dans Docker, il faudrait saisir cette commande :
+
+[source,bash,subs="attributes"]
+----
+$ docker run -ti --rm node:{v} node
+> 2+2
+4
+----
+
 Plusieurs variantes par version de Node se trouvent à notre disposition :
 
-- _standard_ (`node:<version>`) : base Linux Debian pour tout type d'applications Node ;
-- _Debian_ (`node:<version>-wheezy`) : idem que _standard_ mais sur des bases Debian différentes, comme _Wheezy_, _Stretch_, etc. ;
-- _Alpine_ (`node:<version>-alpine`) : base minimaliste Linux Alpine ([URL]#http://alpinelinux.org/#) — utile si vous souhaitez économiser de l'espace disque ;
-- _allégée_ (`node:<version>-slim`) : base Linux Debian sans outillage parfois nécessaires à des modules Node — utile si vous souhaitez économiser de l'espace disque.
+_standard_ (`node:{v}`)::
+  base Linux Debian pour tout type d'applications Node ;
+_Debian_ (`node:{v}-wheezy`)::
+  idem que _standard_ mais sur des bases Debian différentes, comme _Wheezy_, _Stretch_, etc. ;
+_Alpine_ (`node:{v}-alpine`)::
+  distribution spécialement créée pour Docker ([URL]#http://alpinelinux.org#) — elle pèse quelques Mo à peine ;
+_allégée_ (`node:{v}-slim`)::
+  base Linux Debian sans outillage parfois nécessaires à des modules Node — utile si vous souhaitez économiser de l'espace disque.
 
 L'intégralité des versions et architectures supportées est disponible sur le _Docker Hub_ : [URL]#https://hub.docker.com/_/node/#. +
-Nous nous repencherons sur Docker dans la section  <<../chapter-06/index.adoc#immutable-deploy,_Déploiement immutable_>> du Chapitre 6.
+Nous nous repencherons sur Docker dans la section  <<../chapter-06/index.adoc#immutable-deploy,déploiement immutable>> du Chapitre 6.
 
 [[shell]]
 == Utiliser Node.js avec un terminal (_shell_)
