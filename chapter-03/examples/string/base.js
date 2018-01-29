@@ -1,4 +1,9 @@
-const single = 'L\'après-midi\nLe soir';  // <1>
-const double = "L'après-midi\nLe soir";   // <2>
-const multi = `L'après-midi
-Le soir`;                                 // <3>
+// Utilisation de guillemets simples
+console.log('L\'après-midi\nLe soir');  // <1>
+
+// Utilisation de guillemets doubles
+console.log('L\'après-midi\nLe soir');   // <2>
+
+// Utilisation de guillemets obliques
+console.log(`L'après-midi
+Le soir`);                              // <3>

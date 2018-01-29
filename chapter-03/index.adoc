@@ -443,10 +443,11 @@ c'est que la variable `secret` de type fonction a une portée globale
 au script en question.
 Qu'en-est-il de la variable `mot` encapsulée dans cette fonction ?
 
-On pourrait le résumer ainsi : ce qui est défini _en dehors_ d'une fonction
-est accessible _à l'intérieur_ d'une fonction.
-Mais pas l'inverse : la variable `mot` est définie dans la fonction `secret`
+On pourrait le résumer ainsi :
+la variable `mot` est définie dans la fonction `secret`
 et n'est donc pas accessible en dehors de la portée de la fonction.
+À l'inverse, ce qui est défini _en dehors_ d'une fonction
+est accessible _à l'intérieur_ d'une fonction.
 
 La portée de la variable `mot` est locale à la fonction `secret`.
 
@@ -591,19 +592,55 @@ include::{sourceDir}/string/index-of.js[]
 <4> Retourne `7` — dernière occurence de la lettre `a`.
 
 [[regexp]]
-=== Expressions régulières
+=== Expressions régulières (_RegExp_)
 
-Les expressions régulières en JavaScript permettent de pratiquer des recherches de motifs simples et complexes au sein de chaînes de caractères.
-Elles sont inspirées de l'implémentation dans Perl 5.
+Si `indexOf` et `lastIndexOf` identifient des caractères exacts,
+comment faire lorsque l'on souhaite chercher de manière approximative,
+plusieurs fois et selon certaines conditions ?
 
-L'opérateur `instanceof` permet d'identifier une instance d'expression régulière :
+Les _expressions régulières_ (_RegExp_, pour _Regular Expressions_)
+entrent en jeu dans ces cas plus avancés.
+Leur mécanisme décrit des _motifs_ à identifier.
+Plusieurs _méthodes_ servent ensuite à tester, identifier et remplacer
+ces motifs au sein d'une chaîne de caractères.
+
+[TIP]
+.[RemarquePreTitre]#Anecdote# RegExp et Perl
+====
+La syntaxe d'expressions régulières est inspirée de celle du langage
+de programmation _Perl_ ([URL]#https://www.perl.org#) dans sa version 5.
+====
+
+Une expression régulière est décrite le plus souvent en tant que motif
+encadré par les caractères `/` (_slash_), suffixé d'_options_ exprimées sous forme de lettres :
 
 [source%interactive,javascript]
+.regexp/base.js
 ----
-/Eyroll?es/g instanceof RegExp; <1>
-(new RegExp('Eyroll?es', 'g')) instanceof RegExp; <1>
+include::{sourceDir}/regexp/base.js[]
 ----
-<1> Retourne `true`.
+
+Cet exemple utilise l'option `i` mais il en existe plusieurs :
+
+[horizontal]
+insensible à la casse (`i`)::
+  On souhaite identifier du contenu, peu importe s'il est en majuscules ou non ;
+multi-ligne (`m`)::
+  La recherche s'effectue sur _toutes_ les lignes ;
+global (`g`)::
+  La recherche identifie _tous_ les résultats
+  — au lieu d'un seul et le premier ;
+unicode (`u`)::
+  À utiliser si le motif de recherche contient des caractères Unicode.
+
+[source%interactive,javascript]
+.regexp/flags.js
+----
+include::{sourceDir}/regexp/flags.js[]
+----
+<1> identifie le `Node` de `Node.js` — la recherche insensible à la casse ;
+<2> on combine deux options — `g` retourne _toutes_ les occurences.
+
 
 La méthode `exec` permet de capturer les occurrences d'une expression régulière au sein d'une chaîne de caractères :
 
@@ -686,15 +723,6 @@ On peut remplacer les occurrences correspondantes à un masque de caractères vi
 ----
 <1> Retourne `'I love JavaScript'` ;
 <2> Retourne `'i ♥ javascript'`.
-
-Les _template literals_ servent à composer des chaînes de caractères multilignes et/ou contenant des expressions ECMAScript :
-
-[source%interactive,javascript]
-.primivite-template-literals.js
-----
-include::{sourceDir}/template-literals.js[]
-----
-<1> Retourne `'I ♥ JavaScript.\nCet exemple se trouve dans le fichier "template-literals.js"'`.
 
 
 [[primitive-boolean]]
@@ -1062,7 +1090,7 @@ a.forEach(print); // <2>
 ====
 
 [[destructuring-arrays]]
-=== Décomposition (_[...]_)
+=== Décomposition de collection
 
 L'affectation par _décomposition_ (_destructuring_) est une manière élégante et intuitive de piocher dans un <<array,tableau>> ou dans un <<object,objet>>.
 La décomposition n'altère pas le contenu des variables décomposées.
@@ -1133,7 +1161,7 @@ include::{sourceDir}/object-keys.js[]
 <2> Affiche `[ 'name', 'services', 'internal_code' ]`.
 
 [[destructuring-objects]]
-=== Décomposition (_{...}_)
+=== Décomposition d'objet
 
 
 Le même mécanisme existe pour les <<object,objets>>, y compris dans des arguments de fonction :

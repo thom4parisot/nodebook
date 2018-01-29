@@ -6,5 +6,5 @@ function secret(){
   return 'None shall pass';
 }
 
-console.log(secret())
+console.log(secret());
 console.log(mot);
