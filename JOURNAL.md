@@ -2,6 +2,15 @@
 
 Pour en savoir plus: [annonce la résidence itinérante](https://oncletom.io/2017/residence-nodejs/) et [résumé de la résidence itinérante](https://oncletom.io/2017/without-a-home/) (en anglais).
 
+## Lundi 29 janvier
+
+- _Chapitre 3_ : Expressions régulières
+- _atelier_ : [session d'apprentissage de JavaScript au vidéoprojecteur][session-js-etalab]
+
+**Météo** : 🙂 💪 📽
+
+[session-js-etalab]: https://twitter.com/LoozBonita/status/957944103504883713
+
 ## Dimanche 28 janvier
 
 - _Chapitre 2_ : reformulations inclusives et rassurantes

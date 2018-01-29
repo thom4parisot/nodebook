@@ -567,10 +567,10 @@ au début ou à la fin d'une chaîne de caractères :
 ----
 include::{sourceDir}/string/trim-pad.js[]
 ----
-<1> Afiche `Node.js` ;
-<2> Afiche `Node.js  ` ;
-<3> Afiche `  Node.js` ;
-<4> Afiche `BARCGB22XXX` ;
+<1> Affiche `Node.js` ;
+<2> Affiche `Node.js{nbsp}{nbsp}` ;
+<3> Affiche `{nbsp}{nbsp}Node.js` ;
+<4> Affiche `BARCGB22XXX` ;
 
 Dans cet exemple, la méthode `padEnd` complète jusqu'à `11` caractères,
 avec le caractère `X`.
@@ -631,98 +631,158 @@ global (`g`)::
   La recherche identifie _tous_ les résultats
   — au lieu d'un seul et le premier ;
 unicode (`u`)::
-  À utiliser si le motif de recherche contient des caractères Unicode.
+  À utiliser si le motif de recherche exprime des séquences de caractères
+  Unicode sous la forme `\u{....}` (voir les _classes de caractères_ ci-après).
+
+Illustrons leur utilisation en _identifiant du texte_ répondant (`match`)
+à une _expression régulière_ (`/.../`) :
 
 [source%interactive,javascript]
 .regexp/flags.js
 ----
 include::{sourceDir}/regexp/flags.js[]
 ----
-<1> identifie le `Node` de `Node.js` — la recherche insensible à la casse ;
-<2> on combine deux options — `g` retourne _toutes_ les occurences.
+<1> identifie et affiche `Node`, l'occurence contenue dans le mot `Node.js` ;
+<2> affiche 2 fois `ode` — les occurences contenues dans le mot `Node.js` et `Anode` ;
+<3> affiche `Node` et `node` en combinant les deux options `i` et `g` — , les occurences contenues dans le mot `Node.js` et `Anode`.
 
+Des éléments de syntaxe complètent les options pour
+*identifier des motifs* au sein de chaînes de caractères :
 
-La méthode `exec` permet de capturer les occurrences d'une expression régulière au sein d'une chaîne de caractères :
-
-[source%interactive,javascript]
-----
-/(.+)(Script)/.exec('ECMAScript'); <1>
-----
-<1> Retourne `['ECMAScript', 'ECMA', 'Script']`.
-
-Plusieurs drapeaux peuvent être utilisés :
-
-- `g` pour chercher dans toute la chaîne et ne pas s'arrêter à la première occurrence trouvée ;
-- `i` pour ne pas tenir compte de la casse ;
-- `m` pour que les caractères `^` et `$` correspondent respectivement au début et à la fin d'une ligne au lieu du début et de la fin de la chaîne ;
-
-[source%interactive,javascript]
-----
-let re;
-const text = ['JavaScript', 'ECMAScript'].join("\n");
-
-re = /^([a-z]+)(Script)/;
-re.exec(text); <1>
-
-re = /^([a-z]+)(Script)/i;
-re.exec(text); <2>
-
-re = /([a-z]+)(Script)$/i;
-re.exec(text); <3>
-
-re = /([a-z]+)(Script)$/im;
-re.exec(text); <4>
-
-re = /^([a-z]+)(Script)$/gim;
-re.exec(text); <5>
-re.exec(text); <6>
-re.exec(text); <7>
-----
-<1> Retourne `null` ;
-<2> Retourne `['JavaScript', 'Java', 'Script']` ;
-<3> Retourne `['ECMAScript', 'ECMA', 'Script']` ;
-<4> Retourne `['JavaScript', 'Java', 'Script']`, puisque `$` correspond à la fin de ligne et non la fin de chaîne ;
-<5> Retourne `['JavaScript', 'Java', 'Script']` ;
-<6> Retourne `['ECMAScript', 'ECMA', 'Script']` puisque le curseur a effectué la recherche après la position de la précédente occurrence ;
-<7> Retourne `null` puisque le curseur a rencontré la fin de la chaîne ;
-
-[CAUTION]
-.[RemarquePreTitre]#Remarque# Gare à la réutilisation de l'objet _RegExp_ !
-====
-Vous l'aurez remarqué avec le drapeau `g`, le comportement de la méthode `exec` peut renvoyer un résultat différent à chaque appel.
-
-Il faut juste veiller à ce que ce soit un résultat escompté pour éviter tout effet de bord dans vos applications.
-====
-
-À la manière de `exec`, la méthode `test` se contente de renvoyer un booléen si un motif a été trouvé ou non :
+ensemble de caractères (entre `[` et `]`)::
+  Liste l'ensemble des caractères recherchés.
+  Le caractère `-` correspond à une plage de caractère. +
+  Exemple `[a-d]` correspond à `[abcd]`, donc _a_ ou _b_ ou _c_ ou _d_) ;
+nombre de caractères (entre `{` et `}`)::
+  Répète un caractère ou ensemble de caractères,
+  _exactement_ (`{2}` — exactement 2)
+  _au moins_ (`{2,}` — au moins 2)
+  ou _entre_ (`{1,2}` — entre 1 et 2 fois) ;
+nombre de caractères (`?`, `+` et `*`)::
+  Version raccourcie du nombre de caractères pour des besoins usuels :
+  _0 ou 1 caractères_ avec `?`,
+  _1 caractère et plus_ avec `+` et
+  _0 caractères et plus_ avec `*`.
 
 [source%interactive,javascript]
+.regexp/syntax.js
 ----
-/(.+)(Script)/.test('ECMAScript'); <1>
+include::{sourceDir}/regexp/syntax.js[]
 ----
-<1> Retourne `true`.
+<1> Affiche `["75"]` — les 2 premiers caractères numériques de la chaîne ;
+<2> Affiche `["75015"]` – les 5 premiers caractères numériques (satisfait la condition `5` de _entre 2 et 5_ de `{2,5}`) ;
+<3> Affiche `["75015 Paris"]` ;
+<4> Affiche `["75015 Paris"]` — l'option `i` nous permet de nous passer de l'ensemble `A-Z` ;
+<5> Affiche `["92410 Ville"]` — capture les caractères jusqu'à ce que la condition ne soit plus remplie en rencontrant le _trait d'union_ (`-`) ;
+<6> Affiche `["92410 Ville-d'Avray"]` ;
 
-On peut collecter les occurrences correspondantes à un masque de caractères via la méthode `match` :
+D'autres opérateurs *délimitent notre recherche* :
+
+début et fin de chaîne (`^` et `$`)::
+  Symbolise le début (`^`) ou la fin (`$`) d'une chaîne de caractères. +
+  Quand l'option multi-ligne (`m`) est utilisée, les notions de _début_
+  et de _fin_ s'appliquent au niveau de la _ligne_ ;
+limite de mot (`\b`)::
+  Symbolise tout caractère ne faisant pas partie d'un mot, y compris le début ou la fin d'une chaîne ;
+ou (`|`)::
+  Sépare deux choix l'un de l'autre.
+  Exemple : `/noir|blanc/` ;
+groupe de capture (entre `(` et `)`)::
+  Délimite un groupe de caractères.
+  Les groupes peuvent par la suite être _identifiés_ et _remplacés_. +
+  On notera également que l'emploi des _groupes_ change
+  la structure des résultats en un tableau de plusieurs éléments.
+  Ce tableau a la forme `["chaine identifiée", "groupe 1", "groupe 2", ...]`.
+
 
 [source%interactive,javascript]
+.regexp/limits.js
 ----
-'I ♥ JavaScript'.match('♥'); <1>
-'I ♥ JavaScript'.match(/\wa/g); <2>
-'I ♥ JavaScript'.match('!'); <3>
+include::{sourceDir}/regexp/limits.js[]
 ----
-<1> Retourne `['♥']` ;
-<2> Retourne `['Ja', 'va']` ;
-<3> Retourne `null`.
+<1> Affiche `["75015 Paris"]` ;
+<2> Affiche `["75015 Paris", "75015"]`
+— le premier élément correspond à la chaîne identifiée tandis que
+le second élément correspond au _premier_ groupe de capture ;
+<3> Affiche `["33900", "33900"]`
+– l'option multi-ligne itère de ligne en ligne jusqu'à trouver un motif ;
+<4> Affiche `["33900", "33074", "33700"]`
+— l'option multi-ligne globale retourne tous les groupes de capture.
 
-On peut remplacer les occurrences correspondantes à un masque de caractères via la méthode `replace` :
+On notera qu'il faut faire attention à ce que l'on regarde dans les résultats :
+le format de résultat varie selon qu'on utilise ou non des groupes de capture,
+selon qu'on utilise l'option globale ou non,
+selon qu'on utilise l'option multi-ligne ou non…
+
+Des classes de caractère servent de raccourcis pour désigner
+plusieurs caractères à la fois :
+
+tout caractère (`.`)::
+  Équivalent à _tout caractère_… sauf le saut de ligne ;
+caractère de mot (`\w`)::
+  Équivalent à tout caractère pouvant composer un mot… anglais.
+  Les caractères accentués ne comptent pas malheureusement icon:wink[].
+  Identique à `[A-Za-z0-9_]`
+caractère numérique (`\d`)::
+  Équivalent à tout caractère numérique.
+  Identique à `[0-9]`.
+caractère d'espacement (`\s`)::
+  Équivalent à tout caractère d'espacement
+  (espace, tabulation, retour chariot etc.) ;
+caractère unicode (`\u{....}`)::
+  Doit être combiné avec l'option `u` (`/.../u`).
+  Exemple : ♥︎ -> `\u{2665}`
+
+Les alternatives de classes en majuscules sont des _négations_.
+`\W` pour "tout sauf un caractère de mot", `\S` pour "tout sauf un caractère d'espacement", etc.
+
+[source%interactive,javascript,subs="attributes"]
+.regexp/classes.js
+----
+include::{sourceDir}/regexp/classes.js[]
+----
+<1> Affiche `["♥ RegExp", "RegExp"]`
+— et s'arrête là car l'espace suivant n'est pas un caractère de mot ;
+<2> Affiche `"I ♥ {docyear}"`
+— on a extrait le début de la phrase et l'année placée en fin de chaîne.
+
+mdn::Web/JavaScript/Reference/Objets_globaux/RegExp[expressions régulières]
+
+
+La méthode `test` est pratique si la seule qui vous intéresse
+est de tester si une chaîne correspond à un motif :
 
 [source%interactive,javascript]
+.regexp/test.js
 ----
-'I ♥ JavaScript'.replace('♥', 'love'); // <1>
-'I ♥ JavaScript'.replace(/[A-Z]/g, (char) => char.toLowerCase()); // <2>
+include::{sourceDir}/regexp/test.js[]
 ----
-<1> Retourne `'I love JavaScript'` ;
-<2> Retourne `'i ♥ javascript'`.
+
+Enfin, la méthode `replace` est très utile pour transformer des chaînes de
+caractères, surtout en combinaison avec les groupes de capture :
+
+[source%interactive,javascript]
+.regexp/replace.js
+----
+include::{sourceDir}/regexp/replace.js[]
+----
+<1> Affiche `"I love JavaScript"`
+— si le premier argument de `replace` est une chaîne,
+elle est convertie automatiquement en expression régulière ;
+<2> Affiche `"I ♥ PHP"` ;
+<3> Affiche `JavaScript ♥ me"`
+— les symboles `$<numéro>` représentent les groupes de capture ;
+on peut les placer dans l'ordre de notre choix .
+
+D'ailleurs le second argument accepte une <<functions,fonction>>
+pour procéder à des remplacements dynamiques :
+
+[source%interactive,javascript]
+.regexp/replace-function.js
+----
+include::{sourceDir}/regexp/replace-function.js[]
+----
+<1> Affiche `"I ♥ JAVASCRIPT"` — le dernier mot est transformé en majuscules.
 
 
 [[primitive-boolean]]
@@ -855,7 +915,7 @@ parseInt(10.0101, 10);// <3>
 <2> Retourne `'10'` ;
 <3> Retourne `10`.
 
-[[primitive-function]]
+[[functions]]
 == Manipuler des fonctions
 
 Les fonctions permettent d'isoler des portions de code et de les rendre réutilisables via l'utilisation de paramètres.
