@@ -2,7 +2,27 @@
 
 Pour en savoir plus: [annonce la résidence itinérante](https://oncletom.io/2017/residence-nodejs/) et [résumé de la résidence itinérante](https://oncletom.io/2017/without-a-home/) (en anglais).
 
-## Dimanche 28 janvier • Rétrospective avec [Philippe Blayo][]
+## Dimanche 28 janvier
+
+- _Chapitre 2_ : reformulations inclusives et rassurantes
+- _Chapitre 3_ : ajustement d'exemples liés aux chaînes et expressions régulières
+- _Chapitre 4_ : ajustement d'exemples pour renforcer les objectifs d'apprentissage
+- _Chapitre 7_ : décomposition du fonctionnement d'une requête HTTP
+- _Chapitre 8_ : ajout d'une note à propos de la gestion de la mémoire dans un processus en ligne de commande
+- _atelier_ : session d'écriture au vidéoprojecteur
+- _outillage_ : utilisation d'`asciidoctor.js@1.5.6-preview.5`
+- _npm_ : nouvelle commande `nodebook dir` pour diriger le terminal vers le répertoire d'exemples (remplace la commande `nodebook open`)
+- _npm_ : corrige plusieurs bugs, réduit le nombre de dépendances et traduit les instructions en français
+
+**Météo** : 🙂 💪 📽
+
+Ce qui suit est la rétrospective de la session d'écriture passée avec [Philippe Blayo][]. La rétrospective s'est organisée autour de ces questions :
+
+- qu'est-ce qui nous a plu ?
+- qu'est-ce qui pourrait être amélioré ?
+- qu'est-ce que j'ai appris ?
+- qu'est-ce que j'aurais envie de faire la prochaine fois ?
+- est-ce qu'il y a des questions ?
 
 ### Ce qui t'a plu ?
 
