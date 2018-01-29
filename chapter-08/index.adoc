@@ -76,6 +76,10 @@ Tableau qui contient toutes les chaines de caractère utilisées pour lancer la 
 
 Créer des variables explicites au lieu de `process.argv[2]`.
 
+Et la mémoire ?
+Le script utilisera la mémoire disponible, à concurrence des autres applications qui tournent sur la même machine
+Sur un Raspberry Pi, y'a moins de mémoire donc on peut atteindre plus rapidement des limites si les fichiers dépassent les capacités (centaine de Mo — vs. plus Go sur des ordinateurs modernes)
+
 == Tester localement
 
 === package.json
