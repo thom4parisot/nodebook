@@ -508,10 +508,10 @@ C'est bien beau de parler d'histoire, d'architecture et d'interpréteur mais con
 
 La plate-forme Node fournit un exécutable système : `node`. C'est lui qui digèrera votre code, préparé à l'avance ou non :
 
-- `node` invoquera le _REPL_, un interpréteur interactif ;
+- `node` invoquera le <<#repl,REPL>>, un interpréteur interactif (voir ci-après) ;
 - `node votre-script.js` invoquera le dit script.
 
-[[node-repl]]
+[[repl]]
 === REPL
 
 Un _REPL_ est un interpréteur interactif exécuté dans votre terminal.
@@ -581,12 +581,12 @@ Il faut pour cela respectivement :
 Voici le contenu d'un fichier (non suffixé avec l'extension `.js`) qui affiche les arguments passé à ce dit-script :
 
 [source,javascript]
-.print-args
+.print-args.js
 ----
-include::{sourceDir}/print-args[]
+include::{sourceDir}/print-args.js[]
 ----
 <1> Demande au programme `/usr/bin/env` de retourner le chemin vers l'exécutable système `node` ;
-<2> Plus d'informations sur cette syntaxe dans la section <<../chapter-03/index.adoc#primitive-destructuring,décomposition>> du chapitre 3.
+<2> Plus d'informations sur l'utilisation des `...` dans la section <<../chapter-03/index.adoc#primitive-destructuring,décomposition>> du chapitre 3.
 
 Le bloc suivant rend le fichier exécutable et l'exécute avec des arguments :
 
@@ -697,7 +697,7 @@ Dans ce cas, il convient d'écouter cet événement et de déterminer quelle est
 ----
 include::{sourceDir}/server-crash.js[]
 ----
-<1> En cas de réception d'une requête HTTP sur le port `4001`, nous allons parser l'URL appélée — sauf qu'une _typo_ s'est glissée (`reb` au lieu de `req`) et provoquera une exception ;
+<1> En cas de réception d'une requête HTTP sur le port `4001`, nous allons parser l'URL appélée — sauf qu'une _typo_ s'est glissée sur cette ligne (`requete` au lieu de `request`) ;
 <2> Cette exception remontera jusqu'au niveau du `process` qui déclenchera l'événement `uncaughtException` ;
 <3> Une seconde après voir lancé le script, une requête HTTP est envoyée au serveur, entrainant l'exécution du _point 1_.
 
