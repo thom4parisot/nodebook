@@ -785,7 +785,7 @@ include::{sourceDir}/regexp/replace-function.js[]
 <1> Affiche `"I ♥ JAVASCRIPT"` — le dernier mot est transformé en majuscules.
 
 
-[[primitive-boolean]]
+[[boolean]]
 == Manipuler des booléens
 
 Un booléen est une donnée de type logique qui peut être _vraie_ ou _fausse_ en prenant respectivement la valeur `true` ou `false`.
@@ -821,90 +821,237 @@ include::{sourceDir}/boolean/convert.js[]
 <2> Affiche `true` - il s'agit d'une valeur _non-nulle_ ;
 <3> Affiche `true` — le tableau est vide mais l'objet en lui-même _vaut_ quelque chose : un tableau.
 
+[[number]]
 == Manipuler des nombres (_Number_, _Math_)
 
-Tous les nombres en ECMAScript sont des flottants (double précision) respectant le standard link:https://fr.wikipedia.org/wiki/IEEE_754[_IEEE 754_].
-Un nombre peut donc contenir 64 bits de données, comme en Python et PHP, entre autres.
+ECMAScript ne fait pas de distinction entre des nombres entiers et des
+nombres contenant des décimales : ce sont des _nombres_ un point c'est tout.
 
-L'opérateur `typeof` permet d'identifier un nombre :
+[source%interactive,javascript]
+.number/base.js
+----
+include::{sourceDir}/number/base.js[]
+----
+<1> Affiche `true` — les deux valeurs sont strictement équivalentes ;
+<2> Affiche `false` — un élément entre guillemets est une chaîne de caractère.
+
+Les nombres sont représentés par défaut en _base 10_.
+La plage de nombre utilisable démarre à _moins l'infini_ et va jusqu'à _plus l'infini_.
+Des constantes définies par ECMAScript contiennent les valeurs minimales et
+maximales que l'on peut représenter dans un programme :
+
+[source%interactive,javascript]
+.number/constants.js
+----
+include::{sourceDir}/number/constants.js[]
+----
+
+Il est aussi possible de compter dans d'autres bases comme la _base 16_.
+C'est à dire une représentation hexadécimale de 0 à 16 exprimée de 0 à F
+— A vaut 10 (car juste après 9), B vaut 11 etc.
+Leur notation se fait en préfixant la valeur par `0x` :
+
+[source%interactive,javascript]
+.number/hexa.js
+----
+include::{sourceDir}/number/hexa.js[]
+----
+<1> Affiche `0` ;
+<2> Affiche `10` — car `A` en hexadécimal vaut 10 en décimal ;
+<3> Affiche `160` — pour `10 x 16` (une dizaine vaut 16) ;
+<4> Affiche `2560` — pour `10 x 16 x 16` (une centaine vaut 16x16).
+
+
+[NOTE]
+.[RemarquePreTitre]#Rumeur# JavaScript est nul en virgule flottante !
+====
+ECMAScript est souvent décrié par son incapacité à gérer les opérations
+mathématiques avec précision.
 
 [source%interactive,javascript]
 ----
-typeof 42;    // <1>
-typeof 13.37; // <1>
-typeof NaN;   // <2>
+0.2 + 0.6
 ----
-<1> Retourne `'number'` ;
-<2> Retourne également `'number'`, ce qui est souvent source de confusion.
+
+ECMAScript respecte le standard _IEEE 754_ de gestion de nombres à virgule flottante sur 64 bits de données.
+Qui d'autre l'utilise ?
+D'autres langages "inconnus" comme Python, PHP et Ruby, entre autres.
+
+Pour en savoir plus : [URL]#https://fr.wikipedia.org/wiki/IEEE_754#.
+====
 
 === Opérations mathématiques
 
-On peut effectuer des opérations mathématiques grâce aux opérateurs `+` (addition), `-` (soustraction), `*` (multiplication), `/` (division) et `%` (modulo).
+Les nombres s'utilisent pour effectuer des opérations mathématiques.
+Chaque opération est dotée d'un symbole :
 
-L'exception dont il faut se méfier est l'addition, car le signe `+` est également l'opérateur de concaténation de chaîne. +
-Dès qu'une chaîne est détectée, l'opération d'addition est remplacée par une concaténation.
-
-[source%interactive,javascript]
-----
-1 + 2;    // <1>
-'1' + 2;  // <2>
-1 + '2';  // <2>
-undefined + 2; // <3>
-----
-<1> Retourne `3` ;
-<2> Retourne `'12'` ;
-<3> Retourne `NaN`.
-
-=== Convertir en nombre
-
-Les fonctions `parseInt` et `parseFloat` permettent de respectivement de convertir en nombre entier et nombre flottant :
+[horizontal]
+addition::
+  `+`
+soustraction::
+  `-`
+multiplication::
+  `*`
+division::
+  `/`
+modulo (reste de division)::
+  `%`
+exposant (puissance)::
+  `**`
 
 [source%interactive,javascript]
+.number/operations.js
 ----
-typeof 2.10 === 'number';
-typeof '2.10' === 'string';
-
-parseInt('2.10', 10); // <1>
-parseFloat('2.10');   // <2>
+include::{sourceDir}/number/operations.js[]
 ----
-<1> Retourne `2` ;
-<2> Retourne `2.10`.
+<1> Affiche `6` ;
+<1> Affiche `-2` ;
+<1> Affiche `8` ;
+<1> Affiche `0.5` ;
+<1> Affiche `2` ;
+<1> Affiche `16`.
 
 [CAUTION]
-.[RemarquePreTitre]#FAQ# Le second argument de parseInt
+.[RemarquePreTitre]#Attention# Opérations exotiques
 ====
-Le second argument de la fonction `parseInt` indique dans quelle base la valeur est représentée dans la chaîne. La base décimale (10) est la plus souvent utilisée, mais il est également possible de convertir une chaîne représentant un nombre binaire (base 2) ou hexadécimal (base 16).
+Est-ce que vous avez déjà tenté d'additionner un nombre avec un tableau ?
+Pas forcément… mais ECMAScript ne vous en empêchera pas.
+
+[source%interactive,javascript]
+.number/operations-types.js
+----
+include::{sourceDir}/number/operations-types.js[]
+----
+<1> La chaîne `'1'` sera convertie en nombre (voir section ci-après)…
+donc _ça marche_ !
+<2> On nous a toujours interdit la division par zéro ?
+En vrai on crée l'_infini_ ;
+<3> Seule cette opération retournera… autre chose qu'un nombre.
+Rendez-vous à la section suivante pour se prémunir
+des nombres qui n'en sont pas.
+
+Moralité : *s'assurer de ne manipuler que des nombres*.
 ====
 
 === Les nombres qui n'en sont pas (_NaN_)
 
-La méthode `isNaN` permet d'être sûr de ne pas manipuler un nombre indésirable :
+Certaines opérations n'aboutiront pas… sans afficher d'erreur pour autant.
+Dans ce cas, le résultat de l'opération vaudra… `NaN`.
+Pour _not a number_ (littéralement : "n'est pas un nombre").
 
 [source%interactive,javascript]
+.number/nan.js
 ----
-Number.isNaN(undefined + 1);  // <1>
-Number.isNaN(2.10);           // <2>
-Number.isNaN(undefined);      // <2>
+include::{sourceDir}/number/nan.js[]
 ----
-<1> Retourne `true` ;
-<2> Retourne `false`.
+
+La fonction `Number.isNaN` nous aidera à vérifier si la valeur d'une variable
+ou le résultat d'une opération est un `NaN` ou non.
+Cette fonction retourne un <<boolean,booléen>>.
+
+[source%interactive,javascript]
+.number/is-nan.js
+----
+include::{sourceDir}/number/is-nan.js[]
+----
+
+[WARNING]
+.[RemarquePreTitre]#Assertion# NaN n'est pas un nombre… vraiment ?
+====
+Il faut se méfier de `NaN` comme de la peste.
+Si on vérifie seulement le type de valeur pour s'assurer que tout va bien,
+on ne se rendra pas compte que `NaN` est considéré… comme un nombre :
+
+[source%interactive,javascript]
+.number/nan-number.js
+----
+include::{sourceDir}/number/nan-number.js[]
+----
+
+Il vaudra mieux s'assurer qu'une variable est
+un nombre _et_ n'est pas un `NaN` :
+
+[source%interactive,javascript]
+.number/is-not-a-nan.js
+----
+include::{sourceDir}/number/is-not-a-nan.js[]
+----
+====
+
+=== Convertir en nombre
+
+Les lignes qui précédent l'évoquent un peu : on peut passer d'autres types
+de données à des nombres.
+Idéalement, on voudra transformer explicitement quelque chose en un nombre.
+
+Pour cela nous avons deux fonctions à disposition :
+
+[horizontal]
+`parseInt`::
+  Essaie d'interprêter un nombre entier ;
+`parseFloat`::
+  Essaie d'interprêter un nombre à virgule.
+  La fonction s'arrête dès qu'elle n'a plus affaire à un chiffre.
+
+[source%interactive,javascript]
+.number/parse.js
+----
+include::{sourceDir}/number/parse.js[]
+----
+<1> Affiche `3` ;
+<2> Affiche `3.141592653589793` ;
+<3> Affiche `14` — ça ne change rien pour `parseInt` ;
+<4> Affiche `14.1` — la fonction s'arrête à la décimale précédant une lettre.
+
+`parseInt` a cette particularité que l'on peut choisir la base
+de la conversion avec le second argument de la fonction :
+
+[source%interactive,javascript]
+.number/parse-int.js
+----
+include::{sourceDir}/number/parse-int.js[]
+----
+<1> Affiche `16` ;
+<2> Affiche `10` — `A` étant juste après `10` en hexadécimal ;
+<3> Affiche `2560` — aurait pu s'écrire `0xF00`
+(cf. le <<number,début de cette même section>>, à propos des bases).
 
 === Formatter et arrondir des nombres
 
-Math.ceil, Math.floor
+Si l'envie vous prenait de vouloir arrondir des nombres, il existe
+quelques fonctions pour nous aider.
 
-Il également possible de choisir le nombre de décimales après la virgule avec la méthode `toFixed`. +
-Attention toutefois, la valeur retournée est de type `String` :
+[horizontal]
+`Math.round`::
+  Arrondit à l'entier le plus proche ;
+`Math.ceil`::
+  Arrondit à l'entier supérieur du nombre donné ;
+`Math.floor`::
+  Arrondit à l'entier inférieur du nombre donné.
+
+Math.ceil, Math.floor
+[source%interactive,javascript]
+.number/round.js
+----
+include::{sourceDir}/number/round.js[]
+----
+<1> Affiche `3` — l'entier le plus proche est 3 ;
+<1> Affiche `4` — l'entier le plus est 4 ;
+<1> Affiche `4` — idem ;
+<2> Affiche `4` ;
+<3> Affiche `3`.
+
+Enfin, on peut préserver le formattage du nombre de décimales
+après la virgules… en transformant le nombre _en chaîne de caractères_
+grâce à la méthode `toFixed` :
 
 [source%interactive,javascript]
+.number/to-fixed.js
 ----
-10.0101.toFixed(2);   // <1>
-10.0101.toFixed(0);   // <2>
-parseInt(10.0101, 10);// <3>
+include::{sourceDir}/number/to-fixed.js[]
 ----
-<1> Retourne `'10.01'` ;
-<2> Retourne `'10'` ;
-<3> Retourne `10`.
+<1> Affiche `'10.01'` ;
+<2> Affiche `'10'`.
 
 [[functions]]
 == Manipuler des fonctions

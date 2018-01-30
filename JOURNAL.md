@@ -5,6 +5,7 @@ Pour en savoir plus: [annonce la résidence itinérante](https://oncletom.io/201
 ## Mardi 30 janvier
 
 - _Chapitre 3_ : Manipuler des booléens
+- _Chapitre 3_ : Manipuler des nombres
 - _atelier_ : session d'apprentissage de Node.js au vidéoprojecteur
 
 **Météo** : 🙂 💪 📽
