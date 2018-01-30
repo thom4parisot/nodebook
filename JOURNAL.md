@@ -2,6 +2,13 @@
 
 Pour en savoir plus: [annonce la résidence itinérante](https://oncletom.io/2017/residence-nodejs/) et [résumé de la résidence itinérante](https://oncletom.io/2017/without-a-home/) (en anglais).
 
+## Mardi 30 janvier
+
+- _Chapitre 3_ : Manipuler des booléens
+- _atelier_ : session d'apprentissage de Node.js au vidéoprojecteur
+
+**Météo** : 🙂 💪 📽
+
 ## Lundi 29 janvier
 
 - _Chapitre 3_ : Expressions régulières
