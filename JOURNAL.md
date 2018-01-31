@@ -2,11 +2,23 @@
 
 Pour en savoir plus: [annonce la résidence itinérante](https://oncletom.io/2017/residence-nodejs/) et [résumé de la résidence itinérante](https://oncletom.io/2017/without-a-home/) (en anglais).
 
+
+## Mercredi 31 janvier
+
+- _Chapitre 3_ : Manipuler des fonctions
+- _atelier_ : session d'apprentissage de npm au vidéoprojecteur
+
+> On a appris le fonctionnement de npm update, la différence entre package.json et package-lock.json mais aussi comment installer des dépendances git ainsi que de la version de notre choix.
+
+**Météo** : 😴 🙂 💪 📽
+
 ## Mardi 30 janvier
 
 - _Chapitre 3_ : Manipuler des booléens
 - _Chapitre 3_ : Manipuler des nombres
 - _atelier_ : session d'apprentissage de Node.js au vidéoprojecteur
+
+> On a appris ce qu'il y a sous le capot, à voir la différence entre l'environnement Node et des navigateurs web.
 
 **Météo** : 🙂 💪 📽
 
@@ -14,6 +26,8 @@ Pour en savoir plus: [annonce la résidence itinérante](https://oncletom.io/201
 
 - _Chapitre 3_ : Expressions régulières
 - _atelier_ : [session d'apprentissage de JavaScript au vidéoprojecteur][session-js-etalab]
+
+> On ne pensait pas apprendre autant de choses en décortiquant un problème d'apparence simple. C'était chouette de découvrir des sélecteurs CSS et des expressions JavaScript.
 
 **Météo** : 🙂 💪 📽
 

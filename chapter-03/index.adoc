@@ -407,7 +407,7 @@ L'exemple précédent vérifie que les deux conditions sont remplies
 On notera au passage que `book.title` n'est pas un booléen.
 ECMAScript regarde dans ce cas que la chaîne de caractères
 contient _au moins 1 caractère_.
-On expliquera ce comportement plus en détail dans la section <<#primitive-boolean,manipuler des booléens>>.
+On expliquera ce comportement plus en détail dans la section <<#boolean,manipuler des booléens>>.
 
 L'instruction `if` peut être complétée avec l'instruction `else`
 pour éxécuter du code qui répondrait au cas contraire.
@@ -423,6 +423,7 @@ Notre exemple n'empruntera qu'un seul des chemins mais on peut
 constater qu'on pourrait en emprunter un autre
 en modifiant la valeur des clés `title` et `published`.
 
+[[scope]]
 === Portée (_scope_)
 
 La _portée_ est un concept très présent dans ECMAScript.
@@ -1056,102 +1057,110 @@ include::{sourceDir}/number/to-fixed.js[]
 [[functions]]
 == Manipuler des fonctions
 
-Les fonctions permettent d'isoler des portions de code et de les rendre réutilisables via l'utilisation de paramètres.
+Une fonction est un mécanisme pour *rendre du code réutilisable*.
+Une fonction _retourne_ un résultat.
+À l'aide de _paramètres_, on peut faire varier ce résultat.
 
-Vous pouvez les déclarer via une expression ou une déclaration assignée à une variable.
-La déclaration d'une fonction est soumise à la portée du contexte dans lequel le bloc de code est placé.
-Une fonction peut être créée de trois manières :
+Cela se passe en deux temps :
 
-* *nommée* `function nomDeLaFonction(){ ... }` ;
-* *anonyme* `function (){ ... }`
-* *fléchée* `() => { ... }`.
+. la _création_ de la fonction ;
+. l'_exécution_ de la fonction.
 
-Les fonctions anonymes sont fréquemment employées en tant que _callbacks_ ou dans des contextes itératifs (tels `Array.map` etc.)
-
-Il est important de noter que la déclaration d'une fonction et son exécution sont deux choses différentes.
-
-[source%interactive,javascript]
-.function.js
-----
-include::{sourceDir}/function.js[]
-----
-<1> Utilisation d'une fonction fléchée (_arrow function_) en tant que fonction anonyme de _callback_ ;
-<2> Utilisation d'une fonction nommée comme _callback_ de la méthode `Array.map` ;
-<3> Illustration d'une _Immediatly Invocked Function Expression_, aka _IIFE_ aka _fonction immédiatement exécutée_ ;
-<4> Retourne `'function'` ;
-<5> Retourne `false` — la valeur étant nulle ;
-<6> Retourne `[ 3, 1 ]` — un tableau filtré des valeurs nulles ou égales à `undefined` ;
-<7> Lève une exception car la constante `values` n'est pas définie dans ce _scope_.
-
-Le code contenu dans le bloc déclaratif d'une fonction crée une _portée_ (ou _scope_) qui est invisible au contexte parent de l'exécution de cette fonction.
-Il s'agit d'une excellente manière d'isoler des variables, notamment pour éviter des effets de bord indésirables liés à l'état d'exécution de vos scripts.
-
-L'exemple précédent illustre un tel cas de portée en contenant la constante `values` dans l'_IIFE_ : le contexte parent n'a aucune connaissance de son existence — et c'est tant mieux.
-
-Une syntaxe abrégée est disponible via les fonctions fléchées :
-
-.Tableau d'équivalence de syntaxe
-|=========
-| `x => x*2` | `function(x){ return x*2 }`
-| `x => { x }` | `function(x){ x }`
-| `x => ({ x })` | `function(x){ return { x }; }`
-| `(x, y) => ({ x: y })` | `function(x, y){ return { x: y }; }`
-| `(x, y) => x+y` | `function (x, y){ return x+y }`
-| `x => { const y = 2; return x*y }` | `function(x){ const y = 2; return x*y }`
-|=========
-
-Il est possible de composer des fonctions à partir d'autres fonctions en utilisant la méthode `bind`.
-Ce _pattern_ est extrêmement puissant car il permet de modifier le contexte d'exécution de ladite fonction.
+ECMAScript fournit tout un ensemble de fonctions (`console.log`, etc).
+Node ajoute ses propres fonctions (comme `require`).
+Nous pouvons également créer nos propres fonctions, spécifiques à nos besoins.
 
 [source%interactive,javascript]
-.function-bind.js
+.functions/base.js
 ----
-include::{sourceDir}/function-bind.js[]
+include::{sourceDir}/functions/base.js[]
 ----
-<1> Retourne `'100 EUR'` ;
-<2> Retourne `'100 GBP'`.
+<1> Affiche `[Function: hello]` — il s'agit de la fonction en tant que telle ;
+<2> Affiche `"Hello World"`
+— il s'agit de l'exécution de la fonction, de l'obtention de son résultat ;
+<3> Affiche un nombre aléatoire entre 0 et 100
+— cette fonction est invoquée sans paramètre.
 
-`bind` est également capable de créer une nouvelle fonction à laquelle vous auriez appliqué partiellement des arguments :
+L'exemple précédent nous indique qu'une fonction se découpe en 3 parties :
+
+les *arguments*::
+  C'est la partie à gauche de la flèche (`=>`).
+  Les arguments sont séparés par des virgules (`(argument1, argument2, etc.)`) ;
+le *corps*::
+  C'est la partie entre accolades (`{ ... }`).
+  Quand la fonction est sur une ligne,
+  le résultat de l'opération est _implicitement retourné_.
+  On peut dans ce cas se passer du mot-clé `return` ;
+la *valeur de retour*::
+  C'est la valeur renvoyée en dehors de la fonction.
+  La valeur de retour est définie à l'aide du mot-clé `return`.
+  La valeur `undefined` est retournée de manière implicite
+  lorsque le mot-clé `return` est absent.
+
+[TIP]
+.[RemarquePreTitre]#Rappelle-toi# Variables et portée
+====
+Le corps d'une fonction constitute une _portée_ : toute variable définie
+dans le corps d'une fonction est invisible en dehors.
+
+On en parle plus en détails dans la <<scope,section portée>>
+en début de section.
+====
+
+[[anonymous-function]]
+=== Les fonctions anonymes
+
+Les fonctions anonymes sont employées en *arguments d'autres fonctions*.
+On les dit _anonymes_ car elles ne sont pas consignées dans des _variables_.
+Il est fréquent de les utiliser pour _itérer_ sur des tableaux,
+lors d'événements ou dans des <<promise,promesses>>.
+
+C'est une manière élégante d'encapsuler du code à exécuter plus tard.
 
 [source%interactive,javascript]
-.function-partials.js
+.functions/anonymous.js
 ----
-include::{sourceDir}/function-partials.js[]
+include::{sourceDir}/functions/anonymous.js[]
 ----
-<1> Affiche `'Hello World'` ;
-<2> Affiche `'Hello Paris'`.
-
-Ce procédé est particulièrement utile pour rendre des fonctions génériques et composer des dérivées, notamment dans le cas de pagination.
-
-Les méthodes `call` et `apply` reposent sur le même principe mais à la différence de `bind`, elles exécutent immédiatement la fonction.
-Le seul élément différenciant correspond à la syntaxe d'application des arguments :
-
-[source%interactive,javascript]
-.function-call-apply.js
-----
-include::{sourceDir}/function-call-apply.js[]
-----
-<1> Retourne `'<title>'` dans les deux cas.
-
+<1> Affiche `"Deux secondes plus tard"` deux secondes après le début du script ;
+<2> Affiche `"Le processus se termine"` quand… le processus se termine
+— une fois que toutes les actions en attente ont été exécutées.
 
 [[rest-parameters]]
-=== Paramètres du reste (_...params_)
+=== Paramètres du reste (_rest parameters_)
 
-Les _paramètres du reste_ (_rest parameters_) utilisent une syntaxe identique à la _décomposition_ mais opèrent au niveau des arguments de fonctions :
+Les _paramètres du reste_ collecte un nombre indéfini de paramètres.
+Les paramètres sont *regroupés dans un même <<array,tableau>>* (voir ci-après).
 
 [source%interactive,javascript]
-.rest.js
+.functions/rest.js
 ----
-include::{sourceDir}/rest.js[]
+include::{sourceDir}/functions/rest.js[]
 ----
-<1> Assigne la constante décomposée `args` en tant que constante `cheeses` ;
-<2> Affiche `Fromages` ;
-<3> Affiche `[ { name: 'Cabécou' }, { name: 'Chaource' } ]` –
+<1> Affiche `"On a compté 3 patates."`.
 
-En bref, ils sont l'équivalent de l'ancienne variable _magique_ `arguments` mais avec une meilleure finesse quant aux paramètres concernés.
-Les éléments retournés par les _paramètres du reste_ ont aussi l'avantage d'être un véritable objet de <<array,tableau>> – `arguments` est _itérable_ mais n'est pas un tableau et ne bénéficie donc pas des méthodes de compréhension telles que `forEach`, `map`, etc.
+[[callback]]
+=== Les fonctions de _callback_
 
-[[primitive-array]]
+Quand une fonction est passée en argument d'une autre fonction,
+on appelle cela un _callback_.
+On l'appelle plus tard (_to call back_) que le moment où elle est définie.
+La fonction peut recevoir des paramètres qui aident à reconstruire un contexte
+_au moment_ de son exécution.
+
+[source%interactive,javascript]
+.functions/callback.js
+----
+include::{sourceDir}/functions/callback.js[]
+----
+<1> Le troisième argument (et les suivants) de `setTimeout`
+sont transmis en paramètre de la fonction de _callback_ ;
+<2> Cette fonction sera invoquée une seconde après le début du script,
+et recevra la date du moment en paramètre ;
+<3> Affiche l'année de la date passée en argument
+— l'année en cours dans cet exemple.
+
+[[array]]
 == Manipuler des collections
 
 L'opérateur `typeof` ne permet pas d'identifier un tableau. Il faut pour cela privilégier la méthode `isArray` :
@@ -1199,7 +1208,7 @@ include::{sourceDir}/array/concat.js[]
 ----
 <1> Retourne `[ 1, 2, 3 ]` ;
 <2> Retourne `[ 1, 2, 3, 4 ]` ;
-<3> Retourne `[ 1, 2, 3, 4, 4, 5 ]` — cf. <<primitive-map-set,Map et Set>>.
+<3> Retourne `[ 1, 2, 3, 4, 4, 5 ]` — cf. <<map-set,Map et Set>>.
 
 La fonction de tri via la méthode `sort` se base sur des comparaisons positives, négatives ou neutres pour retourner un nouveau tableau, réindexé :
 
@@ -1226,7 +1235,7 @@ include::{sourceDir}/array/map.js[]
 ----
 <1> Retourne `['A', 'B', 'C']`.
 
-La méthode `filter` quant à elle retourne un nouveau tableau ne contenant que les éléments retournant un <<primitive-boolean,booléen _truthy_>> :
+La méthode `filter` quant à elle retourne un nouveau tableau ne contenant que les éléments retournant un <<boolean,booléen _truthy_>> :
 
 [source%interactive,javascript]
 .array/filter.js
@@ -1316,12 +1325,12 @@ include::{sourceDir}/destructuring-spread.js[]
 <2> Affiche `un` ;
 <3> Affiche `[ 'deux', 'trois', 'quatre' ]`.
 
-[[primitive-object]]
+[[object]]
 == Manipuler des dictionnaires (_Object_)
 
 Dans ECMAScript, tout est objet. C'est le _prototype_ qui détermine le comportement dudit objet.
 Les objets peuvent être créés de manière littérale, avec la fonction `Object.create` ou via un constructeur. +
-À la différence d'un `Array`, il est possible de nommer une clé par une chaîne de caractères – statique ou dynamique – ou avec un <<primitive-symbol,symbole>>.
+À la différence d'un `Array`, il est possible de nommer une clé par une chaîne de caractères – statique ou dynamique – ou avec un <<symbol,symbole>>.
 
 [source%interactive,javascript]
 .object.js
@@ -1468,7 +1477,7 @@ include::{sourceDir}/class-constructor.js[]
 
 
 
-[[primitive-object-getset]]
+[[object-getset]]
 === Accesseurs et mutateurs
 
 `Object.defineProperty` permet de régler finement d'autres spécificités d'un objet, dont des *accesseurs* (_getters_) et des *mutateurs* (_setters_).
@@ -1496,7 +1505,7 @@ Inconvénient, nous n'avons d'autre choix que de stocker la date dans une autre 
 Et rien ne nous empêche de la modifier directement et d'invalider une partie de notre raisonnement… +
 Il nous faudrait trouver un moyen de stocker la valeur du _mutateur_ et de l'_accesseur_ de manière _privée_.
 
-Enfin, les propriétés sont assignées _uniquement_ à l'objet `book`. Si nous voulions les généraliser à plusieurs instances d'objets se ressemblant, nous les définirions alors dans une <<primitive-class,classe>>.
+Enfin, les propriétés sont assignées _uniquement_ à l'objet `book`. Si nous voulions les généraliser à plusieurs instances d'objets se ressemblant, nous les définirions alors dans une <<class,classe>>.
 
 Nous pouvons définir des _accesseurs_ et des _mutateurs_ avec une notation raccourcie, ayant exactement le même effet.
 Reprenons l'exemple précédent :
@@ -1734,13 +1743,13 @@ include::{sourceDir}/set.js[]
 <4> On peut ajouter un `Set` en tant que valeur de `Set` si on le souhaite ;
 <5> À l'inverse du point 3, l'ajout multiple d'une référence à un même objet (ici, `primesArray`) ne fonctionnera pas ;
 <6> Affiche `Set { 2, 3, [ 5, 7 ], [ 5, 7 ], Set { 11, 13 }, [ 11, 13 ] }` ;
-<7> Utilise la <<primitive-destructuring,décomposition>> pour extraire les valeurs du `Set` et affiche `[ 2, 3, [ 5, 7 ], [ 5, 7 ], Set { 11, 13 }, [ 11, 13 ] ]`.
+<7> Utilise la <<destructuring,décomposition>> pour extraire les valeurs du `Set` et affiche `[ 2, 3, [ 5, 7 ], [ 5, 7 ], Set { 11, 13 }, [ 11, 13 ] ]`.
 
 `Map` offre quelques avantages à l'utilisation d'un `Object` :
 
 - les clés peuvent être de n'importe quel type (y compris une référence à un autre objet ou tableau ECMAScript) ;
 - `.size` retourne le nombre de clés de la _Map_ ;
-- l'itération est très simple avec `for..of`, `forEach` ou même en utilisant la <<primitive-destructuring,décomposition>>.
+- l'itération est très simple avec `for..of`, `forEach` ou même en utilisant la <<destructuring,décomposition>>.
 
 
 [source%interactive,javascript]
