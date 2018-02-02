@@ -1066,18 +1066,20 @@ Cela se passe en deux temps :
 . la _création_ de la fonction ;
 . l'_exécution_ de la fonction.
 
-ECMAScript fournit tout un ensemble de fonctions (`console.log`, etc).
-Node ajoute ses propres fonctions (comme `require`).
-Nous pouvons également créer nos propres fonctions, spécifiques à nos besoins.
+ECMAScript fournit un ensemble de fonctions de base
+(`console.log`, `setTimeout` etc).
+Node ajoute les siennes (comme `require`).
+Nous avons la liberté d'en créer nous-même, spécifiques à nos besoins.
 
 [source%interactive,javascript]
 .functions/base.js
 ----
 include::{sourceDir}/functions/base.js[]
 ----
-<1> Affiche `[Function: hello]` — il s'agit de la fonction en tant que telle ;
-<2> Affiche `"Hello World"`
-— il s'agit de l'exécution de la fonction, de l'obtention de son résultat ;
+<1> On _crée_ la fonction `hello` ;
+<2> Affiche `[Function: hello]` — il s'agit de la définition de la fonction ;
+<3> Affiche `"Hello World"`
+— il s'agit de l'_exécution_ de la fonction, qui _retourne_ un résultat ;
 <3> Affiche un nombre aléatoire entre 0 et 100
 — cette fonction est invoquée sans paramètre.
 
@@ -1085,7 +1087,7 @@ L'exemple précédent nous indique qu'une fonction se découpe en 3 parties :
 
 les *arguments*::
   C'est la partie à gauche de la flèche (`=>`).
-  Les arguments sont séparés par des virgules (`(argument1, argument2, etc.)`) ;
+  Les arguments sont séparés par des virgules (exemple : `(argument1, argument2, etc.)`) ;
 le *corps*::
   C'est la partie entre accolades (`{ ... }`).
   Quand la fonction est sur une ligne,
@@ -1185,11 +1187,11 @@ L'exemple précédent illustre plusieurs caractéristiques des collections :
 . la numérotation débute à l'index `0` ;
 . la propriété `length` contient la longueur du tableau ;
 . la valeur `undefined` est retournée quand on tente d'accéder à un index
-qui n'existe pas
+qui n'existe pas.
 
 === Créer des tableaux à partir d'autres valeurs
 
-La fonction `Array.from` est une autre manière de créer
+La fonction `Array.from` est une manière de créer
 un tableau à partir de quelque chose qui _ressemble à un tableau_.
 
 [source%interactive,javascript,id="array.from"]
@@ -1198,13 +1200,25 @@ un tableau à partir de quelque chose qui _ressemble à un tableau_.
 include::{sourceDir}/array/from.js[]
 ----
 <1> Affiche `["f", "r", "o", "m", "a", "g", "e"]`
-— chaque lettre de la chaîne ;
-<2> Affiche `["saturday", "sunday"]`
-— le nouveau tableau est créé en sélectionnant la deuxième valeur de chaque tableau.
+— chaque lettre de la chaîne
+<2> Affiche `["F", "R", "O", "M", "A", "G", "E"]`
+— chaque lettre de la chaîne a été passée en majuscules.
+
+Le deuxième argument de `Array.from` est facultatif.
+C'est une <<anonymous-function,fonction anonyme>> qui s'utilise comme les <<array.forEach,méthodes d'itération>> `Array.forEach` et `Array.map`.
 
 Cette méthode est des plus utiles pour itérer sur des listes d'éléments DOM
 obtenues dans un navigateur web avec les fonctions `document.querySelectorAll`
 et `document.getElementsByTagName`, par exemple.
+
+[source,javascript]
+----
+const links = document.querySelectorAll('a');
+
+console.log(Array.from(links).map(a => a.textContent));
+// parce qu'on ne peut pas faire
+// links.map(a => a.textContent);
+----
 
 [[array.concat]]
 === Combiner des tableaux
@@ -1247,13 +1261,37 @@ Ce séparateur est optionnel.
 ----
 include::{sourceDir}/array/join.js[]
 ----
-<1> Affiche `"ID;NOM;PRENOM"` ;
-<2> Affiche `"IDNOMPRENOM"`
-— sans mention de séparateur, les valeurs sont juxtaposées.
+<1> Affiche `"ID,NOM,PRENOM"`
+— le séparateur par défaut est une virgule (`,`)
+<2> Affiche `"ID;NOM;PRENOM"`
+— on a choisi le séparateur `;`
+<3> Affiche `"IDNOMPRENOM"`
 
 [[array.forEach]]
 === Itérer sur les valeurs
 
+les boucles
+  une manière de parcourir plusieurs valeurs
+  automatisme, éviter de répéter du code : on ne connait pas pas forcément la taille de l'ensemble
+
+(exemple)
+
+circonstances
+  - pour faire un tri
+  - pour modifier des valeurs
+  - en afficher
+
+plusieurs méthodes
+  - for..in, for..of (clé, valeur)
+  - forEach (élément)
+  - while (renvoi vers les conditions)
+
+Puis des renvois vers
+  - map
+  - sort
+  - filter
+  - reduce
+  - from
 
 [[array.sort]]
 === Trier les valeurs
@@ -1291,6 +1329,13 @@ include::{sourceDir}/array/sort-strings.js[]
 <1> Affiche `["a", "A", "b", "c"]` — les majuscules influencent le tri ;
 <2> Affiche `[ { label: "deux", order: 2 }, { label: "un", order: 1 } ]`
 — le tableau a été trié sur la valeur de `label` cette fois-ci.
+
+[TIP]
+.[RemarquePreTitre]## `Array.reverse`
+====
+reverse
+====
+
 
 [[array.map]]
 === Transformer les valeurs
@@ -1340,7 +1385,7 @@ include::{sourceDir}/array/some.js[]
 
 === Identifier une ou plusieurs valeurs
 
-indexOf, lastIndexOf
+indexOf, lastIndexOf, includes
 
 [source%interactive,javascript]
 .array/find.js
@@ -1388,48 +1433,45 @@ include::{sourceDir}/array/destructuring.js[]
 
 Il est également possible de _sauter_ des valeurs en ne nommant pas _autant_ de variables ou de constantes lors de la décomposition :
 
+parler de slice
+
 
 [[object]]
-== Manipuler des dictionnaires (_Object_)
+== Manipuler des structures d'objet
 
 Dans ECMAScript, tout est objet. C'est le _prototype_ qui détermine le comportement dudit objet.
 Les objets peuvent être créés de manière littérale, avec la fonction `Object.create` ou via un constructeur. +
 À la différence d'un `Array`, il est possible de nommer une clé par une chaîne de caractères – statique ou dynamique – ou avec un <<symbol,symbole>>.
 
 [source%interactive,javascript]
-.object.js
+.objects/base.js
 ----
-include::{sourceDir}/object.js[]
+include::{sourceDir}/objects/base.js[]
 ----
-<1> Retourne `'lateral'` ;
-<2> Retourne également `'lateral'` ;
-<3> Retourne `true`, les deux objets étant la même instance ;
-<4> Retourne `false`, les deux objets étant deux instances différentes.
 
-L'opérateur `typeof` permet d'identifier la primitive d'une variable — au sens d'ECMAScript, pas au sens logique de votre application, c'est à dire le prototype d'un objet.
 
-L'opérateur `instanceof` ou la méthode `getPrototypeOf` permettent justement de comparer les appartenances logiques.
+`Object.keys` liste les propriétés d'un objet
+et les retourne sous forme de <<array,tableau>> :
 
 [source%interactive,javascript]
-.object-typeof-instanceof.js
+.objects/keys.js
 ----
-include::{sourceDir}/object-typeof-instanceof.js[]
+include::{sourceDir}/objects/keys.js[]
 ----
-<1> Affiche `function` ;
-<2> Affiche `object` ;
-<3> Affiche `true` ;
-<4> Affiche `[object Object]` ;
-<5> Affiche `PseudoBookClass`.
-
-`Object.keys` extrait les propriétés énumérables d'un objet, à la différence de `Object.getOwnPropertyNames()` :
+<1> Affiche `[ 'name', 'services' ]`.
 
 [source%interactive,javascript]
-.object-keys.js
 ----
-include::{sourceDir}/object-keys.js[]
+const busStop = {
+  name: 'Vassal Road',
+  services: ['36', 'N136', '185']
+};
+
+for (let key in busStop) {
+  console.log(key);
+}
 ----
-<1> Affiche `[ 'name', 'services' ]` ;
-<2> Affiche `[ 'name', 'services', 'internal_code' ]`.
+
 
 [[destructuring-objects]]
 === Décomposition d'objet
@@ -1509,6 +1551,19 @@ Date.now();             // <2>
 
 ECMAScript 2015 ajoute au langage des sucres syntaxiques facilitant la création et maintenance d'objets métier.
 Nous bénéficions d'une véritable notion de constructeur, de méthodes statiques et même d'extension de prototype — on pourrait parler d'héritage mais nous n'avons pas envie d'aller dans cette direction, pas vrai ?
+
+L'opérateur `instanceof` ou la méthode `getPrototypeOf` permettent justement de comparer les appartenances logiques.
+
+[source%interactive,javascript]
+.object-typeof-instanceof.js
+----
+include::{sourceDir}/object-typeof-instanceof.js[]
+----
+<1> Affiche `function` ;
+<2> Affiche `object` ;
+<3> Affiche `true` ;
+<4> Affiche `[object Object]` ;
+<5> Affiche `PseudoBookClass`.
 
 Tout ce que nous attachions auparavant à une _fonction_, nous nous référons désormais à une _classe_ à proprement parler. +
 En voici un exemple de définition :
