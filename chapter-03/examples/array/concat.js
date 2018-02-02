@@ -1,7 +1,7 @@
-'use strict';
+const mousquetaires = ['Atos', 'Portos', 'Aramis'];
+const extras = ['d\'Artagnan', 'Albert'];
 
-const a = [1, 2];
+console.log(mousquetaires.concat(extras));      // <1>
 
-console.log(a.concat(3));		// <1>
-console.log(a.concat([3, 4]));		// <2>
-console.log(a.concat([3, 4], [4, 5]));	// <3>
+// autre manière d'obtenir la liste des 5 mousquetaires
+console.log([].concat(mousquetaires, extras));

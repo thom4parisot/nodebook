@@ -1126,19 +1126,6 @@ include::{sourceDir}/functions/anonymous.js[]
 <2> Affiche `"Le processus se termine"` quand… le processus se termine
 — une fois que toutes les actions en attente ont été exécutées.
 
-[[rest-parameters]]
-=== Paramètres du reste (_rest parameters_)
-
-Les _paramètres du reste_ collecte un nombre indéfini de paramètres.
-Les paramètres sont *regroupés dans un même <<array,tableau>>* (voir ci-après).
-
-[source%interactive,javascript]
-.functions/rest.js
-----
-include::{sourceDir}/functions/rest.js[]
-----
-<1> Affiche `"On a compté 3 patates."`.
-
 [[callback]]
 === Les fonctions de _callback_
 
@@ -1160,71 +1147,153 @@ et recevra la date du moment en paramètre ;
 <3> Affiche l'année de la date passée en argument
 — l'année en cours dans cet exemple.
 
+[[rest-parameters]]
+=== Paramètres du reste (_rest parameters_)
+
+Les _paramètres du reste_ collecte un nombre indéfini de paramètres.
+Les paramètres sont *regroupés dans un même <<array,tableau>>* (voir ci-après).
+
+[source%interactive,javascript]
+.functions/rest.js
+----
+include::{sourceDir}/functions/rest.js[]
+----
+<1> Affiche `"On a compté 3 patates."`.
+
+
 [[array]]
-== Manipuler des collections
+== Manipuler des tableaux (_Array_)
 
-L'opérateur `typeof` ne permet pas d'identifier un tableau. Il faut pour cela privilégier la méthode `isArray` :
-
-[source%interactive,javascript]
-----
-typeof [];        // <1>
-Array.isArray([]);// <2>
-----
-<1> Retourne `'object'` ;
-<2> Retourne `true`.
-
-Il est possible de connaître la longueur d'un tableau en utilisant la propriété `length` :
+Les tableaux (ou listes indexées) servent à *lister des éléments*,
+de tout type et dans l'ordre de notre choix.
+Chaque élément de tableau se voit attribué un numéro (_index_).
+On peut retrouver l'élément par son numéro, en itérant à l'aide de boucles
+ou en ayant recours à d'autres méthodes d'identification.
 
 [source%interactive,javascript]
+.array/base.js
 ----
-[1, 2, 3].length; // <1>
+include::{sourceDir}/array/base.js[]
 ----
-<1> Retourne `3`.
+<1> Affiche `["lundi", "mardi", "mercredi", "jeudi", "vendredi"]` ;
+<2> Affiche `5` — soit la longueur du tableau ;
+<3> Affiche `"mardi"` — c'est l'élément défini à l'index `1` ;
+<4> Affiche `undefined` — il n'y a aucun élément défini à l'index `5`.
 
-La méthode `join` permet de concaténer tous les éléments d'un tableau avec le séparateur de votre choix :
+L'exemple précédent illustre plusieurs caractéristiques des collections :
 
-[source%interactive,javascript]
-----
-[1, 2, 3].join(', ') + '… soleil';  // <1>
-----
-<1> Retourne `'1, 2, 3… soleil'`.
+. la numérotation débute à l'index `0` ;
+. la propriété `length` contient la longueur du tableau ;
+. la valeur `undefined` est retournée quand on tente d'accéder à un index
+qui n'existe pas
 
-À l'inverse, la méthode `from` prend en charge la création de tableau à partir d'_itérables_ ou de structures similaires à des tableaux, comme `arguments` ou `NodeList` (dans un navigateur).
+=== Créer des tableaux à partir d'autres valeurs
 
-[source%interactive,javascript]
+La fonction `Array.from` est une autre manière de créer
+un tableau à partir de quelque chose qui _ressemble à un tableau_.
+
+[source%interactive,javascript,id="array.from"]
 .array/from.js
 ----
 include::{sourceDir}/array/from.js[]
 ----
-<1> Retourne `[ 'c', 'a', 'm', 'e', 'm', 'b', 'e', 'r', 't' ]` ;
-<2> Retourne `[ 1, 'b', 3, 'd' ]` ;
-<3> Retourne `[ 1, 'b', 3, 'd' ]`.
+<1> Affiche `["f", "r", "o", "m", "a", "g", "e"]`
+— chaque lettre de la chaîne ;
+<2> Affiche `["saturday", "sunday"]`
+— le nouveau tableau est créé en sélectionnant la deuxième valeur de chaque tableau.
 
-En complément, la méthode `concat` permet de concaténer d'autres éléments :
+Cette méthode est des plus utiles pour itérer sur des listes d'éléments DOM
+obtenues dans un navigateur web avec les fonctions `document.querySelectorAll`
+et `document.getElementsByTagName`, par exemple.
+
+[[array.concat]]
+=== Combiner des tableaux
+
+Il est relativement aisé de composer des tableaux en fonction d'autres tableaux.
+Une première manière d'y parvenir est d'utiliser la méthode `concat` :
 
 [source%interactive,javascript]
+.array/concat.js
 ----
 include::{sourceDir}/array/concat.js[]
 ----
-<1> Retourne `[ 1, 2, 3 ]` ;
-<2> Retourne `[ 1, 2, 3, 4 ]` ;
-<3> Retourne `[ 1, 2, 3, 4, 4, 5 ]` — cf. <<map-set,Map et Set>>.
+<1> Affiche `["Atos", "Portos", "Aramis", "d'Artagnan", "Albert"]`.
 
-La fonction de tri via la méthode `sort` se base sur des comparaisons positives, négatives ou neutres pour retourner un nouveau tableau, réindexé :
+Cette méthode _crée un nouveau tableau_ à partir d'une liste de tableaux
+passés en paramètre.
+
+[NOTE]
+.[RemarquePreTitre]#Alternative# Opérateur `...` (_spread_)
+====
+Une autre manière de faire est d'utiliser l'opérateur `...`
+(aussi appelé <<spread,spread>>) pour éclater plusieurs tableaux et
+les rassembler dans un autre :
 
 [source%interactive,javascript]
+.array/spread.js
 ----
-[1, 3, 2].sort((a, b) => a - b);  // <1>
-[1, 3, 2].sort((a, b) => b - a);  // <2>
-
-['A', 'b', 'c', 'a'].sort((a, b) => a.localeCompare(b))); // <3>
+include::{sourceDir}/array/spread.js[]
 ----
-<1> Retourne `[1, 2, 3]` ;
-<2> Retourne `[3, 2, 1]` ;
-<3> Retourne `['a', 'A', 'b', 'c']`.
+<1> Affiche `["Atos", "Portos", "Aramis", "d'Artagnan", "Albert"]`.
 
-Les méthodes suivantes sont des nouveautés d'ECMAScript 5.
-Elles facilitent énormément les itérations sur les tableaux tout en ajoutant une orientation fonctionnelle, utile pour la lisibilité du code.
+====
+
+À l'inverse, la méthode `join` _concatène_ tous les éléments
+dans une <<string,chaîne de caractères>> avec le séparateur de notre choix.
+Ce séparateur est optionnel.
+
+[source%interactive,javascript]
+.array/join.js
+----
+include::{sourceDir}/array/join.js[]
+----
+<1> Affiche `"ID;NOM;PRENOM"` ;
+<2> Affiche `"IDNOMPRENOM"`
+— sans mention de séparateur, les valeurs sont juxtaposées.
+
+[[array.forEach]]
+=== Itérer sur les valeurs
+
+
+[[array.sort]]
+=== Trier les valeurs
+
+La méthode `sort` _transforme_ un tableau existant à l'aide d'une
+<<anonymous-function,fonction anonyme>> qui compare les éléments entre eux.
+La fonction anonyme   reçoit deux arguments, tous deux des éléments du-dit tableau.
+
+* quand la comparaison est _positive_ :
+`sort` placera le premier élément _avant_ le second ;
+* quand la comparaison est _négative_ :
+`sort` placera le premier élément _après_ le second ;
+* quand la comparaison est nulle ou non spécifiée :
+l'ordre des éléments restera inchangé.
+
+[source%interactive,javascript]
+.array/sort.js
+----
+include::{sourceDir}/array/sort.js[]
+----
+<1> Affiche `[1, 2, 3]` ;
+<2> Affiche `[ { label: "un", order: 1 }, { label: "deux", order: 2 } ]`
+— le tableau a été trié sur la valeur de `order`.
+
+Les <<string,chaînes de caractères>> peuvent être comparées
+avec la méthode `localeCompare`.
+Cette méthode retourne un nombre après une comparaison caractère par caractère
+entre deux chaînes :
+
+[source%interactive,javascript]
+.array/sort-strings.js
+----
+include::{sourceDir}/array/sort-strings.js[]
+----
+<1> Affiche `["a", "A", "b", "c"]` — les majuscules influencent le tri ;
+<2> Affiche `[ { label: "deux", order: 2 }, { label: "un", order: 1 } ]`
+— le tableau a été trié sur la valeur de `label` cette fois-ci.
+
+[[array.map]]
+=== Transformer les valeurs
 
 La méthode `map` permet de retourner un nouveau tableau avec des valeurs modifiées :
 
@@ -1234,6 +1303,19 @@ La méthode `map` permet de retourner un nouveau tableau avec des valeurs modifi
 include::{sourceDir}/array/map.js[]
 ----
 <1> Retourne `['A', 'B', 'C']`.
+
+La méthode `reduce` a un comportement similaire à `sort` mais fonctionne de manière accumulative :
+
+[source%interactive,javascript]
+.array/reduce.js
+----
+include::{sourceDir}/array/reduce.js[]
+----
+<1> Affiche `21` ;
+<2> Affiche `[9, 12]`.
+
+[[array.filter]]
+=== Filtrer les valeurs
 
 La méthode `filter` quant à elle retourne un nouveau tableau ne contenant que les éléments retournant un <<boolean,booléen _truthy_>> :
 
@@ -1256,7 +1338,9 @@ include::{sourceDir}/array/some.js[]
 <2> Renvoie `false` puisque toutes les valeurs n'équivalent pas à `undefined` ;
 <3> Renvoie `true` puisque toutes les valeurs sont égales à `undefined`.
 
-ECMAScript 2015 introduit les méthodes `find` et `findIndex`, respectivement pour retourner une valeur et son index selon une fonction prédicat :
+=== Identifier une ou plusieurs valeurs
+
+indexOf, lastIndexOf
 
 [source%interactive,javascript]
 .array/find.js
@@ -1267,33 +1351,23 @@ include::{sourceDir}/array/find.js[]
 <2> Affiche `stram` (valeur recherchée) ;
 <3> Affiche `1` (index de la valeur recherchée).
 
-La méthode `reduce` a un comportement similaire à `sort` mais fonctionne de manière accumulative :
+
+[CAUTION]
+.[RemarquePreTitre]#Attention# Gare aux valeurs vides !
+====
+Le comportement des différentes méthodes de tableau peut varier
+selon qu'une valeur soit vide, fausse ou non-existante,
+On dit alors que le tableau n'est contigu.
+
+On peut avoir l'illusion de traiter toutes les valeurs d'un tableau
+alors qu'en réalité il ne s'agit que des valeurs non-vides.
 
 [source%interactive,javascript]
-.array/reduce.js
+.array/non-contiguous.js
 ----
-include::{sourceDir}/array/reduce.js[]
+include::{sourceDir}::array/non-contiguous.js[]
 ----
-<1> Affiche `21` ;
-<2> Affiche `[9, 12]`.
 
-[TIP]
-.[RemarquePreTitre]#FAQ# Tableau non contigu.
-====
-Il se peut que des valeurs soient manquantes dans un tableau.
-On dit alors que les valeurs ne sont pas contiguës.
-
-Cela affecte les fonctions itératives et peut se révéler problématique si vous cherchez à conserver cette absence de valeurs :
-
-----
-const a = [1,, 3, undefined, null];
-const print = (value) => console.log(value);
-
-a.length;         // <1>
-a.forEach(print); // <2>
-----
-<1> Retourne `5` ;
-<2> Affiche 4 valeurs : `1`, `3`, `undefined` puis `null`.
 ====
 
 [[destructuring-arrays]]
@@ -1302,12 +1376,10 @@ a.forEach(print); // <2>
 L'affectation par _décomposition_ (_destructuring_) est une manière élégante et intuitive de piocher dans un <<array,tableau>> ou dans un <<object,objet>>.
 La décomposition n'altère pas le contenu des variables décomposées.
 
-Les valeurs d'un tableau sont décomposées dans l'ordre tandis que l'opérateur _spread_ (`...`) permet d'assigner le _reste_ des valeurs dans une seule et même variable ou constante :
-
 [source%interactive,javascript]
-.destructuring-array.js
+.array/destructuring.js
 ----
-include::{sourceDir}/destructuring-array.js[]
+include::{sourceDir}/array/destructuring.js[]
 ----
 <1> Décompose la première valeur du tableau et assigne _le reste_ dans une autre constante ;
 <2> Affiche `Bordeaux` ;
@@ -1316,14 +1388,6 @@ include::{sourceDir}/destructuring-array.js[]
 
 Il est également possible de _sauter_ des valeurs en ne nommant pas _autant_ de variables ou de constantes lors de la décomposition :
 
-[source%interactive,javascript]
-.destructuring-spread.js
-----
-include::{sourceDir}/destructuring-spread.js[]
-----
-<1> Assigne la première valeur dans la constante `first`, saute la seconde et assigne le reste des valeurs dans `end` ;
-<2> Affiche `un` ;
-<3> Affiche `[ 'deux', 'trois', 'quatre' ]`.
 
 [[object]]
 == Manipuler des dictionnaires (_Object_)

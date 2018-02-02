@@ -1,13 +1,5 @@
-'use strict';
+console.log(Array.from('fromage'));                   // <1>
 
-function logArguments() {
-  console.log(Array.from(arguments));
-}
+const weekend = [['samedi', 'saturday'], ['dimanche', 'sunday']];
 
-const logIterable = (...args) => {
-  console.log(Array.from(args));
-}
-
-console.log(Array.from('camembert')); // <1>
-logArguments(1, 'b', 3, 'd');         // <2>
-logIterable(1, 'b', 3, 'd');          // <3>
+console.log(Array.from(weekend, (value) => value[1]));  // <2>

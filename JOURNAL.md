@@ -2,6 +2,11 @@
 
 Pour en savoir plus: [annonce la résidence itinérante](https://oncletom.io/2017/residence-nodejs/) et [résumé de la résidence itinérante](https://oncletom.io/2017/without-a-home/) (en anglais).
 
+## Jeudi 1er février
+
+- _Chapitre 3_ : Manipuler des collections
+
+**Météo** : 🙂
 
 ## Mercredi 31 janvier
 
