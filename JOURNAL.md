@@ -2,11 +2,26 @@
 
 Pour en savoir plus: [annonce la résidence itinérante](https://oncletom.io/2017/residence-nodejs/) et [résumé de la résidence itinérante](https://oncletom.io/2017/without-a-home/) (en anglais).
 
+
+## Samedi 3 février
+
+- _Chapitre 3_ : Manipuler des tableaux
+
+**Météo** : 🛌 ☕️ 🙂
+
+## Vendredi 2 février
+
+- _atelier_ : session de lecture du chapitre 3 (tableaux, objets)
+- _atelier_ : session d'apprentissage de npm au vidéoprojecteur chez [ut7][ut7]
+
+**Météo** : 🙂 🗣 📽
+
 ## Jeudi 1er février
 
-- _Chapitre 3_ : Manipuler des collections
+- _Chapitre 3_ : Manipuler des tableaux
+- _atelier_ : session de lecture du chapitre 3 (tableaux) chez [ut7][ut7]
 
-**Météo** : 🙂
+**Météo** : 🙂 🗣
 
 ## Mercredi 31 janvier
 
@@ -50,7 +65,7 @@ Pour en savoir plus: [annonce la résidence itinérante](https://oncletom.io/201
 - _npm_ : nouvelle commande `nodebook dir` pour diriger le terminal vers le répertoire d'exemples (remplace la commande `nodebook open`)
 - _npm_ : corrige plusieurs bugs, réduit le nombre de dépendances et traduit les instructions en français
 
-**Météo** : 🙂 💪 📽
+**Météo** : 🙂 💪 🗣 📽
 
 Ce qui suit est la rétrospective de la session d'écriture passée avec [Philippe Blayo][]. La rétrospective s'est organisée autour de ces questions :
 

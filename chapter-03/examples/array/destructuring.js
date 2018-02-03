@@ -1,9 +1,8 @@
-'use strict';
+const weekdays = ['lundi', 'mardi', 'mercredi', 'jeudi', 'vendredi'];
 
-const cities = ['Bordeaux', 'Toulouse', 'Montpellier', 'Aix-en-Provence'];
+const [first, second] = weekdays;
+console.log(first);           // <1>
+console.log(second);          // <2>
 
-const [chocolatineCity, ...trueSouth] = cities;  // <1>
-
-console.log(chocolatineCity);// <2>
-console.log(trueSouth);      // <3>
-console.log(cities);         // <4> 
+const [,, third] = weekdays;
+console.log(third);           // <3>

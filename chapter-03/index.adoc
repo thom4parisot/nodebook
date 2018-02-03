@@ -1208,16 +1208,12 @@ Le deuxième argument de `Array.from` est facultatif.
 C'est une <<anonymous-function,fonction anonyme>> qui s'utilise comme les <<array.forEach,méthodes d'itération>> `Array.forEach` et `Array.map`.
 
 Cette méthode est des plus utiles pour itérer sur des listes d'éléments DOM
-obtenues dans un navigateur web avec les fonctions `document.querySelectorAll`
-et `document.getElementsByTagName`, par exemple.
+obtenues avec les fonctions `document.querySelectorAll`
+et `document.getElementsByTagName`, entre autres.
 
 [source,javascript]
 ----
-const links = document.querySelectorAll('a');
-
-console.log(Array.from(links).map(a => a.textContent));
-// parce qu'on ne peut pas faire
-// links.map(a => a.textContent);
+include::{sourceDir}/array/node-list.js[]
 ----
 
 [[array.concat]]
@@ -1268,37 +1264,78 @@ include::{sourceDir}/array/join.js[]
 <3> Affiche `"IDNOMPRENOM"`
 
 [[array.forEach]]
-=== Itérer sur les valeurs
+=== Itérer sur les valeurs avec des boucles
 
-les boucles
-  une manière de parcourir plusieurs valeurs
-  automatisme, éviter de répéter du code : on ne connait pas pas forcément la taille de l'ensemble
+Les boucles sont une manière de *parcourir plusieurs valeurs*.
+Elles aident la mise en place d'automatismes pour éviter de répéter du code.
 
-(exemple)
+[source%interactive,javascript]
+.array/loop.js
+----
+include::{sourceDir}/array/loop.js[]
+----
+<1> Affiche successivement chaque valeur du tableau
+— `"lundi"`, `"mardi"`, `"mercredi"`, `"jeudi"`, `"vendredi"`.
 
-circonstances
-  - pour faire un tri
-  - pour modifier des valeurs
-  - en afficher
+Prenons le temps de revenir sur cet exemple.
+On y découvre plusieurs manières de faire des boucles sur un tableau :
 
-plusieurs méthodes
-  - for..in, for..of (clé, valeur)
-  - forEach (élément)
-  - while (renvoi vers les conditions)
+`for..of`::
+  On assigne une variable pour chaque élément (opérateur `of`) du tableau.
+  Les expressions situées entre accolade (`{...}`) sont exécutées pour
+  chaque élément du tableau.
+`forEach(element => expression)`::
+  La méthode `forEach` applique une <<anonymous-function,fonction anonyme>>
+  pour chaque élément du tableau.
 
-Puis des renvois vers
-  - map
-  - sort
-  - filter
-  - reduce
-  - from
+Il y a en réalité deux manières d'itérer avec la boucle `for` :
+sur les _index_ (avec l'opérateur `in`)
+et sur les _valeurs_ (avec l'opérateur `of`).
+
+[source%interactive,javascript]
+.array/for-of-in.js
+----
+include::{sourceDir}/array/for-of-in.js[]
+----
+<1> Affiche successivement `0` puis `1` ;
+<2> Affiche successivement `"samedi"` puis `"dimanche"`
+— l'index permet de retrouver la valeur du tableau ;
+<3> Affiche successivement `"samedi"` puis `"dimanche"`.
+
+La méthode `forEach` propage en réalité 3 arguments à notre fonction anonyme :
+l'*élément* en cours de l'itération,
+l'*index* de l'élément,
+le *tableau* d'origine.
+
+Pourquoi passer le tableau d'origine alors qu'on itère sur ce même tableau ?
+Pour donner du contexte au cas où on opère
+avec une <<function,fonction nommée>>.
+Nous verrons un usage concret de ce troisième argument
+dans la section <<array.map,transformer les valeurs>>.
+
+[source%interactive,javascript]
+.array/foreach-function.js
+----
+include::{sourceDir}/array/foreach-function.js[]
+----
+<1> Applique la fonction `printIndex` pour chaque élément du tableau `undeux`
+<2> Affiche successivement `"un se trouve à l'index 0"` puis `"deux se trouve à l'index 1"`
+
+Outre l'inspection et l'affichage des valeurs, les boucles offrent la liberté
+de <<array.sort,faire des tri>>, de <<array.map,transformer les valeurs>>, de <<array.filter,filtrer selon des conditions>>
+mais aussi de <<array.reduce,créer de nouvelles structures de données>>.
+
+Ces méthodes sont décrites dans les sections suivantes.
+
 
 [[array.sort]]
 === Trier les valeurs
 
-La méthode `sort` _transforme_ un tableau existant à l'aide d'une
-<<anonymous-function,fonction anonyme>> qui compare les éléments entre eux.
-La fonction anonyme   reçoit deux arguments, tous deux des éléments du-dit tableau.
+La méthode `sort` chaque l'ordre des éléments d'un tableau.
+Cette méthode utilise un <<anonymous-function,fonction anonyme>>.
+La fonction anonyme compare deux éléments entre eux.
+Elle retourne un nombre positif, négatif ou égal à zéro selon la
+logique que l'on souhaite donner au tri :
 
 * quand la comparaison est _positive_ :
 `sort` placera le premier élément _avant_ le second ;
@@ -1331,94 +1368,149 @@ include::{sourceDir}/array/sort-strings.js[]
 — le tableau a été trié sur la valeur de `label` cette fois-ci.
 
 [TIP]
-.[RemarquePreTitre]## `Array.reverse`
+.[RemarquePreTitre]#Alternative# `Array.reverse`
 ====
-reverse
+La méthode `reverse` transforme le tableau d'origine
+en inversant l'ordre de ses éléments.
+
+[source%interactive,javascript]
+.array/reverse.js
+----
+include::{sourceDir}/array/reverse.js[]
+----
+<1> Affiche `["dimanche", "samedi"]`.
 ====
 
 
 [[array.map]]
 === Transformer les valeurs
 
-La méthode `map` permet de retourner un nouveau tableau avec des valeurs modifiées :
+La méthode `map` fonctionne quasiment comme la méthode `forEach`.
+À ceci près qu'elle retourne un nouveau tableau,
+constitué des valeurs retournées par la fonction appliquée sur chaque élément.
 
 [source%interactive,javascript]
 .array/map.js
 ----
 include::{sourceDir}/array/map.js[]
 ----
-<1> Retourne `['A', 'B', 'C']`.
+<1> Retourne `['A', 'B', 'C']`
+— on a passé tous les éléments en lettres majuscules.
 
-La méthode `reduce` a un comportement similaire à `sort` mais fonctionne de manière accumulative :
+Le troisième argument de la méthode `map` prend ici tout son sens.
+Par exemple si l'on souhaite dédoublonner un tableau :
+
+[source%interactive,javascript]
+.array/map-dedupe.js
+----
+include::{sourceDir}/array/map-dedupe.js[]
+----
+<1> Affiche `[null, null, "un", "deux"]`.
+
+L'exemple précédent vérifie à chaque itération si la valeur de l'élément
+est contenue dans la _suite du tableau_.
+`array.slice(index+1)` crée un nouveau tableau contenant tous les éléments
+situés _après_ l'élément courant (`index+1`).
+
+La méthode `reduce` est une autre méthode de transformation.
+Elle est différente car elle passe le résultat de la précédente itération
+à la suivante.
+C'est comme si elle _accumulait_ les résultats.
+`reduce` retourne une valeur finale qui peut être autre chose qu'un tableau.
 
 [source%interactive,javascript]
 .array/reduce.js
 ----
 include::{sourceDir}/array/reduce.js[]
 ----
-<1> Affiche `21` ;
-<2> Affiche `[9, 12]`.
+<1> Effectue une _réduction_ à l'aide de la fonction `sum` et d'une valeur
+par défaut de `0`
+— affiche `22` à l'issue des itérations ;
+<2> La valeur de l'*élément* est le _second paramètre_ ;
+le premier paramètre correspond au résultat de l'itération précédente…
+ou de la valeur initiale, passée en argument à `reduce`.
 
 [[array.filter]]
 === Filtrer les valeurs
 
-La méthode `filter` quant à elle retourne un nouveau tableau ne contenant que les éléments retournant un <<boolean,booléen _truthy_>> :
+La méthode `filter` retourne un nouveau tableau filtré à l'aide
+d'une <<anonymous-function,fonction anonyme>>.
+Seuls les éléments qui satisfont la condition établie par la fonction
+se retrouvent dans le nouveau tableau.
 
 [source%interactive,javascript]
 .array/filter.js
 ----
 include::{sourceDir}/array/filter.js[]
 ----
-<1> Retourne `[1, 0]` ;
-<1> Retourne `[1, 'a', 120]`.
+<1> Retourne `[3]`
+— c'est la seule valeur qui est un nombre
+<2> Retourne `["un", "deux", 3]`
+— ce sont les valeurs non-nulles
 
-De manière similaire, les méthodes `some` et `every` retournent un booléen si _au moins une itération_ et _toutes les itérations_ ont renvoyé une _valeur positive_ :
-
-[source%interactive,javascript]
-.array/some.js
-----
-include::{sourceDir}/array/some.js[]
-----
-<1> Renvoie `true` puisqu'au moins une valeur équivaut à `undefined` ;
-<2> Renvoie `false` puisque toutes les valeurs n'équivalent pas à `undefined` ;
-<3> Renvoie `true` puisque toutes les valeurs sont égales à `undefined`.
-
+[[array.find]]
 === Identifier une ou plusieurs valeurs
 
-indexOf, lastIndexOf, includes
+Les méthodes `indexOf`, `lastIndexOf` et `includes` identifient une
+_valeur exacte_ au sein d'un tableau.
+
+`indexOf` et `lastIndexOf` retournent l'_index_ de la valeur recherchée.
+Si aucun élément n'a été retrouvé, elles retourneront la valeur `-1`. +
+`includes` retourne un <<boolean,booléen>> indiquant si la recherche
+est fructueuse (`true`) ou non (`false`).
+
+[source%interactive,javascript]
+.array/index-of-includes.js
+----
+include::{sourceDir}/array/index-of-includes.js[]
+----
+<1> Affiche `0` — le premier `"un"` est l'élément `0` du tableau
+<2> Affiche `1` – le premier `"deux"` est l'élément `1` du tableau
+<3> Affiche `-1` — cet élément est absent du tableau
+<4> Affiche `3` — le dernier `"deux"` est l'élément `3` du tableau
+<5> Affiche `true` — l'élément `"un"` existe dans le tableau
+<6> Affiche `false` — l'élément `"trois"` n'existe pas dnas le tableau
+
+Il existe ensuite d'autres méthodes comme `find`, `some` et `every`.
+Elles *identifient des éléments à partir d'une fonction*.
+Les conditions de recherche sont plus complètes car on n'est pas obligé
+de connaître la valeur exacte recherchée.
+
+La méthode `find` retourne l'_élément_ qui satisfait la condition en premier.
+La méthode `findIndex` retourne l'_index de l'élément_
+qui satisfait la condition en premier.
 
 [source%interactive,javascript]
 .array/find.js
 ----
 include::{sourceDir}/array/find.js[]
 ----
-<1> Valeur que l'on recherche ;
-<2> Affiche `stram` (valeur recherchée) ;
-<3> Affiche `1` (index de la valeur recherchée).
+<1> La fonction `isFinite` retourne `true`
+si la valeur passée en argument est un nombre supérieur à `50`
+<2> Affiche `100`
+<3> Affiche `3` — c'est l'index de la valeur `100`
 
-
-[CAUTION]
-.[RemarquePreTitre]#Attention# Gare aux valeurs vides !
-====
-Le comportement des différentes méthodes de tableau peut varier
-selon qu'une valeur soit vide, fausse ou non-existante,
-On dit alors que le tableau n'est contigu.
-
-On peut avoir l'illusion de traiter toutes les valeurs d'un tableau
-alors qu'en réalité il ne s'agit que des valeurs non-vides.
+Les méthodes `some` et `every` retournent un <<boolean,booléen>>
+lorsque la condition est satisfaite.
+`some` retourne `true` si _au moins une itération_ est satisfaisante.
+`every` retourne `true` si _toutes les itérations_ sont satisfaisantes.
 
 [source%interactive,javascript]
-.array/non-contiguous.js
+.array/some.js
 ----
-include::{sourceDir}::array/non-contiguous.js[]
+include::{sourceDir}/array/some.js[]
 ----
-
-====
+<1> Affiche `false` — toutes les valeurs ne sont pas égales à `undefined`
+<2> Affiche `true` — au moins une valeur est égale à `undefined`
+<3> Affiche `false` — il n'y a plus de valeur `undefined` dans le tableau
+car on a utilisé la méthode <<array.filter,filter>> pour supprimer les valeurs
+non-vides
 
 [[destructuring-arrays]]
 === Décomposition de collection
 
-L'affectation par _décomposition_ (_destructuring_) est une manière élégante et intuitive de piocher dans un <<array,tableau>> ou dans un <<object,objet>>.
+L'affectation par _décomposition_ (_destructuring_) est une manière élégante
+de piocher une ou plusieurs valeurs dans un <<array,tableau>>.
 La décomposition n'altère pas le contenu des variables décomposées.
 
 [source%interactive,javascript]
@@ -1426,14 +1518,49 @@ La décomposition n'altère pas le contenu des variables décomposées.
 ----
 include::{sourceDir}/array/destructuring.js[]
 ----
-<1> Décompose la première valeur du tableau et assigne _le reste_ dans une autre constante ;
-<2> Affiche `Bordeaux` ;
-<3> Affiche `[ 'Toulouse', 'Montpellier', 'Aix-en-Provence' ]` ;
-<4> Affiche `[ 'Bordeaux', 'Toulouse', 'Montpellier', 'Aix-en-Provence' ]`.
+<1> Affiche `"lundi"`
+<2> Affiche `"mardi"`
+<3> Affiche `"mercredi"` — l'utilisation des virgules sans variable a permis
+de _sauter_ des positions dans la décomposition
 
-Il est également possible de _sauter_ des valeurs en ne nommant pas _autant_ de variables ou de constantes lors de la décomposition :
+La décomposition se combine agréablement avec l'opérateur `...` (opérateur _spread_).
+Il accumule _le reste_ des éléments dans une variable, sous forme de tableau.
 
-parler de slice
+[source%interactive,javascript]
+.array/destructuring-rest.js
+----
+include::{sourceDir}/array/destructuring-rest.js[]
+----
+<1> Affiche `["mercredi", "jeudi", "vendredi"]`
+
+La méthode `slice` offre davantage de souplesse pour gérer les _limites_.
+On choisit _l'index de début_ et _l'index de fin_ de la décomposition.
+
+[source%interactive,javascript]
+.array/slice.js
+----
+include::{sourceDir}/array/slice.js[]
+----
+<1> Affiche `["deux", "trois", "quatre"]` — à partir de l'index `1`
+<2> Affiche `["deux"]`
+— à partir de l'index `1` et jusqu'à l'index `2` (non-inclus)
+
+Si les valeurs de début et/ou de fin sont _négatives_,
+les index sont calculés _à partir de la fin_ du tableau.
+
+[source%interactive,javascript]
+.array/slice-negative.js
+----
+include::{sourceDir}/array/slice-negative.js[]
+----
+<1> Affiche `["quatre"]`
+— premier élément à partir de la fin
+<2> Affiche `["deux", "trois", "quatre"]`
+— les trois premiers éléments à partir de la fin
+<3> Affiche `["un", "deux", "trois"]`
+— jusqu'au dernier élément à partir de la fin (non-inclus)
+<4> Affiche `["un"]`
+— jusque'au troisième élément à partir de la fin (non-inclus)
 
 
 [[object]]

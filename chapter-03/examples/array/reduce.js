@@ -1,14 +1,5 @@
-'use strict';
+const stats = [2, 4, 6, 10];
 
-let result;
-const pairs = [[1, 2], [3, 4], [5, 6]];
+const sum = (previous, element) => previous + element;    // <2>
 
-result = pairs.reduce((acc, pair) => acc + pair[0] + pair[1], 0);
-console.log(result);    // <1>
-
-result = pairs.reduce((acc, pair) => {
-  acc[0] += pair[0];
-  acc[1] += pair[1];
-  return acc;
-}, [0, 0]);
-console.log(result);    // <2>
+console.log(stats.reduce(sum, 0));    // <1>

@@ -1,24 +1,6 @@
-'use strict';
+const values = [null, 2, 10, 100];
 
-const DATA = ['am', 'stram', 'gram'];
-const FIND = 'stram';			// <1>
-let found;
+const biggerThan50 = (value) => value > 50;   // <1>
 
-// Avant ES2015
-DATA.some((value) => {
-  if (value === FIND) {
-    found = value;
-    return true;
-  }
-});
-
-console.log(found);			  // <2>
-
-// Depuis ES2015
-found = DATA.find(value => value === FIND);
-
-console.log(found);			  // <2>
-
-const foundIndex = DATA.findIndex(value => value === FIND);
-
-console.log(foundIndex);	// <3>
+console.log(values.find(biggerThan50));       // <2>
+console.log(values.findIndex(biggerThan50));  // <3>
