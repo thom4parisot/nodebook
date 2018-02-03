@@ -670,7 +670,6 @@ include::{sourceDir}/modules/node-timer.js[]
 
 L'exécution du script `node-timer.js` afficherait quelque chose du genre dans votre terminal :
 
-[source,bash]
 ----
 $ node examples/modules/node-timer.js
 { now: 2017-02-17T11:07:29.752Z, className: 'impair' }
@@ -1458,7 +1457,7 @@ Ces trois librairies disposent d'une documentation en ligne expliquant leurs opt
 - [URL]#https://karma-runner.github.io/#
 ====
 
-[code%interactive,javascript]
+[source%interactive,javascript]
 .Exemple d'assertion avec la librairie _chai_
 ----
 import {expect} from 'chai';
@@ -1466,7 +1465,7 @@ import {expect} from 'chai';
 expect(2+2).to.equal(4);
 ----
 
-[code,javascript]
+[source,javascript]
 .Exemple de test avec la librairie _mocha_
 ----
 describe('functionName', () => {
