@@ -5,6 +5,8 @@ Pour en savoir plus: [annonce la résidence itinérante](https://oncletom.io/201
 ## Dimanche 4 février
 
 - _Chapitre 3_ : Manipuler des objets
+- _Chapitre 3_ : Manipuler des dates
+- _outillage_ : icônes en émoji et rendu plus joli des titres de blocs
 
 **Météo** : 🚅 🇬🇧 🙂
 

@@ -722,7 +722,7 @@ tout caractère (`.`)::
   Équivalent à _tout caractère_… sauf le saut de ligne ;
 caractère de mot (`\w`)::
   Équivalent à tout caractère pouvant composer un mot… anglais.
-  Les caractères accentués ne comptent pas malheureusement icon:wink[].
+  Les caractères accentués ne comptent pas malheureusement…
   Identique à `[A-Za-z0-9_]`
 caractère numérique (`\d`)::
   Équivalent à tout caractère numérique.
@@ -747,7 +747,7 @@ include::{sourceDir}/regexp/classes.js[]
 <2> Affiche `"I ♥ {docyear}"`
 — on a extrait le début de la phrase et l'année placée en fin de chaîne.
 
-mdn::Web/JavaScript/Reference/Objets_globaux/RegExp[expressions régulières]
+mdn::global[RegExp,title="expressions régulières"]
 
 
 La méthode `test` est pratique si la seule qui vous intéresse
@@ -1764,78 +1764,129 @@ include::{sourceDir}/object/key-undefined.js[]
 [[date]]
 == Manipuler des dates
 
-L'opérateur `typeof` ne permet pas d'identifier une date. Il convient d'utiliser `instanceof` :
+Les calculs de date s'effectuent à l'aide des objets `Date`.
+Chaque instance de `Date` représente un moment dans le temps, à un jour
+et à une heure donnée.
 
 [source%interactive,javascript]
+.date/base.js
 ----
-typeof (new Date('2014-03-24'));  // <1>
-(new Date('2014-03-24 13:37')) instanceof Date; // <2>
-typeof Date.parse('2014-03-24 13:37');          // <3>
+include::{sourceDir}/date/base.js[]
 ----
-<1> Retourne `'object'` ;
-<2> Retourne `true` ;
-<3> Retourne `'number'`, car il s'agit d'une date exprimée en millisecondes depuis le 1er janvier 1970 (temps _EPOCH_).
+<1> On initialise l'objet date `past` au 14 décembre 2013
+<2> Affiche `2013` — l'année liée à l'objet `past`
+<3> Affiche `{docyear}` — l'année liée à l'objet `now` (aujourd'hui)
 
-Il également possible d'obtenir la date actuelle exprimée en millisecondes avec `Date.now` :
+Un certain nombre de méthodes _retournent_ différents éléments de la date
+contenue dans l'objet : année, secondes, jour de la semaine, etc.
+Il en existe tout autant pour _modifier_ ces éléments de date.
 
 [source%interactive,javascript]
+.date/set.js
 ----
-Date.parse(new Date()); // <1>
-Date.now();             // <2>
+include::{sourceDir}/date/set.js[]
 ----
-<1> Retourne `1397381941000` ;
-<2> Retourne `1397381941031`, équivalent à la syntaxe précédente donc, la précision à la milliseconde près en plus.
+<1> Change la date vers l'année `2015`
+<2> Affiche `"2015-12-04T10:00:00.000Z"`
+<3> Change la date vers le mois `1`
+<4> Affiche `"2015-02-04T10:00:00.000Z"`… mais, c'est le mois de février ?!
+
+L'exemple précédent illustre l'ambiguïté de la notion de _mois_.
+Il s'agit en réalité de l'_index du mois_ :
+0 correspond à janvier, 1 à février etc.
+
+La plupart des méthodes natives font référence à l'anglais.
+Elles offrent peu de confort de manipulation — on aimerait pouvoir
+compter facilement le nombre de jours entre deux dates, ou retirer 30 jours.
+
+Quand nous utiliserons <<../chapter-04/index.adoc,Node>> et
+<<../chapter-05/index.adoc,npm>>, nous verrons que nous aurons
+à disposition des librairies facilitant les manipulation de dates.
+
+mdn::global[Date]
+
+
+[[intl.datetimeformat]]
+=== Formattage internationalisé (_Intl.DateTimeFormat_)
+
+La spécification _ECMA Intl_ a été conçue pour ajouter des
+fonctionnalités relatives aux langues.
+Cette spécification est complémentaire.
+Son comportement varie en fonction du système d'exploitation
+— mode d'installation de Node et/ou version du navigateur web.
+
+Les méthodes de date `toLocaleString`, `toLocaleDateString` et
+`toLocaleTimeString` renvoient une version localisée
+d'une date complète, d'une date et d'une heure
+, respectivement.
+
+[source%interactive,javascript]
+.date/to-locale-date.js
+----
+include::{sourceDir}/date/to-locale-date.js[]
+----
+<1> Affiche `04/12/2013`
+<2> Affiche `décembre`
+
+[CAUTION]
+.[RemarquePreTitre]#Attention# Tu vois M01, M02 etc. ?
+====
+Si en formattant une date, les caractères `M01`, `M02` ou autre s'affiche,
+c'est que le système n'est pas configuré avec les libellés de la langue
+demandée.
+
+La langue par défaut est l'anglais.
+====
+
+mdn::global[Date/toLocaleDateString]
+
+Une version plus verbeuse consiste à créer un formatteur avec
+`Intl.DateTimeFormat`.
+Ce formatteur se réutilise pour transformer plusieurs fois
+des dates différentes avec les mêmes réglages…
+ou une même date avec des formattages différents.
+
+[source%interactive,javascript]
+.date/intl.js
+----
+include::{sourceDir}/date/intl.js[]
+----
+<1> Affiche `4 déc. 2013`
+<2> Affiche `mercredi 4 décembre 2013`
+
+mdn::global[DateTimeFormat]
 
 
 [[class]]
 == Manipuler des classes d'objet (_Class_)
 
-ECMAScript 2015 ajoute au langage des sucres syntaxiques facilitant la création et maintenance d'objets métier.
-Nous bénéficions d'une véritable notion de constructeur, de méthodes statiques et même d'extension de prototype — on pourrait parler d'héritage mais nous n'avons pas envie d'aller dans cette direction, pas vrai ?
-
-L'opérateur `instanceof` ou la méthode `getPrototypeOf` permettent justement de comparer les appartenances logiques.
-
-[source%interactive,javascript]
-.object-typeof-instanceof.js
-----
-include::{sourceDir}/object-typeof-instanceof.js[]
-----
-<1> Affiche `function` ;
-<2> Affiche `object` ;
-<3> Affiche `true` ;
-<4> Affiche `[object Object]` ;
-<5> Affiche `PseudoBookClass`.
-
-Tout ce que nous attachions auparavant à une _fonction_, nous nous référons désormais à une _classe_ à proprement parler. +
-En voici un exemple de définition :
-
+Une classe est une *structure qui partage des propriétés*
+et des méthodes entre objets qui l'instancient.
+Une instance de classe est créée en préfixant un appel de fonction
+par l'opérateur `new`.
 
 [source%interactive,javascript]
-.class-view.js
 ----
-include::{sourceDir}/class-view.js[]
+const date1 = new Date();
+const date2 = new Date('2013-12-04');
 ----
 
-La définition de la classe `View` comporte trois fonctions :
+Si on se réfère à l'exemple précédent,
+nos deux variables sont des objets issus de la _classe_ <<date,Date>>.
+Chacune des variables bénéficie des méthodes définies par la classe `Date`.
 
-- `constructor` : le constructeur invoqué à chaque nouvelle instantiation via l'opérateur `new` ;
-- `render` : une méthode partagée par toutes les instances de `View` — équivalent à `View.prototype.render = function () { ... }` ;
-- `removeDuplicates` : une méthode statique, utilisable indépendamment des instances de `View` — équivalent à `View.removeDuplicates = () => ({ ... })`.
+Autrement dit, si les <<object,structures d'objet>> définissent des données,
+les classes définissent des *comportements partagés*.
 
-L'exemple suivant illustre le comportement de la classe `View` :
+
+[[class.static]]
+=== Méthodes statiques
 
 [source%interactive,javascript]
-.class-constructor.js
+.class/static.js
 ----
-include::{sourceDir}/class-constructor.js[]
+include::{sourceDir}/class/static.js[]
 ----
-<1> Affiche `object` ;
-<2> Affiche `true` ;
-<3> Affiche `{ blacklist: [ 'object', 'iframe' ] }` — l'objet de configuration initial ;
-<4> Affiche `Node.js` ;
-<5> Affiche une exception personnalisée.
-
-
 
 [[object-getset]]
 === Accesseurs et mutateurs
@@ -1895,24 +1946,17 @@ La logique des accesseurs est ainsi partagée entre _tous les objets_ étant des
 [[class.extends]]
 === Héritage
 
-L'exemple suivant illustre deux classes héritant de notre classe `View` :
 
 [source%interactive,javascript]
-.class-extends.js
+.class/extends.js
 ----
-include::{sourceDir}/class-extends.js[]
+include::{sourceDir}/class/extends.js[]
 ----
-<1> Retourne une chaîne de HTML après avoir interpolé les variables avec leur valeur respective ;
-<2> Retourne la chaîne de texte `# Node.js\n#{empty}#\#{empty}#\#{empty}#\#{empty}#{empty}#\n\nHello World!`.
 
-`HTMLView` surcharge le constructeur tandis que `TextView` se contente du comportement par défaut défini par le constructeur de `View`.
-
-L'appel à la fonction `super` revient à _appeler le constructeur de la classe que l'on étend_.
+L'appel à la fonction `super()`
+_appelle le constructeur de la classe étendue_.
 Ne pas l'appeler revient à ne pas exécuter le constructeur de la classe parent.
 
-S'il est désormais plus sûr d'utiliser l'extension de chaîne prototypale, *il ne faut pas abandonner la composition* pour autant.
-
-Il est en effet bien plus simple de réutiliser (et de tester) des fonctions agnostiques de contexte — agnostiques du `this` — que de maintenir de grosses classes héritant sur plusieurs niveaux.
 
 [[error]]
 === Les objets d'erreur (_Error_)
