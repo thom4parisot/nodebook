@@ -2,6 +2,12 @@
 
 Pour en savoir plus: [annonce la résidence itinérante](https://oncletom.io/2017/residence-nodejs/) et [résumé de la résidence itinérante](https://oncletom.io/2017/without-a-home/) (en anglais).
 
+## Dimanche 4 février
+
+- _Chapitre 3_ : Manipuler des objets
+
+**Météo** : 🚅 🇬🇧 🙂
+
 
 ## Samedi 3 février
 
@@ -12,21 +18,21 @@ Pour en savoir plus: [annonce la résidence itinérante](https://oncletom.io/201
 ## Vendredi 2 février
 
 - _atelier_ : session de lecture du chapitre 3 (tableaux, objets)
-- _atelier_ : session d'apprentissage de npm au vidéoprojecteur chez [ut7][ut7]
+- _atelier_ : session d'apprentissage de npm au vidéoprojecteur pendant la journée [Rookie Club][] chez [ut7][] •
 
 **Météo** : 🙂 🗣 📽
 
 ## Jeudi 1er février
 
 - _Chapitre 3_ : Manipuler des tableaux
-- _atelier_ : session de lecture du chapitre 3 (tableaux) chez [ut7][ut7]
+- _atelier_ : session de lecture du chapitre 3 (tableaux) chez [ut7][]
 
 **Météo** : 🙂 🗣
 
 ## Mercredi 31 janvier
 
 - _Chapitre 3_ : Manipuler des fonctions
-- _atelier_ : session d'apprentissage de npm au vidéoprojecteur
+- _atelier_ : session d'apprentissage de npm au vidéoprojecteur chez [Etalab][] (Etalab + Incubateur + DILA)
 
 > On a appris le fonctionnement de npm update, la différence entre package.json et package-lock.json mais aussi comment installer des dépendances git ainsi que de la version de notre choix.
 
@@ -36,7 +42,7 @@ Pour en savoir plus: [annonce la résidence itinérante](https://oncletom.io/201
 
 - _Chapitre 3_ : Manipuler des booléens
 - _Chapitre 3_ : Manipuler des nombres
-- _atelier_ : session d'apprentissage de Node.js au vidéoprojecteur
+- _atelier_ : session d'apprentissage de Node.js au vidéoprojecteur chez [Etalab][] (Etalab + Incubateur + DILA)
 
 > On a appris ce qu'il y a sous le capot, à voir la différence entre l'environnement Node et des navigateurs web.
 
@@ -45,7 +51,7 @@ Pour en savoir plus: [annonce la résidence itinérante](https://oncletom.io/201
 ## Lundi 29 janvier
 
 - _Chapitre 3_ : Expressions régulières
-- _atelier_ : [session d'apprentissage de JavaScript au vidéoprojecteur][session-js-etalab]
+- _atelier_ : [session d'apprentissage de JavaScript au vidéoprojecteur][session-js-etalab] chez [Etalab][] (Etalab + Incubateur)
 
 > On ne pensait pas apprendre autant de choses en décortiquant un problème d'apparence simple. C'était chouette de découvrir des sélecteurs CSS et des expressions JavaScript.
 
@@ -799,6 +805,7 @@ Merci [@BetaGouv](https://github.com/sgmap) pour le coin de bureau 👋
 [remix]: https://remixcoworking.com
 [mutinerie]: http://mutinerie.org/
 [ut7]: https://ut7.fr/
+[Rookie Club]: http://rookieclub.ut7.fr/
 [at-home]: http://athome-startup.fr/
 [aperoweb-toulouse]: http://toulouse.aperoweb.fr
 [toulouse-js]: https://twitter.com/ToulouseJS
@@ -815,3 +822,4 @@ Merci [@BetaGouv](https://github.com/sgmap) pour le coin de bureau 👋
 [dtc]: https://dtc-innovation.org/
 [mob programming]: https://en.wikipedia.org/wiki/Mob_programming
 [Philippe Blayo]: https://twitter.com/pblayo
+[Etalab]: https://www.etalab.gouv.fr/

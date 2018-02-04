@@ -1506,12 +1506,13 @@ include::{sourceDir}/array/some.js[]
 car on a utilisé la méthode <<array.filter,filter>> pour supprimer les valeurs
 non-vides
 
-[[destructuring-arrays]]
-=== Décomposition de collection
+[[array-destructuring]]
+=== Décomposition de tableau (_destructuring_)
 
 L'affectation par _décomposition_ (_destructuring_) est une manière élégante
 de piocher une ou plusieurs valeurs dans un <<array,tableau>>.
 La décomposition n'altère pas le contenu des variables décomposées.
+Ce mécanisme existe aussi pour les <<object-destructuring,objets>>.
 
 [source%interactive,javascript]
 .array/destructuring.js
@@ -1566,88 +1567,201 @@ include::{sourceDir}/array/slice-negative.js[]
 [[object]]
 == Manipuler des structures d'objet
 
-Dans ECMAScript, tout est objet. C'est le _prototype_ qui détermine le comportement dudit objet.
-Les objets peuvent être créés de manière littérale, avec la fonction `Object.create` ou via un constructeur. +
-À la différence d'un `Array`, il est possible de nommer une clé par une chaîne de caractères – statique ou dynamique – ou avec un <<symbol,symbole>>.
+Les structures d'objet servent à *lister des éléments* de tout type
+au sein d'une même variable.
+Le consignement se fait _comme dans un dictionnaire_,
+avec un identifiant unique pour chaque valeur.
 
 [source%interactive,javascript]
-.objects/base.js
+.object/base.js
 ----
-include::{sourceDir}/objects/base.js[]
+include::{sourceDir}/object/base.js[]
 ----
+<1> Affiche `"Francine"`
+<2> On assigne une valeur numérique dans l'index `age` une fois l'objet créé
+<3> Affiche `25` — la valeur numérique précédemment assignée
+<4> Affiche `undefined` — aucune valeur n'est assignée pour cette clé
 
-
-`Object.keys` liste les propriétés d'un objet
-et les retourne sous forme de <<array,tableau>> :
+Nous pouvons nous baser sur une autre syntaxe pour _créer_ et _accéder_
+à des valeurs en utilisant des variables en guise d'identifiant d'index :
 
 [source%interactive,javascript]
-.objects/keys.js
+.object/dynamic.js
 ----
-include::{sourceDir}/objects/keys.js[]
+include::{sourceDir}/object/dynamic.js[]
 ----
-<1> Affiche `[ 'name', 'services' ]`.
+<1> Assigne la chaîne `@FrancineDu26` dans l'index correspondant
+à la valeur de la variable `SOCIAL_NETWORK`
+<2> Affiche `"@FrancineDu26"`
+
+
+[[object-destructuring]]
+=== Décomposition d'objet (_destructuring_)
+
+L'affectation par décomposition (_destructuring_) est une manière
+élégante de piocher une ou plusieurs valeurs dans un <<object,objet>>.
+Ce mécanisme existe aussi pour les <<array-destructuring,tableaux>>.
 
 [source%interactive,javascript]
+.object/destructuring.js
 ----
-const busStop = {
-  name: 'Vassal Road',
-  services: ['36', 'N136', '185']
-};
-
-for (let key in busStop) {
-  console.log(key);
-}
+include::{sourceDir}/object/destructuring.js[]
 ----
+<1> Affiche `"Drôme"` — on a décomposé la clé `location`
+<2> Affiche `"Francine"`
+— on a décomposé puis renommé la clé `first_name`
+en une nouvelle variable : `prenom`
+<3> Affiche `false`
+— on a décomposé la clé `is_admin` et comme elle n'existe pas,
+on a spécifié la valeur par défaut `false`, au lieu de `undefined`
 
-
-[[destructuring-objects]]
-=== Décomposition d'objet
-
-
-Le même mécanisme existe pour les <<object,objets>>, y compris dans des arguments de fonction :
+La décomposition se combine agréablement avec l'opérateur `...`
+(opérateur _spread_).
+Il accumule _le reste_ des éléments dans une variable,
+sous forme d'objet.
 
 [source%interactive,javascript]
-.destructuring-object.js
+.object/destructuring-rest.js
 ----
-include::{sourceDir}/destructuring-object.js[]
+include::{sourceDir}/object/destructuring-rest.js[]
 ----
-<1> Destructure la fonction `join` directement depuis le `require` de module ;
-<2> Destructure la valeur `debug` du premier argument;
-<3> Affiche `folder/filename.txt` – `folder\filename.txt` sous Windows ;
-<4> Affiche `true` car la clé `debug` a été décomposée en `configDebug` ;
-<5> Affiche `undefined` – cette valeur n'existe pas dans l'objet `config` ;
-<6> Affiche `Demo` – cette valeur est complétée par défaut dans l'assignation ;
-<7> Affiche `true`.
+<1> Affiche `"Francine"`
+<2> Affiche `{ location: "Drôme", twitter: "@FrancineDu26" }`
 
-Comme indiqué en début de section, il est possible de nommer les clés de manière dynamique mais aussi d'utiliser une syntaxe raccourcie d'assignation de valeur :
+[[object.assign]]
+=== Combiner des objets
 
-[source%interactive,javascript]
-.object-advanced.js
-----
-include::{sourceDir}/object-advanced.js[]
-----
-<1> Utilise la valeur d'une variable comme nom de clé ;
-<2> Syntaxe alternative possible, utile lorsqu'un objet existe déjà ;
-<3> Affiche `{ SNCF: { country: 'France' }, Reinfe: { country: 'Spain' } }` ;
-<4> Utilise la syntaxe d'assignation raccourcie, donc assigne la valeur de `sncf` à la clé `sncf` — affiche `{ sncf: 'SNCF', foo: 'bar' }` ;
-<5> _Idem_ mais sans la syntaxe d'assignation raccourcie.
-
-[[object-assign]]
-=== Étendre des objets
-
-`Object.assign` étend des structures existantes et la définition de valeurs par défaut.
-Les clés et valeurs sont copiées de gauche à droite avant d'être assignées dans le premier paramètre :
+`Object.assign` est une méthode qui permet d'étendre et combiner ou ou plusieurs tableaux.
+On a le choix d'intégrer les nouveaux éléments à un objet existant
+ou bien d'en créer un nouveau.
+Les objets sont combinés dans le premier paramètre de la fonction.
 
 [source%interactive,javascript]
-.object-assign.js
+.object/assign.js
 ----
-include::{sourceDir}/object-assign.js[]
+include::{sourceDir}/object/assign.js[]
 ----
-<1> Les clés et valeurs de `DEFAULT` et celles de `userOptions` sont copiées dans un objet vide puis retournées dans `mergedOptions` ;
-<2> Affiche `{ concurrency: 10, timeout: 'https', tags: [] }` ;
-<3> Affiche `[ 'img', 'h1' ]` ;
-<4> Affiche `[ 'url', 'env', 'tags' ]` — l'objet `testOptions` est donc modifié.
+<1> Affiche `{ first_name: "Francine", location: "Drôme" }`
+— la nouvelle variable contient nos deux objets combinés
+<2> Affiche `{ first_name: "Francine" }`
+— ce sont les valeurs originelles de notre objet
+<3> Affiche `{ first_name: "Francine", location: 'Ardèche' }`
+— l'objet `francine26` a reçu la nouvelle propriété `location`
 
+À noter que les assignations se font de _gauche à droite_.
+Toute clé existante est remplacée.
+
+La <<object-destructuring,décomposition d'objet>> sert également à combiner
+un ou plusieurs objets entre eux.
+
+[source%interactive,javascript]
+.object/destructuring-spread.js
+----
+include::{sourceDir}/object/destructuring-spread.js[]
+----
+<1> Affiche `{ first_name: "Francine", location: "Drôme" }`
+
+
+=== Itérer sur des objets
+
+La méthode `Object.entries` est probablement la méthode
+la plus adaptée pour itérer à la fois sur les _clés_ et sur les _valeurs_
+d'un objet.
+`Object.entries` est une fonction qui retourne un tableau.
+Ce tableau contient autant de paires de `[clé, valeur]` qu'il y a
+d'éléments dans l'objet.
+
+[source%interactive,javascript]
+.object/entries.js
+----
+include::{sourceDir}/object/entries.js[]
+----
+<1> Affiche `[[ "first_name", "Francine" ], [ "location", "Drôme" ]]`
+
+Libre à nous d'<<array.forEach,itérer sur les valeurs>>
+et d'utiliser la <<array-destructuring,décomposition de tableaux>>
+pour rendre notre code explicite :
+
+[source%interactive,javascript]
+.object/entries-loop.js
+----
+include::{sourceDir}/object/entries-loop.js[]
+----
+<1> Affiche successivement `"francine.first_name vaut Francine"`
+puis `"francine.location vaut Drôme"`
+<2> Idem
+
+Deux autres méthodes récupèrent
+soit _la liste des clés_ d'un objet (`Object.keys`)
+soit _la liste des valeurs_ d'un objet (`Object.values`).
+Dans les deux cas, les résultats sont retournés
+sous forme d'un <<array,tableau>>.
+
+[source%interactive,javascript]
+.object/keys.js
+----
+include::{sourceDir}/object/keys.js[]
+----
+<1> Affiche `["first_name", "location"]`
+<2> Affiche `["Francine", "Drôme"]`
+
+
+=== Identifier une ou plusieurs valeurs
+
+Il y a trois manières d'identifier si un objet contient une valeur
+associée à une clé.
+
+Le plus simple est d'utiliser la méthode `hasOwnProperty`.
+Elle prend en argument le nom de la clé à tester et
+retourne un <<boolean,booléen>>.
+
+[source%interactive,javascript]
+.object/has-own-property.js
+----
+include::{sourceDir}/object/has-own-property.js[]
+----
+<1> Affiche `true`
+<2> Affiche `false` — cette clé n'existe pas dans cet objet
+
+La seconde manière est d'utiliser l'opérateur `in`.
+On l'aura déjà rencontré lors des <<array.forEach,boucles>>.
+Sauf que cette fois, on l'utilise une seule fois — et non dans une boucle.
+
+[source%interactive,javascript]
+.object/key-in.js
+----
+include::{sourceDir}/object/key-in.js[]
+----
+<1> Affiche `true`
+<2> Affiche `false` — cette clé n'existe pas dans cet objet
+
+Enfin, on peut tester la valeur associée avec la syntaxe standard `objet.clé`.
+
+[source%interactive,javascript]
+.object/key.js
+----
+include::{sourceDir}/object/key.js[]
+----
+<1> Affiche `true`
+<2> Affiche `false`
+
+Attention toutefois car cette méthode _teste uniquement la valeur_.
+Si la clé existe et contient `undefined`, vous ne verrez pas la différence.
+
+[source%interactive,javascript]
+.object/key-undefined.js
+----
+include::{sourceDir}/object/key-undefined.js[]
+----
+<1> Affiche `false`
+— la valeur `undefined` est convertie en `false`
+<2> Affiche `false`
+— la clé existe bien mais elle contient la valeur `undefined`
+<3> Affiche `true` — le test se fait sur l'existence de la clé
+<4> Affiche `true` — idem
+
+
+[[date]]
 == Manipuler des dates
 
 L'opérateur `typeof` ne permet pas d'identifier une date. Il convient d'utiliser `instanceof` :
@@ -1778,7 +1892,7 @@ include::{sourceDir}/class-accessors.js[]
 
 La logique des accesseurs est ainsi partagée entre _tous les objets_ étant des instances de `Book`.
 
-[[class-inheritance]]
+[[class.extends]]
 === Héritage
 
 L'exemple suivant illustre deux classes héritant de notre classe `View` :
@@ -1878,7 +1992,7 @@ include::{sourceDir}/promise-readfile.js[]
 <3> Consommation du nouveau résultat ;
 <4> Cette fonction sera appelée si une erreur se déclenche en amont de la chaîne de promesses.
 
-[[promise-all]]
+[[promise.all]]
 === Collection de promesses
 
 `Promise.all` est une méthode statique de l'API _Promise_ qui retourne elle-même une promesse.
@@ -1989,13 +2103,13 @@ include::{sourceDir}/set.js[]
 <4> On peut ajouter un `Set` en tant que valeur de `Set` si on le souhaite ;
 <5> À l'inverse du point 3, l'ajout multiple d'une référence à un même objet (ici, `primesArray`) ne fonctionnera pas ;
 <6> Affiche `Set { 2, 3, [ 5, 7 ], [ 5, 7 ], Set { 11, 13 }, [ 11, 13 ] }` ;
-<7> Utilise la <<destructuring,décomposition>> pour extraire les valeurs du `Set` et affiche `[ 2, 3, [ 5, 7 ], [ 5, 7 ], Set { 11, 13 }, [ 11, 13 ] ]`.
+<7> Utilise la <<array-destructuring,décomposition>> pour extraire les valeurs du `Set` et affiche `[ 2, 3, [ 5, 7 ], [ 5, 7 ], Set { 11, 13 }, [ 11, 13 ] ]`.
 
 `Map` offre quelques avantages à l'utilisation d'un `Object` :
 
 - les clés peuvent être de n'importe quel type (y compris une référence à un autre objet ou tableau ECMAScript) ;
 - `.size` retourne le nombre de clés de la _Map_ ;
-- l'itération est très simple avec `for..of`, `forEach` ou même en utilisant la <<destructuring,décomposition>>.
+- l'itération est très simple avec `for..of`, `forEach` ou même en utilisant la <<array-destructuring,décomposition>>.
 
 
 [source%interactive,javascript]
