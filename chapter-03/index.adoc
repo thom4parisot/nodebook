@@ -284,14 +284,7 @@ La valeur `undefined` est utilisée pour signifier
 qu'une *valeur est inconnue*.
 Rares sont les cas où on choisira ce type de données par nous-même.
 
-[NOTE]
-.[RemarquePreTitre]#Documentation# MDN web docs
-====
-Pour en savoir plus sur les primitives, rendez-vous sur
-la documentation en ligne et gratuite _MDN web docs_.
-
-[URL]#https://developer.mozilla.org/fr/docs/Glossaire/Primitive#
-====
+mdn::global[Data_structures, title="primitives"]
 
 Il existe trois autres types de données qui se basent sur ces types
 dits _primitifs_.
@@ -2133,14 +2126,7 @@ Un dépôt sur GitHub permet d'y contribuer.
 - [URL]#https://github.com/w3ctag/promises-guide#
 ====
 
-[TIP]
-.[RemarquePreTitre]#Documentation# Pour en savoir plus
-====
-La documentation complète de `Promise` est disponible en français sur la ressource communautaire MDN :
-
-- [URL]#https://developer.mozilla.org/fr/docs/Web/JavaScript/Reference/Objets_globaux/Promise#
-====
-
+mdn::global[Promise]
 
 == Usages avancés
 
@@ -2190,18 +2176,11 @@ include::{sourceDir}/map.js[]
 Toutefois _Map_ et _Set_ ont quelques inconvénients :
 
 - absence des méthodes de compréhension de tableau (`map`, `reduce` etc.) ;
-- pas de conversion native en JSON.
+- pas de conversion native en <<json,JSON>>.
 
 À vous de choisir entre `Object` et `Map` ou entre `Array` et `Set` en fonction de la rigueur de vos besoins.
 
-[TIP]
-.[RemarquePreTitre]#Documentation# Pour en savoir plus
-====
-La documentation complète de `Map` et de `Set` est disponible en français sur la ressource communautaire MDN :
-
-- [URL]#https://developer.mozilla.org/fr/docs/Web/JavaScript/Reference/Objets_globaux/Map#
-- [URL]#https://developer.mozilla.org/fr/docs/Web/JavaScript/Reference/Objets_globaux/Set#
-====
+mdn::global[Map]
 
 === Littéraux de modèle avec étiquette (_tagged template literals_)
 
@@ -2217,8 +2196,7 @@ include::{sourceDir}/template/tagged-literals.js[]
 <1> Affiche `<div class="user-content">\n<script>alert(document.cookie)</script>\n</div>` ;
 <2> Affiche `<div class="user-content">\n\&lt;script\&gt;alert(document.cookie)\&lt;/script\&gt;\n</div>`.
 
-[URL]#https://developer.mozilla.org/fr/docs/Web/JavaScript/Reference/Litt%C3%A9raux_gabarits#
-
+mdn::reference[Template_literals, title="Littéraux de modèle"]
 
 [[async-await]]
 === async/await

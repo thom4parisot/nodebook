@@ -898,14 +898,7 @@ include::{sourceDir}/io/eventsource-server.js[]
 
 Le serveur est responsable de la gestion des connexions demandées par les différents clients.
 
-[TIP]
-.[RemarquePreTitre]#Guide# Utiliser _EventSource_
-====
-Les liens suivants détaillent le protocole _EventSource_, documentent son API et décrivent des exemples d'utilisation.
-
-- [URL]#https://html.spec.whatwg.org/#server-sent-events#
-- [URL]#https://developer.mozilla.org/fr/docs/Server-sent_events/Using_server-sent_events#
-====
+mdn::[Server-sent_events, title="EventSource"]
 
 En résumé, _EventSource_ est idéal pour maintenir une connexion avec le serveur et souscrire à des mises à jour en continu.
 Chaque connexion _EventSource_ devrait concerner qu'un seul et même type d'événement.
@@ -967,14 +960,7 @@ include::{sourceDir}/io/websocket-server.js[]
 
 Là aussi, le serveur est responsable de la gestion des connexions demandées par les différents clients.
 
-[TIP]
-.[RemarquePreTitre]#Guide# Utiliser _WebSocket_
-====
-Les liens suivants détaillent le protocole _WebSocket_, documentent son API et décrivent des exemples d'utilisation.
-
-- [URL]#https://html.spec.whatwg.org/#network#
-- [URL]#https://developer.mozilla.org/fr/docs/WebSockets/Writing_WebSocket_client_applications#
-====
+mdn::[WebSockets]
 
 En résumé, _WebSocket_ est idéal pour maintenir une connexion en temps-réel et pour relayer plusieurs messages à l'initiative du serveur serveur et de tout client connecté – qu'il s'agisse d'un navigateur web ou d'un agent Node.
 Chaque connexion _WebSocket_ peut encapsuler plusieurs types de messages.
