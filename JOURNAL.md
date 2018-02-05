@@ -4,6 +4,7 @@ Pour en savoir plus: [annonce la résidence itinérante](https://oncletom.io/201
 
 ## Lundi 5 février
 
+- _Chapitre 3_ : Manipuler des classes
 - _Chapitre 3_ : Manipuler des structures de données JSON
 - _outillage_ : liens vers MDN web docs
 

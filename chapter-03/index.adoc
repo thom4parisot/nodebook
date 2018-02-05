@@ -1937,73 +1937,123 @@ Chacune des variables bénéficie des méthodes définies par la classe `Date`.
 Autrement dit, si les <<object,structures d'objet>> définissent des données,
 les classes définissent des *comportements partagés*.
 
+[source%interactive,javascript]
+.class/base.js
+----
+include::{sourceDir}/class/base.js[]
+----
+<1> Le constructeur reçoit un ou plusieurs arguments lors de l'instanciation
+de la classe
+<2> `this` fait référence à _ce contexte_,
+c'est à dire à _cette instance de classe_ ;
+deux instances peuvent être initialisées avec des données différentes
+<3> `toJSON` est une méthode de la classe
+<4> `isbn` est un accesseur (préfixe `get`)
+— une propriété dont la valeur est calculée à chaque fois qu'elle est appelée
+<5> `clean` est une méthode dite _statique_
+— elle est appelée en dehors d'une instance
+
+Nous développerons cet exemple dans les sections qui suivent.
+On peut dores et déjà noter que la structure d'une classe
+se décompose en plusieurs parties :
+
+la définition::
+  Définit le nom de la classe que l'on pourra instancier.
+le constructeur::
+  Partie exécutée lorsque la classe est instanciée.
+  On y met le moins de choses possibles.
+  En général on copie les données passées en argument.
+les méthodes::
+  Fonctions partagées entre toutes les instances de la classe.
+les méthodes statiques::
+  Fonctions partagées sans avoir à instancier la classe.
+les accesseurs et mutateurs::
+  Fonctions qui définissent le comportement de propriétés dynamiques.
+le contexte (`this`)::
+  On peut y référer dans les méthodes de la classe pour dire
+  _je fais référence à cet objet_.
+  Et donc d'appeler les données et méthodes atenantes.
+
+mdn::reference[Classes]
+
+[[class.method]]
+=== Méthodes d'instance
+
+Les méthodes définissent des comportements partagés entre chaque instance
+de la classe.
+Elles servent à _retourner_ ou _transformer_ des valeurs rattachées à l'objet.
+
+[source%interactive,javascript]
+.class/methods.js
+----
+include::{sourceDir}/class/methods.js[]
+----
+<1> Affiche `false`
+— la propriété n'existe pas
+<2> Affiche `true`
+— la propriété `is_published` a été changée à la ligne précédente
+<3> Affiche `false`
+— les données sont étanches entre chaque instance
+
 
 [[class.static]]
 === Méthodes statiques
+
+Les méthodes statiques sont pratiques pour mettre à disposition du code
+métier de manière organisée.
+Elles se caractérisent par le préfixe `static` devant un nom de fonction.
 
 [source%interactive,javascript]
 .class/static.js
 ----
 include::{sourceDir}/class/static.js[]
 ----
+<1> On appelle la méthode statique `Book.clean` pour nettoyer le code EAN13
+<2> Affiche `"9782212139938"`
+— la valeur a bien été nettoyée
+<3> Affiche `undefined`
+— les méthodes statiques ne sont pas accessibles depuis l'instance de classe
+
+On verra dans le <<../chapter-04/index.adoc,chapitre sur Node>>
+qu'on peut se baser sur les modules pour partager du code
+sans avoir à l'affecter à une classe.
+
+mdn::reference[Classes/static]
+
 
 [[object-getset]]
 === Accesseurs et mutateurs
 
-`Object.defineProperty` permet de régler finement d'autres spécificités d'un objet, dont des *accesseurs* (_getters_) et des *mutateurs* (_setters_).
-Ces attributs spéciaux nous autorisent la création de _propriétés calculées_, de _propriétés en lecture seule_ ou de _maitriser l'écriture d'une propriété_ :
+Ce type particulier de méthode permet en réalité de définir des
+_attributs dynamiques_ mais aussi de gérer comment l'affectation de données.
+Elles se caractérisent par la préfixe `get` ou `set` devant un nom de fonction,
+selon que ça soit un _accesseur_ ou un _mutateur_.
 
 [source%interactive,javascript]
-.object-getters.js
+.class/getters.js
 ----
-include::{sourceDir}/object-getters.js[]
+include::{sourceDir}/class/getters.js[]
 ----
-<1> Nous définissons de nouvelles propriétés pour l'objet `book` ;
-<2> Définition d'un _mutateur_ pour la propriété `date_published` ;
-<3> La valeur `date` est convertie en objet et stockée dans la propriété `_published_at` ;
-<4> Définition d'un _accesseur_ pour la propriété `date_published` ;
-<5> Appel du _mutateur_ qui, en interne, convertit la chaîne de caractères en objet `Date` ;
-<6> Appel de l'_accesseur_ et affiche `true` car il s'agit bien d'une instance de `Date` ;
-<7> Lance une exception car la chaîne assignée n'est pas une date valide.
+<1> Affiche `"9782212139938"`
+— c'est une propriété de l'objet `nodebook`
+<1> Affiche `"2212139938"`
+— la valeur est calculée dynamiquement à partir de la valeur de `nodebook.ean13`
 
-Trois choses sont à souligner dans cet exemple.
+mdn::reference[Functions/get]
+mdn::reference[Functions/set]
 
-Tout d'abord, notre définition de _mutateur_ ajoute de la sécurité.
-Sa valeur est _garantie_ et nous savons que `book.date_published` sera systématiquement une date.
 
-Inconvénient, nous n'avons d'autre choix que de stocker la date dans une autre propriété, ici `book.\_published_at`.
-Et rien ne nous empêche de la modifier directement et d'invalider une partie de notre raisonnement… +
-Il nous faudrait trouver un moyen de stocker la valeur du _mutateur_ et de l'_accesseur_ de manière _privée_.
-
-Enfin, les propriétés sont assignées _uniquement_ à l'objet `book`. Si nous voulions les généraliser à plusieurs instances d'objets se ressemblant, nous les définirions alors dans une <<class,classe>>.
-
-Nous pouvons définir des _accesseurs_ et des _mutateurs_ avec une notation raccourcie, ayant exactement le même effet.
-Reprenons l'exemple précédent :
-
-[source%interactive,javascript]
-.object-getters-shorthand.js
-----
-include::{sourceDir}/object-getters-shorthand.js[]
-----
-<1> Définition _raccourcie_ du _mutateur_ pour la propriété `date_published` ;
-<2> Définition _raccourcie_ de l'_accesseur_ pour la propriété `year_published` – notez qu'on ne définit pas de _mutateur_ pour cette même propriété ;
-<3> Lance une _exception_ car la propriété `year_published` est définie en tant qu'_accesseur_ uniquement ; on ne peut donc pas lui _assigner_ de valeur.
-
-L'exemple suivant illustre leur définition au sein d'une classe :
-
-[source%interactive,javascript]
-.class-accessors.js
-----
-include::{sourceDir}/class-accessors.js[]
-----
-<1> Retourne `'978'`;
-<2> Retourne `'2212136401'` ;
-<3> Retourne `'978-2212136401'`.
-
-La logique des accesseurs est ainsi partagée entre _tous les objets_ étant des instances de `Book`.
 
 [[class.extends]]
 === Héritage
+
+L'héritage est un mécanisme d'extension de classe.
+C'est une pratique peu employée en JavaScript,
+principalement de par sa nature modulaire et fonctionnelle.
+
+L'héritage se caractérise par l'usage de l'opérateur `extends` lors de la
+définition de la classe et aussi par l'utilisation du mot-clé `super`
+dans le constructeur.
 
 
 [source%interactive,javascript]
@@ -2011,11 +2061,30 @@ La logique des accesseurs est ainsi partagée entre _tous les objets_ étant des
 ----
 include::{sourceDir}/class/extends.js[]
 ----
+<1> Affiche `"Node.js"`
+— la propriété `title` est assignée dans le constructeur de la classe `Book`
+<2> Affiche `"9782212139938"`
+— la propriété `ean13` est assignée dans le constructeur de `Product`,
+la classe dont on hérite grâce à `extends`
+et à l'appel de `super()` qui transmet les arguments d'initialisation
+<3> Affiche `undefined`
+— la propriété `title` n'est pas assignée dans le constructeur de
+la classe `Product`
+<4> Affiche `"9782212139938"`
+— la propriété `ean13` est assignée dans le constructeur de `Product`
+qu'on appelle directement cette fois-ci
 
-L'appel à la fonction `super()`
-_appelle le constructeur de la classe étendue_.
-Ne pas l'appeler revient à ne pas exécuter le constructeur de la classe parent.
+En pratique, c'est comme si on empilait les classes les unes sur les autres.
+On lègue des méthodes aux classes qui héritent.
+Si une méthode porte le même nom, elle sera écrasée.
 
+L'appel à la fonction `super()` _appelle le constructeur de la classe étendue_.
+Si on ne l'appelle pas, le constructeur de la classe parent ne sera pas invoqué.
+
+On reparlera de l'héritage dans la
+<<../chapter-09/index.adoc#react,section React>>
+du <<../chapter-09/index.adoc,chapitre 9>>.
+C'est un exemple populaire d'héritage de composants graphiques.
 
 [[error]]
 === Les objets d'erreur (_Error_)
