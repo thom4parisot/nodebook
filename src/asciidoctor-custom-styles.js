@@ -8,6 +8,9 @@ module.exports = function HTMLStyles () {
   font-style: normal;
   font-weight: bold;
 }
+a {
+  white-space: nowrap;
+}
 .RemarquePreTitre {
 	font-style: normal;
   font-weight: bold;
