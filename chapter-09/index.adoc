@@ -809,7 +809,7 @@ Il se trouve que la nature asynchrone même de Node rend cette intégration rela
 === Échange ponctuel de données avec `fetch()`
 
 `fetch()` offre une interface très simple pour appeler une ressource HTTP.
-Le résultat est retourné sous forme de _promesse_ (voir la <<../chapter-03/index.adoc#primitive-promise,section _Promise_>> du Chapitre 3).
+Le résultat est retourné sous forme de _promesse_ (voir la <<../chapter-03/index.adoc#promise,section _Promise_>> du Chapitre 3).
 Cette fonction sert aussi bien à obtenir des ressources avec des requêtes de type `GET` et `HEAD` qu'à en créer et modifier avec des requêtes de type `POST`, `PUT`, `DELETE` et `PATCH`.
 
 L'exemple associé est accessible sur [URL]#{httpRoot}/io/fetch.html#.
@@ -1657,7 +1657,7 @@ include::{sourceDir}/tests-browser/test-outside-world.js[]
 ----
 <1> `before()` indique à _mocha_ d'exécuter ce bloc de code avant tout _test_ ;
 <2> Appel du _plugin_ de _fixture_ pour obtenir l'élément du DOM nécessaire à la fonction `getLinkElementContent` ;
-<3> Appel réel de la fonction `getLinkElementContent`, résolu comme une <<../chapter-03/index.adoc#primitive-promise,promesse>> et dont nous testons le résultat à la ligne suivante ;
+<3> Appel réel de la fonction `getLinkElementContent`, résolu comme une <<../chapter-03/index.adoc#promise,promesse>> et dont nous testons le résultat à la ligne suivante ;
 <4> _Assertion_ vérifiant que le résultat contient bien des clés de dépendances _npm_ attendues – nous avons bien récupéré le bon fichier et le bon contenu !
 
 L'invocation de _karma_ se fait en invoquant `./node_modules/.bin/karma start`.

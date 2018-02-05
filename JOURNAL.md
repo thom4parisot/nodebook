@@ -4,9 +4,10 @@ Pour en savoir plus: [annonce la résidence itinérante](https://oncletom.io/201
 
 ## Lundi 5 février
 
+- _Chapitre 3_ : Manipuler des promesses
 - _Chapitre 3_ : Manipuler des classes
 - _Chapitre 3_ : Manipuler des structures de données JSON
-- _outillage_ : liens vers MDN web docs
+- _outillage_ : macro pour créer des liens vers [MDN web docs][]
 
 **Météo** : 🙂
 
@@ -833,3 +834,4 @@ Merci [@BetaGouv](https://github.com/sgmap) pour le coin de bureau 👋
 [mob programming]: https://en.wikipedia.org/wiki/Mob_programming
 [Philippe Blayo]: https://twitter.com/pblayo
 [Etalab]: https://www.etalab.gouv.fr/
+[MDN web docs]: https://developer.mozilla.org/fr/docs/

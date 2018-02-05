@@ -2090,97 +2090,97 @@ C'est un exemple populaire d'héritage de composants graphiques.
 [[promise]]
 == Manipuler des promesses (_Promise_)
 
-L'organisation du code autour des _callbacks_ est difficile et ce, que ce soit en terme de maintenance, de gestion des erreurs ou de propagation d'information.
-
-Un motif a émergé en réponse à cette complexité grandissante : les *promesses*.
-*Il s'agit d'une primitive à maitriser* et disponible _nativement_ à la fois dans Node et les navigateurs modernes.
-
-Historiquement, de nombreuses librairies ont proposé leur propre implémentation de promesses mais avec le défaut de ne pas être interopérables entre elles.
-La spécification _Promise/A+_ a émergé pour établir un standard de compatibilité.
-ECMAScript 2015 introduit nativement cette API, la rendant alors disponible pour le web et pour Node, avec ou sans _polyfill_.
-
-Les cas d'utilisation des promesses sont multiples :
-
-- exécuter une continuité d'actions asynchrones ;
-- paralléliser des actions asynchrones et exécuter des instructions lorsqu'une ou plusieurs de ces actions sont terminées ;
-- simplifier la gestion des erreurs à n'importe quelle étape du processus asynchrone.
-
-[TIP]
-.[RemarquePreTitre]#Définition# Promesse
-====
-Une promesse est *un objet retourné immédiatement* et qui exécute une fonction de résolution *une seule et _unique_ fois dans le futur*.
+Une promesse est *un objet retourné immédiatement*.
+Le *résultat est obtenu plus tard*.
 Cette résolution peut être soit _positive_ soit _négative_.
+On dit alors que l'action est _asynchrone_.
 
-C'est un peu comme envoyer un _courrier suivi_ :
+[source%interactive,javascript]
+.promise/base.js
+----
+include::{sourceDir}/promise/base.js[]
+----
+<1> Affiche `Promise` — ce n'est pas le résultat que l'on voit mais l'objet avec lequel interagir pour être prevenu de la mise à disposition du résultat
+<2> Affiche `"un"`
+<3> Affiche `"deux"`
+— c'est parce que la ligne d'avant a mis en attente
+la <<anonymous-function,fonction anonyme>>
+<4> Affiche `"promesse tenue"` en dernier
 
-- le bureau de poste vous remet une preuve de dépôt (la promesse) ;
-- les services postaux acheminent l'accusé de réception lorsque le destinataire a reçu le courrier et signé l'avis de délivrance (_résolution positive_) ;
-- les services postaux émettent un accusé de non-délivrance si le destinataire n'a pas signé ni récupéré son courrier dans un délai imparti (_résolution négative_).
+[NOTE]
+.[RemarquePreTitre]#Design Pattern# Executor
+====
+Le fait qu'une fonction nous passe d'_autres fonctions_ pour commander
+un résultat s'appelle le _pattern Executor_.
 ====
 
-Une `Promise` consiste à appeler un _constructeur_ implémentant le _pattern_ _Executor_.
-Le constructeur transmet les fonctions d'exécution permettant de _résoudre_ la promesse, _positivement_ en appelant `resolve` ou _négativement_, en appelant `reject`. +
-`resolve` et `reject` transmettent les valeurs passées en argument à vos _callbacks_ souscrivant respectivement à `then` et `catch`.
+
+Une `Promise` s'orchestre en deux temps.
+L'*initialisation* : on décide de la manière dont le traitement asynchrone
+sera effectué.
+Puis la *résolution* : _positive_ en appelant `resolve()`
+ou _négative_, en appelant `reject()`.
+Le résultat passé à `resolve` sera transmis au premier argument de `then`.
+Le résultat passé à `reject` sera transmis au deuxième argument de `then`
+mais aussi au premier argument de `catch`.
+
+Une instance de `Promise` expose plusieurs méthodes
+pour propager le statut de son exécution.
+
+`then(onSuccess[, onError])`::
+  Fonction acceptant un _callback_ de résolution et
+  un _callback_ de rejet (facultatif).
+`catch(onError)`::
+  Fonction acceptant un _callback_ de rejet.
 
 [source%interactive,javascript]
-.promise.js
+.promise/then-catch.js
 ----
-include::{sourceDir}/promise.js[]
+include::{sourceDir}/promise/then-catch.js[]
 ----
-<1> Affiche `un` car la promesse est résolue de manière asynchrone, donc après l'exécution de cette ligne synchrone ;
-<2> Affiche `deux` ;
-<3> Affiche `DEUX` car la promesse précédente résoud la valeur _DEUX_ ;
-<4> Affiche `undefined` car la promesse précédent ne résoud _rien_.
+<1> La fonction `oddTime` accepte un argument de type <<date,Date> ;
+elle résoud la promesse _positivement_ (`resolve`) si le nombre
+de secondes est impair, sinon elle résoud la promesse _négativement_ (`reject`)
+<2> Utilisation de la forme compacte de `then` avec deux _callbacks_ :
+un de succès (associé à `resolve`) et un d'échec (associé à `reject`)
+<3> On crée une nouvelle promesse, avec une date calée une seconde plus tard ;
+c'est histoire de s'assurer que les deux appels aboutissent à une résolution
+différente
+<4> Affiche `"le nombre de secondes est impair :-)"`
+si la résolution est positive
+<5> Affiche `"le nombre de secondes n'est pas impair :-("`
+si la résolution est négativement
 
-L'exemple suivant illustre une encapsulation de la fonction `fs.readFile` de Node en tant que promesse :
+[NOTE]
+.[RemarquePreTitre]#Histoire# Standard `Promise/A+`
+====
+Historiquement, de nombreuses librairies ont proposé leur propre implémentation de promesses.
+Elles avaient le défaut de ne pas être interopérables entre elles.
+La spécification _Promise/A+_ a émergé pour établir un standard de compatibilité.
 
-[source%interactive,javascript]
-.readfile.js
-----
-include::{sourceDir}/readfile.js[]
-----
-<1> La promesse englobe l'exécution asynchrone — toute exception levée revient à implicitement appeler `reject` ;
-<2> Résout négativement la promesse en passant le contenu de la dite erreur ;
-<3> Résout positivement la promesse — si le _parsing_ échoue, la promesse sera rejetée.
+ECMAScript 2015 introduit nativement cette API.
+Plus besoin de _polyfill_ ou de librairie pour en bénéficier nativement.
 
-Une instance de `Promise` expose plusieurs méthodes pour propager le statut de son exécution.
-Les plus couramment employées sont `then` et `catch`:
+[URL]#https://github.com/promises-aplus/promises-spec#
+====
 
-- `then(onSuccess[, onError])` : fonction acceptant un _callback_ de résolution et un _callback_ de rejet facultatif ;
-- `catch(onError)` : fonction acceptant un _callback_ de rejet.
+En général, on utilise les promesses *pour aller plus vite*.
+Parce qu'on peut continuer à traiter d'autres actions
+*en attendant l'arrivée du résultat*.
 
-Illustrons désormais la consommation d'une promesse en se basant sur le code précédent :
+C'est comme quand on se rend au restaurant :
+les personnes en cuisine effectuent le traitement des commandes
+(actions longues) tandis que les personnes au service gèrent
+des interactions plus courtes mais plus fréquentes.
+Au final, le ticket de commande contient la liste des promesses dont
+on attend la résolution.
 
-[source%interactive,javascript]
-.promise-readfile.js
-----
-include::{sourceDir}/promise-readfile.js[]
-----
-<1> Création d'une `Promise` ;
-<2> Consommation du résultat et propagation d'une nouvelle promesse retournant le nombre de dépendances contenu dans le `package.json` de ce chapitre ;
-<3> Consommation du nouveau résultat ;
-<4> Cette fonction sera appelée si une erreur se déclenche en amont de la chaîne de promesses.
+Nous verrons d'autres utilisations des promesses
+avec <<../chapter-09/index.adoc#io-fetch,fetch()>> au chapitre 9,
+avec <<../chapter-04/index.adoc#util.promisify,promisify>> au chapitre 4
+et dans l'<<../appendix-b/index.adoc#promise,annexe B>>.
 
-[[promise.all]]
-=== Collection de promesses
-
-`Promise.all` est une méthode statique de l'API _Promise_ qui retourne elle-même une promesse.
-Elle sera résolue positivement lorsque toutes les promesses passées en argument seront résolues ou négativement dès que l'une d'entre elles échouera.
-
-Reprenons le précédent exemple pour compter _en parallèle_ les dépendances de trois fichiers `package.json` :
-
-[source%interactive,javascript]
-.promise-all.js
-----
-include::{sourceDir}/promise-all.js[]
-----
-<1> On passe un tableau de promesses non-résolues à `Promise.all` ;
-<2> Cette fonction est exécutée dès que le tableau est résolu, avec le contenu de chaque fichier – dont nous comptons un par un le nombre de dépendances ;
-<3> Cette ligne ne change pas par rapport au précédent exemple — un bénéfice d'une bonne découpe de code.
-
-Usez et abusez des promesses : elles sont un des meilleurs moyens à notre disposition pour *modulariser*, *linéariser* et *clarifier le sens* du flot de notre code.
-
-Nous aborderons à nouveau les <<../appendix-b/index.adoc#promise,promesses en tant que _design pattern_>> dans l'annexe du même nom.
+mdn::global[Promise]
 
 [TIP]
 .[RemarquePreTitre]#Lien# Guide des promesses
@@ -2192,40 +2192,68 @@ Un dépôt sur GitHub permet d'y contribuer.
 - [URL]#https://github.com/w3ctag/promises-guide#
 ====
 
-mdn::global[Promise]
+[[promise.all]]
+=== Collection de promesses
 
+`Promise.all` est une <<class.static,méthode statique>> de la class _Promise_.
+Elle accepte un <<array,tableau>> de promesses.
+`Promise.all` retourne elle-même une promesse.
+Cette promesse est résolue positivement si toutes les promesses réussissent.
+Elle est résolue négativement dès que l'_une d'entre elles_ échoue.
+
+[source%interactive,javascript]
+.promise/all.js
+----
+include::{sourceDir}/promise/all.js[]
+----
+<1> Cette fonction résoud la promesse après un délai aléatoire
+compris entre 0 et 2000 millisecondes
+<2> On passe 3 promesses à `Promise.all`
+<3> La résolution est déclenchée dès que les 3 promesses sont résolues
+— l'argument contient un tableau listant les résultats
+_dans l'ordre initial_ des promesses
+
+L'exemple précédent illustre la *parallélisation des actions*.
+Si la promesse la plus longue prend 1 seconde à être résolue,
+alors le temps d'attente pour la résolution de _toutes les promesses_
+est de 1 seconde. +
+Si on avait été dans un enchainement séquentiel, le temps d'attente
+final aurait été l'accumulation des temps d'attente de la résolution
+de chacune des promesses.
+
+Les promesses sont un des meilleurs moyens à notre disposition pour
+*modulariser*, *linéariser* et *clarifier le sens* du flot de notre code.
 
 [[async-await]]
 === async/await
 
-Nous avons beaucoup appris sur les différents moyens d'organiser notre code de manière asynchrone.
-Peut-être avec une indigestion de `then()`. +
-Les opérateurs `async` et `await` sont là pour respectivement :
+Les opérateurs `async` et `await` aident à mettre en pause
+l'interpréteur ECMAScript, en attendant le résultat d'une
+fonction asynchrone (préfixée par `async`).
+Les <<promise,promesses>> sont implicitement compatibles.
+On peut donc les mettre à plat pour obtenir un résultat
+sans avoir à utiliser `then` ni `catch`.
 
-. déclarer une fonction comme pouvant _être mise en pause_ ;
-. mise en pause effectuée avec l'opérateur `await`, pause suivie jusqu'à ce qu'une… promesse retourne un résultat.
-
-Une promesse placée derrière un `await` jettera une exception.
-Cette exception est interceptable avec un bloc `try/catch`, comme du code synchrone.
-
-Reprenons une nouvelle fois notre exemple précédent, en combinant la transformation en promesses et les opérateurs `async` et `await` :
+Transformons l'exemple de la section <<promise.all,Promise.all>>
+pour comprendre l'impact de `async` et de `await`.
 
 [source%interactive,javascript]
-.async-await.js
+.promise/async-await.js
 ----
-include::{sourceDir}/async-await.js[]
+include::{sourceDir}/promise/async-await.js[]
 ----
-<1> Déclaration de la fonction `getAllDeps` en tant que fonction asynchrone ;
-<2> On itère comme de manière synchrone, en demandant à l'interpréteur d'attendre que la promesse `readFilePromise` soit résolue ;
-<3> Le contenu de `fileBuffer` est disponible à la ligne d'après, sans utiliser `readFilePromise.then()` ;
-<4> La fonction `getAllDeps` retourne une promesse ;
-<5> Résultat identique à celui calculé dans `promise-all.js`.
+<1> On crée une _fonction asynchrone auto-invoquée_
+— c'est pas pour frimer mais parce qu'on ne peut pas encore utiliser
+de fonction asynchrone directement au niveau principal d'un script
+<2> Chaque utilisation de `await` met l'interpréteur en pause
+<3> L'affichage du temps d'exécution de chaque promesse se fait
+lorsque les 3 promesses sont résolues.
 
-À travers cet exemple on comprend qu'une fonction `async` retourne en réalité une promesse.
-Promesse résolue lorsque toutes ses conditions `await` sont elles aussi résolues séquentiellement.
-
-L'inconvénient de notre exemple est que la lecture des fichiers ne se fait plus en _parallèle_ mais bel et bien de manière _séquentielle_.
-En effet, notre code est mis en pause à chaque itération de boucle, lors de l'appel de `readFilePromise`.
+On gagne en lisibilité mais *on perd en vitesse*.
+Les promesses sont exécutées _les unes à la suite des autres_
+et non plus en parallèle.
+Il est important d'arbitrer les choix de _design_ et d'éviter de bloquer
+l'exécution de vos scripts sans raison explicite.
 
 == Conclusion
 
