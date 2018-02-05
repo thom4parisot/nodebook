@@ -132,7 +132,7 @@ La précédente version — ECMAScript 3 — était agée de… *dix ans*…
 ECMAScript 5 limite drastiquement certains effets indésirables du langage
 grâce au _mode strict_.
 De nouvelles méthodes de manipulation de tableaux et d'objets voient le jour
-ainsi qu'un support natif du format de données _JSON_.
+ainsi qu'un support natif du format de données <<json,JSON>>.
 
 La standardisation de cette version d'ECMAScript a contribué à redorer
 l'image du langage mais aussi à faire émerger de nouvelles pratiques
@@ -1761,6 +1761,72 @@ include::{sourceDir}/object/key-undefined.js[]
 <4> Affiche `true` — idem
 
 
+[[json]]
+== Manipuler des structures de données JSON
+
+JSON ([URL]#http://json.org#) est un format de données textuel standardisé.
+Son but est de pouvoir *représenter des données informatiques* de manière
+interopérable entre différents langages.
+
+[source,javascript]
+.json/base.json
+----
+include::{sourceDir}/json/base.json[]
+----
+
+Le format JSON ressemble beaucoup à une structure d'<<object,objet>> ECMAScript.
+La représentation est plus stricte car _toute donnée_ doit être représentée
+de manière textuelle.
+Ainsi, toutes les clés sont entourées de _guillemets doubles_.
+
+Les types de données autorisés sont les nombres, les chaînes de caractère,
+les booléens, les tableaux, les objets et la valeur `null`.
+On ne peut donc pas représenter de <<function,fonction>>,
+d'<<class,instance d'objet>> ni même la valeur `undefined`.
+
+ECMAScript embarque le nécessaire pour _parser_ depuis et _convertir_ en JSON.
+Cela se fait respectivement avec les fonctions `JSON.parse` et `JSON.stringify`.
+
+La fonction `JSON.parse` consomme du texte.
+Elle retourne une représentation ECMAScript ou lance une <<error,erreur>>
+en cas de problème.
+
+[source%interactive,javascript]
+.json/parse.js
+----
+include::{sourceDir}/json/parse.js[]
+----
+<1> Affiche `"Hello World!"`
+<2> Affiche `32`
+<3> Affiche `{price_tag: 32, title: "Node.js"}`
+
+À l'inverse, la fonction `JSON.stringify` convertit une structure ECMAScript
+en chaîne de caractères au format JSON :
+
+[source%interactive,javascript]
+.json/stringify.js
+----
+include::{sourceDir}/json/stringify.js[]
+----
+
+La fonction `JSON.stringify` parcourt tous les éléments
+pour les sérialiser en forme textuelle.
+Dans le cas de <<object,structures d'objet>>, on peut définir
+une fonction de conversion dans la clé `toJSON`.
+
+[source%interactive,javascript]
+.json/to-json.js
+----
+include::{sourceDir}/json/to-json.js[]
+----
+<1> Affiche `"\"geo=48.8503439,2.34658949\""`
+— c'est la sérialisation definie par notre fonction `toJSON`
+<2> Affiche `"{\"lat\":48.8503439,\"lon\":2.34658949}"`
+— sans la clé `toJSON`, notre objet initial est sérialisé tel quel
+
+mdn::global[JSON]
+
+
 [[date]]
 == Manipuler des dates
 
@@ -2075,53 +2141,6 @@ La documentation complète de `Promise` est disponible en français sur la resso
 - [URL]#https://developer.mozilla.org/fr/docs/Web/JavaScript/Reference/Objets_globaux/Promise#
 ====
 
-
-[[json]]
-== Manipuler des structures de données JSON
-
-L'introduction du support natif du parsing JSON dans ECMAScript 5 a apporté un grand confort dans la consommation de données issues d'API.
-La sécurité de cette consommation a été améliorée de par sa prise en charge par les développeurs de VM ECMAScript.
-
-La fonction `JSON.parse` tente de convertir une chaîne de texte supposée au format JSON en un objet natif :
-
-[source%interactive,javascript]
-----
-const jsonContent = '{ "ECMAScript": 5.1 }';
-
-typeof jsonContent; <1>
-
-const content = JSON.parse(jsonContent);
-content.ECMAScript; <2>
-
-try {
-  JSON.parse('{ "ECMAScript": 5.1');
-}
-catch (err) {
-  console.log(err.message); <3>
-}
-----
-<1> Retourne `'string'` ;
-<2> Retourne `5.1` ;
-<3> Affiche `Unexpected end of input` car `JSON.parse` a lancé une exception `SyntaxError`.
-
-À l'inverse, la fonction `JSON.stringify` convertit un objet natif en chaîne de caractères au format JSON :
-
-[source%interactive,javascript]
-----
-JSON.stringify({ ECMAScript: 5.1 }); <1>
-JSON.stringify({ ECMAScript: 5.1 }, null, 2); <2>
-----
-<1> Retourne `'{"ECMAScript":5.1}'` ;
-<2> Retourne `'{\n{nbsp}{nbsp}"ECMAScript": 5.1\n}'`, le troisième argument formate proprement avec la taille d'indentation spécifiée, exprimée en nombre d'espaces par niveau de profondeur.
-
-[TIP]
-.[RemarquePreTitre]#URL# Spécification ECMAScript
-====
-L'ensemble de la spécification ECMAScript est disponible aux formats PDF et HTML.
-Il s'agit d'une mine d'or pour comprendre les mécanismes internes du langage, les types et primitives à disposition.
-
-- [URL]#https://www.ecma-international.org/ecma-262/5.1/#
-====
 
 == Usages avancés
 

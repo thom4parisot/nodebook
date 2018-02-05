@@ -2,6 +2,13 @@
 
 Pour en savoir plus: [annonce la résidence itinérante](https://oncletom.io/2017/residence-nodejs/) et [résumé de la résidence itinérante](https://oncletom.io/2017/without-a-home/) (en anglais).
 
+## Lundi 5 février
+
+- _Chapitre 3_ : Manipuler des structures de données JSON
+- _outillage_ : liens vers MDN web docs
+
+**Météo** : 🙂
+
 ## Dimanche 4 février
 
 - _Chapitre 3_ : Manipuler des objets

@@ -16,6 +16,7 @@ var DEFAULT_ATTRIBUTES = [
   'note-caption=💬',
   'tip-caption=💡',
   'warning-caption=🚨',
+  'mdn-caption-prefix=[RemarquePreTitre]#Documentation#',
   'linkattrs',
   'lang=fr',
   'env=ci',

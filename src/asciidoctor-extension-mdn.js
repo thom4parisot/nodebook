@@ -11,30 +11,40 @@ const fromHash = (hash) => {
 
 const lang = 'fr';
 const NAMESPACES = {
-  global: 'Web/JavaScript/Reference/Global_Objects',
-  web: 'Web/API',
   addons: 'Add-ons/WebExtensions/API',
-  window: 'Web/API/WindowOrWorkerGlobalScope'
+  global: 'Web/JavaScript/Reference/Global_Objects',
+  reference: 'Web/JavaScript/Reference',
+  web: 'Web/API',
+  window: 'Web/API/WindowOrWorkerGlobalScope',
 };
 
 module.exports = function MDNExtension () {
   this.blockMacro('mdn', function(){
     this.positionalAttributes('page');
     this.process((parent, target, attributes) => {
+      const doc_attrs = parent.getDocument().getAttributes();
       const attrs = fromHash(attributes);
       const {title='',page} = attrs;
       const titleOrPage = title || page;
-      
-      attrs['textlabel'] = '📖';
-      attrs['role'] = 'info';
-      attrs['title'] = `[RemarquePreTitre]#Documentation# ${titleOrPage}`;
 
-      const path = NAMESPACES[target] || 'Web/API'
+      const {'mdn-caption':mdn_caption='📖'} = doc_attrs;
+      const {'mdn-caption-prefix':mdn_caption_prefix} = doc_attrs;
+
+      attrs['textlabel'] = mdn_caption;
+      attrs['role'] = 'info';
+
+      if (mdn_caption_prefix) {
+        attrs['title'] = `${mdn_caption_prefix} ${titleOrPage}`;
+      }
+      else {
+        attrs['title'] = titleOrPage;
+      }
+
+      const path = NAMESPACES[target] ? '/' + NAMESPACES[target] : '';
 
       const content = `
-Rendez-vous sur _MDN web docs_ pour en savoir plus sur ${titleOrPage}.
-
-link:https://developer.mozilla.org/docs/${lang}/${path}/${page}[role="URL",window="_blank"]
+Rendez-vous sur _MDN web docs_ pour en savoir plus sur ${titleOrPage}. +
+link:https://developer.mozilla.org/docs/${lang}${path}/${page}[role="URL",window="_blank"]
       `;
 
       return this.createBlock(parent, 'admonition', content, attrs);
