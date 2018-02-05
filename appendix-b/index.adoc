@@ -245,6 +245,22 @@ Certains modules de _globbing_ sont bloquants, comme `globule@~0.2.0`.
 Méfiez-vous donc de leur API séduisante car leur performance s'en trouvera amoindrie.
 ====
 
+== Littéraux de modèle avec étiquette (_tagged template literals_)
+
+Les _template literals_ peuvent se préfixer d'un nom de fonction.
+Ce mécanisme nommé _tagged template literals_ sert de filtre pour interpréter et interpoler le contenu de chaque _template_ (élément contenu dans `${}`). Vous pouvez écrire vos propres fonctions mais aussi utiliser des modules _npm_. +
+L'exemple suivant illustre une sécurisation de contenu tiers à l'aide de la fonction `safeHtml` fournie par le module `common-tags` ([URL]#https://npmjs.com/common-tags#) :
+
+[source%interactive,javascript]
+.literal-tags.js
+----
+include::{sourceDir}/tagged-literals.js[]
+----
+<1> Affiche `<div class="user-content">\n<script>alert(document.cookie)</script>\n</div>` ;
+<2> Affiche `<div class="user-content">\n\&lt;script\&gt;alert(document.cookie)\&lt;/script\&gt;\n</div>`.
+
+mdn::reference[Template_literals, title="Littéraux de modèle"]
+
 == Injection de module
 
 Il est tentant de créer des modules pour abstraire certaines parties de votre logique applicative.
