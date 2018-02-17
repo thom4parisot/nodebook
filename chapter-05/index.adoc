@@ -69,11 +69,11 @@ La spécification _semver_ est disponible sous forme textuelle mais également e
 
 L'utilisation de certains caractères permet d'exprimer des *plages de compatibilité*, très utiles lors de l'installation ou de la mise à jour de modules _npm_ :
 
-- `~1.0.0` : mises à jour mineures de la branche `1.0.0` (`1.0.1`, `1.0.2` etc.) ;
+- `~1.0.0` : mises à jour mineures de la branche `1.0.0` (`1.0.1`, `1.0.2`, etc.) ;
 - `1.0.x` : idem ;
-- `^1.0.0` : mises à jour mineures et correctives de la branche `1.0.0` (`1.0.1`, `1.1.0`, `1.1.1` etc.) ;
+- `^1.0.0` : mises à jour mineures et correctives de la branche `1.0.0` (`1.0.1`, `1.1.0`, `1.1.1`, etc.) ;
 - `1.x.x` : idem ;
-- `>1.0.0` : mises à jour majeures, mineures et correctives au-delà de la branche `1.0.0` (`1.0.1` mais pas `1.0.0`, `1.1.0`, `2.0.0`, `3.1.0` etc.) ;
+- `>1.0.0` : mises à jour majeures, mineures et correctives au-delà de la branche `1.0.0` (`1.0.1` mais pas `1.0.0`, `1.1.0`, `2.0.0`, `3.1.0`, etc.) ;
 - `>1 <3` : mises à jour majeures, mineures et correctives entre la branche `1.0.0` et `3.0.0` (`2.0.0`, `2.0.1`, `2.1.0` etc.) ;
 - `>1` : mises à jour majeures, mineures et mineures au-delà de la branche `1.0.0` (`2.0.0`, `2.0.1`, `3.1.0` etc.).
 
@@ -104,7 +104,7 @@ Cette communauté a créé, conçu et contribue à alimenter le registre `npm` p
 C'est de loin le mécanisme privilégié pour installer des modules Node de la manière la plus simple qu'il soit.
 
 Si vous avez installé Node depuis les binaires officiels, `npm` est inclus par défaut.
-Véfifions que le programme `npm` est installé sur notre machine :
+Vérifions que le programme `npm` est installé sur notre machine :
 
 [source,bash,subs="attributes"]
 ----
@@ -219,7 +219,7 @@ La commande précédente effectue plusieurs opérations :
 
 1. requête du registre _npmjs.com_ à propos des deux modules _async_ et _yargs_ ;
 2. si les modules existent, la version compatible la plus récente est retournée (équivalent à `npm view async version` et `npm view yargs version` — respectivement `2.1.4` et `6.6.0`) ;
-3. téléchargement et décompression des paquets dans les répertoire `node_modules/async` et `node_modules/yargs` ;
+3. téléchargement et décompression des paquets dans les répertoires `node_modules/async` et `node_modules/yargs` ;
 4. introspection récursive des dépendances de ces modules et si besoin est, téléchargement et décompression dans leur répertoire _node_modules_ respectif (ici `node_modules/async/node_modules` et `node_modules/yargs/node_modules`) ;
 5. inscription de _async_ et de _yargs_ dans la configuration _dependencies_ de notre fichier `package.json`.
 
@@ -330,7 +330,7 @@ Bref, pour vous aider à choisir — et ce peu importe le contexte — voici une
 - *dépendances* : l'existence de modules reposant sur un autre démontre une *marque de confiance* d'autres développeurs. Confiance suffisante dans la solidité des fondations sur lesquelles ils s'appuient pour bâtir leur propre module ;
 - *date de mise à jour* : une ou plusieurs versions majeures de Node sont-elles sorties entre temps ? Si oui, des *risques d'incompatibilité* peuvent se présenter. Certaines dépendances peuvent également être devenues obsolètes ou avoir présenté des failles de sécurité ;
 - *maintenance* : si personne ne met à jour le module alors que des contributions se présentent, cela peut se révéler bloquant, dénoter une *obsolescence* d'idée ou impliquer l'existence d'un _fork_ de ce module ;
-- *état des contributions* : les mainteneurs répondent-ils aux contributeurs ? Les contributions de code sont-elles acceptées dans des conditions légitimes ? Ou tout simplement, y'a-t-il beaucoup de déclaration de bugs en suspens ? Telles sont les indicateurs de vitalité pour estimer la gravité et la probabilité que la librairie nous explose au visage lorsqu'on ne s'y attendra pas.
+- *état des contributions* : les mainteneurs répondent-ils aux contributeurs ? Les contributions de code sont-elles acceptées dans des conditions légitimes ? Ou tout simplement, y a-t-il beaucoup de déclaration de bugs en suspens ? Telles sont les indicateurs de vitalité pour estimer la gravité et la probabilité que la librairie nous explose au visage lorsqu'on ne s'y attendra pas.
 
 .Page npm d'un module populaire et fiable
 image::images/module-npm-ok.png[align="center",width="85%"]
@@ -339,7 +339,7 @@ image::images/module-npm-ok.png[align="center",width="85%"]
 image::images/module-npm-ko.png[align="center",width="85%"]
 
 Enfin, n'oubliez pas qu'il s'agit de critères subjectifs.
-Les mainteneurs du module ne sont peut-être pas de bons communicants ou n'ont que peu d'expérience en terme de tests… ou ils n'ont tout simplement pas eu le temps. +
+Les mainteneurs du module ne sont peut-être pas de bons communicants ou n'ont que peu d'expérience en termes de tests… ou ils n'ont tout simplement pas eu le temps. +
 N'hésitez pas à les encourager si vos expérimentations se révèlent concluantes.
 Contribuez des tests et de la documentation à hauteur de votre temps.
 Même s'il ne s'agit _que_ de cinq lignes de code, d'un exemple supplémentaire ou d'une faute d'orthographe en moins.
@@ -449,7 +449,7 @@ Maintenir ses dépendances à jour est important pour deux raisons :
 
 En dernier recours, vérifier la fraîcheur de ses dépendances permet de prendre connaissance de nouvelles versions majeures ou mineures dont vous pourriez bénéficier.
 
-Quoiqu'il en soit, une commande npm nous aidera une fois de plus à obtenir les informations voulues :
+Quoi qu'il en soit, une commande npm nous aidera une fois de plus à obtenir les informations voulues :
 
 [source,bash]
 ----
@@ -463,13 +463,13 @@ image::images/npm-outdated.png[align="center",width="85%"]
 
 Le tableau ne liste que les dépendances considérées comme obsolètes en l'état actuel d'installation de votre projet.
 Il se peut donc que le résultat varie d'une machine à l'autre, en fonction des versions installées localement. +
-Les résultats est divisé en cinq colonnes :
+Les résultats sont divisés en cinq colonnes :
 
 - *Package* : nom du paquet concerné — en jaune une dépendance qui sera satisfaite en cas de `npm update`, en rouge une dépendance qui nécessite une mise à jour manuelle ;
 - *Current* : version installée localement — _MISSING_ sera affiché si la dépendance n'est pas encore installée, _git_ indique que la dépendance est installée via git ;
 - *Wanted* : version installée après exécution de `npm update` ;
 - *Latest* : version la plus récente publiée dans le registre npm ;
-- *Location* : emplacement de la dépendance — dépendance directe ou dépendance incluse dans une autre dépendance etc.
+- *Location* : emplacement de la dépendance — dépendance directe ou dépendance incluse dans une autre dépendance, etc.
 
 [TIP]
 .[RemarquePreTitre]#Remarque# Et si une dépendance n'est pas listée ?
@@ -483,7 +483,7 @@ La première action à mener est de procéder à l'exécution de la commande `np
 image::images/npm-outdated-wanted.png[align="center",width="85%"]
 
 Le résultat est probant : de nombreuses dépendances précédemment listées en rouge ont disparu.
-Il ne reste que trois dépendances sur lesquelles nous pouvons avoir une action directe en modifiant la version référencées dans le fichier `package.json`.
+Il ne reste que trois dépendances sur lesquelles nous pouvons avoir une action directe en modifiant la version référencée dans le fichier `package.json`.
 
 Pour forcer l'installation de la version correspondant à la colonne _Latest_ de la commande `npm outdated`, il suffit d'utiliser le suffixe `@latest` lors de l'installation :
 
