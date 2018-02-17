@@ -53,7 +53,7 @@ toc::[]
 == Qu'est-ce que JavaScript ?
 
 Au lieu d'écrire plusieurs paragraphes expliquant ce qu'est et
-ce que n'est pas _pas_ JavaScript, regardons ensemble
+ce que n'est _pas_ JavaScript, regardons ensemble
 un bloc de code contenant plusieurs _expressions_ écrites
 en JavaScript :
 
@@ -127,7 +127,7 @@ ECMAScript a été standardisé dans sa version 5 en décembre 2009.
 La révision 5.1 de juin 2011 est une correction mineure de la spécification.
 
 Il s'agit d'une évolution majeure dans l'histoire du langage.
-La précédente version — ECMAScript 3 — était agée de… *dix ans*…
+La précédente version — ECMAScript 3 — était âgée de… *dix ans*…
 
 ECMAScript 5 limite drastiquement certains effets indésirables du langage
 grâce au _mode strict_.
@@ -152,7 +152,7 @@ La spécification *ECMAScript 2015* (_ES2015_) a été publiée en juin 2015.
 Elle succède à *ECMAScript 5* après 6 années de gestation. +
 Cette version a successivement été appelée _ECMAScript Harmony_, _ECMAScript 6_, puis _ECMAScript 2015_.
 
-Le processus de standardisation a mis 6 années pour aboutir
+Le processus de standardisation a mis 6 années pour aboutir,
 mais cette fois-ci, les choses se sont déroulées différemment. +
 De nombreuses idées ont été piochées dans le langage
 _CoffeeScript_ ([URL]#http://coffeescript.org#).
@@ -188,7 +188,7 @@ Spécification::
 image::images/node-green.png[align="center",width="85%"]
 
 
-=== ECMAScript 2016 etc. (aka _ES2016_, …)
+=== ECMAScript 2016, etc. (aka _ES2016_…)
 
 Depuis la sortie d'_ECMAScript 2015_, l'intention est de publier une
 nouvelle spécification par an.
@@ -202,7 +202,7 @@ Les fonctionnalités en cours de préparation sont listées
 dans ce dépôt GitHub : [URL]#https://github.com/tc39/proposals#.
 Le dernier stade avant la validation d'une fonctionnalité est le _stage 3_.
 Dès qu'une fonctionnalité passe en _stage 4_, elle est incluse
-dans la prochaine version version d'ECMAScript
+dans la prochaine version d'ECMAScript
 — _ECMAScript {docyear}_ une fois l'année {docyear} terminée.
 
 Les fonctionnalités approuvées sont consignées dans ce document :
@@ -218,9 +218,9 @@ On apprendra notamment à manipuler des variables, à faire
 des boucles sur des collections et à faire la différence
 entre un objet et une fonction.
 
-Mais qu'entend-t'on par _type de données_ ?
-Faisons nous notre propre idée avec une suite d'exemples.
-Ces notions seront dévelopées dans le reste du chapitre,
+Mais qu'entend-t-on par _type de données_ ?
+Faisons-nous notre propre idée avec une suite d'exemples.
+Ces notions seront développées dans le reste du chapitre,
 pour mieux comprendre ce que l'on peut en faire.
 
 [source%interactive,javascript]
@@ -284,7 +284,7 @@ La valeur `undefined` est utilisée pour signifier
 qu'une *valeur est inconnue*.
 Rares sont les cas où on choisira ce type de données par nous-même.
 
-mdn::global[Data_structures, title="primitives"]
+mdn::javascript[Data_structures, title="primitives"]
 
 Il existe trois autres types de données qui se basent sur ces types
 dits _primitifs_.
@@ -403,7 +403,7 @@ contient _au moins 1 caractère_.
 On expliquera ce comportement plus en détail dans la section <<#boolean,manipuler des booléens>>.
 
 L'instruction `if` peut être complétée avec l'instruction `else`
-pour éxécuter du code qui répondrait au cas contraire.
+pour exécuter du code qui répondrait au cas contraire.
 On peut imbriquer plusieurs `else if` à la suite.
 
 [source%interactive,javascript]
@@ -412,7 +412,7 @@ On peut imbriquer plusieurs `else if` à la suite.
 include::{sourceDir}/instructions/else-if.js[lines=3..-1]
 ----
 
-Notre exemple n'empruntera qu'un seul des chemins mais on peut
+Notre exemple n'empruntera qu'un seul des chemins, mais on peut
 constater qu'on pourrait en emprunter un autre
 en modifiant la valeur des clés `title` et `published`.
 
@@ -489,8 +489,8 @@ pour que son existence soit oubliée aussitôt le bloc exécuté.
 == Manipuler du texte
 
 Il est commun d'avoir à manipuler des chaînes de caractères.
-Pour stocker des URLs, des titres, des identifiants,
-des tweets voire même des textes longs.
+Pour stocker des URL, des titres, des identifiants,
+des tweets voire des textes longs.
 
 [source%interactive,javascript]
 .string/base.js
@@ -498,13 +498,13 @@ des tweets voire même des textes longs.
 include::{sourceDir}/string/base.js[]
 ----
 <1> Utilisation de guillemets simples (`\n` permet de revenir à la ligne) ;
-<2> Utilisation de guillemets doubles — évite d'échaper le guillemet simple ;
+<2> Utilisation de guillemets doubles — évite d'échapper le guillemet simple ;
 <3> Utilisation de guillemets obliques — autorise le multi-ligne.
 
 On peut utiliser n'importe quel caractère : lettres, chiffres,
 caractères accentués, émojis et même des sinogrammes ou des kanjis.
 Autrement dit, il n'y a pas de limite.
-Les environnements d'exécution se représente les caractères au format
+Les environnements d'exécution se représentent les caractères au format
 UTF-16 (tables de stockage Unicode sur 16 bits de données).
 
 Il est fréquent d'avoir à _concaténer_ des chaînes de caractères,
@@ -570,10 +570,10 @@ Dans cet exemple, la méthode `padEnd` complète jusqu'à `11` caractères,
 avec le caractère `X`.
 La méthode `padStart` fait la même chose mais avec le début de la chaîne.
 
-`indexOf` retourne la position de la _première occurence_
+`indexOf` retourne la position de la _première occurrence_
 dans une chaîne.
 Si la valeur n'est pas trouvée, elle renvoie la valeur `-1`.
-À l'inverse, `lastIndexOf` retournera la dernière occurence trouvée :
+À l'inverse, `lastIndexOf` retournera la dernière occurrence trouvée :
 
 [source%interactive,javascript]
 .string/index-of.js
@@ -582,8 +582,8 @@ include::{sourceDir}/string/index-of.js[]
 ----
 <1> Retourne `4` ;
 <2> Retourne `-1` — aucune occurrence n'ayant été trouvée ;
-<3> Retourne `5` — première occurence de la lettre `a` ;
-<4> Retourne `7` — dernière occurence de la lettre `a`.
+<3> Retourne `5` — première occurrence de la lettre `a` ;
+<4> Retourne `7` — dernière occurrence de la lettre `a`.
 
 [[regexp]]
 === Expressions régulières (_RegExp_)
@@ -636,9 +636,9 @@ Illustrons leur utilisation en _identifiant du texte_ répondant (`match`)
 ----
 include::{sourceDir}/regexp/flags.js[]
 ----
-<1> identifie et affiche `Node`, l'occurence contenue dans le mot `Node.js` ;
-<2> affiche 2 fois `ode` — les occurences contenues dans le mot `Node.js` et `Anode` ;
-<3> affiche `Node` et `node` en combinant les deux options `i` et `g` — , les occurences contenues dans le mot `Node.js` et `Anode`.
+<1> identifie et affiche `Node`, l'occurrence contenue dans le mot `Node.js` ;
+<2> affiche 2 fois `ode` — les occurrences contenues dans le mot `Node.js` et `Anode` ;
+<3> affiche `Node` et `node` en combinant les deux options `i` et `g` — les occurrences contenues dans le mot `Node.js` et `Anode`.
 
 Des éléments de syntaxe complètent les options pour
 *identifier des motifs* au sein de chaînes de caractères :
@@ -654,9 +654,9 @@ nombre de caractères (entre `{` et `}`)::
   ou _entre_ (`{1,2}` — entre 1 et 2 fois) ;
 nombre de caractères (`?`, `+` et `*`)::
   Version raccourcie du nombre de caractères pour des besoins usuels :
-  _0 ou 1 caractères_ avec `?`,
+  _0 ou 1 caractère_ avec `?`,
   _1 caractère et plus_ avec `+` et
-  _0 caractères et plus_ avec `*`.
+  _0 caractère et plus_ avec `*`.
 
 [source%interactive,javascript]
 .regexp/syntax.js
@@ -686,7 +686,7 @@ groupe de capture (entre `(` et `)`)::
   Les groupes peuvent par la suite être _identifiés_ et _remplacés_. +
   On notera également que l'emploi des _groupes_ change
   la structure des résultats en un tableau de plusieurs éléments.
-  Ce tableau a la forme `["chaine identifiée", "groupe 1", "groupe 2", ...]`.
+  Ce tableau a la forme `["chaine identifiée", "groupe 1", "groupe 2" ...]`.
 
 
 [source%interactive,javascript]
@@ -722,8 +722,8 @@ caractère numérique (`\d`)::
   Identique à `[0-9]`.
 caractère d'espacement (`\s`)::
   Équivalent à tout caractère d'espacement
-  (espace, tabulation, retour chariot etc.) ;
-caractère unicode (`\u{....}`)::
+  (espace, tabulation, retour chariot, etc.) ;
+caractère Unicode (`\u{....}`)::
   Doit être combiné avec l'option `u` (`/.../u`).
   Exemple : ♥︎ -> `\u{2665}`
 
@@ -840,9 +840,9 @@ maximales que l'on peut représenter dans un programme :
 include::{sourceDir}/number/constants.js[]
 ----
 
-Il est aussi possible de compter dans d'autres bases comme la _base 16_.
-C'est à dire une représentation hexadécimale de 0 à 16 exprimée de 0 à F
-— A vaut 10 (car juste après 9), B vaut 11 etc.
+Il est aussi possible de compter dans d'autres bases comme la _base 16_,
+c'est-à-dire une représentation hexadécimale de 0 à 16, exprimée de 0 à F
+— A vaut 10 (car juste après 9), B vaut 11, etc.
 Leur notation se fait en préfixant la valeur par `0x` :
 
 [source%interactive,javascript]
@@ -982,9 +982,9 @@ Pour cela nous avons deux fonctions à disposition :
 
 [horizontal]
 `parseInt`::
-  Essaie d'interprêter un nombre entier ;
+  Essaie d'interpréter un nombre entier ;
 `parseFloat`::
-  Essaie d'interprêter un nombre à virgule.
+  Essaie d'interpréter un nombre à virgule.
   La fonction s'arrête dès qu'elle n'a plus affaire à un chiffre.
 
 [source%interactive,javascript]
@@ -1010,7 +1010,7 @@ include::{sourceDir}/number/parse-int.js[]
 <3> Affiche `2560` — aurait pu s'écrire `0xF00`
 (cf. le <<number,début de cette même section>>, à propos des bases).
 
-=== Formatter et arrondir des nombres
+=== Formater et arrondir des nombres
 
 Si l'envie vous prenait de vouloir arrondir des nombres, il existe
 quelques fonctions pour nous aider.
@@ -1035,8 +1035,8 @@ include::{sourceDir}/number/round.js[]
 <2> Affiche `4` ;
 <3> Affiche `3`.
 
-Enfin, on peut préserver le formattage du nombre de décimales
-après la virgules… en transformant le nombre _en chaîne de caractères_
+Enfin, on peut préserver le formatage du nombre de décimales
+après la virgule… en transformant le nombre _en chaîne de caractères_
 grâce à la méthode `toFixed` :
 
 [source%interactive,javascript]
@@ -1095,7 +1095,7 @@ la *valeur de retour*::
 [TIP]
 .[RemarquePreTitre]#Rappelle-toi# Variables et portée
 ====
-Le corps d'une fonction constitute une _portée_ : toute variable définie
+Le corps d'une fonction constitue une _portée_ : toute variable définie
 dans le corps d'une fonction est invisible en dehors.
 
 On en parle plus en détails dans la <<scope,section portée>>
@@ -1106,7 +1106,7 @@ en début de section.
 === Les fonctions anonymes
 
 Les fonctions anonymes sont employées en *arguments d'autres fonctions*.
-On les dit _anonymes_ car elles ne sont pas consignées dans des _variables_.
+On les dit _anonymes_, car elles ne sont pas consignées dans des _variables_.
 Il est fréquent de les utiliser pour _itérer_ sur des tableaux,
 lors d'événements ou dans des <<promise,promesses>>.
 
@@ -1273,7 +1273,7 @@ include::{sourceDir}/array/loop.js[]
 Prenons le temps de revenir sur cet exemple.
 On y découvre plusieurs manières de faire des boucles sur un tableau :
 
-`for..of`::
+`for...of`::
   On assigne une variable pour chaque élément (opérateur `of`) du tableau.
   Les expressions situées entre accolade (`{...}`) sont exécutées pour
   chaque élément du tableau.
@@ -1315,7 +1315,7 @@ include::{sourceDir}/array/foreach-function.js[]
 <2> Affiche successivement `"un se trouve à l'index 0"` puis `"deux se trouve à l'index 1"`
 
 Outre l'inspection et l'affichage des valeurs, les boucles offrent la liberté
-de <<array.sort,faire des tri>>, de <<array.map,transformer les valeurs>>, de <<array.filter,filtrer selon des conditions>>
+de <<array.sort,faire des tris>>, de <<array.map,transformer les valeurs>>, de <<array.filter,filtrer selon des conditions>>
 mais aussi de <<array.reduce,créer de nouvelles structures de données>>.
 
 Ces méthodes sont décrites dans les sections suivantes.
@@ -1325,7 +1325,7 @@ Ces méthodes sont décrites dans les sections suivantes.
 === Trier les valeurs
 
 La méthode `sort` chaque l'ordre des éléments d'un tableau.
-Cette méthode utilise un <<anonymous-function,fonction anonyme>>.
+Cette méthode utilise une <<anonymous-function,fonction anonyme>>.
 La fonction anonyme compare deux éléments entre eux.
 Elle retourne un nombre positif, négatif ou égal à zéro selon la
 logique que l'on souhaite donner au tri :
@@ -1406,7 +1406,7 @@ est contenue dans la _suite du tableau_.
 situés _après_ l'élément courant (`index+1`).
 
 La méthode `reduce` est une autre méthode de transformation.
-Elle est différente car elle passe le résultat de la précédente itération
+Elle est différente, car elle passe le résultat de la précédente itération
 à la suivante.
 C'est comme si elle _accumulait_ les résultats.
 `reduce` retourne une valeur finale qui peut être autre chose qu'un tableau.
@@ -1466,7 +1466,7 @@ include::{sourceDir}/array/index-of-includes.js[]
 
 Il existe ensuite d'autres méthodes comme `find`, `some` et `every`.
 Elles *identifient des éléments à partir d'une fonction*.
-Les conditions de recherche sont plus complètes car on n'est pas obligé
+Les conditions de recherche sont plus complètes, car on n'est pas obligé
 de connaître la valeur exacte recherchée.
 
 La méthode `find` retourne l'_élément_ qui satisfait la condition en premier.
@@ -1495,7 +1495,7 @@ include::{sourceDir}/array/some.js[]
 ----
 <1> Affiche `false` — toutes les valeurs ne sont pas égales à `undefined`
 <2> Affiche `true` — au moins une valeur est égale à `undefined`
-<3> Affiche `false` — il n'y a plus de valeur `undefined` dans le tableau
+<3> Affiche `false` — il n'y a plus de valeur `undefined` dans le tableau,
 car on a utilisé la méthode <<array.filter,filter>> pour supprimer les valeurs
 non-vides
 
@@ -1554,7 +1554,7 @@ include::{sourceDir}/array/slice-negative.js[]
 <3> Affiche `["un", "deux", "trois"]`
 — jusqu'au dernier élément à partir de la fin (non-inclus)
 <4> Affiche `["un"]`
-— jusque'au troisième élément à partir de la fin (non-inclus)
+— jusqu'au troisième élément à partir de la fin (non-inclus)
 
 
 [[object]]
@@ -1562,7 +1562,7 @@ include::{sourceDir}/array/slice-negative.js[]
 
 Les structures d'objet servent à *lister des éléments* de tout type
 au sein d'une même variable.
-Le consignement se fait _comme dans un dictionnaire_,
+L'indexation se fait _comme dans un dictionnaire_,
 avec un identifiant unique pour chaque valeur.
 
 [source%interactive,javascript]
@@ -1624,7 +1624,7 @@ include::{sourceDir}/object/destructuring-rest.js[]
 [[object.assign]]
 === Combiner des objets
 
-`Object.assign` est une méthode qui permet d'étendre et combiner ou ou plusieurs tableaux.
+`Object.assign` est une méthode qui permet d'étendre et combiner plusieurs tableaux.
 On a le choix d'intégrer les nouveaux éléments à un objet existant
 ou bien d'en créer un nouveau.
 Les objets sont combinés dans le premier paramètre de la fonction.
@@ -1738,7 +1738,7 @@ include::{sourceDir}/object/key.js[]
 <1> Affiche `true`
 <2> Affiche `false`
 
-Attention toutefois car cette méthode _teste uniquement la valeur_.
+Attention toutefois, car cette méthode _teste uniquement la valeur_.
 Si la clé existe et contient `undefined`, vous ne verrez pas la différence.
 
 [source%interactive,javascript]
@@ -1749,7 +1749,7 @@ include::{sourceDir}/object/key-undefined.js[]
 <1> Affiche `false`
 — la valeur `undefined` est convertie en `false`
 <2> Affiche `false`
-— la clé existe bien mais elle contient la valeur `undefined`
+— la clé existe bien, mais elle contient la valeur `undefined`
 <3> Affiche `true` — le test se fait sur l'existence de la clé
 <4> Affiche `true` — idem
 
@@ -1852,7 +1852,7 @@ include::{sourceDir}/date/set.js[]
 
 L'exemple précédent illustre l'ambiguïté de la notion de _mois_.
 Il s'agit en réalité de l'_index du mois_ :
-0 correspond à janvier, 1 à février etc.
+0 correspond à janvier, 1 à février, etc.
 
 La plupart des méthodes natives font référence à l'anglais.
 Elles offrent peu de confort de manipulation — on aimerait pouvoir
@@ -1860,13 +1860,13 @@ compter facilement le nombre de jours entre deux dates, ou retirer 30 jours.
 
 Quand nous utiliserons <<../chapter-04/index.adoc,Node>> et
 <<../chapter-05/index.adoc,npm>>, nous verrons que nous aurons
-à disposition des librairies facilitant les manipulation de dates.
+à disposition des librairies facilitant les manipulations de dates.
 
 mdn::global[Date]
 
 
 [[intl.datetimeformat]]
-=== Formattage internationalisé (_Intl.DateTimeFormat_)
+=== Formatage internationalisé (_Intl.DateTimeFormat_)
 
 La spécification _ECMA Intl_ a été conçue pour ajouter des
 fonctionnalités relatives aux langues.
@@ -1876,8 +1876,7 @@ Son comportement varie en fonction du système d'exploitation
 
 Les méthodes de date `toLocaleString`, `toLocaleDateString` et
 `toLocaleTimeString` renvoient une version localisée
-d'une date complète, d'une date et d'une heure
-, respectivement.
+d'une date complète, d'une date et d'une heure, respectivement.
 
 [source%interactive,javascript]
 .date/to-locale-date.js
@@ -1888,9 +1887,9 @@ include::{sourceDir}/date/to-locale-date.js[]
 <2> Affiche `décembre`
 
 [CAUTION]
-.[RemarquePreTitre]#Attention# Tu vois M01, M02 etc. ?
+.[RemarquePreTitre]#Attention# Tu vois M01, M02, etc. ?
 ====
-Si en formattant une date, les caractères `M01`, `M02` ou autre s'affiche,
+Si en formatant une date, les caractères `M01`, `M02` ou autre s'affiche,
 c'est que le système n'est pas configuré avec les libellés de la langue
 demandée.
 
@@ -1899,11 +1898,11 @@ La langue par défaut est l'anglais.
 
 mdn::global[Date/toLocaleDateString]
 
-Une version plus verbeuse consiste à créer un formatteur avec
+Une version plus verbeuse consiste à créer un formateur avec
 `Intl.DateTimeFormat`.
-Ce formatteur se réutilise pour transformer plusieurs fois
+Ce formateur se réutilise pour transformer plusieurs fois
 des dates différentes avec les mêmes réglages…
-ou une même date avec des formattages différents.
+ou une même date avec des formatages différents.
 
 [source%interactive,javascript]
 .date/intl.js
@@ -1945,7 +1944,7 @@ include::{sourceDir}/class/base.js[]
 <1> Le constructeur reçoit un ou plusieurs arguments lors de l'instanciation
 de la classe
 <2> `this` fait référence à _ce contexte_,
-c'est à dire à _cette instance de classe_ ;
+c'est-à-dire à _cette instance de classe_ ;
 deux instances peuvent être initialisées avec des données différentes
 <3> `toJSON` est une méthode de la classe
 <4> `isbn` est un accesseur (préfixe `get`)
@@ -1954,7 +1953,7 @@ deux instances peuvent être initialisées avec des données différentes
 — elle est appelée en dehors d'une instance
 
 Nous développerons cet exemple dans les sections qui suivent.
-On peut dores et déjà noter que la structure d'une classe
+On peut d'ores et déjà noter que la structure d'une classe
 se décompose en plusieurs parties :
 
 la définition::
@@ -1972,7 +1971,7 @@ les accesseurs et mutateurs::
 le contexte (`this`)::
   On peut y référer dans les méthodes de la classe pour dire
   _je fais référence à cet objet_.
-  Et donc d'appeler les données et méthodes atenantes.
+  Et donc d'appeler les données et méthodes attenantes.
 
 mdn::reference[Classes]
 
@@ -2026,7 +2025,7 @@ mdn::reference[Classes/static]
 
 Ce type particulier de méthode permet en réalité de définir des
 _attributs dynamiques_ mais aussi de gérer comment l'affectation de données.
-Elles se caractérisent par la préfixe `get` ou `set` devant un nom de fonction,
+Elles se caractérisent par le préfixe `get` ou `set` devant un nom de fonction,
 selon que ça soit un _accesseur_ ou un _mutateur_.
 
 [source%interactive,javascript]
@@ -2100,7 +2099,7 @@ On dit alors que l'action est _asynchrone_.
 ----
 include::{sourceDir}/promise/base.js[]
 ----
-<1> Affiche `Promise` — ce n'est pas le résultat que l'on voit mais l'objet avec lequel interagir pour être prevenu de la mise à disposition du résultat
+<1> Affiche `Promise` — ce n'est pas le résultat que l'on voit mais l'objet avec lequel interagir pour être prévenu de la mise à disposition du résultat
 <2> Affiche `"un"`
 <3> Affiche `"deux"`
 — c'est parce que la ligne d'avant a mis en attente
@@ -2139,8 +2138,8 @@ pour propager le statut de son exécution.
 include::{sourceDir}/promise/then-catch.js[]
 ----
 <1> La fonction `oddTime` accepte un argument de type <<date,Date> ;
-elle résoud la promesse _positivement_ (`resolve`) si le nombre
-de secondes est impair, sinon elle résoud la promesse _négativement_ (`reject`)
+elle résout la promesse _positivement_ (`resolve`) si le nombre
+de secondes est impair, sinon elle résout la promesse _négativement_ (`reject`)
 <2> Utilisation de la forme compacte de `then` avec deux _callbacks_ :
 un de succès (associé à `resolve`) et un d'échec (associé à `reject`)
 <3> On crée une nouvelle promesse, avec une date calée une seconde plus tard ;
@@ -2206,7 +2205,7 @@ Elle est résolue négativement dès que l'_une d'entre elles_ échoue.
 ----
 include::{sourceDir}/promise/all.js[]
 ----
-<1> Cette fonction résoud la promesse après un délai aléatoire
+<1> Cette fonction résout la promesse après un délai aléatoire
 compris entre 0 et 2000 millisecondes
 <2> On passe 3 promesses à `Promise.all`
 <3> La résolution est déclenchée dès que les 3 promesses sont résolues
@@ -2249,7 +2248,7 @@ de fonction asynchrone directement au niveau principal d'un script
 <3> L'affichage du temps d'exécution de chaque promesse se fait
 lorsque les 3 promesses sont résolues.
 
-On gagne en lisibilité mais *on perd en vitesse*.
+On gagne en lisibilité, mais *on perd en vitesse*.
 Les promesses sont exécutées _les unes à la suite des autres_
 et non plus en parallèle.
 Il est important d'arbitrer les choix de _design_ et d'éviter de bloquer
@@ -2262,7 +2261,7 @@ ECMAScript est un langage bien plus riche, complet et élégant qu'il n'y parait
 Ce chapitre nous a *appris les différentes structures de langage*
 communes à toutes les environnements comprenant ECMAScript.
 Cela s'applique aussi bien à Node qu'aux navigateurs web. +
-Je vous invite à revenir à ce chapitre pour vous raffraichir la mémoire
+Je vous invite à revenir à ce chapitre pour vous rafraîchir la mémoire
 mais aussi pour *jouer avec les exemples* afin de confirmer votre compréhension
 du langage.
 

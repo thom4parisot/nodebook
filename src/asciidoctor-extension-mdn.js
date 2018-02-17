@@ -12,6 +12,7 @@ const fromHash = (hash) => {
 const lang = 'fr';
 const NAMESPACES = {
   addons: 'Add-ons/WebExtensions/API',
+  javascript: 'Web/JavaScript',
   global: 'Web/JavaScript/Reference/Global_Objects',
   reference: 'Web/JavaScript/Reference',
   web: 'Web/API',

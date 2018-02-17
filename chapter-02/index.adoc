@@ -104,7 +104,7 @@ de part leurs fonctionnalités et leur rapidité de prise en main :
 _RunKit_, _Codenvy_ et _Cloud9_.
 
 _RunKit_ ([URL]#https://runkit.com#) est de loin le service le plus simple.
-Il s'article autour d'un concept de _bac à sable_,
+Il s'articule autour d'un concept de _bac à sable_,
 notre code ne sera pas plus long qu'un fichier.
 Pour créer un nouveau bac à sable,
 il suffit de se rendre sur [URL]#https://runkit.com/new#.
@@ -194,7 +194,7 @@ _nvm_ et Node peuvent s'installer encore plus facilement sous macOS si vous util
 Rendez-vous dans la section <<install-macos,macOS>> pour en savoir plus.
 ====
 
-Une fois installé, vous serez libre d'installer les version exactes de Node qui vous intéressent en appelant la commande `nvm` dans un <<shell,terminal>>.
+Une fois installé, vous serez libre d'installer les versions exactes de Node qui vous intéressent en appelant la commande `nvm` dans un <<shell,terminal>>.
 
 [source,bash,subs="attributes"]
 .Installation de Node {nodeCurrentVersion} avec la commande `nvm install`
@@ -239,7 +239,7 @@ J'utilise principalement ces commandes :
 
 - `nvm install` : installe ou met à jour une version de Node ;
 - `nvm ls` : liste les versions installées de Node ;
-- `nvm use` : bascule vers une version données de Node ;
+- `nvm use` : bascule vers une version donnée de Node ;
 - `nvm alias <nom> <version>` : crée un alias nommé vers une version de Node ;
 - `nvm run <version> <script>` : exécute un script Node dans une version donnée de Node.
 
@@ -430,7 +430,7 @@ cette adresse [URL]#https://github.com/nodejs/node/blob/master/BUILDING.md#.
 _Docker_ ([URL]#https://docker.com#) est un outil open source dit d'_applications en conteneur_.
 Une de ses qualités principales est d'*isoler l'exécution d'applications de leur environnement d'exécution*.
 Une image Docker décrit la recette d'installation d'une application.
-L'environnement d'exécution Docker fait office de passe-plat avec le syst!me d'exploitation.
+L'environnement d'exécution Docker fait office de passe-plat avec le système d'exploitation.
 Une image Docker fonctionne ainsi de la même manière qu'elle soit exécutée sous Linux, macOS ou encore Windows.
 
 Les installeurs et instructions d'installation de Docker se trouvent à l'adresse [URL]#https://docker.com/community-edition#.
@@ -473,7 +473,7 @@ Nous nous repencherons sur Docker dans la section  <<../chapter-06/index.adoc#im
 == Utiliser Node.js avec un terminal (_shell_)
 
 La section précédente nous a permis d'installer l'environnement d'exécution Node sur notre machine.
-Il se peut aussi que vous ayiez privilégié l'utilisation d'un <<online,service en ligne>>.
+Il se peut aussi que vous ayez privilégié l'utilisation d'un <<online,service en ligne>>.
 
 Nous allons nous assurer dans cette section que nous pouvons
 *voir nos premiers résultats* d'une interaction avec Node.
@@ -491,7 +491,7 @@ image::images/macos-terminal.png[align="center",width="70%"]
 ====
 L'histoire des invites de commande remonte au temps où les ordinateurs
 étaient plus volumineux que nos logements.
-Une époque lointaine où les ordinateus étaient véritablement et physiquement distants des claviers qui les interrogeaient.
+Une époque lointaine où les ordinateurs étaient véritablement et physiquement distants des claviers qui les interrogeaient.
 
 [URL]#https://fr.wikipedia.org/wiki/Terminal_informatique#
 ====
@@ -538,7 +538,7 @@ dans le processus d'écriture.
 Les logiciels présentés ci-après couvrent bon nombre de fonctionnalités
 qui améliorent de près ou de loin notre capacité à écrire du code de qualité.
 Parmi ces fonctionnalités, on peut retrouver la coloration syntaxique,
-l'inspection dynamique, le débogage, des astuces deproductivité et
+l'inspection dynamique, le débogage, des astuces de productivité et
 d'intégration à l'écosystème Node.
 
 Cette sélection a pour intention de vous aider à piocher au plus près
@@ -554,7 +554,7 @@ image::images/atom.png[align="center",width="85%"]
 _Atom_ ([URL]#https://atom.io#) est un éditeur de code open-source,
 multilingue et multi plate-forme dont le développement a été initié
 par la société commerciale _GitHub_ ([URL]#http://github.com#).
-Le logiciel est basé sur _Electron_, un environnent d'exécution
+Le logiciel est basé sur _Electron_, un environnement d'exécution
 d'applications de bureau reposant sur les technologies web et… sur Node !
 
 _Atom_ offre un écosystème d'extensions pour étendre les fonctionnalités de l'éditeur.
@@ -604,7 +604,7 @@ tablr ([URL]#https://atom.io/packages/tablr#)::
 linter-markdown ([URL]#https://atom.io/packages/linter-markdown#)::
   Vérification syntaxique des fichiers Markdown.
 node-resolver ([URL]#https://atom.io/packages/node-resolver#)::
-  Navigation au sein des modules <<../chapter-05/index.adoc#,modules npm>>
+  Navigation au sein des <<../chapter-05/index.adoc#,modules npm>>
   en cliquant sur leurs méthodes ou propriétés.
 
 [TIP]
@@ -637,7 +637,7 @@ image::images/visual-studio-code.png[align="center",width="85%"]
 _Visual Studio Code_ ([URL]#https://code.visualstudio.com#)
 est un éditeur de code open-source, multilingue et multi plate-forme
 dont le développement a été initié par la société _Microsoft_.
-Le logiciel est basé sur _Electron_, un environnent d'exécution
+Le logiciel est basé sur _Electron_, un environnement d'exécution
 d'applications de bureau reposant sur les technologies web et… sur Node !
 
 Le système _IntelliSense_ est un de ses atouts principaux.
@@ -668,11 +668,11 @@ _WebStorm_ est compatible Windows, Linux et macOS.
 Ses forces résident dans sa relative légèreté,
 une auto-complétion intelligente prenant en compte la résolution
 des modules CommonJS et AMD, une intégration des outils populaires
-dans l'écosystème Node (npm, eslint, Mocha, Karma, Bower etc.)
+dans l'écosystème Node (npm, eslint, Mocha, Karma, Bower, etc.)
 ainsi qu'un débogage avancé.
 
 Le téléchargement de _WebStorm_ inclut une période d'essai de 30 jours.
-La tarification du produit varie selon que vous soyiez un individu ou
+La tarification du produit varie selon que vous soyez un individu ou
 une entreprise et que le paiement se fasse mensuellement ou annuellement.
 
 [TIP]
@@ -863,7 +863,7 @@ les prochaines versions et l'arrêt de maintenance d'anciennes versions.
 
 Si on récapitule :
 
-Les versions *impaires* (v5, v7 etc.)::
+Les versions *impaires* (v5, v7, etc.)::
 - sont développées pendant _neuf mois_
 - ne sont pas maintenues au-delà
 Les versions *paires* (_LTS_, {nodeCurrentversion}, etc.)::
