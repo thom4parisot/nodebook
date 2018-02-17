@@ -36,13 +36,13 @@ toc::[]
 
 Node communique un indice de stabilité pour chacune de ses API publiques selon une échelle discrète graduée de 0 à 5.
 
-.Example avec l'api `punycode`, dont le statut est marqué comme déprécié depuis la v7.
+.Exemple avec l'api `punycode`, dont le statut est marqué comme déprécié depuis la v7.
 image::images/node-api-deprecation.png[align="center",width="85%"]
 
 Cette échelle se décompose de la manière suivante :
 
 - 0 : le module est *déprécié* et peut être supprimé dans une prochaine version majeure ;
-- 1 : le module est *expérimental*, instable et nécessite des retours utilisateur ;
+- 1 : le module est *expérimental*, instable et nécessite des retours utilisateurs ;
 - 2 : le module est *instable*, son API peut changer et nécessite davantage de tests grandeur nature avant d'être considéré comme stable ;
 - 3 : le module est *stable* mais peut être sujet à des changements mineurs d'API ;
 - 4 : le module est *gelé*, son API ne devrait plus du tout changer ;
@@ -62,11 +62,11 @@ La documentation de l'API Node est disponible au format HTML sur le site officie
 == L'héritage UNIX
 
 Node est un environnement d'exécution permettant d'exécuter du code écrit en JavaScript.
-C'est aussi un environnement capatable de discuter avec le système d'exploitation.
+C'est aussi un environnement capable de discuter avec le système d'exploitation.
 
 Node emprunte à ce titre pas mal d'éléments de la philosophie UNIX.
 Apprendre Node, c'est apprendre JavaScript, dialoguer avec
-le système d'exploitation et les concepts d'intéropérabilité
+le système d'exploitation et les concepts d'interopérabilité
 entre applications systèmes.
 
 Balayons différents concepts qui nous serons utiles pour la conception de nos applications.
@@ -77,7 +77,7 @@ Balayons différents concepts qui nous serons utiles pour la conception de nos a
 Lorsqu'un système d'exploitation est en état de marche,
 différents programmes fonctionnent pour fournir différents services :
 transmission du son, affichage vidéo, coordination des processus
-et de leurs ressources etc.
+et de leurs ressources, etc.
 
 Ces programmes utilisent des espaces mémoire exclusifs, d'autres des espaces mémoire partagés.
 Un de ces espaces partagés contient des *variables* décrivant l'_environnement_ dans lequel l'ensemble des programmes évoluent.
@@ -87,8 +87,8 @@ Il est possible de les lister en utilisant la commande `env` :
 
 image::images/unix-env.png[align="center",width="85%"]
 
-Il nous est également possible d'en créer de nouvelles avec un syntaxe de `CLÉ=VALEUR`.
-L'exemple suivant illustre la création d'une telle variable, son affichage puis son affichage en faisant appel à un autre programme, en l'occurence Node :
+Il nous est également possible d'en créer de nouvelles avec une syntaxe de `CLÉ=VALEUR`.
+L'exemple suivant illustre la création d'une telle variable, son affichage puis son affichage en faisant appel à un autre programme, en l'occurrence Node :
 
 [source,bash]
 ----
@@ -282,7 +282,7 @@ image::images/event-loop.svg[align="center", link="https://twitter.com/busyrich/
 
 === API Node
 
-L'API Node correspond à des _modules CommonJS_ écrits en JavaScript (voir ci-après) : client et serveur TCP, accès au système de fichiers, lecture de DNS, streams, buffers etc.
+L'API Node correspond à des _modules CommonJS_ écrits en JavaScript (voir ci-après) : client et serveur TCP, accès au système de fichiers, lecture de DNS, streams, buffers, etc.
 
 Le but de cette API est d'adresser les manipulations les plus répétitives et pénibles pour les développeurs.
 Vous avez déjà cherché à implémenter un client HTTP de zéro ?
@@ -437,7 +437,7 @@ Le code source de _libuv_ est disponible sur GitHub. Le parcourir permet de mieu
 La boucle événementielle (_Event Loop_) est un mécanisme d'exécution des tâches apporté par _libuv_ et déléguée au système d'exploitation.
 Elle s'inspire très fortement du modèle de boucle événementielle telle qu'implémentée dans les navigateurs web.
 
-C'est grâce à ce mécanisme que l'exécution d'une fonction peut être reportée à plus tard.
+C'est grâce à ce mécanisme que l'exécution d'une fonction peut être reportée.
 C'est la fameuse _exécution asynchrone_.
 
 
@@ -461,15 +461,15 @@ Dans ce précédent exemple, le code est interprété séquentiellement comme su
 2. Invocation de la fonction `printT` (retournant `0`).
 3. Invocation de la fonction `console.log`.
 4. Invocation de la fonction `setTimeout` : il s'agit d'un contrat avec la boucle événementielle d'exécuter `printT` dans 1 000 millisecondes.
-5. La boucle événementielle continue de tourner car il y a une tâche à traiter.
-6. Après avoir tournée pendant 1 000 millisecondes, la boucle dépile une instruction programmée pour cet instant.
+5. La boucle événementielle continue de tourner, car il y a une tâche à traiter.
+6. Après avoir tourné pendant 1 000 millisecondes, la boucle dépile une instruction programmée pour cet instant.
 7. Invocation de la fonction `printT` (retournant `1`).
 8. La file de priorité est vide, Node demande au système d'exploitation d'arrêter son processus.
 
 [TIP]
 .[RemarquePreTitre]#Outil# Visualiser la boucle
 ====
-_Loupe_ est un visualisateur de boucle évènementielle.
+_Loupe_ est un outil de visualisation de boucle évènementielle.
 Écrivez du code et il animera visuellement l'orchestration de la pile d'appels, les appels aux API du navigateur ainsi que la pile de callbacks.
 
 - [URL]#http://latentflip.com/loupe/#
@@ -506,7 +506,7 @@ Ceci reste valide tant que la boucle événementielle n'est pas implémentée na
 
 C'est bien beau de parler d'histoire, d'architecture et d'interpréteur mais concrètement, comment exécuter du code écrit pour Node ?
 
-La plate-forme Node fournit un exécutable système : `node`. C'est lui qui digèrera votre code, préparé à l'avance ou non :
+La plate-forme Node fournit un exécutable système : `node`. C'est lui qui digèrera votre code, qu'il ait été préparé ou non :
 
 - `node` invoquera le <<#repl,REPL>>, un interpréteur interactif (voir ci-après) ;
 - `node votre-script.js` invoquera le dit script.
@@ -551,7 +551,7 @@ Plusieurs options pourraient vous intéresser :
 - `--harmony` (ou tout sous-ensemble de type `--harmony-xx`) : active des fonctionnalités expérimentales ;
 - `--v8-options` : passe des options à la <<../chapter-01/index.adoc#v8,VM V8>>.
 
-L'option `-p` est idéale pour évaluer du code en une ligne et visualier un résultat :
+L'option `-p` est idéale pour évaluer du code en une ligne et visualiser un résultat :
 
 [source,bash]
 ----
@@ -604,7 +604,7 @@ L'utilisation de _scripts npm_ permet d'invoquer Node de manière légèrement d
 
 L'invocation d'un _script npm_ peut se faire de deux manières :
 
-. `npm <script-natif>` pour les scripts natifs à _npm_ (`start`, `publish`, `test` etc.) ;
+. `npm <script-natif>` pour les scripts natifs à _npm_ (`start`, `publish`, `test`, etc.) ;
 . `npm run <script>` pour les scripts additionnels définis par l'utilisateur.
 
 [source,bash]
@@ -672,7 +672,7 @@ $ node argv.js -y 2014 2012 --title 'fromage baguette' #<1>
 ----
 <1> Affiche `["-y", "2014", "2012", "--title", "fromage baguette"]`.
 
-Des librairies sont disponibles pour *transformer les arguments en objets JavaScript*, configurer des valeurs par défaut, de valider les valeurs, de les rendre obligatoire et même de générer automatiquement une aide à l'utilisateur.
+Des librairies sont disponibles pour *transformer les arguments en objets JavaScript*, configurer des valeurs par défaut, de valider les valeurs, de les rendre obligatoires et même de générer automatiquement une aide à l'utilisateur.
 
 Nous aborderons ces techniques avancées dans le <<../chapter-09/index.adoc#,Chapitre 9>>.
 
@@ -683,7 +683,7 @@ Un programme Node s'arrête en général pour deux raisons :
 . la *pile d'exécution est terminée* et il n'y a plus rien à exécuter ;
 . une *erreur s'est produite* et n'a pas été capturée.
 
-C'est souvent le cas lorsqu'une erreur se produit dans un endroit imprévu de notre code, lorsqu'une variable inexistante est appelée dans une branche de notre code appelée de manière asynchrone etc.
+C'est souvent le cas lorsqu'une erreur se produit dans un endroit imprévu de notre code, lorsqu'une variable inexistante est appelée dans une branche de notre code appelée de manière asynchrone, etc.
 
 C'est une *bonne chose* que le programme s'arrête car cela nous permet de repérer l'erreur, de lire la trace et d'éventuellement patcher notre programme pour éviter cette même erreur dans le futur.
 
@@ -697,9 +697,9 @@ Dans ce cas, il convient d'écouter cet événement et de déterminer quelle est
 ----
 include::{sourceDir}/server-crash.js[]
 ----
-<1> En cas de réception d'une requête HTTP sur le port `4001`, nous allons parser l'URL appélée — sauf qu'une _typo_ s'est glissée sur cette ligne (`requete` au lieu de `request`) ;
+<1> En cas de réception d'une requête HTTP sur le port `4001`, nous allons parser l'URL appelée — sauf qu'une _typo_ s'est glissée sur cette ligne (`requete` au lieu de `request`) ;
 <2> Cette exception remontera jusqu'au niveau du `process` qui déclenchera l'événement `uncaughtException` ;
-<3> Une seconde après voir lancé le script, une requête HTTP est envoyée au serveur, entrainant l'exécution du _point 1_.
+<3> Une seconde après avoir lancé le script, une requête HTTP est envoyée au serveur, entrainant l'exécution du _point 1_.
 
 Encore une fois, *il vaut mieux qu'un programme plante* plutôt que de le protéger faiblement avec `uncaughtException`.
 
@@ -827,7 +827,7 @@ $ echo "Entrée standard" | node uppercase.js <1>
 <1> Affiche `ENTRÉE STANDARD`.
 
 Le concept de _Streams_ sera développé petit à petit au fil de ce chapitre et dans le reste du livre.
-C'est un concept puissant mais il y a des fonctionnalités plus simples à appréhender pour débuter.
+C'est un concept puissant, mais il y a des fonctionnalités plus simples à appréhender pour débuter.
 
 Nous venons de voir que `process` est un objet contenant plusieurs attributs précieux.
 L'héritage prototypal est utilisé pour le rendre capable d'émettre des évènements via la méthode `process.on()`.
@@ -871,7 +871,7 @@ Le résultat lorsqu'on liste les processus :
 
 image::images/process-title.png[align="center",width="85%"]
 
-*Attention* toutefois car il se trouve que le résultat de ce nommage peut se révéler imprédictible en fonction des systèmes d'exploitation où le programme est exécuté.
+*Attention* toutefois, car il se trouve que le résultat de ce nommage peut se révéler imprédictible en fonction des systèmes d'exploitation où le programme est exécuté.
 Il est donc recommandé de *ne pas utiliser `process.title`*.
 
 Pour en savoir plus sur les méthodes et fonctions disponibles, reportez-vous à la documentation en ligne du module `process` sur [URL]#https://nodejs.org/api/process.html#.
@@ -922,7 +922,7 @@ Lors de l'exécution du précédent programme, nous avons confirmation que la va
 ====
 Un module Node est un répertoire contenant un fichier de description `package.json`.
 Ce fichier contient notamment une propriété `main` indiquant quel fichier charger par défaut.
-Les modules Node sont par convention placés dans un répertoire `node_modules`.
+Les modules Node sont, par convention, placés dans un répertoire `node_modules`.
 
 Voici un extrait du fichier `package.json` du module `lodash` :
 ----
