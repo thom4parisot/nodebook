@@ -53,7 +53,7 @@ _Quid_ de l'utilisation de `require('fs')` pour accéder au système de fichiers
 La réponse _courte_ est : *nous n'exécutons pas Node dans un navigateur web*.
 
 Et la réponse _longue_ : *Node est utilisé pour assembler du code*, le _transformer_ et le rendre fonctionnel dans une paire de balises `<script></script>`. +
-Ce code peut être aussi bien fourni par des *librairies tierces* installées via _npm_ (_jQuery_, _React_ ou _d3_ par exemple) que par de l'*outillage* (optimiseurs, suite de tests, orchestration de tâches etc.) ou encore par le *code réutilisable* de notre propre application web.
+Ce code peut être aussi bien fourni par des *librairies tierces* installées via _npm_ (_jQuery_, _React_ ou _d3_ par exemple) que par de l'*outillage* (optimiseurs, suite de tests, orchestration de tâches, etc.) ou encore par le *code réutilisable* de notre propre application web.
 
 Il faut également bien comprendre qu'il y a plusieurs "problèmes" cachés sous une même question :
 
@@ -76,8 +76,8 @@ Cet arbre est lui-même analysable par de *nouveaux outils émergents* :
 
 - les _source maps_ pour associer le code transformé au code d'origine, notamment dans les outils de développement des navigateurs web ;
 - des _minifieurs_ plus efficaces et ayant connaissance des portions de code exécutées ;
-- des _analyseurs de code_ pour informer le développeur d'erreurs de syntaxe, de non-respect de styles de développement etc. ;
-- des _convertisseurs de code_ pour passer d'_ECMAScript_ vers _CoffeeScript_, de modules _CommonJS_ vers des modules _ECMAScript 2015_ etc.
+- des _analyseurs de code_ pour informer le développeur d'erreurs de syntaxe, de non-respect de styles de développement, etc. ;
+- des _convertisseurs de code_ pour passer d'_ECMAScript_ vers _CoffeeScript_, de modules _CommonJS_ vers des modules _ECMAScript 2015_, etc.
 
 [TIP]
 .[RemarquePreTitre]#Lien# Annonce d'_esprima_
@@ -113,7 +113,7 @@ Il vaut mieux *parier sur les standards comme stratégie à long terme* si on ti
 [TIP]
 .[RemarquePreTitre]#Question# Standards, quels standards ?
 ====
-Il y a plusieurs organismes prenant part à la standardisation de langages et d'APIs lorsque l'on touche aux navigateurs web :
+Il y a plusieurs organismes prenant part à la standardisation de langages et d'API lorsque l'on touche aux navigateurs web :
 
 - Pour le _langage HTML_ : WHATWG ([URL]#https://html.spec.whatwg.org/#) ;
 - Pour l'_API DOM_ : WHATWG ([URL]#https://dom.spec.whatwg.org/#) ;
@@ -152,7 +152,7 @@ L'exemple suivant illustre un code utilisant des éléments de syntaxe d'_ECMASc
 ----
 include::{sourceDir}/babel-es2015.js[]
 ----
-<1> Nous destructurons l'_agent utilisateur_ du navigateur – à noter que ce même code exécuté par Node lancerait une exception car `window` n'existe pas dans cet environnement ;
+<1> Nous déstructurons l'_agent utilisateur_ du navigateur – à noter que ce même code exécuté par Node lancerait une exception car `window` n'existe pas dans cet environnement ;
 <2> Affiche un objet content le _nom_ de votre système d'exploitation ainsi que sa _version_.
 
 Ce code représente l'*idéal de ce que l'on souhaite écrire*.
@@ -184,11 +184,11 @@ include::{sourceDir}/babel-es2015ified.js[]
 ----
 
 Il existe de nombreuses règles de transformation.
-Chacune d'entre elles ciblent une fonctionnalité spécifique d'une version d'_ECMAScript_.
+Chacune d'entre elles cible une fonctionnalité spécifique d'une version d'_ECMAScript_.
 Les *_presets_ des modules _npm_ faisant office de groupes logiques*.
 
 Les _presets_ suivants nous aideront à convertir chaque édition de spécification _ECMAScript_ vers _ECMASCript 5_.
-Le *dernier _preset_ est le plus simple à utiliser* car il se base sur les parts de marché des navigateurs web pour déterminer les règles de conversion :
+Le *dernier _preset_ est le plus simple à utiliser*, car il se base sur les parts de marché des navigateurs web pour déterminer les règles de conversion :
 
 * `preset-es2015` ([URL]#https://babeljs.io/docs/plugins/preset-es2015/#) ;
 * `preset-es2016` ([URL]#https://babeljs.io/docs/plugins/preset-es2016/#) ;
@@ -342,7 +342,7 @@ Nous nous retrouvons tributaires de la qualité d'implémentation du _polyfill_.
 include::{sourceDir}/polyfill-require.js[]
 ----
 <1> Affiche `true` si le navigateur implémente l'API _Promise_ – sinon affiche `false` et l'utilisation d'un _polyfill_ prend tout son sens ;
-<2> Affiche `false` car le _polyfill_ de _Promise_ est une function strictement différente de `window.Promise`.
+<2> Affiche `false`, car le _polyfill_ de _Promise_ est une function strictement différente de `window.Promise`.
 
 [TIP]
 .[RemarquePreTitre]#Guide# Bonnes pratiques constatées
@@ -479,7 +479,7 @@ Le seul _hic_, c'est que *cela ne fonctionne pas* :
 
 C'est alors qu'entre en jeu *browserify*.
 _browserify_ est un outil générique de transformation de code.
-Il peut être utilisé en ligne de commande, via son API Node mais aussi par le biais de plugins pour d'autres outils (comme Gulp, Grunt etc.).
+Il peut être utilisé en ligne de commande, via son API Node mais aussi par le biais de plugins pour d'autres outils (comme Gulp, Grunt, etc.).
 
 _browserify_ a été initialement créé pour transformer du code écrit pour Node en code fonctionnel dans les navigateurs web.
 Il expose notamment un concept d'intégrations (les _transforms_) afin d'effectuer des remplacements ligne à ligne.
@@ -539,13 +539,13 @@ En résumé, nous avons besoin de nous baser sur _deux ou trois outils_ pour éc
 - *browserify* pour l'intégration avec les modules _npm_.
 
 Ceux-ci ont l'avantage d'être _faciles_ à prendre en main, _modulaires_ et _évolutifs_.
-Nous pourrons aussi nous tourner vers d'autres outils de transformation de code pour explorer d'autres horizons – et il en existe énormément : _webpack_, _rollup_, _broccoli_ etc.
+Nous pourrons aussi nous tourner vers d'autres outils de transformation de code pour explorer d'autres horizons – et il en existe énormément : _webpack_, _rollup_, _broccoli_, etc.
 
 == Conception modulaire
 
 Un autre paradigme change avec la mise à disposition des modules et de l'outillage à disposition : le code que l'on écrit dépend surtout d'_ECMAScript_ et de l'environnement dans lequel on l'exécute, à savoir Node ou un navigateur web.
 
-La section suivante s'intéresse à l'*évolution de d'écriture du code*, autrefois dirigée par la *structure du document* HTML vers un monde de *fonctions consommant des données*, transformées pour un type d'affichage, que ce soit HTML ou autre.
+La section suivante s'intéresse à l'*évolution de l'écriture du code*, autrefois dirigée par la *structure du document* HTML vers un monde de *fonctions consommant des données*, transformées pour un type d'affichage, que ce soit HTML ou autre.
 
 Nous illustrerons cette évolution au travers d'un exemple relativement simple : une balise HTML affichant l'heure dont nous actualisons le contenu toutes les secondes.
 
@@ -591,7 +591,7 @@ include::{sourceDir}/modules/jquery-plugin.js[]
 ----
 <1> Ce bloc de code est exécuté toutes les secondes ;
 <2> La donnée de _temps_ est obtenue chaque seconde par notre _plugin jQuery_ ;
-<3> Certaines décisions métier sont mélangées avec l'affichage de la données _temps_ ;
+<3> Certaines décisions métier sont mélangées avec l'affichage de la donnée _temps_ ;
 <4> L'intervalle est déterminé par la _valeur de l'attribut "data-interval"_ ;
 <5> Ce bloc de code est exécuté dès que le document HTML est prêt — toute sa structure HTML est disponible ;
 <6> Le _plugin jQuery_ est appliqué à toutes les occurrences de `<time>` dans lequel le _plugin_ est exécuté.
@@ -602,7 +602,7 @@ Certains motifs illustrés dans la section <<modules,Importer des modules>> refo
 - connaissance implicite du document : que faire si une personne tierce remplace la balise `<time>` par une autre balise ?
 - code JavaScript piloté par le document : que faire si une personne tierce exprime l'intervalle en secondes et non en millisecondes ?
 
-La faute n'est pas vraiment celle de _jQuery_ mais plutôt la notre — enfin, la _mienne_ icon:smile-o[].
+La faute n'est pas vraiment celle de _jQuery_ mais plutôt la nôtre — enfin, la _mienne_ icon:smile-o[].
 Nous avons *mélangé règles de fonctionnement* (contenu de balise, classe CSS à ajouter/enlever) et données (date courante, parité des secondes, événement de mise à jour `setInterval`).
 
 === Vers une approche _jQuery_ composite
@@ -652,7 +652,7 @@ include::{sourceDir}/modules/timer.js[]
 Pour un résultat identique, nous avons désormais séparé notre code en trois *domaines distincts* : le _minuteur_, l'_intégration_ du minuteur, la _représentation_ du minuteur sous forme HTML.
 Cerise sur le gâteau, cette _distinction se constate visuellement_, au premier coup d'œil.
 
-Tout n'est pas parfait car nous sommes encore lié à la structure du document HTML.
+Tout n'est pas parfait, car nous sommes encore liés à la structure du document HTML.
 
 === Partager le code métier avec Node
 
@@ -757,10 +757,10 @@ include::{sourceDir}/modules/date-interval.jsx[]
 _React_ introduit quatre concepts au sein des composants :
 
 - un *cycle de vie* basé sur des _propriétés_ (_props_) et un _état interne_ (_state_) ;
-- des *propriétés immutables* pour le paramétrage initial ;
+- des *propriétés immuables* pour le paramétrage initial ;
 - un *état interne mutable* pour contenir les changements et demander une actualisation de leur représentation dans le document.
 
-_React_ détermine les opérations à effectuer dans le document HTML en fonction de la lourdeur des opérations : (re)création complète de `<time>` dans le nœud parent, simple mise à jour d'un ou ou plusieurs attributs ou encore déplacement du composant ailleurs dans le document HTML etc.
+_React_ détermine les opérations à effectuer dans le document HTML en fonction de la lourdeur des opérations : (re)création complète de `<time>` dans le nœud parent, simple mise à jour d'un ou plusieurs attributs ou encore déplacement du composant ailleurs dans le document HTML, etc.
 
 L'intelligence d'une librairie comme _React_ est d'encourager à décrire les données et leur rendu pour se charger des opérations d'écriture dans le DOM.
 Cela permet de créer des composants faciles à isoler, à réutiliser et à tester.
@@ -906,7 +906,7 @@ Chaque connexion _EventSource_ devrait concerner qu'un seul et même type d'év�
 [[io-websocket]]
 === Échanges en temps-réel avec _WebSocket_
 
-_WebSocket_ est une technologie web favorisant les échanges bi-directionnels entre client et serveur.
+_WebSocket_ est une technologie web favorisant les échanges bidirectionnels entre client et serveur.
 
 À l'inverse du protocole HTTP/1, tout message envoyé par le client ou par le serveur n'appelle pas à une réponse de la part du receveur.
 Cet élément ainsi que le maintien d'une connexion permanente expliquent la rapidité du protocole en comparaison avec le modèle requête/réponse.
@@ -962,7 +962,7 @@ Là aussi, le serveur est responsable de la gestion des connexions demandées pa
 
 mdn::[WebSockets]
 
-En résumé, _WebSocket_ est idéal pour maintenir une connexion en temps-réel et pour relayer plusieurs messages à l'initiative du serveur serveur et de tout client connecté – qu'il s'agisse d'un navigateur web ou d'un agent Node.
+En résumé, _WebSocket_ est idéal pour maintenir une connexion en temps-réel et pour relayer plusieurs messages à l'initiative du serveur et de tout client connecté – qu'il s'agisse d'un navigateur web ou d'un agent Node.
 Chaque connexion _WebSocket_ peut encapsuler plusieurs types de messages.
 
 == Développer au quotidien
@@ -970,7 +970,7 @@ Chaque connexion _WebSocket_ peut encapsuler plusieurs types de messages.
 Nous avons beaucoup parlé de nouvelles techniques et de modularisation.
 Cela peut sembler rebutant, notamment par l'introduction d'outils auxquels nous ne sommes pas encore familiers.
 
-L'écosystème Node fournit énormément d'outils qui devraient nous faire du *gagner du temps*, en nous aidant à exécuter des actions *lorsqu'un fichier est modifié*, en nous aidant à *organiser notre travail* mais aussi en *actualisant automatiquement notre application web* au fil du développement (fini les appuis répétés sur la touche kbd:[F5]) ou encore en *optimisant nos fichiers graphiques*.
+L'écosystème Node fournit énormément d'outils qui devraient nous faire *gagner du temps*, en nous aidant à exécuter des actions *lorsqu'un fichier est modifié*, en nous aidant à *organiser notre travail* mais aussi en *actualisant automatiquement notre application web* au fil du développement (fini les appuis répétés sur la touche kbd:[F5]) ou encore en *optimisant nos fichiers graphiques*.
 
 [[watchify]]
 === Reconstruire en continu avec `watchify`
@@ -979,7 +979,7 @@ L'utilisation de <<browserify,browserify>> nous apporte le confort de pouvoir in
 En revanche, ça nous demande de générer des artéfacts – des _bundles_ – à chaque modification pour consolider ces changements.
 
 C'est à ce moment qu'intervient le module _watchify_ ([URL]#https://npmjs.com/watchify#).
-Il fonctionnement *exactement comme _browserify_* mais au lieu de compiler une seule fois, il compilera dès qu'un changement sera détecté – où que ce soit dans l'arbre de dépendances du point d'entrée (paramètre `-e`, `--entrypoint`).
+Il fonctionne *exactement comme _browserify_* mais au lieu de compiler une seule fois, il compilera dès qu'un changement sera détecté – où que ce soit dans l'arbre de dépendances du point d'entrée (paramètre `-e`, `--entrypoint`).
 
 La commande suivante compilerait le fichier `examples/modules/react-app.js` une fois et une seule :
 
@@ -1010,7 +1010,7 @@ Trois arguments sont utiles à _watchify_ :
 [[livereload]]
 === Changements en temps-réel dans le navigateur
 
-Modifier un fichier. Changer de fenêtre. Recharger. Changer de fenêtre. Remodifier un fichier. Changer de fenêtre. Recharger. _Là_ c'est bon. +
+Modifier un fichier. Changer de fenêtre. Recharger. Changer de fenêtre. Re-modifier un fichier. Changer de fenêtre. Recharger. _Là_ c'est bon. +
 La quantité d'outils à disposition et leurs différentes opinions sur notre manière de travailler nous obligent à prendre des postures de travail qui ne vont *pas nécessairement dans le sens de la productivité*.
 
 L'intégration de Node avec le système d'exploitation va nous aider à déclencher des actions lorsqu'un ou plusieurs fichiers sont modifiés.
@@ -1080,7 +1080,7 @@ Il est toutefois possible de procéder à du _remplacement à chaud_ sans _React
 Quatre actions sont effectuées :
 
 . un *serveur de remplacement à chaud* est démarré localement ;
-. l'outil d'assemblage (_browserify_, _Webpack_ etc.) *insère du code client* permettant d'établir un lien entre la page web et le serveur de remplacement à chaud ;
+. l'outil d'assemblage (_browserify_, _Webpack_, etc.) *insère du code client* permettant d'établir un lien entre la page web et le serveur de remplacement à chaud ;
 . l'outil d'assemblage *déclare les fichiers modifiés*, transmis par le serveur de remplacement à chaud vers le navigateur web ;
 . le *code client remplace les modules* et maintient leur état interne.
 
@@ -1158,7 +1158,7 @@ Deux modules sont à disposition pour respectivement déclarer des modules rempl
 La modularité et l'écriture d'un code isolé facilitent sa réutilisation et préviennent les effets de bord. +
 Dans le cas des feuilles de style CSS, cela peut aider à éviter de faire _déborder_ la cascade – si l'on peut dire.
 
-Avec le _langage Sass_ ([URL]#http://sass-lang.com#), nous pourrions songer à générer des blocs de code selon des *listes* (idéal pour des thèmes de couleurs, des rubriques produits etc.), à concevoir des *composants comme des fonctions* ou à bénéficier de fonctions de *calcul de couleurs* ou d'unités de mesure.
+Avec le _langage Sass_ ([URL]#http://sass-lang.com#), nous pourrions songer à générer des blocs de code selon des *listes* (idéal pour des thèmes de couleurs, des rubriques produits, etc.), à concevoir des *composants comme des fonctions* ou à bénéficier de fonctions de *calcul de couleurs* ou d'unités de mesure.
 
 Le langage _Sass_ est originaire du monde Ruby mais il a été depuis rendu accessible nativement à l'écosystème Node par le biais de _node-sass_ ([URL]#https://npmjs.com/node-sass#)– et par extension, par la librairie C _libsass_.
 
@@ -1314,7 +1314,7 @@ $ ./node_modules/.bin/sharp resize 500 \
 La commande précédente illustre une *opération de redimensionnement d'images* :
 
 . d'une dimension de *500 pixels de largeur* ;
-. *minimum* (donc respecte ) – sans cet attribut les images seraient des carrés de 500 pixels de large et de 500 pixels de haut ;
+. *minimum* (donc respecte) – sans cet attribut les images seraient des carrés de 500 pixels de large et de 500 pixels de haut ;
 . ciblant toutes les *images PNG* du répertoire `images` ;
 . puis *exportées dans le répertoire* `images/thumbs`.
 
@@ -1398,7 +1398,7 @@ include::{sourceDir}/test-outside-world.js[]
 ----
 <1> `linkElement` peut ne pas être un lien hypertexte (`document.querySelector` retourne `null`) ;
 <2> Ici tout peut arriver : `href` n'est pas une URL valide (balise `href` vide), serveur indisponible etc ;
-<3> Et là, le fichier JSON peut être mal mal formé ou la réponse est exprimée dans un autre format que JSON.
+<3> Et là, le fichier JSON peut être mal formé ou la réponse est exprimée dans un autre format que JSON.
 
 Nous savons désormais à peu près tout ce qu'il faut _flairer_ pour renforcer nos applications en écrivant quelques tests.
 
@@ -1430,7 +1430,7 @@ J'ai favorisé des approches itératives et modulaires pour faciliter l'ajout ou
 * la librairie _chai_ pour les _assertions_ ;
 * la librairie _mocha_ pour les _tests_ ;
 * la librairie _mocha_ pour la _suite de tests_ exécutable par Node ;
-* l'_exécuteur de tests_ nommé  _karma_ pour faire fonctionner la _suite de tests_ dans les navigateur web.
+* l'_exécuteur de tests_ nommé  _karma_ pour faire fonctionner la _suite de tests_ dans les navigateurs web.
 
 
 [TIP]
@@ -1566,7 +1566,7 @@ On a besoin de tester dans un ou plusieurs navigateurs web pour :
 
 * s'assurer de la *compatibilité de notre code* avec les variations d'implémentation de navigateurs web ;
 * valider notre choix de _polyfills_ ;
-* *tester fidèlement* contre des APIs de navigateurs ou du DOM (comme _Web Audio_, _Service Workers_ etc.).
+* *tester fidèlement* contre des APIs de navigateurs ou du DOM (comme _Web Audio_, _Service Workers_, etc.).
 
 Autrement dit, nous avons besoin d'un *exécuteur de tests* qui les fasse fonctionner dans l'environnement d'un navigateur web.
 Idéalement, nous voulons que cet _exécuteur de tests_ n'influent pas sur l'outillage employé pour écrire nos tests et donc nous permette d'utiliser _mocha_ et _chai_ comme dans la section précédente.
@@ -1737,7 +1737,7 @@ $ npm run test:browser -- --browsers iphone4
 ----
 
 _BrowserStack_ peut être configuré plus finement selon vos besoins.
-Le réglage suivant s'assure de faire transiter les données HTTP (scripts, HTML etc.) via la connexion sécurisée entre notre ordinateur et _BrowserStack_.
+Le réglage suivant s'assure de faire transiter les données HTTP (scripts, HTML, etc.) via la connexion sécurisée entre notre ordinateur et _BrowserStack_.
 C'est un réglage utile en cas de *proxy exigeant* ou de *réglages de connexion à Internet* bien spécifiques.
 
 [source,javascript,indent=0]
