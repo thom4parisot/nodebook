@@ -104,7 +104,7 @@ image::images/javascript.svg[]
 
 Le langage _ECMAScript_ — appelons-le ainsi à partir de maintenant —
 a évolué au fil du temps.
-Il s'est enrichi au fil du temps de nouvelles fonctionnalités,
+Il s'est enrichi au fur et à mesure de nouvelles fonctionnalités,
 de sucres syntaxiques (raccourcis d'écriture)
 et de rigueur aussi, pour corriger des défauts de _design_.
 
@@ -313,7 +313,7 @@ _tableau de valeurs_.
 include::{sourceDir}/base/object.js[lines=2..-1]
 ----
 
-Un tableau se déclare en encadrant une suite de _paires de valeurs_
+Un objet se déclare en encadrant une suite de _paires de valeurs_
 entre accolade (`{` et `}`).
 Une _clé_ désigne une _valeur_, qui peut être de n'importe quel type.
 Un objet a principe proche d'un _dictionnaire_ : on associe une valeur
@@ -332,7 +332,7 @@ include::{sourceDir}/base/function.js[lines=3..-1]
 
 Une fonction accepte des _arguments_, de n'importe quel type et
 autant que nécessaire.
-Une déclaration peut être _déclarée_ et être _exécutée_ (dernière ligne de l'exemple précédent).
+Une fonction peut être _déclarée_ et être _exécutée_ (dernière ligne de l'exemple précédent).
 
 Une fonction _retourne_ un résultat explicite avec le
 mot-clé `return`.
@@ -1030,7 +1030,7 @@ Math.ceil, Math.floor
 include::{sourceDir}/number/round.js[]
 ----
 <1> Affiche `3` — l'entier le plus proche est 3 ;
-<1> Affiche `4` — l'entier le plus est 4 ;
+<1> Affiche `4` — l'entier le plus proche est 4 ;
 <1> Affiche `4` — idem ;
 <2> Affiche `4` ;
 <3> Affiche `3`.
