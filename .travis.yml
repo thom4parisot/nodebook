@@ -4,6 +4,21 @@ sudo: false
 language: node_js
 node_js: v8
 
+cache:
+  directories:
+  - node_modules
+  - chapter-01/node_modules
+  - chapter-02/node_modules
+  - chapter-03/node_modules
+  - chapter-04/node_modules
+  - chapter-05/node_modules
+  - chapter-06/node_modules
+  - chapter-07/node_modules
+  - chapter-08/node_modules
+  - chapter-09/node_modules
+  - appendix-a/node_modules
+  - appendix-b/node_modules
+
 env:
 - DEBUG=tape-spawn
 
