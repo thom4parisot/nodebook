@@ -195,12 +195,12 @@ $ npm install comma-separated-values
 
 Le module est désormais installé dans le répertoire `chapter-05/node_modules/comma-separated-values` et est disponible pour tout script invoqué dans le répertoire `chapter-05`.
 
-Lire un fichier CSV et en afficher son contenu devient aussi simple que le script suivant :
+Lire du contenu CSV et en afficher son contenu devient aussi simple que le script suivant :
 
 [source,javascript]
-.print-csv-reloaded.js
+.print-csv.js
 ----
-include::{sourceDir}/print-csv-reloaded.js[]
+include::{sourceDir}/print-csv.js[]
 ----
 <1> importe le module `comma-separated-values` dans la variable `csv` ;
 <2> configure un nouvel objet _CSV_ ;
