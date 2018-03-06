@@ -14,7 +14,12 @@ module.exports = function bash$Extension () {
         const lines = block.lines.map(line => {
           if (line[0] === '$' && line[1] === ' ') {
             isModified = true;
-            return '<span class=dollar></span>' + line.slice(2);
+            return '<span data-bash-subs="$"></span>' + line.slice(2);
+          }
+
+          if (line[0] === '>' && line[1] === ' ') {
+            isModified = true;
+            return '<span data-bash-subs=">"></span>' + line.slice(2);
           }
 
           return line;
@@ -35,8 +40,8 @@ module.exports = function bash$Extension () {
   this.docinfoProcessor(function(){
     this.process(() => {
       return `<style type="text/css">
-.listingblock .dollar::before{
-  content: "$ ";
+.listingblock [data-bash-subs]::before{
+  content: attr(data-bash-subs) " ";
   opacity: .5; }
 </style>`;
     });
