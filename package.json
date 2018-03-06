@@ -10,7 +10,9 @@
     "prestart": "npm run build:html",
     "start": "node server.js",
     "test": "tape 'tests/*.js' | tap-spec",
-    "posttest": "npm run lint"
+    "posttest": "npm run lint",
+    "snyk-protect": "snyk protect",
+    "prepare": "npm run snyk-protect"
   },
   "engines": {
     "node": "^8.0.0"
@@ -35,7 +37,8 @@
     "glob": "^7.1.2",
     "serve-static": "^1.13.1",
     "update-notifier": "^2.3.0",
-    "yargs": "^10.1.2"
+    "yargs": "^10.1.2",
+    "snyk": "^1.69.10"
   },
   "devDependencies": {
     "asciidoctor-extension-interactive-runner": "^1.0.1",
@@ -86,5 +89,6 @@
         "global"
       ]
     }
-  }
+  },
+  "snyk": true
 }
