@@ -1,6 +1,22 @@
 # Journal
 
-Pour en savoir plus: [annonce la résidence itinérante](https://oncletom.io/2017/residence-nodejs/) et [résumé de la résidence itinérante](https://oncletom.io/2017/without-a-home/) (en anglais).
+Ce journal détaille l'effort d'écriture depuis janvier 2017—sachant que le projet a commencé en décembre 2014.
+
+## Mardi 6 mars 2018
+
+- _Chapitre 4_ : restructuration
+
+**Météo** : 🙂
+
+## Jeudi 22 février
+
+- Présentation au [meetup Front-end London](https://www.frontendlondon.co.uk/archive#fel45)
+
+---
+
+🇬🇧 Mois off entre Londres et Bristol pour faciliter le projet [Mind the Gaps][].
+
+---
 
 ## Lundi 5 février
 
@@ -185,7 +201,7 @@ Ce qui suit est la rétrospective de la session d'écriture passée avec [Philip
 
 ---
 
-🇬🇧 Semaine off à Bristol pour faciliter le projet [Mind the Gaps](https://dtc-innovation.github.io/mind-the-gaps/).
+🇬🇧 Semaine off à Bristol pour faciliter le projet [Mind the Gaps][].
 
 ---
 
@@ -297,6 +313,13 @@ Présentation à la [conférence Codeurs en Seine](http://www.codeursenseine.com
 Présentation à la [conférence Write the Docs](http://www.writethedocs.org/conf/eu/2017/speakers/#speaker-eu-2017-thomas-parisot) ([vidéo](https://www.youtube.com/watch?v=p2eAXLR3OOk))
 
 Création d'une **extension Asciidoctor.js** : [asciidoctor-extension-interactive-runner](http://npmjs.com/asciidoctor-extension-interactive-runner) • rend exécutable les blocs de code JavaScript dans les navigateurs web.
+
+---
+
+Cela marque la fin de la période d'écriture pour l'année 2017.
+Ce [résumé en anglais de la résidence itinérante](https://oncletom.io/2017/without-a-home/)
+documente les conclusions de l'écriture en mouvement.
+Celui-ci explique [l'ouverture de la résidence itinérante](https://oncletom.io/2017/residence-nodejs/).
 
 ---
 
@@ -806,7 +829,7 @@ Merci [@BetaGouv](https://github.com/sgmap) pour le coin de bureau 👋
 
 **Moral** : 🚂 😣
 
-## Lundi 16 janvier
+## Lundi 16 janvier 2017
 
 - Triage et acceptation de pull requests
 - _Chapitre 3_ : réorganisation et réécriture du texte associé aux _callbacks_, _events_ et _promesses_ – [#49](https://github.com/oncletom/nodebook/issues/49)
@@ -836,3 +859,4 @@ Merci [@BetaGouv](https://github.com/sgmap) pour le coin de bureau 👋
 [Philippe Blayo]: https://twitter.com/pblayo
 [Etalab]: https://www.etalab.gouv.fr/
 [MDN web docs]: https://developer.mozilla.org/fr/docs/
+[Mind the Gaps]: https://mind-the-gaps.org
