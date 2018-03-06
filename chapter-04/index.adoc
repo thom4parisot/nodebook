@@ -33,7 +33,12 @@ Nous en profiterons aussi pour passer en revue la variété de modules proposés
 
 [abstract]
 --
-TBD.
+Le <<../chapter-03/index.adoc#,chapitre 3>> est l'occasion d'une bonne
+(re)mise en forme côté JavaScript, ECMAScript et tout ça.
+On peut désormais mettre à profit nos connaissances pour parler directement
+à l'interpréteur Node.
+C'est l'occasion de se surprendre à pouvoir faire davantage de choses qu'on
+imaginait.
 --
 
 include::../resources/tip-versions.adoc[]
@@ -43,6 +48,23 @@ toc::[]
 
 
 == Interagir avec l'interpréteur Node
+
+L'*interpréteur Node* est le programme qui nous permet d'obtenir des résultats
+en échange d'instructions ECMAScript.
+Le *terminal* est un autre programme qui nous permet de dialoguer avec
+un ordinateur, entre autre en appelant
+
+Le <<../chapter-02/index.adoc#,chapitre 2>> détaille comment installer
+_Node_ et un _terminal_ sur son ordinateur.
+Il contient également des conseils pour utiliser Node depuis un
+navigateur web.
+Cela peut rendre l'accès au terminal plus facile.
+
+La suite de ce chapitre se base sur le principe que vous avez un terminal
+sous le nez, prêt·e à saisir des instructions ECMAScript.
+
+.Exemple de _terminal_ sous macOS.
+image::images/terminal.png[align="center",width="85%"]
 
 [[node-version]]
 === Obtenir la version

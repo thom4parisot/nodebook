@@ -5,6 +5,7 @@ Ce journal détaille l'effort d'écriture depuis janvier 2017—sachant que le p
 ## Mardi 6 mars 2018
 
 - _Chapitre 4_ : restructuration
+- _Chapitre 5_, _Chapitre 9_ : mise à jour de dépendances
 
 **Météo** : 🙂
 
