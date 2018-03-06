@@ -7,17 +7,28 @@
 :sectnums:
 :revdate: {docdate}
 :imagesdir: {indir}
+:arrowUp: &#11014;
+:arrowDown: &#11015;
 ifdef::env[]
 :imagesdir: .
 endif::[]
 
 = Jouer avec Node.js
 
-TBD.
+On peut utiliser Node en parlant directement avec l'interpréteur, en créant un script ou en programmant une application plus complexe.
+
+Ce chapitre explique ce qu'il faut savoir pour interagir avec l'exécutable `node`, le fonctionnement des _modules_ et les variables à disposition.
+
+Nous en profiterons aussi pour passer en revue la variété de modules proposés par défaut par Node.
 
 ====
 .Sommaire
-- TBD.
+- Interagir avec l’interpréteur Node
+- Qu'est-ce qu'un processus Node ?
+- Organiser son code en utilisant les modules
+- Les modules Node
+- S’en sortir quand ça ne se passe pas comme prévu
+- Démarrer Node avec un comportement différent
 ====
 
 [abstract]
@@ -31,12 +42,107 @@ include::../resources/tip-examples.adoc[]
 toc::[]
 
 
+== Interagir avec l'interpréteur Node
 
-== Node et son API
+[[node-version]]
+=== Obtenir la version
 
-Node communique un indice de stabilité pour chacune de ses API publiques selon une échelle discrète graduée de 0 à 5.
+`node --version`
 
-.Exemple avec l'api `punycode`, dont le statut est marqué comme déprécié depuis la v7.
+[[node-printeval]]
+=== Avec un script court
+
+[[repl]]
+=== Avec la commande interactive (_REPL_)
+
+kbd:[CTRL+C]
+
+kbd:[TAB]
+
+kbd:[{arrowUp}]
+kbd:[{arrowDown}]
+
+
+[TIP]
+.[RemarquePreTitre]#Gagner du temps# Variable `_`
+====
+La variable `\_` est un cas spécial.
+Elle n'existe que dans le terminal interactif (_REPL_).
+Elle contient le résultat de la dernière évaluation de code.
+
+[source,bash]
+----
+$ node
+> 2 + 2
+4
+> _ + 2
+6
+----
+====
+
+[[node-script]]
+=== Avec du code contenu dans un fichier
+
+on peut passer des arguments au script
+on verra ça avec process.argv dans ce chapitre et plus en détail dans le chapitre 8
+
+=== Avec un script exécutable
+
+plus en détail dans le chapitre 8
+
+
+== Comprendre la notion de _processus_
+
+node xyz.js lance un process
+ce process se termine quand il n'y a plus rien à faire
+
+=== Le coût d'un processus
+
+30MB de RAM
+
+=== Représentation via la variable `process`
+
+process.env
+process.argv
+
+process.stdin, process.stdout, process.stderr
+
+process.exit
+
+process.on
+
+
+== Organiser son code en utilisant les modules
+
+=== Qu'est-ce qu'on entend par module ?
+
+modules CommonJS
+
+modules ECMAScript
+
+modules UMD ?
+
+=== Importer avec `require()`
+
+=== Exporter avec `module.exports`
+
+
+== Les modules Node
+
+[NOTE]
+.[RemarquePreTitre]#Documentation# Modules Node
+====
+
+[URL]#https://nodejs.org/docs/latest-{nodeCurrentVersion}.x/api/#
+====
+
+[NOTE]
+.[RemarquePreTitre]#Documentation# Lecture des indices de stabilité
+====
+Node communique un indice de stabilité pour chacune de ses modules.
+L'indice est exprimée selon une échelle graduée de 0 à 5.
+
+.Exemple avec le module `punycode`, déprécié depuis Node v7.
 image::images/node-api-deprecation.png[align="center",width="85%"]
 
 Cette échelle se décompose de la manière suivante :
@@ -48,1055 +154,72 @@ Cette échelle se décompose de la manière suivante :
 - 4 : le module est *gelé*, son API ne devrait plus du tout changer ;
 - 5 : le module est *verrouillé*, son code interne ne changera plus.
 
-Ce mécanisme aide au choix des composants pour bâtir des applications robustes ainsi qu'une estimation de l'effort de maintenance en cas de changement majeur à venir.
-
-[TIP]
-.[RemarquePreTitre]#Lien# Documentation de l'API Node
-====
-La documentation de l'API Node est disponible au format HTML sur le site officiel du projet.
-
-- [URL]#https://nodejs.org/api/#
 ====
 
-[[unix-legacy]]
-== L'héritage UNIX
+=== `path` : manipuler des chemins
 
-Node est un environnement d'exécution permettant d'exécuter du code écrit en JavaScript.
-C'est aussi un environnement capable de discuter avec le système d'exploitation.
+=== `url` : manipuler des URL
 
-Node emprunte à ce titre pas mal d'éléments de la philosophie UNIX.
-Apprendre Node, c'est apprendre JavaScript, dialoguer avec
-le système d'exploitation et les concepts d'interopérabilité
-entre applications systèmes.
+=== `fs` : manipuler le système de fichiers
 
-Balayons différents concepts qui nous serons utiles pour la conception de nos applications.
+=== `events` : créer un événement asynchrone
 
-[[process-env]]
-=== Variables d'environnement
+`require('events')`
 
-Lorsqu'un système d'exploitation est en état de marche,
-différents programmes fonctionnent pour fournir différents services :
-transmission du son, affichage vidéo, coordination des processus
-et de leurs ressources, etc.
+=== `http` : créer une requête HTTP
 
-Ces programmes utilisent des espaces mémoire exclusifs, d'autres des espaces mémoire partagés.
-Un de ces espaces partagés contient des *variables* décrivant l'_environnement_ dans lequel l'ensemble des programmes évoluent.
-Ces variables peuvent être utilisées par chacun de ces programmes.
+On verra qu'on peut faire plus simple dans le chapitre 5 (exemple de module npm)
 
-Il est possible de les lister en utilisant la commande `env` :
+=== `http` : démarrer un serveur HTTP
 
-image::images/unix-env.png[align="center",width="85%"]
+On ira plus en détail dans le chapitre 7
 
-Il nous est également possible d'en créer de nouvelles avec une syntaxe de `CLÉ=VALEUR`.
-L'exemple suivant illustre la création d'une telle variable, son affichage puis son affichage en faisant appel à un autre programme, en l'occurrence Node :
+bonus : on peut aussi faire un serveur https ET un serveur http/2
 
-[source,bash]
-----
-$ TEST=1
-$ echo $TEST
-$ node -p 'process.env.TEST'
-----
+=== `child_process` : appeler un exécutable système
 
-Nous nous heurtons à la portée des variables, locale à la session de notre terminal mais pas à l'interpréteur Node.
-La _portée_ est réduite à notre session uniquement.
+Pratique quand on ne peut pas importer du code mais seulement des résultats
 
-L'exemple suivant assigne une valeur à une variable d'environnement au niveau de l'_exécution d'un programme_ :
 
-[source,bash]
-----
-$ TEST=1 node -p 'process.env.TEST'
-$ echo $TEST
-----
+=== `os` : en savoir plus sur les capacités de l'ordinateur
 
-La valeur `1` est affichée dans le processus Node mais pas dans notre session.
-La _portée_ est réduite à l'invocation uniquement.
+Notamment les interfaces réseaux, les CPU etc.
 
-Un opérateur permet de propager une variable, de l'_exporter_ :
 
-[source,bash]
-----
-$ export TEST=1
-$ node -p 'process.env.TEST'
-----
+== S'en sortir quand ça ne se passe pas comme prévu
 
-Cet exemple nous a permis de définir une variable en dehors d'une invocation et de la rendre utilisable dans un autre processus.
+=== Le programme ne se termine pas
 
-`env` affiche toutes les variables _exportées_.
-`local` ou `set` affichent toutes les variables _locales_ et _exportées_.
+=== Le programme s'arrête sans exécuter le code que j'imaginais
 
-=== La variable `$PATH`
 
-La variable d'environnement `$PATH` est importante.
-C'est son contenu qui régit où le système d'exploitation va chercher quel programme exécuter lorsque son nom est invoqué dans un terminal.
 
-Prenons par exemple cette commande :
+== Démarrer Node avec un comportement différent
 
-[source,bash]
-----
-$ node --version
-----
 
-Où se trouve `node` sur notre système ?
-Une autre commande nous permet de le savoir :
+Cf. https://nodejs.org/api/cli.html
+Compatible aussi avec `NODE_OPTIONS`
 
-[source,bash]
-----
-$ which node
-/usr/bin/node
-----
+=== Charger un module au prélable
 
-La valeur de `$PATH` est une liste de chemins séparés par le symbole `:`, par exemple :
+`--require`
 
-----
-/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin
-----
+=== Inspecter le code à distance
 
-Lorsque l'on demande l'exécution d'un programme – `node` par exemple – le système d'exploitation balaie chacun des répertoires du `$PATH` à la recherche d'un fichier exécutable nommé `node`.
-L'algorithme est le suivant :
+`node --inspect`
 
-. `node` trouvé dans `/usr/local/bin` ? Non ;
-. `node` trouvé dans `/usr/bin` ? Oui.
+=== Utiliser le débogueur interactif
 
-La recherche s'arrête là, le chemin du programme est retourné et ledit programme est alors exécuté.
+`node debug`
 
-Certaines sections du livre feront mention à cette variable `$PATH`.
+=== Paramétrer la machine virtuelle V8
 
-=== Processus
+`--v8-options`
 
-Un processus est un ensemble comprenant un _programme_, les _variables_ actives et la _mémoire_ allouée.
-Chaque processus est identifié de manière unique avec un identifiant (`pid` – _process identifier_)
+harmony pour activer les fonctionnalités de langage en cours de développement (en voie de standardisasation)
 
-Un même programme peut être exécuté plusieurs fois en parallèle, à quelques exceptions près.
-Chaque exécution se déroule dans un espace de mémoire isolé de tout autre exécution du même programme. +
-Une exception notable est le cas des _sous-process_ (_child process_) où certaines ressources peuvent être partagées.
+le reste pour changer le comportement de la VM
 
-Dans les architectures processeur classiques (les `x86` notamment), un processus fonctionne sur un seul processeur (_CPU_).
+== Conclusion
 
-=== Interpréteur
-
-Quand un programme est exécuté, le système d'exploitation fait face à deux options :
-
-. le fichier est un _binaire_ compilé pour une architecture _CPU_ compatible ;
-. le fichier est un _script exécutable_ (code source lisible à l'œil nu), auquel cas il doit recourir à un _interpréteur_.
-
-On peut avoir recourt à un interpréteur directement en faisant :
-
-[source,bash]
-----
-$ bash mon-script.sh
-----
-
-Ou bien en débutant `mon-script.sh` par `#!/usr/bin/env bash` pour sélectionner l'interpréteur `bash` (généralement disponible en tant que `/bin/bash`) puis en exécutant :
-
-[source,bash]
-----
-$ chmod +x mon-script.sh
-$ ./mon-script.sh
-----
-
-On peut ainsi décider quel interpréteur sera employé pour comprendre le script, le transformer en langage machine et l'exécuter à la volée.
-
-=== Arguments de processus (`argv`)
-
-Exécuter un programme peut parfois nécessiter un paramétrage contextuel et indépendant de la valeur des variables d'environnement.
-On lui passe ainsi des _paramètres_ ou _arguments_ qui lui sont spécifiques.
-
-[source,bash]
-----
-$ FOO_VAL='bar'
-$ ./argv.sh --foo=$FOO_VAL toto
-----
-
-Ces arguments de processus sont disponibles de manière brute, itérable sous forme de liste :
-
-[source,bash]
-.argv.sh
-----
-include::{sourceDir}/argv.sh[]
-----
-<1> Affiche `--foo=bar toto` ;
-<2> Affiche tour à tour `--foo=bar` puis `toto`.
-
-Dans Node, vous retrouverez ces arguments dans la variable <<api-process,process.argv>>, détaillée par ailleurs dans ce même chapitre.
-
-=== Streams et redirections
-
-La dernière pierre angulaire des concepts UNIX est la présence des _flux de données_ (_streams_) et de _redirection de flux_ (_pipes_).
-L'idée est de pouvoir créer des programmes _solides_, résistant au temps et interopérables entre eux – peu importe leur interpréteur.
-
-Un programme peut être amené à produire un *flux de données* et à le *rediriger* vers un emplacement, que ce soit un _fichier_ (avec `>`), un _terminal_ d'affichage ou un _autre programme_ (avec `|`) :
-
-[source,bash]
-----
-$ date                    # <1>
-$ date > date.txt         # <2>
-$ date | grep -Eo "\d{4}" # <3>
-----
-<1> Redirection implicite vers le _terminal_ – affiche la date du jour ;
-<2> Redirection vers un _fichier_ – rien n'est affiché.
-<3> Redirection vers un _programme_ puis vers le _terminal_ – affiche l'année courante.
-
-Un programme peut ainsi être spécialisé dans l'_affichage_ des processus, un autre dans le _filtrage_ puis un autre dans l'_extraction_ de valeurs.
-Cette pratique poussée de la modularité encourage la *combinaison* plutôt que le *tout-en-un*.
-
-L'exemple suivant illustre l'affichage de données d'une session utilisateur, dans l'optique d'obtenir le nom du terminal (`TTY`) :
-
-[source,bash]
-----
-$ w
-10:33  up 5 days, 18:48, 5 users, load averages: 1.36 1.62 1.75
-USER     TTY      FROM              LOGIN@  IDLE WHAT
-oncletom console  -                Fri15   5days -
-----
-
-Nous isolons la troisième ligne :
-
-[source,bash]
-----
-$ w | head -n 3 | tail -n 1 # <1>
-----
-<1> En vrai, nous isolons les trois premières lignes avec `head` pour n'en garder que la dernière avec `tail`.
-
-Et finalement la valeur contenue dans la deuxième colonne avec `awk` :
-
-[source,bash]
-----
-$ w | head -n 3 | tail -n 1 | awk '{ print $2 }'
-----
-
-== Architecture technique
-
-Node est un environnement d'exécution JavaScript qui permet de
-manipuler des ressources système.
-
-L'architecture de Node se décompose en plusieurs couches, partant du plus haut niveau (exposées au développeur) et allant jusqu'au plus bas niveau (exposées au système d'exploitation) :
-
-1. API Node
-2. Interpréteur Node
-3. Machine Virtuelle V8
-4. _libuv_
-5. Système d'exploitation
-
-.Via [URL]#https://twitter.com/busyrich/status/496344440559378432#
-image::images/event-loop.svg[align="center", link="https://twitter.com/busyrich/status/496344440559378432",width="85%"]
-
-=== API Node
-
-L'API Node correspond à des _modules CommonJS_ écrits en JavaScript (voir ci-après) : client et serveur TCP, accès au système de fichiers, lecture de DNS, streams, buffers, etc.
-
-Le but de cette API est d'adresser les manipulations les plus répétitives et pénibles pour les développeurs.
-Vous avez déjà cherché à implémenter un client HTTP de zéro ?
-Node vous affranchit de cette contrainte en prenant à sa charge ce difficile labeur (car oui, écrire un client HTTP n'est pas une sinécure !).
-
-Ces modules natifs sont relativement bas niveau.
-Ils servent de base à la création d'autres modules plus faciles d'accès et partagés dans le registre npm.
-
-[source,javascript]
-.api.js
-----
-const fs = require('fs');
-----
-
-Dans cet exemple, la fonction `require` charge l'API d'accès au système de fichier contenue dans le module `fs`.
-
-Le module CommonJS `fs` expose des fonctions ouvrant l'accès au système de fichier du système d'exploitation sur lequel est exécuté le code.
-
-Ce code trivial en apparence masque en réalité des milliers de lignes de code écrites en JavaScript et C++.
-
-=== Modules CommonJS
-
-Le projet _CommonJS_ débute en janvier 2009.
-
-Pour les membres fondateurs, il était devenu évident que JavaScript allait évoluer dans d'autres environnements que les seuls navigateurs web.
-Il fallait donc trouver un moyen de rendre le code interopérable sur les différentes plates-formes. +
-Les spécifications les plus notables sont _Console_ et _Module_.
-
-La spécification _Module_ définit entre autres :
-
-- la syntaxe de déclaration d'un module ;
-- le procédé de chargement d'un module ;
-- l'algorithme de résolution d'un module au sein d'un arbre de dépendance.
-
-L'exemple suivant illustre avec du code ce qu'est un module CommonJS.
-
-[source,javascript]
-.increment-module.js
-----
-include::{sourceDir}/increment-module.js[]
-----
-
-La spécification _Module_ de CommonJS fait usage de la portée lexicale (_lexical scope_) pour isoler ce qui appartient au module (la variable `privateValue`) et ce qu'il expose (une fonction incrémentant et retournant la variable privée).
-
-[source,javascript]
-----
-const increment = require('./increment-module.js');
-
-increment();    // <1>
-increment();    // <2>
-----
-<1> retourne `1`
-<2> retourne `2`
-
-Le fonctionnement technique des modules est décrit plus en détail dans le <<../chapter-02/index.adoc#,Chapitre 2 : Premiers pas avec Node>>.
-
-L'essentiel est d'en retenir que Node se base sur ce mécanisme de chargement de module.
-*Ces modules sont une des forces principales de Node*.
-
-[TIP]
-.[RemarquePreTitre]#Lien# Site officiel CommonJS
-====
-Le site officiel de CommonJS documente différentes spécifications vouées à promouvoir l'interopérabilité et la réutilisabilité de JavaScript sur divers environnement d'exécution.
-
-- [URL]#http://www.commonjs.org/#
-====
-
-=== Interpréteur Node
-
-L'interpréteur Node est un programme informatique écrit en C++ et en JavaScript.
-
-L'interpréteur crée un environnement d'exécution,
-initialise la boucle événementielle (voir <<event-loop,_Event Loop_>> ci-après),
-lit le code JavaScript,
-crée l'arbre de dépendance des modules puis demande à exécuter le tout. +
-L'exécution est considérée terminée lorsque la boucle événementielle
-n'a plus d'instructions à traiter, ni maintenant ni dans le futur.
-
-L'interpréteur s'arrêtera prématurément si une erreur se déclare et
-que cette dite erreur n'est pas prise en charge par le programme.
-
-[source%interactive,javascript]
-.print-date.js
-----
-include::{sourceDir}/print-date.js[]
-----
-
-[source,bash]
-----
-$ node print-date.js // <1>
-----
-<1> Affiche `Fri Apr 04 2014 20:26:46 GMT+0100 (BST)`.
-
-Dans cet exemple, l'interpréteur Node lit le contenu du fichier `print-date.js`, exécute les deux instructions et s'arrête dès que les deux instructions sont terminées.
-
-La compilation du code est effectuée par la machine virtuelle V8. +
-La liaison avec le shell système est effectuée par _libuv_.
-
-[TIP]
-.[RemarquePreTitre]#Lien# Code Source de Node
-====
-Le code source de Node est disponible sur GitHub.
-Le parcourir permet de mieux comprendre la magie de son fonctionnement… ou d'avoir subitement mal à la tête !
-
-- [URL]#https://github.com/nodejs/node#
-====
-
-[[v8]]
-=== Machine Virtuelle V8
-
-La machine virtuelle V8 est un compilateur JavaScript focalisé sur les performances et la sécurité.
-V8 a été créé par Google pour interpréter JavaScript dans son navigateur web Chrome.
-
-Node utilise également V8 pour les mêmes raisons : parser, compiler et exécuter JavaScript.
-Le résultat de la compilation est retourné sous forme de fonctions et de ressources C++ manipulées par l'interpréteur Node.
-
-Par ricochet, les progrès de V8 impactent directement Node.
-Cela concerne aussi bien la prise en charge des nouveautés d'ECMAScript (édition 2015, etc.) mais aussi des options et fonctionnalités expérimentales activables à la demande.
-
-[TIP]
-.[RemarquePreTitre]#Lien# Google V8
-====
-Google propose une documentation en ligne du projet V8.
-Cette documentation est accompagnée d'un guide pour intégrer V8 dans d'autres programmes C++.
-
-- [URL]#https://developers.google.com/v8/#
-====
-
-=== libuv
-
-_libuv_ ([URL]#http://libuv.org/#) est une librairie C++ focalisée sur l'accès aux ressources système de manière non bloquante.
-
-Cette librairie est compatible avec de nombreux systèmes d'exploitation comme Windows, Linux ou encore FreeBSD. +
-D'autres logiciels sont basés sur _libuv_ mais Node est la première plate-forme à en avoir fait l'usage… et pour cause, _libuv_ a été créée pour les besoins propres de Node.
-
-_libuv_ implémente notamment la fameuse boucle événementielle (<<event-loop,_Event Loop_>>, voir ci-après), la file de priorité (_priority queue_), délègue les accès réseaux au système d'exploitation et expose la plupart des fonctions UNIX nécessaires à la manipulation de fichiers et d'autres actions bas niveau.
-
-*La performance de Node réside clairement dans _libuv_*.
-JavaScript n'y est pour rien, si ce n'est à travers la puissance de la machine virtuelle V8.
-
-[TIP]
-.[RemarquePreTitre]#Lien# Code source de _libuv_
-====
-Le code source de _libuv_ est disponible sur GitHub. Le parcourir permet de mieux comprendre les adaptations à chaque système d'exploitation, par exemple.
-
-- [URL]#https://github.com/libuv/libuv#
-====
-
-[[event-loop]]
-=== Boucle événementielle
-
-La boucle événementielle (_Event Loop_) est un mécanisme d'exécution des tâches apporté par _libuv_ et déléguée au système d'exploitation.
-Elle s'inspire très fortement du modèle de boucle événementielle telle qu'implémentée dans les navigateurs web.
-
-C'est grâce à ce mécanisme que l'exécution d'une fonction peut être reportée.
-C'est la fameuse _exécution asynchrone_.
-
-
-[source,javascript]
-.timeout.js
-----
-const referenceTime = process.hrtime(); // <1>
-const printT = () => console.log(process.hrtime(referenceTime)[0]); // <2>
-
-printT();                               // <3>
-setTimeout(printT, 1000);               // <4>
-----
-<1> Initialise un temps de référence.
-<2> Fonction affichant le nombre de secondes de différence avec le temps de référence à chaque invocation.
-<3> Affiche `0`.
-<4> Affiche `1`, car exécutée _une seconde_ (_1000 millisecondes_) plus tard.
-
-Dans ce précédent exemple, le code est interprété séquentiellement comme suit.
-
-1. Assignation de la variable `referenceTime`.
-2. Invocation de la fonction `printT` (retournant `0`).
-3. Invocation de la fonction `console.log`.
-4. Invocation de la fonction `setTimeout` : il s'agit d'un contrat avec la boucle événementielle d'exécuter `printT` dans 1 000 millisecondes.
-5. La boucle événementielle continue de tourner, car il y a une tâche à traiter.
-6. Après avoir tourné pendant 1 000 millisecondes, la boucle dépile une instruction programmée pour cet instant.
-7. Invocation de la fonction `printT` (retournant `1`).
-8. La file de priorité est vide, Node demande au système d'exploitation d'arrêter son processus.
-
-[TIP]
-.[RemarquePreTitre]#Outil# Visualiser la boucle
-====
-_Loupe_ est un outil de visualisation de boucle évènementielle.
-Écrivez du code et il animera visuellement l'orchestration de la pile d'appels, les appels aux API du navigateur ainsi que la pile de callbacks.
-
-- [URL]#http://latentflip.com/loupe/#
-- [URL]#https://github.com/latentflip/loupe#
-====
-
-Alors pourquoi dit-on que _libuv_ est non bloquant ?
-L'acquisition d'une ressource système renvoie un descripteur qui est stocké dans une pile d'exécution dédiée tandis que le processus principal poursuit son propre traitement. +
-La pile d'exécution est vérifiée à chaque itération de la boucle — à chaque _Tick_.
-_libuv_ libère la ressource lorsqu'elle est résolue et le signale au processus principal via un _callback_.
-
-En clair, au lieu de bloquer l'exécution de l'instruction suivante, la boucle événementielle reporte la vérification à plus tard et se saisit de l'instruction suivante.
-Et ainsi de suite.
-
-On dit également que Node est _single threaded_ car il n'y a qu'une seule boucle par processus Node ; processus rattaché à un seul cœur de processeur (_CPU core_). +
-Il faut donc lancer d'autres processus Node sur d'autres cœurs pour être capable de traiter davantage de données à la fois.
-Plusieurs processus Node sur le même cœur se partagent une puissance de calcul finie.
-
-[TIP]
-.[RemarquePreTitre]#Trivia# JavaScript n'est pas événementiel
-====
-Contrairement à la croyance populaire, *JavaScript n'a pas de gestion native des événements*.
-
-Ce que propose nativement JavaScript, c'est la facilité de créer des fonctions et d'encapsuler des contextes via le mécanisme de clôture (_closure_).
-C'est tout.
-
-Tout ce qui est dit _asynchrone_ et _événementiel_ a en réalité rapport à la boucle événementielle et à sa gestion des tâches.
-
-Ceci reste valide tant que la boucle événementielle n'est pas implémentée nativement dans ECMAScript, vraisemblablement dans la version 7 ou 8 du langage.
-====
-
-[[invoke]]
-== Invoquer Node.js
-
-C'est bien beau de parler d'histoire, d'architecture et d'interpréteur mais concrètement, comment exécuter du code écrit pour Node ?
-
-La plate-forme Node fournit un exécutable système : `node`. C'est lui qui digèrera votre code, qu'il ait été préparé ou non :
-
-- `node` invoquera le <<#repl,REPL>>, un interpréteur interactif (voir ci-après) ;
-- `node votre-script.js` invoquera le dit script.
-
-[[repl]]
-=== REPL
-
-Un _REPL_ est un interpréteur interactif exécuté dans votre terminal.
-Une fois invoqué, toutes les instructions écrites dans le terminal seront interprétées dès que vous presserez la touche kbd:[ENTRÉE]
-
-L'intérêt principal d'utiliser le _REPL_ est de prototyper rapidement du code ; code que l'on pourra éventuellement sauvegarder en tapant kbd:[.+S+A+V+E+ENTRÉE].
-
-Autre exemple : vous écrivez un programme qui nécessite que l'utilisateur saisisse lui-même du code à faire interpréter par Node.
-On pourrait penser à un programme en ligne de commande éducatif ou encore à une interface web qui commanderait un _REPL_ distant.
-
-image::images/node-repl.png[align="center",width="85%"]
-
-Le _REPL_ lui-même est écrit en ECMAScript.
-Il est disponible dans le module Node natif `repl` dont la documentation est disponible à l'adresse suivante : [URL]#https://nodejs.org/api/repl.html#.
-
-[[node-exec]]
-=== Exécution de script
-
-L'exécution d'un script est très certainement l'invocation la plus classique de Node.
-
-Node tente de charger et d'exécuter le fichier mentionné en argument de l'exécutable `node`.
-Le processus Node reste actif tant que l'_Event Loop_ a des instructions à traiter dans le futur.
-
-Un certain nombre d'options sont acceptées par l'exécutable et modifient son comportement en conséquent :
-
-- `node debug votre-script.js` : active le mode débogage ;
-- `NODE_ENV=production node votre-script.js` : transmet une variable d'environnement au processus et est accessible sous la forme `process.env.NODE_ENV`.
-
-image::images/node-exec.png[align="center",width="85%"]
-
-Pour connaître l'ensemble des options disponibles de l'exécutable Node, tapez `node --help` dans votre terminal.
-Plusieurs options pourraient vous intéresser :
-
-- `-e` (ou `--eval`) : évalue du code ;
-- `-p` (ou `--print`) : évalue et affiche le code ;
-- `-r` (ou `--require`) : inclue un module ;
-- `--harmony` (ou tout sous-ensemble de type `--harmony-xx`) : active des fonctionnalités expérimentales ;
-- `--v8-options` : passe des options à la <<../chapter-01/index.adoc#v8,VM V8>>.
-
-L'option `-p` est idéale pour évaluer du code en une ligne et visualiser un résultat :
-
-[source,bash]
-----
-$ node -p 'Date()';
-Tue Jan 24 2017 12:42:02 GMT+0100 (CET)
-
-$ FIRST_NAME='Thomas' node -p '`Bonjour ${process.env.FIRST_NAME}`'
-Bonjour Thomas
-----
-
-[[node-sh]]
-=== Script shell
-
-Une autre alternative est de créer un fichier exécutable et de spécifier Node en tant qu'interpréteur.
-C'est une opération utile pour rendre un programme accessible s'il est situé dans le `$PATH` système ou pour rendre un programme accessible lors de l'installation globale d'un _paquet npm_, entre autres.
-
-Pour qu'un fichier soit rendu exécutable, nous devons nous assurer de deux choses :
-
-. du _mode exécutable_ du fichier ;
-. de la présence de l'entête _shebang_.
-
-Il faut pour cela respectivement :
-
-. ajouter le marqueur `x` avec le programme `chmod` ;
-. démarrer le fichier par `#!<chemin vers l'interpréteur node>`.
-
-Voici le contenu d'un fichier (non suffixé avec l'extension `.js`) qui affiche les arguments passé à ce dit-script :
-
-[source,javascript]
-.print-args.js
-----
-include::{sourceDir}/print-args.js[]
-----
-<1> Demande au programme `/usr/bin/env` de retourner le chemin vers l'exécutable système `node` ;
-<2> Plus d'informations sur l'utilisation des `...` dans la section <<../chapter-03/index.adoc#primitive-destructuring,décomposition>> du chapitre 3.
-
-Le bloc suivant rend le fichier exécutable et l'exécute avec des arguments :
-
-[source,bash]
-----
-$ chmod +x print-args
-$ ./print-args Affiche moi
-[ 'Affiche', 'moi' ]
-----
-
-[[npm-scripts]]
-==== Scripts npm
-
-L'utilisation de _scripts npm_ permet d'invoquer Node de manière légèrement différente tout en masquant la complexité des scripts au niveau du fichier `package.json`.
-
-L'invocation d'un _script npm_ peut se faire de deux manières :
-
-. `npm <script-natif>` pour les scripts natifs à _npm_ (`start`, `publish`, `test`, etc.) ;
-. `npm run <script>` pour les scripts additionnels définis par l'utilisateur.
-
-[source,bash]
-----
-$ npm start
-# équivalent de `npm run start`
-----
-
-Cette action exécute la commande contenue dans la section `scripts.start` du fichier `package.json` :
-
-[source]
-.package.json
-----
-{
-  "name": "nodebook",
-  ...
-  "scripts": {
-    "start": "node server.js"
-  }
-}
-----
-
-L'avantage de cette approche est double :
-
-- uniformisation du _workflow_ au sein de tous les projets ;
-- npm modifie la *variable système `$PATH`*.
-
-Ce dernier point est important.
-Cela signifie que l'exécution d'un _script npm_ rend disponible les exécutables contenus dans le répertoire `./node_modules/.bin` (voir l'encadré _Répertoires et exécutables_ de la section <<install,Installation>>).
-
-[source,javascript]
-.package.json
-----
-{
-  "name": "nodebook",
-  ...
-  "scripts": {
-    "test": "eslint ." // <1>
-  },
-  "devDependencies": {
-    "eslint": "^3.0.0"
-  }
-}
-----
-<1> Équivaut donc à `./node_modules/.bin/eslint ./src`.
-
-=== Arguments d'invocation
-
-Les arguments correspondent à un tableau de chaînes exposé par la propriété `argv` de la <<api-process,variable globale `process`>>.
-
-Cette approche est recommandée pour *créer du code générique* et le *personnaliser avec des arguments*.
-Le script suivant illustre leur lecture par l'interpréteur Node :
-
-[source,javascript]
-.config/argv.js
-----
-include::{sourceDir}/argv.js[]
-----
-
-Ce script peut être invoqué de la manière suivante :
-
-[source,bash]
-----
-$ node argv.js -y 2014 2012 --title 'fromage baguette' #<1>
-----
-<1> Affiche `["-y", "2014", "2012", "--title", "fromage baguette"]`.
-
-Des librairies sont disponibles pour *transformer les arguments en objets JavaScript*, configurer des valeurs par défaut, de valider les valeurs, de les rendre obligatoires et même de générer automatiquement une aide à l'utilisateur.
-
-Nous aborderons ces techniques avancées dans le <<../chapter-09/index.adoc#,Chapitre 9>>.
-
-=== Plantage applicatif
-
-Un programme Node s'arrête en général pour deux raisons :
-
-. la *pile d'exécution est terminée* et il n'y a plus rien à exécuter ;
-. une *erreur s'est produite* et n'a pas été capturée.
-
-C'est souvent le cas lorsqu'une erreur se produit dans un endroit imprévu de notre code, lorsqu'une variable inexistante est appelée dans une branche de notre code appelée de manière asynchrone, etc.
-
-C'est une *bonne chose* que le programme s'arrête car cela nous permet de repérer l'erreur, de lire la trace et d'éventuellement patcher notre programme pour éviter cette même erreur dans le futur.
-
-Quand un programme s'arrête de manière imprévue, le `process` émet un événement `uncaughtException`.
-Il existe des cas où il est intéressant de l'écouter, notamment si la route d'un serveur cause une erreur et que l'on souhaite maintenir le service disponible malgré tout.
-
-Dans ce cas, il convient d'écouter cet événement et de déterminer quelle est la meilleure action à suivre :
-
-[source,javascript]
-.server-crash.js
-----
-include::{sourceDir}/server-crash.js[]
-----
-<1> En cas de réception d'une requête HTTP sur le port `4001`, nous allons parser l'URL appelée — sauf qu'une _typo_ s'est glissée sur cette ligne (`requete` au lieu de `request`) ;
-<2> Cette exception remontera jusqu'au niveau du `process` qui déclenchera l'événement `uncaughtException` ;
-<3> Une seconde après avoir lancé le script, une requête HTTP est envoyée au serveur, entrainant l'exécution du _point 1_.
-
-Encore une fois, *il vaut mieux qu'un programme plante* plutôt que de le protéger faiblement avec `uncaughtException`.
-
-Il se peut qu'aucun code ne capture une erreur dans une <<../chapter-03/index.adoc#promise,promesse>>.
-C'est notamment le cas s'il n'y a aucun appel à `.catch()` après un `.then()`.
-
-L'événement du `process` `unhandledRejection` est alors émis, sans pour autant faire planter le programme.
-Ce comportement est toutefois amené à être modifié dans Node v8.
-Il conviendrait alors de gérer le plantage d'un programme avec l'événement `uncaughtException` de la même manière que vous le feriez avec `uncaughtException`.
-
-[[globals]]
-== Variables globales dans Node.js
-
-En plus des primitives ECMAScript, Node introduit des variables globales supplémentaires.
-Elles vous seront utiles pour faciliter le débogage ou tout simplement pour le développement et le partage de vos modules.
-
-=== console
-
-Toute personne ayant développé du JavaScript pour le navigateur a très certainement utilisé `console.log` pour tracer l'état d'une expression lors de l'exécution de son code.
-
-Trois fonctions sont à garder dans un coin de la tête :
-
-- `console.log` ;
-- `console.error` ;
-- `console.trace`.
-
-`console.log` affiche une représentation textuelle d'une expression et la formate avec des motifs équivalents à la fonction C `printf()`. +
-Ce contenu est envoyé vers la sortie standard, `process.stdout` :
-
-[source%interactive,javascript]
-----
-console.log('ECMA%s', 'script'); // <1>
-----
-<1> Affiche `'ECMAScript'`.
-
-`console.error` a exactement le même comportement mais redirige vers le flux d'erreur, `process.stderr`.
-
-`console.trace` envoie l'état de la _stack trace_ vers le flux d'erreur :
-
-[source,bash]
-.stack-trace.js
-----
-$ node stack-trace.js
-At level 1
-At level 2
-At level 3
-At level 4
-Trace: Level 5
-    at traceAtLevel (…/examples/stack-trace.js:10:13)
-    at traceAtLevel (…/examples/stack-trace.js:8:5)
-    at traceAtLevel (…/examples/stack-trace.js:8:5)
-    at traceAtLevel (…/examples/stack-trace.js:8:5)
-    at traceAtLevel (…/examples/stack-trace.js:8:5)
-    at Object.<anonymous> (…/examples/stack-trace.js:14:1)
-    at Module._compile (module.js:573:30)
-    at Object.Module._extensions..js (module.js:584:10)
-    at Module.load (module.js:507:32)
-    at tryModuleLoad (module.js:470:12)
-----
-
-Pour en savoir plus sur les méthodes et fonctions disponibles, reportez-vous à la documentation en ligne du module `console` sur [URL]#https://nodejs.org/api/console.html#.
-
-[[api-process]]
-=== process
-
-L'objet `process` correspond à l'instance de l'environnement Node en cours d'exécution.
-
-Il permet de s'interfacer avec le système, en écoutant les évènements qu'il envoie au processus ou en écoutant les évènements que Node s'apprête à envoyer au système d'exploitation.
-
-Le tableau `process.argv` contient le chemin du script exécuté ainsi que les différents arguments transmis à Node :
-
-[source%interactive,javascript]
-.process.js
-----
-include::{sourceDir}/process.js[]
-----
-
-Exécutons ce même script avec différents arguments :
-
-[source,bash]
-----
-$ node process.js <1>
-$ node process.js argument1 "argument 2" --option1 <2>
-----
-<1> Retourne `[ 'node', '…/chapter-04/examples/process.js' ]` ;
-<2> Retourne `[ 'node', '…/chapter-04/examples/process.js', 'argument1', 'argument 2', '--option1' ]`.
-
-Il n'en faut pas davantage pour bâtir votre premier programme en ligne de commande.
-Pour des besoins plus avancés, il existe un certain nombre de modules _npm_ pour exploiter les options et arguments.
-
-[TIP]
-.[RemarquePreTitre]#Remarque# Arguments internes
-====
-Comment faire pour passer des arguments à Node sans qu'ils soient interprétés par le script et vice-versa ?
-Il suffit de les placer au bon endroit lorsque vous construisez l'appel à l'exécutable Node :
-
-----
-node <arguments node> chemin/vers/script.js <arguments script>
-----
-
-Ces arguments se retrouveront respectivement dans `process.execArgv` et `process.argv`.
-====
-
-[[stdio]]
-Le deuxième ensemble d'objets à connaître est le trio `process.stdin`, `process.stdout` et `process.stderr`.
-Ce sont trois flux (_Streams_) qui permettent d'accéder respectivement à l'entrée standard, à la sortie standard et à l'erreur standard.
-
-Si ces noms ne vous parlent peut-être pas, c'est parce qu'ils sont directement inspirés d'UNIX.
-Ils sont directement accessibles via l'interface JavaScript de Node.
-
-Le script suivant convertit toute chaîne de caractères envoyée vers l'entrée standard en lettres majuscules :
-
-[source,javascript]
-.uppercase.js
-----
-include::{sourceDir}/uppercase.js[]
-----
-
-Exécutons ce script sur un système Unix :
-
-[source,bash]
-----
-$ echo "Entrée standard" | node uppercase.js <1>
-----
-<1> Affiche `ENTRÉE STANDARD`.
-
-Le concept de _Streams_ sera développé petit à petit au fil de ce chapitre et dans le reste du livre.
-C'est un concept puissant, mais il y a des fonctionnalités plus simples à appréhender pour débuter.
-
-Nous venons de voir que `process` est un objet contenant plusieurs attributs précieux.
-L'héritage prototypal est utilisé pour le rendre capable d'émettre des évènements via la méthode `process.on()`.
-Cette méthode est utilisée pour écouter les évènements système et permettre à nos programmes de réagir convenablement.
-
-L'exemple suivant illustre la réaction face à un signal d'interruption (abrégé en `SIGINT`, pour _Signal Interrupt_).
-Ce signal est notamment émis en pressant les touches kbd:[CTRL+C].
-
-[source,javascript]
-.interrupt.js
-----
-include::{sourceDir}/interrupt.js[]
-----
-
-Et maintenant son exécution dans un terminal Unix :
-
-[source,bash]
-----
-$ node interrupt.js 3 <1>
-^C <2>
-^C <3>
-^C <4>
-----
-<1> Affiche `Appuyer 3 fois sur CTRL+C arrêtera le programme.` ;
-<2> Affiche `Nombre d'essais restants: 2` ;
-<3> Affiche `Nombre d'essais restants: 1` ;
-<4> Affiche `Arrêt du programme…`.
-
-
-`process.title` est une API intéressante pour assigner un _titre_ de process.
-Cela concerne notamment les commandes de liste de processus actifs (comme `ls`).
-On pourrait penser que cela offre l'avantage de rendre un processus singulier et donc plus facile à repérer :
-
-[source,bash]
-----
-$ node
-> process.title='hey!'
-----
-
-Le résultat lorsqu'on liste les processus :
-
-image::images/process-title.png[align="center",width="85%"]
-
-*Attention* toutefois, car il se trouve que le résultat de ce nommage peut se révéler imprédictible en fonction des systèmes d'exploitation où le programme est exécuté.
-Il est donc recommandé de *ne pas utiliser `process.title`*.
-
-Pour en savoir plus sur les méthodes et fonctions disponibles, reportez-vous à la documentation en ligne du module `process` sur [URL]#https://nodejs.org/api/process.html#.
-
-=== module
-
-Les modules CommonJS sont au cœur du fonctionnement de Node.
-Ils permettent d'isoler, d'empaqueter et de rendre le code réutilisable.
-
-La magie opère principalement grâce à la fonction `require` et à l'objet `module`.
-Ils s'occupent respectivement de _charger_ et de _déclarer_ un module.
-
-Techniquement parlant, un module est un fichier JavaScript dont toutes les variables sont privées et inaccessibles depuis l'extérieur.
-Seules les variables exposées par `module.exports` sont publiquement accessibles.
-
-Prenons l'exemple suivant :
-
-[source,javascript]
-.currency-format.js
-----
-include::{sourceDir}/currency-format.js[]
-----
-
-Dans le précédent exemple, le module `currency-format.js` est exposé en tant que fonction.
-Les variables `currencies` et `formatNumber` restent encapsulées dans la portée du module.
-
-Admettons que nous souhaitons utiliser ce module dans un programme, ici `currency-main.js` :
-
-[source,javascript]
-.currency-main.js
-----
-include::{sourceDir}/currency-main.js[]
-----
-
-La fonction `require` chargera le fichier `currency-format.js` et assignera le résultat de l'export dans la variable de votre choix, ici, `setupFormatter`.
-
-[source,bash]
-----
-$ node currency-main.js <1> <2>
-----
-<1> Affiche `undefined` ;
-<2> Puis affiche `'12,00€'`.
-
-Lors de l'exécution du précédent programme, nous avons confirmation que la variable `currencies` contenue dans le module `currency-format.js` n'est pas disponible dans le module `currency-main.js`.
-
-[TIP]
-.[RemarquePreTitre]#Remarque# Les modules Node
-====
-Un module Node est un répertoire contenant un fichier de description `package.json`.
-Ce fichier contient notamment une propriété `main` indiquant quel fichier charger par défaut.
-Les modules Node sont, par convention, placés dans un répertoire `node_modules`.
-
-Voici un extrait du fichier `package.json` du module `lodash` :
-----
-{
-  "name": "lodash",
-  "version": "2.4.1",
-  "main": "dist/lodash.js"
-}
-----
-
-Ainsi, exécuter `require('lodash');` revient à peu près à faire `require('./node_modules/lodash/dist/lodash.js');`.
-====
-
-Pour en savoir plus sur les méthodes et fonctions disponibles, reportez-vous à la documentation en ligne des modules sur [URL]#https://nodejs.org/api/modules.html#.
-
-[[api-require]]
-=== require
-
-Nous avons abordé le mécanisme de chargement de modules dans le point précédent.
-Regardons plus en détails le comportement de la fonction `require`.
-
-La fonction `require` permet de charger des fichiers locaux, des modules JavaScript, des modules binaires ou même des fichiers JSON :
-
-[source,javascript]
-.require.js
-----
-include::{sourceDir}/require.js[]
-----
-<1> Charge le module Node natif `fs` ;
-<2> Charge le fichier `currency-format.js` : Node suffixe automatiquement le nom du fichier par `.js` (module JavaScript) ou par `.node` (module binaire) si l'extension manque ;
-<3> Charge le fichier `examples/index.js` du répertoire `chapter-04` car Node détecte que `chapitre-04` est un répertoire, découvre le fichier `package.json` et charge le fichier déclaré dans sa propriété `main` ;
-<4> Charge le module Node `lodash`, vraisemblablement depuis le répertoire `node_modules/lodash` ;
-<5> Charge et parse le fichier `package.json` en tant qu'objet ECMAScript.
-
-`require` est une fonction synchrone _et_ bloquante.
-Cela permet de garantir l'ordre de chargement des modules.
-
-[source,javascript]
-----
-const path = require('path'); <1>
-const setupFormatter = require('./currency-format.js'); <2>
-----
-<1> Node interprète d'abord cette ligne… ;
-<2> … puis interprète celle-ci dès que le module `path` est chargé.
-
-Qui dit bloquant dit que si du code est exécuté dans le module _avant_ l'export, il ralentira l'exécution tant que le module n'aura pas été mis en cache. +
-L'exemple suivant illustre le phénomène :
-
-[source,javascript]
-.blocking-module.js
-----
-include::{sourceDir}/blocking-module.js[]
-----
-
-Dans l'exemple précédent, il faut attendre que la boucle soit complétée avant que la fonction `require` ne rende la main et procède à l'exécution des instructions suivantes :
-
-[source,javascript]
-----
-require('./blocking-module.js');
-
-console.log('module chargé'); <1>
-----
-<1> Le message ne sera affiché que tardivement, environ une seconde après le chargement du module `blocking-module.js`.
-
-Il faut s'assurer que le code exécuté pendant le chargement d'un module soit exclusivement non bloquant pour conserver la performance applicative. +
-Le concept d'asynchronicité et de non bloquant est explicité plus en détail dans _Comprendre les accès non-bloquants_.
-
-Node optimise le chargement des modules en les mettant en cache.
-Autrement dit et de manière générale, *un module est chargé une seule fois*.
-L'unicité d'un module est assurée par son emplacement au sein du système de fichiers, en se basant sur la propriété `module.id`.
-
-Prenons le cas de ce module :
-
-[source,javascript]
-.increment-module.js
-----
-include::{sourceDir}/increment-module.js[]
-----
-
-Le précédent module affichera son identifiant unique à chaque fois qu'il sera _chargé_.
-Dès que la méthode `run()` de l'objet exporté sera appelée, elle incrémentera la variable privée `counter` et retournera sa nouvelle valeur.
-
-Le module suivant fait deux fois appel à `increment-module.js` et assigne le résultat dans deux variables différentes.
-Ceci dans le but de vérifier le comportement du mécanisme de chargement des modules Node.
-
-[source,javascript]
-.increment-main.js
-----
-include::{sourceDir}/increment-main.js[]
-----
-
-Il ne reste plus qu'à l'exécuter pour constater ce qu'il se passe :
-
-[source,bash]
-----
-$ node increment-main.js <1> <2> <3> <4>
-----
-<1> Affiche `…/chapter-04/examples/increment-module.js` ;
-<2> Affiche `0` ;
-<3> Affiche `1` ;
-<4> Affiche `true`.
-
-Le module ayant déjà été chargé une fois, Node n'ira pas charger le fichier une deuxième fois et ne créera pas de nouvelle instance de l'objet `module`.
-Il se contente de *retourner la même instance de module*.
-
-Ce comportement peut être exploité	 en tant que _design pattern_ _Singleton_, explicité plus en détail dans ce même chapitre.
-
-Enfin, Node lancera une exception si une erreur se produit lors du chargement (fichier inexistant, erreur de syntaxe dans le fichier à charger).
-
-[source,javascript]
-----
-try {
-  require('./module-inexistant.js');
-}
-catch (err) {
-  console.log('L\'erreur est la suivante : %s', err.message); <1>
-}
-----
-<1> L'exécution de ce module affichera `L'erreur est la suivante : Cannot find module './module-inexistant.js'`.
-
-Pour en savoir plus sur le fonctionnement de la fonction `require`, reportez-vous à la documentation en ligne des modules sur [URL]#https://nodejs.org/api/modules.html#.
-
-=== \__filename et __dirname
-
-`\__filename` et `__dirname` sont des constantes indiquant respectivement le chemin absolu du fichier exécuté et le chemin absolu du répertoire contenant le fichier exécuté.
-
-[source%interactive,javascript]
-.filename-dirname.js
-----
-include::{sourceDir}/filename-dirname.js[]
-----
-<1> Affiche `…/chapter-04/examples/filename-dirname.js` ;
-<2> Affiche `…/chapter-04/examples` ;
-<3> Affiche `true`.
-
-Utiliser `\__filename` et `__dirname` est utile pour travailler avec des chemins absolus, indépendamment du répertoire de travail de Node.
-
-=== setTimeout, setInterval et setImmediate
-
-Pour des raisons de commodité, Node fournit des implémentations de `setTimeout`, de `setInterval` et de `setImmediate`.
-Pour rappel, ces fonctions de temps ne font pas partie de JavaScript mais de la spécification _DOM Level 0_.
-
-Ces fonctions exécutent une fonction respectivement une seule fois dans un délai imparti, un nombre de fois indéterminé à un intervalle imparti et une seule fois immédiatement :
-
-[source%interactive,javascript]
-----
-const print = (message) => {
-  return print(){
-    console.log(message); // <1> <2> <3>
-  }
-};
-
-const timer = setInterval(print('interval'), 250);
-setTimeout(print('timeout'), 200);
-setImmediate(print('immediate'));
-----
-<1> Affichera d'abord `immediate`… ;
-<2> … suivi de `timeout` environ 200ms plus tard… ;
-<3> … puis `interval` environ 50ms plus tard et ce, toutes les 250ms tant que le programme ne sera pas arrêté ou que `clearTimeout` n'annulera pas l'intervalle.
-
-Pour en savoir plus sur les méthodes et fonctions disponibles, reportez-vous à la documentation en ligne du module `timers` sur [URL]#https://nodejs.org/api/timers.html#.
-
-=== _
-
-La variable globale `\_` est un cas spécial.
-Elle n'est prédéfinie que dans le terminal interactif (_REPL_).
-
-Cette variable _magique_ contient systématiquement le résultat de la dernière évaluation de code.
-
-[source,bash]
-----
-$ node
-> 2 + 2
-4
-> _ + 2
-6
-----
+TBD.
