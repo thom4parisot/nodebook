@@ -1,4 +1,4 @@
-# Node.js [![Build Status][]](https://travis-ci.org/oncletom/nodebook)
+# Node.js [![Build Status][ci-linux]](https://travis-ci.org/oncletom/nodebook) [![Build status][ci-windows]](https://ci.appveyor.com/project/oncletom/nodebook)
 
 > Bonnes pratiques pour la programmation JavaScript applicative, universelle et modulaire
 
@@ -119,7 +119,8 @@ L’épreuve est soumise à la licence [Creative Commons NC-BY-SA][cc-nc-by-sa] 
 
 Les exemples de code sont placés sous la [licence MIT][].
 
-[Build Status]: https://travis-ci.org/oncletom/nodebook.svg
+[ci-linux]: https://travis-ci.org/oncletom/nodebook.svg
+[ci-windows]: https://ci.appveyor.com/api/projects/status/crewvvqeybl8f16c?svg=true
 [journal de bord]: JOURNAL.md
 [livre-web]: https://oncletom.io/node.js
 [licence MIT]: LICENSE
