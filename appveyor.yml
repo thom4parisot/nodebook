@@ -6,6 +6,7 @@ environment:
 
 install:
   - ps: Install-Product node $env:nodejs_version x64
+  - npm config set script-shell "C:\\Program Files\\git\\bin\\bash.exe"
   - npm install
 
 build: off
