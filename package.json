@@ -6,7 +6,7 @@
   "scripts": {
     "build:html": "node bin/build.js index.adoc chapter-*/index.adoc foreword/*.adoc appendix-*/*.adoc",
     "install:all": "./bin/cli.js install all",
-    "lint": "eslint --fix '**/*.js'",
+    "lint": "eslint '**/*.js'",
     "prestart": "npm run build:html",
     "start": "node server.js",
     "test": "tape 'tests/*.js' | tap-spec",
