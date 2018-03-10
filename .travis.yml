@@ -30,9 +30,9 @@ before_deploy:
 - make clean build-html
 
 deploy:
-  - edge:
-      branch: v1.8.47
-    provider: pages
+  - provider: pages
+    edge:
+      branch: pages-ivar-set
     skip_cleanup: true
     github-token: "$GH_TOKEN"
     local-dir: dist
