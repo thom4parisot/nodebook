@@ -5,7 +5,7 @@ ADOC_FILES := $(wildcard **/index.adoc foreword/*.adoc)
 HTML_FILES := $(ADOC_FILES:%.adoc=$(BUILD_DIR)/%.html)
 PKG_FILES := $(wildcard package.json */package.json)
 VIDEO_FILES := $(wildcard **/videos/*.mp4)
-IMAGE_FILES := $(wildcard cover.png **/images/*.png **/images/*.jpg)
+IMAGE_FILES := $(wildcard cover.png **/images/*.png **/images/*.jpg **/images/*.svg)
 VIDEO_FILES_DIST := $(VIDEO_FILES:%=$(BUILD_DIR)/%)
 IMAGE_FILES_DIST := $(IMAGE_FILES:%=$(BUILD_DIR)/%)
 PKG_FILES_DIST := $(PKG_FILES:%=$(BUILD_DIR)/%)
@@ -16,7 +16,7 @@ clean:
 $(PKG_FILES_DIST): $(PKG_FILES)
 	@mkdir -p $(dir $@)
 	cp $(@:dist/%=%) $@
-	
+
 $(VIDEO_FILES_DIST): $(VIDEO_FILES)
 	@mkdir -p $(dir $@)
 	cp $(@:dist/%=%) $@
