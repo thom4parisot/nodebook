@@ -1,6 +1,6 @@
-# Node.js [![Build Status][ci-linux]](https://travis-ci.org/oncletom/nodebook) [![Build status][ci-windows]](https://ci.appveyor.com/project/oncletom/nodebook)
+# Node.js [![Build Linux][ci-linux]](https://travis-ci.org/oncletom/nodebook) [![Build Windows][ci-windows]](https://ci.appveyor.com/project/oncletom/nodebook)
 
-> Bonnes pratiques pour la programmation JavaScript applicative, universelle et modulaire
+> Apprendre par l'exemple • Devenez autonome avec JavaScript, l'écosystème npm, le développement frontend, les applications web et en ligne de commande.
 
 Le contenu est actuellement **en cours d'écriture** 🚧. Certaines sections sont terminées ✅. Tu peux suivre la progression en lisant le [journal de bord][].
 
