@@ -1,8 +1,9 @@
 :chapterNumber: 4
 :chapterId: chapter-04
 :sourceDir: ./examples
-:sourceSample: TODO.js
+:sourceSample: script.js
 :nodeCurrentVersion: v8
+:vX: v8.9.4
 :npmCurrentVersion: v5
 :sectnums:
 :revdate: {docdate}
@@ -67,30 +68,191 @@ sous le nez, prêt·e à saisir des instructions ECMAScript.
 image::images/terminal.png[align="center",width="85%"]
 
 [[node-version]]
-=== Obtenir la version
+=== Afficher la version
 
-`node --version`
+Nous pourrions commencer par afficher la version de l'interpréteur Node.
+Nous nous assurons ainsi que nous pouvons interagir avec
+l'interpéteur Node avec succès _et_ que l'interpréteur
+est celui que nous attendons, dans la bonne version.
+La version de Node conditionne la liste des fonctionnalités du langage
+ECMAScript à disposition.
+
+[TIP]
+.[RemarquePreTitre]#Compatibilité# Syntaxe ECMAScript
+====
+Le site web [URL]#https://node.green# liste le niveau de compatibilité
+des fonctionnalités ECMAScript.
+
+Cette page vous aidera à comprendre quelle fonctionnalité utiliser en toute
+sécurité, version par version de Node.
+====
+
+Une fois votre terminal ouvert, saisissez la commande suivante :
+
+[source,bash]
+----
+$ node --version
+----
+
+Le numéro de version de l'interpréteur Node s'affichera alors.
+Par exemple : `{vX}`.
+
+Si c'est ce à quoi vous vous attendiez, nous pouvons passer à la suite.
+À l'inverse, si une erreur se produit ou que le numéro de version
+n'est pas celui que vous attendiez, jetez un œil à la
+<<../chapter-02/index.adoc#install,section _Installer Node.js_>> du chapitre 2.
 
 [[node-printeval]]
 === Avec un script court
 
+L'interpréteur Node sait interpréter du code qu'on lui donnerait
+via l'option `-p` (pour _print_, c'est à dire _afficher_).
+L'interpréteur affichera le résultat de l'expression ou
+détaillera la <<errors,raison de l'erreur>>.
+
+On utilise cette forme d'interaction pour obtenir un résultat rapide.
+Par exemple, le résultat d'une opération mathématique :
+
+[source,bash]
+----
+$ node -p '2 + 2'
+4
+----
+
+Toute expression ECMAScript retournera un résultat,
+comme cet exemple de
+transformation de <<../chapter-03/index.adoc#string,chaîne de caractères>> :
+
+[source,bash]
+----
+$ node -p '"abc".toLocaleUpperCase()'
+ABC
+----
+
 [[repl]]
-=== Avec la commande interactive (_REPL_)
+=== Avec l'invite de commande interactive (_REPL_)
 
-kbd:[CTRL+C]
+L'invite de commande interactive est une manière… interactive de parler
+à l'interpréteur Node.
+On entre dans un mode de dialogue où tout ce que l'on écrit est interprété
+par Node.
 
-kbd:[TAB]
+Ce mode interactif s'invoque en mentionnant l'exécutable Node,
+sans autre argument :
 
-kbd:[{arrowUp}]
-kbd:[{arrowDown}]
+[source,bash,subs="attributes"]
+----
+$ node
+> {empty}
+----
 
+On notera au passage que l'invite est préfixée par le caractère `>`
+afin de marquer la différence entre notre précédent environnement.
+On retrouve un comportement similaire dans les invites de commande
+des langages Ruby (`irb`), Python (`python`) et PHP (`php -a`)
+
+Lorsque nous sommes dans l'interpréteur interactif,
+toutes les expressions sont interprétées par Node :
+
+[source,bash,subs="attributes"]
+----
+$ node
+> 2 + 2
+4
+> "abc".toLocaleUpperCase()
+'ABC'
+> {empty}
+----
+
+Des expressions sont réservées pour obtenir de l'aide, sortir de l'interpréteur
+ou simplement pour nettoyer ce que l'on voit à l'écran.
+Pour cela on fait appel à l'instruction `.help` :
+
+[source,bash]
+----
+$ node
+> .help
+.break    Sometimes you get stuck, this gets you out
+.clear    Alias for .break
+.editor   Enter editor mode
+.exit     Exit the repl
+.help     Print this help message
+.load     Load JS from a file into the REPL session
+.save     Save all evaluated commands in this REPL session to a file
+----
+
+Ces touches ou combinaisons de touches sont utiles pour naviguer dans
+l'invite de commande :
+
+- la combinaison de touches kbd:[CTRL+C] annule
+la saisie de la ligne en cours ;
+- les touches _flèche haut_ (kbd:[{arrowUp}]) et _flèche bas_
+(kbd:[{arrowDown}]) aident à naviguer dans l'historique des commandes ;
+- la touche _tabulation_ (kbd:[TAB]) tente de compléter la saisie avec une
+expression ou variable connue.
+
+La touche kbd:[TAB] complètera automatiquement la saisie,
+offrira une liste de choix de complétion ou listera
+l'intégralité des propriétés si la complétion s'effectue
+après un caractère _point_ (`.`) :
+
+[source,bash,subs="attributes,macros"]
+----
+$ node
+> conso{empty}kbd:[TAB]
+> console
+> console.{empty}kbd:[TAB]
+...
+console.assert                console.clear                 console.count
+...
+----
 
 [TIP]
-.[RemarquePreTitre]#Gagner du temps# Variable `_`
+.[RemarquePreTitre]#Raccourci# Afficher tous les variables connues
 ====
-La variable `\_` est un cas spécial.
-Elle n'existe que dans le terminal interactif (_REPL_).
-Elle contient le résultat de la dernière évaluation de code.
+L'utilisation de la touche kbd:[TAB] affichera _toutes_ les variables connues
+de la session interactive en cours.
+Il suffit d'appuyer une ou deux fois sur la touche kbd:[TAB]
+dans une invite vide :
+
+[source,bash,subs="macros"]
+----
+$ node
+> kbd:[TAB]kbd:[TAB]
+Array                         Boolean                       Date
+Error                         EvalError                     Function
+Infinity                      JSON                          Math
+NaN                           Number                        Object
+...
+----
+
+C'est un excellent moyen de *découvrir des éléments du langage* qui nous
+étaient inconnus jusque là.
+====
+
+La sortie de l'invite de commande se fait à l'aide de
+l'utilisation répétée de la combinaison de touches kbd:[CTRL+C].
+On revient ainsi à l'état initial où l'on était avant de
+saisir la commande `node` :
+
+[source,bash,subs="attributes"]
+----
+$ node
+> {empty}
+(To exit, press ^C again or type .exit)
+> {empty}
+$ {empty}
+----
+
+Ce même résultat s'obtient en saisissant `.exit`
+ou en utilisant la combinaison de touches kbd:[CTRL+D].
+
+[TIP]
+.[RemarquePreTitre]#Raccourci# Variable magique `_`
+====
+La variable `\_` est spécifique à l'invite de commande Node.
+Elle contient systématiquement le _résultat retourné_ par la
+la dernière évaluation de code :
 
 [source,bash]
 ----
@@ -100,10 +262,19 @@ $ node
 > _ + 2
 6
 ----
+
+Cette variable magique est équivalente à la variable `$_` dans la console
+des outils de développement des navigateurs web.
 ====
 
 [[node-script]]
 === Avec du code contenu dans un fichier
+
+[source%interactive,javascript]
+.script.js
+----
+include::{sourceDir}/script.js[]
+----
 
 on peut passer des arguments au script
 on verra ça avec process.argv dans ce chapitre et plus en détail dans le chapitre 8
@@ -133,7 +304,7 @@ process.exit
 
 process.on
 
-
+[[modules]]
 == Organiser son code en utilisant les modules
 
 === Qu'est-ce qu'on entend par module ?
@@ -148,8 +319,8 @@ modules UMD ?
 
 === Exporter avec `module.exports`
 
-
-== Les modules Node
+[[modules-builtin]]
+== Les modules par défaut
 
 [NOTE]
 .[RemarquePreTitre]#Documentation# Modules Node
@@ -178,23 +349,23 @@ Cette échelle se décompose de la manière suivante :
 
 ====
 
-=== `path` : manipuler des chemins
+=== `path` : manipuler des chemins de fichier et de répertoire
 
-=== `url` : manipuler des URL
+=== `url` et `querystring` : manipuler des URL
 
 === `fs` : manipuler le système de fichiers
 
-=== `events` : créer un événement asynchrone
+=== `events` : programmer des événements
 
 `require('events')`
 
-=== `http` : créer une requête HTTP
+=== `stream` : manipuler des flux de données
 
-On verra qu'on peut faire plus simple dans le chapitre 5 (exemple de module npm)
-
-=== `http` : démarrer un serveur HTTP
+=== `http` : créer et interroger des ressources via le protocole HTTP
 
 On ira plus en détail dans le chapitre 7
+
+On verra qu'on peut faire plus simple dans le chapitre 5 (exemple de module npm)
 
 bonus : on peut aussi faire un serveur https ET un serveur http/2
 
@@ -208,6 +379,7 @@ Pratique quand on ne peut pas importer du code mais seulement des résultats
 Notamment les interfaces réseaux, les CPU etc.
 
 
+[[errors]]
 == S'en sortir quand ça ne se passe pas comme prévu
 
 === Le programme ne se termine pas
@@ -222,19 +394,19 @@ Notamment les interfaces réseaux, les CPU etc.
 Cf. https://nodejs.org/api/cli.html
 Compatible aussi avec `NODE_OPTIONS`
 
-=== Charger un module au prélable
+=== Précharger un module
 
 `--require`
 
-=== Inspecter le code à distance
+=== Inspecter notre code depuis le navigateur Chrome
 
-`node --inspect`
+`node --inspect` et `node --inspect-brk`
 
 === Utiliser le débogueur interactif
 
 `node debug`
 
-=== Paramétrer la machine virtuelle V8
+=== Personnaliser les fonctionnalités liées à ECMAScript
 
 `--v8-options`
 

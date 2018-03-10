@@ -2,6 +2,14 @@
 
 Ce journal détaille l'effort d'écriture depuis janvier 2017—sachant que le projet a commencé en décembre 2014.
 
+## Samedi 10 mars 2018
+
+- _Chapitre 4_ : invite de commande et script court
+- _Outillage_ : compatibilité et intégration continue sous Windows
+- _Outillage_ : le code n'est plus modifié par ESLint lors du build (ça changeait la signification de quelques exemples), le déploiement en ligne est corrigé
+
+**Météo** : 🤔
+
 ## Mardi 6 mars 2018
 
 - _Chapitre 4_ : restructuration
