@@ -12,7 +12,7 @@ const req = request(url, (res) => {
   res.on('error', err => console.error(err));
   res.on('data', data => body += data);
   res.on('end', () => {
-    fs.writeFile('/tmp/nodebook.json', body, (err) => {
+    process.stdout.write(body, (err) => {
       if (err){
         return console.error(err);
       }

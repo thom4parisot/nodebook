@@ -8,7 +8,7 @@ const url = `${BASE_URL}/oncletom/nodebook/master/package.json`;
 
 const req = request(url, (res) => {
   res
-    .pipe(fs.createWriteStream('/tmp/nodebook.json'))
+    .pipe(process.stdout)
     .on('finish', () => console.log('Fichier archivé !'));
 });
 
