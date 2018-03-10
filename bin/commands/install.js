@@ -1,6 +1,8 @@
 'use strict';
 
+const {promisify} = require('util');
 const {spawn} = require('child_process');
+const exec = promisify(require('child_process').exec);
 const {list,dir} = require('./chapters');
 
 const DEFAULTS_OPEN = {
@@ -9,10 +11,10 @@ const DEFAULTS_OPEN = {
   shell: true
 };
 
-const install = (chapter) => new Promise((resolve, reject) => {
+const run = (command, chapter) => new Promise((resolve, reject) => {
   const cwd = dir(chapter);
 
-  spawn('npm install', Object.assign({}, {cwd}, DEFAULTS_OPEN))
+  spawn(command, Object.assign({}, {cwd}, DEFAULTS_OPEN))
     .on('close', () => resolve())
     .on('error', (err) => reject(err));
 });
@@ -30,8 +32,17 @@ module.exports = {
   handler: (args) => {
     const {chapter} = args;
 
-    return chapter === 'all'
-      ? Promise.all(list.map(install))
-      : install(chapter);
+    return Promise.resolve()
+      .then(() => exec('npm --version'))
+      .then(npmVersion => {
+        // take advantage of npm ci if it exists
+        // SEE http://blog.npmjs.org/post/171556855892
+        return run.bind(null, npmVersion > '5.7.0' ? 'npm ci' : 'npm install');
+      })
+      .then(command => {
+        return chapter === 'all'
+          ? Promise.all(list.map(command))
+          : command(chapter);
+      });
   }
 };

@@ -6,23 +6,16 @@ node_js: v8
 
 cache:
   directories:
-  - node_modules
-  - chapter-01/node_modules
-  - chapter-02/node_modules
-  - chapter-03/node_modules
-  - chapter-04/node_modules
-  - chapter-05/node_modules
-  - chapter-06/node_modules
-  - chapter-07/node_modules
-  - chapter-08/node_modules
-  - chapter-09/node_modules
-  - appendix-a/node_modules
-  - appendix-b/node_modules
+  - "$HOME/.npm"
 
 env:
 - DEBUG=tape-spawn
 
-before_script:
+before_install:
+- npm i -g npm@latest
+
+install:
+- npm ci
 - npm run install:all
 
 before_deploy:
