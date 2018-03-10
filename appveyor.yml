@@ -7,26 +7,16 @@ environment:
 install:
   - ps: Install-Product node $env:nodejs_version x64
   - npm config set script-shell "C:\\Program Files\\git\\bin\\bash.exe"
+  - npm install -g npm@latest
   - npm install
+  - npm run install:all
 
 build: off
 
 cache:
-  - node_modules -> package.json
-  - chapter-01/node_modules -> chapter-01/package.json
-  - chapter-02/node_modules -> chapter-02/package.json
-  - chapter-03/node_modules -> chapter-03/package.json
-  - chapter-04/node_modules -> chapter-04/package.json
-  - chapter-05/node_modules -> chapter-05/package.json
-  - chapter-06/node_modules -> chapter-06/package.json
-  - chapter-07/node_modules -> chapter-07/package.json
-  - chapter-08/node_modules -> chapter-08/package.json
-  - chapter-09/node_modules -> chapter-09/package.json
-  - appendix-a/node_modules -> appendix-a/package.json
-  - appendix-b/node_modules -> appendix-b/package.json
+  - '%AppData%/npm-cache'
 
 test_script:
   - node --version
   - npm --version
-  - npm run install:all
   - npm test
