@@ -53,7 +53,7 @@ toc::[]
 L'*interpréteur Node* est le programme qui nous permet d'obtenir des résultats
 en échange d'instructions ECMAScript.
 Le *terminal* est un autre programme qui nous permet de dialoguer avec
-un ordinateur, entre autre en appelant
+un ordinateur et les programmes installés.
 
 Le <<../chapter-02/index.adoc#,chapitre 2>> détaille comment installer
 _Node_ et un _terminal_ sur son ordinateur.
@@ -83,7 +83,7 @@ ECMAScript à disposition.
 Le site web [URL]#https://node.green# liste le niveau de compatibilité
 des fonctionnalités ECMAScript.
 
-Cette page vous aidera à comprendre quelle fonctionnalité utiliser en toute
+Cette page vous aidera à comprendre quelles fonctionnalités utiliser en toute
 sécurité, version par version de Node.
 ====
 
@@ -150,7 +150,7 @@ $ node
 ----
 
 On notera au passage que l'invite est préfixée par le caractère `>`
-afin de marquer la différence entre notre précédent environnement.
+afin de marquer notre présence dans un environnement différent.
 On retrouve un comportement similaire dans les invites de commande
 des langages Ruby (`irb`), Python (`python`) et PHP (`php -a`)
 
@@ -188,16 +188,14 @@ Ces touches ou combinaisons de touches sont utiles pour naviguer dans
 l'invite de commande :
 
 - la combinaison de touches kbd:[CTRL+C] annule
-la saisie de la ligne en cours ;
+la saisie de la ligne en cours (kbd:[^+C] sous macOS) ;
 - les touches _flèche haut_ (kbd:[{arrowUp}]) et _flèche bas_
 (kbd:[{arrowDown}]) aident à naviguer dans l'historique des commandes ;
 - la touche _tabulation_ (kbd:[TAB]) tente de compléter la saisie avec une
 expression ou variable connue.
 
 La touche kbd:[TAB] complètera automatiquement la saisie,
-offrira une liste de choix de complétion ou listera
-l'intégralité des propriétés si la complétion s'effectue
-après un caractère _point_ (`.`) :
+offrira une liste de choix de complétion :
 
 [source,bash,subs="attributes,macros"]
 ----
@@ -209,6 +207,9 @@ $ node
 console.assert                console.clear                 console.count
 ...
 ----
+
+On notera que l'utilisation de kbd:[TAB] après un caractère _point_ (`.`)
+listera l'intégralité des propriétés de cet objet.
 
 [TIP]
 .[RemarquePreTitre]#Raccourci# Afficher tous les variables connues
@@ -234,7 +235,8 @@ C'est un excellent moyen de *découvrir des éléments du langage* qui nous
 ====
 
 La sortie de l'invite de commande se fait à l'aide de
-l'utilisation répétée de la combinaison de touches kbd:[CTRL+C].
+l'utilisation répétée de la combinaison de touches kbd:[CTRL+C]
+(kbd:[^+C] sous macOS).
 On revient ainsi à l'état initial où l'on était avant de
 saisir la commande `node` :
 
@@ -248,7 +250,7 @@ $ {empty}
 ----
 
 Ce même résultat s'obtient en saisissant `.exit`
-ou en utilisant la combinaison de touches kbd:[CTRL+D].
+ou en utilisant la combinaison de touches kbd:[CTRL+D] (kbd:[^+D] sous macOS).
 
 [TIP]
 .[RemarquePreTitre]#Raccourci# Variable magique `_`
@@ -279,10 +281,10 @@ L'interpréteur reste actif jusqu'à ce que toutes les instructions
 soient traitées.
 
 J'utilise un script lorsque la logique à exécuter tient sur plusieurs lignes,
-pour versionner le code avec _git_ mais aussi pour structurer la logique
+pour versionner ce code avec _git_ mais aussi pour structurer la logique
 dans _plusieurs fichiers_ grace au mécanisme de <<modules,modules>>.
 
-Prenons l'exemple d'un fichier nommé `script.js` :
+Prenons l'exemple d'un fichier nommé `script.js` qui contiendrait :
 
 [source%interactive,javascript]
 .script.js
@@ -290,8 +292,8 @@ Prenons l'exemple d'un fichier nommé `script.js` :
 include::{sourceDir}/script.js[]
 ----
 
-Node interprète le contenu du fichier `script.js` et agit en fonction.
-Dans cet exemple, le fichier indique à Node d'afficher deux messages :
+Node interprète le contenu du fichier `script.js`.
+Dans cet exemple, il indique à Node d'afficher deux messages :
 
 [source,bash]
 ----
@@ -300,10 +302,19 @@ $ node script.js
 ABC
 ----
 
-Les éléments supplémentaires — des *arguments* — correspond à ce qui
-suit le nom du fichier à interpréter.
-Ça nous offre la liberté de personnaliser le fonctionnement du script
-en fonction de choses extérieures à notre code.
+Utilisons un autre exemple pour illustrer l'utilisation d'*arguments*. +
+Les _arguments_ aident à personnaliser l'exécution du script :
+
+[source,bash]
+----
+$ node hello.js 'me'
+Hello me
+----
+
+Les _arguments_ sont les éléments ajoutés après le nom du fichier
+(ici `hello.js`).
+On y accède par le biais de la variable `process.argv`
+de <<../chapter-03/index.adoc#array,type tableau>> :
 
 [source%interactive,javascript]
 .hello.js
@@ -311,30 +322,26 @@ en fonction de choses extérieures à notre code.
 include::{sourceDir}/hello.js[]
 ----
 
-Le script précédent récupère le deuxième argument de l'objet `process.argv`
-dont nous décrirons le fonctionnement ci-après, dans la section <<process.argv,arguments d'exécution>>.
+Le script précédent récupère le deuxième argument de l'objet `process.argv`.
+Nous décrirons le fonctionnement de cet objet ci-après, dans la section <<process.argv,arguments d'exécution>>.
 
 Comme vu au <<../chapter-02/index.adoc#,chapitre 2>> dans la section
 <<../chapter-02/index.adoc#array-destructuring,décomposition de tableau>>,
 si l'argument est inexistant ou vide, on lui attribue une valeur par défaut.
 
-En pratique, on peut donc lancer le script _avec_ et _sans_ argument :
-
 [source,bash]
 ----
-$ node hello.js 'me'
-Hello me
 $ node hello.js
 Hello World
 ----
 
 Cet exemple effleure la capacité de Node à servir à la création
 d'*applications en ligne de commande*.
-Nous verrons plus en détails comment et pourquoi créer de telles applications
+Nous verrons plus en détail _comment_ et _pourquoi_ créer de telles applications
 dans le <<../chapter-08/index.adoc#,chapitre 8>>.
 
 Enfin, il faut comprendre que toute exécution de script
-entraine la création d'un <<process,processus système>>.
+entraîne la création d'un <<process,processus système>>.
 
 [[process]]
 == Comprendre la notion de _processus_
@@ -351,7 +358,7 @@ décalées dans le temps (_programmation asynchrone_)
 ou conditionnées par l'écoute d'événements extérieurs (_programmation événementielle_).
 
 Le processus s'arrête en cas d'erreur, lorqu'il n'y a plus d'opération
-à effectuer ou cas d'interruption volontaire.
+à effectuer ou en cas d'interruption volontaire.
 
 === Le coût d'un processus
 
@@ -386,10 +393,19 @@ Elle contient :
 - des informations système (plate-forme, identifiant, groupe de permissions, etc.) ;
 - des méthodes pour interrompre le processus.
 
+Reformulé autrement, la variable `process` renvoie des informations
+sur l'environnement dans lequel le script est exécuté.
+Notre code peut être interprété par Node
+sur plusieurs types de machines
+(ordinateur récent ou fatigué, Raspberry Pi, etc.),
+sur différents systèmes d'exploitation (Windows, Linux, macOS, etc.). +
+Nous avons ainsi tout le loisir d'adapter notre code
+à ces différents environnements.
+
 [NOTE,subs="attributes"]
 .[RemarquePreTitre]#Documentation# Module _process_
 ====
-L'intégralité des variables, fonctions et classes au module `process`
+L'intégralité des variables, fonctions et classes du module `process`
 est documentée sur le site web du projet Node.
 La documentation contient des informations à jour et qui ne sont pas
 forcément listées dans cet ouvrage.
