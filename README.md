@@ -67,9 +67,9 @@ Exemples:
   nodebook install all                      Installe les dépendances de tous les
                                             chapitres
   cd $(nodebook dir chapter-04)             Place le terminal dans le répertoire
-                                            du chapitre 4
-  cd $(nodebook dir chapter-04 --examples)  Place le terminal dans le répertoire
                                             d'exemples du chapitre 4
+  cd $(nodebook dir chapter-04 --root)      Place le terminal dans le répertoire
+                                            racine du chapitre 4
 ```
 
 # Contribuer

@@ -1,28 +1,39 @@
 [TIP]
-.[RemarquePreTitre]#Remarque# Utilisation des exemples
+.[RemarquePreTitre]#Pratique# Jouer avec les exemples sur son ordinateur
 ====
-Les exemples légendés avec un _nom de fichier_ sont disponibles dans le module _npm_ dédié à cet ouvrage.
-Ils sont fonctionnels et destinés à être exécutés sur votre ordinateur :
+Certains exemples de ce chapitre sont précédés d'un nom de fichier.
+Ils peuvent être exécutés avec Node dès lors vous installez le
+<<../chapter-05/index.adoc#modules,module npm>> de l'ouvrage.
 
-[subs="attributes"]
-.Exemple d'exécution du bloc de code légendé par `{sourceSample}`.
+[code,bash,subs="attributes"]
+.Préparation à l'utilisation des exemples de ce chapitre.
 ----
 $ npm install --global nodebook
 $ nodebook install {chapterId}
-$ cd $(nodebook dir {chapterId} --examples)
+$ cd $(nodebook dir {chapterId})
+----
+
+ifdef::sourceSample[]
+[code,bash,subs="attributes"]
+.Exécution du script `{sourceSample}`.
+----
 $ node {sourceSample}
 ----
 
+Libre à vous de le modifier pour vérifier que vous avez compris ce qui
+vous intéressait. +
+Il suffit de réinstaller le module npm `nodebook` pour replacer les fichiers
+modifiés dans leur état initial.
+endif::[]
+
 ifdef::httpRoot[]
 Certains exemples de ce chapitre correspondent à des pages HTML.
-Elles sont destinées à être vues dans un navigateur web
-— comme Firefox, Chrome, Edge ou encore Safari.
-
-Les exemples sont accessibles en démarrant le serveur web de la manière suivante :
+Ces exemples peuvent être vus dans un navigateur web
+après avoir démarré le serveur web :
 
 [subs="attributes"]
 ----
-$ cd $(nodebook dir {chapterId})
+$ cd $(nodebook dir {chapterId} --root)
 $ npm start
 ----
 endif::[]

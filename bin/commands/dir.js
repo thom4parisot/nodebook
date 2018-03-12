@@ -5,20 +5,20 @@ const {list,dir} = require('./chapters');
 
 module.exports = {
   command: 'dir <chapter>',
-  desc: 'Affiche le chemin vers un chapitre.',
+  desc: 'Affiche le chemin vers les exemples d\'un chapitre.',
   builder: (yargs) => {
     return yargs
       .positional('chapter', {
         type: 'string',
         choices: list,
       })
-      .option('examples', {
-        describe: 'Affiche le répertoire des exemples',
+      .option('root', {
+        describe: 'Affiche le répertoire racine du chapitre',
       })
   },
   handler: (args) => {
-    const {chapter,examples} = args;
+    const {chapter,root:isRoot} = args;
 
-    console.log(join(dir(chapter), examples ? 'examples' : ''));
+    console.log(join(dir(chapter), isRoot ? '' : 'examples'));
   }
 };
