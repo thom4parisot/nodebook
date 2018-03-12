@@ -312,7 +312,7 @@ include::{sourceDir}/hello.js[]
 ----
 
 Le script précédent récupère le deuxième argument de l'objet `process.argv`
-dont nous décrirons le fonctionnement dans la section suivante — <<process,comprendre la notion de processus>>.
+dont nous décrirons le fonctionnement ci-après, dans la section <<process.argv,arguments d'exécution>>.
 
 Comme vu au <<../chapter-02/index.adoc#,chapitre 2>> dans la section
 <<../chapter-02/index.adoc#array-destructuring,décomposition de tableau>>,
@@ -331,33 +331,97 @@ Hello World
 Cet exemple effleure la capacité de Node à servir à la création
 d'*applications en ligne de commande*.
 Nous verrons plus en détails comment et pourquoi créer de telles applications
-dans le <<../chapter-08/index.adoc#,chapitre 8>>. 
+dans le <<../chapter-08/index.adoc#,chapitre 8>>.
 
 Enfin, il faut comprendre que toute exécution de script
 entraine la création d'un <<process,processus système>>.
-Ce _processus_ existe pendant toute la durée de vie du script
-et s'arrête en cas d'erreur ou lorqu'il n'y a plus d'opérations à effectuer.
 
 [[process]]
 == Comprendre la notion de _processus_
 
-node xyz.js lance un process
-ce process se termine quand il n'y a plus rien à faire
+Le système d'exploitation crée un nouveau processus dès lors que l'on
+fait appel à l'interpréteur `node`.
+Ce processus peut être de _courte durée_ ou de _longue durée_,
+selon qu'il dure quelques secondes ou plusieurs heures… voire
+plusieurs jours ou un temps indéfini.
+
+Le _processus_ existe tant qu'il y a des instructions à exécuter.
+Ces instructions peuvent être immédiates (_programmation synchrone_),
+décalées dans le temps (_programmation asynchrone_)
+ou conditionnées par l'écoute d'événements extérieurs (_programmation événementielle_).
+
+Le processus s'arrête en cas d'erreur, lorqu'il n'y a plus d'opération
+à effectuer ou cas d'interruption volontaire.
 
 === Le coût d'un processus
 
-30MB de RAM
+Démarrer un processus Node a un coût incompressible en ressources machine :
+environ *30Mo de RAM* et *quelques millisecondes de CPU* avant d'exécuter nos
+instructions.
 
-=== Représentation via la variable `process`
+Un *processus Node est _mono_ CPU*.
+Toutes les opérations seront donc prises en charge par le même CPU
+au cours de la durée de vie du processus.
+Ça veut aussi dire que tous les autres processus système assignés à ce même CPU
+se partageront une quantité finie de puissance.
+
+Autrement dit, si le processus Node partage le même CPU qu'une base de données
+utilisée par d'autres programmes, la rapidité de traitement de notre
+application sera affectée par la quantité de ressources disponibles pour ce CPU.
+
+=== La variable `process`
+
+La variable `process` est une variable créée par l'environnement
+d'exécution Node.
+Elle est dite _globale_ car elle est accessible et partagée par tous
+les <<modules,modules>>.
+
+Cette variable est de <<../chapter-03/index.adoc#object,type _objet_>>.
+Elle contient :
+
+- la liste des <<process.env,variables d'environnement>> ;
+- la liste des <<process.argv,arguments d'exécution>> ;
+- les <<standard-streams,flux standards>> (entrée, sortie, erreur) ;
+- des informations à propos de Node (version, support long terme) ;
+- des informations système (plate-forme, identifiant, groupe de permissions, etc.) ;
+- des méthodes pour interrompre le processus.
+
+[NOTE,subs="attributes"]
+.[RemarquePreTitre]#Documentation# Module _process_
+====
+L'intégralité des variables, fonctions et classes au module `process`
+est documentée sur le site web du projet Node.
+La documentation contient des informations à jour et qui ne sont pas
+forcément listées dans cet ouvrage.
+
+[URL]#https://nodejs.org/docs/latest-{nodeCurrentVersion}.x/api/process.html#
+====
+
+[[process.env]]
+==== Variables d'environnement
 
 process.env
+
+[[process.argv]]
+==== Arguments d'exécution
+
 process.argv
+
+[[standard-streams]]
+==== Les flux standards
 
 process.stdin, process.stdout, process.stderr
 
-process.exit
+[[process.on]]
+==== Écouter les événements
 
 process.on
+
+[[process.kill]]
+==== Mettre fin au processus
+
+process.abort
+process.kill
 
 [[modules]]
 == Organiser son code en utilisant les modules
