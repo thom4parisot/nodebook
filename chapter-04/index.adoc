@@ -103,14 +103,14 @@ n'est pas celui que vous attendiez, jetez un œil à la
 <<../chapter-02/index.adoc#install,section _Installer Node.js_>> du chapitre 2.
 
 [[node-printeval]]
-=== Avec un script court
+=== Avec une expression
 
 L'interpréteur Node sait interpréter du code qu'on lui donnerait
 via l'option `-p` (pour _print_, c'est à dire _afficher_).
 L'interpréteur affichera le résultat de l'expression ou
 détaillera la <<errors,raison de l'erreur>>.
 
-On utilise cette forme d'interaction pour obtenir un résultat rapide.
+J'utilise cette forme d'interaction pour obtenir un résultat rapide.
 Par exemple, le résultat d'une opération mathématique :
 
 [source,bash]
@@ -136,6 +136,9 @@ L'invite de commande interactive est une manière… interactive de parler
 à l'interpréteur Node.
 On entre dans un mode de dialogue où tout ce que l'on écrit est interprété
 par Node.
+
+J'utilise l'invite de commande pour tester des idées et des approches
+avant d'écrire le <<script,code dans un script>>.
 
 Ce mode interactif s'invoque en mentionnant l'exécutable Node,
 sans autre argument :
@@ -267,8 +270,19 @@ Cette variable magique est équivalente à la variable `$_` dans la console
 des outils de développement des navigateurs web.
 ====
 
-[[node-script]]
-=== Avec du code contenu dans un fichier
+[[script]]
+=== Avec un script
+
+L'interpréteur Node sait lire le contenu d'un fichier pour en exécuter les
+différentes instructions.
+L'interpréteur reste actif jusqu'à ce que toutes les instructions
+soient traitées.
+
+J'utilise un script lorsque la logique à exécuter tient sur plusieurs lignes,
+pour versionner le code avec _git_ mais aussi pour structurer la logique
+dans _plusieurs fichiers_ grace au mécanisme de <<modules,modules>>.
+
+Prenons l'exemple d'un fichier nommé `script.js` :
 
 [source%interactive,javascript]
 .script.js
@@ -276,14 +290,55 @@ des outils de développement des navigateurs web.
 include::{sourceDir}/script.js[]
 ----
 
-on peut passer des arguments au script
-on verra ça avec process.argv dans ce chapitre et plus en détail dans le chapitre 8
+Node interprète le contenu du fichier `script.js` et agit en fonction.
+Dans cet exemple, le fichier indique à Node d'afficher deux messages :
 
-=== Avec un script exécutable
+[source,bash]
+----
+$ node script.js
+4
+ABC
+----
 
-plus en détail dans le chapitre 8
+Les éléments supplémentaires — des *arguments* — correspond à ce qui
+suit le nom du fichier à interpréter.
+Ça nous offre la liberté de personnaliser le fonctionnement du script
+en fonction de choses extérieures à notre code.
 
+[source%interactive,javascript]
+.hello.js
+----
+include::{sourceDir}/hello.js[]
+----
 
+Le script précédent récupère le deuxième argument de l'objet `process.argv`
+dont nous décrirons le fonctionnement dans la section suivante — <<process,comprendre la notion de processus>>.
+
+Comme vu au <<../chapter-02/index.adoc#,chapitre 2>> dans la section
+<<../chapter-02/index.adoc#array-destructuring,décomposition de tableau>>,
+si l'argument est inexistant ou vide, on lui attribue une valeur par défaut.
+
+En pratique, on peut donc lancer le script _avec_ et _sans_ argument :
+
+[source,bash]
+----
+$ node hello.js 'me'
+Hello me
+$ node hello.js
+Hello World
+----
+
+Cet exemple effleure la capacité de Node à servir à la création
+d'*applications en ligne de commande*.
+Nous verrons plus en détails comment et pourquoi créer de telles applications
+dans le <<../chapter-08/index.adoc#,chapitre 8>>. 
+
+Enfin, il faut comprendre que toute exécution de script
+entraine la création d'un <<process,processus système>>.
+Ce _processus_ existe pendant toute la durée de vie du script
+et s'arrête en cas d'erreur ou lorqu'il n'y a plus d'opérations à effectuer.
+
+[[process]]
 == Comprendre la notion de _processus_
 
 node xyz.js lance un process
