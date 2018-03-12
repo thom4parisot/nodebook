@@ -24,8 +24,6 @@ before_deploy:
 
 deploy:
   - provider: pages
-    edge:
-      branch: pages-ivar-set
     skip_cleanup: true
     github-token: "$GH_TOKEN"
     local-dir: dist
@@ -37,9 +35,4 @@ deploy:
     on:
       tags: true
     email: "hi@oncletom.io"
-    api_key:
-      secure: "GL2RVpkQ48gRmQxjXH1mD4w+pUiKkwO9NshqD2tStLMtHBcQwI5HxXsNzZw6kut2N7BGm0U5V67X4EJLMQqlp/MdOHHJyv5YwMmvZae1fKzHThA4j3PT7dx5Z35Jpv9QSrPKAv3qKiNhPDzWjiVCNeHKlsu2AIR1ECrK4RF/h7c="
-
-env:
-  global:
-  - secure: "QEysjXiH91Nqb4PnIRwgroQBSE/HRLqVKU/fywtiPlmfPJJrCCyd+wckmsral83rckGJA+SxOCY2OYMt8ABZ+2yPWqf2S47clfO33bAqUaLmCRzEu12H/vTjPg9q7nmdX/jpexJ0KwbGp6zltIOo7pkd0We38RW9dh91LvDNrxw="
+    api_key: "$NPM_TOKEN"
