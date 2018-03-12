@@ -32,13 +32,11 @@ module.exports = {
   handler: (args) => {
     const {chapter} = args;
 
-    return Promise.resolve()
-      .then(() => exec('npm --version'))
-      .then(npmVersion => {
-        // take advantage of npm ci if it exists
-        // SEE http://blog.npmjs.org/post/171556855892
-        return run.bind(null, npmVersion > '5.7.0' ? 'npm ci' : 'npm install');
-      })
+    return Promise.resolve('npm install')
+      // take advantage of npm ci during continuous integration
+      // SEE http://blog.npmjs.org/post/171556855892
+      .then(command => process.env.CI ? 'npm ci' : command)
+      .then(command => run.bind(null, command))
       .then(command => {
         return chapter === 'all'
           ? Promise.all(list.map(command))
