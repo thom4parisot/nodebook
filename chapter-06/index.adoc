@@ -304,20 +304,6 @@ Cette extension pour le navigateur _Chrome_ évite la frénésie de copier/colle
 - [URL]#https://chrome.google.com/webstore/detail/gnhhdgbaldcilmgcpfddgdbkhjohddkj#
 ====
 
-Le module _npm_ `devtool` ([URL]#https://npmjs.com/devtool#) est une manière alternative de déboguer sur des versions antérieures à Node  {nodeCurrentVersion} ou s'il est impossible d'avoir accès à un navigateur _Chrome_.
-Ce module embarque un équivalent du navigateur _Chrome_ ainsi que son propre environnement Node, indépendante de celle de notre ordinateur.
-
-.Module _npm_ `devtool` inspectant un processus Node en temps réel.
-image::images/devtool.png[align="center",width="85%"]
-
-_devtool_ offre exactement les mêmes fonctionnalités que l'inspecteur Node, y compris le point d'arrêt sur la première ligne avec l'option `--break` :
-
-[source,bash]
-----
-$ ../node_modules/.bin/devtool config/file-npm.js
-$ ../node_modules/.bin/devtool config/file-npm.js --break
-----
-
 Le module _npm_ `debug` ([URL]#https://npmjs.com/debug#) suit une approche différente des deux précédentes.
 Elle consiste à baliser son code d'*appels à une fonction de _debug_* et à afficher ces appels à la demande en paramétrant la variable d'environnement `DEBUG`.
 C'est en quelque sorte un affichage conditionnel de `console.log` piloté par la <<../chapter-04/index.adoc#process-env,variable d'environnement>>.
