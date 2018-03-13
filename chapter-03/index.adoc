@@ -1418,7 +1418,7 @@ include::{sourceDir}/array/reduce.js[]
 ----
 <1> Effectue une _réduction_ à l'aide de la fonction `sum` et d'une valeur
 par défaut de `0`
-— affiche `22` à l'issue des itérations ;
+— affiche `22` à l'issue des itérations ;
 <2> La valeur de l'*élément* est le _second paramètre_ ;
 le premier paramètre correspond au résultat de l'itération précédente…
 ou de la valeur initiale, passée en argument à `reduce`.
@@ -1458,11 +1458,11 @@ est fructueuse (`true`) ou non (`false`).
 include::{sourceDir}/array/index-of-includes.js[]
 ----
 <1> Affiche `0` — le premier `"un"` est l'élément `0` du tableau
-<2> Affiche `1` – le premier `"deux"` est l'élément `1` du tableau
+<2> Affiche `1` — le premier `"deux"` est l'élément `1` du tableau
 <3> Affiche `-1` — cet élément est absent du tableau
 <4> Affiche `3` — le dernier `"deux"` est l'élément `3` du tableau
 <5> Affiche `true` — l'élément `"un"` existe dans le tableau
-<6> Affiche `false` — l'élément `"trois"` n'existe pas dnas le tableau
+<6> Affiche `false` — l'élément `"trois"` n'existe pas dans le tableau
 
 Il existe ensuite d'autres méthodes comme `find`, `some` et `every`.
 Elles *identifient des éléments à partir d'une fonction*.
