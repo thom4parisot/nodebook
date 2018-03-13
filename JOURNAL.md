@@ -1,6 +1,15 @@
 # Journal
 
-Ce journal détaille l'effort d'écriture depuis janvier 2017—sachant que le projet a commencé en décembre 2014.
+Ce journal détaille l'effort d'écriture depuis janvier 2017. Le projet a commencé en décembre 2014.
+
+## Lundi 12 mars 2018
+
+- _Chapitre 4_ : invite de commande, script court, script, et variable process
+- _Chapitre 1_, _Chapitre 4_ : reformulations diverses suite à un atelier de relecture
+- _Tous les chapitres_ : clarification des instructions d'installation et d'utilisation des exemples
+- _web_ : changement des styles sur les encadrés (notes, tips, doc)
+- _npm_ : correction de dépendance manquante
+- _Outillage_ : utilisation de `npm ci` seulement… en intégration continue
 
 ## Samedi 10 mars 2018
 
