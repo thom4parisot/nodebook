@@ -5,6 +5,6 @@ for (const index in weekend) {
   console.log(weekend[index]);    // <2>
 }
 
-for (const day in weekend) {
+for (const day of weekend) {
   console.log(day);               // <3>
 }
