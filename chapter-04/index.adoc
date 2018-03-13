@@ -417,7 +417,99 @@ forcément listées dans cet ouvrage.
 [[process.env]]
 ==== Variables d'environnement
 
-process.env
+Les variables d'environnement sont des
+*variables définies au niveau du système d'exploitation*.
+Elles contiennent des informations comme le _répertoire courant_, la langue du système d'exploitation, l'utilisateur système courant, le type de terminal, les emplacements d'installation des exécutables, etc.
+
+On retrouve ces variables sous la forme d'un
+<<../chapter-03/index.adoc#object,objet ECMAScript>> nommé `process.env` :
+
+[source,bash]
+----
+$ node -p 'process.env'
+{ ITERM_PROFILE: 'Default',
+  LANG: 'en_GB.UTF-8',
+  PWD: '/Users/oncletom/workspace/nodebook',
+  SHELL: '/bin/zsh',
+  TERM_PROGRAM_VERSION: '3.1.5',
+  TERM_PROGRAM: 'iTerm.app',
+  ...
+}
+----
+
+Nous pouvons créer des variables d'environnement pour
+*transmettre des informations contextuelles* à nos programmes :
+des chemins d'accès à une base de données, si on est en situation de test
+ou de production, l'emplacement de fichiers nécessaires au fonctionnement
+de notre programme, etc.
+
+Par exemple et par convention, la variable `NODE_ENV` est utilisée pour indiquer au programme
+s'il est lancé dans le cadre du développement, de l'exécution des tests
+ou s'il tourne sur le serveur de production.
+
+Variable d'environnement éphémère::
+La variable n'existe que pendant la durée de vie du programme.
+La définition `CLÉ=valeur` est placée sur la même ligne que le programme
+en question.
+[source,bash]
+----
+$ NODE_ENV=production node env-var.js
+mode : production
+----
+Variable d'environnement permanente::
+La variable existe pendant la durée de la session
+grâce à l'opérateur `export` sous Linux et macOS et
+avec l'opérateur `set` sous Windows. +
+La définition `export CLÉ=valeur` est placée sur sa propre ligne.
+Elle restera accessible à _tout programme_ jusqu'à la fin de la session
+ou jusqu'à ce qu'on efface la variable.
+[source,bash]
+----
+$ export NODE_ENV=production
+$ node env-var.js
+mode : production
+----
+
+[TIP]
+.[RemarquePreTitre]#Revenir en arrière# Effacer une variable d'environnement
+====
+L'utilisation de l'opérateur `unset` dans un terminal efface le contenu
+d'une variable d'environnement.
+Pratique pour ne pas laisser de traces !
+
+[source,bash]
+----
+$ export NODE_ENV=dev
+$ echo $NODE_ENV
+$ unset NODE_ENV
+$ echo $NODE_ENV
+----
+====
+
+Voici le contenu du fichier `env-var.js` utilisé dans les exemples précédents :
+
+[source%interactive,javascript]
+.env-var.js
+----
+include::{sourceDir}/env-var.js[]
+----
+
+On notera que son comportement s'adapte à la _présence_ et à la _valeur_
+de la variable d'environnement `NODE_ENV`.
+Elle est accessible dans Node en tant que `process.env.NODE_ENV`.
+
+[source,bash]
+----
+$ NODE_ENV=dev node env-var.js
+On est en mode développement.
+mode : dev
+----
+
+Nous verrons d'autres mises en situation des variables d'environnement pour
+<<../chapter-06/index.adoc#app-configuration,configurer une application web>>
+dans le <<../chapter-06/index.adoc#,chapitre 6>> et pour
+<<../chapter-08/index.adoc#debug,déboguer une application en ligne de commande>>
+dans le <<../chapter-08/index.adoc#,chapitre 8>>.
 
 [[process.argv]]
 ==== Arguments d'exécution

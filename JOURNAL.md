@@ -2,6 +2,12 @@
 
 Ce journal détaille l'effort d'écriture depuis janvier 2017. Le projet a commencé en décembre 2014.
 
+## Mardi 13 mars 2018
+
+- _Chapitre 4_ : Variables d'environnement
+
+**Météo** : 🤔 🍞 🙂
+
 ## Lundi 12 mars 2018
 
 - _Chapitre 4_ : invite de commande, script court, script, et variable process
@@ -11,13 +17,15 @@ Ce journal détaille l'effort d'écriture depuis janvier 2017. Le projet a comme
 - _npm_ : correction de dépendance manquante
 - _Outillage_ : utilisation de `npm ci` seulement… en intégration continue
 
+**Météo** : 🤔 🙂
+
 ## Samedi 10 mars 2018
 
 - _Chapitre 4_ : invite de commande et script court
 - _Outillage_ : compatibilité et intégration continue sous Windows
 - _Outillage_ : le code n'est plus modifié par ESLint lors du build (ça changeait la signification de quelques exemples), le déploiement en ligne est corrigé
 
-**Météo** : 🤔
+**Météo** : 🤔 🍞
 
 ## Mardi 6 mars 2018
 
