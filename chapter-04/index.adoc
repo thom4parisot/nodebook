@@ -585,7 +585,7 @@ de valeur `true`.
 include::{sourceDir}/print-text.js[]
 ----
 <1> La condition est positive si l'on détecte `--uppercase` dans
-la liste des arguments.
+la liste des arguments
 
 Les _options_ se combinent très bien avec les _arguments_.
 Il faut les imaginer comme des interrupteurs.
@@ -606,9 +606,9 @@ lorsque l'option `--limit` est associée à la valeur `2`.
 ----
 include::{sourceDir}/print-text-limit.js[]
 ----
-<1> On récupère l'index de l'option `--limit` dans le tableau `process.argv` ;
-<2> On récupère la valeur dans l'élément suivant l'index de l'option `--limit` ;
-<3> La troncature est paramétrée en fonction de la valeur associée à `--limit`.
+<1> On récupère l'index de l'option `--limit` dans le tableau `process.argv` 
+<2> On récupère la valeur de l'élément suivant `--limit` dans `process.argv`
+<3> La troncature est paramétrée en fonction de la valeur associée à `--limit`
 
 Au fond, *les options sont des repères pour les utilisateurs* de nos programmes.
 Elles leur permettent de s'interfacer avec leurs fonctionnalités.

@@ -152,8 +152,8 @@ L'exemple suivant illustre un code utilisant des éléments de syntaxe d'_ECMASc
 ----
 include::{sourceDir}/babel-es2015.js[]
 ----
-<1> Nous déstructurons l'_agent utilisateur_ du navigateur – à noter que ce même code exécuté par Node lancerait une exception car `window` n'existe pas dans cet environnement ;
-<2> Affiche un objet content le _nom_ de votre système d'exploitation ainsi que sa _version_.
+<1> Nous déstructurons l'_agent utilisateur_ du navigateur – à noter que ce même code exécuté par Node lancerait une exception car `window` n'existe pas dans cet environnement 
+<2> Affiche un objet content le _nom_ de votre système d'exploitation ainsi que sa _version_
 
 Ce code représente l'*idéal de ce que l'on souhaite écrire*.
 Le seul obstacle consiste à _traduire_ ce code pour l'ensemble des navigateurs web compatibles avec _ECMAScript 5_.
@@ -291,8 +291,8 @@ L'inconvénient est que nous chargeons du code qui sera inutile dans les navigat
 ----
 include::{sourceDir}/polyfill-import.html[]
 ----
-<1> Nous verrons <<modules,comment importer des modules>> ci-après ;
-<2> On importe un deuxième _polyfill_, celui de la méthode `Number.isNaN`.
+<1> Nous verrons <<modules,comment importer des modules>> ci-après 
+<2> On importe un deuxième _polyfill_, celui de la méthode `Number.isNaN`
 
 Le module _npm_ `core-js` est une librairie exhaustive de _polyfills_ pouvant être inclus un à un ou par versions d'_ECMAScript_.
 
@@ -341,8 +341,8 @@ Nous nous retrouvons tributaires de la qualité d'implémentation du _polyfill_.
 ----
 include::{sourceDir}/polyfill-require.js[]
 ----
-<1> Affiche `true` si le navigateur implémente l'API _Promise_ – sinon affiche `false` et l'utilisation d'un _polyfill_ prend tout son sens ;
-<2> Affiche `false`, car le _polyfill_ de _Promise_ est une function strictement différente de `window.Promise`.
+<1> Affiche `true` si le navigateur implémente l'API _Promise_ – sinon affiche `false` et l'utilisation d'un _polyfill_ prend tout son sens 
+<2> Affiche `false`, car le _polyfill_ de _Promise_ est une function strictement différente de `window.Promise`
 
 [TIP]
 .[RemarquePreTitre]#Guide# Bonnes pratiques constatées
@@ -389,8 +389,8 @@ include::{sourceDir}/import/global-dom-log.js[]
 ----
 include::{sourceDir}/import/script.js[]
 ----
-<1> Affiche une erreur car `<div id="logs">` n'existe pas encore dans le document à ce stade de l'exécution ;
-<2> Cette ligne est exécutée une fois le document chargé – `<div id="logs">` contient désormais le texte `OK`.
+<1> Affiche une erreur car `<div id="logs">` n'existe pas encore dans le document à ce stade de l'exécution 
+<2> Cette ligne est exécutée une fois le document chargé – `<div id="logs">` contient désormais le texte `OK`
 
 S'il est facile d'ajouter du code dans le navigateur, on constate plusieurs problèmes :
 
@@ -432,9 +432,9 @@ Nous voulons également savoir si la syntaxe d'import de la fonction `log` fonct
 ----
 include::{sourceDir}/import/script-import.js[]
 ----
-<1> Affiche `undefined` ;
-<2> Affiche `function` ;
-<2> Affiche `object`.
+<1> Affiche `undefined` 
+<2> Affiche `function` 
+<2> Affiche `object`
 
 De même que nous avons utilisé `import` pour importer de manière sélective une fonction du module `dom-log.js`, l'opérateur `export` nous aide à exposer des objets, fonctions et variables :
 
@@ -460,8 +460,8 @@ Continuons sur la lancée de nos exemples précédents pour tenter d'inclure la 
 ----
 include::{sourceDir}/import/script-import-jquery.js[]
 ----
-<1> `$.fn.jquery` contient le numéro de version de jQuery ;
-<2> Substitut jQuery pour remplacer le texte dans `<div id="logs">`.
+<1> `$.fn.jquery` contient le numéro de version de jQuery 
+<2> Substitut jQuery pour remplacer le texte dans `<div id="logs">`
 
 Le document HTML chargeant ce module est en tout point similaire au précédent exemple :
 
@@ -589,12 +589,12 @@ Maintenant que la structure HTML est définie, nous devons désormais écrire le
 ----
 include::{sourceDir}/modules/jquery-plugin.js[]
 ----
-<1> Ce bloc de code est exécuté toutes les secondes ;
-<2> La donnée de _temps_ est obtenue chaque seconde par notre _plugin jQuery_ ;
-<3> Certaines décisions métier sont mélangées avec l'affichage de la donnée _temps_ ;
-<4> L'intervalle est déterminé par la _valeur de l'attribut "data-interval"_ ;
-<5> Ce bloc de code est exécuté dès que le document HTML est prêt — toute sa structure HTML est disponible ;
-<6> Le _plugin jQuery_ est appliqué à toutes les occurrences de `<time>` dans lequel le _plugin_ est exécuté.
+<1> Ce bloc de code est exécuté toutes les secondes 
+<2> La donnée de _temps_ est obtenue chaque seconde par notre _plugin jQuery_ 
+<3> Certaines décisions métier sont mélangées avec l'affichage de la donnée _temps_ 
+<4> L'intervalle est déterminé par la _valeur de l'attribut "data-interval"_ 
+<5> Ce bloc de code est exécuté dès que le document HTML est prêt — toute sa structure HTML est disponible 
+<6> Le _plugin jQuery_ est appliqué à toutes les occurrences de `<time>` dans lequel le _plugin_ est exécuté
 
 Certains motifs illustrés dans la section <<modules,Importer des modules>> refont surface :
 
@@ -624,12 +624,12 @@ Le changement majeur réside dans la réorganisation du code applicatif{nbsp}:
 ----
 include::{sourceDir}/modules/jquery-app.js[]
 ----
-<1> Nous sélectionnons les éléments de la page à actualiser chaque seconde ;
-<2> Nous définissons quoi faire avec les données transmises chaque seconde ;
-<3> Nous démarrons un minuteur ;
-<4> Le minuteur est une fonction externe, dont le comportement n'est pas régi par _jQuery_ ou une autre librairie ;
-<5> Cette fonction est responsable de l'affichage de _données_ dans un _élément HTML_ ;
-<6> Cette fois-ci, nous nous contentons de seulement mettre à jour attributs et contenus – la logique métier a été déplacée dans le module `timer.js`.
+<1> Nous sélectionnons les éléments de la page à actualiser chaque seconde 
+<2> Nous définissons quoi faire avec les données transmises chaque seconde 
+<3> Nous démarrons un minuteur 
+<4> Le minuteur est une fonction externe, dont le comportement n'est pas régi par _jQuery_ ou une autre librairie 
+<5> Cette fonction est responsable de l'affichage de _données_ dans un _élément HTML_ 
+<6> Cette fois-ci, nous nous contentons de seulement mettre à jour attributs et contenus – la logique métier a été déplacée dans le module `timer.js`
 
 Le code a été divisé en deux sections distinctes :
 
@@ -643,11 +643,11 @@ Nous n'avons pas réellement besoin de savoir comment fonctionne le minuteur à 
 ----
 include::{sourceDir}/modules/timer.js[]
 ----
-<1> Cette fonction (privée) est responsable de décrire le _temps présent_ sous forme d'une *structure de données* ;
-<2> Cette _structure de données_ pourra retourner de nouvelles clés/valeurs sans remettre en cause le fonctionnement du code y ayant recours ;
-<3> Le paramètre `onTick` est une fonction passée en argument qui sera appelée à chaque nouvel intervalle de temps ;
-<4> La responsabilité de `timer` est de communiquer une nouvelle _structure de données_ à un intervalle de temps donné ;
-<5> On retourne immédiatement une structure de données par commodité et de manière synchrone.
+<1> Cette fonction (privée) est responsable de décrire le _temps présent_ sous forme d'une *structure de données* 
+<2> Cette _structure de données_ pourra retourner de nouvelles clés/valeurs sans remettre en cause le fonctionnement du code y ayant recours 
+<3> Le paramètre `onTick` est une fonction passée en argument qui sera appelée à chaque nouvel intervalle de temps 
+<4> La responsabilité de `timer` est de communiquer une nouvelle _structure de données_ à un intervalle de temps donné 
+<5> On retourne immédiatement une structure de données par commodité et de manière synchrone
 
 Pour un résultat identique, nous avons désormais séparé notre code en trois *domaines distincts* : le _minuteur_, l'_intégration_ du minuteur, la _représentation_ du minuteur sous forme HTML.
 Cerise sur le gâteau, cette _distinction se constate visuellement_, au premier coup d'œil.
@@ -734,9 +734,9 @@ Notre code applicatif est réduit à son plus strict minimum :
 ----
 include::{sourceDir}/modules/react-app.js[]
 ----
-<1> Méthode responsable du rendu HTML de notre composant `TimeInterval` dans l'élément `<div id="app">` ;
-<2> Création de notre composant minuteur avec un intervalle de mise à jour de 1000 millisecondes ;
-<3> Indication que le rendu du composant sera effectué _dans_ l'élément `<div id="app">`.
+<1> Méthode responsable du rendu HTML de notre composant `TimeInterval` dans l'élément `<div id="app">` 
+<2> Création de notre composant minuteur avec un intervalle de mise à jour de 1000 millisecondes 
+<3> Indication que le rendu du composant sera effectué _dans_ l'élément `<div id="app">`
 
 Cela ressemble fortement au contenu de nos précédentes invocations de `$(document).ready()` mais sans avoir à se soucier du fonctionnement interne du minuteur.
 
@@ -747,12 +747,12 @@ La représentation et le fonctionnement du minuteur sont désormais regroupés d
 ----
 include::{sourceDir}/modules/date-interval.jsx[]
 ----
-<1> Nous exportons un composant _React_ grâce à l'opérateur _ECMAScript 2015_ `extends` – cf. la <<../chapter-03/index.adoc#primitive-class,section Class du Chapitre 3>> ;
-<2> Le `constructor` est exécuté quand le composant est rendu dans le document ;
-<3> La propriété `interval` nous est fournie dans `react-app.js` et nous stockons la _structure de donnée_ retournée par le minuteur tout en déclenchant son actualisation toutes les 1000 millisecondes ;
-<4> À chaque intervalle, nous mettons à jour la valeur `tickData` de l'état interne du composant (`this.state`) ;
-<5> La méthode `render()` est exécutée quand le composant est inséré dans un document pour la première fois et dès que l'état interne (`this.state`) change ;
-<6> Nous déstructurons la valeur connue de `tickData` pour effectuer une opération qui nous rappelle les différents appels à `.attr('class')` et `.text()` de _jQuery_.
+<1> Nous exportons un composant _React_ grâce à l'opérateur _ECMAScript 2015_ `extends` – cf. la <<../chapter-03/index.adoc#primitive-class,section Class du Chapitre 3>> 
+<2> Le `constructor` est exécuté quand le composant est rendu dans le document 
+<3> La propriété `interval` nous est fournie dans `react-app.js` et nous stockons la _structure de donnée_ retournée par le minuteur tout en déclenchant son actualisation toutes les 1000 millisecondes 
+<4> À chaque intervalle, nous mettons à jour la valeur `tickData` de l'état interne du composant (`this.state`) 
+<5> La méthode `render()` est exécutée quand le composant est inséré dans un document pour la première fois et dès que l'état interne (`this.state`) change 
+<6> Nous déstructurons la valeur connue de `tickData` pour effectuer une opération qui nous rappelle les différents appels à `.attr('class')` et `.text()` de _jQuery_
 
 _React_ introduit quatre concepts au sein des composants :
 
@@ -828,9 +828,9 @@ Plusieurs _décodeurs de réponse_ sont fournis nativement : texte (`response.te
 ----
 include::{sourceDir}/io/fetch-client.js[]
 ----
-<1> Exécution de la requête HTTP _GET_ vers `/new-users` depuis le navigateur web courant ;
-<2> Décodage progressif de la réponse ;
-<3> Une fois le décodage terminé, le résultat de la requête HTTP est mis à disposition – ici, sous forme de chaîne de caractères.
+<1> Exécution de la requête HTTP _GET_ vers `/new-users` depuis le navigateur web courant 
+<2> Décodage progressif de la réponse 
+<3> Une fois le décodage terminé, le résultat de la requête HTTP est mis à disposition – ici, sous forme de chaîne de caractères
 
 .Traces réseau d'appels successifs à `fetch()` ; chacun résultant en une nouvelle requête HTTP.
 image::images/fetch-frames.png[align="center", width="85%"]
@@ -878,8 +878,8 @@ Nous pouvons vérifier la compatibilité navigateur de _EventSource_ sur [URL]#h
 ----
 include::{sourceDir}/io/eventsource-client.js[]
 ----
-<1> Nous ouvrons une nouvelle connexion _Event Source_ de longue durée depuis le navigateur web courant ;
-<2> Fonction appelée à chaque fois que le serveur transmet un message au client.
+<1> Nous ouvrons une nouvelle connexion _Event Source_ de longue durée depuis le navigateur web courant 
+<2> Fonction appelée à chaque fois que le serveur transmet un message au client
 
 .Plusieurs messages peuvent être transmis par le biais d'une seule connexion HTTP avec _EventSource_.
 image::images/eventsource-frames.png[align="center", width="85%"]
@@ -892,9 +892,9 @@ La complexité réside dans le maintien d'une transmission de données dédiée 
 ----
 include::{sourceDir}/io/eventsource-server.js[]
 ----
-<1> Une connexion _EventSource_ s'effectue (presque) comme une requête HTTP classique – il convient de vérifier qu'elle s'annonce en tant que telle ;
-<2> Création d'un canal unique entre le client et le serveur ;
-<3> Chaque appel à `es.send` enverra un nouveau message au client.
+<1> Une connexion _EventSource_ s'effectue (presque) comme une requête HTTP classique – il convient de vérifier qu'elle s'annonce en tant que telle 
+<2> Création d'un canal unique entre le client et le serveur 
+<3> Chaque appel à `es.send` enverra un nouveau message au client
 
 Le serveur est responsable de la gestion des connexions demandées par les différents clients.
 
@@ -919,9 +919,9 @@ Nous pouvons vérifier la compatibilité navigateur de _WebSocket_ sur [URL]#htt
 ----
 include::{sourceDir}/io/websocket-client.js[]
 ----
-<1> Nous ouvrons une connexion _WebSocket_ depuis le navigateur web courant ;
-<2> Émission d'un message à destination du serveur ;
-<3> Réaction à un message émis par le serveur.
+<1> Nous ouvrons une connexion _WebSocket_ depuis le navigateur web courant 
+<2> Émission d'un message à destination du serveur 
+<3> Réaction à un message émis par le serveur
 
 .Trame de messages envoyés par le client (sur fond vert) et par le serveur.
 image::images/websocket-frames.png[align="center", width="85%"]
@@ -952,11 +952,11 @@ Autrement dit, un client _WebSocket_ n'a pas nécessairement à être un navigat
 ----
 include::{sourceDir}/io/websocket-server.js[]
 ----
-<1> Le serveur HTTP vient de répondre avec un statut `101 Switching Protocols` et délègue désormais la responsabilité du dialogue client/serveur ;
-<2> Nous vérifions que le changement de protocole concerne le protocole `ws` ;
-<3> La connexion réseau (`socket`) est transmise au serveur _WebSocket_ pour amorcer le dialogue client/serveur avec le protocole `ws` ;
-<4> Réaction à la réception d'un message client ;
-<5> Émission d'un message à destination d'un client.
+<1> Le serveur HTTP vient de répondre avec un statut `101 Switching Protocols` et délègue désormais la responsabilité du dialogue client/serveur 
+<2> Nous vérifions que le changement de protocole concerne le protocole `ws` 
+<3> La connexion réseau (`socket`) est transmise au serveur _WebSocket_ pour amorcer le dialogue client/serveur avec le protocole `ws` 
+<4> Réaction à la réception d'un message client 
+<5> Émission d'un message à destination d'un client
 
 Là aussi, le serveur est responsable de la gestion des connexions demandées par les différents clients.
 
@@ -1046,12 +1046,12 @@ L'exemple suivant illustre l'intégration de _browser-sync_ avec le serveur web 
 ----
 include::{sourceDir}/livereload/server-sync.js[]
 ----
-<1> On passe un serveur http en argument (obtenu via `http.createServer()` par exemple) ;
-<2> Ce port sera assigné au serveur web mais ne sera pas voué à être public ;
-<3> Ce port, lui, est celui qui sera public ;
-<4> Démarrage du serveur web sur le port privé ;
-<5> Initialisation de _browser-sync_ ;
-<6> Interfaçage avec le serveur web créé au point 4.
+<1> On passe un serveur http en argument (obtenu via `http.createServer()` par exemple) 
+<2> Ce port sera assigné au serveur web mais ne sera pas voué à être public 
+<3> Ce port, lui, est celui qui sera public 
+<4> Démarrage du serveur web sur le port privé 
+<5> Initialisation de _browser-sync_ 
+<6> Interfaçage avec le serveur web créé au point 4
 
 La synchronisation peut être activée avec tous les exemples du chapitre en suffixant la commande `npm start` :
 
@@ -1121,8 +1121,8 @@ $ watchify -dv \
   -e {sourceDir}/livereload/react-app-hmr.js \
   -o {sourceDir}/livereload/react-app-hmr-browserify.js
 ----
-<1> Le _transform_ (`-t`) modifie le code à la volée ;
-<2> Le _plugin_ (`-p`) encapsule le fonctionnement de _watchify_ pour effectuer des opérations plus complexes et impossibles à effectuer autrement.
+<1> Le _transform_ (`-t`) modifie le code à la volée 
+<2> Le _plugin_ (`-p`) encapsule le fonctionnement de _watchify_ pour effectuer des opérations plus complexes et impossibles à effectuer autrement
 
 Il faudra ensuite modifier l'un des deux fichiers suivants – en décommentant les lignes concernées par exemple – pour constater les changements dans notre navigateur.
 
@@ -1140,8 +1140,8 @@ Nous aurions perdu cet état interne en cas d'utilisation de _browser-sync_, san
 ----
 include::{sourceDir}/livereload/button-count.jsx[]
 ----
-<1> Initialisation du compteur de clics propre à chaque instance de `ButtonCount` ;
-<2> Incrémentation du compteur de clics en réaction à un clic sur le composant `ButtonCount`.
+<1> Initialisation du compteur de clics propre à chaque instance de `ButtonCount` 
+<2> Incrémentation du compteur de clics en réaction à un clic sur le composant `ButtonCount`
 
 [TIP]
 .[RemarquePreTitre]#Alternative# _ud_ et _browserify-hmr_
@@ -1178,11 +1178,11 @@ _node-sass_ offre un outil en ligne de commande pour compiler un fichier Sass, p
 ----
 include::{sourceDir}/ui/buttons.scss[]
 ----
-<1> Définition d'une `Map` nommée `$sizes` (ensemble clé/valeur) décrivant des tailles et leur facteur multiplicateur ;
-<2> Itération et extraction des clés/valeurs de `$sizes` ;
-<3> Interpolation d'une variable pour composer un sélecteur CSS (`.btn--small`, `.btn--regular` etc.) ;
-<4> Calcul de la taille de la police de caractères (`.8em`, `1em` etc.);
-<5> Composition d'un sélecteur de classe à partir du sélecteur courant (`.btn.btn--icon`).
+<1> Définition d'une `Map` nommée `$sizes` (ensemble clé/valeur) décrivant des tailles et leur facteur multiplicateur 
+<2> Itération et extraction des clés/valeurs de `$sizes` 
+<3> Interpolation d'une variable pour composer un sélecteur CSS (`.btn--small`, `.btn--regular` etc.) 
+<4> Calcul de la taille de la police de caractères (`.8em`, `1em` etc.)
+<5> Composition d'un sélecteur de classe à partir du sélecteur courant (`.btn.btn--icon`)
 
 La compilation des fichiers s'effectue très simplement :
 
@@ -1233,7 +1233,7 @@ Une feuille de style est importée à même le module afin de *gérer à un mêm
 ----
 include::{sourceDir}/ui/Buttons.jsx[]
 ----
-<1> Import d'un fichier _Sass_ qui sera par la suite compilé en CSS par le _transform sassify_.
+<1> Import d'un fichier _Sass_ qui sera par la suite compilé en CSS par le _transform sassify_
 
 Sans surprise, le module _sassify_ se charge comme la majorité des _transform browserify_ comme vu dans la section <<browserify,Importer des modules npm pour le web>> dans ce même chapitre :
 
@@ -1373,7 +1373,7 @@ La syntaxe de modules _ECMAScript 2015_ est idéale pour visualiser les segments
 ----
 include::{sourceDir}/test-export.js[]
 ----
-<1> La fonction `countWords` le seul élément exporté par notre module et devrait donc être le seul sujet de nos tests.
+<1> La fonction `countWords` le seul élément exporté par notre module et devrait donc être le seul sujet de nos tests
 
 Une _branche_ est une portion de *code qui s'exécute de manière ponctuelle*.
 Ces sections de code s'activent ou non selon l'état d'une structure de données.
@@ -1384,9 +1384,9 @@ Il faut *prévoir _au moins autant_ de tests que de branches* pour valider les a
 ----
 include::{sourceDir}/test-branches.js[]
 ----
-<1> Première branche activée dans _deux_ cas de figure ;
-<2> Seconde branche ;
-<3> Troisième branche.
+<1> Première branche activée dans _deux_ cas de figure 
+<2> Seconde branche 
+<3> Troisième branche
 
 Enfin, l'*accès à toute donnée externe* est susceptible de mal fonctionner sans que nous puissions maitriser l'origine des problèmes.
 En revanche l'écriture de tests nous aidera à *accepter ce cas de figure* et à le signaler à nos applications.
@@ -1396,9 +1396,9 @@ En revanche l'écriture de tests nous aidera à *accepter ce cas de figure* et �
 ----
 include::{sourceDir}/test-outside-world.js[]
 ----
-<1> `linkElement` peut ne pas être un lien hypertexte (`document.querySelector` retourne `null`) ;
-<2> Ici tout peut arriver : `href` n'est pas une URL valide (balise `href` vide), serveur indisponible etc ;
-<3> Et là, le fichier JSON peut être mal formé ou la réponse est exprimée dans un autre format que JSON.
+<1> `linkElement` peut ne pas être un lien hypertexte (`document.querySelector` retourne `null`) 
+<2> Ici tout peut arriver : `href` n'est pas une URL valide (balise `href` vide), serveur indisponible etc 
+<3> Et là, le fichier JSON peut être mal formé ou la réponse est exprimée dans un autre format que JSON
 
 Nous savons désormais à peu près tout ce qu'il faut _flairer_ pour renforcer nos applications en écrivant quelques tests.
 
@@ -1505,14 +1505,14 @@ Nous allons nous baser sur le composant créé dans la section <<react,rapproche
 ----
 include::{sourceDir}/tests/date-interval.js[]
 ----
-<1> Import du module `DateInterval` ;
-<2> Création d'un _test_ destiné à vérifier la nature de la balise HTML à générer ;
-<3> Création du composant isolé (_shallow_) – aucun élément DOM ne sera créé ni inséré dans le document ;
-<4> On écrit une _assertion_ garantissant que l'on retourne un élément `<time>` ;
-<5> Création d'un second composant isolé dont l'état est indépendant du premier ;
-<6> Récupération de l'état (_state_) du composant ;
-<7> Assertion vérifiant que la date utilisée par le composant est proche de la date courante (à quelques millisecondes près);
-<8> Assertion vérifiant qu'une propriété de l'état ne peut être qu'une des deux valeurs parmi `pair` et `impair`.
+<1> Import du module `DateInterval` 
+<2> Création d'un _test_ destiné à vérifier la nature de la balise HTML à générer 
+<3> Création du composant isolé (_shallow_) – aucun élément DOM ne sera créé ni inséré dans le document 
+<4> On écrit une _assertion_ garantissant que l'on retourne un élément `<time>` 
+<5> Création d'un second composant isolé dont l'état est indépendant du premier 
+<6> Récupération de l'état (_state_) du composant 
+<7> Assertion vérifiant que la date utilisée par le composant est proche de la date courante (à quelques millisecondes près)
+<8> Assertion vérifiant qu'une propriété de l'état ne peut être qu'une des deux valeurs parmi `pair` et `impair`
 
 
 En complément à ceci, la librairie _chai-enzyme_ ([URL]#https://npmjs.com/chai-enzyme#) étend le vocabulaire de _chai_ pour ajouter des assertions de composants.
@@ -1524,9 +1524,9 @@ L'exemple suivant reprend le composant créé dans la section <<livereload,chang
 ----
 include::{sourceDir}/tests/button-count.js[]
 ----
-<1> Le libellé du test décrit le résultat attendu dans les assertions ;
-<2> Simulation du clic sur le composant ;
-<3> L'état interne a bien été changé et correspond à la valeur attendue.
+<1> Le libellé du test décrit le résultat attendu dans les assertions 
+<2> Simulation du clic sur le composant 
+<3> L'état interne a bien été changé et correspond à la valeur attendue
 
 Le fichier `package.json` des ressources du chapitre 4 contient une tâche exécutant les tests exécutables dans un environnement Node uniquement.
 Elle se lance de la manière suivante :
@@ -1613,10 +1613,10 @@ Ces fichiers peuvent être locaux (de préférence) ou distants et même être d
 ----
 include::karma.conf.js[lines=17..23]
 ----
-<1> Il suffirait de décommenter cette ligne pour inclure les <<polyfills,_polyfills_ de navigateurs web>> sans toucher à notre code ;
-<2> Inclusion des fichiers de tests spécifiques aux navigateurs web ;
-<3> Inclusion de fichiers HTML, sans effet à moins ;
-<4> Mise à disposition du fichier `package.json`, accessible via une requête HTTP vers `/base/package.json`.
+<1> Il suffirait de décommenter cette ligne pour inclure les <<polyfills,_polyfills_ de navigateurs web>> sans toucher à notre code 
+<2> Inclusion des fichiers de tests spécifiques aux navigateurs web 
+<3> Inclusion de fichiers HTML, sans effet à moins 
+<4> Mise à disposition du fichier `package.json`, accessible via une requête HTTP vers `/base/package.json`
 
 Des _intégrations_ doivent être déclarés pour augmenter les fonctionnalités de base de _karma_.
 Les fonctionnalités de base de _karma_ se résument à charger des fichiers _ECMAScript_ dans une balise `<script>`.
@@ -1636,8 +1636,8 @@ Une fois encore des _motifs de chemins_ sont utilisés pour indiquer aux _plugin
 ----
 include::karma.conf.js[lines=33..37]
 ----
-<1> Ces fichiers seront transpilés par _browserify_ avant d'être chargés dans les tests de navigateurs web ;
-<2> Ces fichiers seront pris en charge par le _préprocesseur_ nommé _html2js_, utilisé par `karma-fixture` pour transformer du HTML en arbre DOM.
+<1> Ces fichiers seront transpilés par _browserify_ avant d'être chargés dans les tests de navigateurs web 
+<2> Ces fichiers seront pris en charge par le _préprocesseur_ nommé _html2js_, utilisé par `karma-fixture` pour transformer du HTML en arbre DOM
 
 Nous avons vu un exemple de code reposant sur un élément du DOM dans la section <<testing-101,que tester ?>> de ce chapitre.
 Nous allons nous intéresser à une manière possible de tester la fonction exportée `getLinkElementContent` en se basant sur un *véritable appel HTTP* et un *véritable élément du DOM*, créé à partir du fichier de _fixture_ suivant :
@@ -1655,9 +1655,9 @@ Ce fichier de _fixture_ est chargé dans le DOM par le _plugin_ `karma-fixture` 
 ----
 include::{sourceDir}/tests-browser/test-outside-world.js[]
 ----
-<1> `before()` indique à _mocha_ d'exécuter ce bloc de code avant tout _test_ ;
-<2> Appel du _plugin_ de _fixture_ pour obtenir l'élément du DOM nécessaire à la fonction `getLinkElementContent` ;
-<3> Appel réel de la fonction `getLinkElementContent`, résolu comme une <<../chapter-03/index.adoc#promise,promesse>> et dont nous testons le résultat à la ligne suivante ;
+<1> `before()` indique à _mocha_ d'exécuter ce bloc de code avant tout _test_ 
+<2> Appel du _plugin_ de _fixture_ pour obtenir l'élément du DOM nécessaire à la fonction `getLinkElementContent` 
+<3> Appel réel de la fonction `getLinkElementContent`, résolu comme une <<../chapter-03/index.adoc#promise,promesse>> et dont nous testons le résultat à la ligne suivante 
 <4> _Assertion_ vérifiant que le résultat contient bien des clés de dépendances _npm_ attendues – nous avons bien récupéré le bon fichier et le bon contenu !
 
 L'invocation de _karma_ se fait en invoquant `./node_modules/.bin/karma start`.
@@ -1795,11 +1795,11 @@ Des services comme _GitHub_ facilitent la connexion avec _Travis CI_ et déclenc
 ----
 include::.travis.yml[]
 ----
-<1> Configuration de la _VM_ pour utiliser _Node_ ;
-<2> Configuration de la _VM_ pour utiliser la version la plus récente de Node {nodeCurrentVersion} ;
-<3> Installation de la dernière version stable de _Firefox_ ;
-<4> `xvfb-run` est un programme Linux émulant le rendu d'une carte graphique vers un écran d'affichage – il nous aide à lancer Firefox alors que nous n'avons pas d'écran ;
-<5> Les codes d'accès à _BrowserStack_ sont cryptés à l'aide du programme Ruby `travis` via la commande `travis encrypt`.
+<1> Configuration de la _VM_ pour utiliser _Node_ 
+<2> Configuration de la _VM_ pour utiliser la version la plus récente de Node {nodeCurrentVersion} 
+<3> Installation de la dernière version stable de _Firefox_ 
+<4> `xvfb-run` est un programme Linux émulant le rendu d'une carte graphique vers un écran d'affichage – il nous aide à lancer Firefox alors que nous n'avons pas d'écran 
+<5> Les codes d'accès à _BrowserStack_ sont cryptés à l'aide du programme Ruby `travis` via la commande `travis encrypt`
 
 [TIP]
 .[RemarquePreTitre]#Documentation# _Travis CI_

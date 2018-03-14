@@ -62,10 +62,10 @@ en JavaScript :
 ----
 include::{sourceDir}/definition.js[]
 ----
-<1> Code JavaScript standard ;
-<2> Code JavaScript pour manipuler la DOM API (documents web) ;
-<3> Code JavaScript pour manipuler des Web API (fonctionnalités des navigateurs web) ;
-<4> Code JavaScript pour manipuler Node.js.
+<1> Code JavaScript standard
+<2> Code JavaScript pour manipuler la DOM API (documents web)
+<3> Code JavaScript pour manipuler des Web API (fonctionnalités des navigateurs web)
+<4> Code JavaScript pour manipuler Node.js
 
 Ce que l'on peut comprendre de l'exemple de code ci-dessus,
 c'est que JavaScript permet de s'interfacer avec plusieurs choses :
@@ -497,9 +497,9 @@ des tweets voire des textes longs.
 ----
 include::{sourceDir}/string/base.js[]
 ----
-<1> Utilisation de guillemets simples (`\n` permet de revenir à la ligne) ;
-<2> Utilisation de guillemets doubles — évite d'échapper le guillemet simple ;
-<3> Utilisation de guillemets obliques — autorise le multi-ligne.
+<1> Utilisation de guillemets simples (`\n` permet de revenir à la ligne)
+<2> Utilisation de guillemets doubles — évite d'échapper le guillemet simple
+<3> Utilisation de guillemets obliques — autorise le multi-ligne
 
 On peut utiliser n'importe quel caractère : lettres, chiffres,
 caractères accentués, émojis et même des sinogrammes ou des kanjis.
@@ -528,8 +528,8 @@ Par exemple, on peut connaître la longueur d'une chaîne via son attribut `leng
 ----
 include::{sourceDir}/string/length.js[]
 ----
-<1> Affiche `14` ;
-<2> Affiche `0`.
+<1> Affiche `14`
+<2> Affiche `0`
 
 On peut aussi accéder à un caractère spécifique en utilisant
 la chaîne comme un tableau, ou en utilisant une méthode dédiée :
@@ -539,8 +539,8 @@ la chaîne comme un tableau, ou en utilisant une méthode dédiée :
 ----
 include::{sourceDir}/string/char-at.js[]
 ----
-<1> Affiche `N` ;
-<2> Affiche `o`.
+<1> Affiche `N`
+<2> Affiche `o`
 
 Deux autres fonctions transforment
 un texte en lettres minuscules et majuscules :
@@ -550,8 +550,8 @@ un texte en lettres minuscules et majuscules :
 ----
 include::{sourceDir}/string/lower-upper-case.js[]
 ----
-<1> Affiche `node.js` ;
-<2> Affiche `NODE.JS`.
+<1> Affiche `node.js`
+<2> Affiche `NODE.JS`
 
 D'autres fonctions nettoient ou complètent les espaces autour,
 au début ou à la fin d'une chaîne de caractères :
@@ -561,10 +561,10 @@ au début ou à la fin d'une chaîne de caractères :
 ----
 include::{sourceDir}/string/trim-pad.js[]
 ----
-<1> Affiche `Node.js` ;
-<2> Affiche `Node.js{nbsp}{nbsp}` ;
-<3> Affiche `{nbsp}{nbsp}Node.js` ;
-<4> Affiche `BARCGB22XXX` ;
+<1> Affiche `Node.js`
+<2> Affiche `Node.js{nbsp}{nbsp}`
+<3> Affiche `{nbsp}{nbsp}Node.js`
+<4> Affiche `BARCGB22XXX`
 
 Dans cet exemple, la méthode `padEnd` complète jusqu'à `11` caractères,
 avec le caractère `X`.
@@ -580,10 +580,10 @@ Si la valeur n'est pas trouvée, elle renvoie la valeur `-1`.
 ----
 include::{sourceDir}/string/index-of.js[]
 ----
-<1> Retourne `4` ;
-<2> Retourne `-1` — aucune occurrence n'ayant été trouvée ;
-<3> Retourne `5` — première occurrence de la lettre `a` ;
-<4> Retourne `7` — dernière occurrence de la lettre `a`.
+<1> Retourne `4`
+<2> Retourne `-1` — aucune occurrence n'ayant été trouvée
+<3> Retourne `5` — première occurrence de la lettre `a`
+<4> Retourne `7` — dernière occurrence de la lettre `a`
 
 [[regexp]]
 === Expressions régulières (_RegExp_)
@@ -636,9 +636,9 @@ Illustrons leur utilisation en _identifiant du texte_ répondant (`match`)
 ----
 include::{sourceDir}/regexp/flags.js[]
 ----
-<1> identifie et affiche `Node`, l'occurrence contenue dans le mot `Node.js` ;
-<2> affiche 2 fois `ode` — les occurrences contenues dans le mot `Node.js` et `Anode` ;
-<3> affiche `Node` et `node` en combinant les deux options `i` et `g` — les occurrences contenues dans le mot `Node.js` et `Anode`.
+<1> identifie et affiche `Node`, l'occurrence contenue dans le mot `Node.js`
+<2> affiche 2 fois `ode` — les occurrences contenues dans le mot `Node.js` et `Anode`
+<3> affiche `Node` et `node` en combinant les deux options `i` et `g` — les occurrences contenues dans le mot `Node.js` et `Anode`
 
 Des éléments de syntaxe complètent les options pour
 *identifier des motifs* au sein de chaînes de caractères :
@@ -663,12 +663,12 @@ nombre de caractères (`?`, `+` et `*`)::
 ----
 include::{sourceDir}/regexp/syntax.js[]
 ----
-<1> Affiche `["75"]` — les 2 premiers caractères numériques de la chaîne ;
-<2> Affiche `["75015"]` – les 5 premiers caractères numériques (satisfait la condition `5` de _entre 2 et 5_ de `{2,5}`) ;
-<3> Affiche `["75015 Paris"]` ;
-<4> Affiche `["75015 Paris"]` — l'option `i` nous permet de nous passer de l'ensemble `A-Z` ;
-<5> Affiche `["92410 Ville"]` — capture les caractères jusqu'à ce que la condition ne soit plus remplie en rencontrant le _trait d'union_ (`-`) ;
-<6> Affiche `["92410 Ville-d'Avray"]` ;
+<1> Affiche `["75"]` — les 2 premiers caractères numériques de la chaîne
+<2> Affiche `["75015"]` – les 5 premiers caractères numériques (satisfait la condition `5` de _entre 2 et 5_ de `{2,5}`)
+<3> Affiche `["75015 Paris"]`
+<4> Affiche `["75015 Paris"]` — l'option `i` nous permet de nous passer de l'ensemble `A-Z`
+<5> Affiche `["92410 Ville"]` — capture les caractères jusqu'à ce que la condition ne soit plus remplie en rencontrant le _trait d'union_ (`-`)
+<6> Affiche `["92410 Ville-d'Avray"]`
 
 D'autres opérateurs *délimitent notre recherche* :
 
@@ -694,14 +694,14 @@ groupe de capture (entre `(` et `)`)::
 ----
 include::{sourceDir}/regexp/limits.js[]
 ----
-<1> Affiche `["75015 Paris"]` ;
+<1> Affiche `["75015 Paris"]`
 <2> Affiche `["75015 Paris", "75015"]`
 — le premier élément correspond à la chaîne identifiée tandis que
-le second élément correspond au _premier_ groupe de capture ;
+le second élément correspond au _premier_ groupe de capture
 <3> Affiche `["33900", "33900"]`
-– l'option multi-ligne itère de ligne en ligne jusqu'à trouver un motif ;
+– l'option multi-ligne itère de ligne en ligne jusqu'à trouver un motif
 <4> Affiche `["33900", "33074", "33700"]`
-— l'option multi-ligne globale retourne tous les groupes de capture.
+— l'option multi-ligne globale retourne tous les groupes de capture
 
 On notera qu'il faut faire attention à ce que l'on regarde dans les résultats :
 le format de résultat varie selon qu'on utilise ou non des groupes de capture,
@@ -736,9 +736,9 @@ Les alternatives de classes en majuscules sont des _négations_.
 include::{sourceDir}/regexp/classes.js[]
 ----
 <1> Affiche `["♥ RegExp", "RegExp"]`
-— et s'arrête là car l'espace suivant n'est pas un caractère de mot ;
+— et s'arrête là car l'espace suivant n'est pas un caractère de mot
 <2> Affiche `"I ♥ {docyear}"`
-— on a extrait le début de la phrase et l'année placée en fin de chaîne.
+— on a extrait le début de la phrase et l'année placée en fin de chaîne
 
 mdn::global[RegExp,title="expressions régulières"]
 
@@ -762,11 +762,11 @@ include::{sourceDir}/regexp/replace.js[]
 ----
 <1> Affiche `"I love JavaScript"`
 — si le premier argument de `replace` est une chaîne,
-elle est convertie automatiquement en expression régulière ;
-<2> Affiche `"I ♥ PHP"` ;
+elle est convertie automatiquement en expression régulière
+<2> Affiche `"I ♥ PHP"`
 <3> Affiche `JavaScript ♥ me"`
-— les symboles `$<numéro>` représentent les groupes de capture ;
-on peut les placer dans l'ordre de notre choix .
+— les symboles `$<numéro>` représentent les groupes de capture
+on peut les placer dans l'ordre de notre choix
 
 D'ailleurs le second argument accepte une <<functions,fonction>>
 pour procéder à des remplacements dynamiques :
@@ -776,7 +776,7 @@ pour procéder à des remplacements dynamiques :
 ----
 include::{sourceDir}/regexp/replace-function.js[]
 ----
-<1> Affiche `"I ♥ JAVASCRIPT"` — le dernier mot est transformé en majuscules.
+<1> Affiche `"I ♥ JAVASCRIPT"` — le dernier mot est transformé en majuscules
 
 
 [[boolean]]
@@ -790,10 +790,10 @@ C'est un type de choix pour effectuer des _assertions_ et vérifier des _conditi
 ----
 include::{sourceDir}/boolean/base.js[]
 ----
-<1> Affiche `3` ;
-<2> Affiche `true` — la condition est vérifiée (3 équivaut strictement à 3) ;
-<3> Affiche `true` — c'est la valeur de la variable `check` suite à son assignation lors de la ligne précédente ;
-<4> Affiche `true` — la variable `check` équivaut strictement à `true`.
+<1> Affiche `3`
+<2> Affiche `true` — la condition est vérifiée (3 équivaut strictement à 3)
+<3> Affiche `true` — c'est la valeur de la variable `check` suite à son assignation lors de la ligne précédente
+<4> Affiche `true` — la variable `check` équivaut strictement à `true`
 
 Une donnée d'un autre type peut être convertie en booléen.
 La logique qui déterminera si la conversion retournera `true` ou `false`
@@ -811,9 +811,9 @@ est la suivante :
 ----
 include::{sourceDir}/boolean/convert.js[]
 ----
-<1> Affiche `false` — il s'agit d'une _chaîne vide_ ;
-<2> Affiche `true` — il s'agit d'une valeur _non-nulle_ ;
-<3> Affiche `true` — le tableau est vide mais l'objet en lui-même _vaut_ quelque chose : un tableau.
+<1> Affiche `false` — il s'agit d'une _chaîne vide_
+<2> Affiche `true` — il s'agit d'une valeur _non-nulle_
+<3> Affiche `true` — le tableau est vide mais l'objet en lui-même _vaut_ quelque chose : un tableau
 
 [[number]]
 == Manipuler des nombres (_Number_, _Math_)
@@ -826,8 +826,8 @@ nombres contenant des décimales : ce sont des _nombres_ un point c'est tout.
 ----
 include::{sourceDir}/number/base.js[]
 ----
-<1> Affiche `true` — les deux valeurs sont strictement équivalentes ;
-<2> Affiche `false` — un élément entre guillemets est une chaîne de caractère.
+<1> Affiche `true` — les deux valeurs sont strictement équivalentes
+<2> Affiche `false` — un élément entre guillemets est une chaîne de caractère
 
 Les nombres sont représentés par défaut en _base 10_.
 La plage de nombre utilisable démarre à _moins l'infini_ et va jusqu'à _plus l'infini_.
@@ -850,10 +850,10 @@ Leur notation se fait en préfixant la valeur par `0x` :
 ----
 include::{sourceDir}/number/hexa.js[]
 ----
-<1> Affiche `0` ;
-<2> Affiche `10` — car `A` en hexadécimal vaut 10 en décimal ;
-<3> Affiche `160` — pour `10 x 16` (une dizaine vaut 16) ;
-<4> Affiche `2560` — pour `10 x 16 x 16` (une centaine vaut 16x16).
+<1> Affiche `0`
+<2> Affiche `10` — car `A` en hexadécimal vaut 10 en décimal
+<3> Affiche `160` — pour `10 x 16` (une dizaine vaut 16)
+<4> Affiche `2560` — pour `10 x 16 x 16` (une centaine vaut 16x16)
 
 
 [NOTE]
@@ -898,12 +898,12 @@ exposant (puissance)::
 ----
 include::{sourceDir}/number/operations.js[]
 ----
-<1> Affiche `6` ;
-<1> Affiche `-2` ;
-<1> Affiche `8` ;
-<1> Affiche `0.5` ;
-<1> Affiche `2` ;
-<1> Affiche `16`.
+<1> Affiche `6`
+<2> Affiche `-2`
+<3> Affiche `8`
+<4> Affiche `0.5`
+<5> Affiche `2`
+<6> Affiche `16`
 
 [CAUTION]
 .[RemarquePreTitre]#Attention# Opérations exotiques
@@ -919,10 +919,10 @@ include::{sourceDir}/number/operations-types.js[]
 <1> La chaîne `'1'` sera convertie en nombre (voir section ci-après)…
 donc _ça marche_ !
 <2> On nous a toujours interdit la division par zéro ?
-En vrai on crée l'_infini_ ;
-<3> Seule cette opération retournera… autre chose qu'un nombre.
+En vrai on crée l'_infini_
+<3> Seule cette opération retournera… autre chose qu'un nombre
 Rendez-vous à la section suivante pour se prémunir
-des nombres qui n'en sont pas.
+des nombres qui n'en sont pas
 
 Moralité : *s'assurer de ne manipuler que des nombres*.
 ====
@@ -992,10 +992,10 @@ Pour cela nous avons deux fonctions à disposition :
 ----
 include::{sourceDir}/number/parse.js[]
 ----
-<1> Affiche `3` ;
-<2> Affiche `3.141592653589793` ;
-<3> Affiche `14` — ça ne change rien pour `parseInt` ;
-<4> Affiche `14.1` — la fonction s'arrête à la décimale précédant une lettre.
+<1> Affiche `3`
+<2> Affiche `3.141592653589793`
+<3> Affiche `14` — ça ne change rien pour `parseInt`
+<4> Affiche `14.1` — la fonction s'arrête à la décimale précédant une lettre
 
 `parseInt` a cette particularité que l'on peut choisir la base
 de la conversion avec le second argument de la fonction :
@@ -1005,8 +1005,8 @@ de la conversion avec le second argument de la fonction :
 ----
 include::{sourceDir}/number/parse-int.js[]
 ----
-<1> Affiche `16` ;
-<2> Affiche `10` — `A` étant juste après `10` en hexadécimal ;
+<1> Affiche `16`
+<2> Affiche `10` — `A` étant juste après `10` en hexadécimal
 <3> Affiche `2560` — aurait pu s'écrire `0xF00`
 (cf. le <<number,début de cette même section>>, à propos des bases).
 
@@ -1029,11 +1029,11 @@ Math.ceil, Math.floor
 ----
 include::{sourceDir}/number/round.js[]
 ----
-<1> Affiche `3` — l'entier le plus proche est 3 ;
-<1> Affiche `4` — l'entier le plus proche est 4 ;
-<1> Affiche `4` — idem ;
-<2> Affiche `4` ;
-<3> Affiche `3`.
+<1> Affiche `3` — l'entier le plus proche est 3
+<2> Affiche `4` — l'entier le plus proche est 4
+<3> Affiche `4` — idem
+<5> Affiche `4`
+<6> Affiche `3`
 
 Enfin, on peut préserver le formatage du nombre de décimales
 après la virgule… en transformant le nombre _en chaîne de caractères_
@@ -1044,8 +1044,8 @@ grâce à la méthode `toFixed` :
 ----
 include::{sourceDir}/number/to-fixed.js[]
 ----
-<1> Affiche `'10.01'` ;
-<2> Affiche `'10'`.
+<1> Affiche `'10.01'`
+<2> Affiche `'10'`
 
 [[functions]]
 == Manipuler des fonctions
@@ -1069,12 +1069,12 @@ Nous avons la liberté d'en créer nous-même, spécifiques à nos besoins.
 ----
 include::{sourceDir}/functions/base.js[]
 ----
-<1> On _crée_ la fonction `hello` ;
-<2> Affiche `[Function: hello]` — il s'agit de la définition de la fonction ;
+<1> On _crée_ la fonction `hello`
+<2> Affiche `[Function: hello]` — il s'agit de la définition de la fonction
 <3> Affiche `"Hello World"`
-— il s'agit de l'_exécution_ de la fonction, qui _retourne_ un résultat ;
-<3> Affiche un nombre aléatoire entre 0 et 100
-— cette fonction est invoquée sans paramètre.
+— il s'agit de l'_exécution_ de la fonction, qui _retourne_ un résultat
+<4> Affiche un nombre aléatoire entre 0 et 100
+— cette fonction est invoquée sans paramètre
 
 L'exemple précédent nous indique qu'une fonction se découpe en 3 parties :
 
@@ -1117,9 +1117,9 @@ C'est une manière élégante d'encapsuler du code à exécuter plus tard.
 ----
 include::{sourceDir}/functions/anonymous.js[]
 ----
-<1> Affiche `"Deux secondes plus tard"` deux secondes après le début du script ;
+<1> Affiche `"Deux secondes plus tard"` deux secondes après le début du script
 <2> Affiche `"Le processus se termine"` quand… le processus se termine
-— une fois que toutes les actions en attente ont été exécutées.
+— une fois que toutes les actions en attente ont été exécutées
 
 [[callback]]
 === Les fonctions de _callback_
@@ -1136,11 +1136,11 @@ _au moment_ de son exécution.
 include::{sourceDir}/functions/callback.js[]
 ----
 <1> Le troisième argument (et les suivants) de `setTimeout`
-sont transmis en paramètre de la fonction de _callback_ ;
+sont transmis en paramètre de la fonction de _callback_
 <2> Cette fonction sera invoquée une seconde après le début du script,
-et recevra la date du moment en paramètre ;
+et recevra la date du moment en paramètre
 <3> Affiche l'année de la date passée en argument
-— l'année en cours dans cet exemple.
+— l'année en cours dans cet exemple
 
 [[rest-parameters]]
 === Paramètres du reste (_rest parameters_)
@@ -1153,7 +1153,7 @@ Les paramètres sont *regroupés dans un même <<array,tableau>>* (voir ci-aprè
 ----
 include::{sourceDir}/functions/rest.js[]
 ----
-<1> Affiche `"On a compté 3 patates."`.
+<1> Affiche `"On a compté 3 patates."`
 
 
 [[array]]
@@ -1170,10 +1170,10 @@ ou en ayant recours à d'autres méthodes d'identification.
 ----
 include::{sourceDir}/array/base.js[]
 ----
-<1> Affiche `["lundi", "mardi", "mercredi", "jeudi", "vendredi"]` ;
-<2> Affiche `5` — soit la longueur du tableau ;
-<3> Affiche `"mardi"` — c'est l'élément défini à l'index `1` ;
-<4> Affiche `undefined` — il n'y a aucun élément défini à l'index `5`.
+<1> Affiche `["lundi", "mardi", "mercredi", "jeudi", "vendredi"]`
+<2> Affiche `5` — soit la longueur du tableau
+<3> Affiche `"mardi"` — c'est l'élément défini à l'index `1`
+<4> Affiche `undefined` — il n'y a aucun élément défini à l'index `5`
 
 L'exemple précédent illustre plusieurs caractéristiques des collections :
 
@@ -1195,7 +1195,7 @@ include::{sourceDir}/array/from.js[]
 <1> Affiche `["f", "r", "o", "m", "a", "g", "e"]`
 — chaque lettre de la chaîne
 <2> Affiche `["F", "R", "O", "M", "A", "G", "E"]`
-— chaque lettre de la chaîne a été passée en majuscules.
+— chaque lettre de la chaîne a été passée en majuscules
 
 Le deuxième argument de `Array.from` est facultatif.
 C'est une <<anonymous-function,fonction anonyme>> qui s'utilise comme les <<array.forEach,méthodes d'itération>> `Array.forEach` et `Array.map`.
@@ -1220,7 +1220,7 @@ Une première manière d'y parvenir est d'utiliser la méthode `concat` :
 ----
 include::{sourceDir}/array/concat.js[]
 ----
-<1> Affiche `["Atos", "Portos", "Aramis", "d'Artagnan", "Albert"]`.
+<1> Affiche `["Atos", "Portos", "Aramis", "d'Artagnan", "Albert"]`
 
 Cette méthode _crée un nouveau tableau_ à partir d'une liste de tableaux
 passés en paramètre.
@@ -1237,7 +1237,7 @@ les rassembler dans un autre :
 ----
 include::{sourceDir}/array/spread.js[]
 ----
-<1> Affiche `["Atos", "Portos", "Aramis", "d'Artagnan", "Albert"]`.
+<1> Affiche `["Atos", "Portos", "Aramis", "d'Artagnan", "Albert"]`
 
 ====
 
@@ -1268,7 +1268,7 @@ Elles aident la mise en place d'automatismes pour éviter de répéter du code.
 include::{sourceDir}/array/loop.js[]
 ----
 <1> Affiche successivement chaque valeur du tableau
-— `"lundi"`, `"mardi"`, `"mercredi"`, `"jeudi"`, `"vendredi"`.
+— `"lundi"`, `"mardi"`, `"mercredi"`, `"jeudi"`, `"vendredi"`
 
 Prenons le temps de revenir sur cet exemple.
 On y découvre plusieurs manières de faire des boucles sur un tableau :
@@ -1290,10 +1290,10 @@ et sur les _valeurs_ (avec l'opérateur `of`).
 ----
 include::{sourceDir}/array/for-of-in.js[]
 ----
-<1> Affiche successivement `0` puis `1` ;
+<1> Affiche successivement `0` puis `1`
 <2> Affiche successivement `"samedi"` puis `"dimanche"`
-— l'index permet de retrouver la valeur du tableau ;
-<3> Affiche successivement `"samedi"` puis `"dimanche"`.
+— l'index permet de retrouver la valeur du tableau
+<3> Affiche successivement `"samedi"` puis `"dimanche"`
 
 La méthode `forEach` propage en réalité 3 arguments à notre fonction anonyme :
 l'*élément* en cours de l'itération,
@@ -1342,9 +1342,9 @@ l'ordre des éléments restera inchangé.
 ----
 include::{sourceDir}/array/sort.js[]
 ----
-<1> Affiche `[1, 2, 3]` ;
+<1> Affiche `[1, 2, 3]`
 <2> Affiche `[ { label: "un", order: 1 }, { label: "deux", order: 2 } ]`
-— le tableau a été trié sur la valeur de `order`.
+— le tableau a été trié sur la valeur de `order`
 
 Les <<string,chaînes de caractères>> peuvent être comparées
 avec la méthode `localeCompare`.
@@ -1356,9 +1356,9 @@ entre deux chaînes :
 ----
 include::{sourceDir}/array/sort-strings.js[]
 ----
-<1> Affiche `["a", "A", "b", "c"]` — les majuscules influencent le tri ;
+<1> Affiche `["a", "A", "b", "c"]` — les majuscules influencent le tri
 <2> Affiche `[ { label: "deux", order: 2 }, { label: "un", order: 1 } ]`
-— le tableau a été trié sur la valeur de `label` cette fois-ci.
+— le tableau a été trié sur la valeur de `label` cette fois-ci
 
 [TIP]
 .[RemarquePreTitre]#Alternative# `Array.reverse`
@@ -1371,7 +1371,7 @@ en inversant l'ordre de ses éléments.
 ----
 include::{sourceDir}/array/reverse.js[]
 ----
-<1> Affiche `["dimanche", "samedi"]`.
+<1> Affiche `["dimanche", "samedi"]`
 ====
 
 
@@ -1388,7 +1388,7 @@ constitué des valeurs retournées par la fonction appliquée sur chaque éléme
 include::{sourceDir}/array/map.js[]
 ----
 <1> Retourne `['A', 'B', 'C']`
-— on a passé tous les éléments en lettres majuscules.
+— on a passé tous les éléments en lettres majuscules
 
 Le troisième argument de la méthode `map` prend ici tout son sens.
 Par exemple si l'on souhaite dédoublonner un tableau :
@@ -1398,7 +1398,7 @@ Par exemple si l'on souhaite dédoublonner un tableau :
 ----
 include::{sourceDir}/array/map-dedupe.js[]
 ----
-<1> Affiche `[null, null, "un", "deux"]`.
+<1> Affiche `[null, null, "un", "deux"]`
 
 L'exemple précédent vérifie à chaque itération si la valeur de l'élément
 est contenue dans la _suite du tableau_.
@@ -1418,10 +1418,10 @@ include::{sourceDir}/array/reduce.js[]
 ----
 <1> Effectue une _réduction_ à l'aide de la fonction `sum` et d'une valeur
 par défaut de `0`
-— affiche `22` à l'issue des itérations ;
-<2> La valeur de l'*élément* est le _second paramètre_ ;
+— affiche `22` à l'issue des itérations 
+<2> La valeur de l'*élément* est le _second paramètre_
 le premier paramètre correspond au résultat de l'itération précédente…
-ou de la valeur initiale, passée en argument à `reduce`.
+ou de la valeur initiale, passée en argument à `reduce`
 
 [[array.filter]]
 === Filtrer les valeurs
@@ -2137,12 +2137,12 @@ pour propager le statut de son exécution.
 ----
 include::{sourceDir}/promise/then-catch.js[]
 ----
-<1> La fonction `oddTime` accepte un argument de type <<date,Date> ;
+<1> La fonction `oddTime` accepte un argument de type <<date,Date>
 elle résout la promesse _positivement_ (`resolve`) si le nombre
 de secondes est impair, sinon elle résout la promesse _négativement_ (`reject`)
 <2> Utilisation de la forme compacte de `then` avec deux _callbacks_ :
 un de succès (associé à `resolve`) et un d'échec (associé à `reject`)
-<3> On crée une nouvelle promesse, avec une date calée une seconde plus tard ;
+<3> On crée une nouvelle promesse, avec une date calée une seconde plus tard
 c'est histoire de s'assurer que les deux appels aboutissent à une résolution
 différente
 <4> Affiche `"le nombre de secondes est impair :-)"`
