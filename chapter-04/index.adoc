@@ -10,6 +10,7 @@
 :imagesdir: {indir}
 :arrowUp: &#11014;
 :arrowDown: &#11015;
+:ctrl: ⌃
 ifdef::env[]
 :imagesdir: .
 endif::[]
@@ -188,8 +189,8 @@ $ node
 Ces touches ou combinaisons de touches sont utiles pour naviguer dans
 l'invite de commande :
 
-- la combinaison de touches kbd:[CTRL+C] annule
-la saisie de la ligne en cours (kbd:[^+C] sous macOS) ;
+- la combinaison de touches kbd:[Ctrl+C] annule
+la saisie de la ligne en cours — c'est kbd:[{ctrl}+C] sous macOS ;
 - les touches _flèche haut_ (kbd:[{arrowUp}]) et _flèche bas_
 (kbd:[{arrowDown}]) aident à naviguer dans l'historique des commandes ;
 - la touche _tabulation_ (kbd:[TAB]) tente de compléter la saisie avec une
@@ -236,8 +237,8 @@ C'est un excellent moyen de *découvrir des éléments du langage* qui nous
 ====
 
 La sortie de l'invite de commande se fait à l'aide de
-l'utilisation répétée de la combinaison de touches kbd:[CTRL+C]
-(kbd:[^+C] sous macOS).
+l'utilisation répétée de la combinaison de touches kbd:[Ctrl+C]
+(ou kbd:[{ctrl}+C] sous macOS).
 On revient ainsi à l'état initial où l'on était avant de
 saisir la commande `node` :
 
@@ -251,7 +252,7 @@ $ {empty}
 ----
 
 Ce même résultat s'obtient en saisissant `.exit`
-ou en utilisant la combinaison de touches kbd:[CTRL+D] (kbd:[^+D] sous macOS).
+ou en utilisant la combinaison de touches kbd:[Ctrl+D] (ou kbd:[{ctrl}+D] sous macOS).
 
 [TIP]
 .[RemarquePreTitre]#Raccourci# Variable magique `_`
