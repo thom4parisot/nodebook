@@ -514,7 +514,122 @@ dans le <<../chapter-08/index.adoc#,chapitre 8>>.
 [[process.argv]]
 ==== Arguments d'exécution
 
-process.argv
+Les arguments d'exécution sont des morceaux d'information transmis
+à un script Node.
+On les place à la droite du nom du fichier, comme illustré dans cet exemple :
+
+----
+$ node print-first.js salut
+"salut"
+----
+
+On utilise les _arguments_ pour affiner le comportement d'un programme.
+Je pense par exemple au numéro du port sur lequel lancer un serveur web,
+une liste de fichiers à traiter ou
+encore de fonctionnalités à activer ou à désactiver.
+
+Il faut imaginer les arguments comme des *paramètres de fonction*,
+accessibles dans un programme Node dans
+le <<../chapter-03/index.adoc#array,tableau>> `process.argv` :
+
+[source,javascript]
+.print-first.js
+----
+include::{sourceDir}/print-first.js[]
+----
+
+Les deux premiers éléments de `process.argv` sont rarement utilisés.
+Ils correspondant respectivement à l'emplacement de l'exécutable Node
+et à l'emplacement du script.
+
+Tous les autres arguments sont accessibles à partir de l'index 2 de
+`process.argv`, dans l'ordre où ils sont placés :
+
+----
+$ node print-first.js salut ça va ?
+"salut"
+----
+
+Le script `print-first.js` affiche le premier argument.
+On peut en conclure que les arguments sont séparés par le caractère "espace".
+
+Dans le cas où un argument doit contenir un espace, on l'encadre alors
+entre guillemets :
+
+----
+$ node print-first.js "salut ça va ?" "oui et toi ?"
+"salut ça va ?"
+----
+
+L'inconvénient des arguments est que leur ordre compte
+et qu'il devient difficile de connaitre leur rôle sans se réferrer
+au manuel d'utilisation.
+
+C'est là qu'interviennent les *options*.
+Comme le nom l'indique, ce sont des _arguments optionnels_.
+Elles sont préfixées de deux _traits d'union_ (`--`).
+On peut choisir de leur associer ou non une valeur.
+
+----
+$ node print-text.js "salut ça va ?" --uppercase
+SALUT ÇA VA ?
+----
+
+Quand on n'associe pas de valeur à une option,
+on considère qu'elle équivaut à un <<../chapter-03/index.adoc#boolean,booléen>>
+de valeur `true`.
+
+[source,javascript]
+.print-text.js
+----
+include::{sourceDir}/print-text.js[]
+----
+<1> La condition est positive si l'on détecte `--uppercase` dans
+la liste des arguments.
+
+Les _options_ se combinent très bien avec les _arguments_.
+Il faut les imaginer comme des interrupteurs.
+
+Dans d'autres situations, on a besoin de *passer une valeur à une option* :
+
+----
+$ node print-text-limit.js "salut ça va ?" --limit 2
+salut ça
+----
+
+L'exemple précédent illustre la césure d'une phrase à 2 mots
+lorsque l'option `--limit` est associée à la valeur `2`.
+
+
+[source,javascript]
+.print-text-limit.js
+----
+include::{sourceDir}/print-text-limit.js[]
+----
+<1> On récupère l'index de l'option `--limit` dans le tableau `process.argv` ;
+<2> On récupère la valeur dans l'élément suivant l'index de l'option `--limit` ;
+<3> La troncature est paramétrée en fonction de la valeur associée à `--limit`.
+
+Au fond, *les options sont des repères pour les utilisateurs* de nos programmes.
+Elles leur permettent de s'interfacer avec leurs fonctionnalités.
+Un peu à la manière des différents boutons qu'on retrouve
+en façade d'une machine à laver.
+
+L'exemple suivant est totalement fictif mais il illustre comment
+on s'interfacerait avec une machine à laver
+si elle mettait à disposition en ligne de commande :
+
+----
+$ machine-a-laver P-ECO 40 --fast --no-dry --room kitchen
+----
+
+Ce qu'il faut en comprendre, c'est qu'on démarrerait la machine située
+dans la cuisine avec un programme économique _et_ à 40°C,
+en activant l'option rapide et _en désactivant_ l'option séchage.
+
+Nous verrons d'autres mises en situation pour
+<<../chapter-08/index.adoc#argv,passer des paramètres à une application en ligne de commande>>
+dans le <<../chapter-08/index.adoc#,chapitre 8>>.
 
 [[standard-streams]]
 ==== Les flux standards

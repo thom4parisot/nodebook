@@ -5,6 +5,7 @@ Ce journal détaille l'effort d'écriture depuis janvier 2017. Le projet a comme
 ## Mardi 13 mars 2018
 
 - _Chapitre 4_ : Variables d'environnement
+- _Chapitre 4_ : Arguments d'exécution
 
 **Météo** : 🤔 🍞 🙂
 
