@@ -5,6 +5,7 @@ Ce journal détaille l'effort d'écriture depuis janvier 2017. Le projet a comme
 ## Jeudi 14 mars 2018
 
 - _Chapitre 4_ : Les flux standards
+- _Outillage_ : surlignage dans les blocs d'exemple
 
 **Météo** : 💪 👋
 

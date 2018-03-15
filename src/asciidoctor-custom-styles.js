@@ -12,6 +12,12 @@ module.exports = function HTMLStyles () {
 .admonitionblock td.content > .title, .audioblock > .title, .exampleblock > .title, .imageblock > .title, .listingblock > .title, .literalblock > .title, .stemblock > .title, .openblock > .title, .paragraph > .title, .quoteblock > .title, table.tableblock > .title, .verseblock > .title, .videoblock > .title, .dlist > .title, .olist > .title, .ulist > .title, .qlist > .title, .hdlist > .title {
   font-size: 1.0625rem;
 }
+/* highlight code (grepping) */
+.listingblock pre > code i {
+  background-color: #e0c1ff;
+  color: #000;
+  font-style: normal;
+}
 
 a {
   white-space: nowrap;
