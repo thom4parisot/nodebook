@@ -4,7 +4,7 @@ const test = require('blue-tape');
 const spawn = require('tape-spawn');
 const glob = require('glob');
 
-const EXTRAS = require('./examples-config.json');
+const EXTRAS = require('./examples-config.js');
 
 const examples = glob.sync('*/examples/*.js');
 const serverSide = (file) => /chapter-09/.test(file) === false;
@@ -32,6 +32,14 @@ examples.filter(serverSide).forEach(FILE => {
 
     p.exitCode(config.exitCode);
 
+    if (config.stdin) {
+      p.stdin.end(config.stdin);
+    }
+
+    if (config.stdout) {
+      p.stdout.match(config.stdout);
+    }
+
     if (config.stderr) {
       p.stderr.match(new RegExp(config.stderr));
     }
@@ -39,6 +47,11 @@ examples.filter(serverSide).forEach(FILE => {
       p.stderr.match(/^$/);
     }
 
-    return p.end();
+    if (config.cb) {
+      return config.cb(t, p);
+    }
+    else {
+      return p.end();
+    }
   });
 });
