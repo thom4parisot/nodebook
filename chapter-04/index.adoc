@@ -607,7 +607,7 @@ lorsque l'option `--limit` est associée à la valeur `2`.
 ----
 include::{sourceDir}/print-text-limit.js[]
 ----
-<1> On récupère l'index de l'option `--limit` dans le tableau `process.argv` 
+<1> On récupère l'index de l'option `--limit` dans le tableau `process.argv`
 <2> On récupère la valeur de l'élément suivant `--limit` dans `process.argv`
 <3> La troncature est paramétrée en fonction de la valeur associée à `--limit`
 
@@ -632,13 +632,192 @@ Nous verrons d'autres mises en situation pour
 <<../chapter-08/index.adoc#argv,passer des paramètres à une application en ligne de commande>>
 dans le <<../chapter-08/index.adoc#,chapitre 8>>.
 
-[[standard-streams]]
+[[process.std]]
 ==== Les flux standards
 
-process.stdin, process.stdout, process.stderr
+Chaque processus système est doté de 3 flux de données :
+le flux d'*entrée* (`stdin`), le flux de *sortie* (`stdout`)
+et le flux d'*erreur* (`stderr`).
+
+Les flux standards peuvent être alimentés pendant la durée de vie du processus
+en utilisant peu de mémoire.
+On les utilisera pour *passer le résultat d'un autre programme*
+à notre script Node, pour *informer l'utilisateur* de notre programme
+mais aussi pour *consigner les erreurs*.
+
+Node expose ces flux standards via les variables `process.stdin` (entrée),
+`process.stdout` (sortie) et `process.stderr` (erreur).
+Chacune de ces variables possède des méthodes pour _écouter_ ce qu'il s'y passe,
+pour y _écrire_ du contenu et pour le _rediriger_ vers d'autres endroits.
+
+Commençons par l'utilisation de `process.stdout` pour écrire un message
+dans notre terminal :
+
+[source,bash]
+----
+$ node process-stdout.js
+un deuxtrois
+quatre
+----
+
+Le code source de `process-stdout.js` fait appel à la fonction
+`process.stdout.write` par deux fois. +
+On notera que le caractère `\n` symbolise un retour à la ligne
+(`\r\n` sous Windows) :
+
+[source,javascript]
+.process-stdout.js
+----
+include::{sourceDir}/process-stdout.js[]
+----
+
+Ça ne vous rappelle pas nos précédentes utilisations de la fonction
+`console.log` ?
+Pas étonnant puisque `console.log` se repose sur `process.stdout`
+(voir encadré ci-contre).
+
+
+[TIP]
+.[RemarquePreTitre]#Raccourci# Les fonctions `console.log` et `console.error`
+====
+La fonction d'affichage `console.log` écrit dans le flux de sortie
+`process.stdout`.
+Sans surprise, `console.error` écrit dans le flux d'erreur
+`process.stderr`.
+
+Elles ajoutent un _retour à la ligne_ et des options de formattage pour
+notre confort.
+
+On en parlera davantage dans la section <<console,console>>.
+====
+
+Quand on écrit vers le flux de _sortie_ ou le flux d'_erreur_,
+on s'ouvre à l'analyse en continu de ce flux.
+Comment ?
+À l'aide d'utilitaires systèmes existants (`grep`, `awk` etc.)
+ou des programmes spécifiques (analyse de _logs_, etc.).
+
+On peut ainsi se concentrer sur un programme qui
+fait *juste ce dont on a besoin* sans être tenté·e de tout faire.
+On laisse le travail de spécialisation à d'autres programmes.
+Ils pourraient être écrit en Node d'ailleurs…
+
+Essayons d'ailleurs de _filter_ la sortie de l'exemple précédent
+sans écrire une ligne de code de plus.
+Le programme _grep_ ([URL]#https://fr.wikipedia.org/wiki/Grep#)
+est fourni par défaut sur les systèmes UNIX (dont Linux et macOS) font partie.
+Il ne retourne que les ligne contenant un motif
+donné en <<process.arv,argument>> :
+
+[source,bash]
+----
+$ node process-stdout.js | grep 'tre'
+qua<i>tre</i>
+----
+
+La _sortie standard_ de `process-stdout.js` est devenue l'_entrée standard_
+de `grep` grâce à l'utilisation du _pipe_ (`|`).
+
+C'est le moment idéal de regarder du côté de l'_entrée standard_ de Node.
+Implémentons quelque chose qui passe le message d'entrée en majuscules :
+
+[source,bash]
+----
+$ echo "un deuxtrois\nquatre" | node process-stdin-uppercase.js
+UN DEUXTROIS
+QUATRE
+----
+
+On aurait aussi pu réutiliser la _sortie_ de l'exemple `process-stdout.js` :
+
+[source,bash]
+----
+$ node process-stdout.js | node process-stdin-uppercase.js
+UN DEUXTROIS
+QUATRE
+----
+
+Voyons comment ça fonctionne sous le capot :
+
+[source,javascript]
+.process-stdin-uppercase.js
+----
+include::{sourceDir}/process-stdin-uppercase.js[]
+----
+<1> Chaque afflux de donnée appelle notre fonction en lui fournissant un seul
+paramètre contenant les données en question
+<2> Le paramètre est de <<buffer,type Buffer>> — on souhaite le transformer en
+<<../chapter-03/index.adoc#string,chaîne de caractères>>
+<3> La _chaîne de caractères_ est transformable en majuscules, que l'on écrit
+dans le flux de sortie
+
+Terminons avec la _sortie erreur_ (`process.stderr`).
+Elle fonctionne de manière identique à la _sortie standard_ (`process.stdout`).
+S'il n'y a visuellement aucune différence, la _sortie erreur_ écrit son contenu
+dans un canal différent — un _descripteur_ différent. +
+On l'utilise pour *déboguer des programmes*, pour *lister des erreurs* ou des
+contenus que l'on souhaite dissocier de la sortie standard.
+
+L'exemple suivant affiche un nombre toutes les demi-secondes et l'état
+du compteur de nombres tous les 10 affichages :
+
+[source,bash]
+----
+$ node process-stdout-long.js
+7
+24
+3
+19
+25
+Compteur = 5
+22
+...
+----
+
+[NOTE]
+.[RemarquePreTitre]#Souvenez-vous# Interrompre un programme avec kbd:[Ctrl+C]
+====
+Un programme peut être interrompu à tout moment en utilisant la combinaison
+de touches kbd:[Ctrl+C].
+====
+
+[source,javascript]
+.process-stdout-long.js
+----
+include::{sourceDir}/process-stdout-long.js[]
+----
+<1> Écrit un nombre entre 0 et 30 dans la _sortie standard_
+<2> On incrémente un compteur en plus de vérifier s'il est bien divisible par 5
+<3> Écrit l'état du compteur dans la _sortie erreur_
+
+On pourrait décider de n'afficher que le flux d'erreur.
+Pour cela on _redirige_ la sortie standard avec l'opérateur `>`
+vers un fichier :
+
+[source,bash]
+----
+$ node process-stdout-long.js > stdout.txt
+Compteur = 5
+Compteur = 10
+...
+----
+
+Si on ouvrait le fichier `stdout.txt` nouvellement créé, on verrait
+la liste de nombre générée par notre programme. +
+La *redirection a écrit le contenu dans le fichier indiqué* au lieu du terminal.
+
+En maitrisant les flux standards, on peut *créer des programmes modulaires*
+qui consomment du contenu sans avoir à connaître leur provenance.
+*Les données peuvent aller et venir* depuis et vers programmes externes,
+des fichiers ou des sites web distants.
+
+Pour mieux comprendre la logique de _flux continu_ que l'on vient de découvrir,
+je vous invite à lire la section <<streams,Streams>> de ce même chapitre.
+On y détaillera la liste des événements à écouter ainsi que les différentes
+méthodes d'écriture, de pause et de lecture.
 
 [[process.on]]
-==== Écouter les événements
+==== Écouter les événements extérieurs
 
 process.on
 
@@ -693,18 +872,27 @@ Cette échelle se décompose de la manière suivante :
 
 ====
 
+[[console]]
+=== `console` : déboguer rapidement des variables
+
+[[path]]
 === `path` : manipuler des chemins de fichier et de répertoire
 
+[[url]]
 === `url` et `querystring` : manipuler des URL
 
+[[fs]]
 === `fs` : manipuler le système de fichiers
 
+[[events]]
 === `events` : programmer des événements
 
 `require('events')`
 
+[[stream]]
 === `stream` : manipuler des flux de données
 
+[[http]]
 === `http` : créer et interroger des ressources via le protocole HTTP
 
 On ira plus en détail dans le chapitre 7
@@ -713,11 +901,12 @@ On verra qu'on peut faire plus simple dans le chapitre 5 (exemple de module npm)
 
 bonus : on peut aussi faire un serveur https ET un serveur http/2
 
+[[child_process]]
 === `child_process` : appeler un exécutable système
 
 Pratique quand on ne peut pas importer du code mais seulement des résultats
 
-
+[[os]]
 === `os` : en savoir plus sur les capacités de l'ordinateur
 
 Notamment les interfaces réseaux, les CPU etc.
@@ -729,6 +918,22 @@ Notamment les interfaces réseaux, les CPU etc.
 === Le programme ne se termine pas
 
 === Le programme s'arrête sans exécuter le code que j'imaginais
+
+
+==== SyntaxError
+
+----
+TypeError: Cannot read property 'on' of undefined
+  at Object.<anonymous> (/Users/oncletom/workspace/nodebook/chapter-04/examples/process-stin-uppercase.js:2:14)
+  at Module._compile (module.js:643:30)
+  at Object.Module._extensions..js (module.js:654:10)
+  at Module.load (module.js:556:32)
+  at tryModuleLoad (module.js:499:12)
+  at Function.Module._load (module.js:491:3)
+  at Function.Module.runMain (module.js:684:10)
+  at startup (bootstrap_node.js:187:16)
+  at bootstrap_node.js:608:3
+----
 
 
 
