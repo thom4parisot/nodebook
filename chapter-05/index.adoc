@@ -40,8 +40,6 @@ Et c'est de la communauté dont émergent les modules et les _patterns_ utiles e
 include::../resources/tip-versions.adoc[]
 include::../resources/tip-examples.adoc[]
 
-toc::[]
-
 [[semver]]
 === Versioning sémantique
 
@@ -202,8 +200,8 @@ Lire du contenu CSV et en afficher son contenu devient aussi simple que le scrip
 ----
 include::{sourceDir}/print-csv.js[]
 ----
-<1> importe le module `comma-separated-values` dans la variable `csv` 
-<2> configure un nouvel objet _CSV_ 
+<1> importe le module `comma-separated-values` dans la variable `csv`
+<2> configure un nouvel objet _CSV_
 <3> décode le contenu initial et affiche la structure JavaScript appropriée
 
 Il est toutefois recommandé d'installer les modules localement, afin de limiter leur portée uniquement au projet tout en maintenant une dépendance explicite et gérable via le fichier _package.json_.

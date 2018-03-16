@@ -30,8 +30,6 @@ endif::[]
 include::../resources/tip-versions.adoc[]
 include::../resources/tip-examples.adoc[]
 
-toc::[]
-
 == Considérations avant une mise en production
 
 Nous avons déjà vu dans le chapitre 4 <<../chapter-04/index.adoc#invoke,comment invoquer Node>>.
@@ -137,8 +135,8 @@ $ PORT=8000 node config/env.js     # <1>
 $ NODE_ENV=test node config/env.js # <2>
 $ node config/env.js               # <3>
 ----
-<1> Affiche `En écoute sur http://localhost:8000` 
-<2> Affiche `En écoute sur http://localhost:3001` 
+<1> Affiche `En écoute sur http://localhost:8000`
+<2> Affiche `En écoute sur http://localhost:3001`
 <3> Affiche `En écoute sur http://localhost:3000`
 
 Le mécanisme des _variables d'environnement_ est détaillé dans la section <<../chapter-04/index.adoc#process-env,variables d'environnement>> du chapitre 4.
@@ -171,7 +169,7 @@ $ npm run config:file-npm
 ----
 include::{sourceDir}/config/file-npm.js[]
 ----
-<1> Affiche `undefined` avec Node et `3000` avec _npm_ 
+<1> Affiche `undefined` avec Node et `3000` avec _npm_
 <2> Affiche `3000` avec Node et _npm_
 
 _npm_ aplatit la structure d'objet du fichier `package.json`, séparera chaque niveau de profondeur par le caractère `\_`, le préfixera par `npm_package_` et l'injectera dans l'objet `process.env`.
@@ -319,9 +317,9 @@ L'exemple suivant illustre la création de deux fonctions de _debug_ :
 ----
 include::{sourceDir}/debug.js[]
 ----
-<1> Création d'une première fonction de _debug_ avec l'_espace de nom_ `nodebook:ch06` 
-<2> Création d'une seconde fonction de _debug_ avec l'_espace de nom_ `nodebook:interval` cette fois-ci 
-<3> `%o` interpole un objet/tableau en chaîne de caractère 
+<1> Création d'une première fonction de _debug_ avec l'_espace de nom_ `nodebook:ch06`
+<2> Création d'une seconde fonction de _debug_ avec l'_espace de nom_ `nodebook:interval` cette fois-ci
+<3> `%o` interpole un objet/tableau en chaîne de caractère
 <4> `%d` interpole une valeur en nombre
 
 Nous lançons le script comme d'habitude :

@@ -9,7 +9,7 @@ const customStyles = require('../src/asciidoctor-custom-styles');
 const BUILD_DIR = 'dist';
 
 var DEFAULT_ATTRIBUTES = [
-  'toc=macro',
+  'toc=left',
   'toclevels=4',
   'caution-caption=⚠️',
   'important-caption=‼️',

@@ -30,8 +30,6 @@ Ils vous permettront de mieux comprendre la différence entre du code bloquant e
 include::../resources/tip-versions.adoc[]
 include::../resources/tip-examples.adoc[]
 
-toc::[]
-
 == Code synchrone et asynchrone
 
 Certains langages et la programmation DOM nous ont déjà habitué à gérer du code de manière asynchrone.
@@ -231,10 +229,10 @@ Au final, c'est ce qui est effectué mais sans que nous ayons à écrire ce code
 ----
 include::{sourceDir}/glob.js[]
 ----
-<1> fichiers débutant par `package` 
-<2> fichiers débutant par `index` et suffixés par `adoc` ou une chaîne qui débute par `js` 
-<3> fichiers débutant par `index` et dont le suffixe est précédé par les lettres `a` ou `s` 
-<4> fichiers débutant par `index`, à l'exception de `index.js` 
+<1> fichiers débutant par `package`
+<2> fichiers débutant par `index` et suffixés par `adoc` ou une chaîne qui débute par `js`
+<3> fichiers débutant par `index` et dont le suffixe est précédé par les lettres `a` ou `s`
+<4> fichiers débutant par `index`, à l'exception de `index.js`
 <5> fichiers suffixés par `js` contenus dans le répertoire `{sourceDir}` et tous ses sous-répertoires
 
 [CAUTION]
@@ -256,7 +254,7 @@ L'exemple suivant illustre une sécurisation de contenu tiers à l'aide de la fo
 ----
 include::{sourceDir}/tagged-literals.js[]
 ----
-<1> Affiche `<div class="user-content">\n<script>alert(document.cookie)</script>\n</div>` 
+<1> Affiche `<div class="user-content">\n<script>alert(document.cookie)</script>\n</div>`
 <2> Affiche `<div class="user-content">\n\&lt;script\&gt;alert(document.cookie)\&lt;/script\&gt;\n</div>`
 
 mdn::reference[Template_literals, title="Littéraux de modèle"]
@@ -374,8 +372,8 @@ La fonction `messageAbbr` est exécutée de trois manières différentes pour so
 ----
 include::{sourceDir}/callback.js[]
 ----
-<1> _Premier appel_ : affiche la chaîne `GME` 
-<2> _Deuxième appel_ : affiche le message d'erreur `[TypeError: message is not a String]` 
+<1> _Premier appel_ : affiche la chaîne `GME`
+<2> _Deuxième appel_ : affiche le message d'erreur `[TypeError: message is not a String]`
 <3> _Troisième appel_ : affiche une exception `TypeError: Cannot read property 'toLocaleUpperCase' of null` et termine le script de manière prématurée
 
 Le premier appel à `messageAbbr` se déroule dans des conditions optimales.
@@ -534,10 +532,10 @@ Il est possible de gérer les erreurs finement en ayant recourt à `.catch()`.
 ----
 include::{sourceDir}/promise-errors.js[]
 ----
-<1> Ce `.catch()` se déclenchera si `messageAbbr()` ou `logData()` génèrent une exception 
-<2> Génère une exception — elle ne sera pas interceptée par la fonction `logErr()` située sur la même ligne 
-<3> Ce `.catch()` affichera l'erreur générée à l'élément _précédent_ dans la chaîne de promesses 
-<4> La fonction `messageAbbr()` génère une exception, gérée par l'élément _suivant_ dans la chaîne de promesses 
+<1> Ce `.catch()` se déclenchera si `messageAbbr()` ou `logData()` génèrent une exception
+<2> Génère une exception — elle ne sera pas interceptée par la fonction `logErr()` située sur la même ligne
+<3> Ce `.catch()` affichera l'erreur générée à l'élément _précédent_ dans la chaîne de promesses
+<4> La fonction `messageAbbr()` génère une exception, gérée par l'élément _suivant_ dans la chaîne de promesses
 <5> La fonction `messageAbbr()` génère une exception, qui n'est pas interceptée – Node affiche un _warning_ dans la _sortie erreur_ : `UnhandledPromiseRejectionWarning: Unhandled promise rejection`
 
 Ce dernier cas de figure illustre une des limitations des promesses : c'est à nous de faire attention à intercepter les erreurs.
@@ -552,7 +550,7 @@ Détail important cependant, _toutes_ les promesses passées en argument de `Pro
 ----
 include::{sourceDir}/promise-multiple.js[]
 ----
-<1> Affiche `Promesse tenue !` en premier 
+<1> Affiche `Promesse tenue !` en premier
 <2> Puis affiche `[ 'H&M', 'HMS', 'GO' ]`
 
 Cette technique est plus rapide qu'un enchainement de promesses du fait de leur _exécution en parallèle_.
