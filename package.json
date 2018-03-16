@@ -10,6 +10,7 @@
     "prestart": "npm run build:html",
     "start": "node server.js",
     "test": "tape 'tests/*.js' | tap-spec",
+    "test:docker": "docker run -ti --rm -v $(pwd):/tests -w /tests node:8-slim npm test",
     "posttest": "npm run lint"
   },
   "engines": {

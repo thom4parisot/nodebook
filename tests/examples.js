@@ -24,13 +24,12 @@ examples.filter(serverSide).forEach(FILE => {
     }
 
     const p = spawn(t, `node ${FILE}`);
+    p.exitCode(config.exitCode, `exit code = ${config.exitCode}`);
 
     if (config.timeout) {
       t.timeoutAfter(config.timeout * 2)
       p.timeout(config.timeout);
     }
-
-    p.exitCode(config.exitCode);
 
     if (config.stdin) {
       p.stdin.end(config.stdin);
@@ -40,18 +39,10 @@ examples.filter(serverSide).forEach(FILE => {
       p.stdout.match(config.stdout);
     }
 
-    if (config.stderr) {
-      p.stderr.match(new RegExp(config.stderr));
-    }
-    else {
-      p.stderr.match(/^$/);
-    }
+    config.stderr
+      ? p.stderr.match(new RegExp(config.stderr))
+      : p.stderr.match(/^$/, 'stderrr is empty');
 
-    if (config.cb) {
-      return config.cb(t, p);
-    }
-    else {
-      return p.end();
-    }
+    return p.end();
   });
 });

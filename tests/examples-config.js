@@ -37,12 +37,15 @@ module.exports = {
     stdin: 'un deux trois',
     stdout: 'UN DEUX TROIS'
   },
+  'chapter-04/examples/process-exit-error.js': {
+    exitCode: 1,
+    stderr: 'ReferenceError: jenexistepas is not defined'
+  },
+  'chapter-04/examples/process-interrupt.js': {
+    skip: true,
+  },
   'chapter-04/examples/process-stdout-long.js': {
     skip: true,
-    timeout: 3000,
-    cb: (t, p) => {
-      setTimeout(() => p.kill(), 200);
-    }
   },
   'chapter-06/examples/app.js': {
     skip: true
