@@ -802,13 +802,13 @@ Compteur = 10
 ...
 ----
 
-Si on ouvrait le fichier `stdout.txt` nouvellement créé, on verrait
+Si on ouvrait le fichier `stdout.txt`, on verrait
 la liste de nombre générée par notre programme. +
-La *redirection a écrit le contenu dans le fichier indiqué* au lieu du terminal.
+La *redirection a écrit le contenu dans ce fichier* au lieu de notre terminal.
 
 En maitrisant les flux standards, on peut *créer des programmes modulaires*
 qui consomment du contenu sans avoir à connaître leur provenance.
-*Les données peuvent aller et venir* depuis et vers programmes externes,
+*Les données peuvent aller et venir* _depuis_ et _vers_ des programmes externes,
 des fichiers ou des sites web distants.
 
 Pour mieux comprendre la logique de _flux continu_ que l'on vient de découvrir,
@@ -819,9 +819,65 @@ méthodes d'écriture, de pause et de lecture.
 [[process.on]]
 ==== Écouter les événements extérieurs
 
-process.on
+Un processus système reçoit et émet des données mais il peut aussi
+*recevoir des signaux*.
+D'ailleurs, vous vous souvenez de la combinaison de touches kbd:[Ctrl+C]
+utilisée dans les exemples précédents ?
+Cette combinaison émet un signal d'_interruption_
+— dont l'identifiant est `SIGINT`.
 
-[[process.kill]]
+Node gère ces signaux pour nous.
+Mais on peut aussi se mettre à les écouter, auquel cas Node
+nous laisse faire.
+
+On pourrait par exemple afficher l'heure de l'arrêt du processus avant de rendre
+la main :
+
+[source,javascript]
+.process-interrupt.js
+----
+include::{sourceDir}/process-interrupt.js[]
+----
+<1> Un premier message s'affichera au démarrage du script
+<2> Cette <<../chapter-03/index.adoc#function,fonction>> se déclenche lors de
+la réception du _signal d'interruption_ (`SIGINT`), lorsque le système
+d'exploitation lui relaie notre combinaison de touches kbd:[Ctrl+C]
+<3> La fonction <<process.exit,`process.exit`>> nous permet de mettre fin
+manuellement au processus (voir section ci-après)
+<4> Sinon ce _timer_ mettra fin au processus au bout de 5 secondes
+
+En pratique le résultat ressemblerait à ceci :
+
+[source,bash,subs="replacements"]
+----
+$ node process-interrupt.js
+2018-03-16T10:58:32.855Z - Processus démarré
+kbd:[Ctrl+C]
+2018-03-16T10:58:40.000Z - Processus terminé (manuellement)
+----
+
+Autrement dit, Node met à disposition la fonction `process.on` pour écouter
+des événements.
+Node nous les relaie si on les écoute sinon il les gère de lui-même.
+Au-delà de `SIGINT`, nous pouvons écouter les signaux suivants :
+
+[cols="1,2",options="header"]
+|===
+| Signal      | Raison du déclenchement
+| `SIGINT`    | Interruption de la commande en cours
+| `SIGTERM`   | Demande au processus de s'arrêter
+| `SIGUSR1`   | Node reçoit le signal d'attacher l'<<inspect,inspecteur>>
+| `SIGHUP`    | Le terminal est en train d'être fermé
+| `SIGWINCH`  | Le terminal a été redimensionné
+|===
+
+`SIGKILL` est un autre événément mais on ne peut _pas_ l'écouter.
+Quand il est émis, le processus doit être arrêté quoiqu'il arrive.
+On l'utilise justement en cas de dernier recours, quand `SIGINT`
+et `SIGTERM` ne font pas effet (à cause d'un bug dans notre code,
+une ressource qui ne rend pas la main etc.).
+
+[[process.exit]]
 ==== Mettre fin au processus
 
 process.abort
@@ -947,6 +1003,7 @@ Compatible aussi avec `NODE_OPTIONS`
 
 `--require`
 
+[[inspect]]
 === Inspecter notre code depuis le navigateur Chrome
 
 `node --inspect` et `node --inspect-brk`
