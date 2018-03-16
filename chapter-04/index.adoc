@@ -817,21 +817,122 @@ On y détaillera la liste des événements à écouter ainsi que les différente
 méthodes d'écriture, de pause et de lecture.
 
 [[process.on]]
-==== Écouter les événements extérieurs
+==== À l'écoute des événements
 
 Un processus système reçoit et émet des données mais il peut aussi
-*recevoir des signaux*.
-D'ailleurs, vous vous souvenez de la combinaison de touches kbd:[Ctrl+C]
-utilisée dans les exemples précédents ?
-Cette combinaison émet un signal d'_interruption_
-— dont l'identifiant est `SIGINT`.
+*écouter des événements* grâce à la fonction `process.on`.
+
+[source,javascript]
+.process-exit.js
+----
+include::{sourceDir}/process-exit.js[]
+----
+
+L'exemple ci-dessus illustre l'événement `exit`.
+Cet événement est déclenché quand le processus se termine.
+À ce titre, un *code de sortie* est fourni pour signaler l'état dans
+lequel le programme se termine — bien, ou pas très bien, et pourquoi.
+On parlera davantage du code de sortie et de leur signification
+dans la section ci-après, <<process.exit,Mettre fin au processus>>.
+
+Essayons de lancer l'exemple précédent pour voir :
+
+[source,bash]
+----
+$ node process-exit.js
+Le processus démarre
+Le processus termine avec le code 0
+----
+
+Tout s'est passé correctement.
+Le _code de sortie_ équivaut à `0` donc.
+
+Si le programme venait à se terminer de manière imprévue, nous pouvons
+supposer que le code serait différent. +
+L'exemple suivant provoque volontairement une erreur en faisant
+référence à une variable qui n'existe pas :
+
+[source,javascript]
+.process-exit-error.js
+----
+include::{sourceDir}/process-exit-error.js[]
+----
+
+Que verrions-nous si on lançait le script ?
+
+[source,bash]
+----
+$ node process-exit-error.js
+Le processus termine avec le code 1
+
+ReferenceError: jenexistepas is not defined
+    at Object.<anonymous> (/.../nodebook/chapter-04/examples/process-exit-error.js:5:13)
+----
+
+Cette fois-ci le code de sortie est `1`.
+Cela correspond à une _erreur qui n'a pas été capturée_.
+Le reste du message décrit _pourquoi_ l'erreur s'est manifestée.
+
+[TIP]
+.[RemarquePreTitre]#Terminal# Code de sortie
+====
+Dans un terminal, la variable `$?` contient le code de sortie
+de la dernière commande exécutée.
+Sa valeur devrait être équivalente à celle passée en argument
+de l'événement `process.on('exit')`.
+
+[source,bash]
+----
+$ echo $?
+----
+====
+
+On est maintenant capable de déterminer si un programme s'arrête
+normalement ou à cause d'une erreur qu'on aurait laissé
+passer sans faire exprès.
+
+On peut écouter d'autres événements liés au cycle de vie de nos applications :
+
+
+[cols="1,1,2",options="header"]
+.Événements liés au cycle de vie du processus Node
+|===
+| Événement
+| Paramètres
+| Raison du déclenchement
+
+| `exit`
+| `(exitCode)`
+| Le programme se termine et va rendre la main au système d'exploitation.
+
+| `unhandledRejection`
+| `(reason, promise)`
+| Une <<../chapter-03/index.adoc#promise,promesse>> a échoué
+et n'a pas été capturée à l'aide de la méthode `.catch()`.
+
+| `uncaughtException`
+| `(error)`
+| Une erreur s'est produite et n'a pas été capturée.
+Si rien n'est fait, le processus va s'arrêter avec un code erreur. +
+*Note* : il vaut mieux qu'un programme s'arrête en cas de problème.
+
+| `message`
+| `(message, sourceSocket)`
+| Un <<child_process,processus parent>> nous envoie un message.
+|===
+
+La méthode `process.on` est à l'écoute des *signaux système*.
+Vous vous souvenez de la combinaison de touches kbd:[Ctrl+C]
+utilisée précédemment ?
+Cette combinaison émet en réalité un _signal d'interruption_.
+Un signal d'interruption répond à l'identifiant `SIGINT`.
 
 Node gère ces signaux pour nous.
-Mais on peut aussi se mettre à les écouter, auquel cas Node
-nous laisse faire.
+Mais on peut aussi se mettre à les écouter et décider de faire autrement
+que son comportement par défaut.
 
-On pourrait par exemple afficher l'heure de l'arrêt du processus avant de rendre
-la main :
+On pourrait par exemple afficher l'heure de l'arrêt
+du processus avant de rendre la main :
 
 [source,javascript]
 .process-interrupt.js
@@ -856,14 +957,12 @@ kbd:[Ctrl+C]
 2018-03-16T10:58:40.000Z - Processus terminé (manuellement)
 ----
 
-Autrement dit, Node met à disposition la fonction `process.on` pour écouter
-des événements.
-Node nous les relaie si on les écoute sinon il les gère de lui-même.
-Au-delà de `SIGINT`, nous pouvons écouter les signaux suivants :
+En plus du signal `SIGINT`, Node nous relaie les signaux suivants :
 
 [cols="1,2",options="header"]
+.Événements liés aux _signaux_ systèmes
 |===
-| Signal      | Raison du déclenchement
+| Événement   | Raison du déclenchement
 | `SIGINT`    | Interruption de la commande en cours
 | `SIGTERM`   | Demande au processus de s'arrêter
 | `SIGUSR1`   | Node reçoit le signal d'attacher l'<<inspect,inspecteur>>
@@ -871,7 +970,7 @@ Au-delà de `SIGINT`, nous pouvons écouter les signaux suivants :
 | `SIGWINCH`  | Le terminal a été redimensionné
 |===
 
-`SIGKILL` est un autre événément mais on ne peut _pas_ l'écouter.
+`SIGKILL` est un autre événément important mais on ne peut _pas_ l'écouter.
 Quand il est émis, le processus doit être arrêté quoiqu'il arrive.
 On l'utilise justement en cas de dernier recours, quand `SIGINT`
 et `SIGTERM` ne font pas effet (à cause d'un bug dans notre code,
@@ -973,10 +1072,7 @@ Notamment les interfaces réseaux, les CPU etc.
 
 === Le programme ne se termine pas
 
-=== Le programme s'arrête sans exécuter le code que j'imaginais
-
-
-==== SyntaxError
+=== SyntaxError
 
 ----
 TypeError: Cannot read property 'on' of undefined
@@ -989,6 +1085,16 @@ TypeError: Cannot read property 'on' of undefined
   at Function.Module.runMain (module.js:684:10)
   at startup (bootstrap_node.js:187:16)
   at bootstrap_node.js:608:3
+----
+
+=== ReferenceError
+
+----
+console.log(jenexistepas);
+            ^
+ReferenceError: jenexistepas is not defined
+    at Object.<anonymous> (/Users/oncletom/workspace/nodebook/chapter-04/examples/process-exit-error.js:5:13)
+    at Module._compile (module.js:643:30)
 ----
 
 
