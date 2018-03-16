@@ -5,6 +5,8 @@ Ce journal détaille l'effort d'écriture depuis janvier 2017. Le projet a comme
 ## Vendredi 16 mars 2018
 
 - _Chapitre 4_ : Écouter les événements extérieurs
+- _Chapitre 4_ : Mettre fin au processus
+- _web_ : la table des matières passe en barre latérale
 
 **Météo** : 🙂 🚂
 

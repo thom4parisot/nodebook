@@ -919,6 +919,7 @@ Si rien n'est fait, le processus va s'arrêter avec un code erreur. +
 | Un <<child_process,processus parent>> nous envoie un message.
 |===
 
+[[signals]]
 La méthode `process.on` est à l'écoute des *signaux système*.
 Vous vous souvenez de la combinaison de touches kbd:[Ctrl+C]
 utilisée précédemment ?
@@ -947,7 +948,7 @@ manuellement au processus (voir section ci-après)
 
 En pratique le résultat ressemblerait à ceci :
 
-[source,bash,subs="replacements"]
+[source,bash,subs="macros"]
 ----
 $ node process-interrupt.js
 2018-03-16T10:58:32.855Z - Processus démarré
@@ -977,8 +978,70 @@ une ressource qui ne rend pas la main etc.).
 [[process.exit]]
 ==== Mettre fin au processus
 
-process.abort
-process.kill
+Un processus Node se termine quand il n'a plus d'instructions à éxécuter.
+Un processus Node peut être terminé via
+l'<<signals,émission d'un signal extérieur>>.
+Mais on peut aussi y mettre fin _de l'intérieur_ par l'intermédiaire
+de la fonction `process.exit`.
+
+On utilise cette fonction car le *programme a atteint son but*.
+On le fait aussi lorsqu'on intercepte une erreur en souhaitant
+effectuer un *traitement spécial avant de mettre fin au processus*.
+Il se peut aussi qu'il vaille mieux terminer l'application en cas de perte
+d'accès à des ressources distantes (base de données, stockage de fichiers, etc)
+et ce, *au lieu de présenter une application web instable*.
+
+L'exemple suivant illustre que l'on souhaite clôturer notre script
+si on trouve le bon nombre (un peu comme au jeu _MindMaster_) :
+
+[source,bash,subs="macros"]
+----
+$ node process-exit-devinette.js
+JEU ! Trouve le nombre auquel je pense :
+10kbd:[ENTER]
+Hm hm, essaie encore.
+3kbd:[ENTER]
+Tu as trouvé, bravo !
+----
+
+Dans cet exemple, on écoute l'utilisateur de manière indéfini, jusqu'à ce qu'il
+ou elle trouve le bon nombre.
+Lorsque c'est le cas, on peut interrompre le programme en transmettant
+un code de sortie _de réussite_ : le code `0` (zéro).
+
+[source,javascript]
+.process-exit-devinette.js
+----
+include::{sourceDir}/process-exit-devinette.js[]
+----
+<1> Le nombre secret est `3` par défaut, sauf s'il est passé
+<<process.argv,en argument>> du script
+<2> Cette fonction est invoquée à chaque saisie suivie de l'utilisation
+de la touche kbd:[ENTER]
+<3> Cette ligne met fin immédiatement au script, après avoir affiché un
+message de félicitations
+<4> Ce message s'affichera à chaque saisie erronée, jusqu'à ce que le nombre
+secret soit trouvé
+
+On pourrait tout à fait imaginer une variante de ce script dans laquelle
+on limiterait le nombre de mauvaises réponses.
+Lorsqu'on attendrait cette limite, le programme utiliserait un code de sortie
+différent de zéro.
+Le code `9` ferait l'affaire puisqu'il indique qu'un _argument invalide_ a été
+passé.
+
+[NOTE]
+.[RemarquePreTitre]#Avancé# `process.abort`
+====
+À la manière de `process.exit`, le programme est terminé immédiatement.
+On l'utilise quand quelque chose d'inopiné et nécessitant un débogage
+avancé se produit.
+
+La fonction génère un fichier de débogage qui contient tout le contenu
+de la mémoire utilisée par Node (_core file_).
+Un truc assez compliqué à analyser pour le commun des mortels.
+Suffisamment pour qu'on passe notre chemin à ce stade.
+====
 
 [[modules]]
 == Organiser son code en utilisant les modules
@@ -1032,7 +1095,9 @@ Cette échelle se décompose de la manière suivante :
 === `path` : manipuler des chemins de fichier et de répertoire
 
 [[url]]
-=== `url` et `querystring` : manipuler des URL
+=== `url` : manipuler des URL
+
+privilégier `require('url').URL` et `require('url').URLSearchParams`
 
 [[fs]]
 === `fs` : manipuler le système de fichiers

@@ -37,6 +37,10 @@ module.exports = {
     stdin: 'un deux trois',
     stdout: 'UN DEUX TROIS'
   },
+  'chapter-04/examples/process-exit-devinette.js': {
+    stdin: '3',
+    stdout: /Tu as trouvé, bravo !/
+  },
   'chapter-04/examples/process-exit-error.js': {
     exitCode: 1,
     stderr: 'ReferenceError: jenexistepas is not defined'
