@@ -5,6 +5,7 @@ const processor = require('asciidoctor.js')();
 const runnerExtension = require('asciidoctor-extension-interactive-runner');
 const bash$Extension = require('../src/asciidoctor-extension-bash-dollar');
 const MDNExtension = require('../src/asciidoctor-extension-mdn');
+const hashScroll = require('../src/asciidoctor-toc-hash-scroll');
 const customStyles = require('../src/asciidoctor-custom-styles');
 const BUILD_DIR = 'dist';
 
@@ -34,6 +35,7 @@ const FILES = process.argv.slice(2);
 processor.Extensions.register(runnerExtension);
 processor.Extensions.register(bash$Extension);
 processor.Extensions.register(MDNExtension);
+processor.Extensions.register(hashScroll);
 processor.Extensions.register(customStyles);
 
 FILES.forEach(SOURCE_FILE => {
