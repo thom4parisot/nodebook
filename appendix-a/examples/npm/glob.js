@@ -1,14 +1,6 @@
-'use strict';
-
 const glob = require('glob');
-const join = require('path').join;
 
-const options = {
-  cwd: join(__dirname, '..', '..'),
-  ignore: 'node_modules/**'
-};
-
-glob('**/cli*.{sh,js}', options, (err, files) => {
+glob('*.js', (err, files) => {
   if (err) {
     return console.error(err);
   }

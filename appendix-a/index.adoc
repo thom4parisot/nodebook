@@ -317,22 +317,6 @@ include::{sourceDir}/npm/lodash.js[]
 ----
 <1> Affiche `['A', 'B', 'C', 'D']`
 
-=== async
-
-_async_ est une librairie de gestion de fonctions asynchrones.
-Son but ?
-Pouvoir itérer sur des tableaux de manière asynchrone, exécuter des _callbacks_ de manière séquentielle ou gérer une pile d'exécution de _n_ fonctions en parallèle.
-
-Compatible Node et navigateurs Web. +
-[URL]#https://npmjs.com/async#
-
-[source,javascript]
-.npm/async.js
-----
-include::{sourceDir}/npm/async.js[]
-----
-<1> Affiche `['A', 'B', 'C', 'D']`
-
 === string
 
 _string_ est un utilitaire de manipulation de chaînes de caractère.
@@ -341,7 +325,7 @@ Le module fournit des méthodes pour échapper, nettoyer, tronquer, remplacer, c
 Compatible Node et navigateurs Web. +
 [URL]#https://npmjs.com/string#
 
-[source,javascript]
+[source%interactive,javascript]
 .npm/string.js
 ----
 include::{sourceDir}/npm/string.js[]
@@ -358,7 +342,7 @@ Elle simplifie énormément le _parsing_ des chaînes, l'ajout/soustraction de d
 Compatible Node et navigateurs Web. +
 [URL]#https://npmjs.com/moment#
 
-[source,javascript]
+[source%interactive,javascript]
 .npm/moment.js
 ----
 include::{sourceDir}/npm/moment.js[]
@@ -374,7 +358,7 @@ _eventemitter3_ est une librairie performante de gestion d'événements.
 Compatible Node et navigateurs Web. +
 [URL]#https://npmjs.com/eventemitter3#
 
-[source,javascript]
+[source%interactive,javascript]
 .npm/eventemitter3.js
 ----
 include::{sourceDir}/npm/eventemitter3.js[]
@@ -395,11 +379,6 @@ C'est à dire que les répertoires seront créés récursivement s'ils n'existen
 
 [URL]#https://npmjs.com/mkdirp#
 
-[source,javascript]
-.npm/mkdirp.js
-----
-include::{sourceDir}/npm/mkdirp.js[]
-----
 
 L'exemple précédent illustre l'écriture de la date courante dans un fichier.
 Ce fichier n'est écrit que lorsque l'arborescence est préalablement créée.
@@ -411,11 +390,6 @@ Encore une fois, sans la complexité d'avoir à gérer un enchevêtrement de fon
 
 [URL]#https://npmjs.com/rimraf#
 
-[source,javascript]
-.npm/rimraf.js
-----
-include::{sourceDir}/npm/rimraf.js[]
-----
 
 === glob
 
@@ -425,24 +399,18 @@ Sa syntaxe équivalente à ce qui se fait dans le monde UNIX évite une écritur
 
 [URL]#https://npmjs.com/glob#
 
-[source,javascript]
+[source%interactive,javascript]
 .npm/glob.js
 ----
 include::{sourceDir}/npm/glob.js[]
 ----
-<1> Affiche `[ 'examples/npm/cli-table.js' ]`
+<1> Affiche un tableau contenant la liste des fichiers du répertoire courant
 
 === fs-extra
 
 _fs-extra_ complète _rimraf_ et _mkdirp_ et ajoute d'autres fonctions utilitaires telles que la copie et le déplacement récursifs.
 
 [URL]#https://npmjs.com/fs-extra#
-
-[source,javascript]
-.npm/fs-extra.js
-----
-include::{sourceDir}/npm/fs-extra.js[]
-----
 
 === graceful-fs
 
@@ -452,13 +420,6 @@ Un module qui vous sera utile si l'activité de lecture et d'écriture sur disqu
 
 [URL]#https://npmjs.com/graceful-fs#
 
-[source,javascript]
-.npm/graceful-fs.js
-----
-include::{sourceDir}/npm/graceful-fs.js[]
-----
-<1> Affiche `nodebook.chapter-03`
-
 === chokidar
 
 _chokidar_ normalise l'observation du système de fichiers pour une très grande majorité de systèmes d'exploitation.
@@ -466,21 +427,6 @@ La librairie ajoute quelques fonctionnalités de filtre, de persistance d'observ
 
 [URL]#https://npmjs.com/chokidar#
 
-[source,javascript]
-.npm/chokidar.js
-----
-include::{sourceDir}/npm/chokidar.js[]
-----
-
-L'exemple ci-contre surveille un répertoire dans lequel le script `npm/mkdirp.js` écrit.
-Sans surprise, la sortie reflète les actions décrites quelques pages auparavant :
-
-----
-addDir - tmp
-addDir - tmp/blah
-addDir - tmp/blah/blah
-add - tmp/blah/blah/now.txt
-----
 
 == Base de données
 
@@ -522,7 +468,8 @@ include::{sourceDir}/npm/mongoose.js[]
 
 === levelup
 
-_LevelDB_ est un système de base de données clé/valeur extrêmement modulaire, avec un stockage sur disque par défaut mais pouvant évoluer vers du stockage en mémoire… et dans un contexte de navigateur web !
+_LevelDB_ est un système de base de données clé/valeur extrêmement modulaire, avec un stockage sur disque par défaut mais qui peut évoluer vers du stockage en mémoire (module `memdown`).
+Et encore mieux, cette base de données fonctionne aussi dans un navigateur web !
 
 [URL]#https://npmjs.com/levelup#
 
@@ -592,10 +539,6 @@ Des options vous permettent de gérer la ligne d'entête et la largeur des colon
 ----
 include::{sourceDir}/npm/cli-table.js[]
 ----
-
-Ce script produira l'affichage suivant :
-
-image::images/npm-cli-table.png[align="center",width="85%"]
 
 === inquirer
 
@@ -748,30 +691,6 @@ Un portage en C++ est disponible via le module _node-sass_ et ne requiert pas l'
 Compatible Node. +
 [URL]#https://npmjs.com/node-sass# et [URL]#http://sass-lang.com/libsass#
 
-=== rework
-
-_rework_ est une alternative à Less et Sass dans le sens où vous définissez les règles de votre préprocesseur… y compris si cela revient à écrire vos propres règles.
-
-[URL]#https://npmjs.com/rework#
-
-Par défaut _rework_ ne fournit qu'un lot réduit de fonctionnalités.
-Il faut donc rajouter des extensions pour étendre le comportement et modeler le _parsing_ à notre goût.
-
-[source,javascript]
-.npm/rework.js
-----
-include::{sourceDir}/npm/rework.js[]
-----
-
-Cette configuration permet de parser la feuille de style suivante :
-
-[source,css]
-----
-include::{sourceDir}/stylesheet.css[]
-----
-
-Le résultat à l'issu de la compilation est identique à la sortie du module _less_.
-
 === browserify
 
 _browserify_ transforme des modules CommonJS et des appels aux API Node en un code ECMAScript capable d'être exécuté dans un navigateur Web.
@@ -854,18 +773,19 @@ Tous les exemples suivant généreront cette sortie HTML :
 </html>
 ----
 
-=== swig
+=== nunjucks
 
-_swig_ est un portage de _Twig_, bien connu par les développeurs PHP proches de l'écosystème Symfony.
+_nunjucks_ est un portage de _Jinja_, librairie bien connue par
+les personnes développant en Python.
 Sa syntaxe inclut des fonctionnalités comme les filtres, les blocs ou l'héritage de gabarit.
 
 Compatible Node et navigateurs Web. +
-[URL]#https://npmjs.com/swig#
+[URL]#https://npmjs.com/nunjucks#
 
 [source,javascript]
-.template.swig
+.template.html
 ----
-include::{sourceDir}/template.swig[]
+include::{sourceDir}/template.html[]
 ----
 
 === handlebars
@@ -1019,24 +939,6 @@ C'est un excellent moyen d'éviter des bugs tout en uniformisant vos pratiques d
 == Automatisation
 
 L'automatisation de tâches et leur inclusion dans vos projets sont d'excellents moyens pour rendre explicite votre outillage tout en le rendant reproductible et vérifiable.
-
-=== grunt
-
-_grunt_ est l'outil qui a propulsé Node dans la cour des développeurs _frontend_ (voir <<../chapter-04/index.adoc#>>).
-Son écosystème de modules particulièrement fourni en terme de performance, d'assemblage et de fonctionnalités a définitivement aidé de nombreux développeurs à automatiser bon nombre de tâches dans leurs projets.
-
-[URL]#https://npmjs.com/grunt# et [URL]#https://npmjs.com/grunt-cli#
-
-=== gulp
-
-_gulp_ est un outil de _build_ orienté sur l'enchainement d'actions pour traiter des ensembles de fichiers.
-
-Son architecture entièrement basée sur les _Streams_ rend cette librairie particulièrement rapide et efficace pour les traitements de fichiers impliquant plusieurs étapes de transformation.
-
-[URL]#https://npmjs.com/gulp#
-
-Le concept de <<streams,streams>> est décrit en fin de chapitre.
-Il vous aidera à mieux comprendre les rouages du fonctionnement de _Gulp_.
 
 [[npm-run-all]]
 === npm-run-all

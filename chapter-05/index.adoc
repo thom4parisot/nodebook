@@ -195,7 +195,7 @@ Le module est désormais installé dans le répertoire `chapter-05/node_modules/
 
 Lire du contenu CSV et en afficher son contenu devient aussi simple que le script suivant :
 
-[source,javascript]
+[source%interactive,javascript]
 .print-csv.js
 ----
 include::{sourceDir}/print-csv.js[]
@@ -220,9 +220,6 @@ La commande précédente effectue plusieurs opérations :
 3. téléchargement et décompression des paquets dans les répertoires `node_modules/async` et `node_modules/yargs` ;
 4. introspection récursive des dépendances de ces modules et si besoin est, téléchargement et décompression dans leur répertoire _node_modules_ respectif (ici `node_modules/async/node_modules` et `node_modules/yargs/node_modules`) ;
 5. inscription de _async_ et de _yargs_ dans la configuration _dependencies_ de notre fichier `package.json`.
-
-.Exemple de résultat de la commande `npm install`
-image::images/npm-install-save.png[align="center",width="85%"]
 
 La commande npm prend soin de télécharger et de persister les dépendances, à la fois dans le répertoire _node_modules_ et dans le fichier _package.json_.
 Ce dernier contient désormais une section _dependencies_ :

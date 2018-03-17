@@ -1,10 +1,10 @@
 'use strict';
 
 const levelup = require('levelup');
-const dbPath = require('path').join(__dirname, '..', '..', 'level.db');
+const memdown = require('memdown');
 const uuid = require('uuid').v4;
 
-const db = levelup(dbPath);
+const db = levelup(memdown());
 
 db.batch()
   .put(uuid(), { title: 'Node.js' }, { valueEncoding: 'json' })
@@ -15,5 +15,5 @@ db.batch()
       return console.error(err);
     }
 
-    console.log('Enregistrements créés.');
+    console.log('Enregistrements créés en mémoire.');
   });
