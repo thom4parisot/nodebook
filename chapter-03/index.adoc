@@ -1799,11 +1799,12 @@ en chaîne de caractères au format JSON :
 ----
 include::{sourceDir}/json/stringify.js[]
 ----
+<1> Affiche `"{\"lat\":48.8503439,\"lon\":2.34658949}"`
 
 La fonction `JSON.stringify` parcourt tous les éléments
 pour les sérialiser en forme textuelle.
-Dans le cas de <<object,structures d'objet>>, on peut définir
-une fonction de conversion dans la clé `toJSON`.
+Quand la fonction de sérialisation rencontre la la clé spéciale `toJSON`,
+elle l'utilisera pour effectuer la conversion :
 
 [source%interactive,javascript]
 .json/to-json.js
@@ -1814,6 +1815,20 @@ include::{sourceDir}/json/to-json.js[]
 — c'est la sérialisation definie par notre fonction `toJSON`
 <2> Affiche `"{\"lat\":48.8503439,\"lon\":2.34658949}"`
 — sans la clé `toJSON`, notre objet initial est sérialisé tel quel
+
+Notre implémentation contenue dans la fonction `toJSON` est
+responsable de *renvoyer du texte seulement* _et_ de *choisir les clés*
+à sérialiser.
+
+[source%interactive,javascript]
+.json/to-json-extra.js
+----
+include::{sourceDir}/json/to-json-extra.js[]
+----
+<1> Affiche `"\"geo=48.8503439,2.34658949\""`
+
+Dans cette variante d'exemple, la clé `city` n'a pas été sérialisée
+car notre fonction `toJSON` se préoccupait seulement des clés `lat` et `lon`.
 
 mdn::global[JSON]
 

@@ -1,7 +1,6 @@
-const json_object = '{ "title": "Node.js", "price_tag": 32 }';
-const json_string = '"Hello World!"';
-const json_number = '32';
+const location = {
+  lat: 48.8503439,
+  lon: 2.34658949
+}
 
-console.log(JSON.parse(json_string)); // <1>
-console.log(JSON.parse(json_number)); // <2>
-console.log(JSON.parse(json_object)); // <3>
+console.log(JSON.stringify(location));  // <1>
