@@ -20,7 +20,6 @@ Le contenu est actuellement **en cours d'écriture** 🚧. Certaines sections so
 | 🚧      | **[Faire un outil en ligne de commande][ch08]** | _ça marche comment du code métier dans le terminal ?_ | [issues][ch08-issues]
 | ✅      | **[Faire une application frontend][ch09]** | _ça marche comment les modules Node dans les navigateurs web ?_ | [issues][ch09-issues]
 | 🚧      | **_Annexe_ : [Sélection de modules npm][a01]** | - | [issues][appendix-issues]
-| 🚧      | **_Annexe_ : [Design Patterns][a02]** | - | [issues][appendix-issues]
 
 # Lire
 
