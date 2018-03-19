@@ -1,0 +1,37 @@
+# Snyk (https://snyk.io) policy file, patches or ignores known vulnerabilities.
+version: v1.10.2
+ignore: {}
+# patches apply the minimum changes required to fix a vulnerability
+patch:
+  'npm:debug:20170905':
+    - browser-sync > connect > debug:
+        patched: '2018-03-19T16:02:47.459Z'
+    - browser-sync > serve-index > debug:
+        patched: '2018-03-19T16:02:47.459Z'
+    - karma > log4js > mailgun-js > debug:
+        patched: '2018-03-19T16:02:47.459Z'
+    - browser-sync > serve-static > send > debug:
+        patched: '2018-03-19T16:02:47.459Z'
+    - browser-sync > localtunnel > debug:
+        patched: '2018-03-19T16:02:47.459Z'
+    - browser-sync > connect > finalhandler > debug:
+        patched: '2018-03-19T16:02:47.459Z'
+  'npm:ms:20170412':
+    - browser-sync > connect > debug > ms:
+        patched: '2018-03-19T16:02:47.459Z'
+    - browser-sync > connect > finalhandler > debug > ms:
+        patched: '2018-03-19T16:02:47.459Z'
+    - browser-sync > serve-index > debug > ms:
+        patched: '2018-03-19T16:02:47.459Z'
+    - karma > log4js > mailgun-js > debug > ms:
+        patched: '2018-03-19T16:02:47.459Z'
+    - browser-sync > serve-static > send > ms:
+        patched: '2018-03-19T16:02:47.459Z'
+    - browser-sync > serve-static > send > debug > ms:
+        patched: '2018-03-19T16:02:47.459Z'
+  'npm:qs:20170213':
+    - browser-sync > qs:
+        patched: '2018-03-19T16:02:47.459Z'
+  'npm:ws:20160920':
+    - livereactload > ws:
+        patched: '2018-03-19T16:02:47.459Z'
