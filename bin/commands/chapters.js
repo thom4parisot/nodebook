@@ -7,7 +7,7 @@ const BLACKLIST = [
   'dist',
   'node_modules',
   'tests',
-  'appendix-b'
+  // 'appendix-b',
 ];
 
 const list = glob.sync('*/package.json', {
