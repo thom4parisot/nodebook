@@ -1272,9 +1272,54 @@ Enfin, plusieurs *problèmes* peuvent apparaitre lors du chargement d'un module 
 Node lancera une <<errors,exception>> et
 le programme s'arrêtera aussitôt.
 
-=== Importer avec `require()`
+=== La variable `module`
 
-=== Exporter avec `module.exports`
+La variable `module` contient des propriétés à propos du module courant.
+Nous avons déjà pu voir l'usage de `module.exports` dans les lignes précédentes.
+
+Il existe aussi, entre autres, la propriété `module.filename`.
+Elle représente le chemin système du module courant.
+
+`module.parent` quant à lui représente le chemin système vers le module parent.
+Par _parent_, on entend le module ayant chargé le module courant.
+La valeur vaut `null` si le module n'a pas été chargé par un autre module.
+Typiquement lorsqu'on fait `node fichier.js`.
+
+[TIP]
+.[RemarquePreTitre]#Raccourci# Variables `+__filename+` et `+__dirname+`
+====
+La variable `module.filename` dispose d'une variable raccourcie :
+`+__filename+`.
+Elle est complétée de `+__dirname+`.
+Cette dernière affiche le chemin vers le _répertoire_ contenant le fichier.
+
+[source,javascript]
+.modules/dirname-filename.js
+----
+include::{sourceDir}/modules/dirname-filename.js[]
+----
+<1> Affiche `/.../chapter-04/examples/modules/dirname-filename.js`
+<2> Affiche `true` (ça ne serait pas un _raccourci_ sinon ;-))
+<3> Affiche `/.../chapter-04/examples/modules`
+
+Ces variables sont utiles pour opérer sur
+des _fichiers relatifs_ au module courant.
+
+====
+
+=== Le futur : les modules ECMAScript
+
+
+[NOTE,subs="attributes"]
+.[RemarquePreTitre]#Documentation# Modules ECMAScript
+====
+L'intégralité des variables, fonctions et classes du module `process`
+est documentée sur le site web du projet Node.
+La documentation contient des informations à jour et qui ne sont pas
+forcément listées dans cet ouvrage.
+
+[URL]#https://nodejs.org/docs/latest-{nodeCurrentVersion}.x/api/esm.html#
+====
 
 [[modules-builtin]]
 == Les modules par défaut
