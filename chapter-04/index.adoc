@@ -1074,11 +1074,203 @@ forcément listées dans cet ouvrage.
 
 === Qu'est-ce qu'on entend par module ?
 
-modules CommonJS
+Pour Node, *tout fichier `.js` est un module*.
 
-modules ECMAScript
+Commençons avec ce fichier tout simple : `modules/enfant.js`.
+Il contient une variable que l'on voudra réutiliser dans un autre module :
 
-modules UMD ?
+[source,javascript]
+.modules/enfant.js
+----
+include::{sourceDir}/modules/enfant.js[]
+----
+
+On va utiliser la fonction `require()` pour l'importer depuis un autre module,
+`modules/parent.js` :
+
+[source,javascript]
+.modules/parent.js
+----
+include::{sourceDir}/modules/parent.js[]
+----
+<1> On assigne le contenu du module `enfant.js` dans la variable `enfant`
+<2> Est-ce que cela affichera la valeur de la variable `number` ?
+<3> Mais au fond, que contient notre variable `enfant` ?
+
+Exécutons le fichier `modules/parent.js` avec Node pour en avoir le cœur net :
+
+[source,bash]
+----
+$ node modules/parent.js
+undefined
+{}
+----
+
+De là nous pouvons en tirer un apprentissage important :
+dans un module, *tout est privé*.
+On ne peut pas voir ce qu'il y a _dans_ un module depuis _l'extérieur_.
+
+Pour affirmer ça, nous allons maintenant avoir recours à `module.exports`.
+Cette expression permet de *rendre explicite ce qui est exporté*.
+Elle rend une variable visible depuis l'extérieur.
+
+[source,javascript]
+.modules/enfant-export.js
+----
+include::{sourceDir}/modules/enfant-export.js[]
+----
+
+Nous avons assigné la variable `number` à `module.exports`.
+Comment est-ce que ça se traduit lorsqu'on l'appelle avec `require()` ?
+
+[source,javascript]
+.modules/parent-export.js
+----
+include::{sourceDir}/modules/parent-export.js[]
+----
+<1> Affiche `undefined`
+<2> Affiche `42`
+
+Ce deuxième essai confirme
+qu'*un module exporte seulement que ce qui a été assigné* à `module.exports`.
+On sait aussi que `module.exports` exporte tout type de variable.
+Par défaut, `module.exports` est un objet.
+
+Essayons maintenant d'exporter plusieurs valeurs en une seule fois :
+
+[source,javascript]
+.modules/enfant-export-multiple.js
+----
+include::{sourceDir}/modules/enfant-export-multiple.js[]
+----
+
+Nous avons créé deux nouvelles valeurs : `number` (un nombre) et
+`random` (une fonction).
+
+[TIP]
+.[RemarquePreTitre]#Raccourci# Exporter un objet
+====
+L'utilisation de la syntaxe d'objet raccourcie évite la répétition
+du nom des variables lors de l'export.
+
+[source,javascript]
+----
+include::{sourceDir}/modules/enfant-export-shorthand.js[]
+----
+<1> Liste des valeurs retournée par l'objet `module.exports`
+
+====
+
+`require()` retourne une seule valeur sous la forme d'un objet :
+
+[source,javascript]
+.modules/parent-export-multiple.js
+----
+include::{sourceDir}/modules/parent-export-multiple.js[]
+----
+<1> Affiche `42`
+<2> Affiche un nombre aléatoire entre 0 et 100
+<3> Re-exporte la fonction `enfant.number`
+
+Pour résumer, Node propose un *mécanisme d'import et d'export de modules*
+basé sur des chemins de fichiers.
+Les sections suivantes nous aideront
+à comprendre _comment fonctionne `require()`{blank}_ et
+ce que nous réserve l'objet `module`.
+
+[NOTE]
+.[RemarquePreTitre]#Histoire# Modules _CommonJS_
+====
+Le mécanisme de modules implémenté dans Node est _basé sur_ la
+spécification _CommonJS_, à peu de choses près.
+
+[URL]#http://www.commonjs.org/specs/modules/1.0/#
+====
+
+=== Ce qu'il faut savoir sur `require()`
+
+Lorsqu'on fait appel à la fonction `require()`, Node effectue la *liste d'actions* suivantes :
+
+. résolution du chemin vers le module en question
+. lecture du fichier
+. interprétation du code
+. exécution du code
+. retourne la valeur de `module.exports`
+
+L'utilisation de `require()` est *synchrone* et *bloquante*.
+Si l'exécution du code dans le module chargé prend du temps
+— code _lent_, accès à une ressource distante — le chargement
+du module en prendra un coup. +
+Il vaut mieux ranger les appels _asynchrones_ dans des fonctions
+et appeler ces fonctions de manière explicite, _après_ avoir chargé le module.
+
+`require()` permet de *charger 3 types de modules* :
+
+. des *fichiers relatifs au module actuel* +
+  `require('./module.js')` cherchera le fichier `module.js` dans le _répertoire courant_.
+  `require('../module.js')` cherchera `module.js` dans le _répertoire parent_.
+  C'est le cas que l'on a vu jusqu'à présent.
+. des *modules Node* +
+  Ils sont disponibles avec chaque installation de Node.
+  On en parle plus en détail dans la section <<modules-builtin,modules Node>>
+  de ce même chapitre.
+. des *modules npm* +
+  Ils sont disponibles avec une étape d'installation supplémentaire.
+  On en parle plus en détail dans le <<../chapter-05/index.adoc#,chapitre 5>>
+  consacré à _npm_.
+
+*Node met les modules en cache*.
+Si on inclut deux fois le même module, le deuxième import ira directement
+à la dernière étape de la _liste d'actions_.
+Ça implique aussi que si le module modifie une de ses variable privée,
+cette modification impactera le deuxième import.
+
+Voici un module illustrant une variable privée et une variable exportée :
+
+[source,javascript]
+.modules/increment.js
+----
+include::{sourceDir}/modules/increment.js[]
+----
+<1> Variable privée
+<2> `increment` est rendue publique à cet endroit
+— la fonction incrémente la variable privée `counter`
+
+Nous allons importer ce module par deux fois, dans deux variables différentes :
+
+[source,javascript]
+.modules/double-import.js
+----
+include::{sourceDir}/modules/double-import.js[]
+----
+<1> Affiche `1`
+<2> Affiche `2`
+<3> Affiche… `1` ou `3` ?
+
+Quel est le verdict à votre avis ?
+Rien ne vaut une vérification, quitte à remettre en question
+notre avis initial :
+
+[source,bash]
+----
+$ node modules/double-import.js
+1
+2
+3
+----
+
+Il faut garder cette information en tête lorsqu'on importe un module.
+Sans oublier que ce mécanisme se transforme en atout afin de partager
+une variable entre plusieurs modules.
+Pratique dans le cas d'un _cache de données_ ou d'une _configuration partagée_.
+
+Enfin, plusieurs *problèmes* peuvent apparaitre lors du chargement d'un module :
+
+- le chemin vers le module est erroné ;
+- le module contient une erreur de syntaxe.
+
+Node lancera une <<errors,exception>> et
+le programme s'arrêtera aussitôt.
 
 === Importer avec `require()`
 
