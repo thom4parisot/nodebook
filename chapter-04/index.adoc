@@ -363,7 +363,7 @@ Le processus s'arrête en cas d'erreur, lorqu'il n'y a plus d'opération
 === Le coût d'un processus
 
 Démarrer un processus Node a un coût incompressible en ressources machine :
-environ *30Mo de RAM* et *quelques millisecondes de CPU* avant d'exécuter nos
+environ *30Mo de RAM* et *environ 40 millisecondes de CPU* avant d'exécuter nos
 instructions.
 
 Un *processus Node est _mono_ CPU*.
@@ -1045,6 +1045,32 @@ Suffisamment pour qu'on passe notre chemin à ce stade.
 
 [[modules]]
 == Organiser son code en utilisant les modules
+
+Node a apporté quelque chose qui manquait cruellement à ECMAScript :
+la possibilité de charger des modules.
+C'est à dire la possibilité d'*organiser son code dans plusieurs fichiers*
+et d'y faire appel depuis d'autres fichiers. +
+À la manière de ce qui se fait en Python (`import`), PHP (`require`)
+et Ruby (`require` et `require_relative`).
+
+Nous allons décrire le _fonctionnement des modules_ dans cette section.
+La section suivante explique ce qu'on peut faire avec les
+<<modules-builtin,modules fournis par Node>> tandis que le
+<<../chapter-05/index.adoc#,chapitre 5>> explique comment installer des
+_modules npm_ téléchargés sur Internet.
+
+Tout un programme !
+
+[NOTE,subs="attributes"]
+.[RemarquePreTitre]#Documentation# Module _modules_
+====
+L'intégralité des variables, fonctions et classes du module `modules`
+est documentée sur le site web du projet Node.
+La documentation contient des informations à jour et qui ne sont pas
+forcément listées dans cet ouvrage.
+
+[URL]#https://nodejs.org/docs/latest-{nodeCurrentVersion}.x/api/modules.html#
+====
 
 === Qu'est-ce qu'on entend par module ?
 
