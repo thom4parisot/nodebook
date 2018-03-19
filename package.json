@@ -11,7 +11,9 @@
     "start": "node server.js",
     "test": "tape 'tests/*.js' | tap-spec",
     "test:docker": "docker run -ti --rm -v $(pwd):/tests -w /tests node:8-slim npm test",
-    "posttest": "npm run lint"
+    "posttest": "npm run lint",
+    "snyk-protect": "snyk protect",
+    "prepare": "npm run snyk-protect"
   },
   "engines": {
     "node": "^8.0.0"
@@ -40,7 +42,8 @@
     "glob": "^7.1.2",
     "serve-static": "^1.13.2",
     "update-notifier": "^2.3.0",
-    "yargs": "^11.1.0"
+    "yargs": "^11.1.0",
+    "snyk": "^1.70.2"
   },
   "devDependencies": {
     "asciidoctor-extension-interactive-runner": "^1.0.1",
@@ -102,5 +105,6 @@
         "global"
       ]
     }
-  }
+  },
+  "snyk": true
 }
