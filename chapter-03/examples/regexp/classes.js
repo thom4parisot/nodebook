@@ -1,4 +1,4 @@
-const text = 'I ♥ RegExp in {docyear}';
+const text = 'I ♥ RegExp in 2018';
 
 console.log(text.match(/\u{2665} (\w+)/u));     // <1>
 

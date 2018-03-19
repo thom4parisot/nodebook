@@ -1,6 +1,26 @@
 'use strict';
 
+const YEAR = new Date().getFullYear();
+
 module.exports = {
+  'appendix-a/examples/npm/faye.js': {
+    skip: true
+  },
+  'appendix-a/examples/npm/inquirer.js': {
+    skip: true
+  },
+  'appendix-a/examples/npm/knex.js': {
+    skip: true
+  },
+  'appendix-a/examples/npm/mongoose.js': {
+    skip: true
+  },
+  'appendix-a/examples/npm/redis.js': {
+    skip: true
+  },
+  'appendix-a/examples/npm/restify.js': {
+    skip: true
+  },
   'appendix-b/examples/events-setmaxlisteners.js': {
     skip: true
   },
@@ -13,6 +33,29 @@ module.exports = {
   'appendix-b/examples/streams-large.js': {
     exitCode: 1,
     stderr: 'SyntaxError: Unexpected end of JSON input'
+  },
+  'chapter-03/examples/array/node-list.js': {
+    exitCode: 1,
+    stderr: 'ReferenceError: document is not defined'
+  },
+  'chapter-03/examples/promise/then-catch.js': {
+    stderr: 'le nombre de secondes n\'est pas impair'
+  },
+  'chapter-03/examples/scopes/global.js': {
+    exitCode: 1,
+    stderr: 'ReferenceError: value is not defined'
+  },
+  'chapter-03/examples/scopes/lexical.js': {
+    exitCode: 1,
+    stderr: 'ReferenceError: price is not defined'
+  },
+  'chapter-03/examples/scopes/local.js': {
+    exitCode: 1,
+    stderr: 'ReferenceError: mot is not defined'
+  },
+  'chapter-03/examples/variables/const.js': {
+    exitCode: 1,
+    stderr: 'SyntaxError: Identifier \'base_price\' has already been declared'
   },
   'chapter-03/examples/class-constructor.js': {
     stderr: 'Error: Extend the View class to render content'
@@ -33,6 +76,9 @@ module.exports = {
     exitCode: 1,
     stderr: 'Error: Invalid date given'
   },
+  'chapter-03/examples/date/base.js': {
+    stdout: `2013\n${YEAR}\n`
+  },
   'chapter-04/examples/process-stdin-uppercase.js': {
     stdin: 'un deux trois',
     stdout: 'UN DEUX TROIS'
@@ -51,6 +97,19 @@ module.exports = {
   'chapter-04/examples/process-stdout-long.js': {
     skip: true,
   },
+  'chapter-04/examples/modules/ecmascript-multiple.mjs': {
+    stderr: 'ExperimentalWarning: The ESM module loader is experimental',
+  },
+  'chapter-04/examples/modules/ecmascript.js': {
+    exitCode: 1,
+    stderr: 'SyntaxError: Unexpected token import',
+  },
+  'chapter-04/examples/modules/ecmascript.mjs': {
+    stderr: 'ExperimentalWarning: The ESM module loader is experimental',
+  },
+  'chapter-04/examples/modules/increment.mjs': {
+    stderr: 'ExperimentalWarning: The ESM module loader is experimental',
+  },
   'chapter-06/examples/app.js': {
     skip: true
   },
@@ -58,6 +117,9 @@ module.exports = {
     timeout: 6000
   },
   'chapter-06/examples/server-port80.js': {
+    skip: true
+  },
+  'chapter-06/examples/config/env.js': {
     skip: true
   },
   'chapter-07/examples/http-app.js': {
