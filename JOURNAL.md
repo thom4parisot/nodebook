@@ -2,6 +2,30 @@
 
 Ce journal détaille l'effort d'écriture depuis janvier 2017. Le projet a commencé en décembre 2014.
 
+## Lundi 19 mars 2018
+
+- _Chapitre 4_ : ce qu'il faut savoir sur require()
+- _Chapitre 4_ : le futur : les modules ECMAScript
+
+**Météo** : 😣 ❄️ 🍞
+
+## Dimanche 18 mars 2018
+
+- _Chapitre 4_ : qu'est-ce qu'on entend par module ?
+- _Outillage_ : embedding de la feuille CSS, sans webfont
+- Suppression de l'Annexe B
+
+**Météo** : 😣 ❄️
+
+## Samedi 17 mars 2018
+
+- _Outillage_ : suivi du menu au scroll
+- _Chapitre 6_ : mise à jour des dépendances
+- _Chapitre 5_ et _Annexe A_ : suppression d'exemples inadaptés
+- _Chapitre 3_ : correction de l'exemple json/stringify.js et précisions sur json/to-string.js
+
+**Météo** : 😣 ❄️ 🍞
+
 ## Vendredi 16 mars 2018
 
 - _Chapitre 4_ : Écouter les événements extérieurs

@@ -1307,13 +1307,133 @@ des _fichiers relatifs_ au module courant.
 
 ====
 
+[[esm]]
 === Le futur : les modules ECMAScript
+
+Pendant que Node et de son mécanisme de module montaient en puissance,
+les navigateurs web étaient en attente d'une solution native.
+Enfin… la spécification des modules ECMAScript a été validée en 2013
+mais les navigateurs ont tardé à implémenter le mécanisme.
+
+La plupart d'entre eux ont implémenté les modules ECMAScript en 2017.
+C'est le cas du navigateur web Chrome et de
+sa <<../chapter-01/index.adoc#v8,machine virtuelle V8>>.
+
+[WARNING]
+.[RemarquePreTitre]#Attention# Fonctionnalité expérimentale
+====
+Si la syntaxe des modules ECMAScript est standardisée,
+ce n'est pas encore aussi stable du côté de Node.
+
+Les modules ECMAScript sont suffixés de l'extension `.mjs`
+et nécessitent l'utilisation de l'<<option,option de démarrage>>
+`--experimental-modules`.
+====
+
+Reprenons l'exemple `modules/increment.js` pour le
+transformer en module ECMAScript :
+
+[source,javascript]
+.modules/increment.mjs
+----
+include::{sourceDir}/modules/increment.mjs[]
+----
+<1> Export _par défaut_
+<2> Export _nommé_
+
+La syntaxe `export` sert à… exporter des variables.
+Cette syntaxe se combine avec `import` :
+
+[source,javascript]
+.modules/ecmascript.mjs
+----
+include::{sourceDir}/modules/ecmascript.mjs[]
+----
+<1> On n'importe ici que la _valeur par défaut_
+
+Il ne nous reste maintenant plus qu'à exécuter notre script `.mjs`
+pour observer le résultat.
+On notera l'utilisation de `--experimental-modules` :
+
+[source,bash]
+----
+$ node --experimental-modules modules/ecmascript.mjs
+(node:35074) ExperimentalWarning: The ESM module loader is experimental.
+1
+----
+
+Reprenons cet exemple pour _importer plusieurs exports d'un coup_ :
+
+[source,javascript]
+.modules/ecmascript-multiple.mjs
+----
+include::{sourceDir}/modules/ecmascript-multiple.mjs[]
+----
+<1> On importe la _valeur par défaut_ ainsi qu'une _valeur nommée_ -
+c'est particulièrement pratique pour sélectionner avec finesse
+ce que l'on veut utiliser d'un module
+<2> La fonction `reset` remet le compteur à zéro
+
+On notera au passage qu'on utilise la
+<<../chapter-03/index.adoc#object-destructuring,destructuration d'objet>>
+pour extraire un _export nommé_ depuis un module ECMAScript.
+
+[source,bash]
+----
+$ node --experimental-modules modules/ecmascript-multiple.mjs
+(node:35074) ExperimentalWarning: The ESM module loader is experimental.
+2
+1
+----
+
+La fonction `reset` a bien remis à zéro le compteur entre temps.
+Objectif accompli !
+
+Résumons les des différences notables avec le mécanisme de modules Node :
+
+- tous les appels à `import` doivent se faire en début de fichier
+- on ne peut pas utiliser `import` de manière dynamique
+(dans un `if/else` par exemple)
+- on peut exporter une _variable par défaut_ *et* plusieurs _variables nommées_
+- on peut importer des modules Node depuis un module ECMAScript —
+l'inverse n'est pas vrai
+- les fichiers doivent être suffixés par `.mjs`
+
+Ce dernier point est le plus embêtant car il ralentit l'interopérabilité
+avec les modules destiné au développement web frontend.
+Ces derniers contiennent les déclarations `import` et `export` mais…
+dans des fichiers `.js`.
+
+L'histoire nous dira si les modalités s'assoupliront avec le temps.
+
+[TIP]
+.[RemarquePreTitre]#npm# Module `esm`
+====
+Le <<../chapter-05/index.adoc#modules,module npm>> `esm`
+([URL]#https://npmjs.com/esm#) a pris le parti de déblayer le chemin
+de l'intéropérabilité.
+Il suffit de charger le module `esm` avant de démarrer un script Node,
+peu importe son mécanisme de chargement de modules :
+`esm` rendra le chargement des modules totalement transparent.
+
+[source,bash]
+----
+$ node -r esm modules/ecmascript.js
+1
+$ node -r esm modules/ecmascript.mjs
+1
+----
+
+Pour en savoir plus sur l'option `-r`, rendez-vous
+dans la section <<require,précharger un module>>
+
+====
 
 
 [NOTE,subs="attributes"]
 .[RemarquePreTitre]#Documentation# Modules ECMAScript
 ====
-L'intégralité des variables, fonctions et classes du module `process`
+L'intégralité des fonctionnalités des modules ECMAScript
 est documentée sur le site web du projet Node.
 La documentation contient des informations à jour et qui ne sont pas
 forcément listées dans cet ouvrage.
@@ -1322,10 +1442,10 @@ forcément listées dans cet ouvrage.
 ====
 
 [[modules-builtin]]
-== Les modules par défaut
+== Les modules Node
 
 [NOTE]
-.[RemarquePreTitre]#Documentation# Modules Node
+.[RemarquePreTitre]#Documentation# Modules Node par défaut
 ====
 
 [URL]#https://nodejs.org/docs/latest-{nodeCurrentVersion}.x/api/#
@@ -1424,13 +1544,14 @@ ReferenceError: jenexistepas is not defined
 ----
 
 
-
-== Démarrer Node avec un comportement différent
+[[options]]
+== Options utiles pour démarrer Node
 
 
 Cf. https://nodejs.org/api/cli.html
 Compatible aussi avec `NODE_OPTIONS`
 
+[[require]]
 === Précharger un module
 
 `--require`
@@ -1440,9 +1561,10 @@ Compatible aussi avec `NODE_OPTIONS`
 
 `node --inspect` et `node --inspect-brk`
 
-=== Personnaliser les fonctionnalités liées à ECMAScript
+=== Personnaliser les fonctionnalités ECMAScript
 
 `--v8-options`
+`--harmony`
 
 harmony pour activer les fonctionnalités de langage en cours de développement (en voie de standardisasation)
 
