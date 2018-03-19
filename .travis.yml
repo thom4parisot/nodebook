@@ -2,7 +2,9 @@ dist: trusty
 sudo: false
 
 language: node_js
-node_js: v8
+node_js:
+  - v8
+  - v9
 
 cache:
   directories:
@@ -10,6 +12,10 @@ cache:
 
 env:
 - DEBUG=tape-spawn
+
+matrix:
+  allow_failures:
+    - node_js: v9
 
 before_install:
 - npm i -g npm@latest
