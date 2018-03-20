@@ -35,7 +35,7 @@ deploy:
     local-dir: dist
     on:
       branch: master
-      tags: false
+      node_js: v8
   - provider: npm
     skip_cleanup: true
     on:
