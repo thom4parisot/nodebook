@@ -5,5 +5,5 @@ const longOptions = {...options, weekday: 'long', month: 'long'};
 const fr = new Intl.DateTimeFormat('fr-FR', options);
 const frLong = new Intl.DateTimeFormat('fr-FR', longOptions);
 
-console.log(fr.format(past));
-console.log(frLong.format(past));
+console.log(fr.format(past));         // <1>
+console.log(frLong.format(past));     // <2>

@@ -1,5 +1,5 @@
 import React from 'react';
-import './buttons.scss';
+import './buttons.scss';          // <1>
 
 const Icon = (props) => (<svg aria-hidden="true">
   <use xlinkHref={'symbols.svg#' + props.id} />

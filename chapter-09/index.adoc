@@ -432,7 +432,7 @@ include::{sourceDir}/import/script-import.js[]
 ----
 <1> Affiche `undefined`
 <2> Affiche `function`
-<2> Affiche `object`
+<3> Affiche `object`
 
 De même que nous avons utilisé `import` pour importer de manière sélective une fonction du module `dom-log.js`, l'opérateur `export` nous aide à exposer des objets, fonctions et variables :
 
@@ -1114,13 +1114,19 @@ Qui n'est autre qu'un équivalent de :
 [source,bash,subs="attributes"]
 ----
 $ watchify -dv \
-  -t babelify \         # <1>
-  -p livereactload \    # <2>
+  -t babelify \
+  -p livereactload \
   -e {sourceDir}/livereload/react-app-hmr.js \
   -o {sourceDir}/livereload/react-app-hmr-browserify.js
 ----
-<1> Le _transform_ (`-t`) modifie le code à la volée
-<2> Le _plugin_ (`-p`) encapsule le fonctionnement de _watchify_ pour effectuer des opérations plus complexes et impossibles à effectuer autrement
+
+Dans cet exemple, le _transform_ (`-t`) modifie le code source à la volée —
+ici, adapter le code écrit dans une syntaxe compréhensible par la majorité
+des navigateurs web grâce à l'outil <<transpilation,Babel>>.
+
+Le _plugin_ (`-p`) ne transforme pas le code mais le fonctionnement de
+_watchify_ pour y ajouter des fonctionnalités — ici, refléter les
+changements du fichier source vers le navigateur en temps réel.
 
 Il faudra ensuite modifier l'un des deux fichiers suivants – en décommentant les lignes concernées par exemple – pour constater les changements dans notre navigateur.
 
@@ -1788,7 +1794,7 @@ Son mécanisme de *variables d'environnement cryptées* nous évitera de donner 
 Un fichier de configuration minimal au format YAML est nécessaire.
 Des services comme _GitHub_ facilitent la connexion avec _Travis CI_ et déclenchent automatiquement l'exécution des tests à chaque commit ou _pull request_.
 
-[source,yaml,subs="attributes"]
+[source,yaml,subs="+attributes"]
 .{empty}.travis.yml
 ----
 include::.travis.yml[]
