@@ -11,7 +11,7 @@ cache:
   - "$HOME/.npm"
 
 env:
-- DEBUG=tape-spawn
+- DEBUG=tape-spawn SHARP_IGNORE_GLOBAL_LIBVIPS=1
 
 matrix:
   allow_failures:
