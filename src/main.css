@@ -801,8 +801,8 @@ body.toc2 #header > h1:nth-last-child(2) {
     font-size: 1.375em;
   }
   body.toc2 {
-    padding-left: 15em;
-    padding-right: 0;
+    padding-left: 16em;
+    padding-right: 1em;
   }
   #toc.toc2 {
     margin-top: 0 !important;
@@ -850,8 +850,8 @@ body.toc2 #header > h1:nth-last-child(2) {
 }
 @media only screen and (min-width: 1280px) {
   body.toc2 {
-    padding-left: 20em;
-    padding-right: 0;
+    padding-left: 22em;
+    padding-right: 2em;
   }
   #toc.toc2 {
     width: 25%;
@@ -2014,4 +2014,41 @@ p.tableblock {
   .show-for-print {
     display: inherit !important;
   }
+}
+
+.admonitionblock td.content > .title, .audioblock > .title, .exampleblock > .title, .imageblock > .title, .listingblock > .title, .literalblock > .title, .stemblock > .title, .openblock > .title, .paragraph > .title, .quoteblock > .title, table.tableblock > .title, .verseblock > .title, .videoblock > .title, .dlist > .title, .olist > .title, .ulist > .title, .qlist > .title, .hdlist > .title, #toctitle {
+  font-style: normal;
+  font-weight: bold;
+}
+
+.admonitionblock td.content > .title, .audioblock > .title, .exampleblock > .title, .imageblock > .title, .listingblock > .title, .literalblock > .title, .stemblock > .title, .openblock > .title, .paragraph > .title, .quoteblock > .title, table.tableblock > .title, .verseblock > .title, .videoblock > .title, .dlist > .title, .olist > .title, .ulist > .title, .qlist > .title, .hdlist > .title {
+  font-size: 1.0625rem;
+}
+/* highlight code (grepping) */
+.listingblock pre > code i {
+  background-color: #e0c1ff;
+  color: #000;
+  font-style: normal;
+}
+
+a {
+  white-space: nowrap;
+}
+.RemarquePreTitre {
+  background-color: #ffc;
+  border-bottom: 1px solid #ddddd8;
+  font-style: normal;
+  font-weight: bold;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+.admonitionblock {
+}
+.admonitionblock table {
+  box-shadow: 0 0 10px rgba(0,0,0,.1);
+  margin: 1.5em 0;
+  padding: 1em;
+}
+.icon .title {
+  font-size: 2em;
 }
