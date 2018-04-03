@@ -26,12 +26,12 @@ disponibles par défaut.
 
 ====
 .Sommaire
-- Interagir avec l’interpréteur Node
+- Interagir avec l'interpréteur Node
 - Qu'est-ce qu'un processus Node ?
 - Organiser son code en utilisant les modules
-- Les modules Node
-- S’en sortir quand ça ne se passe pas comme prévu
-- Démarrer Node avec un comportement différent
+- Les modules de base
+- S'en sortir quand ça ne se passe pas comme prévu
+- Options utiles pour démarrer Node
 ====
 
 [abstract]
@@ -1442,34 +1442,86 @@ forcément listées dans cet ouvrage.
 ====
 
 [[modules-builtin]]
-== Les modules Node
+== Les modules de base
+
+Les modules de base *étendent le champ d'action de Node*.
+Ils servent d'interface pour communiquer avec le système d'exploitation,
+le système de fichier et les accès réseaux, entre autres.
+
+Ces modules sont inclus avec chaque installation de Node.
+On peut donc en bénéficier sans effort supplémentaire.
+
+Le chargement d'un module de base s'effectue à l'aide de la fonction `require()`.
+C'est à dire de la même manière qu'avec un <<modules,module classique>>.
+À une différence près : *on utilise le nom du module* au lieu d'un
+emplacement fichier.
+
+Ainsi, si l'on souhaite interagir avec des fichiers et des répertoires,
+on chargera le <<fs,module `fs`>> comme ceci :
+
+[source%interactive,javascript]
+.fs/read-dir.js
+----
+include::{sourceDir}/fs/read-dir.js[]
+----
+<1> On assigne les fonctions et attributs du module `fs` dans la variable `fs`
+(on pourrait l'appeler autrement si on en avait envie)
+<2> L'appel à la fonction `fs.readdir` passe un objet d'erreur
+ainsi que la liste des fichiers et répertoires
+contenus dans le chemin indiqué
+<3> Affiche un tableau contenant les noms de fichiers et de répertoires présents
+dans le dossier courant
+
+Un nouveau monde s'ouvre à nous.
+D'interpréteur JavaScript côté serveur, nous avons maintenant à disposition
+tout ce qu'il nous faut pour créer des applications et des outils modernes.
 
 [NOTE]
-.[RemarquePreTitre]#Documentation# Modules Node par défaut
+.[RemarquePreTitre]#Documentation# Modules de base
+====
+La documentation de chaque module est disponible sur le site officiel de Node :
+[URL]#https://nodejs.org/docs/latest-{nodeCurrentVersion}.x/api/#
+
+On y retrouve toutes les propriétés des modules de base, toutes leurs fonctions
+et ce, pour chaque version de Node.
 ====
 
-[URL]#https://nodejs.org/docs/latest-{nodeCurrentVersion}.x/api/#
-====
+Les modules de base changent au fil du temps.
+Des fois, de nouvelles versions de Node sortent pour corriger des bugs dans ces modules.
+D'autres fois, les changements sont structurels :
+ils *ajoutent des fonctions* ou en *déprécient*.
+
+La documentation officielle de Node documente les changements,
+les indices de confiance ainsi que des alternatives lorsqu'elles sont connues.
+
+.Exemple avec la fonction `fs.exists`, dépréciée depuis Node v1.
+image::images/api-deprecation-fs-exists.png[align="center",width="85%"]
 
 [NOTE]
 .[RemarquePreTitre]#Documentation# Lecture des indices de stabilité
 ====
-Node communique un indice de stabilité pour chacune de ses modules.
-L'indice est exprimée selon une échelle graduée de 0 à 5.
+Node communique un indice de stabilité pour les modules de base.
+Cette échelle se décompose en trois niveaux :
 
-.Exemple avec le module `punycode`, déprécié depuis Node v7.
-image::images/node-api-deprecation.png[align="center",width="85%"]
+[horizontal]
+*déprécié*::
+  Le module sera supprimé dans une prochaine version majeure.
+  À l'avenir, il vaut mieux ne pas se compter dessus.
+*expérimental*::
+  Le module est en cours de développement.
+  Une fonctionnalité expérimentale peut changer radicalement entre deux
+  versions de Node.
+*stable*::
+  On peut faire confiance à ce module.
+  Des choses peuvent changer exceptionnellement mais l'intention est d'offrir
+  une stabilité.
 
-Cette échelle se décompose de la manière suivante :
-
-- 0 : le module est *déprécié* et peut être supprimé dans une prochaine version majeure ;
-- 1 : le module est *expérimental*, instable et nécessite des retours utilisateurs ;
-- 2 : le module est *instable*, son API peut changer et nécessite davantage de tests grandeur nature avant d'être considéré comme stable ;
-- 3 : le module est *stable* mais peut être sujet à des changements mineurs d'API ;
-- 4 : le module est *gelé*, son API ne devrait plus du tout changer ;
-- 5 : le module est *verrouillé*, son code interne ne changera plus.
-
+L'indice est parfois appliqué à des fonctions dont les attentes
+changeraient d'une version à l'autre de Node.
 ====
+
+Les sections suivantes illusteront les modules principaux avec
+des cas pratiques.
 
 [[console]]
 === `console` : déboguer rapidement des variables
