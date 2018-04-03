@@ -2,6 +2,12 @@
 
 Ce journal détaille l'effort d'écriture depuis janvier 2017. Le projet a commencé en décembre 2014.
 
+## Mardi 3 avril 2018
+
+- _Chapitre 4_ : les modules de base
+
+**Météo** : 🇫🇷 😴
+
 ## Lundi 19 mars 2018
 
 - _Chapitre 4_ : ce qu'il faut savoir sur require()
