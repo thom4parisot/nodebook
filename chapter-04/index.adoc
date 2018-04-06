@@ -27,10 +27,10 @@ disponibles par défaut.
 ====
 .Sommaire
 - Interagir avec l'interpréteur Node
-- Qu'est-ce qu'un processus Node ?
-- Organiser son code en utilisant les modules
 - Les modules de base
+- Créer ses propres modules Node
 - S'en sortir quand ça ne se passe pas comme prévu
+- Qu'est-ce qu'un processus Node ?
 - Options utiles pour démarrer Node
 ====
 
@@ -341,9 +341,726 @@ Nous verrons plus en détail _comment_ et _pourquoi_ créer de telles applicatio
 dans le <<../chapter-08/index.adoc#,chapitre 8>>.
 
 Enfin, il faut comprendre que toute exécution de script
-entraîne la création d'un <<process,processus système>>.
+entraîne la création d'un <<process.api,processus système>>.
+
+
+[[modules]]
+== Créer ses propres modules Node
+
+Node a apporté quelque chose qui manquait cruellement à ECMAScript :
+la possibilité de charger des modules.
+C'est à dire la possibilité d'*organiser son code dans plusieurs fichiers*
+et d'y faire appel depuis d'autres fichiers. +
+À la manière de ce qui se fait en Python (`import`), PHP (`require`)
+et Ruby (`require` et `require_relative`).
+
+Nous allons décrire le _fonctionnement des modules_ dans cette section.
+La section suivante explique ce qu'on peut faire avec les
+<<modules-builtin,modules fournis par Node>> tandis que le
+<<../chapter-05/index.adoc#,chapitre 5>> explique comment installer des
+_modules npm_ téléchargés sur Internet.
+
+Tout un programme !
+
+[NOTE,subs="attributes"]
+.[RemarquePreTitre]#Documentation# Module _modules_
+====
+L'intégralité des variables, fonctions et classes du module `modules`
+est documentée sur le site web du projet Node.
+La documentation contient des informations à jour et qui ne sont pas
+forcément listées dans cet ouvrage.
+
+[URL]#https://nodejs.org/docs/latest-{nodeCurrentVersion}.x/api/modules.html#
+====
+
+=== Qu'est-ce qu'on entend par module ?
+
+Pour Node, *tout fichier `.js` est un module*.
+
+Commençons avec ce fichier tout simple : `modules/enfant.js`.
+Il contient une variable que l'on voudra réutiliser dans un autre module :
+
+[source,javascript]
+.modules/enfant.js
+----
+include::{sourceDir}/modules/enfant.js[]
+----
+
+On va utiliser la fonction `require()` pour l'importer depuis un autre module,
+`modules/parent.js` :
+
+[source,javascript]
+.modules/parent.js
+----
+include::{sourceDir}/modules/parent.js[]
+----
+<1> On assigne le contenu du module `enfant.js` dans la variable `enfant`
+<2> Est-ce que cela affichera la valeur de la variable `number` ?
+<3> Mais au fond, que contient notre variable `enfant` ?
+
+Exécutons le fichier `modules/parent.js` avec Node pour en avoir le cœur net :
+
+[source,bash]
+----
+$ node modules/parent.js
+undefined
+{}
+----
+
+De là nous pouvons en tirer un apprentissage important :
+dans un module, *tout est privé*.
+On ne peut pas voir ce qu'il y a _dans_ un module depuis _l'extérieur_.
+
+Pour affirmer ça, nous allons maintenant avoir recours à `module.exports`.
+Cette expression permet de *rendre explicite ce qui est exporté*.
+Elle rend une variable visible depuis l'extérieur.
+
+[source,javascript]
+.modules/enfant-export.js
+----
+include::{sourceDir}/modules/enfant-export.js[]
+----
+
+Nous avons assigné la variable `number` à `module.exports`.
+Comment est-ce que ça se traduit lorsqu'on l'appelle avec `require()` ?
+
+[source,javascript]
+.modules/parent-export.js
+----
+include::{sourceDir}/modules/parent-export.js[]
+----
+<1> Affiche `undefined`
+<2> Affiche `42`
+
+Ce deuxième essai confirme
+qu'*un module exporte seulement que ce qui a été assigné* à `module.exports`.
+On sait aussi que `module.exports` exporte tout type de variable.
+Par défaut, `module.exports` est un objet.
+
+Essayons maintenant d'exporter plusieurs valeurs en une seule fois :
+
+[source,javascript]
+.modules/enfant-export-multiple.js
+----
+include::{sourceDir}/modules/enfant-export-multiple.js[]
+----
+
+Nous avons créé deux nouvelles valeurs : `number` (un nombre) et
+`random` (une fonction).
+
+[TIP]
+.[RemarquePreTitre]#Raccourci# Exporter un objet
+====
+L'utilisation de la syntaxe d'objet raccourcie évite la répétition
+du nom des variables lors de l'export.
+
+[source,javascript]
+----
+include::{sourceDir}/modules/enfant-export-shorthand.js[]
+----
+<1> Liste des valeurs retournée par l'objet `module.exports`
+
+====
+
+`require()` retourne une seule valeur sous la forme d'un objet :
+
+[source,javascript]
+.modules/parent-export-multiple.js
+----
+include::{sourceDir}/modules/parent-export-multiple.js[]
+----
+<1> Affiche `42`
+<2> Affiche un nombre aléatoire entre 0 et 100
+<3> Re-exporte la fonction `enfant.number`
+
+Pour résumer, Node propose un *mécanisme d'import et d'export de modules*
+basé sur des chemins de fichiers.
+Les sections suivantes nous aideront
+à comprendre _comment fonctionne `require()`{blank}_ et
+ce que nous réserve l'objet `module`.
+
+[NOTE]
+.[RemarquePreTitre]#Histoire# Modules _CommonJS_
+====
+Le mécanisme de modules implémenté dans Node est _basé sur_ la
+spécification _CommonJS_, à peu de choses près.
+
+[URL]#http://www.commonjs.org/specs/modules/1.0/#
+====
+
+=== Ce qu'il faut savoir sur `require()`
+
+Lorsqu'on fait appel à la fonction `require()`, Node effectue la *liste d'actions* suivantes :
+
+. résolution du chemin vers le module en question
+. lecture du fichier
+. interprétation du code
+. exécution du code
+. retourne la valeur de `module.exports`
+
+L'utilisation de `require()` est *synchrone* et *bloquante*.
+Si l'exécution du code dans le module chargé prend du temps
+— code _lent_, accès à une ressource distante — le chargement
+du module en prendra un coup. +
+Il vaut mieux ranger les appels _asynchrones_ dans des fonctions
+et appeler ces fonctions de manière explicite, _après_ avoir chargé le module.
+
+`require()` permet de *charger 3 types de modules* :
+
+. des *fichiers relatifs au module actuel* +
+  `require('./module.js')` cherchera le fichier `module.js` dans le _répertoire courant_.
+  `require('../module.js')` cherchera `module.js` dans le _répertoire parent_.
+  C'est le cas que l'on a vu jusqu'à présent.
+. des *modules Node* +
+  Ils sont disponibles avec chaque installation de Node.
+  On en parle plus en détail dans la section <<modules-builtin,modules Node>>
+  de ce même chapitre.
+. des *modules npm* +
+  Ils sont disponibles avec une étape d'installation supplémentaire.
+  On en parle plus en détail dans le <<../chapter-05/index.adoc#,chapitre 5>>
+  consacré à _npm_.
+
+*Node met les modules en cache*.
+Si on inclut deux fois le même module, le deuxième import ira directement
+à la dernière étape de la _liste d'actions_.
+Ça implique aussi que si le module modifie une de ses variable privée,
+cette modification impactera le deuxième import.
+
+Voici un module illustrant une variable privée et une variable exportée :
+
+[source,javascript]
+.modules/increment.js
+----
+include::{sourceDir}/modules/increment.js[]
+----
+<1> Variable privée
+<2> `increment` est rendue publique à cet endroit
+— la fonction incrémente la variable privée `counter`
+
+Nous allons importer ce module par deux fois, dans deux variables différentes :
+
+[source,javascript]
+.modules/double-import.js
+----
+include::{sourceDir}/modules/double-import.js[]
+----
+<1> Affiche `1`
+<2> Affiche `2`
+<3> Affiche… `1` ou `3` ?
+
+Quel est le verdict à votre avis ?
+Rien ne vaut une vérification, quitte à remettre en question
+notre avis initial :
+
+[source,bash]
+----
+$ node modules/double-import.js
+1
+2
+3
+----
+
+Il faut garder cette information en tête lorsqu'on importe un module.
+Sans oublier que ce mécanisme se transforme en atout afin de partager
+une variable entre plusieurs modules.
+Pratique dans le cas d'un _cache de données_ ou d'une _configuration partagée_.
+
+Enfin, plusieurs *problèmes* peuvent apparaitre lors du chargement d'un module :
+
+- le chemin vers le module est erroné ;
+- le module contient une erreur de syntaxe.
+
+Node lancera une <<errors,exception>> et
+le programme s'arrêtera aussitôt.
+
+=== La variable `module`
+
+La variable `module` contient des propriétés à propos du module courant.
+Nous avons déjà pu voir l'usage de `module.exports` dans les lignes précédentes.
+
+Il existe aussi, entre autres, la propriété `module.filename`.
+Elle représente le chemin système du module courant.
+
+`module.parent` quant à lui représente le chemin système vers le module parent.
+Par _parent_, on entend le module ayant chargé le module courant.
+La valeur vaut `null` si le module n'a pas été chargé par un autre module.
+Typiquement lorsqu'on fait `node fichier.js`.
+
+[TIP]
+.[RemarquePreTitre]#Raccourci# Variables `+__filename+` et `+__dirname+`
+====
+La variable `module.filename` dispose d'une variable raccourcie :
+`+__filename+`.
+Elle est complétée de `+__dirname+`.
+Cette dernière affiche le chemin vers le _répertoire_ contenant le fichier.
+
+[source,javascript]
+.modules/dirname-filename.js
+----
+include::{sourceDir}/modules/dirname-filename.js[]
+----
+<1> Affiche `/.../chapter-04/examples/modules/dirname-filename.js`
+<2> Affiche `true` (ça ne serait pas un _raccourci_ sinon ;-))
+<3> Affiche `/.../chapter-04/examples/modules`
+
+Ces variables sont utiles pour opérer sur
+des _fichiers relatifs_ au module courant.
+
+====
+
+[[esm]]
+=== Le futur : les modules ECMAScript
+
+Pendant que Node et de son mécanisme de module montaient en puissance,
+les navigateurs web étaient en attente d'une solution native.
+Enfin… la spécification des modules ECMAScript a été validée en 2013
+mais les navigateurs ont tardé à implémenter le mécanisme.
+
+La plupart d'entre eux ont implémenté les modules ECMAScript en 2017.
+C'est le cas du navigateur web Chrome et de
+sa <<../chapter-01/index.adoc#v8,machine virtuelle V8>>.
+
+[WARNING]
+.[RemarquePreTitre]#Attention# Fonctionnalité expérimentale
+====
+Si la syntaxe des modules ECMAScript est standardisée,
+ce n'est pas encore aussi stable du côté de Node.
+
+Les modules ECMAScript sont suffixés de l'extension `.mjs`
+et nécessitent l'utilisation de l'<<options,option de démarrage>>
+`--experimental-modules`.
+====
+
+Reprenons l'exemple `modules/increment.js` pour le
+transformer en module ECMAScript :
+
+[source,javascript]
+.modules/increment.mjs
+----
+include::{sourceDir}/modules/increment.mjs[]
+----
+<1> Export _par défaut_
+<2> Export _nommé_
+
+La syntaxe `export` sert à… exporter des variables.
+Cette syntaxe se combine avec `import` :
+
+[source,javascript]
+.modules/ecmascript.mjs
+----
+include::{sourceDir}/modules/ecmascript.mjs[]
+----
+<1> On n'importe ici que la _valeur par défaut_
+
+Il ne nous reste maintenant plus qu'à exécuter notre script `.mjs`
+pour observer le résultat.
+On notera l'utilisation de `--experimental-modules` :
+
+[source,bash]
+----
+$ node --experimental-modules modules/ecmascript.mjs
+(node:35074) ExperimentalWarning: The ESM module loader is experimental.
+1
+----
+
+Reprenons cet exemple pour _importer plusieurs exports d'un coup_ :
+
+[source,javascript]
+.modules/ecmascript-multiple.mjs
+----
+include::{sourceDir}/modules/ecmascript-multiple.mjs[]
+----
+<1> On importe la _valeur par défaut_ ainsi qu'une _valeur nommée_ -
+c'est particulièrement pratique pour sélectionner avec finesse
+ce que l'on veut utiliser d'un module
+<2> La fonction `reset` remet le compteur à zéro
+
+On notera au passage qu'on utilise la
+<<../chapter-03/index.adoc#object-destructuring,destructuration d'objet>>
+pour extraire un _export nommé_ depuis un module ECMAScript.
+
+[source,bash]
+----
+$ node --experimental-modules modules/ecmascript-multiple.mjs
+(node:35074) ExperimentalWarning: The ESM module loader is experimental.
+2
+1
+----
+
+La fonction `reset` a bien remis à zéro le compteur entre temps.
+Objectif accompli !
+
+Résumons les des différences notables avec le mécanisme de modules Node :
+
+- tous les appels à `import` doivent se faire en début de fichier
+- on ne peut pas utiliser `import` de manière dynamique
+(dans un `if/else` par exemple)
+- on peut exporter une _variable par défaut_ *et* plusieurs _variables nommées_
+- on peut importer des modules Node depuis un module ECMAScript —
+l'inverse n'est pas vrai
+- les fichiers doivent être suffixés par `.mjs`
+
+Ce dernier point est le plus embêtant car il ralentit l'interopérabilité
+avec les modules destiné au développement web frontend.
+Ces derniers contiennent les déclarations `import` et `export` mais…
+dans des fichiers `.js`.
+
+L'histoire nous dira si les modalités s'assoupliront avec le temps.
+
+[TIP]
+.[RemarquePreTitre]#npm# Module `esm`
+====
+Le <<../chapter-05/index.adoc#modules,module npm>> `esm`
+([URL]#https://npmjs.com/esm#) a pris le parti de déblayer le chemin
+de l'intéropérabilité.
+Il suffit de charger le module `esm` avant de démarrer un script Node,
+peu importe son mécanisme de chargement de modules :
+`esm` rendra le chargement des modules totalement transparent.
+
+[source,bash]
+----
+$ node -r esm modules/ecmascript.js
+1
+$ node -r esm modules/ecmascript.mjs
+1
+----
+
+Pour en savoir plus sur l'option `-r`, rendez-vous
+dans la section <<require,précharger un module>>
+
+====
+
+
+[NOTE,subs="attributes"]
+.[RemarquePreTitre]#Documentation# Modules ECMAScript
+====
+L'intégralité des fonctionnalités des modules ECMAScript
+est documentée sur le site web du projet Node.
+La documentation contient des informations à jour et qui ne sont pas
+forcément listées dans cet ouvrage.
+
+[URL]#https://nodejs.org/docs/latest-{nodeCurrentVersion}.x/api/esm.html#
+====
+
+[[modules-builtin]]
+== Les modules de base
+
+Les modules de base *étendent le champ d'action de Node*.
+Ils servent d'interface pour communiquer avec le système d'exploitation,
+le système de fichier, des ressources HTTP et des connexions réseau, entre autres. +
+Ces modules sont inclus avec chaque installation de Node.
+On peut donc en bénéficier sans effort supplémentaire.
+
+Le chargement d'un module de base s'effectue en passant son identifiant
+à la fonction `require()`.
+Cette fonction retourne alors un objet avec un certain nombre de _propriétés_ et
+de _fonctions_.
+
+Ainsi, on chargera le <<fs,module `fs`>> (pour _file system_ — _système de fichiers_)
+afin d'interagir avec les fichiers et les répertoires présents sur l'ordinateur :
+
+[source%interactive,javascript]
+.fs/read-dir.js
+----
+include::{sourceDir}/fs/read-dir.js[]
+----
+<1> On assigne les fonctions et attributs du module `fs` dans la variable `fs`
+(on pourrait l'appeler autrement si on en avait envie)
+<2> L'appel à la fonction `fs.readdir` passe un objet d'erreur
+ainsi que la liste des fichiers et répertoires
+contenus dans le chemin indiqué
+<3> Affiche un tableau contenant les noms de fichiers et de répertoires présents
+dans le dossier courant
+
+Ces modules de base représentent la pierre angulaire de nos applications Node.
+Ils fournissent le nécessaire pour… tout faire !
+On apprendra à étendre encore plus le champ des possibles dans
+le <<../chapter-05/index.adoc#,chapitre 5>>
+grâce aux <<../chapter-05/index.adoc#modules,modules npm>>.
+
+Les modules de base changent au fil du temps :
+les nouvelles versions de Node ajoutent, corrigent et complètent les modules et
+fonctions existantes.
+La documentation officielle de Node reflète ces changements et
+affiche un indice de stabilité pour savoir à quoi s'en tenir.
+
+.Documentation du module `fs` et son indice de stabilité.
+image::images/api-fs.png[width="85%"]
+
+Exceptionnellement, un module de base (ou une de ses fonctions) peut être supprimé.
+L'équipe de Node annonce ces changements en *dépréciant* le module en question :
+le code reste en place et sera supprimé dans une version ultérieure.
+En général, c'est une question de mois voire d'années. +
+On verra plus loin comment <<deprecation,afficher les alertes de dépréciation>>.
+
+.Documentation de la fonction `fs.exists`, affichée comme dépréciée depuis Node v1.
+image::images/api-deprecation-fs-exists.png[width="85%"]
+
+[NOTE]
+.[RemarquePreTitre]#Documentation# Lecture des indices de stabilité
+====
+Node communique un indice de stabilité pour les modules de base.
+Cette échelle se décompose en trois niveaux :
+
+[horizontal]
+*déprécié*::
+  Le module sera supprimé dans une prochaine version majeure.
+  À l'avenir, il vaut mieux ne pas se compter dessus.
+*expérimental*::
+  Le module est en cours de développement.
+  Une fonctionnalité expérimentale peut changer radicalement entre deux
+  versions de Node.
+*stable*::
+  On peut faire confiance à ce module.
+  Des choses peuvent changer exceptionnellement mais l'intention est d'offrir
+  une stabilité.
+
+L'indice est parfois appliqué à des fonctions dont les attentes
+changeraient d'une version à l'autre de Node.
+====
+
+Les sections suivantes illustrent des usages courants des modules de base
+pour mieux comprendre quoi en attendre et comment les utiliser.
+
+[[console]]
+=== `console` : déboguer rapidement des variables
+
+L'objet global `console` est très souvent utilisé dans le milieu du web
+pour ses fonctions `console.log` et `console.error`.
+
+[source%interactive,javascript]
+----
+include::{sourceDir}/console/log.js[]
+----
+
+Node transpose
+
+[horizontal]
+.Propriétés notables
+`console.log()`::
+`console.error()`::
+`console.dir()`::
+`console.group()`::
+`console.time()`::
+classe `Console`::
+
+[NOTE]
+.[RemarquePreTitre]#Documentation# `console`
+====
+La documentation du module `console` est disponible sur le site officiel de Node :
+[URL]#https://nodejs.org/docs/latest-{nodeCurrentVersion}.x/api/console.html#
+====
+
+[TIP]
+.[RemarquePreTitre]#API# La classe `Console`
+====
+La variable globale `console` est une
+
+====
+
+[[path]]
+=== `path` : manipuler des chemins de fichier
+
+[horizontal]
+.Propriétés notables
+`path.basename()`::
+`path.dirname()`::
+`path.extname()`::
+`path.isAbsolute()`::
+`path.join()`::
+`path.relative()`::
+`path.resolve()`::
+attribut `path.basename`::
+attribut `path.sep`::
+
+[NOTE]
+.[RemarquePreTitre]#Documentation# `path`
+====
+La documentation du module `path` est disponible sur le site officiel de Node :
+[URL]#https://nodejs.org/docs/latest-{nodeCurrentVersion}.x/api/path.html#
+====
+
+[[url]]
+=== `url` : manipuler des URL
+
+privilégier `require('url').URL` et `require('url').URLSearchParams`
+
+
+[TIP]
+.[RemarquePreTitre]#Web# Compatibilité avec les navigateurs
+====
+Le fonctionnement de la classe `URL` dans Node est la même que dans les
+navigateurs web modernes.
+
+Ces deux mondes suivent le standard [URL]#https://url.spec.whatwg.org#
+afin de partager les mêmes concepts et définitions de ce qu'est une URL.
+====
+
+[horizontal]
+.Propriétés notables
+`URL.format()`::
+classe `URL`::
+classe `URLSearchParams`::
+
+[NOTE]
+.[RemarquePreTitre]#Documentation# `url`
+====
+La documentation du module `url` est disponible sur le site officiel de Node :
+[URL]#https://nodejs.org/docs/latest-{nodeCurrentVersion}.x/api/url.html#
+====
+
+[[fs]]
+=== `fs` : manipuler le système de fichiers
+
+[horizontal]
+.Propriétés notables
+`fs.appendFile`::
+`fs.copyFile`::
+`fs.mkdir`::
+`fs.readdir`::
+`fs.readFile`::
+`fs.rename`::
+`fs.rmdir`::
+`fs.stat`::
+`fs.symlink`::
+`fs.truncate`::
+`fs.createReadStream`::
+`fs.createWriteStream`::
+
+[NOTE]
+.[RemarquePreTitre]#Documentation# `fs`
+====
+La documentation du module `fs` est disponible sur le site officiel de Node :
+[URL]#https://nodejs.org/docs/latest-{nodeCurrentVersion}.x/api/fs.html#
+====
+
+[[events]]
+=== `events` : programmer des événements
+
+`require('events')`
+
+[horizontal]
+.Propriétés notables de la classe `EventEmitter`
+`on()`::
+`once()`::
+`emit()`::
+`eventNames()`::
+`listeners()`::
+
+[NOTE]
+.[RemarquePreTitre]#Documentation# `events`
+====
+La documentation du module `events` est disponible sur le site officiel de Node :
+[URL]#https://nodejs.org/docs/latest-{nodeCurrentVersion}.x/api/events.html#
+====
+
+[[util]]
+=== `util` : transformer des _callbacks_ en promesses
+
+[NOTE]
+.[RemarquePreTitre]#Documentation# `util`
+====
+La documentation du module `util` est disponible sur le site officiel de Node :
+[URL]#https://nodejs.org/docs/latest-{nodeCurrentVersion}.x/api/util.html#
+====
+
+[[http]]
+=== `http` : créer et interroger des ressources via le protocole HTTP
+
+On ira plus en détail dans le chapitre 7
+
+On verra qu'on peut faire plus simple dans le chapitre 5 (exemple de module npm)
+
+bonus : on peut aussi faire un serveur https ET un serveur http/2
+
+[NOTE]
+.[RemarquePreTitre]#Documentation# `http`
+====
+La documentation du module `http` est disponible sur le site officiel de Node :
+[URL]#https://nodejs.org/docs/latest-{nodeCurrentVersion}.x/api/http.html#
+====
+
+
+[[os]]
+=== `os` : en savoir plus sur les capacités de l'ordinateur
+
+Notamment les interfaces réseaux, les CPU etc.
+
+[NOTE]
+.[RemarquePreTitre]#Documentation# `os`
+====
+La documentation du module `os` est disponible sur le site officiel de Node :
+[URL]#https://nodejs.org/docs/latest-{nodeCurrentVersion}.x/api/os.html#
+====
+
+[[child_process]]
+=== `child_process` : appeler un exécutable système
+
+Pratique quand on ne peut pas importer du code mais seulement des résultats
+
+[NOTE]
+.[RemarquePreTitre]#Documentation# `child_process`
+====
+La documentation du module `child_process` est disponible sur le site officiel de Node :
+[URL]#https://nodejs.org/docs/latest-{nodeCurrentVersion}.x/api/child_process.html#
+====
+
 
 [[process]]
+=== `process` : en savoir plus sur le processus en cours
+
+
+[NOTE]
+.[RemarquePreTitre]#Documentation# `process`
+====
+La documentation du module `process` est disponible sur le site officiel de Node :
+[URL]#https://nodejs.org/docs/latest-{nodeCurrentVersion}.x/api/process.html#
+====
+
+
+[[stream]]
+=== `stream` : manipuler des flux de données
+
+[NOTE]
+.[RemarquePreTitre]#Documentation# `stream`
+====
+La documentation du module `stream` est disponible sur le site officiel de Node :
+[URL]#https://nodejs.org/docs/latest-{nodeCurrentVersion}.x/api/stream.html#
+====
+
+
+[[errors]]
+== S'en sortir quand ça ne se passe pas comme prévu
+
+=== Le programme ne se termine pas
+
+=== SyntaxError
+
+----
+TypeError: Cannot read property 'on' of undefined
+  at Object.<anonymous> (/Users/oncletom/workspace/nodebook/chapter-04/examples/process-stin-uppercase.js:2:14)
+  at Module._compile (module.js:643:30)
+  at Object.Module._extensions..js (module.js:654:10)
+  at Module.load (module.js:556:32)
+  at tryModuleLoad (module.js:499:12)
+  at Function.Module._load (module.js:491:3)
+  at Function.Module.runMain (module.js:684:10)
+  at startup (bootstrap_node.js:187:16)
+  at bootstrap_node.js:608:3
+----
+
+=== ReferenceError
+
+----
+console.log(jenexistepas);
+            ^
+ReferenceError: jenexistepas is not defined
+    at Object.<anonymous> (/Users/oncletom/workspace/nodebook/chapter-04/examples/process-exit-error.js:5:13)
+    at Module._compile (module.js:643:30)
+----
+
+
+[[process.api]]
 == Comprendre la notion de _processus_
 
 Le système d'exploitation crée un nouveau processus dès lors que l'on
@@ -1043,558 +1760,6 @@ Un truc assez compliqué à analyser pour le commun des mortels.
 Suffisamment pour qu'on passe notre chemin à ce stade.
 ====
 
-[[modules]]
-== Organiser son code en utilisant les modules
-
-Node a apporté quelque chose qui manquait cruellement à ECMAScript :
-la possibilité de charger des modules.
-C'est à dire la possibilité d'*organiser son code dans plusieurs fichiers*
-et d'y faire appel depuis d'autres fichiers. +
-À la manière de ce qui se fait en Python (`import`), PHP (`require`)
-et Ruby (`require` et `require_relative`).
-
-Nous allons décrire le _fonctionnement des modules_ dans cette section.
-La section suivante explique ce qu'on peut faire avec les
-<<modules-builtin,modules fournis par Node>> tandis que le
-<<../chapter-05/index.adoc#,chapitre 5>> explique comment installer des
-_modules npm_ téléchargés sur Internet.
-
-Tout un programme !
-
-[NOTE,subs="attributes"]
-.[RemarquePreTitre]#Documentation# Module _modules_
-====
-L'intégralité des variables, fonctions et classes du module `modules`
-est documentée sur le site web du projet Node.
-La documentation contient des informations à jour et qui ne sont pas
-forcément listées dans cet ouvrage.
-
-[URL]#https://nodejs.org/docs/latest-{nodeCurrentVersion}.x/api/modules.html#
-====
-
-=== Qu'est-ce qu'on entend par module ?
-
-Pour Node, *tout fichier `.js` est un module*.
-
-Commençons avec ce fichier tout simple : `modules/enfant.js`.
-Il contient une variable que l'on voudra réutiliser dans un autre module :
-
-[source,javascript]
-.modules/enfant.js
-----
-include::{sourceDir}/modules/enfant.js[]
-----
-
-On va utiliser la fonction `require()` pour l'importer depuis un autre module,
-`modules/parent.js` :
-
-[source,javascript]
-.modules/parent.js
-----
-include::{sourceDir}/modules/parent.js[]
-----
-<1> On assigne le contenu du module `enfant.js` dans la variable `enfant`
-<2> Est-ce que cela affichera la valeur de la variable `number` ?
-<3> Mais au fond, que contient notre variable `enfant` ?
-
-Exécutons le fichier `modules/parent.js` avec Node pour en avoir le cœur net :
-
-[source,bash]
-----
-$ node modules/parent.js
-undefined
-{}
-----
-
-De là nous pouvons en tirer un apprentissage important :
-dans un module, *tout est privé*.
-On ne peut pas voir ce qu'il y a _dans_ un module depuis _l'extérieur_.
-
-Pour affirmer ça, nous allons maintenant avoir recours à `module.exports`.
-Cette expression permet de *rendre explicite ce qui est exporté*.
-Elle rend une variable visible depuis l'extérieur.
-
-[source,javascript]
-.modules/enfant-export.js
-----
-include::{sourceDir}/modules/enfant-export.js[]
-----
-
-Nous avons assigné la variable `number` à `module.exports`.
-Comment est-ce que ça se traduit lorsqu'on l'appelle avec `require()` ?
-
-[source,javascript]
-.modules/parent-export.js
-----
-include::{sourceDir}/modules/parent-export.js[]
-----
-<1> Affiche `undefined`
-<2> Affiche `42`
-
-Ce deuxième essai confirme
-qu'*un module exporte seulement que ce qui a été assigné* à `module.exports`.
-On sait aussi que `module.exports` exporte tout type de variable.
-Par défaut, `module.exports` est un objet.
-
-Essayons maintenant d'exporter plusieurs valeurs en une seule fois :
-
-[source,javascript]
-.modules/enfant-export-multiple.js
-----
-include::{sourceDir}/modules/enfant-export-multiple.js[]
-----
-
-Nous avons créé deux nouvelles valeurs : `number` (un nombre) et
-`random` (une fonction).
-
-[TIP]
-.[RemarquePreTitre]#Raccourci# Exporter un objet
-====
-L'utilisation de la syntaxe d'objet raccourcie évite la répétition
-du nom des variables lors de l'export.
-
-[source,javascript]
-----
-include::{sourceDir}/modules/enfant-export-shorthand.js[]
-----
-<1> Liste des valeurs retournée par l'objet `module.exports`
-
-====
-
-`require()` retourne une seule valeur sous la forme d'un objet :
-
-[source,javascript]
-.modules/parent-export-multiple.js
-----
-include::{sourceDir}/modules/parent-export-multiple.js[]
-----
-<1> Affiche `42`
-<2> Affiche un nombre aléatoire entre 0 et 100
-<3> Re-exporte la fonction `enfant.number`
-
-Pour résumer, Node propose un *mécanisme d'import et d'export de modules*
-basé sur des chemins de fichiers.
-Les sections suivantes nous aideront
-à comprendre _comment fonctionne `require()`{blank}_ et
-ce que nous réserve l'objet `module`.
-
-[NOTE]
-.[RemarquePreTitre]#Histoire# Modules _CommonJS_
-====
-Le mécanisme de modules implémenté dans Node est _basé sur_ la
-spécification _CommonJS_, à peu de choses près.
-
-[URL]#http://www.commonjs.org/specs/modules/1.0/#
-====
-
-=== Ce qu'il faut savoir sur `require()`
-
-Lorsqu'on fait appel à la fonction `require()`, Node effectue la *liste d'actions* suivantes :
-
-. résolution du chemin vers le module en question
-. lecture du fichier
-. interprétation du code
-. exécution du code
-. retourne la valeur de `module.exports`
-
-L'utilisation de `require()` est *synchrone* et *bloquante*.
-Si l'exécution du code dans le module chargé prend du temps
-— code _lent_, accès à une ressource distante — le chargement
-du module en prendra un coup. +
-Il vaut mieux ranger les appels _asynchrones_ dans des fonctions
-et appeler ces fonctions de manière explicite, _après_ avoir chargé le module.
-
-`require()` permet de *charger 3 types de modules* :
-
-. des *fichiers relatifs au module actuel* +
-  `require('./module.js')` cherchera le fichier `module.js` dans le _répertoire courant_.
-  `require('../module.js')` cherchera `module.js` dans le _répertoire parent_.
-  C'est le cas que l'on a vu jusqu'à présent.
-. des *modules Node* +
-  Ils sont disponibles avec chaque installation de Node.
-  On en parle plus en détail dans la section <<modules-builtin,modules Node>>
-  de ce même chapitre.
-. des *modules npm* +
-  Ils sont disponibles avec une étape d'installation supplémentaire.
-  On en parle plus en détail dans le <<../chapter-05/index.adoc#,chapitre 5>>
-  consacré à _npm_.
-
-*Node met les modules en cache*.
-Si on inclut deux fois le même module, le deuxième import ira directement
-à la dernière étape de la _liste d'actions_.
-Ça implique aussi que si le module modifie une de ses variable privée,
-cette modification impactera le deuxième import.
-
-Voici un module illustrant une variable privée et une variable exportée :
-
-[source,javascript]
-.modules/increment.js
-----
-include::{sourceDir}/modules/increment.js[]
-----
-<1> Variable privée
-<2> `increment` est rendue publique à cet endroit
-— la fonction incrémente la variable privée `counter`
-
-Nous allons importer ce module par deux fois, dans deux variables différentes :
-
-[source,javascript]
-.modules/double-import.js
-----
-include::{sourceDir}/modules/double-import.js[]
-----
-<1> Affiche `1`
-<2> Affiche `2`
-<3> Affiche… `1` ou `3` ?
-
-Quel est le verdict à votre avis ?
-Rien ne vaut une vérification, quitte à remettre en question
-notre avis initial :
-
-[source,bash]
-----
-$ node modules/double-import.js
-1
-2
-3
-----
-
-Il faut garder cette information en tête lorsqu'on importe un module.
-Sans oublier que ce mécanisme se transforme en atout afin de partager
-une variable entre plusieurs modules.
-Pratique dans le cas d'un _cache de données_ ou d'une _configuration partagée_.
-
-Enfin, plusieurs *problèmes* peuvent apparaitre lors du chargement d'un module :
-
-- le chemin vers le module est erroné ;
-- le module contient une erreur de syntaxe.
-
-Node lancera une <<errors,exception>> et
-le programme s'arrêtera aussitôt.
-
-=== La variable `module`
-
-La variable `module` contient des propriétés à propos du module courant.
-Nous avons déjà pu voir l'usage de `module.exports` dans les lignes précédentes.
-
-Il existe aussi, entre autres, la propriété `module.filename`.
-Elle représente le chemin système du module courant.
-
-`module.parent` quant à lui représente le chemin système vers le module parent.
-Par _parent_, on entend le module ayant chargé le module courant.
-La valeur vaut `null` si le module n'a pas été chargé par un autre module.
-Typiquement lorsqu'on fait `node fichier.js`.
-
-[TIP]
-.[RemarquePreTitre]#Raccourci# Variables `+__filename+` et `+__dirname+`
-====
-La variable `module.filename` dispose d'une variable raccourcie :
-`+__filename+`.
-Elle est complétée de `+__dirname+`.
-Cette dernière affiche le chemin vers le _répertoire_ contenant le fichier.
-
-[source,javascript]
-.modules/dirname-filename.js
-----
-include::{sourceDir}/modules/dirname-filename.js[]
-----
-<1> Affiche `/.../chapter-04/examples/modules/dirname-filename.js`
-<2> Affiche `true` (ça ne serait pas un _raccourci_ sinon ;-))
-<3> Affiche `/.../chapter-04/examples/modules`
-
-Ces variables sont utiles pour opérer sur
-des _fichiers relatifs_ au module courant.
-
-====
-
-[[esm]]
-=== Le futur : les modules ECMAScript
-
-Pendant que Node et de son mécanisme de module montaient en puissance,
-les navigateurs web étaient en attente d'une solution native.
-Enfin… la spécification des modules ECMAScript a été validée en 2013
-mais les navigateurs ont tardé à implémenter le mécanisme.
-
-La plupart d'entre eux ont implémenté les modules ECMAScript en 2017.
-C'est le cas du navigateur web Chrome et de
-sa <<../chapter-01/index.adoc#v8,machine virtuelle V8>>.
-
-[WARNING]
-.[RemarquePreTitre]#Attention# Fonctionnalité expérimentale
-====
-Si la syntaxe des modules ECMAScript est standardisée,
-ce n'est pas encore aussi stable du côté de Node.
-
-Les modules ECMAScript sont suffixés de l'extension `.mjs`
-et nécessitent l'utilisation de l'<<option,option de démarrage>>
-`--experimental-modules`.
-====
-
-Reprenons l'exemple `modules/increment.js` pour le
-transformer en module ECMAScript :
-
-[source,javascript]
-.modules/increment.mjs
-----
-include::{sourceDir}/modules/increment.mjs[]
-----
-<1> Export _par défaut_
-<2> Export _nommé_
-
-La syntaxe `export` sert à… exporter des variables.
-Cette syntaxe se combine avec `import` :
-
-[source,javascript]
-.modules/ecmascript.mjs
-----
-include::{sourceDir}/modules/ecmascript.mjs[]
-----
-<1> On n'importe ici que la _valeur par défaut_
-
-Il ne nous reste maintenant plus qu'à exécuter notre script `.mjs`
-pour observer le résultat.
-On notera l'utilisation de `--experimental-modules` :
-
-[source,bash]
-----
-$ node --experimental-modules modules/ecmascript.mjs
-(node:35074) ExperimentalWarning: The ESM module loader is experimental.
-1
-----
-
-Reprenons cet exemple pour _importer plusieurs exports d'un coup_ :
-
-[source,javascript]
-.modules/ecmascript-multiple.mjs
-----
-include::{sourceDir}/modules/ecmascript-multiple.mjs[]
-----
-<1> On importe la _valeur par défaut_ ainsi qu'une _valeur nommée_ -
-c'est particulièrement pratique pour sélectionner avec finesse
-ce que l'on veut utiliser d'un module
-<2> La fonction `reset` remet le compteur à zéro
-
-On notera au passage qu'on utilise la
-<<../chapter-03/index.adoc#object-destructuring,destructuration d'objet>>
-pour extraire un _export nommé_ depuis un module ECMAScript.
-
-[source,bash]
-----
-$ node --experimental-modules modules/ecmascript-multiple.mjs
-(node:35074) ExperimentalWarning: The ESM module loader is experimental.
-2
-1
-----
-
-La fonction `reset` a bien remis à zéro le compteur entre temps.
-Objectif accompli !
-
-Résumons les des différences notables avec le mécanisme de modules Node :
-
-- tous les appels à `import` doivent se faire en début de fichier
-- on ne peut pas utiliser `import` de manière dynamique
-(dans un `if/else` par exemple)
-- on peut exporter une _variable par défaut_ *et* plusieurs _variables nommées_
-- on peut importer des modules Node depuis un module ECMAScript —
-l'inverse n'est pas vrai
-- les fichiers doivent être suffixés par `.mjs`
-
-Ce dernier point est le plus embêtant car il ralentit l'interopérabilité
-avec les modules destiné au développement web frontend.
-Ces derniers contiennent les déclarations `import` et `export` mais…
-dans des fichiers `.js`.
-
-L'histoire nous dira si les modalités s'assoupliront avec le temps.
-
-[TIP]
-.[RemarquePreTitre]#npm# Module `esm`
-====
-Le <<../chapter-05/index.adoc#modules,module npm>> `esm`
-([URL]#https://npmjs.com/esm#) a pris le parti de déblayer le chemin
-de l'intéropérabilité.
-Il suffit de charger le module `esm` avant de démarrer un script Node,
-peu importe son mécanisme de chargement de modules :
-`esm` rendra le chargement des modules totalement transparent.
-
-[source,bash]
-----
-$ node -r esm modules/ecmascript.js
-1
-$ node -r esm modules/ecmascript.mjs
-1
-----
-
-Pour en savoir plus sur l'option `-r`, rendez-vous
-dans la section <<require,précharger un module>>
-
-====
-
-
-[NOTE,subs="attributes"]
-.[RemarquePreTitre]#Documentation# Modules ECMAScript
-====
-L'intégralité des fonctionnalités des modules ECMAScript
-est documentée sur le site web du projet Node.
-La documentation contient des informations à jour et qui ne sont pas
-forcément listées dans cet ouvrage.
-
-[URL]#https://nodejs.org/docs/latest-{nodeCurrentVersion}.x/api/esm.html#
-====
-
-[[modules-builtin]]
-== Les modules de base
-
-Les modules de base *étendent le champ d'action de Node*.
-Ils servent d'interface pour communiquer avec le système d'exploitation,
-le système de fichier et les accès réseaux, entre autres.
-
-Ces modules sont inclus avec chaque installation de Node.
-On peut donc en bénéficier sans effort supplémentaire.
-
-Le chargement d'un module de base s'effectue à l'aide de la fonction `require()`.
-C'est à dire de la même manière qu'avec un <<modules,module classique>>.
-À une différence près : *on utilise le nom du module* au lieu d'un
-emplacement fichier.
-
-Ainsi, si l'on souhaite interagir avec des fichiers et des répertoires,
-on chargera le <<fs,module `fs`>> comme ceci :
-
-[source%interactive,javascript]
-.fs/read-dir.js
-----
-include::{sourceDir}/fs/read-dir.js[]
-----
-<1> On assigne les fonctions et attributs du module `fs` dans la variable `fs`
-(on pourrait l'appeler autrement si on en avait envie)
-<2> L'appel à la fonction `fs.readdir` passe un objet d'erreur
-ainsi que la liste des fichiers et répertoires
-contenus dans le chemin indiqué
-<3> Affiche un tableau contenant les noms de fichiers et de répertoires présents
-dans le dossier courant
-
-Un nouveau monde s'ouvre à nous.
-D'interpréteur JavaScript côté serveur, nous avons maintenant à disposition
-tout ce qu'il nous faut pour créer des applications et des outils modernes.
-
-[NOTE]
-.[RemarquePreTitre]#Documentation# Modules de base
-====
-La documentation de chaque module est disponible sur le site officiel de Node :
-[URL]#https://nodejs.org/docs/latest-{nodeCurrentVersion}.x/api/#
-
-On y retrouve toutes les propriétés des modules de base, toutes leurs fonctions
-et ce, pour chaque version de Node.
-====
-
-Les modules de base changent au fil du temps.
-Des fois, de nouvelles versions de Node sortent pour corriger des bugs dans ces modules.
-D'autres fois, les changements sont structurels :
-ils *ajoutent des fonctions* ou en *déprécient*.
-
-La documentation officielle de Node documente les changements,
-les indices de confiance ainsi que des alternatives lorsqu'elles sont connues.
-
-.Exemple avec la fonction `fs.exists`, dépréciée depuis Node v1.
-image::images/api-deprecation-fs-exists.png[align="center",width="85%"]
-
-[NOTE]
-.[RemarquePreTitre]#Documentation# Lecture des indices de stabilité
-====
-Node communique un indice de stabilité pour les modules de base.
-Cette échelle se décompose en trois niveaux :
-
-[horizontal]
-*déprécié*::
-  Le module sera supprimé dans une prochaine version majeure.
-  À l'avenir, il vaut mieux ne pas se compter dessus.
-*expérimental*::
-  Le module est en cours de développement.
-  Une fonctionnalité expérimentale peut changer radicalement entre deux
-  versions de Node.
-*stable*::
-  On peut faire confiance à ce module.
-  Des choses peuvent changer exceptionnellement mais l'intention est d'offrir
-  une stabilité.
-
-L'indice est parfois appliqué à des fonctions dont les attentes
-changeraient d'une version à l'autre de Node.
-====
-
-Les sections suivantes illusteront les modules principaux avec
-des cas pratiques.
-
-[[console]]
-=== `console` : déboguer rapidement des variables
-
-[[path]]
-=== `path` : manipuler des chemins de fichier et de répertoire
-
-[[url]]
-=== `url` : manipuler des URL
-
-privilégier `require('url').URL` et `require('url').URLSearchParams`
-
-[[fs]]
-=== `fs` : manipuler le système de fichiers
-
-[[events]]
-=== `events` : programmer des événements
-
-`require('events')`
-
-[[stream]]
-=== `stream` : manipuler des flux de données
-
-[[http]]
-=== `http` : créer et interroger des ressources via le protocole HTTP
-
-On ira plus en détail dans le chapitre 7
-
-On verra qu'on peut faire plus simple dans le chapitre 5 (exemple de module npm)
-
-bonus : on peut aussi faire un serveur https ET un serveur http/2
-
-[[child_process]]
-=== `child_process` : appeler un exécutable système
-
-Pratique quand on ne peut pas importer du code mais seulement des résultats
-
-[[os]]
-=== `os` : en savoir plus sur les capacités de l'ordinateur
-
-Notamment les interfaces réseaux, les CPU etc.
-
-
-[[errors]]
-== S'en sortir quand ça ne se passe pas comme prévu
-
-=== Le programme ne se termine pas
-
-=== SyntaxError
-
-----
-TypeError: Cannot read property 'on' of undefined
-  at Object.<anonymous> (/Users/oncletom/workspace/nodebook/chapter-04/examples/process-stin-uppercase.js:2:14)
-  at Module._compile (module.js:643:30)
-  at Object.Module._extensions..js (module.js:654:10)
-  at Module.load (module.js:556:32)
-  at tryModuleLoad (module.js:499:12)
-  at Function.Module._load (module.js:491:3)
-  at Function.Module.runMain (module.js:684:10)
-  at startup (bootstrap_node.js:187:16)
-  at bootstrap_node.js:608:3
-----
-
-=== ReferenceError
-
-----
-console.log(jenexistepas);
-            ^
-ReferenceError: jenexistepas is not defined
-    at Object.<anonymous> (/Users/oncletom/workspace/nodebook/chapter-04/examples/process-exit-error.js:5:13)
-    at Module._compile (module.js:643:30)
-----
-
 
 [[options]]
 == Options utiles pour démarrer Node
@@ -1606,12 +1771,29 @@ Compatible aussi avec `NODE_OPTIONS`
 [[require]]
 === Précharger un module
 
-`--require`
+`node --require`
 
 [[inspect]]
-=== Inspecter notre code depuis le navigateur Chrome
+=== Inspecter notre code avec Google Chrome
 
 `node --inspect` et `node --inspect-brk`
+
+[[deprecation]]
+=== Afficher les alertes de dépréciation
+
+`node --pending-deprecation`
+
+[source,javascript]
+.deprecation-warning.js
+----
+include::{sourceDir}/deprecation-warning.js[]
+----
+
+[source,bash]
+----
+$ node --pending-deprecation deprecation-warning.js
+(node:8130) [DEP0005] DeprecationWarning: The Buffer() and new Buffer() constructors are not recommended for use due to security and usability concerns. Please use the new Buffer.alloc(), Buffer.allocUnsafe(), or Buffer.from() construction methods instead.
+----
 
 === Personnaliser les fonctionnalités ECMAScript
 
