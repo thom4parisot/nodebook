@@ -221,7 +221,7 @@ Lundi, retour au boulot.
 Quelle n'est pas notre surprise de voir un message d'erreur en visitant notre application web…
 
 .Message d'erreur du serveur _nginx_ lorsque l'application Node ne répond plus.
-image::images/nginx-proxy-error.png[align="center",width="85%"]
+image::images/nginx-proxy-error.png[width="85%"]
 
 Il y a bien des facteurs qui font qu'une application peut tomber sans crier gare :
 
@@ -269,7 +269,7 @@ Les outils de développement nous permettent de :
 * *interagir avec la console* pour tester des hypothèses avec du code.
 
 .Outils de développement Chrome inspectant un processus Node en temps réel.
-image::images/node-chrome-devtools.png[align="center",width="85%"]
+image::images/node-chrome-devtools.png[width="85%"]
 
 L'option d'invocation Node `--inspect` démarre l'inspecteur en même temps que notre script Node.
 L'URL de connexion à l'inspecteur est alors affichée.
@@ -574,7 +574,7 @@ $ pm2 start app.js -i 0 --name nodebook-ch06-testapp
 ----
 
 .Liste des processus gérés par _pm2_.
-image::images/pm2-status.png[align="center",width="85%"]
+image::images/pm2-status.png[width="85%"]
 
 L'ordinateur servant à la rédaction de l'ouvrage dispose de 4 CPU donc _pm2_ crée autant de processus en parallèle.
 
@@ -700,16 +700,16 @@ Les _variables d'environnement_ contenant les informations de connexion nous son
 Il ne nous reste alors plus qu'à <<app-configuration,configurer nos applications>> en fonction.
 
 .Ensemble de ressources complémentaires à une application Node hébergée sur Heroku.
-image::images/heroku-addons.png[align="center",width="85%"]
+image::images/heroku-addons.png[width="85%"]
 
 ifeval::["{backend}" == "html5"]
 .Exemple de déploiement applicatif vers Heroku.
-video::videos/heroku-deploy.mp4[align="center", width="70%"]
+video::videos/heroku-deploy.mp4[width="70%"]
 endif::[]
 
 ifeval::["{backend}" != "html5"]
 .Exemple de déploiement applicatif vers Heroku.
-image::images/heroku-deploy.png[align="center",width="85%"]
+image::images/heroku-deploy.png[width="85%"]
 endif::[]
 
 Les plates-formes en tant que service facturent à l'heure consommée.

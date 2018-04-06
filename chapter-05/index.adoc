@@ -110,6 +110,7 @@ $ npm --version
 {npmvX}
 ----
 
+[[modules]]
 == Modules npm
 
 *Node baigne dans la philosophie UNIX* : le mécanisme de modules incite à suivre le principe de responsabilité unique et de séparation des principes.
@@ -139,7 +140,7 @@ L'utilisation de la commande `npm init` est une bonne habitude à prendre pour d
 Ensuite libre à vous de le compléter avec d'autres éléments optionnels de configuration.
 
 .Exemple de questions posées lors de la séquence `npm init`
-image::images/npm-init.png[align="center",width="85%"]
+image::images/npm-init.png[width="85%"]
 
 On peut gagner du temps en utilisant l'option `--yes` (et son raccourci `-y`) pour créer le fichier `package.json` sans avoir à répondre aux questions :
 
@@ -328,10 +329,10 @@ Bref, pour vous aider à choisir — et ce peu importe le contexte — voici une
 - *état des contributions* : les mainteneurs répondent-ils aux contributeurs ? Les contributions de code sont-elles acceptées dans des conditions légitimes ? Ou tout simplement, y a-t-il beaucoup de déclaration de bugs en suspens ? Telles sont les indicateurs de vitalité pour estimer la gravité et la probabilité que la librairie nous explose au visage lorsqu'on ne s'y attendra pas.
 
 .Page npm d'un module populaire et fiable
-image::images/module-npm-ok.png[align="center",width="85%"]
+image::images/module-npm-ok.png[width="85%"]
 
 .Page npm peu encourageante
-image::images/module-npm-ko.png[align="center",width="85%"]
+image::images/module-npm-ko.png[width="85%"]
 
 Enfin, n'oubliez pas qu'il s'agit de critères subjectifs.
 Les mainteneurs du module ne sont peut-être pas de bons communicants ou n'ont que peu d'expérience en termes de tests… ou ils n'ont tout simplement pas eu le temps. +
@@ -454,7 +455,7 @@ $ npm outdated
 La lecture de sa sortie peut être déroutante au premier abord, notamment dans le cas d'un module qui n'a pas été mis à jour via `npm update` depuis un moment :
 
 .Résultats obsolètes issus de `npm outdated`
-image::images/npm-outdated.png[align="center",width="85%"]
+image::images/npm-outdated.png[width="85%"]
 
 Le tableau ne liste que les dépendances considérées comme obsolètes en l'état actuel d'installation de votre projet.
 Il se peut donc que le résultat varie d'une machine à l'autre, en fonction des versions installées localement. +
@@ -475,7 +476,7 @@ Toute dépendance listée dans le fichier `package.json` mais absente du tableau
 La première action à mener est de procéder à l'exécution de la commande `npm update`, puis de relancer la commande `npm outdated` :
 
 .Résultats `npm outdated` après mise à jour
-image::images/npm-outdated-wanted.png[align="center",width="85%"]
+image::images/npm-outdated-wanted.png[width="85%"]
 
 Le résultat est probant : de nombreuses dépendances précédemment listées en rouge ont disparu.
 Il ne reste que trois dépendances sur lesquelles nous pouvons avoir une action directe en modifiant la version référencée dans le fichier `package.json`.

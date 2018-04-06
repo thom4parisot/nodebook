@@ -405,7 +405,7 @@ Nous avons évoqué les <<../chapter-03/index.adoc#primitives,primitives _ECMASc
 Les modules font partie des fonctionnalités tant attendues.
 
 .Utilisation des modules _ECMAScript 2015_ dans un navigateur web (ici, Safari pour macOS).
-image::images/module-import.png[align="center",width="85%"]
+image::images/module-import.png[width="85%"]
 
 L'attribut `type="module"` a été introduit pour maintenir une compatibilité entre scripts classiques et les modules _ECMAScript 2015_.
 Ce mécanisme de modules introduit plusieurs concepts importants :
@@ -548,7 +548,7 @@ La section suivante s'intéresse à l'*évolution de l'écriture du code*, autre
 Nous illustrerons cette évolution au travers d'un exemple relativement simple : une balise HTML affichant l'heure dont nous actualisons le contenu toutes les secondes.
 
 .Résultat de l'exemple développé dans les sections suivantes.
-image::images/modules-time.png[align="center",width="85%"]
+image::images/modules-time.png[width="85%"]
 
 [TIP]
 .[RemarquePreTitre]#Documentation# _jQuery_
@@ -771,7 +771,7 @@ _React_ nous permet de *diriger l'affichage* du document plutôt que d'en dépen
 ====
 Cette extension pour le navigateur Chrome détaille l'arborescence des composants montés dans le document HTML ainsi qu'une vue de leurs propriétés respectives.
 
-image::images/react-devtools.png[align="center",width="85%"]
+image::images/react-devtools.png[width="85%"]
 
 - [URL]#https://chrome.google.com/webstore/detail/fmkadmapgofadopljbjfkapdkoienihi#
 ====
@@ -792,7 +792,7 @@ Il nous permettra d'en faire émerger les principes, leurs cas d'usage ainsi que
 L'implémentation côté serveur est basée sur un serveur <<../chapter-07/index.adoc#express,Express.js>> dont l'usage est expliqué au chapitre 7.
 
 .Résultat attendu dans les exemples des sections suivantes.
-image::images/io-example.png[align="center", width="85%"]
+image::images/io-example.png[width="85%"]
 
 [TIP]
 .[RemarquePreTitre]#Remarque# Node, mais pas que.
@@ -831,7 +831,7 @@ include::{sourceDir}/io/fetch-client.js[]
 <3> Une fois le décodage terminé, le résultat de la requête HTTP est mis à disposition – ici, sous forme de chaîne de caractères
 
 .Traces réseau d'appels successifs à `fetch()` ; chacun résultant en une nouvelle requête HTTP.
-image::images/fetch-frames.png[align="center", width="85%"]
+image::images/fetch-frames.png[width="85%"]
 
 L'implémentation d'une ressource HTTP côté serveur s'effectue simplement en retournant une _réponse_ lors d'une _requête_ HTTP :
 
@@ -880,7 +880,7 @@ include::{sourceDir}/io/eventsource-client.js[]
 <2> Fonction appelée à chaque fois que le serveur transmet un message au client
 
 .Plusieurs messages peuvent être transmis par le biais d'une seule connexion HTTP avec _EventSource_.
-image::images/eventsource-frames.png[align="center", width="85%"]
+image::images/eventsource-frames.png[width="85%"]
 
 L'implémentation d'_EventSource_ demande un peu d'efforts côté serveur mais ne nécessite pas de _framework_ particulier.
 La complexité réside dans le maintien d'une transmission de données dédiée à chaque client ainsi qu'à la libération de la connexion lorsque le client se déconnecte.
@@ -922,7 +922,7 @@ include::{sourceDir}/io/websocket-client.js[]
 <3> Réaction à un message émis par le serveur
 
 .Trame de messages envoyés par le client (sur fond vert) et par le serveur.
-image::images/websocket-frames.png[align="center", width="85%"]
+image::images/websocket-frames.png[width="85%"]
 
 L'implémentation côté serveur est légèrement plus compliquée qu'avec _EventSource_ pour la simple et bonne raison que _Websocket_ est une surcouche du protocole `ws`.
 HTTP n'est utilisé que comme canal de communication pour établir un lien avec le serveur `ws`.
@@ -1024,7 +1024,7 @@ Il offre également la possibilité de *propager les changements sur plusieurs f
 
 ifeval::["{backend}" == "html5"]
 .Exemple de synchronisation d'affichage et de contenus entre deux fenêtres avec _browser-sync_.
-video::videos/browser-sync.mp4[align="center", width="70%"]
+video::videos/browser-sync.mp4[width="70%"]
 endif::[]
 
 _browser-sync_ maintient la position du scroll lors d'un rechargement de contenu.
@@ -1084,7 +1084,7 @@ Quatre actions sont effectuées :
 
 ifeval::["{backend}" == "html5"]
 .Exemple de rechargement à chaud avec des composants _React_.
-video::videos/react-hmr.mp4[align="center", width="70%"]
+video::videos/react-hmr.mp4[width="70%"]
 endif::[]
 
 Le _plugin browserify_ nommé _livereactload_ est très certainement le plus facile à mettre en place pour remplacer des modules _React_ à la volée.
@@ -1586,7 +1586,7 @@ Les fonctionnalités de _karma_ s'étendent à l'aide de modules _npm_ :
 
 ifeval::["{backend}" == "html5"]
 .Exemple de tests multi-navigateurs en continu avec _karma_.
-video::videos/karma-browsers.mp4[align="center", width="70%"]
+video::videos/karma-browsers.mp4[width="70%"]
 endif::[]
 
 Le pilotage de _karma_ se fait via un fichier de configuration `karma.conf.js`.
@@ -1702,7 +1702,7 @@ Que dire d'anciennes versions de navigateurs Android dont la rapidité de dével
 
 ifeval::["{backend}" == "html5"]
 .Exemple de tests multi-navigateurs en continu avec _karma_ et _BrowserStack_.
-video::videos/karma-browserstack.mp4[align="center", width="70%"]
+video::videos/karma-browserstack.mp4[width="70%"]
 endif::[]
 
 L'écosystème de modules _npm_ liés à _karma_ s'est déjà penché sur la question.

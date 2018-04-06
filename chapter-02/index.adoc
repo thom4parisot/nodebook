@@ -108,14 +108,14 @@ Pour créer un nouveau bac à sable,
 il suffit de se rendre sur [URL]#https://runkit.com/new#.
 
 .Bac à sable sur _RunKit_.
-image::images/runkit-playground.png[align="center", width="85%"]
+image::images/runkit-playground.png[width="85%"]
 
 _Codenvy_ ([URL]#https://codenvy.io#) est un service basé sur le
 logiciel open source _Eclipse_ et édité par la compagnie _Red Hat_. +
 L'interface est organisée exactement comme un des <<ide,éditeurs de texte>> abordé plus loin dans ce chapitre.
 
 .Espace de travail sur _Codenvy_.
-image::images/codenvy-workspace.png[align="center", width="85%"]
+image::images/codenvy-workspace.png[width="85%"]
 
 Le processus de création de projet est relativement intuitif
 et il est très facile d'importer du code hébergé en ligne, sur _GitHub_
@@ -124,7 +124,7 @@ La configuration minimale d'un projet est gratuite tandis que
 les fonctionnalités avancées et le travail en équipe sont payantes.
 
 .Processus de création d'un espace de travail sur _Codenvy_.
-image::images/codenvy-dashboard.png[align="center", width="85%"]
+image::images/codenvy-dashboard.png[width="85%"]
 
 Enfin, _Cloud9_ ([URL]#https://c9.io#) est un service propriétaire
 édité par la compagnie _Amazon Web Services_ (_AWS_, [URL]#https://aws.amazon.com#).
@@ -137,7 +137,7 @@ C'est la consommation de ressources qui est payante, à l'heure,
 en fonction du dimensionnement des ressources demandées.
 
 .Configuration d'un espace de travail _Cloud9_.
-image::images/cloud9-configuration.png[align="center", width="85%"]
+image::images/cloud9-configuration.png[width="85%"]
 
 _Cloud9_ a peu d'opinions sur la manière dont votre environnement
 doit être configuré.
@@ -145,7 +145,7 @@ Tout devra être configuré, des accès à votre compte _GitHub_
 jusqu'à… la version de Node à installer.
 
 .Espace de travail sur _Cloud9_.
-image::images/cloud9-workspace.png[align="center", width="85%"]
+image::images/cloud9-workspace.png[width="85%"]
 
 Ça tombe bien, <<nvm,nvm>> est préinstallé sur chaque espace de travail.
 
@@ -335,12 +335,12 @@ Un installeur officiel pour Windows est fourni sur le site de Node à l'adresse 
 <<nvm,nvm-windows>> est la voie alternative recommandée pour gérer plusieurs versions de Node en parallèle.
 
 .Un des écrans d'installation de Node sous Windows 10
-image::images/windows-node-installer.png[align="center",width="50%"]
+image::images/windows-node-installer.png[width="50%"]
 
 L'installeur officiel créera plusieurs raccourcis dans le dossier _Node.js_ du menu Démarrer :
 
 .Node.js dans le menu Démarrer sous Windows 10
-image::images/windows-node-menu.png[align="center",width="50%"]
+image::images/windows-node-menu.png[width="50%"]
 
 Le menu créé par l'installeur contient deux icônes que nous utiliserons tout au long de la lecture de cet ouvrage :
 
@@ -482,7 +482,7 @@ Ce nom nous donne un indice sur la fonction de ce type de logiciel :
 inviter l'utilisateur à saisir des commandes pour obtenir des résultats calculés par un ordinateur.
 
 .Terminal iTerm2 sous macOS.
-image::images/macos-terminal.png[align="center",width="70%"]
+image::images/macos-terminal.png[width="70%"]
 
 [NOTE]
 .[RemarquePreTitre]#Histoire# Terminal physique
@@ -501,7 +501,7 @@ La majorité des systèmes d'exploitation embarquent un logiciel utilitaire perm
 Cela vaut également pour les <<online,services en ligne>> offrant la fonctionnalité d'<<ide,éditeur de code>>.
 
 .Terminal du <<online,service en ligne>> _Cloud9_.
-image::images/cloud9-terminal.png[align="center",width="70%"]
+image::images/cloud9-terminal.png[width="70%"]
 
 Voici une liste non exhaustive d'applications de type _terminal_ :
 
@@ -516,7 +516,7 @@ Windows::
 * *PowerShell* : fourni par défaut depuis Windows 7, sinon disponible sur [URL]#https://github.com/PowerShell/PowerShell# — également disponible pour macOS et Linux.
 
 .Node.js Command Prompt sous Windows 10.
-image::images/windows-terminal.png[align="center",width="70%"]
+image::images/windows-terminal.png[width="70%"]
 
 Maintenant que nous avons installé Node et compris comment
 y accéder depuis notre système d'exploitation ou navigateur web,
@@ -547,7 +547,7 @@ Rien n'empêche d'en changer par la suite.
 [[atom]]
 === Atom
 
-image::images/atom.png[align="center",width="85%"]
+image::images/atom.png[width="85%"]
 
 _Atom_ ([URL]#https://atom.io#) est un éditeur de code open-source,
 multilingue et multi plate-forme dont le développement a été initié
@@ -630,7 +630,7 @@ $ apm stars --install
 [[vs-code]]
 === Visual Studio Code
 
-image::images/visual-studio-code.png[align="center",width="85%"]
+image::images/visual-studio-code.png[width="85%"]
 
 _Visual Studio Code_ ([URL]#https://code.visualstudio.com#)
 est un éditeur de code open-source, multilingue et multi plate-forme
@@ -654,7 +654,7 @@ _Visual Studio Code_ offre également un écosystème d'extensions pour
 [[webstorm]]
 === WebStorm
 
-image::images/webstorm.png[align="center",width="85%"]
+image::images/webstorm.png[width="85%"]
 
 _WebStorm_ ([URL]#https://www.jetbrains.com/webstorm/#) est un environnement de développement (_IDE_) payant dédié au développement Web
 HTML5, JavaScript et Node. +
@@ -685,7 +685,7 @@ d'une preuve de contribution à un ou plusieurs projets open source.
 [[vs-ide]]
 === Visual Studio IDE
 
-image::images/visual-studio.png[align="center",width="85%"]
+image::images/visual-studio.png[width="85%"]
 
 _Visual Studio_ ([URL]#https://www.visualstudio.com/vs/#)
 est un environnement de développement _(IDE)_ édité par _Microsoft_.
@@ -847,7 +847,7 @@ comme un coup d'essai, dans l'anticipation d'une migration
 vers une version suivante, supportée à long terme, elle.
 
 .Calendrier de publication des versions de Node.
-image::images/schedule.png[align="center",width="85%",link="https://github.com/nodejs/Release/blob/master/schedule.png"]
+image::images/schedule.png[width="85%",link="https://github.com/nodejs/Release/blob/master/schedule.png"]
 
 [NOTE]
 .[RemarquePreTitre]#Lien# Calendrier de sorties
