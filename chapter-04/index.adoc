@@ -825,37 +825,91 @@ pour mieux comprendre quoi en attendre et comment les utiliser.
 [[console]]
 === `console` : déboguer rapidement des variables
 
-L'objet global `console` est très souvent utilisé dans le milieu du web
-pour ses fonctions `console.log` et `console.error`.
+L'objet `console` est une boîte à outils pour afficher
+ce qu'il se passe à un moment donné dans un de nos scripts.
 
 [source%interactive,javascript]
+.console/log.js
 ----
 include::{sourceDir}/console/log.js[]
 ----
 
-Node transpose
+La fonction écrit les messages et la valeur des variables dans la
+<<process.std,sortie standard>> du terminal :
+
+[source,bash]
+----
+$ node console/log.js
+Valeur de count : 3
+----
+
+`console.log` sait interpoler les valeurs passées en argument avec le marqueur `%s`.
+C'est utile pour structurer un message complexe en gardant les variables à part :
+
+[source,javascript]
+.console/interpolate.js
+----
+include::{sourceDir}/console/interpolate.js[]
+----
+<1> Affiche `Soupe lentilles et carottes`
+
+`%s` ne sait afficher que des chaînes de caractères.
+D'autres marqueurs savent afficher d'autres types de données :
+
+[horizontal]
+`%d`::
+  Affiche la valeur en tant que <<../chapter-03/index.adoc#number,nombre>>.
+`%j`::
+  Affiche la valeur en tant que <<../chapter-03/index.adoc#json,structure JSON>>.
+`%O`::
+  Affiche l'objet avec une profondeur maximum de 4 éléments.
+`%o`::
+  Idem que `%O` mais sur une profondeur maximum de 2 éléments.
+
+Les fonctions d'affichage du module `console` sont tellement souvent employées
+que le module est préchargé par Node.
+On n'a donc pas besoin de le charger manuellement avec `require('console')`.
 
 [horizontal]
 .Propriétés notables
 `console.log()`::
+  Affichage de messages et de variables dans le terminal.
 `console.error()`::
+  Comportement identique à `console.log()` mais à réserver aux erreurs.
+  La fonction écrit dans la <<process.std,sortie erreur>>.
 `console.dir()`::
+  Affichage paramétrable dédié aux objets et tableaux.
+  On peut entre autres choisir la profondeur d'affichage
+  (par défaut, jusqu'à 2 niveaux).
 `console.group()`::
+  Regroupe des utilisations successives de `console.log` ou de `console.error`
+  pour identifier visuellement leur appartenance logique. +
+  Un groupe se clôt avec `console.groupEnd()`.
 `console.time()`::
+  Démarre un chronomètre en lui attribuant un nom. +
+  Le chronomètre s'arrête et sa durée s'affiche avec `console.timeEnd()`.
 classe `Console`::
+  Crée un objet similaire à `console` mais en dirigeant l'affichage ailleurs
+  que vers les <<process.std,flux standards>>.
+
+[TIP]
+.[RemarquePreTitre]#Web# Console et navigateurs web
+====
+L'objet `console` est originaire du monde des navigateurs web.
+C'est un onglet de la boîte à outils de développement.
+On peut y lire des messages placés dans le code JavaScript de la page web
+mais aussi pour l'inspecter et interagir avec du code.
+
+.Console web dans le navigateur web Firefox.
+image::images/web-console.png[]
+
+====
 
 [NOTE]
 .[RemarquePreTitre]#Documentation# `console`
 ====
 La documentation du module `console` est disponible sur le site officiel de Node :
 [URL]#https://nodejs.org/docs/latest-{nodeCurrentVersion}.x/api/console.html#
-====
-
-[TIP]
-.[RemarquePreTitre]#API# La classe `Console`
-====
-La variable globale `console` est une
-
 ====
 
 [[path]]

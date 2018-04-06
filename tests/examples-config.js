@@ -97,6 +97,12 @@ module.exports = {
   'chapter-04/examples/process-stdout-long.js': {
     skip: true,
   },
+  'chapter-04/examples/console/log.js': {
+    stdout: 'Valeur de count : 3',
+  },
+  'chapter-04/examples/console/interpolate.js': {
+    stdout: 'Soupe lentilles et carottes',
+  },
   'chapter-04/examples/modules/ecmascript-multiple.mjs': {
     stderr: 'ExperimentalWarning: The ESM module loader is experimental',
   },
