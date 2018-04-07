@@ -5,5 +5,5 @@ fs.readdir('.', (err, files) => {   // <2>
     throw err;
   }
 
-  console.log(files);
+  console.log(files);               // <3>
 });
