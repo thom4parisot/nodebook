@@ -843,6 +843,15 @@ $ node console/log.js
 Valeur de count : 3
 ----
 
+[TIP]
+.[RemarquePreTitre]#Raccourci# Variable globale `console`
+====
+Node charge automatiquement le module pour nous et
+le rend utilisable à tout moment à travers la variable globale `console`.
+
+Nul besoin de charger le module manuellement avec `require('console')`.
+====
+
 `console.log` sait interpoler les valeurs passées en argument avec le marqueur `%s`.
 C'est utile pour structurer un message complexe en gardant les variables à part :
 
@@ -866,10 +875,6 @@ D'autres marqueurs savent afficher d'autres types de données :
 `%o`::
   Idem que `%O` mais sur une profondeur maximum de 2 éléments.
 
-Les fonctions d'affichage du module `console` sont tellement souvent employées
-que le module est préchargé par Node.
-On n'a donc pas besoin de le charger manuellement avec `require('console')`.
-
 [horizontal]
 .Propriétés notables
 `console.log()`::
@@ -878,8 +883,8 @@ On n'a donc pas besoin de le charger manuellement avec `require('console')`.
   Comportement identique à `console.log()` mais à réserver aux erreurs.
   La fonction écrit dans la <<process.std,sortie erreur>>.
 `console.dir()`::
-  Affichage paramétrable dédié aux objets et tableaux.
-  On peut entre autres choisir la profondeur d'affichage
+  Affichage dédié aux objets et tableaux.
+  On peut paramétrer la profondeur d'affichage
   (par défaut, jusqu'à 2 niveaux).
 `console.group()`::
   Regroupe des utilisations successives de `console.log` ou de `console.error`
@@ -891,14 +896,15 @@ On n'a donc pas besoin de le charger manuellement avec `require('console')`.
 classe `Console`::
   Crée un objet similaire à `console` mais en dirigeant l'affichage ailleurs
   que vers les <<process.std,flux standards>>.
+  Pratique pour créer
 
 [TIP]
 .[RemarquePreTitre]#Web# Console et navigateurs web
 ====
 L'objet `console` est originaire du monde des navigateurs web.
 C'est un onglet de la boîte à outils de développement.
-On peut y lire des messages placés dans le code JavaScript de la page web
-mais aussi pour l'inspecter et interagir avec du code.
+On peut y lire des messages placés dans le code JavaScript de la page web.
+On l'utilise aussi pour inspecter et interagir la page avec du code.
 
 .Console web dans le navigateur web Firefox.
 image::images/web-console.png[]
@@ -915,17 +921,103 @@ La documentation du module `console` est disponible sur le site officiel de Node
 [[path]]
 === `path` : manipuler des chemins de fichier
 
+Le module `path` offre un ensemble de fonctions et de propriétés pour
+manipuler et construire des chemins vers des fichiers et répertoires.
+
+Ces opérations permettent à notre code de fonctionner de manière identique
+sur des systèmes d'exploitation exprimant les chemins de manière différentes —
+comme Linux et Windows par exemple.
+
+[source%interactive,javascript]
+.path/intro.js
+----
+include::{sourceDir}/path/intro.js[]
+----
+<1> Affiche `/tmp`
+<2> Affiche `package.json`
+<3> Affiche `.json`
+
+Certaines fonctions comme `path.join` tiennent compte de la nature du système
+d'exploitation.
+Le résultat d'un même appel de fonction sera différent _mais_ correspondra
+à la même intention :
+
+[source%interactive,javascript]
+.path/platform.js
+----
+include::{sourceDir}/path/platform.js[]
+----
+<1> Affiche `/` — `\` sous Windows
+<2> Affiche `tmp/package.json` — `tmp\package.json` sous Windows
+
+On constate que `path.join` assemble les chemins en utilisant la valeur de
+`path.sep`.
+Ce qui est bien pour nous, c'est qu'on n'a pas besoin d'y penser :
+*Node se charge de la compatibilité* avec le système d'exploitation.
+
+La différence de résultats se précise un peu plus lorsque l'on tente de calculer
+des chemins complets, _relatifs à notre emplacement_ actuel :
+
+[source%interactive,javascript]
+.path/relative.js
+----
+include::{sourceDir}/path/relative.js[]
+----
+<1> Affiche `../source` — `..\source` sous Windows —
+c'est le chemin à parcourir pour aller du premier chemin au second chemin
+<2> Affiche `/tmp/source` — `C:\tmp\source` sous Windows —
+on constate que le chemin _résolu_ est absolu, et intègre la lettre du lecteur
+sous Windows
+
+Les résultats produits par les fonctions du module `path`
+se combinent particulièrement bien avec celles <<fs,du module `fs`>>, pour
+accéder aux fichiers en question.
+
 [horizontal]
 .Propriétés notables
 `path.basename()`::
+  Retourne le nom de fichier.
 `path.dirname()`::
+  Retourne le nom de répertoire.
 `path.extname()`::
+  Retourne l'extension d'un fichier.
 `path.isAbsolute()`::
+  Indique si le chemin est _absolu_ ou non.
 `path.join()`::
+  Assemble des bouts de chemin.
+`path.parse()`::
+  Retourne des informations liées à la compréhension d'un chemin
+  (extension, nom de fichier, nom de répertoire).
 `path.relative()`::
+  Indique si le chemin est _relatif_ ou non.
 `path.resolve()`::
-attribut `path.basename`::
+  Calcule un chemin absolu à partir de plusieurs bouts de chemin.
 attribut `path.sep`::
+  Retourne le caractère servant de séparateur de répertoires
+  pour le système d'exploitation sur lequel est exécuté le script.
+  Par exemple `/` pour Linux et macOS ; `\` pour Windows.
+
+[TIP]
+.[RemarquePreTitre]#Compatibilité# Manipuler des chemins Windows sous Linux et vice-versa
+====
+On pourrait avoir besoin de manipuler des chemins _pour_ Windows alors qu'on est
+sur un autre système d'exploitation.
+Le module `path` expose `path.win32` pour cette raison là. +
+*Les propriétés retournées sont les mêmes* que celles décrites précédemment…
+mais retournent systématiquement des chemins Windows.
+
+[source%interactive,javascript]
+.path/win32.js
+----
+include::{sourceDir}/path/win32.js[]
+----
+<1> On destructure les fonctions depuis la variante `win32` du module `path`
+<2> Affiche `tmp\package.json`
+<3> Affiche `C:\etc`
+
+L'inverse est possible en utilisant les propriétés de l'objet `path.posix`.
+
+====
 
 [NOTE]
 .[RemarquePreTitre]#Documentation# `path`
