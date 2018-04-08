@@ -2,6 +2,27 @@
 
 Ce journal détaille l'effort d'écriture depuis janvier 2017. Le projet a commencé en décembre 2014.
 
+## Dimanche 8 avril 2018
+
+- _Chapitre 4_ : `path`
+
+**Météo** : 💪
+
+## Vendredi 6 avril 2018
+
+- _Chapitre 4_ : premier remaniement dans l'ordonnancement du chapitrage
+- _Chapitre 4_ : `console`
+
+**Météo** : 💪
+
+## Jeudi 5 avril 2018
+
+**Météo** : 😣
+
+## Mercredi 4 avril 2018
+
+**Météo** : 😣
+
 ## Mardi 3 avril 2018
 
 - _Chapitre 4_ : les modules de base

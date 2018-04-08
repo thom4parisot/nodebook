@@ -4,6 +4,7 @@ const test = require('blue-tape');
 const {extname} = require('path');
 const spawn = require('tape-spawn');
 const glob = require('glob');
+const {platform} = process;
 
 const EXTRAS = require('./examples-config.js');
 
@@ -43,7 +44,8 @@ examples.filter(serverSide).forEach(FILE => {
     }
 
     if (config.stdout) {
-      p.stdout.match(config.stdout);
+      // runs win32 specific tests or default platforms
+      p.stdout.match(config[`${platform}stdout`] || config.stdout);
     }
 
     config.stderr

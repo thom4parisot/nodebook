@@ -98,10 +98,24 @@ module.exports = {
     skip: true,
   },
   'chapter-04/examples/console/log.js': {
-    stdout: 'Valeur de count : 3',
+    stdout: 'Valeur de count : 3\n',
   },
   'chapter-04/examples/console/interpolate.js': {
-    stdout: 'Soupe lentilles et carottes',
+    stdout: 'Soupe lentilles et carottes\n',
+  },
+  'chapter-04/examples/console/intro.js': {
+    stdout: '/tmp\npackage.json\n.json\n',
+  },
+  'chapter-04/examples/console/platform.js': {
+    stdout: '/\ntmp/package.json\n',
+    win32stdout: '\\\ntmp\\package.json\n',
+  },
+  'chapter-04/examples/console/relative.js': {
+    stdout: '../source\n/tmp/source\n',
+    win32stdout: '//\\source\nC:\\tmp\\source\n',
+  },
+  'chapter-04/examples/console/win32.js': {
+    stdout: 'tmp\\package.json\nC:\\etc\n',
   },
   'chapter-04/examples/modules/ecmascript-multiple.mjs': {
     stderr: 'ExperimentalWarning: The ESM module loader is experimental',
