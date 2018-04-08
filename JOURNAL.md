@@ -5,6 +5,7 @@ Ce journal détaille l'effort d'écriture depuis janvier 2017. Le projet a comme
 ## Dimanche 8 avril 2018
 
 - _Chapitre 4_ : `path`
+- _Chapitre 4_ : `url`
 
 **Météo** : 💪
 

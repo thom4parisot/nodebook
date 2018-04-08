@@ -130,6 +130,21 @@ module.exports = {
   'chapter-04/examples/modules/increment.mjs': {
     stderr: 'ExperimentalWarning: The ESM module loader is experimental',
   },
+  'chapter-04/examples/url/format.js': {
+    stdout: 'https://oncletom.io/\n',
+  },
+  'chapter-04/examples/url/intro.js': {
+    stdout: 'oncletom.io\n/node.js/\n',
+  },
+  'chapter-04/examples/url/resolve.js': {
+    stdout: 'https://oncletom.io/node.js/\nhttps://oncletom.io/\n',
+  },
+  'chapter-04/examples/url/search-params.js': {
+    stdout: 'https://oncletom.io/?search=node.js\nsearch=node.js\nhttps://oncletom.io/\n',
+  },
+  'chapter-04/examples/url/to-string.js': {
+    stdout: 'https://oncletom.io/#top\nhttps://oncletom.io/#top\n',
+  },
   'chapter-06/examples/app.js': {
     skip: true
   },

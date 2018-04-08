@@ -1029,8 +1029,16 @@ La documentation du module `path` est disponible sur le site officiel de Node :
 [[url]]
 === `url` : manipuler des URL
 
-privilégier `require('url').URL` et `require('url').URLSearchParams`
+Le module `url` offre des outils pour interpréter des URL, les transformer
+et les assembler à nouveau sous forme de chaîne de caractères.
 
+[source%interactive,javascript]
+.url/intro.js
+----
+include::{sourceDir}/url/intro.js[]
+----
+<1> Affiche `oncletom.io`
+<2> Affiche `/node.js/`
 
 [TIP]
 .[RemarquePreTitre]#Web# Compatibilité avec les navigateurs
@@ -1042,11 +1050,99 @@ Ces deux mondes suivent le standard [URL]#https://url.spec.whatwg.org#
 afin de partager les mêmes concepts et définitions de ce qu'est une URL.
 ====
 
+Les propriétés de l'objet retourné par le constructeur de `URL` sont modifiables.
+Il est ainsi possible de modifier les parties de l'URL qui nous intéressent
+et de récupérer une URL exploitable sous forme de chaîne de caractères :
+
+[source%interactive,javascript]
+.url/to-string.js
+----
+include::{sourceDir}/url/to-string.js[]
+----
+<1> Affiche `https://oncletom.io/#top` — le chemin et le fragment ont été modifiées
+<2> Idem
+
+Si la fonction `format()` semble avoir le même comportement que `toString`,
+on peut en réalité lui passer des options pour conserver ou ôter des
+éléments contextuels d'une URL :
+
+[source%interactive,javascript]
+.url/format.js
+----
+include::{sourceDir}/url/format.js[]
+----
+<1> Affiche `https://oncletom.io/`
+
+Le constructeur `URL` accepte une URL de référence en second argument.
+Cette adresse aide résoudre un chemin absolu à partir du premier argument :
+
+[source%interactive,javascript]
+.url/resolve.js
+----
+include::{sourceDir}/url/resolve.js[]
+----
+<1> Affiche `https://oncletom.io/node.js/`
+<2> Affiche `https://oncletom.io/`
+
 [horizontal]
 .Propriétés notables
 `URL.format()`::
+  Transforme un objet `URL` en chaîne de caractère grâce à des contrôles fins.
 classe `URL`::
+  Représentation de la structure d'une URL.
+  Voir ci-après.
 classe `URLSearchParams`::
+  Représentation des paramètres d'URL.
+  Voir ci-après.
+
+[horizontal]
+.Propriétés notables de la classe `URL`
+attribut `url.hash`::
+  Fragment de l'URL.
+attribut `url.hostname`::
+  Nom de l'hôte.
+attribut `url.pathname`::
+  Chemin d'accès à la ressource.
+attribut `url.protocol`::
+  Protocole spécifié.
+attribut `url.search`::
+  Paramètres de l'URL, caractère `?` inclus.
+attribut `url.searchParams`::
+  Objet permettant de manipuler les paramètres.
+  Voir ci-après.
+`url.toString()`::
+  Transforme l'objet `URL` en chaîne de caractères.
+
+Manipuler une URL est plus aisé lorsqu'elle est structurée sous forme d'objet.
+Les paramètres ne sont pas en reste avec l'attribut `searchParams` :
+
+[source%interactive,javascript]
+.url/search-params.js
+----
+include::{sourceDir}/url/search-params.js[]
+----
+<1> Affiche `https://oncletom.io/?search=node.js`
+<3> Affiche `search=node.js`
+<2> Affiche `https://oncletom.io/`
+
+[horizontal]
+.Propriétés notables de la classe `URLSearchParams`
+`searchParams.append()`::
+  Ajoute un paramètre à la suite de l'URL.
+  Cette fonction permet d'ajouter plusieurs fois une même clé, peu importe sa valeur.
+`searchParams.delete()`::
+  Supprime un paramètre d'URL.
+`searchParams.get()`::
+  Retoure la valeur d'un paramètre donné.
+`searchParams.getAll()`::
+  Retourne toutes les valeurs d'un paramètre donné.
+`searchParams.has()`::
+  Retourne `true` si les paramètres contiennent une clé donnée.
+`searchParams.set()`::
+  Assigne une valeur à un paramètre d'URL.
+`searchParams.toString()`::
+  Retourne une représentation de l'objet sous forme d'une chaîne
+  de caractères exploitable dans une URL.
 
 [NOTE]
 .[RemarquePreTitre]#Documentation# `url`
