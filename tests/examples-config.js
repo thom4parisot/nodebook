@@ -133,6 +133,18 @@ module.exports = {
   'chapter-04/examples/url/format.js': {
     stdout: 'https://oncletom.io/\n',
   },
+  'chapter-04/examples/fs/copy-tmp.js': {
+    stdout: /La copie vers .+example-copy.js s'est bien passée./,
+  },
+  'chapter-04/examples/fs/intro.js': {
+    stdout: /fs.readFile\(__filename/,
+  },
+  'chapter-04/examples/fs/ls.js': {
+    stdout: /package.json/,
+  },
+  'chapter-04/examples/fs/rmdir.js': {
+    stderr: 'ENOTEMPTY: directory not empty',
+  },
   'chapter-04/examples/url/intro.js': {
     stdout: 'oncletom.io\n/node.js/\n',
   },

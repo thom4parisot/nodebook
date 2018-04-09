@@ -1,9 +1,5 @@
-const fs = require('fs');           // <1>
+const fs = require('fs');             // <1>
 
-fs.readdir('.', (err, files) => {   // <2>
-  if (err) {
-    throw err;
-  }
-
-  console.log(files);               // <3>
+fs.readdir('.', (error, files) => {   // <2>
+  console.log(files);                 // <3>
 });

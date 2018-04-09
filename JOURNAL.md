@@ -2,6 +2,12 @@
 
 Ce journal détaille l'effort d'écriture depuis janvier 2017. Le projet a commencé en décembre 2014.
 
+## Lundi 9 avril 2018
+
+- _Chapitre 4_ : `fs`
+
+**Météo** : 💪
+
 ## Dimanche 8 avril 2018
 
 - _Chapitre 4_ : `path`

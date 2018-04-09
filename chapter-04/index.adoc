@@ -1122,8 +1122,10 @@ Les paramètres ne sont pas en reste avec l'attribut `searchParams` :
 include::{sourceDir}/url/search-params.js[]
 ----
 <1> Affiche `https://oncletom.io/?search=node.js`
-<3> Affiche `search=node.js`
+— représentation de l'URL complète
+<3> Affiche `search=node.js` — représentation des paramètres seulement
 <2> Affiche `https://oncletom.io/`
+— le paramètre `search` et sa valeur ont été supprimés de l'URL
 
 [horizontal]
 .Propriétés notables de la classe `URLSearchParams`
@@ -1154,20 +1156,180 @@ La documentation du module `url` est disponible sur le site officiel de Node :
 [[fs]]
 === `fs` : manipuler le système de fichiers
 
+Le module `fs` est un incontournable.
+On y a recours dès que l'on a besoin de lire ou d'écrire dans un fichier.
+On s'en sert également pour créer, déplacer ou supprimer des fichiers
+et des répertoires.
+
+[source%interactive,javascript]
+.fs/intro.js
+----
+include::{sourceDir}/fs/intro.js[]
+----
+<1> Lorsque la lecture du fichier aboutit, la <<callbacks,fonction de callback>>
+est appelée avec 2 paramètres : un objet d'erreur et le contenu
+<2> Affiche… le contenu de ce fichier d'exemple !
+
+[TIP]
+.[RemarquePreTitre]#Raccourci# `+__filename+` et `+__dirname+`
+====
+Les <<globals,variables globales>> `+__filename+` et `+__dirname+` existent pour
+ nous simplifier la vie. +
+`+__filename+` est une chaîne de caractères faisant référence au fichier courant. +
+`+__dirname+` fait référence au répertoire du fichier courant.
+====
+
+Dans l'exemple précédent, nous avons utilisé la variable `+__filename+`.
+Elle retourne un *chemin absolu* vers le répertoire.
+Qu'en est-il lorsqu'on utilise un *chemin relatif* ?
+
+Pour en avoir le cœur net, listons les fichiers et dossiers
+du _répertoire courant_ (`.`) :
+
+[source%interactive,javascript]
+.fs/ls.js
+----
+include::{sourceDir}/fs/ls.js[]
+----
+
+En l'exécutant, on obtient ces résultats :
+
+[source,bash]
+----
+$ node fs/ls.js
+[ '.eslintrc.yaml',
+  'console',
+  'debug.txt',
+  'deprecation-warning.js',
+  'env-var.js',
+  ...
+  'util' ]
+----
+
+On pourrait penser que le _répertoire courant_ (`.`) et `+__dirname+`
+(répertoire du _module courant_) sont équivalents.
+Et si on se change de répertoire pour voir ?
+
+[source,bash]
+----
+$ cd ../..
+$ node chapter-04/examples/fs/ls.js
+[ '.eslintignore',
+  'JOURNAL.md',
+  'README.md',
+  'chapter-01'
+  'chapter-02'
+  ...
+  'tests' ]
+----
+
+Bref, les _chemins relatifs_ sont
+*relatifs à l'emplacement depuis lequel on exécute la commande `node`*.
+`+__dirname+` et de `+__filename+` sont fixés par rapport au <<module,module>>
+y faisant appel.
+
+Puisque les opérations liées au système de fichier ne sont pas immédiates
+alors la majorité des fonctions de ce module est *asynchrone*.
+Leur rapidité d'exécution varie en fonction du support de stockage utilisé
+(à disque, à mémoire), de son âge et de la capacité de traitement du CPU
+de l'ordinateur.
+
+Cela veut aussi dire que les erreurs sont obtenues de manière asynchrone :
+
+[source%interactive,javascript]
+.fs/rmdir.js
+----
+include::{sourceDir}/fs/rmdir.js[]
+----
+<1> Indique que la suppression n'a pas abouti car le répertoire en question
+n'est pas vide — et pour cause, c'est celui qui contient notre fichier d'exemple
+
+On peut bien entendu articuler plusieurs opérations entre elles.
+Et utiliser le <<path,module `path`>> pour construire des chemins robustes
+qui fonctionnent avec tous les systèmes d'exploitation, sans effort.
+
+L'exemple suivant crée un répertoire dans un <<os,dossier temporaire>>,
+effectue une copie de fichier sous un autre nom et liste le contenu du répertoire
+une fois la copie effectuée :
+
+[source%interactive,javascript]
+.fs/copy-tmp.js
+----
+include::{sourceDir}/fs/copy-tmp.js[]
+----
+<1> On assemble un chemin composé à partir du <<os,répertoire temporaire>> fourni
+par le système d'exploitation
+<2> Crée le répertoire en question
+<3> Copie le contenu de ce script d'exemple vers le répertoire en question
+en lui attribuant un nouveau nom
+
+[WARNING]
+.[RemarquePreTitre]#Sécurité# Utilisateur et permissions
+====
+Le script Node exécuté a le droit d'accéder, d'altérer et de supprimer
+au même titre que l'utilisateur système qui lance le script.
+
+Ce n'est pas grave si on exécute du code écrit soi-même.
+Il faut être vigilant·e et pouvoir faire confiance si le code exécuté provient
+de quelqu'un·e d'autre.
+====
+
+Si l'exemple précédent semble agréable à lire, il révèle *deux points de vigilance*.
+
+J'ai écrit le code de manière _optimiste_, pour des questions de lisibilité.
+Pourtant à chaque opération, il y a une *possibilité d'erreur* à gérer :
+de la création du répertoire jusqu'à la lecture des fichiers de ce répertoire. +
+Il faudrait vérifier l'argument `error` à chaque fois et décider quoi faire
+en fonction de la <<errors,nature du problème>>.
+
+Je vous invite à modifier le code de l'exemple précédent.
+Tentez d'afficher les erreurs avec à l'aide des
+<<console,fonctions du module `console`>>.
+Vous vous apercevrez qu'il y en a justement une, d'erreur.
+Qui n'apparait peut-être qu'à partir du moment où on appelle le script
+une deuxième fois.
+
+L'imbrication des <<callbacks,fonctions de callback>> fait qu'il est
+*difficile d'interrompre une suite de _callbacks_*.
+Une bonne piste serait d'appliquer l'<<util,utilitaire `promisify`>>
+sur les fonctions du module `fs` créer une
+<<../chapter-03/index.adoc#promise,chaine de promesses>>. +
+Nous apprendons à faire ça dans la section du <<util,module `util`>>.
+
+
 [horizontal]
 .Propriétés notables
-`fs.appendFile`::
-`fs.copyFile`::
-`fs.mkdir`::
-`fs.readdir`::
-`fs.readFile`::
-`fs.rename`::
-`fs.rmdir`::
-`fs.stat`::
-`fs.symlink`::
-`fs.truncate`::
-`fs.createReadStream`::
-`fs.createWriteStream`::
+`fs.appendFile()`::
+  Ajoute un contenu à la suite d'un fichier existant.
+  Le fichier sera créé le cas échéant.
+`fs.copyFile()`::
+  Copie un fichier depuis un emplacement vers un autre.
+`fs.mkdir()`::
+  Crée un nouveau répertoire.
+  Le répertoire parent doit déjà exister.
+`fs.readdir()`::
+  Obtient la liste des fichiers et dossiers contenus dans un répertoire donné.
+`fs.readFile()`::
+  Lit le contenu d'un fichier.
+`fs.rename()`::
+  Renomme un fichier — et le déplace vers un nouvel emplacement si nécessaire.
+`fs.rmdir()`::
+  Supprime un répertoire.
+  Le répertoire doit être _vide_ pour que l'opération puisse réussir.
+`fs.stat()`::
+  Obtient des réponses à des questions à propos d'un chemin d'accès :
+  est-ce que c'est un fichier, un répertoire, un lecteur, un lien symbolique etc.
+  Des attributs clarifient la taille du fichier (en octets), l'identifiant
+  système de son propriétaire, la date de création/modification/dernier accès etc.
+`fs.symlink()`::
+  Crée un lien symbolique d'un chemin donné vers un emplacement.
+`fs.truncate()`::
+  Raccourcit le contenu d'un fichier à une longueur donnée (en nombre d'octets).
+  Si aucun argument n'est donné, le contenu du fichier est remis à zéro.
+`fs.createReadStream()`::
+  Crée un <<stream,flux de lecture>>, pour lire un fichier en continu.
+`fs.createWriteStream()`::
+  Crée un <<stream,flux d'écriture>>, pour écrire en continu dans un fichier.
 
 [NOTE]
 .[RemarquePreTitre]#Documentation# `fs`
@@ -1198,6 +1360,13 @@ La documentation du module `events` est disponible sur le site officiel de Node 
 
 [[util]]
 === `util` : transformer des _callbacks_ en promesses
+
+
+[source%interactive,javascript]
+.fs/copy-tmp-promisified.js
+----
+include::{sourceDir}/fs/copy-tmp-promisified.js[]
+----
 
 [NOTE]
 .[RemarquePreTitre]#Documentation# `util`
@@ -1769,7 +1938,8 @@ qui consomment du contenu sans avoir à connaître leur provenance.
 des fichiers ou des sites web distants.
 
 Pour mieux comprendre la logique de _flux continu_ que l'on vient de découvrir,
-je vous invite à lire la section <<streams,Streams>> de ce même chapitre.
+je vous invite à lire la section liée au <<stream,module `stream`>>
+de ce même chapitre.
 On y détaillera la liste des événements à écouter ainsi que les différentes
 méthodes d'écriture, de pause et de lecture.
 
