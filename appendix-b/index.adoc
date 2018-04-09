@@ -683,7 +683,7 @@ Le mécanisme des _streams_ est ici mis en évidence par le volume de données c
 En pratique, chaque _buffer_ correspond plus ou moins à 4Ko de données… mais 4Ko de données brutes. +
 La fonction `JSON.parse` devient alors inefficace car elle impose d'avoir à disposition une structure JSON finie et complète.
 
-Il nous faudrait un parseur JSON compatible avec les _streams_ ; c'est à dire qui soit capable de parser une structure JSON au fur et à mesure de sa lecture. +
+Il nous faudrait un parseur JSON compatible avec les _streams_ ; c'est-à-dire qui soit capable de parser une structure JSON au fur et à mesure de sa lecture. +
 C'est exactement ce que nous propose le module npm `JSONStream` ([URL]#https://npmjs.com/JSONStream#).
 
 Notre script se transforme légèrement et nécessite l'emploi de la méthode `pipe()` sur laquelle nous nous pencherons juste après :

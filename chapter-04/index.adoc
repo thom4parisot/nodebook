@@ -72,7 +72,7 @@ image::images/terminal.png[width="85%"]
 
 Nous pourrions commencer par afficher la version de l'interpréteur Node.
 Nous nous assurons ainsi que nous pouvons interagir avec
-l'interpéteur Node avec succès _et_ que l'interpréteur
+l'interpréteur Node avec succès _et_ que l'interpréteur
 est celui que nous attendons, dans la bonne version.
 La version de Node conditionne la liste des fonctionnalités du langage
 ECMAScript à disposition.
@@ -106,7 +106,7 @@ n'est pas celui que vous attendiez, jetez un œil à la
 === Avec une expression
 
 L'interpréteur Node sait interpréter du code qu'on lui donnerait
-via l'option `-p` (pour _print_, c'est à dire _afficher_).
+via l'option `-p` (pour _print_, c'est-à-dire _afficher_).
 L'interpréteur affichera le résultat de l'expression ou
 détaillera la <<errors,raison de l'erreur>>.
 
@@ -231,7 +231,7 @@ NaN                           Number                        Object
 ----
 
 C'est un excellent moyen de *découvrir des éléments du langage* qui nous
-étaient inconnus jusque là.
+étaient inconnus jusque-là.
 ====
 
 La sortie de l'invite de commande se fait à l'aide de
@@ -256,7 +256,7 @@ ou en utilisant la combinaison de touches kbd:[Ctrl+D] (ou kbd:[{ctrl}+D] sous m
 .[RemarquePreTitre]#Raccourci# Variable magique `_`
 ====
 La variable `\_` est spécifique à l'invite de commande Node.
-Elle contient systématiquement le _résultat retourné_ par la
+Elle contient systématiquement le _résultat retourné_ par
 la dernière évaluation de code :
 
 [source,bash]
@@ -282,7 +282,7 @@ soient traitées.
 
 J'utilise un script lorsque la logique à exécuter tient sur plusieurs lignes,
 pour versionner ce code avec _git_ mais aussi pour structurer la logique
-dans _plusieurs fichiers_ grace au mécanisme de <<modules,modules>>.
+dans _plusieurs fichiers_ grâce au mécanisme de <<modules,modules>>.
 
 Prenons l'exemple d'un fichier nommé `script.js` qui contiendrait :
 
@@ -349,7 +349,7 @@ entraîne la création d'un <<process.api,processus système>>.
 
 Node a apporté quelque chose qui manquait cruellement à ECMAScript :
 la possibilité de charger des modules.
-C'est à dire la possibilité d'*organiser son code dans plusieurs fichiers*
+C'est-à-dire la possibilité d'*organiser son code dans plusieurs fichiers*
 et d'y faire appel depuis d'autres fichiers. +
 À la manière de ce qui se fait en Python (`import`), PHP (`require`)
 et Ruby (`require` et `require_relative`).
@@ -471,7 +471,7 @@ include::{sourceDir}/modules/parent-export-multiple.js[]
 ----
 <1> Affiche `42`
 <2> Affiche un nombre aléatoire entre 0 et 100
-<3> Re-exporte la fonction `enfant.number`
+<3> Réexporte la fonction `enfant.number`
 
 Pour résumer, Node propose un *mécanisme d'import et d'export de modules*
 basé sur des chemins de fichiers.
@@ -523,7 +523,7 @@ et appeler ces fonctions de manière explicite, _après_ avoir chargé le module
 *Node met les modules en cache*.
 Si on inclut deux fois le même module, le deuxième import ira directement
 à la dernière étape de la _liste d'actions_.
-Ça implique aussi que si le module modifie une de ses variable privée,
+Ça implique aussi que si le module modifie une de ses variables privée,
 cette modification impactera le deuxième import.
 
 Voici un module illustrant une variable privée et une variable exportée :
@@ -670,7 +670,7 @@ Reprenons cet exemple pour _importer plusieurs exports d'un coup_ :
 ----
 include::{sourceDir}/modules/ecmascript-multiple.mjs[]
 ----
-<1> On importe la _valeur par défaut_ ainsi qu'une _valeur nommée_ -
+<1> On importe la _valeur par défaut_ ainsi qu'une _valeur nommée_ —
 c'est particulièrement pratique pour sélectionner avec finesse
 ce que l'on veut utiliser d'un module
 <2> La fonction `reset` remet le compteur à zéro
@@ -701,7 +701,7 @@ l'inverse n'est pas vrai
 - les fichiers doivent être suffixés par `.mjs`
 
 Ce dernier point est le plus embêtant car il ralentit l'interopérabilité
-avec les modules destiné au développement web frontend.
+avec les modules destinés au développement web frontend.
 Ces derniers contiennent les déclarations `import` et `export` mais…
 dans des fichiers `.js`.
 
@@ -712,7 +712,7 @@ L'histoire nous dira si les modalités s'assoupliront avec le temps.
 ====
 Le <<../chapter-05/index.adoc#modules,module npm>> `esm`
 ([URL]#https://npmjs.com/esm#) a pris le parti de déblayer le chemin
-de l'intéropérabilité.
+de l'interopérabilité.
 Il suffit de charger le module `esm` avant de démarrer un script Node,
 peu importe son mécanisme de chargement de modules :
 `esm` rendra le chargement des modules totalement transparent.
@@ -925,7 +925,7 @@ Le module `path` offre un ensemble de fonctions et de propriétés pour
 manipuler et construire des chemins vers des fichiers et répertoires.
 
 Ces opérations permettent à notre code de fonctionner de manière identique
-sur des systèmes d'exploitation exprimant les chemins de manière différentes —
+sur des systèmes d'exploitation exprimant les chemins de manière différente —
 comme Linux et Windows par exemple.
 
 [source%interactive,javascript]
@@ -1002,7 +1002,7 @@ attribut `path.sep`::
 ====
 On pourrait avoir besoin de manipuler des chemins _pour_ Windows alors qu'on est
 sur un autre système d'exploitation.
-Le module `path` expose `path.win32` pour cette raison là. +
+Le module `path` expose `path.win32` pour cette raison-là. +
 *Les propriétés retournées sont les mêmes* que celles décrites précédemment…
 mais retournent systématiquement des chemins Windows.
 
@@ -1011,7 +1011,7 @@ mais retournent systématiquement des chemins Windows.
 ----
 include::{sourceDir}/path/win32.js[]
 ----
-<1> On destructure les fonctions depuis la variante `win32` du module `path`
+<1> On déstructure les fonctions depuis la variante `win32` du module `path`
 <2> Affiche `tmp\package.json`
 <3> Affiche `C:\etc`
 
@@ -1294,7 +1294,7 @@ L'imbrication des <<callbacks,fonctions de callback>> fait qu'il est
 Une bonne piste serait d'appliquer l'<<util,utilitaire `promisify`>>
 sur les fonctions du module `fs` créer une
 <<../chapter-03/index.adoc#promise,chaine de promesses>>. +
-Nous apprendons à faire ça dans la section du <<util,module `util`>>.
+Nous apprendrons à faire ça dans la section du <<util,module `util`>>.
 
 
 [horizontal]
@@ -1485,7 +1485,7 @@ Ces instructions peuvent être immédiates (_programmation synchrone_),
 décalées dans le temps (_programmation asynchrone_)
 ou conditionnées par l'écoute d'événements extérieurs (_programmation événementielle_).
 
-Le processus s'arrête en cas d'erreur, lorqu'il n'y a plus d'opération
+Le processus s'arrête en cas d'erreur, lorsqu'il n'y a plus d'opération
 à effectuer ou en cas d'interruption volontaire.
 
 === Le coût d'un processus
@@ -1546,7 +1546,7 @@ forcément listées dans cet ouvrage.
 
 Les variables d'environnement sont des
 *variables définies au niveau du système d'exploitation*.
-Elles contiennent des informations comme le _répertoire courant_, la langue du système d'exploitation, l'utilisateur système courant, le type de terminal, les emplacements d'installation des exécutables, etc.
+Elles contiennent des informations comme le _répertoire courant_, langue du système d'exploitation, l'utilisateur système courant, le type de terminal, les emplacements d'installation des exécutables, etc.
 
 On retrouve ces variables sous la forme d'un
 <<../chapter-03/index.adoc#object,objet ECMAScript>> nommé `process.env` :
@@ -1666,7 +1666,7 @@ include::{sourceDir}/print-first.js[]
 ----
 
 Les deux premiers éléments de `process.argv` sont rarement utilisés.
-Ils correspondant respectivement à l'emplacement de l'exécutable Node
+Ils correspondent respectivement à l'emplacement de l'exécutable Node
 et à l'emplacement du script.
 
 Tous les autres arguments sont accessibles à partir de l'index 2 de
@@ -1689,7 +1689,7 @@ $ node print-first.js "salut ça va ?" "oui et toi ?"
 ----
 
 L'inconvénient des arguments est que leur ordre compte
-et qu'il devient difficile de connaitre leur rôle sans se réferrer
+et qu'il devient difficile de connaitre leur rôle sans se référer
 au manuel d'utilisation.
 
 C'est là qu'interviennent les *options*.
@@ -1811,13 +1811,13 @@ La fonction d'affichage `console.log` écrit dans le flux de sortie
 Sans surprise, `console.error` écrit dans le flux d'erreur
 `process.stderr`.
 
-Elles ajoutent un _retour à la ligne_ et des options de formattage pour
+Elles ajoutent un _retour à la ligne_ et des options de formatage pour
 notre confort.
 
 On en parlera davantage dans la section <<console,console>>.
 ====
 
-Quand on écrit vers le flux de _sortie_ ou le flux d'_erreur_,
+Quand on vers le flux de _sortie_ ou le flux d'_erreur_,
 on s'ouvre à l'analyse en continu de ce flux.
 Comment ?
 À l'aide d'utilitaires systèmes existants (`grep`, `awk` etc.)
@@ -1826,9 +1826,9 @@ ou des programmes spécifiques (analyse de _logs_, etc.).
 On peut ainsi se concentrer sur un programme qui
 fait *juste ce dont on a besoin* sans être tenté·e de tout faire.
 On laisse le travail de spécialisation à d'autres programmes.
-Ils pourraient être écrit en Node d'ailleurs…
+Ils pourraient être écrits en Node d'ailleurs…
 
-Essayons d'ailleurs de _filter_ la sortie de l'exemple précédent
+Essayons d'ailleurs de _filtrer_ la sortie de l'exemple précédent
 sans écrire une ligne de code de plus.
 Le programme _grep_ ([URL]#https://fr.wikipedia.org/wiki/Grep#)
 est fourni par défaut sur les systèmes UNIX (dont Linux et macOS) font partie.
@@ -2098,7 +2098,7 @@ En plus du signal `SIGINT`, Node nous relaie les signaux suivants :
 | `SIGWINCH`  | Le terminal a été redimensionné
 |===
 
-`SIGKILL` est un autre événément important mais on ne peut _pas_ l'écouter.
+`SIGKILL` est un autre événement important mais on ne peut _pas_ l'écouter.
 Quand il est émis, le processus doit être arrêté quoiqu'il arrive.
 On l'utilise justement en cas de dernier recours, quand `SIGINT`
 et `SIGTERM` ne font pas effet (à cause d'un bug dans notre code,
@@ -2107,7 +2107,7 @@ une ressource qui ne rend pas la main etc.).
 [[process.exit]]
 ==== Mettre fin au processus
 
-Un processus Node se termine quand il n'a plus d'instructions à éxécuter.
+Un processus Node se termine quand il n'a plus d'instructions à exécuter.
 Un processus Node peut être terminé via
 l'<<signals,émission d'un signal extérieur>>.
 Mais on peut aussi y mettre fin _de l'intérieur_ par l'intermédiaire
@@ -2133,7 +2133,7 @@ Hm hm, essaie encore.
 Tu as trouvé, bravo !
 ----
 
-Dans cet exemple, on écoute l'utilisateur de manière indéfini, jusqu'à ce qu'il
+Dans cet exemple, on écoute l'utilisateur de manière indéfinie, jusqu'à ce qu'il
 ou elle trouve le bon nombre.
 Lorsque c'est le cas, on peut interrompre le programme en transmettant
 un code de sortie _de réussite_ : le code `0` (zéro).
@@ -2212,7 +2212,7 @@ $ node --pending-deprecation deprecation-warning.js
 `--v8-options`
 `--harmony`
 
-harmony pour activer les fonctionnalités de langage en cours de développement (en voie de standardisasation)
+harmony pour activer les fonctionnalités de langage en cours de développement (en voie de standardisation)
 
 le reste pour changer le comportement de la VM
 
