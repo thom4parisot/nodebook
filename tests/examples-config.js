@@ -164,6 +164,9 @@ module.exports = {
   'chapter-04/examples/url/to-string.js': {
     stdout: 'https://oncletom.io/#top\nhttps://oncletom.io/#top\n',
   },
+  'chapter-04/examples/util/debuglog.js': {
+    stdout: /Cet ordinateur a \d+ CPU./,
+  },
   'chapter-06/examples/app.js': {
     skip: true
   },

@@ -1360,12 +1360,102 @@ La documentation du module `events` est disponible sur le site officiel de Node 
 [[util]]
 === `util` : transformer des _callbacks_ en promesses
 
+Le module `util` est un petit module contenant des fonctions utilitaires
+qui ne rentreraient pas dans le périmètre d'autres modules.
+
+On y trouve `util.format()`, une fonction qui fait beaucoup penser à
+<<console,`console.log`>> mais sans afficher le message :
 
 [source%interactive,javascript]
-.fs/copy-tmp-promisified.js
+.util/format.js
 ----
-include::{sourceDir}/fs/copy-tmp-promisified.js[]
+include::{sourceDir}/util/format.js[]
 ----
+<1> Assigne le message formaté dans une variable sans l'afficher
+
+Pour afficher la valeur de la variable `message` de l'exemple précédent,
+il suffirait de décommenter la dernière ligne et de (re)lancer le script.
+
+La fonction `util.debuglog()` formate aussi des messages.
+Son affichage est toutefois conditionnel.
+Ce qui est pratique quand on veut déboguer des variables sans toucher au code
+entre deux exécutions :
+
+[source%interactive,javascript]
+.util/debuglog.js
+----
+include::{sourceDir}/util/debuglog.js[]
+----
+<1> Création d'un débogueur nommé `nodebook`
+<2> Ce message s'affiche systématiquement quand on exécute le script
+<3> Le modèle de CPU sera affiché en invoquant Node d'une certaine manière
+
+En lançant la commande suivante, seul le message de `console.log` s'affiche :
+
+[source,bash]
+----
+$ node util/debuglog.js
+Cet ordinateur a 4 CPU.
+----
+
+Il nous faut alors utiliser la <<process.env,variable d'environnement>> `NODE_DEBUG`.
+En lui attribuant la même valeur que notre débogueur, celui-ci affichera alors
+le contenu attendu :
+
+[source,bash]
+----
+$ NODE_DEBUG=nodebook node util/debuglog.js
+Cet ordinateur a 4 CPU.
+NODEBOOK 32486: Le modèle de CPU est Intel(R) Core(TM) i5-6267U CPU @ 2.90GHz.
+----
+
+Si l'on souhaite avoir plusieurs débogueurs, dans un ou plusieurs scripts,
+il suffit de séparer leur nom par une virgule.
+Par exemple `NODE_DEBUG=nodebook,test,fromage`.
+
+Une de mes fonctions préférées est `util.promisify()`.
+Elle convertit une fonction acceptant un <<callback,callback>> en une fonction
+retournant une <<../chapter-03/index.adoc#promise,promesse>>.
+C'est d'autant plus pratique quand on n'a pas la maitrise du
+code source original :
+
+[source%interactive,javascript]
+.util/fs-readdir-promisified.js
+----
+include::{sourceDir}/util/fs-readdir-promisified.js[]
+----
+<1> Assigne une version transformée de `fs.readdir` grâce à `util.promisify`
+<2> On ne passe pas de <<callbacks,callback>> contrairement à `fs.readdir`
+<3> Le résultat de l'opération est passé à la résolution de promesse
+
+Ça paraît rien mais ça ouvre un potentiel de simplification énorme pour nous.
+Fini l'argument `error` qui nous embête : on peut le collecter quand ça
+nous arrange grâce à `.catch()`.
+
+Et puis franchement, ça nous évite d'avoir à écrire toutes ces lignes de code
+pour arriver au même résultat :
+
+[source%interactive,javascript]
+.util/fs-readdir-promise.js
+----
+include::{sourceDir}/util/fs-readdir-promise.js[]
+----
+
+[horizontal]
+.Propriétés notables
+`util.debuglog()`::
+  Crée une fonction de débogage similaire à <<console,`console.error`>>.
+  Les messages ne s'afficheront que si la <<process.env,variable d'environnement>>
+  `NODE_DEBUG` mentionne l'identifiant du débogueur.
+`util.deprecate()`::
+  Affiche un message d'avertissement lorsque vous souhaitez retirer une fonction
+  partagée dans une version ultérieure de votre code.
+`util.format()`::
+  Retourne une chaîne de caractères formatée, comme <<console,`console.log`>>
+  mais sans l'envoyer dans un <<process.std,flux de sortie>>.
+`util.promisify()`::
+  Transforme une <<callbacks,fonction de callback>> en
+  <<../chapter-03/index.adoc#promise,promesse>>.
 
 [NOTE]
 .[RemarquePreTitre]#Documentation# `util`
