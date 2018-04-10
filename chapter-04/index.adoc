@@ -1340,15 +1340,113 @@ La documentation du module `fs` est disponible sur le site officiel de Node :
 [[events]]
 === `events` : programmer des événements
 
-`require('events')`
+Le module `events` contient le nécessaire pour créer du code communiquant
+à l'aide de fonctions d'écoute et d'émission de messages.
+C'est comme un _centre de tri postal_… mais pour Node avec des variables
+en guise de courriers.
+
+[source%interactive,javascript]
+.events/intro.js
+----
+include::{sourceDir}/events/intro.js[]
+----
+<1> Création d'un gestionnaire d'événements
+<2> Enregistrement d'une fonction d'écoute
+— elle sera exécutée à chaque émission de l'événement `date`
+<3> Émission d'un événement `date` avec comme argument, un
+<<../chapter-03/index.adoc#date,objet `Date`>>
+
+Un événement se décompose en 3 parties : les *fonctions d'écoute*,
+les *émissions de message* et un *objet `EventEmitter`*
+qui fait le lien entre les deux.
+
+[NOTE]
+.[RemarquePreTitre]#Langage# ECMAScript n'est pas événementiel
+====
+Contrairement à ce que l'on pourrait penser, le langage ECMAScript ne possède
+aucune structure de gestion d'événements.
+
+S'il est possible de réagir à des événements dans les navigateurs web,
+c'est grâce à la spécification DOM — l'API JavaScript pour manipuler
+une structure de document HTML.
+
+Pour en savoir plus : [URL]#https://developer.mozilla.org/fr/docs/Web/Events#.
+====
+
+On peut décider d'écouter un événement une seule fois avec `emitter.once()` :
+
+[source%interactive,javascript]
+.events/once.js
+----
+include::{sourceDir}/events/once.js[]
+----
+<1> Bien que l'événement `date` soit appelé deux fois, la fonction d'écoute
+ne réagira qu'une seule fois
+
+La fonction `emitter.remove` débranche une fonction d'écoute selon
+les critères de notre choix :
+
+[source%interactive,javascript]
+.events/remove.js
+----
+include::{sourceDir}/events/remove.js[]
+----
+<1> On émet un événement `date` toutes les secondes,
+en incrémentant un compteur à chaque fois
+<2> Au bout de 3 incréments, on débranche la fonction d'écoute `log`
+de l'événement `date`
+
+On remarquera qu'il faut pouvoir faire référence à la fonction d'écoute
+afin de la débrancher.
+
+Une utilisation alternative des événements consiste à étendre la classe `EventEmitter`.
+Une fois étendue, notre nouvelle classe bénéficiera des méthodes `.on()` etc.
+
+[source%interactive,javascript]
+.events/class.js
+----
+include::{sourceDir}/events/class.js[]
+----
+<1> Extension de la classe `EventEmitter`
+<2> L'utilisation de la fonction spéciale `super()` est indispensable ;
+elle revient à invoquer `new EventEmitter()` par mécanisme de cascade
+<3> La méthode `.start()` encapsule un appel à la méthode `.emit()`
+<4> La fonction réagira à l'émission de l'événement `action` ;
+quand la méthode `.start()` sera appelée
+
+Ce *mécanisme est utile* pour cacher de la complexité applicative,
+pour exécuter une fonction plusieurs fois lors d'un événement donné,
+pour exposer une surface d'action compréhensible,
+tout en rendant notre code communiquant vers l'extérieur.
+
+Plusieurs modules Node utilisent les événements pour nous permettre d'y
+réagir de manière totalement optionnelle.
+Tout ce que l'on vient d'expliquer s'applique à l'identique
+au <<process,module `process`>>, au <<child_process,module `child_process`>>
+ainsi qu'au <<http,module `http`>>.
 
 [horizontal]
 .Propriétés notables de la classe `EventEmitter`
 `on()`::
+  Enregistre une nouvelle fonction réagissant à un événement donné.
 `once()`::
+  Enregistre une nouvelle fonction réagissant _une seule fois_ à un événement donné.
 `emit()`::
+  Émet un événement.
+  Si un ou plusieurs arguments additonnels sont présents,
+  ils sont transmis aux fonctions écoutant cet événement.
 `eventNames()`::
+  Liste les événements pour lesquels on a enregistré au moins une fonction d'écoute.
 `listeners()`::
+  Liste les fonctions écoutant les événements.
+`removeListener()`::
+  Supprime une fonction d'écoute d'un événement donné.
+`removeAllListeners()`::
+  Supprime toutes les fonctions d'écoute d'un événement donné.
+`setMaxListeners()::
+  Change le nombre maximum de fonctions d'écoute possibles. +
+  Par défaut cette limite est de _10 fonctions maximum_.
+  Ça paraît peu.
 
 [NOTE]
 .[RemarquePreTitre]#Documentation# `events`

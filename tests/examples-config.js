@@ -133,6 +133,18 @@ module.exports = {
   'chapter-04/examples/url/format.js': {
     stdout: 'https://oncletom.io/\n',
   },
+  'chapter-04/examples/events/class.js': {
+    stdout: 'La voiture Boombo est en train de démarrer\n',
+  },
+  'chapter-04/examples/events/intro.js': {
+    stdout: 'Année : 2018\nAnnée : 1983\n',
+  },
+  'chapter-04/examples/events/once.js': {
+    stdout: 'Année : 2018\n',
+  },
+  'chapter-04/examples/events/remove.js': {
+    skip: true,
+  },
   'chapter-04/examples/fs/copy-tmp.js': {
     stdout: /La copie vers .+example-copy.js s'est bien passée./,
   },
