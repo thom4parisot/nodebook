@@ -1565,11 +1565,139 @@ La documentation du module `util` est disponible sur le site officiel de Node :
 [[http]]
 === `http` : créer et interroger des ressources via le protocole HTTP
 
-On ira plus en détail dans le chapitre 7
+Le module `http` est un module incontournable de Node.
+Il a _2 facettes_ : la création de *requêtes HTTP* et la création
+de *serveurs HTTP*.
+Dans un cas on utilise le protocole HTTP pour *accéder à une ressource distante*
+et recevoir une _réponse_.
+Dans l'autre cas on utilise le protocole HTTP pour
+*mettre à disposition des ressources* et les envoyer en _réponse_.
+
+Le module `https` offre exactement les mêmes propriétés.
+Il est à privilégier pour établir des connections sécurisées
+vers des adresses commençant par `https://`.
+
+
+[source%interactive,javascript]
+.http/intro.js
+----
+include::{sourceDir}/http/intro.js[]
+----
+<1> Initialisation de la requête — un objet représentant
+la <<http.response,réponse du serveur distant>> nous est transmis.
+À ce stade là, le serveur n'a pas encore commencé à renvoyer des données
+<2> On en est à l'étape où on reçoit des données.
+Le contenu du fichier `package.json` est affiché sous forme
+de chaînes de caractères
+
+Ce premier exemple met en lumière *la nature asynchrone et non-bloquante par défaut de Node*.
+La création d'une requête et l'obtention de la réponse sont séparées d'un délai
+variable : recherche du serveur distant, établissement de la connexion réseau,
+premier échange de données, transfert de données, clôture de la transmission.
+
+Pour rester rapide, Node fait aussi le choix de ne pas transmettre toutes les
+informations d'un coup.
+L'<<events,événement>> `data` renvoie en réalité plus ou moins `10Ko` de données
+à la fois.
+L'exemple a fonctionné parce qu'on a eu de la chance : le fichier
+`package.json` pèse moitié moins de 10Ko.
+
+[source%interactive,javascript]
+.http/get.js
+----
+include::{sourceDir}/http/get.js[]
+----
+<1> Affiche un message par réception de paquet
+<2> L'événement `end` se déclenche lorsque la requête n'a plus de données
+à recevoir
+<3> Affiche le nombre de morceaux reçus pour obtenir une _réponse complète_
+
+[TIP]
+.[RemarquePreTitre]#Pratique# Paramètre URL
+====
+Les fonctions `http.get()` et `http.request()` accepte une chaîne de caractères
+comme premier argument.
+
+Il est aussi possible de lui passer un <<url,objet URL>>.
+Pratique si vous manipulez des URL complexes ou si vous paginez.
+====
+
+En clair, on peut recevoir une réponse en plusieurs fois, petit bout par petit bout.
+Les données reçues ne sont pas forcément complètes.
+Pas assez pour être décodées avec une fonction comme
+<<../chapter-03/index.adoc#json,`JSON.parse`>> qui nécessite…
+un document JSON complet pour être décodé.
+
+On pourrait accumuler les morceaux de réponse et les assembler à la fin.
+Cela revient à occuper autant de kilo-octets en mémoire. +
+La solution n'est pas loin pourtant : il faudrait jeter un œil du côté
+des <<streams,flux de données>> qui pompent et brassent les données comme du
+liquide.
+
+[horizontal]
+.Propriétés notables
+`http.createServer()`::
+  Initialise un serveur HTTP et fournit une boîte à outil pour
+  gérer les connexions entrantes via <<http.server,`http.Server`>>
+`http.get()`::
+  Crée une connexion HTTP de type GET.
+  Il s'agit d'une version légèrement simplifiée de `http.request()`.
+  Elle est largement suffisante pour les besoins courants.
+`http.request()`::
+  Crée une connexion HTTP du type de son choix (GET, POST, OPTION, PUT, etc.).
+
+La fonction `http.request()` nous aide à gérer plus finement notre requête.
+On peut aisément régler les entêtes de requête et lire le volume de données
+qui nous intéresse avant d'arrêter la transmission.
+
+En vrai et au quotidien, on préfèrera utiliser un
+<<../chapter-05/index.adoc#modules,module npm>> pour gérer ces cas de figure.
+Ces modules sont bien plus fluides à utiliser que cette méthode bas-niveau
+qui nous oblige à tout faire nous même.
+
+[horizontal, id="http.ClientRequest"]
+.Propriétés notables de `http.ClientRequest`
+événement `response`::
+  Déclenché lorsque la ressource distante a accepté la requête et s'apprête
+  à nous transmettre les données.
+événement `end`::
+  Délenché lorsque la ressource distante a signalé ne plus avoir de données
+  à nous transmettre.
+`request.end()`::
+  Termine l'initialisation et entame la connexion vers la ressource distante. +
+  Dans le cas d'une requête `POST`, `PUT` ou `DELETE`, le premier paramètre
+  sert à passer une donnée au serveur distant.
+`request.getHeader()`::
+  Retourne la valeur d'une entête de requête.
+`request.setHeader()`::
+  Change la valeur d'une entête de requête.
+  C'est une pratique courante pour préciser nos intentions auprès du serveur
+  distant : format de fichier à réponse attendu (`Accept`), agent utilisateur
+  (`User-Agent`), nature des données envoyées (`Content-Type`), etc.
+`request.setTimeout()`::
+  Définit un chronomètre pour déclarer la requête en erreur si aucune réponse
+  n'a été obtenue dans ce délai imparti.
+`request.write()`::
+  Transmets un morceau de contenu vers la ressource distante.
+  Cette méthode est appelée plusieurs fois lorsque l'on effectue un
+  téléversement progressif.
+
+[horizontal, id="http.Server"]
+.Propriétés notables de `http.Server`
+
+bonus : on peut aussi faire un serveur https ET un serveur http/2
+
+
+[horizontal, id="http.IncomingMessage"]
+.Propriétés notables de `http.IncomingMessage`
+
+[horizontal, id="http.ServerResponse"]
+.Propriétés notables de `http.ServerResponse`
 
 On verra qu'on peut faire plus simple dans le chapitre 5 (exemple de module npm)
 
-bonus : on peut aussi faire un serveur https ET un serveur http/2
+On ira plus en détail dans le chapitre 7
+
 
 [NOTE]
 .[RemarquePreTitre]#Documentation# `http`
