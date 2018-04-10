@@ -2,6 +2,13 @@
 
 Ce journal détaille l'effort d'écriture depuis janvier 2017. Le projet a commencé en décembre 2014.
 
+## Mardi 10 avril 2018
+
+- _Chapitre 4_ : `os`
+- _Chapitre 4_ : `util`
+
+**Météo** : 🙂
+
 ## Lundi 9 avril 2018
 
 - _Chapitre 4_ : `fs`

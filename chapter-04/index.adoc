@@ -1173,8 +1173,7 @@ est appelée avec 2 paramètres : un objet d'erreur et le contenu
 [TIP]
 .[RemarquePreTitre]#Raccourci# `+__filename+` et `+__dirname+`
 ====
-Les <<globals,variables globales>> `+__filename+` et `+__dirname+` existent pour
- nous simplifier la vie. +
+Ces <<globals,variables globales>> existent pour nous simplifier la vie. +
 `+__filename+` est une chaîne de caractères faisant référence au fichier courant. +
 `+__dirname+` fait référence au répertoire du fichier courant.
 ====
@@ -1225,8 +1224,8 @@ $ node chapter-04/examples/fs/ls.js
 
 Bref, les _chemins relatifs_ sont
 *relatifs à l'emplacement depuis lequel on exécute la commande `node`*.
-`+__dirname+` et de `+__filename+` sont fixés par rapport au <<module,module>>
-y faisant appel.
+La valeur de `+__dirname+` et de `+__filename+` est déterminée par rapport
+à l'emplacement du <<module,module>> y faisant appel.
 
 Puisque les opérations liées au système de fichier ne sont pas immédiates
 alors la majorité des fonctions de ce module est *asynchrone*.
@@ -1395,7 +1394,94 @@ La documentation du module `http` est disponible sur le site officiel de Node :
 [[os]]
 === `os` : en savoir plus sur les capacités de l'ordinateur
 
-Notamment les interfaces réseaux, les CPU etc.
+Le module `os` permet d'en savoir plus sur l'environnement système dans lequel
+le script est exécuté.
+Ça permet de *prendre des décisions par rapport aux ressources disponibles*
+(mémoire, CPU, réseau, etc.).
+Idem par rapport au type de système d'exploitation (Windows, Linux, etc.).
+
+[source%interactive,javascript]
+.os/intro.js
+----
+include::{sourceDir}/os/intro.js[]
+----
+<1> Affiche un message du genre
+`L'ordinateur a 4 CPU et une session ouverte par anonymous.`
+
+Node a pour vocation de nous abstraire du système d'exploitation
+en faisant en sorte que notre code fonctionne partout pareil.
+Pourtant des situations nous obligent à prendre en compte certains critères
+pour déterminer un choix.
+
+Par exemple, lister les applications installées sur l'ordinateur.
+Leur emplacement d'installation est différent sous Linux, Windows et macOS.
+
+[source%interactive,javascript]
+.os/apps.js
+----
+include::{sourceDir}/os/apps.js[]
+----
+
+L'exemple précédent se base sur la valeur retournée par la fonction `os.type()`
+afin de choisir quel est le bon répertoire à lister.
+
+Ce mécanisme se combine bien avec le <<child_process,module `child_process`>>,
+pour appeler une application système différent pour parvenir
+à un résultat similaire.
+
+À l'inverse, on peut *accéder à une ressource de manière uniforme*, peu importe
+le nom du compteur utilisateur ou du type de système d'exploitation.
+Nous allons maintenant lire le contenu du fichier `.npmrc`,
+le fichier de configuration du <<../chapter-05/index.adoc#cli,programme npm>> :
+
+[source%interactive,javascript]
+.os/npmrc.js
+----
+include::{sourceDir}/os/npmrc.js[]
+----
+<1> Construit un chemin agnostique du système d'exploitation. Par exemple
+`C:\Users\anonymous\.npmrc` pour Windows, `/Users/anonymous/.npmrc` pour macOS
+et `/home/anonymous/.npmrc` pour Linux
+<2> `ENOENT` est un <<fs.errors,code d'erreur>> indiquant que le fichier
+n'existe pas ; on se permet de l'ignorer et de considérer que le fichier est vide
+
+[horizontal]
+.Propriétés notables
+`os.arch()`::
+  Retourne l'architecture du CPU.
+  Les valeurs les plus courantes sont généralement `x64`, `arm` et `arm64`.
+`os.cpus()`::
+  Retourne un tableau contenant des informations à propos du ou des CPU. +
+  Parmi ces informations, on retrouve leur modèle, leur fréquence et
+  le temps passé en attente ou en action depuis le démarrage de l'ordinateur.
+`os.homedir()`::
+  Retourne le chemin vers le répertoire utilisateur. +
+  Équivalent à la variable `$HOME` sous Unix et `%USERPROFILE%` ou `%AppData%`
+  sous Windows.
+`os.hostname()`::
+  Retourne l'identifiant réseau de la machine.
+`os.networkInterfaces()`::
+  Retourne un tableau contenant des informations à propos de la ou des
+  cartes réseaux de l'ordinateur. +
+  Parmi ces informations, on retrouve l'adresse IP (IPv4, IPv6), l'adresse MAC
+  et le masque réseau.
+`os.platform()`::
+  Retourne la nature du système d'exploitation. +
+  Les valeurs les plus courantes sont généralement `win32`, `linux`, `darwin`
+  et `freebsd`.
+`os.tmpdir()`::
+  Retourne l'emplacement du _répertoire temporaire_ fourni par
+  le système d'exploitation.
+`os.type()`::
+  Retourne une forme normalisée de nature de système d'exploitation.
+  La valeur est équivalente à ce que retournerait la commande Unix `uname -s`. +
+  Les valeurs les plus courantes sont généralement
+  `Windows_NT`, `Linux`, `Darwin` et `FreeBSD`.
+attribut `os.constants`::
+  Objet contenant la liste des <<signals,signaux système>> et des codes d'erreur.
+attribut `os.EOL`::
+  Caractère utilisé pour marquer les fins de ligne. +
+  En général le caractère `\n` sous Unix et `\r\n` sous Windows.
 
 [NOTE]
 .[RemarquePreTitre]#Documentation# `os`

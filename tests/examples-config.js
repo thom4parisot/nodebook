@@ -145,6 +145,13 @@ module.exports = {
   'chapter-04/examples/fs/rmdir.js': {
     stderr: 'ENOTEMPTY: directory not empty',
   },
+  'chapter-04/examples/os/intro.js': {
+    stdout: /L'ordinateur a \d+ CPU et une session ouverte par .+./,
+  },
+  'chapter-04/examples/os/apps.js': {
+    stdout: /^Applications installées sous (Linux|macOS) :/,
+    win32stdout: /^Applications installées sous Windows :/,
+  },
   'chapter-04/examples/url/intro.js': {
     stdout: 'oncletom.io\n/node.js/\n',
   },
