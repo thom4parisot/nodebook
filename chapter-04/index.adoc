@@ -1087,7 +1087,10 @@ include::{sourceDir}/url/resolve.js[]
 [horizontal]
 .Propriétés notables
 `URL.format()`::
-  Transforme un objet `URL` en chaîne de caractère grâce à des contrôles fins.
+  Transforme un objet `URL` en chaîne de caractères grâce à des contrôles fins.
+`url.parse()`::
+  Transforme une chaîne de caractères en un objet utilisable avec la fonction
+  <<http.request,`http.request()`>>.
 classe `URL`::
   Représentation de la structure d'une URL.
   Voir ci-après.
@@ -1592,22 +1595,32 @@ de chaînes de caractères
 
 Ce premier exemple met en lumière *la nature asynchrone et non-bloquante par défaut de Node*.
 La création d'une requête et l'obtention de la réponse sont séparées d'un délai
-variable : recherche du serveur distant, établissement de la connexion réseau,
-premier échange de données, transfert de données, clôture de la transmission.
+variable pendant lequel Node ne bloque pas le reste du code de s'exécuter.
+Les <<callbacks,callbacks>> sont appelés lorqu'il n'y a plus besoin d'attendre.
 
-Pour rester rapide, Node fait aussi le choix de ne pas transmettre toutes les
-informations d'un coup.
-L'<<events,événement>> `data` renvoie en réalité plus ou moins `10Ko` de données
-à la fois.
-L'exemple a fonctionné parce qu'on a eu de la chance : le fichier
-`package.json` pèse moitié moins de 10Ko.
+En regardant le code de l'exemple précédent, on en apprend un peu plus sur
+le fonctionnement d'une requête HTTP :
+
+. envoi de la requête au serveur distant (`get()`)
+. obtention d'une réponse (objet `response` dans le callback)
+. transmission d'informations (événement `data`)
+. clôture de la transmission (événement `end` — cf. exemple suivant)
+
+Pour rester rapide, Node fait aussi le choix de transmettre les données
+au fur et à mesure.
+L'<<events,événement>> `data` renvoie en réalité environ `10Ko` de données.
+L'exemple précédent a tout renvoyé d'un coup par chance : le fichier
+`package.json` récupéré pèse beaucoup moins de 10Ko.
+
+Voyons maintenant ce qu'il se passe lorsqu'on fait appel à un fichier
+plus volumineux :
 
 [source%interactive,javascript]
 .http/get.js
 ----
 include::{sourceDir}/http/get.js[]
 ----
-<1> Affiche un message par réception de paquet
+<1> Affiche ce message à chaque morceau/paquet reçu
 <2> L'événement `end` se déclenche lorsque la requête n'a plus de données
 à recevoir
 <3> Affiche le nombre de morceaux reçus pour obtenir une _réponse complète_
@@ -1624,36 +1637,69 @@ Pratique si vous manipulez des URL complexes ou si vous paginez.
 
 En clair, on peut recevoir une réponse en plusieurs fois, petit bout par petit bout.
 Les données reçues ne sont pas forcément complètes.
-Pas assez pour être décodées avec une fonction comme
-<<../chapter-03/index.adoc#json,`JSON.parse`>> qui nécessite…
-un document JSON complet pour être décodé.
+Ça pose problème à des fonctions comme
+<<../chapter-03/index.adoc#json,`JSON.parse`>>.
+Elle nécessite un document JSON complet pour produire un résultat.
 
-On pourrait accumuler les morceaux de réponse et les assembler à la fin.
-Cela revient à occuper autant de kilo-octets en mémoire. +
-La solution n'est pas loin pourtant : il faudrait jeter un œil du côté
-des <<streams,flux de données>> qui pompent et brassent les données comme du
-liquide.
+Une solution consiste accumuler les morceaux de réponse et à les assembler.
+Cela veut aussi dire que l'on consomme autant de mémoire que l'on reçoit de données.
+
+Une autre solution repose sur l'utilisation des <<streams,flux de données>>.
+Ils pompent et brassent les données comme du liquide, en consommant peu de mémoire.
+On en parle plus loin, dans la section sur le <<streams,module `streams`>>.
 
 [horizontal]
 .Propriétés notables
 `http.createServer()`::
   Initialise un serveur HTTP et fournit une boîte à outil pour
-  gérer les connexions entrantes via <<http.server,`http.Server`>>
+  gérer les connexions entrantes via <<http.Server,`http.Server`>>
 `http.get()`::
-  Crée une connexion HTTP de type GET.
-  Il s'agit d'une version légèrement simplifiée de `http.request()`.
-  Elle est largement suffisante pour les besoins courants.
+  Crée une connexion HTTP de type `GET`.
+  Il s'agit d'une version simplifiée de `http.request()`.
 `http.request()`::
-  Crée une connexion HTTP du type de son choix (GET, POST, OPTION, PUT, etc.).
+  Crée une connexion HTTP du type de son choix (`GET`, `POST`, `OPTION`, `PUT`,
+  etc.).
 
-La fonction `http.request()` nous aide à gérer plus finement notre requête.
-On peut aisément régler les entêtes de requête et lire le volume de données
-qui nous intéresse avant d'arrêter la transmission.
+[[http.request]]
+La fonction `http.request()` gère une requête plus finement.
+On peut aisément régler les entêtes, le verbe HTTP et les modalités de
+transmission des données.
 
-En vrai et au quotidien, on préfèrera utiliser un
-<<../chapter-05/index.adoc#modules,module npm>> pour gérer ces cas de figure.
-Ces modules sont bien plus fluides à utiliser que cette méthode bas-niveau
-qui nous oblige à tout faire nous même.
+L'exemple suivant illustre l'envoi d'une requête `HEAD`.
+Ce verbe HTTP indique au serveur distant de répondre avec les métadonnées
+de la ressource mais _sans son contenu_ :
+
+[source%interactive,javascript]
+.http/request.js
+----
+include::{sourceDir}/http/request.js[]
+----
+<1> Destructure l'URL sous forme d'objet en ajoutant le verbe HTTP
+<2> Explicite la valeur d'une entête HTTP à transmettre au serveur distant
+<3> Déclenche l'envoi de la requête sur le réseau
+<4> Réception de la réponse
+<5> Affiche la date de modification de la ressource distante
+<6> Et… n'affiche pas les données. La réponse n'en renvoie pas suite à
+l'utilisation du verbe HTTP `HEAD`. Les données seront transmises si vous
+remplacez le verbe `HEAD` par `GET`.
+
+[NOTE]
+.[RemarquePreTitre]#API# Pourquoi passer une URL sous forme d'objet ?
+====
+Ça peut sembler bizarre de passer une URL sous forme d'objet plutôt qu'une
+chaîne de caractères.
+
+C'est pourtant logique d'un point de vue du protocole HTTP et de Node :
+la connexion s'établit auprès d'un hôte (`hostname`) sur un port précis (`port`).
+L'étape d'après consiste à signifier l'intention de la requête en fournissant
+un verbe (`method`) et des métadonnées (`headers`) pour un chemin donné (`path`).
+====
+
+Ça fait un peu de travail pour bien envoyer une requête, gérer le flot de données
+ainsi que les erreurs qui peuvent survenir.
+On verra dans le <<../chapter-05/index.adoc#,chapitre 5>> comment arriver au
+même résultat avec moins de code grâce aux
+<<../chapter-05/index.adoc#modules,modules npm>>.
 
 [horizontal, id="http.ClientRequest"]
 .Propriétés notables de `http.ClientRequest`
