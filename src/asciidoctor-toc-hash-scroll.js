@@ -4,8 +4,16 @@ module.exports = function hashScrollExtension () {
 
   this.docinfoProcessor(function(){
     this.process(() => {
-      return `<script src="https://wzrd.in/standalone/menuspy"></script>
-<script>window.addEventListener('load', () => new menuspy(document.querySelector('#toc'), {enableLocationHash: false}))</script>
+      return `<script>
+(function(d){
+  d.addEventListener('DOMContentLoaded', function(){
+    const script = d.createElement('script');
+    script.src = 'https://wzrd.in/standalone/menuspy';
+    script.async = true;
+    script.onload = () => new menuspy(document.querySelector('#toc'), {enableLocationHash: false});
+    d.body.appendChild(script);
+  });
+})(document);</script>
 <style type="text/css">
 #toc li.active > a[href^="#"] {
   background: #ffc;
