@@ -3,8 +3,9 @@
 :sourceDir: ./examples
 :sourceSample: hello.js
 :nodeCurrentVersion: v8
-:vX: v8.9.4
+:nodeV: 8.11.1
 :npmCurrentVersion: v5
+:npmV: 5.8.0
 :sectnums:
 :revdate: {docdate}
 :imagesdir: {indir}
@@ -95,7 +96,7 @@ $ node --version
 ----
 
 Le numéro de version de l'interpréteur Node s'affichera alors.
-Par exemple : `{vX}`.
+Par exemple : `v{nodeV}`.
 
 Si c'est ce à quoi vous vous attendiez, nous pouvons passer à la suite.
 À l'inverse, si une erreur se produit ou que le numéro de version
@@ -1126,8 +1127,8 @@ include::{sourceDir}/url/search-params.js[]
 ----
 <1> Affiche `https://oncletom.io/?search=node.js`
 — représentation de l'URL complète
-<3> Affiche `search=node.js` — représentation des paramètres seulement
-<2> Affiche `https://oncletom.io/`
+<2> Affiche `search=node.js` — représentation des paramètres seulement
+<3> Affiche `https://oncletom.io/`
 — le paramètre `search` et sa valeur ont été supprimés de l'URL
 
 [horizontal]

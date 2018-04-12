@@ -2,8 +2,7 @@
 :chapterId: chapter-02
 :sourceDir: ./examples
 :nodeCurrentVersion: v8
-:vX: v8.9.4
-:vdotX: 8.x
+:nodeV: 8.11.1
 :v: 8
 :nvmVersion: v0.33.8
 :npmCurrentVersion: v5
@@ -202,7 +201,7 @@ $ nvm alias default {nodeCurrentVersion}
 ----
 
 Dans l'exemple précédent,
-la première ligne est responsable de l'*installation de la version de Node la plus récente* dans la branche {vDotX}.
+la première ligne est responsable de l'*installation de la version de Node la plus récente* dans la branche {v}.x.
 La deuxième ligne est quant à elle responsable de signaler que l'on veut *en faire _notre_ version par défaut* sur cet ordinateur.
 
 On pourra retrouver à tout moment les versions installées en utilisant la commande `nvm ls`.
@@ -230,7 +229,7 @@ L'exemple précédent détaille 2 choses :
 
 Taper `nvm use stable` nous fera basculer vers la branche `9.3`.
 C'est l'équivalent de saisir `nvm use v9.3.0` ou `nvm use v9` si on a la flemme de tout écrire.
-De même, taper `nvm use default` ou `nvm use v8` nous fera basculer vers la branche la version {vX}.
+De même, taper `nvm use default` ou `nvm use v8` nous fera basculer vers la branche la version v{nodeV}.
 
 Vous pouvez saisir la commande `nvm --help` à tout moment pour obtenir de l'aide sur la syntaxe des commandes.
 J'utilise principalement ces commandes :
@@ -251,11 +250,11 @@ Un simple `apt-get install nodejs` et ça fonctionne !
 
 Des paquets officiels pour Debian, Ubuntu, Mint, RedHat Enterprise Linux (RHEL) et CentOS sont maintenus sur [URL]#https://github.com/nodesource/distributions#.
 
-L'installation de node {vDotX} sous Ubuntu et Mint devient aussi simple que les deux commandes suivantes :
+L'installation de node {v}.x sous Ubuntu et Mint devient aussi simple que les deux commandes suivantes :
 
 [source,bash,subs="attributes"]
 ----
-$ curl -sL https://deb.nodesource.com/setup_{vdotX} | sudo -E bash -
+$ curl -sL https://deb.nodesource.com/setup_{v}.x | sudo -E bash -
 $ sudo apt-get install -y nodejs
 ----
 
@@ -263,7 +262,7 @@ Pour Debian, il faudra se mettre en `root` et ensuite saisir ces commandes :
 
 [source,bash,subs="attributes"]
 ----
-$ curl -sL https://deb.nodesource.com/setup_{vdotX} | bash -
+$ curl -sL https://deb.nodesource.com/setup_{v}.x | bash -
 $ apt-get install -y nodejs
 ----
 
@@ -386,8 +385,8 @@ dans la section précédente relative aux <<install-ubuntu,distributions Linux :
 [source,bash,subs="attributes"]
 .Installation de Node {nodeCurrentVersion} sur Raspberry Pi Model 3 (CPU ARMv8)
 ----
-$ curl -SLO https://nodejs.org/dist/{vX}/node-{vX}-linux-arm64.tar.xz
-$ tar -xJf "node-{vX}-linux-arm64.tar.xz" -C /usr/local --strip-components=1
+$ curl -SLO https://nodejs.org/dist/v{nodeV}/node-v{nodeV}-linux-arm64.tar.xz
+$ tar -xJf "node-v{nodeV}-linux-arm64.tar.xz" -C /usr/local --strip-components=1
 $ ln -s /usr/local/bin/node /usr/local/bin/nodejs
 ----
 
@@ -409,11 +408,11 @@ mais aussi l'intégration avec des profileurs et débogueurs externes
 (type _XCode_, _GNU Debugger_, _Intel VTune_).
 
 [source,bash,subs="attributes"]
-.Étapes de compilation de Node {vX}
+.Étapes de compilation de Node v{nodeV}
 ----
-$ curl -sS https://nodejs.org/dist/{vX}/node-{vX}.tar.gz \
+$ curl -sS https://nodejs.org/dist/v{nodeV}/node-v{nodeV}.tar.gz \
   | tar -zxf -
-$ cd node-{vX}
+$ cd node-v{nodeV}
 $ ./configure && make && make install
 ----
 
@@ -433,13 +432,13 @@ Une image Docker fonctionne ainsi de la même manière qu'elle soit exécutée s
 
 Les installeurs et instructions d'installation de Docker se trouvent à l'adresse [URL]#https://docker.com/community-edition#.
 
-Une fois Docker installé, on peut exécuter une image officielle pour Node {vDotX} :
+Une fois Docker installé, on peut exécuter une image officielle pour Node {nodeCurrentVersion} :
 
 [source,bash,subs="attributes"]
 .Affiche la version de Node
 ----
 $ docker run -ti --rm node:{v} node --version
-{vX}
+v{nodeV}
 ----
 
 Docker télécharge l'image `node:{v}` et exécute la commande `node --version` dans un contexte isolé du système d'exploitation.
