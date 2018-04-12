@@ -3,6 +3,12 @@
 Le projet a commencé en décembre 2014.
 Ce journal détaille l'effort d'écriture depuis janvier 2017.
 
+## Jeudi 12 avril 2018 • Marseille
+
+- _Outillage_ : les exemples "serveur" sont interactifs dans un navigateur web !
+
+**Météo** : 🙂 🌧
+
 ## Mercredi 11 avril 2018 • Marseille
 
 - _Chapitre 4_ : `http`
