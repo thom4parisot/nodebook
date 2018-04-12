@@ -1086,8 +1086,6 @@ include::{sourceDir}/url/resolve.js[]
 
 [horizontal]
 .Propriétés notables
-`URL.format()`::
-  Transforme un objet `URL` en chaîne de caractères grâce à des contrôles fins.
 `url.parse()`::
   Transforme une chaîne de caractères en un objet utilisable avec la fonction
   <<http.request,`http.request()`>>.
@@ -1100,6 +1098,10 @@ classe `URLSearchParams`::
 
 [horizontal]
 .Propriétés notables de la classe `URL`
+`url.format()`::
+Transforme un objet `URL` en chaîne de caractères grâce à des contrôles fins.
+`url.toString()`::
+Transforme l'objet `URL` en chaîne de caractères.
 attribut `url.hash`::
   Fragment de l'URL.
 attribut `url.hostname`::
@@ -1113,8 +1115,6 @@ attribut `url.search`::
 attribut `url.searchParams`::
   Objet permettant de manipuler les paramètres.
   Voir ci-après.
-`url.toString()`::
-  Transforme l'objet `URL` en chaîne de caractères.
 
 Manipuler une URL est plus aisé lorsqu'elle est structurée sous forme d'objet.
 Les paramètres ne sont pas en reste avec l'attribut `searchParams` :
@@ -1684,7 +1684,7 @@ l'utilisation du verbe HTTP `HEAD`. Les données seront transmises si vous
 remplacez le verbe `HEAD` par `GET`.
 
 [NOTE]
-.[RemarquePreTitre]#API# Pourquoi passer une URL sous forme d'objet ?
+.[RemarquePreTitre]#Apparté# Pourquoi passer une URL sous forme d'objet ?
 ====
 Ça peut sembler bizarre de passer une URL sous forme d'objet plutôt qu'une
 chaîne de caractères.
@@ -1703,10 +1703,10 @@ même résultat avec moins de code grâce aux
 
 [horizontal, id="http.ClientRequest"]
 .Propriétés notables de `http.ClientRequest`
-événement `response`::
+`request.on('response')`::
   Déclenché lorsque la ressource distante a accepté la requête et s'apprête
   à nous transmettre les données.
-événement `end`::
+`request.on('end')`::
   Délenché lorsque la ressource distante a signalé ne plus avoir de données
   à nous transmettre.
 `request.end()`::
@@ -1725,25 +1725,241 @@ même résultat avec moins de code grâce aux
   n'a été obtenue dans ce délai imparti.
 `request.write()`::
   Transmets un morceau de contenu vers la ressource distante.
-  Cette méthode est appelée plusieurs fois lorsque l'on effectue un
-  téléversement progressif.
-
-[horizontal, id="http.Server"]
-.Propriétés notables de `http.Server`
-
-bonus : on peut aussi faire un serveur https ET un serveur http/2
+  Cette méthode s'utilise lorsque l'on effectue un téléversement progressif.
 
 
 [horizontal, id="http.IncomingMessage"]
 .Propriétés notables de `http.IncomingMessage`
+`message.on('data')`::
+  Déclenché quand un morceau de données est obtenu par le client.
+`message.on('end')`::
+  Déclenché quand nous avons obtenu toutes les données émises par le serveur.
+`message.on('readable')`::
+  Déclenché quand nous pouvons commencer à lire les données.
+`message.read()`::
+  Obtient un morceau de données manuellement — au lieu d'utiliser
+  l'événement `data`, automatique.
+  On apprendra mieux comment manipuler cette fonction dans la section
+  <<streams,module `streams`>>.
+`message.destroy()`::
+  Termine la transmission des données sans que le serveur distant
+  nous aie tout transmis.
+attribut `message.headers`::
+  Objet contenant les entêtes de réponse émises par le serveur distant.
+attribut `message.statusCode`::
+  Code qui reflète l'état de compréhension de notre requête par le serveur distant.
+  `200` correspond à _tout va bien_, `404` à _ressource introuvable_,
+  `301` à _la ressource a été déplacée_.
+
+Il est temps de nous pencher sur l'autre versant du module : la création
+d'un serveur HTTP.
+
+[source%interactive%endpoint,javascript]
+.http/server.js
+----
+include::{sourceDir}/http/server.js[]
+----
+<1> Ouverture de l'acceptation des connexions réseaux sur le port `8000`,
+uniquement sur la boucle locale (`localhost`)
+— une erreur sera affichée si ce port réseau est déjà pris par un autre processus
+<2> Affiche `Serveur démarré !` quand Node a fini de négocier l'accès aux ressources
+réseau avec le système d'exploitation
+— à ce stade, le serveur est prêt à recevoir des _connexions entrantes_
+<3> Lorsqu'une requête arrive, affiche l'URL demandée par le client
+<4> Termine la connexion avec le client
+— ce dernier considère sa _requête_ comme terminée
+
+[NOTE]
+.[RemarquePreTitre]#Apparté# Pourquoi démarrer un serveur HTTP ?
+====
+Ce concept peut sembler étrange lorsqu'on vient d'un autre langage de programmation.
+Après tout, Apache ou nginx s'en chargent très bien pour nous.
+
+Un serveur HTTP embarqué avec Node, c'est avant tout
+*une question d'autonomie et d'interopérabilité*.
+Pas besoin de module spécial pour Apache.
+Pas besoin de module spécial pour nginx.
+
+On peut développer un site web et le faire fonctionner instantément sans
+installer autre chose.
+L'intégration avec un serveur Apache, nginx ou autre nécessite ensuite
+très peu d'efforts.
+====
+
+Le serveur se démarre de la même manière qu'un script ordinaire :
+
+[source,bash]
+----
+$ node http/server.js
+Serveur démarré !
+----
+
+Le serveur continuera d'accepter les requêtes entrantes jusqu'à ce que le
+<<process,processus>> soit interrompu par une erreur ou par un
+<<signals,signal d'arrêt>>
+— en utilisant la combinaison de touches kbd:[Ctrl+C] par exemple.
+
+Accédez au serveur HTTP en ouvrant un navigateur web comme Firefox ou Chrome
+puis en inscrivant `http://localhost:4000` dans la barre d'adresses.
+Dirigez ensuite le navigateur vers `http://localhost:4000/test` et observez les
+changements.
+
+[TIP]
+.[RemarquePreTitre]#Pratique# Parler au serveur depuis le terminal
+====
+La commande Unix `curl` sait envoyer des requêtes HTTP.
+On peut l'utiliser pour _lire_ les réponses de notre serveur :
+
+[source,bash]
+----
+$ curl -i http://localhost:4000/test
+$ curl -i -XHEAD http://localhost:4000/test
+----
+
+L'option `-i` affiche les entêtes de réponse.
+C'est l'équivalent de `response.headers`.
+====
+
+On a posé les bases d'un serveur HTTP minimaliste sur lequel on va
+pouvoir construire pas à pas tout type d'applications web.
+Et qu'est-ce qu'il manque pour en faire un serveur web ?
+De pouvoir _typer_ les ressources renvoyées afin qu'elles soient comprises
+par un navigateur web.
+C'est à dire de pouvoir signaler que nos réponses contiennent du HTML, du CSS,
+des images etc.
+
+Modifions notre exemple précédent pour renvoyer du HTML :
+
+[source%interactive%endpoint,javascript]
+.http/web-server.js
+----
+include::{sourceDir}/http/web-server.js[]
+----
+
+[WARNING]
+.[RemarquePreTitre]#Important# La fonction `response.end()`
+====
+L'appel de la fonction `response.end()` est impératif.
+Sans ça, le client — ici, le navigateur web — pense que des données peuvent
+encore arriver.
+
+Si on supprime l'appel à `response.end()` dans l'exemple précédent,
+l'indicateur de chargement du navigateur sera actif pendant 2 minutes,
+suite à quoi Node interrompra la connexion, considérant qu'elle met trop
+de temps pour aboutir.
+====
+
+Dirigeons notre navigateur web vers `http://localhost:4000` pour observer
+le résultat.
+
+.Rendu navigateur de l'exemple `http/web-server.js`.
+image::images/web-server.png[width="65%"]
+
+La balise HTML `<h1>` a bien été prise en compte mais qu'en est-il du
+caractère `Ã{nbsp}` ? +
+L'informatique ayant débutée aux États-Unis, les caractères compris par les
+outils informatiques se limitent souvent à 128 caractères par défaut.
+C'est à dire l'alphabet anglais, les signes de ponctuations et des
+caractères non-imprimables.
+On parle alors de standard d'encodage ASCII.
+
+Ce qui nous intéresse, c'est le standard d'encodage Unicode UTF-8.
+Ce standard englobe les alphabets du monde entier, dont les accents et
+caractères diacritique de la langue française.
+
+Cela revient à dire que que _nous_, côté serveur, nous puissions
+indiquer au client que notre contenu est en UTF-8.
+Ça tombe bien, HTTP dispose d'une entête pour spécifier le type du contenu
+et son encodage : `Content-Type`.
+
+[source,javascript]
+.http/web-server-ok.js
+----
+include::{sourceDir}/http/web-server-ok.js[]
+----
+<1> L'entête HTTP `Content-Type` indique explicitement que le contenu transféré
+est du HTML, encodé en UTF-8
+
+Cette indication suffit au navigateur pour décoder les caractères
+et les afficher comme on l'espérait.
+
+.Rendu navigateur de l'exemple `http/web-server-ok.js`.
+image::images/web-server-ok.png[width="65%"]
+
+L'étape suivante consisterait à transmettre deux contenus différents selon
+l'URL demandée.
+Par exemple, une page HTML et un fichier CSS habillant la page HTML.
+
+[source%interactive%endpoint,javascript]
+.http/web-server-routes.js
+----
+include::{sourceDir}/http/web-server-routes.js[]
+----
+<1> Si la requête entrante indique `/main.css` comme chemin, alors on lui
+renvoie du contenu interprétable comme du CSS
+<2> On indique au client que ce contenu est du texte contenant une feuille
+de style CSS
+
+Si tout se passe bien, le chargement de la page HTML devrait déclencher
+une requête vers `http://localhost:4000/main.css`.
+La confirmation est visuelle en visitant notre serveur avec un navigateur web :
+
+.Rendu navigateur de l'exemple `http/web-server-routes.js`.
+image::images/web-server-routes.png[width="65%"]
+
+On est en situation de contrôle : on décide de ce qu'on répond.
+C'est une manière d'apprendre petit à petit comment fonctionne
+le protocole HTTP sur lequel repose une majorité de notre activité sur Internet.
+
+On a couvert les principes du module `http` mais il reste beaucoup de choses
+à apprendre pour développer une application web maintenable.
+C'est justement le sujet du <<../chapter-07/index.adoc,chapitre 7>>,
+aidé par les <<../chapter-05/index.adoc#modules,modules npm>> que l'on apprendra
+à manipuler dans le <<../chapter-05/index.adoc#,chapitre 5>>.
+
+[horizontal, id="http.Server"]
+.Propriétés notables de `http.Server`
+`server.close()`::
+  Arrête l'écoute de nouvelles connexions.
+  Les connexions existantes sont maintenues jusqu'à ce qu'elles soient honorées.
+`server.listen()`::
+  Démarre l'acceptation des connexions sur un port et une adresse donnée.
+  Combinée avec <<os,`os.networkInterfaces()`>>, vous pourriez choisir
+  sur quelle carte/adresse réseau écouter les requêtes entrantes.
+`server.on('close')`::
+  Déclenché lorsque le serveur s'arrête et a terminé d'honoré toutes les
+  connexions déjà ouvertes.
+`server.on('connection')`::
+  Déclenché lorsqu'une nouvelle connexion réseau est établie.
+`server.on('request')`::
+  Déclenché lorsqu'une nouvelle requête entrante est adressée au serveur.
+`server.on('upgrade')`::
+  Déclenché lorsqu'une requête entrante demande un changement de protocole.
+  Utilisé pour basculer vers HTTP/2 et
+  <<../chapter-09/index.adoc#io-websocket,WebSocket>>.
 
 [horizontal, id="http.ServerResponse"]
 .Propriétés notables de `http.ServerResponse`
-
-On verra qu'on peut faire plus simple dans le chapitre 5 (exemple de module npm)
-
-On ira plus en détail dans le chapitre 7
-
+`response.on('close')`::
+  Déclenché lorsque la requête a été terminée par le client,
+  avant qu'on aie pu transmettre l'intégralité des données.
+`response.on('finish')`::
+  Déclenché lorsqu'on a envoyé le dernier morceau de données au client
+  ayant initié la requête.
+`response.end()`::
+  Signale au client que nous n'avons plus de données à transmettre.
+`response.getHeader()`::
+  Retourne la valeur d'une entête de la réponse.
+`response.removeHeader()`::
+  Supprime une entête de la réponse.
+`response.setHeader()`::
+  Assigne une valeur à une entête de la réponse.
+`response.write()`::
+  Transmet un morceau de données au client.
+`response.writeHead()`::
+  Transmet le code de réponse et un ensemble d'entêtes au client.
+attribut `response.statusCode`::
+  Contient le code de réponse qui sera transmis au client.
 
 [NOTE]
 .[RemarquePreTitre]#Documentation# `http`
@@ -1787,7 +2003,7 @@ include::{sourceDir}/os/apps.js[]
 L'exemple précédent se base sur la valeur retournée par la fonction `os.type()`
 afin de choisir quel est le bon répertoire à lister.
 
-Ce mécanisme se combine bien avec le <<child_process,module `child_process`>>,
+On pourrait combiner ce mécanisme avec le <<child_process,module `child_process`>>,
 pour appeler une application système différent pour parvenir
 à un résultat similaire.
 

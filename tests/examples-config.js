@@ -157,6 +157,27 @@ module.exports = {
   'chapter-04/examples/fs/rmdir.js': {
     stderr: 'ENOTEMPTY: directory not empty',
   },
+  'chapter-04/examples/http/intro.js': {
+    stdout: /"name": "nodebook"/,
+  },
+  'chapter-04/examples/http/get.js': {
+    stdout: /Transmission finie en \d+ morceaux/,
+  },
+  'chapter-04/examples/http/request.js': {
+    stdout: /Dernière modification : .+ \d{4} .+ GMT/,
+  },
+  'chapter-04/examples/http/server.js': {
+    skip: true
+  },
+  'chapter-04/examples/http/web-server.js': {
+    skip: true
+  },
+  'chapter-04/examples/http/web-server-ok.js': {
+    skip: true
+  },
+  'chapter-04/examples/http/web-server-routes.js': {
+    skip: true
+  },
   'chapter-04/examples/os/intro.js': {
     stdout: /L'ordinateur a \d+ CPU et une session ouverte par .+./,
   },

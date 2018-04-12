@@ -1,8 +1,15 @@
 # Journal
 
-Ce journal détaille l'effort d'écriture depuis janvier 2017. Le projet a commencé en décembre 2014.
+Le projet a commencé en décembre 2014.
+Ce journal détaille l'effort d'écriture depuis janvier 2017.
 
-## Mardi 10 avril 2018
+## Mercredi 11 avril 2018 • Marseille
+
+- _Chapitre 4_ : `http`
+
+**Météo** : 🙂 🍞 🌧
+
+## Mardi 10 avril 2018 • Marseille
 
 - _Chapitre 4_ : `os`
 - _Chapitre 4_ : `util`
@@ -11,48 +18,48 @@ Ce journal détaille l'effort d'écriture depuis janvier 2017. Le projet a comme
 
 **Météo** : 🙂
 
-## Lundi 9 avril 2018
+## Lundi 9 avril 2018 • Marseille
 
 - _Chapitre 4_ : `fs`
 
 **Météo** : 💪
 
-## Dimanche 8 avril 2018
+## Dimanche 8 avril 2018 • Marseille
 
 - _Chapitre 4_ : `path`
 - _Chapitre 4_ : `url`
 
 **Météo** : 💪
 
-## Vendredi 6 avril 2018
+## Vendredi 6 avril 2018 • Montpellier
 
 - _Chapitre 4_ : premier remaniement dans l'ordonnancement du chapitrage
 - _Chapitre 4_ : `console`
 
 **Météo** : 💪
 
-## Jeudi 5 avril 2018
+## Jeudi 5 avril 2018 • Montpellier
 
 **Météo** : 😣
 
-## Mercredi 4 avril 2018
+## Mercredi 4 avril 2018 • Montpellier
 
 **Météo** : 😣
 
-## Mardi 3 avril 2018
+## Mardi 3 avril 2018 • Montpellier
 
 - _Chapitre 4_ : les modules de base
 
 **Météo** : 🇫🇷 😴
 
-## Lundi 19 mars 2018
+## Lundi 19 mars 2018 • Dorchester
 
 - _Chapitre 4_ : ce qu'il faut savoir sur require()
 - _Chapitre 4_ : le futur : les modules ECMAScript
 
 **Météo** : 😣 ❄️ 🍞
 
-## Dimanche 18 mars 2018
+## Dimanche 18 mars 2018 • Dorchester
 
 - _Chapitre 4_ : qu'est-ce qu'on entend par module ?
 - _Outillage_ : embedding de la feuille CSS, sans webfont
@@ -60,7 +67,7 @@ Ce journal détaille l'effort d'écriture depuis janvier 2017. Le projet a comme
 
 **Météo** : 😣 ❄️
 
-## Samedi 17 mars 2018
+## Samedi 17 mars 2018 • Dorchester
 
 - _Outillage_ : suivi du menu au scroll
 - _Chapitre 6_ : mise à jour des dépendances
@@ -69,7 +76,7 @@ Ce journal détaille l'effort d'écriture depuis janvier 2017. Le projet a comme
 
 **Météo** : 😣 ❄️ 🍞
 
-## Vendredi 16 mars 2018
+## Vendredi 16 mars 2018 • Dorchester
 
 - _Chapitre 4_ : Écouter les événements extérieurs
 - _Chapitre 4_ : Mettre fin au processus
@@ -77,21 +84,21 @@ Ce journal détaille l'effort d'écriture depuis janvier 2017. Le projet a comme
 
 **Météo** : 🙂 🚂
 
-## Jeudi 15 mars 2018
+## Jeudi 15 mars 2018 • Isle of Portland
 
 - _Chapitre 4_ : Les flux standards
 - _Outillage_ : surlignage dans les blocs d'exemple
 
 **Météo** : 💪 👋
 
-## Mardi 13 mars 2018
+## Mardi 13 mars 2018 • Isle of Portland
 
 - _Chapitre 4_ : Variables d'environnement
 - _Chapitre 4_ : Arguments d'exécution
 
 **Météo** : 🤔 🍞 🙂
 
-## Lundi 12 mars 2018
+## Lundi 12 mars 2018 • Isle of Portland
 
 - _Chapitre 4_ : invite de commande, script court, script, et variable process
 - _Chapitre 1_, _Chapitre 4_ : reformulations diverses suite à un atelier de relecture
@@ -102,7 +109,7 @@ Ce journal détaille l'effort d'écriture depuis janvier 2017. Le projet a comme
 
 **Météo** : 🤔 🙂
 
-## Samedi 10 mars 2018
+## Samedi 10 mars 2018 • Isle of Portland
 
 - _Chapitre 4_ : invite de commande et script court
 - _Outillage_ : compatibilité et intégration continue sous Windows
@@ -110,14 +117,14 @@ Ce journal détaille l'effort d'écriture depuis janvier 2017. Le projet a comme
 
 **Météo** : 🤔 🍞
 
-## Mardi 6 mars 2018
+## Mardi 6 mars 2018 • Bournemouth
 
 - _Chapitre 4_ : restructuration
 - _Chapitre 5_, _Chapitre 9_ : mise à jour de dépendances
 
 **Météo** : 🙂
 
-## Jeudi 22 février
+## Jeudi 22 février • Londres
 
 - Présentation au [meetup Front-end London](https://www.frontendlondon.co.uk/archive#fel45)
 
@@ -127,7 +134,7 @@ Ce journal détaille l'effort d'écriture depuis janvier 2017. Le projet a comme
 
 ---
 
-## Lundi 5 février
+## Lundi 5 février • Londres
 
 - _Chapitre 3_ : Conclusion
 - _Chapitre 3_ : Manipuler des promesses
@@ -137,7 +144,7 @@ Ce journal détaille l'effort d'écriture depuis janvier 2017. Le projet a comme
 
 **Météo** : 🙂
 
-## Dimanche 4 février
+## Dimanche 4 février • Londres
 
 - _Chapitre 3_ : Manipuler des objets
 - _Chapitre 3_ : Manipuler des dates
@@ -146,27 +153,27 @@ Ce journal détaille l'effort d'écriture depuis janvier 2017. Le projet a comme
 **Météo** : 🚅 🇬🇧 🙂
 
 
-## Samedi 3 février
+## Samedi 3 février • Paris
 
 - _Chapitre 3_ : Manipuler des tableaux
 
 **Météo** : 🛌 ☕️ 🙂
 
-## Vendredi 2 février
+## Vendredi 2 février • Paris
 
 - _atelier_ : session de lecture du chapitre 3 (tableaux, objets)
 - _atelier_ : session d'apprentissage de npm au vidéoprojecteur pendant la journée [Rookie Club][] chez [ut7][] •
 
 **Météo** : 🙂 🗣 📽
 
-## Jeudi 1er février
+## Jeudi 1er février • Paris
 
 - _Chapitre 3_ : Manipuler des tableaux
 - _atelier_ : session de lecture du chapitre 3 (tableaux) chez [ut7][]
 
 **Météo** : 🙂 🗣
 
-## Mercredi 31 janvier
+## Mercredi 31 janvier • Paris
 
 - _Chapitre 3_ : Manipuler des fonctions
 - _atelier_ : session d'apprentissage de npm au vidéoprojecteur chez [Etalab][] (Etalab + Incubateur + DILA)
@@ -175,7 +182,7 @@ Ce journal détaille l'effort d'écriture depuis janvier 2017. Le projet a comme
 
 **Météo** : 😴 🙂 💪 📽
 
-## Mardi 30 janvier
+## Mardi 30 janvier • Paris
 
 - _Chapitre 3_ : Manipuler des booléens
 - _Chapitre 3_ : Manipuler des nombres
@@ -185,7 +192,7 @@ Ce journal détaille l'effort d'écriture depuis janvier 2017. Le projet a comme
 
 **Météo** : 🙂 💪 📽
 
-## Lundi 29 janvier
+## Lundi 29 janvier • Paris
 
 - _Chapitre 3_ : Expressions régulières
 - _atelier_ : [session d'apprentissage de JavaScript au vidéoprojecteur][session-js-etalab] chez [Etalab][] (Etalab + Incubateur)
@@ -196,7 +203,7 @@ Ce journal détaille l'effort d'écriture depuis janvier 2017. Le projet a comme
 
 [session-js-etalab]: https://twitter.com/LoozBonita/status/957944103504883713
 
-## Dimanche 28 janvier
+## Dimanche 28 janvier • Paris
 
 - _Chapitre 2_ : reformulations inclusives et rassurantes
 - _Chapitre 3_ : ajustement d'exemples liés aux chaînes et expressions régulières
@@ -266,40 +273,40 @@ Ce qui suit est la rétrospective de la session d'écriture passée avec [Philip
 - j'aimerais en savoir plus sur le parcours en itinérance que tu as fait l'an dernier
 - est-ce que je peux parler du dispositif, en parler sur twitter ?
 
-## Samedi 27 janvier
+## Samedi 27 janvier • Paris
 
 - _Chapitre 3_ : Manipuler du texte
 - _Chapitre 3_ : Expressions régulières
 
 **Météo** : 🙂
 
-## Vendredi 26 janvier
+## Vendredi 26 janvier • Paris
 
 - _Chapitre 3_ : Les éléments de base du langage
 - _Chapitre 3_ : Variables, instructions et portée
 
 **Météo** : 🙂
 
-## Jeudi 25 janvier
+## Jeudi 25 janvier • Paris
 
 - _Chapitre 3_ : qu'est-ce que JavaScript ?
 
 **Météo** : 🙂
 
-## Mercredi 24 janvier
+## Mercredi 24 janvier • Paris
 
 - _Outillage_ : publication sur GitHub Pages via Travis CI directement
 - _Tous les chapitres_ : corrige la commande explicative des examples dans chaque chapitre
 
 **Météo** : 😴
 
-## Mardi 23 janvier
+## Mardi 23 janvier • Paris
 
 - _Chapitre 3_ : réorganisation du chapitre pour le rendre plus progressif
 
 **Météo** : 😴 🙂
 
-## Lundi 22 janvier
+## Lundi 22 janvier • Paris
 
 - Sieste(s)
 - _Outillage_ : le préfixe `$` dans les commandes bash n'est plus inclus dans la sélection du code des exemples ([#208][])
@@ -314,7 +321,7 @@ Ce qui suit est la rétrospective de la session d'écriture passée avec [Philip
 
 ---
 
-## Vendredi 12 janvier
+## Vendredi 12 janvier • Londres
 
 - _Chapitre 2_ : les éditeurs de code
 - _Chapitre 2_ : utiliser Node.js dans un terminal
@@ -322,7 +329,7 @@ Ce qui suit est la rétrospective de la session d'écriture passée avec [Philip
 
 **Météo** : 😊 💪
 
-## Jeudi 11 janvier
+## Jeudi 11 janvier • Londres
 
 - _Chapitre 2_ : Utiliser Node.js avec un terminal
 - _Chapitre 2_ : Sans installation, dans un navigateur web (RunKit, Codenvy, Cloud9)
@@ -331,7 +338,7 @@ Ce qui suit est la rétrospective de la session d'écriture passée avec [Philip
 
 **Météo** : 🙂
 
-## Mercredi 10 janvier
+## Mercredi 10 janvier • Londres
 
 - _Chapitre 2_ : Chapitre 2 : installation sous Linux et macOS
 - _Chapitre 2_ : quelle installation choisir et nvm plus en détails
@@ -340,14 +347,14 @@ Ce qui suit est la rétrospective de la session d'écriture passée avec [Philip
 
 **Météo** : 🙂 😴
 
-## Mardi 9 janvier
+## Mardi 9 janvier • Londres
 
 - _Chapitre 2_ : Raspberry Pi et compiler depuis les sources
 - _Chapitre 2_ : mais au fait, pourquoi on doit installer Node ?
 
 **Météo** : 🙂
 
-## Lundi 8 janvier
+## Lundi 8 janvier • Londres
 
 - _Chapitre 2_ : Raspberry Pi et compiler depuis les sources
 - _Chapitre 1_ : je parle de Node comme _environnement d'exécution_ et non plus d'une _plate-forme_
@@ -355,7 +362,7 @@ Ce qui suit est la rétrospective de la session d'écriture passée avec [Philip
 
 **Météo** : 😴
 
-## Samedi 6 et dimanche 7 janvier
+## Samedi 6 et dimanche 7 janvier • Londres
 
 - _Tous les chapitres_ : ajustement de certains exemples, simplification notamment, en vue de rendre certains tests plus faciles à tourner
 - _Outillage_ : ajout d'une commande `nodebook install all` pour installer toutes les dépendances
@@ -364,7 +371,7 @@ Ce qui suit est la rétrospective de la session d'écriture passée avec [Philip
 
 **Météo** : 😄 💪
 
-## Vendredi 5 janvier
+## Vendredi 5 janvier • Bordeaux
 
 - _Chapitre 1_ : simplification du style d'écriture, phrases raccourcies etc.
 - _Chapitre 1_ : gouvernance du projet
@@ -373,14 +380,14 @@ Ce qui suit est la rétrospective de la session d'écriture passée avec [Philip
 
 **Météo** : 😄
 
-## Jeudi 4 janvier
+## Jeudi 4 janvier • Bordeaux
 
 - _Tous les chapitres_ : réorganisation des contenus à partir des écrits existants
 - _Outillage_ : chaque Pull Request peut être prévisualisée — pratique pour voir le rendu avant de merger sur `master` 🎉
 
 **Météo** : 😄
 
-## Mercredi 3 janvier
+## Mercredi 3 janvier • Bordeaux
 
 On a fait un atelier de [mob programming][] basé sur un besoin réel pour faire émerger la structure du chapitre 8.
 
@@ -389,7 +396,7 @@ On a fait un atelier de [mob programming][] basé sur un besoin réel pour faire
 
 **Météo** : 😄 💪
 
-## Mardi 2 janvier
+## Mardi 2 janvier • Bordeaux
 
 Pas d'écriture aujourd'hui mais de bonnes réflexions autour du contenu.
 
@@ -400,7 +407,7 @@ Pas d'écriture aujourd'hui mais de bonnes réflexions autour du contenu.
 
 **Météo** : 😄
 
-## Lundi 1 janvier 2018
+## Lundi 1 janvier 2018 • Bordeaux
 
 - _Chapitre 2_ : utilisation de `util.promisify` au lieu de `pify`
 - _README_ : clarification du contenu ; lien vers le _journal de bord_
