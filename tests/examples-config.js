@@ -144,8 +144,7 @@ module.exports = {
     win32stdout: /Program Files/,
   },
   'chapter-04/examples/child_process/ping.js': {
-    skip: Boolean(process.env.CI) === false,
-    stdout: /\d+ bytes from/,
+    skip: Boolean(process.env.CI),
   },
   'chapter-04/examples/child_process/spawn-stdin.js': {
     stdout: 'abcd klmn\n',
