@@ -133,6 +133,26 @@ module.exports = {
   'chapter-04/examples/url/format.js': {
     stdout: 'https://oncletom.io/\n',
   },
+  'chapter-04/examples/child_process/intro.js': {
+    stdout: /version installée de npm : \d+.\d+.\d+/,
+  },
+  'chapter-04/examples/child_process/ls.js': {
+    stdout: /server.js/,
+  },
+  'chapter-04/examples/child_process/ls-root.js': {
+    stdout: /var/,
+    win32stdout: /Program Files/,
+  },
+  'chapter-04/examples/child_process/ping.js': {
+    skip: Boolean(process.env.CI) === false,
+    stdout: /\d+ bytes from/,
+  },
+  'chapter-04/examples/child_process/spawn-stdin.js': {
+    stdout: 'abcd klmn\n',
+  },
+  'chapter-04/examples/child_process/spawn-shell-stdin.js': {
+    stdout: 'abcd klmn\n',
+  },
   'chapter-04/examples/events/class.js': {
     stdout: 'La voiture Boombo est en train de démarrer\n',
   },

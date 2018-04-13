@@ -3,6 +3,13 @@
 Le projet a commencé en décembre 2014.
 Ce journal détaille l'effort d'écriture depuis janvier 2017.
 
+## Vendredi 13 avril 2018 • Marseille
+
+- _web_ : les commandes du terminal sont visuellement distinctes des blocs de code
+- _Chapitre 4_ : `child_process`
+
+**Météo** : 😊 🌥
+
 ## Jeudi 12 avril 2018 • Marseille
 
 - _Outillage_ : les exemples "serveur" sont interactifs dans un navigateur web !

@@ -2072,7 +2072,186 @@ La documentation du module `os` est disponible sur le site officiel de Node :
 [[child_process]]
 === `child_process` : appeler un exécutable système
 
-Pratique quand on ne peut pas importer du code mais seulement des résultats
+Le module `child_process` *exécute des programmes externes*,
+leur transmet des données et consulte leurs résultats via
+les <<process.std,flux standards>>.
+
+[source%interactive,javascript]
+.child_process/intro.js
+----
+include::{sourceDir}/child_process/intro.js[]
+----
+<1> L'exécution de la commande renvoie une erreur Node ainsi que
+la <<process.std,sortie standard>> et la <<process.std,sortie erreur>>
+du processus enfant
+<2> Affiche `version installée de npm : {npmV}`
+
+L'utilisation du module `child_process` se justifie quand un programme
+externe fournit une fonctionnalité _mais_ ne s'interface pas avec Node.
+Ou encore quand on veut sortir l'exécution d'un script Node du processus courant
+pour tirer parti des autres CPU de l'ordinateur sans ralentir l'application principale.
+
+La fonction `child_process.exec` accepte un deuxième argument optionnel. +
+`cwd` (_current working directory_) est une des options utiles de cet argument.
+
+[source%interactive,javascript]
+.child_process/ls.js
+----
+include::{sourceDir}/child_process/ls.js[]
+----
+<1> On lance la commande système `ls` dans le répertoire courant,
+sans spécifier de valeur pour le répertoire de travail
+
+Exécutons le script pour observer le résultat :
+
+[source,bash]
+----
+$ node child_process/ls.js
+----
+
+Le constat est similaire à celui produit avec le <<fs,module `fs`>> :
+les fichiers listés sont ceux du _répertoire courant_,
+notre emplacement dans le terminal.
+
+Modifions maintenant la valeur de l'option `cwd` :
+
+[source%interactive,javascript]
+.child_process/ls-root.js
+----
+include::{sourceDir}/child_process/ls-root.js[]
+----
+<1> La valeur de `cwd` est réglée sur `/`, c'est à dire le répertoire racine
+du système de fichiers
+
+[source,bash]
+----
+$ node child_process/ls-root.js
+----
+
+La liste des fichiers et répertoires affichée est désormais différente,
+même si la commande passée à `child_process.exec` est la même. +
+`cwd` a changé le _répertoire courant_ l'espace d'une commande.
+
+[NOTE]
+.[RemarquePreTitre]#Performance# commande `ls` vs. `fs.readdir`
+====
+Si on arrive au même résultat en utilisant `exec('ls')`, pourquoi utiliser
+la fonction `fs.readdir` du <<fs,module `fs`>> ?
+`fs.readdir` a au moins 3 avantages :
+
+. elle est *plus rapide* — à écrire, à éxécuter, à diagnostiquer
+. on *économise* la création d'un processus système
+. *compatibilité* avec _tous_ les systèmes d'exploitation
+====
+
+`env` est une deuxième option à passer à `child_process.exec`.
+Elle redéfinit les <<process.env,variables d'environnement>> utilisables
+par le processus enfant :
+
+[source%interactive,javascript]
+.child_process/ping.js
+----
+include::{sourceDir}/child_process/ping.js[]
+----
+<1> On transmet les variables d'environnement existantes au processus enfant
+<2> Utilisation de la variable d'environnement `PING_COUNT` comme
+valeur d'option du programme `ping`
+
+Si on ne transmet pas les valeurs de `process.env` au processus enfant,
+la variable d'environnement `PATH` ne serait plus définie.
+Le processus enfant ne saurait plus où chercher l'exécutable `ping`. +
+On aurait pu appeler le programme `ping` en utilisant un chemin absolu comme
+`/sbin/ping`… mais son emplacement varie selon les systèmes d'exploitation.
+
+[source,bash]
+----
+$ node child_process/ping.js
+PING oncletom.io (185.31.40.11): 56 data bytes
+64 bytes from 185.31.40.11: icmp_seq=0 ttl=56 time=23.763 ms
+
+--- oncletom.io ping statistics ---
+1 packets transmitted, 1 packets received, 0.0% packet loss
+round-trip min/avg/max/stddev = 23.763/23.763/23.763/0.000 ms
+----
+
+[WARNING]
+.[RemarquePreTitre]#Compatibilité# Mon programme ne fonctionne pas sous Windows/Linux/macOS
+====
+Le programme externe peut ne pas exister sur tous les systèmes d'exploitation,
+voire il ne s'appelle pas avec les mêmes arguments, ni avec le même nom.
+
+Une des solutions pourrait consister à se reposer sur le <<os,module `os`>>
+et adapter la commande en fonction du système d'exploitation.
+====
+
+`child_process.spawn` est une _autre approche_ de démarrage
+et de communication avec un processus externe.
+
+[source%interactive,javascript]
+.child_process/spawn.js
+----
+include::{sourceDir}/child_process/spawn.js[]
+----
+<1> `cat` est un programme qui affiche le contenu d'un fichier
+<2> Les données retournées par la commande externe se lisent depuis
+les <<process.std,flux de sorties>>
+<3> Affiche le code source de ce script
+
+Avec `spawn`, les arguments et options sont passées dans un tableau.
+C'est comme si nourrissait <<process.argv,`process.argv`>>. +
+Si les données sont lues depuis les <<process.std,flux de sortie>>,
+cela veut aussi dire qu'on peut écrire des choses dans le
+flux d'entrée :
+
+[source%interactive,javascript]
+.child_process/spawn-stdin.js
+----
+include::{sourceDir}/child_process/spawn-stdin.js[]
+----
+<1> Écrit `0123 abcd` dans le flux d'entrée
+<2> Signale au processus externe qu'il n'aura plus de donnée
+— le programme `tr` rendra la main dès qu'il nous aura tout transmis
+<3> Affiche `abcd klmn`
+
+L'exécutable `tr` substitue des plages de caractères.
+On lui a transmis des caractères en entrée et spécifié les plages de traduction
+en arguments.
+Nous avons utilisé la <<process.std,sortie standard>> pour lire les résultats.
+
+L'exemple précédent revient au même que cette commande :
+
+[source,bash]
+----
+$ echo -n '0123 abcd' | tr 0-9a-f a-p
+abcd klmn
+----
+
+Une conclusion parallèle que l'on peut établir est que le _scripting shell_
+est plus concis que notre code.
+On pourrait leur déléguer du travail et transmettre les données nécessaires
+à nos scripts Node via les <<process.std,flux standards>>.
+
+[horizontal]
+.Propriétés notables
+`child_process.exec()`::
+  Exécute une commande et retourne son _résultat_.
+`child_process.spawn()`::
+  Exécute une commande et retourne un objet <<process,processus>>.
+  Le script Node et le nouveau processus peuvent communiquer entre eux.
+
+[horizontal]
+.Propriétés notables de la classe `ChildProcess`
+`process.on('message')`::
+  Déclenché lorsque le processus enfant reçoit un message envoyé par l'autre script.
+`process.kill()`::
+  Envoie un <<signals,signal d'arrêt>> au processus enfant.
+`process.send()`::
+  Envoie un message au processus enfant.
+`process.stdin`::
+`process.stdout`::
+`process.stderr`::
+  <<process.std,Flux standards>> du processus enfant.
+  Idéal pour envoyer et récupérer des données en continu.
 
 [NOTE]
 .[RemarquePreTitre]#Documentation# `child_process`
