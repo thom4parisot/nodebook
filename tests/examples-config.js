@@ -144,7 +144,7 @@ module.exports = {
     win32stdout: /Program Files/,
   },
   'chapter-04/examples/child_process/ping.js': {
-    skip: Boolean(process.env.CI),
+    skip: Boolean(process.env.CI) || Boolean(process.env.DOCKER),
   },
   'chapter-04/examples/child_process/spawn-stdin.js': {
     stdout: 'abcd klmn\n',
@@ -196,6 +196,15 @@ module.exports = {
   },
   'chapter-04/examples/http/web-server-routes.js': {
     skip: true
+  },
+  'chapter-04/examples/stream/intro.js': {
+    stdout: '214 octets lus\n'
+  },
+  'chapter-04/examples/stream/read.js': {
+    stdout: '100 octets lus\n100 octets lus\n60 octets lus\nLecture terminée\n'
+  },
+  'chapter-04/examples/stream/write.js': {
+    stdout: 'Hello World!\n'
   },
   'chapter-04/examples/os/intro.js': {
     stdout: /L'ordinateur a \d+ CPU et une session ouverte par .+./,

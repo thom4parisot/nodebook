@@ -3,6 +3,12 @@
 Le projet a commencé en décembre 2014.
 Ce journal détaille l'effort d'écriture depuis janvier 2017.
 
+## Samedi 14 avril 2018 • Marseille
+
+- _Chapitre 4_ : `stream`
+
+**Météo** : 😊 🌥
+
 ## Vendredi 13 avril 2018 • Marseille
 
 - _web_ : les commandes du terminal sont visuellement distinctes des blocs de code

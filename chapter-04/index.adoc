@@ -1645,9 +1645,9 @@ Elle nécessite un document JSON complet pour produire un résultat.
 Une solution consiste accumuler les morceaux de réponse et à les assembler.
 Cela veut aussi dire que l'on consomme autant de mémoire que l'on reçoit de données.
 
-Une autre solution repose sur l'utilisation des <<streams,flux de données>>.
+Une autre solution repose sur l'utilisation des <<stream,flux de données>>.
 Ils pompent et brassent les données comme du liquide, en consommant peu de mémoire.
-On en parle plus loin, dans la section sur le <<streams,module `streams`>>.
+On en parle plus loin, dans la section sur le <<stream,module `streams`>>.
 
 [horizontal]
 .Propriétés notables
@@ -1741,7 +1741,7 @@ même résultat avec moins de code grâce aux
   Obtient un morceau de données manuellement — au lieu d'utiliser
   l'événement `data`, automatique.
   On apprendra mieux comment manipuler cette fonction dans la section
-  <<streams,module `streams`>>.
+  <<stream,module `streams`>>.
 `message.destroy()`::
   Termine la transmission des données sans que le serveur distant
   nous aie tout transmis.
@@ -2275,6 +2275,187 @@ La documentation du module `process` est disponible sur le site officiel de Node
 
 [[stream]]
 === `stream` : manipuler des flux de données
+
+Le module `stream` contient les éléments de base pour lire, écrire et
+transformer des flux de données rapidement et avec peu de mémoire.
+
+Créer ses propres flux est une chose assez compliquée à réaliser.
+Dans cette section nous allons nous focaliser sur l'utilisation des modules
+Node qui génèrent de tels flux.
+
+[source%interactive,javascript]
+.stream/intro.js
+----
+include::{sourceDir}/stream/intro.js[]
+----
+<1> On crée un _flux de lecture_ qui ouvre le fichier courant (`+__filename+`)
+<2> Invoque cette fonction à chaque morceau de données lu
+<3> Affiche le nombre d'octets lus dans ce morceau
+
+[source,bash]
+----
+$ node stream/intro.js
+214 octets lus
+----
+
+*Un _flux_ de lecture consomme les données en _morceaux_*.
+Il correspond à une instance de l'objet <<stream.Readable,`stream.Readable`>>.
+L'exemple précédent n'a affiché qu'un seul morceau car la taille maximale
+par défaut est d'environ `16Ko`.
+
+[source%interactive,javascript]
+.stream/read.js
+----
+include::{sourceDir}/stream/read.js[]
+----
+<1> On spécifie cette fois qu'on lit `100 octets` à la fois
+<2> Affiche `Lecture terminée` lorsque tous les morceaux ont été lus
+
+L'option `highWaterMark` adapte le débit de lecture.
+Cette valeur est exprimé en _octets_.
+Plus ce nombre est petit, moins Node utilise de mémoire :
+
+[source,bash]
+----
+$ node stream/read.js
+100 octets lus
+100 octets lus
+78 octets lus
+Lecture terminée
+----
+
+Le mécanisme de flux s'applique également à l'écriture.
+*Un flux d'écriture nous permet d'écrire des données par morceaux*.
+Il correspond à une instance de l'objet <<stream.Writeable,`stream.Writeable`>>.
+
+L'exemple suivant illustre une succession d'écriture dans un même flux :
+
+[source%interactive,javascript]
+.stream/write.js
+----
+include::{sourceDir}/stream/write.js[]
+----
+<1> On crée un _flux d'écriture_ vers le fichier `stream/debug.txt`
+<2> Écrit `Hell` dans le flux
+<3> Écrit `d!` dans le flux et signale que nous n'avons plus de données à
+transmettre
+<4> Lit le contenu du fichier en une seule fois et affiche `Hello World!`
+
+Cette écriture par morceaux a pour effet de réduire la pression mémoire
+exercée par Node sur le système d'exploitation _et_ pour le reste du programme.
+Ce mécanisme est particulièrement adapté lorsque l'écriture prendra du temps
+ou implique un certain volume de données.
+
+*Les flux de lecture et d'écriture peuvent être combinés*.
+Les données lues depuis une source (`Readable`) sont redirigées vers
+une destination (`Writeable`) à l'aide de la fonction `pipe()` :
+
+[source%interactive,javascript]
+.stream/pipe.js
+----
+include::{sourceDir}/stream/pipe.js[]
+----
+<1> On crée un flux de lecture
+<2> On crée un flux d'écriture
+<3> On _redirige_ le flux de lecture _vers_ le flux d'écriture
+<4> La redirection retourne le flux d'écriture, que l'on écoute pour savoir
+quand il a terminé d'écrire sur le disque
+
+Dans cet exemple, nous avons pris deux fichiers comme source de lecture
+et destination d'écriture.
+Nous avons assemblé les deux flux avec `pipe()` puis détecté la fin de la copie.
+
+[NOTE]
+.[RemarquePreTitre]#Unix# Opérateur _pipe_ (`|`)
+====
+La fonction `stream.pipe()` correspond littéralement à l'opérateur Unix `|`.
+
+Les morceaux de données d'un premier programme sont transmis en entrée à un
+second programme.
+Ici, le mécanisme s'applique à des fonctions Node.
+====
+
+L'utilisation de `pipe()` peut paraitre superflue pour copier des fichiers.
+À vrai dire, la fonction <fs,`fs.copyFile`>> fait exactement la même chose. +
+Le mécanisme de redirection proposé par `pipe()` est modulaire et composable.
+
+On peut par exemple diriger une source de données vers *plusieurs flux d'écriture*.
+En même temps :
+
+[source%interactive,javascript]
+.stream/pipe-multi.js
+----
+include::{sourceDir}/stream/pipe-multi.js[]
+----
+<1> Écrit une copie du fichier comme dans l'exemple `stream/pipe.js`
+<2> Redirige le contenu de lecture vers la <<process.std,sortie standard>> de notre terminal
+
+Cette technique agit comme une _gare de triage_ : nous avons la liberté
+d'agir sur les données avant de les envoyer vers leur flux d'écriture distinct.
+
+On peut aussi *transformer les contenus à la volée* en utilisant plusieurs
+fois la fonction `pipe()`.
+Les données sont passées à des objets capable de lire _et_ d'écrire des flux.
+C'est le cas du <<extras,module `zlib`>>, responsable de compresser et de
+décompresser des données :
+
+[source%interactive,javascript]
+.stream/pipe-transform.js
+----
+include::{sourceDir}/stream/pipe-transform.js[]
+----
+<1> Compresse les données à la volée
+<2> Les données compressées sont transmises à la <<process.std,sortie standard>>
+
+Cet exemple devrait afficher le contenu de notre fichier source avec une taille
+réduite grâce à la compression _gzip_ :
+
+[source,bash]
+----
+$ node stream/pipe-transform.js
+----
+
+L'affichage semble bizarre et c'est normal : ce sont des données compressées
+au format gzip ; un format de compression libre et populaire.
+
+Le programme Unix `gzip` sait décoder des données compressées dans ce format.
+Il sait aussi les décoder à la volée… avec un `pipe()` :
+
+[source,bash]
+----
+$ node stream/pipe-transform.js | gzip
+----
+
+On a bouclé la boucle en _décompressant_ un flux de données à la volée
+en utilisant un programme extérieur à Node.
+
+
+[horizontal, id="stream.Readable"]
+.Principaux attributs d'un flux _Readable_
+`stream.pipe()`::
+  Redirige un flux de lecture vers un flux d'écriture.
+`stream.on('data')`::
+  Déclenché lorsqu'un morceau de données a été lu.
+`stream.on('error')`::
+  Déclenché lorqu'une erreur se produit.
+`stream.on('end')`::
+  Déclenché lorsqu'il n'y a plus de données à lire.
+`stream.on('readable')`::
+  Déclenché lorsque la lecture de données est prête à démarrer.
+
+[horizontal, id="stream.Writeable"]
+.Principaux attributs d'un flux _Writeable_
+`stream.write()`::
+  Écrit des données dans le flux.
+`stream.end()`::
+  Signale que nous n'avons plus de données à transmettre.
+`stream.on('drain')`::
+  Déclenché lorque la mémoire d'écriture est vide et prête à accepter
+  de nouvelles données.
+`stream.on('error')`::
+  Déclenché lorqu'une erreur se produit.
+`stream.on('finish')`::
+  Déclenché lorsqu'on a clôturé le flux d'écriture.
 
 [NOTE]
 .[RemarquePreTitre]#Documentation# `stream`
