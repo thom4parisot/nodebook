@@ -32,7 +32,7 @@ const startServer = (port, host=HOST) => {
   const url = `http://${host}:${port}`;
 
   return server.listen(port, host, () => {
-    console.log('Livre consultable sur %s', url);
+    console.log('💡 Livre consultable sur %s', url);
   });
 }
 

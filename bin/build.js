@@ -41,7 +41,7 @@ processor.Extensions.register(hashScroll);
 
 FILES.forEach(SOURCE_FILE => {
   const destinationFile = SOURCE_FILE.replace('.adoc', '.html');
-  console.log('📦  %s %s', SOURCE_FILE, destinationFile);
+  console.log('📦  %s (%s)', SOURCE_FILE, destinationFile);
 
   processor.convertFile(join(__dirname, '..', SOURCE_FILE), {
     'to_file': `${join(BUILD_DIR, destinationFile)}`,

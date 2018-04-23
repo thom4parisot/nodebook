@@ -2669,7 +2669,7 @@ et Ruby (`require` et `require_relative`).
 include::{sourceDir}/modules/enfant.js[]
 ----
 
-Le fichier d'exemple `modules/enfant.js` contient une variable.
+Le fichier d'exemple `modules/enfant.js` contient une variable, `number`.
 Essayons de la réutiliser dans le fichier `modules/parent.js`
 à l'aide de la fonction `require()` :
 
@@ -3034,6 +3034,55 @@ ReferenceError: jenexistepas is not defined
 
 == Les différences de JavaScript entre Node et les navigateurs web
 
+Puisqu'on utilise du code JavaScript avec Node et avec les navigateurs web,
+qu'est-ce qui les distingue vraiment ?
+Après tout, on pourrait rêver d'écrire un JavaScript universel qui fonctionne
+partout mais il semblerait que ça ne soit pas le cas.
+
+Cette section détricotte les derniers doutes que l'on pourrait avoir dans notre tête.
+
+=== L'absence du DOM et des variables `window` et `document`
+
+Dans Node, il n'est pas possible de faire appel aux variables `window`
+et `document` (raccourci pour `window.document`).
+
+Ces variables représentent respectivement la fenêtre/onglet et le document
+HTML interprété par le navigateur web.
+L'appel aux fonctions `document.querySelector()` et `document.createElement()`
+relèvent du DOM (_Document Object Model_), une représentation JavaScript interactive
+du document HTML.
+
+L'équivalent de `window` pour Node serait la variable <<process,`process`>> :
+elle décrit le processus exécutant notre code.
+
+[NOTE]
+.[RemarquePreTitre]#Documentation# Variables globales
+====
+La documentation des variables globales est disponible sur le site officiel de Node :
+[URL]#https://nodejs.org/docs/latest-{nodeCurrentVersion}.x/api/globals.html#
+====
+
+=== Il n'y a pas d'interface graphique
+
+Suite logique du point précédent : Node n'a pas d'interface graphique.
+Le code exécuté n'affiche rien en tant que tel, à part quelques messages
+dans la <<console,console>>.
+
+Un moyen d'en savoir plus sur ce qui se passe dans les entrailles d'un script
+est d'utiliser l'<<inspect,inspecteur Node>>.
+
+On peut toutefois construire des applications graphiques qui fonctionnent
+dans un _terminal_.
+On verra comment faire dans le <<../chapter-08/index.adoc#,chapitre 8>>. 
+
+=== Le mécanisme de modules
+
+TBD.
+
+=== L'interfaçage avec le système d'exploitation
+
+TBD.
+
 === Node est un processus système
 
 Le système d'exploitation crée un nouveau processus dès
@@ -3063,18 +3112,6 @@ se partageront une quantité finie de puissance.
 Autrement dit, si le processus Node partage le même CPU qu'une base de données
 utilisée par d'autres programmes, la rapidité de traitement de notre
 application sera affectée par la quantité de ressources disponibles pour ce CPU.
-
-=== La variable globale `window`
-
-y'en n'a pas, et donc pas de window.document, etc.
-
-à la place y'a `global`
-
-Cf. https://nodejs.org/docs/latest-v8.x/api/globals.html
-
-=== Le mécanisme de modules
-
-TBD.
 
 
 [[options]]

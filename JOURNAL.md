@@ -7,6 +7,8 @@ Ce journal détaille l'effort d'écriture depuis janvier 2017.
 
 - _Chapitre 4_ : `process`
 - _Chapitre 4_ : réorganisation des contenus, pour rendre la progression plus logique
+- _Chapitre 4_ : revue d'étape avec [David Bruant][]
+- _Chapitre 4_ : quelques différences de JavaScript entre Node et les navigateurs web
 
 **Météo** : 😊 🌥 🍞
 
@@ -1008,3 +1010,4 @@ Merci [@BetaGouv](https://github.com/sgmap) pour le coin de bureau 👋
 [Etalab]: https://www.etalab.gouv.fr/
 [MDN web docs]: https://developer.mozilla.org/fr/docs/
 [Mind the Gaps]: https://mind-the-gaps.org
+[David Bruant]: https://twitter.com/DavidBruant
