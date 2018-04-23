@@ -117,7 +117,7 @@ module.exports = {
   'chapter-04/examples/console/win32.js': {
     stdout: 'tmp\\package.json\nC:\\etc\n',
   },
-  'chapter-04/examples/modules/ecmascript-multiple.mjs': {
+  'chapter-04/examples/ecmascript-multiple.mjs': {
     stderr: 'ExperimentalWarning: The ESM module loader is experimental',
   },
   'chapter-04/examples/modules/ecmascript.js': {
@@ -201,7 +201,7 @@ module.exports = {
     stdout: '214 octets lus\n'
   },
   'chapter-04/examples/stream/read.js': {
-    stdout: '100 octets lus\n100 octets lus\n60 octets lus\nLecture terminée\n'
+    stdout: '100 octets reçus\n100 octets reçus\n60 octets reçus\nLecture terminée\n'
   },
   'chapter-04/examples/stream/write.js': {
     stdout: 'Hello World!\n'
