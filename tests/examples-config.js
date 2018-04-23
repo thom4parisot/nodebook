@@ -79,22 +79,22 @@ module.exports = {
   'chapter-03/examples/date/base.js': {
     stdout: `2013\n${YEAR}\n`
   },
-  'chapter-04/examples/process-stdin-uppercase.js': {
+  'chapter-04/examples/process/stdin-uppercase.js': {
     stdin: 'un deux trois',
     stdout: 'UN DEUX TROIS'
   },
-  'chapter-04/examples/process-exit-devinette.js': {
+  'chapter-04/examples/process/exit-devinette.js': {
     stdin: '3',
     stdout: /Tu as trouvé, bravo !/
   },
-  'chapter-04/examples/process-exit-error.js': {
+  'chapter-04/examples/process/exit-error.js': {
     exitCode: 1,
     stderr: 'ReferenceError: jenexistepas is not defined'
   },
-  'chapter-04/examples/process-interrupt.js': {
+  'chapter-04/examples/process/interrupt.js': {
     skip: true,
   },
-  'chapter-04/examples/process-stdout-long.js': {
+  'chapter-04/examples/process/stdout-long.js': {
     skip: true,
   },
   'chapter-04/examples/console/log.js': {
