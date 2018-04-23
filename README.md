@@ -89,10 +89,10 @@ $ git lfs pull # si vous avez installé git-lfs après avoir cloné le dépôt
 
 ## Prévisualiser
 
-Un serveur local est également disponible pour prévisualiser vos modifications sans être connecté à Internet.
+Un serveur local est disponible pour prévisualiser les modifications sans être connecté à Internet.
 
 ```bash
-$ PORT=3000 npm start
+$ npm start
 ```
 
 ## Tests

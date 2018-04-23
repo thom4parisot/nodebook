@@ -8,7 +8,8 @@ const getPort = require('get-port');
 const {spawn} = require('child_process');
 const {dirname,sep,extname,basename} = require('path');
 
-const PORT = process.env.PORT;
+const {PORT=3000, HOST='127.0.0.1'} = process.env;
+
 /*
  Static files handling
  */
@@ -27,11 +28,11 @@ const server = http.createServer((req, res) => {
   });
 });
 
-const startServer = (port) => {
-  const url = `http://localhost:${port}`;
+const startServer = (port, host=HOST) => {
+  const url = `http://${host}:${port}`;
 
-  return server.listen(port, () => {
-    console.log('Book content served at %s', url);
+  return server.listen(port, host, () => {
+    console.log('Livre consultable sur %s', url);
   });
 }
 
@@ -41,7 +42,7 @@ const rebuild = (path) => {
 
   spawn('node', ['bin/build.js', file])
     .on('close', (code) => {
-      console.log(`${file} build ${code === 0 ? '✅' : '❌'}`);
+      console.log('%s  %s', code === 0 ? '✅' : '❌', file);
     });
 };
 
@@ -64,6 +65,5 @@ if (require.main === module) {
     .on('change', rebuild);
 
   // effectively start the server
-  (PORT ? Promise.resolve(PORT) : getPort())
-    .then(startServer)
+  getPort({ port: PORT, host: HOST }).then(startServer)
 }
