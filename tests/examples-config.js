@@ -117,7 +117,7 @@ module.exports = {
   'chapter-04/examples/console/win32.js': {
     stdout: 'tmp\\package.json\nC:\\etc\n',
   },
-  'chapter-04/examples/ecmascript-multiple.mjs': {
+  'chapter-04/examples/modules/ecmascript-multiple.mjs': {
     stderr: 'ExperimentalWarning: The ESM module loader is experimental',
   },
   'chapter-04/examples/modules/ecmascript.js': {
