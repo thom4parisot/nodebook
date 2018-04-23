@@ -3,6 +3,19 @@
 Le projet a commencé en décembre 2014.
 Ce journal détaille l'effort d'écriture depuis janvier 2017.
 
+## Lundi 23 avril 2018 • Lyon
+
+- _Chapitre 4_ : `process`
+- _Chapitre 4_ : réorganisation des contenus, pour rendre la progression plus logique
+
+**Météo** : 😊 🌥 🍞
+
+---
+💻 🎤 Semaine off pour cause de participation à la
+conférence [MiXiT](https://mixitconf.org/2018/se-liberer-des-entreprises-pour-creer-son-equilibre-et-payer-ses-factures)
+et de panne d'ordinateur
+---
+
 ## Samedi 14 avril 2018 • Marseille
 
 - _Chapitre 4_ : `stream`

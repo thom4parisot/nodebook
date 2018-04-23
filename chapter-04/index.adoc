@@ -1,7 +1,7 @@
 :chapterNumber: 4
 :chapterId: chapter-04
 :sourceDir: ./examples
-:sourceSample: hello.js
+:sourceSample: script.js
 :nodeCurrentVersion: v8
 :nodeV: 8.11.1
 :npmCurrentVersion: v5
@@ -29,9 +29,9 @@ disponibles par défaut.
 .Sommaire
 - Interagir avec l'interpréteur Node
 - Les modules de base
-- Créer ses propres modules Node
+- Créer ses propres modules
 - S'en sortir quand ça ne se passe pas comme prévu
-- Qu'est-ce qu'un processus Node ?
+- Les différences de JavaScript entre Node et les navigateurs web
 - Options utiles pour démarrer Node
 ====
 
@@ -95,7 +95,7 @@ Une fois votre terminal ouvert, saisissez la commande suivante :
 $ node --version
 ----
 
-Le numéro de version de l'interpréteur Node s'affichera alors.
+Le numéro de version de l'interpréteur Node s'affiche alors.
 Par exemple : `v{nodeV}`.
 
 Si c'est ce à quoi vous vous attendiez, nous pouvons passer à la suite.
@@ -103,46 +103,49 @@ Si c'est ce à quoi vous vous attendiez, nous pouvons passer à la suite.
 n'est pas celui que vous attendiez, jetez un œil à la
 <<../chapter-02/index.adoc#install,section _Installer Node.js_>> du chapitre 2.
 
-[[node-printeval]]
-=== Avec une expression
 
-L'interpréteur Node sait interpréter du code qu'on lui donnerait
-via l'option `-p` (pour _print_, c'est-à-dire _afficher_).
-L'interpréteur affichera le résultat de l'expression ou
-détaillera la <<errors,raison de l'erreur>>.
+[[script]]
+=== Avec un script
 
-J'utilise cette forme d'interaction pour obtenir un résultat rapide.
-Par exemple, le résultat d'une opération mathématique :
+L'exécution d'un script Node est très certainement la pratique la plus courante.
+
+L'interpréteur Node lit le contenu d'un fichier et exécute les instructions.
+L'interpréteur reste actif jusqu'à ce que toutes les instructions
+soient traitées.
+
+[source%interactive,javascript]
+.script.js
+----
+include::{sourceDir}/script.js[]
+----
+
+Dans cet exemple, le fichier `script.js` contient _deux instructions_.
+Node les interprète lorsqu'on lui passe le chemin du fichier en paramètre
+dans une invite de commande :
 
 [source,bash]
 ----
-$ node -p '2 + 2'
+$ node script.js
 4
-----
-
-Toute expression ECMAScript retournera un résultat,
-comme cet exemple de
-transformation de <<../chapter-03/index.adoc#string,chaîne de caractères>> :
-
-[source,bash]
-----
-$ node -p '"abc".toLocaleUpperCase()'
 ABC
 ----
+
+Node interprète le contenu du fichier `script.js`.
+Il nous rend ensuite la main pour exécuter d'autres commandes.
+
+On apprendra à passer des <<process.argv,arguments d'exécution>>
+dans la section <<process,module `process`>>.
 
 [[repl]]
 === Avec l'invite de commande interactive (_REPL_)
 
-L'invite de commande interactive est une manière… interactive de parler
-à l'interpréteur Node.
-On entre dans un mode de dialogue où tout ce que l'on écrit est interprété
-par Node.
+L'invite de commande interactive est une manière de parler
+à l'interpréteur Node sans écrire de fichier.
 
-J'utilise l'invite de commande pour tester des idées et des approches
-avant d'écrire le <<script,code dans un script>>.
+J'utilise l'invite de commande pour tester des idées et des éléments de syntaxe
+quand je ne m'en rappelle plus.
 
-Ce mode interactif s'invoque en mentionnant l'exécutable Node,
-sans autre argument :
+Le mode interactif s'active en exécutant Node sans aucun autre argument :
 
 [source,bash,subs="attributes"]
 ----
@@ -271,476 +274,6 @@ $ node
 
 Cette variable magique est équivalente à la variable `$_` dans la console
 des outils de développement des navigateurs web.
-====
-
-[[script]]
-=== Avec un script
-
-L'interpréteur Node sait lire le contenu d'un fichier pour en exécuter les
-différentes instructions.
-L'interpréteur reste actif jusqu'à ce que toutes les instructions
-soient traitées.
-
-J'utilise un script lorsque la logique à exécuter tient sur plusieurs lignes,
-pour versionner ce code avec _git_ mais aussi pour structurer la logique
-dans _plusieurs fichiers_ grâce au mécanisme de <<modules,modules>>.
-
-Prenons l'exemple d'un fichier nommé `script.js` qui contiendrait :
-
-[source%interactive,javascript]
-.script.js
-----
-include::{sourceDir}/script.js[]
-----
-
-Node interprète le contenu du fichier `script.js`.
-Dans cet exemple, il indique à Node d'afficher deux messages :
-
-[source,bash]
-----
-$ node script.js
-4
-ABC
-----
-
-Utilisons un autre exemple pour illustrer l'utilisation d'*arguments*. +
-Les _arguments_ aident à personnaliser l'exécution du script :
-
-[source,bash]
-----
-$ node hello.js 'me'
-Hello me
-----
-
-Les _arguments_ sont les éléments ajoutés après le nom du fichier
-(ici `hello.js`).
-On y accède par le biais de la variable `process.argv`
-de <<../chapter-03/index.adoc#array,type tableau>> :
-
-[source%interactive,javascript]
-.hello.js
-----
-include::{sourceDir}/hello.js[]
-----
-
-Le script précédent récupère le deuxième argument de l'objet `process.argv`.
-Nous décrirons le fonctionnement de cet objet ci-après, dans la section <<process.argv,arguments d'exécution>>.
-
-Comme vu au <<../chapter-02/index.adoc#,chapitre 2>> dans la section
-<<../chapter-02/index.adoc#array-destructuring,décomposition de tableau>>,
-si l'argument est inexistant ou vide, on lui attribue une valeur par défaut.
-
-[source,bash]
-----
-$ node hello.js
-Hello World
-----
-
-Cet exemple effleure la capacité de Node à servir à la création
-d'*applications en ligne de commande*.
-Nous verrons plus en détail _comment_ et _pourquoi_ créer de telles applications
-dans le <<../chapter-08/index.adoc#,chapitre 8>>.
-
-Enfin, il faut comprendre que toute exécution de script
-entraîne la création d'un <<process.api,processus système>>.
-
-
-[[modules]]
-== Créer ses propres modules Node
-
-Node a apporté quelque chose qui manquait cruellement à ECMAScript :
-la possibilité de charger des modules.
-C'est-à-dire la possibilité d'*organiser son code dans plusieurs fichiers*
-et d'y faire appel depuis d'autres fichiers. +
-À la manière de ce qui se fait en Python (`import`), PHP (`require`)
-et Ruby (`require` et `require_relative`).
-
-Nous allons décrire le _fonctionnement des modules_ dans cette section.
-La section suivante explique ce qu'on peut faire avec les
-<<modules-builtin,modules fournis par Node>> tandis que le
-<<../chapter-05/index.adoc#,chapitre 5>> explique comment installer des
-_modules npm_ téléchargés sur Internet.
-
-Tout un programme !
-
-[NOTE,subs="attributes"]
-.[RemarquePreTitre]#Documentation# Module _modules_
-====
-L'intégralité des variables, fonctions et classes du module `modules`
-est documentée sur le site web du projet Node.
-La documentation contient des informations à jour et qui ne sont pas
-forcément listées dans cet ouvrage.
-
-[URL]#https://nodejs.org/docs/latest-{nodeCurrentVersion}.x/api/modules.html#
-====
-
-=== Qu'est-ce qu'on entend par module ?
-
-Pour Node, *tout fichier `.js` est un module*.
-
-Commençons avec ce fichier tout simple : `modules/enfant.js`.
-Il contient une variable que l'on voudra réutiliser dans un autre module :
-
-[source,javascript]
-.modules/enfant.js
-----
-include::{sourceDir}/modules/enfant.js[]
-----
-
-On va utiliser la fonction `require()` pour l'importer depuis un autre module,
-`modules/parent.js` :
-
-[source,javascript]
-.modules/parent.js
-----
-include::{sourceDir}/modules/parent.js[]
-----
-<1> On assigne le contenu du module `enfant.js` dans la variable `enfant`
-<2> Est-ce que cela affichera la valeur de la variable `number` ?
-<3> Mais au fond, que contient notre variable `enfant` ?
-
-Exécutons le fichier `modules/parent.js` avec Node pour en avoir le cœur net :
-
-[source,bash]
-----
-$ node modules/parent.js
-undefined
-{}
-----
-
-De là nous pouvons en tirer un apprentissage important :
-dans un module, *tout est privé*.
-On ne peut pas voir ce qu'il y a _dans_ un module depuis _l'extérieur_.
-
-Pour affirmer ça, nous allons maintenant avoir recours à `module.exports`.
-Cette expression permet de *rendre explicite ce qui est exporté*.
-Elle rend une variable visible depuis l'extérieur.
-
-[source,javascript]
-.modules/enfant-export.js
-----
-include::{sourceDir}/modules/enfant-export.js[]
-----
-
-Nous avons assigné la variable `number` à `module.exports`.
-Comment est-ce que ça se traduit lorsqu'on l'appelle avec `require()` ?
-
-[source,javascript]
-.modules/parent-export.js
-----
-include::{sourceDir}/modules/parent-export.js[]
-----
-<1> Affiche `undefined`
-<2> Affiche `42`
-
-Ce deuxième essai confirme
-qu'*un module exporte seulement que ce qui a été assigné* à `module.exports`.
-On sait aussi que `module.exports` exporte tout type de variable.
-Par défaut, `module.exports` est un objet.
-
-Essayons maintenant d'exporter plusieurs valeurs en une seule fois :
-
-[source,javascript]
-.modules/enfant-export-multiple.js
-----
-include::{sourceDir}/modules/enfant-export-multiple.js[]
-----
-
-Nous avons créé deux nouvelles valeurs : `number` (un nombre) et
-`random` (une fonction).
-
-[TIP]
-.[RemarquePreTitre]#Raccourci# Exporter un objet
-====
-L'utilisation de la syntaxe d'objet raccourcie évite la répétition
-du nom des variables lors de l'export.
-
-[source,javascript]
-----
-include::{sourceDir}/modules/enfant-export-shorthand.js[]
-----
-<1> Liste des valeurs retournée par l'objet `module.exports`
-
-====
-
-`require()` retourne une seule valeur sous la forme d'un objet :
-
-[source,javascript]
-.modules/parent-export-multiple.js
-----
-include::{sourceDir}/modules/parent-export-multiple.js[]
-----
-<1> Affiche `42`
-<2> Affiche un nombre aléatoire entre 0 et 100
-<3> Réexporte la fonction `enfant.number`
-
-Pour résumer, Node propose un *mécanisme d'import et d'export de modules*
-basé sur des chemins de fichiers.
-Les sections suivantes nous aideront
-à comprendre _comment fonctionne `require()`{blank}_ et
-ce que nous réserve l'objet `module`.
-
-[NOTE]
-.[RemarquePreTitre]#Histoire# Modules _CommonJS_
-====
-Le mécanisme de modules implémenté dans Node est _basé sur_ la
-spécification _CommonJS_, à peu de choses près.
-
-[URL]#http://www.commonjs.org/specs/modules/1.0/#
-====
-
-=== Ce qu'il faut savoir sur `require()`
-
-Lorsqu'on fait appel à la fonction `require()`, Node effectue la *liste d'actions* suivantes :
-
-. résolution du chemin vers le module en question
-. lecture du fichier
-. interprétation du code
-. exécution du code
-. retourne la valeur de `module.exports`
-
-L'utilisation de `require()` est *synchrone* et *bloquante*.
-Si l'exécution du code dans le module chargé prend du temps
-— code _lent_, accès à une ressource distante — le chargement
-du module en prendra un coup. +
-Il vaut mieux ranger les appels _asynchrones_ dans des fonctions
-et appeler ces fonctions de manière explicite, _après_ avoir chargé le module.
-
-`require()` permet de *charger 3 types de modules* :
-
-. des *fichiers relatifs au module actuel* +
-  `require('./module.js')` cherchera le fichier `module.js` dans le _répertoire courant_.
-  `require('../module.js')` cherchera `module.js` dans le _répertoire parent_.
-  C'est le cas que l'on a vu jusqu'à présent.
-. des *modules Node* +
-  Ils sont disponibles avec chaque installation de Node.
-  On en parle plus en détail dans la section <<modules-builtin,modules Node>>
-  de ce même chapitre.
-. des *modules npm* +
-  Ils sont disponibles avec une étape d'installation supplémentaire.
-  On en parle plus en détail dans le <<../chapter-05/index.adoc#,chapitre 5>>
-  consacré à _npm_.
-
-*Node met les modules en cache*.
-Si on inclut deux fois le même module, le deuxième import ira directement
-à la dernière étape de la _liste d'actions_.
-Ça implique aussi que si le module modifie une de ses variables privée,
-cette modification impactera le deuxième import.
-
-Voici un module illustrant une variable privée et une variable exportée :
-
-[source,javascript]
-.modules/increment.js
-----
-include::{sourceDir}/modules/increment.js[]
-----
-<1> Variable privée
-<2> `increment` est rendue publique à cet endroit
-— la fonction incrémente la variable privée `counter`
-
-Nous allons importer ce module par deux fois, dans deux variables différentes :
-
-[source,javascript]
-.modules/double-import.js
-----
-include::{sourceDir}/modules/double-import.js[]
-----
-<1> Affiche `1`
-<2> Affiche `2`
-<3> Affiche… `1` ou `3` ?
-
-Quel est le verdict à votre avis ?
-Rien ne vaut une vérification, quitte à remettre en question
-notre avis initial :
-
-[source,bash]
-----
-$ node modules/double-import.js
-1
-2
-3
-----
-
-Il faut garder cette information en tête lorsqu'on importe un module.
-Sans oublier que ce mécanisme se transforme en atout afin de partager
-une variable entre plusieurs modules.
-Pratique dans le cas d'un _cache de données_ ou d'une _configuration partagée_.
-
-Enfin, plusieurs *problèmes* peuvent apparaitre lors du chargement d'un module :
-
-- le chemin vers le module est erroné ;
-- le module contient une erreur de syntaxe.
-
-Node lancera une <<errors,exception>> et
-le programme s'arrêtera aussitôt.
-
-=== La variable `module`
-
-La variable `module` contient des propriétés à propos du module courant.
-Nous avons déjà pu voir l'usage de `module.exports` dans les lignes précédentes.
-
-Il existe aussi, entre autres, la propriété `module.filename`.
-Elle représente le chemin système du module courant.
-
-`module.parent` quant à lui représente le chemin système vers le module parent.
-Par _parent_, on entend le module ayant chargé le module courant.
-La valeur vaut `null` si le module n'a pas été chargé par un autre module.
-Typiquement lorsqu'on fait `node fichier.js`.
-
-[TIP]
-.[RemarquePreTitre]#Raccourci# Variables `+__filename+` et `+__dirname+`
-====
-La variable `module.filename` dispose d'une variable raccourcie :
-`+__filename+`.
-Elle est complétée de `+__dirname+`.
-Cette dernière affiche le chemin vers le _répertoire_ contenant le fichier.
-
-[source,javascript]
-.modules/dirname-filename.js
-----
-include::{sourceDir}/modules/dirname-filename.js[]
-----
-<1> Affiche `/.../chapter-04/examples/modules/dirname-filename.js`
-<2> Affiche `true` (ça ne serait pas un _raccourci_ sinon ;-))
-<3> Affiche `/.../chapter-04/examples/modules`
-
-Ces variables sont utiles pour opérer sur
-des _fichiers relatifs_ au module courant.
-
-====
-
-[[esm]]
-=== Le futur : les modules ECMAScript
-
-Pendant que Node et de son mécanisme de module montaient en puissance,
-les navigateurs web étaient en attente d'une solution native.
-Enfin… la spécification des modules ECMAScript a été validée en 2013
-mais les navigateurs ont tardé à implémenter le mécanisme.
-
-La plupart d'entre eux ont implémenté les modules ECMAScript en 2017.
-C'est le cas du navigateur web Chrome et de
-sa <<../chapter-01/index.adoc#v8,machine virtuelle V8>>.
-
-[WARNING]
-.[RemarquePreTitre]#Attention# Fonctionnalité expérimentale
-====
-Si la syntaxe des modules ECMAScript est standardisée,
-ce n'est pas encore aussi stable du côté de Node.
-
-Les modules ECMAScript sont suffixés de l'extension `.mjs`
-et nécessitent l'utilisation de l'<<options,option de démarrage>>
-`--experimental-modules`.
-====
-
-Reprenons l'exemple `modules/increment.js` pour le
-transformer en module ECMAScript :
-
-[source,javascript]
-.modules/increment.mjs
-----
-include::{sourceDir}/modules/increment.mjs[]
-----
-<1> Export _par défaut_
-<2> Export _nommé_
-
-La syntaxe `export` sert à… exporter des variables.
-Cette syntaxe se combine avec `import` :
-
-[source,javascript]
-.modules/ecmascript.mjs
-----
-include::{sourceDir}/modules/ecmascript.mjs[]
-----
-<1> On n'importe ici que la _valeur par défaut_
-
-Il ne nous reste maintenant plus qu'à exécuter notre script `.mjs`
-pour observer le résultat.
-On notera l'utilisation de `--experimental-modules` :
-
-[source,bash]
-----
-$ node --experimental-modules modules/ecmascript.mjs
-(node:35074) ExperimentalWarning: The ESM module loader is experimental.
-1
-----
-
-Reprenons cet exemple pour _importer plusieurs exports d'un coup_ :
-
-[source,javascript]
-.modules/ecmascript-multiple.mjs
-----
-include::{sourceDir}/modules/ecmascript-multiple.mjs[]
-----
-<1> On importe la _valeur par défaut_ ainsi qu'une _valeur nommée_ —
-c'est particulièrement pratique pour sélectionner avec finesse
-ce que l'on veut utiliser d'un module
-<2> La fonction `reset` remet le compteur à zéro
-
-On notera au passage qu'on utilise la
-<<../chapter-03/index.adoc#object-destructuring,destructuration d'objet>>
-pour extraire un _export nommé_ depuis un module ECMAScript.
-
-[source,bash]
-----
-$ node --experimental-modules modules/ecmascript-multiple.mjs
-(node:35074) ExperimentalWarning: The ESM module loader is experimental.
-2
-1
-----
-
-La fonction `reset` a bien remis à zéro le compteur entre temps.
-Objectif accompli !
-
-Résumons les différences notables avec le mécanisme de modules Node :
-
-- tous les appels à `import` doivent se faire en début de fichier
-- on ne peut pas utiliser `import` de manière dynamique
-(dans un `if/else` par exemple)
-- on peut exporter une _variable par défaut_ *et* plusieurs _variables nommées_
-- on peut importer des modules Node depuis un module ECMAScript —
-l'inverse n'est pas vrai
-- les fichiers doivent être suffixés par `.mjs`
-
-Ce dernier point est le plus embêtant car il ralentit l'interopérabilité
-avec les modules destinés au développement web frontend.
-Ces derniers contiennent les déclarations `import` et `export` mais…
-dans des fichiers `.js`.
-
-L'histoire nous dira si les modalités s'assoupliront avec le temps.
-
-[TIP]
-.[RemarquePreTitre]#npm# Module `esm`
-====
-Le <<../chapter-05/index.adoc#modules,module npm>> `esm`
-([URL]#https://npmjs.com/esm#) a pris le parti de déblayer le chemin
-de l'interopérabilité.
-Il suffit de charger le module `esm` avant de démarrer un script Node,
-peu importe son mécanisme de chargement de modules :
-`esm` rendra le chargement des modules totalement transparent.
-
-[source,bash]
-----
-$ node -r esm modules/ecmascript.js
-1
-$ node -r esm modules/ecmascript.mjs
-1
-----
-
-Pour en savoir plus sur l'option `-r`, rendez-vous
-dans la section <<require,précharger un module>>
-
-====
-
-
-[NOTE,subs="attributes"]
-.[RemarquePreTitre]#Documentation# Modules ECMAScript
-====
-L'intégralité des fonctionnalités des modules ECMAScript
-est documentée sur le site web du projet Node.
-La documentation contient des informations à jour et qui ne sont pas
-forcément listées dans cet ouvrage.
-
-[URL]#https://nodejs.org/docs/latest-{nodeCurrentVersion}.x/api/esm.html#
 ====
 
 [[modules-builtin]]
@@ -1175,11 +708,23 @@ est appelée avec 2 paramètres : un objet d'erreur et le contenu
 <2> Affiche… le contenu de ce fichier d'exemple !
 
 [TIP]
-.[RemarquePreTitre]#Raccourci# `+__filename+` et `+__dirname+`
+.[RemarquePreTitre]#Raccourci# Variables `+__filename+` et `+__dirname+`
 ====
-Ces <<globals,variables globales>> existent pour nous simplifier la vie. +
 `+__filename+` est une chaîne de caractères faisant référence au fichier courant. +
 `+__dirname+` fait référence au répertoire du fichier courant.
+
+[source,javascript]
+.dirname-filename.js
+----
+include::{sourceDir}/dirname-filename.js[]
+----
+<1> Affiche `/.../chapter-04/examples/dirname-filename.js`
+<2> Affiche `true` (ça ne serait pas un _raccourci_ sinon ;-))
+<3> Affiche `/.../chapter-04/examples`
+
+Ces variables sont utiles pour opérer sur
+des _chemins relatifs au fichier courant_.
+
 ====
 
 Dans l'exemple précédent, nous avons utilisé la variable `+__filename+`.
@@ -1204,7 +749,7 @@ $ node fs/ls.js
   'console',
   'debug.txt',
   'deprecation-warning.js',
-  'env-var.js',
+  'process/env.js',
   ...
   'util' ]
 ----
@@ -2264,6 +1809,648 @@ La documentation du module `child_process` est disponible sur le site officiel d
 [[process]]
 === `process` : en savoir plus sur le processus en cours
 
+La module `process` retourne des informations
+sur l'environnement dans lequel le script est exécuté.
+À l'instar du <<console,module `console`>>, la variable `process`
+est globale.
+
+[source%interactive,javascript]
+.process/intro.js
+----
+include::{sourceDir}/process/intro.js[]
+----
+<1>
+<2>
+
+Notre code peut être interprété par Node
+sur plusieurs types de machines
+(ordinateur récent ou fatigué, Raspberry Pi, etc.),
+sur différents systèmes d'exploitation (Windows, Linux, macOS, etc.). +
+Nous avons ainsi tout le loisir d'adapter notre code
+à ces différents environnements.
+
+
+[[process.env]]
+Les variables d'environnement sont des
+*variables définies au niveau du système d'exploitation*.
+Elles contiennent des informations comme le _répertoire courant_, langue du système d'exploitation, l'utilisateur système courant, le type de terminal, les emplacements d'installation des exécutables, etc.
+
+On retrouve ces variables sous la forme d'un
+<<../chapter-03/index.adoc#object,objet ECMAScript>> nommé `process.env` :
+
+[source,bash]
+----
+$ node -p 'process.env'
+{ ITERM_PROFILE: 'Default',
+  LANG: 'en_GB.UTF-8',
+  PWD: '/Users/oncletom/workspace/nodebook',
+  SHELL: '/bin/zsh',
+  TERM_PROGRAM_VERSION: '3.1.5',
+  TERM_PROGRAM: 'iTerm.app',
+  ...
+}
+----
+
+Nous pouvons créer des variables d'environnement pour
+*transmettre des informations contextuelles* à nos programmes :
+des chemins d'accès à une base de données, si on est en situation de test
+ou de production, l'emplacement de fichiers nécessaires au fonctionnement
+de notre programme, etc.
+
+Par exemple et par convention, la variable `NODE_ENV` est utilisée pour indiquer au programme
+s'il est lancé dans le cadre du développement, de l'exécution des tests
+ou s'il tourne sur le serveur de production.
+
+Variable d'environnement éphémère::
+La variable n'existe que pendant la durée de vie du programme.
+La définition `CLÉ=valeur` est placée sur la même ligne que le programme
+en question.
+[source,bash]
+----
+$ NODE_ENV=production node process/env.js
+mode : production
+----
+Variable d'environnement permanente::
+La variable existe pendant la durée de la session
+grâce à l'opérateur `export` sous Linux et macOS et
+avec l'opérateur `set` sous Windows. +
+La définition `export CLÉ=valeur` est placée sur sa propre ligne.
+Elle restera accessible à _tout programme_ jusqu'à la fin de la session
+ou jusqu'à ce qu'on efface la variable.
+[source,bash]
+----
+$ export NODE_ENV=production
+$ node process/env.js
+mode : production
+----
+
+[TIP]
+.[RemarquePreTitre]#Revenir en arrière# Effacer une variable d'environnement
+====
+L'utilisation de l'opérateur `unset` dans un terminal efface le contenu
+d'une variable d'environnement.
+Pratique pour ne pas laisser de traces !
+
+[source,bash]
+----
+$ export NODE_ENV=dev
+$ echo $NODE_ENV
+$ unset NODE_ENV
+$ echo $NODE_ENV
+----
+====
+
+Voici le contenu du fichier `process/env.js` utilisé dans les exemples précédents :
+
+[source%interactive,javascript]
+.process/env.js
+----
+include::{sourceDir}/process/env.js[]
+----
+
+On notera que son comportement s'adapte à la _présence_ et à la _valeur_
+de la variable d'environnement `NODE_ENV`.
+Elle est accessible dans Node en tant que `process.env.NODE_ENV`.
+
+[source,bash]
+----
+$ NODE_ENV=dev node process/env.js
+On est en mode développement.
+mode : dev
+----
+
+Nous verrons d'autres mises en situation des variables d'environnement pour
+<<../chapter-06/index.adoc#app-configuration,configurer une application web>>
+dans le <<../chapter-06/index.adoc#,chapitre 6>> et pour
+<<../chapter-08/index.adoc#debug,déboguer une application en ligne de commande>>
+dans le <<../chapter-08/index.adoc#,chapitre 8>>.
+
+[[process.argv]]
+Les arguments d'exécution sont des morceaux d'information transmis
+à un script Node.
+On les place à la droite du nom du fichier, comme illustré dans cet exemple :
+
+----
+$ node print-first.js salut
+"salut"
+----
+
+On utilise les _arguments_ pour affiner le comportement d'un programme.
+Je pense par exemple au numéro du port sur lequel lancer un serveur web,
+une liste de fichiers à traiter ou
+encore de fonctionnalités à activer ou à désactiver.
+
+Il faut imaginer les arguments comme des *paramètres de fonction*,
+accessibles dans un programme Node dans
+le <<../chapter-03/index.adoc#array,tableau>> `process.argv` :
+
+[source,javascript]
+.print-first.js
+----
+include::{sourceDir}/print-first.js[]
+----
+
+Les deux premiers éléments de `process.argv` sont rarement utilisés.
+Ils correspondent respectivement à l'emplacement de l'exécutable Node
+et à l'emplacement du script.
+
+Tous les autres arguments sont accessibles à partir de l'index 2 de
+`process.argv`, dans l'ordre où ils sont placés :
+
+----
+$ node print-first.js salut ça va ?
+"salut"
+----
+
+Le script `print-first.js` affiche le premier argument.
+On peut en conclure que les arguments sont séparés par le caractère "espace".
+
+Dans le cas où un argument doit contenir un espace, on l'encadre alors
+entre guillemets :
+
+----
+$ node print-first.js "salut ça va ?" "oui et toi ?"
+"salut ça va ?"
+----
+
+L'inconvénient des arguments est que leur ordre compte
+et qu'il devient difficile de connaitre leur rôle sans se référer
+au manuel d'utilisation.
+
+C'est là qu'interviennent les *options*.
+Comme le nom l'indique, ce sont des _arguments optionnels_.
+Elles sont préfixées de deux _traits d'union_ (`--`).
+On peut choisir de leur associer ou non une valeur.
+
+----
+$ node print-text.js "salut ça va ?" --uppercase
+SALUT ÇA VA ?
+----
+
+Quand on n'associe pas de valeur à une option,
+on considère qu'elle équivaut à un <<../chapter-03/index.adoc#boolean,booléen>>
+de valeur `true`.
+
+[source,javascript]
+.print-text.js
+----
+include::{sourceDir}/print-text.js[]
+----
+<1> La condition est positive si l'on détecte `--uppercase` dans
+la liste des arguments
+
+Les _options_ se combinent très bien avec les _arguments_.
+Il faut les imaginer comme des interrupteurs.
+
+Dans d'autres situations, on a besoin de *passer une valeur à une option* :
+
+----
+$ node print-text-limit.js "salut ça va ?" --limit 2
+salut ça
+----
+
+L'exemple précédent illustre la césure d'une phrase à 2 mots
+lorsque l'option `--limit` est associée à la valeur `2`.
+
+
+[source,javascript]
+.print-text-limit.js
+----
+include::{sourceDir}/print-text-limit.js[]
+----
+<1> On récupère l'index de l'option `--limit` dans le tableau `process.argv`
+<2> On récupère la valeur de l'élément suivant `--limit` dans `process.argv`
+<3> La troncature est paramétrée en fonction de la valeur associée à `--limit`
+
+Au fond, *les options sont des repères pour les utilisateurs* de nos programmes.
+Elles leur permettent de s'interfacer avec leurs fonctionnalités.
+Un peu à la manière des différents boutons qu'on retrouve
+en façade d'une machine à laver.
+
+L'exemple suivant est totalement fictif mais il illustre comment
+on s'interfacerait avec une machine à laver
+si elle mettait à disposition en ligne de commande :
+
+----
+$ machine-a-laver P-ECO 40 --fast --no-dry --room kitchen
+----
+
+Ce qu'il faut en comprendre, c'est qu'on démarrerait la machine située
+dans la cuisine avec un programme économique _et_ à 40°C,
+en activant l'option rapide et _en désactivant_ l'option séchage.
+
+Nous verrons d'autres mises en situation pour
+<<../chapter-08/index.adoc#argv,passer des paramètres à une application en ligne de commande>>
+dans le <<../chapter-08/index.adoc#,chapitre 8>>.
+
+[[process.std]]
+Chaque processus système est doté de 3 flux de données :
+le flux d'*entrée* (`stdin`), le flux de *sortie* (`stdout`)
+et le flux d'*erreur* (`stderr`).
+
+Les flux standards peuvent être alimentés pendant la durée de vie du processus
+en utilisant peu de mémoire.
+On les utilisera pour *passer le résultat d'un autre programme*
+à notre script Node, pour *informer l'utilisateur* de notre programme
+mais aussi pour *consigner les erreurs*.
+
+Node expose ces flux standards via les variables `process.stdin` (entrée),
+`process.stdout` (sortie) et `process.stderr` (erreur).
+Chacune de ces variables possède des méthodes pour _écouter_ ce qu'il s'y passe,
+pour y _écrire_ du contenu et pour le _rediriger_ vers d'autres endroits.
+
+Commençons par l'utilisation de `process.stdout` pour écrire un message
+dans notre terminal :
+
+[source,bash]
+----
+$ node process/stdout.js
+un deuxtrois
+quatre
+----
+
+Le code source de `process/stdout.js` fait appel à la fonction
+`process.stdout.write` par deux fois. +
+On notera que le caractère `\n` symbolise un retour à la ligne
+(`\r\n` sous Windows) :
+
+[source,javascript]
+.process/stdout.js
+----
+include::{sourceDir}/process/stdout.js[]
+----
+
+Ça ne vous rappelle pas nos précédentes utilisations de la fonction
+`console.log` ?
+Pas étonnant puisque `console.log` se repose sur `process.stdout`
+(voir encadré ci-contre).
+
+
+[TIP]
+.[RemarquePreTitre]#Raccourci# Les fonctions `console.log` et `console.error`
+====
+La fonction d'affichage `console.log` écrit dans le flux de sortie
+`process.stdout`.
+Sans surprise, `console.error` écrit dans le flux d'erreur
+`process.stderr`.
+
+Elles ajoutent un _retour à la ligne_ et des options de formatage pour
+notre confort.
+
+On en parlera davantage dans la section <<console,console>>.
+====
+
+Quand on vers le flux de _sortie_ ou le flux d'_erreur_,
+on s'ouvre à l'analyse en continu de ce flux.
+Comment ?
+À l'aide d'utilitaires systèmes existants (`grep`, `awk` etc.)
+ou des programmes spécifiques (analyse de _logs_, etc.).
+
+On peut ainsi se concentrer sur un programme qui
+fait *juste ce dont on a besoin* sans être tenté·e de tout faire.
+On laisse le travail de spécialisation à d'autres programmes.
+Ils pourraient être écrits en Node d'ailleurs…
+
+Essayons d'ailleurs de _filtrer_ la sortie de l'exemple précédent
+sans écrire une ligne de code de plus.
+Le programme _grep_ ([URL]#https://fr.wikipedia.org/wiki/Grep#)
+est fourni par défaut sur les systèmes UNIX (dont Linux et macOS) font partie.
+Il ne retourne que les ligne contenant un motif
+donné en <<process.arv,argument>> :
+
+[source,bash]
+----
+$ node process/stdout.js | grep 'tre'
+qua<i>tre</i>
+----
+
+La _sortie standard_ de `process/stdout.js` est devenue l'_entrée standard_
+de `grep` grâce à l'utilisation du _pipe_ (`|`).
+
+C'est le moment idéal de regarder du côté de l'_entrée standard_ de Node.
+Implémentons quelque chose qui passe le message d'entrée en majuscules :
+
+[source,bash]
+----
+$ echo "un deuxtrois\nquatre" | node process/stdin-uppercase.js
+UN DEUXTROIS
+QUATRE
+----
+
+On aurait aussi pu réutiliser la _sortie_ de l'exemple `process/stdout.js` :
+
+[source,bash]
+----
+$ node process/stdout.js | node process/stdin-uppercase.js
+UN DEUXTROIS
+QUATRE
+----
+
+Voyons comment ça fonctionne sous le capot :
+
+[source,javascript]
+.process/stdin-uppercase.js
+----
+include::{sourceDir}/process/stdin-uppercase.js[]
+----
+<1> Chaque afflux de donnée appelle notre fonction en lui fournissant un seul
+paramètre contenant les données en question
+<2> Le paramètre est de <<buffer,type Buffer>> — on souhaite le transformer en
+<<../chapter-03/index.adoc#string,chaîne de caractères>>
+<3> La _chaîne de caractères_ est transformable en majuscules, que l'on écrit
+dans le flux de sortie
+
+Terminons avec la _sortie erreur_ (`process.stderr`).
+Elle fonctionne de manière identique à la _sortie standard_ (`process.stdout`).
+S'il n'y a visuellement aucune différence, la _sortie erreur_ écrit son contenu
+dans un canal différent — un _descripteur_ différent. +
+On l'utilise pour *déboguer des programmes*, pour *lister des erreurs* ou des
+contenus que l'on souhaite dissocier de la sortie standard.
+
+L'exemple suivant affiche un nombre toutes les demi-secondes et l'état
+du compteur de nombres tous les 10 affichages :
+
+[source,bash]
+----
+$ node process/stdout-long.js
+7
+24
+3
+19
+25
+Compteur = 5
+22
+...
+----
+
+[NOTE]
+.[RemarquePreTitre]#Souvenez-vous# Interrompre un programme avec kbd:[Ctrl+C]
+====
+Un programme peut être interrompu à tout moment en utilisant la combinaison
+de touches kbd:[Ctrl+C].
+====
+
+[source,javascript]
+.process/stdout-long.js
+----
+include::{sourceDir}/process/stdout-long.js[]
+----
+<1> Écrit un nombre entre 0 et 30 dans la _sortie standard_
+<2> On incrémente un compteur en plus de vérifier s'il est bien divisible par 5
+<3> Écrit l'état du compteur dans la _sortie erreur_
+
+On pourrait décider de n'afficher que le flux d'erreur.
+Pour cela on _redirige_ la sortie standard avec l'opérateur `>`
+vers un fichier :
+
+[source,bash]
+----
+$ node process/stdout-long.js > stdout.txt
+Compteur = 5
+Compteur = 10
+...
+----
+
+Si on ouvrait le fichier `stdout.txt`, on verrait
+la liste de nombre générée par notre programme. +
+La *redirection a écrit le contenu dans ce fichier* au lieu de notre terminal.
+
+En maitrisant les flux standards, on peut *créer des programmes modulaires*
+qui consomment du contenu sans avoir à connaître leur provenance.
+*Les données peuvent aller et venir* _depuis_ et _vers_ des programmes externes,
+des fichiers ou des sites web distants.
+
+Pour mieux comprendre la logique de _flux continu_ que l'on vient de découvrir,
+je vous invite à lire la section liée au <<stream,module `stream`>>
+de ce même chapitre.
+On y détaillera la liste des événements à écouter ainsi que les différentes
+méthodes d'écriture, de pause et de lecture.
+
+[[process.on]]
+Un processus système reçoit et émet des données mais il peut aussi
+*écouter des événements* grâce à la fonction `process.on`.
+
+[source,javascript]
+.process/exit.js
+----
+include::{sourceDir}/process/exit.js[]
+----
+
+L'exemple ci-dessus illustre l'événement `exit`.
+Cet événement est déclenché quand le processus se termine.
+À ce titre, un *code de sortie* est fourni pour signaler l'état dans
+lequel le programme se termine — bien, ou pas très bien, et pourquoi.
+On parlera davantage du code de sortie et de leur signification
+dans la section ci-après, <<process.exit,Mettre fin au processus>>.
+
+Essayons de lancer l'exemple précédent pour voir :
+
+[source,bash]
+----
+$ node process/exit.js
+Le processus démarre
+Le processus termine avec le code 0
+----
+
+Tout s'est passé correctement.
+Le _code de sortie_ équivaut à `0` donc.
+
+Si le programme venait à se terminer de manière imprévue, nous pouvons
+supposer que le code serait différent. +
+L'exemple suivant provoque volontairement une erreur en faisant
+référence à une variable qui n'existe pas :
+
+[source,javascript]
+.process/exit-error.js
+----
+include::{sourceDir}/process/exit-error.js[]
+----
+
+Que verrions-nous si on lançait le script ?
+
+[source,bash]
+----
+$ node process/exit-error.js
+Le processus termine avec le code 1
+
+ReferenceError: jenexistepas is not defined
+    at Object.<anonymous> (/.../nodebook/chapter-04/examples/process/exit-error.js:5:13)
+----
+
+Cette fois-ci le code de sortie est `1`.
+Cela correspond à une _erreur qui n'a pas été capturée_.
+Le reste du message décrit _pourquoi_ l'erreur s'est manifestée.
+
+[TIP]
+.[RemarquePreTitre]#Terminal# Code de sortie
+====
+Dans un terminal, la variable `$?` contient le code de sortie
+de la dernière commande exécutée.
+Sa valeur devrait être équivalente à celle passée en argument
+de l'événement `process.on('exit')`.
+
+[source,bash]
+----
+$ echo $?
+----
+====
+
+On est maintenant capable de déterminer si un programme s'arrête
+normalement ou à cause d'une erreur qu'on aurait laissé
+passer sans faire exprès.
+
+On peut écouter d'autres événements liés au cycle de vie de nos applications :
+
+
+[cols="1,1,2",options="header"]
+.Événements liés au cycle de vie du processus Node
+|===
+| Événement
+| Paramètres
+| Raison du déclenchement
+
+| `exit`
+| `(exitCode)`
+| Le programme se termine et va rendre la main au système d'exploitation.
+
+| `unhandledRejection`
+| `(reason, promise)`
+| Une <<../chapter-03/index.adoc#promise,promesse>> a échoué
+et n'a pas été capturée à l'aide de la méthode `.catch()`.
+
+| `uncaughtException`
+| `(error)`
+| Une erreur s'est produite et n'a pas été capturée.
+Si rien n'est fait, le processus va s'arrêter avec un code erreur. +
+*Note* : il vaut mieux qu'un programme s'arrête en cas de problème.
+
+| `message`
+| `(message, sourceSocket)`
+| Un <<child_process,processus parent>> nous envoie un message.
+|===
+
+[[signals]]
+La méthode `process.on` est à l'écoute des *signaux système*.
+Vous vous souvenez de la combinaison de touches kbd:[Ctrl+C]
+utilisée précédemment ?
+Cette combinaison émet en réalité un _signal d'interruption_.
+Un signal d'interruption répond à l'identifiant `SIGINT`.
+
+Node gère ces signaux pour nous.
+Mais on peut aussi se mettre à les écouter et décider de faire autrement
+que son comportement par défaut.
+
+On pourrait par exemple afficher l'heure de l'arrêt
+du processus avant de rendre la main :
+
+[source,javascript]
+.process/interrupt.js
+----
+include::{sourceDir}/process/interrupt.js[]
+----
+<1> Un premier message s'affichera au démarrage du script
+<2> Cette <<../chapter-03/index.adoc#function,fonction>> se déclenche lors de
+la réception du _signal d'interruption_ (`SIGINT`), lorsque le système
+d'exploitation lui relaie notre combinaison de touches kbd:[Ctrl+C]
+<3> La fonction <<process.exit,`process.exit`>> nous permet de mettre fin
+manuellement au processus (voir section ci-après)
+<4> Sinon ce _timer_ mettra fin au processus au bout de 5 secondes
+
+En pratique le résultat ressemblerait à ceci :
+
+[source,bash,subs="macros"]
+----
+$ node process/interrupt.js
+2018-03-16T10:58:32.855Z - Processus démarré
+kbd:[Ctrl+C]
+2018-03-16T10:58:40.000Z - Processus terminé (manuellement)
+----
+
+En plus du signal `SIGINT`, Node nous relaie les signaux suivants :
+
+[cols="1,2",options="header"]
+.Événements liés aux _signaux_ systèmes
+|===
+| Événement   | Raison du déclenchement
+| `SIGINT`    | Interruption de la commande en cours
+| `SIGTERM`   | Demande au processus de s'arrêter
+| `SIGUSR1`   | Node reçoit le signal d'attacher l'<<inspect,inspecteur>>
+| `SIGHUP`    | Le terminal est en train d'être fermé
+| `SIGWINCH`  | Le terminal a été redimensionné
+|===
+
+`SIGKILL` est un autre événement important mais on ne peut _pas_ l'écouter.
+Quand il est émis, le processus doit être arrêté quoiqu'il arrive.
+On l'utilise justement en cas de dernier recours, quand `SIGINT`
+et `SIGTERM` ne font pas effet (à cause d'un bug dans notre code,
+une ressource qui ne rend pas la main etc.).
+
+[[process.exit]]
+*Un processus Node se termine quand il n'a plus d'instructions à exécuter*.
+Un processus Node peut être terminé via
+l'<<signals,émission d'un signal extérieur>>.
+Mais on peut aussi y mettre fin _de l'intérieur_ par l'intermédiaire
+de la fonction `process.exit`.
+
+On utilise cette fonction car le *programme a atteint son but*.
+On le fait aussi lorsqu'on intercepte une erreur en souhaitant
+effectuer un *traitement spécial avant de mettre fin au processus*.
+Il se peut aussi qu'il vaille mieux terminer l'application en cas de perte
+d'accès à des ressources distantes (base de données, stockage de fichiers, etc)
+et ce, *au lieu de présenter une application web instable*.
+
+L'exemple suivant illustre que l'on souhaite clôturer notre script
+si on trouve le bon nombre (un peu comme au jeu _MindMaster_) :
+
+[source,bash,subs="macros"]
+----
+$ node process/exit-devinette.js
+JEU ! Trouve le nombre auquel je pense :
+10kbd:[ENTER]
+Hm hm, essaie encore.
+3kbd:[ENTER]
+Tu as trouvé, bravo !
+----
+
+Dans cet exemple, on écoute l'utilisateur de manière indéfinie, jusqu'à ce qu'il
+ou elle trouve le bon nombre.
+Lorsque c'est le cas, on peut interrompre le programme en transmettant
+un code de sortie _de réussite_ : le code `0` (zéro).
+
+[source,javascript]
+.process/exit-devinette.js
+----
+include::{sourceDir}/process/exit-devinette.js[]
+----
+<1> Le nombre secret est `3` par défaut, sauf s'il est passé
+<<process.argv,en argument>> du script
+<2> Cette fonction est invoquée à chaque saisie suivie de l'utilisation
+de la touche kbd:[ENTER]
+<3> Cette ligne met fin immédiatement au script, après avoir affiché un
+message de félicitations
+<4> Ce message s'affichera à chaque saisie erronée, jusqu'à ce que le nombre
+secret soit trouvé
+
+On pourrait tout à fait imaginer une variante de ce script dans laquelle
+on limiterait le nombre de mauvaises réponses.
+Lorsqu'on attendrait cette limite, le programme utiliserait un code de sortie
+différent de zéro.
+Le code `9` ferait l'affaire puisqu'il indique qu'un _argument invalide_ a été
+passé.
+
+[NOTE]
+.[RemarquePreTitre]#Avancé# `process.abort`
+====
+À la manière de `process.exit`, le programme est terminé immédiatement.
+On l'utilise quand quelque chose d'inopiné et nécessitant un débogage
+avancé se produit.
+
+La fonction génère un fichier de débogage qui contient tout le contenu
+de la mémoire utilisée par Node (_core file_).
+Un truc assez compliqué à analyser pour le commun des mortels.
+Suffisamment pour qu'on passe notre chemin à ce stade.
+====
+
 
 [NOTE]
 .[RemarquePreTitre]#Documentation# `process`
@@ -2465,6 +2652,355 @@ La documentation du module `stream` est disponible sur le site officiel de Node 
 ====
 
 
+
+[[modules]]
+== Créer ses propres modules Node
+
+Le chargement des <<modules-builtin,modules de base>> nous a aidé à utiliser
+des fonctionnalités fournies directement par Node.
+Nous pouvons aussi exploiter ce mécanisme pour
+*organiser son code dans plusieurs fichiers* et les charger depuis d'autres fichiers.
+On retrouve des mécanismes comparables en Python (`import`), PHP (`require`)
+et Ruby (`require` et `require_relative`).
+
+[source,javascript]
+.modules/enfant.js
+----
+include::{sourceDir}/modules/enfant.js[]
+----
+
+Le fichier d'exemple `modules/enfant.js` contient une variable.
+Essayons de la réutiliser dans le fichier `modules/parent.js`
+à l'aide de la fonction `require()` :
+
+[source,javascript]
+.modules/parent.js
+----
+include::{sourceDir}/modules/parent.js[]
+----
+<1> Contrairement aux <<modules-builtin,modules de base>>,
+on passe un *chemin relatif au fichier courant*
+<2> Est-ce que cela affichera la valeur de la variable `number` ?
+<3> Mais au fond, que contient notre variable `enfant` ?
+
+Exécutons le fichier `modules/parent.js` avec Node pour en avoir le cœur net :
+
+[source,bash]
+----
+$ node modules/parent.js
+undefined
+{}
+----
+
+De là nous pouvons en tirer un apprentissage important :
+dans un module, *tout est privé*.
+On ne peut pas voir ce qu'il y a _dans_ un module depuis _l'extérieur_.
+
+Complétons maintenant l'usage de `require()` avec `module.exports` :
+
+[source,javascript]
+.modules/enfant-export.js
+----
+include::{sourceDir}/modules/enfant-export.js[]
+----
+
+Nous avons assigné la variable `number` à `module.exports`.
+Comment est-ce que ça se traduit lorsqu'on l'appelle avec `require()` ?
+
+[source,javascript]
+.modules/parent-export.js
+----
+include::{sourceDir}/modules/parent-export.js[]
+----
+<1> Affiche `undefined`
+<2> Affiche `42`
+
+Cette expression permet de *rendre explicite ce qui est exporté par un module*.
+Les éléments exportés sont visibles depuis l'extérieur.
+Par défaut, `module.exports` est un objet.
+
+Essayons maintenant d'exporter plusieurs valeurs en une seule fois :
+
+[source,javascript]
+.modules/enfant-export-multiple.js
+----
+include::{sourceDir}/modules/enfant-export-multiple.js[]
+----
+
+Nous avons créé deux nouvelles valeurs : `number` (un nombre) et
+`random` (une fonction).
+
+[source,javascript]
+.modules/parent-export-multiple.js
+----
+include::{sourceDir}/modules/parent-export-multiple.js[]
+----
+<1> Affiche `42`
+<2> Affiche un nombre aléatoire entre 0 et 100
+<3> Réexporte la fonction `enfant.number`
+
+
+[TIP]
+.[RemarquePreTitre]#Raccourci# Exporter un objet
+====
+L'utilisation de la syntaxe d'objet raccourcie évite la répétition
+du nom des variables lors de l'export.
+
+[source,javascript]
+----
+include::{sourceDir}/modules/enfant-export-shorthand.js[]
+----
+<1> Liste des valeurs retournée par l'objet `module.exports`
+
+====
+
+En résumé, *pour Node tout fichier `.js` est un module*.
+Le mécanisme d'import et d'export est basé sur des chemins de fichiers.
+Si on n'utilise pas de chemin de fichiers, Node pense que l'on fait
+référence à un <<modules-builtin,module de base>> ou à un
+<<../chapter-05/index.adoc#modules,module npm>>
+(cf. <<../chapter-05/index.adoc#,chapitre 5>>).
+
+[NOTE]
+.[RemarquePreTitre]#Histoire# Modules _CommonJS_
+====
+Le mécanisme de modules implémenté dans Node est _basé sur_ la
+spécification _CommonJS_, à peu de choses près.
+
+[URL]#http://www.commonjs.org/specs/modules/1.0/#
+====
+
+=== Ce qu'il faut savoir sur `require()`
+
+Lorsqu'on fait appel à la fonction `require()`, Node effectue la *liste d'actions* suivantes :
+
+. résolution du chemin vers le module en question
+. lecture du fichier
+. interprétation du code
+. exécution du code
+. retourne la valeur de `module.exports`
+
+L'utilisation de `require()` est *synchrone* et *bloquante*.
+Si l'exécution du code dans le module chargé prend du temps
+— code _lent_, accès à une ressource distante — le chargement
+du module en prendra un coup. +
+Il vaut mieux ranger les appels _asynchrones_ dans des fonctions
+et appeler ces fonctions de manière explicite, _après_ avoir chargé le module.
+
+`require()` permet de *charger 3 types de modules* :
+
+. des *fichiers relatifs au module actuel* +
+  `require('./module.js')` cherchera le fichier `module.js` dans le _répertoire courant_.
+  `require('../module.js')` cherchera `module.js` dans le _répertoire parent_.
+  C'est le cas que l'on a vu jusqu'à présent.
+. des *modules Node* +
+  Ils sont disponibles avec chaque installation de Node.
+  On en parle plus en détail dans la section <<modules-builtin,modules Node>>
+  de ce même chapitre.
+. des *modules npm* +
+  Ils sont disponibles avec une étape d'installation supplémentaire.
+  On en parle plus en détails dans le <<../chapter-05/index.adoc#,chapitre 5>>
+  consacré à _npm_.
+
+*Node met les modules en cache*.
+Si on inclut deux fois le même module, le deuxième import ira directement
+à la dernière étape de la _liste d'actions_.
+Ça implique aussi que si le module modifie une de ses variables privée,
+cette modification impactera le deuxième import.
+
+Voici un module illustrant une variable privée et une variable exportée :
+
+[source,javascript]
+.modules/increment.js
+----
+include::{sourceDir}/modules/increment.js[]
+----
+<1> Variable privée
+<2> `increment` est rendue publique à cet endroit
+— la fonction incrémente la variable privée `counter`
+
+Nous allons importer ce module par deux fois, dans deux variables différentes :
+
+[source,javascript]
+.modules/double-import.js
+----
+include::{sourceDir}/modules/double-import.js[]
+----
+<1> Affiche `1`
+<2> Affiche `2`
+<3> Affiche… `1` ou `3` ?
+
+Quel est le verdict à votre avis ?
+Rien ne vaut une vérification, quitte à remettre en question
+notre avis initial :
+
+[source,bash]
+----
+$ node modules/double-import.js
+1
+2
+3
+----
+
+Il faut garder cette information en tête lorsqu'on importe un module.
+Sans oublier que ce mécanisme se transforme en atout afin de partager
+une variable entre plusieurs modules.
+Pratique dans le cas d'un _cache de données_ ou d'une _configuration partagée_.
+
+Enfin, plusieurs *problèmes* peuvent apparaitre lors du chargement d'un module :
+
+- le chemin vers le module est erroné ;
+- le module contient une erreur de syntaxe.
+
+Node lancera une <<errors,exception>> et
+le programme s'arrêtera aussitôt.
+
+[NOTE,subs="attributes"]
+.[RemarquePreTitre]#Documentation# Module _modules_
+====
+L'intégralité des variables, fonctions et classes du module `modules`
+est documentée sur le site web du projet Node.
+La documentation contient des informations à jour et qui ne sont pas
+forcément listées dans cet ouvrage.
+
+[URL]#https://nodejs.org/docs/latest-{nodeCurrentVersion}.x/api/modules.html#
+====
+
+[[esm]]
+=== Le futur : les modules ECMAScript
+
+Pendant que Node et de son mécanisme de module montaient en puissance,
+les navigateurs web étaient en attente d'une solution native.
+Enfin… la spécification des modules ECMAScript a été validée en 2013
+mais les navigateurs ont tardé à implémenter le mécanisme.
+
+La plupart d'entre eux ont implémenté les modules ECMAScript en 2017.
+C'est le cas du navigateur web Chrome et de
+sa <<../chapter-01/index.adoc#v8,machine virtuelle V8>>.
+
+[WARNING]
+.[RemarquePreTitre]#Attention# Fonctionnalité expérimentale
+====
+Si la syntaxe des modules ECMAScript est standardisée,
+ce n'est pas encore aussi stable du côté de Node.
+
+Les modules ECMAScript sont suffixés de l'extension `.mjs`
+et nécessitent l'utilisation de l'<<options,option de démarrage>>
+`--experimental-modules`.
+====
+
+Reprenons l'exemple `modules/increment.js` pour le
+transformer en module ECMAScript :
+
+[source,javascript]
+.modules/increment.mjs
+----
+include::{sourceDir}/modules/increment.mjs[]
+----
+<1> Export _par défaut_
+<2> Export _nommé_
+
+La syntaxe `export` sert à… exporter des variables.
+Cette syntaxe se combine avec `import` :
+
+[source,javascript]
+.modules/ecmascript.mjs
+----
+include::{sourceDir}/modules/ecmascript.mjs[]
+----
+<1> On n'importe ici que la _valeur par défaut_
+
+Il ne nous reste maintenant plus qu'à exécuter notre script `.mjs`
+pour observer le résultat.
+On notera l'utilisation de `--experimental-modules` :
+
+[source,bash]
+----
+$ node --experimental-modules modules/ecmascript.mjs
+(node:35074) ExperimentalWarning: The ESM module loader is experimental.
+1
+----
+
+Reprenons cet exemple pour _importer plusieurs exports d'un coup_ :
+
+[source,javascript]
+.modules/ecmascript-multiple.mjs
+----
+include::{sourceDir}/modules/ecmascript-multiple.mjs[]
+----
+<1> On importe la _valeur par défaut_ ainsi qu'une _valeur nommée_ —
+c'est particulièrement pratique pour sélectionner avec finesse
+ce que l'on veut utiliser d'un module
+<2> La fonction `reset` remet le compteur à zéro
+
+On notera au passage qu'on utilise la
+<<../chapter-03/index.adoc#object-destructuring,destructuration d'objet>>
+pour extraire un _export nommé_ depuis un module ECMAScript.
+
+[source,bash]
+----
+$ node --experimental-modules modules/ecmascript-multiple.mjs
+(node:35074) ExperimentalWarning: The ESM module loader is experimental.
+2
+1
+----
+
+La fonction `reset` a bien remis à zéro le compteur entre temps.
+Objectif accompli !
+
+Résumons les différences notables avec le mécanisme de modules Node :
+
+- tous les appels à `import` doivent se faire en début de fichier
+- on ne peut pas utiliser `import` de manière dynamique
+(dans un `if/else` par exemple)
+- on peut exporter une _variable par défaut_ *et* plusieurs _variables nommées_
+- on peut importer des modules Node depuis un module ECMAScript —
+l'inverse n'est pas vrai
+- les fichiers doivent être suffixés par `.mjs`
+
+Ce dernier point est le plus embêtant car il ralentit l'interopérabilité
+avec les modules destinés au développement web frontend.
+Ces derniers contiennent les déclarations `import` et `export` mais…
+dans des fichiers `.js`.
+
+L'histoire nous dira si les modalités s'assoupliront avec le temps.
+
+[TIP]
+.[RemarquePreTitre]#npm# Module `esm`
+====
+Le <<../chapter-05/index.adoc#modules,module npm>> `esm`
+([URL]#https://npmjs.com/esm#) a pris le parti de déblayer le chemin
+de l'interopérabilité.
+Il suffit de charger le module `esm` avant de démarrer un script Node,
+peu importe son mécanisme de chargement de modules :
+`esm` rendra le chargement des modules totalement transparent.
+
+[source,bash]
+----
+$ node -r esm modules/ecmascript.js
+1
+$ node -r esm modules/ecmascript.mjs
+1
+----
+
+Pour en savoir plus sur l'option `-r`, rendez-vous
+dans la section <<require,précharger un module>>
+
+====
+
+
+[NOTE,subs="attributes"]
+.[RemarquePreTitre]#Documentation# Modules ECMAScript
+====
+L'intégralité des fonctionnalités des modules ECMAScript
+est documentée sur le site web du projet Node.
+La documentation contient des informations à jour et qui ne sont pas
+forcément listées dans cet ouvrage.
+
+[URL]#https://nodejs.org/docs/latest-{nodeCurrentVersion}.x/api/esm.html#
+====
+
+
 [[errors]]
 == S'en sortir quand ça ne se passe pas comme prévu
 
@@ -2474,7 +3010,7 @@ La documentation du module `stream` est disponible sur le site officiel de Node 
 
 ----
 TypeError: Cannot read property 'on' of undefined
-  at Object.<anonymous> (/Users/oncletom/workspace/nodebook/chapter-04/examples/process-stin-uppercase.js:2:14)
+  at Object.<anonymous> (/Users/oncletom/workspace/nodebook/chapter-04/examples/process/stin-uppercase.js:2:14)
   at Module._compile (module.js:643:30)
   at Object.Module._extensions..js (module.js:654:10)
   at Module.load (module.js:556:32)
@@ -2491,16 +3027,17 @@ TypeError: Cannot read property 'on' of undefined
 console.log(jenexistepas);
             ^
 ReferenceError: jenexistepas is not defined
-    at Object.<anonymous> (/Users/oncletom/workspace/nodebook/chapter-04/examples/process-exit-error.js:5:13)
+    at Object.<anonymous> (/Users/oncletom/workspace/nodebook/chapter-04/examples/process/exit-error.js:5:13)
     at Module._compile (module.js:643:30)
 ----
 
 
-[[process.api]]
-== Comprendre la notion de _processus_
+== Les différences de JavaScript entre Node et les navigateurs web
 
-Le système d'exploitation crée un nouveau processus dès lors que l'on
-fait appel à l'interpréteur `node`.
+=== Node est un processus système
+
+Le système d'exploitation crée un nouveau processus dès
+qu'on exécute le programme `node`.
 Ce processus peut être de _courte durée_ ou de _longue durée_,
 selon qu'il dure quelques secondes ou plusieurs heures… voire
 plusieurs jours ou un temps indéfini.
@@ -2512,8 +3049,6 @@ ou conditionnées par l'écoute d'événements extérieurs (_programmation évé
 
 Le processus s'arrête en cas d'erreur, lorsqu'il n'y a plus d'opération
 à effectuer ou en cas d'interruption volontaire.
-
-=== Le coût d'un processus
 
 Démarrer un processus Node a un coût incompressible en ressources machine :
 environ *30Mo de RAM* et *environ 40 millisecondes de CPU* avant d'exécuter nos
@@ -2529,673 +3064,17 @@ Autrement dit, si le processus Node partage le même CPU qu'une base de données
 utilisée par d'autres programmes, la rapidité de traitement de notre
 application sera affectée par la quantité de ressources disponibles pour ce CPU.
 
-=== La variable `process`
+=== La variable globale `window`
 
-La variable `process` est une variable créée par l'environnement
-d'exécution Node.
-Elle est dite _globale_ car elle est accessible et partagée par tous
-les <<modules,modules>>.
+y'en n'a pas, et donc pas de window.document, etc.
 
-Cette variable est de <<../chapter-03/index.adoc#object,type _objet_>>.
-Elle contient :
+à la place y'a `global`
 
-- la liste des <<process.env,variables d'environnement>> ;
-- la liste des <<process.argv,arguments d'exécution>> ;
-- les <<standard-streams,flux standards>> (entrée, sortie, erreur) ;
-- des informations à propos de Node (version, support long terme) ;
-- des informations système (plate-forme, identifiant, groupe de permissions, etc.) ;
-- des méthodes pour interrompre le processus.
+Cf. https://nodejs.org/docs/latest-v8.x/api/globals.html
 
-Reformulé autrement, la variable `process` renvoie des informations
-sur l'environnement dans lequel le script est exécuté.
-Notre code peut être interprété par Node
-sur plusieurs types de machines
-(ordinateur récent ou fatigué, Raspberry Pi, etc.),
-sur différents systèmes d'exploitation (Windows, Linux, macOS, etc.). +
-Nous avons ainsi tout le loisir d'adapter notre code
-à ces différents environnements.
+=== Le mécanisme de modules
 
-[NOTE,subs="attributes"]
-.[RemarquePreTitre]#Documentation# Module _process_
-====
-L'intégralité des variables, fonctions et classes du module `process`
-est documentée sur le site web du projet Node.
-La documentation contient des informations à jour et qui ne sont pas
-forcément listées dans cet ouvrage.
-
-[URL]#https://nodejs.org/docs/latest-{nodeCurrentVersion}.x/api/process.html#
-====
-
-[[process.env]]
-==== Variables d'environnement
-
-Les variables d'environnement sont des
-*variables définies au niveau du système d'exploitation*.
-Elles contiennent des informations comme le _répertoire courant_, langue du système d'exploitation, l'utilisateur système courant, le type de terminal, les emplacements d'installation des exécutables, etc.
-
-On retrouve ces variables sous la forme d'un
-<<../chapter-03/index.adoc#object,objet ECMAScript>> nommé `process.env` :
-
-[source,bash]
-----
-$ node -p 'process.env'
-{ ITERM_PROFILE: 'Default',
-  LANG: 'en_GB.UTF-8',
-  PWD: '/Users/oncletom/workspace/nodebook',
-  SHELL: '/bin/zsh',
-  TERM_PROGRAM_VERSION: '3.1.5',
-  TERM_PROGRAM: 'iTerm.app',
-  ...
-}
-----
-
-Nous pouvons créer des variables d'environnement pour
-*transmettre des informations contextuelles* à nos programmes :
-des chemins d'accès à une base de données, si on est en situation de test
-ou de production, l'emplacement de fichiers nécessaires au fonctionnement
-de notre programme, etc.
-
-Par exemple et par convention, la variable `NODE_ENV` est utilisée pour indiquer au programme
-s'il est lancé dans le cadre du développement, de l'exécution des tests
-ou s'il tourne sur le serveur de production.
-
-Variable d'environnement éphémère::
-La variable n'existe que pendant la durée de vie du programme.
-La définition `CLÉ=valeur` est placée sur la même ligne que le programme
-en question.
-[source,bash]
-----
-$ NODE_ENV=production node env-var.js
-mode : production
-----
-Variable d'environnement permanente::
-La variable existe pendant la durée de la session
-grâce à l'opérateur `export` sous Linux et macOS et
-avec l'opérateur `set` sous Windows. +
-La définition `export CLÉ=valeur` est placée sur sa propre ligne.
-Elle restera accessible à _tout programme_ jusqu'à la fin de la session
-ou jusqu'à ce qu'on efface la variable.
-[source,bash]
-----
-$ export NODE_ENV=production
-$ node env-var.js
-mode : production
-----
-
-[TIP]
-.[RemarquePreTitre]#Revenir en arrière# Effacer une variable d'environnement
-====
-L'utilisation de l'opérateur `unset` dans un terminal efface le contenu
-d'une variable d'environnement.
-Pratique pour ne pas laisser de traces !
-
-[source,bash]
-----
-$ export NODE_ENV=dev
-$ echo $NODE_ENV
-$ unset NODE_ENV
-$ echo $NODE_ENV
-----
-====
-
-Voici le contenu du fichier `env-var.js` utilisé dans les exemples précédents :
-
-[source%interactive,javascript]
-.env-var.js
-----
-include::{sourceDir}/env-var.js[]
-----
-
-On notera que son comportement s'adapte à la _présence_ et à la _valeur_
-de la variable d'environnement `NODE_ENV`.
-Elle est accessible dans Node en tant que `process.env.NODE_ENV`.
-
-[source,bash]
-----
-$ NODE_ENV=dev node env-var.js
-On est en mode développement.
-mode : dev
-----
-
-Nous verrons d'autres mises en situation des variables d'environnement pour
-<<../chapter-06/index.adoc#app-configuration,configurer une application web>>
-dans le <<../chapter-06/index.adoc#,chapitre 6>> et pour
-<<../chapter-08/index.adoc#debug,déboguer une application en ligne de commande>>
-dans le <<../chapter-08/index.adoc#,chapitre 8>>.
-
-[[process.argv]]
-==== Arguments d'exécution
-
-Les arguments d'exécution sont des morceaux d'information transmis
-à un script Node.
-On les place à la droite du nom du fichier, comme illustré dans cet exemple :
-
-----
-$ node print-first.js salut
-"salut"
-----
-
-On utilise les _arguments_ pour affiner le comportement d'un programme.
-Je pense par exemple au numéro du port sur lequel lancer un serveur web,
-une liste de fichiers à traiter ou
-encore de fonctionnalités à activer ou à désactiver.
-
-Il faut imaginer les arguments comme des *paramètres de fonction*,
-accessibles dans un programme Node dans
-le <<../chapter-03/index.adoc#array,tableau>> `process.argv` :
-
-[source,javascript]
-.print-first.js
-----
-include::{sourceDir}/print-first.js[]
-----
-
-Les deux premiers éléments de `process.argv` sont rarement utilisés.
-Ils correspondent respectivement à l'emplacement de l'exécutable Node
-et à l'emplacement du script.
-
-Tous les autres arguments sont accessibles à partir de l'index 2 de
-`process.argv`, dans l'ordre où ils sont placés :
-
-----
-$ node print-first.js salut ça va ?
-"salut"
-----
-
-Le script `print-first.js` affiche le premier argument.
-On peut en conclure que les arguments sont séparés par le caractère "espace".
-
-Dans le cas où un argument doit contenir un espace, on l'encadre alors
-entre guillemets :
-
-----
-$ node print-first.js "salut ça va ?" "oui et toi ?"
-"salut ça va ?"
-----
-
-L'inconvénient des arguments est que leur ordre compte
-et qu'il devient difficile de connaitre leur rôle sans se référer
-au manuel d'utilisation.
-
-C'est là qu'interviennent les *options*.
-Comme le nom l'indique, ce sont des _arguments optionnels_.
-Elles sont préfixées de deux _traits d'union_ (`--`).
-On peut choisir de leur associer ou non une valeur.
-
-----
-$ node print-text.js "salut ça va ?" --uppercase
-SALUT ÇA VA ?
-----
-
-Quand on n'associe pas de valeur à une option,
-on considère qu'elle équivaut à un <<../chapter-03/index.adoc#boolean,booléen>>
-de valeur `true`.
-
-[source,javascript]
-.print-text.js
-----
-include::{sourceDir}/print-text.js[]
-----
-<1> La condition est positive si l'on détecte `--uppercase` dans
-la liste des arguments
-
-Les _options_ se combinent très bien avec les _arguments_.
-Il faut les imaginer comme des interrupteurs.
-
-Dans d'autres situations, on a besoin de *passer une valeur à une option* :
-
-----
-$ node print-text-limit.js "salut ça va ?" --limit 2
-salut ça
-----
-
-L'exemple précédent illustre la césure d'une phrase à 2 mots
-lorsque l'option `--limit` est associée à la valeur `2`.
-
-
-[source,javascript]
-.print-text-limit.js
-----
-include::{sourceDir}/print-text-limit.js[]
-----
-<1> On récupère l'index de l'option `--limit` dans le tableau `process.argv`
-<2> On récupère la valeur de l'élément suivant `--limit` dans `process.argv`
-<3> La troncature est paramétrée en fonction de la valeur associée à `--limit`
-
-Au fond, *les options sont des repères pour les utilisateurs* de nos programmes.
-Elles leur permettent de s'interfacer avec leurs fonctionnalités.
-Un peu à la manière des différents boutons qu'on retrouve
-en façade d'une machine à laver.
-
-L'exemple suivant est totalement fictif mais il illustre comment
-on s'interfacerait avec une machine à laver
-si elle mettait à disposition en ligne de commande :
-
-----
-$ machine-a-laver P-ECO 40 --fast --no-dry --room kitchen
-----
-
-Ce qu'il faut en comprendre, c'est qu'on démarrerait la machine située
-dans la cuisine avec un programme économique _et_ à 40°C,
-en activant l'option rapide et _en désactivant_ l'option séchage.
-
-Nous verrons d'autres mises en situation pour
-<<../chapter-08/index.adoc#argv,passer des paramètres à une application en ligne de commande>>
-dans le <<../chapter-08/index.adoc#,chapitre 8>>.
-
-[[process.std]]
-==== Les flux standards
-
-Chaque processus système est doté de 3 flux de données :
-le flux d'*entrée* (`stdin`), le flux de *sortie* (`stdout`)
-et le flux d'*erreur* (`stderr`).
-
-Les flux standards peuvent être alimentés pendant la durée de vie du processus
-en utilisant peu de mémoire.
-On les utilisera pour *passer le résultat d'un autre programme*
-à notre script Node, pour *informer l'utilisateur* de notre programme
-mais aussi pour *consigner les erreurs*.
-
-Node expose ces flux standards via les variables `process.stdin` (entrée),
-`process.stdout` (sortie) et `process.stderr` (erreur).
-Chacune de ces variables possède des méthodes pour _écouter_ ce qu'il s'y passe,
-pour y _écrire_ du contenu et pour le _rediriger_ vers d'autres endroits.
-
-Commençons par l'utilisation de `process.stdout` pour écrire un message
-dans notre terminal :
-
-[source,bash]
-----
-$ node process-stdout.js
-un deuxtrois
-quatre
-----
-
-Le code source de `process-stdout.js` fait appel à la fonction
-`process.stdout.write` par deux fois. +
-On notera que le caractère `\n` symbolise un retour à la ligne
-(`\r\n` sous Windows) :
-
-[source,javascript]
-.process-stdout.js
-----
-include::{sourceDir}/process-stdout.js[]
-----
-
-Ça ne vous rappelle pas nos précédentes utilisations de la fonction
-`console.log` ?
-Pas étonnant puisque `console.log` se repose sur `process.stdout`
-(voir encadré ci-contre).
-
-
-[TIP]
-.[RemarquePreTitre]#Raccourci# Les fonctions `console.log` et `console.error`
-====
-La fonction d'affichage `console.log` écrit dans le flux de sortie
-`process.stdout`.
-Sans surprise, `console.error` écrit dans le flux d'erreur
-`process.stderr`.
-
-Elles ajoutent un _retour à la ligne_ et des options de formatage pour
-notre confort.
-
-On en parlera davantage dans la section <<console,console>>.
-====
-
-Quand on vers le flux de _sortie_ ou le flux d'_erreur_,
-on s'ouvre à l'analyse en continu de ce flux.
-Comment ?
-À l'aide d'utilitaires systèmes existants (`grep`, `awk` etc.)
-ou des programmes spécifiques (analyse de _logs_, etc.).
-
-On peut ainsi se concentrer sur un programme qui
-fait *juste ce dont on a besoin* sans être tenté·e de tout faire.
-On laisse le travail de spécialisation à d'autres programmes.
-Ils pourraient être écrits en Node d'ailleurs…
-
-Essayons d'ailleurs de _filtrer_ la sortie de l'exemple précédent
-sans écrire une ligne de code de plus.
-Le programme _grep_ ([URL]#https://fr.wikipedia.org/wiki/Grep#)
-est fourni par défaut sur les systèmes UNIX (dont Linux et macOS) font partie.
-Il ne retourne que les ligne contenant un motif
-donné en <<process.arv,argument>> :
-
-[source,bash]
-----
-$ node process-stdout.js | grep 'tre'
-qua<i>tre</i>
-----
-
-La _sortie standard_ de `process-stdout.js` est devenue l'_entrée standard_
-de `grep` grâce à l'utilisation du _pipe_ (`|`).
-
-C'est le moment idéal de regarder du côté de l'_entrée standard_ de Node.
-Implémentons quelque chose qui passe le message d'entrée en majuscules :
-
-[source,bash]
-----
-$ echo "un deuxtrois\nquatre" | node process-stdin-uppercase.js
-UN DEUXTROIS
-QUATRE
-----
-
-On aurait aussi pu réutiliser la _sortie_ de l'exemple `process-stdout.js` :
-
-[source,bash]
-----
-$ node process-stdout.js | node process-stdin-uppercase.js
-UN DEUXTROIS
-QUATRE
-----
-
-Voyons comment ça fonctionne sous le capot :
-
-[source,javascript]
-.process-stdin-uppercase.js
-----
-include::{sourceDir}/process-stdin-uppercase.js[]
-----
-<1> Chaque afflux de donnée appelle notre fonction en lui fournissant un seul
-paramètre contenant les données en question
-<2> Le paramètre est de <<buffer,type Buffer>> — on souhaite le transformer en
-<<../chapter-03/index.adoc#string,chaîne de caractères>>
-<3> La _chaîne de caractères_ est transformable en majuscules, que l'on écrit
-dans le flux de sortie
-
-Terminons avec la _sortie erreur_ (`process.stderr`).
-Elle fonctionne de manière identique à la _sortie standard_ (`process.stdout`).
-S'il n'y a visuellement aucune différence, la _sortie erreur_ écrit son contenu
-dans un canal différent — un _descripteur_ différent. +
-On l'utilise pour *déboguer des programmes*, pour *lister des erreurs* ou des
-contenus que l'on souhaite dissocier de la sortie standard.
-
-L'exemple suivant affiche un nombre toutes les demi-secondes et l'état
-du compteur de nombres tous les 10 affichages :
-
-[source,bash]
-----
-$ node process-stdout-long.js
-7
-24
-3
-19
-25
-Compteur = 5
-22
-...
-----
-
-[NOTE]
-.[RemarquePreTitre]#Souvenez-vous# Interrompre un programme avec kbd:[Ctrl+C]
-====
-Un programme peut être interrompu à tout moment en utilisant la combinaison
-de touches kbd:[Ctrl+C].
-====
-
-[source,javascript]
-.process-stdout-long.js
-----
-include::{sourceDir}/process-stdout-long.js[]
-----
-<1> Écrit un nombre entre 0 et 30 dans la _sortie standard_
-<2> On incrémente un compteur en plus de vérifier s'il est bien divisible par 5
-<3> Écrit l'état du compteur dans la _sortie erreur_
-
-On pourrait décider de n'afficher que le flux d'erreur.
-Pour cela on _redirige_ la sortie standard avec l'opérateur `>`
-vers un fichier :
-
-[source,bash]
-----
-$ node process-stdout-long.js > stdout.txt
-Compteur = 5
-Compteur = 10
-...
-----
-
-Si on ouvrait le fichier `stdout.txt`, on verrait
-la liste de nombre générée par notre programme. +
-La *redirection a écrit le contenu dans ce fichier* au lieu de notre terminal.
-
-En maitrisant les flux standards, on peut *créer des programmes modulaires*
-qui consomment du contenu sans avoir à connaître leur provenance.
-*Les données peuvent aller et venir* _depuis_ et _vers_ des programmes externes,
-des fichiers ou des sites web distants.
-
-Pour mieux comprendre la logique de _flux continu_ que l'on vient de découvrir,
-je vous invite à lire la section liée au <<stream,module `stream`>>
-de ce même chapitre.
-On y détaillera la liste des événements à écouter ainsi que les différentes
-méthodes d'écriture, de pause et de lecture.
-
-[[process.on]]
-==== À l'écoute des événements
-
-Un processus système reçoit et émet des données mais il peut aussi
-*écouter des événements* grâce à la fonction `process.on`.
-
-[source,javascript]
-.process-exit.js
-----
-include::{sourceDir}/process-exit.js[]
-----
-
-L'exemple ci-dessus illustre l'événement `exit`.
-Cet événement est déclenché quand le processus se termine.
-À ce titre, un *code de sortie* est fourni pour signaler l'état dans
-lequel le programme se termine — bien, ou pas très bien, et pourquoi.
-On parlera davantage du code de sortie et de leur signification
-dans la section ci-après, <<process.exit,Mettre fin au processus>>.
-
-Essayons de lancer l'exemple précédent pour voir :
-
-[source,bash]
-----
-$ node process-exit.js
-Le processus démarre
-Le processus termine avec le code 0
-----
-
-Tout s'est passé correctement.
-Le _code de sortie_ équivaut à `0` donc.
-
-Si le programme venait à se terminer de manière imprévue, nous pouvons
-supposer que le code serait différent. +
-L'exemple suivant provoque volontairement une erreur en faisant
-référence à une variable qui n'existe pas :
-
-[source,javascript]
-.process-exit-error.js
-----
-include::{sourceDir}/process-exit-error.js[]
-----
-
-Que verrions-nous si on lançait le script ?
-
-[source,bash]
-----
-$ node process-exit-error.js
-Le processus termine avec le code 1
-
-ReferenceError: jenexistepas is not defined
-    at Object.<anonymous> (/.../nodebook/chapter-04/examples/process-exit-error.js:5:13)
-----
-
-Cette fois-ci le code de sortie est `1`.
-Cela correspond à une _erreur qui n'a pas été capturée_.
-Le reste du message décrit _pourquoi_ l'erreur s'est manifestée.
-
-[TIP]
-.[RemarquePreTitre]#Terminal# Code de sortie
-====
-Dans un terminal, la variable `$?` contient le code de sortie
-de la dernière commande exécutée.
-Sa valeur devrait être équivalente à celle passée en argument
-de l'événement `process.on('exit')`.
-
-[source,bash]
-----
-$ echo $?
-----
-====
-
-On est maintenant capable de déterminer si un programme s'arrête
-normalement ou à cause d'une erreur qu'on aurait laissé
-passer sans faire exprès.
-
-On peut écouter d'autres événements liés au cycle de vie de nos applications :
-
-
-[cols="1,1,2",options="header"]
-.Événements liés au cycle de vie du processus Node
-|===
-| Événement
-| Paramètres
-| Raison du déclenchement
-
-| `exit`
-| `(exitCode)`
-| Le programme se termine et va rendre la main au système d'exploitation.
-
-| `unhandledRejection`
-| `(reason, promise)`
-| Une <<../chapter-03/index.adoc#promise,promesse>> a échoué
-et n'a pas été capturée à l'aide de la méthode `.catch()`.
-
-| `uncaughtException`
-| `(error)`
-| Une erreur s'est produite et n'a pas été capturée.
-Si rien n'est fait, le processus va s'arrêter avec un code erreur. +
-*Note* : il vaut mieux qu'un programme s'arrête en cas de problème.
-
-| `message`
-| `(message, sourceSocket)`
-| Un <<child_process,processus parent>> nous envoie un message.
-|===
-
-[[signals]]
-La méthode `process.on` est à l'écoute des *signaux système*.
-Vous vous souvenez de la combinaison de touches kbd:[Ctrl+C]
-utilisée précédemment ?
-Cette combinaison émet en réalité un _signal d'interruption_.
-Un signal d'interruption répond à l'identifiant `SIGINT`.
-
-Node gère ces signaux pour nous.
-Mais on peut aussi se mettre à les écouter et décider de faire autrement
-que son comportement par défaut.
-
-On pourrait par exemple afficher l'heure de l'arrêt
-du processus avant de rendre la main :
-
-[source,javascript]
-.process-interrupt.js
-----
-include::{sourceDir}/process-interrupt.js[]
-----
-<1> Un premier message s'affichera au démarrage du script
-<2> Cette <<../chapter-03/index.adoc#function,fonction>> se déclenche lors de
-la réception du _signal d'interruption_ (`SIGINT`), lorsque le système
-d'exploitation lui relaie notre combinaison de touches kbd:[Ctrl+C]
-<3> La fonction <<process.exit,`process.exit`>> nous permet de mettre fin
-manuellement au processus (voir section ci-après)
-<4> Sinon ce _timer_ mettra fin au processus au bout de 5 secondes
-
-En pratique le résultat ressemblerait à ceci :
-
-[source,bash,subs="macros"]
-----
-$ node process-interrupt.js
-2018-03-16T10:58:32.855Z - Processus démarré
-kbd:[Ctrl+C]
-2018-03-16T10:58:40.000Z - Processus terminé (manuellement)
-----
-
-En plus du signal `SIGINT`, Node nous relaie les signaux suivants :
-
-[cols="1,2",options="header"]
-.Événements liés aux _signaux_ systèmes
-|===
-| Événement   | Raison du déclenchement
-| `SIGINT`    | Interruption de la commande en cours
-| `SIGTERM`   | Demande au processus de s'arrêter
-| `SIGUSR1`   | Node reçoit le signal d'attacher l'<<inspect,inspecteur>>
-| `SIGHUP`    | Le terminal est en train d'être fermé
-| `SIGWINCH`  | Le terminal a été redimensionné
-|===
-
-`SIGKILL` est un autre événement important mais on ne peut _pas_ l'écouter.
-Quand il est émis, le processus doit être arrêté quoiqu'il arrive.
-On l'utilise justement en cas de dernier recours, quand `SIGINT`
-et `SIGTERM` ne font pas effet (à cause d'un bug dans notre code,
-une ressource qui ne rend pas la main etc.).
-
-[[process.exit]]
-==== Mettre fin au processus
-
-Un processus Node se termine quand il n'a plus d'instructions à exécuter.
-Un processus Node peut être terminé via
-l'<<signals,émission d'un signal extérieur>>.
-Mais on peut aussi y mettre fin _de l'intérieur_ par l'intermédiaire
-de la fonction `process.exit`.
-
-On utilise cette fonction car le *programme a atteint son but*.
-On le fait aussi lorsqu'on intercepte une erreur en souhaitant
-effectuer un *traitement spécial avant de mettre fin au processus*.
-Il se peut aussi qu'il vaille mieux terminer l'application en cas de perte
-d'accès à des ressources distantes (base de données, stockage de fichiers, etc)
-et ce, *au lieu de présenter une application web instable*.
-
-L'exemple suivant illustre que l'on souhaite clôturer notre script
-si on trouve le bon nombre (un peu comme au jeu _MindMaster_) :
-
-[source,bash,subs="macros"]
-----
-$ node process-exit-devinette.js
-JEU ! Trouve le nombre auquel je pense :
-10kbd:[ENTER]
-Hm hm, essaie encore.
-3kbd:[ENTER]
-Tu as trouvé, bravo !
-----
-
-Dans cet exemple, on écoute l'utilisateur de manière indéfinie, jusqu'à ce qu'il
-ou elle trouve le bon nombre.
-Lorsque c'est le cas, on peut interrompre le programme en transmettant
-un code de sortie _de réussite_ : le code `0` (zéro).
-
-[source,javascript]
-.process-exit-devinette.js
-----
-include::{sourceDir}/process-exit-devinette.js[]
-----
-<1> Le nombre secret est `3` par défaut, sauf s'il est passé
-<<process.argv,en argument>> du script
-<2> Cette fonction est invoquée à chaque saisie suivie de l'utilisation
-de la touche kbd:[ENTER]
-<3> Cette ligne met fin immédiatement au script, après avoir affiché un
-message de félicitations
-<4> Ce message s'affichera à chaque saisie erronée, jusqu'à ce que le nombre
-secret soit trouvé
-
-On pourrait tout à fait imaginer une variante de ce script dans laquelle
-on limiterait le nombre de mauvaises réponses.
-Lorsqu'on attendrait cette limite, le programme utiliserait un code de sortie
-différent de zéro.
-Le code `9` ferait l'affaire puisqu'il indique qu'un _argument invalide_ a été
-passé.
-
-[NOTE]
-.[RemarquePreTitre]#Avancé# `process.abort`
-====
-À la manière de `process.exit`, le programme est terminé immédiatement.
-On l'utilise quand quelque chose d'inopiné et nécessitant un débogage
-avancé se produit.
-
-La fonction génère un fichier de débogage qui contient tout le contenu
-de la mémoire utilisée par Node (_core file_).
-Un truc assez compliqué à analyser pour le commun des mortels.
-Suffisamment pour qu'on passe notre chemin à ce stade.
-====
+TBD.
 
 
 [[options]]
@@ -3204,6 +3083,35 @@ Suffisamment pour qu'on passe notre chemin à ce stade.
 
 Cf. https://nodejs.org/api/cli.html
 Compatible aussi avec `NODE_OPTIONS`
+
+[[print-eval]]
+=== Afficher le résultat d'une expression
+
+L'interpréteur Node sait interpréter du code qu'on lui donnerait
+via l'option `-p` (pour _print_, c'est-à-dire _afficher_).
+L'interpréteur affichera le résultat de l'expression ou
+détaillera la <<errors,raison de l'erreur>>.
+
+J'utilise cette forme d'interaction pour obtenir un résultat rapide.
+Par exemple, le résultat d'une opération mathématique :
+
+[source,bash]
+----
+$ node -p '2 + 2'
+4
+----
+
+Tout type d'expression ECMAScript est acceptée en paramètre :
+
+[source,bash]
+----
+$ node -p '"abc".toLocaleUpperCase()'
+ABC
+----
+
+Ce dernier exemple illustre la transformation de
+<<../chapter-03/index.adoc#string,chaîne de caractères>> documentée
+dans le <<../chapter-03/index.adoc#,chapitre 3>>.
 
 [[require]]
 === Précharger un module
