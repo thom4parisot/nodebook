@@ -4,7 +4,7 @@
 :sourceSample: TODO.js
 :nodeCurrentVersion: v8
 :npmCurrentVersion: v5
-:npmvX: 5.6.0
+:npmvX: 5.8.0
 :sectnums:
 :revdate: {docdate}
 :imagesdir: {indir}
@@ -23,22 +23,38 @@ TBD.
 
 [abstract]
 --
-Nous avons évoqué la notion de _modules_ dans les pages précédentes.
-Il est temps de plonger plus en détails dans le sujet pour mieux comprendre une des pierres angulaires de Node.
-
-Lorsque la fonction globale `require` est invoquée, plusieurs scénarios de chargement peuvent se dérouler, en fonction de la syntaxe employée :
-
-- un fichier local en utilisant un chemin relatif (`require('./mon-fichier.js')`) ;
-- un module Node (`require('comma-separated-values')`) ;
-- un module Node natif (par exemple, `require('fs')`).
-
-L'objectif de Node est de fournir des modules natifs de bas niveau, stables et robustes.
-Le reste est pris en charge par la communauté.
-Et c'est de la communauté dont émergent les modules et les _patterns_ utiles et efficaces.
+L'objectif de Node est de fournir des modules stables et robustes.
 --
 
 include::../resources/tip-versions.adoc[]
 include::../resources/tip-examples.adoc[]
+
+== La commande `npm`
+
+`npm` est inclus par défaut.
+Vérifions que le programme `npm` est installé sur notre machine :
+
+[source,bash,subs="attributes"]
+----
+$ npm --version
+{npmvX}
+----
+
+[[modules]]
+== Les modules npm
+
+*Node baigne dans la philosophie UNIX* : le mécanisme de modules incite à suivre le principe de responsabilité unique et de séparation des principes.
+
+Cette philosophie encourage la création de petits modules plutôt que de gros monolithes difficilement configurables.
+
+Il est possible de publier des modules dans le registre en se basant sur d'autres modules tiers.
+Ils n'ont pas à avoir connaissance de leur statut de dépendance : ils doivent juste être responsables de leur numérotation de version pour éviter les problèmes de compatibilité.
+
+Pour garantir au maximum la stabilité des dépendances, le _versioning sémantique_ aka _SemVer_ a fait son apparition.
+Il explicite l'algorithme employé par _npm_ lors du processus d'installation et de mise à jour.
+
+
+== Fonctionnement des numéros de version des modules npm
 
 [[semver]]
 === Versioning sémantique
@@ -58,7 +74,7 @@ Si on considère le numéro de version `1.0.0` :
 
 Par convention, les versions `0.x.x` sont considérées comme des versions _instables_ en préparation d'une future branche stable (`1.x.x`).
 
-=== Spécification
+=== Spécification _semver_
 
 La spécification _semver_ est disponible sous forme textuelle mais également en tant que module npm.
 
@@ -87,7 +103,7 @@ Un outil est à disposition pour tester la syntaxe des plages de versions en tem
 ====
 
 
-[TIP]
+[NOTE]
 .[RemarquePreTitre]#Lien# Versioning romantique
 =====
 Certaines personnes pensent que l'aspect _sémantique_ n'est pas assez clair pour véhiculer l'_intention_ des auteurs quant à la publication d'une nouvelle version.
@@ -96,34 +112,8 @@ Ils en sont venus à proposer plus ou moins sérieusement les notions de *versio
 - [URL]#http://dafoster.net/articles/2015/03/14/semantic-versioning-vs-romantic-versioning/#
 =====
 
-== npm
 
-Cette communauté a créé, conçu et contribue à alimenter le registre `npm` pour faciliter la distribution, l'installation et la mise à jour des modules.
-C'est de loin le mécanisme privilégié pour installer des modules Node de la manière la plus simple qu'il soit.
-
-Si vous avez installé Node depuis les binaires officiels, `npm` est inclus par défaut.
-Vérifions que le programme `npm` est installé sur notre machine :
-
-[source,bash,subs="attributes"]
-----
-$ npm --version
-{npmvX}
-----
-
-[[modules]]
-== Modules npm
-
-*Node baigne dans la philosophie UNIX* : le mécanisme de modules incite à suivre le principe de responsabilité unique et de séparation des principes.
-
-Cette philosophie encourage la création de petits modules plutôt que de gros monolithes difficilement configurables.
-
-Il est possible de publier des modules dans le registre en se basant sur d'autres modules tiers.
-Ils n'ont pas à avoir connaissance de leur statut de dépendance : ils doivent juste être responsables de leur numérotation de version pour éviter les problèmes de compatibilité.
-
-Pour garantir au maximum la stabilité des dépendances, le _versioning sémantique_ aka _SemVer_ a fait son apparition.
-Il explicite l'algorithme employé par _npm_ lors du processus d'installation et de mise à jour.
-
-== Initialiser un projet Node
+== Initialiser un projet
 
 La pierre angulaire d'un projet Node est le fichier `package.json`.
 Il décrit les composants essentiels du projet.
