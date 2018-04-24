@@ -1,3 +1,4 @@
-const current_directory = process.env.PWD;  // <1>
+const variables = Object.keys(process.env);
 
-process.stdout.write(current_directory);    // <2>
+console.log(variables);                     // <1>
+console.log(process.argv);                  // <2>

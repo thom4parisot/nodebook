@@ -136,6 +136,14 @@ Il nous rend ensuite la main pour exécuter d'autres commandes.
 On apprendra à passer des <<process.argv,arguments d'exécution>>
 dans la section <<process,module `process`>>.
 
+[TIP]
+.[RemarquePreTitre]#Performances# Ressources machine
+====
+Démarrer un processus Node a un coût incompressible en ressources machine :
+environ *30Mo de RAM* et *environ 40 millisecondes de CPU* avant d'exécuter nos
+instructions.
+====
+
 [[repl]]
 === Avec l'invite de commande interactive (_REPL_)
 
@@ -1819,8 +1827,11 @@ est globale.
 ----
 include::{sourceDir}/process/intro.js[]
 ----
-<1>
-<2>
+<1> Affiche quelque chose comme `['LANG', 'SHELL', 'PATH', 'HOME', 'USER', ...]`
+(cf.{nbsp}<<process.env,variables d'environnement>>)
+<2> Affiche
+`[ '.../v{nodeV}/bin/node', '.../chapter-04/examples/process/intro.js' ]`
+(cf.{nbsp}<<process.argv,arguments d'exécution>>)
 
 Notre code peut être interprété par Node
 sur plusieurs types de machines
@@ -2651,11 +2662,11 @@ La documentation du module `stream` est disponible sur le site officiel de Node 
 [URL]#https://nodejs.org/docs/latest-{nodeCurrentVersion}.x/api/stream.html#
 ====
 
-=== Modules avancés
+=== D'autres modules pour aller plus loin
 
-Node embarque d'autres modules avancés pour aller plus loin.
-Ils nécessitent avant tout des connaissances plus bas niveau (et proche des protocoles)
-que celles liées au développement d'applications web.
+Node embarque d'autres modules que ceux listés précédemment.
+Ils nécessitent des connaissances sur des sujets bas niveau,
+plus proches du matériel et des protocoles réseaux.
 
 [[cluster]]module `cluster`::
   Gère la distribution d'une application sur plusieurs CPU d'un même ordinateur.
@@ -2688,10 +2699,12 @@ que celles liées au développement d'applications web.
 
 Le chargement des <<modules-builtin,modules de base>> nous a aidé à utiliser
 des fonctionnalités fournies directement par Node.
-Nous pouvons aussi exploiter ce mécanisme pour
-*organiser son code dans plusieurs fichiers* et les charger depuis d'autres fichiers.
-On retrouve des mécanismes comparables en Python (`import`), PHP (`require`)
-et Ruby (`require` et `require_relative`).
+Nous pouvons exploiter ce mécanisme pour
+*organiser son code dans plusieurs fichiers*.
+C'est un mécanisme comparable à ce que l'on retrouve en Python (`import`),
+PHP (`require`) et Ruby (`require` et `require_relative`).
+
+=== Importer et exporter des valeurs
 
 [source,javascript]
 .modules/enfant.js
@@ -2723,10 +2736,10 @@ undefined
 ----
 
 De là nous pouvons en tirer un apprentissage important :
-dans un module, *tout est privé*.
-On ne peut pas voir ce qu'il y a _dans_ un module depuis _l'extérieur_.
+*on ne peut pas voir ce qu'il y a _dans_ un module depuis _l'extérieur_*.
 
-Complétons maintenant l'usage de `require()` avec `module.exports` :
+Choisissons maintenant ce que l'on souhaite exporter en assignant
+la valeur de notre choix à `module.exports` :
 
 [source,javascript]
 .modules/enfant-export.js
@@ -2734,7 +2747,6 @@ Complétons maintenant l'usage de `require()` avec `module.exports` :
 include::{sourceDir}/modules/enfant-export.js[]
 ----
 
-Nous avons assigné la variable `number` à `module.exports`.
 Comment est-ce que ça se traduit lorsqu'on l'appelle avec `require()` ?
 
 [source,javascript]
@@ -2745,7 +2757,7 @@ include::{sourceDir}/modules/parent-export.js[]
 <1> Affiche `undefined`
 <2> Affiche `42`
 
-Cette expression permet de *rendre explicite ce qui est exporté par un module*.
+*`module.exports` rend visible ce qui est exporté par un module*.
 Les éléments exportés sont visibles depuis l'extérieur.
 Par défaut, `module.exports` est un objet.
 
@@ -2800,7 +2812,7 @@ spécification _CommonJS_, à peu de choses près.
 [URL]#http://www.commonjs.org/specs/modules/1.0/#
 ====
 
-=== Ce qu'il faut savoir sur `require()`
+=== Aller plus loin avec `require()`
 
 Lorsqu'on fait appel à la fonction `require()`, Node effectue la *liste d'actions* suivantes :
 
@@ -3139,28 +3151,24 @@ Ce processus peut être de _courte durée_ ou de _longue durée_,
 selon qu'il dure quelques secondes ou plusieurs heures… voire
 plusieurs jours ou un temps indéfini.
 
-Le _processus_ existe tant qu'il y a des instructions à exécuter.
-Ces instructions peuvent être immédiates (_programmation synchrone_),
-décalées dans le temps (_programmation asynchrone_)
-ou conditionnées par l'écoute d'événements extérieurs (_programmation événementielle_).
-
 Le processus s'arrête en cas d'erreur, lorsqu'il n'y a plus d'opération
 à effectuer ou en cas d'interruption volontaire.
 
-Démarrer un processus Node a un coût incompressible en ressources machine :
-environ *30Mo de RAM* et *environ 40 millisecondes de CPU* avant d'exécuter nos
-instructions.
+Le code JavaScript exécuté dans un navigateur web dépasse rarement la durée
+d'une session utilisateur, de quelques secondes à quelques heures.
+En cas de problème, un rafraîchissement de la page
 
+[NOTE]
+.[RemarquePreTitre]#Performances# Utilisation des CPU
+====
 Un *processus Node est _mono_ CPU*.
-Toutes les opérations seront donc prises en charge par le même CPU
-au cours de la durée de vie du processus.
-Ça veut aussi dire que tous les autres processus système assignés à ce même CPU
+Tous les autres processus système assignés à ce même CPU
 se partageront une quantité finie de puissance.
 
-Autrement dit, si le processus Node partage le même CPU qu'une base de données
-utilisée par d'autres programmes, la rapidité de traitement de notre
-application sera affectée par la quantité de ressources disponibles pour ce CPU.
-
+Par exemple, si un processus Node partage le même CPU qu'une base de données
+et qu'une requête gourmande s'exécute, la rapidité de notre application
+en sera affectée.
+====
 
 [[options]]
 == Options utiles pour démarrer Node
