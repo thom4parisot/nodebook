@@ -3,6 +3,12 @@
 Le projet a commencé en décembre 2014.
 Ce journal détaille l'effort d'écriture depuis janvier 2017.
 
+## Lundi 24 avril 2018 • Lyon
+
+- _Chapitre 4_ : modules avancés
+
+**Météo** : 💪 ☀️
+
 ## Lundi 23 avril 2018 • Lyon
 
 - _Chapitre 4_ : `process`
@@ -10,7 +16,7 @@ Ce journal détaille l'effort d'écriture depuis janvier 2017.
 - _Chapitre 4_ : revue d'étape avec [David Bruant][]
 - _Chapitre 4_ : quelques différences de JavaScript entre Node et les navigateurs web
 
-**Météo** : 😊 🌥 🍞
+**Météo** : 😊 ☀️ 🍞
 
 ---
 💻 🎤 Semaine off pour cause de participation à la

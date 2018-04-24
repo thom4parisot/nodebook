@@ -2651,6 +2651,36 @@ La documentation du module `stream` est disponible sur le site officiel de Node 
 [URL]#https://nodejs.org/docs/latest-{nodeCurrentVersion}.x/api/stream.html#
 ====
 
+=== Modules avancés
+
+Node embarque d'autres modules avancés pour aller plus loin.
+Ils nécessitent avant tout des connaissances plus bas niveau (et proche des protocoles)
+que celles liées au développement d'applications web.
+
+[[cluster]]module `cluster`::
+  Gère la distribution d'une application sur plusieurs CPU d'un même ordinateur.
+[[crypto]]module `crypto`::
+  Fonctions cryptographiques pour chiffrer, signer et vérifier des données.
+[[dgram]]module `dgram`::
+  Création et consommation de ressources UDP.
+[[dns]]module `dns`::
+  Fonctions de résolution et de lecture d'enregistrements DNS.
+[[net]]module `net`::
+  Création et consommation de ressources TCP. +
+  Les modules `http`, `https` et `http2` se basent dessus.
+[[readline]]module `readline`::
+  Manipulation du curseur dans un terminal.
+[[tty]]module `tty`::
+  Gestion d'interface de terminal en mode texte.
+  Le module `readline` se base dessus.
+[[v8]]module `v8`::
+  Fonctions de lecture et d'écriture d'instructions de la machine virtuelle V8
+  dans le processus actuel.
+[[vm]]module `vm`::
+  Fonctions de création de nouveaux contextes d'interprétation de la machine virtuelle V8.
+[[zlib]]module `zlib`::
+  Fonctions de compression et de décompression de données (Gzip, Inflate/Deflate). +
+  Ces formats sont utilisés pour la compression de requêtes HTTP.
 
 
 [[modules]]
@@ -3065,23 +3095,41 @@ La documentation des variables globales est disponible sur le site officiel de N
 === Il n'y a pas d'interface graphique
 
 Suite logique du point précédent : Node n'a pas d'interface graphique.
-Le code exécuté n'affiche rien en tant que tel, à part quelques messages
-dans la <<console,console>>.
+Le code exécuté n'affiche rien en tant que tel, à part les messages dirigés
+vers la <<console,console>>.
 
 Un moyen d'en savoir plus sur ce qui se passe dans les entrailles d'un script
 est d'utiliser l'<<inspect,inspecteur Node>>.
 
-On peut toutefois construire des applications graphiques qui fonctionnent
-dans un _terminal_.
-On verra comment faire dans le <<../chapter-08/index.adoc#,chapitre 8>>. 
+On peut toutefois construire des applications graphiques en ligne de commande.
+Nous verrons comment faire dans le <<../chapter-08/index.adoc#,chapitre 8>>.
 
 === Le mécanisme de modules
 
-TBD.
+Node utilise un <<modules,mécanisme de modules>> (_CommonJS_) différent
+des _modules ECMAScript_ des navigateurs web.
+
+La convergence vers les _modules ECMAScript_ est en cours.
+Il y a fort à parier qu'ils soient supportés nativement par Node dans une
+version ultérieure.
+
+Nous verrons comment utiliser les modules Node dans les navigateurs web
+dans le <<../chapter-08/index.adoc#,chapitre 9>>.
+
 
 === L'interfaçage avec le système d'exploitation
 
-TBD.
+Les fonctions JavaScript spécifiques aux navigateurs web sont liées
+à la récupération d'informations (`AJAX`, `fetch()`),
+à l'affichage (Canvas, WebGL, WebVR) ainsi qu'à la manipulation de documents HTML.
+
+Les fonctions JavaScript fournies par les <<modules-builtin,modules Node>>
+sont liées à la gestion des ressources dont le système d'exploitation
+se fait l'interface : fichiers (<<fs,module `fs`>>),
+réseau (<<http,module `http`>>, <<net,module `net`>>, <<dns,module `dns`>>,
+<<dgram, module `dgram`>>), terminal (<<tty,module `tty`>>,
+<<readline,module `readline`>>) et processus
+(<<process,module `process`>>, <<child_process,module `child_process`>>).
 
 === Node est un processus système
 
