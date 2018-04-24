@@ -3241,7 +3241,63 @@ lors d'un plantage applicatif, entre autres.
 [[inspect]]
 === Inspecter notre code avec Google Chrome
 
-`node --inspect` et `node --inspect-brk`
+Node accepte deux options `--inspect` et `--inspect-brk`.
+Elles exposent toutes deux un protocole de débogage
+auquel on peut se connecter avec le navigateur _Google Chrome_.
+
+[source,bash]
+----
+$ node --inspect-brk print-text.js texte --uppercase
+Debugger listening on ws://127.0.0.1:9229/ddd9bbfd-09ac-4426-a53e-c8abe4fc36da
+For help see https://nodejs.org/en/docs/inspector
+----
+
+Cette commande lance un de nos exemples de la section
+<<process.argv,arguments d'exécution>> du <<process,module `process`>>.
+L'option `--inspect-brk` démarre l'inspecteur
+et met son *exécution en pause aussitôt*.
+
+Le logo de Node s'affiche dans les outils de développement de _Google Chrome_ :
+
+.Outils de développement _Google Chrome_ qui détectent une session d'inspection.
+image::images/chrome-devtools.png[width="85%"]
+
+Un clic sur le logo Node ouvre une nouvelle fenêtre.
+Cette fenêtre est outillée pour inspecter ce qu'il se passe dans notre script Node.
+
+.Inspecteur en pause sur la première ligne de notre script Node.
+image::images/inspector-paused.png[width="85%"]
+
+
+[TIP]
+.[RemarquePreTitre]#Outils de développement# Point d'arrêt
+====
+Un point d'arrêt se crée en cliquant sur le numéro de ligne souhaité.
+
+Le débogueur se mettra en pause dès à chaque fois que le chemin d'exécution
+de l'interpréteur atteindra cette ligne.
+
+La valeur des variables ECMAScript courantes s'affichent au survol de la souris
+ou en interagissant avant la console.
+====
+
+.Inspecteur en pause, avec un point d'arrêt marqué sur une des lignes du script.
+image::images/inspector-breakpoint.png[width="85%"]
+
+C'est le moment idéal pour placer un ou plusieurs points d'arrêt.
+
+Un clic sur le bouton btn:[&#9654;] met alors fin à la pause.
+Le script s'exécutera jusqu'à l'épuisement des instructions
+ou jusqu'au _prochain point d'arrêt_.
+
+.Inspecteur en pause, suite à la rencontre d'un point d'arrêt.
+image::images/inspector-breakpoint-in.png[width="85%"]
+
+L'option d'invocation `--inspect` est adaptée à des processus de longue durée,
+comme un serveur HTTP.
+L'option `--inspect-brk` est adaptée à des processus de courte durée et qui
+se termineraient avant qu'on aie eu le temps de jeter un œil au contenu.
+
 
 [[deprecation]]
 === Afficher les alertes de dépréciation

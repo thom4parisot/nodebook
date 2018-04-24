@@ -7,6 +7,7 @@ Ce journal détaille l'effort d'écriture depuis janvier 2017.
 
 - _Chapitre 4_ : modules avancés
 - _Chapitre 4_ : précharger un module
+- _Chapitre 4_ : inspecter notre code avec Google Chrome
 
 **Météo** : 💪 ☀️
 
