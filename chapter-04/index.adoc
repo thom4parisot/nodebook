@@ -3185,7 +3185,8 @@ via l'option `-p` (pour _print_, c'est-à-dire _afficher_).
 L'interpréteur affichera le résultat de l'expression ou
 détaillera la <<errors,raison de l'erreur>>.
 
-J'utilise cette forme d'interaction pour obtenir un résultat rapide.
+J'utilise cette forme d'interaction pour obtenir un résultat rapide,
+sans créer de nouveau fichier.
 Par exemple, le résultat d'une opération mathématique :
 
 [source,bash]
@@ -3194,7 +3195,7 @@ $ node -p '2 + 2'
 4
 ----
 
-Tout type d'expression ECMAScript est acceptée en paramètre :
+Toute expression ECMAScript valide est acceptée :
 
 [source,bash]
 ----
@@ -3209,7 +3210,33 @@ dans le <<../chapter-03/index.adoc#,chapitre 3>>.
 [[require]]
 === Précharger un module
 
-`node --require`
+L'option de démarrage `--require` charge le module indiqué _avant_ le script Node.
+
+[source,bash]
+----
+$ node --require ./print-exit.js url/intro.js
+----
+
+Dans cet exemple, le <<modules,module `print-exit.js`>> sera chargé
+avant `url/intro.js`.
+
+[source%interactive,javascript]
+.print-exit.js
+----
+include::{sourceDir}/print-exit.js[]
+----
+
+Le chargement de ce module aura pour effet d'afficher un message
+avec le chemin du fichier chargé et le <<process.exit,code de sortie>>.
+
+On peut appeler l'option `--require` plusieurs fois.
+On peut aussi utiliser l'option raccourcie `-r`.
+
+Ce mécanisme fonctionne très bien avec des
+<<../chapter-05/index.adoc#,modules npm>> conçus pour
+rendre nos scripts <<esm,compatibles avec les modules ECMAScript>>
+ou pour <<pretty-error,simplifier les erreurs>> affichées
+lors d'un plantage applicatif, entre autres.
 
 [[inspect]]
 === Inspecter notre code avec Google Chrome
