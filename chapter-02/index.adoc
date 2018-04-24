@@ -1,11 +1,12 @@
 :chapterNumber: 2
 :chapterId: chapter-02
 :sourceDir: ./examples
-:nodeCurrentVersion: v8
-:nodeV: 8.11.1
-:v: 8
+:npmCurrentVersion: v6
+:nodeCurrentVersion: v10
+:nodeV: 10.2.1
+:nodeVNext: 11.0.0
+:v: 10
 :nvmVersion: v0.33.11
-:npmCurrentVersion: v5
 :sectnums:
 :revdate: {docdate}
 :imagesdir: {indir}
@@ -208,19 +209,16 @@ La deuxième ligne est quant à elle responsable de signaler que l'on veut *en f
 
 On pourra retrouver à tout moment les versions installées en utilisant la commande `nvm ls`.
 
+[subs="+attributes"]
 .Liste des versions installées de Node avec la commande `nvm ls`
 ----
 $ nvm ls
-->       v8.9.4
+->       v{nodeV}
          v9.3.0
          system
-default -> v8 (-> v8.9.4)
-node -> stable (-> v9.3.0) (default)
+default -> v{v} (-> v{nodeV})
+node -> stable (-> v9.3.0)
 stable -> 9.3 (-> v9.3.0) (default)
-lts/* -> lts/carbon (-> v8.9.4)
-lts/argon -> v4.8.7 (-> N/A)
-lts/boron -> v6.12.3 (-> N/A)
-lts/carbon -> v8.9.4
 ----
 
 L'exemple précédent détaille 2 choses :
@@ -230,7 +228,7 @@ L'exemple précédent détaille 2 choses :
 
 Taper `nvm use stable` nous fera basculer vers la branche `9.3`.
 C'est l'équivalent de saisir `nvm use v9.3.0` ou `nvm use v9` si on a la flemme de tout écrire.
-De même, taper `nvm use default` ou `nvm use v8` nous fera basculer vers la branche la version v{nodeV}.
+De même, taper `nvm use default` ou `nvm use v{v}` nous fera basculer vers la branche la version v{nodeV}.
 
 Vous pouvez saisir la commande `nvm --help` à tout moment pour obtenir de l'aide sur la syntaxe des commandes.
 J'utilise principalement ces commandes :
@@ -755,7 +753,7 @@ Les versions de Node qui corrigent des failles de sécurité ou des bugs connus
 n'ont quasiment aucune chance de casser une application existante.
 On les appelle les versions _patch_.
 Une version _patch_ est, par exemple, lorsque la version actuelle
-de Node est la `v8.2.3` et que la nouvelle version est la `v8.2.4`.
+de Node est la `v{v}.0.0` et que la nouvelle version est la `v{v}.0.1`.
 
 Plusieurs ressources sont à notre disposition pour se tenir informé·e :
 
@@ -799,7 +797,7 @@ Ces nouvelles fonctionnalités n'ont quasiment aucune chance de
 casser une application existante.
 
 Une version mineure est, par exemple, lorsque la version actuelle
-de Node est la `v8.2.3` et que la nouvelle version est la `v8.3.0`. +
+de Node est la `v{v}.0.3` et que la nouvelle version est la `v{v}.1.0`. +
 Les versions mineures sortent une petite dizaine de fois par an.
 Une migration ne demande pas nécessairement d'investir beaucoup de temps pour adapter et tester nos applications Node.
 
@@ -819,7 +817,7 @@ En revanche, ces versions peuvent être amenées à changer des comportements
 qui casseraient une application existante.
 
 Une version majeure est, par exemple, lorsque la version actuelle
-de Node est la `v8.2.3` et que la nouvelle version est la `v9.0.0`. +
+de Node est la `v{nodeV}` et que la nouvelle version est la `v{nodeVNext}`. +
 Les versions majeures sortent 2 fois par an.
 Une migration peut demander d'investir un certain temps pour adapter
 et tester nos applications Node.
