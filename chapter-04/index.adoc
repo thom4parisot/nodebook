@@ -3302,7 +3302,15 @@ se termineraient avant qu'on aie eu le temps de jeter un œil au contenu.
 [[deprecation]]
 === Afficher les alertes de dépréciation
 
-`node --pending-deprecation`
+Un des objectifs de l'équipe de développement de Node est de maintenir
+la stabilité de la plate-forme.
+Il arrive que certains choix de conception soient revisités en changeant
+leur comportement ou en les retirant des modules de base.
+
+Dans ce dernier cas, le retrait n'est pas immédiat.
+*Le retrait est précédé par une dépréciation*.
+
+L'exemple suivant illustre une utilisation dépréciée par Node :
 
 [source,javascript]
 .deprecation-warning.js
@@ -3312,9 +3320,22 @@ include::{sourceDir}/deprecation-warning.js[]
 
 [source,bash]
 ----
+$ node deprecation-warning.js
+----
+
+Les dépréciations sont masquées par défaut et affichées lorsqu'on utilise
+l'option `----pending-deprecation` :
+
+[source,bash]
+----
 $ node --pending-deprecation deprecation-warning.js
 (node:8130) [DEP0005] DeprecationWarning: The Buffer() and new Buffer() constructors are not recommended for use due to security and usability concerns. Please use the new Buffer.alloc(), Buffer.allocUnsafe(), or Buffer.from() construction methods instead.
 ----
+
+Cette option Node est à utiliser après avoir migré vers une nouvelle version
+majeure de Node.
+Ça nous laissera le temps de corriger les erreurs avant une prochaine
+grosse mise à jour.
 
 === Personnaliser les fonctionnalités ECMAScript
 
