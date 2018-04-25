@@ -3171,6 +3171,131 @@ On apprendra au <<../chapter-05/index.adoc#,chapitre 5>> comment installer
 des modules npm.
 ====
 
+=== Une erreur est retournée dans un _callback_
+
+La fonction de _callback_ est un des moyen de retourner le résultat
+d'une exécution asynchrone.
+Par convention, le *premier paramètre est une erreur*.
+
+Ce paramètre est nul (`null`) ou indéfini (`undefined`) lorsqu'il n'y a pas eu
+d'erreurs en cours de route.
+En revanche ce paramètre contient un *objet d'erreur* lorsque un problème
+s'est produit :
+
+[source%interactive,javascript]
+.errors/callback.js
+----
+include::{sourceDir}/errors/callback.js[]
+----
+<1> On vérifie la présence de l'erreur
+<2> `error.message` contient une raison textuelle de l'erreur
+<3> L'objet `error` contient plusieurs clés et valeurs précisant le type d'erreur,
+la référence vers la ressource concernée et le nom de la fonction système
+utilisée par Node pour accéder à la ressource (ici, `open`)
+
+----
+$ node errors/callback.js
+ENOENT: no such file or directory, open 'je-n-existe-pas.txt'
+{ Error: ENOENT: no such file or directory, open 'je-n-existe-pas.txt'
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: 'je-n-existe-pas.txt' }
+----
+
+L'erreur textuelle explicite que le fichier n'existe pas.
+Son _code_ (`ENOENT`) signifie la même chose mais a l'avantage d'être plus
+facile à vérifier dans une condition.
+
+La décision nous appartient de savoir quoi faire quand l'erreur se produit.
+Doit-on arrêter le programme (avec <<process.exit,`process.exit`>>) ?
+Est-ce que n'est pas grave et on passe à la suite ?
+Ou peut-être que ce fichier était censé exister et qu'un traitement particulier
+doit être fait, comme notifier l'équipe de maintenance _et_ afficher une page
+d'erreur côté utilisateur.
+
+=== Une erreur est retournée dans une promesse
+
+.catch()
+
+[source%interactive,javascript]
+.errors/promise.js
+----
+include::{sourceDir}/errors/promise.js[]
+----
+
+[source,bash]
+----
+$ node errors/promise.js
+Error: Oops !
+    at Promise.resolve.then (/.../chapter-04/examples/errors/promise.js:5:11)
+    at process._tickCallback (internal/process/next_tick.js:178:7)
+----
+
+sinon plantage et `process.on('unhandledRejection')`
+
+[source%interactive,javascript]
+.errors/promise-no-catch.js
+----
+include::{sourceDir}/errors/promise-no-catch.js[]
+----
+
+[source,bash]
+----
+$ node errors/promise-no-catch.js
+(node:27412) UnhandledPromiseRejectionWarning: Error: Oops !
+    at Promise.resolve.then (/.../chapter-04/examples/errors/promise-no-catch.js:5:11)
+    at process._tickCallback (internal/process/next_tick.js:178:7)
+----
+
+=== Une erreur est retournée dans un événement
+
+.on('error')
+
+[source%interactive,javascript]
+.errors/on-error.js
+----
+include::{sourceDir}/errors/on-error.js[]
+----
+
+[source,bash]
+----
+$ node errors/on-error.js
+Error: Oops !
+    at Object.<anonymous> (/.../chapter-04/examples/errors/on-error.js:5:23)
+    at Module._compile (internal/modules/cjs/loader.js:678:30)
+----
+
+sinon ça renvoie un `process.on('uncaughtException')`
+
+[source%interactive,javascript]
+.errors/on-error.js
+----
+include::{sourceDir}/errors/on-error-uncaught.js[]
+----
+
+[source,bash]
+----
+$ node errors/on-error-uncaught.js
+events.js:167
+      throw er; // Unhandled 'error' event
+      ^
+
+Error: Oops !
+    at Object.<anonymous> (/.../chapter-04/examples/errors/on-error-uncaught.js:3:23)
+    at Module._compile (internal/modules/cjs/loader.js:678:30)
+----
+
+=== Une erreur est renvoyée par le système d'exploitation
+
+notre code est bon mais notre demande est rejetée
+vaut pour le réseau, accès aux fichiers
+parfois pas grave du tout
+
+=== Le programme ne se termine pas
+
+
+
 == Les différences de JavaScript entre Node et les navigateurs web
 
 Puisqu'on utilise du code JavaScript avec Node et avec les navigateurs web,
