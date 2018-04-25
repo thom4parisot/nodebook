@@ -2,35 +2,23 @@
 
 const restify = require('restify');
 const server = restify.createServer();
-const { dependencies } = require('../../package.json');
+const countries = require('i18n-iso-countries');
 
-const validate = (req, res, next) => {
-  if (!(req.params.name in dependencies)){
-    return next(restify.ResourceNotFoundError('Module not found'));
-  }
+const codes = countries.getNames('en');
 
-  next();
+const validate = (request, response, next) => {
+  return (request.params.code in codes)
+    ? next()
+    : next(new restify.errors.NotFoundError('Country not found'));
 };
 
-const responseV1 = (req, res, next) => {
-  res.send(200, dependencies[req.params.name]);
-
-  next();
-};
-
-const responseV2 = (req, res, next) => {
-  res.send(200, {
-    modules: [{
-      name: req.params.name,
-      version: dependencies[req.params.name].slice(1)
-    }]
-  });
+const responseV1 = (request, response, next) => {
+  response.send(200, codes[request.params.code]);
 
   next();
 };
 
 server.use(restify.CORS());
-server.get({ path: '/modules/:name', version: '1.0.0' }, validate, responseV1);
-server.get({ path: '/modules/:name', version: '2.0.0' }, validate, responseV2);
+server.get({ path: '/countries/:code', version: '1.0.0' }, validate, responseV1);
 
 server.listen(8080, () => console.log('Serveur accessible sur %s', server.url));

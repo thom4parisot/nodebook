@@ -1,15 +1,14 @@
 'use strict';
 
-const CliTable = require('cli-table');
-const pkg = require('../../package.json');
-const table = new CliTable({
-  head: ['Module', 'Version']
-});
+const {table} = require('table');
+const chalk = require('chalk');
+const env = Object.entries(process.env);
 
-const modules = Object.keys(pkg.dependencies).map((moduleName) => {
-  return [moduleName, pkg.dependencies[moduleName]];
-});
+const data = [[chalk.bold.white('Key'), chalk.bold.white('Value')]].concat(env);
+const config = {
+  columns: {
+    1: { width: 60 }
+  }
+};
 
-table.push(...modules);
-
-console.log(table.toString());
+console.log(table(data, config));
