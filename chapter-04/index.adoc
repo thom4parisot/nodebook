@@ -3046,33 +3046,130 @@ forcément listées dans cet ouvrage.
 [[errors]]
 == S'en sortir quand ça ne se passe pas comme prévu
 
-=== Le programme ne se termine pas
+On fait toutes et tous des erreurs.
+Du coup forcément, notre code va mener à des plantages applicatifs.
+La nature des causes varie et impactent notre lecture des messages d'erreur.
 
-=== SyntaxError
+Cette section a pour intention de nous aider à prendre confiance dans ce qu'on
+voit et de piocher l'information qui va nous aider à résoudre le problème.
 
+=== Une erreur est nichée dans notre code
+
+Il y a 2 familles d'erreurs dans du code ECMAScript : les *erreurs de syntaxe*
+et les *erreurs d'exécution*.
+
+Dans tous les cas, Node *lance une exception* complétée d'une *trace d'erreurs*.
+Le but est de comprendre où l'interpréteur se prend les pieds dans le tapis
+et quel est le chemin parcouru au sein du code pour y parvenir.
+
+Commençons avec une _erreur de syntaxe_ :
+
+[source,bash]
 ----
-TypeError: Cannot read property 'on' of undefined
-  at Object.<anonymous> (/Users/oncletom/workspace/nodebook/chapter-04/examples/process/stin-uppercase.js:2:14)
-  at Module._compile (module.js:643:30)
-  at Object.Module._extensions..js (module.js:654:10)
-  at Module.load (module.js:556:32)
-  at tryModuleLoad (module.js:499:12)
-  at Function.Module._load (module.js:491:3)
-  at Function.Module.runMain (module.js:684:10)
-  at startup (bootstrap_node.js:187:16)
-  at bootstrap_node.js:608:3
+$ node syntax-error.js
+console.log('oups j'ai fait une erreur de guillemets);
+            ^^^^^^^^
+
+SyntaxError: missing ) after argument list
+    at new Script (vm.js:74:7)
+    at createScript (vm.js:246:10)
+    at Object.runInThisContext (vm.js:298:10)
 ----
 
-=== ReferenceError
+*Une erreur de syntaxe est immédiate*.
+Node la détecte lorsqu'il _parse_ notre code.
 
+Dans l'exemple précédent, Node indique qu'il manque une parenthèse après le
+deuxième guillemet, car c'est le symbole que l'interpréteur attend. +
+Pourquoi Node attend-il une parenthèse ?
+Car le guillemet indique une intention incorrecte : on ne veut pas qu'il
+signifie la fin de la chaîne mais qu'il représente un caractère apostrophe dans
+la chaîne.
+
+La correction à entreprendre ne sera pas d'ajouter une parenthèse après le
+guillemet mais bien de l'_échapper_ en le préfixant d'un caractère `\`.
+Node l'interprétera alors comme un caractère.
+
+Penchons-nous à présent sur les _erreurs d'exécution_ :
+
+[source,bash]
 ----
+$ node process/exit-error.js
 console.log(jenexistepas);
             ^
 ReferenceError: jenexistepas is not defined
-    at Object.<anonymous> (/Users/oncletom/workspace/nodebook/chapter-04/examples/process/exit-error.js:5:13)
+    at Object.<anonymous> (/.../chapter-04/examples/process/exit-error.js:5:13)
     at Module._compile (module.js:643:30)
 ----
 
+*Une erreur d'exécution est provoquée lorsque le code est exécuté*.
+Le marqueur `+^+` indique l'emplacement où le problème est rencontré.
+La ligne en-dessous documente le _type d'erreur_ (ici, une _erreur de référence_)
+et une indication (_la variable n'existe pas_). +
+La notation `exit-error.js:5:13` indique que l'origine de l'erreur
+se trouve à la _ligne 5_ du fichier `exit-error.js`, _colonne 13_.
+
+Comment y remédier ?
+En vérifiant si on appelle bien la bonne variable ou en la créant
+avec la valeur attendue le cas échéant.
+
+Les erreurs d'exécution sont pernicieuses elles sont parfois
+provoquées après le démarrage de l'application :
+
+[source,bash]
+----
+$ node runtime-error.js
+setTimeout(() => console.log(secret.toLocaleUperCase()), 2000);
+                                    ^
+TypeError: secret.toLocaleUperCase is not a function
+    at Timeout.setTimeout [as _onTimeout] (/.../chapter-04/examples/runtime-error.js:4:37)
+----
+
+Ici, l'erreur est délenchée deux secondes après le démarrage du script,
+quand Node entre dans le _callback_ de la fonction `setTimeout`.
+
+Le type d'erreur indique que l'on fait appel à un élément inexistant
+(la fonction `toLocaleUperCase`) rattaché à un élément existant (`secret`). +
+La notation `runtime-error.js:4:37` indique que l'origine de l'erreur
+se trouve à la _ligne 4_ du fichier `runtime-error.js`, _colonne 37_.
+
+Pourquoi `toLocaleUperCase` n'est pas une fonction ?
+Car une typo s'est introduite dans notre code :
+c'était à la <<../chapter-03/index.adoc#string,fonction de chaînes>>
+`toLocaleUpperCase` (avec 2 _p_) qu'on pensait faire appel.
+
+[TIP]
+.[RemarquePreTitre]#npm# Module `eslint`
+====
+Le module npm `eslint` ([URL]#https://npmjs.com/eslint#)
+est un vérificateur syntaxique.
+Ses réglages l'emmènent à chercher des conditions défavorables dans le code
+comme des oublis de vérification d'erreur ou des usages exotiques du langage
+qui entrainent des problèmes difficiles à déceler.
+
+On apprendra à le configurer dans l'<<../appendix-a/index.adoc#eslint,annexe A>>.
+====
+
+Les erreurs affichées affichent des informations importantes.
+Si elles n'indiquent pas forcément le chemin de résolution évident,
+elles demandent à ce qu'on cherche à *comprendre la nature de l'erreur*.
+
+[TIP]
+.[RemarquePreTitre]#npm# Module `pretty-error`
+====
+Le module npm `pretty-error` ([URL]#https://npmjs.com/pretty-error#) enjolive
+l'affichage des erreurs.
+Il suffit de l'installer, de le <<require,précharger>> et
+d'exécuter un script pour en bénéficier.
+
+[source,bash]
+----
+$ node -r pretty-error/start process/exit-error.js
+----
+
+On apprendra au <<../chapter-05/index.adoc#,chapitre 5>> comment installer
+des modules npm.
+====
 
 == Les différences de JavaScript entre Node et les navigateurs web
 
@@ -3354,7 +3451,7 @@ $ node --v8-options
 
 Il n'y a pas de _meilleure configuration_ qui conviendrait à chacun de nos usages.
 Le mieux reste encore d'explorer les options possibles, les différents concepts
-et d'ajuster les valeurs offrant le meilleur rapport stabilité/performances. 
+et d'ajuster les valeurs offrant le meilleur rapport stabilité/performances.
 
 .Options notables de V8
 `--optimize_for_size`::
