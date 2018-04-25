@@ -3206,23 +3206,29 @@ ENOENT: no such file or directory, open 'je-n-existe-pas.txt'
 L'erreur textuelle explicite que le fichier n'existe pas.
 Son _code_ (`ENOENT`) signifie la même chose mais a l'avantage d'être plus
 facile à vérifier dans une condition.
+Ce code d'erreur est dépendant du <<modules-builtin,module Node>> utilisé.
+Le <<fs,module `fs`>> ne retourne pas les mêmes codes
+que le <<http,module `http`>>.
 
 La décision nous appartient de savoir quoi faire quand l'erreur se produit.
-Doit-on arrêter le programme (avec <<process.exit,`process.exit`>>) ?
-Est-ce que n'est pas grave et on passe à la suite ?
-Ou peut-être que ce fichier était censé exister et qu'un traitement particulier
-doit être fait, comme notifier l'équipe de maintenance _et_ afficher une page
-d'erreur côté utilisateur.
+Doit-on arrêter le programme (avec <<process.exit,`process.exit()`>>) ?
+Est-ce que ce n'est pas grave et on passe à la suite ?
+Ou peut-être que ce fichier était censé exister et qu'on devrait
+notifier l'équipe de maintenance _et_
+afficher une page d'erreur côté utilisateur.
 
 === Une erreur est retournée dans une promesse
 
-.catch()
+La gestion d'erreurs des <<../chapter-03/index.adoc#promise,promesses>>
+s'effectue à l'aide de la fonction `.catch()`.
 
 [source%interactive,javascript]
 .errors/promise.js
 ----
 include::{sourceDir}/errors/promise.js[]
 ----
+<1> On génère une erreur dans notre code
+<2> L'objet d'erreur est transmis à la prochaine occurence de `.catch()`
 
 [source,bash]
 ----
@@ -3232,7 +3238,26 @@ Error: Oops !
     at process._tickCallback (internal/process/next_tick.js:178:7)
 ----
 
-sinon plantage et `process.on('unhandledRejection')`
+Le contenu de l'erreur est accessible dans le premier argument du _callback_
+d'erreur.
+La trace indique dans le fichier d'origine de l'erreur,
+ainsi que la ligne en question.
+
+L'*utilisation multiple de `.catch()`* nous aide à gérer finement les erreurs :
+
+[source%interactive,javascript]
+.errors/promise-chain.js
+----
+include::{sourceDir}/errors/promise-chain.js[]
+----
+<1> On gère l'erreur en la signalant dans le terminal
+<2> Le _callback_ d'erreur a la possibilité de retourner un résultat
+<3> Ce résultat est transmis à la prochaine occurence de `.then()`
+<4> Dans ce cas, le dernier `.catch()` n'affiche rien car
+nous n'avons pas rencontré d'autre erreur entre temps
+
+L'absence de `.catch()` provoque un plantage applicatif et le délenchement
+de l'<<process.on,événement de processus>> `unhandledRejection` :
 
 [source%interactive,javascript]
 .errors/promise-no-catch.js
