@@ -3,7 +3,13 @@
 Le projet a commencé en décembre 2014.
 Ce journal détaille l'effort d'écriture depuis janvier 2017.
 
-## Lundi 24 avril 2018 • Lyon
+## Mercredi 25 avril 2018 • Lyon
+
+- _Chapitre 4_ : personnaliser les fonctionnalités V8 et ECMAScript
+
+**Météo** : 💪 ☀️
+
+## Mardi 24 avril 2018 • Lyon
 
 - _Chapitre 4_ : modules avancés
 - _Chapitre 4_ : précharger un module

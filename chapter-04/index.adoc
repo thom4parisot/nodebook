@@ -3259,7 +3259,7 @@ et met son *exécution en pause aussitôt*.
 
 Le logo de Node s'affiche dans les outils de développement de _Google Chrome_ :
 
-.Outils de développement _Google Chrome_ qui détectent une session d'inspection.
+.Outils de développement _Google Chrome_ avec l'icône de l'inspecteur Node.
 image::images/chrome-devtools.png[width="85%"]
 
 Un clic sur le logo Node ouvre une nouvelle fenêtre.
@@ -3337,14 +3337,53 @@ majeure de Node.
 Ça nous laissera le temps de corriger les erreurs avant une prochaine
 grosse mise à jour.
 
-=== Personnaliser les fonctionnalités ECMAScript
+=== Ajuster les options de compatibilité et de traçabilité de V8
 
-`--v8-options`
-`--harmony`
+Node repose sur la <<../chapter-01/index.adoc#v8,machine virtuelle V8>>
+pour interpréter nos instructions ECMAScript.
+Node expose différentes options de V8 pour affiner son comportement en fonction
+de notre environnement.
 
-harmony pour activer les fonctionnalités de langage en cours de développement (en voie de standardisation)
+L'intégralité des options de configuration de V8 s'affiche
+avec l'option `--v8-options` :
 
-le reste pour changer le comportement de la VM
+[source,bash]
+----
+$ node --v8-options
+----
+
+Il n'y a pas de _meilleure configuration_ qui conviendrait à chacun de nos usages.
+Le mieux reste encore d'explorer les options possibles, les différents concepts
+et d'ajuster les valeurs offrant le meilleur rapport stabilité/performances. 
+
+.Options notables de V8
+`--optimize_for_size`::
+  Optimise le fonctionnement interne pour utiliser moins de mémoire,
+  au détriment de la vitesse. +
+  Idéal pour l'exécution de scripts Node sur des environnement à faible mémoire,
+  comme les Raspberry Pi.
+`--mem_old_space_limit`::
+  Détermine la quantité de mémoire maximale qu'un processus Node pourra utiliser. +
+  Idéal pour confiner Node sur des environnements à faible mémoire.
+`--gc_inverval`::
+  Détermine le nombre de cycles entre chaque déclenchement du ramasse-miettes mémoire.
+`--expose_gc`::
+  Expose les fonctions de manipulation du ramasse-miettes mémoire. +
+  Idéal si vous souhaitez contrôler finement l'optimisation de la mémoire.
+`--stack_trace_limit`::
+  Change la limite du nombre de lignes affichées dans une trace d'erreurs. +
+  Par défaut : 10 lignes.
+`--trace-deopt`::
+  Signale les optimisations invalidées par V8.
+  Les portions de code indiquées gagneraient à être retravaillées, pour rendre
+  uniforme le type de variables passées en arguments par exemple.
+`--trace-gc`::
+  Signale les moments où le ramasse-miettes se déclenche.
+  On peut ainsi mieux comprendre les raisons qui le pousse à se déclencher.
+
+Les options préfixées par `harmony` activent la prise en charge
+de fonctionnalités ECMAScript qui ne font pas encore partie du standard.
+Elles sont encore au stade expérimental.
 
 == Conclusion
 
