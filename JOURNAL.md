@@ -3,10 +3,19 @@
 Le projet a commencé en décembre 2014.
 Ce journal détaille l'effort d'écriture depuis janvier 2017.
 
+## Jeudi 26 avril 2018 • Lyon
+
+- _Chapitre 4_ : s'en sortir quand ça ne se passe pas comme prévu (partie 2)
+- _Chapitre 4_ : ✅
+- _atelier_ : [session d'apprentissage par l'exploration de Node à la M\[Y\]NE](http://lamyne.org/agenda/2018-04-25-%C3%A0-l-aventure-pour-explorer--node-js-/)
+
+**Météo** : 😄 ☀️
+
 ## Mercredi 25 avril 2018 • Lyon
 
 - _Chapitre 4_ : personnaliser les fonctionnalités V8 et ECMAScript
-
+- _Chapitre 4_ : s'en sortir quand ça ne se passe pas comme prévu (partie 1)
+-
 **Météo** : 💪 ☀️
 
 ## Mardi 24 avril 2018 • Lyon

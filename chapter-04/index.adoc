@@ -3203,12 +3203,15 @@ ENOENT: no such file or directory, open 'je-n-existe-pas.txt'
   path: 'je-n-existe-pas.txt' }
 ----
 
-L'erreur textuelle explicite que le fichier n'existe pas.
+L'erreur affichée nous précise que le fichier demandé n'existe pas.
 Son _code_ (`ENOENT`) signifie la même chose mais a l'avantage d'être plus
 facile à vérifier dans une condition.
+
 Ce code d'erreur est dépendant du <<modules-builtin,module Node>> utilisé.
 Le <<fs,module `fs`>> ne retourne pas les mêmes codes
-que le <<http,module `http`>>.
+que le <<http,module `http`>>. +
+Les appels à des ressources système retournent
+<<errors.system,une variété de codes d'erreur>>.
 
 La décision nous appartient de savoir quoi faire quand l'erreur se produit.
 Doit-on arrêter le programme (avec <<process.exit,`process.exit()`>>) ?
@@ -3275,13 +3278,18 @@ $ node errors/promise-no-catch.js
 
 === Une erreur est retournée dans un événement
 
-.on('error')
+Toute interface basée sur le <<events,module `events`>> peut émettre
+plusieurs erreurs de manière asynchrone.
+C'est le cas du <<http,module `http`>>, du <<stream,module `stream`>>
+et du <<process,module `process`>> par exemple.
 
 [source%interactive,javascript]
 .errors/on-error.js
 ----
 include::{sourceDir}/errors/on-error.js[]
 ----
+<1> On émet une erreur dans notre code
+<2> L'objet d'erreur est transmis à l'événement `error`
 
 [source,bash]
 ----
@@ -3291,7 +3299,12 @@ Error: Oops !
     at Module._compile (internal/modules/cjs/loader.js:678:30)
 ----
 
-sinon ça renvoie un `process.on('uncaughtException')`
+À l'instar des promesses et des callbacks, la trace d'erreurs signale
+le fichier et la ligne à l'origine du problème.
+
+Si une erreur est émise et qu'aucune fonction n'est à l'écoute,
+l'événement `uncaughtException` est produit.
+Suite à ça, le processus s'arrête.
 
 [source%interactive,javascript]
 .errors/on-error.js
@@ -3311,15 +3324,103 @@ Error: Oops !
     at Module._compile (internal/modules/cjs/loader.js:678:30)
 ----
 
+[[errors.system]]
 === Une erreur est renvoyée par le système d'exploitation
 
-notre code est bon mais notre demande est rejetée
-vaut pour le réseau, accès aux fichiers
-parfois pas grave du tout
+L'accès à une ressource distante est plus complexe qu'il n'y parait…
+car la nature des erreurs est variée et sujet à interprétation au cas par cas,
+en fonction de notre intention et du contexte d'exécution.
+
+Les erreurs systèmes indiquent la raison du problème.
+À vous de trouver _pourquoi_ un tel problème se produit.
+
+.Erreurs couramment rencontrées
+[cols="1,2,2",options="header"]
+|===
+| Code erreur
+| Raison
+| Indice de résolution
+
+| `EACCES`
+| Permission refusée : nous n'avons pas le droit d'accéder à cette ressource.
+| Changer les permissions d'accès sans mettre en péril la sécurité.
+
+| `EADDRINUSE`
+| Adresse déjà utilisée : nous tentons de créer une ressource réseau alors qu'une
+interface existe déjà à la même adresse.
+| Vérifier l'origine du serveur déjà en place à cette adresse ;
+attribuer une autre adresse/port à la ressource réseau.
+
+| `ECONNREFUSED`
+| La ressource distante a refusé la connexion.
+| Vérifier si c'est normal que la ressource distante soit inactive ;
+vérifier qu'on se connecte à la bonne ressource.
+
+| `ECONNRESET`
+| La ressource distante a été interrompue en cours de route.
+| Retenter la connexion ; vérifier que la stabilité de la connexion réseau.
+
+| `EEXIST`
+| La ressource à créer existe déjà.
+| C'est un problème seulement si la ressource n'était pas censée exister au prélable.
+
+| `EMFILE`
+| Trop de fichiers sont ouverts en simultané.
+| Les systèmes d'exploitation peuvent travailler sur une quantité finie de fichiers.
+Peut-être que vous avez ouvert trop de fichiers en même temps ;
+fermer l'accès aux fichiers ouverts.
+
+| `ENOENT`
+| Ressource inexistante.
+| Vérifier que le chemin d'accès est correct ;
+inspecter la raison de l'inexistance de la ressource.
+
+| `EPERM`
+| L'opération n'est pas autorisée.
+| Des droits administrateurs sont nécessaires pour effectuer cette opération.
+C'est peut-être une opération dangereuse si cette situation est saugrenue.
+
+| `EPIPE`
+| L'accès à la ressource distante a été interrompu.
+| Retenter l'opération.
+
+| `ETIMEDOUT`
+| L'opération a été annulée car la ressource distante a mis trop de temps pour aboutir.
+| Retenter l'opération ; vérifier la disponibilité de la ressource distante ;
+s'assurer que le volume demandé n'est pas trop important.
+|===
+
 
 === Le programme ne se termine pas
 
+Il arrive des fois qu'un programme ne se termine pas… alors qu'on pensait
+qu'il allait s'arrêter immédiatement.
 
+Il peut y avoir plusieurs raisons à ça :
+
+- une ressource distante *met du temps à répondre* —
+un _timeout_ déclenchera une erreur (généralement sous 30 secondes ; c'est long)
+- un traitement prend du temps
+- un *événement est en cours d'écoute* — typiquement un serveur web qui attend
+des requêtes entrantes
+- une erreur n'a pas été capturée et perturbe les instructions suivantes
+
+Pour en savoir plus, il faudra inspecter le système et observer la
+consommation mémoire et CPU du processus Node en question.
+
+Peut-être qu'il faudra sonder le programme pour déceler le point de blocage.
+L'<<inspect,inspecteur Node>> est un outil particulièrement adapté à cet usage.
+
+[TIP]
+.[RemarquePreTitre]#npm# Module `debug`
+====
+Le module npm `debug` ([URL]#https://npmjs.com/debug#) affiche des
+messages dans la console de manière conditionnelle.
+Les messages s'affichent lorsque les variables d'environnement de notre choix
+sont renseignées au démarrage de l'application.
+
+On apprendra à le configurer dans l'<<../appendix-a/index.adoc#debug,annexe A>>.
+====
 
 == Les différences de JavaScript entre Node et les navigateurs web
 

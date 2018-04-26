@@ -79,6 +79,30 @@ module.exports = {
   'chapter-03/examples/date/base.js': {
     stdout: `2013\n${YEAR}\n`
   },
+  'chapter-04/examples/errors/callback.js': {
+    stderr: 'ENOENT'
+  },
+  'chapter-04/examples/errors/on-error-uncaught.js': {
+    stderr: 'Unhandled \'error\' event'
+  },
+  'chapter-04/examples/errors/on-error.js': {
+    stderr: 'Error: Oops !'
+  },
+  'chapter-04/examples/errors/promise-chain.js': {
+    stderr: 'Une erreur s\'est produite : Oops !'
+  },
+  'chapter-04/examples/errors/promise.js': {
+    stderr: 'Error: Oops !'
+  },
+  'chapter-04/examples/errors/promise-no-catch.js': {
+    stderr: 'UnhandledPromiseRejectionWarning'
+  },
+  'chapter-04/examples/runtime-error.js': {
+    stderr: 'TypeError'
+  },
+  'chapter-04/examples/syntax-error.js': {
+    stderr: 'SyntaxError'
+  },
   'chapter-04/examples/process/stdin-uppercase.js': {
     stdin: 'un deux trois',
     stdout: 'UN DEUX TROIS'

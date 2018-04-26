@@ -79,6 +79,9 @@ line 10, col 52: Tagname [ BUTTON ] must be lower case.
 
 Si elle peuvent paraître opiniatres, sachez qu'elles n'ont pour seul but que de décider une bonne fois pour toute quelle attitude adopter : tout ou rien en miniscule, guillemets simples ou doubles, doctype explicite etc.
 
+[[eslint]]
+=== eslint
+
 *eslint* ([URL]#https://npmjs.com/eslint#) est l'outil de vérification syntaxique pour ECMAScript le plus *complet et modulaire*.
 Il offre un niveau de souplesse extrême au niveau de la configuration des règles à appliquer (utilisation systématique de `use strict`, nombre maximum de paramètres de fonctions, objets non-déclarés, variables inconnues etc.). +
 Il expose également une API relativement simple afin de créer vos propres règles métier.
@@ -148,7 +151,6 @@ include::{sourceDir}/sample.css[]
 
 *csslint* génèrera trois alertes en lisant le fichier `sample.css` et ce, même si celui-ci est syntaxiquement parfaitement valide :
 
-[source,bash]
 ----
 $ csslint sample.css
 
@@ -180,7 +182,6 @@ Cette liste peut aussi bien concerner des versions spécifiques ou encore cibler
 
 L'exemple suivant illustre les alertes relevées par _doiuse_ dans le cas d'une recherche de compatibilité avec Internet Explorer 6 et Internet Explorer 7 :
 
-[source,bash]
 ----
 $ doiuse -b 'ie < 8' sample.css
 sample.css:1:1: CSS 2.1 selectors not supported by: IE (6)
@@ -189,6 +190,15 @@ sample.css:12:1: CSS3 Transitions not supported by: IE (6,7)
 sample.css:14:1: CSS 2.1 selectors not supported by: IE (6)
 ----
 
+== Outillage de développement
+
+=== debug
+
+TBD.
+
+=== nodemon
+
+TBD.
 
 == Minification du code
 
@@ -527,17 +537,21 @@ Ce script produira l'affichage suivant :
 
 image::images/npm-chalk.png[width="85%"]
 
-=== cli-table
+=== table
 
-_cli-table_ est un utilitaire permettant de transformer un tableau de primitives ou d'objets ECMAScript en un tableau visuel dans le terminal.
-Des options vous permettent de gérer la ligne d'entête et la largeur des colonnes, entre autres.
+_table_ est un utilitaire qui transforme un tableau d'objets ECMAScript
+en un tableau visuel ASCII.
+dans le terminal.
 
-[URL]#https://npmjs.com/cli-table#
+Des options vous permettent de gérer la largeur des colonnes, les alignements
+de texte et les troncatures, entre autres.
+
+[URL]#https://npmjs.com/table#
 
 [source,javascript]
-.npm/cli-table.js
+.npm/table.js
 ----
-include::{sourceDir}/npm/cli-table.js[]
+include::{sourceDir}/npm/table.js[]
 ----
 
 === inquirer
