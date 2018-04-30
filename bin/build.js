@@ -7,7 +7,8 @@ const runnerExtension = require('asciidoctor-extension-interactive-runner');
 const bash$Extension = require('../src/asciidoctor-extension-bash-dollar');
 const MDNExtension = require('../src/asciidoctor-extension-mdn');
 const hashScroll = require('../src/asciidoctor-toc-hash-scroll');
-require('asciidoctor-docbook.js')();
+require('../src/asciidoctor-converter-odt')(processor);
+// require('asciidoctor-docbook.js')();
 
 var DEFAULT_ATTRIBUTES = [
   'toc=left',
@@ -42,7 +43,7 @@ processor.Extensions.register(hashScroll);
 
 const builder = (backend, attributes=DEFAULT_ATTRIBUTES) => {
   const spinner = ora();
-  const EXTENSION = backend === 'docbook' ? '.xml' : '.html'
+  const EXTENSION = backend === 'odt' ? '.odt' : '.html'
 
   return (SOURCE_FILE) => {
     const destinationFile = SOURCE_FILE.replace('.adoc', EXTENSION);

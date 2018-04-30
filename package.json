@@ -5,7 +5,7 @@
   "bin": "./bin/cli.js",
   "scripts": {
     "build:html": "node bin/build.js html5 index.adoc chapter-*/index.adoc foreword/*.adoc appendix-*/*.adoc",
-    "build:docbook": "node bin/build.js docbook book.adoc",
+    "build:odt": "node bin/build.js odt book.adoc",
     "install:all": "./bin/cli.js install all",
     "lint": "eslint '**/*.js'",
     "prestart": "npm run build:html",
@@ -57,6 +57,7 @@
     "eslint": "^4.19.1",
     "eslint-plugin-react": "^7.7.0",
     "ora": "^2.0.0",
+    "simple-odf": "^0.2.0",
     "tap-spec": "^4.1.1",
     "tape-spawn": "^1.4.2"
   },
