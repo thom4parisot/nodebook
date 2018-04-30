@@ -23,11 +23,11 @@ Le contenu est actuellement **en cours d'écriture** 🚧. Certaines sections so
 
 # Lire
 
-## En ligne
+## Avec un navigateur web
 
-L’épreuve est consultable gratuitement dans un navigateur Web à cette adresse : [https://oncletom.io/node.js/][livre-web] 🌎.
+L’épreuve est consultable gratuitement dans un navigateur Web à cette adresse : [https://oncletom.io/node.js/][livre-web] 🌐.
 
-De nombreux exemples sont interactifs sans avoir à installer le moindre logiciel sur son ordinateur.
+De nombreux **exemples sont interactifs** sans avoir à installer le moindre logiciel sur son ordinateur.
 
 **Fonctionnalités** : exemples interactifs, vidéos, renvois.
 
@@ -35,17 +35,18 @@ De nombreux exemples sont interactifs sans avoir à installer le moindre logicie
 
 À venir.
 
-## Avec Node.js
+## Avec Node.js et npm
 
-Cette commande télécharge une copie du livre, les exemples associés ainsi que leurs dépendances pour une utilisation hors-ligne.
-
-Le livre s'installe de cette manière, via un terminal :
+Le livre est disponible en tant que **module npm** : [`nodebook`][livre-npm].
+C'est le moyen recommandé pour **exécuter les exemples sur son ordinateur**.
 
 ```bash
 $ npm install --global nodebook
 ```
 
-Une fois installé, le manuel d'utilisation s'invoque de cette manière :
+La commande précédente télécharge une copie du livre, les exemples associés ainsi que leurs dépendances pour une utilisation hors-ligne.
+
+Une fois installé, le manuel d'utilisation s'invoque avec l'argument `--help` :
 
 ```bash
 $ nodebook --help
@@ -78,13 +79,18 @@ L'**interface en ligne de GitHub** est de loin la plus simple à prendre en main
 
 ## Installation
 
-Il est possible de travailler sur une copie locale de l'épreuve en la dupliquant avec Git. [git-lfs](https://git-lfs.github.com/) est nécessaire à la récupération des fichiers volumineux.
+Il est possible de travailler sur une copie locale de l'épreuve en la dupliquant avec Git.
 
 ```bash
 $ git clone --single-branch https:/github.com/oncletom/nodebok
 $ cd nodebook
 $ npm install
-$ git lfs pull # si vous avez installé git-lfs après avoir cloné le dépôt
+```
+
+Optionellement, [git-lfs](https://git-lfs.github.com/) est nécessaire à la récupération des fichiers volumineux.
+
+```bash
+$ git lfs pull
 ```
 
 ## Prévisualiser
@@ -110,6 +116,13 @@ $ npm run build:html
 $ open ./dist
 ```
 
+## Génération de l'épreuve DocBook
+
+```bash
+$ npm run build:docbook
+$ soffice ./dist/book.xml
+```
+
 # Mentions légales
 
 _Node.js — bonnes pratiques pour la programmation JavaScript applicative, universelle et modulaire_ est un ouvrage rédigé par [Thomas Parisot](https://oncletom.io). Il est édité et publié en format papier et e-book par [Eyrolles](http://www.eyrolles.fr).
@@ -122,6 +135,7 @@ Les exemples de code sont placés sous la [licence MIT][].
 [ci-windows]: https://ci.appveyor.com/api/projects/status/crewvvqeybl8f16c?svg=true
 [journal de bord]: JOURNAL.md
 [livre-web]: https://oncletom.io/node.js
+[livre-npm]: https://npmjs.com/nodebook
 [licence MIT]: LICENSE
 [cc-nc-by-sa]: https://creativecommons.org/licenses/by-nc-sa/3.0/deed.fr
 [foreword]: foreword/foreword-fr.adoc

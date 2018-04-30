@@ -4,7 +4,8 @@
   "description": "Node.js — Apprendre par l'exemple • Devenez autonome avec JavaScript, l'écosystème npm, le développement frontend, les applications web et en ligne de commande.",
   "bin": "./bin/cli.js",
   "scripts": {
-    "build:html": "node bin/build.js index.adoc chapter-*/index.adoc foreword/*.adoc appendix-*/*.adoc",
+    "build:html": "node bin/build.js html5 index.adoc chapter-*/index.adoc foreword/*.adoc appendix-*/*.adoc",
+    "build:docbook": "node bin/build.js docbook book.adoc",
     "install:all": "./bin/cli.js install all",
     "lint": "eslint '**/*.js'",
     "prestart": "npm run build:html",
@@ -48,12 +49,14 @@
     "yargs": "^11.1.0"
   },
   "devDependencies": {
+    "asciidoctor-docbook.js": "^1.5.6-preview.2",
     "asciidoctor-extension-interactive-runner": "^1.1.1",
     "asciidoctor.js": "^1.5.6-rc.1",
     "blue-tape": "^1.0.0",
     "chokidar": "^2.0.3",
     "eslint": "^4.19.1",
     "eslint-plugin-react": "^7.7.0",
+    "ora": "^2.0.0",
     "tap-spec": "^4.1.1",
     "tape-spawn": "^1.4.2"
   },
