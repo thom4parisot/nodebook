@@ -33,6 +33,7 @@ module.exports = function MDNExtension () {
 
       attrs['textlabel'] = mdn_caption;
       attrs['role'] = 'info';
+      attrs['name'] = 'note';
 
       if (mdn_caption_prefix) {
         attrs['title'] = `${mdn_caption_prefix} ${titleOrPage}`;
