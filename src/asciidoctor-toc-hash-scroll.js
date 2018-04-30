@@ -3,7 +3,11 @@
 module.exports = function hashScrollExtension () {
 
   this.docinfoProcessor(function(){
-    this.process(() => {
+    this.process(({backend}) => {
+      if (backend !== 'html5') {
+        return '';
+      }
+
       return `<script>
 (function(d){
   d.addEventListener('DOMContentLoaded', function(){
