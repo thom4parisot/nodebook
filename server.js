@@ -1,5 +1,7 @@
 #!/usr/bin/env node
 
+/* eslint-disable max-len */
+
 'use strict';
 
 const http = require('http');
