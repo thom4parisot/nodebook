@@ -109,18 +109,27 @@ La bonne santé des exemples est vérifiée à l'aide d'[ESLint](http://eslint.o
 $ npm test
 ```
 
-## Génération de l'épreuve HTML
+## Génération des épreuves
+
+### HTML
 
 ```bash
 $ npm run build:html
 $ open ./dist
 ```
 
-## Génération de l'épreuve DocBook
+### DocBook
 
 ```bash
 $ npm run build:docbook
 $ soffice ./dist/book.xml
+```
+
+### OpenDocument
+
+```bash
+$ npm run build:odt
+$ soffice ./dist/book.fodt
 ```
 
 # Mentions légales

@@ -28,5 +28,10 @@ $(IMAGE_FILES_DIST): $(IMAGE_FILES)
 build-html: $(VIDEO_FILES_DIST) $(IMAGE_FILES_DIST) $(PKG_FILES_DIST)
 	npm run build:html
 
-.PHONY: build-html clean deploy-html
-.SILENT: deploy-html
+build-docbook: $(VIDEO_FILES_DIST) $(IMAGE_FILES_DIST) $(PKG_FILES_DIST)
+	npm run build:docbook
+
+build-odt: $(VIDEO_FILES_DIST) $(IMAGE_FILES_DIST) $(PKG_FILES_DIST)
+	npm run build:odt
+
+.PHONY: clean build-html build-odt build-docbook

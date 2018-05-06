@@ -24,21 +24,32 @@ install:
 - npm ci
 - npm run install:all
 
+after_success:
+- make build-html
+- make build-odt
+- make build-docbook
+
 before_deploy:
 - git-lfs pull
-- make clean build-html
 
 deploy:
   - provider: pages
-    skip_cleanup: true
+    skip-cleanup: true
     github-token: "$GH_TOKEN"
     local-dir: dist
     on:
       branch: master
       node_js: v8
+  - provider: releases
+    skip-cleanup: true
+    api-key: "$GH_TOKEN"
+    file-glob: true
+    file: dist/book.*
+    on:
+      tags: true
   - provider: npm
-    skip_cleanup: true
+    skip-cleanup: true
     on:
       tags: true
     email: "hi@oncletom.io"
-    api_key: "$NPM_TOKEN"
+    api-key: "$NPM_TOKEN"
