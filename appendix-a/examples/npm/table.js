@@ -2,13 +2,11 @@
 
 const {table} = require('table');
 const chalk = require('chalk');
-const env = Object.entries(process.env);
 
-const data = [[chalk.bold.white('Key'), chalk.bold.white('Value')]].concat(env);
-const config = {
-  columns: {
-    1: { width: 60 }
-  }
-};
+const data = Object.entries(process.versions);
+const header = [
+  chalk.bold.white('Software'),
+  chalk.bold.white('Version')
+];
 
-console.log(table(data, config));
+console.log(table([ header, ...data ]));
