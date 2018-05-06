@@ -18,15 +18,20 @@ module.exports = function bash$Extension () {
         const lines = block.lines.map(line => {
           if (line[0] === '$' && line[1] === ' ') {
             isModified = true;
-            return '<span data-bash-subs="$"></span>' + block.$sub_specialchars(line.slice(2));
+            line = '<span data-bash-subs="$"></span>' + block.$sub_specialchars(line.slice(2));
           }
 
           if (line[0] === '>' && line[1] === ' ') {
             isModified = true;
-            return '<span data-bash-subs=">"></span>' + block.$sub_specialchars(line.slice(2));
+            line = '<span data-bash-subs=">"></span>' + block.$sub_specialchars(line.slice(2));
           }
 
-          return block.$sub_specialchars(line);
+          line = line.replace(/# &lt;(\d+)&gt;$/, (match, id) => {
+            isModified = true;
+            return ` <span data-bash-conum="${id}"></span>`;
+          });
+
+          return isModified ? line : block.$sub_specialchars(line);
         });
 
         if (isModified) {
@@ -48,10 +53,15 @@ module.exports = function bash$Extension () {
       }
 
       return `<style type="text/css">
-.listingblock [data-bash-subs]::before{
+.listingblock [data-bash-subs]::before {
   content: attr(data-bash-subs) " ";
   opacity: .5; }
-</style>`;
+
+.listingblock [data-bash-conum]::before {
+  content: "(" attr(data-bash-conum) ")";
+  font-weight: bold;
+  opacity: .7;
+}</style>`;
     });
   });
 };
