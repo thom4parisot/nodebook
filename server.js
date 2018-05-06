@@ -21,6 +21,7 @@ const staticRoot = serveStatic('./');
  */
 const server = http.createServer((request, response) => {
   response.setHeader('X-Content-Type-Options', 'nosniff');
+  response.setHeader('X-Robots-Tag', 'noindex, nofollow, noarchive');
 
   staticDist(request, response, () => {
     staticRoot(request, response, finalhandler(request, response));
@@ -40,7 +41,7 @@ module.exports = startServer;
 if (require.main === module) {
   /* eslint-disable global-require */
   const chokidar = require('chokidar');
-  const build = require('./bin/build')('html5');
+  const build = require('./bin/build')('html5', '.html');
 
   const rebuild = (path) => {
     const source = extname(path) === '.adoc' ? basename(path): 'index.adoc';
