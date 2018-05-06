@@ -3,6 +3,17 @@
 Le projet a commencé en décembre 2014.
 Ce journal détaille l'effort d'écriture depuis janvier 2017.
 
+## Dimanche 6 mai 2018 • Bordeaux
+
+- _Chapitre 6_ : réorganisation du chapitre
+- _Chapitre 9_ : mise à jour des dépendances
+- _web_ : enlève numéros de légende quand le code est du bash
+- _outillage_ : export DocBook et export préliminaire OpenDocument
+
+---
+✍️ Semaine off pour écrire un article pour [Sciences du Design](http://sciences-du-design.org/)
+---
+
 ## Jeudi 26 avril 2018 • Lyon
 
 - _Chapitre 4_ : s'en sortir quand ça ne se passe pas comme prévu (partie 2)
