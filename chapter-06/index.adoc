@@ -136,7 +136,6 @@ Chaque déploiement est donc unique.
 
 Une fois notre compte créé et notre terminal positionné dans un répertoire de notre ordinateur contenant la racine du projet à déployer, il suffit d'installer le _client now_ et d'initier le déploiement :
 
-[source,bash]
 ----
 $ npm i -g now
 $ now
@@ -242,7 +241,7 @@ Je recommande l'*utilisation d'un environnement par application* ou à défaut, 
 Gérer plusieurs applications sur un même environnement implique soit de *_forcer_ toutes les applications* à se baser sur la même version de Node (mauvaise idée) soit à permettre à *chaque application d'expliciter sa préférence* (meilleure idée). +
 Les _outils de gestion de version pour Node_ exposent justement un mécanisme pour indiquer la version désirée de *manière déclarative* via un fichier texte – ici, `.nvmrc` dans le cas de <<../chapter-02/index.adoc#nvm,nvm>> (cf. Chapitre 2).
 
-[subs="attributes"]
+[subs="+attributes"]
 .{empty}.nvmrc
 ----
 include::.nvmrc[]
@@ -251,7 +250,7 @@ include::.nvmrc[]
 Les commandes exposées par _nvm_ ont _connaissance_ de la version de Node déclarée dans le fichier `.nvmrc`.
 Elles s'adapteront à cette version sauf à demander une version explicite :
 
-[source,bash,subs="attributes"]
+[subs="+attributes"]
 ----
 $ nvm install
 $ nvm install {nodeNextVersion}
@@ -318,7 +317,6 @@ include::{sourceDir}/config/env.js[]
 
 Jouons avec le script `config/env.js` pour illustrer ces différents scénarios :
 
-[source,bash]
 ----
 $ PORT=8000 node config/env.js     # <1>
 $ NODE_ENV=test node config/env.js # <2>
@@ -346,7 +344,6 @@ include::package.json[lines=6..12, indent=0]
 
 L'appel du fichier suivant affichera un résultat différent selon que l'invocation se fasse avec Node ou _npm_ (cf. <<../chapter-04/index.adoc#invoke,invoquer Node.js>>, Chapitre 4) :
 
-[source,bash]
 .Exécution de `config/file-npm.js` avec Node puis _npm_.
 ----
 $ node config/file-npm.js
@@ -496,7 +493,6 @@ Il est lui-même écrit en ECMAScript et fonctionne aussi bien sous Linux, Windo
 La commande suivante démarrera une application web en lui attribuant un nom (ici, _nodebook-ch06-testapp_).
 L'application sera démarrée en mode _cluster_ à raison d'un processus par CPU afin de répartir le trafic en fonction de la charge.
 
-[source,bash]
 ----
 $ pm2 start app.js -i 0 --name nodebook-ch06-testapp
 ----
@@ -572,7 +568,6 @@ Enfin, _systemd_ redémarrera le service en cas d'erreur, dans une limite de 5 t
 
 Si le fichier de configuration est accessible en tant que `/etc/systemd/nodebook.d/app.conf`, le service `nodebook` peut être démarré manuellement comme suit :
 
-[source,bash]
 ----
 $ sudo systemctl start nodebook.service
 ----
@@ -628,7 +623,6 @@ Chacun des processus sera démarré sous l'_utilisateur_ et le _groupe Unix_ pro
 
 _Passenger_ peut être contrôlé par l'intermédiaire du programme `passenger-config`, notamment avec la sous-commande `restart-app` :
 
-[source,bash]
 ----
 $ passenger-config restart-app /var/www/webapp-nodebook
 ----

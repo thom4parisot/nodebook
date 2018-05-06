@@ -90,7 +90,6 @@ sécurité, version par version de Node.
 
 Une fois votre terminal ouvert, saisissez la commande suivante :
 
-[source,bash]
 ----
 $ node --version
 ----
@@ -123,7 +122,6 @@ Dans cet exemple, le fichier `script.js` contient _deux instructions_.
 Node les interprète lorsqu'on lui passe le chemin du fichier en paramètre
 dans une invite de commande :
 
-[source,bash]
 ----
 $ node script.js
 4
@@ -155,7 +153,7 @@ quand je ne m'en rappelle plus.
 
 Le mode interactif s'active en exécutant Node sans aucun autre argument :
 
-[source,bash,subs="attributes"]
+[subs="+attributes"]
 ----
 $ node
 > {empty}
@@ -169,7 +167,7 @@ des langages Ruby (`irb`), Python (`python`) et PHP (`php -a`)
 Lorsque nous sommes dans l'interpréteur interactif,
 toutes les expressions sont interprétées par Node :
 
-[source,bash,subs="attributes"]
+[subs="+attributes"]
 ----
 $ node
 > 2 + 2
@@ -183,7 +181,6 @@ Des expressions sont réservées pour obtenir de l'aide, sortir de l'interpréte
 ou simplement pour nettoyer ce que l'on voit à l'écran.
 Pour cela on fait appel à l'instruction `.help` :
 
-[source,bash]
 ----
 $ node
 > .help
@@ -209,7 +206,7 @@ expression ou variable connue.
 La touche kbd:[TAB] complètera automatiquement la saisie,
 offrira une liste de choix de complétion :
 
-[source,bash,subs="attributes,macros"]
+[subs="+attributes,+macros"]
 ----
 $ node
 > conso{empty}kbd:[TAB]
@@ -231,7 +228,7 @@ de la session interactive en cours.
 Il suffit d'appuyer une ou deux fois sur la touche kbd:[TAB]
 dans une invite vide :
 
-[source,bash,subs="macros"]
+[subs="+macros"]
 ----
 $ node
 > kbd:[TAB]kbd:[TAB]
@@ -252,7 +249,7 @@ l'utilisation répétée de la combinaison de touches kbd:[Ctrl+C]
 On revient ainsi à l'état initial où l'on était avant de
 saisir la commande `node` :
 
-[source,bash,subs="attributes"]
+[subs="+attributes"]
 ----
 $ node
 > {empty}
@@ -271,7 +268,6 @@ La variable `\_` est spécifique à l'invite de commande Node.
 Elle contient systématiquement le _résultat retourné_ par
 la dernière évaluation de code :
 
-[source,bash]
 ----
 $ node
 > 2 + 2
@@ -379,7 +375,6 @@ include::{sourceDir}/console/log.js[]
 La fonction écrit les messages et la valeur des variables dans la
 <<process.std,sortie standard>> du terminal :
 
-[source,bash]
 ----
 $ node console/log.js
 Valeur de count : 3
@@ -750,7 +745,6 @@ include::{sourceDir}/fs/ls.js[]
 
 En l'exécutant, on obtient ces résultats :
 
-[source,bash]
 ----
 $ node fs/ls.js
 [ '.eslintrc.yaml',
@@ -766,7 +760,6 @@ On pourrait penser que le _répertoire courant_ (`.`) et `+__dirname+`
 (répertoire du _module courant_) sont équivalents.
 Et si on se change de répertoire pour voir ?
 
-[source,bash]
 ----
 $ cd ../..
 $ node chapter-04/examples/fs/ls.js
@@ -1047,7 +1040,6 @@ include::{sourceDir}/util/debuglog.js[]
 
 En lançant la commande suivante, seul le message de `console.log` s'affiche :
 
-[source,bash]
 ----
 $ node util/debuglog.js
 Cet ordinateur a 4 CPU.
@@ -1057,7 +1049,6 @@ Il nous faut alors utiliser la <<process.env,variable d'environnement>> `NODE_DE
 En lui attribuant la même valeur que notre débogueur, celui-ci affichera alors
 le contenu attendu :
 
-[source,bash]
 ----
 $ NODE_DEBUG=nodebook node util/debuglog.js
 Cet ordinateur a 4 CPU.
@@ -1342,7 +1333,6 @@ très peu d'efforts.
 
 Le serveur se démarre de la même manière qu'un script ordinaire :
 
-[source,bash]
 ----
 $ node http/server.js
 Serveur démarré !
@@ -1364,7 +1354,6 @@ changements.
 La commande Unix `curl` sait envoyer des requêtes HTTP.
 On peut l'utiliser pour _lire_ les réponses de notre serveur :
 
-[source,bash]
 ----
 $ curl -i http://localhost:4000/test
 $ curl -i -XHEAD http://localhost:4000/test
@@ -1657,7 +1646,6 @@ sans spécifier de valeur pour le répertoire de travail
 
 Exécutons le script pour observer le résultat :
 
-[source,bash]
 ----
 $ node child_process/ls.js
 ----
@@ -1676,7 +1664,6 @@ include::{sourceDir}/child_process/ls-root.js[]
 <1> La valeur de `cwd` est réglée sur `/`, c'est à dire le répertoire racine
 du système de fichiers
 
-[source,bash]
 ----
 $ node child_process/ls-root.js
 ----
@@ -1716,7 +1703,6 @@ Le processus enfant ne saurait plus où chercher l'exécutable `ping`. +
 On aurait pu appeler le programme `ping` en utilisant un chemin absolu comme
 `/sbin/ping`… mais son emplacement varie selon les systèmes d'exploitation.
 
-[source,bash]
 ----
 $ node child_process/ping.js
 PING oncletom.io (185.31.40.11): 56 data bytes
@@ -1773,7 +1759,6 @@ Nous avons utilisé la <<process.std,sortie standard>> pour lire les résultats.
 
 L'exemple précédent revient au même que cette commande :
 
-[source,bash]
 ----
 $ echo -n '0123 abcd' | tr 0-9a-f a-p
 abcd klmn
@@ -1849,7 +1834,6 @@ Elles contiennent des informations comme le _répertoire courant_, langue du sys
 On retrouve ces variables sous la forme d'un
 <<../chapter-03/index.adoc#object,objet ECMAScript>> nommé `process.env` :
 
-[source,bash]
 ----
 $ node -p 'process.env'
 { ITERM_PROFILE: 'Default',
@@ -1876,7 +1860,6 @@ Variable d'environnement éphémère::
 La variable n'existe que pendant la durée de vie du programme.
 La définition `CLÉ=valeur` est placée sur la même ligne que le programme
 en question.
-[source,bash]
 ----
 $ NODE_ENV=production node process/env.js
 mode : production
@@ -1888,7 +1871,6 @@ avec l'opérateur `set` sous Windows. +
 La définition `export CLÉ=valeur` est placée sur sa propre ligne.
 Elle restera accessible à _tout programme_ jusqu'à la fin de la session
 ou jusqu'à ce qu'on efface la variable.
-[source,bash]
 ----
 $ export NODE_ENV=production
 $ node process/env.js
@@ -1902,7 +1884,6 @@ L'utilisation de l'opérateur `unset` dans un terminal efface le contenu
 d'une variable d'environnement.
 Pratique pour ne pas laisser de traces !
 
-[source,bash]
 ----
 $ export NODE_ENV=dev
 $ echo $NODE_ENV
@@ -1923,7 +1904,6 @@ On notera que son comportement s'adapte à la _présence_ et à la _valeur_
 de la variable d'environnement `NODE_ENV`.
 Elle est accessible dans Node en tant que `process.env.NODE_ENV`.
 
-[source,bash]
 ----
 $ NODE_ENV=dev node process/env.js
 On est en mode développement.
@@ -2073,7 +2053,6 @@ pour y _écrire_ du contenu et pour le _rediriger_ vers d'autres endroits.
 Commençons par l'utilisation de `process.stdout` pour écrire un message
 dans notre terminal :
 
-[source,bash]
 ----
 $ node process/stdout.js
 un deuxtrois
@@ -2129,7 +2108,6 @@ est fourni par défaut sur les systèmes UNIX (dont Linux et macOS) font partie.
 Il ne retourne que les ligne contenant un motif
 donné en <<process.arv,argument>> :
 
-[source,bash]
 ----
 $ node process/stdout.js | grep 'tre'
 qua<i>tre</i>
@@ -2141,7 +2119,6 @@ de `grep` grâce à l'utilisation du _pipe_ (`|`).
 C'est le moment idéal de regarder du côté de l'_entrée standard_ de Node.
 Implémentons quelque chose qui passe le message d'entrée en majuscules :
 
-[source,bash]
 ----
 $ echo "un deuxtrois\nquatre" | node process/stdin-uppercase.js
 UN DEUXTROIS
@@ -2150,7 +2127,6 @@ QUATRE
 
 On aurait aussi pu réutiliser la _sortie_ de l'exemple `process/stdout.js` :
 
-[source,bash]
 ----
 $ node process/stdout.js | node process/stdin-uppercase.js
 UN DEUXTROIS
@@ -2181,7 +2157,6 @@ contenus que l'on souhaite dissocier de la sortie standard.
 L'exemple suivant affiche un nombre toutes les demi-secondes et l'état
 du compteur de nombres tous les 10 affichages :
 
-[source,bash]
 ----
 $ node process/stdout-long.js
 7
@@ -2214,7 +2189,6 @@ On pourrait décider de n'afficher que le flux d'erreur.
 Pour cela on _redirige_ la sortie standard avec l'opérateur `>`
 vers un fichier :
 
-[source,bash]
 ----
 $ node process/stdout-long.js > stdout.txt
 Compteur = 5
@@ -2256,7 +2230,6 @@ dans la section ci-après, <<process.exit,Mettre fin au processus>>.
 
 Essayons de lancer l'exemple précédent pour voir :
 
-[source,bash]
 ----
 $ node process/exit.js
 Le processus démarre
@@ -2279,7 +2252,6 @@ include::{sourceDir}/process/exit-error.js[]
 
 Que verrions-nous si on lançait le script ?
 
-[source,bash]
 ----
 $ node process/exit-error.js
 Le processus termine avec le code 1
@@ -2300,7 +2272,6 @@ de la dernière commande exécutée.
 Sa valeur devrait être équivalente à celle passée en argument
 de l'événement `process.on('exit')`.
 
-[source,bash]
 ----
 $ echo $?
 ----
@@ -2369,7 +2340,7 @@ manuellement au processus (voir section ci-après)
 
 En pratique le résultat ressemblerait à ceci :
 
-[source,bash,subs="macros"]
+[subs="+macros"]
 ----
 $ node process/interrupt.js
 2018-03-16T10:58:32.855Z - Processus démarré
@@ -2413,7 +2384,7 @@ et ce, *au lieu de présenter une application web instable*.
 L'exemple suivant illustre que l'on souhaite clôturer notre script
 si on trouve le bon nombre (un peu comme au jeu _MindMaster_) :
 
-[source,bash,subs="macros"]
+[subs="+macros"]
 ----
 $ node process/exit-devinette.js
 JEU ! Trouve le nombre auquel je pense :
@@ -2490,7 +2461,6 @@ include::{sourceDir}/stream/intro.js[]
 <2> Invoque cette fonction à chaque morceau de données lu
 <3> Affiche le nombre d'octets lus dans ce morceau
 
-[source,bash]
 ----
 $ node stream/intro.js
 214 octets lus
@@ -2513,7 +2483,6 @@ L'option `highWaterMark` adapte le débit de lecture.
 Cette valeur est exprimé en _octets_.
 Plus ce nombre est petit, moins Node utilise de mémoire :
 
-[source,bash]
 ----
 $ node stream/read.js
 100 octets lus
@@ -2608,7 +2577,6 @@ include::{sourceDir}/stream/pipe-transform.js[]
 Cet exemple devrait afficher le contenu de notre fichier source avec une taille
 réduite grâce à la compression _gzip_ :
 
-[source,bash]
 ----
 $ node stream/pipe-transform.js
 ----
@@ -2619,7 +2587,6 @@ au format gzip ; un format de compression libre et populaire.
 Le programme Unix `gzip` sait décoder des données compressées dans ce format.
 Il sait aussi les décoder à la volée… avec un `pipe()` :
 
-[source,bash]
 ----
 $ node stream/pipe-transform.js | gzip
 ----
@@ -2728,7 +2695,6 @@ on passe un *chemin relatif au fichier courant*
 
 Exécutons le fichier `modules/parent.js` avec Node pour en avoir le cœur net :
 
-[source,bash]
 ----
 $ node modules/parent.js
 undefined
@@ -2876,7 +2842,6 @@ Quel est le verdict à votre avis ?
 Rien ne vaut une vérification, quitte à remettre en question
 notre avis initial :
 
-[source,bash]
 ----
 $ node modules/double-import.js
 1
@@ -2956,7 +2921,6 @@ Il ne nous reste maintenant plus qu'à exécuter notre script `.mjs`
 pour observer le résultat.
 On notera l'utilisation de `--experimental-modules` :
 
-[source,bash]
 ----
 $ node --experimental-modules modules/ecmascript.mjs
 (node:35074) ExperimentalWarning: The ESM module loader is experimental.
@@ -2979,7 +2943,6 @@ On notera au passage qu'on utilise la
 <<../chapter-03/index.adoc#object-destructuring,destructuration d'objet>>
 pour extraire un _export nommé_ depuis un module ECMAScript.
 
-[source,bash]
 ----
 $ node --experimental-modules modules/ecmascript-multiple.mjs
 (node:35074) ExperimentalWarning: The ESM module loader is experimental.
@@ -3017,7 +2980,6 @@ Il suffit de charger le module `esm` avant de démarrer un script Node,
 peu importe son mécanisme de chargement de modules :
 `esm` rendra le chargement des modules totalement transparent.
 
-[source,bash]
 ----
 $ node -r esm modules/ecmascript.js
 1
@@ -3064,7 +3026,6 @@ et quel est le chemin parcouru au sein du code pour y parvenir.
 
 Commençons avec une _erreur de syntaxe_ :
 
-[source,bash]
 ----
 $ node syntax-error.js
 console.log('oups j'ai fait une erreur de guillemets);
@@ -3092,7 +3053,6 @@ Node l'interprétera alors comme un caractère.
 
 Penchons-nous à présent sur les _erreurs d'exécution_ :
 
-[source,bash]
 ----
 $ node process/exit-error.js
 console.log(jenexistepas);
@@ -3116,7 +3076,6 @@ avec la valeur attendue le cas échéant.
 Les erreurs d'exécution sont pernicieuses elles sont parfois
 provoquées après le démarrage de l'application :
 
-[source,bash]
 ----
 $ node runtime-error.js
 setTimeout(() => console.log(secret.toLocaleUperCase()), 2000);
@@ -3162,7 +3121,6 @@ l'affichage des erreurs.
 Il suffit de l'installer, de le <<require,précharger>> et
 d'exécuter un script pour en bénéficier.
 
-[source,bash]
 ----
 $ node -r pretty-error/start process/exit-error.js
 ----
@@ -3233,7 +3191,6 @@ include::{sourceDir}/errors/promise.js[]
 <1> On génère une erreur dans notre code
 <2> L'objet d'erreur est transmis à la prochaine occurence de `.catch()`
 
-[source,bash]
 ----
 $ node errors/promise.js
 Error: Oops !
@@ -3268,7 +3225,6 @@ de l'<<process.on,événement de processus>> `unhandledRejection` :
 include::{sourceDir}/errors/promise-no-catch.js[]
 ----
 
-[source,bash]
 ----
 $ node errors/promise-no-catch.js
 (node:27412) UnhandledPromiseRejectionWarning: Error: Oops !
@@ -3291,7 +3247,6 @@ include::{sourceDir}/errors/on-error.js[]
 <1> On émet une erreur dans notre code
 <2> L'objet d'erreur est transmis à l'événement `error`
 
-[source,bash]
 ----
 $ node errors/on-error.js
 Error: Oops !
@@ -3312,7 +3267,6 @@ Suite à ça, le processus s'arrête.
 include::{sourceDir}/errors/on-error-uncaught.js[]
 ----
 
-[source,bash]
 ----
 $ node errors/on-error-uncaught.js
 events.js:167
@@ -3537,7 +3491,6 @@ J'utilise cette forme d'interaction pour obtenir un résultat rapide,
 sans créer de nouveau fichier.
 Par exemple, le résultat d'une opération mathématique :
 
-[source,bash]
 ----
 $ node -p '2 + 2'
 4
@@ -3545,7 +3498,6 @@ $ node -p '2 + 2'
 
 Toute expression ECMAScript valide est acceptée :
 
-[source,bash]
 ----
 $ node -p '"abc".toLocaleUpperCase()'
 ABC
@@ -3560,7 +3512,6 @@ dans le <<../chapter-03/index.adoc#,chapitre 3>>.
 
 L'option de démarrage `--require` charge le module indiqué _avant_ le script Node.
 
-[source,bash]
 ----
 $ node --require ./print-exit.js url/intro.js
 ----
@@ -3593,7 +3544,6 @@ Node accepte deux options `--inspect` et `--inspect-brk`.
 Elles exposent toutes deux un protocole de débogage
 auquel on peut se connecter avec le navigateur _Google Chrome_.
 
-[source,bash]
 ----
 $ node --inspect-brk print-text.js texte --uppercase
 Debugger listening on ws://127.0.0.1:9229/ddd9bbfd-09ac-4426-a53e-c8abe4fc36da
@@ -3666,7 +3616,6 @@ L'exemple suivant illustre une utilisation dépréciée par Node :
 include::{sourceDir}/deprecation-warning.js[]
 ----
 
-[source,bash]
 ----
 $ node deprecation-warning.js
 ----
@@ -3674,7 +3623,6 @@ $ node deprecation-warning.js
 Les dépréciations sont masquées par défaut et affichées lorsqu'on utilise
 l'option `----pending-deprecation` :
 
-[source,bash]
 ----
 $ node --pending-deprecation deprecation-warning.js
 (node:8130) [DEP0005] DeprecationWarning: The Buffer() and new Buffer() constructors are not recommended for use due to security and usability concerns. Please use the new Buffer.alloc(), Buffer.allocUnsafe(), or Buffer.from() construction methods instead.
@@ -3695,7 +3643,6 @@ de notre environnement.
 L'intégralité des options de configuration de V8 s'affiche
 avec l'option `--v8-options` :
 
-[source,bash]
 ----
 $ node --v8-options
 ----

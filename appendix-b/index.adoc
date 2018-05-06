@@ -702,7 +702,6 @@ Si nous avions voulu ne retourner que la propriété `resources` de chaque élé
 Le mécanisme de `pipe` permet de transvaser un flux de données d'un _stream_ vers un autre.
 Ce comportement est littéralement le même que l'opérateur `|` dans le monde UNIX :
 
-[source,bash]
 ----
 cat /etc/networks | head -n3 | grep -i 'database'
 ----

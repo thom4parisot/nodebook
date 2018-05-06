@@ -177,7 +177,7 @@ Deux autres alternatives sont à essayer si _nvm-windows_ pose problème :
 - [URL]#https://github.com/marcelklehr/nodist#
 ====
 
-[source,bash,subs="attributes"]
+[subs="+attributes"]
 .Commande d'installation du logiciel nvm {nvmVersion}
 ----
 $ curl -L https://github.com/creationix/nvm/raw/{nvmVersion}/install.sh | bash
@@ -193,7 +193,7 @@ Rendez-vous dans la section <<install-macos,macOS>> pour en savoir plus.
 
 Une fois installé, vous serez libre d'installer les versions exactes de Node qui vous intéressent en appelant la commande `nvm` dans un <<shell,terminal>>.
 
-[source,bash,subs="attributes"]
+[subs="+attributes"]
 .Installation de Node {nodeCurrentVersion} avec la commande `nvm install`
 ----
 $ nvm install {nodeCurrentVersion}
@@ -206,7 +206,6 @@ La deuxième ligne est quant à elle responsable de signaler que l'on veut *en f
 
 On pourra retrouver à tout moment les versions installées en utilisant la commande `nvm ls`.
 
-[source,bash]
 .Liste des versions installées de Node avec la commande `nvm ls`
 ----
 $ nvm ls
@@ -252,7 +251,7 @@ Des paquets officiels pour Debian, Ubuntu, Mint, RedHat Enterprise Linux (RHEL) 
 
 L'installation de node {v}.x sous Ubuntu et Mint devient aussi simple que les deux commandes suivantes :
 
-[source,bash,subs="attributes"]
+[subs="+attributes"]
 ----
 $ curl -sL https://deb.nodesource.com/setup_{v}.x | sudo -E bash -
 $ sudo apt-get install -y nodejs
@@ -260,14 +259,13 @@ $ sudo apt-get install -y nodejs
 
 Pour Debian, il faudra se mettre en `root` et ensuite saisir ces commandes :
 
-[source,bash,subs="attributes"]
+[subs="+attributes"]
 ----
 $ curl -sL https://deb.nodesource.com/setup_{v}.x | bash -
 $ apt-get install -y nodejs
 ----
 
 Pour RHEL et CentOS, il faudra se mettre en `root` et saisir cette commande :
-[source,bash]
 ----
 $ curl -sL https://rpm.nodesource.com/setup_8.x | bash -
 ----
@@ -303,7 +301,6 @@ L'installation de _Homebrew_ se fait en deux étapes :
 . l'installation des _Command Line Tools_ pour compiler des logiciels depuis leur code source ;
 . l'installation de _Homebrew_ en elle-même.
 
-[source,bash]
 .Installation des _Command Line Tools_ et de _Homebrew_ sous macOS
 ----
 $ xcode-select --install
@@ -313,14 +310,12 @@ $ BREWRL=https://raw.githubusercontent.com/Homebrew/install/master/install \
 
 Pour installer _nvm_, il suffira alors de faire :
 
-[source,bash]
 ----
 $ brew install nvm
 ----
 
 Ou pour installer une seule version de Node, la plus récente :
 
-[source,bash]
 ----
 $ brew install node
 ----
@@ -351,7 +346,6 @@ Le menu créé par l'installeur contient deux icônes que nous utiliserons tout 
 Si vous utilisez déjà un gestionnaire de paquet comme _Scoop_ ([URL]#http://scoop.sh/#) ou _Chocolatey_ ([URL]#https://chocolatey.org/#),
 le chemin d'installation vers Node s'en trouvera réduit à une simple commande :
 
-[source,bash]
 ----
 # Avec Scoop
 $ scoop install nodejs
@@ -382,7 +376,7 @@ Un paquet `deb` est également proposé pour les utilisateurs du système d'expl
 Les instructions d'installation sont identiques à celles décrites
 dans la section précédente relative aux <<install-ubuntu,distributions Linux : Debian et Ubuntu>>.
 
-[source,bash,subs="attributes"]
+[subs="+attributes"]
 .Installation de Node {nodeCurrentVersion} sur Raspberry Pi Model 3 (CPU ARMv8)
 ----
 $ curl -SLO https://nodejs.org/dist/v{nodeV}/node-v{nodeV}-linux-arm64.tar.xz
@@ -407,7 +401,7 @@ les options de sécurité liées à _OpenSSL_,
 mais aussi l'intégration avec des profileurs et débogueurs externes
 (type _XCode_, _GNU Debugger_, _Intel VTune_).
 
-[source,bash,subs="attributes"]
+[subs="+attributes"]
 .Étapes de compilation de Node v{nodeV}
 ----
 $ curl -sS https://nodejs.org/dist/v{nodeV}/node-v{nodeV}.tar.gz \
@@ -434,7 +428,7 @@ Les installeurs et instructions d'installation de Docker se trouvent à l'adress
 
 Une fois Docker installé, on peut exécuter une image officielle pour Node {nodeCurrentVersion} :
 
-[source,bash,subs="attributes"]
+[subs="+attributes"]
 .Affiche la version de Node
 ----
 $ docker run -ti --rm node:{v} node --version
@@ -445,7 +439,7 @@ Docker télécharge l'image `node:{v}` et exécute la commande `node --version` 
 
 Pour lancer un terminal Node dans Docker, il faudrait saisir cette commande :
 
-[source,bash,subs="attributes"]
+[subs="+attributes"]
 ----
 $ docker run -ti --rm node:{v} node
 > 2+2
@@ -619,7 +613,6 @@ Et ça tombe bien, le logiciel nous offre une commande à saisir
 dans un terminal pour installer toutes les extensions
 ajoutées à nos favoris !
 
-[source,bash]
 ----
 $ apm stars --install
 ----

@@ -66,7 +66,6 @@ Sur un document plus réaliste et donc volumineux, avec de fréquents changement
 
 L'exécution de *htmlhint* avec ses règles par défaut remontera les alertes suivantes :
 
-[source,bash]
 ----
 $ npm run lint-html
 sample.html:
@@ -226,7 +225,6 @@ Il ne cherche pas à faire davantage que son homologue originel.
 *cssmin* est donc un outil simple, exposant un exécutable système ainsi qu'un module Node.
 Il ne fournit en revanche aucun support pour les _Source Maps_. Il vous faudra reposer sur l'outillage proposé par les navigateurs web modernes pour le débogage (reformatage du code, inspection des propriétés etc.).
 
-[source,bash]
 .Exemples d'utilisation de *cssmin*
 ----
 $ cssmin sample.css > sample.min.css # <1>
@@ -264,7 +262,6 @@ Il est d'autant plus aisé de les tester, de les activer et de les désactiver q
 Travail d'autant plus ingrat si vous n'avez pas envie ni le loisir de recourir à des _mixins_ Less ou Sass. +
 _autoprefixer_ expose une API ECMAScript, un exécutable système ainsi qu'une API de _streaming_ permettant une intégration sans plugin avec <<browserify,browserify>>, entre autres.
 
-[source,bash]
 .Exemple d'utilisation d'_autoprefixer_ en fonction des besoins en compatibilité navigateur
 ----
 $ autoprefixer -o - sample.css | grep transition
@@ -619,7 +616,6 @@ L'exemple précédent expose une même route permettant d'obtenir des informatio
 
 Par défaut, la version 2 de l'API est utilisée :
 
-[source,bash]
 ----
 $ curl http://localhost:8080/modules/express
 {"modules":[{"name":"express","version":"4.9.5"}]}
@@ -627,7 +623,6 @@ $ curl http://localhost:8080/modules/express
 
 Une version obsolète de l'API peut toutefois être utilisée si l'on mentionne explicitement cette information :
 
-[source,bash]
 ----
 $ curl -H 'Accept-version: ~1' http://localhost:8080/modules/express
 "^4.9.5"
@@ -674,7 +669,6 @@ include::{sourceDir}/stylesheet.less[]
 
 L'exécutable `lessc` compile le fichier LESS:
 
-[source,bash]
 ----
 $ lessc stylesheet.less
 ----
@@ -742,7 +736,6 @@ include::{sourceDir}/npm/browserify.js[]
 
 La commande `browserify` remplacera l'appel au module _cheerio_ par un appel au module _jquery_ :
 
-[source,bash]
 ----
 $ browserify npm/browserify.js -o npm/browserify.bundle.js
 ----
