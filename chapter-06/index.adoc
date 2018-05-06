@@ -8,6 +8,8 @@
 :sectnums:
 :revdate: {docdate}
 :imagesdir: {indir}
+:cross: &#x2718;
+:tick: &#x2714;
 ifdef::env[]
 :imagesdir: .
 endif::[]
@@ -16,11 +18,11 @@ endif::[]
 
 ====
 .Sommaire
-- Considérations avant une mise en production
-- Où héberger une application Node ?
-- Déployer une application manuellement ou automatiquement
-- S'assurer du bon fonctionnement d'une application
-- Inspecter les erreurs et ralentissements d'une application
+- Déployer une application Node
+- Choisir son hébergement
+- Améliorer la portabilité
+- Démarrer automatiquement nos applications
+- Points de vigilance après une mise en ligne
 ====
 
 [abstract]
@@ -30,17 +32,204 @@ endif::[]
 include::../resources/tip-versions.adoc[]
 include::../resources/tip-examples.adoc[]
 
-== Considérations avant une mise en production
 
-Nous avons déjà vu dans le chapitre 4 <<../chapter-04/index.adoc#invoke,comment invoquer Node>>.
-Cette section va nous aider à préparer notre application Node pour l'exécuter sur *d'autres environnements* que notre machine de développement sans changer une seule ligne de code.
+[[deploy]]
+== Déployer une application Node
 
-Nous allons aussi nous interroger sur les raisons qui pourraient emmener une application à s'interrompre mais aussi comment confortablement *inspecter les problèmes* sur notre machine.
+////
+Préciser que pour aller rapidement faut aller sur le PaaS (git push)
+////
 
-Enfin nous nous intéresserons aux différents mécanismes de *démarrage automatique* d'applications Node et aux actions renforçant leur *sécurité*.
+[[deploy.github]]
+=== En important du code depuis GitHub
 
-[[app-configuration]]
-=== Configuration
+glitch
+heroku
+
+TBD.
+
+[[deploy.cli]]
+=== Avec un assistant de déploiement
+
+----
+$ heroku login
+Enter your Heroku credentials:
+Email: hi@oncletom.io
+Password: *****************
+Logged in as hi@oncletom.io
+----
+
+[[deploy.git]]
+=== En faisant `git push` depuis sa machine
+
+TBD.
+
+[[deploy.clone]]
+=== En faisant `git pull` lors d'une session SSH
+
+TBD.
+
+
+[[deploy.provisioning]]
+=== Avec un outil de provisionnement
+
+TBD.
+
+////
+- Ansible
+////
+
+
+[[deploy.ci]]
+=== En paramétrant un logiciel d'intégration continue
+
+TBD.
+
+////
+- Travis Deploy
+////
+
+
+[[hosting]]
+== Choisir son hébergement
+
+Où faire vivre nos applications Node en dehors de notre ordinateur servant au développement ?
+
+Nous allons nous intéresser aux différents mécanismes exposant des applications Node au monde extérieur, que ce soit sur une machine dédiée ou sur des services en ligne.
+
+[[paas]]
+=== Plate-forme en tant que service (_Platform as a Service_)
+
+Les plates-formes de services *automatisent la configuration* et *facilitent le déploiement* de nos applications Node mais également Ruby, Python et PHP, entres autres.
+Elles se spécialisent dans des déploiements rapides, une allocation des ressources flexible, à la demande et en un clic.
+
+Leur philosophie est de *tout penser en terme de ressources et de services*.
+On paie pour la capacité informatique nécessaire à un _instant T_ tout en ayant le loisir de réduire ou d'augmenter cette capacité à tout moment sans remettre en cause l'architecture de nos applications.
+
+Chaque instance peut être dimensionnée _à tout moment_ en _puissance_ (CPU, RAM) et en _nombre_ (de 1 à plusieurs instances en parallèle).
+La distribution du trafic web est gérée pour nous.
+
+Le principe de déploiement sur les plates-formes de services est réduit au quasi-minimum :
+
+. création d'une nouvelle application sur la plate-forme en ligne ;
+. nous _poussons_ notre code applicatif — généralement avec `git` ;
+. la plate-forme prépare la mise en ligne en installant les dépendances _npm_ et en démarrant l'application web ;
+. notre application est fonctionnelle quelques secondes plus tard.
+
+[format="csv", options="header"]
+.Sélection de fournisseurs _PaaS_
+|===
+Service, Déploiement, Add-ons, Gratuité, Tarif
+[URL]#https://zeit.co#, "cli", {cross}, 3 apps, 15$/mois/10 apps
+[URL]#https://clever-cloud.com#, "git", {tick}, crédit 20€, 5€/mois/app
+[URL]#https://gandi.net/hosting/simple#, "cli/git/SSH", {tick}, 10 jours, 5€/mois/app
+[URL]#https://scalingo.com#, "git/GitHub", {tick}, 30 jours, 7€/mois/app
+[URL]#https://heroku.com#, "cli/git/GitHub/Dropbox", {tick}, 1000 heures par mois, 7$/mois/app
+|===
+
+La startup californienne Zeit ([URL]#https://zeit.co#) édite le service de _déploiements immutables_ nommé _now_ ([URL]#https://zeit.co/now#).
+Ce service est focalisée sur l'hébergement de sites statiques, d'applications web Node et de conteneurs Docker.
+
+Sa particularité est de créer une *nouvelle instance d'application par déploiement*.
+Chaque déploiement est donc unique.
+À nous de désigner le déploiement associé à l'instance de production par l'intermédiaire de la commande `now alias`.
+
+Une fois notre compte créé et notre terminal positionné dans un répertoire de notre ordinateur contenant la racine du projet à déployer, il suffit d'installer le _client now_ et d'initier le déploiement :
+
+[source,bash]
+----
+$ npm i -g now
+$ now
+----
+
+[TIP]
+.[RemarquePreTitre]#Documentation# now
+====
+Le fonctionnement de l'application _now_ est illustré et documenté à la fois en ligne et via un terminal de commandes.
+
+- `now --help`
+- [URL]#https://zeit.co/docs#
+====
+
+Des *ressources complémentaires* sont disponibles auprès d'autres fournisseurs de services.
+Leur gestion suit les mêmes principes d'*élasticité à la demande*.
+Cela concerne les bases de données _MySQL_, _MariaDB_, _redis_ ou _postgreSQL_ par exemple mais aussi l'envoi d'emails, des moteurs d'indexation de contenus, le monitoring applicatif, l'aggrégation des logs etc.
+
+Des plates-formes comme _Heroku_ ([URL]#https://heroku.com#) et _Clever Cloud_ ([URL]#https://clever-cloud.com#) fédèrent ces ressources sur une place de marché.
+L'intégration des ressources en est ainsi facilitée, en quelques clics ou depuis un terminal.
+Les _variables d'environnement_ contenant les informations de connexion nous sont communiquées dès que les ressources complémentaires sont provisionnées.
+Il ne nous reste alors plus qu'à <<app-configuration,configurer nos applications>> en fonction.
+
+.Ensemble de ressources complémentaires à une application Node hébergée sur Heroku.
+image::images/heroku-addons.png[width="85%"]
+
+ifeval::["{backend}" == "html5"]
+.Exemple de déploiement applicatif vers Heroku.
+video::videos/heroku-deploy.mp4[width="70%"]
+endif::[]
+
+ifeval::["{backend}" != "html5"]
+.Exemple de déploiement applicatif vers Heroku.
+image::images/heroku-deploy.png[width="85%"]
+endif::[]
+
+Les plates-formes en tant que service facturent à l'heure consommée.
+Elles sont en génral faciles à prendre en main et ne nécessitent pas de connaissance en administration de machine informatique. +
+Les instances d'application ont l'avantage d'être rapidement déployées, peuvent être mises en _pause_ et s'adapter au trafic ainsi qu'à notre budget.
+
+Le paiement à l'heure _et_ à l'instance peut rapidement saler l'addition et questionner l'utilisation de ce type de services en lieu et place d'un <<vm-hosting,serveur dédié ou d'une machine virtuelle>>. +
+La question est de savoir combien de notre temps nous souhaitons passer à maintenir une infrastructure — du temps qui coûte également de l'argent.
+
+
+[[shared-hosting]]
+=== Hébergement mutualisé
+
+Les hébergements mutualisés sont bon marché car ils se "contentent" de mutualiser un frontal HTTP et de servir des fichiers statiques et des scripts interprétés.
+Python ou PHP, par exemple.
+
+(parler d'Alwaysdata)
+
+
+[[cloud]]
+=== Serveur dédié, cloud, VPS, etc.
+
+
+- [URL]#https://gandi.net/hosting/iaas#
+- [URL]#https://ovh.com/fr/#
+- [URL]#https://digitalocean.com/#
+- [URL]#https://aws.amazon.com/fr/ec2/#
+
+[TIP]
+.[RemarquePreTitre]#Alternative# AWS Elastic Beanstalk
+====
+
+- [URL]#https://aws.amazon.com/fr/elasticbeanstalk/#
+====
+
+[[deploy.docker]]
+=== En publiant une image Docker
+
+TBD.
+
+[[lambda]]
+=== Invocation éphémère (_Function as a Service_)
+
+TBD.
+
+////
+- Lambda
+////
+
+
+
+== Améliorer la portabilité
+
+Cette section va nous aider à préparer notre application Node pour l'exécuter
+sur *d'autres environnements* que notre machine de développement sans changer
+une seule ligne de code.
+
+[[configuration]]
+=== Configurer sans toucher à notre code
 
 L'*environnement change entre notre machine de développement et la production*, le serveur de tests ou encore une plate-forme de services.
 Le nom et paramètres d'accès à une base de données diffèrent, le système d'exploitation n'est pas le même ni même les codes d'accès pour accéder à certaines APIs.
@@ -185,7 +374,7 @@ CONFIG_FILE=~/.secured/config.json node app.js
 ====
 
 [[data-persistence]]
-=== Persistance des données
+=== Persister les fichiers en dehors de notre application
 
 Développer une application sur sa machine et la tester nous met à l'abri de certaines questions et considérations. +
 Que se passe-t-il en cas de redémarrage de notre application ?
@@ -211,187 +400,27 @@ Toutes ces questions devraient nous aiguiller vers le *choix d'un ou de plusieur
 Nous répondons au <<../chapter-07/index.adoc#database,choix d'une base de données>> dans le chapitre 7.
 Nous verrons plus loin dans ce chapitre comment <<database-migration,effectuer des migrations de base de données>> afin de répercuter des évolutions dans leur structure et ce, sans intervention manuelle.
 
-=== Causes et raisons d'un plantage applicatif
 
-C'est vendredi.
-On vient de faire un dernier commit avant de mettre en production.
-Le serveur redémarre et *rien n'a planté avant de partir* se détendre en week-end en mode bivouac à la belle étoile.
 
-Lundi, retour au boulot.
-Quelle n'est pas notre surprise de voir un message d'erreur en visitant notre application web…
+=== Exécuter l'application avec un utilisateur sans privilèges
 
-.Message d'erreur du serveur _nginx_ lorsque l'application Node ne répond plus.
-image::images/nginx-proxy-error.png[width="85%"]
+Retenez une chose : *ne démarrez _jamais_ une application Node sur le port 80 ou 443* — ports utilisés par convention pour parler respectivement les protocoles HTTP et HTTPS.
 
-Il y a bien des facteurs qui font qu'une application peut tomber sans crier gare :
-
-* *erreurs de syntaxe* +
-  Ce sont les erreurs classiques qui fâchent l'interpréteur Node dès le lancement.
-  L'interpréteur parcourt tout le code chargé et s'arrête s'il n'arrive pas à l'interpréter en expliquant la raison.
-  La mise en place d'outils comme <<../appendix-a/index.adoc#eslint,eslint>> aide à se prémunir contre les erreurs de syntaxe dans son éditeur de code mais aussi avant/après l'exécution des tests. +
-  Ce type d'erreur se produit si l'on *charge un module _npm_ incompatible avec la version de Node* utilisée par notre application.
-* *erreurs au _runtime_* +
-  D'autres erreurs sont directement liées à l'écriture de notre code : un _paramètre oublié_, un objet mal étendu, une exception qui n'est pas interceptée, un bug dans module _npm_, un cas non testé, mais aussi une *variable indéfinie*—erreur de frappe (`Math.randmo()` au lieu de `Math.random()`) ou l'assomption fausse de son existence (comme `window.location` dans un programme Node). +
-  L'écriture et l'exécution systématique de tests unitaires aide à se prémunir contre les erreurs de _runtime_.
-  On cherchera entres autres à tester la réaction de notre code face à des erreurs provoquées volontairement.
-* *ressources indisponibles* +
-  Il arrive aussi que notre code ne soit pas incriminé… mais que la base de données devienne inaccessible pendant l'exécution de notre application.
-  Ou qu'une clé d'API soit révoquée.
-  Ou encore qu'une API soit indisponible, peu importe la raison—panne réseau, attaque destinée à faire tomber le système etc. +
-  Le mieux que l'on puisse faire est d'utiliser des *modules _npm_ favorisant la reconnexion* aux bases de données, à *gérer l'indisponibilité de la ressource* (en ayant un modèle de réponse dégradé) ou encore en utilisant la technique du _backoff_ exponentiel pour retenter un certain nombre de fois en augmentant le temps entre temps chaque essai.
-* *effets de bord système* +
-  Le système d'exploitation peut nous jouer des tours sans que notre application ne soit réellement au courant.
-  C'est le cas lorsque la _charge système_ dépasse la capacité de traitement des processeurs : notre application mettra plus de temps à exécuter toutes les opérations.
-  Cela se produira également si l'espace disque tend à devenir faible : le système _swappera_ et ralentira l'écriture de fichiers, notamment les _logs_ générés par le trafic de notre application. +
-  La mise en place en place de <<monitoring,_monitoring_>> nous aidera à être *prévenu _avant_* que le problème ne se déclare… ou au moins d'avoir une vue d'ensemble des ressources disponibles de notre parc machine.
-
-Certaines erreurs dépendent de la *qualité de notre application* (_Dev_).
-D'autres erreurs dépendent des *soins apportés aux opérations* (_Ops_) et à l'infrastructure.
-
-Le <<hosting,choix de la solution d'hébergement>> sera influencé par le temps,  les connaissances et les ressources financières disponibles pour adresser ce genre de problèmes.
-
-[[inspect]]
-=== Déboguer une application Node
-
-Cette section s'intéresse à présenter différentes techniques pour *déboguer une application sur notre ordinateur*.
-Nous aborderons les mécanismes de <<exceptions,détection des erreurs et exceptions en production>> dans la section <<monitoring,monitorer en production>>.
-
-Node expose les capacités d'inspection de <<../chapter-01/index.adoc#v8,_v8_>>.
-Cela sert à connecter tout outil capable de comprendre le protocole de débogage et de _profiling_ de V8.
-C'est le cas notamment du navigateur _Chrome_ et ses outils de développement intégrés.
-
-Les outils de développement nous permettent de :
-
-* pauser l'exécution avec des *points d'arrêt*—y compris conditionnels en faisant menu:clic droit[Ajouter un point d'arrêt conditionnel…] ;
-* inspecter la valeur des *variables locales* ou des *variables héritées* ;
-* *naviguer dans la pile d'appels*—utile pour inspecter des variables créées dans une _fonction appelante_ ;
-* *profiler* son code pour déceler les _appels répétés_ ou _peu performants_ de notre script ;
-* *interagir avec la console* pour tester des hypothèses avec du code.
-
-.Outils de développement Chrome inspectant un processus Node en temps réel.
-image::images/node-chrome-devtools.png[width="85%"]
-
-L'option d'invocation Node `--inspect` démarre l'inspecteur en même temps que notre script Node.
-L'URL de connexion à l'inspecteur est alors affichée.
-À nous de la copier/coller dans la barre d'adresse du navigateur _Chrome_ pour afficher les outils de débogage.
-
-[source,bash]
-----
-$ node --inspect config/file-npm.js
-Debugger listening on port 9229.
-Warning: This is an experimental feature and could change at any time.
-To start debugging, open the following URL in Chrome:
-    chrome-devtools://devtools/bundled/inspector.html?experiments=true&v8only=true&ws=127.0.0.1:9229/1168a3e9-cd6e-45b7-9897-0cc0b096e5a1
-----
-
-L'option d'invocation `--inspect` est adaptée à des processus de longue durée (type serveur HTTP) tandis que l'option `--inspect-brk` est adaptée à des processus de courte durée.
-Ce dernier met en *pause le script dès sa première ligne*.
-Un clic sur l'icône icon:play[] continue son exécution jusqu'au _prochain point d'arrêt_ ou à défaut, jusqu'à la _dernière instruction_.
-
-[source,bash]
-----
-$ node --inspect-brk config/file-npm.js
-----
-
-[TIP]
-.[RemarquePreTitre]#Outil# Node Inspector Manager (NIM)
-====
-L'URL de connexion à l'inspecteur change chaque fois où l'on relance l'application.
-Cette extension pour le navigateur _Chrome_ évite la frénésie de copier/coller et va jusqu'à *ouvrir automatiquement l'onglet de débogage* pour nous.
-
-- [URL]#https://chrome.google.com/webstore/detail/gnhhdgbaldcilmgcpfddgdbkhjohddkj#
-====
-
-Le module _npm_ `debug` ([URL]#https://npmjs.com/debug#) suit une approche différente des deux précédentes.
-Elle consiste à baliser son code d'*appels à une fonction de _debug_* et à afficher ces appels à la demande en paramétrant la variable d'environnement `DEBUG`.
-C'est en quelque sorte un affichage conditionnel de `console.log` piloté par la <<../chapter-04/index.adoc#process-env,variable d'environnement>>.
-
-Le module _debug_ est pratique pour afficher un *journal précis d'actions réparties dans plusieurs modules* pour l'observer dans un terminal.
-Il est particulièrement adapté dans ces situations complexes où le cheminement applicatif dépend de nombreuses conditions et si ce code est destiné à être redistribué en tant que module _npm_ public ou privé.
-Cela favorise ainsi la *compréhension de la logique applicative* par les personnes consommant ce code.
-
-L'exemple suivant illustre la création de deux fonctions de _debug_ :
+L'exemple suivant illustre un serveur web Node qui écoutera sur le port 80 :
 
 [source,javascript]
-.debug.js
+.server-port80.js
 ----
-include::{sourceDir}/debug.js[]
-----
-<1> Création d'une première fonction de _debug_ avec l'_espace de nom_ `nodebook:ch06`
-<2> Création d'une seconde fonction de _debug_ avec l'_espace de nom_ `nodebook:interval` cette fois-ci
-<3> `%o` interpole un objet/tableau en chaîne de caractère
-<4> `%d` interpole une valeur en nombre
-
-Nous lançons le script comme d'habitude :
-
-[source,bash]
-----
-$ node debug.js
+include::{sourceDir}/server-port80.js[]
 ----
 
-Pourtant, rien ne se passe ne s'affiche dans notre terminal : il faut en effet *spécifier l'espace de nom* à afficher avec la variable d'environnement `DEBUG`.
+Cela ne fonctionnera pas, y compris si le port est libre.
+Tous les ports inférieurs à 1024 nécessitent que le programme soit lancé avec un utilisateur privilégié, comme _root_ par exemple.
 
-L'affichage des appels à la fonction de _debug_ de l'espace de nom `nodebook:ch06` se ferait ainsi :
+Alors pourquoi ne pas utiliser _root_ pour avoir accès au port 80 ou 443 ?
+<<system-security,Pour des raisons de sécurité>> comme évoqué précédemment dans ce chapitre.
+Donc même si c'est techniquement faisable, *non nous le ferons pas* et nous privilégierons d'autres mécanismes, notamment celui du <<reverse-proxy,_reverse proxy_>>.
 
-[source,bash]
-----
-$ DEBUG='nodebook:ch06' node debug.js
-  nodebook:ch06 fromages [ 'livarot', 'chaource' ] +0ms
-----
-
-De même, l'affichage des appels à la fonction de _debug_ de l'espace de nom `nodebook:interval` se ferait ainsi :
-
-[source,bash]
-----
-$ DEBUG='nodebook:interval' node debug.js
-  nodebook:interval count 1 +0ms
-  nodebook:interval count 2 +1s
-  nodebook:interval count 3 +1s
-  nodebook:interval count 4 +1s
-  nodebook:interval count 5 +1s
-----
-
-L'utilisation du caractère `*` sert de motif de remplacement universel et affiche les appels à la fonction de _debug_ préfixé par `nodebook:` :
-
-[source,bash]
-----
-$ DEBUG='nodebook:*' node debug.js
-  nodebook:ch06 fromages [ 'livarot', 'chaource' ] +0ms
-  nodebook:interval count 1 +1s
-  nodebook:interval count 2 +1s
-  nodebook:interval count 3 +1s
-  nodebook:interval count 4 +1s
-  nodebook:interval count 5 +1s
-----
-
-[CAUTION]
-.[RemarquePreTitre]#À ne pas faire# _logging_
-====
-Ce module *n'est pas* destiné à faire du _logging_ en production.
-====
-
-Ces méthodes de débogage peuvent être complétées et agrémentées par les fonctionnalités de nos <<../chapter-02/index.adoc#ide,outils de développement>> (cf. chapitre 2).
-Les éditeurs les plus avancés nous proposent exactement les *mêmes fonctionnalités que l'inspecteur Node au sein de l'éditeur*.
-
-[[system-security]]
-=== Principes de sécurité
-
-*Toute application est exposée à des risques de sécurité* à partir du moment où la machine l'hébergeant est accessible sur un réseau informatique.
-Il est de notre *devoir de réduire la surface d'attaque* d'une application pour éviter intrusions, vols et rançons.
-
-Une application peut exposer des failles exploitables à plusieurs niveaux :
-
-* le *code applicatif* lui-même—c'est _à nous_ d'éviter de créer des failles de sécurité ;
-* une *dépendance _npm_*—c'est _à nous_ de nous maintenir à jour et d'obtenir des correctifs de sécurité ;
-* les *permissions d'exécution* de l'application—c'est le lien entre Node et le système d'exploitation ;
-* l'*accès réseau*—un port malencontreusement ouvert ouvre une porte d'accès aux secrets de notre application ;
-* le *système d'exploitation*—via une faille ou une mise en défaut de sa capacité à résister.
-
-Les *permissions d'exécution* sont _héritées_ de l'utilisateur système exécutant l'application Node.
-Autrement dit, le *script Node bénéficie de _toutes_ les permissions* de l'utilisateur le démarrant.
-Si cet utilisateur a le droit d'installer des logiciels ou de modifier des fichiers systèmes, cela signifie que l'exploitation d'une faille de notre script ou application Node pourra faire de même.
-
-Il est donc très important de ne *jamais exécuter une application Node* avec des privilèges d'administrateur système.
 
 [TIP]
 .[RemarquePreTitre]#Sécurité# Utilisateur sans privilèges
@@ -409,33 +438,27 @@ L'exécution de ces deux commandes lance un des exemples de ce chapitre en tant 
 La liste des processus montre ensuite que le script `debug.js` est bien pris en charge par l'utilisateur `nobody`.
 ====
 
-L'organisme _Open Web Application Security Project_ (_OWASP_) recueille et diffuse nombre de critères de sécurité à connaître et vérifier pour déjouer au mieux des attaques.
-Citons quelques uns de ces critères :
-
-* *dépendences logicielles* ;
-* *injection de code arbitraire* ;
-* *données d'authentification* (vols, interceptions, brute force etc.) ;
-* *contrôles d'accès* (impersonnification etc.) ;
-* *optimisme sécuritaire* et *absences de vérifications* ;
-* exposition de *données critiques* ;
-* attaques *CSRF* (un script tiers actionne des commandes à notre insu) ;
-* *uploads de fichiers* (poids limite, formats, chevaux de Troie etc.)
-* *redirections* non-contrôlées.
-
 [TIP]
-.[RemarquePreTitre]#Ressources# [URL]#owasp.org#
+.[RemarquePreTitre]#Alternative# authbind
 ====
-Le site d'OWASP offre guides, référentiels, fiches récapitulatives, applications types, outils et tutoriaux pour sensibiliser à la sécurité applicative.
+Le logiciel libre pour Linux _authbind_ comble le besoin impérieux d'assigner un port privilégié mais à un _utilisateur sans privilège_.
 
-- [URL]#https://www.owasp.org/#
-- [URL]#https://nodegoat.herokuapp.com/tutorial#
+Il conviendra quand même de créer un utilisateur système avec des permissions limitées spécifiquement pour chaque application Node.
+
+- [URL]#http://manpages.ubuntu.com/authbind#
 ====
 
-La section <<../chapter-07/index.adoc#security,sécurité>> du chapitre 7 nous aidera à apprendre comment renforcer la sécurité de l'interface HTTP d'une application web.
-La section <<security,sécurité>> de ce même chapitre nous apprendra à nous prémunir des failles présentes dans toute application déployée en production.
+[[database-migration]]
+=== Scripter les changements de schémas de base de données
 
-[[application-startup]]
-=== Démarrage d'application
+TBD.
+
+=== Utiliser Docker pour tester un environnement reproductible
+
+TBD.
+
+[[startup]]
+== Démarrer automatiquement nos applications
 
 Qu'est-ce qui différencie le fonctionnement d'une application Node sur un _ordinateur de développement_ d'un _serveur de production_ ?
 La manière de démarrer cette application.
@@ -448,8 +471,79 @@ Lorsqu'il s'agit d'un environnement de production, nous avons à _automatiser_ c
 
 Nous allons voir différentes méthodes aboutissant à un résultat similaire.
 
+=== Déléguer au service d'hébergement
+
+Certains services d'hébergement prennent en charge le démarrage automatique de nos applications.
+C'est le cas notamment des hébergements de type <<paas,_Platform as a Service_>> (_PaaS_) que nous explorerons plus en détails dans une section ci-après.
+
+Ces services vont se baser sur des *conventions* ou des fichiers de *configuration* pour comprendre la nature de notre application et l'intégrer automatiquement.
+Ils se baseront souvent sur le <<../chapter-05/index.adoc#npm-scripts,script `npm start`>> et d'autres informations contenues dans le fichier `package.json`.
+
+
+[[process-manager]]
+=== Avec un gestionnaire de processus
+
+Les _gestionnaires de processus_ s'intègrent entre le système d'exploitation et nos applications.
+Ils servent à *gérer leur démarrage* que ce soit en développement ou en production.
+Ils déclarent nos applications en tant que *services système de manière universelle*, peu importe le système d'exploitation.
+
+Autrement dit, un gestionnaire de processus prend en charge le *démarrage d'un processus* en tâche de fond, le *suivi de leur statut* ainsi que l'<<system-service,intégration en tant que *service système*>>.
+Certains gestionnaires vont jusqu'à l'*inspection des logs* et le *passage à l'échelle* afin notamment de répartir les processus applicatifs sur chaque CPU de la machine.
+
+*pm2* ([URL]#http://pm2.io/#) est un gestionnaire de processus populaire dans la communauté Node.
+Il est lui-même écrit en ECMAScript et fonctionne aussi bien sous Linux, Windows que macOS.
+
+La commande suivante démarrera une application web en lui attribuant un nom (ici, _nodebook-ch06-testapp_).
+L'application sera démarrée en mode _cluster_ à raison d'un processus par CPU afin de répartir le trafic en fonction de la charge.
+
+[source,bash]
+----
+$ pm2 start app.js -i 0 --name nodebook-ch06-testapp
+----
+
+.Liste des processus gérés par _pm2_.
+image::images/pm2-status.png[width="85%"]
+
+L'ordinateur servant à la rédaction de l'ouvrage dispose de 4 CPU donc _pm2_ crée autant de processus en parallèle.
+
+L'application de démonstration affiche un nom aléatoire de Pokémon ainsi que l'identifiant du processus au sein du _cluster_ lors de la consultation de la page [URL]#http://localhost:4000#. +
+On s'en rend compte notamment en utilisant le programme `curl` (ou équivalent) :
+
+----
+$ curl --location http://localhost:4000
+> [cluster #2] Jynx
+
+$ curl --location http://localhost:4000
+> [cluster #1] Starmie
+----
+
+Les processus peuvent être stoppés indépendamment.
+L'application peut être redémarrée automatiquement en cas de plantage, et sans interruption après une mise à jour de la base de code, entre autres.
+
+[TIP]
+.[RemarquePreTitre]#Documentation# pm2
+====
+La documentation du projet _pm2_ liste en détails les actions et modules du programme.
+Des tutoriaux sont également à disposition pour décrire pas à pas différentes intégration, notamment avec le serveur HTTP _nginx_ ou d'autres langages comme _TypeScript_.
+
+- `$ pm2 --help`
+- [URL]#http://pm2.keymetrics.io/#
+- [URL]#https://github.com/Unitech/pm2#
+====
+
+[TIP]
+.[RemarquePreTitre]#Alternative# foreman
+====
+_foreman_ est un gestionnaire de processus très simple à appréhender.
+Il est utilisé pour déclarer et démarrer des applications sur la plate-forme d'<<paas,hébergement Heroku>>.
+
+- [URL]#https://rubygems.org/gems/foreman#
+- [URL]#http://ddollar.github.io/foreman/#
+====
+
+
 [[system-service]]
-==== Service système
+=== En créant un service système
 
 On l'oublierait presque mais il n'y a pas besoin d'installer de logiciel pour démarrer une application automatiquement.
 Après tout, c'est une des *responsabilités du système d'exploitation*.
@@ -504,8 +598,9 @@ Le service peut être manuellement créé depuis le *menu Services* ou scripté 
 - [URL]#https://npmjs.com/node-windows#
 ====
 
+
 [[application-manager]]
-==== Serveur d'applications web
+=== Avec un serveur d'applications web
 
 Un serveur d'application web a deux objectifs majeurs : *gérer le trafic HTTP* de manière optimale et *gérer le cycle de vie* d'une application web lors d'incidents ou de mises à jour par exemple.
 Ce type de logiciel se _place entre_ une application Web et le monde extérieur.
@@ -552,323 +647,61 @@ Je recommande fortement cette approche, relativement facile à installer et à c
 Nous trouverons des informations sur le fonctionnement de Node derrière un <<reverse-proxy,_reverse proxy_>> dans une autre section de ce chapitre.
 
 
-[[process-manager]]
-==== Gestionnaire de processus
-
-Les _gestionnaires de processus_ s'intègrent entre le système d'exploitation et nos applications.
-Ils servent à *gérer leur démarrage* que ce soit en développement ou en production.
-Ils déclarent nos applications en tant que *services système de manière universelle*, peu importe le système d'exploitation.
-
-Autrement dit, un gestionnaire de processus prend en charge le *démarrage d'un processus* en tâche de fond, le *suivi de leur statut* ainsi que l'<<system-service,intégration en tant que *service système*>>.
-Certains gestionnaires vont jusqu'à l'*inspection des logs* et le *passage à l'échelle* afin notamment de répartir les processus applicatifs sur chaque CPU de la machine.
-
-*pm2* ([URL]#http://pm2.io/#) est un gestionnaire de processus populaire dans la communauté Node.
-Il est lui-même écrit en ECMAScript et fonctionne aussi bien sous Linux, Windows que macOS.
-
-La commande suivante démarrera une application web en lui attribuant un nom (ici, _nodebook-ch06-testapp_).
-L'application sera démarrée en mode _cluster_ à raison d'un processus par CPU afin de répartir le trafic en fonction de la charge.
-
-[source,bash]
-----
-$ pm2 start app.js -i 0 --name nodebook-ch06-testapp
-----
-
-.Liste des processus gérés par _pm2_.
-image::images/pm2-status.png[width="85%"]
-
-L'ordinateur servant à la rédaction de l'ouvrage dispose de 4 CPU donc _pm2_ crée autant de processus en parallèle.
-
-L'application de démonstration affiche un nom aléatoire de Pokémon ainsi que l'identifiant du processus au sein du _cluster_ lors de la consultation de la page [URL]#http://localhost:4000#. +
-On s'en rend compte notamment en utilisant le programme `curl` (ou équivalent) :
-
-[source,bash]
-----
-$ curl --location http://localhost:4000
-> [cluster #2] Jynx
-
-$ curl --location http://localhost:4000
-> [cluster #1] Starmie
-----
-
-Les processus peuvent être stoppés indépendamment.
-L'application peut être redémarrée automatiquement en cas de plantage, et sans interruption après une mise à jour de la base de code, entre autres.
-
-[TIP]
-.[RemarquePreTitre]#Documentation# pm2
-====
-La documentation du projet _pm2_ liste en détails les actions et modules du programme.
-Des tutoriaux sont également à disposition pour décrire pas à pas différentes intégration, notamment avec le serveur HTTP _nginx_ ou d'autres langages comme _TypeScript_.
-
-- `$ pm2 --help`
-- [URL]#http://pm2.keymetrics.io/#
-- [URL]#https://github.com/Unitech/pm2#
-====
-
-[TIP]
-.[RemarquePreTitre]#Alternative# foreman
-====
-_foreman_ est un gestionnaire de processus très simple à appréhender.
-Il est utilisé pour déclarer et démarrer des applications sur la plate-forme d'<<paas,hébergement Heroku>>.
-
-- [URL]#https://rubygems.org/gems/foreman#
-- [URL]#http://ddollar.github.io/foreman/#
-====
-
-==== Tout automatique
-
-Certains services d'hébergement prennent en charge le démarrage automatique de nos applications.
-C'est le cas notamment des hébergements de type <<paas,_Platform as a Service_>> (_PaaS_) que nous explorerons plus en détails dans une section ci-après.
-
-Ces services vont se baser sur des *conventions* ou des fichiers de *configuration* pour comprendre la nature de notre application et l'intégrer automatiquement.
-Ils se baseront souvent sur le <<../chapter-05/index.adoc#npm-scripts,script `npm start`>> et d'autres informations contenues dans le fichier `package.json`.
-
-[[hosting]]
-== Héberger une application Node
-
-Où faire vivre nos applications Node en dehors de notre ordinateur servant au développement ?
-
-Nous allons nous intéresser aux différents mécanismes exposant des applications Node au monde extérieur, que ce soit sur une machine dédiée ou sur des services en ligne.
-
-[[shared-hosting]]
-=== Hébergement mutualisé
-
-Les hébergements mutualisés sont bon marché car ils se "contentent" de mutualiser un frontal HTTP et de servir des fichiers statiques et des scripts interprétés.
-Python ou PHP, par exemple.
-
-(parler d'Alwaydata)
-
-[[paas]]
-=== Plate-forme en tant que service (_Platform as a Service_)
-
-Les plates-formes de services *automatisent la configuration* et *facilitent le déploiement* de nos applications Node mais également Ruby, Python et PHP, entres autres.
-Elles se spécialisent dans des déploiements rapides, une allocation des ressources flexible, à la demande et en un clic.
-
-Leur philosophie est de *tout penser en terme de ressources et de services*.
-On paie pour la capacité informatique nécessaire à un _instant T_ tout en ayant le loisir de réduire ou d'augmenter cette capacité à tout moment sans remettre en cause l'architecture de nos applications.
-
-Chaque instance peut être dimensionnée _à tout moment_ en _puissance_ (CPU, RAM) et en _nombre_ (de 1 à plusieurs instances en parallèle).
-La distribution du trafic web est gérée pour nous.
-
-Le principe de déploiement sur les plates-formes de services est réduit au quasi-minimum :
-
-. création d'une nouvelle application sur la plate-forme en ligne ;
-. nous _poussons_ notre code applicatif — généralement avec `git` ;
-. la plate-forme prépare la mise en ligne en installant les dépendances _npm_ et en démarrant l'application web ;
-. notre application est fonctionnelle quelques secondes plus tard.
-
-[format="csv", options="header"]
-.Sélection de plates-formes en tant que service
-|===
-Service, Déploiement, Add-ons, Tarif
-[URL]#https://zeit.co#, API, -, 15$/mois/10 apps
-[URL]#https://clever-cloud.com#, git, oui, 5€/mois/app
-[URL]#https://gandi.net/hosting/simple#, git/SSH/API, -, 5€/mois/app
-[URL]#https://heroku.com#, "git/GitHub/Dropbox", oui, 7$/mois/app
-|===
-
-La startup californienne Zeit ([URL]#https://zeit.co#) édite le service de _déploiements immutables_ nommé _now_ ([URL]#https://zeit.co/now#).
-Ce service est focalisée sur l'hébergement de sites statiques, d'applications web Node et de conteneurs Docker.
-
-Sa particularité est de créer une *nouvelle instance d'application par déploiement*.
-Chaque déploiement est donc unique.
-À nous de désigner le déploiement associé à l'instance de production par l'intermédiaire de la commande `now alias`.
-
-Une fois notre compte créé et notre terminal positionné dans un répertoire de notre ordinateur contenant la racine du projet à déployer, il suffit d'installer le _client now_ et d'initier le déploiement :
-
-[source,bash]
-----
-$ npm i -g now
-$ now
-----
-
-[TIP]
-.[RemarquePreTitre]#Documentation# now
-====
-Le fonctionnement de l'application _now_ est illustré et documenté à la fois en ligne et via un terminal de commandes.
-
-- `now --help`
-- [URL]#https://zeit.co/docs#
-====
-
-Des *ressources complémentaires* sont disponibles auprès d'autres fournisseurs de services.
-Leur gestion suit les mêmes principes d'*élasticité à la demande*.
-Cela concerne les bases de données _MySQL_, _MariaDB_, _redis_ ou _postgreSQL_ par exemple mais aussi l'envoi d'emails, des moteurs d'indexation de contenus, le monitoring applicatif, l'aggrégation des logs etc.
-
-Des plates-formes comme _Heroku_ ([URL]#https://heroku.com#) et _Clever Cloud_ ([URL]#https://clever-cloud.com#) fédèrent ces ressources sur une place de marché.
-L'intégration des ressources en est ainsi facilitée, en quelques clics ou depuis un terminal.
-Les _variables d'environnement_ contenant les informations de connexion nous sont communiquées dès que les ressources complémentaires sont provisionnées.
-Il ne nous reste alors plus qu'à <<app-configuration,configurer nos applications>> en fonction.
-
-.Ensemble de ressources complémentaires à une application Node hébergée sur Heroku.
-image::images/heroku-addons.png[width="85%"]
-
-ifeval::["{backend}" == "html5"]
-.Exemple de déploiement applicatif vers Heroku.
-video::videos/heroku-deploy.mp4[width="70%"]
-endif::[]
-
-ifeval::["{backend}" != "html5"]
-.Exemple de déploiement applicatif vers Heroku.
-image::images/heroku-deploy.png[width="85%"]
-endif::[]
-
-Les plates-formes en tant que service facturent à l'heure consommée.
-Elles sont en génral faciles à prendre en main et ne nécessitent pas de connaissance en administration de machine informatique. +
-Les instances d'application ont l'avantage d'être rapidement déployées, peuvent être mises en _pause_ et s'adapter au trafic ainsi qu'à notre budget.
-
-Le paiement à l'heure _et_ à l'instance peut rapidement saler l'addition et questionner l'utilisation de ce type de services en lieu et place d'un <<vm-hosting,serveur dédié ou d'une machine virtuelle>>. +
-La question est de savoir combien de notre temps nous souhaitons passer à maintenir une infrastructure — du temps qui coûte également de l'argent.
-
-[[vm-hosting]]
-=== Serveur dédié, machine virtuelle etc.
-
-
-
-- [URL]#https://gandi.net/hosting/iaas#
-- [URL]#https://ovh.com/fr/#
-- [URL]#https://digitalocean.com/#
-- [URL]#https://aws.amazon.com/fr/ec2/#
-
-[TIP]
-.[RemarquePreTitre]#Alternative# AWS Elastic Beanstalk
-====
-
-- [URL]#https://aws.amazon.com/fr/elasticbeanstalk/#
-====
-
-==== Directement sur le port 80 ou 443
-
-Retenez une chose : *ne démarrez _jamais_ une application Node sur le port 80 ou 443* — ports utilisés par convention pour parler respectivement les protocoles HTTP et HTTPS.
-
-L'exemple suivant illustre un serveur web Node qui écoutera sur le port 80 :
-
-[source,javascript]
-.server-port80.js
-----
-include::{sourceDir}/server-port80.js[]
-----
-
-Cela ne fonctionnera pas, y compris si le port est libre.
-Tous les ports inférieurs à 1024 nécessitent que le programme soit lancé avec un utilisateur privilégié, comme _root_ par exemple.
-
-Alors pourquoi ne pas utiliser _root_ pour avoir accès au port 80 ou 443 ?
-<<system-security,Pour des raisons de sécurité>> comme évoqué précédemment dans ce chapitre.
-Donc même si c'est techniquement faisable, *non nous le ferons pas* et nous privilégierons d'autres mécanismes, notamment celui du <<reverse-proxy,_reverse proxy_>>.
-
-[TIP]
-.[RemarquePreTitre]#Alternative# authbind
-====
-Le logiciel libre pour Linux _authbind_ comble le besoin impérieux d'assigner un port privilégié mais à un _utilisateur sans privilège_.
-
-Il conviendra quand même de créer un utilisateur système avec des permissions limitées spécifiquement pour chaque application Node.
-
-- [URL]#http://manpages.ubuntu.com/authbind#
-====
-
-[[reverse-proxy]]
-==== Derrière un serveur HTTP (_Reverse Proxy_)
-
-TBD.
-
-////
-- Apache
-- nginx
-////
-
-[[lambda]]
-=== Invocation éphémère (_Function as a Service_)
-
-TBD.
-
-////
-- Lambda
-////
-
-[[deploy]]
-== Déployer une application Node
-
-////
-Préciser que pour aller rapidement faut aller sur le PaaS (git push)
-////
-
-[TIP]
-.[RemarquePreTitre]#npm# --production
-====
-Si vous suffixez la commande `npm install` avec l'option `--production`, toutes les dépendances seront installées à _l'exception_ de celles listées en tant que _devDependences_.
-
-Il s'agit d'un moyen d'installer moins de dépendances lors d'une livraison — à condition de ne pas avoir besoin de l'outillage de tests.
-====
-
-[[automated-deploy]]
-=== Déploiement automatisé
-
-TBD.
-
-
-[[immutable-deploy]]
-=== Déploiement immutable
-
-TBD.
-
-////
-- deb/etc.
-- `slc build`
-- tar
-////
-
-[[private-npm]]
-=== Dépendances _npm_ privées
-
-TBD.
-
-////
-- git+ssh
-- private npm
-////
-
-=== Scripter le scénario de déploiement Node
-
-TBD.
-
-////
-- Ansible
-////
-
-[[database-migration]]
-=== Migration de base de données
-
-TBD.
-
 [[monitoring]]
-== Monitorer en production
+== Points de vigilance après une mise en ligne
 
 Cette section s'intéresse à la *détection proactive des incidents* et au *suivi de la santé de notre application* une fois mise en ligne.
 Nous allons ainsi apprendre à *dresser un diagnostic sans nous connecter* sur la ou les machines hébergeant l'application… en partie car nous n'y avons pas toujours accès.
 Et c'est tant mieux.
 
 
-[[healtcheck]]
-=== Surveiller la santé de l'application
+[[uptime]]
+=== Être prévenu·e quand l'application plante
 
 TBD.
 
 ////
-webping
-Nagios
+https://www.pingdom.com/free
+https://uptimerobot.com/
 ////
+
+
+.Message d'erreur du serveur _nginx_ lorsque l'application Node ne répond plus.
+image::images/nginx-proxy-error.png[width="85%"]
+
+  On cherchera entres autres à tester la réaction de notre code face à des erreurs provoquées volontairement.
+* *ressources indisponibles* +
+  Il arrive aussi que notre code ne soit pas incriminé… mais que la base de données devienne inaccessible pendant l'exécution de notre application.
+  Ou qu'une clé d'API soit révoquée.
+  Ou encore qu'une API soit indisponible, peu importe la raison—panne réseau, attaque destinée à faire tomber le système etc. +
+  Le mieux que l'on puisse faire est d'utiliser des *modules _npm_ favorisant la reconnexion* aux bases de données, à *gérer l'indisponibilité de la ressource* (en ayant un modèle de réponse dégradé) ou encore en utilisant la technique du _backoff_ exponentiel pour retenter un certain nombre de fois en augmentant le temps entre temps chaque essai.
+* *effets de bord système* +
+  Le système d'exploitation peut nous jouer des tours sans que notre application ne soit réellement au courant.
+  C'est le cas lorsque la _charge système_ dépasse la capacité de traitement des processeurs : notre application mettra plus de temps à exécuter toutes les opérations.
+  Cela se produira également si l'espace disque tend à devenir faible : le système _swappera_ et ralentira l'écriture de fichiers, notamment les _logs_ générés par le trafic de notre application. +
+  La mise en place en place de <<monitoring,_monitoring_>> nous aidera à être *prévenu _avant_* que le problème ne se déclare… ou au moins d'avoir une vue d'ensemble des ressources disponibles de notre parc machine.
+
 
 [[exceptions]]
-=== Déceler les erreurs et exceptions
+=== Consulter les erreurs applicatives
 
 TBD.
 
-[[performance]]
-=== Identifier les problèmes de performance
+////
+https://sentry.io + https://docs.sentry.io/clients/node/
+https://newrelic.com/nodejs
+////
 
-TBD.
+[[security.node]]
+=== Mettre à jour Node en cas de faille de sécurité
 
-[[security]]
-=== Se tenir à jour des alertes de sécurité
+////
+https://nodejs.org/en/security/
+////
+
+
+[[security.npm]]
+=== Mettre à jour les modules npm en cas de faille de sécurité
 
 Il existe quatre niveaux où des failles de sécurité peuvent s'immiscer :
 
@@ -895,13 +728,6 @@ Plusieurs canaux sont à notre disposition pour être notifié très rapidement 
 - greenkeeper
 ////
 
-=== Tester la montée en charge
-
-TBD.
-
-////
-minigun
-////
 
 == Conclusion
 
