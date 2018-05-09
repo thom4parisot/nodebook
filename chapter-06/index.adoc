@@ -36,9 +36,27 @@ include::../resources/tip-examples.adoc[]
 [[deploy]]
 == Déployer une application Node
 
+ce dont on parle ici est lié
+
 ////
 Préciser que pour aller rapidement faut aller sur le PaaS (git push)
 ////
+
+[[deploy.notebook]]
+=== En codant dans un navigateur web
+
+glitch
+runkit pour des trucs rapides
+bonus : observable pour niveau expert
+
+[[deploy.sftp]]
+=== En transférant des fichiers via SSH ou SFTP
+
+winscp
+filezilla
+scp && ssh
+
+tip : https://superuser.com/questions/821892/filezilla-can-i-run-a-remote-shell-command-via-filezilla-client
 
 [[deploy.github]]
 === En important du code depuis GitHub
@@ -49,7 +67,10 @@ heroku
 TBD.
 
 [[deploy.cli]]
-=== Avec un assistant de déploiement
+=== Avec l'outil en ligne de commande de l'hébergeur
+
+now
+heroku
 
 ----
 $ heroku login
@@ -70,8 +91,8 @@ TBD.
 TBD.
 
 
-[[deploy.provisioning]]
-=== Avec un outil de provisionnement
+[[deploy.recipe]]
+=== Avec une recette de déploiement (_Ansible_, _Chef_, etc.)
 
 TBD.
 
@@ -183,10 +204,88 @@ La question est de savoir combien de notre temps nous souhaitons passer à maint
 [[shared-hosting]]
 === Hébergement mutualisé
 
-Les hébergements mutualisés sont bon marché car ils se "contentent" de mutualiser un frontal HTTP et de servir des fichiers statiques et des scripts interprétés.
-Python ou PHP, par exemple.
+Les hébergements mutualisés ont l'avantage d'être bon marché
+et ne demandent aucun entretien de notre part.
+Cette formule est idéale pour faire ses premiers pas de mise en ligne
+de sites web.
 
-(parler d'Alwaysdata)
+Leur modèle est adapté pour l'hébergement de fichiers statiques ou des sites web
+construits avec des langages de scripts comme Python ou PHP.
+Rares sont ceux qui ont adapté leur fonctionnement au modèle applicatif de Node.
+
+Alwaysdata ([URL]#https://alwaysdata.com#) fait exception à la règle.
+Ce service d'hébergement indépendant dispose d'une formule gratuite avec 100Mo
+d'espace disque pour démarrer.
+
+Le <<deploy,déploiement>> de nos applications se fait via
+<<deploy.sftp,SSH ou SFTP>>, en <<deploy.clone,utilisant Git>>,
+avec un <<deploy.ci,service d'intégration continue>> ou bien en
+<<deploy.recipe,utilisant une recette>>.
+
+L'interface d'administration référence une section *Sites* dans la barre de
+navigation.
+Cette section liste les différents sites de notre compte.
+Si vous venez juste de créer le votre, un site a automatiquement été créé.
+Son URL est déterminée à partir du *nom d'utilisateur* que vous avez choisi
+lors de la phase d'inscription.
+
+Un clic sur le bouton *Modifier* nous aidera à changer ses réglages :
+
+
+.Liste de nos sites configurés chez alwaysdata.
+image::images/alwaysdata-site-list.png[width="85%"]
+
+Le nouvel écran mentionne les adresses auxquel le site répond.
+En basculant vers un compte payant, on pourra assigner un ou plusieurs domaines
+ou sous-domaines à ce même site.
+
+.Écran de configuration d'un site chez alwaysdata.
+image::images/alwaysdata-site-informations.png[width="85%"]
+
+Les réglages liés à Node se trouvent sous les adresses.
+Le _type_ de site doit être changé en `Node.js` pour afficher
+les champs de configuration qui nous intéressent.
+
+La _commande_ se configure de la même manière
+que l'<<../chapter-04/index.adoc#script,exécution d'un script Node>>
+— cf. <<../chapter-04/index.adoc#,chapitre 4>>.
+On peut aussi faire appel au
+<<../chapter-05/index.adoc#start,script `npm start`>> comme vu pendant
+la lecture du <<../chapter-05/index.adoc#,chapitre 5>> :
+
+.Écran de configuration de Node.js pour un site chez alwaysdata.
+image::images/alwaysdata-site-configuration.png[width="85%"]
+
+La commande complète devrait apparaître dans la section *Processus*
+une fois la configuration sauvegardée.
+
+.Liste des processus liés à nos sites chez alwaysdata.
+image::images/alwaysdata-process-list.png[width="85%"]
+
+En cas de doute, un bouton *Redémarrer* est affiché à côté du bouton *Modifier*
+dans la liste des sites.
+L'application sera alors interrompue et relancée.
+Cette opération est nécessaire pour que l'application prenne en compte
+les changements après une mise à jour ou un plantage.
+
+[NOTE]
+.[RemarquePreTitre]#Configuration# Une application Node par site
+====
+Alwaysdata nous permet d'associer un seul processus à un seul site.
+
+Pour rendre une application Node accessibles sur Internet, il faudra
+alors créer un nouveau site et lui associer un autre nom de domaine,
+ou un sous-domaine.
+====
+
+[TIP]
+.[RemarquePreTitre]#Aide# Forum d'entraide
+====
+L'équipe et la communauté alwaysdata ([URL]#https://forum.alwaysdata.com#) sont
+sympathiques et à l'écoute.
+C'est un endroit idéal pour chercher des informations et poser des questions
+pour mieux comprendre ce empêche votre application de fonctionner sur leurs services.
+====
 
 
 [[cloud]]
