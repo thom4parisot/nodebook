@@ -5,7 +5,7 @@ Certains exemples de ce chapitre sont précédés d'un nom de fichier.
 Ils peuvent être exécutés avec Node dès lors vous installez le
 https://npmjs.com/nodebook[module npm de l'ouvrage^].
 
-[source,bash,subs="+attributes"]
+[subs="+attributes"]
 .Préparation à l'utilisation des exemples de ce chapitre.
 ----
 $ npm install --global nodebook
@@ -14,22 +14,21 @@ $ cd $(nodebook dir {chapterId})
 ----
 
 ifdef::sourceSample[]
-[source,bash,subs="+attributes"]
+[subs="+attributes"]
 .Exécution du script `{sourceSample}`.
 ----
 $ node {sourceSample}
 ----
 
-Modifiez ce fichier jouer avec et pour vérifier que vous avez compris ce qui
+Jouez avec ce fichier pour vérifier que vous avez compris ce qui
 vous intéressait. +
 Pour replacer les fichiers modifiés dans leur état initial,
 il suffit de réinstaller le https://npmjs.com/nodebook[module npm `nodebook`].
 endif::[]
 
 ifdef::httpRoot[]
-Certains exemples de ce chapitre correspondent à des pages HTML.
-Ces exemples peuvent être vus dans un navigateur web
-après avoir démarré le serveur web :
+Certains exemples peuvent être vus dans un navigateur.
+Ils sont accessibles après avoir démarré le serveur web :
 
 [subs="+attributes"]
 ----
