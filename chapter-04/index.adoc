@@ -3309,6 +3309,33 @@ sont renseignées au démarrage de l'application.
 On apprendra à le configurer dans l'<<../appendix-a/index.adoc#debug,annexe A>>.
 ====
 
+[[deprecation]]
+=== Une alerte de dépréciation s'affiche
+
+Un des objectifs de l'équipe de développement de Node est de maintenir
+la stabilité de la plate-forme.
+Certains de leurs choix de conception sont revisités en changeant
+leur comportement ou en les retirant des modules de base.
+
+Quand ce changement affecte notre code,
+*une alerte de dépréciation s'affiche*.
+Par exemple :
+
+[source,javascript]
+.deprecation-warning.js
+----
+include::{sourceDir}/deprecation-warning.js[]
+----
+
+----
+$ node deprecation-warning.js
+(node:8130) [DEP0005] DeprecationWarning: Buffer() is deprecated due to security and usability issues. Please use the Buffer.alloc(), Buffer.allocUnsafe(), or Buffer.from() methods instead.
+----
+
+Nous avons ainsi le temps de modifier notre code pour migrer
+vers la nouvelle recommandation petit à petit.
+
+
 == Les différences de JavaScript entre Node et les navigateurs web
 
 Puisqu'on utilise du code JavaScript avec Node et avec les navigateurs web,
@@ -3532,42 +3559,6 @@ comme un serveur HTTP.
 L'option `--inspect-brk` est adaptée à des processus de courte durée et qui
 se termineraient avant qu'on ait le temps de jeter un œil au contenu.
 
-
-[[deprecation]]
-=== Afficher les alertes de dépréciation
-
-Un des objectifs de l'équipe de développement de Node est de maintenir
-la stabilité de la plate-forme.
-Il arrive que certains choix de conception soient revisités en changeant
-leur comportement ou en les retirant des modules de base.
-
-Dans ce dernier cas, le retrait n'est pas immédiat.
-*Le retrait est précédé par une dépréciation*.
-
-L'exemple suivant illustre une utilisation dépréciée par Node :
-
-[source,javascript]
-.deprecation-warning.js
-----
-include::{sourceDir}/deprecation-warning.js[]
-----
-
-----
-$ node deprecation-warning.js
-----
-
-Les dépréciations sont masquées par défaut et affichées lorsqu'on utilise
-l'option `----pending-deprecation` :
-
-----
-$ node --pending-deprecation deprecation-warning.js
-(node:8130) [DEP0005] DeprecationWarning: The Buffer() and new Buffer() constructors are not recommended for use due to security and usability concerns. Please use the new Buffer.alloc(), Buffer.allocUnsafe(), or Buffer.from() construction methods instead.
-----
-
-Cette option Node est à utiliser après avoir migré vers une nouvelle version
-majeure de Node.
-Ça nous laissera le temps de corriger les erreurs avant la prochaine
-mise à jour majeure.
 
 === Ajuster les options de compatibilité et de traçabilité de V8
 

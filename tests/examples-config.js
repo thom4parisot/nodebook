@@ -141,12 +141,15 @@ module.exports = {
   'chapter-04/examples/console/win32.js': {
     stdout: 'tmp\\package.json\nC:\\etc\n',
   },
+  'chapter-04/examples/deprecation-warning.js': {
+    stderr: 'DeprecationWarning: Buffer\\(\\) is deprecated due to security and usability issues. Please use the Buffer.alloc\\(\\), Buffer.allocUnsafe\\(\\), or Buffer.from\\(\\) methods instead.',
+  },
   'chapter-04/examples/modules/ecmascript-multiple.mjs': {
     stderr: 'ExperimentalWarning: The ESM module loader is experimental',
   },
   'chapter-04/examples/modules/ecmascript.js': {
     exitCode: 1,
-    stderr: 'SyntaxError: Unexpected token import',
+    stderr: 'SyntaxError: Unexpected',
   },
   'chapter-04/examples/modules/ecmascript.mjs': {
     stderr: 'ExperimentalWarning: The ESM module loader is experimental',
@@ -168,7 +171,7 @@ module.exports = {
     win32stdout: /Program Files/,
   },
   'chapter-04/examples/child_process/ping.js': {
-    skip: Boolean(process.env.CI) || Boolean(process.env.DOCKER),
+    skip: Boolean(process.env.CI),
   },
   'chapter-04/examples/child_process/spawn-stdin.js': {
     stdout: 'abcd klmn\n',
