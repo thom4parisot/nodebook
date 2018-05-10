@@ -45,18 +45,98 @@ Préciser que pour aller rapidement faut aller sur le PaaS (git push)
 [[deploy.notebook]]
 === En codant dans un navigateur web
 
-glitch
-runkit pour des trucs rapides
-bonus : observable pour niveau expert
+Le moyen le plus rapide d'exécuter du code Node sans avoir à se préoccuper
+du déploiement est d'utiliser un service en ligne et de modifier du code
+avec un navigateur web.
+
+Je recommande _RunKit_ ([URL]#https://runkit.com/#) pour créer rapidement
+du code qui tient dans un seul fichier, sans installer Node sur sa machine.
+Le code est exécuté sur les serveurs de RunKit, le résultat s'affiche chez nous.
+Les <<../chapter-05/index.adoc#modules,modules npm>>
+(<<../chapter-05/index.adoc#,chapitre 5>>) sont installés automatiquement dans
+leur version la plus récente.
+
+.Exemple de _notebook_ RunKit dans le navigateur Firefox.
+image::images/runkit-notebook.png[width="85%"]
+
+RunKit propose aussi un modèle de <<lambda,fonction ephémère>> dont le
+résultat devient accessible depuis une URL dédiée.
+Essayez de copier/coller le code suivant dans un nouveau notebook en vous
+rendant sur [URL]#https://runkit.com/new# :
+
+[source,javascript]
+.runkit-endpoint.js
+----
+include::{sourceDir}/runkit-endpoint.js[]
+----
+
+Une fois sauvegardé et après avoir cliqué sur le lien *endpoint*,
+un nouvel onglet s'ouvre et affiche un nom aléatoire de Pokémon.
+C'est la valeur de retour passé à la réponse, comme on l'aurait fait
+avec le <<../chapter-04/index.adoc#http,module `http`>>
+(<<../chapter-04/index.adoc#,chapitre 4>>) ou dans une
+<<../chapter-07/index.adoc#,application web>> (<<../chapter-07/index.adoc#,chapitre 7>>).
+
+Le service en ligne _glitch_ ([URL]#https://glitch.com/#) permet d'aller
+plus loin en développant, hébergeant et partageant des applications complètes.
+Le service redéploie notre application à chaque changement.
+Le fichier `.env` stocke les
+<<../chapter-04/index.adoc#process.env,variables d'environnement>> de manière
+sécurisée — nous seul y avons accès.
+
+.Exemple d'application Node sur glitch.com.
+image::images/glitch-app.png[width="85%"]
+
+[TIP]
+.[RemarquePreTitre]#Pratique# Console web
+====
+Glitch nous offre même une console web : un <<../chapter-04/index.adoc,terminal>>
+entièrement fonctionnel, depuis un navigateur web !
+
+Parfait pour <<../chapter-08/index.adoc#,coder un outil en ligne de commande>>
+(<<../chapter-08/index.adoc#,chapitre 8>>) en travaillant depuis plusieurs
+ordinateurs sans avoir à tout réinstaller à chaque fois.
+====
+
 
 [[deploy.sftp]]
-=== En transférant des fichiers via SSH ou SFTP
+=== En transférant des fichiers via SSH
 
-winscp
-filezilla
-scp && ssh
+Les services d'hébergement mutualisé, virtualisé ou dédié accordent
+un accès à votre espace en ligne par le biais du protocole
+SSH ([URL]#https://fr.wikipedia.org/wiki/Secure_Shell#).
+Ce protocole crée une connexion sécurisée : les commandes saisies dans votre
+terminal font effet sur la machine sur laquelle vous êtes connecté·e.
 
-tip : https://superuser.com/questions/821892/filezilla-can-i-run-a-remote-shell-command-via-filezilla-client
+Des logiciels comme _FileZilla Client_ ([URL]#https://filezilla-project.org/#)
+servent d'interfaces graphiques pour transférer des fichiers de notre machine
+vers une machine distante.
+C'est un logiciel idéal pour débuter et lorsqu'on n'utilise pas Git
+pour versionner son code.
+
+Les codes d'accès SSH se trouvent en général dans la section _Aide_ ou _Guides_
+de votre hébergeur.
+
+.Exemple de connexion à un serveur SSH distant avec FileZilla Client sous macOS.
+image::images/filezilla-file-transfer.png[width="85%"]
+
+[TIP]
+.[RemarquePreTitre]#Windows# WinSCP
+====
+_WinSCP_ ([URL]#https://winscp.net#) est une alternative libre à
+FileZilla pour Windows.
+====
+
+[NOTE]
+.[RemarquePreTitre]#Avancé# `scp` et `rsync`
+====
+Notre terminal peut aussi servir à transféfer des fichiers.
+Deux programmes se basent sur SSH et sont installés par défaut sur la plupart
+des ordinateurs Linux et macOS :
+
+- `scp` pour envoyer des fichiers de machine à machine
+- `rsync` pour n'envoyer que les fichiers qui ont été modifiés ou supprimés
+====
 
 [[deploy.github]]
 === En important du code depuis GitHub
@@ -64,7 +144,25 @@ tip : https://superuser.com/questions/821892/filezilla-can-i-run-a-remote-shell-
 glitch
 heroku
 
-TBD.
+.Bouton d'import d'un dépôt GitHub sur glitch.com.
+image::images/glitch-github-import.png[width="85%"]
+
+[TIP]
+.[RemarquePreTitre]#Pratique# Importer tous les exemples de cet ouvrage
+====
+
+oncletom/nodebook
+
+[URL]#+https://glitch.com/edit/#!/remix/nodebook+#
+====
+
+.Paramétrage de déploiement automatisé depuis un dépôt GitHub sur heroku.com.
+image::images/heroku-github-import.png[width="85%"]
+
+[NOTE]
+.[RemarquePreTitre]#Heroku# Import Dropbox
+====
+====
 
 [[deploy.cli]]
 === Avec l'outil en ligne de commande de l'hébergeur
@@ -310,7 +408,7 @@ pour mieux comprendre ce empêche votre application de fonctionner sur leurs ser
 TBD.
 
 [[lambda]]
-=== Invocation éphémère (_Function as a Service_)
+=== Fonction éphémère (_Function as a Service_)
 
 TBD.
 
