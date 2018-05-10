@@ -7,6 +7,7 @@ Ce journal détaille l'effort d'écriture depuis janvier 2017.
 
 - _Chapitre 6_ : déployer en codant dans un navigateur web
 - _Chapitre 6_ : déployer en transférant des fichiers via SSH
+- _Chapitre 6_ : déployer avec l’outil en ligne de commande de l’hébergeur
 
 **Météo** : 😊
 

@@ -69,6 +69,12 @@ rendant sur [URL]#https://runkit.com/new# :
 ----
 include::{sourceDir}/runkit-endpoint.js[]
 ----
+<1> Le module npm [URL]#https://npmjs.com/pokemon-random-name# exporte une
+fonction qui retourne un nom aléatoire de Pokémon.
+<2> `exports.endpoint` est spécifique à RunKit et accepte une fonction
+identique à l'événement `server.on('request')` du
+<<../chapter-04/index.adoc#http,module `http`>>
+(<<../chapter-04/index.adoc#,chapitre 4>>).
 
 Une fois sauvegardé et après avoir cliqué sur le lien *endpoint*,
 un nouvel onglet s'ouvre et affiche un nom aléatoire de Pokémon.
@@ -98,9 +104,23 @@ Parfait pour <<../chapter-08/index.adoc#,coder un outil en ligne de commande>>
 ordinateurs sans avoir à tout réinstaller à chaque fois.
 ====
 
+[TIP]
+.[RemarquePreTitre]#Pratique# Remixez les exemples de cet ouvrage
+====
+Vous pouvez créer votre premier projet sur glitch.
+_Remixez_ cet ouvrage en cliquant en vous rendant sur
+[URL]#+https://glitch.com/edit/#!/remix/nodebook+#.
+
+Le contenu et les exemples seront copiés dans un nouveau projet,
+exécutable et modifiable selon vos envies.
+====
+
 
 [[deploy.sftp]]
 === En transférant des fichiers via SSH
+
+Transférer des fichiers est idéal pour débuter et lorsqu'on n'utilise pas Git
+pour versionner son code.
 
 Les services d'hébergement mutualisé, virtualisé ou dédié accordent
 un accès à votre espace en ligne par le biais du protocole
@@ -110,10 +130,7 @@ terminal font effet sur la machine sur laquelle vous êtes connecté·e.
 
 Des logiciels comme _FileZilla Client_ ([URL]#https://filezilla-project.org/#)
 servent d'interfaces graphiques pour transférer des fichiers de notre machine
-vers une machine distante.
-C'est un logiciel idéal pour débuter et lorsqu'on n'utilise pas Git
-pour versionner son code.
-
+vers une machine distante. +
 Les codes d'accès SSH se trouvent en général dans la section _Aide_ ou _Guides_
 de votre hébergeur.
 
@@ -141,42 +158,101 @@ des ordinateurs Linux et macOS :
 [[deploy.github]]
 === En important du code depuis GitHub
 
-glitch
-heroku
+Importer du code depuis un dépôt Git déploie exactement ce qu'on veut,
+sans rien oublier et avec la possibilité de revenir en arrière plus facilement.
+
+La plate-forme de <<deploy.notebook,programmation en ligne>> glitch
+offre une option pour importer n'importe quel projet GitHub — à partir du moment
+où le dépôt est public.
 
 .Bouton d'import d'un dépôt GitHub sur glitch.com.
 image::images/glitch-github-import.png[width="85%"]
 
+Un clic sur le bouton btn:[Import from GitHub] ouvre une invite de saisie
+destinée à mentionner le nom du dépôt GitHub à importer.
+Le projet en cours sera entièrement remplacé par le contenu du dépôt distant.
+C'est pratique pour récupérer des exercices ou ou apprendre en travaillant
+sur du code écrit par quelqu'un·e d'autre.
+
 [TIP]
-.[RemarquePreTitre]#Pratique# Importer tous les exemples de cet ouvrage
+.[RemarquePreTitre]#Pratique# Importer les exemples de cet ouvrage
+====
+Récupérez tout le contenu et les exemples de cet ouvrage
+en recopiant `oncletom/nodebook` dans l'invite de saisie.
 ====
 
-oncletom/nodebook
-
-[URL]#+https://glitch.com/edit/#!/remix/nodebook+#
-====
+La <<paas,plate-forme de services>> Heroku ([URL]#https://heroku.com#)
+pousse l'import GitHub un peu plus loin.
+Sa fonctionnalité _déploie_ l'application à chaque nouveau commit sur une branche
+d'un projet auquel on participe.
+L'application redémarre ensuite automatiquement pour prendre les changements en compte.
 
 .Paramétrage de déploiement automatisé depuis un dépôt GitHub sur heroku.com.
 image::images/heroku-github-import.png[width="85%"]
 
-[NOTE]
-.[RemarquePreTitre]#Heroku# Import Dropbox
-====
-====
+Une option nous permet de déployer une nouvelle version de l'application
+à la suite d'une <<deploy.ci,intégration continue réussie>>.
+Nous réduisons ainsi les risques de déployer une version défectueuse
+qui planterait aussitôt.
+
 
 [[deploy.cli]]
 === Avec l'outil en ligne de commande de l'hébergeur
 
-now
-heroku
+L'outil en ligne de commande d'un hébergeur permet de gérer les déploiements
+_et_ d'autres aspects de l'hébergement en même temps.
+
+La <<paas,plate-forme de services>> _now_ ([URL]#https://zeit.co/now#)
+est un exemple de simplicité à ce niveau.
+Dans un terminal, déplacez-vous vers le répertoire de l'application à déployer.
+Il suffit de taper `now` pour envoyer les fichiers, installer les dépendances
+et obtenir l'URL à laquelle visiter l'application :
 
 ----
-$ heroku login
-Enter your Heroku credentials:
-Email: hi@oncletom.io
-Password: *****************
-Logged in as hi@oncletom.io
+# Lors de la première utilisation du service sur un ordinateur
+$ npm install -g now
+$ now login
+
+$ now
+Deploying ~/workspace/dtc-innovation/food-coops-dashboards
+> Using Node.js 9.10.1 (requested: `>=8.0.0`)
+> https://food-coops-dashboards-okgwzegyus.now.sh
+> Synced 1 file (169.84KB) [11s]
+> Building…
+> ▲ npm install
+> ✓ Using "package-lock.json"
+> ⧗ Installing 9 main dependencies…
+> ▲ npm install
+> added 389 packages in 8.609s
+> ▲ Snapshotting deployment
+> Build completed
+> Verifying instantiation in bru1
+> ✔ Scaled 1 instance in bru1 [31s]
+> Success! Deployment ready
 ----
+
+En optant pour l'offre payante, nous pouvons aussi gérer les noms de domaine et
+sous-domaines en leur attribuant l'URL du déploiement :
+
+----
+$ now alias food-coops-dashboards-okgwzegyus.now.sh my-domain.com
+----
+
+////
+L'hébergeur indépendant et français _Gandi_ ([URL]#https://gandi.net#)
+dispose d'une offre plus complète avec son outil en ligne de commande
+écrit en Python et documenté sur [URL]#https://cli.gandi.net/#.
+
+Sa <<paas,plate-forme de service>> crée et déploie un dépôt Git en
+quelques commandes :
+
+----
+$ gandi paas create --name mon-application --type nodejs --size S
+$ gandi paas attach mon-application
+$ git push gandi master
+$ gandi deploy
+----
+////
 
 [[deploy.git]]
 === En faisant `git push` depuis sa machine
