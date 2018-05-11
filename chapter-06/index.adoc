@@ -158,8 +158,8 @@ des ordinateurs Linux et macOS :
 [[deploy.github]]
 === En important du code depuis GitHub
 
-Importer du code depuis un dépôt Git déploie exactement ce qu'on veut,
-sans rien oublier et avec la possibilité de revenir en arrière plus facilement.
+Importer du code depuis GitHub est la manière la plus simple de transférer
+tous les fichiers versionnés sans être familier avec Git.
 
 La plate-forme de <<deploy.notebook,programmation en ligne>> glitch
 offre une option pour importer n'importe quel projet GitHub — à partir du moment
@@ -204,15 +204,19 @@ _et_ d'autres aspects de l'hébergement en même temps.
 
 La <<paas,plate-forme de services>> _now_ ([URL]#https://zeit.co/now#)
 est un exemple de simplicité à ce niveau.
-Dans un terminal, déplacez-vous vers le répertoire de l'application à déployer.
-Il suffit de taper `now` pour envoyer les fichiers, installer les dépendances
-et obtenir l'URL à laquelle visiter l'application :
 
+.Installation et configuration de l'outil `now`
 ----
-# Lors de la première utilisation du service sur un ordinateur
 $ npm install -g now
 $ now login
+----
 
+Dans un terminal, déplacez-vous vers le répertoire de l'application à déployer.
+Il suffit de taper `now` pour transférer les fichiers.
+Les dépendances s'installent et le déploiement est accessible quelques secondes
+plus tard :
+
+----
 $ now
 Deploying ~/workspace/dtc-innovation/food-coops-dashboards
 > Using Node.js 9.10.1 (requested: `>=8.0.0`)
@@ -238,7 +242,18 @@ sous-domaines en leur attribuant l'URL du déploiement :
 $ now alias food-coops-dashboards-okgwzegyus.now.sh my-domain.com
 ----
 
+[NOTE]
+.[RemarquePreTitre]#Pratique# Application de bureau
+====
+Le client en ligne de commande existe en version graphique.
+Un glissé/déposé de fichiers suffit à lancer un déploiement.
+
+Il se télécharge sur [URL]#https://zeit.co/download#.
+====
+
 ////
+TODO bloqué par https://github.com/Gandi/gandi.cli/issues/255
+
 L'hébergeur indépendant et français _Gandi_ ([URL]#https://gandi.net#)
 dispose d'une offre plus complète avec son outil en ligne de commande
 écrit en Python et documenté sur [URL]#https://cli.gandi.net/#.
@@ -254,21 +269,104 @@ $ gandi deploy
 ----
 ////
 
+
+L'outil de la <<paas,plate-forme de services>> Heroku suit une approche
+légèrement différente.
+Il simplifie la <<deploy.push,configuration de Git>>, nous informe de l'état
+de nos applications et d'augmenter ou de réduire la capacité des ressources
+informatiques. +
+L'installation se déroule depuis
+[URL]#https://devcenter.heroku.com/articles/heroku-cli#.
+
+.Configuration de l'outil `heroku`
+----
+$ heroku login
+----
+
+La commande `heroku apps:create` crée une application en ligne de commande.
+On pourrait faire la même chose avec un navigateur web en nous rendant sur
+[URL]#https://dashboard.heroku.com/new-app#. +
+La seconde étape configure le projet Git du répertoire en cours.
+
+.Configuration de notre dépôt Git pour en faire une application Heroku.
+----
+$ heroku apps:create mon-application --region eu
+$ heroku git:remote --app mon-application
+----
+
+Ainsi, notre projet Git contient les informations nécessaires au déploiement.
+Il ne nous reste plus qu'à <<deploy.git,pousser les changements>>.
+
 [[deploy.git]]
 === En faisant `git push` depuis sa machine
 
-TBD.
+Le déploiement d'une branche Git est le moyen le plus facile d'automatiser
+un déploiement.
+
+Cette méthode de déploiement est celle privilégiée par les
+<<paas,plates-formes de services>> comme Heroku, Gandi et Clever Cloud.
+Chaque projet d'application sur ces plates-formes crée aussi un dépôt Git distant
+(_remote_) : un dépôt est utilisé pour versionner notre code (GitHub par exemple)
+tandis qu'un autre dépôt est utilisé pour réceptionner le code de
+l'application à déployer.
+
+Illustrons un déploiement avec Heroku.
+L'exemple part du principe que notre copie locale du projet Git a été
+configurée avec l'<<deploy.cli,outil de déploiement>> Heroku
+(cf. section précédente).
+
+Nous pouvons nous assurer que notre copie locale est configurée à l'aide de la
+commande `git remote` :
+
+.Liste des dépôts distants d'un projet Git configuré pour Heroku.
+----
+$ git remote -v
+heroku	https://git.heroku.com/mon-application.git (fetch)
+heroku	https://git.heroku.com/mon-application.git (push)
+origin	git@github.com:mon-compte/mon-application.git (fetch)
+origin	git@github.com:mon-compte/mon-application.git (push)
+----
+
+Heroku déploie notre application dès que la plate-forme détecte que nous
+lui poussons du code :
+
+----
+$ git push heroku
+> Counting objects: 4, done.
+> Delta compression using up to 4 threads.
+> Compressing objects: 100% (4/4), done.
+> Writing objects: 100% (4/4), 17.77 KiB | 5.92 MiB/s, done.
+> Total 4 (delta 2), reused 0 (delta 0)
+> remote: Compressing source files... done.
+> remote: Building source:
+> remote:
+> remote: -----> Node.js app detected
+> remote:
+> remote: -----> Creating runtime environment
+> ...
+> remote: -----> Launching...
+> remote:        Released v30
+> remote:        https://mon-application.herokuapp.com/ deployed
+> remote:
+> remote: Verifying deploy... done.
+----
+
+En cas d'erreur, la précédente version de l'application reste en ligne.
+Nous avons ainsi le loisir de corriger le problème sans interrompre le service.
 
 [[deploy.clone]]
 === En faisant `git pull` lors d'une session SSH
 
-TBD.
+La récupération du code source à distance avec Git et SSH est la manière
+de déployer qui correspond le plus de notre manière de gérer
+le code sur notre ordinateur.
 
 
 [[deploy.recipe]]
 === Avec une recette de déploiement (_Ansible_, _Chef_, etc.)
 
-TBD.
+La recette de déploiement est la manière la plus complète de partager et
+d'automatiser un déploiement complexe.
 
 ////
 - Ansible
@@ -278,7 +376,8 @@ TBD.
 [[deploy.ci]]
 === En paramétrant un logiciel d'intégration continue
 
-TBD.
+L'utilisation d'un logiciel d'intégration continue est la manière la plus
+flexible pour automatiser tout type de déploiement.
 
 ////
 - Travis Deploy
