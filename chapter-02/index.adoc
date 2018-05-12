@@ -130,7 +130,7 @@ Enfin, _Cloud9_ ([URL]#https://c9.io#) est un service propriétaire
 Ce service intègre des fonctionnalités similaires à celles de _Codenvy_
 (éditeur en ligne, configuration de machine)
 et s'intègre de manière poussée avec les autres services d'_AWS_,
-dont _EC2_ et <<../chapter-06/index.adoc#lambda,Lambda>> (voir le <<../chapter-06/index.adoc#,chapitre 6>>). +
+dont _EC2_ et <<../chapter-06/index.adoc#hosting.lambda,Lambda>> (voir le <<../chapter-06/index.adoc#,chapitre 6>>). +
 Le service est entièrement gratuit.
 C'est la consommation de ressources qui est payante, à l'heure,
 en fonction du dimensionnement des ressources demandées.
@@ -446,7 +446,7 @@ $ docker run -ti --rm node:{v} node
 4
 ----
 
-Plusieurs variantes par version de Node se trouvent à notre disposition :
+Plusieurs variantes d'images Node se trouvent à notre disposition :
 
 _standard_ (`node:{v}`)::
   base Linux Debian pour tout type d'applications Node ;
@@ -457,8 +457,11 @@ _Alpine_ (`node:{v}-alpine`)::
 _allégée_ (`node:{v}-slim`)::
   base Linux Debian sans outillage parfois nécessaires à des modules Node — utile si vous souhaitez économiser de l'espace disque.
 
-L'intégralité des versions et architectures supportées est disponible sur le _Docker Hub_ : [URL]#https://hub.docker.com/_/node/#. +
-Nous nous repencherons sur Docker dans la section  <<../chapter-06/index.adoc#immutable-deploy,déploiement immutable>> du Chapitre 6.
+L'intégralité des versions et architectures supportées est disponible sur
+le catalogue _Docker Hub_ : [URL]#https://hub.docker.com/_/node/#. +
+Nous nous repencherons dessus dans la section
+<<../chapter-06/index.adoc#deploy.docker,déploiement d'une image Docker>> du
+<<../chapter-06/index.adoc#,chapitre 6>>.
 
 [[shell]]
 == Utiliser Node.js avec un terminal (_shell_)

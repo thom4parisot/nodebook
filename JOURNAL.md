@@ -6,6 +6,7 @@ Ce journal détaille l'effort d'écriture depuis janvier 2017.
 ## Samedi 12 mai 2018 • Bordeaux
 
 - _Chapitre 6_ : déployer en faisant `git push` depuis sa machine (_take 2_)
+- _Chapitre 6_ : déployer en faisant `git pull` lors d'une session SSH
 
 **Météo** : 😕
 

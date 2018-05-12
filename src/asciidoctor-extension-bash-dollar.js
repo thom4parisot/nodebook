@@ -12,13 +12,18 @@ module.exports = function bash$Extension () {
 
       doc.findBy({ context: 'listing' }, isBash).forEach(block => {
         const {parent} = block;
+        const dollar_regexp = /^(\$+) (.+)$/;
 
         let isModified = false;
 
         const lines = block.lines.map(line => {
-          if (line[0] === '$' && line[1] === ' ') {
-            isModified = true;
-            line = '<span data-bash-subs="$"></span>' + block.$sub_specialchars(line.slice(2));
+          if (line.match(dollar_regexp)) {
+            line = line.replace(dollar_regexp, (match, dollar, command) => {
+              const d = block.$sub_specialchars(command);
+              isModified = true;
+
+              return `<span data-bash-subs="${dollar}"></span>${d}`;
+            });
           }
 
           if (line[0] === '>' && line[1] === ' ') {
