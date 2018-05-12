@@ -272,10 +272,11 @@ $ gandi deploy
 
 L'outil de la <<paas,plate-forme de services>> Heroku suit une approche
 légèrement différente.
-Il simplifie la <<deploy.push,configuration de Git>>, nous informe de l'état
-de nos applications et d'augmenter ou de réduire la capacité des ressources
-informatiques. +
-L'installation se déroule depuis
+Il nous informe de l'état de nos application et en augmente ou diminue
+la quantité de ressources allouée à leur fonctionnement.
+Il simplifie la configuration de Git et
+<<deploy.git,délègue le déploiement>> à ce dernier.
+L'outil se télécharge sur
 [URL]#https://devcenter.heroku.com/articles/heroku-cli#.
 
 .Configuration de l'outil `heroku`
@@ -283,10 +284,10 @@ L'installation se déroule depuis
 $ heroku login
 ----
 
-La commande `heroku apps:create` crée une application en ligne de commande.
+La commande `heroku apps:create` crée une nouvelle chez Heroku.
 On pourrait faire la même chose avec un navigateur web en nous rendant sur
-[URL]#https://dashboard.heroku.com/new-app#. +
-La seconde étape configure le projet Git du répertoire en cours.
+[URL]#https://dashboard.heroku.com/new-app#.
+La commande `heroku git:remote` associe notre copie à cette application :
 
 .Configuration de notre dépôt Git pour en faire une application Heroku.
 ----
@@ -294,7 +295,6 @@ $ heroku apps:create mon-application --region eu
 $ heroku git:remote --app mon-application
 ----
 
-Ainsi, notre projet Git contient les informations nécessaires au déploiement.
 Il ne nous reste plus qu'à <<deploy.git,pousser les changements>>.
 
 [[deploy.git]]
@@ -305,17 +305,17 @@ un déploiement.
 
 Cette méthode de déploiement est celle privilégiée par les
 <<paas,plates-formes de services>> comme Heroku, Gandi et Clever Cloud.
-Chaque projet d'application sur ces plates-formes crée aussi un dépôt Git distant
+Chaque projet d'application est accessible via un dépôt Git distant
 (_remote_) : un dépôt est utilisé pour versionner notre code (GitHub par exemple)
-tandis qu'un autre dépôt est utilisé pour réceptionner le code de
-l'application à déployer.
+tandis qu'un autre dépôt est utilisé pour réceptionner le code à déployer.
 
 Illustrons un déploiement avec Heroku.
-L'exemple part du principe que notre copie locale du projet Git a été
-configurée avec l'<<deploy.cli,outil de déploiement>> Heroku
-(cf. section précédente).
+Cet exemple part du principe que notre terminal est positionné dans un
+répertoire qui est un projet Git contenant au moins 1 commit.
+Vous avez déjà configuré le dépôt distant à l'aide de
+l'<<deploy.cli,outil de déploiement>> Heroku (cf. section précédente).
 
-Nous pouvons nous assurer que notre copie locale est configurée à l'aide de la
+Nous pouvons vérifier si le dépôt est bien configuré à l'aide de la
 commande `git remote` :
 
 .Liste des dépôts distants d'un projet Git configuré pour Heroku.
@@ -327,8 +327,10 @@ origin	git@github.com:mon-compte/mon-application.git (fetch)
 origin	git@github.com:mon-compte/mon-application.git (push)
 ----
 
-Heroku déploie notre application dès que la plate-forme détecte que nous
-lui poussons du code :
+Dans le cas d'Heroku, la commande `heroku git:remote` crée un `remote` nommé
+`heroku`.
+Heroku redéploie notre application dès qu'on lui envoie du code en faisant
+`git push heroku` :
 
 ----
 $ git push heroku

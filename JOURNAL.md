@@ -3,7 +3,13 @@
 Le projet a commencé en décembre 2014.
 Ce journal détaille l'effort d'écriture depuis janvier 2017.
 
-## Vendredi 10 mai 2018 • Bordeaux
+## Samedi 12 mai 2018 • Bordeaux
+
+- _Chapitre 6_ : déployer en faisant `git push` depuis sa machine (_take 2_)
+
+**Météo** : 😕
+
+## Vendredi 11 mai 2018 • Bordeaux
 
 - _Chapitre 6_ : déployer en faisant `git push` depuis sa machine
 
