@@ -18,9 +18,11 @@ endif::[]
 
 = Jouer avec Node.js
 
-On peut utiliser Node en parlant directement avec l'interpréteur, en créant un script ou en programmant une application plus complexe.
+On peut utiliser Node en parlant directement avec l'interpréteur, en créant
+un script ou en programmant une application plus complexe.
 
-Ce chapitre explique ce qu'il faut savoir pour interagir avec l'exécutable `node`, le fonctionnement des _modules_ et les variables à disposition.
+Ce chapitre explique ce qu'il faut savoir pour interagir avec l'exécutable
+`node`, le fonctionnement des _modules_ et les variables à disposition.
 
 Nous en profiterons aussi pour passer en revue la variété de modules
 disponibles par défaut.
@@ -37,12 +39,7 @@ disponibles par défaut.
 
 [abstract]
 --
-Le <<../chapter-03/index.adoc#,chapitre 3>> a été l'occasion de pratiquer une
-(re)mise en forme côté JavaScript, ECMAScript et tout ça.
-On peut désormais mettre à profit nos connaissances pour parler directement
-à l'interpréteur Node.
-C'est l'occasion de se surprendre à pouvoir faire davantage de choses qu'on
-imaginait.
+TBD.
 --
 
 include::../resources/tip-versions.adoc[]
@@ -302,16 +299,12 @@ afin d'interagir avec les fichiers et les répertoires présents sur l'ordinateu
 ----
 include::{sourceDir}/fs/read-dir.js[]
 ----
-<1> On assigne les fonctions et attributs du module `fs` dans la variable `fs`
-(on pourrait l'appeler autrement si on en avait envie)
-<2> L'appel à la fonction `fs.readdir` passe un objet d'erreur
-ainsi que la liste des fichiers et répertoires
-contenus dans le chemin indiqué
-<3> Affiche un tableau contenant les noms de fichiers et de répertoires présents
-dans le dossier courant
+<1> On assigne les fonctions et attributs du module `fs` dans la variable `fs` — on pourrait l'appeler autrement si on en avait envie.
+<2> L'appel à la fonction `fs.readdir` passe un objet d'erreur ainsi que la liste des fichiers et répertoires contenus dans le chemin indiqué.
+<3> Affiche un tableau contenant les noms de fichiers et de répertoires présents dans le dossier courant.
 
 Ces modules de base représentent la pierre angulaire de nos applications Node.
-Ils fournissent le nécessaire pour… tout faire !
+Ils fournissent le nécessaire pour tout faire !
 On apprendra à étendre encore plus le champ des possibles dans
 le <<../chapter-05/index.adoc#,chapitre 5>>
 grâce aux <<../chapter-05/index.adoc#modules,modules npm>>.
@@ -397,7 +390,7 @@ C'est utile pour structurer un message complexe en gardant les variables à part
 ----
 include::{sourceDir}/console/interpolate.js[]
 ----
-<1> Affiche `Soupe lentilles et carottes`
+<1> Affiche `Soupe lentilles et carottes`.
 
 `%s` ne sait afficher que des chaînes de caractères.
 D'autres marqueurs savent afficher d'autres types de données :
@@ -424,8 +417,7 @@ D'autres marqueurs savent afficher d'autres types de données :
   On peut paramétrer la profondeur d'affichage
   (par défaut, jusqu'à 2 niveaux).
 `console.group()`::
-  Regroupe des utilisations successives de `console.log` ou de `console.error`
-  pour identifier visuellement leur appartenance logique. +
+  Regroupe visuellement les appels à `console.log` et `console.error`. +
   Un groupe se clôt avec `console.groupEnd()`.
 `console.time()`::
   Démarre un chronomètre en lui attribuant un nom. +
@@ -433,7 +425,6 @@ D'autres marqueurs savent afficher d'autres types de données :
 classe `Console`::
   Crée un objet similaire à `console` mais en dirigeant l'affichage ailleurs
   que vers les <<process.std,flux standards>>.
-  Pratique pour créer
 
 [TIP]
 .[RemarquePreTitre]#Web# Console et navigateurs web
@@ -470,9 +461,9 @@ comme Linux et Windows par exemple.
 ----
 include::{sourceDir}/path/intro.js[]
 ----
-<1> Affiche `/tmp`
-<2> Affiche `package.json`
-<3> Affiche `.json`
+<1> Affiche `/tmp`.
+<2> Affiche `package.json`.
+<3> Affiche `.json`.
 
 Certaines fonctions comme `path.join` tiennent compte de la nature du système
 d'exploitation.
@@ -484,8 +475,8 @@ Le résultat d'un même appel de fonction sera différent _mais_ correspondra
 ----
 include::{sourceDir}/path/platform.js[]
 ----
-<1> Affiche `/` — `\` sous Windows
-<2> Affiche `tmp/package.json` — `tmp\package.json` sous Windows
+<1> Affiche `/` — `\` sous Windows.
+<2> Affiche `tmp/package.json` — `tmp\package.json` sous Windows.
 
 On constate que `path.join` assemble les chemins en utilisant la valeur de
 `path.sep`.
@@ -500,11 +491,8 @@ des chemins complets, _relatifs à notre emplacement_ actuel :
 ----
 include::{sourceDir}/path/relative.js[]
 ----
-<1> Affiche `../source` — `..\source` sous Windows —
-c'est le chemin à parcourir pour aller du premier chemin au second chemin
-<2> Affiche `/tmp/source` — `C:\tmp\source` sous Windows —
-on constate que le chemin _résolu_ est absolu, et intègre la lettre du lecteur
-sous Windows
+<1> Affiche `../source` — `..\source` sous Windows — c'est le chemin à parcourir pour aller du premier chemin au second chemin.
+<2> Affiche `/tmp/source` — `C:\tmp\source` sous Windows — on constate que le chemin _résolu_ est absolu, et intègre la lettre du lecteur sous Windows.
 
 Les résultats produits par les fonctions du module `path`
 se combinent particulièrement bien avec celles <<fs,du module `fs`>>, pour
@@ -526,7 +514,7 @@ accéder aux fichiers en question.
   Retourne des informations liées à la compréhension d'un chemin
   (extension, nom de fichier, nom de répertoire).
 `path.relative()`::
-  Indique si le chemin est _relatif_ ou non.
+  Calcule le chemin relatif entre un chemin source et un chemin de destination.
 `path.resolve()`::
   Calcule un chemin absolu à partir de plusieurs bouts de chemin.
 attribut `path.sep`::
@@ -537,22 +525,20 @@ attribut `path.sep`::
 [TIP]
 .[RemarquePreTitre]#Compatibilité# Manipuler des chemins Windows sous Linux et vice-versa
 ====
-On pourrait avoir besoin de manipuler des chemins _pour_ Windows alors qu'on est
-sur un autre système d'exploitation.
-Le module `path` expose `path.win32` pour cette raison-là. +
-*Les propriétés retournées sont les mêmes* que celles décrites précédemment…
-mais retournent systématiquement des chemins Windows.
+On peut avoir besoin de manipuler des chemins Windows avec du code
+exécuté sur un autre système d'exploitation comme Linux et macOS.
+C'est exactement ce que proposent les fonctions de `path.win32`.
 
 [source%interactive,javascript]
 .path/win32.js
 ----
 include::{sourceDir}/path/win32.js[]
 ----
-<1> On déstructure les fonctions depuis la variante `win32` du module `path`
-<2> Affiche `tmp\package.json`
-<3> Affiche `C:\etc`
+<1> On déstructure les fonctions depuis la variante `win32` du module `path`.
+<2> Affiche `tmp\package.json`.
+<3> Affiche `C:\etc`.
 
-L'inverse est possible en utilisant les propriétés de l'objet `path.posix`.
+L'objet `path.posix` fonctionne de la même manière pour des chemins Linux.
 
 ====
 
@@ -574,8 +560,8 @@ et les assembler à nouveau sous forme de chaîne de caractères.
 ----
 include::{sourceDir}/url/intro.js[]
 ----
-<1> Affiche `oncletom.io`
-<2> Affiche `/node.js/`
+<1> Affiche `oncletom.io`.
+<2> Affiche `/node.js/`.
 
 [TIP]
 .[RemarquePreTitre]#Web# Compatibilité avec les navigateurs
@@ -589,18 +575,17 @@ afin de partager les mêmes concepts et définitions de ce qu'est une URL.
 
 Les propriétés de l'objet retourné par le constructeur de `URL` sont modifiables.
 Il est ainsi possible de modifier les parties de l'URL qui nous intéressent
-et de récupérer une URL exploitable sous forme de chaîne de caractères :
+et de récupérer une URL sous forme d'une chaîne de caractères :
 
 [source%interactive,javascript]
 .url/to-string.js
 ----
 include::{sourceDir}/url/to-string.js[]
 ----
-<1> Affiche `https://oncletom.io/#top` — le chemin et le fragment ont été modifiées
-<2> Idem
+<1> Affiche `https://oncletom.io/#top` — le chemin et le fragment ont été modifiées.
+<2> Idem.
 
-Si la fonction `format()` semble avoir le même comportement que `toString`,
-on peut en réalité lui passer des options pour conserver ou ôter des
+On peut passer des options à `format()` pour conserver ou ôter des
 éléments contextuels d'une URL :
 
 [source%interactive,javascript]
@@ -608,18 +593,18 @@ on peut en réalité lui passer des options pour conserver ou ôter des
 ----
 include::{sourceDir}/url/format.js[]
 ----
-<1> Affiche `https://oncletom.io/`
+<1> Affiche `https://oncletom.io/`.
 
 Le constructeur `URL` accepte une URL de référence en second argument.
-Cette adresse aide résoudre un chemin absolu à partir du premier argument :
+Cette adresse résout un chemin absolu à partir du premier argument :
 
 [source%interactive,javascript]
 .url/resolve.js
 ----
 include::{sourceDir}/url/resolve.js[]
 ----
-<1> Affiche `https://oncletom.io/node.js/`
-<2> Affiche `https://oncletom.io/`
+<1> Affiche `https://oncletom.io/node.js/`.
+<2> Affiche `https://oncletom.io/`.
 
 [horizontal]
 .Propriétés notables
@@ -628,10 +613,8 @@ include::{sourceDir}/url/resolve.js[]
   <<http.request,`http.request()`>>.
 classe `URL`::
   Représentation de la structure d'une URL.
-  Voir ci-après.
 classe `URLSearchParams`::
   Représentation des paramètres d'URL.
-  Voir ci-après.
 
 [horizontal]
 .Propriétés notables de la classe `URL`
@@ -661,11 +644,9 @@ Les paramètres ne sont pas en reste avec l'attribut `searchParams` :
 ----
 include::{sourceDir}/url/search-params.js[]
 ----
-<1> Affiche `https://oncletom.io/?search=node.js`
-— représentation de l'URL complète
-<2> Affiche `search=node.js` — représentation des paramètres seulement
-<3> Affiche `https://oncletom.io/`
-— le paramètre `search` et sa valeur ont été supprimés de l'URL
+<1> Affiche `https://oncletom.io/?search=node.js` — représentation de l'URL complète.
+<2> Affiche `search=node.js` — représentation des paramètres seulement.
+<3> Affiche `https://oncletom.io/` — le paramètre `search` et sa valeur ont été supprimés de l'URL.
 
 [horizontal]
 .Propriétés notables de la classe `URLSearchParams`
@@ -706,36 +687,31 @@ et des répertoires.
 ----
 include::{sourceDir}/fs/intro.js[]
 ----
-<1> Lorsque la lecture du fichier aboutit, la <<callbacks,fonction de callback>>
-est appelée avec 2 paramètres : un objet d'erreur et le contenu
-<2> Affiche… le contenu de ce fichier d'exemple !
+<1> Lorsque la lecture du fichier aboutit, la <<callbacks,fonction de callback>> est appelée avec 2 paramètres : un objet d'erreur et le contenu.
+<2> Affiche le contenu d'un fichier `package.json`.
 
 [TIP]
 .[RemarquePreTitre]#Raccourci# Variables `+__filename+` et `+__dirname+`
 ====
-`+__filename+` est une chaîne de caractères faisant référence au fichier courant. +
-`+__dirname+` fait référence au répertoire du fichier courant.
+`+__filename+` est une chaîne de caractères faisant référence au fichier actuel. +
+`+__dirname+` fait référence au répertoire du fichier actuel.
 
-[source,javascript]
+[source%interactive,javascript]
 .dirname-filename.js
 ----
 include::{sourceDir}/dirname-filename.js[]
 ----
-<1> Affiche `/.../chapter-04/examples/dirname-filename.js`
-<2> Affiche `true` (ça ne serait pas un _raccourci_ sinon ;-))
-<3> Affiche `/.../chapter-04/examples`
+<1> Affiche `/.../chapter-04/examples/dirname-filename.js`.
+<2> Affiche `true` — ça ne serait pas un _raccourci_ sinon ;-).
+<3> Affiche `/.../chapter-04/examples`.
 
 Ces variables sont utiles pour opérer sur
-des _chemins relatifs au fichier courant_.
+des _chemins relatifs au fichier actuel_.
 
 ====
 
-Dans l'exemple précédent, nous avons utilisé la variable `+__filename+`.
-Elle retourne un *chemin absolu* vers le répertoire.
-Qu'en est-il lorsqu'on utilise un *chemin relatif* ?
-
-Pour en avoir le cœur net, listons les fichiers et dossiers
-du _répertoire courant_ (`.`) :
+Dans l'exemple précédent, nous avons parcouru le contenu d'un fichier.
+`fs.readdir()` parcourt un répertoire :
 
 [source%interactive,javascript]
 .fs/ls.js
@@ -743,7 +719,7 @@ du _répertoire courant_ (`.`) :
 include::{sourceDir}/fs/ls.js[]
 ----
 
-En l'exécutant, on obtient ces résultats :
+En l'exécutant, nous obtenons ces résultats :
 
 ----
 $ node fs/ls.js
@@ -756,9 +732,12 @@ $ node fs/ls.js
   'util' ]
 ----
 
-On pourrait penser que le _répertoire courant_ (`.`) et `+__dirname+`
-(répertoire du _module courant_) sont équivalents.
-Et si on se change de répertoire pour voir ?
+Dans les environnements UNIX, le `.` fait référence au _répertoire courant_
+et `..` au _répertoire parent_.
+C'est le cas avec Node également.
+Par la notion de _courant_ fait référence
+à l'emplacement depuis lequel nous appelons l'exécutable `node`. +
+Changeons de répertoire pour voir :
 
 ----
 $ cd ../..
@@ -772,15 +751,15 @@ $ node chapter-04/examples/fs/ls.js
   'tests' ]
 ----
 
-Bref, les _chemins relatifs_ sont
+Les _chemins relatifs_ sont
 *relatifs à l'emplacement depuis lequel on exécute la commande `node`*.
-La valeur de `+__dirname+` et de `+__filename+` est déterminée par rapport
-à l'emplacement du <<module,module>> y faisant appel.
+`+__dirname+` et de `+__filename+` sont déterminés par rapport
+à l'emplacement du script qui fait référence à ces variables.
 
 Puisque les opérations liées au système de fichier ne sont pas immédiates
 alors la majorité des fonctions de ce module est *asynchrone*.
 Leur rapidité d'exécution varie en fonction du support de stockage utilisé
-(à disque, à mémoire), de son âge et de la capacité de traitement du CPU
+(à disque, à mémoire), de son usure et de la capacité de traitement du CPU
 de l'ordinateur.
 
 Cela veut aussi dire que les erreurs sont obtenues de manière asynchrone :
@@ -790,10 +769,9 @@ Cela veut aussi dire que les erreurs sont obtenues de manière asynchrone :
 ----
 include::{sourceDir}/fs/rmdir.js[]
 ----
-<1> Indique que la suppression n'a pas abouti car le répertoire en question
-n'est pas vide — et pour cause, c'est celui qui contient notre fichier d'exemple
+<1> Indique que la suppression n'a pas abouti car le répertoire en question n'est pas vide — et pour cause, c'est celui qui contient notre fichier d'exemple.
 
-On peut bien entendu articuler plusieurs opérations entre elles.
+On peut articuler plusieurs opérations entre elles.
 Et utiliser le <<path,module `path`>> pour construire des chemins robustes
 qui fonctionnent avec tous les systèmes d'exploitation, sans effort.
 
@@ -806,11 +784,9 @@ une fois la copie effectuée :
 ----
 include::{sourceDir}/fs/copy-tmp.js[]
 ----
-<1> On assemble un chemin composé à partir du <<os,répertoire temporaire>> fourni
-par le système d'exploitation
-<2> Crée le répertoire en question
-<3> Copie le contenu de ce script d'exemple vers le répertoire en question
-en lui attribuant un nouveau nom
+<1> On assemble un chemin composé à partir du <<os,répertoire temporaire>> fourni par le système d'exploitation.
+<2> Crée le répertoire en question.
+<3> Copie le contenu de ce script d'exemple vers le répertoire en question en lui attribuant un nouveau nom.
 
 [WARNING]
 .[RemarquePreTitre]#Sécurité# Utilisateur et permissions
@@ -820,7 +796,7 @@ au même titre que l'utilisateur système qui lance le script.
 
 Ce n'est pas grave si on exécute du code écrit soi-même.
 Il faut être vigilant·e et pouvoir faire confiance si le code exécuté provient
-de quelqu'un·e d'autre.
+d'une autre personne.
 ====
 
 Si l'exemple précédent semble agréable à lire, il révèle *deux points de vigilance*.
@@ -831,12 +807,10 @@ de la création du répertoire jusqu'à la lecture des fichiers de ce répertoir
 Il faudrait vérifier l'argument `error` à chaque fois et décider quoi faire
 en fonction de la <<errors,nature du problème>>.
 
-Je vous invite à modifier le code de l'exemple précédent.
-Tentez d'afficher les erreurs avec à l'aide des
+Je vous invite à modifier le code de l'exemple précédent
+pour afficher la valeur des variables `error` avec à l'aide des
 <<console,fonctions du module `console`>>.
-Vous vous apercevrez qu'il y en a justement une, d'erreur.
-Qui n'apparait peut-être qu'à partir du moment où on appelle le script
-une deuxième fois.
+Certaines erreurs apparaissent quand invoque le script une deuxième fois.
 
 L'imbrication des <<callbacks,fonctions de callback>> fait qu'il est
 *difficile d'interrompre une suite de _callbacks_*.
@@ -861,17 +835,17 @@ Nous apprendrons à faire ça dans la section du <<util,module `util`>>.
 `fs.readFile()`::
   Lit le contenu d'un fichier.
 `fs.rename()`::
-  Renomme un fichier — et le déplace vers un nouvel emplacement si nécessaire.
+  Renomme un fichier ou un répertoire.
 `fs.rmdir()`::
   Supprime un répertoire.
-  Le répertoire doit être _vide_ pour que l'opération puisse réussir.
+  Il doit être vide.
 `fs.stat()`::
-  Obtient des réponses à des questions à propos d'un chemin d'accès :
+  Retourne des informations à propos d'un chemin d'accès :
   est-ce que c'est un fichier, un répertoire, un lecteur, un lien symbolique etc.
   Des attributs clarifient la taille du fichier (en octets), l'identifiant
   système de son propriétaire, la date de création/modification/dernier accès etc.
 `fs.symlink()`::
-  Crée un lien symbolique d'un chemin donné vers un emplacement.
+  Crée un lien symbolique vers un emplacement.
 `fs.truncate()`::
   Raccourcit le contenu d'un fichier à une longueur donnée (en nombre d'octets).
   Si aucun argument n'est donné, le contenu du fichier est remis à zéro.
@@ -879,6 +853,16 @@ Nous apprendrons à faire ça dans la section du <<util,module `util`>>.
   Crée un <<stream,flux de lecture>>, pour lire un fichier en continu.
 `fs.createWriteStream()`::
   Crée un <<stream,flux d'écriture>>, pour écrire en continu dans un fichier.
+
+[NOTE]
+.[RemarquePreTitre]#Définition# Lien symbolique
+====
+Fichier qui fait référence à un autre fichier — c'est comme un _alias_.
+Toutes les modifications effectuées sur le lien symbolique sont
+répercutées sur le fichier d'origine.
+
+En savoir plus sur [URL]#https://fr.wikipedia.org/wiki/Lien_symbolique#.
+====
 
 [NOTE]
 .[RemarquePreTitre]#Documentation# `fs`
@@ -892,7 +876,7 @@ La documentation du module `fs` est disponible sur le site officiel de Node :
 
 Le module `events` contient le nécessaire pour créer du code communiquant
 à l'aide de fonctions d'écoute et d'émission de messages.
-C'est comme un _centre de tri postal_… mais pour Node avec des variables
+C'est comme un _centre de tri postal_ mais pour Node avec des variables
 en guise de courriers.
 
 [source%interactive,javascript]
@@ -900,11 +884,9 @@ en guise de courriers.
 ----
 include::{sourceDir}/events/intro.js[]
 ----
-<1> Création d'un gestionnaire d'événements
-<2> Enregistrement d'une fonction d'écoute
-— elle sera exécutée à chaque émission de l'événement `date`
-<3> Émission d'un événement `date` avec comme argument, un
-<<../chapter-03/index.adoc#date,objet `Date`>>
+<1> Création d'un gestionnaire d'événements.
+<2> Enregistrement d'une fonction d'écoute — elle sera exécutée à chaque émission de l'événement `date`.
+<3> Émission d'un événement `date` avec comme argument, un <<../chapter-03/index.adoc#date,objet `Date`>>.
 
 Un événement se décompose en 3 parties : les *fonctions d'écoute*,
 les *émissions de message* et un *objet `EventEmitter`*
@@ -930,8 +912,7 @@ On peut décider d'écouter un événement une seule fois avec `emitter.once()` 
 ----
 include::{sourceDir}/events/once.js[]
 ----
-<1> Bien que l'événement `date` soit appelé deux fois, la fonction d'écoute
-ne réagira qu'une seule fois
+<1> Bien que l'événement `date` soit appelé deux fois, la fonction d'écoute ne réagira qu'une seule fois.
 
 La fonction `emitter.remove` débranche une fonction d'écoute selon
 les critères de notre choix :
@@ -941,10 +922,9 @@ les critères de notre choix :
 ----
 include::{sourceDir}/events/remove.js[]
 ----
-<1> On émet un événement `date` toutes les secondes,
-en incrémentant un compteur à chaque fois
-<2> Au bout de 3 incréments, on débranche la fonction d'écoute `log`
-de l'événement `date`
+<1> L'événement `date` est émis toutes les secondes.
+<2> La fonction `tick` est appelée toutes les secondes.
+<3> La fonction `tick` est débranchée de l'événement `date` au bout de 3 incréments.
 
 On remarquera qu'il faut pouvoir faire référence à la fonction d'écoute
 afin de la débrancher.
@@ -957,12 +937,10 @@ Une fois étendue, notre nouvelle classe bénéficiera des méthodes `.on()` etc
 ----
 include::{sourceDir}/events/class.js[]
 ----
-<1> Extension de la classe `EventEmitter`
-<2> L'utilisation de la fonction spéciale `super()` est indispensable ;
-elle revient à invoquer `new EventEmitter()` par mécanisme de cascade
-<3> La méthode `.start()` encapsule un appel à la méthode `.emit()`
-<4> La fonction réagira à l'émission de l'événement `action` ;
-quand la méthode `.start()` sera appelée
+<1> Extension de la classe `EventEmitter`.
+<2> L'utilisation de la fonction spéciale `super()` est indispensable. Elle revient à invoquer `new EventEmitter()` par mécanisme de cascade.
+<3> La méthode `.start()` encapsule un appel à la méthode `.emit()`.
+<4> La fonction réagira à l'émission de l'événement `action` quand la méthode `.start()` sera appelée.
 
 Ce *mécanisme est utile* pour cacher de la complexité applicative,
 pour exécuter une fonction plusieurs fois lors d'un événement donné,
@@ -993,7 +971,7 @@ ainsi qu'au <<http,module `http`>>.
   Supprime une fonction d'écoute d'un événement donné.
 `removeAllListeners()`::
   Supprime toutes les fonctions d'écoute d'un événement donné.
-`setMaxListeners()::
+`setMaxListeners()`::
   Change le nombre maximum de fonctions d'écoute possibles. +
   Par défaut cette limite est de _10 fonctions maximum_.
   Ça paraît peu.
@@ -1019,7 +997,7 @@ On y trouve `util.format()`, une fonction qui fait beaucoup penser à
 ----
 include::{sourceDir}/util/format.js[]
 ----
-<1> Assigne le message formaté dans une variable sans l'afficher
+<1> Assigne le message formaté dans une variable sans l'afficher.
 
 Pour afficher la valeur de la variable `message` de l'exemple précédent,
 il suffirait de décommenter la dernière ligne et de (re)lancer le script.
@@ -1034,9 +1012,9 @@ entre deux exécutions :
 ----
 include::{sourceDir}/util/debuglog.js[]
 ----
-<1> Création d'un débogueur nommé `nodebook`
-<2> Ce message s'affiche systématiquement quand on exécute le script
-<3> Le modèle de CPU sera affiché en invoquant Node d'une certaine manière
+<1> Création d'un débogueur nommé `nodebook`.
+<2> Ce message s'affiche systématiquement quand on exécute le script.
+<3> Le modèle de CPU sera affiché en invoquant Node en présence de la variable d'environnement `NODE_DEBUG`.
 
 En lançant la commande suivante, seul le message de `console.log` s'affiche :
 
@@ -1070,9 +1048,9 @@ code source original :
 ----
 include::{sourceDir}/util/fs-readdir-promisified.js[]
 ----
-<1> Assigne une version transformée de `fs.readdir` grâce à `util.promisify`
-<2> On ne passe pas de <<callbacks,callback>> contrairement à `fs.readdir`
-<3> Le résultat de l'opération est passé à la résolution de promesse
+<1> Assigne une version transformée de `fs.readdir` grâce à `util.promisify`.
+<2> On ne passe pas de <<callbacks,callback>> contrairement à `fs.readdir`.
+<3> Le résultat de l'opération est passé à la résolution de promesse.
 
 Ça paraît rien mais ça ouvre un potentiel de simplification énorme pour nous.
 Fini l'argument `error` qui nous embête : on peut le collecter quand ça
@@ -1131,17 +1109,13 @@ vers des adresses commençant par `https://`.
 ----
 include::{sourceDir}/http/intro.js[]
 ----
-<1> Initialisation de la requête — un objet représentant
-la <<http.response,réponse du serveur distant>> nous est transmis.
-À ce stade là, le serveur n'a pas encore commencé à renvoyer des données
-<2> On en est à l'étape où on reçoit des données.
-Le contenu du fichier `package.json` est affiché sous forme
-de chaînes de caractères
+<1> Initialisation de la requête — un objet représentant la <<http.IncomingMessage,réponse du serveur distant>> nous est transmis. À ce stade là, le serveur n'a pas encore commencé à renvoyer des données.
+<2> On en est à l'étape où on reçoit des données. Le contenu du fichier `package.json` est affiché sous forme de chaînes de caractères.
 
 Ce premier exemple met en lumière *la nature asynchrone et non-bloquante par défaut de Node*.
 La création d'une requête et l'obtention de la réponse sont séparées d'un délai
 variable pendant lequel Node ne bloque pas le reste du code de s'exécuter.
-Les <<callbacks,callbacks>> sont appelés lorqu'il n'y a plus besoin d'attendre.
+Les <<callbacks,callbacks>> sont appelés lorque l'action est terminée.
 
 En regardant le code de l'exemple précédent, on en apprend un peu plus sur
 le fonctionnement d'une requête HTTP :
@@ -1154,8 +1128,8 @@ le fonctionnement d'une requête HTTP :
 Pour rester rapide, Node fait aussi le choix de transmettre les données
 au fur et à mesure.
 L'<<events,événement>> `data` renvoie en réalité environ `10Ko` de données.
-L'exemple précédent a tout renvoyé d'un coup par chance : le fichier
-`package.json` récupéré pèse beaucoup moins de 10Ko.
+L'exemple précédent a tout renvoyé d'un coup car le volume des données
+était inférieur à 10Ko.
 
 Voyons maintenant ce qu'il se passe lorsqu'on fait appel à un fichier
 plus volumineux :
@@ -1165,10 +1139,9 @@ plus volumineux :
 ----
 include::{sourceDir}/http/get.js[]
 ----
-<1> Affiche ce message à chaque morceau/paquet reçu
-<2> L'événement `end` se déclenche lorsque la requête n'a plus de données
-à recevoir
-<3> Affiche le nombre de morceaux reçus pour obtenir une _réponse complète_
+<1> Affiche ce message à chaque morceau/paquet reçu.
+<2> L'événement `end` se déclenche lorsque la requête n'a plus de données à recevoir.
+<3> Affiche le nombre de morceaux reçus pour obtenir une _réponse complète_.
 
 [TIP]
 .[RemarquePreTitre]#Pratique# Paramètre URL
@@ -1212,39 +1185,41 @@ transmission des données.
 
 L'exemple suivant illustre l'envoi d'une requête `HEAD`.
 Ce verbe HTTP indique au serveur distant de répondre avec les métadonnées
-de la ressource mais _sans son contenu_ :
+de la ressource mais sans les données (`response.on('data')`) :
 
 [source%interactive,javascript]
 .http/request.js
 ----
 include::{sourceDir}/http/request.js[]
 ----
-<1> Destructure l'URL sous forme d'objet en ajoutant le verbe HTTP
-<2> Explicite la valeur d'une entête HTTP à transmettre au serveur distant
-<3> Déclenche l'envoi de la requête sur le réseau
-<4> Réception de la réponse
-<5> Affiche la date de modification de la ressource distante
-<6> Et… n'affiche pas les données. La réponse n'en renvoie pas suite à
-l'utilisation du verbe HTTP `HEAD`. Les données seront transmises si vous
-remplacez le verbe `HEAD` par `GET`.
+<1> Construction des paramètres de requête pour `http.request()`.
+<2> Explicite au serveur distant la nature du contenu que l'on s'apprête à recevoir.
+<3> Déclenche l'envoi de la requête sur le réseau.
+<4> Affiche la date de modification de la ressource distante.
 
 [NOTE]
-.[RemarquePreTitre]#Apparté# Pourquoi passer une URL sous forme d'objet ?
+.[RemarquePreTitre]#Avancé# Parser, destructurer, combiner
 ====
-Ça peut sembler bizarre de passer une URL sous forme d'objet plutôt qu'une
-chaîne de caractères.
+La fonction `url.parse` du <<url,module `url`>> est une alternative à la
+construction manuelle de l'URL.
+Les opérateurs de <<../chapter-03/index.adoc#object,manipulation d'objets>>
+comme le _destructuring_ et l'expansion (_rest_) favorisent
+une écriture concise et élégante.
 
-C'est pourtant logique d'un point de vue du protocole HTTP et de Node :
-la connexion s'établit auprès d'un hôte (`hostname`) sur un port précis (`port`).
-L'étape d'après consiste à signifier l'intention de la requête en fournissant
-un verbe (`method`) et des métadonnées (`headers`) pour un chemin donné (`path`).
+.http/request-advanced.js
+----
+include::{sourceDir}/http/request-advanced.js[lines="1..5"]
+----
 ====
 
-Ça fait un peu de travail pour bien envoyer une requête, gérer le flot de données
-ainsi que les erreurs qui peuvent survenir.
-On verra dans le <<../chapter-05/index.adoc#,chapitre 5>> comment arriver au
-même résultat avec moins de code grâce aux
-<<../chapter-05/index.adoc#modules,modules npm>>.
+L'utilisation de `http.get` et `http.request` est simple tant qu'on évite
+la personnalisation de la requête.
+On ajoute progressivement de plus en plus de travail pour bien envoyer une
+requête, collecter les données et gérer les erreurs.
+
+Nous verrons comment arriver au même résultat en écrivant moins de code grâce aux
+<<../chapter-05/index.adoc#modules,modules npm>>
+(<<../chapter-05/index.adoc#,chapitre 5>>).
 
 [horizontal, id="http.ClientRequest"]
 .Propriétés notables de `http.ClientRequest`
@@ -1290,7 +1265,8 @@ même résultat avec moins de code grâce aux
   Termine la transmission des données sans que le serveur distant
   nous aie tout transmis.
 attribut `message.headers`::
-  Objet contenant les entêtes de réponse émises par le serveur distant.
+  Objet contenant les entêtes de la réponse — c'est le serveur distant qui décide
+  de leur contenu.
 attribut `message.statusCode`::
   Code qui reflète l'état de compréhension de notre requête par le serveur distant.
   `200` correspond à _tout va bien_, `404` à _ressource introuvable_,
@@ -1304,15 +1280,10 @@ d'un serveur HTTP.
 ----
 include::{sourceDir}/http/server.js[]
 ----
-<1> Ouverture de l'acceptation des connexions réseaux sur le port `8000`,
-uniquement sur la boucle locale (`localhost`)
-— une erreur sera affichée si ce port réseau est déjà pris par un autre processus
-<2> Affiche `Serveur démarré !` quand Node a fini de négocier l'accès aux ressources
-réseau avec le système d'exploitation
-— à ce stade, le serveur est prêt à recevoir des _connexions entrantes_
-<3> Lorsqu'une requête arrive, affiche l'URL demandée par le client
-<4> Termine la connexion avec le client
-— ce dernier considère sa _requête_ comme terminée
+<1> Ouverture de l'acceptation des connexions réseaux sur le port `8000`, uniquement sur la boucle locale (`localhost`) — une erreur sera affichée si ce port réseau est déjà pris par un autre processus.
+<2> Affiche `Serveur démarré !` quand Node a fini de négocier l'accès aux ressources réseau avec le système d'exploitation — à ce stade, le serveur est prêt à recevoir des _connexions entrantes_.
+<3> Lorsqu'une requête arrive, affiche l'URL demandée par le client.
+<4> Termine la connexion avec le client — ce dernier considère sa _requête_ comme terminée.
 
 [NOTE]
 .[RemarquePreTitre]#Apparté# Pourquoi démarrer un serveur HTTP ?
@@ -1399,29 +1370,38 @@ le résultat.
 image::images/web-server.png[width="65%"]
 
 La balise HTML `<h1>` a bien été prise en compte mais qu'en est-il du
-caractère `Ã{nbsp}` ? +
-L'informatique ayant débutée aux États-Unis, les caractères compris par les
-outils informatiques se limitent souvent à 128 caractères par défaut.
-C'est à dire l'alphabet anglais, les signes de ponctuations et des
-caractères non-imprimables.
-On parle alors de standard d'encodage ASCII.
+caractère `Ã{nbsp}` ?
+Il semblerait que le caractère accentué n'aie pas été compris par le navigateur.
 
-Ce qui nous intéresse, c'est le standard d'encodage Unicode UTF-8.
+Si le serveur distant ne précise pas l'_encodage des caractères_,
+le navigateur va l'interpréter en <<ascii,ASCII>>.
+Or les éditeurs de code enregistrent les fichiers avec un autre encodage : _UTF-8_.
 Ce standard englobe les alphabets du monde entier, dont les accents et
 caractères diacritique de la langue française.
 
-Cela revient à dire que que _nous_, côté serveur, nous puissions
-indiquer au client que notre contenu est en UTF-8.
-Ça tombe bien, HTTP dispose d'une entête pour spécifier le type du contenu
-et son encodage : `Content-Type`.
+[NOTE,id="ascii"]
+.[RemarquePreTitre]#Histoire# American Standard Code for Information Interchange (_ASCII_)
+====
+L'informatique contemporaine a débuté aux États-Unis.
+Les systèmes ont été conçus à cette époque pour comprendre l'alphabet anglais,
+les signes de ponctuations et des caractères spéciaux.
+On parle alors de standard d'encodage ASCII.
+
+L'émergence d'Internet et du World Wide Web ont popularisé l'encodage UTF-8
+afin d'exprimer de manière commune les caractères spéciaux de toutes les
+langues du monde entier.
+====
+
+Ce qui nous intéresse, c'est de pouvoir indiquer aux navigateurs web
+quel est l'encodage utilisé pour qu'il soit respecté à l'affichage. +
+Le protocole HTTP dispose justement de l'entête `Content-Type` :
 
 [source,javascript]
 .http/web-server-ok.js
 ----
 include::{sourceDir}/http/web-server-ok.js[]
 ----
-<1> L'entête HTTP `Content-Type` indique explicitement que le contenu transféré
-est du HTML, encodé en UTF-8
+<1> L'entête HTTP `Content-Type` indique explicitement que le contenu transféré est du HTML, encodé en UTF-8.
 
 Cette indication suffit au navigateur pour décoder les caractères
 et les afficher comme on l'espérait.
@@ -1438,10 +1418,8 @@ Par exemple, une page HTML et un fichier CSS habillant la page HTML.
 ----
 include::{sourceDir}/http/web-server-routes.js[]
 ----
-<1> Si la requête entrante indique `/main.css` comme chemin, alors on lui
-renvoie du contenu interprétable comme du CSS
-<2> On indique au client que ce contenu est du texte contenant une feuille
-de style CSS
+<1> Si la requête entrante indique `/main.css` comme chemin, alors on lui renvoie du contenu interprétable comme du CSS.
+<2> On indique au client que ce contenu est du texte contenant une feuille de style CSS.
 
 Si tout se passe bien, le chargement de la page HTML devrait déclencher
 une requête vers `http://localhost:4000/main.css`.
@@ -1470,7 +1448,7 @@ aidé par les <<../chapter-05/index.adoc#modules,modules npm>> que l'on apprendr
   Combinée avec <<os,`os.networkInterfaces()`>>, vous pourriez choisir
   sur quelle carte/adresse réseau écouter les requêtes entrantes.
 `server.on('close')`::
-  Déclenché lorsque le serveur s'arrête et a terminé d'honoré toutes les
+  Déclenché lorsque le serveur s'arrête et a terminé d'honorer toutes les
   connexions déjà ouvertes.
 `server.on('connection')`::
   Déclenché lorsqu'une nouvelle connexion réseau est établie.
@@ -1485,7 +1463,7 @@ aidé par les <<../chapter-05/index.adoc#modules,modules npm>> que l'on apprendr
 .Propriétés notables de `http.ServerResponse`
 `response.on('close')`::
   Déclenché lorsque la requête a été terminée par le client,
-  avant qu'on aie pu transmettre l'intégralité des données.
+  avant qu'on ait pu transmettre l'intégralité des données.
 `response.on('finish')`::
   Déclenché lorsqu'on a envoyé le dernier morceau de données au client
   ayant initié la requête.
@@ -1517,7 +1495,7 @@ La documentation du module `http` est disponible sur le site officiel de Node :
 
 Le module `os` permet d'en savoir plus sur l'environnement système dans lequel
 le script est exécuté.
-Ça permet de *prendre des décisions par rapport aux ressources disponibles*
+Ça permet par exemple de *prendre des décisions par rapport aux ressources disponibles*
 (mémoire, CPU, réseau, etc.).
 Idem par rapport au type de système d'exploitation (Windows, Linux, etc.).
 
@@ -1526,8 +1504,7 @@ Idem par rapport au type de système d'exploitation (Windows, Linux, etc.).
 ----
 include::{sourceDir}/os/intro.js[]
 ----
-<1> Affiche un message du genre
-`L'ordinateur a 4 CPU et une session ouverte par anonymous.`
+<1> Affiche un message du genre `L'ordinateur a 4 CPU et une session ouverte par anonymous.`.
 
 Node a pour vocation de nous abstraire du système d'exploitation
 en faisant en sorte que notre code fonctionne partout pareil.
@@ -1551,7 +1528,7 @@ pour appeler une application système différent pour parvenir
 à un résultat similaire.
 
 À l'inverse, on peut *accéder à une ressource de manière uniforme*, peu importe
-le nom du compteur utilisateur ou du type de système d'exploitation.
+le nom du compte utilisateur ou du type de système d'exploitation.
 Nous allons maintenant lire le contenu du fichier `.npmrc`,
 le fichier de configuration du <<../chapter-05/index.adoc#cli,programme npm>> :
 
@@ -1560,11 +1537,8 @@ le fichier de configuration du <<../chapter-05/index.adoc#cli,programme npm>> :
 ----
 include::{sourceDir}/os/npmrc.js[]
 ----
-<1> Construit un chemin agnostique du système d'exploitation. Par exemple
-`C:\Users\anonymous\.npmrc` pour Windows, `/Users/anonymous/.npmrc` pour macOS
-et `/home/anonymous/.npmrc` pour Linux
-<2> `ENOENT` est un <<fs.errors,code d'erreur>> indiquant que le fichier
-n'existe pas ; on se permet de l'ignorer et de considérer que le fichier est vide
+<1> Construit un chemin agnostique du système d'exploitation. Par exemple `C:\Users\anonymous\.npmrc` pour Windows, `/Users/anonymous/.npmrc` pour macOS et `/home/anonymous/.npmrc` pour Linux.
+<2> `ENOENT` est un <<fs.errors,code d'erreur>> indiquant que le fichier n'existe pas ; on se permet de l'ignorer et de considérer que le fichier est vide.
 
 [horizontal]
 .Propriétés notables
@@ -1623,10 +1597,8 @@ les <<process.std,flux standards>>.
 ----
 include::{sourceDir}/child_process/intro.js[]
 ----
-<1> L'exécution de la commande renvoie une erreur Node ainsi que
-la <<process.std,sortie standard>> et la <<process.std,sortie erreur>>
-du processus enfant
-<2> Affiche `version installée de npm : {npmV}`
+<1> L'exécution de la commande exécute la fonction de callback, avec comme arguments la <<process.std,sortie standard>> et la <<process.std,sortie erreur>> du processus enfant.
+<2> Affiche `version installée de npm : {npmV}`.
 
 L'utilisation du module `child_process` se justifie quand un programme
 externe fournit une fonctionnalité _mais_ ne s'interface pas avec Node.
@@ -1641,8 +1613,7 @@ La fonction `child_process.exec` accepte un deuxième argument optionnel. +
 ----
 include::{sourceDir}/child_process/ls.js[]
 ----
-<1> On lance la commande système `ls` dans le répertoire courant,
-sans spécifier de valeur pour le répertoire de travail
+<1> On lance la commande système `ls` sans spécifier le répertoire de travail.
 
 Exécutons le script pour observer le résultat :
 
@@ -1661,15 +1632,14 @@ Modifions maintenant la valeur de l'option `cwd` :
 ----
 include::{sourceDir}/child_process/ls-root.js[]
 ----
-<1> La valeur de `cwd` est réglée sur `/`, c'est à dire le répertoire racine
-du système de fichiers
+<1> La valeur de `cwd` est réglée sur `/`, c'est à dire le répertoire racine du système de fichiers.
 
 ----
 $ node child_process/ls-root.js
 ----
 
 La liste des fichiers et répertoires affichée est désormais différente,
-même si la commande passée à `child_process.exec` est la même. +
+même si la commande passée à `child_process.exec` est la même.
 `cwd` a changé le _répertoire courant_ l'espace d'une commande.
 
 [NOTE]
@@ -1688,20 +1658,19 @@ la fonction `fs.readdir` du <<fs,module `fs`>> ?
 Elle redéfinit les <<process.env,variables d'environnement>> utilisables
 par le processus enfant :
 
-[source%interactive,javascript]
+[source,javascript]
 .child_process/ping.js
 ----
 include::{sourceDir}/child_process/ping.js[]
 ----
-<1> On transmet les variables d'environnement existantes au processus enfant
-<2> Utilisation de la variable d'environnement `PING_COUNT` comme
-valeur d'option du programme `ping`
+<1> On transmet les variables d'environnement existantes au processus enfant.
+<2> Utilisation de la variable d'environnement `PING_COUNT` comme valeur d'option du programme `ping`.
 
-Si on ne transmet pas les valeurs de `process.env` au processus enfant,
-la variable d'environnement `PATH` ne serait plus définie.
+Si on ne transmettait pas les valeurs de `process.env` au processus enfant,
+la variable d'environnement `PATH` ne serait pas définie.
 Le processus enfant ne saurait plus où chercher l'exécutable `ping`. +
 On aurait pu appeler le programme `ping` en utilisant un chemin absolu comme
-`/sbin/ping`… mais son emplacement varie selon les systèmes d'exploitation.
+`/sbin/ping` mais son emplacement varie selon les systèmes d'exploitation.
 
 ----
 $ node child_process/ping.js
@@ -1731,28 +1700,29 @@ et de communication avec un processus externe.
 ----
 include::{sourceDir}/child_process/spawn.js[]
 ----
-<1> `cat` est un programme qui affiche le contenu d'un fichier
-<2> Les données retournées par la commande externe se lisent depuis
-les <<process.std,flux de sorties>>
-<3> Affiche le code source de ce script
+<1> `cat` est un programme qui affiche le contenu d'un fichier — un peu comme `fs.readFile`.
+<2> Les données retournées par la commande externe se lisent depuis les <<process.std,flux de sorties>>.
+<3> Affiche le contenu du fichier `package.json`.
 
-Avec `spawn`, les arguments et options sont passées dans un tableau.
-C'est comme si nourrissait <<process.argv,`process.argv`>>. +
-Si les données sont lues depuis les <<process.std,flux de sortie>>,
-cela veut aussi dire qu'on peut écrire des choses dans le
-flux d'entrée :
+Les arguments et options à transmettre au programme sont passées dans un tableau.
+Dans le programme externe, on y accède avec <<process.argv,`process.argv`>>.
+
+Pour transmettre un volume de données plus important en paramètre,
+il vaut mieux faire appel appel à la propriété `stdin`.
+C'est un <<stream,Stream d'écriture>> dont le fonctionnement est identique
+à <<process.std,`process.stdin`>> :
 
 [source%interactive,javascript]
 .child_process/spawn-stdin.js
 ----
 include::{sourceDir}/child_process/spawn-stdin.js[]
 ----
-<1> Écrit `0123 abcd` dans le flux d'entrée
-<2> Signale au processus externe qu'il n'aura plus de donnée
-— le programme `tr` rendra la main dès qu'il nous aura tout transmis
-<3> Affiche `abcd klmn`
+<1> Écrit `0123 abcd` dans le flux d'entrée.
+<2> Signale au processus externe qu'il n'aura plus de donnée — le programme `tr` rendra la main dès qu'il nous aura tout transmis.
+<3> Affiche `abcd klmn`.
 
-L'exécutable `tr` substitue des plages de caractères.
+L'exécutable `tr` ([URL]#https://fr.wikipedia.org/wiki/Tr_(Unix)#)
+substitue des plages de caractères.
 On lui a transmis des caractères en entrée et spécifié les plages de traduction
 en arguments.
 Nous avons utilisé la <<process.std,sortie standard>> pour lire les résultats.
@@ -1764,10 +1734,10 @@ $ echo -n '0123 abcd' | tr 0-9a-f a-p
 abcd klmn
 ----
 
-Une conclusion parallèle que l'on peut établir est que le _scripting shell_
-est plus concis que notre code.
-On pourrait leur déléguer du travail et transmettre les données nécessaires
-à nos scripts Node via les <<process.std,flux standards>>.
+Dans ce cas précis, je trouve que le _scripting shell_ est plus concis
+que l'utilisation d'un script Node faisant appel à `child_process.spawn`.
+J'aurais plutôt tendance à transmettre le résultat de cette commande
+à l'<<process.std,entrée standard>> d'un script Node.
 
 [horizontal]
 .Propriétés notables
@@ -1812,11 +1782,8 @@ est globale.
 ----
 include::{sourceDir}/process/intro.js[]
 ----
-<1> Affiche quelque chose comme `['LANG', 'SHELL', 'PATH', 'HOME', 'USER', ...]`
-(cf.{nbsp}<<process.env,variables d'environnement>>)
-<2> Affiche
-`[ '.../v{nodeV}/bin/node', '.../chapter-04/examples/process/intro.js' ]`
-(cf.{nbsp}<<process.argv,arguments d'exécution>>)
+<1> Affiche quelque chose comme `['LANG', 'SHELL', 'PATH', 'HOME', 'USER', ...]` — cf.{nbsp}<<process.env,variables d'environnement>>.
+<2> Affiche `[ '.../v{nodeV}/bin/node', '.../chapter-04/examples/process/intro.js' ]` — cf.{nbsp}<<process.argv,arguments d'exécution>>.
 
 Notre code peut être interprété par Node
 sur plusieurs types de machines
@@ -1880,9 +1847,8 @@ mode : production
 [TIP]
 .[RemarquePreTitre]#Revenir en arrière# Effacer une variable d'environnement
 ====
-L'utilisation de l'opérateur `unset` dans un terminal efface le contenu
+L'opérateur `unset` dans un terminal efface le contenu
 d'une variable d'environnement.
-Pratique pour ne pas laisser de traces !
 
 ----
 $ export NODE_ENV=dev
@@ -1987,8 +1953,7 @@ de valeur `true`.
 ----
 include::{sourceDir}/print-text.js[]
 ----
-<1> La condition est positive si l'on détecte `--uppercase` dans
-la liste des arguments
+<1> La condition est positive si l'on détecte `--uppercase` dans la liste des arguments.
 
 Les _options_ se combinent très bien avec les _arguments_.
 Il faut les imaginer comme des interrupteurs.
@@ -2009,9 +1974,9 @@ lorsque l'option `--limit` est associée à la valeur `2`.
 ----
 include::{sourceDir}/print-text-limit.js[]
 ----
-<1> On récupère l'index de l'option `--limit` dans le tableau `process.argv`
-<2> On récupère la valeur de l'élément suivant `--limit` dans `process.argv`
-<3> La troncature est paramétrée en fonction de la valeur associée à `--limit`
+<1> On récupère l'index de l'option `--limit` dans le tableau `process.argv`.
+<2> On récupère la valeur de l'élément suivant `--limit` dans `process.argv`.
+<3> La troncature est paramétrée en fonction de la valeur associée à `--limit`.
 
 Au fond, *les options sont des repères pour les utilisateurs* de nos programmes.
 Elles leur permettent de s'interfacer avec leurs fonctionnalités.
@@ -2048,7 +2013,7 @@ mais aussi pour *consigner les erreurs*.
 Node expose ces flux standards via les variables `process.stdin` (entrée),
 `process.stdout` (sortie) et `process.stderr` (erreur).
 Chacune de ces variables possède des méthodes pour _écouter_ ce qu'il s'y passe,
-pour y _écrire_ du contenu et pour le _rediriger_ vers d'autres endroits.
+pour y _écrire_ du contenu et pour <<stream,rediriger leur flux>>.
 
 Commençons par l'utilisation de `process.stdout` pour écrire un message
 dans notre terminal :
@@ -2090,22 +2055,18 @@ notre confort.
 On en parlera davantage dans la section <<console,console>>.
 ====
 
-Quand on vers le flux de _sortie_ ou le flux d'_erreur_,
-on s'ouvre à l'analyse en continu de ce flux.
+Les flux de _sortie_ et d'_erreur_ sont manipulables en continu.
 Comment ?
 À l'aide d'utilitaires systèmes existants (`grep`, `awk` etc.)
-ou des programmes spécifiques (analyse de _logs_, etc.).
-
+ou des programmes spécifiques (analyse de _logs_, etc.). +
 On peut ainsi se concentrer sur un programme qui
-fait *juste ce dont on a besoin* sans être tenté·e de tout faire.
+fait *juste ce dont on a besoin*.
 On laisse le travail de spécialisation à d'autres programmes.
-Ils pourraient être écrits en Node d'ailleurs…
 
-Essayons d'ailleurs de _filtrer_ la sortie de l'exemple précédent
-sans écrire une ligne de code de plus.
+_Filtrons_ la sortie de l'exemple précédent sans écrire une ligne de code de plus.
 Le programme _grep_ ([URL]#https://fr.wikipedia.org/wiki/Grep#)
-est fourni par défaut sur les systèmes UNIX (dont Linux et macOS) font partie.
-Il ne retourne que les ligne contenant un motif
+est fourni par défaut sur les systèmes Linux et macOS.
+Il ne retourne que les lignes qui contiennent le motif
 donné en <<process.arv,argument>> :
 
 ----
@@ -2116,8 +2077,8 @@ qua<i>tre</i>
 La _sortie standard_ de `process/stdout.js` est devenue l'_entrée standard_
 de `grep` grâce à l'utilisation du _pipe_ (`|`).
 
-C'est le moment idéal de regarder du côté de l'_entrée standard_ de Node.
-Implémentons quelque chose qui passe le message d'entrée en majuscules :
+C'est le moment idéal pour regarder du côté de l'_entrée standard_ de Node.
+Implémentons quelque chose qui transforme un message :
 
 ----
 $ echo "un deuxtrois\nquatre" | node process/stdin-uppercase.js
@@ -2140,12 +2101,9 @@ Voyons comment ça fonctionne sous le capot :
 ----
 include::{sourceDir}/process/stdin-uppercase.js[]
 ----
-<1> Chaque afflux de donnée appelle notre fonction en lui fournissant un seul
-paramètre contenant les données en question
-<2> Le paramètre est de <<buffer,type Buffer>> — on souhaite le transformer en
-<<../chapter-03/index.adoc#string,chaîne de caractères>>
-<3> La _chaîne de caractères_ est transformable en majuscules, que l'on écrit
-dans le flux de sortie
+<1> Chaque afflux de donnée appelle notre fonction en lui fournissant un seul paramètre contenant les données en question.
+<2> Le paramètre est de <<buffer,type Buffer>> — on souhaite le transformer en <<../chapter-03/index.adoc#string,chaîne de caractères>>.
+<3> La _chaîne de caractères_ est transformable en majuscules, que l'on écrit dans le flux de sortie.
 
 Terminons avec la _sortie erreur_ (`process.stderr`).
 Elle fonctionne de manière identique à la _sortie standard_ (`process.stdout`).
@@ -2170,7 +2128,7 @@ Compteur = 5
 ----
 
 [NOTE]
-.[RemarquePreTitre]#Souvenez-vous# Interrompre un programme avec kbd:[Ctrl+C]
+.[RemarquePreTitre]#Rappel# Interrompre un programme avec kbd:[Ctrl+C]
 ====
 Un programme peut être interrompu à tout moment en utilisant la combinaison
 de touches kbd:[Ctrl+C].
@@ -2181,13 +2139,12 @@ de touches kbd:[Ctrl+C].
 ----
 include::{sourceDir}/process/stdout-long.js[]
 ----
-<1> Écrit un nombre entre 0 et 30 dans la _sortie standard_
-<2> On incrémente un compteur en plus de vérifier s'il est bien divisible par 5
-<3> Écrit l'état du compteur dans la _sortie erreur_
+<1> Écrit un nombre entre 0 et 30 dans la _sortie standard_.
+<2> On vérifie si la valeur du compteur est divisible par 5 — c'est le cas si la division produit un entier au lieu d'un nombre à virgule.
+<3> Affiche `Compteur = 5` puis `Compteur = 10` (et ainsi de suite) dans la _sortie erreur_.
 
 On pourrait décider de n'afficher que le flux d'erreur.
-Pour cela on _redirige_ la sortie standard avec l'opérateur `>`
-vers un fichier :
+Utilisons l'opérateur `>` pour *rediriger la sortie standard vers un fichier* :
 
 ----
 $ node process/stdout-long.js > stdout.txt
@@ -2196,9 +2153,8 @@ Compteur = 10
 ...
 ----
 
-Si on ouvrait le fichier `stdout.txt`, on verrait
-la liste de nombre générée par notre programme. +
-La *redirection a écrit le contenu dans ce fichier* au lieu de notre terminal.
+En ouvrant le fichier `stdout.txt`, on voit
+la liste de nombre générée par notre programme.
 
 En maitrisant les flux standards, on peut *créer des programmes modulaires*
 qui consomment du contenu sans avoir à connaître leur provenance.
@@ -2224,7 +2180,7 @@ include::{sourceDir}/process/exit.js[]
 L'exemple ci-dessus illustre l'événement `exit`.
 Cet événement est déclenché quand le processus se termine.
 À ce titre, un *code de sortie* est fourni pour signaler l'état dans
-lequel le programme se termine — bien, ou pas très bien, et pourquoi.
+lequel le programme se termine.
 On parlera davantage du code de sortie et de leur signification
 dans la section ci-après, <<process.exit,Mettre fin au processus>>.
 
@@ -2237,7 +2193,7 @@ Le processus termine avec le code 0
 ----
 
 Tout s'est passé correctement.
-Le _code de sortie_ équivaut à `0` donc.
+Le _code de sortie_ équivaut alors à `0`.
 
 Si le programme venait à se terminer de manière imprévue, nous pouvons
 supposer que le code serait différent. +
@@ -2256,32 +2212,15 @@ Que verrions-nous si on lançait le script ?
 $ node process/exit-error.js
 Le processus termine avec le code 1
 
-ReferenceError: jenexistepas is not defined
-    at Object.<anonymous> (/.../nodebook/chapter-04/examples/process/exit-error.js:5:13)
+<i>ReferenceError</i>: jenexistepas is not defined
+    at Object.<anonymous> (/.../examples/process/<i>exit-error.js</i>:<i>5</i>:13)
 ----
 
 Cette fois-ci le code de sortie est `1`.
 Cela correspond à une _erreur qui n'a pas été capturée_.
 Le reste du message décrit _pourquoi_ l'erreur s'est manifestée.
 
-[TIP]
-.[RemarquePreTitre]#Terminal# Code de sortie
-====
-Dans un terminal, la variable `$?` contient le code de sortie
-de la dernière commande exécutée.
-Sa valeur devrait être équivalente à celle passée en argument
-de l'événement `process.on('exit')`.
-
-----
-$ echo $?
-----
-====
-
-On est maintenant capable de déterminer si un programme s'arrête
-normalement ou à cause d'une erreur qu'on aurait laissé
-passer sans faire exprès.
-
-On peut écouter d'autres événements liés au cycle de vie de nos applications :
+<i>On peut écouter d'autres événements liés au cycle de vie de nos applications :
 
 
 [cols="1,1,2",options="header"]
@@ -2330,13 +2269,10 @@ du processus avant de rendre la main :
 ----
 include::{sourceDir}/process/interrupt.js[]
 ----
-<1> Un premier message s'affichera au démarrage du script
-<2> Cette <<../chapter-03/index.adoc#function,fonction>> se déclenche lors de
-la réception du _signal d'interruption_ (`SIGINT`), lorsque le système
-d'exploitation lui relaie notre combinaison de touches kbd:[Ctrl+C]
-<3> La fonction <<process.exit,`process.exit`>> nous permet de mettre fin
-manuellement au processus (voir section ci-après)
-<4> Sinon ce _timer_ mettra fin au processus au bout de 5 secondes
+<1> Un premier message s'affichera au démarrage du script.
+<2> Cette <<../chapter-03/index.adoc#function,fonction>> se déclenche lors de la réception du _signal d'interruption_ (`SIGINT`), lorsque le système d'exploitation lui relaie notre combinaison de touches kbd:[Ctrl+C].
+<3> La fonction <<process.exit,`process.exit`>> nous permet de mettre fin manuellement au processus (voir section ci-après).
+<4> Sinon ce _timer_ mettra fin au processus au bout de 5 secondes.
 
 En pratique le résultat ressemblerait à ceci :
 
@@ -2364,8 +2300,8 @@ En plus du signal `SIGINT`, Node nous relaie les signaux suivants :
 `SIGKILL` est un autre événement important mais on ne peut _pas_ l'écouter.
 Quand il est émis, le processus doit être arrêté quoiqu'il arrive.
 On l'utilise justement en cas de dernier recours, quand `SIGINT`
-et `SIGTERM` ne font pas effet (à cause d'un bug dans notre code,
-une ressource qui ne rend pas la main etc.).
+et `SIGTERM` ne font pas effet ; par exemple à cause d'un bug dans notre code,
+ou une ressource qui ne rend pas la main.
 
 [[process.exit]]
 *Un processus Node se termine quand il n'a plus d'instructions à exécuter*.
@@ -2382,7 +2318,7 @@ d'accès à des ressources distantes (base de données, stockage de fichiers, et
 et ce, *au lieu de présenter une application web instable*.
 
 L'exemple suivant illustre que l'on souhaite clôturer notre script
-si on trouve le bon nombre (un peu comme au jeu _MindMaster_) :
+si on trouve le bon nombre :
 
 [subs="+macros"]
 ----
@@ -2404,14 +2340,10 @@ un code de sortie _de réussite_ : le code `0` (zéro).
 ----
 include::{sourceDir}/process/exit-devinette.js[]
 ----
-<1> Le nombre secret est `3` par défaut, sauf s'il est passé
-<<process.argv,en argument>> du script
-<2> Cette fonction est invoquée à chaque saisie suivie de l'utilisation
-de la touche kbd:[ENTER]
-<3> Cette ligne met fin immédiatement au script, après avoir affiché un
-message de félicitations
-<4> Ce message s'affichera à chaque saisie erronée, jusqu'à ce que le nombre
-secret soit trouvé
+<1> Le nombre secret est `3` par défaut, sauf s'il est passé <<process.argv,en argument>> du script.
+<2> Cette fonction est invoquée à chaque saisie suivie de l'utilisation de la touche kbd:[ENTER].
+<3> Cette ligne met fin immédiatement au script, après avoir affiché un message de félicitations.
+<4> Ce message s'affichera à chaque saisie erronée, jusqu'à ce que le nombre secret soit trouvé.
 
 On pourrait tout à fait imaginer une variante de ce script dans laquelle
 on limiterait le nombre de mauvaises réponses.
@@ -2429,8 +2361,7 @@ avancé se produit.
 
 La fonction génère un fichier de débogage qui contient tout le contenu
 de la mémoire utilisée par Node (_core file_).
-Un truc assez compliqué à analyser pour le commun des mortels.
-Suffisamment pour qu'on passe notre chemin à ce stade.
+Ce fichier dit _core file_ s'analyse avec des logiciels avancés comme `mdb_v8`.
 ====
 
 
@@ -2457,9 +2388,9 @@ Node qui génèrent de tels flux.
 ----
 include::{sourceDir}/stream/intro.js[]
 ----
-<1> On crée un _flux de lecture_ qui ouvre le fichier courant (`+__filename+`)
-<2> Invoque cette fonction à chaque morceau de données lu
-<3> Affiche le nombre d'octets lus dans ce morceau
+<1> On crée un _flux de lecture_ qui ouvre le fichier courant (`+__filename+`).
+<2> Invoque cette fonction à chaque morceau de données lu.
+<3> Affiche le nombre d'octets lus dans ce morceau.
 
 ----
 $ node stream/intro.js
@@ -2476,8 +2407,8 @@ par défaut est d'environ `16Ko`.
 ----
 include::{sourceDir}/stream/read.js[]
 ----
-<1> On spécifie cette fois qu'on lit `100 octets` à la fois
-<2> Affiche `Lecture terminée` lorsque tous les morceaux ont été lus
+<1> On spécifie cette fois qu'on lit `100 octets` à la fois.
+<2> Affiche `Lecture terminée` lorsque tous les morceaux ont été lus.
 
 L'option `highWaterMark` adapte le débit de lecture.
 Cette valeur est exprimé en _octets_.
@@ -2502,11 +2433,10 @@ L'exemple suivant illustre une succession d'écriture dans un même flux :
 ----
 include::{sourceDir}/stream/write.js[]
 ----
-<1> On crée un _flux d'écriture_ vers le fichier `stream/debug.txt`
-<2> Écrit `Hell` dans le flux
-<3> Écrit `d!` dans le flux et signale que nous n'avons plus de données à
-transmettre
-<4> Lit le contenu du fichier en une seule fois et affiche `Hello World!`
+<1> On crée un _flux d'écriture_ vers le fichier `stream/debug.txt`.
+<2> Écrit `Hell` dans le flux.
+<3> Écrit `d!` dans le flux et signale que nous n'avons plus de données à transmettre.
+<4> Lit le contenu du fichier en une seule fois et affiche `Hello World!`.
 
 Cette écriture par morceaux a pour effet de réduire la pression mémoire
 exercée par Node sur le système d'exploitation _et_ pour le reste du programme.
@@ -2522,11 +2452,10 @@ une destination (`Writeable`) à l'aide de la fonction `pipe()` :
 ----
 include::{sourceDir}/stream/pipe.js[]
 ----
-<1> On crée un flux de lecture
-<2> On crée un flux d'écriture
-<3> On _redirige_ le flux de lecture _vers_ le flux d'écriture
-<4> La redirection retourne le flux d'écriture, que l'on écoute pour savoir
-quand il a terminé d'écrire sur le disque
+<1> On crée un flux de lecture.
+<2> On crée un flux d'écriture.
+<3> On _redirige_ le flux de lecture _vers_ le flux d'écriture.
+<4> La redirection retourne le flux d'écriture, que l'on écoute pour savoir quand il a terminé d'écrire sur le disque.
 
 Dans cet exemple, nous avons pris deux fichiers comme source de lecture
 et destination d'écriture.
@@ -2543,7 +2472,7 @@ Ici, le mécanisme s'applique à des fonctions Node.
 ====
 
 L'utilisation de `pipe()` peut paraitre superflue pour copier des fichiers.
-À vrai dire, la fonction <fs,`fs.copyFile`>> fait exactement la même chose. +
+À vrai dire, la fonction <<fs,`fs.copyFile`>> fait exactement la même chose. +
 Le mécanisme de redirection proposé par `pipe()` est modulaire et composable.
 
 On peut par exemple diriger une source de données vers *plusieurs flux d'écriture*.
@@ -2554,15 +2483,15 @@ En même temps :
 ----
 include::{sourceDir}/stream/pipe-multi.js[]
 ----
-<1> Écrit une copie du fichier comme dans l'exemple `stream/pipe.js`
-<2> Redirige le contenu de lecture vers la <<process.std,sortie standard>> de notre terminal
+<1> Écrit une copie du fichier comme dans l'exemple `stream/pipe.js`.
+<2> Redirige le contenu de lecture vers la <<process.std,sortie standard>> de notre terminal.
 
-Cette technique agit comme une _gare de triage_ : nous avons la liberté
+Cette technique agit comme une gare de triage : nous avons la liberté
 d'agir sur les données avant de les envoyer vers leur flux d'écriture distinct.
 
 On peut aussi *transformer les contenus à la volée* en utilisant plusieurs
 fois la fonction `pipe()`.
-Les données sont passées à des objets capable de lire _et_ d'écrire des flux.
+Les données sont passées à des objets capable de lire et d'écrire des flux.
 C'est le cas du <<extras,module `zlib`>>, responsable de compresser et de
 décompresser des données :
 
@@ -2571,8 +2500,8 @@ décompresser des données :
 ----
 include::{sourceDir}/stream/pipe-transform.js[]
 ----
-<1> Compresse les données à la volée
-<2> Les données compressées sont transmises à la <<process.std,sortie standard>>
+<1> Compresse les données à la volée.
+<2> Les données compressées sont transmises à la <<process.std,sortie standard>>.
 
 Cet exemple devrait afficher le contenu de notre fichier source avec une taille
 réduite grâce à la compression _gzip_ :
@@ -2582,18 +2511,18 @@ $ node stream/pipe-transform.js
 ----
 
 L'affichage semble bizarre et c'est normal : ce sont des données compressées
-au format gzip ; un format de compression libre et populaire.
+au format _gzip_ — un format de compression libre.
 
 Le programme Unix `gzip` sait décoder des données compressées dans ce format.
-Il sait aussi les décoder à la volée… avec un `pipe()` :
+Il sait aussi les décoder à la volée avec un _pipe_ :
 
 ----
 $ node stream/pipe-transform.js | gzip
 ----
 
-On a bouclé la boucle en _décompressant_ un flux de données à la volée
-en utilisant un programme extérieur à Node.
-
+Nous avons vu comment transmettre des *flux de données de manière interopérable*
+entre un script Node et un programme externe, entre deux programmes externes
+et entre deux scripts Node.
 
 [horizontal, id="stream.Readable"]
 .Principaux attributs d'un flux _Readable_
@@ -2647,7 +2576,10 @@ plus proches du matériel et des protocoles réseaux.
   Création et consommation de ressources TCP. +
   Les modules `http`, `https` et `http2` se basent dessus.
 [[readline]]module `readline`::
-  Manipulation du curseur dans un terminal.
+  Manipulation ligne par ligne d'un <<stream,stream>>.
+  Le module est particulièrement utilisé dans des
+  <<../chapter-08/index.adoc#,applications en ligne de commande>> (chapitre 8),
+  pour mettre à jour une barre de progression et animer des éléments d'affichage.
 [[tty]]module `tty`::
   Gestion d'interface de terminal en mode texte.
   Le module `readline` se base dessus.
@@ -2688,8 +2620,7 @@ Essayons de la réutiliser dans le fichier `modules/parent.js`
 ----
 include::{sourceDir}/modules/parent.js[]
 ----
-<1> Contrairement aux <<modules-builtin,modules de base>>,
-on passe un *chemin relatif au fichier courant*
+<1> Contrairement aux <<modules-builtin,modules de base>>, on passe un *chemin relatif au fichier courant*.
 <2> Est-ce que cela affichera la valeur de la variable `number` ?
 <3> Mais au fond, que contient notre variable `enfant` ?
 
@@ -2720,8 +2651,8 @@ Comment est-ce que ça se traduit lorsqu'on l'appelle avec `require()` ?
 ----
 include::{sourceDir}/modules/parent-export.js[]
 ----
-<1> Affiche `undefined`
-<2> Affiche `42`
+<1> Affiche `undefined`.
+<2> Affiche `42`.
 
 *`module.exports` rend visible ce qui est exporté par un module*.
 Les éléments exportés sont visibles depuis l'extérieur.
@@ -2743,9 +2674,9 @@ Nous avons créé deux nouvelles valeurs : `number` (un nombre) et
 ----
 include::{sourceDir}/modules/parent-export-multiple.js[]
 ----
-<1> Affiche `42`
-<2> Affiche un nombre aléatoire entre 0 et 100
-<3> Réexporte la fonction `enfant.number`
+<1> Affiche `42`.
+<2> Affiche un nombre aléatoire entre 0 et 100.
+<3> Réexporte la fonction `enfant.number`.
 
 
 [TIP]
@@ -2758,7 +2689,7 @@ du nom des variables lors de l'export.
 ----
 include::{sourceDir}/modules/enfant-export-shorthand.js[]
 ----
-<1> Liste des valeurs retournée par l'objet `module.exports`
+<1> Liste des valeurs retournée par l'objet `module.exports`.
 
 ====
 
@@ -2791,16 +2722,13 @@ Lorsqu'on fait appel à la fonction `require()`, Node effectue la *liste d'actio
 L'utilisation de `require()` est *synchrone* et *bloquante*.
 Si l'exécution du code dans le module chargé prend du temps
 — code _lent_, accès à une ressource distante — le chargement
-du module en prendra un coup. +
-Il vaut mieux ranger les appels _asynchrones_ dans des fonctions
-et appeler ces fonctions de manière explicite, _après_ avoir chargé le module.
+du module en prendra un coup.
 
 `require()` permet de *charger 3 types de modules* :
 
 . des *fichiers relatifs au module actuel* +
   `require('./module.js')` cherchera le fichier `module.js` dans le _répertoire courant_.
   `require('../module.js')` cherchera `module.js` dans le _répertoire parent_.
-  C'est le cas que l'on a vu jusqu'à présent.
 . des *modules Node* +
   Ils sont disponibles avec chaque installation de Node.
   On en parle plus en détail dans la section <<modules-builtin,modules Node>>
@@ -2823,9 +2751,8 @@ Voici un module illustrant une variable privée et une variable exportée :
 ----
 include::{sourceDir}/modules/increment.js[]
 ----
-<1> Variable privée
-<2> `increment` est rendue publique à cet endroit
-— la fonction incrémente la variable privée `counter`
+<1> Variable privée.
+<2> `increment` est rendue publique à cet endroit — la fonction incrémente la variable privée `counter`.
 
 Nous allons importer ce module par deux fois, dans deux variables différentes :
 
@@ -2834,9 +2761,9 @@ Nous allons importer ce module par deux fois, dans deux variables différentes :
 ----
 include::{sourceDir}/modules/double-import.js[]
 ----
-<1> Affiche `1`
-<2> Affiche `2`
-<3> Affiche… `1` ou `3` ?
+<1> Affiche `1`.
+<2> Affiche `2`.
+<3> Affiche `1` ou `3` ?
 
 Quel est le verdict à votre avis ?
 Rien ne vaut une vérification, quitte à remettre en question
@@ -2876,9 +2803,9 @@ forcément listées dans cet ouvrage.
 [[esm]]
 === Le futur : les modules ECMAScript
 
-Pendant que Node et de son mécanisme de module montaient en puissance,
+Pendant le mécanisme de modules de Node montait en puissance,
 les navigateurs web étaient en attente d'une solution native.
-Enfin… la spécification des modules ECMAScript a été validée en 2013
+La spécification des modules ECMAScript a été validée en 2013
 mais les navigateurs ont tardé à implémenter le mécanisme.
 
 La plupart d'entre eux ont implémenté les modules ECMAScript en 2017.
@@ -2904,18 +2831,18 @@ transformer en module ECMAScript :
 ----
 include::{sourceDir}/modules/increment.mjs[]
 ----
-<1> Export _par défaut_
-<2> Export _nommé_
+<1> Export _par défaut_.
+<2> Export _nommé_.
 
-La syntaxe `export` sert à… exporter des variables.
-Cette syntaxe se combine avec `import` :
+La syntaxe `export` sert à exporter des variables.
+Elle se combine avec `import` :
 
 [source,javascript]
 .modules/ecmascript.mjs
 ----
 include::{sourceDir}/modules/ecmascript.mjs[]
 ----
-<1> On n'importe ici que la _valeur par défaut_
+<1> On n'importe ici que la _valeur par défaut_.
 
 Il ne nous reste maintenant plus qu'à exécuter notre script `.mjs`
 pour observer le résultat.
@@ -2934,10 +2861,8 @@ Reprenons cet exemple pour _importer plusieurs exports d'un coup_ :
 ----
 include::{sourceDir}/modules/ecmascript-multiple.mjs[]
 ----
-<1> On importe la _valeur par défaut_ ainsi qu'une _valeur nommée_ —
-c'est particulièrement pratique pour sélectionner avec finesse
-ce que l'on veut utiliser d'un module
-<2> La fonction `reset` remet le compteur à zéro
+<1> On importe la _valeur par défaut_ ainsi qu'une _valeur nommée_ — c'est particulièrement pratique pour sélectionner avec finesse ce que l'on veut utiliser d'un module.
+<2> La fonction `reset` remet le compteur à zéro.
 
 On notera au passage qu'on utilise la
 <<../chapter-03/index.adoc#object-destructuring,destructuration d'objet>>
@@ -2964,9 +2889,7 @@ l'inverse n'est pas vrai
 - les fichiers doivent être suffixés par `.mjs`
 
 Ce dernier point est le plus embêtant car il ralentit l'interopérabilité
-avec les modules destinés au développement web frontend.
-Ces derniers contiennent les déclarations `import` et `export` mais…
-dans des fichiers `.js`.
+entre les scripts destinés au développement web frontend et les scripts Node.
 
 L'histoire nous dira si les modalités s'assoupliront avec le temps.
 
@@ -3010,7 +2933,7 @@ forcément listées dans cet ouvrage.
 
 On fait toutes et tous des erreurs.
 Du coup forcément, notre code va mener à des plantages applicatifs.
-La nature des causes varie et impactent notre lecture des messages d'erreur.
+La nature des causes varie et impacte notre lecture des messages d'erreur.
 
 Cette section a pour intention de nous aider à prendre confiance dans ce qu'on
 voit et de piocher l'information qui va nous aider à résoudre le problème.
@@ -3027,11 +2950,11 @@ et quel est le chemin parcouru au sein du code pour y parvenir.
 Commençons avec une _erreur de syntaxe_ :
 
 ----
-$ node syntax-error.js
-console.log('oups j'ai fait une erreur de guillemets);
+$ node <i>syntax-error.js</i>
+console.log(<i>'oups j'</i>ai fait une erreur de guillemets);
             ^^^^^^^^
 
-SyntaxError: missing ) after argument list
+<i>SyntaxError</i>: <i>missing ) after argument list</i>
     at new Script (vm.js:74:7)
     at createScript (vm.js:246:10)
     at Object.runInThisContext (vm.js:298:10)
@@ -3051,60 +2974,59 @@ La correction à entreprendre ne sera pas d'ajouter une parenthèse après le
 guillemet mais bien de l'_échapper_ en le préfixant d'un caractère `\`.
 Node l'interprétera alors comme un caractère.
 
-Penchons-nous à présent sur les _erreurs d'exécution_ :
+Penchons-nous à présent sur les _erreurs d'exécution_,
+*provoquée lorsque le code est exécuté* :
 
 ----
 $ node process/exit-error.js
-console.log(jenexistepas);
+console.log(<i>jenexistepas</i>);
             ^
-ReferenceError: jenexistepas is not defined
-    at Object.<anonymous> (/.../chapter-04/examples/process/exit-error.js:5:13)
+<i>ReferenceError</i>: <i>jenexistepas</i> <i>is not defined</i>
+    at Object.<anonymous> (/.../chapter-04/examples/process/<i>exit-error.js</i>:<i>5</i>:13)
     at Module._compile (module.js:643:30)
 ----
 
-*Une erreur d'exécution est provoquée lorsque le code est exécuté*.
 Le marqueur `+^+` indique l'emplacement où le problème est rencontré.
-La ligne en-dessous documente le _type d'erreur_ (ici, une _erreur de référence_)
-et une indication (_la variable n'existe pas_). +
+La ligne en-dessous documente le _type d'erreur_ (`ReferenceError`)
+en précisant ce qui n'est pas défini (la variable `jenexistepas`). +
 La notation `exit-error.js:5:13` indique que l'origine de l'erreur
-se trouve à la _ligne 5_ du fichier `exit-error.js`, _colonne 13_.
+se trouve à la _ligne 5_ du fichier `exit-error.js`.
 
 Comment y remédier ?
 En vérifiant si on appelle bien la bonne variable ou en la créant
 avec la valeur attendue le cas échéant.
 
 Les erreurs d'exécution sont pernicieuses elles sont parfois
-provoquées après le démarrage de l'application :
+provoquées après le démarrage de l'application.
+Dans, elle se produit deux secondes après le démarrage du script :
 
 ----
 $ node runtime-error.js
-setTimeout(() => console.log(secret.toLocaleUperCase()), 2000);
+setTimeout(() => console.log(<i>secret.toLocaleUperCase()</i>), 2000);
                                     ^
-TypeError: secret.toLocaleUperCase is not a function
+<i>TypeError</i>: <i>secret.toLocaleUperCase</i> <i>is not a function</i>
     at Timeout.setTimeout [as _onTimeout] (/.../chapter-04/examples/runtime-error.js:4:37)
 ----
 
-Ici, l'erreur est délenchée deux secondes après le démarrage du script,
-quand Node entre dans le _callback_ de la fonction `setTimeout`.
-
-Le type d'erreur indique que l'on fait appel à un élément inexistant
-(la fonction `toLocaleUperCase`) rattaché à un élément existant (`secret`). +
 La notation `runtime-error.js:4:37` indique que l'origine de l'erreur
 se trouve à la _ligne 4_ du fichier `runtime-error.js`, _colonne 37_.
+Le type d'erreur (`TypeError`) signifie qu'on cherche à manipuler une variable
+de manière *inattendue par rapport à son type*.
+Le message d'erreur nous précise qu'on appelle comme une fonction quelque chose
+qui ne serait donc pas une fonction.
 
 Pourquoi `toLocaleUperCase` n'est pas une fonction ?
-Car une typo s'est introduite dans notre code :
-c'était à la <<../chapter-03/index.adoc#string,fonction de chaînes>>
-`toLocaleUpperCase` (avec 2 _p_) qu'on pensait faire appel.
+Une typo s'est introduite dans notre code : `secret.toLocaleUperCase` vaut `undefined`.
+L'erreur serait corrigée en utilisant `secret.toLocaleUpperCase` (avec 2 _p_).
 
 [TIP]
 .[RemarquePreTitre]#npm# Module `eslint`
 ====
 Le module npm `eslint` ([URL]#https://npmjs.com/eslint#)
 est un vérificateur syntaxique.
-Ses réglages l'emmènent à chercher des conditions défavorables dans le code
-comme des oublis de vérification d'erreur ou des usages exotiques du langage
-qui entrainent des problèmes difficiles à déceler.
+Son intention est de s'accorder sur le style d'écriture et d'éviter des
+effets de bord du langage
+qui causent des problèmes difficiles à déceler.
 
 On apprendra à le configurer dans l'<<../appendix-a/index.adoc#eslint,annexe A>>.
 ====
@@ -3145,15 +3067,13 @@ s'est produit :
 ----
 include::{sourceDir}/errors/callback.js[]
 ----
-<1> On vérifie la présence de l'erreur
-<2> `error.message` contient une raison textuelle de l'erreur
-<3> L'objet `error` contient plusieurs clés et valeurs précisant le type d'erreur,
-la référence vers la ressource concernée et le nom de la fonction système
-utilisée par Node pour accéder à la ressource (ici, `open`)
+<1> On vérifie la présence de l'erreur.
+<2> `error.message` contient une raison textuelle de l'erreur.
+<3> Affichage de l'objet d'erreur complet.
 
 ----
 $ node errors/callback.js
-ENOENT: no such file or directory, open 'je-n-existe-pas.txt'
+<i>ENOENT</i>: <i>no such file or directory</i>, open '<i>je-n-existe-pas.txt</i>'
 { Error: ENOENT: no such file or directory, open 'je-n-existe-pas.txt'
   errno: -2,
   code: 'ENOENT',
@@ -3162,10 +3082,18 @@ ENOENT: no such file or directory, open 'je-n-existe-pas.txt'
 ----
 
 L'erreur affichée nous précise que le fichier demandé n'existe pas.
-Son _code_ (`ENOENT`) signifie la même chose mais a l'avantage d'être plus
+Son code (`ENOENT`) signifie la même chose mais a l'avantage d'être plus
 facile à vérifier dans une condition.
 
-Ce code d'erreur est dépendant du <<modules-builtin,module Node>> utilisé.
+L'objet `error` donné en argument de la fonction de callback est utile
+pour vérifier des détails précis de l'erreur et mieux interagir avec
+au niveau du code.
+Nous y retrouvons le type d'erreur (`errno`),
+la référence vers la ressource concernée (`path`) et le nom de la fonction
+système utilisée par Node pour accéder à la ressource (`syscall`).
+
+La valeur et la signification du code d'erreur varie en fonction
+du module Node employé à ce moment là.
 Le <<fs,module `fs`>> ne retourne pas les mêmes codes
 que le <<http,module `http`>>. +
 Les appels à des ressources système retournent
@@ -3175,7 +3103,7 @@ La décision nous appartient de savoir quoi faire quand l'erreur se produit.
 Doit-on arrêter le programme (avec <<process.exit,`process.exit()`>>) ?
 Est-ce que ce n'est pas grave et on passe à la suite ?
 Ou peut-être que ce fichier était censé exister et qu'on devrait
-notifier l'équipe de maintenance _et_
+notifier l'équipe de maintenance et
 afficher une page d'erreur côté utilisateur.
 
 === Une erreur est retournée dans une promesse
@@ -3188,20 +3116,21 @@ s'effectue à l'aide de la fonction `.catch()`.
 ----
 include::{sourceDir}/errors/promise.js[]
 ----
-<1> On génère une erreur dans notre code
-<2> L'objet d'erreur est transmis à la prochaine occurence de `.catch()`
+<1> On génère une erreur dans notre code.
+<2> L'objet d'erreur est transmis à la prochaine occurence de `.catch()`.
+
+Le contenu de l'erreur est accessible dans le premier et seul argument de
+la fonction de _callback_ passée à `.catch()`.
 
 ----
 $ node errors/promise.js
-Error: Oops !
-    at Promise.resolve.then (/.../chapter-04/examples/errors/promise.js:5:11)
+Error: <i>Oops !</i>
+    at <i>Promise.resolve</i>.<i>then</i> (/.../chapter-04/examples/errors/<i>promise.js</i>:<i>5</i>:11)
     at process._tickCallback (internal/process/next_tick.js:178:7)
 ----
 
-Le contenu de l'erreur est accessible dans le premier argument du _callback_
-d'erreur.
-La trace indique dans le fichier d'origine de l'erreur,
-ainsi que la ligne en question.
+La trace indique que l'erreur s'est produite à la ligne 5,
+dans la méthode `.then()` suite à l'utilisation de `Promise.resolve()`.
 
 L'*utilisation multiple de `.catch()`* nous aide à gérer finement les erreurs :
 
@@ -3210,11 +3139,10 @@ L'*utilisation multiple de `.catch()`* nous aide à gérer finement les erreurs 
 ----
 include::{sourceDir}/errors/promise-chain.js[]
 ----
-<1> On gère l'erreur en la signalant dans le terminal
-<2> Le _callback_ d'erreur a la possibilité de retourner un résultat
-<3> Ce résultat est transmis à la prochaine occurence de `.then()`
-<4> Dans ce cas, le dernier `.catch()` n'affiche rien car
-nous n'avons pas rencontré d'autre erreur entre temps
+<1> On gère l'erreur en la signalant dans le terminal.
+<2> Le _callback_ d'erreur a la possibilité de retourner un résultat.
+<3> Ce résultat est transmis à la prochaine occurence de `.then()`.
+<4> Dans ce cas, le dernier `.catch()` n'affiche rien car nous n'avons pas rencontré d'autre erreur entre temps.
 
 L'absence de `.catch()` provoque un plantage applicatif et le délenchement
 de l'<<process.on,événement de processus>> `unhandledRejection` :
@@ -3227,39 +3155,42 @@ include::{sourceDir}/errors/promise-no-catch.js[]
 
 ----
 $ node errors/promise-no-catch.js
-(node:27412) UnhandledPromiseRejectionWarning: Error: Oops !
-    at Promise.resolve.then (/.../chapter-04/examples/errors/promise-no-catch.js:5:11)
+(node:27412) <i>UnhandledPromiseRejectionWarning</i>: Error: Oops !
+    at <i>Promise.resolve</i>.<i>then</i> (/.../chapter-04/examples/errors/<i>promise-no-catch.js</i>:<i>5</i>:11)
     at process._tickCallback (internal/process/next_tick.js:178:7)
 ----
 
+L'affichage de `UnhandledPromiseRejectionWarning` indique que l'erreur s'est
+produite mais qu'aucun `.catch()` ne l'a pris en charge.
+Nous savons cependant que l'erreur s'est produite dans la méthode `.then()`
+suite à l'utilisation de `Promise.resolve()`.
+
 === Une erreur est retournée dans un événement
 
-Toute interface basée sur le <<events,module `events`>> peut émettre
-plusieurs erreurs de manière asynchrone.
-C'est le cas du <<http,module `http`>>, du <<stream,module `stream`>>
-et du <<process,module `process`>> par exemple.
+Tout élément dôté d'une méthode `.on()` a un événement spécial : `.on('error')`.
+Il est appelé à chaque fois qu'une erreur se produit.
 
 [source%interactive,javascript]
 .errors/on-error.js
 ----
 include::{sourceDir}/errors/on-error.js[]
 ----
-<1> On émet une erreur dans notre code
-<2> L'objet d'erreur est transmis à l'événement `error`
+<1> On émet un événement `error` avec un objet `Error` précisant la nature du problème.
+<2> L'objet d'erreur est transmis à l'événement `error`.
 
 ----
 $ node errors/on-error.js
-Error: Oops !
-    at Object.<anonymous> (/.../chapter-04/examples/errors/on-error.js:5:23)
+Error: <i>Oops !</i>
+    at Object.<i>&lt;anonymous&gt;</i> (/.../chapter-04/examples/errors/<i>on-error.js</i>:<i>5</i>:23)
     at Module._compile (internal/modules/cjs/loader.js:678:30)
 ----
 
-À l'instar des promesses et des callbacks, la trace d'erreurs signale
-le fichier et la ligne à l'origine du problème.
+La trace d'erreur est similaire à celle des promesses et des callbacks.
+Le message d'erreur précise le problème tandis que son origine (fichier, ligne)
+nous indiquent quoi regarder pour mieux comprendre la cause.
 
 Si une erreur est émise et qu'aucune fonction n'est à l'écoute,
-l'événement `uncaughtException` est produit.
-Suite à ça, le processus s'arrête.
+l'événement `uncaughtException` est produit :
 
 [source%interactive,javascript]
 .errors/on-error.js
@@ -3270,18 +3201,23 @@ include::{sourceDir}/errors/on-error-uncaught.js[]
 ----
 $ node errors/on-error-uncaught.js
 events.js:167
-      throw er; // Unhandled 'error' event
+      throw er; // <i>Unhandled 'error'</i> event
       ^
 
 Error: Oops !
-    at Object.<anonymous> (/.../chapter-04/examples/errors/on-error-uncaught.js:3:23)
+    at Object.<i>&lt;anonymous&gt;</i> (/.../chapter-04/examples/errors/<i>on-error-uncaught.js</i>:<i>3</i>:23)
     at Module._compile (internal/modules/cjs/loader.js:678:30)
 ----
+
+La section liée au <<events,module `events`>> explique plus en détails
+la gestion des événements.
+On les retrouve par exemple dans les modules <<http,`http`>>, <<stream,`stream`>>
+et <<process,`process`>>.
 
 [[errors.system]]
 === Une erreur est renvoyée par le système d'exploitation
 
-L'accès à une ressource distante est plus complexe qu'il n'y parait…
+L'accès à une ressource distante est plus complexe qu'il n'y parait
 car la nature des erreurs est variée et sujet à interprétation au cas par cas,
 en fonction de notre intention et du contexte d'exécution.
 
@@ -3302,17 +3238,17 @@ Les erreurs systèmes indiquent la raison du problème.
 | `EADDRINUSE`
 | Adresse déjà utilisée : nous tentons de créer une ressource réseau alors qu'une
 interface existe déjà à la même adresse.
-| Vérifier l'origine du serveur déjà en place à cette adresse ;
-attribuer une autre adresse/port à la ressource réseau.
+| Vérifier l'origine du serveur déjà en place à cette adresse.
+Attribuer une autre adresse/port à la ressource réseau.
 
 | `ECONNREFUSED`
 | La ressource distante a refusé la connexion.
-| Vérifier si c'est normal que la ressource distante soit inactive ;
-vérifier qu'on se connecte à la bonne ressource.
+| Vérifier si c'est normal que la ressource distante soit inactive.
+Vérifier qu'on se connecte à la bonne ressource.
 
 | `ECONNRESET`
 | La ressource distante a été interrompue en cours de route.
-| Retenter la connexion ; vérifier que la stabilité de la connexion réseau.
+| Retenter la connexion. Vérifier la stabilité de la connexion réseau.
 
 | `EEXIST`
 | La ressource à créer existe déjà.
@@ -3321,18 +3257,17 @@ vérifier qu'on se connecte à la bonne ressource.
 | `EMFILE`
 | Trop de fichiers sont ouverts en simultané.
 | Les systèmes d'exploitation peuvent travailler sur une quantité finie de fichiers.
-Peut-être que vous avez ouvert trop de fichiers en même temps ;
-fermer l'accès aux fichiers ouverts.
+Peut-être que vous avez ouvert trop de fichiers en même temps.
+Fermer l'accès aux fichiers ouverts.
 
 | `ENOENT`
 | Ressource inexistante.
-| Vérifier que le chemin d'accès est correct ;
-inspecter la raison de l'inexistance de la ressource.
+| Vérifier que le chemin d'accès est correct.
+Inspecter la raison de l'inexistance de la ressource.
 
 | `EPERM`
 | L'opération n'est pas autorisée.
-| Des droits administrateurs sont nécessaires pour effectuer cette opération.
-C'est peut-être une opération dangereuse si cette situation est saugrenue.
+| Des droits d'administration sont nécessaires pour effectuer cette opération.
 
 | `EPIPE`
 | L'accès à la ressource distante a été interrompu.
@@ -3340,26 +3275,24 @@ C'est peut-être une opération dangereuse si cette situation est saugrenue.
 
 | `ETIMEDOUT`
 | L'opération a été annulée car la ressource distante a mis trop de temps pour aboutir.
-| Retenter l'opération ; vérifier la disponibilité de la ressource distante ;
-s'assurer que le volume demandé n'est pas trop important.
+| Retenter l'opération. Vérifier la disponibilité de la ressource distante.
+S'assurer que le volume demandé n'est pas trop important.
 |===
 
 
 === Le programme ne se termine pas
 
-Il arrive des fois qu'un programme ne se termine pas… alors qu'on pensait
-qu'il allait s'arrêter immédiatement.
-
+Il arrive qu'un programme ne se termine pas contrairement à nos attentes.
 Il peut y avoir plusieurs raisons à ça :
 
 - une ressource distante *met du temps à répondre* —
-un _timeout_ déclenchera une erreur (généralement sous 30 secondes ; c'est long)
+un _timeout_ déclenchera une erreur (généralement sous 30 secondes)
 - un traitement prend du temps
 - un *événement est en cours d'écoute* — typiquement un serveur web qui attend
 des requêtes entrantes
 - une erreur n'a pas été capturée et perturbe les instructions suivantes
 
-Pour en savoir plus, il faudra inspecter le système et observer la
+Il faudra inspecter le système pour en savoir plus et observer la
 consommation mémoire et CPU du processus Node en question.
 
 Peut-être qu'il faudra sonder le programme pour déceler le point de blocage.
@@ -3380,8 +3313,6 @@ On apprendra à le configurer dans l'<<../appendix-a/index.adoc#debug,annexe A>>
 
 Puisqu'on utilise du code JavaScript avec Node et avec les navigateurs web,
 qu'est-ce qui les distingue vraiment ?
-Après tout, on pourrait rêver d'écrire un JavaScript universel qui fonctionne
-partout mais il semblerait que ça ne soit pas le cas.
 
 Cette section détricotte les derniers doutes que l'on pourrait avoir dans notre tête.
 
@@ -3412,8 +3343,8 @@ Suite logique du point précédent : Node n'a pas d'interface graphique.
 Le code exécuté n'affiche rien en tant que tel, à part les messages dirigés
 vers la <<console,console>>.
 
-Un moyen d'en savoir plus sur ce qui se passe dans les entrailles d'un script
-est d'utiliser l'<<inspect,inspecteur Node>>.
+L'<<inspect,inspecteur Node>> est un moyen de visualiser l'état interne
+d'un script .
 
 On peut toutefois construire des applications graphiques en ligne de commande.
 Nous verrons comment faire dans le <<../chapter-08/index.adoc#,chapitre 8>>.
@@ -3450,15 +3381,14 @@ réseau (<<http,module `http`>>, <<net,module `net`>>, <<dns,module `dns`>>,
 Le système d'exploitation crée un nouveau processus dès
 qu'on exécute le programme `node`.
 Ce processus peut être de _courte durée_ ou de _longue durée_,
-selon qu'il dure quelques secondes ou plusieurs heures… voire
-plusieurs jours ou un temps indéfini.
+selon qu'il dure quelques secondes ou un temps indéfini.
 
 Le processus s'arrête en cas d'erreur, lorsqu'il n'y a plus d'opération
 à effectuer ou en cas d'interruption volontaire.
 
 Le code JavaScript exécuté dans un navigateur web dépasse rarement la durée
 d'une session utilisateur, de quelques secondes à quelques heures.
-En cas de problème, un rafraîchissement de la page
+En cas de problème, un rafraîchissement de la page remet à zéro l'état de la page.
 
 [NOTE]
 .[RemarquePreTitre]#Performances# Utilisation des CPU
@@ -3475,12 +3405,18 @@ en sera affectée.
 [[options]]
 == Options utiles pour démarrer Node
 
+L'exécutable `node` accepte plusieurs options afin de personnaliser
+son comportement et l'affichage des résultats.
 
-Cf. https://nodejs.org/api/cli.html
-Compatible aussi avec `NODE_OPTIONS`
+[NOTE]
+.[RemarquePreTitre]#Documentation# Exécutable `node`
+====
+La documentation de l'exécutable `node` est disponible sur le site officiel de Node :
+[URL]#https://nodejs.org/docs/latest-{nodeCurrentVersion}.x/api/cli.html#
+====
 
 [[print-eval]]
-=== Afficher le résultat d'une expression
+=== Afficher le résultat d'une expression, sans script
 
 L'interpréteur Node sait interpréter du code qu'on lui donnerait
 via l'option `-p` (pour _print_, c'est-à-dire _afficher_).
@@ -3572,7 +3508,7 @@ image::images/inspector-paused.png[width="85%"]
 ====
 Un point d'arrêt se crée en cliquant sur le numéro de ligne souhaité.
 
-Le débogueur se mettra en pause dès à chaque fois que le chemin d'exécution
+Le débogueur se mettra en pause à chaque fois que le chemin d'exécution
 de l'interpréteur atteindra cette ligne.
 
 La valeur des variables ECMAScript courantes s'affichent au survol de la souris
@@ -3594,7 +3530,7 @@ image::images/inspector-breakpoint-in.png[width="85%"]
 L'option d'invocation `--inspect` est adaptée à des processus de longue durée,
 comme un serveur HTTP.
 L'option `--inspect-brk` est adaptée à des processus de courte durée et qui
-se termineraient avant qu'on aie eu le temps de jeter un œil au contenu.
+se termineraient avant qu'on ait le temps de jeter un œil au contenu.
 
 
 [[deprecation]]
@@ -3630,8 +3566,8 @@ $ node --pending-deprecation deprecation-warning.js
 
 Cette option Node est à utiliser après avoir migré vers une nouvelle version
 majeure de Node.
-Ça nous laissera le temps de corriger les erreurs avant une prochaine
-grosse mise à jour.
+Ça nous laissera le temps de corriger les erreurs avant la prochaine
+mise à jour majeure.
 
 === Ajuster les options de compatibilité et de traçabilité de V8
 
@@ -3647,7 +3583,7 @@ avec l'option `--v8-options` :
 $ node --v8-options
 ----
 
-Il n'y a pas de _meilleure configuration_ qui conviendrait à chacun de nos usages.
+Il n'y a pas de meilleure configuration qui conviendrait à chacun de nos usages.
 Le mieux reste encore d'explorer les options possibles, les différents concepts
 et d'ajuster les valeurs offrant le meilleur rapport stabilité/performances.
 
@@ -3661,9 +3597,9 @@ et d'ajuster les valeurs offrant le meilleur rapport stabilité/performances.
   Détermine la quantité de mémoire maximale qu'un processus Node pourra utiliser. +
   Idéal pour confiner Node sur des environnements à faible mémoire.
 `--gc_inverval`::
-  Détermine le nombre de cycles entre chaque déclenchement du ramasse-miettes mémoire.
+  Détermine le nombre de cycles entre chaque déclenchement du ramasse-miettes.
 `--expose_gc`::
-  Expose les fonctions de manipulation du ramasse-miettes mémoire. +
+  Expose les fonctions de manipulation du ramasse-miettes. +
   Idéal si vous souhaitez contrôler finement l'optimisation de la mémoire.
 `--stack_trace_limit`::
   Change la limite du nombre de lignes affichées dans une trace d'erreurs. +
@@ -3675,6 +3611,17 @@ et d'ajuster les valeurs offrant le meilleur rapport stabilité/performances.
 `--trace-gc`::
   Signale les moments où le ramasse-miettes se déclenche.
   On peut ainsi mieux comprendre les raisons qui le pousse à se déclencher.
+
+[NOTE]
+.[RemarquePreTitre]#Notion# Ramasse-miettes (_garbage collector_)
+====
+Le ramasse-miettes est un mécanisme informatique qui libère les objets inutilisés
+de la mémoire.
+Il est déclenché de manière cyclique par la machine virtuelle
+<<../chapter-01/index.adoc#v8,V8>>.
+
+En savoir plus sur [URL]#https://fr.wikipedia.org/wiki/Ramasse-miettes_(informatique)#.
+====
 
 Les options préfixées par `harmony` activent la prise en charge
 de fonctionnalités ECMAScript qui ne font pas encore partie du standard.

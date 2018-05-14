@@ -189,9 +189,9 @@ Lire du contenu CSV et en afficher son contenu devient aussi simple que le scrip
 ----
 include::{sourceDir}/print-csv.js[]
 ----
-<1> importe le module `comma-separated-values` dans la variable `csv`
-<2> configure un nouvel objet _CSV_
-<3> décode le contenu initial et affiche la structure JavaScript appropriée
+<1> importe le module `comma-separated-values` dans la variable `csv`.
+<2> configure un nouvel objet _CSV_.
+<3> décode le contenu initial et affiche la structure JavaScript appropriée.
 
 Il est toutefois recommandé d'installer les modules localement, afin de limiter leur portée uniquement au projet tout en maintenant une dépendance explicite et gérable via le fichier _package.json_.
 
@@ -277,14 +277,18 @@ node_modules
     └── jquery
 ----
 
-L'utilisation de `npm dedupe` peut être un ultime recours pour optimiser un arbre plus complexe que celui-ci.
-Ceci dans l'optique de diminuer les inclusions multiples d'une librairie techniquement compatible avec d'autres versions mineures.
+L'utilisation de `npm dedupe` peut être un ultime recours pour optimiser un
+arbre plus complexe que celui-ci.
+Ceci dans l'optique de diminuer les inclusions multiples d'une librairie
+techniquement compatible avec d'autres versions mineures.
 
 [CAUTION]
 .[RemarquePreTitre]#Remarque# Résolution de chemins
 ====
-Il est fortement *déconseillé de se baser sur des chemins en dur* tapant dans le répertoire _node_modules_.
-Il est *préférable de faire appel à `require.resolve`* pour déterminer le chemin vers un fichier compris dans une dépendance.
+Il est fortement *déconseillé de se baser sur des chemins en dur* tapant dans
+le répertoire _node_modules_.
+Il est *préférable de faire appel à `require.resolve`* pour déterminer le
+chemin vers un fichier compris dans une dépendance.
 
 [source,javascript]
 ----
@@ -299,19 +303,40 @@ const jQueryCore = require('jquery/src/core.js');
 == Trouver son bonheur dans le _registre npm_
 
 Le _registre npm_ ([URL]#https://npmjs.com#) fourmille de modules en tous genres.
-Ils fournissent de simples fonctions, des librairies ou des _frameworks_ complets pour gérer vos accès réseau, vos bases de données, la qualité de vos projets et leur automatisation.
+Ils fournissent de simples fonctions, des librairies ou des _frameworks_
+complets pour gérer vos accès réseau, vos bases de données, la qualité de vos projets et leur automatisation.
 
-La *sélection d'un module est un choix subjectif* : la qualité, la pertinence et la popularité sont corrélées sans pour autant être des critères impératifs. +
-Un module peu populaire sera-t-il moins bon pour autant ? Un module populaire est-il plus performant qu'une alternative ? Un module bien testé sera-t-il plus aisé à utiliser ?
+La *sélection d'un module est un choix subjectif* : la qualité, la pertinence
+et la popularité sont corrélées sans pour autant être des critères impératifs. +
+Un module peu populaire sera-t-il moins bon pour autant ? Un module populaire
+est-il plus performant qu'une alternative ? Un module bien testé sera-t-il
+plus aisé à utiliser ?
 
-Bref, pour vous aider à choisir — et ce peu importe le contexte — voici une liste subjective de critères et leur impact sur votre processus de décision :
+Bref, pour vous aider à choisir — et ce peu importe le contexte — voici une
+liste subjective de critères et leur impact sur votre processus de décision :
 
-- *documentation* : un fichier _README_ décrivant l'API ou une *documentation technique illustrée d'exemples* sont des exemples d'objectif de qualité aidant tant à l'utilisation qu'à la contribution du-dit module ;
-- *badge d'intégration continue* : la présence de tests est indispensable pour assurer une certaine qualité. Le badge d'intégration continue est un mécanisme supplémentaire pour démontrer l'*existence de tests* et leur *automatisation* lors de toute contribution de code ;
-- *dépendances* : l'existence de modules reposant sur un autre démontre une *marque de confiance* d'autres développeurs. Confiance suffisante dans la solidité des fondations sur lesquelles ils s'appuient pour bâtir leur propre module ;
-- *date de mise à jour* : une ou plusieurs versions majeures de Node sont-elles sorties entre temps ? Si oui, des *risques d'incompatibilité* peuvent se présenter. Certaines dépendances peuvent également être devenues obsolètes ou avoir présenté des failles de sécurité ;
-- *maintenance* : si personne ne met à jour le module alors que des contributions se présentent, cela peut se révéler bloquant, dénoter une *obsolescence* d'idée ou impliquer l'existence d'un _fork_ de ce module ;
-- *état des contributions* : les mainteneurs répondent-ils aux contributeurs ? Les contributions de code sont-elles acceptées dans des conditions légitimes ? Ou tout simplement, y a-t-il beaucoup de déclaration de bugs en suspens ? Telles sont les indicateurs de vitalité pour estimer la gravité et la probabilité que la librairie nous explose au visage lorsqu'on ne s'y attendra pas.
+- *documentation* : un fichier _README_ décrivant l'API ou une
+*documentation technique illustrée d'exemples* sont des exemples d'objectif de
+qualité aidant tant à l'utilisation qu'à la contribution du-dit module ;
+- *badge d'intégration continue* : la présence de tests est indispensable pour
+assurer une certaine qualité. Le badge d'intégration continue est un mécanisme
+supplémentaire pour démontrer l'*existence de tests* et leur *automatisation*
+lors de toute contribution de code ;
+- *dépendances* : l'existence de modules reposant sur un autre démontre une
+*marque de confiance* d'autres développeurs. Confiance suffisante dans la solidité
+des fondations sur lesquelles ils s'appuient pour bâtir leur propre module ;
+- *date de mise à jour* : une ou plusieurs versions majeures de Node sont-elles
+sorties entre temps ? Si oui, des *risques d'incompatibilité* peuvent se
+présenter. Certaines dépendances peuvent également être devenues obsolètes ou
+avoir présenté des failles de sécurité ;
+- *maintenance* : si personne ne met à jour le module alors que des contributions
+se présentent, cela peut se révéler bloquant, dénoter une *obsolescence* d'idée
+ou impliquer l'existence d'un _fork_ de ce module ;
+- *état des contributions* : les mainteneurs répondent-ils aux contributeurs ?
+Les contributions de code sont-elles acceptées dans des conditions légitimes ?
+Ou tout simplement, y a-t-il beaucoup de déclaration de bugs en suspens ?
+Telles sont les indicateurs de vitalité pour estimer la gravité et la
+probabilité que la librairie nous explose au visage lorsqu'on ne s'y attendra pas.
 
 .Page npm d'un module populaire et fiable
 image::images/module-npm-ok.png[width="85%"]
@@ -320,17 +345,21 @@ image::images/module-npm-ok.png[width="85%"]
 image::images/module-npm-ko.png[width="85%"]
 
 Enfin, n'oubliez pas qu'il s'agit de critères subjectifs.
-Les mainteneurs du module ne sont peut-être pas de bons communicants ou n'ont que peu d'expérience en termes de tests… ou ils n'ont tout simplement pas eu le temps. +
+Les mainteneurs du module ne sont peut-être pas de bons communicants ou n'ont
+que peu d'expérience en termes de tests ou ils n'ont tout simplement pas eu le temps. +
 N'hésitez pas à les encourager si vos expérimentations se révèlent concluantes.
 Contribuez des tests et de la documentation à hauteur de votre temps.
-Même s'il ne s'agit _que_ de cinq lignes de code, d'un exemple supplémentaire ou d'une faute d'orthographe en moins.
+Même s'il ne s'agit _que_ de cinq lignes de code, d'un exemple supplémentaire
+ou d'une faute d'orthographe en moins.
 
-C'est comme cela que l'écosystème s'améliore petit à petit… et que vous apprenez par la même occasion.
+C'est comme cela que l'écosystème s'améliore petit à petit et que vous apprenez
+par la même occasion.
 
 [TIP]
 .[RemarquePreTitre]#Communauté# Des personnes de confiance
 ====
-Des organisations et des individus contribuent activement à Node en mettant à disposition une large majorité de leurs créations.
+Des organisations et des individus contribuent activement à Node en mettant à
+disposition une large majorité de leurs créations.
 
 La liste suivante est non-exhaustive et référence des contributeurs de qualité :
 
@@ -348,13 +377,18 @@ La liste suivante est non-exhaustive et référence des contributeurs de qualit�
 
 == Exécuter les tests
 
-L'écriture de tests et la vérification de la qualité de votre code sont un excellent moyen de vous assurer que de nouveaux bugs ne sont pas introduits dans votre application.
+L'écriture de tests et la vérification de la qualité de votre code sont un excellent
+moyen de vous assurer que de nouveaux bugs ne sont pas introduits dans votre application.
 
-Écrire des modules et les empiler sans écrire de tests revient à construire un château de carte : le moindre changement accentue le risque de propager des erreurs dans toutes les applications en dépendant.
+Écrire des modules et les empiler sans écrire de tests revient à construire un
+château de carte : le moindre changement accentue le risque de propager des
+erreurs dans toutes les applications en dépendant.
 
-Nous verrons ultérieurement comment écrire des tests unitaires pour vos applications et votre code exécuté dans un contexte Web.
+Nous verrons ultérieurement comment écrire des tests unitaires pour vos
+applications et votre code exécuté dans un contexte Web.
 
-À la manière du démarrage d'une application, la commande npm fournit un contexte d'exécution dédié aux tests :
+À la manière du démarrage d'une application, la commande npm fournit un
+contexte d'exécution dédié aux tests :
 
 ----
 $ npm test
@@ -380,11 +414,15 @@ Cette commande effectue deux choses :
 }
 ----
 
-Dans cet exemple, exécuter la commande `npm test` revient à actionner l'exécutable déclaré par le module _mocha_ avec comme argument l'ensemble des fichiers JavaScript contenus dans le répertoire `tests/` de notre projet.
+Dans cet exemple, exécuter la commande `npm test` revient à actionner l'exécutable
+déclaré par le module _mocha_ avec comme argument l'ensemble des fichiers
+JavaScript contenus dans le répertoire `tests/` de notre projet.
 
-En cas de test fautif, l'exécutable de tests affichera des précisions quant à leur origine et se terminera avec un code de sortie différent de 0.
+En cas de test fautif, l'exécutable de tests affichera des précisions quant à
+leur origine et se terminera avec un code de sortie différent de 0.
 
-Ce qui signifie en jargon Unixien que vous pouvez chaîner la commande avec d'autres actions basées sur un état de réussite des tests :
+Ce qui signifie en jargon Unixien que vous pouvez chaîner la commande avec
+d'autres actions basées sur un état de réussite des tests :
 
 ----
 $ npm test && git push
@@ -395,7 +433,8 @@ Cette précédente commande a deux scénarios possibles :
 1. `npm test` échoue et `git push` ne sera pas exécuté ;
 2. `npm test` réussit et `git push` sera exécuté.
 
-En se basant sur ce principe de chaîne, vous pouvez faire évoluer votre commande de test en quelque chose de plus poussé :
+En se basant sur ce principe de chaîne, vous pouvez faire évoluer votre commande
+de test en quelque chose de plus poussé :
 
 [source]
 .package.json
@@ -416,7 +455,8 @@ En se basant sur ce principe de chaîne, vous pouvez faire évoluer votre comman
 ----
 
 La commande `npm test` est alors composée de deux autres commandes personnalisées.
-Vous maintenez ainsi une lisibilité au sein de votre fichier `package.json` tout en bénéficiant d'une indépendance d'exécution de vos commandes.
+Vous maintenez ainsi une lisibilité au sein de votre fichier `package.json`
+tout en bénéficiant d'une indépendance d'exécution de vos commandes.
 
 [[npm-outdated]]
 == Vérifier et mettre à jour les dépendances
@@ -424,49 +464,64 @@ Vous maintenez ainsi une lisibilité au sein de votre fichier `package.json` tou
 Maintenir ses dépendances à jour est important pour deux raisons :
 
 - *colmater des bugs* qui pourraient se répercuter sur votre application ;
-- se *prémunir de faille de sécurité* mettant en danger vos données et votre système informatique.
+- se *prémunir de faille de sécurité* mettant en danger vos données et votre
+système informatique.
 
-En dernier recours, vérifier la fraîcheur de ses dépendances permet de prendre connaissance de nouvelles versions majeures ou mineures dont vous pourriez bénéficier.
+En dernier recours, vérifier la fraîcheur de ses dépendances permet de prendre
+connaissance de nouvelles versions majeures ou mineures dont vous pourriez bénéficier.
 
-Quoi qu'il en soit, une commande npm nous aidera une fois de plus à obtenir les informations voulues :
+Quoi qu'il en soit, une commande npm nous aidera une fois de plus à obtenir les
+informations voulues :
 
 ----
 $ npm outdated
 ----
 
-La lecture de sa sortie peut être déroutante au premier abord, notamment dans le cas d'un module qui n'a pas été mis à jour via `npm update` depuis un moment :
+La lecture de sa sortie peut être déroutante au premier abord, notamment dans
+le cas d'un module qui n'a pas été mis à jour via `npm update` depuis un moment :
 
 .Résultats obsolètes issus de `npm outdated`
 image::images/npm-outdated.png[width="85%"]
 
-Le tableau ne liste que les dépendances considérées comme obsolètes en l'état actuel d'installation de votre projet.
-Il se peut donc que le résultat varie d'une machine à l'autre, en fonction des versions installées localement. +
+Le tableau ne liste que les dépendances considérées comme obsolètes en l'état
+actuel d'installation de votre projet.
+Il se peut donc que le résultat varie d'une machine à l'autre, en fonction des
+versions installées localement. +
 Les résultats sont divisés en cinq colonnes :
 
-- *Package* : nom du paquet concerné — en jaune une dépendance qui sera satisfaite en cas de `npm update`, en rouge une dépendance qui nécessite une mise à jour manuelle ;
-- *Current* : version installée localement — _MISSING_ sera affiché si la dépendance n'est pas encore installée, _git_ indique que la dépendance est installée via git ;
+- *Package* : nom du paquet concerné — en jaune une dépendance qui sera
+satisfaite en cas de `npm update`, en rouge une dépendance qui nécessite une mise à jour manuelle ;
+- *Current* : version installée localement — _MISSING_ sera affiché si la
+dépendance n'est pas encore installée, _git_ indique que la dépendance est installée via git ;
 - *Wanted* : version installée après exécution de `npm update` ;
 - *Latest* : version la plus récente publiée dans le registre npm ;
-- *Location* : emplacement de la dépendance — dépendance directe ou dépendance incluse dans une autre dépendance, etc.
+- *Location* : emplacement de la dépendance — dépendance directe ou dépendance
+incluse dans une autre dépendance, etc.
 
 [TIP]
 .[RemarquePreTitre]#Remarque# Et si une dépendance n'est pas listée ?
 ====
-Toute dépendance listée dans le fichier `package.json` mais absente du tableau est considérée comme à jour.
+Toute dépendance listée dans le fichier `package.json` mais absente du tableau
+est considérée comme à jour.
 ====
 
-La première action à mener est de procéder à l'exécution de la commande `npm update`, puis de relancer la commande `npm outdated` :
+La première action à mener est de procéder à l'exécution de la commande
+`npm update`, puis de relancer la commande `npm outdated` :
 
 .Résultats `npm outdated` après mise à jour
 image::images/npm-outdated-wanted.png[width="85%"]
 
-Le résultat est probant : de nombreuses dépendances précédemment listées en rouge ont disparu.
-Il ne reste que trois dépendances sur lesquelles nous pouvons avoir une action directe en modifiant la version référencée dans le fichier `package.json`.
+Le résultat est probant : de nombreuses dépendances précédemment listées en rouge
+ ont disparu.
+Il ne reste que trois dépendances sur lesquelles nous pouvons avoir une action
+directe en modifiant la version référencée dans le fichier `package.json`.
 
-Pour forcer l'installation de la version correspondant à la colonne _Latest_ de la commande `npm outdated`, il suffit d'utiliser le suffixe `@latest` lors de l'installation :
+Pour forcer l'installation de la version correspondant à la colonne _Latest_ de
+la commande `npm outdated`, il suffit d'utiliser le suffixe `@latest` lors de
+l'installation :
 
 ----
-$ npm install --save-dev mocha@latest karma@latest …
+$ npm install --save-dev mocha@latest karma@latest
 ----
 
 Et ainsi de suite pour les autres dépendances de premier niveau.
