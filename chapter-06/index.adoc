@@ -405,10 +405,35 @@ avoir lu la section <<startup,démarrer automatiquement nos applications>>.
 La recette de déploiement est la manière la plus complète de partager et
 d'automatiser un déploiement complexe.
 
-////
-- Ansible
-////
+----
+$ ansible-playbook  -i ansible/inventory.yaml ansible/playbook.yaml
 
+PLAY [webservers] *******************************
+
+TASK [Gathering Facts] **************************
+ok: [ssh-moncompte.alwaysdata.net]
+
+TASK [code source via git] **********************
+ok: [ssh-moncompte.alwaysdata.net]
+
+TASK [mise à jour des modules npm] **************
+ok: [ssh-moncompte.alwaysdata.net]
+
+PLAY RECAP **************************************
+ssh-moncompte.alwaysdata.net : ok=3
+----
+
+[source,yml]
+.ansible/playbook.yaml
+----
+include::{sourceDir}/ansible/playbook.yaml[]
+----
+
+[source,yml]
+.ansible/inventory.yaml
+----
+include::{sourceDir}/ansible/inventory.yaml[]
+----
 
 [[deploy.docker]]
 === En publiant une image Docker
