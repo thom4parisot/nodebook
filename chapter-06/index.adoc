@@ -3,6 +3,7 @@
 :sourceDir: ./examples
 :sourceSample: TODO.js
 :nodeCurrentVersion: v8
+:v: 8
 :nodeNextVersion: v9
 :npmCurrentVersion: v5
 :sectnums:
@@ -285,7 +286,7 @@ La commande `heroku git:remote` associe notre copie locale Git à cette applicat
 
 .Configuration de notre dépôt Git pour en faire une application Heroku.
 ----
-$ heroku apps:create mon-application --region eu
+$ heroku apps:create --region eu mon-application
 $ heroku git:remote --app mon-application
 ----
 
@@ -479,7 +480,7 @@ Les tâches sont réplicables sur les serveurs listés dans un fichier d'inventa
 include::{sourceDir}/ansible/inventory.yaml[]
 ----
 
-Là, nous déployons sur un seul serveur.
+Nous déployons sur un seul serveur dans ce cas de figure.
 Mais nous pourrions tout à fait déployer une même application avec la même
 configuration sur une dizaine de serveurs (application à fort traffic)
 ou une même application déployée chez plusieurs centaines de clients.
@@ -490,11 +491,84 @@ machines, avec peu de chances d'oublier une opération et une plus grande facili
 [[deploy.docker]]
 === En publiant une image Docker
 
-now
-https://devcenter.heroku.com/articles/container-registry-and-runtime
-https://aws.amazon.com/ecr/
+Une image Docker est un moyen fiable de reproduire le même environnement
+applicatif et ses dépendances sur plusieurs systèmes d'exploitation
+— y compris Windows, Linux et macOS.
 
-TBD.
+Un des objectifs de Node est de pouvoir faire fonctionner un script
+sur tout système d'exploitation compatible.
+Docker ([URL]#https://www.docker.com#) pousse cette compatibilité plus
+loin en empaquetant tout ce qui est nécessaire au bon fonctionnement
+de l'application (dépendances, logiciels).
+Le mécanisme d'exécution aide à la fois à orchestrer plusieurs images entre elles
+— y compris bases de données et moteurs de recherche — et de pouvoir
+revenir dans le même état applicatif qu'au démarrage de celle-ci.
+
+Voici un exemple d'image Docker :
+
+[subs="+attributes"]
+.Dockerfile
+----
+include::{sourceDir}/Dockerfile[]
+----
+
+Nous pouvons constater que l'on choisit un environnement Node initial (`FROM`),
+puis un répertoire de travail avant de procéder à la copie des fichiers
+applicatifs vers l'image (`COPY`).
+Suite à ça nous installons aussi les dépendances de l'application et spécifions
+quelle commande effectuer lorsque l'image Docker est lancée (`CMD`).
+
+Nous pouvons la tester sur notre ordinateur si Docker est installé :
+
+----
+$ docker build -t nodebook/demo .
+$ docker run -ti --rm -p 4000:4000 nodebook/demo
+$ curl -L http://localhost:4000
+----
+
+Nous avons déjà parlé de l'<<deploy.cli,outil en ligne de commande>>
+du service _now_ ([URL]#https://zeit.co/now#) dans la section du même nom.
+Il est aussi capable de déployer une application à partir d'un fichier `Dockerfile`
+en utilisant l'option `--docker` :
+
+----
+$ now <i>--docker</i> --public
+> Deploying ~/.../examples under oncletom
+> https://examples-zlssezfiej.now.sh [in clipboard] (bru1) [7s]
+> Synced 1 file (156B) [7s]
+> Building…
+> ▲ docker build
+> Sending build context to Docker daemon 17.92 kBkB
+> ▲ Storing image
+> Build completed
+> Verifying instantiation in bru1
+> ✔ Scaled 1 instance in bru1 [18s]
+> Success! Deployment ready
+----
+
+Une autre solution consiste à publier notre image sur _Docker Hub_
+([URL]#https://hub.docker.com#), la plate-forme officielle de partage d'images
+Docker.
+Elle dispose notamment d'une fonctionnalité d'empaquetage automatique via
+GitHub.
+À chaque nouveau commit, Docker Hub construit l'image et la met à disposition.
+
+.Création d'un _build_ automatisé à partir d'un dépôt GitHub.
+image::images/docker-automated-build.png[width="85%"]
+
+Il ne reste alors plus qu'à la collecter sur votre ordinateur, serveur hébergé
+ou <<deploy.ci,service d'intégration continue>>.
+
+[NOTE]
+.[RemarquePreTitre]#Avancé# Amazon Elastic Container Registry
+====
+Le <<hosting.cloud,fournisseur _cloud_>> Amazon Web Services intègre
+un registre privé d'images Docker pour chaque compte client.
+
+_Elastic Container Registry_ (ECR, [URL]#https://aws.amazon.com/ecr/#)
+se connecte à d'autres services comme _Amazon CodeDeploy_ pour déclencher
+des mises à jour d'infrastructure à chaque nouvelle image Docker.
+====
 
 
 [[deploy.ci]]
@@ -1162,7 +1236,9 @@ https://uptimerobot.com/
 .Message d'erreur du serveur _nginx_ lorsque l'application Node ne répond plus.
 image::images/nginx-proxy-error.png[width="85%"]
 
-  On cherchera entres autres à tester la réaction de notre code face à des erreurs provoquées volontairement.
+On cherchera entres autres à tester la réaction de notre code face à
+des erreurs provoquées volontairement.
+
 * *ressources indisponibles* +
   Il arrive aussi que notre code ne soit pas incriminé mais que la base de
   données devienne inaccessible pendant l'exécution de notre application.

@@ -7,6 +7,7 @@ Ce journal détaille l'effort d'écriture depuis janvier 2017.
 
 - _Chapitre 4_ : application des corrections suite aux revues de texte
 - _Chapitre 6_ : déployer avec une recette de déploiement
+- _Chapitre 6_ : déployer avec une image Docker
 
 **Météo** : 😕 😊 💪
 

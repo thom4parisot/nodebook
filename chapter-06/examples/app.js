@@ -2,25 +2,17 @@
 
 const express = require('express');
 const getPokemonName = require('pokemon-random-name');
-const app = express();
 const PORT = (process.env.PORT || 4000);
+const app = express();
 
-app.get('/', (req, res) => res.redirect('/pokemon'));
-app.get('/pokemon', (req, res) => {
-  return res.send(`[cluster #${process.env.pm_id}] ${getPokemonName()}`);
+app.get('/', (reqquest, response) => {
+  response.redirect('/pokemon');
 });
 
-app.get('/crash', () => {
-  throw new Error('Crash applicatif.');
-});
+app.get('/pokemon', (request, response) => {
+  response.set('Content-Type', 'text/plain; charset=utf-8');
 
-app.use((err, req, res, next) => {
-  if (err) {
-    console.error(err);
-    process.exit(1);
-  }
-
-  next();
+  return response.send(getPokemonName());
 });
 
 app.listen(PORT, console.log(`http://localhost:${PORT}`));
