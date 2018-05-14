@@ -140,8 +140,8 @@ L’épreuve est soumise à la licence [Creative Commons NC-BY-SA][cc-nc-by-sa] 
 
 Les exemples de code sont placés sous la [licence MIT][].
 
-[ci-linux]: https://travis-ci.org/oncletom/nodebook.svg
-[ci-windows]: https://ci.appveyor.com/api/projects/status/crewvvqeybl8f16c?svg=true
+[ci-linux]: https://travis-ci.org/oncletom/nodebook.svg?branch=master
+[ci-windows]: https://ci.appveyor.com/api/projects/status/crewvvqeybl8f16c?svg=true&amp;branch=master
 [journal de bord]: JOURNAL.md
 [livre-web]: https://oncletom.io/node.js
 [livre-npm]: https://npmjs.com/nodebook

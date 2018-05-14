@@ -192,7 +192,7 @@ module.exports = {
     stdout: /La copie vers .+example-copy.js s'est bien passée./,
   },
   'chapter-04/examples/fs/intro.js': {
-    stdout: /fs.readFile\(__filename/,
+    stdout: /"name": "[^"]+"[\s\S]+"version": "[^"]+"/,
   },
   'chapter-04/examples/fs/ls.js': {
     stdout: /package.json/,
