@@ -3,6 +3,19 @@
 Le projet a commencé en décembre 2014.
 Ce journal détaille l'effort d'écriture depuis janvier 2017.
 
+## Lundi 14 mai 2018 • Bordeaux
+
+- _Chapitre 4_ : application des corrections suite aux revues de texte
+- _Chapitre 6_ : déployer avec une recette de déploiement
+
+**Météo** : 😕 😊 💪
+
+## Dimanche 13 mai 2018 • Bordeaux
+
+- _Chapitre 4_ : revue de texte avec [Stéphane](http://scopyleft.fr/)
+
+**Météo** : 😕 🍞 🗣
+
 ## Samedi 12 mai 2018 • Bordeaux
 
 - _Chapitre 6_ : déployer en faisant `git push` depuis sa machine (_take 2_)

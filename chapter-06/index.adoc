@@ -179,8 +179,7 @@ en recopiant `oncletom/nodebook` dans l'invite de saisie.
 
 La <<paas,plate-forme de services>> Heroku ([URL]#https://heroku.com#)
 pousse l'import GitHub un peu plus loin.
-Sa fonctionnalité _déploie_ l'application à chaque nouveau commit sur une branche
-d'un projet auquel on participe.
+Sa fonctionnalité _déploie_ l'application à chaque nouveau commit.
 L'application redémarre ensuite automatiquement pour prendre les changements en compte.
 
 .Paramétrage de déploiement automatisé depuis un dépôt GitHub sur heroku.com.
@@ -188,8 +187,7 @@ image::images/heroku-github-import.png[width="85%"]
 
 Une option nous permet de déployer une nouvelle version de l'application
 à la suite d'une <<deploy.ci,intégration continue réussie>>.
-Nous réduisons ainsi les risques de déployer une version défectueuse
-qui planterait aussitôt.
+Nous réduisons ainsi les risques de déployer une version défectueuse.
 
 
 [[deploy.cli]]
@@ -280,10 +278,10 @@ L'outil se télécharge sur
 $ heroku login
 ----
 
-La commande `heroku apps:create` crée une nouvelle chez Heroku.
-On pourrait faire la même chose avec un navigateur web en nous rendant sur
+La commande `heroku apps:create` crée une nouvelle application chez Heroku.
+On peut faire la même chose dans un navigateur web en nous rendant sur
 [URL]#https://dashboard.heroku.com/new-app#.
-La commande `heroku git:remote` associe notre copie à cette application :
+La commande `heroku git:remote` associe notre copie locale Git à cette application :
 
 .Configuration de notre dépôt Git pour en faire une application Heroku.
 ----
@@ -291,22 +289,22 @@ $ heroku apps:create mon-application --region eu
 $ heroku git:remote --app mon-application
 ----
 
-Il ne nous reste plus qu'à <<deploy.git,pousser les changements>>.
+Il ne nous reste plus qu'à <<deploy.git,pousser notre code avec Git>>
+pour terminer la mise en ligne.
 
 [[deploy.git]]
 === En faisant `git push` depuis sa machine
 
 Le déploiement d'une branche Git est le moyen le plus facile d'automatiser
-un déploiement.
+tous les aspects d'un déploiement.
 
-Cette méthode de déploiement est celle privilégiée par les
-<<paas,plates-formes de services>> comme Heroku, Gandi et Clever Cloud.
+Cette méthode est privilégiée par les <<paas,plates-formes de services>>
+comme _Heroku_, _now_ et _Clever Cloud_.
 Chaque projet d'application est accessible via un dépôt Git distant
 (_remote_) : un dépôt est utilisé pour versionner notre code (GitHub par exemple)
 tandis qu'un autre dépôt est utilisé pour réceptionner le code à déployer.
 
-Illustrons un déploiement avec Heroku.
-Cet exemple part du principe que notre terminal est positionné dans un
+L'exemple suivant part du principe que notre terminal est positionné dans un
 répertoire qui est un projet Git contenant au moins 1 commit.
 Vous avez déjà configuré le dépôt distant à l'aide de
 l'<<deploy.cli,outil de déploiement>> Heroku (cf. section précédente).
@@ -317,13 +315,13 @@ commande `git remote` :
 .Liste des dépôts distants d'un projet Git configuré pour Heroku.
 ----
 $ git remote -v
-heroku	https://git.heroku.com/mon-application.git (fetch)
-heroku	https://git.heroku.com/mon-application.git (push)
+<i>heroku</i>	https://git.heroku.com/mon-application.git (fetch)
+<i>heroku</i>	https://git.heroku.com/mon-application.git (push)
 origin	git@github.com:mon-compte/mon-application.git (fetch)
 origin	git@github.com:mon-compte/mon-application.git (push)
 ----
 
-Dans le cas d'Heroku, la commande `heroku git:remote` crée un `remote` nommé
+Dans le cas d'Heroku, la commande `heroku git:remote` crée un _remote_ nommé
 `heroku`.
 Heroku redéploie notre application dès qu'on lui envoie du code en faisant
 `git push heroku` :
@@ -343,15 +341,16 @@ $ git push heroku
 > remote: -----> Creating runtime environment
 > ...
 > remote: -----> Launching...
-> remote:        Released v30
+> remote:        Released v30                     // <1>
 > remote:        https://mon-application.herokuapp.com/ deployed
 > remote:
 > remote: Verifying deploy... done.
 ----
+<1> C'est le trentième déploiement — on peut revenir à une version antérieure si nécessaire.
 
 L'URL de l'application est rappelée dans les _logs_ du déploiement. +
-En cas d'erreur, la précédente version de l'application reste en ligne.
-Nous avons ainsi le temps de corriger le problème sans interrompre le service.
+En cas d'erreur, la version précédente de l'application reste en ligne.
+Nous avons ainsi le temps de corriger le problème sans interruption de service.
 
 [[deploy.clone]]
 === En faisant `git pull` lors d'une session SSH
@@ -401,6 +400,27 @@ avoir lu la section <<startup,démarrer automatiquement nos applications>>.
 La recette de déploiement est la manière la plus complète de partager et
 d'automatiser un déploiement complexe.
 
+Cette méthode se place dans la continuité de
+<<deploy.clone,`git pull` lors d'une session SSH>> : nous orchestrons les
+actions nécessaires au déploiement en les listant dans un
+fichier de configuration, en choisissant dans quel ordre les déclencher
+et sur quel(s) serveur(s).
+
+Nous retrouvons _Puppet_ ([URL]#https://puppet.com#),
+_Chef_ ([URL]#https://www.chef.io#) et _Ansible_ ([URL]#https://ansible.com#)
+parmi les outils les plus utilisés et les mieux documentés.
+Ils ont chacun une philosophie de configuration et d'exécution différente
+— l'idéal est encore d'essayer d'écrire une première recette avec chacun d'entre
+eux pour voir celui qui vous semble le plus naturel à utiliser.
+
+Ma préférence va vers _Ansible_ car il s'installe facilement sur macOS et Linux,
+se configure avec une syntaxe que je connais déjà (_YAML_) et j'ai trouvé
+les messages d'erreurs informatifs.
+
+L'exemple suivant illustre le déploiement de l'application Node _Slackin_
+([URL]#https://github.com/rauchg/slackin#) sur
+l'<<hosting.shared,hébergement mutualisé>> alwaysdata :
+
 ----
 $ ansible-playbook  -i ansible/inventory.yaml ansible/playbook.yaml
 
@@ -419,17 +439,53 @@ PLAY RECAP **************************************
 ssh-moncompte.alwaysdata.net : ok=3
 ----
 
+La commande précédente a eu pour effet de créer des connexions SSH avec les
+machines listées dans le fichier `inventory.yaml` puis de jouer les actions
+listées dans le fichier `playbook.yaml`.
+
+[horizontal]
+.Concepts importants d'Ansible
+Inventaire::
+  *Liste de serveurs connus* sur lesquels effectuer des déploiements. +
+  Les serveurs peuvent être catégorisés (par type, par emplacement)
+  pour contrôler finement les actions à déclencher.
+  Par exemple : uniquement les serveurs web de production,
+  les bases de données de test, l'API de la région Europe.
+Playbook::
+  *Liste des actions possibles* en fonction des types de serveurs. +
+  Ces actions peuvent être rejouées à l'infini et de manière prédictible.
+
+Le _playbook_ suivant illustre 2 tâches appliquées uniquement sur
+les serveurs étiquetés dans notre _inventaire_ en tant que `webservers` :
+
 [source,yml]
 .ansible/playbook.yaml
 ----
 include::{sourceDir}/ansible/playbook.yaml[]
 ----
+<1> Actions Git — pour en savoir plus [URL]#https://docs.ansible.com/ansible/2.5/modules/git_module#.
+<2> Adresse du dépôt Git à récupérer.
+<3> Indique de cloner le dépôt s'il n'est pas déjà présent.
+<4> Indique de récupérer les commits du dépôt en faisant `git pull`.
+<5> Actions npm — pour en savoir plus [URL]#https://docs.ansible.com/ansible/2.5/modules/npm_module#.
+<6> Indique d'installer les dépendances npm en faisant `npm install`.
+<7> Indique de lancer la mise en jour des modules npm avec l'option `--production` — c'est à dire sans les dépendances listées dans le champ `devDependencies`.
+
+Les tâches sont réplicables sur les serveurs listés dans un fichier d'inventaire :
 
 [source,yml]
 .ansible/inventory.yaml
 ----
 include::{sourceDir}/ansible/inventory.yaml[]
 ----
+
+Là, nous déployons sur un seul serveur.
+Mais nous pourrions tout à fait déployer une même application avec la même
+configuration sur une dizaine de serveurs (application à fort traffic)
+ou une même application déployée chez plusieurs centaines de clients.
+Dans tous les cas, l'application serait dans un état consistant sur toutes les
+machines, avec peu de chances d'oublier une opération et une plus grande facilité
+à revenir en arrière.
 
 [[deploy.docker]]
 === En publiant une image Docker
@@ -655,7 +711,7 @@ TBD.
 
 
 
-== Améliorer la portabilité
+== Améliorer la portabilité de notre application
 
 Cette section va nous aider à préparer notre application Node pour l'exécuter
 sur *d'autres environnements* que notre machine de développement sans changer

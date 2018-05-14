@@ -2,13 +2,13 @@
 - hosts: webservers
   tasks:
     - name: code source via git
-      git:
-        repo: "https://github.com/rauchg/slackin.git"
+      git:                                            // <1>
+        repo: "https://github.com/rauchg/slackin.git" // <2>
         dest: "{{ ansible_env.HOME }}"
-        clone: yes
-        update: yes
+        clone: yes                                    // <3>
+        update: yes                                   // <4>
     - name: mise à jour des modules npm
-      npm:
-        state: latest
+      npm:                                            // <5>
+        state: present                                // <6>
         path: "{{ ansible_env.HOME }}"
-        production: true
+        production: true                              // <7>
