@@ -19,7 +19,7 @@ module.exports = function bash$Extension () {
         const lines = block.lines.map(line => {
           if (line.match(dollar_regexp)) {
             line = line.replace(dollar_regexp, (match, dollar, command) => {
-              const d = block.$sub_specialchars(command);
+              const d = command; //block.$sub_specialchars(command);
               isModified = true;
 
               return `<span data-bash-subs="${dollar}"></span>${d}`;
