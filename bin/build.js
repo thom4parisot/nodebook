@@ -18,7 +18,7 @@ var DEFAULT_ATTRIBUTES = [
   'important-caption=‼️',
   'webfonts!',
   'stylesheet=main.css',
-  `stylesdir=${__dirname}/../src`,
+  `stylesdir=${join(__dirname, '..', 'src')}`,
   'note-caption=💬',
   'tip-caption=💡',
   'warning-caption=🚨',
