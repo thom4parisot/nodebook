@@ -141,7 +141,7 @@ image::images/cloud9-configuration.png[width="85%"]
 _Cloud9_ a peu d'opinions sur la manière dont votre environnement
 doit être configuré.
 Tout devra être configuré, des accès à votre compte _GitHub_
-jusqu'à… la version de Node à installer.
+y compris la version de Node à installer.
 
 .Espace de travail sur _Cloud9_.
 image::images/cloud9-workspace.png[width="85%"]
@@ -245,11 +245,13 @@ J'utilise principalement ces commandes :
 
 Les distributions Linux et Debian listent Node dans leurs paquets officiels.
 Un simple `apt-get install nodejs` et ça fonctionne !
-… Ou presque : bien souvent on écopera d'une vieille version de Node.
+Ou presque car bien souvent on écopera d'une vieille version de Node.
 
-Des paquets officiels pour Debian, Ubuntu, Mint, RedHat Enterprise Linux (RHEL) et CentOS sont maintenus sur [URL]#https://github.com/nodesource/distributions#.
+Des paquets officiels pour Debian, Ubuntu, Mint, RedHat Enterprise Linux (RHEL)
+et CentOS sont maintenus sur [URL]#https://github.com/nodesource/distributions#.
 
-L'installation de node {v}.x sous Ubuntu et Mint devient aussi simple que les deux commandes suivantes :
+L'installation de node {v}.x sous Ubuntu et Mint devient aussi simple que les
+deux commandes suivantes :
 
 [subs="+attributes"]
 ----
@@ -360,7 +362,9 @@ $ choco install nodejs
 Node n'est pas compatible avec les versions antérieures à Windows Vista.
 Cela inclut Windows XP.
 
-Mieux vaudra utiliser un <<online,service en ligne>> pour essayer Node en toute sécurité sur votre ordinateur… ou passer à Linux pour lui redonner une seconde vie en toute sécurité !
+Mieux vaudra utiliser un <<online,service en ligne>> pour essayer Node en toute
+sécurité sur votre ordinateur ou passer à Linux pour lui redonner une seconde
+vie en toute sécurité !
 ====
 
 [[install-rpi]]
@@ -549,7 +553,7 @@ _Atom_ ([URL]#https://atom.io#) est un éditeur de code open-source,
 multilingue et multi plate-forme dont le développement a été initié
 par la société commerciale _GitHub_ ([URL]#http://github.com#).
 Le logiciel est basé sur _Electron_, un environnement d'exécution
-d'applications de bureau reposant sur les technologies web et… sur Node !
+d'applications de bureau reposant sur les technologies web et sur Node !
 
 _Atom_ offre un écosystème d'extensions pour étendre les fonctionnalités de l'éditeur.
 On retrouvera des extensions dédiées à l'auto-complétion,
@@ -631,7 +635,7 @@ _Visual Studio Code_ ([URL]#https://code.visualstudio.com#)
 est un éditeur de code open-source, multilingue et multi plate-forme
 dont le développement a été initié par la société _Microsoft_.
 Le logiciel est basé sur _Electron_, un environnement d'exécution
-d'applications de bureau reposant sur les technologies web et… sur Node !
+d'applications de bureau reposant sur les technologies web et sur Node !
 
 Le système _IntelliSense_ est un de ses atouts principaux.
 Il se sert du contexte disponible pour offrir une auto-complétion
@@ -730,7 +734,7 @@ mal intentionnées.
 Elles seraient tentées d'accéder sans permission à des serveurs,
 et donc aux données qu'ils contiennent.
 
-L'impact peut être faible pour un site perso… à condition de ne pas laisser
+L'impact peut être faible pour un site perso à condition de ne pas laisser
 trainer de mots de passe ici et là.
 Cela peut se révéler beaucoup plus fâcheux pour un site e-commerce
 ou une entreprise dont la santé serait mise en jeu.

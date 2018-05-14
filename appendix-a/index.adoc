@@ -90,9 +90,13 @@ Un autre mécanisme permet d'inclure et d'étendre un ou plusieurs  fichiers de 
 .[RemarquePreTitre]#Bon à savoir# Règles par défaut
 ====
 *eslint* n'applique aucune règle par défaut.
-Ses premières utilisations nécessiteront donc de prendre connaissance des règles à disposition … ou d'opter pour un module _npm_ définissant une configuration _à votre goût_.
+Ses premières utilisations nécessiteront donc de prendre connaissance des
+règles à disposition ou d'opter pour un module _npm_ définissant une
+configuration _à votre goût_.
 
-En effet si certaines règles nous alertent de dangers potentiels, d'autres sont totalement subjectives et sujettes à des préférences purement personnelles.
+En effet si certaines règles nous alertent de dangers potentiels,
+d'autres sont totalement subjectives et sujettes à des préférences
+purement personnelles.
 ====
 
 *eslint* lit la section `eslintConfig` du fichier `package.json` pour adapter son comportement. +
@@ -231,8 +235,8 @@ $ cssmin sample.css > sample.min.css # <1>
 
 $ cat sample.css | cssmin | wc -c | awk '{print $1}' # <2>
 ----
-<1> Exporte le résultat de la minification dans le fichier `sample.min.css`
-<2> Utilisation des *pipes* UNIX pour afficher le nombre de caractères d'une version minifiée de `sample.css`
+<1> Exporte le résultat de la minification dans le fichier `sample.min.css`.
+<2> Utilisation des *pipes* UNIX pour afficher le nombre de caractères d'une version minifiée de `sample.css`.
 
 **UglifyJS** ([URL]#https://npmjs.com/uglify-js2#) est un des premiers compresseurs à utiliser une  représentation syntaxique en arbre (_Abstract Syntax Tree_ — _AST_) en lieu et place des classiques optimisations à coups d'expressions régulières.
 
@@ -277,20 +281,28 @@ $ autoprefixer -b 'firefox > 8' -o - sample.css | grep transition
 L'exemple précédent illustre comment la propriété `transition` a été préfixée pour couvrir les navigateurs ayant plus de 1% de part de marché, puis en incluant les versions supérieures à Firefox 8 — assez obsolètes il faut se l'avouer. +
 L'utilisation du paramètre `-o -` (_o_ pour _output_) suivi du caractère _trait d'union_ redirige le code réécrit en _sortie standard_ au lieu de modifier le fichier originel.
 
-*uncss* ([URL]#https://npmjs.com/uncss#) est le pendant inverse d'_autoprefixer_ puisqu'il se charge de supprimer le code … mort.
-Pour se faire, _uncss_ charge une ou plusieurs pages de référence et fait la différence entre les règles CSS utilisées … et celles qui ne le sont pas.
-Libre à vous de mentionner une liste blanche de règles à ne jamais supprimer pour éviter qu'elles soient écrémées par mégarde.
+*uncss* ([URL]#https://npmjs.com/uncss#) est le pendant inverse d'_autoprefixer_
+puisqu'il se charge de supprimer le code inutilisé.
+Pour se faire, _uncss_ charge une ou plusieurs pages de référence et fait la
+différence entre les règles CSS utilisées et celles qui ne le sont pas.
+Libre à vous de mentionner une liste blanche de règles à ne jamais supprimer
+pour éviter qu'elles soient écrémées par mégarde.
 
-Si le monde de l'optimisation ECMAScript a explosé depuis l'apparition d'*esprima*, il en est de même pour CSS avec *PostCSS* ([URL]#https://npmjs.com/postcss#). +
+Si le monde de l'optimisation ECMAScript a explosé depuis l'apparition d'*esprima*,
+il en est de même pour CSS avec *PostCSS* ([URL]#https://npmjs.com/postcss#). +
 Cet outil est construit autour du triptyque suivant :
 
 - un parseur CSS ;
 - un arbre syntaxique ;
 - un compilateur texte.
 
-Cette combinaison rend possible la production de _Source Maps_ mais aussi la construction d'une multitude d'outils destinés à faciliter la vie des développeurs.
-Ces outils se greffent sur le parseur, l'arbre ou le compilateur pour parvenir à leurs fins. +
-Avec une ou plusieurs extensions, vous avez ainsi accès à *autoprefixer*, à votre nettoyeur de code mort ou même à votre propre réimplémentation de Sass … entièrement en ECMAScript !
+Cette combinaison rend possible la production de _Source Maps_ mais aussi la
+construction d'une multitude d'outils destinés à faciliter la vie des développeurs.
+Ces outils se greffent sur le parseur, l'arbre ou le compilateur pour parvenir
+à leurs fins. +
+Avec une ou plusieurs extensions, vous avez ainsi accès à *autoprefixer*, à
+votre nettoyeur de code mort ou même à votre propre réimplémentation de Sass
+entièrement en ECMAScript !
 
 Enfin, il est bon de savoir que d'autres outils existent, complètent voire remplacent les compresseurs et optimiseurs précédemment cités :
 
@@ -322,12 +334,13 @@ Compatible Node et navigateurs Web. +
 ----
 include::{sourceDir}/npm/lodash.js[]
 ----
-<1> Affiche `['A', 'B', 'C', 'D']`
+<1> Affiche `['A', 'B', 'C', 'D']`.
 
 === string
 
 _string_ est un utilitaire de manipulation de chaînes de caractère.
-Le module fournit des méthodes pour échapper, nettoyer, tronquer, remplacer, compter… entre autres.
+Le module fournit des méthodes pour échapper, nettoyer, tronquer, remplacer,
+compter, entre autres.
 
 Compatible Node et navigateurs Web. +
 [URL]#https://npmjs.com/string#
@@ -337,9 +350,9 @@ Compatible Node et navigateurs Web. +
 ----
 include::{sourceDir}/npm/string.js[]
 ----
-<1> `blog-post`
-<2> `<h1>Blog Post</h1>`
-<3> `\&lt;h1\&gt;Blog Post\&lt;/h1\&gt;`
+<1> Affiche `blog-post`.
+<2> Affiche `<h1>Blog Post</h1>`.
+<3> Affiche `\&lt;h1\&gt;Blog Post\&lt;/h1\&gt;`.
 
 === moment
 
@@ -354,9 +367,9 @@ Compatible Node et navigateurs Web. +
 ----
 include::{sourceDir}/npm/moment.js[]
 ----
-<1> Affiche `2014-09-10T23:00:00.000Z`
-<2> Affiche `13/09/14`
-<3> Affiche `2 jours`
+<1> Affiche `2014-09-10T23:00:00.000Z`.
+<2> Affiche `13/09/14`.
+<3> Affiche `2 jours`.
 
 === eventemitter3
 
@@ -370,10 +383,10 @@ Compatible Node et navigateurs Web. +
 ----
 include::{sourceDir}/npm/eventemitter3.js[]
 ----
-<1> Affiche `[ [Function], [Function] ]`
-<2> Affiche `on: ping,ping\nonce: ping,ping`
-<3> Affiche `on: ping,ping`
-<4> N'affiche rien, l'événement étant désormais déconnecté
+<1> Affiche `[ [Function], [Function] ]`.
+<2> Affiche `on: ping,ping\nonce: ping,ping`.
+<3> Affiche `on: ping,ping`.
+<4> N'affiche rien, l'événement étant désormais déconnecté.
 
 == Système de fichier
 
@@ -411,7 +424,7 @@ Sa syntaxe équivalente à ce qui se fait dans le monde UNIX évite une écritur
 ----
 include::{sourceDir}/npm/glob.js[]
 ----
-<1> Affiche un tableau contenant la liste des fichiers du répertoire courant
+<1> Affiche un tableau contenant la liste des fichiers du répertoire courant.
 
 === fs-extra
 
@@ -455,7 +468,7 @@ Les auteurs de _knex_ ont également créé la surcouche _bookshelf_ pour la par
 ----
 include::{sourceDir}/npm/knex.js[]
 ----
-<1> Affiche `[ { id: 1, title: 'Node.js ', created_at: '2015-10-09 16:06:17' } ]`
+<1> Affiche `[ { id: 1, title: 'Node.js ', created_at: '2015-10-09 16:06:17' } ]`.
 
 L'exemple précédent se charge de créer une table dans une base de données SQLite, puis y insère trois nouveaux enregistrements.
 
@@ -471,7 +484,7 @@ Il vous aidera à composer vos modèles, gérer la connexion à la base de donn�
 ----
 include::{sourceDir}/npm/mongoose.js[]
 ----
-<1> Affiche `3 enregistrements créés`
+<1> Affiche `3 enregistrements créés`.
 
 === levelup
 
@@ -715,7 +728,7 @@ Aux fonctionnalités précédemment listées s'ajoutent une prise en charge plus
 ----
 include::{sourceDir}/npm/browserify.js[]
 ----
-<1> Affiche `Open Sky`
+<1> Affiche `Open Sky`.
 
 [source,javascript]
 .package.json

@@ -69,12 +69,8 @@ rendant sur [URL]#https://runkit.com/new# :
 ----
 include::{sourceDir}/runkit-endpoint.js[]
 ----
-<1> Le module npm [URL]#https://npmjs.com/pokemon-random-name# exporte une
-fonction qui retourne un nom aléatoire de Pokémon.
-<2> `exports.endpoint` est spécifique à RunKit et accepte une fonction
-identique à l'événement `server.on('request')` du
-<<../chapter-04/index.adoc#http,module `http`>>
-(<<../chapter-04/index.adoc#,chapitre 4>>).
+<1> Le module npm [URL]#https://npmjs.com/pokemon-random-name# exporte une fonction qui retourne un nom aléatoire de Pokémon.
+<2> `exports.endpoint` est spécifique à RunKit et accepte une fonction identique à l'événement `server.on('request')` du <<../chapter-04/index.adoc#http,module `http`>> (<<../chapter-04/index.adoc#,chapitre 4>>).
 
 Une fois sauvegardé et après avoir cliqué sur le lien *endpoint*,
 un nouvel onglet s'ouvre et affiche un nom aléatoire de Pokémon.
@@ -222,10 +218,10 @@ Deploying ~/workspace/dtc-innovation/food-coops-dashboards
 > Using Node.js 9.10.1 (requested: `>=8.0.0`)
 > https://food-coops-dashboards-okgwzegyus.now.sh
 > Synced 1 file (169.84KB) [11s]
-> Building…
+> Building...
 > ▲ npm install
 > ✓ Using "package-lock.json"
-> ⧗ Installing 9 main dependencies…
+> ⧗ Installing 9 main dependencies...
 > ▲ npm install
 > added 389 packages in 8.609s
 > ▲ Snapshotting deployment
@@ -727,19 +723,26 @@ Voici un échantillon de leurs usages :
 [TIP]
 .[RemarquePreTitre]#À savoir# `NODE_ENV`
 ====
-La variable d'environnement `NODE_ENV` a été adoptée par de nombreux outils et _frameworks_ pour déterminer le contexte d'exécution d'une application, effectuer des optimisations ou afficher des informations de débug supplémentaires.
+La variable d'environnement `NODE_ENV` a été adoptée par de nombreux outils
+et _frameworks_ pour déterminer le contexte d'exécution d'une application,
+effectuer des optimisations ou afficher des informations de débug supplémentaires.
 
-Il est *recommandé d'utiliser `NODE_ENV=production`… en production*.
+Je *recommande d'expliciter `NODE_ENV=production`* dans un environnement de production.
 
 * `development` +
   C'est le contexte assumé par défaut lorsqu'une personne développe sur sa machine.
   Les exceptions sont affichées de manière verbeuse et du code supplémentaire .
   Des informations sensibles peuvent être contenues dans les traces d'erreurs ;
 * `test` +
-  C'est la valeur que l'on choisit pour exécuter des tests applicatifs, augmenter la verbosité des _logs_ et activer les _Source Maps_ pour faciliter le débogage de fichiers transpilés.
-  Certains _frameworks_ de test et outils d'_intégration continue_ assignent cette variable d'environnement par défaut ;
+  C'est la valeur que l'on choisit pour exécuter des tests applicatifs,
+  augmenter la verbosité des _logs_ et activer les _Source Maps_ pour faciliter le débogage de fichiers transpilés.
+  Certains _frameworks_ de test et outils d'_intégration continue_ assignent
+  cette variable d'environnement par défaut ;
 * `production` +
-  Les exceptions n'affichent pas de détails – il faut aller <<exceptions,inspecter les erreurs et exceptions>>, l'outillage d'introspection est désactivé et la verbosité des _logs_ est supposée être moins verbeuse.
+  Les exceptions n'affichent pas de détails – il faut aller
+  <<exceptions,inspecter les erreurs et exceptions>>, l'outillage
+  d'introspection est désactivé et la verbosité des _logs_ est supposée être
+  moins verbeuse.
   On constate généralement des *améliorations de performance*.
 ====
 
@@ -751,7 +754,7 @@ Le numéro du port sera déterminé soit par le contexte d'exécution (_environn
 ----
 include::{sourceDir}/config/env.js[]
 ----
-<1> Décompose `PORT` de `process.env` et si la clé n'existe pas, assigne la valeur de `defaultPort`
+<1> Décompose `PORT` de `process.env` et si la clé n'existe pas, assigne la valeur de `defaultPort`.
 
 Jouons avec le script `config/env.js` pour illustrer ces différents scénarios :
 
@@ -760,9 +763,9 @@ $ PORT=8000 node config/env.js     # <1>
 $ NODE_ENV=test node config/env.js # <2>
 $ node config/env.js               # <3>
 ----
-<1> Affiche `En écoute sur http://localhost:8000`
-<2> Affiche `En écoute sur http://localhost:3001`
-<3> Affiche `En écoute sur http://localhost:3000`
+<1> Affiche `En écoute sur http://localhost:8000`.
+<2> Affiche `En écoute sur http://localhost:3001`.
+<3> Affiche `En écoute sur http://localhost:3000`.
 
 Le mécanisme des _variables d'environnement_ est détaillé dans la section <<../chapter-04/index.adoc#process-env,variables d'environnement>> du chapitre 4.
 
@@ -793,8 +796,8 @@ $ npm run config:file-npm
 ----
 include::{sourceDir}/config/file-npm.js[]
 ----
-<1> Affiche `undefined` avec Node et `3000` avec _npm_
-<2> Affiche `3000` avec Node et _npm_
+<1> Affiche `undefined` avec Node et `3000` avec _npm_.
+<2> Affiche `3000` avec Node et _npm_.
 
 _npm_ aplatit la structure d'objet du fichier `package.json`, séparera chaque niveau de profondeur par le caractère `\_`, le préfixera par `npm_package_` et l'injectera dans l'objet `process.env`.
 
@@ -1082,9 +1085,11 @@ Nous trouverons des informations sur le fonctionnement de Node derrière un <<re
 [[monitoring]]
 == Points de vigilance après une mise en ligne
 
-Cette section s'intéresse à la *détection proactive des incidents* et au *suivi de la santé de notre application* une fois mise en ligne.
-Nous allons ainsi apprendre à *dresser un diagnostic sans nous connecter* sur la ou les machines hébergeant l'application… en partie car nous n'y avons pas toujours accès.
-Et c'est tant mieux.
+Cette section s'intéresse à la *détection proactive des incidents* et au
+*suivi de la santé de notre application* une fois mise en ligne.
+Nous allons ainsi apprendre à *dresser un diagnostic sans nous connecter* sur
+la ou les machines hébergeant l'application en partie car nous n'y avons pas
+toujours accès.
 
 
 [[uptime]]
@@ -1103,15 +1108,27 @@ image::images/nginx-proxy-error.png[width="85%"]
 
   On cherchera entres autres à tester la réaction de notre code face à des erreurs provoquées volontairement.
 * *ressources indisponibles* +
-  Il arrive aussi que notre code ne soit pas incriminé… mais que la base de données devienne inaccessible pendant l'exécution de notre application.
+  Il arrive aussi que notre code ne soit pas incriminé mais que la base de
+  données devienne inaccessible pendant l'exécution de notre application.
   Ou qu'une clé d'API soit révoquée.
-  Ou encore qu'une API soit indisponible, peu importe la raison—panne réseau, attaque destinée à faire tomber le système etc. +
-  Le mieux que l'on puisse faire est d'utiliser des *modules _npm_ favorisant la reconnexion* aux bases de données, à *gérer l'indisponibilité de la ressource* (en ayant un modèle de réponse dégradé) ou encore en utilisant la technique du _backoff_ exponentiel pour retenter un certain nombre de fois en augmentant le temps entre temps chaque essai.
+  Ou encore qu'une API soit indisponible, peu importe la raison—panne réseau,
+  attaque destinée à faire tomber le système etc. +
+  Le mieux que l'on puisse faire est d'utiliser des
+  *modules _npm_ favorisant la reconnexion* aux bases de données,
+  à *gérer l'indisponibilité de la ressource* (en ayant un modèle de réponse
+  dégradé) ou encore en utilisant la technique du _backoff_ exponentiel pour
+  retenter un certain nombre de fois en augmentant le temps entre temps chaque essai.
 * *effets de bord système* +
-  Le système d'exploitation peut nous jouer des tours sans que notre application ne soit réellement au courant.
-  C'est le cas lorsque la _charge système_ dépasse la capacité de traitement des processeurs : notre application mettra plus de temps à exécuter toutes les opérations.
-  Cela se produira également si l'espace disque tend à devenir faible : le système _swappera_ et ralentira l'écriture de fichiers, notamment les _logs_ générés par le trafic de notre application. +
-  La mise en place en place de <<monitoring,_monitoring_>> nous aidera à être *prévenu _avant_* que le problème ne se déclare… ou au moins d'avoir une vue d'ensemble des ressources disponibles de notre parc machine.
+  Le système d'exploitation peut nous jouer des tours sans que notre
+  application ne soit réellement au courant.
+  C'est le cas lorsque la _charge système_ dépasse la capacité de traitement
+  des processeurs : notre application mettra plus de temps à exécuter toutes
+  les opérations.
+  Cela se produira également si l'espace disque tend à devenir faible : le
+  système va _swapper_ et ralentira l'écriture de fichiers, notamment
+  les _logs_ générés par le trafic de notre application. +
+  La mise en place en place de <<monitoring,_monitoring_>> nous donnera
+  une vue d'ensemble des ressources disponibles de notre parc machine.
 
 
 [[exceptions]]
