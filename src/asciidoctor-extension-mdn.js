@@ -1,5 +1,14 @@
 'use strict';
 
+const fromHash = (hash) => {
+  var to = {};
+  for (var i = 0, key, keys = hash.$$keys, data = hash.$$smap, len = keys.length; i < len; i++) {
+    key = keys[i];
+    to[key] = data[key];
+  }
+  return to;
+};
+
 const lang = 'fr';
 const NAMESPACES = {
   addons: 'Add-ons/WebExtensions/API',
@@ -13,8 +22,9 @@ const NAMESPACES = {
 module.exports = function MDNExtension () {
   this.blockMacro('mdn', function(){
     this.positionalAttributes('page');
-    this.process((parent, target, attrs) => {
+    this.process((parent, target, attributes) => {
       const doc_attrs = parent.getDocument().getAttributes();
+      const attrs = fromHash(attributes);
       const {title='',page} = attrs;
       const titleOrPage = title || page;
 

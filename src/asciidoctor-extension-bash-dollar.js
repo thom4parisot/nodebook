@@ -43,7 +43,7 @@ module.exports = function bash$Extension () {
           const blockIndex = index(parent.getBlocks(), block);
 
           block.lines = lines;
-          block.removeSubstitution('specialcharacters');
+          block.$remove_sub('specialcharacters');
 
           parent.blocks[blockIndex] = block;
         }
