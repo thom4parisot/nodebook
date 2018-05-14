@@ -56,5 +56,6 @@ if (require.main === module) {
   // check for file changes
   chokidar.watch(['**/*.adoc', '*/examples/**/*'], { ignoreInitial: true })
     .on('add', rebuild)
-    .on('change', rebuild);
+    .on('change', rebuild)
+    .on('error', console.error);
 }
