@@ -6,6 +6,8 @@ Ce journal détaille l'effort d'écriture depuis janvier 2017.
 ## Mardi 15 mai 2018 • Bordeaux
 
 - _Chapitre 6_ : déployer avec un service d'intégration continue
+- _Chapitre 6_ : simplification de PaaS
+- _Chapitre 6_ : préparation des fournisseurs cloud et fonctions événementielles
 
 **Météo** : 😕 🍞
 
