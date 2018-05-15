@@ -852,10 +852,18 @@ pour mieux comprendre ce empêche votre application de fonctionner sur leurs ser
 [[hosting.cloud]]
 === Serveur virtualisé (VPS, VM), dédié ou cloud
 
-- [URL]#https://gandi.net/hosting/iaas#
-- [URL]#https://ovh.com/fr/#
-- [URL]#https://digitalocean.com/#
-- [URL]#https://aws.amazon.com/fr/ec2/#
+
+[format="csv", options="header", separator=";"]
+.Sélection de fournisseurs
+|===
+Service; Déploiement; Add-ons; Tarif horaire; Tarif mensuel
+[URL]#https://gandi.net/hosting/simple#; "CLI, Git, SSH"; {tick}; -; 5.00€
+[URL]#https://gandi.net/hosting/iaas#; "CLI, Git"; {cross}; 0.0081€; 6.00€
+[URL]#https://ovh.com/fr/vps/#; "SSH"; {tick}; -; 4.00€
+[URL]#https://ovh.com/fr/public-cloud/#; "SSH, API, Web"; {tick}; 0.062€; 26.00€
+[URL]#https://digitalocean.com/#; "CLI, API"; {cross}; 0.007$; 5.00$
+[URL]#https://aws.amazon.com/fr/ec2/#; "CLI, API, SSH, Web"; {tick}; 0.0132$; 9.67$
+|===
 
 [TIP]
 .[RemarquePreTitre]#Alternative# AWS Elastic Beanstalk
@@ -865,13 +873,17 @@ pour mieux comprendre ce empêche votre application de fonctionner sur leurs ser
 ====
 
 [[hosting.lambda]]
-=== Fonction éphémère (_Function as a Service_)
+=== Fonction événementielles (_Serverless_, _Lambda_)
 
-TBD.
-
-////
-- Lambda
-////
+[format="csv", options="header", separator=";"]
+.Sélection de fournisseurs
+|===
+Service; Déploiement; Gratuité; Tarif par requête
+[URL]#https://aws.amazon.com/lambda#; "Web, CLI"; 1M requêtes/mois; 0.2$/million
+[URL]#https://webtask.io#; "Web, GitHub"; 1 requête/seconde; sur devis
+[URL]#https://cloud.google.com/functions/#; "Web, GitHub, CLI"; 2M requêtes/mois; 0.4$/million
+[URL]#https://zeit.co/now# + `micro`; "CLI"; 3 apps; 15$/mois
+|===
 
 
 
