@@ -414,9 +414,9 @@ Ils ont chacun une philosophie de configuration et d'exécution différente
 — l'idéal est encore d'essayer d'écrire une première recette avec chacun d'entre
 eux pour voir celui qui vous semble le plus naturel à utiliser.
 
-Ma préférence va vers _Ansible_ car il s'installe facilement sur macOS et Linux,
-se configure avec une syntaxe que je connais déjà (_YAML_) et j'ai trouvé
-les messages d'erreurs informatifs.
+Ma préférence va vers _Ansible_ car le logiciel s'installe facilement
+sur macOS et Linux, se configure avec une syntaxe que je connais déjà (_YAML_)
+et je trouve ses messages d'erreurs informatifs.
 
 L'exemple suivant illustre le déploiement de l'application Node _Slackin_
 ([URL]#https://github.com/rauchg/slackin#) sur
@@ -499,12 +499,15 @@ Un des objectifs de Node est de pouvoir faire fonctionner un script
 sur tout système d'exploitation compatible.
 Docker ([URL]#https://www.docker.com#) pousse cette compatibilité plus
 loin en empaquetant tout ce qui est nécessaire au bon fonctionnement
-de l'application (dépendances, logiciels).
-Le mécanisme d'exécution aide à la fois à orchestrer plusieurs images entre elles
-— y compris bases de données et moteurs de recherche — et de pouvoir
-revenir dans le même état applicatif qu'au démarrage de celle-ci.
+de l'application (dépendances, logiciels système).
+Le mécanisme d'exécution aide à la fois à orchestrer plusieurs conteneurs entre
+eux — y compris bases de données et moteurs de recherche — et de pouvoir
+revenir dans l'état applicatif initial.
 
-Voici un exemple d'image Docker :
+Le fichier suivant est un exemple fonctionnel d'image Docker.
+Son intention est de créer un environnement Node {nodeCurrentVersion}
+pour une <<../chapter-07/index.adoc#,application web>> (cf. chapitre 7)
+qui comporte une <<../chapter-05/index.adoc#,dépendance npm>> (cf. chapitre 5) :
 
 [subs="+attributes"]
 .Dockerfile
@@ -512,13 +515,12 @@ Voici un exemple d'image Docker :
 include::{sourceDir}/Dockerfile[]
 ----
 
-Nous pouvons constater que l'on choisit un environnement Node initial (`FROM`),
-puis un répertoire de travail avant de procéder à la copie des fichiers
-applicatifs vers l'image (`COPY`).
+Nous pouvons constater le choix de l'environnement Node (`FROM`),
+avant de procéder à la copie des fichiers applicatifs vers l'image (`COPY`).
 Suite à ça nous installons aussi les dépendances de l'application et spécifions
 quelle commande effectuer lorsque l'image Docker est lancée (`CMD`).
 
-Nous pouvons la tester sur notre ordinateur si Docker est installé :
+L'image se construit et le conteneur se démarre sur notre ordinateur comme suit :
 
 ----
 $ docker build -t nodebook/demo .
@@ -526,10 +528,14 @@ $ docker run -ti --rm -p 4000:4000 nodebook/demo
 $ curl -L http://localhost:4000
 ----
 
+Le transfert de l'image Docker vers un registre comme _Docker Hub_
+([URL]#https://hub.docker.com#) garantit l'exécution de ce même environnement
+applicatif, partout.
+
 Nous avons déjà parlé de l'<<deploy.cli,outil en ligne de commande>>
 du service _now_ ([URL]#https://zeit.co/now#) dans la section du même nom.
-Il est aussi capable de déployer une application à partir d'un fichier `Dockerfile`
-en utilisant l'option `--docker` :
+Il est aussi capable de déployer un conteneur Docker en se basant sur un fichier
+`Dockerfile` en rajoutant l'option `--docker` :
 
 ----
 $ now <i>--docker</i> --public
@@ -546,18 +552,18 @@ $ now <i>--docker</i> --public
 > Success! Deployment ready
 ----
 
-Une autre solution consiste à publier notre image sur _Docker Hub_
-([URL]#https://hub.docker.com#), la plate-forme officielle de partage d'images
-Docker.
-Elle dispose notamment d'une fonctionnalité d'empaquetage automatique via
-GitHub.
-À chaque nouveau commit, Docker Hub construit l'image et la met à disposition.
+Une autre solution consiste à publier notre image sur _Docker Hub_,
+la plate-forme officielle de partage d'images Docker.
+Docker Hub dispose d'une fonctionnalité de construction automatique connectée
+à GitHub.
+Docker Hub construit l'image à chaque nouveau commit, puis la met à disposition.
 
 .Création d'un _build_ automatisé à partir d'un dépôt GitHub.
 image::images/docker-automated-build.png[width="85%"]
 
-Il ne reste alors plus qu'à la collecter sur votre ordinateur, serveur hébergé
-ou <<deploy.ci,service d'intégration continue>>.
+Il ne reste alors plus qu'à la collecter sur un ordinateur avec la commande
+`docker pull` — que ce soit sur notre machine, chez notre hébergeur
+ou par le biais du <<deploy.ci,service d'intégration continue>>.
 
 [NOTE]
 .[RemarquePreTitre]#Avancé# Amazon Elastic Container Registry
