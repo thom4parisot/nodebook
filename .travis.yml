@@ -2,20 +2,10 @@ dist: trusty
 sudo: false
 
 language: node_js
-node_js:
-  - v8
-  - v10
-
-cache:
-  directories:
-  - "$HOME/.npm"
+cache: npm
 
 env:
 - DEBUG=tape-spawn SHARP_IGNORE_GLOBAL_LIBVIPS=1
-
-matrix:
-  allow_failures:
-    - node_js: v10
 
 before_install:
 - npm i -g npm@latest
