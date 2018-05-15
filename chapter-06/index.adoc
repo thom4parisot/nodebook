@@ -581,12 +581,87 @@ des mises à jour d'infrastructure à chaque nouvelle image Docker.
 === En paramétrant un logiciel d'intégration continue
 
 L'utilisation d'un logiciel d'intégration continue est la manière la plus
-flexible pour automatiser tout type de déploiement.
+flexible d'automatiser tout type de déploiement.
 
-////
-- Travis Deploy
-////
+L'intégration continue vise à vérifier si des régressions se sont glissées
+dans notre code.
+L'idée est de livrer régulièrement du code pour détecter les erreurs au plus tôt. +
+Les services d'intégration continue automatisent cette pratique.
+Ils s'intègrent avec d'autres services pour prévisualiser les branches,
+compiler la documentation mais aussi pour déployer des artéfacts sur d'autres
+plates-formes : <<../chapter-05/index.adoc#publish,registre npm>>,
+GitHub Pages, Heroku ou même <<hosting.lambda,Amazon Lambda>>.
 
+Le logiciel Jenkins ([URL]#https://jenkins.io/#) s'installe sur notre propre
+infrastructure tandis que des services en ligne comme
+Circle CI ([URL]#https://circleci.com#), Travis CI ([URL]#https://travis-ci.com#)
+et CodeShip ([URL]#https://codeship.com#) mette à disposition leur
+infrastructure gratuitement pour les projets _open source_.
+GitLab ([URL]#https://www.gitlab.com#) combine l'hébergement de dépôts Git
+et l'intégration continue.
+
+[TIP]
+.[RemarquePreTitre]#Windows# Service AppVeyor
+====
+J'utilise AppVeyor ([URL]#https://appveyor.com#) en complément d'un autre
+service d'intégration continue quand il s'agit de tester
+la *compatibilité du code avec Windows*
+— ce qui est le cas des exemples de cet ouvrage.
+====
+
+J'ai une préférence pour GitLab lorsque le projet y est hébergé.
+Sinon j'utilise pour Travis CI car j'aime la clarté de sa configuration
+et de leur documentation.
+J'ai aussi apprécié la qualité des échanges avec leur support technique
+et leurs employés.
+
+Le fichier suivant décrit un exemple fichier de configuration Travis CI.
+Il se place à la racine d'un projet à tester et s'écrit avec la syntaxe _YAML_ :
+
+[subs="+attributes"]
+.{empty}.travis.yml
+----
+include::{sourceDir}/.travis.yml[]
+----
+
+Cet exemple est structuré en 3 parties :
+
+. la *configuration de l'environnement* — en l'occurence Node {nodeCurrentVersion} ;
+. la *commande de test* ;
+. la *configuration du déploiement* en cas de succès.
+
+Ici, le déploiement consiste à
+<<../chapter-05/index.adoc#publish,déployer le code sur le registre npm>>
+quand les tests passent lors de la création d'un tag Git.
+Les variables d'environnement `$NPM_EMAIL` et `$NPM_TOKEN` se configurent de
+manière sécurisée sur l'écran de configuration du projet
+(voir illustration ci-après).
+
+[NOTE]
+.[RemarquePreTitre]#Documentation# .travis.yml
+====
+Une documentation adaptée aux projets Node est disponible à cette adresse :
+[URL]#https://docs.travis-ci.com/user/languages/javascript-with-nodejs/#
+====
+
+.Écran de configuration des variables d'environnement sécurisées.
+image::images/travisci-secrets.png[width="85%"]
+
+L'exemple suivant illustre l'utilisation de
+l'<<deploy.cli,outil en ligne de commande>> `now` dès qu'un nouveau commit
+est poussé sur la branche `master` et que les tests passent au vert :
+
+[subs="+attributes"]
+.{empty}.travis.yml
+----
+include::{sourceDir}/.travis-now.yml[]
+----
+
+Les informations d'exécution des tests sont consignés au même titre que le statut
+du déploiement — voir image ci-contre.
+
+.Écran illustrant le déploiement automatique d'une application Node avec la commande `now`.
+image::images/travisci-build.png[width="85%"]
 
 [[hosting]]
 == Choisir son hébergement

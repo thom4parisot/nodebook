@@ -3,6 +3,12 @@
 Le projet a commencé en décembre 2014.
 Ce journal détaille l'effort d'écriture depuis janvier 2017.
 
+## Mardi 15 mai 2018 • Bordeaux
+
+- _Chapitre 6_ : déployer avec un service d'intégration continue
+
+**Météo** : 😕 🍞
+
 ## Lundi 14 mai 2018 • Bordeaux
 
 - _Chapitre 4_ : application des corrections suite aux revues de texte

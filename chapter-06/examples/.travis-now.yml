@@ -1,0 +1,10 @@
+language: node_js
+node_js: {nodeCurrentVersion}
+
+before_deploy: npm install --global now
+
+deploy:
+  provider: script
+  script: now --token $NOW_TOKEN
+  on:
+    branch: master
