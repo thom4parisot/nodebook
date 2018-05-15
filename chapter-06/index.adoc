@@ -11,6 +11,7 @@
 :imagesdir: {indir}
 :cross: &#x2718;
 :tick: &#x2714;
+:maybe: &#x2248;
 ifdef::env[]
 :imagesdir: .
 endif::[]
@@ -37,11 +38,32 @@ include::../resources/tip-examples.adoc[]
 [[deploy]]
 == Déployer une application Node
 
-ce dont on parle ici est lié
+Le choix de la technique de déploiement dépend de plusieurs facteurs qui se
+renvoient à eux-même : l'hébergement peut dépendre du déploiement et vice-versa.
 
-////
-Préciser que pour aller rapidement faut aller sur le PaaS (git push)
-////
+Je vous propose de partir balayer les différentes techniques de déploiement
+avec des exemples et de voir quelles seraient les raisons d'opter pour l'une
+d'entre elles.
+
+Le choix est subjectif et vous appartient, en fonction de l'aisance que vous avez
+à vous en emparer.
+C'est un sujet qui prend du temps avant d'être maitrisé donc n'hésitez pas
+à vous y reprendre à plusieurs fois.
+
+[format="csv", options="header", separator=";"]
+.Quelles techniques de déploiement s'utilisent avec quel type d'hébergement ?
+|===
+; <<hosting.paas,_PaaS_>>; <<hosting.shared,Mutualisé>>; <<hosting.cloud,Cloud>>; <<hosting.lambda,Lambda>>
+<<deploy.notebook,Notebook Web>>; {cross}; {cross}; {cross}; {cross}
+<<deploy.sftp,SSH/SFTP>>; {cross}; {tick}; {maybe}; {cross}
+<<deploy.github,Import GitHub>>; {tick}; {cross}; {cross}; {cross}
+<<deploy.cli,CLI>>; {tick}; {cross}; {tick}; {tick}
+<<deploy.git,`git push`>>; {tick}; {cross}; {tick}; {cross}
+<<deploy.clone,SSH + `git pull`>>; {tick}; {tick}; {tick}; {cross}
+<<deploy.recipe,Recette>>; {tick}; {tick}; {tick}; {tick}
+<<deploy.docker,`docker push`>>; {tick}; {cross}; {tick}; {cross}
+<<deploy.ci,Intégration continue>>; {tick}; {tick}; {tick}; {tick}
+|===
 
 [[deploy.notebook]]
 === En codant dans un navigateur web
@@ -666,27 +688,37 @@ image::images/travisci-build.png[width="85%"]
 [[hosting]]
 == Choisir son hébergement
 
-Où faire vivre nos applications Node en dehors de notre ordinateur servant au développement ?
+Nous allons nous intéresser aux différentes possibilités d'hébergement
+d'applications Node.
 
-Nous allons nous intéresser aux différents mécanismes exposant des applications Node au monde extérieur, que ce soit sur une machine dédiée ou sur des services en ligne.
+Côté tarifs, certaines sont gratuites sous certaines conditions,
+d'autres se paient à l'heure et d'autres à l'année.
+Certaines offres sont figées, d'autres permettent de rajouter des machines
+voire même de changer la puissance en cours de route.
+
 
 [[hosting.paas]]
-=== Plate-forme en tant que service (_Platform as a Service_)
+=== Plate-forme en tant que service (_Platform as a Service_, _PaaS_)
 
-Les plates-formes de services *automatisent la configuration* et *facilitent le déploiement* de nos applications Node mais également Ruby, Python et PHP, entres autres.
-Elles se spécialisent dans des déploiements rapides, une allocation des ressources flexible, à la demande et en un clic.
+Les plates-formes de services *automatisent la configuration* et
+*facilitent le déploiement* de nos applications Node mais également
+Ruby, Python et PHP, entres autres.
+Elles se spécialisent dans des déploiements rapides, une allocation des
+ressources flexible, à la demande et en un clic.
 
-Leur philosophie est de *tout penser en terme de ressources et de services*.
-On paie pour la capacité informatique nécessaire à un _instant T_ tout en ayant le loisir de réduire ou d'augmenter cette capacité à tout moment sans remettre en cause l'architecture de nos applications.
+C'est le *moyen le plus facile de déployer une application Node*, surtout si
+on utilise déjà Git pour versionner son code.
 
-Chaque instance peut être dimensionnée _à tout moment_ en _puissance_ (CPU, RAM) et en _nombre_ (de 1 à plusieurs instances en parallèle).
-La distribution du trafic web est gérée pour nous.
+Leur philosophie est de *tout penser en terme de ressources modulaires*.
+On paie une certaine capacité de CPU et de RAM, à la minute ou à l'heure.
+Ces capacités s'augmentent ou se réduisent à souhait, en quelques clics.
+Le tout, sans changer une seule ligne de code dans notre application.
 
-Le principe de déploiement sur les plates-formes de services est réduit au quasi-minimum :
+Le principe de déploiement sur les plates-formes de services est minimaliste :
 
 . création d'une nouvelle application sur la plate-forme en ligne ;
 . nous _poussons_ notre code applicatif — généralement avec `git` ;
-. la plate-forme prépare la mise en ligne en installant les dépendances _npm_ et en démarrant l'application web ;
+. la plate-forme prépare la mise en ligne, installe les dépendances _npm_ et l'application ;
 . notre application est fonctionnelle quelques secondes plus tard.
 
 [format="csv", options="header"]
@@ -700,57 +732,34 @@ Service, Déploiement, Add-ons, Gratuité, Tarif
 [URL]#https://heroku.com#, "cli/git/GitHub/Dropbox", {tick}, 1000 heures par mois, 7$/mois/app
 |===
 
-La startup californienne Zeit ([URL]#https://zeit.co#) édite le service de _déploiements immutables_ nommé _now_ ([URL]#https://zeit.co/now#).
-Ce service est focalisée sur l'hébergement de sites statiques, d'applications web Node et de conteneurs Docker.
+La startup californienne Zeit ([URL]#https://zeit.co#) édite le service de
+_déploiements immutables_ nommé _now_ ([URL]#https://zeit.co/now#).
+Ce service est focalisée sur l'hébergement de sites statiques,
+d'applications web Node et de conteneurs Docker.
 
 Sa particularité est de créer une *nouvelle instance d'application par déploiement*.
-Chaque déploiement est donc unique.
-À nous de désigner le déploiement associé à l'instance de production par l'intermédiaire de la commande `now alias`.
+On ne modifie donc jamais un déploiement déjà existant.
 
-Une fois notre compte créé et notre terminal positionné dans un répertoire de notre ordinateur contenant la racine du projet à déployer, il suffit d'installer le _client now_ et d'initier le déploiement :
+C'est un service que j'apprécie pour sa simplicité.
+C'est probablement le plus pratique à utiliser si vous n'utilisez pas Git
+ou si vous n'avez pas de dépendance envers une base de données
+comme MySQL, MariaDB ou Postgres.
 
-----
-$ npm i -g now
-$ now
-----
-
-[TIP]
-.[RemarquePreTitre]#Documentation# now
-====
-Le fonctionnement de l'application _now_ est illustré et documenté à la fois en ligne et via un terminal de commandes.
-
-- `now --help`
-- [URL]#https://zeit.co/docs#
-====
-
-Des *ressources complémentaires* sont disponibles auprès d'autres fournisseurs de services.
-Leur gestion suit les mêmes principes d'*élasticité à la demande*.
-Cela concerne les bases de données _MySQL_, _MariaDB_, _redis_ ou _postgreSQL_ par exemple mais aussi l'envoi d'emails, des moteurs d'indexation de contenus, le monitoring applicatif, l'aggrégation des logs etc.
-
-Des plates-formes comme _Heroku_ ([URL]#https://heroku.com#) et _Clever Cloud_ ([URL]#https://clever-cloud.com#) fédèrent ces ressources sur une place de marché.
-L'intégration des ressources en est ainsi facilitée, en quelques clics ou depuis un terminal.
-Les _variables d'environnement_ contenant les informations de connexion nous sont communiquées dès que les ressources complémentaires sont provisionnées.
-Il ne nous reste alors plus qu'à <<app-configuration,configurer nos applications>> en fonction.
+_Heroku_ ([URL]#https://heroku.com#) est une autre alternative
+pour démarrer en douceur sans sortir la carte bleue.
+Des modules optionnels couvrent nos besoins en bases de données comme
+_MySQL_, _MariaDB_, _redis_ ou _postgreSQL_ par exemple.
+D'autres services complémentaires gèrent l'envoi d'emails,
+l'indexation de contenus, le monitoring, les logs, etc.
 
 .Ensemble de ressources complémentaires à une application Node hébergée sur Heroku.
 image::images/heroku-addons.png[width="85%"]
 
-ifeval::["{backend}" == "html5"]
-.Exemple de déploiement applicatif vers Heroku.
-video::videos/heroku-deploy.mp4[width="70%"]
-endif::[]
-
-ifeval::["{backend}" != "html5"]
-.Exemple de déploiement applicatif vers Heroku.
-image::images/heroku-deploy.png[width="85%"]
-endif::[]
-
-Les plates-formes en tant que service facturent à l'heure consommée.
-Elles sont en génral faciles à prendre en main et ne nécessitent pas de connaissance en administration de machine informatique. +
-Les instances d'application ont l'avantage d'être rapidement déployées, peuvent être mises en _pause_ et s'adapter au trafic ainsi qu'à notre budget.
-
-Le paiement à l'heure _et_ à l'instance peut rapidement saler l'addition et questionner l'utilisation de ce type de services en lieu et place d'un <<vm-hosting,serveur dédié ou d'une machine virtuelle>>. +
-La question est de savoir combien de notre temps nous souhaitons passer à maintenir une infrastructure — du temps qui coûte également de l'argent.
+S'il est facile de déployer sur ces infrastructures et de gérer les ressources
+allouées à nos applications, à l'inverse la facture peut vite devenir salée
+à mesure qu'on augmente leur puissance.
+C'est tout relatif et rapport au coût de _notre temps_ passé à gérer les machines
+si on devait tout faire à la main.
 
 
 [[hosting.shared]]
