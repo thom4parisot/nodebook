@@ -698,11 +698,10 @@ voire même de changer la puissance en cours de route.
 
 
 [[hosting.paas]]
-=== Plate-forme en tant que service (_Platform as a Service_, _PaaS_)
+=== Plate-forme de services (_Platform as a Service_, _PaaS_)
 
-Les plates-formes de services *automatisent la configuration* et
-*facilitent le déploiement* de nos applications Node mais également
-Ruby, Python et PHP, entres autres.
+Les plates-formes de services *automatisent la configuration et le déploiement*
+de nos applications Node mais également Ruby, Python et PHP, entres autres.
 Elles se spécialisent dans des déploiements rapides, une allocation des
 ressources flexible, à la demande et en un clic.
 
@@ -710,16 +709,14 @@ C'est le *moyen le plus facile de déployer une application Node*, surtout si
 on utilise déjà Git pour versionner son code.
 
 Leur philosophie est de *tout penser en terme de ressources modulaires*.
-On paie une certaine capacité de CPU et de RAM, à la minute ou à l'heure.
-Ces capacités s'augmentent ou se réduisent à souhait, en quelques clics.
-Le tout, sans changer une seule ligne de code dans notre application.
+On paie pour une certaine capacité de CPU et de RAM, à la minute ou à l'heure.
+Ces capacités s'augmentent ou se réduisent en quelques clics et sans changer
+une seule ligne de code dans notre application.
 
-Le principe de déploiement sur les plates-formes de services est minimaliste :
-
-. création d'une nouvelle application sur la plate-forme en ligne ;
-. nous _poussons_ notre code applicatif — généralement avec `git` ;
-. la plate-forme prépare la mise en ligne, installe les dépendances _npm_ et l'application ;
-. notre application est fonctionnelle quelques secondes plus tard.
+Une application se déploie avec un <<deploy.cli,outil en ligne de commande>> ou
+en <<deploy.git,faisant `git push`>>.
+Et nous pouvons l'automatiser avec une <<deploy.recipe,recette de déploiement>>
+et de l'<<deploy.ci,intégration continue>>.
 
 [format="csv", options="header"]
 .Sélection de fournisseurs _PaaS_
@@ -729,28 +726,29 @@ Service, Déploiement, Add-ons, Gratuité, Tarif
 [URL]#https://clever-cloud.com#, "git", {tick}, crédit 20€, 5€/mois/app
 [URL]#https://gandi.net/hosting/simple#, "cli/git/SSH", {tick}, 10 jours, 5€/mois/app
 [URL]#https://scalingo.com#, "git/GitHub", {tick}, 30 jours, 7€/mois/app
-[URL]#https://heroku.com#, "cli/git/GitHub/Dropbox", {tick}, 1000 heures par mois, 7$/mois/app
+[URL]#https://heroku.com#, "cli/git/GitHub/Dropbox", {tick}, 1000 heures/mois, 7$/mois/app
 |===
 
-La startup californienne Zeit ([URL]#https://zeit.co#) édite le service de
-_déploiements immutables_ nommé _now_ ([URL]#https://zeit.co/now#).
+La startup californienne Zeit ([URL]#https://zeit.co#) édite le service
+_now_ ([URL]#https://zeit.co/now#).
 Ce service est focalisée sur l'hébergement de sites statiques,
-d'applications web Node et de conteneurs Docker.
+d'applications Node et de conteneurs Docker.
 
 Sa particularité est de créer une *nouvelle instance d'application par déploiement*.
 On ne modifie donc jamais un déploiement déjà existant.
+On parle alors de *déploiement immutable*.
 
 C'est un service que j'apprécie pour sa simplicité.
-C'est probablement le plus pratique à utiliser si vous n'utilisez pas Git
-ou si vous n'avez pas de dépendance envers une base de données
-comme MySQL, MariaDB ou Postgres.
+C'est probablement le plus pratique à utiliser pour déployer votre première application,
+si vous n'utilisez pas Git ou si l'application n'utilise pas de base de données.
 
-_Heroku_ ([URL]#https://heroku.com#) est une autre alternative
-pour démarrer en douceur sans sortir la carte bleue.
+_Heroku_ ([URL]#https://heroku.com#) est une autre alternative plus complète,
+toujours pour démarrer en douceur et sans sortir la carte bleue.
 Des modules optionnels couvrent nos besoins en bases de données comme
 _MySQL_, _MariaDB_, _redis_ ou _postgreSQL_ par exemple.
-D'autres services complémentaires gèrent l'envoi d'emails,
+D'autres services gèrent l'envoi d'emails,
 l'indexation de contenus, le monitoring, les logs, etc.
+La majorité offrent un petit espace de stockage gratuit pour tester le produit.
 
 .Ensemble de ressources complémentaires à une application Node hébergée sur Heroku.
 image::images/heroku-addons.png[width="85%"]
@@ -758,19 +756,19 @@ image::images/heroku-addons.png[width="85%"]
 S'il est facile de déployer sur ces infrastructures et de gérer les ressources
 allouées à nos applications, à l'inverse la facture peut vite devenir salée
 à mesure qu'on augmente leur puissance.
-C'est tout relatif et rapport au coût de _notre temps_ passé à gérer les machines
-si on devait tout faire à la main.
+Ce coût est tout relatif : il est surement inférieur à celui de notre temps
+passé à gérer les machines si on devait tout faire à la main.
 
 
 [[hosting.shared]]
 === Hébergement mutualisé
 
-Les hébergements mutualisés ont l'avantage d'être bon marché
-et ne demandent aucun entretien de notre part.
-Cette formule est idéale pour faire ses premiers pas de mise en ligne
-de sites web.
+Les hébergements mutualisés ont l'avantage d'être *bon marché et sans entretien*.
+Cette formule est un excellent compromis prix/services.
+Elle demande un peu plus d'efforts que les <<hosting.paas,plates-formes de services>>
+car tout le travail d'automatisation repose sur nos épaules, si on le souhaite.
 
-Leur modèle est adapté pour l'hébergement de fichiers statiques ou des sites web
+Ce modèle est adapté pour l'hébergement de fichiers statiques ou des sites web
 construits avec des langages de scripts comme Python ou PHP.
 Rares sont ceux qui ont adapté leur fonctionnement au modèle applicatif de Node.
 
@@ -873,6 +871,15 @@ Leur modèle de facturation s'adapte à la souplesse d'allocation des ressources
 - à l'heure : serveur _cloud_
 - à la (milli)seconde : <<hosting.lambda,fonction événementielle>>
 
+Les modes de déploiement adaptés sont l'<<deploy.clone,utilisation de Git>>
+pour obtenir le code, l'<<deploy.docker,orchestration d'applications avec Docker>>
+en combinaison avec des <<deploy.recipe,recettes de déploiement>> et de
+l'<<deploy.ci,intégration continue>>.
+
+L'offre de serveurs virtualisés et dédiés (VPS, VM) est adaptée à des
+besoins constants et pour héberger plusieurs applications sur une même machine
+— à coût constant.
+
 [format="csv", options="header", separator=";"]
 .Sélection de fournisseurs de serveur virtualisé et dédié
 |===
@@ -881,6 +888,11 @@ Service; Déploiement; Add-ons; Tarif horaire; Tarif mensuel
 [URL]#https://online.net/fr/serveur-dedie#; "SSH, CLI, API"; {tick}; -; 14.50€/serveur
 [URL]#https://alwaysdata.com/fr/pricing/#vps#; "SSH, API"; {tick}; -; 149.00€/VM
 |===
+
+L'offre _cloud_ est plus intéressante si vos besoins sont
+singulièrement fluctuants — par exemple losqu'il y a besoin de doubler le CPU
+pendant 2 heures, à heure fixe ou en fonction de la charge mais aussi quand il
+s'agit d'ajouter 10 serveurs d'un coup pour traiter un calcul gourmand.
 
 [format="csv", options="header", separator=";"]
 .Sélection de fournisseurs de serveur _cloud_
