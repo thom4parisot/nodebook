@@ -5,7 +5,7 @@ const getPokemonName = require('pokemon-random-name');
 const PORT = (process.env.PORT || 4000);
 const app = express();
 
-app.get('/', (reqquest, response) => {
+app.get('/', (request, response) => {
   response.redirect('/pokemon');
 });
 

@@ -852,40 +852,155 @@ pour mieux comprendre ce empêche votre application de fonctionner sur leurs ser
 [[hosting.cloud]]
 === Serveur virtualisé (VPS, VM), dédié ou cloud
 
+La location d'un serveur dédié revient à payer pour un ordinateur complet,
+son entretien physique et son placement dans un _datacenter_ — un immense
+parking à ordinateurs connecté à un réseau haute-capacité.
+
+Les _Virtual Private Servers_ (_VPS_) sont des machines virtuelles
+(_Virtual Machine_, _VM_) : un serveur dédié dont les ressources sont réparties
+en plusieurs unités indépendantes les unes des autres, les VM.
+
+Les offres _cloud_ sont une version "élastique" des VM : la puissance de calcul,
+la bande-passante et la mémoire allouées sont ajustables sans avoir à
+changer de machine, sans avoir à tout réinstaller.
+Ces ressources sont considérées comme étant "à la demande" : elles s'obtiennent
+en quelques secondes et peuvent être mises en pause, réduites, augmentées ou
+supprimées à tout moment.
+
+Leur modèle de facturation s'adapte à la souplesse d'allocation des ressources :
+
+- au mois : VPS, serveur virtualisé, serveur dédié
+- à l'heure : serveur _cloud_
+- à la (milli)seconde : <<hosting.lambda,fonction événementielle>>
 
 [format="csv", options="header", separator=";"]
-.Sélection de fournisseurs
+.Sélection de fournisseurs de serveur virtualisé et dédié
 |===
 Service; Déploiement; Add-ons; Tarif horaire; Tarif mensuel
-[URL]#https://gandi.net/hosting/simple#; "CLI, Git, SSH"; {tick}; -; 5.00€
-[URL]#https://gandi.net/hosting/iaas#; "CLI, Git"; {cross}; 0.0081€; 6.00€
-[URL]#https://ovh.com/fr/vps/#; "SSH"; {tick}; -; 4.00€
-[URL]#https://ovh.com/fr/public-cloud/#; "SSH, API, Web"; {tick}; 0.062€; 26.00€
-[URL]#https://digitalocean.com/#; "CLI, API"; {cross}; 0.007$; 5.00$
-[URL]#https://aws.amazon.com/fr/ec2/#; "CLI, API, SSH, Web"; {tick}; 0.0132$; 9.67$
+[URL]#https://ovh.com/fr/vps/#; "SSH"; {tick}; -; 4.00€/VM
+[URL]#https://online.net/fr/serveur-dedie#; "SSH, CLI, API"; {tick}; -; 14.50€/serveur
+[URL]#https://alwaysdata.com/fr/pricing/#vps#; "SSH, API"; {tick}; -; 149.00€/VM
+|===
+
+[format="csv", options="header", separator=";"]
+.Sélection de fournisseurs de serveur _cloud_
+|===
+Service; Déploiement; Add-ons; Tarif horaire; Tarif mensuel
+[URL]#https://scaleway.com#; "CLI, SSH, API"; {cross}; 0.004€; 2.30€/VM
+[URL]#https://linode.com#; "CLI, Git, API, Web"; {tick}; 0.0075$; 5.00$/VM
+[URL]#https://gandi.net/hosting/iaas#; "CLI, Git"; {cross}; 0.0081€; 6.00€/VM
+[URL]#https://ovh.com/fr/public-cloud/#; "SSH, API, Web"; {tick}; 0.062€; 26.00€/VM
+[URL]#https://digitalocean.com#; "CLI, API"; {cross}; 0.007$; 5.00$/VM
+[URL]#https://aws.amazon.com/fr/ec2/#; "CLI, API, SSH, Web"; {tick}; 0.0132$; 9.67$/VM
 |===
 
 [TIP]
-.[RemarquePreTitre]#Alternative# AWS Elastic Beanstalk
+.[RemarquePreTitre]#Avancé# HashiCorp Terraform
 ====
+Le logiciel _Terraform_ ([URL]#https://terraform.io/#) a pour intention
+de documenter une infrastructure (serveurs, DNS, stockage, etc.) sous forme
+d'un fichier de configuration — versionnable avec Git.
 
-- [URL]#https://aws.amazon.com/fr/elasticbeanstalk/#
+C'est un outil idéal pour automatiser le déploiement d'une infrastructure de zéro
+mais pour la faire évoluer d'une version à une autre.
+Nous pouvons ainsi créer une architecture combinant plusieurs fournisseurs
+sans gérer la complexité et la non-interopérabilité de leurs API.
 ====
 
 [[hosting.lambda]]
-=== Fonction événementielles (_Serverless_, _Lambda_)
+=== Fonction événementielle (_Serverless_, _Lambda_)
+
+La fonction événementielle est l'évolution ultime des offres _cloud_.
+Au lieu de payer une machine ou une VM à l'heure,
+*nous payons pour éxécuter du code à la milliseconde*.
+Ce code se déclenche en réaction à événement se produisant ailleurs
+sur l'infrastructure : une requête HTTP entrante, un nouveau fichier ou encore
+un appel de l'API de l'hébergeur.
+
+C'est le moyen le plus économique pour
+*exécuter du code à tout instant sans payer le temps d'inactivité d'une machine*.
+On pourrait comparer ce modèle à celui de la téléphonie mobile lorsqu'on a à choisir
+entre un forfait (coût fixe même si on ne consomme pas tout) et un paiment à la carte
+(coût dépendant de la consommation).
+
+Les applications destinées à être exécutées comme fonction événementielle
+ont une architecture un peu différente.
+Au lieu de démarrer un serveur web basé sur le
+<<../chapter-04/index.adoc#http,module `http`>>, nous exposons
+une *fonction qui retourne un résultat de manière asynchrone* :
+
+[source,javascript]
+.webtask.js
+----
+include::{sourceDir}/webtask.js[]
+----
+<1> Le paramètre `context` contient des informations à propos de la requête entrante — paramètres, corps du message, etc.
+
+Ce code est très similaire à ce que nous pourrions écrire lors de l'événement
+`server.on('request')` du <<../chapter-04/index.adoc#http,module `http`>>.
+
+Voyons ça en contexte dans l'interface web du service Webtask
+([URL]#https://webtask.io/make#) :
+
+.Exemple de fonction événementielle et de son historique d'exécutions avec le service Webtask.
+image::images/webtask-make.png[width="85%"]
+
+Un nom de Pokémon est affiché lorsque nous accédons à l'URL indiquée en bas
+de l'écran.
 
 [format="csv", options="header", separator=";"]
 .Sélection de fournisseurs
 |===
-Service; Déploiement; Gratuité; Tarif par requête
-[URL]#https://aws.amazon.com/lambda#; "Web, CLI"; 1M requêtes/mois; 0.2$/million
-[URL]#https://webtask.io#; "Web, GitHub"; 1 requête/seconde; sur devis
-[URL]#https://cloud.google.com/functions/#; "Web, GitHub, CLI"; 2M requêtes/mois; 0.4$/million
-[URL]#https://zeit.co/now# + `micro`; "CLI"; 3 apps; 15$/mois
+Service; Déploiement; Gratuité; Tarif des requêtes
+[URL]#https://aws.amazon.com/lambda#; "Web, CLI, API"; 1M requêtes/mois; 0.2$/million
+[URL]#https://webtask.io#; "Web, GitHub, CLI, API"; 1 requête/seconde; sur devis
+[URL]#https://cloud.google.com/functions/#; "Web, GitHub, CLI, API"; 2M requêtes/mois; 0.4$/million
+[URL]#https://zeit.co/now# + `micro`; "CLI, API"; 3 apps; 15$/mois
 |===
 
+Chaque fournisseur de fonction événementielle a sa propre vision des paramètres
+qui nous sont donnés mais leur fonctionnement reste très proche.
 
+Je trouve que Webtask est le service avec la plus faible courbe d'apprentissage.
+Son interface y est pour beaucoup.
+
+Le service _now_ est intéressant à plus d'un titre.
+Il déploie avec un <<deploy.cli,outil en ligne de commande minimaliste>>,
+y compris des <<deploy.docker,conteneurs Docker>>.
+Il se transforme en fonction événementielle avec l'aide du
+<<../chapter-05/index.adoc#modules,module npm>>
+_micro_ ([URL]#https://npmjs.com/micro#).
+
+Le service Amazon Lambda représente une marche d'apprentissage un peu plus importante.
+C'est un service important de par l'outillage et la documentation disponibles
+à son sujet.
+Le service est complet, surtout une fois couplé avec le service
+_Amazon API Gateway_.
+
+[TIP]
+.[RemarquePreTitre]#Avancé# _Amazon API Gateway_
+====
+Les Lambda d'Amazon ne sont pas accessibles depuis Internet par défaut.
+
+Pour ce faire, il faut les relier au service  et associer
+chaque route à une Lambda.
+Le service se charge de transformer le résultat
+— une chaîne de caractère, un tableau ou un objet ECMAScript —
+en une réponse HTTP.
+====
+
+
+[NOTE]
+.[RemarquePreTitre]#Définition# _Serverless_
+====
+Ce type d'infrastructure a été nommé _serverless_ suite à une organisation
+du marché pour proposer des alternatives aux Lambda d'Amazon.
+
+Quand on entend le mot _serverless_ — littéralement, sans serveur — il faut comprendre
+"sans serveur à gérer soi-même".
+L'hébergeur dispose quand même de machines pour exécuter le code.
+Leurs ressources sont mutualisées au maximum.
+====
 
 == Améliorer la portabilité de notre application
 

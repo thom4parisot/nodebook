@@ -1,11 +1,8 @@
 image: Visual Studio 2017
 
-environment:
-  matrix:
-  - nodejs_version: "8"
-
 install:
-  - ps: Install-Product node $env:nodejs_version x64
+  - ps: Install-Module nvm
+  - ps: Install-NodeVersion
   - npm config set script-shell "C:\\Program Files\\git\\bin\\bash.exe"
   - npm install -g npm@latest
   - npm install
