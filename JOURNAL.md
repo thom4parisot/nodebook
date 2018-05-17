@@ -3,6 +3,20 @@
 Le projet a commencé en décembre 2014.
 Ce journal détaille l'effort d'écriture depuis janvier 2017.
 
+## Jeudi 17 mai 2018 • Gommerville
+
+- _Chapitre 6_ : l'application tourne mais elle est injoignable
+
+**Météo** : 😶 ⛺️
+
+## Mercredi 16 mai 2018 • Bordeaux/Tours/Gommerville
+
+- _Chapitre 6_ : héberger une fonction événementielle
+- _Chapitre 6_ : héberger sur un serveur virtualisé/dédié/cloud
+- _Chapitre 6_ : utiliser la bonne version de Node
+
+**Météo** : 😕 🚂 ⛺️
+
 ## Mardi 15 mai 2018 • Bordeaux
 
 - _Chapitre 6_ : déployer avec un service d'intégration continue

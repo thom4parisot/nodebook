@@ -2,16 +2,16 @@
 :chapterId: chapter-06
 :sourceDir: ./examples
 :sourceSample: TODO.js
+:httpRoot: http://localhost:8000
 :nodeCurrentVersion: v8
 :v: 8
-:nodeNextVersion: v9
 :npmCurrentVersion: v5
 :sectnums:
 :revdate: {docdate}
-:imagesdir: {indir}
 :cross: &#x2718;
 :tick: &#x2714;
 :maybe: &#x2248;
+:imagesdir: {indir}
 ifdef::env[]
 :imagesdir: .
 endif::[]
@@ -1016,23 +1016,43 @@ Leurs ressources sont mutualisées au maximum.
 
 == Améliorer la portabilité de notre application
 
-Cette section va nous aider à préparer notre application Node pour l'exécuter
-sur *d'autres environnements* que notre machine de développement sans changer
-une seule ligne de code.
+Le fonctionnement d'une application Node peut être impacté suite à son
+déploiement en ligne.
 
-[[configuration]]
-=== Configurer sans toucher à notre code
+Cette section a pour but de mettre en lumière des
+*points importants qui contribuent à la portabilité de l'application*
+— c'est à dire son bon fonctionnement une fois en fonctionnement autre part
+que sur un ordinateur de développement et ce,
+indépendamment du service d'hébergement retenu.
 
-L'*environnement change entre notre machine de développement et la production*, le serveur de tests ou encore une plate-forme de services.
-Le nom et paramètres d'accès à une base de données diffèrent, le système d'exploitation n'est pas le même ni même les codes d'accès pour accéder à certaines APIs.
-Dans certains cas, nous n'avons même pas la main sur la décision d'un élément de configuration : il nous est fourni par l'environnement.
-À nous donc de nous adapter.
+[[node.version]]
+=== Utiliser la bonne version de Node
 
-Le premier élément que nous souhaitons maitriser est la *bonne version de Node* pour exécuter une application donnée.
-Je recommande l'*utilisation d'un environnement par application* ou à défaut, d'une technologie de _conteneurs_ (comme LXC, Docker etc.) pour héberger plusieurs applications sur un même environnement.
+Les <<hosting.paas,plates-formes de services>> et certains
+<<deploy.ci,services d'intégration continue>> utilisent deux mécanismes
+pour déterminer notre préférence quant à la version de Node à utiliser :
 
-Gérer plusieurs applications sur un même environnement implique soit de *_forcer_ toutes les applications* à se baser sur la même version de Node (mauvaise idée) soit à permettre à *chaque application d'expliciter sa préférence* (meilleure idée). +
-Les _outils de gestion de version pour Node_ exposent justement un mécanisme pour indiquer la version désirée de *manière déclarative* via un fichier texte – ici, `.nvmrc` dans le cas de <<../chapter-02/index.adoc#nvm,nvm>> (cf. Chapitre 2).
+- le fichier `.nvmrc` ;
+- la valeur `engines.node` du fichier `package.json`.
+
+Dans les deux cas, cela revient à préciser la version de Node
+pour chacun de nos projets.
+
+[TIP]
+.[RemarquePreTitre]#Conseil# Une version de Node par application
+====
+Je trouve qu'il est plus facile de gérer la version de Node au cas par cas
+au lieu de m'imposer une seule version pour tout le code que j'écris.
+
+C'est à la fois utile quand je reprends le code après plusieurs mois d'inactivité.
+====
+
+Si vous avez décidé d'utiliser <<../chapter-02/index.adoc#nvm,nvm>>
+(cf. <<../chapter-02/index.adoc#,chapitre 2>>) ou que vous utilisez un service
+compatible avec _nvm_, sachez que cet outil sait s'adapter à la version
+de Node précisée dans le fichier `.nvmrc`.
+
+Un fichier `.nvmrc` ressemble à ceci :
 
 [subs="+attributes"]
 .{empty}.nvmrc
@@ -1040,31 +1060,91 @@ Les _outils de gestion de version pour Node_ exposent justement un mécanisme po
 include::.nvmrc[]
 ----
 
-Les commandes exposées par _nvm_ ont _connaissance_ de la version de Node déclarée dans le fichier `.nvmrc`.
-Elles s'adapteront à cette version sauf à demander une version explicite :
+Avec cette valeur, cela revient au même de faire
+`nvm install {nodeCurrentVersion}` et `nvm install`.
+La commande `nvm use` lit également la version contenue dans `.nvmrc`
+et bascule automatiquement vers celle-ci :
 
 [subs="+attributes"]
 ----
 $ nvm install
-$ nvm install {nodeNextVersion}
-$ nvm run config/version.js
-$ nvm run {nodeNextVersion} config/version.js
-$ nvm exec npm start
+$ nvm use
+$ node --version
 ----
 
-Les cinq précédentes commandes permettent de :
+Les <<hosting.paas,plates-formes de services>> qui ne se basent pas sur _nvm_
+vont en général jeter un œil du côté du fichier `package.json` :
 
-. installer Node {nodeCurrentVersion} – version obtenue via `.npmrc` ;
-. installer Node {nodeNextVersion} – version explicite ;
-. exécuter le script `config/version.js` avec Node {nodeCurrentVersion} – version obtenue via `.npmrc` ;
-. exécuter le script `config/version.js` avec Node {nodeNextVersion} – version explicite ;
-. exécuter la commande `npm start` dans un environnement Node {nodeCurrentVersion}.
+[source,json,subs="+attributes"]
+----
+{
+  "name": "my-app",
+  "engines": {
+    "node": "{v}.x.x"
+  }
+}
+----
 
-[CAUTION]
-.[RemarquePreTitre]#Performance# Temps de démarrage
-====
-L'utilisation de _nvm_ entraine une pénalité d'environ _une seconde_ lors du _démarrage_ de l'application.
-====
+Cette notation signifie "la version la plus récente de Node {nodeCurrentVersion}".
+
+Enfin, la dernière version de Node est utilisée si cette information
+ne peut pas être déterminée avec les deux mécanismes précédemment cités.
+
+[[port]]
+=== L'application tourne mais elle est injoignable
+
+Il est nécessaire de renseigner un _port_ lorsqu'on démarre un serveur
+avec le <<../chapter-04/index.adoc#http,module `http`>>
+(cf. <<../chapter-04/index.adoc#,chapitre 4>>). +
+Pourtant nous allons faire face à un "problème" si le code suivant est déployé
+sur une <<hosting.paas,plate-forme de services>> :
+
+[source,javascript]
+.server-port.js
+----
+include::{sourceDir}/server-port.js[]
+----
+
+Le déploiement sera considéré comme réussi mais l'application est injoignable.
+C'est parce que les plates-formes de service choisissent ce port pour nous
+et l'associent à l'URL de notre application
+— `monapplication.heroku.com` par exemple.
+
+Le port est exposé au travers d'une
+<<../chapter-04/index.adoc#process.env,variable d'environnement>>
+(cf. <<../chapter-04/index.adoc#,chapitre 4>>).
+Par convention, c'est la variable `PORT` qui est utilisée.
+
+Nous n'avons qu'à adapter le script précédent de cette manière :
+
+[source%interactive,javascript]
+.server-port-dynamic.js
+----
+include::{sourceDir}/server-port-dynamic.js[]
+----
+<1> Extrait la valeur de la variable d'environnement `process.env.PORT`.
+
+La variable d'environnement `PORT` sera utilisée si elle existe et sinon,
+le port `8000` sera la valeur par défaut :
+
+----
+$ node server-port-dynamic.js             # <1>
+$ <i>PORT=4000</i> node server-port-dynamic.js   # <2>
+----
+<1> Affiche `localhost:8000`.
+<2> Affiche `localhost:4000`.
+
+C'est un premier pas pour s'affranchir des
+<<configuration,éléments de configuration écrits en dur>>.
+
+
+[[configuration]]
+=== S'affranchir des chemins et configuration écrites "en dur"
+
+L'*environnement change entre notre machine de développement et la production*, le serveur de tests ou encore une plate-forme de services.
+Le nom et paramètres d'accès à une base de données diffèrent, le système d'exploitation n'est pas le même ni même les codes d'accès pour accéder à certaines APIs.
+Dans certains cas, nous n'avons même pas la main sur la décision d'un élément de configuration : il nous est fourni par l'environnement.
+À nous donc de nous adapter.
 
 Nous n'avons certainement *pas envie de modifier le code* de notre application pour refléter ces différences.
 C'est également l'*horreur de maintenir un fichier de configuration* par environnement.
@@ -1105,71 +1185,6 @@ Je *recommande d'expliciter `NODE_ENV=production`* dans un environnement de prod
   On constate généralement des *améliorations de performance*.
 ====
 
-L'exemple suivant décrit comment définir le _port réseau_ sur lequel écoutera le serveur HTTP.
-Le numéro du port sera déterminé soit par le contexte d'exécution (_environnement de test_ ou _environnement de production_) soit par un numéro de port explicitement passée en tant que _variable d'environnement_.
-
-[source%interactive,javascript,nodeVersion={nodeCurrentVersion}]
-.config/env.js
-----
-include::{sourceDir}/config/env.js[]
-----
-<1> Décompose `PORT` de `process.env` et si la clé n'existe pas, assigne la valeur de `defaultPort`.
-
-Jouons avec le script `config/env.js` pour illustrer ces différents scénarios :
-
-----
-$ PORT=8000 node config/env.js     # <1>
-$ NODE_ENV=test node config/env.js # <2>
-$ node config/env.js               # <3>
-----
-<1> Affiche `En écoute sur http://localhost:8000`.
-<2> Affiche `En écoute sur http://localhost:3001`.
-<3> Affiche `En écoute sur http://localhost:3000`.
-
-Le mécanisme des _variables d'environnement_ est détaillé dans la section <<../chapter-04/index.adoc#process-env,variables d'environnement>> du chapitre 4.
-
-L'utilisation de fichiers de configuration peut se révéler être un bon _complément_ aux variables d'environnement.
-Ces fichiers de configuration doivent *s'appliquer à tous les contextes d'exécution* (production comme développement) pour être au plus proche de l'environnement de production à tout moment mais aussi pour simplifier la maintenance.
-
-Autrement dit *oui* à un fichier configurant des outils de la même manière pour tout le monde (eslint, babel etc.) mais *non* à un fichier _production.json_, _dev.json_ etc.
-
-Le fichier `package.json` est adapté au stockage d'informations de configuration.
-Il est idéal pour y stocker différentes _valeurs par défaut_ comme le montre l'exemple suivant avec la clé `config.port` :
-
-[source,javascript]
-.package.json#L6-12
-----
-include::package.json[lines=6..12, indent=0]
-----
-
-L'appel du fichier suivant affichera un résultat différent selon que l'invocation se fasse avec Node ou _npm_ (cf. <<../chapter-04/index.adoc#invoke,invoquer Node.js>>, Chapitre 4) :
-
-.Exécution de `config/file-npm.js` avec Node puis _npm_.
-----
-$ node config/file-npm.js
-$ npm run config:file-npm
-----
-
-[source,javascript]
-.config/file-npm.js
-----
-include::{sourceDir}/config/file-npm.js[]
-----
-<1> Affiche `undefined` avec Node et `3000` avec _npm_.
-<2> Affiche `3000` avec Node et _npm_.
-
-_npm_ aplatit la structure d'objet du fichier `package.json`, séparera chaque niveau de profondeur par le caractère `\_`, le préfixera par `npm_package_` et l'injectera dans l'objet `process.env`.
-
-[TIP]
-.[RemarquePreTitre]#Astuce# Combinaison avec les variables d'environnement
-====
-Un bon moyen de ne pas inscrire en dur l'emplacement d'un fichier de configuration est encore d'indiquer son emplacement via une variable d'environnement :
-
-----
-CONFIG_FILE=~/.secured/config.json node app.js
-----
-====
-
 [[data-persistence]]
 === Persister les fichiers en dehors de notre application
 
@@ -1201,49 +1216,7 @@ Nous verrons plus loin dans ce chapitre comment <<database-migration,effectuer d
 
 === Exécuter l'application avec un utilisateur sans privilèges
 
-Retenez une chose : *ne démarrez _jamais_ une application Node sur le port 80 ou 443* — ports utilisés par convention pour parler respectivement les protocoles HTTP et HTTPS.
 
-L'exemple suivant illustre un serveur web Node qui écoutera sur le port 80 :
-
-[source,javascript]
-.server-port80.js
-----
-include::{sourceDir}/server-port80.js[]
-----
-
-Cela ne fonctionnera pas, y compris si le port est libre.
-Tous les ports inférieurs à 1024 nécessitent que le programme soit lancé avec un utilisateur privilégié, comme _root_ par exemple.
-
-Alors pourquoi ne pas utiliser _root_ pour avoir accès au port 80 ou 443 ?
-<<system-security,Pour des raisons de sécurité>> comme évoqué précédemment dans ce chapitre.
-Donc même si c'est techniquement faisable, *non nous le ferons pas* et nous privilégierons d'autres mécanismes, notamment celui du <<reverse-proxy,_reverse proxy_>>.
-
-
-[TIP]
-.[RemarquePreTitre]#Sécurité# Utilisateur sans privilèges
-====
-Un utilisateur sans privilège nommé `nobody` existe sur la plupart des systèmes d'exploitation.
-Nous pouvons l'utiliser pour exécuter un processus critique. +
-Cet utilisateur aura tout de même accès en lecture et en écriture aux fichiers et répertoires ouverts à tous les utilisateurs du système—l'impact devrait être limité.
-
-----
-$ sudo -u nobody node debug.js
-$ ps aux | grep nobody
-----
-
-L'exécution de ces deux commandes lance un des exemples de ce chapitre en tant que `nobody`.
-La liste des processus montre ensuite que le script `debug.js` est bien pris en charge par l'utilisateur `nobody`.
-====
-
-[TIP]
-.[RemarquePreTitre]#Alternative# authbind
-====
-Le logiciel libre pour Linux _authbind_ comble le besoin impérieux d'assigner un port privilégié mais à un _utilisateur sans privilège_.
-
-Il conviendra quand même de créer un utilisateur système avec des permissions limitées spécifiquement pour chaque application Node.
-
-- [URL]#http://manpages.ubuntu.com/authbind#
-====
 
 [[database-migration]]
 === Scripter les changements de schémas de base de données
@@ -1493,7 +1466,7 @@ des erreurs provoquées volontairement.
 
 
 [[exceptions]]
-=== Consulter les erreurs applicatives
+=== S'informer des erreurs applicatives
 
 TBD.
 
