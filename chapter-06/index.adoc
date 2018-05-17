@@ -1141,48 +1141,88 @@ C'est un premier pas pour s'affranchir des
 [[configuration]]
 === S'affranchir des chemins et configuration écrites "en dur"
 
-L'*environnement change entre notre machine de développement et la production*, le serveur de tests ou encore une plate-forme de services.
-Le nom et paramètres d'accès à une base de données diffèrent, le système d'exploitation n'est pas le même ni même les codes d'accès pour accéder à certaines APIs.
-Dans certains cas, nous n'avons même pas la main sur la décision d'un élément de configuration : il nous est fourni par l'environnement.
-À nous donc de nous adapter.
+La <<port,configuration du port>> de l'application n'est pas le seul
+élément contextuel à changer entre notre ordinateur et un autre
+— que ce soit celui d'une personne contribuant au projet,
+au <<deploy.ci,service d'intégration continue>> ou au serveur d'hébergement.
 
-Nous n'avons certainement *pas envie de modifier le code* de notre application pour refléter ces différences.
-C'est également l'*horreur de maintenir un fichier de configuration* par environnement.
-Alors comment faire ?
+Les <<../chapter-04/index.adoc#process.env,variables d'environnement>> sont
+sont à privilégier pour configurer nos applications avec souplesse.
+Elles s'appliquent
 
-L'utilisation de *variables d'environnement pour configurer une application* est la solution la plus aisée à implémenter.
-Ces variables sont accessibles via l'objet `process.env` et *ne sont pas changer pendant la durée d'exécution d'une application*.
-Voici un échantillon de leurs usages :
+* *URL* d'accès aux bases de données, à des API distantes ;
+* *clés d'API* pour utiliser des services externes ;
+* *réglages* influençant le comportement de l'application ;
+* *chemin d'accès* vers des fichiers ou répertoires — stockage, cache, etc ;
+* *environnement d'exécution* — développement, test, production, etc.
 
-* *environnement d'exécution* (voir l'encadré sur `NODE_ENV` ci-après) ;
-* *adresses de connexion aux bases de données* (_Data Source Name_, _DSN_) ;
-* *URL des ressources et APIs* dont l'application dépend ;
-* *autres variables* décrivant la cible de déploiement.
+L'accès à une base de données est un parfait exemple.
+Les nom d'utilisateur, mot de passe et adresse du serveur
+peuvent d'ailleurs se combiner une seule variable composée sous forme d'URL.
+
+Par exemple, si vous avez connaissance des identifiants et de l'adresse d'une
+base de données MySQL ou MariaDB, composez l'URL de configuration comme suit :
+
+----
+$ MYSQL_URL=mysql://user:password@server/database \
+  node sql-connect.js
+----
+
+[source,javascript]
+.sql-connect.js
+----
+include::{sourceDir}/sql-connect.js[]
+----
+<1> Connexion à la base de données en utilisant la variable d'environnement `MYSQL_URL`.
+<2> Affiche `Connexion réussie :-)` en cas de succès de connexion à la base de données.
+<3> Clôture de la connexion — autrement le script ne se terminerait pas sans avoir recours à kbd:[Ctrl+C].
+
+Le script d'exemple devrait avoir affiché la liste des tables contenues
+dans cette base de données ou un message d'erreur le cas échéant.
+
+La documentation du <<../chapter-05/index.adoc#modules,module npm>>
+_mysql2_ ([URL]#http://npmjs.com/mysql2#) détaille les différentes fonctions
+utilisables pour interagir avec les bases de données compatibles.
 
 [TIP]
-.[RemarquePreTitre]#À savoir# `NODE_ENV`
+.[RemarquePreTitre]#Raccourci# Créer une base de données MySQL avec Docker
 ====
-La variable d'environnement `NODE_ENV` a été adoptée par de nombreux outils
-et _frameworks_ pour déterminer le contexte d'exécution d'une application,
-effectuer des optimisations ou afficher des informations de débug supplémentaires.
+Docker est un outil utile pour créer une base de données en
+une ligne de commande et ce, sans avoir à installer MySQL sur notre ordinateur.
 
-Je *recommande d'expliciter `NODE_ENV=production`* dans un environnement de production.
+----
+$ docker run -ti --rm -e MYSQL_ROOT_PASSWORD=demo \
+  -p 3306:3306 mysql:5
+----
 
-* `development` +
-  C'est le contexte assumé par défaut lorsqu'une personne développe sur sa machine.
-  Les exceptions sont affichées de manière verbeuse et du code supplémentaire .
-  Des informations sensibles peuvent être contenues dans les traces d'erreurs ;
-* `test` +
-  C'est la valeur que l'on choisit pour exécuter des tests applicatifs,
-  augmenter la verbosité des _logs_ et activer les _Source Maps_ pour faciliter le débogage de fichiers transpilés.
-  Certains _frameworks_ de test et outils d'_intégration continue_ assignent
-  cette variable d'environnement par défaut ;
-* `production` +
-  Les exceptions n'affichent pas de détails – il faut aller
-  <<exceptions,inspecter les erreurs et exceptions>>, l'outillage
-  d'introspection est désactivé et la verbosité des _logs_ est supposée être
-  moins verbeuse.
-  On constate généralement des *améliorations de performance*.
+Vous pourrez ainsi utiliser l'URL `mysql://root:demo@localhost/mysql`
+comme variable d'environnement `MYSQL_URL` avec
+le script d'exemple `sql-connect.js`
+====
+
+Certaines variables d'environnement sont tellement spécifiques à chaque usage
+qu'elles doivent être obligatoirement configurées — identifiants, URL de la
+base de données, etc.
+Je trouve pratique de proposer une valeur par défaut pour les autres — le port
+de l'application ou d'autres éléments plus "cosmétiques".
+
+Enfin, j'ai aussi pris l'habitude de documenter les variables d'environnement
+dans le fichier `README.md` à la racine de chaque projet.
+Nous pouvons ainsi avoir une vue d'ensemble de la complexité de configuration
+en un rapide coup d'œil — et ça nous évite de fouiller dans le code applicatif.
+
+[TIP]
+.[RemarquePreTitre]#Optimisation# `NODE_ENV=production`
+====
+Certains <<../chapter-05/index.adoc#modules,modules npm>> comme _express_
+([URL]#https://npmjs.com/express#) lisent la valeur de `process.env.NODE_ENV`.
+Ils s'en servent pour procéder à des optimisations et masquer des informations
+sensibles dans un contexte de production
+— l'environnement qui fait face à nos utilisateurs.
+
+----
+$ NODE_ENV=production node app.js
+----
 ====
 
 [[data-persistence]]
@@ -1213,19 +1253,14 @@ Nous répondons au <<../chapter-07/index.adoc#database,choix d'une base de donn�
 Nous verrons plus loin dans ce chapitre comment <<database-migration,effectuer des migrations de base de données>> afin de répercuter des évolutions dans leur structure et ce, sans intervention manuelle.
 
 
-
-=== Exécuter l'application avec un utilisateur sans privilèges
-
-
-
 [[database-migration]]
 === Scripter les changements de schémas de base de données
 
 TBD.
 
-=== Utiliser Docker pour tester un environnement reproductible
+=== Exécuter l'application avec un utilisateur sans privilèges
 
-TBD.
+
 
 [[startup]]
 == Démarrer automatiquement nos applications

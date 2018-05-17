@@ -6,6 +6,7 @@ Ce journal détaille l'effort d'écriture depuis janvier 2017.
 ## Jeudi 17 mai 2018 • Gommerville
 
 - _Chapitre 6_ : l'application tourne mais elle est injoignable
+- _Chapitre 6_ : s'affranchir des chemins et configuration écrites "en dur"
 
 **Météo** : 😶 ⛺️
 
