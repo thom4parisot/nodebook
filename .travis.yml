@@ -29,7 +29,6 @@ deploy:
     local-dir: dist
     on:
       branch: master
-      node_js: v8
   - provider: releases
     prerelease: true
     skip-cleanup: true
