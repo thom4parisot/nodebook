@@ -255,14 +255,17 @@ module.exports = {
   'chapter-06/examples/app.js': {
     skip: true
   },
+  'chapter-06/examples/server-port.js': {
+    skip: true
+  },
+  'chapter-06/examples/server-port-dynamic.js': {
+    skip: true
+  },
+  'chapter-06/examples/sql-connect.js': {
+    exitCode: 1
+  },
   'chapter-06/examples/debug.js': {
     timeout: 6000
-  },
-  'chapter-06/examples/server-port80.js': {
-    skip: true
-  },
-  'chapter-06/examples/config/env.js': {
-    skip: true
   },
   'chapter-07/examples/http-app.js': {
     skip: true
