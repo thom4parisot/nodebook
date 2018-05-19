@@ -262,7 +262,8 @@ module.exports = {
     skip: true
   },
   'chapter-06/examples/sql-connect.js': {
-    exitCode: 1
+    exitCode: 1,
+    stderr: 'TypeError'
   },
   'chapter-06/examples/debug.js': {
     timeout: 6000

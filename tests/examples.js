@@ -50,7 +50,7 @@ examples.filter(serverSide).forEach(FILE => {
 
     config.stderr
       ? p.stderr.match(new RegExp(config.stderr))
-      : p.stderr.match(/^$/, 'stderrr is empty');
+      : p.stderr.match(/^$/, 'stderr is empty');
 
     return p.end();
   });
