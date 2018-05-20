@@ -3,6 +3,12 @@
 Le projet a commencé en décembre 2014.
 Ce journal détaille l'effort d'écriture depuis janvier 2017.
 
+## Dimanche 20 mai 2018 • Gommerville/Bordeaux
+
+- _Chapitre 6_ : persister les fichiers en dehors de notre application
+
+**Météo** : 😴 ⛺️ 🚂
+
 ## Jeudi 17 mai 2018 • Gommerville
 
 - _Chapitre 6_ : l'application tourne mais elle est injoignable

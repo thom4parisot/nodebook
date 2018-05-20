@@ -1228,38 +1228,91 @@ $ NODE_ENV=production node app.js
 [[data-persistence]]
 === Persister les fichiers en dehors de notre application
 
-Développer une application sur sa machine et la tester nous met à l'abri de certaines questions et considérations. +
-Que se passe-t-il en cas de redémarrage de notre application ?
-Et du système d'exploitation ?
-Et si l'on doit installer l'application sur une nouvelle machine ?
+Les fichiers écrits par notre application devraient être persistés en dehors
+de son arborescence de fichiers.
 
-On voudra s'assurer que nous ne perdrons pas de données lors d'une mise en production ou d'une mise à jour en production.
-Autrement dit, il nous faut nous assurer que le bon support de persistence a été choisi pour les différents cas d'usage des données gérées.
-Par exemple :
+Prenons cet exemple d'arborescence :
 
-* une *liste d'utilisateurs inscrits* sur un service – on ne peut pas la perdre ;
-* une *liste de sessions* – c'est acceptable de les remettre à zéro ;
-* des *paramètres en cache* – on peut les reconstruire à la volée ;
-* des *tâches de fond* – on veut les dissocier du processus applicatif.
+----
+└── app
+    ├── images
+    └── uploads
+        └── images
+----
 
-*Arrêter et démarrer une application ne devrait pas entrainer de perte de données*.
-Démarrer une application et l'accès à la source d'informations devrait *toujours fonctionner de la même manière* et ce, que ce soit son premier lancement, suite à une mise à jour ou après avoir déplacé l'application sur un différent support physique.
+Les images sont stockées à deux endroits :
 
-Enfin, il faut se poser la question de la _multiplicité_ : lancer plusieurs fois la même application Node—sur la même machine ou sur une machine différente—impacte-t-il la manière dont l'information est stockée et accédée ?
-Cela entraine-t-il doublon ou corruption de données dans les valeurs enregistrées ?
+- `app/images` : images statiques affichées par notre application web — on les versionne avec Git;
+- `app/uploads/images` : fichiers enregistrés sur le disque par l'intermédiaire
+de notre application — on ne les versionne pas avec Git.
 
-Toutes ces questions devraient nous aiguiller vers le *choix d'un ou de plusieurs supports de persistence de données*.
-Nous répondons au <<../chapter-07/index.adoc#database,choix d'une base de données>> dans le chapitre 7.
-Nous verrons plus loin dans ce chapitre comment <<database-migration,effectuer des migrations de base de données>> afin de répercuter des évolutions dans leur structure et ce, sans intervention manuelle.
+Un inconvénient se présente à nous : nous perdons tout si nous supprimons
+le répertoire `app` pour la réinstaller de zéro.
+Je conseille donc d'*écrire tout nouveau fichier dans un répertoire indépendant*.
+L'arborescence évoquée ci-dessus se transformerait ainsi :
 
+----
+├── app
+│   └── images
+└── uploads
+    └── images
+----
+
+[TIP]
+.[RemarquePreTitre]#Rappel# Configurer le chemin avec un variable d'environnement
+====
+Le chemin d'accès devient flexible dès lors que nous le rendons configurable
+avec une variable d'environnement.
+
+----
+$ UPLOAD_DIR=/uploads npm start
+----
+
+En savoir plus en lisant la <<configuration,section précédente>>.
+====
+
+Ce qui peut sembler être une précaution s'avère encore plus utile
+dès lorsque nous utilisons une <<hosting.paas,plate-forme de services>>
+ou lorsque nous démarrons une nouvelle <<hosting.cloud,machine virtuelle>>.
+*Chaque nouveau déploiement remet le système de fichiers à zéro*.
+
+Une solution complémentaire s'offre à nous dès lorsqu'il devient compliqué
+de partager un même stockage de fichiers entre plusieurs machines ou VM :
+c'est le *stockage d'objets*.
+
+Le stockage d'objets est une solution de stockage élastique où la facturation
+est basée sur la quantité de données stockées et téléchargées.
+Nous accédons aux ressources stockées et à leur contenu avec des requêtes HTTP.
+Les fichiers sont ainsi disponibles à tout moment, sans limite et
+pour tous nos contextes applicatifs.
+
+[NOTE]
+.[RemarquePreTitre]#Histoire# Amazon S3
+====
+Amazon S3 est le premier service à avoir rendu populaire le stockage d'objets
+en 2006.
+C'était la première fois que nous pouvions stocker des fichiers de manière infinie,
+sans limitation de taille de fichiers.
+
+Son interface d'accès (API) est même devenue un standard _de facto_ : il est
+utilisé par la plupart des concurrents afin de pouvoir passer d'un fournisseur
+à un autre sans avoir à changer grand chose à ses applications.
+====
+
+[format="csv", options="header", separator=";"]
+.Services de stockage d'objets compatibles avec l'API Amazon S3
+|===
+Service;Emplacement(s) du stockage;Tarif mensuel
+[URL]#https://aws.amazon.com/s3/#;Paris, Europe, Monde;0.024$/Go
+[URL]#https://ovh.com/fr/public-cloud/storage/#;France;0.01€/Go
+[URL]#https://cloud.google.com/storage/#;Europe, Monde;0.026$/Go
+[URL]#https://minio.io#;Flexible;-
+|===
 
 [[database-migration]]
 === Scripter les changements de schémas de base de données
 
 TBD.
-
-=== Exécuter l'application avec un utilisateur sans privilèges
-
 
 
 [[startup]]
