@@ -12,7 +12,7 @@ module.exports = function bash$Extension () {
 
       doc.findBy({ context: 'listing' }, isBash).forEach(block => {
         const {parent} = block;
-        const dollar_regexp = /^(\$+) (.+)$/;
+        const dollar_regexp = /^(\$+|#) (.+)$/;
 
         let isModified = false;
 

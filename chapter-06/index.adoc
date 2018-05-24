@@ -1438,65 +1438,63 @@ automatique de nos applications :
 $ pm2 unstartup
 ----
 
+[NOTE]
+.[RemarquePreTitre]#Windows# Configurer pm2
+====
+La commande `pm2 startup` pose problème sous Windows.
+Je recommande d'utiliser le module npm _pm2-windows-service_
+([URL]#https://www.npmjs.com/package/pm2-windows-service#) pour simplifier
+cette procédure.
+====
 
 [[system-service]]
 === En créant un service système
 
-On l'oublierait presque mais il n'y a pas besoin d'installer de logiciel pour démarrer une application automatiquement.
-Après tout, c'est une des *responsabilités du système d'exploitation*.
+Tous les systèmes d'exploitation ont un mécanisme pour
+démarrer des applications en fonction de certains critères :
+quand le réseau ou une connexion Internet est disponible,
+lorsqu'une session utilisateur s'est ouverte
+ou même quand un autre logiciel est actif.
 
-Chaque système d'exploitation se base sur un *gestionnaire de processus*.
-Nous pouvons lui communiquer les informations relatives au lancement de notre programme :
+Systemd, Upstart et launchd sont des gestionnaires de services système parmi d'autres.
+Ils se configurent avec des fichiers écrits dans des formats différents.
 
-* *quelle(s) commande(s) exécuter* ;
-* dans *quel ordre*, à *quel moment* et *après* quel(s) service(s) ;
-* la *stratégie de reprise* (laisser le processus hors-service, redémarrer automatiquement etc.) ;
-* *quelles opérations* effectuer avant et/ou après son démarrage, arrêt, redémarrage.
-
-Nous déclarons ces informations dans un fichier de configuration, sous forme textuelle, souvent à raison d'un fichier de configuration par programme.
-La syntaxe varie selon les gestionnaires de processus mais la philosophie reste identique. +
-*systemd* est l'outil de gestion de processus de la distribution link:http://www.ubuntu-fr.org/[Linux Ubuntu] mais aussi d'autres distributions populaires comme _Debian_, _Fedora_ et _CentOS_.
+Voici un exemple de fichier de configuration pour _systemd_
+([URL]#https://doc.ubuntu-fr.org/systemd#).
+C'est le gestionnaire de services des distributions Linux _Ubuntu_,
+ _Debian_, _Fedora_ et _CentOS_.
 
 [source]
 .systemd/nodebook.d/app.conf
 ----
 include::{sourceDir}/systemd/nodebook.d/app.conf[]
 ----
-<1> L'application démarrera dès que l'interface réseau sera opérationnelle
-<2> L'application sera relancée en cas de plantage — maximum 5 fois plantage dans un délai de 120 secondes
-<3> Le processus sera démarré au nom de l'utilisateur système `nobody`
-<4> C'est comme si nous faisions `cd /usr/local/node-app` avant de lancer l'application — c'est la valeur qu'on retrouve avec `process.cwd()`
-<5> Commande à exécuter pour démarrer l'application
+<1> L'application démarrera dès que l'interface réseau sera opérationnelle.
+<2> L'application sera relancée en cas de plantage — maximum 5 fois plantage dans un délai de 120 secondes.
+<3> Le processus sera démarré au nom de l'utilisateur système `nobody`.
+<4> C'est comme si nous faisions `cd /usr/local/node-app` avant de lancer l'application — c'est la valeur qu'on retrouve avec `process.cwd()`.
+<5> Commande à exécuter pour démarrer l'application.
 
-L'exemple précédent décrit l'initialisation notre service après le démarrage du service en charge des interfaces réseau (`NetworkManager.service`).
-_systemd_ exécute la commande `npm start` en tant qu'utilisateur `nobody` (sans privilèges donc) dans le répertoire précisé par la directive `WorkingDirectory` et injecte la variable d'environnement `NODE_ENV`.
-Enfin, _systemd_ redémarrera le service en cas d'erreur, dans une limite de 5 tentatives en l'espace de 120 secondes.
-
-Si le fichier de configuration est accessible en tant que `/etc/systemd/nodebook.d/app.conf`, le service `nodebook` peut être démarré manuellement comme suit :
+Le service associé au fichier de configuration précédent peut être démarré
+manuellement comme suit :
 
 ----
-$ sudo systemctl start nodebook.service
+# Cf. /etc/systemd/<i>nodebook</i>.d/app.conf
+$ sudo systemctl start <i>nodebook</i>.service
 ----
 
-D'autres commandes comme `reload`, `stop` et `restart` nous donnent le contrôle sur le cycle de vie de nos services. +
-Dans tous les cas, le service sera démarré automatiquement au prochain démarrage du système d'exploitation.
+Les commandes `systemctl stop` et `systemctl restart`
+arrêtent et relancent un service.
 
-[TIP]
-.[RemarquePreTitre]#Documentation# systemd
-====
-Une introduction ainsi qu'une documentation détaillée de _systemd_ sont disponibles en ligne :
-
-- [URL]#https://doc.ubuntu-fr.org/systemd# (en français)
-- [URL]#https://freedesktop.org/software/systemd/man/# (en anglais)
-====
+Dans tous les cas, le service sera lancé automatiquement au prochain
+démarrage du système d'exploitation.
 
 [TIP]
 .[RemarquePreTitre]#Alternative# Et pour Windows ?
 ====
-La création d'un service système sur un serveur Windows implique une toute autre procédure.
-Le service peut être manuellement créé depuis le *menu Services* ou scripté via l'intermédiaire du module npm `node-windows`.
-
-- [URL]#https://npmjs.com/node-windows#
+Le gestionnaire de services Windows est compliqué à utiliser.
+Je recommande d'utiliser le module npm
+_node-windows_ ([URL]#https://npmjs.com/node-windows#).
 ====
 
 

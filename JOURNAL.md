@@ -3,6 +3,14 @@
 Le projet a commencé en décembre 2014.
 Ce journal détaille l'effort d'écriture depuis janvier 2017.
 
+## Jeudi 24 mai 2018 • Bordeaux/Anduze
+
+- _Chapitre 6_ : démarrer automatiquement une application
+- _Chapitre 6_ : démarrer automatiquement une application avec un gestionnaire de processus
+- _Chapitre 6_ : démarrer automatiquement une application en créant un service système
+
+**Météo** : 😶 🚂
+
 ## Mercredi 23 mai 2018 • Bordeaux
 
 - _Chapitre 6_ : Versionner les schémas de base de données
