@@ -308,8 +308,11 @@ La commande `heroku git:remote` associe notre copie locale Git à cette applicat
 
 .Configuration de notre dépôt Git pour en faire une application Heroku.
 ----
-$ heroku apps:create --region eu mon-application
-$ heroku git:remote --app mon-application
+$ heroku apps:create --region eu
+Creating app... done, ⬢ <i>polar-taiga-61296</i>, region is eu
+https://polar-taiga-61296.herokuapp.com/
+https://git.heroku.com/polar-taiga-61296.git
+$ heroku git:remote --app <i>polar-taiga-61296</i>
 ----
 
 Il ne nous reste plus qu'à <<deploy.git,pousser notre code avec Git>>
@@ -848,7 +851,7 @@ pour mieux comprendre ce empêche votre application de fonctionner sur leurs ser
 
 
 [[hosting.cloud]]
-=== Serveur virtualisé (VPS, VM), dédié ou cloud
+=== Serveur virtualisé, dédié ou cloud
 
 La location d'un serveur dédié revient à payer pour un ordinateur complet,
 son entretien physique et son placement dans un _datacenter_ — un immense
@@ -1014,7 +1017,7 @@ L'hébergeur dispose quand même de machines pour exécuter le code.
 Leurs ressources sont mutualisées au maximum.
 ====
 
-== Améliorer la portabilité de notre application
+== Améliorer la portabilité applicative
 
 Le fonctionnement d'une application Node peut être impacté suite à son
 déploiement en ligne.
@@ -1363,87 +1366,77 @@ Nous avons ainsi rejouer toutes les migrations sur notre outil d'intégration
 continue pour nous assurer de leur robustesse et revenir en arrière si nécessaire.
 
 [[startup]]
-== Démarrer automatiquement nos applications
+== Démarrer automatiquement une application
 
-Qu'est-ce qui différencie le fonctionnement d'une application Node sur un _ordinateur de développement_ d'un _serveur de production_ ?
-La manière de démarrer cette application.
+Jusqu'à présent, nous avons démarré les scripts de cet ouvrage
+avec l'exécutable `node` ou avec la commande `npm start`.
+C'est un processus manuel qui nécessite de conserver un onglet ouvert
+dans notre terminal pour maintenir l'application en fonctionnement.
 
-Le démarrage d'une application Node sur notre machine de développement est une chose intuitive car manuelle.
-Nous *démarrons le processus à la main*.
-Nous avons d'ailleurs abordé différentes manières d'<<../chapter-04/index.adoc#invoke,invoquer un processus Node>> dans le <<../chapter-04/index.adoc#,chapitre 4>>.
+Cette section explore des mécanismes pour *détacher le processus du terminal*
+et pour *lancer l'application au démarrage ou redémarrage d'un ordinateur*.
 
-Lorsqu'il s'agit d'un environnement de production, nous avons à _automatiser_ cette opération manuelle.
+=== L'hébergeur s'en occupe à notre place
 
-Nous allons voir différentes méthodes aboutissant à un résultat similaire.
+Les <<hosting.paas,plates-formes de service>> automatisent le démarrage de
+l'application. +
+Elles exécutent la <<../chapter-05/index.adoc#start,commande `npm start`>>
+dès que le déploiement est terminé.
 
-=== Déléguer au service d'hébergement
-
-Certains services d'hébergement prennent en charge le démarrage automatique de nos applications.
-C'est le cas notamment des hébergements de type <<paas,_Platform as a Service_>> (_PaaS_) que nous explorerons plus en détails dans une section ci-après.
-
-Ces services vont se baser sur des *conventions* ou des fichiers de *configuration* pour comprendre la nature de notre application et l'intégrer automatiquement.
-Ils se baseront souvent sur le <<../chapter-05/index.adoc#npm-scripts,script `npm start`>> et d'autres informations contenues dans le fichier `package.json`.
+C'est tout.
 
 
 [[process-manager]]
 === Avec un gestionnaire de processus
 
-Les _gestionnaires de processus_ s'intègrent entre le système d'exploitation et nos applications.
-Ils servent à *gérer leur démarrage* que ce soit en développement ou en production.
-Ils déclarent nos applications en tant que *services système de manière universelle*, peu importe le système d'exploitation.
+Un gestionnaire de processus a deux utilités :
 
-Autrement dit, un gestionnaire de processus prend en charge le *démarrage d'un processus* en tâche de fond, le *suivi de leur statut* ainsi que l'<<system-service,intégration en tant que *service système*>>.
-Certains gestionnaires vont jusqu'à l'*inspection des logs* et le *passage à l'échelle* afin notamment de répartir les processus applicatifs sur chaque CPU de la machine.
+. *détacher un processus* de notre terminal — si on le ferme, l'application tourne toujours ;
+. *gérer plusieurs processus par application* — un frontal web et l'admin par exemple.
 
-*pm2* ([URL]#http://pm2.io/#) est un gestionnaire de processus populaire dans la communauté Node.
-Il est lui-même écrit en ECMAScript et fonctionne aussi bien sous Linux, Windows que macOS.
+_pm2_ ([URL]#hhttps://pm2.keymetrics.io#) est un gestionnaire de processus
+disponible en tant que <<../chapter-05/index.adoc#modules,module npm>>
+([URL]#https://npmjs.com/pm2#).
+Il fonctionne sous Linux, Windows et macOS.
 
-La commande suivante démarrera une application web en lui attribuant un nom (ici, _nodebook-ch06-testapp_).
-L'application sera démarrée en mode _cluster_ à raison d'un processus par CPU afin de répartir le trafic en fonction de la charge.
-
-----
-$ pm2 start app.js -i 0 --name nodebook-ch06-testapp
-----
-
-.Liste des processus gérés par _pm2_.
-image::images/pm2-status.png[width="85%"]
-
-L'ordinateur servant à la rédaction de l'ouvrage dispose de 4 CPU donc _pm2_ crée autant de processus en parallèle.
-
-L'application de démonstration affiche un nom aléatoire de Pokémon ainsi que l'identifiant du processus au sein du _cluster_ lors de la consultation de la page [URL]#http://localhost:4000#. +
-On s'en rend compte notamment en utilisant le programme `curl` (ou équivalent) :
+La commande suivante démarre un script et le place aussitôt en tâche de fond :
 
 ----
-$ curl --location http://localhost:4000
-> [cluster #2] Jynx
-
-$ curl --location http://localhost:4000
-> [cluster #1] Starmie
+$ pm2 start app.js
 ----
 
-Les processus peuvent être stoppés indépendamment.
-L'application peut être redémarrée automatiquement en cas de plantage, et sans interruption après une mise à jour de la base de code, entre autres.
+.Exemple de démarrage et d'affichage de l'état d'une application Node avec _pm2_.
+image::images/pm2-start.png[width="85%"]
 
-[TIP]
-.[RemarquePreTitre]#Documentation# pm2
-====
-La documentation du projet _pm2_ liste en détails les actions et modules du programme.
-Des tutoriaux sont également à disposition pour décrire pas à pas différentes intégration, notamment avec le serveur HTTP _nginx_ ou d'autres langages comme _TypeScript_.
+Cette même application s'arrête avec la commande `pm2 stop` et
+se relance pour prendre en compte des changements de code avec `pm2 restart`.
 
-- `$ pm2 --help`
-- [URL]#http://pm2.keymetrics.io/#
-- [URL]#https://github.com/Unitech/pm2#
-====
+Les gestionnaires de processus facilitent l'intégration
+d'une application en tant que <<system-service,service système>>
+(cf. section suivante). +
+C'est mon choix de prédilection pour ne pas avoir à apprendre un nouveau
+fichier de configuration.
 
-[TIP]
-.[RemarquePreTitre]#Alternative# foreman
-====
-_foreman_ est un gestionnaire de processus très simple à appréhender.
-Il est utilisé pour déclarer et démarrer des applications sur la plate-forme d'<<paas,hébergement Heroku>>.
+La commande suivante nous guide dans la configuration de notre système
+d'exploitation :
 
-- [URL]#https://rubygems.org/gems/foreman#
-- [URL]#http://ddollar.github.io/foreman/#
-====
+----
+$ pm2 startup
+----
+
+Celle-ci sauvegarde les applications démarrées avec le gestionnaire de processus.
+Elles seront restaurées au prochain redémarrage de l'ordinateur :
+
+----
+$ pm2 save
+----
+
+On peut aussi revenir en arrière et décider de désactiver le démarrage
+automatique de nos applications :
+
+----
+$ pm2 unstartup
+----
 
 
 [[system-service]]
@@ -1469,6 +1462,11 @@ La syntaxe varie selon les gestionnaires de processus mais la philosophie reste 
 ----
 include::{sourceDir}/systemd/nodebook.d/app.conf[]
 ----
+<1> L'application démarrera dès que l'interface réseau sera opérationnelle
+<2> L'application sera relancée en cas de plantage — maximum 5 fois plantage dans un délai de 120 secondes
+<3> Le processus sera démarré au nom de l'utilisateur système `nobody`
+<4> C'est comme si nous faisions `cd /usr/local/node-app` avant de lancer l'application — c'est la valeur qu'on retrouve avec `process.cwd()`
+<5> Commande à exécuter pour démarrer l'application
 
 L'exemple précédent décrit l'initialisation notre service après le démarrage du service en charge des interfaces réseau (`NetworkManager.service`).
 _systemd_ exécute la commande `npm start` en tant qu'utilisateur `nobody` (sans privilèges donc) dans le répertoire précisé par la directive `WorkingDirectory` et injecte la variable d'environnement `NODE_ENV`.
@@ -1550,7 +1548,7 @@ Nous trouverons des informations sur le fonctionnement de Node derrière un <<re
 
 
 [[monitoring]]
-== Points de vigilance après une mise en ligne
+== À quoi penser après la mise en ligne
 
 Cette section s'intéresse à la *détection proactive des incidents* et au
 *suivi de la santé de notre application* une fois mise en ligne.
@@ -1560,7 +1558,7 @@ toujours accès.
 
 
 [[uptime]]
-=== Être prévenu·e quand l'application plante
+=== L'application a planté
 
 TBD.
 
@@ -1570,8 +1568,8 @@ https://uptimerobot.com/
 ////
 
 
-.Message d'erreur du serveur _nginx_ lorsque l'application Node ne répond plus.
-image::images/nginx-proxy-error.png[width="85%"]
+.Écran affiché par Heroku lorsque l'application ne répond plus.
+image::images/heroku-app-error.png[width="85%"]
 
 On cherchera entres autres à tester la réaction de notre code face à
 des erreurs provoquées volontairement.
@@ -1611,7 +1609,7 @@ https://newrelic.com/nodejs
 ////
 
 [[security.node]]
-=== Mettre à jour Node en cas de faille de sécurité
+=== Notre version de Node fait l'objet d'une faille de sécurité
 
 ////
 https://nodejs.org/en/security/
@@ -1619,7 +1617,7 @@ https://nodejs.org/en/security/
 
 
 [[security.npm]]
-=== Mettre à jour les modules npm en cas de faille de sécurité
+=== Un des modules npm fait l'objet d'une faille de sécurité
 
 Il existe quatre niveaux où des failles de sécurité peuvent s'immiscer :
 
