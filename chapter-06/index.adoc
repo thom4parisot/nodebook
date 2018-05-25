@@ -1580,10 +1580,6 @@ Regardons ensemble ce que nous pouvons faire pour intervenir au bon moment.
 Que se passe-t-il lorsqu'une application plante en plein milieu du week-end ?
 _Rien_.
 Nous n'en savons rien tant que nous n'allons pas sur l'application en question.
-
-.Écran affiché par Heroku lorsque l'application a planté et ne répond plus.
-image::images/heroku-app-error.png[width="85%"]
-
 L'action la plus simple à mettre en œuvre est de *recevoir une alerte*
 par e-mail ou par SMS.
 
@@ -1599,13 +1595,64 @@ Il offre en plus un flux RSS d'alertes et une intégration avec Slack.
 [[exceptions]]
 === S'informer des erreurs applicatives
 
+Lorsque nous prenons connaissance d'un plantage applicatif, comment déterminer
+ce qui l'a causé ?
 
+.Écran affiché par Heroku lorsque l'application a planté et ne répond plus.
+image::images/heroku-app-error.png[width="85%"]
 
+S'il s'agit d'une application personnelle ou sans enjeu,
+nous pouvons nous contenter de reproduire le problème localement. +
+Dans le cas d'une application professionnelle,
+nous aurons besoin d'avoir plus de précisions, rapidement.
 
-////
-https://sentry.io + https://docs.sentry.io/clients/node/
-https://newrelic.com/nodejs
-////
+_Sentry_ ([URL]#https://sentry.io#) est un service en ligne qui s'intègre
+dans notre code comme une sonde.
+Une fois placée, la sonde transmet les erreurs vers la plate-forme _Sentry_.
+Cette plate-forme affiche les erreurs connues sous forme de tableau de bord —
+leur nature, combien de fois elles se répètent.
+Elle nous envoie également une notification par e-mail avec une indication
+de sévérité, pour que nous puissions réagir plus ou moins rapidement.
+
+.Écran d'affichage d'une erreur analysée par Sentry.
+image::images/sentry-error.png[width="85%"]
+
+L'inclusion d'une sonde basique revient à insérer 2 lignes dans notre code :
+
+[source,javascript]
+.sentry.js
+----
+include::{sourceDir}/sentry.js[]
+----
+<1> _raven_ est le nom du module npm édité par Sentry pour collecter les erreurs.
+<2> Configuration du client Sentry — il collectera et enverra les erreurs auprès du service Sentry.
+<3> Cette ligne est la source de notre erreur — la variable n'est pas définie.
+
+_Sentry_ nous communique une clé d'API pour chaque projet à monitorer.
+Quand vous obtenez la votre, modifiez la ligne de commande suivante afin
+de provoquer l'erreur, de recevoir l'e-mail d'alerte et de la visualiser
+en détails sur le tableau de bord :
+
+----
+$ SENTRY_DSN=https://0c...@sentry.io/1201870 node sentry.js
+----
+
+[NOTE]
+.[RemarquePreTitre]#Documentation# Configurer Sentry
+====
+Un guide complet (en anglais) documente comment aller plus loin
+dans l'utilisation de Sentry.
+
+Il se lit sur [URL]#https://docs.sentry.io/clients/node/#.
+====
+
+Le service _New Relic_ ([URL]#https://newrelic.com/nodejs#)
+est une alternative à _Sentry_.
+Il mesure également les performances et les sources de ralentissement.
+_New Relik_ s'installe gratuitement et en quelques clics sur la
+<<hosting.paas,plate-forme de services>> Heroku.
+Il devient payant à partir d'un certain volume de requêtes.
+
 
 [[security.node]]
 === Notre version de Node fait l'objet d'une faille de sécurité

@@ -5,6 +5,7 @@ Ce journal détaille l'effort d'écriture depuis janvier 2017.
 
 ## Vendredi 25 mai 2018 • Anduze
 
+- _Chapitre 6_ : à quoi penser ? S'informer des erreurs applicatives
 - _Chapitre 6_ : à quoi penser ? L'application a planté
 - _Chapitre 6_ : démarrer automatiquement avec un serveur d'applications web
 
