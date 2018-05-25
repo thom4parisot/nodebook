@@ -1657,10 +1657,25 @@ Il devient payant à partir d'un certain volume de requêtes.
 [[security.node]]
 === Notre version de Node fait l'objet d'une faille de sécurité
 
-////
-https://nodejs.org/en/security/
-////
+Certaines versions de Node sortent pour apporter de nouvelles fonctionnalités
+ou pour corriger des bugs.
+D'autres sont publiées pour corriger des failles de sécurité.
+Ces *failles sont critiques pour nos applications*.
 
+Selon la nature de la faille, une personne peut l'exploiter avec un bout de code
+écrit exprès pour ça pour ralentir ou faire planter notre application.
+Elle pourrait aussi accéder à l'ordinateur qui fait tourner l'application,
+à la base de données ou à d'autres informations confidentielles.
+
+La seule solution : *déployer à nouveau l'application*.
+Pour savoir quand déclencher le ou les déploiements,
+je vous encourage à recevoir des alertes.
+
+[horizontal]
+Par e-mail::
+  En vous abonnant au groupe [URL]#https://groups.google.com/group/nodejs-sec#.
+Lecteur RSS::
+  En vous abonnant au flux [URL]#https://nodejs.org/en/feed/vulnerability.xml#.
 
 [[security.npm]]
 === Un des modules npm fait l'objet d'une faille de sécurité
