@@ -3,6 +3,13 @@
 Le projet a commencé en décembre 2014.
 Ce journal détaille l'effort d'écriture depuis janvier 2017.
 
+## Vendredi 25 mai 2018 • Anduze
+
+- _Chapitre 6_ : à quoi penser ? L'application a planté
+- _Chapitre 6_ : démarrer automatiquement avec un serveur d'applications web
+
+**Météo** : 😊 ⛺️
+
 ## Jeudi 24 mai 2018 • Bordeaux/Anduze
 
 - _Chapitre 6_ : démarrer automatiquement une application

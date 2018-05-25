@@ -1567,58 +1567,40 @@ intégrale se trouve sur
 [[monitoring]]
 == À quoi penser après la mise en ligne
 
-Cette section s'intéresse à la *détection proactive des incidents* et au
-*suivi de la santé de notre application* une fois mise en ligne.
-Nous allons ainsi apprendre à *dresser un diagnostic sans nous connecter* sur
-la ou les machines hébergeant l'application en partie car nous n'y avons pas
-toujours accès.
+De la programmation au déploiement, nous sommes toujours en mesure
+de savoir quand quelque chose ne va pas : les *erreurs se produisent sous nos yeux*.
+
+Les problèmes commencent à *échapper à notre attention dès la mise en ligne*.
+Regardons ensemble ce que nous pouvons faire pour intervenir au bon moment.
 
 
 [[uptime]]
 === L'application a planté
 
-TBD.
+Que se passe-t-il lorsqu'une application plante en plein milieu du week-end ?
+_Rien_.
+Nous n'en savons rien tant que nous n'allons pas sur l'application en question.
 
-////
-https://www.pingdom.com/free
-https://uptimerobot.com/
-////
-
-
-.Écran affiché par Heroku lorsque l'application ne répond plus.
+.Écran affiché par Heroku lorsque l'application a planté et ne répond plus.
 image::images/heroku-app-error.png[width="85%"]
 
-On cherchera entres autres à tester la réaction de notre code face à
-des erreurs provoquées volontairement.
+L'action la plus simple à mettre en œuvre est de *recevoir une alerte*
+par e-mail ou par SMS.
 
-* *ressources indisponibles* +
-  Il arrive aussi que notre code ne soit pas incriminé mais que la base de
-  données devienne inaccessible pendant l'exécution de notre application.
-  Ou qu'une clé d'API soit révoquée.
-  Ou encore qu'une API soit indisponible, peu importe la raison—panne réseau,
-  attaque destinée à faire tomber le système etc. +
-  Le mieux que l'on puisse faire est d'utiliser des
-  *modules _npm_ favorisant la reconnexion* aux bases de données,
-  à *gérer l'indisponibilité de la ressource* (en ayant un modèle de réponse
-  dégradé) ou encore en utilisant la technique du _backoff_ exponentiel pour
-  retenter un certain nombre de fois en augmentant le temps entre temps chaque essai.
-* *effets de bord système* +
-  Le système d'exploitation peut nous jouer des tours sans que notre
-  application ne soit réellement au courant.
-  C'est le cas lorsque la _charge système_ dépasse la capacité de traitement
-  des processeurs : notre application mettra plus de temps à exécuter toutes
-  les opérations.
-  Cela se produira également si l'espace disque tend à devenir faible : le
-  système va _swapper_ et ralentira l'écriture de fichiers, notamment
-  les _logs_ générés par le trafic de notre application. +
-  La mise en place en place de <<monitoring,_monitoring_>> nous donnera
-  une vue d'ensemble des ressources disponibles de notre parc machine.
+_Pingdom_ ([URL]#https://www.pingdom.com/free#) répond exactement à ce besoin.
+Il est gratuit pour un site web et payant au-delà.
 
+.Écran de configuration des alertes de sites web avec Pingdom.
+image::images/pingdom-uptime.png[width="85%"]
+
+_Uptime Robot_ ([URL]#https://uptimerobot.com#) est un service similaire.
+Il offre en plus un flux RSS d'alertes et une intégration avec Slack.
 
 [[exceptions]]
 === S'informer des erreurs applicatives
 
-TBD.
+
+
 
 ////
 https://sentry.io + https://docs.sentry.io/clients/node/
