@@ -534,7 +534,7 @@ Son intention est de créer un environnement Node {nodeCurrentVersion}
 pour une <<../chapter-07/index.adoc#,application web>> (cf. chapitre 7)
 qui comporte une <<../chapter-05/index.adoc#,dépendance npm>> (cf. chapitre 5) :
 
-[subs="+attributes"]
+[source,dockerfile,subs="+attributes"]
 .Dockerfile
 ----
 include::{sourceDir}/Dockerfile[]
@@ -1501,49 +1501,68 @@ _node-windows_ ([URL]#https://npmjs.com/node-windows#).
 [[application-manager]]
 === Avec un serveur d'applications web
 
-Un serveur d'application web a deux objectifs majeurs : *gérer le trafic HTTP* de manière optimale et *gérer le cycle de vie* d'une application web lors d'incidents ou de mises à jour par exemple.
-Ce type de logiciel se _place entre_ une application Web et le monde extérieur.
-Il peut être installé soit de manière *autonome* soit en tant que *module d'un serveur HTTP* tiers.
+Un serveur d'application web est un logiciel informatique
+qui a deux objectifs : *être toujours disponible*
+et *répartir le trafic HTTP* vers des fichiers et des applications web.
+C'est une sorte de parapluie optimisé et résistant qui se met au-devant
+de nos applications.
 
-Leur *excellente gestion d'HTTP* permet de nous reposer sur les serveurs d'applications web pour gérer la charge des requêtes, de se protéger contre servir et mettre en cache les fichiers statiques, rester disponible même si l'application Node est tombée, entre autres.
-
-Leur *intégration avec des plates-formes comme Node* alloue aux serveurs d'applications web la capacité de redémarrer une application Node si elle a planté ou a été mise à jour et ce, sans discontinuité de service (_zero downtime_).
-Certains serveurs ont également la faculté de passer à l'échelle en *attribuant les applications Node aux CPU disponibles* afin de répartir la charge en fonction des ressources disponibles.
-
-*Phusion Passenger* ([URL]#https://phusionpassenger.com/#) est un serveur d'applications web open source et compatible avec des applications Ruby, Node et Python.
-Il s'installe de manière autonome ou en module pour _nginx_ ([URL]#http://nginx.org/#) et _Apache httpd_ ([URL]#https://httpd.apache.org/#).
-Regardons ensemble l'intégration de _Passenger_ au travers de la configuration de son module _nginx_ :
-
-[source]
-.phusion-passenger/sites-available/webapp-nodebook.conf
-----
-include::{sourceDir}/phusion-passenger/sites-available/webapp-nodebook.conf[lines=2..-1]
-----
-
-L'exemple de configuration précédent déclare une application Node `app.js` placée dans le répertoire `/var/www/webapp-nodebook` et dont les fichiers statiques (JavaScript, CSS, images etc.) sont placés dans le sous-répertoire `public/`.
-
-_Passenger_ démarrera au minimum 1 processus du fichier `app.js` dans une limite de 10, en fonction du traffic HTTP.
-Chacun des processus sera démarré sous l'_utilisateur_ et le _groupe Unix_ propriétaire du fichier `app.js`.
-
-_Passenger_ peut être contrôlé par l'intermédiaire du programme `passenger-config`, notamment avec la sous-commande `restart-app` :
-
-----
-$ passenger-config restart-app /var/www/webapp-nodebook
-----
-
-[TIP]
-.[RemarquePreTitre]#Documentation# Phusion Passenger
+[NOTE]
+.[RemarquePreTitre]#Question# Pourquoi utiliser un serveur d'applications ?
 ====
-Un guide pas à pas de configuration d'une application Node avec Passenger est disponible sur leur site officiel.
+Les serveurs d'applications sont excellents pour gérer la charge des requêtes,
+se protéger de failles de sécurité HTTP et être performants dans le
+traitement des fichiers statiques.
 
-- [URL]#https://phusionpassenger.com/library/walkthroughs/deploy/nodejs/#
-- [URL]#https://phusionpassenger.com/library/config/nginx/reference/#
+Leur capacité à redémarrer une application Node en cas de plantage ou de
+nouveau déploiement nous enlève une épine du pied.
+Certains ont même des facultés de _répartition de charge_ (_load balancing_) :
+plusieurs instances de la même application tournent alors en parallèle
+— une par CPU.
+Le trafic est réparti vers l'instance qui a le plus de CPU disponible.
 ====
 
-Je recommande fortement cette approche, relativement facile à installer et à configurer, notamment de manière automatisée avec un serveur d'intégration continue.
+*Phusion Passenger* ([URL]#https://phusionpassenger.com/#) est un
+serveur d'applications web open source, léger et performant.
+Il est compatible avec des applications Ruby, Node et Python.
+Il s'installe de manière autonome ou en complément des serveurs _nginx_
+([URL]#https://nginx.org#) et _Apache httpd_ ([URL]#https://httpd.apache.org#).
 
-Nous trouverons des informations sur le fonctionnement de Node derrière un <<reverse-proxy,_reverse proxy_>> dans une autre section de ce chapitre.
+Regardons ensemble à quoi ressemble un fichier de configuration _nginx_
+minimaliste :
 
+[source,nginx]
+.nginx/static.conf
+----
+include::{sourceDir}/nginx/static.conf[]
+----
+<1> Répertoire racine où _nginx_ va chercher les fichiers.
+
+Si _nginx_ est lancé sur notre ordinateur avec ce fichier de configuration
+et que le fichier `image.jpg` est placé dans le répertoire `/var/www`,
+alors nous pourrons y accéder dans un navigateur web
+sur `http://localhost/image.jpg`.
+
+Transformons maintenant ce fichier de configuration
+après avoir installé le module _Phusion Passenger_ pour _nginx_
+([URL]#https://phusionpassenger.com/library/install/nginx/#) :
+
+[source,nginx]
+.nginx/phusionwebapp.conf
+----
+include::{sourceDir}/nginx/phusion-webapp.conf[lines=2..-1]
+----
+<1> Activation du module _Phusion Passenger_ pour _nginx_.
+<2> Nous indiquons à _Phusion Passenger_ qu'il s'agit d'une application Node.
+<3> L'application se trouve dans le répertoire `/var/apps/my-app`.
+<4> Le script à démarrer est `app.js` — c'est-à-dire `/var/apps/my-app/app.js`.
+<5> Emplacement où _Phusion Passenger_ ira chercher les fichiers statiques.
+
+_Phusion Passenger_ démarre l'application Node pour nous.
+Il la maintient en vie en cas de plantage.
+Son comportement se configure finement à l'aide de directives dont la liste
+intégrale se trouve sur
+[URL]#http://phusionpassenger.com/library/config/nginx/reference/#.
 
 [[monitoring]]
 == À quoi penser après la mise en ligne
