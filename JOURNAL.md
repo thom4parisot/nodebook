@@ -6,6 +6,7 @@ Ce journal détaille l'effort d'écriture depuis janvier 2017.
 ## Lundi 28 mai 2018 • Crest
 
 - _Chapitre 6_ : à quoi penser ? Un des modules npm fait l'objet d'une faille de sécurité
+- _Chapitre 6_ : intro et conclusion
 
 **Météo** : 🌧 😴
 

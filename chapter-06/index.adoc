@@ -1,7 +1,7 @@
 :chapterNumber: 6
 :chapterId: chapter-06
 :sourceDir: ./examples
-:sourceSample: TODO.js
+:sourceSample: server-port.js
 :httpRoot: http://localhost:8000
 :nodeCurrentVersion: v8
 :v: 8
@@ -18,17 +18,34 @@ endif::[]
 
 = Déployer notre code
 
+Le déploiement d'une application Node nous permettra d'améliorer la
+qualité de notre code en gommant les derniers bugs et en automatisant
+la détection des erreurs et des failles de sécurité.
+
 ====
 .Sommaire
 - Déployer une application Node
 - Choisir son hébergement
 - Améliorer la portabilité
 - Démarrer automatiquement nos applications
-- Points de vigilance après une mise en ligne
+- À quoi penser après la mise en ligne ?
 ====
 
 [abstract]
 --
+Ce chapitre nous permettra d'y voir plus clair du côté de l'hébergement
+et de la mise en ligne d'une application Node.
+Nous pourrons choisir ce qui nous paraît le plus abordable,
+que ça soit en terme d'argent ou de complexité d'utilisation.
+
+Nous mettrons en œuvre les
+<<../chapter-04/index.adoc#process.env,variables d'environnement>>
+du chapitre 4 pour que nos applications en ligne
+fonctionnent de la même manière que sur notre ordinateur.
+
+Enfin, nous verrons différents types de service pour être tenu·e informé·e
+des erreurs applicatives et des failles de sécurité sans effort et sans
+être des expert·e.
 --
 
 include::../resources/tip-versions.adoc[]
@@ -1565,7 +1582,7 @@ intégrale se trouve sur
 [URL]#http://phusionpassenger.com/library/config/nginx/reference/#.
 
 [[monitoring]]
-== À quoi penser après la mise en ligne
+== À quoi penser après la mise en ligne ?
 
 De la programmation au déploiement, nous sommes toujours en mesure
 de savoir quand quelque chose ne va pas : les *erreurs se produisent sous nos yeux*.
@@ -1737,9 +1754,7 @@ Fil RSS::
 
 Nous avons parlé de la commande `npm audit` dans
 le <<../chapter-05/index.adoc#audit,chapitre 5>>.
-Elle fait un travail similaire à Snyk, depuis un terminal.
-
-Cette commande dispose d'une option pour mettre à jour automatiquement
+Elle dispose d'une option pour mettre à jour automatiquement
 les dépendances dangereuses : `npm audit fix`.
 
 ----
@@ -1759,4 +1774,20 @@ pour éviter d'exposer une surface d'attaque minimale.
 
 == Conclusion
 
-TBD.
+Nous avons désormais *toutes les clés pour partager notre code* et le
+résultat de son exécution de manière publique.
+
+Nous avons appris à *choisir un hébergement et un mode de déploiement*
+adapté à notre temps disponible ainsi qu'à nos envies.
+Nous sommes en mesure d'aller vite ou de prendre le temps de configurer
+une machine pour des besoins très précis.
+
+La *configuration d'une application* avec des variables d'environnement
+est une des clés pour automatiser le déploiement.
+
+L'*automatisation du démarrage* d'une application demande d'investir du temps
+pour être à l'aise.
+Ce temps est utile car le principe s'applique à d'autres langages
+et ouvre la porte de la maîtrise de l'hébergement applicatif,
+quand les <<hosting.paas,plate-formes de service>> commencent à nous
+coûter trop cher.
