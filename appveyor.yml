@@ -1,7 +1,7 @@
 image: Visual Studio 2017
 
 install:
-  - ps: Install-Module nvm
+  - ps: Install-Module nvm -Scope CurrentUser -Force
   - ps: Install-NodeVersion
   - npm config set script-shell "C:\\Program Files\\git\\bin\\bash.exe"
   - npm install -g npm@latest
