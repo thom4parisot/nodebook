@@ -3,6 +3,12 @@
 Le projet a commencé en décembre 2014.
 Ce journal détaille l'effort d'écriture depuis janvier 2017.
 
+## Lundi 28 mai 2018 • Crest
+
+- _Chapitre 6_ : à quoi penser ? Un des modules npm fait l'objet d'une faille de sécurité
+
+**Météo** : 🌧 😴
+
 ## Vendredi 25 mai 2018 • Anduze
 
 - _Chapitre 6_ : à quoi penser ? Notre version de Node fait l'objet d'une faille de sécurité

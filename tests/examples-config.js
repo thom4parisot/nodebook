@@ -268,6 +268,10 @@ module.exports = {
   'chapter-06/examples/debug.js': {
     timeout: 6000
   },
+  'chapter-06/examples/sentry.js': {
+    errorCode: 1,
+    stderr: 'no DSN provided, error reporting disabled\nReferenceError: test is not defined'
+  },
   'chapter-07/examples/http-app.js': {
     skip: true
   }

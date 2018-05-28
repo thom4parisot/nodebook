@@ -1662,48 +1662,99 @@ ou pour corriger des bugs.
 D'autres sont publiées pour corriger des failles de sécurité.
 Ces *failles sont critiques pour nos applications*.
 
-Selon la nature de la faille, une personne peut l'exploiter avec un bout de code
-écrit exprès pour ça pour ralentir ou faire planter notre application.
-Elle pourrait aussi accéder à l'ordinateur qui fait tourner l'application,
-à la base de données ou à d'autres informations confidentielles.
+Lorsqu'une faille est exploitée, la personne à l'origine de l'attaque
+peut ralentir, faire planter ou extraire des informations confidentielles
+de notre application.
+En cas de faille critique, l'attaquant·e peut aussi gagner un accès
+à l'ordinateur et aux bases de données hébergeant l'application.
 
-La seule solution : *déployer à nouveau l'application*.
-Pour savoir quand déclencher le ou les déploiements,
-je vous encourage à recevoir des alertes.
+Solution : *redéployer nos applications* avec une version de Node plus récente.
+
+Je vous encourage à recevoir des alertes par e-mail ou en
+vous abonnant au fil RSS pour être prevenu·e au bon moment.
 
 [horizontal]
-Par e-mail::
-  En vous abonnant au groupe [URL]#https://groups.google.com/group/nodejs-sec#.
-Lecteur RSS::
-  En vous abonnant au flux [URL]#https://nodejs.org/en/feed/vulnerability.xml#.
+E-mail::
+  [URL]#https://groups.google.com/group/nodejs-sec#
+Fil RSS::
+  [URL]#https://nodejs.org/en/feed/vulnerability.xml#
 
 [[security.npm]]
 === Un des modules npm fait l'objet d'une faille de sécurité
 
-Il existe quatre niveaux où des failles de sécurité peuvent s'immiscer :
+Les modules npm sont aussi affectés par des failles de sécurité.
 
-* *notre propre code* +
-  Des revues de code, une amélioration de vos connaissances et la commande d'audits nous aideront à identifier les possibles failles et vulnérabilités ;
-* *nos dépendances* +
-  Mais aussi dans les dépendances de nos dépendances ;
-* *Node* +
-  Le code de certains modules Node – ou leur intégration avec un système d'exploitation spécifique – contient des failles ou fuites mémoire qui sont corrigées au fil des versions ;
-* *dépendances de Node*
-  Il est arrivé à plusieurs reprises que des vulnérabilités soient décelées dans _libuv_, _OpenSSL_ ou _V8_ — seule une mise à jour de Node peut mettre à ces dépendances.
+Les conséquences de leur exploitation sont similaires aux failles de Node :
+les personnes à l'origine des attaques peuvent saturer le serveur et
+paralyser l'application.
+Elles sont aussi en mesure de subtiliser des informations confidentielles
+stockées en base de données ou saisies par les usagers.
 
-On n'oubliera pas les vulnérabilités liés à notre système d'exploitation et celui de nos serveurs de production ainsi qu'à leur exposition au monde extérieur.
+_Snyk_ ([URL]#https://snyk.io#) est un service de sécurité gratuit pour les
+projets open source.
+Il scanne les vulnérabilités de nos dépendances et
+des dépendances de nos dépendances.
+Il nous alerte sur la sévérité des failles décelées dans nos projets.
 
-Plusieurs canaux sont à notre disposition pour être notifié très rapidement de mises à jour correctives :
+.Tableau de bord des dépendances vulnérables avec Snyk.
+image::images/snyk-dashboard.png[width="85%"]
 
-* *Failles de sécurité de modules npm* : [URL]#https://nodesecurity.io/advisories# — et son flux RSS [URL]#https://nodesecurity.io/rss.xml# ;
-* *Failles de sécurité de Node* : son flux RSS [URL]#https://nodejs.org/en/feed/vulnerability.xml# ;
-* *Mises à jour de Node* : [URL]#https://nodejs.org/en/blog/# — et son flux RSS [URL]#https://nodejs.org/en/feed/blog.xml#.
+Ces failles sont classées en 3 niveaux : dangereuses, modérées et superficielles.
+Mieux vaut mettre à jour les dépendances affectées par une faille dangereuse
+le plus rapidement possible.
 
-////
-- https://snyk.io/
-- https://nodesecurity.io/
-- greenkeeper
-////
+Ce n'est pas grave si nous ne mettons pas à jour un vieux module npm.
+Ça peut avoir un impact négatif si cette vieille version est affectée par une faille.
+
+La capture d'écran suivante illustre une vulnérabilité décelée dans le module
+npm _restify_ dans sa version 4 :
+
+[TIP]
+
+.Affichage d'une vulnérabilité et d'un chemin de résolution avec Snyk.
+image::images/snyk-vulnerability.png[width="85%"]
+
+La correction du problème implique de passer à la version 5.
+Cette action nous demandera surement d'adapter notre code car nous changeons
+de version majeure — de la version 4 à la version 5.
+Ces migrations sont souvent documentées par les auteurs des modules.
+
+[TIP]
+.[RemarquePreTitre]#Pratique# Intégrations npm, Heroku, etc.
+====
+Snyk s'intègre à d'autres services que GitHub : GitLab, Heroku, BitBucket, etc.
+
+Les applications au code source privé peuvent être vérifiées gratuitement
+avec l'API de Snyk ou son application en ligne de commande.
+====
+
+[horizontal]
+.Ressources proposées par Snyk.
+Base de données::
+  [URL]#https://snyk.io/vuln/?type=npm#
+Fil RSS::
+  [URL]#https://snyk.io/vuln/feed.xml?type=npm#
+
+Nous avons parlé de la commande `npm audit` dans
+le <<../chapter-05/index.adoc#audit,chapitre 5>>.
+Elle fait un travail similaire à Snyk, depuis un terminal.
+
+Cette commande dispose d'une option pour mettre à jour automatiquement
+les dépendances dangereuses : `npm audit fix`.
+
+----
+$ npm audit fix
+> fixed 20 of 21 vulnerabilities in 1867 scanned packages
+>   1 vulnerability required manual review and could not be updated
+----
+
+Rester à l'écoute des vulnérabilités en combinaison de l'utilisation
+de Snyk ou de `npm audit fix` suffit à prendre des mesures de correction
+efficaces sans avoir à trop s'y connaitre.
+
+La lecture des rapports de vulnérabilité est un bon moyen de comprendre
+comment ces exploits fonctionnent, et comment penser nos applications
+pour éviter d'exposer une surface d'attaque minimale.
 
 
 == Conclusion
