@@ -554,6 +554,7 @@ La documentation du module `path` est disponible sur le site officiel de Node :
 
 Le module `url` offre des outils pour interpréter des URL, les transformer
 et les assembler à nouveau sous forme de chaîne de caractères.
+La variable `URL` (en majuscules) est disponible de manière globale.
 
 [source%interactive,javascript]
 .url/intro.js
@@ -566,14 +567,12 @@ include::{sourceDir}/url/intro.js[]
 [TIP]
 .[RemarquePreTitre]#Web# Compatibilité avec les navigateurs
 ====
-Le fonctionnement de la classe `URL` dans Node est la même que dans les
+La classe `URL` que nous utilisons dans Node est la même que dans les
 navigateurs web modernes.
-
-Ces deux mondes suivent le standard [URL]#https://url.spec.whatwg.org#
-afin de partager les mêmes concepts et définitions de ce qu'est une URL.
+Son fonctionnement suit le standard [URL]#https://url.spec.whatwg.org#.
 ====
 
-Les propriétés de l'objet retourné par le constructeur de `URL` sont modifiables.
+L'objet retourné par le constructeur de `URL` est modifiable.
 Il est ainsi possible de modifier les parties de l'URL qui nous intéressent
 et de récupérer une URL sous forme d'une chaîne de caractères :
 
@@ -583,17 +582,17 @@ et de récupérer une URL sous forme d'une chaîne de caractères :
 include::{sourceDir}/url/to-string.js[]
 ----
 <1> Affiche `https://oncletom.io/#top` — le chemin et le fragment ont été modifiées.
-<2> Idem.
 
-On peut passer des options à `format()` pour conserver ou ôter des
-éléments contextuels d'une URL :
+La fonction `format()` va plus loin que `url.toString()`.
+Ses options contrôlent plus finement ce qui sera conservé ou retiré lors
+de la conversion en chaîne de caractères :
 
 [source%interactive,javascript]
 .url/format.js
 ----
 include::{sourceDir}/url/format.js[]
 ----
-<1> Affiche `https://oncletom.io/`.
+<1> Affiche `https://oncletom.io/` — les identifiants, l'ancre et les arguments ont été retirés par la fonction `format()`.
 
 Le constructeur `URL` accepte une URL de référence en second argument.
 Cette adresse résout un chemin absolu à partir du premier argument :

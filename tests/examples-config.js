@@ -250,7 +250,7 @@ module.exports = {
     stdout: 'https://oncletom.io/?search=node.js\nsearch=node.js\nhttps://oncletom.io/\n',
   },
   'chapter-04/examples/url/to-string.js': {
-    stdout: 'https://oncletom.io/#top\nhttps://oncletom.io/#top\n',
+    stdout: 'https://oncletom.io/#top\n',
   },
   'chapter-04/examples/util/debuglog.js': {
     stdout: /Cet ordinateur a \d+ CPU./,

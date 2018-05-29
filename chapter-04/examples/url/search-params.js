@@ -1,5 +1,3 @@
-const {URL} = require('url');
-
 const example = new URL('https://oncletom.io/');
 example.searchParams.set('search', 'node.js');
 
