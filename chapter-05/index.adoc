@@ -95,44 +95,48 @@ Nous allons d'ailleurs ignorer le contenu du fichier pour l'instant
 afin de nous focaliser sur l'opération la plus importante et la plus
 fréquemment utilisée : `npm install`.
 
-== Installer une application Node
+[[modules]]
+== Installer des modules npm
 
-TBD.
 
-== Installer un module _npm_
 
-Revenons à notre exemple précédent.
-Nous voulons un module Node permettant de parser et d'itérer facilement sur un fichier CSV sans avoir à nous soucier des cas limites.
+=== Depuis le registre npm
 
-Après quelques recherches, il se trouve que le module `comma-separated-values` est un bon candidat pour améliorer notre précédent script.
-La documentation et les informations relatives à son utilisation sont accessibles sur [URL]#https://npmjs.com/comma-separated-values#.
-
-Après avoir préalablement navigué dans le répertoire `chapter-05`, l'installation du module se déroule en invoquant la commande `npm install` de la manière suivante :
 
 ----
-$ npm install comma-separated-values
+$ npm install cowsay
+----
+
+[source,json]
+.package.json
+----
+include::package.json[lines="1,19..-1"]
+----
+
+[source%interactive,javascript]
+.cow.js
+----
+include::{sourceDir}/cow.js[]
+----
+
+----
+$ node cow.js
+___________
+< Bonjour ! >
+-----------
+       \   ^__^
+        \  (oo)\_______
+           (__)\       )\/\
+               ||----w |
 ----
 
 Le module est désormais installé dans le répertoire `chapter-05/node_modules/comma-separated-values` et est disponible pour tout script invoqué dans le répertoire `chapter-05`.
 
 Lire du contenu CSV et en afficher son contenu devient aussi simple que le script suivant :
 
-[source%interactive,javascript]
-.print-csv.js
-----
-include::{sourceDir}/print-csv.js[]
-----
-<1> importe le module `comma-separated-values` dans la variable `csv`.
-<2> configure un nouvel objet _CSV_.
-<3> décode le contenu initial et affiche la structure JavaScript appropriée.
-
 Il est toutefois recommandé d'installer les modules localement, afin de limiter leur portée uniquement au projet tout en maintenant une dépendance explicite et gérable via le fichier _package.json_.
 
 Déroulons ensemble l'algorithme d'installation de `npm install` par le biais de cet exemple :
-
-----
-$ npm install async yargs
-----
 
 La commande précédente effectue plusieurs opérations :
 
@@ -172,68 +176,25 @@ const { argv } = require('yargs');
 
 Maintenant que nous savons installer et sauvegarder des dépendances par le biais du fichier `package.json`, sauvegardons l'état actuel du projet avec un gestionnaire de versions.
 
-== Comprendre _npm_ et son organisation du répertoire _node_modules_
+=== Désintaller un module
 
-_npm_ organise les dépendances selon une structure dite _plate_ (_flat tree structure_).
-Ainsi, si deux modules distincts se basent sur une *version compatible d'une même dépendance* selon _semver_ — ici, jQuery v2 —  voici l'arbre de dépendance de _npm_ et la disposition sur le système de fichiers qui en résultent :
+=== Spécifier une version
 
-----
-$ npm ls
-my-app@1.0.0
-├── module-a@1.0.0
-|   └── jquery@2.1.0
-└── module-b@1.0.0
-    └── jquery@2.1.4
-
-$ tree node_modules
-node_modules
-├── jquery
-├── module-a
-└── module-b
-----
-
-Dans le cas où plusieurs modules dépendant d'un même paquet mais dans une version _semver_ incompatible — ici jQuery v1 et jQuery v2 — la version la plus _ancienne_ se trouvera à la racine du répertoire _node_modules_ tandis que les autres seront _encapsulées_ au plus près du module en dépendant :
+=== Depuis un fichier `package.json`
 
 ----
-$ npm ls
-my-app@1.0.0
-├── module-a@1.0.0
-|   └── jquery@1.11.3
-└── module-b@1.0.0
-    └── jquery@2.1.4
-
-$ tree node_modules
-node_modules
-├── jquery
-├── module-a
-└── module-b
-    └── jquery
+$ rm -rf node_modules
+$ npm install
+added 10 packages from 3 contributors in 2.276s
+found 0 vulnerabilities
 ----
 
-L'utilisation de `npm dedupe` peut être un ultime recours pour optimiser un
-arbre plus complexe que celui-ci.
-Ceci dans l'optique de diminuer les inclusions multiples d'une librairie
-techniquement compatible avec d'autres versions mineures.
 
-[CAUTION]
-.[RemarquePreTitre]#Remarque# Résolution de chemins
-====
-Il est fortement *déconseillé de se baser sur des chemins en dur* tapant dans
-le répertoire _node_modules_.
-Il est *préférable de faire appel à `require.resolve`* pour déterminer le
-chemin vers un fichier compris dans une dépendance.
 
-[source,javascript]
-----
-// À ne surtout pas faire
-const jqueryCore = require('./node_modules/jquery/src/core.js');
 
-// À faire
-const jQueryCore = require('jquery/src/core.js');
-----
-====
+[[heuristics]]
+=== Trouver son bonheur sur le registre npm
 
-== Trouver son bonheur dans le _registre npm_
 
 Le _registre npm_ ([URL]#https://npmjs.com#) fourmille de modules en tous genres.
 Ils fournissent de simples fonctions, des librairies ou des _frameworks_
@@ -308,7 +269,81 @@ La liste suivante est non-exhaustive et référence des contributeurs de qualit�
 - rwaldron ([URL]#https://npmjs.com/~rwaldron#).
 ====
 
-== Exécuter les tests
+== Autres
+
+
+=== Depuis un répertoire local
+
+=== Depuis GitHub, GitLab ou un dépôt Git
+
+=== En tant que dépendance de développement
+
+=== En tant qu'exécutable système (installation globale)
+
+== Aller et venir entre les versions d'un module npm
+
+=== Choisir la version à installer
+
+[[semver]]
+=== Versions sémantiques (_Semantic Versionning_)
+
+Le versioning sémantique définit deux concepts importants :
+
+- le principe de *numérotation* de version ;
+- les *plages de compatibilité* de versions.
+
+Un numéro de version doit respecter la forme `MAJEUR.MINEUR.CORRECTIF` (`MAJOR.MINOR.PATCH`).
+
+Si on considère le numéro de version `1.0.0` :
+
+- `1.0.1` est une version corrigeant un défaut ;
+- `1.1.0` est une version ajoutant ou modifiant des fonctionnalités mais ne cassant pas la compatibilité avec le reste de la branche `1.x.x` ;
+- `2.0.0` est une version cassant la compatibilité descendante.
+
+Par convention, les versions `0.x.x` sont considérées comme des versions _instables_ en préparation d'une future branche stable (`1.x.x`).
+
+La spécification _semver_ est disponible sous forme textuelle mais également en tant que module npm.
+
+- [URL]#https://npmjs.com/semver#
+- [URL]#http://semver.org/lang/fr/#
+
+L'utilisation de certains caractères permet d'exprimer des *plages de compatibilité*, très utiles lors de l'installation ou de la mise à jour de modules _npm_ :
+
+- `~1.0.0` : mises à jour mineures de la branche `1.0.0` (`1.0.1`, `1.0.2`, etc.) ;
+- `1.0.x` : idem ;
+- `^1.0.0` : mises à jour mineures et correctives de la branche `1.0.0` (`1.0.1`, `1.1.0`, `1.1.1`, etc.) ;
+- `1.x.x` : idem ;
+- `>1.0.0` : mises à jour majeures, mineures et correctives au-delà de la branche `1.0.0` (`1.0.1` mais pas `1.0.0`, `1.1.0`, `2.0.0`, `3.1.0`, etc.) ;
+- `>1 <3` : mises à jour majeures, mineures et correctives entre la branche `1.0.0` et `3.0.0` (`2.0.0`, `2.0.1`, `2.1.0`, etc.) ;
+- `>1` : mises à jour majeures, mineures et mineures au-delà de la branche `1.0.0` (`2.0.0`, `2.0.1`, `3.1.0`, etc.).
+
+Cette syntaxe est notamment employée pour spécifier les plages de mises à jour  acceptées pour les paquets `npm`.
+Cela permet entre autres de bénéficier de mises à jour de manière consentante (_opt-in_) à chaque installation ou mise à jour de vos applications.
+
+[TIP]
+.[RemarquePreTitre]#Outil# Calculateur de version
+====
+Un outil est à disposition pour tester la syntaxe des plages de versions en temps réel sur des données de véritables paquets.
+
+- [URL]#https://semver.npmjs.com/#
+====
+
+
+[NOTE]
+.[RemarquePreTitre]#Lien# Versioning romantique
+=====
+Certaines personnes pensent que l'aspect _sémantique_ n'est pas assez clair pour véhiculer l'_intention_ des auteurs quant à la publication d'une nouvelle version.
+Ils en sont venus à proposer plus ou moins sérieusement les notions de *versioning sentimental* et de *versioning romantique*.
+
+- [URL]#http://dafoster.net/articles/2015/03/14/semantic-versioning-vs-romantic-versioning/#
+=====
+
+== Outiller un projet avec les scripts npm
+
+=== Démarrer l'application
+
+=== Exécuter des tests
+
 
 L'écriture de tests et la vérification de la qualité de votre code sont un excellent
 moyen de vous assurer que de nouveaux bugs ne sont pas introduits dans votre application.
@@ -391,8 +426,38 @@ La commande `npm test` est alors composée de deux autres commandes personnalis�
 Vous maintenez ainsi une lisibilité au sein de votre fichier `package.json`
 tout en bénéficiant d'une indépendance d'exécution de vos commandes.
 
-[[npm-outdated]]
-== Vérifier et mettre à jour les dépendances
+
+== Publier un module npm
+
+=== Le champ `main` du fichier `package.json`
+
+=== Choisir une licence d'utilisation
+
+=== Renseigner les informations importantes
+
+Cf. #heuristics
+
+
+== Quelques commandes pour aller plus loin
+
+[[audit]]
+=== `npm audit` : vérifier la sécurité des dépendances
+
+[[prune]]
+=== `npm prune` : supprimer les dépendances inutilisées
+
+[[doctor]]
+=== `npm doctor` : vérifier l'état du système
+
+[[config]]
+=== `npm config` : changer les réglages de l'exécutable `npm`
+
+[[link]]
+=== `npm link` : utiliser une dépendance qui n'a pas encore été publiée
+
+[[outdated]]
+=== `npm outdated` : lister les dépendances à mettre à jour
+
 
 Maintenir ses dépendances à jour est important pour deux raisons :
 
@@ -431,12 +496,6 @@ dépendance n'est pas encore installée, _git_ indique que la dépendance est in
 - *Location* : emplacement de la dépendance — dépendance directe ou dépendance
 incluse dans une autre dépendance, etc.
 
-[TIP]
-.[RemarquePreTitre]#Remarque# Et si une dépendance n'est pas listée ?
-====
-Toute dépendance listée dans le fichier `package.json` mais absente du tableau
-est considérée comme à jour.
-====
 
 La première action à mener est de procéder à l'exécution de la commande
 `npm update`, puis de relancer la commande `npm outdated` :
@@ -449,13 +508,21 @@ Le résultat est probant : de nombreuses dépendances précédemment listées en
 Il ne reste que trois dépendances sur lesquelles nous pouvons avoir une action
 directe en modifiant la version référencée dans le fichier `package.json`.
 
-Pour forcer l'installation de la version correspondant à la colonne _Latest_ de
-la commande `npm outdated`, il suffit d'utiliser le suffixe `@latest` lors de
-l'installation :
 
-----
-$ npm install --save-dev mocha@latest karma@latest
-----
+[[update]]
+=== `npm update` : mettre à jour les dépendances en toute sécurité
 
-Et ainsi de suite pour les autres dépendances de premier niveau.
-La commande `npm outdated` ne devrait pas retourner de résultats, sauf si une de vos dépendances n'est pas à jour elle-même.
+== Questions et mystères autour de npm
+
+=== Je ne vois pas l'intérêt du fichier `package-lock.json`
+
+=== npm c'est pour le backend, bower (ou autre) pour le frontend
+
+=== Il paraît que Yarn, c'est mieux
+
+=== npm est lent, il installe la moitié d'Internet à chaque fois
+
+=== Quels sont ces messages d'erreurs pendant l'installation ?
+
+
+== Conclusion
