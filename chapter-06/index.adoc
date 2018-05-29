@@ -1,4 +1,4 @@
-:chapterNumber: 6
+entre autres:chapterNumber: 6
 :chapterId: chapter-06
 :sourceDir: ./examples
 :sourceSample: server-port.js
@@ -36,7 +36,7 @@ la détection des erreurs et des failles de sécurité.
 Ce chapitre nous permettra d'y voir plus clair du côté de l'hébergement
 et de la mise en ligne d'une application Node.
 Nous pourrons choisir ce qui nous paraît le plus abordable,
-que ça soit en terme d'argent ou de complexité d'utilisation.
+que ça soit en termes d'argent ou de complexité d'utilisation.
 
 Nous mettrons en œuvre les
 <<../chapter-04/index.adoc#process.env,variables d'environnement>>
@@ -56,7 +56,7 @@ include::../resources/tip-examples.adoc[]
 == Déployer une application Node
 
 Le choix de la technique de déploiement dépend de plusieurs facteurs qui se
-renvoient à eux-même : l'hébergement peut dépendre du déploiement et vice-versa.
+renvoient à eux-mêmes : l'hébergement peut dépendre du déploiement et vice-versa.
 
 Je vous propose de partir balayer les différentes techniques de déploiement
 avec des exemples et de voir quelles seraient les raisons d'opter pour l'une
@@ -99,7 +99,7 @@ leur version la plus récente.
 .Exemple de _notebook_ RunKit dans le navigateur Firefox.
 image::images/runkit-notebook.png[width="85%"]
 
-RunKit propose aussi un modèle de <<lambda,fonction ephémère>> dont le
+RunKit propose aussi un modèle de <<lambda,fonction éphémère>> dont le
 résultat devient accessible depuis une URL dédiée.
 Essayez de copier/coller le code suivant dans un nouveau notebook en vous
 rendant sur [URL]#https://runkit.com/new# :
@@ -183,7 +183,7 @@ FileZilla pour Windows.
 [NOTE]
 .[RemarquePreTitre]#Avancé# `scp` et `rsync`
 ====
-Notre terminal peut aussi servir à transféfer des fichiers.
+Notre terminal peut aussi servir à transférer des fichiers.
 Deux programmes se basent sur SSH et sont installés par défaut sur la plupart
 des ordinateurs Linux et macOS :
 
@@ -207,8 +207,8 @@ image::images/glitch-github-import.png[width="85%"]
 Un clic sur le bouton btn:[Import from GitHub] ouvre une invite de saisie
 destinée à mentionner le nom du dépôt GitHub à importer.
 Le projet en cours sera entièrement remplacé par le contenu du dépôt distant.
-C'est pratique pour récupérer des exercices ou ou apprendre en travaillant
-sur du code écrit par quelqu'un·e d'autre.
+C'est pratique pour récupérer des exercices ou pour apprendre en travaillant
+sur du code écrit par quelqu'un d'autre.
 
 [TIP]
 .[RemarquePreTitre]#Pratique# Importer les exemples de cet ouvrage
@@ -306,7 +306,7 @@ $ gandi deploy
 
 L'outil de la <<paas,plate-forme de services>> Heroku suit une approche
 légèrement différente.
-Il nous informe de l'état de nos application et en augmente ou diminue
+Il nous informe de l'état de nos applications et en augmente ou diminue
 la quantité de ressources allouée à leur fonctionnement.
 Il simplifie la configuration de Git et
 <<deploy.git,délègue le déploiement>> à ce dernier.
@@ -512,7 +512,7 @@ include::{sourceDir}/ansible/playbook.yaml[]
 <4> Indique de récupérer les commits du dépôt en faisant `git pull`.
 <5> Actions npm — pour en savoir plus [URL]#https://docs.ansible.com/ansible/2.5/modules/npm_module#.
 <6> Indique d'installer les dépendances npm en faisant `npm install`.
-<7> Indique de lancer la mise en jour des modules npm avec l'option `--production` — c'est à dire sans les dépendances listées dans le champ `devDependencies`.
+<7> Indique de lancer la mise en jour des modules npm avec l'option `--production` — c'est-à-dire sans les dépendances listées dans le champ `devDependencies`.
 
 Les tâches sont réplicables sur les serveurs listés dans un fichier d'inventaire :
 
@@ -524,7 +524,7 @@ include::{sourceDir}/ansible/inventory.yaml[]
 
 Nous déployons sur un seul serveur dans ce cas de figure.
 Mais nous pourrions tout à fait déployer une même application avec la même
-configuration sur une dizaine de serveurs (application à fort traffic)
+configuration sur une dizaine de serveurs (application à fort trafic)
 ou une même application déployée chez plusieurs centaines de clients.
 Dans tous les cas, l'application serait dans un état consistant sur toutes les
 machines, avec peu de chances d'oublier une opération et une plus grande facilité
@@ -668,7 +668,7 @@ include::{sourceDir}/.travis.yml[]
 
 Cet exemple est structuré en 3 parties :
 
-. la *configuration de l'environnement* — en l'occurence Node {nodeCurrentVersion} ;
+. la *configuration de l'environnement* — en l'occurrence Node {nodeCurrentVersion} ;
 . la *commande de test* ;
 . la *configuration du déploiement* en cas de succès.
 
@@ -721,14 +721,14 @@ voire même de changer la puissance en cours de route.
 === Plate-forme de services (_Platform as a Service_, _PaaS_)
 
 Les plates-formes de services *automatisent la configuration et le déploiement*
-de nos applications Node mais également Ruby, Python et PHP, entres autres.
+de nos applications Node mais également Ruby, Python et PHP, entre autres.
 Elles se spécialisent dans des déploiements rapides, une allocation des
 ressources flexible, à la demande et en un clic.
 
 C'est le *moyen le plus facile de déployer une application Node*, surtout si
 on utilise déjà Git pour versionner son code.
 
-Leur philosophie est de *tout penser en terme de ressources modulaires*.
+Leur philosophie est de *tout penser en termes de ressources modulaires*.
 On paie pour une certaine capacité de CPU et de RAM, à la minute ou à l'heure.
 Ces capacités s'augmentent ou se réduisent en quelques clics et sans changer
 une seule ligne de code dans notre application.
@@ -751,12 +751,12 @@ Service, Déploiement, Add-ons, Gratuité, Tarif
 
 La startup californienne Zeit ([URL]#https://zeit.co#) édite le service
 _now_ ([URL]#https://zeit.co/now#).
-Ce service est focalisée sur l'hébergement de sites statiques,
+Ce service est focalisé sur l'hébergement de sites statiques,
 d'applications Node et de conteneurs Docker.
 
 Sa particularité est de créer une *nouvelle instance d'application par déploiement*.
 On ne modifie donc jamais un déploiement déjà existant.
-On parle alors de *déploiement immutable*.
+On parle alors de *déploiement immuable*.
 
 C'est un service que j'apprécie pour sa simplicité.
 C'est probablement le plus pratique à utiliser pour déployer votre première application,
@@ -768,7 +768,7 @@ Des modules optionnels couvrent nos besoins en bases de données comme
 _MySQL_, _MariaDB_, _redis_ ou _postgreSQL_ par exemple.
 D'autres services gèrent l'envoi d'emails,
 l'indexation de contenus, le monitoring, les logs, etc.
-La majorité offrent un petit espace de stockage gratuit pour tester le produit.
+La majorité offre un petit espace de stockage gratuit pour tester le produit.
 
 .Ensemble de ressources complémentaires à une application Node hébergée sur Heroku.
 image::images/heroku-addons.png[width="85%"]
@@ -804,7 +804,7 @@ avec un <<deploy.ci,service d'intégration continue>> ou bien en
 L'interface d'administration référence une section *Sites* dans la barre de
 navigation.
 Cette section liste les différents sites de notre compte.
-Si vous venez juste de créer le votre, un site a automatiquement été créé.
+Si vous venez juste de créer le vôtre, un site a automatiquement été créé.
 Son URL est déterminée à partir du *nom d'utilisateur* que vous avez choisi
 lors de la phase d'inscription.
 
@@ -863,7 +863,8 @@ ou un sous-domaine.
 L'équipe et la communauté alwaysdata ([URL]#https://forum.alwaysdata.com#) sont
 sympathiques et à l'écoute.
 C'est un endroit idéal pour chercher des informations et poser des questions
-pour mieux comprendre ce empêche votre application de fonctionner sur leurs services.
+pour mieux comprendre ce qui empêche votre application de fonctionner
+sur leurs services.
 ====
 
 
@@ -910,7 +911,7 @@ Service; Déploiement; Add-ons; Tarif horaire; Tarif mensuel
 |===
 
 L'offre _cloud_ est plus intéressante si vos besoins sont
-singulièrement fluctuants — par exemple losqu'il y a besoin de doubler le CPU
+singulièrement fluctuants — par exemple lorsqu'il y a besoin de doubler le CPU
 pendant 2 heures, à heure fixe ou en fonction de la charge mais aussi quand il
 s'agit d'ajouter 10 serveurs d'un coup pour traiter un calcul gourmand.
 
@@ -944,7 +945,7 @@ sans gérer la complexité et la non-interopérabilité de leurs API.
 
 La fonction événementielle est l'évolution ultime des offres _cloud_.
 Au lieu de payer une machine ou une VM à l'heure,
-*nous payons pour éxécuter du code à la milliseconde*.
+*nous payons pour exécuter du code à la milliseconde*.
 Ce code se déclenche en réaction à événement se produisant ailleurs
 sur l'infrastructure : une requête HTTP entrante, un nouveau fichier ou encore
 un appel de l'API de l'hébergeur.
@@ -952,7 +953,7 @@ un appel de l'API de l'hébergeur.
 C'est le moyen le plus économique pour
 *exécuter du code à tout instant sans payer le temps d'inactivité d'une machine*.
 On pourrait comparer ce modèle à celui de la téléphonie mobile lorsqu'on a à choisir
-entre un forfait (coût fixe même si on ne consomme pas tout) et un paiment à la carte
+entre un forfait (coût fixe même si on ne consomme pas tout) et un paiement à la carte
 (coût dépendant de la consommation).
 
 Les applications destinées à être exécutées comme fonction événementielle
@@ -1041,7 +1042,7 @@ déploiement en ligne.
 
 Cette section a pour but de mettre en lumière des
 *points importants qui contribuent à la portabilité de l'application*
-— c'est à dire son bon fonctionnement une fois en fonctionnement autre part
+— c'est-à-dire son bon fonctionnement une fois en fonctionnement autre part
 que sur un ordinateur de développement et ce,
 indépendamment du service d'hébergement retenu.
 
@@ -1166,7 +1167,7 @@ La <<port,configuration du port>> de l'application n'est pas le seul
 — que ce soit celui d'une personne contribuant au projet,
 au <<deploy.ci,service d'intégration continue>> ou au serveur d'hébergement.
 
-Les <<../chapter-04/index.adoc#process.env,variables d'environnement>> sont
+Les <<../chapter-04/index.adoc#process.env,variables d'environnement>>
 sont à privilégier pour configurer nos applications avec souplesse.
 Elles s'appliquent aux :
 
@@ -1177,7 +1178,7 @@ Elles s'appliquent aux :
 * *environnement d'exécution* — développement, test, production, etc.
 
 L'accès à une base de données est un parfait exemple.
-Les nom d'utilisateur, mot de passe et adresse du serveur
+Le nom d'utilisateur, mot de passe et adresse du serveur
 peuvent d'ailleurs se combiner une seule variable composée sous forme d'URL.
 
 Par exemple, si vous avez connaissance des identifiants et de l'adresse d'une
@@ -1316,7 +1317,7 @@ sans limitation de taille de fichiers.
 
 Son interface d'accès (API) est même devenue un standard _de facto_ : il est
 utilisé par la plupart des concurrents afin de pouvoir passer d'un fournisseur
-à un autre sans avoir à changer grand chose à ses applications.
+à un autre sans avoir à changer grand-chose à ses applications.
 ====
 
 [format="csv", options="header", separator=";"]
@@ -1379,7 +1380,7 @@ colonne.
 
 Ainsi, nous pouvons répliquer les changements de structures sur d'autres ordinateurs
 et *reproduire l'évolution du schéma de la base de données en partant de zéro*.
-Nous avons ainsi rejouer toutes les migrations sur notre outil d'intégration
+Nous avons ainsi rejoué toutes les migrations sur notre outil d'intégration
 continue pour nous assurer de leur robustesse et revenir en arrière si nécessaire.
 
 [[startup]]
@@ -1646,7 +1647,7 @@ include::{sourceDir}/sentry.js[]
 <3> Cette ligne est la source de notre erreur — la variable n'est pas définie.
 
 _Sentry_ nous communique une clé d'API pour chaque projet à monitorer.
-Quand vous obtenez la votre, modifiez la ligne de commande suivante afin
+Quand vous obtenez la vôtre, modifiez la ligne de commande suivante afin
 de provoquer l'erreur, de recevoir l'e-mail d'alerte et de la visualiser
 en détails sur le tableau de bord :
 
@@ -1666,7 +1667,7 @@ Il se lit sur [URL]#https://docs.sentry.io/clients/node/#.
 Le service _New Relic_ ([URL]#https://newrelic.com/nodejs#)
 est une alternative à _Sentry_.
 Il mesure également les performances et les sources de ralentissement.
-_New Relik_ s'installe gratuitement et en quelques clics sur la
+_New Relic_ s'installe gratuitement et en quelques clics sur la
 <<hosting.paas,plate-forme de services>> Heroku.
 Il devient payant à partir d'un certain volume de requêtes.
 

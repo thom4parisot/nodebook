@@ -1339,7 +1339,7 @@ pouvoir construire pas à pas tout type d'applications web.
 Et qu'est-ce qu'il manque pour en faire un serveur web ?
 De pouvoir _typer_ les ressources renvoyées afin qu'elles soient comprises
 par un navigateur web.
-C'est à dire de pouvoir signaler que nos réponses contiennent du HTML, du CSS,
+c'est-à-dire de pouvoir signaler que nos réponses contiennent du HTML, du CSS,
 des images etc.
 
 Modifions notre exemple précédent pour renvoyer du HTML :
@@ -1632,7 +1632,7 @@ Modifions maintenant la valeur de l'option `cwd` :
 ----
 include::{sourceDir}/child_process/ls-root.js[]
 ----
-<1> La valeur de `cwd` est réglée sur `/`, c'est à dire le répertoire racine du système de fichiers.
+<1> La valeur de `cwd` est réglée sur `/`, c'est-à-dire le répertoire racine du système de fichiers.
 
 ----
 $ node child_process/ls-root.js
@@ -1649,7 +1649,7 @@ Si on arrive au même résultat en utilisant `exec('ls')`, pourquoi utiliser
 la fonction `fs.readdir` du <<fs,module `fs`>> ?
 `fs.readdir` a au moins 3 avantages :
 
-. elle est *plus rapide* — à écrire, à éxécuter, à diagnostiquer
+. elle est *plus rapide* — à écrire, à exécuter, à diagnostiquer
 . on *économise* la création d'un processus système
 . *compatibilité* avec _tous_ les systèmes d'exploitation
 ====
@@ -3117,7 +3117,7 @@ s'effectue à l'aide de la fonction `.catch()`.
 include::{sourceDir}/errors/promise.js[]
 ----
 <1> On génère une erreur dans notre code.
-<2> L'objet d'erreur est transmis à la prochaine occurence de `.catch()`.
+<2> L'objet d'erreur est transmis à la prochaine occurrence de `.catch()`.
 
 Le contenu de l'erreur est accessible dans le premier et seul argument de
 la fonction de _callback_ passée à `.catch()`.
@@ -3141,7 +3141,7 @@ include::{sourceDir}/errors/promise-chain.js[]
 ----
 <1> On gère l'erreur en la signalant dans le terminal.
 <2> Le _callback_ d'erreur a la possibilité de retourner un résultat.
-<3> Ce résultat est transmis à la prochaine occurence de `.then()`.
+<3> Ce résultat est transmis à la prochaine occurrence de `.then()`.
 <4> Dans ce cas, le dernier `.catch()` n'affiche rien car nous n'avons pas rencontré d'autre erreur entre temps.
 
 L'absence de `.catch()` provoque un plantage applicatif et le délenchement

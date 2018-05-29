@@ -39,13 +39,13 @@ Une personne qui vient de PHP + Apache
 Parce que moi j'ai Apache qui fait déjà ça pour moi.
 J'ai mon fichier index.php et ensuite Symfony fait le reste.
 
-- la page PHP est interpétée le temps de la requête, puis tout est mis à la poubelle (en terme de mémoire, donc les valeurs des variables)
+- la page PHP est interpétée le temps de la requête, puis tout est mis à la poubelle (en termes de  mémoire, donc les valeurs des variables)
 - j'ai apache ou nginx devant, j'ai pas besoin d'un serveur web
 - modèle Apache + script ou Apache + port
 - pourquoi Apache lancerait pas un script Node comme il ferait avec php ?
   - on cherche à s'éloigner du modèle où on recrée et détruit tout à chaque requête
   - c'est rassurant parce que ça encapsule
-  - mais le coût il est en terme de perf (charger tous les modules, résoudre les chemins, connecter à la base de données, i/o disque/réseau), pour chaque requête, et donc en terme de perception de l'autre côté de la ligne : le spinner il tourne côté navigateur
+  - mais le coût il est en termes de  perf (charger tous les modules, résoudre les chemins, connecter à la base de données, i/o disque/réseau), pour chaque requête, et donc en termes de  perception de l'autre côté de la ligne : le spinner il tourne côté navigateur
   - au bout de combien de temps un utilisateur quitte un site web s'il ne voit rien s'afficher ?
   - stats sur la perception d'instantanéité (400ms de Halt & Catch Fire), observé en publicité, effondrement du taux de clic
   - plus intéressant de servir "à chaud" (réduire les ressources et temps de calcul avant de pouvoir commencer à effectivement traiter la requête)
