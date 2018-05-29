@@ -18,21 +18,35 @@ TBD.
 
 ====
 .Sommaire
-- TBD.
+- Créer un projet
+- Installer un module npm
+- Aller et venir entre les versions d'un module npm
+- Outiller un projet avec les scripts npm
+- Publier un module sur le registre npm
+- Questions et mystères autour de npm
 ====
 
 [abstract]
 --
-L'objectif de Node est de fournir des modules stables et robustes.
+TBD.
 --
 
 include::../resources/tip-versions.adoc[]
 include::../resources/tip-examples.adoc[]
 
-== La commande `npm`
+Le mot _npm_ correspond à trois concepts différents que nous aborderons
+tout au long de ce chapitre :
 
-`npm` est inclus par défaut.
-Vérifions que le programme `npm` est installé sur notre machine :
+- l'*exécutable* `npm` — un programme écrit en JavaScript ;
+- le *registre* _npm_ — une plate-forme de distribution de modules ;
+- un *module* _npm_ — en général installé depuis le registre et utilisable avec la fonction `require()`.
+
+Je préciserai toujours si l'utilisation de _npm_ fait référence
+à l'_exécutable_, au _registre_ ou à un _module_.
+
+L'exécutable `npm` est installé par défaut avec l'exécutable `node`.
+Nous pouvons vérifier la version installée en ouvrant un terminal
+et en écrivant la commande suivante :
 
 [subs="+attributes"]
 ----
@@ -40,127 +54,46 @@ $ npm --version
 {npmvX}
 ----
 
-[[modules]]
-== Les modules npm
-
-*Node baigne dans la philosophie UNIX* : le mécanisme de modules incite à suivre le principe de responsabilité unique et de séparation des principes.
-
-Cette philosophie encourage la création de petits modules plutôt que de gros monolithes difficilement configurables.
-
-Il est possible de publier des modules dans le registre en se basant sur d'autres modules tiers.
-Ils n'ont pas à avoir connaissance de leur statut de dépendance : ils doivent juste être responsables de leur numérotation de version pour éviter les problèmes de compatibilité.
-
-Pour garantir au maximum la stabilité des dépendances, le _versioning sémantique_ aka _SemVer_ a fait son apparition.
-Il explicite l'algorithme employé par _npm_ lors du processus d'installation et de mise à jour.
+Si un message s'affiche en indiquant que `npm` n'est pas un programme reconnu,
+veuillez vous référer au <<../chapter-02/index.adoc,chapitre 2>> et
+vérifier que Node {nodeCurrentVersion} est bien installé.
 
 
-== Fonctionnement des numéros de version des modules npm
+[[cli]]
+== Créer un fichier `package.json`
 
-[[semver]]
-=== Versioning sémantique
-
-Le versioning sémantique définit deux concepts importants :
-
-- le principe de *numérotation* de version ;
-- les *plages de compatibilité* de versions.
-
-Un numéro de version doit respecter la forme `MAJEUR.MINEUR.CORRECTIF` (`MAJOR.MINOR.PATCH`).
-
-Si on considère le numéro de version `1.0.0` :
-
-- `1.0.1` est une version corrigeant un défaut ;
-- `1.1.0` est une version ajoutant ou modifiant des fonctionnalités mais ne cassant pas la compatibilité avec le reste de la branche `1.x.x` ;
-- `2.0.0` est une version cassant la compatibilité descendante.
-
-Par convention, les versions `0.x.x` sont considérées comme des versions _instables_ en préparation d'une future branche stable (`1.x.x`).
-
-=== Spécification _semver_
-
-La spécification _semver_ est disponible sous forme textuelle mais également en tant que module npm.
-
-- [URL]#https://npmjs.com/semver#
-- [URL]#http://semver.org/lang/fr/#
-
-L'utilisation de certains caractères permet d'exprimer des *plages de compatibilité*, très utiles lors de l'installation ou de la mise à jour de modules _npm_ :
-
-- `~1.0.0` : mises à jour mineures de la branche `1.0.0` (`1.0.1`, `1.0.2`, etc.) ;
-- `1.0.x` : idem ;
-- `^1.0.0` : mises à jour mineures et correctives de la branche `1.0.0` (`1.0.1`, `1.1.0`, `1.1.1`, etc.) ;
-- `1.x.x` : idem ;
-- `>1.0.0` : mises à jour majeures, mineures et correctives au-delà de la branche `1.0.0` (`1.0.1` mais pas `1.0.0`, `1.1.0`, `2.0.0`, `3.1.0`, etc.) ;
-- `>1 <3` : mises à jour majeures, mineures et correctives entre la branche `1.0.0` et `3.0.0` (`2.0.0`, `2.0.1`, `2.1.0`, etc.) ;
-- `>1` : mises à jour majeures, mineures et mineures au-delà de la branche `1.0.0` (`2.0.0`, `2.0.1`, `3.1.0`, etc.).
-
-Cette syntaxe est notamment employée pour spécifier les plages de mises à jour  acceptées pour les paquets `npm`.
-Cela permet entre autres de bénéficier de mises à jour de manière consentante (_opt-in_) à chaque installation ou mise à jour de vos applications.
-
-[TIP]
-.[RemarquePreTitre]#Outil# Calculateur de version
-====
-Un outil est à disposition pour tester la syntaxe des plages de versions en temps réel sur des données de véritables paquets.
-
-- [URL]#https://semver.npmjs.com/#
-====
-
-
-[NOTE]
-.[RemarquePreTitre]#Lien# Versioning romantique
-=====
-Certaines personnes pensent que l'aspect _sémantique_ n'est pas assez clair pour véhiculer l'_intention_ des auteurs quant à la publication d'une nouvelle version.
-Ils en sont venus à proposer plus ou moins sérieusement les notions de *versioning sentimental* et de *versioning romantique*.
-
-- [URL]#http://dafoster.net/articles/2015/03/14/semantic-versioning-vs-romantic-versioning/#
-=====
-
-
-== Initialiser un projet
-
-La pierre angulaire d'un projet Node est le fichier `package.json`.
-Il décrit les composants essentiels du projet.
-Il se situe à la racine de chaque projet et contient plusieurs catégories d'informations :
-
-- *textuels* : titre, descriptions, liens et licence ;
-- *version* : une chaîne respectant le fonctionnement de _node-semver_ ([URL]#https://github.com/npm/node-semver#) ;
-- *dépendances* : emplacement du module principal et liste explicite de modules nécessaires au bon fonctionnement du projet ;
-- *actions* : commandes à exécuter lors des différentes étapes du cycle de vie du projet ;
-- *divers* : données de configuration ou utilisées par des modules Node.
-
-L'utilisation de la commande `npm init` est une bonne habitude à prendre pour débuter tout projet Node.
-À l'issue de la série de questions, le fichier `package.json` sera créé dans le répertoire courant.
-Ensuite libre à vous de le compléter avec d'autres éléments optionnels de configuration.
-
-.Exemple de questions posées lors de la séquence `npm init`
-image::images/npm-init.png[width="85%"]
-
-On peut gagner du temps en utilisant l'option `--yes` (et son raccourci `-y`) pour créer le fichier `package.json` sans avoir à répondre aux questions :
+La présence d'un fichier `package.json` est nécessaire pour utiliser npm
+dans un projet.
+La commande `npm init` génère un tel fichier en nous posant des questions.
+Nous irons plus vite en utilisant l'option `--yes` :
 
 ----
-$ npm init -y
+$ npm init --yes
 ----
-Que votre projet soit public ou non, il est important de renseigner les champs décrits ci-après.
-Ils indiqueront aux utilisateurs les intentions du projet ainsi que l'emplacement des ressources pour en savoir davantage à son propos ou tout simplement, pour y contribuer.
 
-[TIP]
-.[RemarquePreTitre]#Commande# `npm help json`
-====
-Le détail de chaque clé de configuration est expliqué _via_ cette commande.
-Des exemples vous permettront également de mieux comprendre leur utilité.
+Le fichier `package.json` sera créé avec le contenu suivant :
 
-Cette même documentation est disponible en ligne, en anglais :
+----
+{
+  "name": "<nom du répertoire>",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
+----
 
-- [URL]#https://docs.npmjs.com/files/package.json#
-====
+S'il existe déjà ce n'est pas grave, nous le réutiliserons pour la suite
+de ce chapitre.
 
-- *name* : il s'agit de l'identifiant du module lorsqu'il est chargé via la fonction `require()`. Ce sera également l'identifiant npm si vous publiez ce module dans un registre public ou privé. Par exemple, si la propriété *name* vaut _nodebook_, le module se chargera via `require('nodebook')` et s'installera avec la commande `npm install nodebook` ;
-- *description* : une indication textuelle des objectifs et fonctionnalités du module, écrite généralement en anglais ;
-- *version* : chaîne respectant la sémantique _semver_ — par exemple `1.0.0`. Nous verrons un peu plus loin dans ce chapitre comment utiliser intelligemment cette valeur pour assurer des mises à jour tout en préservant la compatibilité descendante au sein des projets dépendants de ce module ;
-- *main* : emplacement du fichier Node chargé par défaut lors d'un appel à `require(<name>)`. S'il n'est pas spécifié, Node tentera de charger par défaut le fichier `index.js` ;
-- *repository* : objet spécifiant le type de dépôt de code ainsi que son URL. Présent essentiellement à titre informatif ;
-- *preferGlobal* : booléen indiquant si ce module a davantage vocation à être installé globalement au niveau du système ou non (`false` par défaut) ;
-- *bin* : emplacement du fichier. npm effectue un lien symbolique pour rendre `<name>` disponible en tant qu'exécutable système lors d'une installation globale ;
-- *private* : booléen spécifiant que le module ne doit pas être publié dans un registre npm (`false` par défaut) ;
-- *dependencies* : objet représentant respectivement en clé/valeur les noms/versions des modules dont le projet dépend ;
-- *engines* : objet spécifiant des contraintes de compatibilité avec la version de Node — cette valeur est exprimée selon la notation <<../chapter-05/index.adoc#semver,_semver_>>.
+Nous allons d'ailleurs ignorer le contenu du fichier pour l'instant
+afin de nous focaliser sur l'opération la plus importante et la plus
+fréquemment utilisée : `npm install`.
 
 == Installer une application Node
 

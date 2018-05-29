@@ -5,7 +5,10 @@ Ce journal détaille l'effort d'écriture depuis janvier 2017.
 
 ## Mardi 29 mai 2018 • Crest
 
+- _Tous les chapitres_ : Node.js v10 et npm v6
 - _Chapitre 4_ : The WHATWG URL API is now a global
+- _Chapitre 5_ : structure initiale du chapitre
+- _Chapitre 5_ : créer un fichier `package.json`
 
 **Météo** : ☀️ 😊
 
