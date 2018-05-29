@@ -1063,7 +1063,7 @@ pour chacun de nos projets.
 Je trouve qu'il est plus facile de gérer la version de Node au cas par cas
 au lieu de m'imposer une seule version pour tout le code que j'écris.
 
-C'est à la fois utile quand je reprends le code après plusieurs mois d'inactivité.
+C'est très utile quand je reprends le code après plusieurs mois d'inactivité.
 ====
 
 Si vous avez décidé d'utiliser <<../chapter-02/index.adoc#nvm,nvm>>
@@ -1158,7 +1158,7 @@ C'est un premier pas pour s'affranchir des
 
 
 [[configuration]]
-=== S'affranchir des chemins et configuration écrites "en dur"
+=== S'affranchir des chemins et configurations écrits "en dur"
 
 La <<port,configuration du port>> de l'application n'est pas le seul
 élément contextuel à changer entre notre ordinateur et un autre
@@ -1172,12 +1172,12 @@ Elles s'appliquent aux :
 * *URL* d'accès aux bases de données, à des API distantes ;
 * *clés d'API* pour utiliser des services externes ;
 * *réglages* influençant le comportement de l'application ;
-* *chemin d'accès* vers des fichiers ou répertoires — stockage, cache, etc ;
-* *environnement d'exécution* — développement, test, production, etc.
+* *chemins d'accès* vers des fichiers ou répertoires — stockage, cache, etc ;
+* *environnements d'exécution* — développement, test, production, etc.
 
 L'accès à une base de données est un parfait exemple.
 Le nom d'utilisateur, mot de passe et adresse du serveur
-peuvent d'ailleurs se combiner une seule variable composée sous forme d'URL.
+peuvent d'ailleurs se combiner en une seule variable composée sous forme d'URL.
 
 Par exemple, si vous avez connaissance des identifiants et de l'adresse d'une
 base de données MySQL ou MariaDB, composez l'URL de configuration comme suit :
@@ -1266,7 +1266,7 @@ Les images sont stockées à deux endroits :
 de notre application — on ne les versionne pas avec Git.
 
 Un inconvénient se présente à nous : nous perdons tout si nous supprimons
-le répertoire `app` pour la réinstaller de zéro.
+le répertoire `app` pour réinstaller l'application de zéro.
 Je conseille donc d'*écrire tout nouveau fichier dans un répertoire indépendant*.
 L'arborescence évoquée ci-dessus se transformerait ainsi :
 
