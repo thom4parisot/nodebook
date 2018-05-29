@@ -4,11 +4,14 @@ sudo: false
 language: node_js
 cache: npm
 
+node_js: v10
 env:
-- DEBUG=tape-spawn SHARP_IGNORE_GLOBAL_LIBVIPS=1
+- npm_version=6
+  DEBUG=tape-spawn
+  SHARP_IGNORE_GLOBAL_LIBVIPS=1
 
 before_install:
-- npm i -g npm@latest
+- npm i -g npm@${npm_version}
 
 install:
 - npm ci

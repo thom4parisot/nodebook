@@ -1,5 +1,3 @@
-const {URL} = require('url');
-
 const url1 = new URL('/node.js/', 'https://oncletom.io');
 const url2 = new URL('../', 'https://oncletom.io/node.js/');
 

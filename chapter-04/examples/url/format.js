@@ -1,4 +1,4 @@
-const {URL, format} = require('url');
+const {format} = require('url');
 
 const example = new URL('https://user:password@oncletom.io/#top?test=1');
 const options = {
