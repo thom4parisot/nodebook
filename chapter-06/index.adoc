@@ -1331,7 +1331,7 @@ Service;Emplacement(s) du stockage;Tarif mensuel
 [[database-migration]]
 === Versionner les schémas de base de données
 
-Le contenu et la structure d'une application peut changer selon qu'elle tourne
+Le contenu et la structure d'une application peuvent changer selon qu'elle tourne
 sur notre ordinateur ou sur notre hébergement.
 Nous pourrions reporter les changements de structure à la main mais c'est
 sujet à erreurs, difficile à reproduire et difficile à intégrer dans le
@@ -1349,7 +1349,7 @@ include::{sourceDir}/db-migration-step.js[]
 ----
 <1> Fonction exécutée lors de la migration.
 <2> Nous ajoutons un champ `aoc` dans la table `fromages`.
-<3> Ce champ est de type _booléen_ avec `false` comme valeur par défaut
+<3> Ce champ est de type _booléen_ avec `false` comme valeur par défaut.
 
 Ce fichier représente une _étape de migration_.
 L'idée est de créer une nouvelle étape pour chaque changement de structure
@@ -1410,7 +1410,7 @@ Un gestionnaire de processus a deux utilités :
 . *détacher un processus* de notre terminal — si on le ferme, l'application tourne toujours ;
 . *gérer plusieurs processus par application* — un frontal web et l'admin par exemple.
 
-_pm2_ ([URL]#hhttps://pm2.keymetrics.io#) est un gestionnaire de processus
+_pm2_ ([URL]#https://pm2.keymetrics.io#) est un gestionnaire de processus
 disponible en tant que <<../chapter-05/index.adoc#modules,module npm>>
 ([URL]#https://npmjs.com/pm2#).
 Il fonctionne sous Linux, Windows et macOS.
@@ -1486,7 +1486,7 @@ C'est le gestionnaire de services des distributions Linux _Ubuntu_,
 include::{sourceDir}/systemd/nodebook.d/app.conf[]
 ----
 <1> L'application démarrera dès que l'interface réseau sera opérationnelle.
-<2> L'application sera relancée en cas de plantage — maximum 5 fois plantage dans un délai de 120 secondes.
+<2> L'application sera relancée en cas de plantage — maximum 5 fois dans un délai de 120 secondes.
 <3> Le processus sera démarré au nom de l'utilisateur système `nobody`.
 <4> C'est comme si nous faisions `cd /usr/local/node-app` avant de lancer l'application — c'est la valeur qu'on retrouve avec `process.cwd()`.
 <5> Commande à exécuter pour démarrer l'application.
@@ -1517,7 +1517,7 @@ _node-windows_ ([URL]#https://npmjs.com/node-windows#).
 [[application-manager]]
 === Avec un serveur d'applications web
 
-Un serveur d'application web est un logiciel informatique
+Un serveur d'applications web est un logiciel informatique
 qui a deux objectifs : *être toujours disponible*
 et *répartir le trafic HTTP* vers des fichiers et des applications web.
 C'est une sorte de parapluie optimisé et résistant qui se met au-devant
