@@ -296,7 +296,7 @@ chemin vers un fichier compris dans une dépendance.
 const jqueryCore = require('./node_modules/jquery/src/core.js');
 
 // À faire
-const jQueryCore = require('jquery/src/core.js');
+const jQueryCore = require.resolve('jquery/src/core.js');
 ----
 ====
 
