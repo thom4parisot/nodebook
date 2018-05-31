@@ -315,9 +315,38 @@ Vous la trouverez en <<../appendix-a/index.adoc#,annexe A>>.
 ====
 
 [[uninstall]]
-=== Désintaller un module
+=== Désinstaller un module
 
-=== Spécifier une version
+Nous sommes emmenés à remplacer un module par un autre ou à changer d'avis
+sur la nécessité d'un module.
+L'utilisation de la commande `npm uninstall` nous aidera à supprimer
+les fichiers du module en toute sécurité puis à le retirer de la liste
+des dépendances du fichier `package.json`.
+
+----
+$ npm un cowsay
+removed 10 packages in 1.963s
+found 0 vulnerabilities
+----
+
+Le module _cowsay_ n'est plus installé.
+Que se passe-t-il si nous exécutons à nouveau un des premiers exemples de cette
+section ?
+
+----
+$ node cow.js
+internal/modules/cjs/loader.js:596
+    throw err;
+    ^
+
+Error: Cannot find module 'cowsay'
+----
+
+Une nouvelle erreur se produit sous nos yeux.
+Le chargement du module _cowsay_ a échoué car Node n'arrive pas à le trouver.
+Nous devrons à nouveau le réinstaller à l'aide de la commande `npm install`
+pour que le script fonctionne à nouveau.
+
 
 [[install]]
 === Depuis un fichier `package.json`
@@ -331,10 +360,10 @@ found 0 vulnerabilities
 
 
 
+=== Spécifier une version
 
 
-== Autres
-
+== Autres manières d'installer et d'utiliser des modules npm
 
 === Depuis un répertoire local
 
