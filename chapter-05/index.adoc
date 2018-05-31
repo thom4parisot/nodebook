@@ -18,7 +18,7 @@ TBD.
 
 ====
 .Sommaire
-- Créer un projet
+- Créer un fichier `package.json`
 - Installer un module npm
 - Aller et venir entre les versions d'un module npm
 - Outiller un projet avec les scripts npm
@@ -88,24 +88,46 @@ Le fichier `package.json` sera créé avec le contenu suivant :
 }
 ----
 
-S'il existe déjà ce n'est pas grave, nous le réutiliserons pour la suite
-de ce chapitre.
+Si le fichier existait déjà, la copie existante sera préservée et affichée
+à l'écran.
 
-Nous allons d'ailleurs ignorer le contenu du fichier pour l'instant
+Nous allons ignorer le contenu du fichier dans un premier temps
 afin de nous focaliser sur l'opération la plus importante et la plus
-fréquemment utilisée : `npm install`.
+fréquemment utilisée :
+l'installation de modules npm avec la commande `npm install`.
 
 [[modules]]
 == Installer des modules npm
 
+Le mécanisme de modules est documenté dans
+le <<../chapter-04/index.adoc#,chapitre 4>>.
+La fonction `require()` charge nos propres modules mais aussi
+les modules de base, proposés par Node.
+Les modules npm sont des *modules complémentaires et téléchargeables* à l'aide
+de l'exécutable `npm`.
 
+Cette section va nous aider à comprendre ce qu'il se passe sous le capôt
+pendant les phases d'installation et de désinstallation des modules npm.
 
 === Depuis le registre npm
 
+Le registre npm ([URL]#https://npmjs.com#) est l'hébergement principal
+des modules JavaScript.
+
+La commande `npm install` s'utilise directement quand nous connaissons déjà
+le nom d'un module à installer,
+par exemple le module _cowsay_ ([URL]#https://npmjs.com/cowsay#) :
 
 ----
 $ npm install cowsay
++ cowsay@1.3.0
+added 10 packages from 3 contributors in 1.667s
+found 0 vulnerabilities
 ----
+
+Le module est installé et prêt à être inclus dans un script.
+Nous pouvons aussi constater que le champ `dependencies` est apparu
+dans le fichier `package.json` :
 
 [source,json]
 .package.json
@@ -113,11 +135,20 @@ $ npm install cowsay
 include::package.json[lines="1,19..-1"]
 ----
 
+L'exécutable `npm` tient les comptes des modules installés à notre demande.
+Ça nous sera utile pour <<install,installer les modules sur un autre ordinateur>>.
+Nous reviendrons plus tard sur la notation des versions
+— on en reparlera sous le nom de _versions sémantiques_ (_Semantic Versionning_).
+
 [source%interactive,javascript]
 .cow.js
 ----
 include::{sourceDir}/cow.js[]
 ----
+
+Nous pouvons remarquer que l'inclusion d'un module npm est identique
+à celle d'un <<../chapter-04/index.adoc#modules-builtin,module de base>>. +
+Regardons le résultat sans plus tarder :
 
 ----
 $ node cow.js
@@ -130,56 +161,165 @@ ___________
                ||----w |
 ----
 
-Le module est désormais installé dans le répertoire `chapter-05/node_modules/comma-separated-values` et est disponible pour tout script invoqué dans le répertoire `chapter-05`.
+L'utilisation d'un module npm nous a permis d'utiliser du code sans avoir à le
+créer alors qu'il n'était pas fourni par la plate-forme Node.
 
-Lire du contenu CSV et en afficher son contenu devient aussi simple que le script suivant :
+Maintenant que nous savons installer un module npm, nous pouvons en chercher
+d'autres et comprendre comment les utiliser.
 
-Il est toutefois recommandé d'installer les modules localement, afin de limiter leur portée uniquement au projet tout en maintenant une dépendance explicite et gérable via le fichier _package.json_.
+[NOTE]
+.[RemarquePreTitre]#Question# Où sont stockés les modules npm ?
+====
+Les modules npm et leurs dépendances sont stockés dans un répertoire
+`node_modules`.
+Ce répertoire est situé au même niveau que le fichier `package.json`.
+====
 
-Déroulons ensemble l'algorithme d'installation de `npm install` par le biais de cet exemple :
 
-La commande précédente effectue plusieurs opérations :
+[NOTE]
+.[RemarquePreTitre]#Sous le capôt# Ce que fait l'exécutable `npm` pendant l'installation
+====
+L'exécutable `npm` effectue un bon nombre d'actions après que nous ayons
+saisi la commande `npm install cowsay` :
 
-1. requête du registre _npmjs.com_ à propos des deux modules _async_ et _yargs_ ;
-2. si les modules existent, la version compatible la plus récente est retournée (équivalent à `npm view async version` et `npm view yargs version` — respectivement `2.1.4` et `6.6.0`) ;
-3. téléchargement et décompression des paquets dans les répertoires `node_modules/async` et `node_modules/yargs` ;
-4. introspection récursive des dépendances de ces modules et si besoin est, téléchargement et décompression dans leur répertoire _node_modules_ respectif (ici `node_modules/async/node_modules` et `node_modules/yargs/node_modules`) ;
-5. inscription de _async_ et de _yargs_ dans la configuration _dependencies_ de notre fichier `package.json`.
+1. il interroge le registre _npmjs.com_ pour obtenir des informations sur le module demandé ;
+2. il détermine que `1.3.0` est la version la plus récente ;
+3. il télécharge une archive compressée (`.tar.gz`) qui contient tous les fichiers de la version `1.3.0` ;
+4. l'archive est décompressée dans le répertoire `node_modules` ;
+5. les dépendances sont elles aussi téléchargées puis décompressées dans le répertoire `node_modules` ;
+6. le module `cowsay` est inscrit dans le fichier `package.json`.
+====
 
-La commande npm prend soin de télécharger et de persister les dépendances, à la fois dans le répertoire _node_modules_ et dans le fichier _package.json_.
-Ce dernier contient désormais une section _dependencies_ :
 
-[source,javascript]
-.package.json
-----
-include::package.json[lines=1..2;19..-1]
-----
+[[heuristics]]
+=== Trouver son bonheur dans le registre npm
+
+Le _registre npm_ ([URL]#https://npmjs.com#) fourmille de modules
+— de simples fonctions, des librairies ou des _frameworks_ complets.
+Ils couvrent un spectre d'usages allant de l'accès aux bases de données,
+à des frameworks web, à des outils frontend, des utilitaires de test,
+de compression de données, du paiement bancaire, des frameworks mobiles, etc.
+
+Essayons-nous à chercher une librairie qui puisse nous connecter à une
+base de données MySQL ou MariaDB.
+Tapez `mysql` dans le champ de recherche du registre npm ou saisissez
+directement l'URL menant aux résultats de cette recherche en vous
+rendant sur [URL]#https://npmjs.com/search?q=mysql# :
+
+.Extrait des résultats d'une recheche de modules npm avec le mot-clé _mysql_.
+image::images/npm-registry-search.png[]
+
+Les résultats sont triés par pertinence — un mélange entre popularité,
+qualité et maintenance des projets.
+
+Je trouve qu'il est difficile de décider uniquement en regardant la liste.
+J'ai tendance à ouvrir un onglet par module pour lire leur documentation.
+
+Prenons le cas du module _mysql2_ ([URL]#https://npmjs.com/mysql2#) justement :
+
+.Extrait de la page consacrée au module npm _mysql2_.
+image::images/npm-package-mysql2.png[]
+
+Plusieurs éléments de cette page tendent à me rassurer
+et m'aident à juger de la robustesse de ce module npm :
+
+- les badges qui affichent le statut d'exécution des tests ;
+- une introduction de *documentation claire et concise* ;
+- un *nombre de téléchargements* en progrés réguliers ;
+- il s'utilise avec des promesses ;
+- le nombre important de modules dépendants ;
+- *je reconnais une autrice* qui contribue du code de qualité.
+
+J'ai un doute quand je lis _108 issues_ et _13 pull requests_.
+Dans ce cas là je me dis que les personnes qui maintiennent le projet ne sont
+pas forcément très réactives.
+
+Cependant, il y a suffisamment d'indicateurs au vert pour l'installer à coup de
+`npm install mysql2` puis à l'essayer dans un script.
+
+Le module _mysql-libmysqlclient_ ([URL]#https://npmjs.com/mysql-libmysqlclient#)
+ne me fait pas du tout le même effet :
+
+.Extrait de la page consacrée au module npm _mysql-libmysqlclient_.
+image::images/npm-package-mysql-libmysqlclient.png[]
+
+La page du module ne met pas d'exemple simple à comprendre et fait référence
+à des versions de Node antédiluviennes.
+Rien n'indique qu'il ne peut pas fonctionner avec Node {nodeCurrentVersion}
+mais la présence du mot _binding_ m'évoque que l'installation du module
+compile un programme pour parler avec un programme écrit dans un autre langage
+— en l'occurence, _libmysqlclient_.
+
+Point positif : il n'y a que 14 _issues_ GitHub.
+C'est peu mais l'une d'entre elle est intitulée
+«{nbsp}__Does not work with any modern version of Node.js__{nbsp}».
+Ça confirme les doutes du paragraphe précédent :
+c'est suffisant pour que je passe mon chemin.
+
+En continuant plus loin dans la liste des résultats de recherche,
+je suis tombé sur le module npm nommé _falchion_ :
+
+.Extrait de la page consacrée au module npm _falchion_.
+image::images/npm-package-falchion.png[]
+
+Il n'y a qu'une seule version du module, qui date de quatre années
+avec une documentation qui tient sur une ligne.
+
+Il y a très peu de chances que nous puissions en faire quelque chose.
+
+Au final, les points que je jugent cruciaux pour choisir d'essayer un module
+tiennent
+Voici une liste des points que je regarde pour me faire une idée du module,
+si je peux lui faire confiance et éventuellement décider de l'installer :
+
+- présence d'une documentation — je peux me faire une idée des fonctionnalités
+et de la complexité d'utilisation du module ;
+- des badges d'intégration continue — je sais ainsi qu'il y a des tests
+unitaires qui sont exécutés automatiquement avant que le module soit publié ;
+- le nombre de téléchargements — je sais si d'autres personnes s'en servent
+en espérant qu'ils remontent les problèmes rencontrés ;
+- le nombre de versions — ça me donne une idée de la mâturité du projet
+et de la réactivité aux demandes de la communauté.
+
+Ce sont des *critères subjectifs*.
+Un modulaire peut être populaire par habitude alors qu'il y a plus adapté,
+plus léger ou plus simple d'utilisation si nous continuons à chercher. +
+Il y a des modules pour lesquels j'ai une confiance quasi-aveugle.
+Ils sont publiés par les personnes présentes dans cette liste non-exhaustive :
+
+[format="csv"]
+.Auteurs et autrices de modules npm à suivre
+|===
+dougwilson, [URL]#https://npmjs.com/~dougwilson#
+feross, [URL]#https://npmjs.com/~feross#
+fgribreau, [URL]#https://npmjs.com/~fgribreau#
+iarna, [URL]#https://npmjs.com/~iarna#
+isaacs, [URL]#https://npmjs.com/~isaacs#
+jdalton, [URL]#https://github.com/jdalton#
+jshttp, [URL]#https://github.com/jshttp#
+mbostock, [URL]#https://npmjs.com/~mbostock#
+nodejitsu, [URL]#https://github.com/nodejitsu#
+rwaldron, [URL]#https://npmjs.com/~rwaldron#
+sindresorhus, [URL]#https://npmjs.com/~sindresorhus#
+substack, [URL]#https://npmjs.com/~substack#
+zkat, [URL]#https://npmjs.com/~zkat#
+|===
 
 [TIP]
-.[RemarquePreTitre]#Aide# Plusieurs types de dépendances
+.[RemarquePreTitre]#Pratique# Sélection de modules npm
 ====
-Il existe plusieurs types de dépendances, chacune ayant sa propre utilité :
+J'ai compilé une liste de modules utiles pour mieux démarrer
+dans vos projets.
 
-- *dependencies* : dépendances utiles à un fonctionnement en production ;
-- *devDependencies* : dépendances utiles uniquement dans le cadre du développement, par exemple pour exécuter des tests ou s'assurer de la qualité du code ou encore empaqueter le projet ;
-- *optionalDependencies* : dépendances dont l'installation ne sera pas nécessairement satisfaite, notamment pour des raisons de compatibilité. En général votre code prévoira que le chargement de ces modules via `require()` pourra échouer en prévoyant le traitement des exceptions avec un `try {} catch ()` ;
-- *peerDependencies* : modules dont l'installation vous est recommandée ; pratique couramment employée dans le cas de _plugins_. +
-Par exemple, si votre projet `A` installe `gulp-webserver` en `devDependencies` et que `gulp-webserver` déclare `gulp` en `peerDependencies`, npm vous recommandera d'installer également `gulp` en tant que `devDependencies` de votre projet `A`.
+Vous la trouverez en <<../appendix-a/index.adoc#,annexe A>>.
 ====
-Les modules installés sont désormais manipulables via la fonction `require` au sein de notre code :
 
-[source%interactive,javascript]
-----
-const async = require('async');
-const { argv } = require('yargs');
-----
-
-Maintenant que nous savons installer et sauvegarder des dépendances par le biais du fichier `package.json`, sauvegardons l'état actuel du projet avec un gestionnaire de versions.
-
+[[uninstall]]
 === Désintaller un module
 
 === Spécifier une version
 
+[[install]]
 === Depuis un fichier `package.json`
 
 ----
@@ -192,82 +332,6 @@ found 0 vulnerabilities
 
 
 
-[[heuristics]]
-=== Trouver son bonheur sur le registre npm
-
-
-Le _registre npm_ ([URL]#https://npmjs.com#) fourmille de modules en tous genres.
-Ils fournissent de simples fonctions, des librairies ou des _frameworks_
-complets pour gérer vos accès réseau, vos bases de données, la qualité de vos projets et leur automatisation.
-
-La *sélection d'un module est un choix subjectif* : la qualité, la pertinence
-et la popularité sont corrélées sans pour autant être des critères impératifs. +
-Un module peu populaire sera-t-il moins bon pour autant ? Un module populaire
-est-il plus performant qu'une alternative ? Un module bien testé sera-t-il
-plus aisé à utiliser ?
-
-Bref, pour vous aider à choisir — et ce peu importe le contexte — voici une
-liste subjective de critères et leur impact sur votre processus de décision :
-
-- *documentation* : un fichier _README_ décrivant l'API ou une
-*documentation technique illustrée d'exemples* sont des exemples d'objectif de
-qualité aidant tant à l'utilisation qu'à la contribution du-dit module ;
-- *badge d'intégration continue* : la présence de tests est indispensable pour
-assurer une certaine qualité. Le badge d'intégration continue est un mécanisme
-supplémentaire pour démontrer l'*existence de tests* et leur *automatisation*
-lors de toute contribution de code ;
-- *dépendances* : l'existence de modules reposant sur un autre démontre une
-*marque de confiance* d'autres développeurs. Confiance suffisante dans la solidité
-des fondations sur lesquelles ils s'appuient pour bâtir leur propre module ;
-- *date de mise à jour* : une ou plusieurs versions majeures de Node sont-elles
-sorties entre temps ? Si oui, des *risques d'incompatibilité* peuvent se
-présenter. Certaines dépendances peuvent également être devenues obsolètes ou
-avoir présenté des failles de sécurité ;
-- *maintenance* : si personne ne met à jour le module alors que des contributions
-se présentent, cela peut se révéler bloquant, dénoter une *obsolescence* d'idée
-ou impliquer l'existence d'un _fork_ de ce module ;
-- *état des contributions* : les mainteneurs répondent-ils aux contributeurs ?
-Les contributions de code sont-elles acceptées dans des conditions légitimes ?
-Ou tout simplement, y a-t-il beaucoup de déclaration de bugs en suspens ?
-Telles sont les indicateurs de vitalité pour estimer la gravité et la
-probabilité que la librairie nous explose au visage lorsqu'on ne s'y attendra pas.
-
-.Page npm d'un module populaire et fiable
-image::images/module-npm-ok.png[width="85%"]
-
-.Page npm peu encourageante
-image::images/module-npm-ko.png[width="85%"]
-
-Enfin, n'oubliez pas qu'il s'agit de critères subjectifs.
-Les mainteneurs du module ne sont peut-être pas de bons communicants ou n'ont
-que peu d'expérience en termes de tests ou ils n'ont tout simplement pas eu le temps. +
-N'hésitez pas à les encourager si vos expérimentations se révèlent concluantes.
-Contribuez des tests et de la documentation à hauteur de votre temps.
-Même s'il ne s'agit _que_ de cinq lignes de code, d'un exemple supplémentaire
-ou d'une faute d'orthographe en moins.
-
-C'est comme cela que l'écosystème s'améliore petit à petit et que vous apprenez
-par la même occasion.
-
-[TIP]
-.[RemarquePreTitre]#Communauté# Des personnes de confiance
-====
-Des organisations et des individus contribuent activement à Node en mettant à
-disposition une large majorité de leurs créations.
-
-La liste suivante est non-exhaustive et référence des contributeurs de qualité :
-
-- substack ([URL]#https://npmjs.com/~substack#) ;
-- jshttp ([URL]#https://github.com/jshttp#) ;
-- nodejitsu ([URL]#https://github.com/nodejitsu#) ;
-- mafintosh ([URL]#https://npmjs.com/~mafintosh#) ;
-- feross ([URL]#https://npmjs.com/~feross#) ;
-- dougwilson ([URL]#https://npmjs.com/~dougwilson#) ;
-- isaacs ([URL]#https://npmjs.com/~isaacs#) ;
-- fgribreau ([URL]#https://npmjs.com/~fgribreau#) ;
-- mikeal ([URL]#https://npmjs.com/~mikeal#) ;
-- rwaldron ([URL]#https://npmjs.com/~rwaldron#).
-====
 
 == Autres
 
@@ -479,7 +543,7 @@ La lecture de sa sortie peut être déroutante au premier abord, notamment dans
 le cas d'un module qui n'a pas été mis à jour via `npm update` depuis un moment :
 
 .Résultats obsolètes issus de `npm outdated`
-image::images/npm-outdated.png[width="85%"]
+image::images/npm-outdated.png[]
 
 Le tableau ne liste que les dépendances considérées comme obsolètes en l'état
 actuel d'installation de votre projet.
@@ -501,7 +565,7 @@ La première action à mener est de procéder à l'exécution de la commande
 `npm update`, puis de relancer la commande `npm outdated` :
 
 .Résultats `npm outdated` après mise à jour
-image::images/npm-outdated-wanted.png[width="85%"]
+image::images/npm-outdated-wanted.png[]
 
 Le résultat est probant : de nombreuses dépendances précédemment listées en rouge
  ont disparu.
@@ -518,11 +582,13 @@ directe en modifiant la version référencée dans le fichier `package.json`.
 
 === npm c'est pour le backend, bower (ou autre) pour le frontend
 
+=== Est-ce que je dois versionner le répertoire `node_modules` ?
+
 === Il paraît que Yarn, c'est mieux
 
 === npm est lent, il installe la moitié d'Internet à chaque fois
 
-=== Quels sont ces messages d'erreurs pendant l'installation ?
+=== Que signifient les erreurs affichées pendant `npm install` ?
 
 
 == Conclusion
