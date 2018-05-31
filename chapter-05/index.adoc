@@ -351,6 +351,17 @@ pour que le script fonctionne à nouveau.
 [[install]]
 === Depuis un fichier `package.json`
 
+Jusqu'à présent, nous avons installé des modules car nous les ajoutions
+au projet.
+La procédure est légèrement différente si nous avons à installer à nouveau
+des dépendances déjà listées dans le champ `dependencies` du fichier
+`package.json`.
+
+Pour en avoir le cœur net, plaçons nous dans le répertoire qui contient
+le fichier `package.json` et supprimons le répertoire `node_modules`
+qui contient les dépendances déjà installées.
+Exécutons ensuite la commande `npm install` sans autre argument :
+
 ----
 $ rm -rf node_modules
 $ npm install
@@ -358,7 +369,13 @@ added 10 packages from 3 contributors in 2.276s
 found 0 vulnerabilities
 ----
 
+La commande `npm install` est une commande que nous utilisons quand
+nous récupérons du code avec Git pour la première fois ou après une mise à jour
+(avec `git pull`).
 
+Lorsque vous tapez cette commande, l'exécutable `npm` vérifie toujours
+que les modules npm installés dans le répertoire `node_modules` correspondent
+bien aux modules listés dans le fichier `package.json`.
 
 === Spécifier une version
 

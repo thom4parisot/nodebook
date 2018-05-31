@@ -3,6 +3,15 @@
 Le projet a commencé en décembre 2014.
 Ce journal détaille l'effort d'écriture depuis janvier 2017.
 
+## Jeudi 31 mai 2018 • Crest
+
+- _Chapitre 6_ : Depuis le registre npm
+- _Chapitre 6_ : Trouver son bonheur dans le registre npm
+- _Chapitre 6_ : Désinstaller un module
+- _Chapitre 6_ : Depuis un fichier package.json
+
+**Météo** : 😴
+
 ## Mardi 29 mai 2018 • Crest
 
 - _Tous les chapitres_ : Node.js v10 et npm v6
