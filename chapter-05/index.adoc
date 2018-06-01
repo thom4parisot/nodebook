@@ -630,13 +630,68 @@ Si rien ne s'affiche, c'est que tout est bon : tous nos modules sont à jour !
 
 == Autres manières d'installer et d'utiliser des modules npm
 
-=== Depuis un répertoire local
+Dans la section précédente, nous avons appris à installer des modules
+depuis le registre npm. +
+Dans cette section, nous allons apprendre à les installer depuis des sources
+variées, uniquement à des fins de développement ou en tant que
+commandes exécutables au niveau du système d'exploitation.
 
 === Depuis GitHub, GitLab ou un dépôt Git
+
+Il arrive que nous ayions à utiliser une version modifiée d'un module npm
+avant que l'auteur ou autrice accepte une correction de bug qui nous affecte.
+Ça vaut aussi pour des modules dont le code serait hébergé dans un dépôt privé
+et que nous ne voulons pas publier sur le registre npm.
+
+Le module npm _cowsay_ est hébergé sur GitHub à l'adresse
+[URL]#https://github.com/piuccio/cowsay#.
+
+----
+$ npm install github:piuccio/cowsay
++ cowsay@1.3.0
+updated 1 package in 5.866s
+----
+
+Il s'agit en réalité d'une écriture raccourcie.
+Nous sommes aussi en mesure d'utiliser l'URL d'un dépôt Git
+— pas forcément GitHub ou GitLab donc :
+
+----
+$ npm install https://github.com/piuccio/cowsay
++ cowsay@1.3.0
+updated 1 package in 4.513s
+----
+
+[WARNING]
+.[RemarquePreTitre]#Considérations# Performance d'accès à Git
+====
+L'installation depuis un dépôt Git est plus lente que depuis un registre npm.
+L'exécutable `npm` fait appel à l'exécutable `git` pour cloner l'historique
+du dépôt et de ses dépendances pour extraire la version adéquate
+de la copie de travail.
+
+Le temps de téléchargement sera proportionnel au nombre de _commits_.
+====
+
+L'exécutable `npm` sait aussi installer des modules avec les protocoles
+`git+ssh` et `git`.
+
+----
+$ npm install git://github.com:piuccio/cowsay.git
++ cowsay@1.3.0
+updated 1 package in 10.263s
+----
+
+Le client Git ou SSH doivent être configurés au niveau du système pour
+être en mesure de s'authentifier sur l'hôte distant. +
+C'est une solution à privilégier pour les dépôts privés — la configuration
+des dépôts privés via le protocole `https` est trop difficile à automatiser.
 
 === En tant que dépendance de développement
 
 === En tant qu'exécutable système (installation globale)
+
+=== Depuis un répertoire local
 
 
 [NOTE]
