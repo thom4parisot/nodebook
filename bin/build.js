@@ -3,6 +3,7 @@
 const {join} = require('path');
 const ora = require('ora');
 const processor = require('asciidoctor.js')();
+const microtypoExtension = require('../src/asciidoctor-microtypography-french');
 const runnerExtension = require('asciidoctor-extension-interactive-runner');
 const bash$Extension = require('../src/asciidoctor-extension-bash-dollar');
 const MDNExtension = require('../src/asciidoctor-extension-mdn');
@@ -37,6 +38,7 @@ var DEFAULT_ATTRIBUTES = [
 
 const BUILD_DIR = 'dist';
 
+processor.Extensions.register(microtypoExtension);
 processor.Extensions.register(runnerExtension);
 processor.Extensions.register(bash$Extension);
 processor.Extensions.register(MDNExtension);
