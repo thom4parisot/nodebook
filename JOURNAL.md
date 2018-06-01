@@ -3,12 +3,23 @@
 Le projet a commencé en décembre 2014.
 Ce journal détaille l'effort d'écriture depuis janvier 2017.
 
+## Vendredi 1er juin 2018 • Crest
+
+- _Chapitre 5_ : Spécifier une version
+- _Chapitre 5_ : Comprendre les numéros de versions
+- _Chapitre 5_ : Depuis GitHub, GitLab ou un dépôt Git
+- _Chapitre 5_ : Mises à jour
+- _Chapitre 5_ : En tant que dépendance de développement
+- _Outillage_ : début de microtypographie
+
+**Météo** : 😊
+
 ## Jeudi 31 mai 2018 • Crest
 
-- _Chapitre 6_ : Depuis le registre npm
-- _Chapitre 6_ : Trouver son bonheur dans le registre npm
-- _Chapitre 6_ : Désinstaller un module
-- _Chapitre 6_ : Depuis un fichier package.json
+- _Chapitre 5_ : Depuis le registre npm
+- _Chapitre 5_ : Trouver son bonheur dans le registre npm
+- _Chapitre 5_ : Désinstaller un module
+- _Chapitre 5_ : Depuis un fichier package.json
 
 **Météo** : 😴
 
@@ -19,7 +30,7 @@ Ce journal détaille l'effort d'écriture depuis janvier 2017.
 - _Chapitre 5_ : structure initiale du chapitre
 - _Chapitre 5_ : créer un fichier `package.json`
 
-**Météo** : ☀️ 😊
+**Météo** : ☀️ 😊 🍞
 
 ## Lundi 28 mai 2018 • Crest
 
