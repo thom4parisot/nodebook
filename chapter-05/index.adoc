@@ -382,6 +382,7 @@ dans le fichier `package.json`.
 Il installe, met à jour et retire les modules npm en fonction de ce
 qui est nécessaire.
 
+[[install.version]]
 === Spécifier une version
 
 L'exécutable `npm` installe la dernière version d'un module par défaut.
@@ -523,15 +524,15 @@ _majeur_, _mineur_ et _patch_.
 Pour le numéro de version `1.2.3`, `1` est le numéro de version majeur,
 `2` est le numéro de version mineur tandis que  `3` est le numéro de version patch.
 
-Étudions la mise à jour de `lodash@2.2.0` vers :
+Étudions la mise à jour de `lodash@2.2.0` :
 
-- `lodash@2.2.1` : mise à jour patch — des bugs sont corrigés ;
-- `lodash@2.4.2` : mise à jour mineure — des fonctionnalités sont ajoutées,
+- vers `lodash@2.2.1` : mise à jour patch — des bugs sont corrigés ;
+- vers `lodash@2.4.2` : mise à jour mineure — des fonctionnalités sont ajoutées,
 corrigées ou modifiées et ce, sans affecter notre code ;
-- `lodash@{lodashVersion}` : mise à jour majeure — des fonctionnalités ont
+- vers `lodash@{lodashVersion}` : mise à jour majeure — des fonctionnalités ont
 été modifiées, remaniées ou supprimées et peuvent casser notre code qui repose dessus.
 
-La mise à jour majeure demande de bien lire la documentation du module
+Une mise à jour majeure demande de lire attentivement la documentation du module
 pour comprendre le volume de travail à fournir avant de monter en version.
 La mise à jour mineure peut occasionnellement demander du travail selon
 interprétation des développeurs de modules npm.
@@ -560,6 +561,72 @@ la syntaxe des versions sémantiques avec de véritables modules npm.
 
 [[update]]
 === Mises à jour
+
+Nous avons appris à installer des modules npm dans les versions de notre choix
+et à les réinstaller depuis la liste contenue dans le fichier `package.json`.
+Comment savoir si ces derniers sont à mettre à jour ?
+
+L'utilisation combinée des commandes `npm outdated` et `npm update` va
+nous permettre d'y arriver.
+Il sera plus facile de comprendre cette partie si vous vous êtes familiarisé·e
+avec la notion de <<semver,version sémantique>>.
+
+Commençons par installer d'anciennes versions des modules _lodash_ et _cowsay_ :
+
+----
+$ npm install lodash@2.0.0 cowsay@1.0.0
+----
+
+La commande `npm outdated` affiche les dépendances qui ne sont pas à jour :
+
+[subs="+attributes"]
+----
+$ npm outdated
+Package  Current  Wanted   Latest  Location
+cowsay     1.0.0   1.3.0    1.3.0  nodebook.chapter-05
+lodash     2.0.0   2.4.2  {lodashVersion}  nodebook.chapter-05
+----
+
+Le numéro de version affiché dans la colonne `Wanted` est celui qui sera atteint
+avec la commande `npm update`.
+
+----
+$ npm update
++ cowsay@1.3.0
++ lodash@2.4.2
+added 7 packages and updated 3 packages in 2.717s
+----
+
+Observons ce qui a changé dans les résultats de la commande `npm oudated` :
+
+[subs="+attributes"]
+----
+$ npm outdated
+Package  Current  Wanted   Latest  Location
+lodash     2.4.2   2.4.2  {lodashVersion}  nodebook.chapter-05
+----
+
+Seul le module _lodash_ est désormais listé.
+Les modules _cowsay_ et _lodash_ ont été mis à jour au plus sûr.
+Le module _lodash_ peut rester en l'état si nous n'avons pas le temps
+de rendre notre code compatible avec ses changements.
+
+Sinon, une <<install.version,installation manuelle>> s'impose
+avec l'étiquette `latest` :
+
+[subs="+attributes"]
+----
+$ npm install lodash@latest
++ lodash@{lodashVersion}
+----
+
+Un dernier appel à `npm outdated` nous permet d'en avoir le cœur net :
+
+----
+$ npm outdated
+----
+
+Si rien ne s'affiche, c'est que tout est bon : tous nos modules sont à jour !
 
 == Autres manières d'installer et d'utiliser des modules npm
 
