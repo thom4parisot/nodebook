@@ -514,25 +514,48 @@ Ce mécanisme d'étiquette sert de raccourci pour associer un numéro de version
 [[semver]]
 === Comprendre les numéros de versions (_Semantic Versioning_)
 
+Les numéros de versions ont été utilisées de deux manières dans les
+sections précédentes : avec l'exécutable `npm` et en observant la liste
+de dépendances dans le fichier `package.json`.
+
+L'exécutable `npm` découpe un numéro de version en trois parties :
+_majeur_, _mineur_ et _patch_.
+Pour le numéro de version `1.2.3`, `1` est le numéro de version majeur,
+`2` est le numéro de version mineur tandis que  `3` est le numéro de version patch.
+
+Étudions la mise à jour de `lodash@2.2.0` vers :
+
+- `lodash@2.2.1` : mise à jour patch — des bugs sont corrigés ;
+- `lodash@2.4.2` : mise à jour mineure — des fonctionnalités sont ajoutées,
+corrigées ou modifiées et ce, sans affecter notre code ;
+- `lodash@{lodashVersion}` : mise à jour majeure — des fonctionnalités ont
+été modifiées, remaniées ou supprimées et peuvent casser notre code qui repose dessus.
+
+La mise à jour majeure demande de bien lire la documentation du module
+pour comprendre le volume de travail à fournir avant de monter en version.
+La mise à jour mineure peut occasionnellement demander du travail selon
+interprétation des développeurs de modules npm.
+
 [format="csv", options="header", cols="1,2,3,3"]
-.Auteurs et autrices de modules npm à suivre
+.Différentes manières d'exprimer des versions
 |===
 Symbole, Version, Représentation alternative, Représentation étendue
-   , `1.0.0`, `1.0.0`, `1.0.0`
+   , `1.0.0`, -, -
 `^`, `^1.0.0`, `1.x.x`, `>=1.0.0 <2.0.0`
 `~`, `~1.0.0`, `1.0.x`, `>=1.0.0 <1.1.0`
 `*`, `*`, `x.x.x`, `>=0.0.1`
 |===
 
-Cette syntaxe est notamment employée pour spécifier les plages de mises à jour  acceptées pour les paquets `npm`.
-Cela permet entre autres de bénéficier de mises à jour de manière consentante (_opt-in_) à chaque installation ou mise à jour de vos applications.
+Je ne pense pas qu'il soit nécessaire de se sentir obligé·e de toujours
+être positionné·e sur la dernière version majeure.
+Les versions patch et mineures paraissent plus importantes à mes yeux
+car elles contiennent des corrections qui peuvent bénéficier à nos applications.
 
 [TIP]
 .[RemarquePreTitre]#Outil# Calculateur de version
 ====
-Un outil est à disposition pour tester la syntaxe des plages de versions en temps réel sur des données de véritables paquets.
-
-- [URL]#https://semver.npmjs.com#
+L'outil en ligne [URL]#https://semver.npmjs.com# sert à tester
+la syntaxe des versions sémantiques avec de véritables modules npm.
 ====
 
 [[update]]
