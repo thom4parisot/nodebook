@@ -4,6 +4,7 @@
 :sourceSample: cow.js
 :nodeCurrentVersion: v10
 :npmCurrentVersion: v6
+:lodashVersion: 4.17.10
 :npmvX: 6.1.0
 :sectnums:
 :revdate: {docdate}
@@ -191,7 +192,7 @@ saisi la commande `npm install cowsay` :
 ====
 
 
-[[heuristics]]
+[[registry]]
 === Trouver son bonheur dans le registre npm
 
 Le _registre npm_ ([URL]#https://npmjs.com#) fourmille de modules
@@ -252,7 +253,7 @@ compile un programme pour parler avec un programme écrit dans un autre langage
 
 Point positif : il n'y a que 14 _issues_ GitHub.
 C'est peu mais l'une d'entre elle est intitulée
-«{nbsp}__Does not work with any modern version of Node.js__{nbsp}».
+« __Does not work with any modern version of Node.js__ ».
 Ça confirme les doutes du paragraphe précédent :
 c'est suffisant pour que je passe mon chemin.
 
@@ -263,28 +264,28 @@ je suis tombé sur le module npm nommé _falchion_ :
 image::images/npm-package-falchion.png[]
 
 Il n'y a qu'une seule version du module, qui date de quatre années
-avec une documentation qui tient sur une ligne.
-
+avec une documentation qui tient sur une ligne. +
 Il y a très peu de chances que nous puissions en faire quelque chose.
 
-Au final, les points que je jugent cruciaux pour choisir d'essayer un module
-tiennent
-Voici une liste des points que je regarde pour me faire une idée du module,
-si je peux lui faire confiance et éventuellement décider de l'installer :
+Voici au final ce que j'estime être le plus important pour me faire
+une idée d'un module et décider de l'installer ou non :
 
-- présence d'une documentation — je peux me faire une idée des fonctionnalités
+- présence d'une *documentation* — je peux me faire une idée des fonctionnalités
 et de la complexité d'utilisation du module ;
-- des badges d'intégration continue — je sais ainsi qu'il y a des tests
+- des badges d'*intégration continue* — je sais ainsi qu'il y a des tests
 unitaires qui sont exécutés automatiquement avant que le module soit publié ;
-- le nombre de téléchargements — je sais si d'autres personnes s'en servent
+- le nombre de *téléchargements* — je sais si d'autres personnes s'en servent
 en espérant qu'ils remontent les problèmes rencontrés ;
-- le nombre de versions — ça me donne une idée de la mâturité du projet
+- le nombre de *versions* — ça me donne une idée de la mâturité du projet
 et de la réactivité aux demandes de la communauté.
 
 Ce sont des *critères subjectifs*.
-Un modulaire peut être populaire par habitude alors qu'il y a plus adapté,
-plus léger ou plus simple d'utilisation si nous continuons à chercher. +
-Il y a des modules pour lesquels j'ai une confiance quasi-aveugle.
+Un module peut être populaire par ancienneté alors qu'il existe des alternatives,
+plus légères ou plus simple d'utilisation.
+C'est le cas du module _moment.js_ qui est est plus populaire que _date-fns_
+— alors que je préfère ce dernier.
+
+Il y a aussi des modules pour lesquels j'ai une confiance quasi-aveugle.
 Ils sont publiés par les personnes présentes dans cette liste non-exhaustive :
 
 [format="csv"]
@@ -343,8 +344,10 @@ Error: Cannot find module 'cowsay'
 ----
 
 Une nouvelle erreur se produit sous nos yeux.
-Le chargement du module _cowsay_ a échoué car Node n'arrive pas à le trouver.
-Nous devrons à nouveau le réinstaller à l'aide de la commande `npm install`
+Le chargement du module _cowsay_ a échoué car Node n'arrive pas à le trouver
+— et c'est normal.
+
+Nous devons à nouveau lancer la commande `npm install cowsay`
 pour que le script fonctionne à nouveau.
 
 
@@ -369,16 +372,171 @@ added 10 packages from 3 contributors in 2.276s
 found 0 vulnerabilities
 ----
 
-La commande `npm install` est une commande que nous utilisons quand
-nous récupérons du code avec Git pour la première fois ou après une mise à jour
-(avec `git pull`).
+Au final, la commande `npm install` est s'utilise quand
+nous récupérons du code avec Git pour la première fois ou après une mise à jour,
+par exemple avec `git pull`.
 
-Lorsque vous tapez cette commande, l'exécutable `npm` vérifie toujours
-que les modules npm installés dans le répertoire `node_modules` correspondent
-bien aux modules listés dans le fichier `package.json`.
+L'exécutable `npm` vérifie toujours que les modules npm installés dans
+le répertoire `node_modules` correspondent bien à ceux qui sont listés
+dans le fichier `package.json`.
+Il installe, met à jour et retire les modules npm en fonction de ce
+qui est nécessaire.
 
 === Spécifier une version
 
+L'exécutable `npm` installe la dernière version d'un module par défaut.
+Nous avons la liberté d'en installer d'autres qui sont antérieures.
+C'est pratique quand des modules npm arrêtent de supporter
+des navigateurs web ou des versions de Node alors que nous les utilisons encore.
+
+Nous allons utiliser le module _lodash_ ([URL]#https://npmjs.com/lodash#)
+pour illustrer nos allées et venues entre différentes versions.
+À l'heure où j'écris ces lignes, la version la plus récente sur le registre npm
+est la `{lodashVersion}`.
+C'est ce que rapporte le résultat de la commande `npm install lodash` :
+
+[subs="+attributes"]
+----
+$ npm install lodash
++ lodash@{lodashVersion}
+----
+
+L'utilisation du caractère `@` indique le numéro de version souhaité à
+l'exécutable `npm` :
+
+----
+$ npm install lodash@3.0.0
++ lodash@3.0.0
+----
+
+Nous avons installé une version précise mais il y a surement des mises à jour
+qui ont suivi pour corriger des bugs.
+Le problème est qu'à ce stade, nous ne connaissons pas le numéro de version
+à spécifier.
+Idéalement, je préfèrerais installer la version la plus récente de la série 3.
+Il se trouve que l'exécutable `npm` sait le faire pour nous et sans effort :
+
+----
+$ npm install lodash@3
++ lodash@<i>3.10.1</i>
+----
+
+Nous pouvons faire la même chose avec la version
+la plus récente de la série 3 et de la série 2.2 :
+
+----
+$ npm install lodash@3
++ lodash@3.10.1
+$ npm install lodash@2.2
++ lodash@2.2.1
+----
+
+[TIP]
+.[RemarquePreTitre]#Pratique# Connaître toutes les versions d'une module
+====
+La <<view,commande `npm view`>> retourne les informations d'un module npm
+directement depuis notre terminal.
+Elle retourne toutes les versions publiées avec l'argument `versions` :
+
+----
+$ npm view lodash <i>versions</i>
+[ '0.1.0',
+  '0.2.0',
+  ...
+  '1.0.0',
+  '1.0.1',
+  '1.0.2',
+  ... ]
+----
+====
+
+Revenons à la version la plus récente en réutilisant la
+<<install,commande d'installation>> abordée auparavant :
+
+----
+$ npm install lodash
++ lodash@2.4.2
+----
+
+Quelque chose d'inattendu s'est produit : la version la plus récente
+de la série 2 a été installée au lieu de la version {lodashVersion}. +
+Nous trouverons un élément de réponse dans le fichier `package.json` :
+
+[source,json,subs="-specialchars"]
+.package.json
+----
+{
+  ...
+  "dependencies": {
+    "cowsay": "^1.3.0",
+    "lodash": "<i>^2.4.2</i>"
+  }
+}
+----
+
+L'exécutable `npm` respecte la version précisée dans le fichier `package.json`
+si elle n'est pas précisée dans la commande.
+Si la dépendance n'est pas listée, alors l'exécutable `npm` installe la version
+la plus récente.
+
+L'étiquette `latest` explicite notre envie d'installer la version
+la plus récente et sans tenir compte du fichier `package.json` :
+
+[subs="+attributes"]
+----
+$ npm install lodash@<i>latest</i>
++ lodash@{lodashVersion}
+----
+
+Nous sommes désormais en mesure de choisir entre différentes versions
+d'un module et de manière plus ou moins fine. +
+Nous prendrons le temps d'explorer le mécanisme de numérotation des versions
+dans la section suivante afin de mieux comprendre ce qui est renseigné
+dans le fichier `package.json`.
+
+[TIP]
+.[RemarquePreTitre]#Pratique# Connaître les étiquettes d'un module
+====
+La <<view,commande `npm view`>> va à nouveau nous aider.
+Elle retourne toutes les versions publiées avec l'argument `dist-tags` :
+
+[subs="+attributes"]
+----
+$ npm view lodash dist-tags
+{ <i>latest</i>: '{lodashVersion}' }
+----
+
+Ce mécanisme d'étiquette sert de raccourci pour associer un numéro de version
+(qui change) à un intitulé (qui reste dans le temps).
+====
+
+
+[[semver]]
+=== Comprendre les numéros de versions (_Semantic Versioning_)
+
+[format="csv", options="header", cols="1,2,3,3"]
+.Auteurs et autrices de modules npm à suivre
+|===
+Symbole, Version, Représentation alternative, Représentation étendue
+   , `1.0.0`, `1.0.0`, `1.0.0`
+`^`, `^1.0.0`, `1.x.x`, `>=1.0.0 <2.0.0`
+`~`, `~1.0.0`, `1.0.x`, `>=1.0.0 <1.1.0`
+`*`, `*`, `x.x.x`, `>=0.0.1`
+|===
+
+Cette syntaxe est notamment employée pour spécifier les plages de mises à jour  acceptées pour les paquets `npm`.
+Cela permet entre autres de bénéficier de mises à jour de manière consentante (_opt-in_) à chaque installation ou mise à jour de vos applications.
+
+[TIP]
+.[RemarquePreTitre]#Outil# Calculateur de version
+====
+Un outil est à disposition pour tester la syntaxe des plages de versions en temps réel sur des données de véritables paquets.
+
+- [URL]#https://semver.npmjs.com#
+====
+
+[[update]]
+=== Mises à jour
 
 == Autres manières d'installer et d'utiliser des modules npm
 
@@ -389,54 +547,6 @@ bien aux modules listés dans le fichier `package.json`.
 === En tant que dépendance de développement
 
 === En tant qu'exécutable système (installation globale)
-
-== Aller et venir entre les versions d'un module npm
-
-=== Choisir la version à installer
-
-[[semver]]
-=== Versions sémantiques (_Semantic Versionning_)
-
-Le versioning sémantique définit deux concepts importants :
-
-- le principe de *numérotation* de version ;
-- les *plages de compatibilité* de versions.
-
-Un numéro de version doit respecter la forme `MAJEUR.MINEUR.CORRECTIF` (`MAJOR.MINOR.PATCH`).
-
-Si on considère le numéro de version `1.0.0` :
-
-- `1.0.1` est une version corrigeant un défaut ;
-- `1.1.0` est une version ajoutant ou modifiant des fonctionnalités mais ne cassant pas la compatibilité avec le reste de la branche `1.x.x` ;
-- `2.0.0` est une version cassant la compatibilité descendante.
-
-Par convention, les versions `0.x.x` sont considérées comme des versions _instables_ en préparation d'une future branche stable (`1.x.x`).
-
-La spécification _semver_ est disponible sous forme textuelle mais également en tant que module npm.
-
-- [URL]#https://npmjs.com/semver#
-- [URL]#http://semver.org/lang/fr/#
-
-L'utilisation de certains caractères permet d'exprimer des *plages de compatibilité*, très utiles lors de l'installation ou de la mise à jour de modules _npm_ :
-
-- `~1.0.0` : mises à jour mineures de la branche `1.0.0` (`1.0.1`, `1.0.2`, etc.) ;
-- `1.0.x` : idem ;
-- `^1.0.0` : mises à jour mineures et correctives de la branche `1.0.0` (`1.0.1`, `1.1.0`, `1.1.1`, etc.) ;
-- `1.x.x` : idem ;
-- `>1.0.0` : mises à jour majeures, mineures et correctives au-delà de la branche `1.0.0` (`1.0.1` mais pas `1.0.0`, `1.1.0`, `2.0.0`, `3.1.0`, etc.) ;
-- `>1 <3` : mises à jour majeures, mineures et correctives entre la branche `1.0.0` et `3.0.0` (`2.0.0`, `2.0.1`, `2.1.0`, etc.) ;
-- `>1` : mises à jour majeures, mineures et mineures au-delà de la branche `1.0.0` (`2.0.0`, `2.0.1`, `3.1.0`, etc.).
-
-Cette syntaxe est notamment employée pour spécifier les plages de mises à jour  acceptées pour les paquets `npm`.
-Cela permet entre autres de bénéficier de mises à jour de manière consentante (_opt-in_) à chaque installation ou mise à jour de vos applications.
-
-[TIP]
-.[RemarquePreTitre]#Outil# Calculateur de version
-====
-Un outil est à disposition pour tester la syntaxe des plages de versions en temps réel sur des données de véritables paquets.
-
-- [URL]#https://semver.npmjs.com/#
-====
 
 
 [NOTE]
@@ -550,6 +660,12 @@ Cf. #heuristics
 
 == Quelques commandes pour aller plus loin
 
+[[view]]
+=== `npm view` : voir les informations d'un module
+
+[[home]]
+=== `npm home` : visiter le site web d'un module
+
 [[audit]]
 === `npm audit` : vérifier la sécurité des dépendances
 
@@ -565,62 +681,6 @@ Cf. #heuristics
 [[link]]
 === `npm link` : utiliser une dépendance qui n'a pas encore été publiée
 
-[[outdated]]
-=== `npm outdated` : lister les dépendances à mettre à jour
-
-
-Maintenir ses dépendances à jour est important pour deux raisons :
-
-- *colmater des bugs* qui pourraient se répercuter sur votre application ;
-- se *prémunir de faille de sécurité* mettant en danger vos données et votre
-système informatique.
-
-En dernier recours, vérifier la fraîcheur de ses dépendances permet de prendre
-connaissance de nouvelles versions majeures ou mineures dont vous pourriez bénéficier.
-
-Quoi qu'il en soit, une commande npm nous aidera une fois de plus à obtenir les
-informations voulues :
-
-----
-$ npm outdated
-----
-
-La lecture de sa sortie peut être déroutante au premier abord, notamment dans
-le cas d'un module qui n'a pas été mis à jour via `npm update` depuis un moment :
-
-.Résultats obsolètes issus de `npm outdated`
-image::images/npm-outdated.png[]
-
-Le tableau ne liste que les dépendances considérées comme obsolètes en l'état
-actuel d'installation de votre projet.
-Il se peut donc que le résultat varie d'une machine à l'autre, en fonction des
-versions installées localement. +
-Les résultats sont divisés en cinq colonnes :
-
-- *Package* : nom du paquet concerné — en jaune une dépendance qui sera
-satisfaite en cas de `npm update`, en rouge une dépendance qui nécessite une mise à jour manuelle ;
-- *Current* : version installée localement — _MISSING_ sera affiché si la
-dépendance n'est pas encore installée, _git_ indique que la dépendance est installée via git ;
-- *Wanted* : version installée après exécution de `npm update` ;
-- *Latest* : version la plus récente publiée dans le registre npm ;
-- *Location* : emplacement de la dépendance — dépendance directe ou dépendance
-incluse dans une autre dépendance, etc.
-
-
-La première action à mener est de procéder à l'exécution de la commande
-`npm update`, puis de relancer la commande `npm outdated` :
-
-.Résultats `npm outdated` après mise à jour
-image::images/npm-outdated-wanted.png[]
-
-Le résultat est probant : de nombreuses dépendances précédemment listées en rouge
- ont disparu.
-Il ne reste que trois dépendances sur lesquelles nous pouvons avoir une action
-directe en modifiant la version référencée dans le fichier `package.json`.
-
-
-[[update]]
-=== `npm update` : mettre à jour les dépendances en toute sécurité
 
 == Questions et mystères autour de npm
 
