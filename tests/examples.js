@@ -1,7 +1,7 @@
 'use strict';
 
 const test = require('blue-tape');
-const {extname} = require('path');
+const {extname,sep,relative} = require('path');
 const spawn = require('tape-spawn');
 const glob = require('glob');
 const {platform} = process;
@@ -35,7 +35,10 @@ examples
         nodeArgs += '--experimental-modules'
       }
 
-      const p = spawn(t, `node ${nodeArgs} ${FILE}`);
+      const {command='node'} = config;
+      const cwd = './' + FILE.split(sep)[0];
+      const test_file = relative(cwd, FILE);
+      const p = spawn(t, `${command} ${nodeArgs} ${test_file}`, {cwd});
       p.exitCode(config.exitCode, `exit code = ${config.exitCode}`);
 
       if (config.timeout) {

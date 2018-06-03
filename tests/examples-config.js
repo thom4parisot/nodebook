@@ -164,7 +164,7 @@ module.exports = {
     stdout: /version installée de npm : \d+.\d+.\d+/,
   },
   'chapter-04/examples/child_process/ls.js': {
-    stdout: /server.js/,
+    stdout: /index.adoc/,
   },
   'chapter-04/examples/child_process/ls-root.js': {
     stdout: /var/,
@@ -254,6 +254,9 @@ module.exports = {
   },
   'chapter-04/examples/util/debuglog.js': {
     stdout: /Cet ordinateur a \d+ CPU./,
+  },
+  'chapter-05/examples/tests.js': {
+    command: 'mocha'
   },
   'chapter-06/examples/app.js': {
     skip: true
