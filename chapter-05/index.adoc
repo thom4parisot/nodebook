@@ -974,22 +974,98 @@ lorsqu'ils détectent qu'ils ont affaire à un projet Node.
 
 
 [[run]]
-=== Créer un script personnalisé
+=== Créer un script npm personnalisé
+
+Les scripts npm personnalisés sont utiles *lorsque nous souhaitons outiller*
+notre projet sans forcément que ça soit en rapport avec le lancement des tests
+ou de l'application.
+
+Les scripts personnalisés se démarrent avec `npm run` :
+
+----
+$ npm <i>run</i> print-args
+
+> nodebook.chapter-05@1.0.0 print-args
+> node examples/print-args.js
+
+Rien à signaler.
+----
+
+Nous avons créé ce script en configurant la valeur du champ `scripts.print-args`
+du fichier `package.json` :
+
+[source,json]
+.package.json
+----
+{
+  ...
+  "scripts": {
+    "print-args": "node examples/print-args.js"
+  }
+}
+----
 
 [TIP]
-.[RemarquePreTitre]#Pratique# Passer des arguments aux scripts
+.[RemarquePreTitre]#Pratique# Lister les scripts disponibles
 ====
-`-- argument1`
-
-----
-$ npm run print-args <i>--</i> un deux trois
-['un', 'deux', 'trois']
-----
+La commande `npm run` (sans argument) liste tous les scripts npm du projet.
 ====
 
-[[run-lifecycle]]
+J'ai développé ces conventions avec le temps :
+
+- `npm run build` : construit les artéfacts à déployer ;
+- `npm run deploy` : déploie le projet vers l'hébergeur ;
+- `npm run lint` : applique un vérificateur syntaxique au code du projet ;
+- `npm run watch` : démarre l'application et la relance à chaque changement.
+
+[TIP]
+.[RemarquePreTitre]#Pratique# Passer des arguments à un script npm
+====
+Une option spéciale nous aide à transmettre des arguments au script en question.
+Les arguments doivent être placés à droite de l'option `--` :
+
+----
+$ npm run print-args un --test=true
+['un']
+$ npm run print-args <i>--</i> un --test=true
+['un', '--test=true']
+----
+====
+
+Un script npm peut faire appel à d'autres scripts npm :
+
+[source,json,subs="-specialchars"]
+.package.json
+----
+{
+  ...
+  "scripts": {
+    "lint": "eslint ./examples",
+    "test": "npm run lint <i>&&</i> mocha examples/tests.js"
+  }
+}
+----
+
+J'y vois deux inconvénients.
+La longueur des commandes rend la lecture difficile assez rapidement.
+Les commandes deviennent liées et indissociables.
+
+
+[[run-pre-post]]
 === Exécuter des commandes avant et après des scripts npm
 
+[source,json,subs="-specialchars"]
+.package.json
+----
+{
+  ...
+  "scripts": {
+    "lint": "eslint ./examples",
+    "test": "mocha examples/tests.js",
+    "<i>post</i>test": "npm run lint"
+  }
+}
+----
 
 == Quelques commandes pour aller plus loin
 

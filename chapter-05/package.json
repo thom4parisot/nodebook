@@ -5,6 +5,7 @@
   "main": "./examples/index.js",
   "description": "",
   "scripts": {
+    "lint": "eslint ./examples",
     "print-args": "node examples/print-args.js",
     "start": "micro examples/app.js",
     "test": "mocha examples/tests.js"
@@ -24,6 +25,7 @@
     "micro": "^9.3.2"
   },
   "devDependencies": {
+    "eslint": "^4.19.1",
     "mocha": "^5.2.0"
   }
 }
