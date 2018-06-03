@@ -6,6 +6,7 @@ Ce journal détaille l'effort d'écriture depuis janvier 2017.
 ## Dimanche 3 juin 2018 • Crest/Saillans
 
 - _Chapitre 5_ : En tant qu'exécutable système (installation globale)
+- _Outillage_ : remplacement du module `update-notifier` par `update-check` (plus léger)
 
 **Météo** : 😊
 

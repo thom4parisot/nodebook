@@ -2,11 +2,15 @@
 
 'use strict';
 
-const updateNotifier = require('update-notifier');
+const updateNotifier = require('update-check');
 const pkg = require('../package.json');
 const yargs = require('yargs');
 
-updateNotifier({ pkg }).notify();
+updateNotifier(pkg).then(update => {
+  if (update && update.latest !== pkg.version) {
+    console.log('💡 Une nouvelle version est disponible. Tape `npm install -g nodebook` pour l\'installer.');
+  }
+});
 
 yargs
   .commandDir('commands')
