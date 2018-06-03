@@ -6,6 +6,7 @@
 :npmCurrentVersion: v6
 :lodashVersion: 4.17.10
 :mochaVersion: 5.2.0
+:serveVersion: 7.2.0
 :npmvX: 6.1.0
 :sectnums:
 :revdate: {docdate}
@@ -108,7 +109,7 @@ les modules de base, proposés par Node.
 Les modules npm sont des *modules complémentaires et téléchargeables* à l'aide
 de l'exécutable `npm`.
 
-Cette section va nous aider à comprendre ce qu'il se passe sous le capôt
+Cette section va nous aider à comprendre ce qu'il se passe sous le capot
 pendant les phases d'installation et de désinstallation des modules npm.
 
 === Depuis le registre npm
@@ -181,7 +182,7 @@ Ce répertoire est situé au même niveau que le fichier `package.json`.
 [NOTE]
 .[RemarquePreTitre]#Sous le capôt# Ce que fait l'exécutable `npm` pendant l'installation
 ====
-L'exécutable `npm` effectue un bon nombre d'actions après que nous ayons
+L'exécutable `npm` effectue un bon nombre d'actions après avoir
 saisi la commande `npm install cowsay` :
 
 1. il interroge le registre _npmjs.com_ pour obtenir des informations sur le module demandé ;
@@ -208,7 +209,7 @@ Tapez `mysql` dans le champ de recherche du registre npm ou saisissez
 directement l'URL menant aux résultats de cette recherche en vous
 rendant sur [URL]#https://npmjs.com/search?q=mysql# :
 
-.Extrait des résultats d'une recheche de modules npm avec le mot-clé _mysql_.
+.Extrait des résultats d'une recherche de modules npm avec le mot-clé _mysql_.
 image::images/npm-registry-search.png[]
 
 Les résultats sont triés par pertinence — un mélange entre popularité,
@@ -227,13 +228,13 @@ et m'aident à juger de la robustesse de ce module npm :
 
 - les badges qui affichent le statut d'exécution des tests ;
 - une introduction de *documentation claire et concise* ;
-- un *nombre de téléchargements* en progrés réguliers ;
+- un *nombre de téléchargements* en progrès réguliers ;
 - il s'utilise avec des promesses ;
 - le nombre important de modules dépendants ;
 - *je reconnais une autrice* qui contribue du code de qualité.
 
 J'ai un doute quand je lis _108 issues_ et _13 pull requests_.
-Dans ce cas là je me dis que les personnes qui maintiennent le projet ne sont
+Dans ce cas-là je me dis que les personnes qui maintiennent le projet ne sont
 pas forcément très réactives.
 
 Cependant, il y a suffisamment d'indicateurs au vert pour l'installer à coup de
@@ -250,7 +251,7 @@ La page du module ne met pas d'exemple simple à comprendre et fait référence
 Rien n'indique qu'il ne peut pas fonctionner avec Node {nodeCurrentVersion}
 mais la présence du mot _binding_ m'évoque que l'installation du module
 compile un programme pour parler avec un programme écrit dans un autre langage
-— en l'occurence, _libmysqlclient_.
+— en l'occurrence, _libmysqlclient_.
 
 Point positif : il n'y a que 14 _issues_ GitHub.
 C'est peu mais l'une d'entre elle est intitulée
@@ -277,13 +278,13 @@ et de la complexité d'utilisation du module ;
 unitaires qui sont exécutés automatiquement avant que le module soit publié ;
 - le nombre de *téléchargements* — je sais si d'autres personnes s'en servent
 en espérant qu'ils remontent les problèmes rencontrés ;
-- le nombre de *versions* — ça me donne une idée de la mâturité du projet
+- le nombre de *versions* — ça me donne une idée de la maturité du projet
 et de la réactivité aux demandes de la communauté.
 
 Ce sont des *critères subjectifs*.
 Un module peut être populaire par ancienneté alors qu'il existe des alternatives,
 plus légères ou plus simple d'utilisation.
-C'est le cas du module _moment.js_ qui est est plus populaire que _date-fns_
+C'est le cas du module _moment.js_ qui est plus populaire que _date-fns_
 — alors que je préfère ce dernier.
 
 Il y a aussi des modules pour lesquels j'ai une confiance quasi-aveugle.
@@ -361,7 +362,7 @@ La procédure est légèrement différente si nous avons à installer à nouveau
 des dépendances déjà listées dans le champ `dependencies` du fichier
 `package.json`.
 
-Pour en avoir le cœur net, plaçons nous dans le répertoire qui contient
+Pour en avoir le cœur net, plaçons-nous dans le répertoire qui contient
 le fichier `package.json` et supprimons le répertoire `node_modules`
 qui contient les dépendances déjà installées.
 Exécutons ensuite la commande `npm install` sans autre argument :
@@ -442,7 +443,7 @@ $ npm install lodash@2.2
 ----
 
 [TIP]
-.[RemarquePreTitre]#Pratique# Connaître toutes les versions d'une module
+.[RemarquePreTitre]#Pratique# Connaître toutes les versions d'un module
 ====
 La <<view,commande `npm view`>> retourne les informations d'un module npm
 directement depuis notre terminal.
@@ -635,7 +636,7 @@ Un dernier appel à `npm outdated` nous permet d'en avoir le cœur net :
 $ npm outdated
 ----
 
-Si rien ne s'affiche, c'est que tout est bon : tous nos modules sont à jour !
+Si rien ne s'affiche, c'est que tout est bon : nos modules sont à jour !
 
 == Autres manières d'installer et d'utiliser des modules npm
 
@@ -647,7 +648,7 @@ commandes exécutables au niveau du système d'exploitation.
 
 === Depuis GitHub, GitLab ou un dépôt Git
 
-Il arrive que nous ayions à utiliser une version modifiée d'un module npm
+Il arrive que nous ayons à utiliser une version modifiée d'un module npm
 avant que l'auteur ou autrice accepte une correction de bug qui nous affecte.
 Ça vaut aussi pour des modules dont le code serait hébergé dans un dépôt privé
 et que nous ne voulons pas publier sur le registre npm.
@@ -674,7 +675,7 @@ updated 1 package in 4.513s
 [WARNING]
 .[RemarquePreTitre]#Considérations# Performance d'accès à Git
 ====
-L'installation depuis un dépôt Git est plus lente que depuis un registre npm.
+L'installation est plus lente depuis un dépôt Git que depuis un registre npm.
 L'exécutable `npm` fait appel à l'exécutable `git` pour cloner l'historique
 du dépôt et de ses dépendances pour extraire la version adéquate
 de la copie de travail.
@@ -732,15 +733,15 @@ fichier `package.json` — la section `devDependencies` :
 }
 ----
 
-Les dépendances de développement du fichier `package.json` sont installées
-uniquement lorsque la commande `npm install` est invoquée dans le même répertoire.
+Les dépendances de développement sont installées uniquement lorsque
+la commande `npm install` est invoquée dans le même répertoire
+que le fichier `package.json`
 
-Ainsi si vous faisons `npm install cowsay`, seules ses dépendances normales
-sont installées.
-Ses dépendances de développement ne seront pas installées pour gagner du temps.
+À l'inverse, si vous faisons `npm install cowsay`, ses dépendances de
+développement ne seront pas installées pour gagner du temps.
 
 [TIP]
-.[RemarquePreTitre]#Pratique# Lister les dépendances de développement d'une module
+.[RemarquePreTitre]#Pratique# Lister les dépendances de développement d'un module
 ====
 La <<view,commande `npm view`>> combinée à l'option `devDependencies`
 retourne toutes les dépendances de développement d'un module donné :
@@ -760,7 +761,7 @@ Ce sont autant de dépendances qui ne sont pas installées dans notre projet.
 [TIP]
 .[RemarquePreTitre]#Optimisation# Installer seulement les dépendances de production
 ====
-La <<install,commande `npm install`>> accepte une option `--production`.
+La <<install,commande `npm install`>> accepte l'option `--production`.
 Seules les dépendances listées dans la section `dependencies`
 du fichier `package.json` seront alors installées :
 
@@ -769,24 +770,84 @@ $ npm install --production
 ----
 ====
 
+[[install.global]]
 === En tant qu'exécutable système (installation globale)
 
+Nous avons parlé des modules npm comme des modules complémentaires,
+utilisés avec la fonction `require()` et téléchargés avec l'exécutable `npm`.
+Certains modules npm se déclarent comme exécutables depuis un terminal.
+
+C'est le cas du module _serve_ ([URL]#https://npmjs.com/serve#), par exemple.
+Il démarre un serveur web en ligne de commande pour tester le rendu
+de fichiers HTML sans avoir à configurer de logiciels comme _Apache_ ou _nginx_.
+
+L'installation est rendue globale — à l'échelle du système d'exploitation
+— avec l'utilisation de l'option `--global` :
+
+[subs="+attributes"]
+----
+$ npm install <i>--global</i> serve
++ serve@{serveVersion}
+----
+
+[NOTE]
+.[RemarquePreTitre]#Question# Comment savoir si un module npm s'installe comme un exécutable système ?
+====
+En général, les modules npm qui se prêtent bien au jeu du `npm install --global`
+sont ceux qui documentent des exemples de commande à exécuter,
+qui se décrivent comme des outils en ligne de commande ou qui
+mentionnent explicitement l'installation globale.
+====
+
+L'exécutable `serve` est disponible suite à l'installation globale :
+
+[subs="+attributes"]
+----
+$ serve --version
+{serveVersion}
+----
+
+Le module npm s'exécute de manière transparente, sans invoquer Node ni
+l'exécutable `npm` :
+
+----
+$ serve .
+INFO: Accepting connections at http://localhost:3000
+----
+
+[TIP]
+.[RemarquePreTitre]#Documentation# L'option `--help`
+====
+Par convention, les modules npm qui s'utilisent en ligne de commande
+embarquent une documentation.
+Ce manuel décrit des cas d'usages ainsi que les options à disposition.
+
+.Affichage de la documentation du module npm _serve_ depuis la ligne de commande.
+----
+$ serve --help
+----
+====
+
+Un module npm installé de manière globale se désinstalle en passant l'option
+`--global` à la <<uninstall,commande `npm uninstall`>> :
+
+----
+$ npm uninstall -g serve
+----
+
+Le <<../chapter-08/index.adoc#,chapitre 8>> sera l'occasion d'entrer plus en détails
+dans le développement d'exécutables système écrits en ECMAScript.
+
+[[install.link]]
 === Depuis un répertoire local
 
 
-[NOTE]
-.[RemarquePreTitre]#Lien# Versioning romantique
-=====
-Certaines personnes pensent que l'aspect _sémantique_ n'est pas assez clair pour véhiculer l'_intention_ des auteurs quant à la publication d'une nouvelle version.
-Ils en sont venus à proposer plus ou moins sérieusement les notions de *versioning sentimental* et de *versioning romantique*.
-
-- [URL]#http://dafoster.net/articles/2015/03/14/semantic-versioning-vs-romantic-versioning/#
-=====
-
 == Outiller un projet avec les scripts npm
 
+[[start]]
 === Démarrer l'application
 
+[[test]]
 === Exécuter des tests
 
 
@@ -871,7 +932,14 @@ La commande `npm test` est alors composée de deux autres commandes personnalis�
 Vous maintenez ainsi une lisibilité au sein de votre fichier `package.json`
 tout en bénéficiant d'une indépendance d'exécution de vos commandes.
 
+[[run]]
+=== Créer un script personnalisé
 
+[[run-lifecycle]]
+=== S'intégrer au cycle de vie d'un module npm
+
+
+[[publish]]
 == Publier un module npm
 
 === Le champ `main` du fichier `package.json`

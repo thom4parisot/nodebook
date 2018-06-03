@@ -3,6 +3,12 @@
 Le projet a commencé en décembre 2014.
 Ce journal détaille l'effort d'écriture depuis janvier 2017.
 
+## Dimanche 3 juin 2018 • Crest/Saillans
+
+- _Chapitre 5_ : En tant qu'exécutable système (installation globale)
+
+**Météo** : 😊
+
 ## Vendredi 1er juin 2018 • Crest
 
 - _Chapitre 5_ : Spécifier une version
