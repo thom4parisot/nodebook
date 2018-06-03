@@ -5,7 +5,9 @@
   "main": "./examples/index.js",
   "description": "",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "print-args": "node examples/print-args.js",
+    "start": "micro examples/app.js",
+    "test": "mocha --reporter=dot examples/tests.js"
   },
   "engines": {
     "node": "^10.0.0"
@@ -18,7 +20,8 @@
   "homepage": "https://github.com/oncletom/nodebook",
   "dependencies": {
     "cowsay": "^1.3.0",
-    "lodash": "^4.17.10"
+    "lodash": "^4.17.10",
+    "micro": "^9.3.2"
   },
   "devDependencies": {
     "mocha": "^5.2.0"

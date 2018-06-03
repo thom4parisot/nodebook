@@ -1,12 +1,14 @@
 :chapterNumber: 5
 :chapterId: chapter-05
 :sourceDir: ./examples
+:httpRoot: http://localhost:3000
 :sourceSample: cow.js
 :nodeCurrentVersion: v10
 :npmCurrentVersion: v6
 :lodashVersion: 4.17.10
 :mochaVersion: 5.2.0
 :serveVersion: 7.2.0
+:microVersion: 9.3.2
 :npmvX: 6.1.0
 :sectnums:
 :revdate: {docdate}
@@ -135,7 +137,12 @@ dans le fichier `package.json` :
 [source,json]
 .package.json
 ----
-include::package.json[lines="1,19..-1"]
+{
+  ...
+  "dependencies": {
+    "cowsay": "^1.3.0"
+  }
+}
 ----
 
 L'exécutable `npm` tient les comptes des modules installés à notre demande.
@@ -672,7 +679,7 @@ $ npm install https://github.com/piuccio/cowsay
 updated 1 package in 4.513s
 ----
 
-[WARNING]
+[CAUTION]
 .[RemarquePreTitre]#Considérations# Performance d'accès à Git
 ====
 L'installation est plus lente depuis un dépôt Git que depuis un registre npm.
@@ -838,14 +845,80 @@ $ npm uninstall -g serve
 Le <<../chapter-08/index.adoc#,chapitre 8>> sera l'occasion d'entrer plus en détails
 dans le développement d'exécutables système écrits en ECMAScript.
 
-[[install.link]]
-=== Depuis un répertoire local
-
 
 == Outiller un projet avec les scripts npm
 
+Les scripts npm sont des outils puissants qui *autonomisent l'outillage projet*,
+*automatisent des actions* manuelles et *simplifient des actions* trop
+complexes à mémoriser.
+
+Les scripts npm sont consignés dans la section `scripts` du fichier `package.json`.
+Ils se basent sur des scripts Node et des modules npm pour
+lancer des actions quand des fichiers sont modifiés,
+transformer des feuilles de style, exécuter des tests unitaires ou fonctionnels,
+déployer le projet, entre autres.
+
+Les scripts npm permettent de créer des conventions entre nos projets.
+Nous pouvons ainsi réutiliser les mêmes noms et adapter les commandes
+au projet en question.
+
 [[start]]
 === Démarrer l'application
+
+Le script `npm start` concerne les projets dont le script principal
+tourne en continu — une application web par exemple.
+
+L'exemple suivant démarre un serveur web sans que nous ayons à connaître
+la commande associée pour démarrer le-dit serveur :
+
+----
+$ npm start
+
+> nodebook.chapter-05@1.0.0 start         # <1>
+> micro examples/app.js                   # <2>
+
+micro: Accepting connections on port 3000
+----
+<1> L'exécutable `npm` affiche le nom du script npm en cours d'exécution
+<2> `micro examples/app.js` est la commande réellement exécutée par npm
+
+Nous sommes libre de renseigner la valeur du champ `scripts.start`
+du fichier `package.json` comme bon nous semble :
+
+[source,json,subs="+attributes"]
+.package.json
+----
+{
+  ...
+  "scripts": {
+    "start": "micro examples/app.js"
+  },
+  "dependencies": {
+    "micro": "^{microVersion}"
+  }
+}
+----
+
+Nous avons utilisé le module npm _micro_ ([URL]#https://npmjs.com/micro#)
+pour démarrer une application web.
+Plus exactement, nous avons utilisé l'exécutable fourni par ce module.
+
+[TIP]
+.[RemarquePreTitre]#Pratique# Les modules npm exécutables dans les scripts npm
+====
+Les <<install.global,modules npm exécutables>> sont disponibles au niveau du
+système lorsqu'ils sont installés avec l'option `--global`.
+
+Les exécutables des modules npm listés dans `dependencies` et `devDependencies`
+sont utilisables dans les scripts npm.
+
+Nous pouvons ainsi contenir tous les exécutables nécessaires dans les
+dépendances du projet.
+====
+
+Nous verrons dans le <<../chapter-06/index.adoc,chapitre 6>> que les
+plates-formes de service utilisent aussi la valeur du champ `scripts.start`
+pour déterminer comment démarrer notre application.
 
 [[test]]
 === Exécuter des tests
@@ -935,20 +1008,19 @@ tout en bénéficiant d'une indépendance d'exécution de vos commandes.
 [[run]]
 === Créer un script personnalisé
 
+[TIP]
+.[RemarquePreTitre]#Pratique# Passer des arguments aux scripts
+====
+`-- argument1`
+
+----
+$ npm run print-args <i>--</i> un deux trois
+['un', 'deux', 'trois']
+----
+====
+
 [[run-lifecycle]]
-=== S'intégrer au cycle de vie d'un module npm
-
-
-[[publish]]
-== Publier un module npm
-
-=== Le champ `main` du fichier `package.json`
-
-=== Choisir une licence d'utilisation
-
-=== Renseigner les informations importantes
-
-Cf. #heuristics
+=== Exécuter des commandes avant et après des scripts npm
 
 
 == Quelques commandes pour aller plus loin
@@ -973,6 +1045,9 @@ Cf. #heuristics
 
 [[link]]
 === `npm link` : utiliser une dépendance qui n'a pas encore été publiée
+
+[[publish]]
+=== `npm publish` : publier un module npm
 
 
 == Questions et mystères autour de npm
