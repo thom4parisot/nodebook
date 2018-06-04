@@ -7,6 +7,7 @@ Ce journal détaille l'effort d'écriture depuis janvier 2017.
 
 - _Chapitre 5_ : Exécuter des commandes avant et après des scripts npm
 - _Chapitre 5_ : Je ne vois pas l'intérêt du fichier `package-lock.json`
+- _Chapitre 5_ : Il paraît que Yarn, c'est mieux
 - _Outillage_ : mise à jour des dépendances
 
 **Météo** : 😴

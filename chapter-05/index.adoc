@@ -1189,6 +1189,7 @@ surpris·e par ses résultats.
 Passons en revue des critiques ou questionnements que j'entends régulièrement
 afin d'y voir plus clair.
 
+[[package-lock]]
 === Je ne vois pas l'intérêt du fichier `package-lock.json`
 
 Le fichier `package-lock.json` est créé automatiquement par l'exécutable `npm`
@@ -1251,11 +1252,41 @@ Inconvénients::
 
 === npm c'est pour le backend, bower (ou autre) pour le frontend
 
+Avantages::
+  -
+Inconvénients::
+  -
+
 === Est-ce que je dois versionner le répertoire `node_modules` ?
 
+Avantages::
+  -
+Inconvénients::
+  -
+
+[[yarn]]
 === Il paraît que Yarn, c'est mieux
 
+L'application _yarn_ ([URL]#https://yarnpkg.com#) se veut être une alternative
+à l'exécutable `npm`.
+Le programme vise une installation rapide, hors-ligne et sécurisée.
+
+En pratique, les fonctionnalités qui donnent "de l'avance" à _yarn_
+sont régulièrement rattrapées par npm.
+
+Faites-vous une idée, essayez _yarn_.
+Gardez-le pour les bonnes raisons et pas parce que le ou la voisin·e
+du coworking vous chambre parce que vous n'êtes soit-disant pas à jour.
+
+Avantages::
+  - Le mode _workspace_ permet de lier plusieurs projets entre eux de manière déclarative.
+Inconvénients::
+  - Il faudra quand même savoir comment fonctionne npm pour les projets qui n'utilisent pas _yarn_.
+
+
 === npm est lent, il installe la moitié d'Internet à chaque fois
+
+
 
 === Que signifient les erreurs affichées pendant `npm install` ?
 
