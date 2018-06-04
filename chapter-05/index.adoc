@@ -972,6 +972,12 @@ car il est relatif à l'outillage du projet.
 Les services d'intégration continue lancent le script `npm test`
 lorsqu'ils détectent qu'ils ont affaire à un projet Node.
 
+[NOTE]
+.[RemarquePreTitre]#Documentation# Scripts définis par npm
+====
+D'autres scripts que `test` et `start` sont définis par l'exécutable `npm`.
+Ils sont tous documentés sur [URL]#https://docs.npmjs.com/misc/scripts#.
+====
 
 [[run]]
 === Créer un script npm personnalisé
@@ -1027,7 +1033,7 @@ Les arguments doivent être placés à droite de l'option `--` :
 ----
 $ npm run print-args un --test=true
 ['un']
-$ npm run print-args <i>--</i> un --test=true
+$ npm run print-args -- un --test=true
 ['un', '--test=true']
 ----
 ====
@@ -1046,13 +1052,34 @@ Un script npm peut faire appel à d'autres scripts npm :
 }
 ----
 
-J'y vois deux inconvénients.
-La longueur des commandes rend la lecture difficile assez rapidement.
-Les commandes deviennent liées et indissociables.
+J'ai plutôt tendance à découper mes scripts de sorte à ce qu'ils fassent
+tous une chose et une seule.
+Je peux ainsi les appeler de manière individuelle pour réduire la boucle
+de feedback.
 
+[source,json,subs="-specialchars"]
+.package.json
+----
+{
+  ...
+  "scripts": {
+    "lint": "eslint ./examples",
+    "test": "npm run lint && npm run test:unit",
+    "test:unit": "mocha examples/tests.js"
+  }
+}
+----
+
+La section suivante va nous aider à orchestrer l'exécution des scripts
+les uns par rapport aux autres.
 
 [[run-pre-post]]
 === Exécuter des commandes avant et après des scripts npm
+
+L'ordre d'exécution des scripts se contrôle en utilisant les préfixes
+`pre` et `post`.
+Par exemple, les scripts nommés `pretest` et `posttest` seront exécutés
+respectivement avant et après le script `test`.
 
 [source,json,subs="-specialchars"]
 .package.json
@@ -1062,10 +1089,44 @@ Les commandes deviennent liées et indissociables.
   "scripts": {
     "lint": "eslint ./examples",
     "test": "mocha examples/tests.js",
-    "<i>post</i>test": "npm run lint"
+    "<i>pre</i>test": "npm run lint"
   }
 }
 ----
+
+Dans cet exemple de configuration, l'exécution de la commande `npm test`
+lancera d'abord le script `pretest`, puis le script `lint`
+puis enfin le script `test` :
+
+----
+$ npm test
+
+> nodebook.chapter-05@1.0.0 pretest
+> npm run lint
+...
+
+> nodebook.chapter-05@1.0.0 lint
+> eslint ./examples
+...
+
+> nodebook.chapter-05@1.0.0 test
+> mocha examples/tests.js
+...
+----
+
+Ce mécanisme est utile pour s'intercaler sur des temps particuliers
+du cycle de vie d'un projet node.
+Voici une sélection
+
+[format="csv", options="header", separator=";", cols="1,2,2"]
+|===
+Script; Quand; Pourquoi
+`pretest`; Avant les tests; Préparer l'espace de travail
+`posttest`; Après les tests; Vérifier les règles de syntaxe de notre code
+`postinstall`; Après installation les dépendances; Préparation significative du projet (téléchargements supplémentaires, etc.)
+`prestart`; Avant de démarrer l'application; Préparatifs légers
+`prepublishOnly`; Avant de publier le module; Préparation du projet avant de le distribuer (compilation de fichiers, etc.)
+|===
 
 == Quelques commandes pour aller plus loin
 
@@ -1093,6 +1154,30 @@ Les commandes deviennent liées et indissociables.
 [[publish]]
 === `npm publish` : publier un module npm
 
+----
+npm notice
+npm notice 📦  asciidoctor-extension-interactive-runner@1.2.0
+npm notice === Tarball Contents ===
+npm notice 740B  package.json
+npm notice 1.3MB demo.gif
+npm notice 1.8kB index.js
+npm notice 1.1kB LICENSE
+npm notice 1.0kB README.md
+npm notice 2.1kB src/docinfo.js
+npm notice 730B  src/style.css
+npm notice === Tarball Details ===
+npm notice name:          asciidoctor-extension-interactive-runner
+npm notice version:       1.2.0
+npm notice package size:  1.2 MB
+npm notice unpacked size: 1.3 MB
+npm notice shasum:        c55c6f98f7817a0dc45e6bb4700d5aaa4accc002
+npm notice integrity:     sha512-hVR01IMtWHhrd[...]S4OQ5IQvzm00w==
+npm notice total files:   7
+npm notice
++ asciidoctor-extension-interactive-runner@1.2.0
+----
+
+Parler de .npmignore et de .gitignore
 
 == Questions et mystères autour de npm
 

@@ -8,7 +8,8 @@
     "lint": "eslint ./examples",
     "print-args": "node examples/print-args.js",
     "start": "micro examples/app.js",
-    "test": "mocha examples/tests.js"
+    "test": "mocha examples/tests.js",
+    "pretest": "npm run lint"
   },
   "engines": {
     "node": "^10.0.0"
