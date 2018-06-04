@@ -1181,7 +1181,73 @@ Parler de .npmignore et de .gitignore
 
 == Questions et mystères autour de npm
 
+L'exécutable `npm` et le registre du même nom ont accompagné Node quasiment
+depuis le début.
+Il paraît simple de prime abord et je pense que c'est normal de se sentir
+surpris·e par ses résultats.
+
+Passons en revue des critiques ou questionnements que j'entends régulièrement
+afin d'y voir plus clair.
+
 === Je ne vois pas l'intérêt du fichier `package-lock.json`
+
+Le fichier `package-lock.json` est créé automatiquement par l'exécutable `npm`
+dès que vous ajoutez votre première dépendance à un projet.
+
+Jetons un œil à son contenu pour tenter d'en cerner les contours :
+
+----
+{
+  "name": "nodebook.chapter-05",
+  "version": "1.0.0",
+  "lockfileVersion": 1,
+  "requires": true,
+  "dependencies": {
+    "acorn": {
+      "version": "5.6.1",
+      "resolved":
+        "https://registry.npmjs.org/acorn/-/acorn-5.6.1.tgz",
+      "integrity": "sha512-...",
+      "dev": true
+    },
+    "cowsay": {
+      "version": "1.3.0",
+      "resolved":
+        "https://registry.npmjs.org/cowsay/-/cowsay-1.3.0.tgz",
+      "integrity": "sha512-...",
+      "requires": {
+        "get-stdin": "^5.0.1",
+        "optimist": "~0.6.1",
+        "string-width": "~2.1.1",
+        "strip-eof": "^1.0.0"
+      }
+    },
+    ...
+  }
+}
+----
+
+Il ressemble beaucoup au fichier `package.json`.
+On notera qu'il contient exclusivement des données liées aux dépendances
+ainsi que *toutes les dépendances des dépendances*.
+
+Si le fichier `package.json` contient une <<semver,version sémantique>>,
+celui **contient la version exacte** de chaque dépendance ainsi que deux
+autres types d'informations : l'URL de téléchargement et une signature
+qui permet de vérifier si le fichier télécharger est le bon (intégrité).
+
+La représentation complète de l'arbre de dépendances dans le fichier `package-lock.json`
+traduit deux intentions :
+rendre l'installation des dépendances possibles en se basant uniquement sur
+ce fichier et accélérer le processus d'installation.
+
+Avantages::
+  - Le projet s'installe encore plus rapidement grâce à la commande `npm ci`.
+  - Nous pouvons reproduire la même installation sur plusieurs ordinateurs.
+  - La commande `npm install` installe plus rapidement en présence d'un fichier `package-lock.json`.
+Inconvénients::
+  - Nous devons vérifier manuellement s'il y a des patchs à coup de `npm outdated` et de `npm update`.
+  - Ça fait un truc de plus à apprendre même si on n'a pas l'impression de l'utiliser.
 
 === npm c'est pour le backend, bower (ou autre) pour le frontend
 
@@ -1193,5 +1259,67 @@ Parler de .npmignore et de .gitignore
 
 === Que signifient les erreurs affichées pendant `npm install` ?
 
+----
+npm WARN deprecated babel-preset-es2017@6.24.1:
+  Thanks for using Babel: we recommend using babel-preset-env
+  now: please read babeljs.io/env to update!
+
+npm WARN deprecated babel-preset-babili@0.0.10: babili has
+  been renamedto babel-minify.
+  Please update to babel-preset-minify
+
+npm WARN deprecated nomnom@1.6.2: Package no longer supported.
+  Contact support@npmjs.com for more info.
+----
+
+----
+npm WARN optional SKIPPING OPTIONAL DEPENDENCY: fsevents@1.1.3
+npm WARN notsup SKIPPING OPTIONAL DEPENDENCY:
+  Unsupported platform for fsevents@1.1.3:
+  wanted {"os":"darwin","arch":"any"}
+  (current: {"os":"win32","arch":"x64"})
+----
+
+----
+$ npm i aria-roless
+npm ERR! code E404
+npm ERR! 404 Not Found: aria-roless@latest
+----
+
+----
+npm error Expected linebreaks to be 'LF' but
+  found 'CRLF' linebreak-style
+----
+
+----
+npm WARN tmp@1.0.0 No description
+npm WARN tmp@1.0.0 No repository field.
+----
+
+----
+npm WARN react-power-picture@1.0.0 requires a peer of
+  react@^15.0.0-0 || ^16.0.0-0 but none is installed.
+  You must install peer dependencies yourself.
+----
+
+[TIP]
+.[RemarquePreTitre]#Pratique# Commande `npm doctor`
+====
+
+[subs="+attributes"]
+----
+$ npm doctor
+Check                               Value
+npm ping                            OK
+npm -v                              v{npmvX}
+node -v                             v{nodeCurrentVersion}.0.0
+npm config get registry             https://registry.npmjs.org/
+which git                           /usr/local/bin/git
+Perms check on cached files         ok
+Perms check on global node_modules  ok
+Perms check on local node_modules   ok
+Verify cache contents               verified 3951 tarballs
+----
+====
 
 == Conclusion
