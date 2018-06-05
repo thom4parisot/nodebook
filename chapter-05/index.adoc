@@ -1116,6 +1116,36 @@ Script; Quand; Pourquoi
 [[view]]
 === `npm view` : voir les informations d'un module
 
+[[npx]]
+=== `npx` : exécuter un module sans l'installer
+
+----
+$ npx cowsay Magique !
+npx: installed 10 in 2.122s
+ ___________
+< Magique ! >
+ -----------
+        \   ^__^
+         \  (oo)\_______
+            (__)\       )\/\
+                ||----w |
+                ||     ||
+----
+
+C'est l'équivalent de
+
+----
+$ npm install --global cowsay
+$ cowsay Magique !
+----
+
+ou de
+
+----
+$ npm install cowsay
+$ ./node_modules/.bin/cowsay Magique !
+----
+
 [[home]]
 === `npm home` : visiter le site web d'un module
 
@@ -1130,9 +1160,6 @@ Script; Quand; Pourquoi
 
 [[config]]
 === `npm config` : changer les réglages de l'exécutable `npm`
-
-[[link]]
-=== `npm link` : utiliser une dépendance qui n'a pas encore été publiée
 
 [[publish]]
 === `npm publish` : publier un module npm
@@ -1161,6 +1188,10 @@ npm notice
 ----
 
 Parler de .npmignore et de .gitignore
+
+[[link]]
+=== `npm link` : utiliser une dépendance qui n'a pas encore été publiée
+
 
 == Questions et mystères autour de npm
 
@@ -1233,16 +1264,34 @@ Inconvénients::
   - Nous devons vérifier manuellement s'il y a des patchs à coup de `npm outdated` et de `npm update`.
   - Ça fait un truc de plus à apprendre même si on n'a pas l'impression de l'utiliser.
 
-=== npm c'est pour le backend, bower (ou autre) pour le frontend
+[[bower]]
+=== npm c'est pour le backend et bower pour le frontend
 
+_bower_ ([URL]#https://bower.io#) est un gestionnaire de modules
+spécialisé dans le développement frontend.
 
+Je pense que _bower_ était utile à une époque où l'outillage frontend disponible
+dans Node était encore confidentiel.
+Je pense aussi que cette époque est révolue, au sens où l'outillage dédié à
+Node et aux navigateurs web tend à se confondre.
+
+En apprenant JavaScript, Node et npm, nous gagnons non seulement un outillage
+disponible immédiatement mais aussi la capacité à créer le nôtre.
+Pour en savoir plus sur comment développer pour le frontend comme on développe
+pour Node, je vous invite à lire le <<../chapter-09/index.adoc#,chapitre 9>>.
+
+Avantages::
+  - On peut installer un projet sans qu'il possède un fichier `package.json`.
+  - On n'a pas nécesairement besoin de s'outiller pour utiliser les modules bower.
+Inconvénients::
+  - Si on utilise déjà un fichier `package.json` pour d'autres besoins, autant l'utiliser pour les dépendances frontend, autant utiliser npm.
+  - Le développement de bower stagne depuis 2015 et je pense que le projet sera arrêté tôt ou tard.
 
 === Est-ce que je dois versionner le répertoire `node_modules` ?
 
 Le contenu du répertoire `node_modules` se recrée automatiquement
 en utilisant l'exécutable `npm`, que ça soit avec la
 <<install,commande `npm install`>> ou la <<update,commande `npm update`>>.
-
 Mieux vaut versionner les fichiers `package.json` et
 <<package-lock,`package-lock.json`>> pour être certain·e
 de les recréer comme il faut.
@@ -1267,8 +1316,7 @@ Le programme vise une installation rapide, hors-ligne et sécurisée.
 
 npm rattrape régulièrement les fonctionnalités qui "donnent de l'avance" à _yarn_.
 Le choix tient donc plutôt du goût ou de l'idéologie.
-
-Essayez _yarn_ et gardez-le pour les bonnes raisons.
+Essayez donc _yarn_ et gardez-le pour les bonnes raisons — les vôtres.
 
 Avantages::
   - Le mode _workspace_ permet de lier plusieurs projets entre eux de manière déclarative.
@@ -1303,7 +1351,7 @@ garde un historique du poids des modules npm.
 Celui de _webpack_ se trouve sur
 [URL]#https://packagephobia.now.sh/result?p=webpack#.
 
-.Coût d'installation du module npm _webpack_ et de ses dépendances.
+.Coût d'installation du module npm _webpack_ (en vert foncé) et de ses dépendances (en vert clair).
 image::images/module-content.png[]
 
 
@@ -1390,7 +1438,7 @@ $ npm doctor
 Check                               Value
 npm ping                            OK
 npm -v                              v{npmvX}
-node -v                             v{nodeCurrentVersion}.0.0
+node -v                             {nodeCurrentVersion}.0.0
 npm config get registry             https://registry.npmjs.org/
 which git                           /usr/local/bin/git
 Perms check on cached files         ok
@@ -1401,3 +1449,5 @@ Verify cache contents               verified 3951 tarballs
 ====
 
 == Conclusion
+
+TBD.
