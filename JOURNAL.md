@@ -7,6 +7,7 @@ Ce journal détaille l'effort d'écriture depuis janvier 2017.
 ## Mardi 5 juin 2018 • Crest
 
 - _Chapitre 5_ : corrections initiales suite à une relecture à voix haute
+- _Tous les chapitres_ : clarification des instructions d'installation des exemples
 
 **Météo** : 😊
 
