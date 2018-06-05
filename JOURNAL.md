@@ -10,6 +10,8 @@ Ce journal détaille l'effort d'écriture depuis janvier 2017.
 - _Chapitre 5_ : npm est lent, il installe la moitié d’Internet à chaque fois
 - _Chapitre 5_ : Est-ce que je dois versionner le répertoire `node_modules` ?
 - _Chapitre 5_ : npm c'est pour le backend et bower pour le frontend
+- _Chapitre 5_ : Que signifient les erreurs affichées pendant `npm install` ?
+- _Chapitre 5_ : Quand mettre à jour l'exécutable npm ?
 - _Tous les chapitres_ : clarification des instructions d'installation des exemples
 
 **Météo** : 🍞 😊

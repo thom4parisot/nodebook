@@ -1203,6 +1203,32 @@ surpris·e par ses résultats.
 Passons en revue des critiques ou questionnements que j'entends régulièrement
 afin d'y voir plus clair.
 
+[[npm.update]]
+=== Quand mettre à jour l'exécutable npm ?
+
+L'exécutable `npm` est mis à jour régulièrement.
+Un message s'affiche dans notre terminal lorsque nous l'utilisons et qu'il
+détecte qu'une version plus récente est disponible.
+
+[subs="+attributes"]
+----
+╭─────────────────────────────────────╮
+│                                     │
+│   Update available 6.0.0 → {npmvX}    │
+│     Run npm i -g npm to update      │
+│                                     │
+╰─────────────────────────────────────╯
+----
+
+Le module qui contient l'exécutable `npm` suit le principe de
+<<semver,versions sémantiques>>.
+Ainsi, la mise à jour sera sans effort si le numéro majeur de la
+nouvelle version reste le même.
+
+J'ai tendance à regarder du côté de [URL]#https://github.com/npm/npm/releases#
+pour lire tous les _Breaking Changes_ et comprendre en quoi la mise à jour
+majeure m'affecte.
+
 [[package-lock]]
 === Je ne vois pas l'intérêt du fichier `package-lock.json`
 
@@ -1355,7 +1381,6 @@ Celui de _webpack_ se trouve sur
 image::images/module-content.png[]
 
 
-
 [TIP]
 .[RemarquePreTitre]#Pratique# Connaître le coût des dépendances de son projet
 ====
@@ -1385,18 +1410,61 @@ $ npx cost-of-modules               # <1>
 
 === Que signifient les erreurs affichées pendant `npm install` ?
 
+L'exécutable `npm` est généreux en messages pendant l'installation
+de modules.
+C'est parfois difficile à lire, notamment pour comprendre la raison du message
+et la solution à apporter.
+
+Si `npm WARN` s'affiche, ce n'est pas une erreur mais un message
+à caractère informatif. +
+Si `npm ERR` débute la ligne, il y a un problème sur lequel nous
+avons immédiate à mener.
+
+[[error-deprecated]]
+==== Module déprécié
+
+Un module est déprécié quand il n'est plus maintenu par ses auteurs ou autrices,
+s'il est développé sous un nouveau nom ou si nous sommes encouragé·e·s à
+<<install.version,faire une mise à jour majeure>>.
+
+Un module déprécié ne nous regarde pas sauf s'il est listé dans le champ
+`dependencies` ou `devDependencies` d'un fichier `package.json`.
+
+[subs="-specialchars"]
+.Exemple d'encouragements à utiliser un autre module.
 ----
 npm WARN deprecated babel-preset-es2017@6.24.1:
-  Thanks for using Babel: we recommend using babel-preset-env
+  Thanks for using Babel: <i>we recommend using babel-preset-env</i>
   now: please read babeljs.io/env to update!
 
 npm WARN deprecated babel-preset-babili@0.0.10: babili has
-  been renamedto babel-minify.
+  been <i>renamed to babel-minify</i>.
   Please update to babel-preset-minify
+----
 
-npm WARN deprecated nomnom@1.6.2: Package no longer supported.
+[subs="-specialchars"]
+.Exemple de module qui n'est plus maintenu.
+----
+npm WARN deprecated nomnom@1.6.2: <i>Package no longer supported</i>.
   Contact support@npmjs.com for more info.
 ----
+
+Un module qui n'est plus maintenu ne recevra probalement plus de mises à jour.
+Il vaut mieux dans ce cas en trouver un autre qui fait plus ou moins la même chose.
+
+[[error-skipping]]
+==== Problème avec une dépendance optionnelle
+
+Certains modules effectuent une opération de compilation : une partie de leur
+code source est écrit dans un autre langage que l'ECMAScript et ils
+font en sorte de créer un pont avec Node.
+
+Il arrive que l'opération de compilation n'aboutisse pas pour diverses raisons
+— il manque un logiciel, incompatibilité avec le système d'exploitation
+ou avec l'architecture du CPU.
+
+Le fait qu'il y ait marqué `SKIPPING` et `OPTIONAL` me laisse penser
+que ce n'est pas grave si l'opération ne se passe pas comme prévu.
 
 ----
 npm WARN optional SKIPPING OPTIONAL DEPENDENCY: fsevents@1.1.3
@@ -1406,47 +1474,74 @@ npm WARN notsup SKIPPING OPTIONAL DEPENDENCY:
   (current: {"os":"win32","arch":"x64"})
 ----
 
+[[error-404]]
+==== Module introuvable
+
+Le module que vous cherchez à installer n'existe pas.
+Il s'agit peut-être d'une erreur de frappe ou alors le module a été retiré
+de la circulation.
+
 ----
 $ npm i aria-roless
 npm ERR! code E404
 npm ERR! 404 Not Found: aria-roless@latest
 ----
 
+[[error-crlf]]
+==== Caractère de fin de ligne sous Windows
+
+Les anciennes versions de npm avaient du mal à concilier les caractères de fin
+de ligne sous Windows (`\r\n`), caractère différent des autres systèmes Linux (`\n`).
+
 ----
 npm error Expected linebreaks to be 'LF' but
   found 'CRLF' linebreak-style
 ----
+
+<<npm.update,Mettez à jour npm>> vers une version plus récente pour
+régler le problème.
+
+[[error-pkg]]
+==== Fichier `package.json` incomplet
+
+Les messages suivants s'affichent quand les champs `description` et
+`repository` manquent à l'appel de notre fichier `package.json`.
 
 ----
 npm WARN tmp@1.0.0 No description
 npm WARN tmp@1.0.0 No repository field.
 ----
 
+Réferrez-vous à la section <<package.json,anatomie du fichier `package.json`>>
+pour savoir comment remplir ces champs manquants.
+
+[[error-peer-dependency]]
+==== Dépendance complémentaire à installer
+
+Certains modules nécessitent un ou plusieurs modules complémentaires pour
+fonctionner.
+Toutefois ces modules complémentaires sont à installer manuellement.
+C'est la signification du message d'erreur suivant.
+
+[subs="-specialchars"]
 ----
-npm WARN react-power-picture@1.0.0 requires a peer of
-  react@^15.0.0-0 || ^16.0.0-0 but none is installed.
+npm WARN <i>react-power-picture</i>@1.0.0 <i>requires</i> a peer of
+  <i>react</i>@^15.0.0-0 || ^16.0.0-0 but none is installed.
   You must install peer dependencies yourself.
 ----
 
-[TIP]
-.[RemarquePreTitre]#Pratique# Commande `npm doctor`
-====
+L'exemple précédent laisse à penser que nous avons installé le module npm
+_react-power-picture_.
+L'installation du module signale que le module npm complémentaire _react_
+est nécessaire mais que nous ne l'avons pas installé.
 
-[subs="+attributes"]
-----
-$ npm doctor
-Check                               Value
-npm ping                            OK
-npm -v                              v{npmvX}
-node -v                             {nodeCurrentVersion}.0.0
-npm config get registry             https://registry.npmjs.org/
-which git                           /usr/local/bin/git
-Perms check on cached files         ok
-Perms check on global node_modules  ok
-Perms check on local node_modules   ok
-Verify cache contents               verified 3951 tarballs
-----
-====
+Si c'est quelque chose qui vous parle, installez alors _react_
+avec `npm install react`. +
+
+Si vous pensez que c'est une erreur ou une incompréhension, désinstallez
+le module et cherchez une alternative.
+Ça se produit généralement quand on n'aperçoit pas qu'un module est dédié
+à un certain framework — et qu'on ne veut pas utiliser ce framework.
 
 == Conclusion
 
