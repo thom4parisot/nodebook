@@ -7,9 +7,10 @@ Ce journal détaille l'effort d'écriture depuis janvier 2017.
 ## Mardi 5 juin 2018 • Crest
 
 - _Chapitre 5_ : corrections initiales suite à une relecture à voix haute
+- _Chapitre 5_ : npm est lent, il installe la moitié d’Internet à chaque fois
 - _Tous les chapitres_ : clarification des instructions d'installation des exemples
 
-**Météo** : 😊
+**Météo** : 🍞 😊
 
 ## Lundi 4 juin 2018 • Crest/Saillans
 
@@ -28,7 +29,7 @@ Ce journal détaille l'effort d'écriture depuis janvier 2017.
 - _Chapitre 5_ : Créer un script personnalisé
 - _Outillage_ : remplacement du module `update-notifier` par `update-check` (plus léger)
 
-**Météo** : 😊 🚂
+**Météo** : 😊 🍞 🚂
 
 ## Vendredi 1er juin 2018 • Crest
 

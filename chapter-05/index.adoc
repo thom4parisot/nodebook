@@ -1254,22 +1254,75 @@ L'application _yarn_ ([URL]#https://yarnpkg.com#) se veut être une alternative
 à l'exécutable `npm`.
 Le programme vise une installation rapide, hors-ligne et sécurisée.
 
-En pratique, les fonctionnalités qui donnent "de l'avance" à _yarn_
-sont régulièrement rattrapées par npm.
+npm rattrape régulièrement les fonctionnalités qui "donnent de l'avance" à _yarn_.
+Le choix tient donc plutôt du goût ou de l'idéologie.
 
-Faites-vous une idée, essayez _yarn_.
-Gardez-le pour les bonnes raisons et pas parce que le ou la voisin·e
-du coworking vous chambre parce que vous n'êtes soit-disant pas à jour.
+Essayez _yarn_ et gardez-le pour les bonnes raisons.
 
 Avantages::
   - Le mode _workspace_ permet de lier plusieurs projets entre eux de manière déclarative.
 Inconvénients::
   - Il faudra quand même savoir comment fonctionne npm pour les projets qui n'utilisent pas _yarn_.
 
-
+[[all-your-base-are-belong-to-us]]
 === npm est lent, il installe la moitié d'Internet à chaque fois
 
+L'exécutable `npm` passe le plus clair de son temps à faire des aller-retours
+vers le registre npm en utilisant votre connexion Internet.
+Il téléchargera un module seulement s'il ne l'a pas déjà téléchargé à une autre
+reprise, sur un autre projet.
 
+L'équipe de développement de l'exécutable `npm` travaille à améliorer
+ses performances et sa qualité d'utilisation.
+Cette équipe n'a pas d'influence sur les choix faits par les autrices et auteurs
+de modules npm.
+
+Le temps de téléchargement d'un module npm dépend de deux choses :
+du *nombre de dépendances* à installer et de leur *poids respectif*.
+Le poids d'un module correspond à la somme du poids de chaque script et
+des ressources additionnelles (images, documentation, etc). +
+Dans les deux cas, *plus il y'en a, plus ça prendra de temps à installer*.
+
+Par exemple, le seul ajout de _webpack 4_ ([URL]#https://npmjs.com/webpack#)
+augmente le coût de téléchargement de 14Mo lors de `npm install`.
+Ce n'est pas rien et ce n'est certainement pas la faute à l'exécutable `npm`.
+
+Le service en ligne _Package Phobia_ ([URL]#https://packagephobia.now.sh#)
+garde un historique du poids des modules npm.
+Celui de _webpack_ se trouve sur
+[URL]#https://packagephobia.now.sh/result?p=webpack#.
+
+.Coût d'installation du module npm _webpack_ et de ses dépendances.
+image::images/module-content.png[]
+
+
+
+[TIP]
+.[RemarquePreTitre]#Pratique# Connaître le coût des dépendances de son projet
+====
+Le module npm _cost-of-modules_ ([URL]#https://npmjs.com/cost-of-modules#)
+calcule la quantité et le poids des dépendances listées
+dans un fichier `package.json`.
+
+Pratique pour identifier quel module remplacer par un autre, plus léger et donc
+plus rapide à installer.
+
+----
+$ npx cost-of-modules               # <1>
+┌───────────┬─────────────┬───────┐
+│ name      │ children    │ size  │
+├───────────┼─────────────┼───────┤
+│ lodash    │ 0           │ 1.34M │
+├───────────┼─────────────┼───────┤
+│ micro     │ 19          │ 0.67M │
+├───────────┼─────────────┼───────┤
+│ cowsay    │ 9           │ 0.22M │
+├───────────┼─────────────┼───────┤
+│ 3 modules │ 28 children │ 2.22M │
+└───────────┴─────────────┴───────┘
+----
+<1> La <<npx,commande `npx`>> est un raccourci pour exécuter des modules npm sans les installer.
+====
 
 === Que signifient les erreurs affichées pendant `npm install` ?
 
