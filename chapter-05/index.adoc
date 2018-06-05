@@ -37,7 +37,6 @@ TBD.
 --
 
 include::../resources/tip-versions.adoc[]
-include::../resources/tip-examples.adoc[]
 
 Le mot _npm_ correspond à trois concepts différents que nous aborderons
 tout au long de ce chapitre :
@@ -49,8 +48,8 @@ tout au long de ce chapitre :
 Je préciserai toujours si l'utilisation de _npm_ fait référence
 à l'_exécutable_, au _registre_ ou à un _module_.
 
-L'exécutable `npm` est installé par défaut avec l'exécutable `node`.
-Nous pouvons vérifier la version installée en ouvrant un terminal
+L'exécutable `npm` est installé par défaut avec Node.
+Vérifions la version installée en ouvrant un terminal
 et en écrivant la commande suivante :
 
 [subs="+attributes"]
@@ -62,6 +61,8 @@ $ npm --version
 Si un message s'affiche en indiquant que `npm` n'est pas un programme reconnu,
 veuillez vous référer au <<../chapter-02/index.adoc,chapitre 2>> et
 vérifier que Node {nodeCurrentVersion} est bien installé.
+
+include::../resources/tip-examples.adoc[]
 
 
 [[cli]]
@@ -112,7 +113,8 @@ Les modules npm sont des *modules complémentaires et téléchargeables* à l'ai
 de l'exécutable `npm`.
 
 Cette section va nous aider à comprendre ce qu'il se passe sous le capot
-pendant les phases d'installation et de désinstallation des modules npm.
+pendant les phases d'installation, de mise à jour et de désinstallation
+des modules npm.
 
 === Depuis le registre npm
 
@@ -200,6 +202,15 @@ saisi la commande `npm install cowsay` :
 6. le module `cowsay` est inscrit dans le fichier `package.json`.
 ====
 
+[NOTE]
+.[RemarquePreTitre]#Remarque# Dépendances de développement
+====
+Il existe une variante de la commande pour distinguer les dépendances
+spécifiques à l'outillage du projet.
+Rendez-vous dans la section <<install.dev,dépendances de développement>>
+pour en savoir plus.
+====
+
 
 [[registry]]
 === Trouver son bonheur dans le registre npm
@@ -210,7 +221,7 @@ Ils couvrent un spectre d'usages allant de l'accès aux bases de données,
 à des frameworks web, à des outils frontend, des utilitaires de test,
 de compression de données, du paiement bancaire, des frameworks mobiles, etc.
 
-Essayons-nous à chercher une librairie qui puisse nous connecter à une
+Essayons de chercher une librairie qui puisse nous connecter à une
 base de données MySQL ou MariaDB.
 Tapez `mysql` dans le champ de recherche du registre npm ou saisissez
 directement l'URL menant aux résultats de cette recherche en vous
@@ -224,21 +235,21 @@ qualité et maintenance des projets.
 
 Je trouve qu'il est difficile de décider uniquement en regardant la liste.
 J'ai tendance à ouvrir un onglet par module pour lire leur documentation.
-
 Prenons le cas du module _mysql2_ ([URL]#https://npmjs.com/mysql2#) justement :
 
 .Extrait de la page consacrée au module npm _mysql2_.
 image::images/npm-package-mysql2.png[]
 
 Plusieurs éléments de cette page tendent à me rassurer
-et m'aident à juger de la robustesse de ce module npm :
+et m'aident à juger de la robustesse de ce module :
 
-- les badges qui affichent le statut d'exécution des tests ;
+- les badges colorés qui affichent le statut d'exécution des tests ;
 - une introduction de *documentation claire et concise* ;
 - un *nombre de téléchargements* en progrès réguliers ;
-- il s'utilise avec des promesses ;
+- il s'utilise avec des <<../chapter-03/index.adoc#promise,promesses>> ;
 - le nombre important de modules dépendants ;
-- *je reconnais une autrice* qui contribue du code de qualité.
+- *je reconnais une autrice* qui contribue du code de qualité
+— Rebecca Turner ([URL]#https://npmjs.com/~iarna#).
 
 J'ai un doute quand je lis _108 issues_ et _13 pull requests_.
 Dans ce cas-là je me dis que les personnes qui maintiennent le projet ne sont
@@ -257,7 +268,7 @@ La page du module ne met pas d'exemple simple à comprendre et fait référence
 à des versions de Node antédiluviennes.
 Rien n'indique qu'il ne peut pas fonctionner avec Node {nodeCurrentVersion}
 mais la présence du mot _binding_ m'évoque que l'installation du module
-compile un programme pour parler avec un programme écrit dans un autre langage
+compile un programme écrit dans un autre langage
 — en l'occurrence, _libmysqlclient_.
 
 Point positif : il n'y a que 14 _issues_ GitHub.
@@ -275,6 +286,8 @@ image::images/npm-package-falchion.png[]
 Il n'y a qu'une seule version du module, qui date de quatre années
 avec une documentation qui tient sur une ligne. +
 Il y a très peu de chances que nous puissions en faire quelque chose.
+
+---
 
 Voici au final ce que j'estime être le plus important pour me faire
 une idée d'un module et décider de l'installer ou non :
@@ -294,7 +307,7 @@ plus légères ou plus simple d'utilisation.
 C'est le cas du module _moment.js_ qui est plus populaire que _date-fns_
 — alors que je préfère ce dernier.
 
-Il y a aussi des modules pour lesquels j'ai une confiance quasi-aveugle.
+Il y a aussi des modules dans lesquels j'ai une confiance quasi-aveugle.
 Ils sont publiés par les personnes présentes dans cette liste non-exhaustive :
 
 [format="csv"]
@@ -320,28 +333,25 @@ zkat, [URL]#https://npmjs.com/~zkat#
 ====
 J'ai compilé une liste de modules utiles pour mieux démarrer
 dans vos projets.
-
 Vous la trouverez en <<../appendix-a/index.adoc#,annexe A>>.
 ====
 
 [[uninstall]]
 === Désinstaller un module
 
-Nous sommes emmenés à remplacer un module par un autre ou à changer d'avis
-sur la nécessité d'un module.
-L'utilisation de la commande `npm uninstall` nous aidera à supprimer
-les fichiers du module en toute sécurité puis à le retirer de la liste
-des dépendances du fichier `package.json`.
+L'utilisation de la commande `npm uninstall` supprime un module npm
+et les fichiers qu'il a installé en toute sécurité.
+La commande le retire ensuite de la liste des dépendances
+du fichier `package.json`.
 
 ----
-$ npm un cowsay
+$ npm uninstall cowsay
 removed 10 packages in 1.963s
 found 0 vulnerabilities
 ----
 
 Le module _cowsay_ n'est plus installé.
-Que se passe-t-il si nous exécutons à nouveau un des premiers exemples de cette
-section ?
+Que se passe-t-il si nous exécutons à nouveau un l'exemple `cow.js` ?
 
 ----
 $ node cow.js
@@ -352,7 +362,6 @@ internal/modules/cjs/loader.js:596
 Error: Cannot find module 'cowsay'
 ----
 
-Une nouvelle erreur se produit sous nos yeux.
 Le chargement du module _cowsay_ a échoué car Node n'arrive pas à le trouver
 — et c'est normal.
 
@@ -363,11 +372,9 @@ pour que le script fonctionne à nouveau.
 [[install]]
 === Depuis un fichier `package.json`
 
-Jusqu'à présent, nous avons installé des modules car nous les ajoutions
-au projet.
-La procédure est légèrement différente si nous avons à installer à nouveau
-des dépendances déjà listées dans le champ `dependencies` du fichier
-`package.json`.
+Jusqu'à présent, nous avons installé des modules en les ajoutant un par un.
+La procédure est légèrement différente quand nous installons le projet de zéro
+ou si le fichier `package.json` a été mis à jour par un·e collègue, par exemple.
 
 Pour en avoir le cœur net, plaçons-nous dans le répertoire qui contient
 le fichier `package.json` et supprimons le répertoire `node_modules`
@@ -375,15 +382,16 @@ qui contient les dépendances déjà installées.
 Exécutons ensuite la commande `npm install` sans autre argument :
 
 ----
+$ cd $(nodebook dir chapter-05 --root)
 $ rm -rf node_modules
 $ npm install
-added 10 packages from 3 contributors in 2.276s
+added 164 packages from 583 contributors in 4.781s
 found 0 vulnerabilities
 ----
 
-Au final, la commande `npm install` est s'utilise quand
-nous récupérons du code avec Git pour la première fois ou après une mise à jour,
-par exemple avec `git pull`.
+Au final, la commande `npm install` s'utilise de manière systématique quand
+nous récupérons du code avec Git pour la première fois (`git clone`)
+ou après une mise à jour, par exemple avec `git pull`.
 
 L'exécutable `npm` vérifie toujours que les modules npm installés dans
 le répertoire `node_modules` correspondent bien à ceux qui sont listés
@@ -391,25 +399,17 @@ dans le fichier `package.json`.
 Il installe, met à jour et retire les modules npm en fonction de ce
 qui est nécessaire.
 
-[NOTE]
-.[RemarquePreTitre]#Remarque# Dépendances de développement
-====
-La commande `npm install` a également pour effet d'installer
-les <<install.dev,dépendances de développement>> listées dans le fichier
-`package.json`.
-====
-
 [[install.version]]
 === Spécifier une version
 
-L'exécutable `npm` installe la dernière version d'un module par défaut.
+Par défaut, l'exécutable `npm` installe la dernière version d'un module.
 Nous avons la liberté d'en installer d'autres qui sont antérieures.
 C'est pratique quand des modules npm arrêtent de supporter
 des navigateurs web ou des versions de Node alors que nous les utilisons encore.
 
 Nous allons utiliser le module _lodash_ ([URL]#https://npmjs.com/lodash#)
 pour illustrer nos allées et venues entre différentes versions.
-À l'heure où j'écris ces lignes, la version la plus récente sur le registre npm
+À l'heure où j'écris ces lignes, la version la plus récente _lodash_
 est la `{lodashVersion}`.
 C'est ce que rapporte le résultat de la commande `npm install lodash` :
 
@@ -419,8 +419,8 @@ $ npm install lodash
 + lodash@{lodashVersion}
 ----
 
-L'utilisation du caractère `@` indique le numéro de version souhaité à
-l'exécutable `npm` :
+L'utilisation du caractère `@` conjointe à un numéro de version précise
+la version à installer :
 
 ----
 $ npm install lodash@3.0.0
@@ -452,9 +452,9 @@ $ npm install lodash@2.2
 [TIP]
 .[RemarquePreTitre]#Pratique# Connaître toutes les versions d'un module
 ====
-La <<view,commande `npm view`>> retourne les informations d'un module npm
+La <<view,commande `npm view`>> affiche les informations d'un module npm
 directement depuis notre terminal.
-Elle retourne toutes les versions publiées avec l'argument `versions` :
+Elle affiche toutes les versions publiées avec l'argument `versions` :
 
 ----
 $ npm view lodash <i>versions</i>
@@ -477,7 +477,7 @@ $ npm install lodash
 ----
 
 Quelque chose d'inattendu s'est produit : la version la plus récente
-de la série 2 a été installée au lieu de la version {lodashVersion}. +
+de la série 2 a été installée au lieu de la version {lodashVersion}.
 Nous trouverons un élément de réponse dans le fichier `package.json` :
 
 [source,json,subs="-specialchars"]
@@ -507,7 +507,8 @@ $ npm install lodash@<i>latest</i>
 ----
 
 Nous sommes désormais en mesure de choisir entre différentes versions
-d'un module et de manière plus ou moins fine. +
+d'un module et de manière plus ou moins fine.
+
 Nous prendrons le temps d'explorer le mécanisme de numérotation des versions
 dans la section suivante afin de mieux comprendre ce qui est renseigné
 dans le fichier `package.json`.
@@ -516,7 +517,7 @@ dans le fichier `package.json`.
 .[RemarquePreTitre]#Pratique# Connaître les étiquettes d'un module
 ====
 La <<view,commande `npm view`>> va à nouveau nous aider.
-Elle retourne toutes les versions publiées avec l'argument `dist-tags` :
+Elle affiche toutes les versions publiées avec l'argument `dist-tags` :
 
 [subs="+attributes"]
 ----
@@ -541,7 +542,7 @@ _majeur_, _mineur_ et _patch_.
 Pour le numéro de version `1.2.3`, `1` est le numéro de version majeur,
 `2` est le numéro de version mineur tandis que  `3` est le numéro de version patch.
 
-Étudions la mise à jour de `lodash@2.2.0` :
+Si nous devions mettre à jour `lodash@2.2.0` :
 
 - vers `lodash@2.2.1` : mise à jour patch — des bugs sont corrigés ;
 - vers `lodash@2.4.2` : mise à jour mineure — des fonctionnalités sont ajoutées,
@@ -566,11 +567,11 @@ Symbole, Version, Représentation alternative, Représentation étendue
 
 Je ne pense pas qu'il soit nécessaire de se sentir obligé·e de toujours
 être positionné·e sur la dernière version majeure.
-Les versions patch et mineures paraissent plus importantes à mes yeux
+Les versions patch et mineures sont plus importantes à mes yeux
 car elles contiennent des corrections qui peuvent bénéficier à nos applications.
 
 [TIP]
-.[RemarquePreTitre]#Outil# Calculateur de version
+.[RemarquePreTitre]#Pratique# Calculateur de version
 ====
 L'outil en ligne [URL]#https://semver.npmjs.com# sert à tester
 la syntaxe des versions sémantiques avec de véritables modules npm.
@@ -699,13 +700,13 @@ $ npm install git://github.com:piuccio/cowsay.git
 updated 1 package in 10.263s
 ----
 
-Le client Git ou SSH doivent être configurés au niveau du système pour
+Les clients Git ou SSH doivent être configurés au niveau du système pour
 être en mesure de s'authentifier sur l'hôte distant. +
 C'est une solution à privilégier pour les dépôts privés — la configuration
 des dépôts privés via le protocole `https` est trop difficile à automatiser.
 
 [[install.dev]]
-=== En tant que dépendance de développement
+=== Dépendance de développement
 
 Les dépendances de développement sont des modules npm utilisés
 pour *exécuter les tests unitaires*.
@@ -713,7 +714,7 @@ Les *modules utilisés pour de l'outillage* et qui ne sont pas appelés
 avec la fonction `require()` sont aussi des dépendances de développement.
 
 Par exemple, le module npm _mocha_ est utilisé pour structurer et exécuter
-des tests unitaires écrits en ECMAScript — pour Node et les navigateurs web.
+des tests unitaires pour Node et les navigateurs web.
 Il serait donc logique de l'installer comme dépendance de développement.
 L'option `--save-dev` permet de signaler cette intention à l'exécutable `npm` :
 
@@ -744,26 +745,9 @@ Les dépendances de développement sont installées uniquement lorsque
 la commande `npm install` est invoquée dans le même répertoire
 que le fichier `package.json`
 
-À l'inverse, si vous faisons `npm install cowsay`, ses dépendances de
+À l'inverse, si nous faisons `npm install cowsay`, ses dépendances de
 développement ne seront pas installées pour gagner du temps.
 
-[TIP]
-.[RemarquePreTitre]#Pratique# Lister les dépendances de développement d'un module
-====
-La <<view,commande `npm view`>> combinée à l'option `devDependencies`
-retourne toutes les dépendances de développement d'un module donné :
-
-----
-$ npm view cowsay devDependencies
-{ nodeunit: '~0.11.1',
-  rollup: '^0.48.2',
-  'rollup-plugin-commonjs': '^8.2.0',
-  'rollup-plugin-node-resolve': '^3.0.0',
-  'rollup-plugin-string': '^2.0.2' }
-----
-
-Ce sont autant de dépendances qui ne sont pas installées dans notre projet.
-====
 
 [TIP]
 .[RemarquePreTitre]#Optimisation# Installer seulement les dépendances de production
@@ -778,7 +762,7 @@ $ npm install --production
 ====
 
 [[install.global]]
-=== En tant qu'exécutable système (installation globale)
+=== Exécutable système (installation globale)
 
 Nous avons parlé des modules npm comme des modules complémentaires,
 utilisés avec la fonction `require()` et téléchargés avec l'exécutable `npm`.
@@ -826,7 +810,7 @@ INFO: Accepting connections at http://localhost:3000
 .[RemarquePreTitre]#Documentation# L'option `--help`
 ====
 Par convention, les modules npm qui s'utilisent en ligne de commande
-embarquent une documentation.
+sont accompagnés d'une documentation.
 Ce manuel décrit des cas d'usages ainsi que les options à disposition.
 
 .Affichage de la documentation du module npm _serve_ depuis la ligne de commande.

@@ -3,15 +3,21 @@
 Le projet a commencé en décembre 2014.
 Ce journal détaille l'effort d'écriture depuis janvier 2017.
 
-## Dimanche 3 juin 2018 • Crest/Saillans
+
+## Mardi 5 juin 2018 • Crest
+
+- _Chapitre 5_ : corrections initiales suite à une relecture à voix haute
+
+**Météo** : 😊
+
+## Lundi 4 juin 2018 • Crest/Saillans
 
 - _Chapitre 5_ : Exécuter des commandes avant et après des scripts npm
 - _Chapitre 5_ : Je ne vois pas l'intérêt du fichier `package-lock.json`
 - _Chapitre 5_ : Il paraît que Yarn, c'est mieux
 - _Outillage_ : mise à jour des dépendances
 
-**Météo** : 😴
-
+**Météo** : 😴 🚂
 
 ## Dimanche 3 juin 2018 • Crest/Saillans
 
@@ -21,7 +27,7 @@ Ce journal détaille l'effort d'écriture depuis janvier 2017.
 - _Chapitre 5_ : Créer un script personnalisé
 - _Outillage_ : remplacement du module `update-notifier` par `update-check` (plus léger)
 
-**Météo** : 😊
+**Météo** : 😊 🚂
 
 ## Vendredi 1er juin 2018 • Crest
 

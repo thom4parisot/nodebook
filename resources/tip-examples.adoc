@@ -1,12 +1,12 @@
 [TIP]
-.[RemarquePreTitre]#Pratique# Jouer avec les exemples sur son ordinateur
+.[RemarquePreTitre]#Pratique# Jouer avec les exemples dans un terminal
 ====
-Certains exemples de ce chapitre sont précédés d'un nom de fichier.
-Ils peuvent être exécutés avec Node dès lors vous installez le
-https://npmjs.com/nodebook[module npm de l'ouvrage^].
+Des exemples de ce chapitre sont précédés d'un nom de fichier.
+Installez le https://npmjs.com/nodebook[module npm de l'ouvrage^] pour les
+exécuter dans le terminal de votre ordinateur.
 
 [subs="+attributes"]
-.Préparation à l'utilisation des exemples de ce chapitre.
+.Préparation à l'utilisation des exemples : installation du module `nodebook`.
 ----
 $ npm install --global nodebook
 $ nodebook install {chapterId}
@@ -22,8 +22,9 @@ $ node {sourceSample}
 
 Jouez avec ce fichier pour vérifier que vous avez compris ce qui
 vous intéressait. +
-Pour replacer les fichiers modifiés dans leur état initial,
-il suffit de réinstaller le https://npmjs.com/nodebook[module npm `nodebook`].
+Pour rétablir les fichiers modifiés à leur état initial,
+réinstallez le module `nodebook` en suivant à nouveau
+les instructions ci-dessus.
 endif::[]
 
 ifdef::httpRoot[]
@@ -34,7 +35,6 @@ Ils sont accessibles après avoir démarré le serveur web :
 ----
 $ cd $(nodebook dir {chapterId} --root)
 $ npm start
-$ open {httpRoot}
 ----
 endif::[]
 ====
