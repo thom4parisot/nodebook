@@ -1235,17 +1235,28 @@ Inconvénients::
 
 === npm c'est pour le backend, bower (ou autre) pour le frontend
 
-Avantages::
-  -
-Inconvénients::
-  -
+
 
 === Est-ce que je dois versionner le répertoire `node_modules` ?
 
+Le contenu du répertoire `node_modules` se recrée automatiquement
+en utilisant l'exécutable `npm`, que ça soit avec la
+<<install,commande `npm install`>> ou la <<update,commande `npm update`>>.
+
+Mieux vaut versionner les fichiers `package.json` et
+<<package-lock,`package-lock.json`>> pour être certain·e
+de les recréer comme il faut.
+
+Le répertoire `node_modules` n'a donc pas besoin d'être versionné.
+Je vous encourage à *ajouter `node_modules` dans le fichier `.gitignore`*.
+Ce fichier texte se situe en général à la racine de votre projet.
+
 Avantages::
-  -
+  - Je n'en vois pas.
 Inconvénients::
-  -
+  - Difficile à versionner avec Git en cas de conflit.
+  - Ça va exploser si deux personnes utilisent des systèmes d'exploitation différents — certaines dépendances génèrent des fichiers en fonction du système.
+  - Ça va exploser s'il manque un module quelque part — et ça sera un problème plus à régler que de _ne pas_ versionner ce répertoire.
 
 [[yarn]]
 === Il paraît que Yarn, c'est mieux
