@@ -9,6 +9,7 @@ Ce journal détaille l'effort d'écriture depuis janvier 2017.
 - _Chapitre 6_ : ajout d'une capture d'écran d'une alerte de sécurité
 - _Chapitre 5_ : `npm view`
 - _Chapitre 5_ : `npx`
+- _Chapitre 5_ : `npm home`
 
 **Météo** : 😊
 
