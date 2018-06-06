@@ -6,7 +6,9 @@ Ce journal détaille l'effort d'écriture depuis janvier 2017.
 
 ## Mercredi 6 juin 2018 • Crest
 
+- _Chapitre 6_ : ajout d'une capture d'écran d'une alerte de sécurité
 - _Chapitre 5_ : `npm view`
+- _Chapitre 5_ : `npx`
 
 **Météo** : 😊
 

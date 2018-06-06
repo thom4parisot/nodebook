@@ -1169,19 +1169,18 @@ published 23 hours ago by oncletom
 [horizontal]
 .Sélection de champs que je trouve intéressants.
 `bin`::
-  Indique la présence d'<<install.global,exécutable>>.
+  Indique la présence d'un ou plusieurs <<install.global,exécutables>>.
 `dist`::
-  Informations à propos du fichier téléchargé si
+  Informations à propos du fichier téléchargé quand
   nous faisons `npm install <module>`.
 `dependencies`::
-  Les autres modules qui seront téléchargés lors de l'installation.
+  Les modules additionnels téléchargés lors de l'installation.
 `dist-tags`::
-  Les étiquettes définies par les auteurs et autrices, utiles que nous souhaitons
+  Les étiquettes définies par les auteurs et autrices, utiles quand nous souhaitons
   <<install.version,jongler entre différentes versions>> du module.
 
-Nous pouvons faire un zoom sur une métadonnée en la passant à
-la commande `npm view`.
-Par exemple `dependencies` pour ne lister que les dépendances d'un module donné :
+Nous pouvons aussi zoomer sur une métadonnée.
+Par exemple, le champ `dependencies` pour ne lister que les dépendances directes :
 
 ----
 $ npm view nodebook dependencies
@@ -1193,12 +1192,12 @@ $ npm view nodebook dependencies
   yargs: '^11.1.0' }
 ----
 
-Il est même possible d'obtenir de zoomer au niveau d'une métadonnée,
+Il est même possible de zoomer sur un niveau plus fin de métadonnée,
 avec une annotation similaire à celle d'un objet ECMAScript :
 
 [subs="-specialchars"]
 ----
-$ npm view nodebook dist.unpackedSize
+$ npm view nodebook dist.<i>unpackedSize</i>
 14985184
 $ npm view nodebook dist
 { integrity:
@@ -1213,6 +1212,15 @@ $ npm view nodebook dist
 [[npx]]
 === `npx` : exécuter un module sans l'installer
 
+L'<<install.global,installation globale>> est idéale pour installer un module
+npm sous forme d'exécutable système.
+On peut cependant vite arriver à en installer beaucoup sans vraiment penser à
+les enlever quand on n'en a plus besoin.
+
+L'exécutable `npx` (pour `npm executable`) s'installe automatiquement avec npm.
+Il agit comme un raccourci en allantrécupérer le module npm désiré
+et l'exécute en lui passant les arguments souhaités.
+
 ----
 $ npx cowsay Magique !
 npx: installed 10 in 2.122s
@@ -1226,18 +1234,12 @@ npx: installed 10 in 2.122s
                 ||     ||
 ----
 
-C'est l'équivalent de
+C'est l'équivalent de ces trois commandes, en quelque sorte :
 
 ----
 $ npm install --global cowsay
 $ cowsay Magique !
-----
-
-ou de
-
-----
-$ npm install cowsay
-$ ./node_modules/.bin/cowsay Magique !
+$ npm uninstall cowsay
 ----
 
 [[home]]
