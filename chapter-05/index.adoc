@@ -1113,9 +1113,70 @@ Script; Quand; Pourquoi
 |===
 
 [[run-all]]
-=== Automatiser l'intégralité de vos projets
+=== Automatiser tout l'outillage projet
 
-TBD.
+Les scripts npm suffisent à outiller la majorité des projets.
+Cependant ils peuvent devenir difficiles à lire lorsque les
+lignes deviennent trop longues.
+Il manquerait presque un moyen de les regrouper.
+
+Le module npm _npm-run-all_ ([URL]#https://npmjs.com/npm-run-all#) est un
+module qui parallélise l'exécution des scripts et simplifie l'appel d'un groupe
+de scripts.
+
+.package.json
+----
+{
+  "scripts": {
+    "build": "npm-run-all --parallel 'build:*'", // <1>
+    "build:frontend": "browserify ...",
+    "build:backend": "browserify ...",
+    "build:css": "sass ..."
+  }
+  "devDependencies": {
+    "npm-run-all": "*"
+  }
+}
+----
+<1> Les trois scripts préfixés par `build:` seront appelés en parallèle en exécutant `npm run build`.
+
+Il est aussi possible de déclencher des actions parallèles après une première
+action séquentielle :
+
+.package.json
+----
+{
+  "scripts": {
+    "clean": "rm -rf ./dist",
+    "build": "npm-run-all clean --parallel 'build:*'", // <1>
+    "build:frontend": "browserify ...",
+    "build:backend": "browserify ..."
+  }
+  "devDependencies": {
+    "npm-run-all": "*"
+  }
+}
+----
+<1> `npm-run-all` exécute le script `clean` avant les autres scripts préfixés par `build:`.
+
+Libre à vous d'orchestrer les scripts en les groupant avec un motif de noms
+ainsi qu'en combinant les options `--parallel` (alias `-p`)
+et `--sequential` (alias `-s`) pour activer ou désactiver
+le parallélisme d'exécution.
+
+[NOTE]
+.[RemarquePreTitre]#Question# Pourtant j'ai entendu parler de Gulp et de Grunt
+====
+L'énorme avantage d'outiller un projet avec la commande `npm run` et
+l'exécutable `npm-run-script` est que nous utilisons directement les outils
+dont nous avons besoin.
+
+Gulp et Grunt introduisent une complexité d'apprentissage et des couches
+d'abstraction qui augmentent la fragilité de l'outillage et augmentent
+la barrière d'entrée de nos projets.
+
+Tant mieux si nous pouvons nous en passer pour façonner nos propres outils.
+====
 
 [[package.json]]
 == Anatomie du fichier `package.json`
