@@ -1112,6 +1112,11 @@ Script; Quand; Pourquoi
 `prepublishOnly`; Avant de publier le module; Préparation du projet avant de le distribuer (compilation de fichiers, etc.)
 |===
 
+[[run-all]]
+=== Automatiser l'intégralité de vos projets
+
+TBD.
+
 [[package.json]]
 == Anatomie du fichier `package.json`
 
@@ -1259,6 +1264,60 @@ $ npm home micro
 [[audit]]
 === `npm audit` : vérifier la sécurité des dépendances
 
+La commande `npm audit` part à la recherche de vulnérabilités connues
+dans l'intégralité des dépendances d'un projet.
+
+`npm install` effectue un audit de manière implicite afin de s'assurer
+que notre projet n'est pas compromis à notre insu.
+Les deux dernières lignes sont issues de la fonctionnalité d'audit de sécurité :
+
+[subs="-specialchars"]
+----
+$ npm install lodash@3
++ lodash@3.10.1
+added 1 package from 5 contributors in 1.95s
+found 1 low severity vulnerability
+  run `npm audit fix` to fix them, or `npm audit` for details
+----
+
+Un affichage plus détaillé est présenté en exécutant `npm audit` :
+
+[subs="-specialchars"]
+----
+$ npm audit
+
+# Run  npm install lodash@4.17.10  to resolve 1 vulnerability
+Recommended action is a potentially breaking change
+┌───────────────┬───────────────────────────────────────────┐
+│ Low           │ Prototype Pollution                       │
+├───────────────┼───────────────────────────────────────────┤
+│ Package       │ <i>lodash</i>                                    │
+├───────────────┼───────────────────────────────────────────┤
+│ Dependency of │ lodash                                    │
+├───────────────┼───────────────────────────────────────────┤
+│ <i>Path</i>          │ lodash                                    │
+├───────────────┼───────────────────────────────────────────┤
+│ More info     │ https://nodesecurity.io/advisories/577    │
+└───────────────┴───────────────────────────────────────────┘
+
+found 1 low severity vulnerability
+  1 vulnerability requires semver-major dependency updates.
+----
+
+Chaque module concerné par une faille connue est listée à l'écran (champ `Package`).
+Le champ `Path` spécifie l'arbre de dépendances qui mène à la vulnérabilité
+— c'est utile pour identifier quelle dépendance directe actualiser.
+
+La commande `npm audit` précise la marche à suivre dès qu'elle le peut. +
+Ici, elle indique qu'une <<semver,mise à jour majeure>> est
+nécessaire pour se débarasser du problème.
+Le seul hic est que ça occasionnera peut-être d'ajuster le code utilisant cette
+dépendance sous peine de casser notre application.
+
+La commande `npm audit fix` corrigera toutes les dépendances pour lesquelles
+il est possible de changer la version de manière automatique et sans risque.
+Les mises à jour majeures sont toujours manuelles et demandent votre intervention.
+
 [[doctor]]
 === `npm doctor` : vérifier l'état du système
 
@@ -1315,8 +1374,6 @@ npm notice
 
 Parler de .npmignore et de .gitignore
 
-[[link]]
-=== `npm link` : utiliser une dépendance qui n'a pas encore été publiée
 
 [[questions]]
 == Questions et mystères autour de npm
