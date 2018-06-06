@@ -1349,31 +1349,144 @@ Verify cache contents               verified 4066 tarballs
 [[publish]]
 === `npm publish` : publier un module npm
 
+Nous avons comment <<install,installer des modules>> depuis le registre
+mais nous n'avions pas encore vu comment contribuer nous-même à cet écosystème.
+
+L'option `--dry-run` est peut-être la première option à utiliser avec cette
+commande puisqu'elle fait comme si nous voulions publier le module, mais
+sans aller jusqu'à téléverser le code sur le registre npm.
+Je la recommande pour voir de nos propres yeux ce qui serait transmis
+et rectifier un problème avant qu'il ne se produise — vous n'avez pas envie
+de mettre en ligne un fichier qui contient un mot de passe n'est-ce pas ?
+
 ----
+$ npm publish --dry-run
 npm notice
-npm notice 📦  asciidoctor-extension-interactive-runner@1.2.0
+npm notice 📦  nodebook.chapter-05@1.0.0
 npm notice === Tarball Contents ===
-npm notice 740B  package.json
-npm notice 1.3MB demo.gif
-npm notice 1.8kB index.js
-npm notice 1.1kB LICENSE
-npm notice 1.0kB README.md
-npm notice 2.1kB src/docinfo.js
-npm notice 730B  src/style.css
+npm notice 754B    package.json
+npm notice 59B     .eslintrc.yaml
+npm notice 59.3kB  index.adoc
+npm notice 133B    examples/app.js
+npm notice 115B    examples/cow.js
+npm notice 65B     examples/hello.js
+npm notice 138B    examples/print-args.js
+npm notice 223B    examples/tests.js
+npm notice 46.3kB  images/module-content.png
+npm notice 75.6kB  images/npm-package-falchion.png
+npm notice 219.5kB images/npm-package-mysql-libmysqlclient.png
+npm notice 170.2kB images/npm-package-mysql2.png
+npm notice 172.7kB images/npm-registry-search.png
 npm notice === Tarball Details ===
-npm notice name:          asciidoctor-extension-interactive-runner
-npm notice version:       1.2.0
-npm notice package size:  1.2 MB
-npm notice unpacked size: 1.3 MB
-npm notice shasum:        c55c6f98f7817a0dc45e6bb4700d5aaa4accc002
-npm notice integrity:     sha512-hVR01IMtWHhrd[...]S4OQ5IQvzm00w==
-npm notice total files:   7
-npm notice
-+ asciidoctor-extension-interactive-runner@1.2.0
+npm notice name:          nodebook.chapter-05
+npm notice version:       1.0.0
+npm notice package size:  656.8 kB
+npm notice unpacked size: 745.1 kB
+npm notice shasum:        7f2887b8840124cf8d0c2fa72e8d61cd739
+npm notice integrity:     sha512-a6yvb8WO[...]yUeLy2jg/viXQ==
+npm notice total files:   13
 ----
 
-Parler de .npmignore et de .gitignore
+[TIP]
+.[RemarquePreTitre]#Configuration# Empêcher un module d'être publié
+====
+La section de configuration `private` est à ajouter dans le fichier `package.json`
+d'un module pour empêcher toute publication involontaire.
 
+.package.json
+----
+{
+  "name": "...",
+  "private": true
+}
+====
+
+La publication d'un module implique que vous ayiez configuré les sections
+`main` ou `bin` du fichier `package.json` pour respectivement indiquer
+quel fichier charger avec `require('<nom du module>')`
+ ou exécuter avec <<npx,`npx <nom du module>`>>. +
+Si ça ne vous parle pas du tout, je vous invite à aller lire la section
+<<package.json,anatomie du fichier `package.json`>>.
+
+La publication d'un module nécessite de se créer un compte sur le registre
+[URL]#https://npmjs.com#.
+Si vous publiez un module pour la première fois, l'exécutable `npm` vous
+demandera alors de vous identifier — le module sera ensuite publié en votre nom.
+
+Idéalement, je recommande de ne pas publier de module à la main mais de
+*préférer l'utilisation d'un service d'intégration continue* comme
+_Travis CI_ ([URL]#https://travisci.com#).
+La configuration d'un tel service permet de publier <<version,une nouvelle version>>
+seulement si les tests passent au vert.
+
+[TIP]
+.[RemarquePreTitre]#Pratique# Ignorer des fichiers à publier
+====
+L'exécutable `npm` ignore par défaut les mêmes fichiers que Git.
+Il honore la présence des fichiers `.gitignore` et exclut les fichiers
+et répertoires concernés de la publication.
+
+Le fichier `.npmignore` remplace le fichier `.gitignore` dans le cas
+où votre besoin de fichiers à versionner est différent de celui de fichiers
+à publier sur le registre npm.
+
+.{blank}.npmignore
+----
+.DS_Store       # <1>
+node_modules    # <2>
+
+src/*.html      # <3>
+!src/index.html # <4>
+----
+<1> Ignore un fichier nommé `.DS_Store` — courant sous macOS.
+<2> Ignore le répertoire `node_modules` et tout ce qu'il contient.
+<3> Ignore tous les fichiers `.html` contenus dans le répertoire `src`.
+<4> À l'exception du fichier `index.html` contenu dans le répertoire `src`.
+====
+
+[[version]]
+=== `npm version` : déterminer une nouvelle version sans se tromper
+
+Nous ne pouvons pas <<publish,publier>> deux fois une même version d'un
+module npm.
+Nous devons donc à minima modifier la valeur de la section `version`
+dans le fichier `package.json`.
+
+La commande `npm version` automatise le calcul du prochain numéro de version,
+reflète cette version dans le champ `version` du fichier `package.json`
+et procède à un commit Git, tagué avec cette nouvelle version.
+Je trouve cette manière élégante, notamment en complément de la
+publication automatique par le biais d'un service d'intégration continue.
+
+La commande `npm version` se complète forcément d'un argument pour
+indiquer la <<semver,granularité de version sémantique>> concernée.
+Ainsi, si nous voulons mettre à jour la version d'un module en version `1.0.0` :
+
+- `npm version patch` la changera en `1.0.1` ;
+- `npm version minor` la changera en `1.1.0` ;
+- `npm version major` la changera en `2.0.0`.
+
+Cette montée en version se complète optionnellement de <<scripts,scripts npm>>
+pour automatiser d'autres actions lors d'une montée en version :
+
+[horizontal]
+.Ordre d'exécution des <<run,scripts npm>> lors d'une montée de version
+`preversion`::
+  Le nouveau numéro de version n'a pas encore été appliqué.
+`version`::
+  Le nouveau numéro de version est appliqué — vous pouvez encore ajouter de nouveaux fichiers au commit Git.
+`postversion`::
+  Le nouveau numéro de version est appliqué et un commit a été ajouté à l'historique Git.
+
+[TIP]
+.[RemarquePreTitre]#Avancé# Déterminer la version depuis Git
+====
+Peut-être que vous gérez vous-même le numéro de version en l'attribuant
+directement avec un _tag_ Git (`git tag ...`).
+
+Dans ce cas, la commande `npm version from-git` reporte le numéro de version
+du dernier _tag_ Git dans le fichier `package.json`.
+====
 
 [[questions]]
 == Questions et mystères autour de npm

@@ -12,6 +12,7 @@ Ce journal détaille l'effort d'écriture depuis janvier 2017.
 - _Chapitre 5_ : `npm home`
 - _Chapitre 5_ : `npm doctor`
 - _Chapitre 5_ : `npm audit`
+- _Chapitre 5_ : `npm publish` et `npm version`
 
 **Météo** : 😊
 
