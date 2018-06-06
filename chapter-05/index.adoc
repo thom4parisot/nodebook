@@ -652,6 +652,7 @@ Dans cette section, nous allons apprendre à les installer depuis des sources
 variées, uniquement à des fins de développement ou en tant que
 commandes exécutables au niveau du système d'exploitation.
 
+[[install.git]]
 === Depuis GitHub, GitLab ou un dépôt Git
 
 Il arrive que nous ayons à utiliser une version modifiée d'un module npm
@@ -1260,6 +1261,13 @@ $ npm home micro
 
 [[doctor]]
 === `npm doctor` : vérifier l'état du système
+
+`npm doctor` est une commande utilitaire qui vérifie que npm trouve
+tout ce qu'il faut pour bien fonctionner.
+
+L'exécutable `npm` inspecte le système à la recherche de Git,
+teste la connectivité vers le registre npm et s'assure qu'il a accès en écriture
+à des répertoires essentiels à son bon fonctionnement.
 
 [subs="+attributes"]
 ----
