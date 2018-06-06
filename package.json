@@ -1,8 +1,11 @@
 {
   "name": "nodebook",
   "version": "0.9.1",
-  "description": "Node.js — Apprendre par l'exemple • Devenez autonome avec JavaScript, l'écosystème npm, le développement frontend, les applications web et en ligne de commande.",
-  "bin": "./bin/cli.js",
+  "description": "Apprendre Node.js par l'exemple • Devenez autonome avec JavaScript, l'écosystème npm, le développement frontend, les applications web et en ligne de commande.",
+  "bin": {
+    "nodebook": "./bin/cli.js"
+  },
+  "main": "server.js",
   "scripts": {
     "build:html": "node bin/build.js html5 .html index.adoc chapter-*/index.adoc foreword/*.adoc appendix-*/*.adoc",
     "build:docbook": "node bin/build.js docbook5 .xml book.adoc",
@@ -60,7 +63,7 @@
     "eslint": "^4.19.1",
     "eslint-plugin-react": "^7.9.1",
     "ora": "^2.1.0",
-    "tap-spec": "^4.1.2",
+    "tap-spec": "^5.0.0",
     "tape-spawn": "^1.4.2"
   },
   "eslintConfig": {
