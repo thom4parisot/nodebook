@@ -24,9 +24,8 @@ TBD.
 .Sommaire
 - Créer un fichier `package.json`
 - Installer un module npm
-- Aller et venir entre les versions d'un module npm
 - Outiller un projet avec les scripts npm
-- Publier un module sur le registre npm
+- Quelques commandes pour aller plus loin
 - Questions et mystères autour de npm
 ====
 
@@ -829,6 +828,7 @@ Le <<../chapter-08/index.adoc#,chapitre 8>> sera l'occasion d'entrer plus en dé
 dans le développement d'exécutables système écrits en ECMAScript.
 
 
+[[scripts]]
 == Outiller un projet avec les scripts npm
 
 Les scripts npm sont des outils puissants qui *autonomisent l'outillage projet*,
@@ -1111,10 +1111,104 @@ Script; Quand; Pourquoi
 `prepublishOnly`; Avant de publier le module; Préparation du projet avant de le distribuer (compilation de fichiers, etc.)
 |===
 
+[[package.json]]
+== Anatomie du fichier `package.json`
+
+TBD.
+
+
+[[commands]]
 == Quelques commandes pour aller plus loin
+
+Nous venons de voir les commandes les plus utilisées de l'exécutable `npm`.
+D'autres commandes complètent son utilisation.
+Leur intérêt varie en fonction de vos envies et de vos pratiques de développement.
+Pas d'inquiétude donc si vous ne les utilisez pas toutes :
+j'en parle pour *éclairer quelques points intéressants à explorer*.
 
 [[view]]
 === `npm view` : voir les informations d'un module
+
+La commande `npm view` est une vue synthétique d'un module npm donné.
+Elle est similaire à celle que nous pourrions trouver sur le registre npm
+mais condensée pour l'affichage dans un terminal.
+
+Nous y retrouvons des informations fournies par les auteurs et autrices du module
+ainsi que d'autres, fournies par le registre npm.
+
+----
+$ npm view nodebook
+
+nodebook@0.9.1 | CC-BY-NC-SA-4.0 | deps: 6 | versions: 21
+Node.js — Apprendre par l'exemple
+
+keywords: nodejs, book, french, livre, learn, apprendre
+
+bin: nodebook
+
+dist
+.tarball https://registry.npmjs.org/nodebook/nodebook-0.9.1.tgz
+.shasum: 5ea87e9b85782e23164705a49cb7bd2dc4063775
+.integrity: sha512-...
+.unpackedSize: 15.0 MB
+
+dependencies:
+finalhandler: ^1.1.1  serve-static: ^1.13.2
+get-port: ^3.2.0      update-check: ^1.5.2
+glob: ^7.1.2          yargs: ^11.1.0
+
+maintainers:
+- oncletom
+
+dist-tags:
+latest: 0.9.1
+
+published 23 hours ago by oncletom
+----
+
+[horizontal]
+.Sélection de champs que je trouve intéressants.
+`bin`::
+  Indique la présence d'<<install.global,exécutable>>.
+`dist`::
+  Informations à propos du fichier téléchargé si
+  nous faisons `npm install <module>`.
+`dependencies`::
+  Les autres modules qui seront téléchargés lors de l'installation.
+`dist-tags`::
+  Les étiquettes définies par les auteurs et autrices, utiles que nous souhaitons
+  <<install.version,jongler entre différentes versions>> du module.
+
+Nous pouvons faire un zoom sur une métadonnée en la passant à
+la commande `npm view`.
+Par exemple `dependencies` pour ne lister que les dépendances d'un module donné :
+
+----
+$ npm view nodebook dependencies
+{ finalhandler: '^1.1.1',
+  'get-port': '^3.2.0',
+  glob: '^7.1.2',
+  'serve-static': '^1.13.2',
+  'update-check': '^1.5.2',
+  yargs: '^11.1.0' }
+----
+
+Il est même possible d'obtenir de zoomer au niveau d'une métadonnée,
+avec une annotation similaire à celle d'un objet ECMAScript :
+
+[subs="-specialchars"]
+----
+$ npm view nodebook dist.unpackedSize
+14985184
+$ npm view nodebook dist
+{ integrity:
+   'sha512-...',
+  shasum: '5ea87e9b85782e23164705a49cb7bd2dc4063775',
+  tarball:
+    'https://registry.npmjs.org/nodebook/nodebook-0.9.1.tgz',
+  fileCount: 486,
+  <i>unpackedSize</i>: 14985184 }
+----
 
 [[npx]]
 === `npx` : exécuter un module sans l'installer
@@ -1152,11 +1246,23 @@ $ ./node_modules/.bin/cowsay Magique !
 [[audit]]
 === `npm audit` : vérifier la sécurité des dépendances
 
-[[prune]]
-=== `npm prune` : supprimer les dépendances inutilisées
-
 [[doctor]]
 === `npm doctor` : vérifier l'état du système
+
+[subs="+attributes"]
+----
+$ npm doctor
+Check                               Value
+npm ping                            OK
+npm -v                              v{npmVX}
+node -v                             {nodeCurrentVersion}.0.0
+npm config get registry             https://registry.npmjs.org
+which git                           /usr/local/bin/git
+Perms check on cached files         ok
+Perms check on global node_modules  ok
+Perms check on local node_modules   ok
+Verify cache contents               verified 4066 tarballs
+----
 
 [[config]]
 === `npm config` : changer les réglages de l'exécutable `npm`
@@ -1192,7 +1298,7 @@ Parler de .npmignore et de .gitignore
 [[link]]
 === `npm link` : utiliser une dépendance qui n'a pas encore été publiée
 
-
+[[questions]]
 == Questions et mystères autour de npm
 
 L'exécutable `npm` et le registre du même nom ont accompagné Node quasiment
@@ -1408,6 +1514,8 @@ $ npx cost-of-modules               # <1>
 <1> La <<npx,commande `npx`>> est un raccourci pour exécuter des modules npm sans les installer.
 ====
 
+
+[[errors]]
 === Que signifient les erreurs affichées pendant `npm install` ?
 
 L'exécutable `npm` est généreux en messages pendant l'installation
@@ -1418,7 +1526,7 @@ et la solution à apporter.
 Si `npm WARN` s'affiche, ce n'est pas une erreur mais un message
 à caractère informatif. +
 Si `npm ERR` débute la ligne, il y a un problème sur lequel nous
-avons immédiate à mener.
+avons une action immédiate à mener.
 
 [[error-deprecated]]
 ==== Module déprécié

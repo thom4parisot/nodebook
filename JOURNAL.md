@@ -4,6 +4,12 @@ Le projet a commencé en décembre 2014.
 Ce journal détaille l'effort d'écriture depuis janvier 2017.
 
 
+## Mercredi 6 juin 2018 • Crest
+
+- _Chapitre 5_ : `npm view`
+
+**Météo** : 😊
+
 ## Mardi 5 juin 2018 • Crest
 
 - _Chapitre 5_ : corrections initiales suite à une relecture à voix haute
