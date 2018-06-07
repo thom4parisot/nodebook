@@ -9,6 +9,9 @@
 :serveVersion: 7.2.0
 :microVersion: 9.3.2
 :npmvX: 6.1.0
+:cross: &#x2718;
+:tick: &#x2714;
+:maybe: &#x2248;
 :sectnums:
 :revdate: {docdate}
 :imagesdir: {indir}
@@ -41,7 +44,8 @@ tout au long de ce chapitre :
 
 - l'*exécutable* `npm` — un programme écrit en JavaScript ;
 - le *registre* _npm_ — une plate-forme de distribution de modules ;
-- un *module* _npm_ — en général installé depuis le registre et utilisable avec la fonction `require()`.
+- un *module* _npm_ — en général installé depuis le registre et utilisable
+avec les fonctions `require()` et `import`.
 
 Je préciserai toujours si l'utilisation de _npm_ fait référence
 à l'_exécutable_, au _registre_ ou à un _module_.
@@ -77,19 +81,9 @@ $ npm init --yes
 
 Le fichier `package.json` sera créé avec le contenu suivant :
 
+.package.json
 ----
-{
-  "name": "<nom du répertoire>",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC"
-}
+include::package.json[]
 ----
 
 Si le fichier existait déjà, la copie existante sera préservée et affichée
@@ -104,9 +98,9 @@ l'installation de modules npm avec la commande `npm install`.
 == Installer des modules npm
 
 Le mécanisme de modules est documenté dans
-le <<../chapter-04/index.adoc#,chapitre 4>>.
-La fonction `require()` charge nos propres modules mais aussi
-les modules de base, proposés par Node.
+le <<../chapter-04/index.adoc#modules,chapitre 4>>.
+Les fonctions `require()` et `import` chargent nos propres modules mais aussi
+les modules de base, installés avec Node.
 Les modules npm sont des *modules complémentaires et téléchargeables* à l'aide
 de l'exécutable `npm`.
 
@@ -709,8 +703,9 @@ des dépôts privés via le protocole `https` est trop difficile à automatiser.
 
 Les dépendances de développement sont des modules npm utilisés
 pour *exécuter les tests unitaires*.
-Les *modules utilisés pour de l'outillage* et qui ne sont pas appelés
-avec la fonction `require()` sont aussi des dépendances de développement.
+Les *modules utilisés pour de l'outillage* sont aussi des dépendances de développement.
+Ce sont des modules que nous n'appelons pas directement avec les
+fonctions `require()` et `import`.
 
 Par exemple, le module npm _mocha_ est utilisé pour structurer et exécuter
 des tests unitaires pour Node et les navigateurs web.
@@ -764,8 +759,9 @@ $ npm install --production
 === Exécutable système (installation globale)
 
 Nous avons parlé des modules npm comme des modules complémentaires,
-utilisés avec la fonction `require()` et téléchargés avec l'exécutable `npm`.
-Certains modules npm se déclarent comme exécutables depuis un terminal.
+utilisés avec les fonctions `require()` et `import`.
+Certains modules npm s'utilisent aussi comme des programmes exécutables
+dans un terminal.
 
 C'est le cas du module _serve_ ([URL]#https://npmjs.com/serve#), par exemple.
 Il démarre un serveur web en ligne de commande pour tester le rendu
@@ -1057,6 +1053,31 @@ de feedback.
 La section suivante va nous aider à orchestrer l'exécution des scripts
 les uns par rapport aux autres.
 
+[TIP]
+.[RemarquePreTitre]#Pratique# Accéder aux valeurs du fichier `package.json`
+====
+Toutes les sections du fichier `package.json` sont accessibles depuis
+les scripts npm sous forme de
+<<../chapter-04/index.adoc#process.argv,variables d'environnement>>.
+Leur nom est préfixé par `npm_package` suivi de leur nom "mis à plat".
+Ainsi le champ `version` est accessible en tant que `$npm_package_version`
+et le champ `config.port` en tant que `$npm_package_config_port` :
+
+[source,json,subs="-specialchars"]
+.package.json
+----
+{
+  ...
+  "<i>config</i>": {
+    "<i>port</i>": "4000"
+  };
+  "scripts": {
+    "start": "node server --port $npm_package_<i>config</i>_<i>port</i>",
+  }
+}
+----
+====
+
 [[run-pre-post]]
 === Exécuter des commandes avant et après des scripts npm
 
@@ -1181,7 +1202,61 @@ Tant mieux si nous pouvons nous en passer pour façonner nos propres outils.
 [[package.json]]
 == Anatomie du fichier `package.json`
 
-TBD.
+Le fichier `package.json` est essentiel pour tirer parti de l'exécutable `npm`.
+Tout projet intéressé par l'<<install,installation de modules npm>> ou par
+l'<<scripts,outillage des scripts>> va forcément avoir ce fichier quelque
+part dans son arborescence.
+
+On peut décomposer ce fichier en plusieurs parties :
+les *informations générales* qui aident les utilisateurs et utilisatrices
+à découvrir le module en <<registry,effectuant une recherche>>,
+les *points d'entrée* pour inclure ou exécuter le module
+et la *configuration projet* qui impacte le fonctionnement de l'exécutable npm.
+
+[format="csv", options="header", separator=";", cols="1,1,1,2,2"]
+.Informations pour faciliter la découverte et la compréhension
+|===
+Section;Obligatoire{nbsp}?;Type;Modifiable;Description
+`version`;{tick};<<semver,Semver>>;Avec <<version,`npm version`>>;""
+`description`;{tick};Texte;À la main;Explique l'intention du module à une personne qui le découvre
+`keywords`;{cross};Tableau de texte;À la main;Facilite sa découverte sur [URL]#npmjs.com#
+`homepage`;{tick};Texte (URL);À la main;Indique où trouver de la documentation et des exemples d'utilisation — ça peut être l'adresse du dépôt GitLab ou GitHub
+`license`;{cross};Texte;À la main;Explicite les conditions de réutilisation du code dans un autre projet
+`bugs.url`;{cross};Texte (URL);À la main;Facilite la remontée de bugs
+`repository.type`;{cross};Texte;À la main;En général la valeur est `git`
+`repository.url`;{cross};Texte (URL);À la main;Facilite la découverte du code source à l'origine du module
+|===
+
+[format="csv", options="header", separator=";", cols="1,1,1,2,2"]
+.Points d'entrée pour utiliser votre module
+|===
+Section;Obligatoire{nbsp}?;Type;Modifiable;Description
+`name`;{tick};Texte;À la main;Correspond au nom à spécifier aux fonctions `require()` et `import` — Un changement de nom obligera de mettre à jour tous les scripts qui appelle ce module
+`main`;{cross};Texte (chemin);À la main;Script qui sera utilisé lors de l'appel à `require()` et `import` — par défaut `index.js`
+`bin`;{cross};Texte (chemin);À la main;Script qui sera utilisé comme exécutable lors de l'appel `npx <module>`
+`bin`;{cross};Objet (nom/chemin);À la main;Idem — forme qui permet de déclarer plusieurs exécutables au sein d'un même module
+|===
+
+[format="csv", options="header", separator=";", cols="1,1,1,2,2"]
+.Configuration projet pour l'exécutable `npm`
+|===
+Section;Obligatoire{nbsp}?;Type;Modifiable;Description
+`private`;{cross};Booléen;À la main;Empêche la publication accidentelle sur le registre npm
+`engines`;{cross};Objet (nom/<<semver,SemVer>>);À la main;Certains hébergeurs utilisent ce champ pour déterminer la version de Node à utiliser
+`dependencies`;{cross};Objet (nom/<<semver,SemVer>>);Avec `npm install`;Voir la section <<install,installer des modules npm>>
+`devDependencies`;{cross};Objet (nom/<<semver,SemVer>>);Avec `npm install`;Voir la section <<install.dev,dépendances de développement>>
+`scripts`;{cross};Objet (nom/commande);À la main;Voir la section <<scripts,scripts npm>>
+|===
+
+[NOTE]
+.[RemarquePreTitre]#Documentation# Tout sur le fichier `package.json`
+====
+La page [URL]#https://docs.npmjs.com/files/package.json# documente
+de manière exhaustive les sections du fichier `package.json`.
+
+En la lisant, vous apprendrez l'existence d'autres sections qui pourraient
+peut-être vous intéresser.
+====
 
 
 [[commands]]
@@ -1407,10 +1482,12 @@ Verify cache contents               verified 4066 tarballs
 [[config]]
 === `npm config` : changer les réglages de l'exécutable `npm`
 
+TBD.
+
 [[publish]]
 === `npm publish` : publier un module npm
 
-Nous avons comment <<install,installer des modules>> depuis le registre
+Nous savons comment <<install,installer des modules>> depuis le registre
 mais nous n'avions pas encore vu comment contribuer nous-même à cet écosystème.
 
 L'option `--dry-run` est peut-être la première option à utiliser avec cette
