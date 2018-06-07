@@ -6,6 +6,7 @@ Ce journal détaille l'effort d'écriture depuis janvier 2017.
 ## Jeudi 7 juin 2018 • Crest
 
 - _Chapitre 5_ : Anatomie du fichier `package.json`
+- _Chapitre 5_ : `npm ci`
 
 **Météo** : 😊
 

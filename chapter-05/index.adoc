@@ -1454,6 +1454,42 @@ La commande `npm audit fix` corrigera toutes les dépendances pour lesquelles
 il est possible de changer la version de manière automatique et sans risque.
 Les mises à jour majeures sont toujours manuelles et demandent votre intervention.
 
+[[ci]]
+=== `npm ci` : installer à toute vitesse
+
+La commande `npm ci` est destinée à installer les modules listés dans
+le fichier `package.json`.
+Cette commande vise à s'exécuter plus rapidement et dans des environnements
+qui sont autres que ceux de développement (en intégration continue, en production, etc.).
+
+Cette commande fait une chose de plus que la <<install,commande `npm install`>> :
+elle supprime systématiquement le répertoire `node_modules` pour rendre
+chaque installation reproductible à l'identique.
+Elle fait aussi une chose de moins : elle se contente d'installer les
+modules tels que listés dans le <<package-lock,fichier `package-lock.json`>>.
+C'est ce dernier point qui rend cette commande si rapide — moins de vérifications,
+moins d'aller-retours, moins de complexité.
+
+[source,yaml,subs="+attributes"]
+.travis.yml
+----
+language: node_js
+node_js: {nodeCurrentVersion}
+install: npm ci   # <1>
+script: npm test
+cache: npm        # <2>
+----
+<1> Surcharge la commande par défaut (`npm install`)
+<2> Les modules npm seront sauvegardés entre deux jobs — l'installation ira plus vite si les modules sont obtenus depuis le cache plutôt que depuis le registre npm.
+
+[TIP]
+.[RemarquePreTitre]#Pratique# Remettre un projet à zéro
+====
+La commande `npm ci` est pratique pour remettre un projet à zéro,
+en cas de problème d'installation ou après avoir bidouillé dans le répertoire
+`node_modules` par exemple.
+====
+
 [[doctor]]
 === `npm doctor` : vérifier l'état du système
 
