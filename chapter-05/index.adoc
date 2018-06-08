@@ -21,20 +21,34 @@ endif::[]
 
 = Jouer avec npm
 
-TBD.
+Savoir naviguer dans la richesse de l'écosystème npm est une force pour
+la durabilité de nos projets.
+Ces modules nous aident à façonner un outillage résilient et adapté à chacun
+de nos projets.
 
 ====
 .Sommaire
 - Créer un fichier `package.json`
 - Installer un module npm
 - Outiller un projet avec les scripts npm
+- Anatomie du fichier `package.json`
 - Quelques commandes pour aller plus loin
 - Questions et mystères autour de npm
 ====
 
 [abstract]
 --
-TBD.
+Ce chapitre nous permettra d'y voir plus clair du côté des <<modules,modules npm>>.
+Nous apprendrons comment identifier un bon module et comment suivre leur
+évolution sans casser nos projets.
+
+Nous nous tournerons ensuite du côté des <<scripts,scripts npm>> pour créer
+un outillage sur mesure et de qualité.
+Grâce à eux, nous serons en mesure d'automatiser les tâches répétitives à notre
+rythme.
+
+Enfin, nous découvrirons des commandes moins connues de npm.
+Elles pourrons nous faciliter la vie ou nous débloquer quand ça ne va pas.
 --
 
 include::../resources/tip-versions.adoc[]
@@ -2108,4 +2122,19 @@ le module et cherchez une alternative.
 
 == Conclusion
 
-TBD.
+L'exécutable `npm` est un outil qui va bien au-delà de la simple installation
+de modules : il va jusqu'à *créer un outillage autonome* pour chacun de nos projets.
+
+Nous avons appris à *jongler entre les différentes versions d'un module*
+pour comprendre la notion de <<semver,version sémantique>> et son impact
+sur les commandes d'installation et de mises à jour.
+
+Nous avons vu que les *scripts npm représentent un outillage à portée de main*.
+Ils nous facilitent la vie en plus d'être partagés avec
+les personnes impliquées dans un même projet.
+
+Avec le langage ECMAScript (<<../chapter-03/index.adoc#,chapitre 3>>),
+l'environnement Node (<<../chapter-04/index.adoc#,chapitre 4>>)
+et maintenant avec npm, nous avons des fondations solides pour
+déployer du code (<<../chapter-06/index.adoc#,chapitre 6>>) et créer toutes
+sortes d'applications entièrement en JavaScript.
