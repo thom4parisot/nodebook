@@ -3,6 +3,12 @@
 Le projet a commencé en décembre 2014.
 Ce journal détaille l'effort d'écriture depuis janvier 2017.
 
+## Vendredi 8 juin 2018 • Crest
+
+- _Chapitre 5_ : `npm config`
+
+**Météo** : 😴 🍞
+
 ## Jeudi 7 juin 2018 • Crest
 
 - _Chapitre 5_ : Anatomie du fichier `package.json`

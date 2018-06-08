@@ -1518,7 +1518,98 @@ Verify cache contents               verified 4066 tarballs
 [[config]]
 === `npm config` : changer les réglages de l'exécutable `npm`
 
-TBD.
+La commande `npm config` est affiche et modifie la configuration
+de l'exécutable `npm`.
+Elle se découpe en plusieurs sous-commandes comme en atteste cette tentative
+d'utilisation :
+
+----
+$ npm config
+npm ERR! Usage:
+npm ERR! npm config set <key> <value>
+npm ERR! npm config get [<key>]
+npm ERR! npm config delete <key>
+npm ERR! npm config list [--json]
+npm ERR! npm config edit
+----
+
+La sous-commande `get` affiche la valeur par défaut d'une clé de configuration :
+
+----
+$ npm config get loglevel
+notice
+----
+
+Cette configuration reflète la verbosité d'affichage de l'exécutable.
+Elle agit comme un curseur pour choisir une vue plus ou moins détaillée de
+ce qui se trame sous le capot. +
+Augmentons la verbosité d'affichage avec la sous-commande `set`.
+Nous verrons ainsi les tentatives d'accès à Internet de l'exécutable `npm` :
+
+----
+$ npm config set loglevel http
+----
+
+Nous voyons désormais les requêtes HTTP effectuées.
+Ici, en rejouant l'exemple d'<<install.global,installation globale>> de module :
+
+----
+$ npm install --global serve
+GET 200 https://registry.npmjs.org/serve 653ms
+GET 304 https://registry.npmjs.org/chalk 271ms (from cache)
+GET 304 https://registry.npmjs.org/arg 274ms (from cache)
+...
+----
+
+La sous-commande `ls` récapitule tous nos changements de configuration.
+Elle affiche tous les réglages par défaut en la suffixant de l'option `--long` :
+
+----
+$ npm config ls
+$ npm config ls --long
+----
+
+[TIP]
+.[RemarquePreTitre]#Pratique# Sauvegarder sa configuration npm
+====
+Chaque appel à `npm config set` enregistre les changements dans un fichier
+de configuration `~/.npmrc`.
+
+Il est propre à l'utilisateur actif de notre ordinateur.
+Libre à vous de le sauvegardez ou d'en fournir un spécifique dans le cadre
+de votre environnement de production ou d'intégration continue.
+====
+
+Pour y voir plus clair, j'ai effectué une petite sélection des éléments
+de configuration que vous seriez peut-être amené à modifier sur votre
+machine de développement ou sur votre configuration de production :
+
+[format="csv",options="header",separator=";", cols="1,1,3"]
+|===
+Clé;Par défaut;Remarque
+`access`;`restricted`;Passez à `public` pour faire en sorte que les modules faisant partie d'une organisation soient considérés comme publics.
+`audit`;`true`;Passez à `false` pour désactiver l'audit automatique à chaque installation de module — cf. <<audit,`npm audit`>>.
+`cache`;`~/.npm`;Modifiez le chemin pour que le cache des modules npm soit géré ailleurs.
+`color`;`true`;Passez à `false` pour désactiver l'utilisation des couleurs de npm.
+`depth`;`Infinity`;Le nombre utilisé limitera la profondeur d'affichage des commandes `npm ls`, `npm outdated`, etc.
+`git`;`git`;Nom de l'exécutable ou chemin d'accès de l'exécutable `git`.
+`https-proxy`;``;Adresse du proxy HTTPS — remplace alors la variable d'environnement `HTTPS_PROXY`.
+`loglevel`;`notice`;Change la verbosité d'affichage des messages — `silent`, `error`, `warn` diminueront la verbosité tandis que `http`, `timing`, `info`, `verbose` ou `silly` augmenteront le niveau de détails.
+`offline`;`false`;Passez à `true` pour que l'installation des modules npm se fasse sans transiter par le réseau.
+`progress`;`true`;Passez à `false` pour désactiver l'affichage de la barre de progression.
+`proxy`;`true`;Adresse du proxy HTTP — remplace alors la variable d'environnement `HTTP_PROXY`.
+`registry`;`https://registry.npmjs.org/`;Changez cette valeur par celle de votre registre auto-hébergé.
+`send-metrics`;`false`;Passez à `true` pour envoyer des statistiques d'utilisation à l'équipe de npm.
+`tmp`;`$TMPDIR`;Changez cette valeur pour utiliser un autre répertoire temporaire.
+|===
+
+[NOTE]
+.[RemarquePreTitre]#Documentation# Tout sur `npm config`
+====
+La page [URL]#https://docs.npmjs.com/misc/config#config-settings# documente
+de manière exhaustive toutes les clés de configuration et leur impact sur
+l'exécutable `npm`.
+====
 
 [[publish]]
 === `npm publish` : publier un module npm
