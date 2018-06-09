@@ -38,9 +38,9 @@ de nos projets.
 
 [abstract]
 --
-Ce chapitre nous permettra d'y voir plus clair du côté des <<modules,modules npm>>.
-Nous apprendrons comment identifier un bon module et comment suivre leur
-évolution sans casser nos projets.
+Ce chapitre va nous permettre d'y voir plus clair du côté des <<modules,modules npm>>.
+Nous apprendrons comment identifier des module de confiance, les installer et
+les mettre à jour sans casser nos projets.
 
 Nous nous tournerons ensuite du côté des <<scripts,scripts npm>> pour créer
 un outillage sur mesure et de qualité.
@@ -84,29 +84,34 @@ include::../resources/tip-examples.adoc[]
 [[cli]]
 == Créer un fichier `package.json`
 
-La présence d'un fichier `package.json` est nécessaire pour utiliser npm
-dans un projet.
-La commande `npm init` génère un tel fichier en nous posant des questions.
-Nous irons plus vite en utilisant l'option `--yes` :
+La présence d'un fichier `package.json` devient nécessaire dès qu'un projet
+inclut un <<modules,module npm>> ou a vocation à être publié pour être repris
+dans un autre projet — que ça soit dans un cadre professionnel ou personnel.
+
+Le fichier `package.json` est une clé de voute pour reproduire l'installation
+du projet et créer un <<scripts,outillage autonome>>.
+La commande `npm init` génère un tel fichier.
+L'utilisation de l'option `--yes` va plus vite car elle nous évite
+de répondre aux questions :
 
 ----
 $ npm init --yes
 ----
 
-Le fichier `package.json` sera créé avec le contenu suivant :
+Si un fichier `package.json` n'existe pas dans le répertoire courant,
+il sera créé avec des valeurs par défaut — le nom du module correspondra
+au nom du répertoire courant.
+Si ce fichier existait déjà, il sera alors préservé et son contenu sera affiché :
 
 .package.json
 ----
 include::package.json[]
 ----
 
-Si le fichier existait déjà, la copie existante sera préservée et affichée
-à l'écran.
-
-Nous allons ignorer le contenu du fichier dans un premier temps
-afin de nous focaliser sur l'opération la plus importante et la plus
-fréquemment utilisée :
-l'installation de modules npm avec la commande `npm install`.
+Nous reviendrons sur la structure du fichier dans la section
+<<package.json,anatomie du fichier `package.json`>>.
+En attendant, focalisons-nous sur les opérations courantes comme
+l'installation de modules.
 
 [[modules]]
 == Installer des modules npm
@@ -224,7 +229,7 @@ pour en savoir plus.
 Le _registre npm_ ([URL]#https://npmjs.com#) fourmille de modules
 — de simples fonctions, des librairies ou des _frameworks_ complets.
 Ils couvrent un spectre d'usages allant de l'accès aux bases de données,
-à des frameworks web, à des outils frontend, des utilitaires de test,
+à des frameworks web, à des outils front-end, des utilitaires de test,
 de compression de données, du paiement bancaire, des frameworks mobiles, etc.
 
 Essayons de chercher une librairie qui puisse nous connecter à une
@@ -380,30 +385,40 @@ pour que le script fonctionne à nouveau.
 
 Jusqu'à présent, nous avons installé des modules en les ajoutant un par un.
 La procédure est légèrement différente quand nous installons le projet de zéro
-ou si le fichier `package.json` a été mis à jour par un·e collègue, par exemple.
+ou quand le fichier `package.json` a été mis à jour par un·e collègue, par exemple.
 
-Pour en avoir le cœur net, plaçons-nous dans le répertoire qui contient
-le fichier `package.json` et supprimons le répertoire `node_modules`
-qui contient les dépendances déjà installées.
-Exécutons ensuite la commande `npm install` sans autre argument :
+L'exemple suivante illustre la remise à zéro des modules
+utilisés en exemple de ce chapitre — cf. la notice d'installation
+du module _nodebook_ :
 
+[subs="+attributes"]
 ----
-$ cd $(nodebook dir chapter-05 --root)
+$ cd $(nodebook dir {chapter-id} --root)
 $ rm -rf node_modules
 $ npm install
 added 164 packages from 583 contributors in 4.781s
 found 0 vulnerabilities
 ----
 
-Au final, la commande `npm install` s'utilise de manière systématique quand
+Nous nous sommes positionnés dans un répertoire qui contient
+un fichier `package.json` puis nous avons supprimé tout ce qui aurait pu
+être installé.
+
+La commande `npm install` s'utilise de manière systématique quand
 nous récupérons du code avec Git pour la première fois (`git clone`)
 ou après une mise à jour, par exemple avec `git pull`.
 
-L'exécutable `npm` vérifie toujours que les modules npm installés dans
-le répertoire `node_modules` correspondent bien à ceux qui sont listés
-dans le fichier `package.json`.
-Il installe, met à jour et retire les modules npm en fonction de ce
-qui est nécessaire.
+L'exécutable `npm` vérifie que la correspondance est bien respectée
+entre ce qui est installé dans le répertoire `node_modules` et
+les modules listés dans le fichier `package.json`.
+La commande `npm install` installe, met à jour et retire les modules nécessaires.
+
+[TIP]
+.[RemarquePreTitre]#Pratique# `npm ci`
+====
+La commande `npm ci` réinstalle un projet de zéro de manière prédictible.
+Rendez-vous dans la <<ci,section `npm ci`>> pour en savoir plus à son sujet.
+====
 
 [[install.version]]
 === Spécifier une version
@@ -663,26 +678,32 @@ commandes exécutables au niveau du système d'exploitation.
 [[install.git]]
 === Depuis GitHub, GitLab ou un dépôt Git
 
-Il arrive que nous ayons à utiliser une version modifiée d'un module npm
-avant que l'auteur ou autrice accepte une correction de bug qui nous affecte.
-Ça vaut aussi pour des modules dont le code serait hébergé dans un dépôt privé
-et que nous ne voulons pas publier sur le registre npm.
+Il arrive que l'auteur ou autrice d'un module npm corrige un problème
+sans publier le correctif sur le registre npm.
+Il arrive aussi qu'un module npm soit hébergé de manière publique ou privée
+sur une plate-forme d'hébergement Git comme GitLab ou GitHub et ce,
+sans passer par le registre npm.
 
-Le module npm _cowsay_ est hébergé sur GitHub à l'adresse
-[URL]#https://github.com/piuccio/cowsay#.
+Le module npm _cowsay_ est publié sur le registre npm mais il est aussi
+hébergé sur GitHub à l'adresse [URL]#https://github.com/piuccio/cowsay#.
+Installons-le depuis cette source :
 
 ----
-$ npm install github:piuccio/cowsay
+$ npm install https://github.com/piuccio/cowsay
 + cowsay@1.3.0
 updated 1 package in 5.866s
 ----
 
-Il s'agit en réalité d'une écriture raccourcie.
-Nous sommes aussi en mesure d'utiliser l'URL d'un dépôt Git
-— pas forcément GitHub ou GitLab donc :
+L'exéxutable `npm` vérifie qu'un fichier `package.json` est situé à la racine
+du dépôt.
+Dans ce cas de figure, il utilise le programme Git pour obtenir le code source
+du module npm.
+
+Une écriture raccourcie existe pour installer un module depuis un hébergement
+Git populaire, sans avoir à écrire l'URL en entier :
 
 ----
-$ npm install https://github.com/piuccio/cowsay
+$ npm install github:piuccio/cowsay
 + cowsay@1.3.0
 updated 1 package in 4.513s
 ----
@@ -698,19 +719,20 @@ de la copie de travail.
 Le temps de téléchargement sera proportionnel au nombre de _commits_.
 ====
 
-L'exécutable `npm` sait aussi installer des modules avec les protocoles
-`git+ssh` et `git`.
+L'exécutable `npm` sait aussi installer des modules avec le protocole
+_Secure Shell_ (_SSH_) désigné par `git+ssh` :
 
 ----
-$ npm install git://github.com:piuccio/cowsay.git
+$ npm install git+ssh://git@github.com:piuccio/cowsay.git
 + cowsay@1.3.0
 updated 1 package in 10.263s
 ----
 
-Les clients Git ou SSH doivent être configurés au niveau du système pour
+Les clients Git et SSH doivent être configurés au niveau du système pour
 être en mesure de s'authentifier sur l'hôte distant. +
-C'est une solution à privilégier pour les dépôts privés — la configuration
-des dépôts privés via le protocole `https` est trop difficile à automatiser.
+C'est une solution intéressante pour automatiser l'installation de modules privés.
+L'étape suivante serait de déployer un registre npm privé ou de souscrire
+une option payante sur le registre npm principal.
 
 [[install.dev]]
 === Dépendance de développement
@@ -749,33 +771,28 @@ fichier `package.json` — la section `devDependencies` :
 }
 ----
 
-Les dépendances de développement sont installées uniquement lorsque
-la commande `npm install` est invoquée dans le même répertoire
-que le fichier `package.json`
-
-À l'inverse, si nous faisons `npm install cowsay`, ses dépendances de
-développement ne seront pas installées pour gagner du temps.
-
-
 [TIP]
 .[RemarquePreTitre]#Optimisation# Installer seulement les dépendances de production
 ====
 La <<install,commande `npm install`>> accepte l'option `--production`.
-Seules les dépendances listées dans la section `dependencies`
-du fichier `package.json` seront alors installées :
+Elle installe seulement les dépendances listées dans la section `dependencies` :
 
 ----
 $ npm install --production
 ----
+
+Le *poids d'installation est ainsi réduit*.
+C'est l'idéal dans le cas du déploiement de
+<<../chapter-06/index.adoc#lambda,fonctions événementielles>>
+(cf. <<../chapter-06/index.adoc#,chapitre 6>>).
 ====
 
 [[install.global]]
 === Exécutable système (installation globale)
 
-Nous avons parlé des modules npm comme des modules complémentaires,
-utilisés avec les fonctions `require()` et `import`.
-Certains modules npm s'utilisent aussi comme des programmes exécutables
-dans un terminal.
+Certains modules npm s'installent comme des programmes exécutables.
+Ils s'appellent ensuite dans un terminal, exactement comme nous le faisions
+jusqu'à présent avec l'exécutable `npm`.
 
 C'est le cas du module _serve_ ([URL]#https://npmjs.com/serve#), par exemple.
 Il démarre un serveur web en ligne de commande pour tester le rendu
@@ -1164,7 +1181,7 @@ de scripts.
 {
   "scripts": {
     "build": "npm-run-all --parallel 'build:*'", // <1>
-    "build:frontend": "browserify ...",
+    "build:front-end": "browserify ...",
     "build:backend": "browserify ...",
     "build:css": "sass ..."
   }
@@ -1184,7 +1201,7 @@ action séquentielle :
   "scripts": {
     "clean": "rm -rf ./dist",
     "build": "npm-run-all clean --parallel 'build:*'", // <1>
-    "build:frontend": "browserify ...",
+    "build:front-end": "browserify ...",
     "build:backend": "browserify ..."
   }
   "devDependencies": {
@@ -1866,26 +1883,26 @@ Inconvénients::
   - Ça fait un truc de plus à apprendre même si on n'a pas l'impression de l'utiliser.
 
 [[bower]]
-=== npm c'est pour le backend et bower pour le frontend
+=== npm c'est pour le back-end et bower pour le front-end
 
 _bower_ ([URL]#https://bower.io#) est un gestionnaire de modules
-spécialisé dans le développement frontend.
+spécialisé dans le développement front-end.
 
-Je pense que _bower_ était utile à une époque où l'outillage frontend disponible
+Je pense que _bower_ était utile à une époque où l'outillage front-end disponible
 dans Node était encore confidentiel.
 Je pense aussi que cette époque est révolue, au sens où l'outillage dédié à
 Node et aux navigateurs web tend à se confondre.
 
 En apprenant JavaScript, Node et npm, nous gagnons non seulement un outillage
 disponible immédiatement mais aussi la capacité à créer le nôtre.
-Pour en savoir plus sur comment développer pour le frontend comme on développe
+Pour en savoir plus sur comment développer pour le front-end comme on développe
 pour Node, je vous invite à lire le <<../chapter-09/index.adoc#,chapitre 9>>.
 
 Avantages::
   - On peut installer un projet sans qu'il possède un fichier `package.json`.
   - On n'a pas nécesairement besoin de s'outiller pour utiliser les modules bower.
 Inconvénients::
-  - Si on utilise déjà un fichier `package.json` pour d'autres besoins, autant l'utiliser pour les dépendances frontend, autant utiliser npm.
+  - Si on utilise déjà un fichier `package.json` pour d'autres besoins, autant l'utiliser pour les dépendances front-end, autant utiliser npm.
   - Le développement de bower stagne depuis 2015 et je pense que le projet sera arrêté tôt ou tard.
 
 === Est-ce que je dois versionner le répertoire `node_modules` ?

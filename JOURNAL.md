@@ -3,6 +3,12 @@
 Le projet a commencé en décembre 2014.
 Ce journal détaille l'effort d'écriture depuis janvier 2017.
 
+## Samedi 9 juin 2018 • Crest
+
+- _Chapitre 5_ : reformulations suite à un atelier de relecture
+
+**Météo** : 😴 🍦
+
 ## Vendredi 8 juin 2018 • Crest
 
 - _Chapitre 5_ : `npm config`

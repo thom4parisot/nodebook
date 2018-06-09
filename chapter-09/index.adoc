@@ -13,9 +13,9 @@ endif::[]
 
 = Développer pour les navigateurs web
 
-La popularité de Node s'est établie également pour la profusion d'outillage apportée au développement web _frontend_.
+La popularité de Node s'est établie également pour la profusion d'outillage apportée au développement web _front-end_.
 
-Ce chapitre nous apprendra le rôle de Node en tant qu'extension au développement _frontend_.
+Ce chapitre nous apprendra le rôle de Node en tant qu'extension au développement _front-end_.
 
 ====
 .Sommaire
@@ -31,7 +31,7 @@ Ce chapitre nous apprendra le rôle de Node en tant qu'extension au développeme
 --
 Avant l'apparition de Node, rare était l'outillage n'imposant pas une ou plusieurs plates-formes de développement : _YUICompressor_ demandait Java, _Google Closure Compiler_ demandait Java, _sprockets_ Ruby et _pngquant_ quelques dépendances système comme _libpng_.
 
-L'existence de Node et du registre _npm_ a favorisé le développement d'un écosystème orienté _frontend_ plus simple à appréhender.
+L'existence de Node et du registre _npm_ a favorisé le développement d'un écosystème orienté _front-end_ plus simple à appréhender.
 Cela s'étend de la découverte au téléchargement des librairies tierces ainsi qu'à la compilation, l'optimisation et l'exécution des tests des applications web côté client.
 
 Cet *écosystème rend l'écriture de code moderne normale* ; un code anticipant les futurs standards d'_ECMAScript_ et _HTML5_, sur les navigateurs actuels et anciens.
@@ -42,7 +42,7 @@ include::../resources/tip-versions.adoc[]
 == Quel rapport entre Node et les navigateurs web ?
 
 Ce chapitre peut sembler confus au premier abord.
-Si Node s'exécute au niveau du système d'exploitation — "côté serveur" — en quoi est-il lié au développement _frontend_ — "côté client" ?
+Si Node s'exécute au niveau du système d'exploitation — "côté serveur" — en quoi est-il lié au développement _front-end_ — "côté client" ?
 Est-ce parce que du code écrit pour Node peut aussi fonctionner dans un navigateur web ?
 _Quid_ de l'utilisation de `require('fs')` pour accéder au système de fichiers ?
 
@@ -393,7 +393,7 @@ S'il est facile d'ajouter du code dans le navigateur, on constate plusieurs prob
 - le partage de variables entre scripts peut entrainer des *collisions* (par exemple, deux variables du même nom définies dans des scripts différents) ;
 - il n'y a pas de moyen évident de rendre des bouts de code _privé_ au sein de chaque script.
 
-Le développement frontend basé sur de l'outillage Node va justement nous aider à *solidifier et renforcer la réutilisabilité de notre code*.
+Le développement front-end basé sur de l'outillage Node va justement nous aider à *solidifier et renforcer la réutilisabilité de notre code*.
 
 [[modules-es2015]]
 === Les modules _ECMAScript 2015_
@@ -448,7 +448,7 @@ Cela nous éviterait de réinventer la roue, d'avoir accès à du code bien test
 
 Nous avons vu comment <<../chapter-05/index.adoc#modules,charger des modules _npm_>>
 dans le chapitre 5.
-Intéressons-nous à leur utilisation dans le contexte d'une application frontend.
+Intéressons-nous à leur utilisation dans le contexte d'une application front-end.
 Pour cela, adaptons l'exemple de la section précédente :
 
 [source,javascript]
@@ -683,7 +683,7 @@ Nous pourrions dès à présent utiliser le minuteur dans d'autres applications,
 === Séparation du fond et de la forme : données, rendu et interactions
 
 Les praticien·ne·s de l'intégration web nous le dirons souvent : il faut *séparer le fond de la forme*.
-Il en est de même dans notre code – et pas que pour le développement _frontend_.
+Il en est de même dans notre code – et pas que pour le développement _front-end_.
 
 Un code maintenable n'a pas besoin d'être complexe.
 Un code maintenable a surtout besoin de bien _isoler_ ses périmètres d'intervention.
@@ -1265,7 +1265,7 @@ Elle demande moins d'outillage et s'applique pleinement à des composants visuel
 
 === Optimiser ses ressources graphiques
 
-Node est un outil de choix lorsque l'on souhaite s'atteler au développement _frontend_ et ce n'est pas sans raison.
+Node est un outil de choix lorsque l'on souhaite s'atteler au développement _front-end_ et ce n'est pas sans raison.
 Outre l'outillage lié à la réécriture du code – comme <<babel,Babel>> et <<browserify,browserify>> évoqués ci-avant – Node regorge de modules _npm_ réduisant les tâches manuelles répétitives et possiblement sujettes à erreur.
 
 Nous retrouvons l'*optimisation des ressources graphiques* parmi cet ensemble de tâches rébarbatives.
