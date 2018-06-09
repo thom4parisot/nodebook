@@ -2,7 +2,10 @@
 
 > Apprendre par l'exemple • Devenez autonome avec JavaScript, l'écosystème npm, le développement frontend, les applications web et en ligne de commande.
 
-Le contenu est actuellement **en cours d'écriture** 🚧. Certaines sections sont terminées ✅. Tu peux suivre la progression en lisant le [journal de bord][].
+Le contenu est actuellement **en cours d'écriture** 🚧.
+Les sections marquées par ✅ sont **terminées**.
+
+**Journal de bord d'écriture** 📖 [2018][journal-2018] • [2017][journal-2017].
 
 # Table des matières
 
@@ -142,7 +145,8 @@ Les exemples de code sont placés sous la [licence MIT][].
 
 [ci-linux]: https://travis-ci.org/oncletom/nodebook.svg?branch=master
 [ci-windows]: https://ci.appveyor.com/api/projects/status/crewvvqeybl8f16c?svg=true&amp;branch=master
-[journal de bord]: JOURNAL.md
+[journal-2018]: docs/JOURNAL.md
+[journal-2017]: docs/JOURNAL-2017.md
 [livre-web]: https://oncletom.io/node.js
 [livre-npm]: https://npmjs.com/nodebook
 [licence MIT]: LICENSE
