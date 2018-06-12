@@ -10,25 +10,37 @@ ifdef::env[]
 :imagesdir: .
 endif::[]
 
-= Faire un outil en ligne de commande
+= Créer un outil en ligne de commande
+
+TBD.
 
 ====
 .Sommaire
+- TBD.
 ====
 
 [abstract]
 --
+TBD.
 --
 
 include::../docs/tip-versions.adoc[]
-include::../docs/tip-examples.adoc[]
 
+install global : pour quelqu'un qui n'a pas besoin de l'inclure dans un projet.
+Être autonome.
+En faire un outil système.
+Taper la commande sans avoir à se soucier d'autre chose.
 
-install global : pour quelqu'un qui n'a pas besoin de l'inclure dans un projet. Être autonome. En faire un outil système. Taper la commande sans avoir à se soucier d'autre chose.
+utilisation : le nom c'est le même.
+Plus logique.
+Plus facile à retenir.
+Mais ça peut se changer.
 
-utilisation : le nom c'est le même. Plus logique. Plus facile à retenir. Mais ça peut se changer.
+[[start]]
+== Créer un script exécutable
 
-== Créer un fichier exécutable
+[[script]]
+=== Au départ, un simple script Node
 
 Dans le répertoire `./bin` parce que c'est la convention
 
@@ -38,13 +50,21 @@ Dans le répertoire `./bin` parce que c'est la convention
 $ node bin/fichier.js
 ----
 
-pour le rendre exécutable
+include::../docs/tip-examples.adoc[]
+
+[[permissions]]
+=== Modifier les permissions du script
+
+pour le rendre exécutable (Linux et macOS)
 
 ----
 $ chmod +x bin/fichier.js
 ----
 
 Warning : +x pour tout le monde
+
+[[shebang]]
+=== Préciser le contexte d'exécution (_shebang_)
 
 Il faut parler à bash. `#!` sert à ça.
 
@@ -54,13 +74,38 @@ Chemin absolu vers exécutable.
 > Runs a program in a modified environment.
 (chercher plus sur pourquoi env)
 
+[[package.json]]
+=== Faire le lien avec un module npm
+
+Champ `bin`
+
+[[install]]
+=== Tester une installation globale, localement
+
 ----
-$ env -i
+$ npm i -g .
 ----
+
+Prend en compte les changements locaux.
+
+[[interface]]
+=== Vers un code testable et réutilisable
+
+Obtenir la surface la plus faible possible entre son code et la lecture
+des arguments.
+
+réduire le plus possible ce qu'il y a dans un fichier exécutable
+pour tester le plus facilement
 
 ((exemple inDir outDir -- réutiliser du code métier))
 
-== Lire les infos
+idéalement ce qui est dans le `main` est consommé par le `bin`
+
+[[interactive]]
+== Du script au programme interactif
+
+[[options]]
+=== Utiliser des options et arguments
 
 `process.argv`
 
@@ -76,34 +121,78 @@ Et la mémoire ?
 Le script utilisera la mémoire disponible, à concurrence des autres applications qui tournent sur la même machine
 Sur un Raspberry Pi, y'a moins de mémoire donc on peut atteindre plus rapidement des limites si les fichiers dépassent les capacités (centaine de Mo — vs. plus Go sur des ordinateurs modernes)
 
-== Tester localement
+[[colours]]
+=== Améliorer la lisibilité grâce aux couleurs
 
-=== package.json
+- chalk
+- un autre module plus fonctionnel
+- ANSI (sous Windows c'est différent je crois)
 
-Champ `bin`
+[[questions]]
+=== Demander une série d'informations
 
-=== npm i
+- demand
+- <insérer un module npm qui fait ça bien>
 
-----
-$ npm i -g .
-----
+[[progress]]
+=== Informer de la progression
 
-Prend en compte les changements locaux.
+- readline
+- spinner
+- progressbar
 
-== Robustesse
+[[update]]
+=== Inviter à mettre à jour le module
 
-== Tester
+- update-check
 
-Obtenir la surface la plus faible possible entre son code et la lecture des arguments.
 
-=== Interface avec code métier
+[[tests]]
+== Tester son code
 
-=== CLI
+[[tests.interface]]
+=== Seulement l'interface
 
-https://www.npmjs.com/package/coffee
+avec les outils habituels
 
-https://www.npmjs.com/package/cli-tester
+[[tests.cli]]
+=== Tester l'exécutable
 
-== Extras
+plus dur, plus de code à écrire
+
+- à la main avec spawn/exec
+- tape-spawn
+- cli-tester
+- coffee
+
+[[advanced]]
+== Aller plus loin
+
+[[application]]
+=== Utilisation d'un framework d'application en ligne de commande
+
+ça fait beaucoup de choses qu'on a fait bout par bout
+pratique si on a besoin de tout utiliser en même temps
+équivalent des express & co pour le web (cf. chapitre 7)
+
+- yargs
+- commander
+- un autre truc plus léger
+
+[[streaming]]
+=== Lire et écrire des données en continu
+
+utilisation des streams
+
+[[packaging]]
+=== Rendre le programme indépendant de Node
 
 packager l'application (https://www.npmjs.com/package/pkg).
+
+[[declarative]]
+=== Templating et interfaces déclaratives
+
+
+== Conclusion
+
+TBD.
