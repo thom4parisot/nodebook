@@ -90,7 +90,7 @@ $ cd nodebook
 $ npm install
 ```
 
-Optionellement, [git-lfs](https://git-lfs.github.com/) est nécessaire à la récupération des fichiers volumineux.
+Optionellement, [git-lfs](https://git-lfs.github.com/) récupère les vidéos.
 
 ```bash
 $ git lfs pull
@@ -137,9 +137,9 @@ $ soffice ./dist/book.fodt
 
 # Mentions légales
 
-_Node.js — bonnes pratiques pour la programmation JavaScript applicative, universelle et modulaire_ est un ouvrage rédigé par [Thomas Parisot](https://oncletom.io). Il est édité et publié en format papier et e-book par [Eyrolles](http://www.eyrolles.fr).
+_Node.js • Apprendre par la pratique_ est un ouvrage rédigé par [Thomas Parisot](https://oncletom.io). Il est édité et publié en format papier et e-book par [Eyrolles](http://www.eyrolles.fr).
 
-L’épreuve est soumise à la licence [Creative Commons NC-BY-SA][cc-nc-by-sa] (_Attribution, Non-Commercial, Share Alike_).
+L’épreuve est soumise à la licence [Creative Commons NC-BY-SA 4.0][cc-nc-by-sa] (_Attribution, Non-Commercial, Share Alike_).
 
 Les exemples de code sont placés sous la [licence MIT][].
 
@@ -150,7 +150,7 @@ Les exemples de code sont placés sous la [licence MIT][].
 [livre-web]: https://oncletom.io/node.js
 [livre-npm]: https://npmjs.com/nodebook
 [licence MIT]: LICENSE
-[cc-nc-by-sa]: https://creativecommons.org/licenses/by-nc-sa/3.0/deed.fr
+[cc-nc-by-sa]: https://creativecommons.org/licenses/by-nc-sa/4.0/deed.fr
 [foreword]: foreword/foreword-fr.adoc
 [preamble]: foreword/preamble.adoc
 [ch01]: chapter-01/index.adoc
