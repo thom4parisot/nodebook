@@ -11,7 +11,8 @@ a été écrit, relu et testé avec un public apprenant.
 ## Jeudi 14 juin 2018 • Sète
 
 - _Chapitre 8_ : Au départ, un simple script Node
-- _Chapitre 8_ :  Modifier les permissions du script
+- _Chapitre 8_ : Modifier les permissions du script
+- _Chapitre 8_ : Préciser le contexte d'exécution
 
 **Météo** : 😴
 

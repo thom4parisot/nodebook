@@ -26,6 +26,7 @@ TBD.
 
 include::../docs/tip-versions.adoc[]
 
+
 install global : pour quelqu'un qui n'a pas besoin de l'inclure dans un projet.
 Être autonome.
 En faire un outil système.
@@ -154,19 +155,61 @@ $ ./bin/time.js
 ./bin/time.js: line 3: syntax error near unexpected token `('
 ----
 
-La bonne nouvelle c'est que le fichier est exécutable !
-Par contre il semblerait qu'il y ait un problème d'interprétation du fichier.
+La bonne nouvelle c'est que le fichier est exécutable.
+Par contre, il semblerait que le système d'exploitation aie du mal
+à interpréter le fichier.
 
 [[shebang]]
 === Préciser le contexte d'exécution (_shebang_)
 
-Il faut parler à bash. `#!` sert à ça.
+Donner les permissions d'exécution à un fichier ne suffit donc pas.
+Nous avons perdu un élément contextuel en supprimant l'appel à `node`
+dans l'exécution du script et nous allons voir comment rectifier le tir.
 
-Chemin absolu vers exécutable.
-`/usr/bin/env` vs `which` vs `/usr/bin/node` ?
+[CAUTION]
+.[RemarquePreTitre]#Interopérabilité# Un fonctionnement différent sous Windows
+====
+Ce mécanisme est n'est pas compris par le système d'exploitation Windows.
+Ce dernier utilise une surcouche qui serait trop longue à expliquer dans
+cet ouvrage.
 
-> Runs a program in a modified environment.
-(chercher plus sur pourquoi env)
+Je recommande cependant de conserver le contexte d'exécution sous Windows
+car l'exécutable `npm` gère l'interopérabilité pour nous.
+Nous verrons comment dans la <<package.json,section suivante>>.
+====
+
+Le caractère `#` placé en début de ligne d'un script système signale une ligne
+placée en commentaire.
+C'est l'équivalent du commentaire `//` en ECMAScript.
+Il existe un cas spécial : lorsque le caractère `#` est
+suivi par un `!` en tout début de fichier.
+Le contenu du commentaire est alors utilisé par le système d'exploitation
+pour déterminer quel programme utiliser pour interpréter le script.
+C'est ce qu'on appelle _shebang_ (en anglais).
+
+Modifions le script de la section précédente pour ajouter le
+_shebang_ en entête :
+
+[source,javascript]
+.bin/time-sh.js
+----
+include::{sourceDir}/bin/time-sh.js[lines=1..5]
+...
+----
+
+La ligne du _shebang_ crée un nouvel environnement d'exécution avec `env`,
+référencé ici par son chemin absolu.
+Ce nouvel environnement survit pendant la durée d'exécution du programme
+passé en argument, ici `node` :
+
+----
+$ ./bin/time-sh.js
+Il est 13h42.
+----
+
+Le dernier effort à faire pour distribuer ce script exécutable de manière
+interopérable est de le lier à un
+<<../chapter-05/index.adoc#package.json,module npm>>.
 
 [[package.json]]
 === Faire le lien avec un module npm
