@@ -36,32 +36,126 @@ Plus logique.
 Plus facile à retenir.
 Mais ça peut se changer.
 
+Le développement d'un outil en ligne de commande est proche de celui
+d'une <<../chapter-07/index.adoc#,application web>>
+(cf. <<../chapter-07/index.adoc#,chapitre 7>>).
+L'équivalent du script qui démarre le serveur web est un script exécutable,
+les routes de l'application sont des sous-commandes,
+les arguments d'URL (_query string_) sont des options et l'affichage dans
+un navigateur web est l'affichage dans un terminal.
+
 [[start]]
 == Créer un script exécutable
+
+La première étape est de transformer un script Node en un script Node exécutable.
+Le système d'exploitation ne percevra plus le script comme un simple fichier texte
+mais bel et bien comme un programme au même titre que l'exécutable `npm`.
+
+Nous allons apprendre à faire ce cheminement ensemble, jusqu'à rendre notre
+code distribuable sous forme d'un <<../chapter-05/index.adoc#modules,module npm>>
+(cf. <<../chapter-05/index.adoc#,chapitre 5>>).
 
 [[script]]
 === Au départ, un simple script Node
 
-Dans le répertoire `./bin` parce que c'est la convention
+Ce dont nous avons besoin pour démarrer, c'est d'un script Node que nous
+pouvons appeler depuis notre terminal.
+Nous allons placer l'exemple suivant dans le répertoire `bin`
+(pour _binary_ en anglais, c'est à dire _exécutable_).
+Ça n'a pas d'incidence technique mais c'est une pratique courante au sein
+de la communauté Node pour repérer plus facilement les exécutables
+sans ambiguité.
 
-> Il faudra faire le lien avec le package.json
-
+[source%interactive,javascript]
+.bin/time.js
 ----
-$ node bin/fichier.js
+include::{sourceDir}/bin/time.js[]
 ----
+<1> Crée un objet qui représente la <<../chapter-03/index.adoc#date,date>> courante — cf. <<../chapter-03/index.adoc#,chapitre 3>> pour se raffraichir la mémoire au sujet de cette API.
 
 include::../docs/tip-examples.adoc[]
+
+L'exécution du script avec Node retourne la date et l'heure courante — selon
+l'horloge de l'ordinateur qui exécute le code.
+
+----
+$ node bin/time.js
+Il est 13h42.
+----
+
 
 [[permissions]]
 === Modifier les permissions du script
 
-pour le rendre exécutable (Linux et macOS)
+Les systèmes d'exploitation modernes distinguent les fichiers ordinaires
+des fichiers exécutables.
+L'appel à un fichier exécutable se fait sans avoir à connaître quoique ce soit
+d'autre que son emplacement.
+
+Essayons d'exécuter le script précédent pour nous en rendre compte.
+Pour se faire, nous allons l'invoquer seulement avec son chemin
+— ici, son chemin relatif :
 
 ----
-$ chmod +x bin/fichier.js
+$ ./bin/time.js
+sh: permission denied: ./bin/time.js
 ----
 
-Warning : +x pour tout le monde
+Le système refuse de l'exécuter car les permissions du fichier ne sont pas
+adéquates.
+Comme nous ne les connaissons pas, utilisons la commande `ls` ainsi que
+l'option `-l` pour afficher ses informations détaillées :
+
+----
+$ ls -l bin/time.js
+<i>-rw-r--r--</i> oncletom  staff  175 Jun 14 13:47 bin/time.js
+----
+
+Cet affichage détaille les permissions du fichier, l'utilisateur et le groupe
+propriétaire, son poids et enfin la date de dernière modification.
+
+[NOTE]
+.[RemarquePreTitre]#Déchiffrer# Lire les permissions Unix
+====
+Les permissions sont cryptiques à lire quand on tombe dessus pour la première fois.
+
+Le premier caractère spécifie le type (fichier, répertoire, lien symbolique) et
+ensuite, ce sont des blocs de 3 caractères qui décrivent les permissions de
+l'utilisateur propriétaire, du groupe propriétaire et du reste des utilisateurs
+du système d'exploitation.
+
+Chaque bloc affiche `r` s'il est lisible, `w` s'il est modifiable et
+`x` s'il est exécutable — c'est ce dernier qui nous intéresse.
+====
+
+Nous allons rendre le fichier exécutable (`+x`) pour notre utilisateur (`u`)
+grâce à la commande `chmod`.
+Je préfère utiliser cette notation pour car elle évite des effets de bord :
+
+----
+$ chmod u+x bin/time.js
+----
+
+L'utilisation renouvelée de la commande `chmod` confirme que la
+permission _exécutable_ du fichier a été attribuée à l'utilisateur propriétaire
+du fichier :
+
+----
+$ ls -l bin/time.js
+-rwxr--r-- oncletom  staff  175 Jun 14 13:47 bin/time.js
+----
+
+Nous sommes accueillis avec un nouveau message d'erreur lorsque nous
+tentons d'exécuter le fichier `bin/time.js` :
+
+----
+$ ./bin/time.js
+./bin/time.js: line 1: use strict: command not found
+./bin/time.js: line 3: syntax error near unexpected token `('
+----
+
+La bonne nouvelle c'est que le fichier est exécutable !
+Par contre il semblerait qu'il y ait un problème d'interprétation du fichier.
 
 [[shebang]]
 === Préciser le contexte d'exécution (_shebang_)
@@ -78,6 +172,7 @@ Chemin absolu vers exécutable.
 === Faire le lien avec un module npm
 
 Champ `bin`
+> Il faudra faire le lien avec le package.json
 
 [[install]]
 === Tester une installation globale, localement

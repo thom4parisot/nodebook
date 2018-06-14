@@ -8,7 +8,14 @@ a été écrit, relu et testé avec un public apprenant.
 
 ---
 
-## Mardi 12 juin 2018 • Crest
+## Jeudi 14 juin 2018 • Sète
+
+- _Chapitre 8_ : Au départ, un simple script Node
+- _Chapitre 8_ :  Modifier les permissions du script
+
+**Météo** : 😴
+
+## Mardi 12 juin 2018 • Sète
 
 - _Chapitre 8_ : premier jet de structure de chapitre
 
