@@ -214,17 +214,61 @@ interopérable est de le lier à un
 [[package.json]]
 === Faire le lien avec un module npm
 
-Champ `bin`
-> Il faudra faire le lien avec le package.json
+Nous avons vu dans le <<../chapter-05/index.adoc#,chapitre 5>>
+que Node utilisait la valeur `main` du fichier `package.json` pour déterminer
+quel script inclure en faisant `require('<module>')` ou `import <module> from '<module>'`.
 
-[[install]]
-=== Tester une installation globale, localement
+Le champ `bin` est une transposition de `main` pour associer un script
+exécutable à notre module npm.
+Par exemple :
+
+[source,json]
+.package.json
+----
+include::package.json[lines="1..3"]
+  ...
+}
+----
+
+Le moyen le plus simple pour tester l'intégration de l'exécutable
+avec notre système d'exploitation est de
+l'<<../chapter-05/index.adoc#install.global,installer globalement>>.
+L'exécutable `npm` sait aussi installer un module à partir
+d'un chemin vers un répertoire contenant un fichier `package.json` :
 
 ----
-$ npm i -g .
+$ npm install --global .
 ----
 
-Prend en compte les changements locaux.
+Par défaut, l'exécutable est disponible sous le nom du module en question,
+déclaré dans le champ `name` du fichier `package.json` :
+
+----
+$ nodebook.chapter-08
+Il est 13h42.
+----
+
+[TIP]
+.[RemarquePreTitre]#Pratique# Un autre nom ou plusieurs exécutables
+====
+Le champ `bin` s'écrit sous forme d'un objet si vous souhaitez utiliser
+un autre nom que celui du module npm.
+La clé correspond au nom de l'exécutable tel qu'il sera utilisable sur le
+système tandis que la valeur contient le chemin d'accès au script exécutable.
+Plusieurs exécutables sont alors installés si nous renseignons plusieurs
+clés et valeurs.
+
+[source,json,subs="-specialchars"]
+.package.json
+----
+{
+  "name": "nodebook.chapter-08",
+  "bin": {
+    "<i>quelle-heure-est-il</i>": "examples/bin/time-sh.js"
+  }
+}
+----
+====
 
 [[interface]]
 === Vers un code testable et réutilisable

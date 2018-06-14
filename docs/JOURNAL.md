@@ -13,6 +13,7 @@ a été écrit, relu et testé avec un public apprenant.
 - _Chapitre 8_ : Au départ, un simple script Node
 - _Chapitre 8_ : Modifier les permissions du script
 - _Chapitre 8_ : Préciser le contexte d'exécution
+- _Chapitre 8_ : Faire le lien avec un module npm
 
 **Météo** : 😴
 
