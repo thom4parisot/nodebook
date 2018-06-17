@@ -11,6 +11,7 @@ a été écrit, relu et testé avec un public apprenant.
 ## Dimanche 17 juin 2018 • Sète
 
 - _Chapitre 8_ : Utiliser des options et arguments
+- _Chapitre 8_ : Utiliser des options et arguments — sous-commandes
 
 **Météo** : 🙂 🍞
 

@@ -280,5 +280,9 @@ module.exports = {
   },
   'chapter-07/examples/http-app.js': {
     skip: true
+  },
+  'chapter-08/examples/options/timezone.js': {
+    args: 'Europe/Paris',
+    stdout: /\d{2}:\d{2}/
   }
 };

@@ -539,7 +539,7 @@ include::{sourceDir}/options/zones.txt[]
 ----
 
 Le contenu du fichier s'obtient d'une traite en bash avec l'utilisation combinée
-de la capture de sortie (`$(...)`) et de l'opérateur de redirection `<` :
+de capture de valeur (`$({nbsp})`) et de l'opérateur de redirection `<` :
 
 ----
 $ node options/timezones.js $(< options/zones.txt)
@@ -547,13 +547,13 @@ Europe/London : 22:29
 America/New_York : 17:29
 ----
 
-C'est simple et ça fonctionne jusqu'à un certain point : le fichier doit être lu
+C'est simple mais le fichier doit être lu
 dans son intégralité et copié entièrement dans la mémoire de Node avant d'en
 faire quelque chose.
 Une approche plus économique est d'utiliser les
 <<../chapter-03/index.adoc#stream,streams>> (cf. <<../chapter-03/index.adoc#,chapitre 3>>.
 Nous parlerons plus en détail de cette technique dans la section
-<<streaming,passer le contenu complet d’un fichier en paramètre>> de ce même
+<<streaming,utiliser les flux de données>> de ce même
 chapitre.
 
 [horizontal]
@@ -564,19 +564,52 @@ chapitre.
 `prog sous-commande [argument1, ...]`::
   C'est un cas particulier pour découper un programme complet en plusieurs
   domaines d'action. +
-  Le premier argument est alors utilisé
-  Les sous-commandes ne gèrent pas forcément les mêmes arguments et options.
+  Le premier argument est alors utilisé comme identifiant d'action,
+  avec ses propres arguments et options.
 
-////
 [[args.subcommand]]
-c'est l'équivalent d'une _route_ dans une application
-////
+L'utilisation des sous-commandes est la bienvenue pour organiser des actions
+de manière indépendante, là où les choses deviendraient implicites et chaotiques
+avec les options.
+C'est l'équivalent d'une _route_ dans une
+<<../chapter-07/index.adoc#,application web>> (cf. <<../chapter-07/index.adoc#,chapitre 7>>).
 
-Les arguments et les options ne sont *pas adaptées pour véhiculer le contenu*
-d'un fichier, ou toute autre donnée volumineuse.
-Deux solutions s'offrent à nous : <<streaming,diriger le contenu>> vers
-le programme (_streaming_) ou renseigner le chemin d'accès à ce contenu
-(URL, chemin d'accès, etc.).
+Les commandes suivantes illustrent la génération de résultats aléatoires.
+Leur nature varie en fonction de la sous-commande employée ;
+
+----
+$ node options/random.js number
+51151
+$ node options/random.js words 2
+streamline THX
+----
+
+Nous associons une fonction différente à chaque sous-commande pour
+renforcer cette notion d'actions indépendantes mais qui partagent
+les options et arguments du script.
+
+[source,javascript]
+.options/random.js
+----
+include::{sourceDir}/options/random.js[lines="3..-1"]
+----
+<1> L'action est le premier argument ; nous mettons les autres arguments dans un même tableau, `actionArgs`.
+<2> Fonction qui retourne un nombre aléatoire.
+<3> Fonction qui retourne un nombre défini de mots — 5 par défaut.
+<4> Nous passons la suite des arguments à la fonction pour personnaliser l'affichage en fonction de la saisie utilisateur.
+
+L'<<../chapter-05/index.adoc#,exécutable `npm`>> repose sur des sous-commande
+pour déterminer quelle action exécuter — installer un module, lancer
+une recherche ou encore initialiser un projet, entre autres.
+
+Les arguments et les options suffisent dans des cas simples et maîtrisés.
+Dans des applications plus complètes et plus complexes, la *validation*
+des paramètres requiert plus de travail.
+Je pense à une gestion plus fine des sous-commandes ainsi qu'à la
+*génération automatique de la documentation*.
+
+Si ces choses vous intéressent, je vous invite à vous rendre à la section
+<<application,utilisation d'une framework>>.
 
 [[colours]]
 === Améliorer la lisibilité grâce aux couleurs
@@ -666,9 +699,12 @@ pratique si on a besoin de tout utiliser en même temps
 === Maîtriser le vocabulaire d'expansion de chemins (_wildcard_)
 
 [[streaming]]
-=== Passer le contenu complet d'un fichier en paramètre
+=== Utiliser les flux de données (`stdin`, `stdout` et `stderr`)
 
 utilisation des streams
+
+[[autocomplete]]
+=== Activer l'autocomplétion des commandes
 
 [[packaging]]
 === Rendre le programme indépendant de Node

@@ -35,11 +35,11 @@ examples
         nodeArgs += '--experimental-modules'
       }
 
-      const {command='node'} = config;
+      const {command='node', args:cmdArgs=''} = config;
       const cwd = join(__dirname, '..', FILE.split(posix.sep)[0]);
       const test_file = relative(cwd, FILE);
 
-      const p = spawn(t, `${command} ${nodeArgs} ${test_file}`, {cwd});
+      const p = spawn(t, `${command} ${nodeArgs} ${test_file} ${cmdArgs}`, {cwd});
       p.exitCode(config.exitCode, `exit code = ${config.exitCode}`);
 
       if (config.timeout) {
