@@ -26,7 +26,7 @@ TBD.
 
 include::../docs/tip-versions.adoc[]
 
-
+////
 install global : pour quelqu'un qui n'a pas besoin de l'inclure dans un projet.
 Être autonome.
 En faire un outil système.
@@ -37,6 +37,10 @@ Plus logique.
 Plus facile à retenir.
 Mais ça peut se changer.
 
+node est adapté au modèle de tâche de courte ou longue durée
+modèle plus proche des applications web qu'il n'y parait
+////
+
 Le développement d'un outil en ligne de commande est proche de celui
 d'une <<../chapter-07/index.adoc#,application web>>
 (cf. <<../chapter-07/index.adoc#,chapitre 7>>).
@@ -44,6 +48,12 @@ L'équivalent du script qui démarre le serveur web est un script exécutable,
 les routes de l'application sont des sous-commandes,
 les arguments d'URL (_query string_) sont des options et l'affichage dans
 un navigateur web est l'affichage dans un terminal.
+
+////
+Et la mémoire ?
+Le script utilisera la mémoire disponible, à concurrence des autres applications qui tournent sur la même machine
+Sur un Raspberry Pi, y'a moins de mémoire donc on peut atteindre plus rapidement des limites si les fichiers dépassent les capacités (centaine de Mo — vs. plus Go sur des ordinateurs modernes)
+////
 
 [[start]]
 == Créer un script exécutable
@@ -264,44 +274,309 @@ clés et valeurs.
 {
   "name": "nodebook.chapter-08",
   "bin": {
-    "<i>quelle-heure-est-il</i>": "examples/bin/time-sh.js"
+    "<i>quelle-heure-est-il</i>": "examples/bin/time-sh.js" // <1>
   }
 }
 ----
+<1> L'installation de l'exécutable `examples/bin/time-sh.js` se fera sous le nom `quelle-heure-est-il`.
 ====
 
-[[interface]]
-=== Vers un code testable et réutilisable
-
-Obtenir la surface la plus faible possible entre son code et la lecture
-des arguments.
-
-réduire le plus possible ce qu'il y a dans un fichier exécutable
-pour tester le plus facilement
-
-((exemple inDir outDir -- réutiliser du code métier))
-
-idéalement ce qui est dans le `main` est consommé par le `bin`
 
 [[interactive]]
 == Du script au programme interactif
 
-[[options]]
-=== Utiliser des options et arguments
+Nous avons appris à transformer un script Node ordinaire en un script
+exécutable et prêt à <<../chapter-05/index.adoc#publish,distribué avec npm>>
+(cf. <<../chapter-05/index.adoc#,chapitre 5>>).
 
-`process.argv`
+Cette section se focalise sur l'enrichissement d'un tel script pour en faire
+une application plus complète, interactive et robuste.
+De quoi se constituer un outillage sur mesure, partageable avec le reste de
+notre équipe et de l'écosystème de modules npm.
 
-Tableau qui contient toutes les chaines de caractère utilisées pour lancer la commande.
+[[args]]
+=== Utiliser des arguments et des options
 
-(héritage UNIX).
+Nous avons vu comment récupérer les arguments d'un script Node
+en découvrant le <<../chapter-04/index.adoc#process,module `process`>>
+au <<../chapter-04/index.adoc#,chapitre 4>>
+— un des nombreux modules fournis avec chaque installation de Node.
+Pour rappel, la variable `process.argv` est un tableau qui contient tous
+les arguments passés au script principal :
 
-`process.argv.slice(2)`
+[source,javascript]
+.options/intro.js
+----
+include::{sourceDir}/options/intro.js[]
+----
 
-Créer des variables explicites au lieu de `process.argv[2]`.
+Ce qui donne le résultat suivant quand nous lançons ce script dans un terminal :
 
-Et la mémoire ?
-Le script utilisera la mémoire disponible, à concurrence des autres applications qui tournent sur la même machine
-Sur un Raspberry Pi, y'a moins de mémoire donc on peut atteindre plus rapidement des limites si les fichiers dépassent les capacités (centaine de Mo — vs. plus Go sur des ordinateurs modernes)
+----
+$ node options/intro.js --country FR --fast
+[ '--country', 'FR', '--fast' ]
+----
+
+Ce tableau est un peu "léger" car il se contente de retourner les arguments,
+sans compréhension de la logique recherchée.
+C'est à nous de faire la démarche de dire que `FR` est une valeur
+associée à `--country`.
+
+Dans le contexte des outils en ligne de commande,
+les arguments et les options sont des paramètres qui sont interprétées
+par le programme pour contextualiser son action.
+Ils fonctionnent un peu comme des arguments de
+<<../chapter-03/index.adoc#function,fonction>> et des paramètres d'URL.
+
+L'enjeu des arguments et des options est de les
+*transformer en une structure de données* afin de les passer en tant
+que paramètres d'une fonction.
+
+[format="csv", separator=";", options="header", cols="1,2,2"]
+.Représentation des arguments et des options entre un outil en ligne de commande, une fonction et une URL.
+|===
+;Options;Arguments
+Fonction; `prog({country: 'FR', 'fast': true})`; `prog('FR', 'fast')`
+Ligne de commande; `prog --country FR --fast`; `prog FR fast`
+URL; `prog/?country=FR&fast=true`; `prog/FR/fast`
+|===
+
+Nous allons utiliser le module npm _minimist_ ([URL]#https://npmjs.com/minimist#)
+dans les exemples suivants.
+Il prend en charge la complexité de l'interprétation de `process.argv` et je
+le trouve robuste, bien testé et minimaliste.
+
+[NOTE]
+.[RemarquePreTitre]#Histoire# Au commencement était `getopt`
+====
+`getopt` ([URL]#https://linux.die.net/man/3/getopt#) est le programme Linux
+sur lequel se calque une très grande majorité des exécutables en ligne de
+commande.
+====
+
+[[args.options]]
+Commençons par les *options* et voyons ce que _minimist_ affiche :
+
+----
+$ node options/parse.js --country FR --fast
+{ _: [], country: 'FR', fast: true }  # <1>
+----
+<1> La valeur `_` contient les <<args.arguments,arguments>> d'exécution — nous y reviendrons.
+
+Les options sont adaptées pour *nommer des paramètres facultatifs* dont
+l'ordre n'a pas d'importance, sous forme d'un "interrupteur" dans le cas
+d'un booléen ou d'une valeur — nombre ou chaîne de caractères, peu importe.
+
+[source,javascript]
+.options/parse.js
+----
+include::{sourceDir}/options/parse.js[]
+----
+
+Les options s'écrivent sous une *forme raccourcie* (_alias_).
+Elle signalée avec un seul tiret et elle réduit l'encombrement visuel
+d'une commande :
+
+----
+$ node options/alias.js <i>-c</i> FR
+{ _: [], c: 'FR', country: 'FR' }
+----
+
+[source,javascript]
+.options/alias.js
+----
+include::{sourceDir}/options/alias.js[]
+----
+<1> Définition de l'option `-c` en tant qu'alias de `--country`.
+<2> L'affichage représenté à la fois la valeur de l'option et la valeur de l'alias.
+
+La lecture est rendue plus difficile pour celui ou celle qui n'a pas lu
+le manuel d'utilisation en détail — ce qui est souvent le cas, surtout
+pour des personnes qui découvrent un nouveau logiciel.
+
+J'ai tendance à utiliser les alias pour les options principales ou importantes.
+Je privilégie la forme longue dans les exemples et dans la documentation
+afin d'augmenter les chances de compréhension.
+
+Les *valeurs par défaut* simplifient le paramétrage en rendant certaines
+valeurs implicites :
+
+----
+$ node options/defaults.js --fast
+{ _: [], country: 'FR', fast: true } # <1>
+----
+<1> La valeur `country` affiche une valeur alors que nous ne l'avons pas spécifié dans la commande.
+
+L'enjeu réside alors dans l'utilisation des valeurs à bon escient, pour
+que le programme fasse ce qui est attendu d'un point de vue utilisateur.
+Le paramétrage est similaire à celui des _alias_ :
+
+[source,javascript]
+.options/defaults.js
+----
+include::{sourceDir}/options/defaults.js[]
+----
+<1> L'option `--country` aura `FR` comme valeur par défaut.
+
+Un autre concept utile est celui des *types*.
+Nous définissons explicitement nos attentes sur ce que telle ou telle option
+est censée recevoir :
+
+----
+$ node options/types.js --country --fast furious  # <1>
+{ _: [ 'furious' ], fast: true, country: '' }
+$ node options/types.js --country FR
+{ _: [], fast: false, country: 'FR' }             # <2>
+----
+<1> Omission de la valeur de `--option` et tentative d'assignation de valeur à l'option booléenne `--fast`.
+<2> Une vaut implicitement `false` par défaut quand elle est typée comme booléenne.
+
+L'exemple précédent renforce nos attentes : l'option `--country` sans valeur
+ne sera pas comprise comme un booléen et au contraire, l'option booléenne `--fast`
+n'accepte pas de valeur — cette dernière est interprétée
+comme un <<args.arguments,argument>>.
+Nous allons nous y intéresser de suite après.
+
+[source,javascript]
+.options/types.js
+----
+include::{sourceDir}/options/types.js[]
+----
+
+[horizontal]
+.Synthèse des différentes formes d'options.
+`--country FR`::
+`-c FR`::
+  Un nombre ou une chaîne de caractères.
+`--country FR UK`::
+`--country FR --country UK`::
+  Un ou ou plusieurs nombres ou chaînes de caractères.
+`--fast`::
+`--no-fast`::
+`-f`::
+  Un booléen dont la valeur vaut `true`.
+  La valeur vaut `false` quand l'option débute avec `no-`. +
+  Utile quand nous avons besoin d'activer ou de désactiver quelque chose.
+`--verbose --verbose`::
+`-vv`::
+  Certaines librairies utilisent la répétition d'un booléen comme un compteur.
+  Auquel cas, la notation `--verbose --verbose` correspondrait à la
+  valeur `{verbose: 2}`. +
+  Utile pour gérer la gradation d'une option comme la verbosité de l'affichage
+  logs par exemple.
+
+[[args.arguments]]
+Les arguments sont adaptés à des situations où
+*une ou plusieurs valeurs sont obligatoires*, n'ont pas besoin d'être nommées et
+pour en accepter un nombre arbitraire.
+Si les valeurs ne correspondent pas à une liste, le positionnement des arguments
+est important car il détermine leur identification.
+Les arguments se prêtent particulièrement bien à exprimer
+une liste de fichiers ou d'identifiants.
+
+----
+$ node options/parse.js Europe/London
+{ _: [ 'Europe/London' ] }
+----
+
+Le paramètre passé en argument est l'expression d'un fuseau horaire
+selon l'organisme de standardisation _IANA_ ([URL]#https://www.iana.org/time-zones#).
+Une liste de fuseau se trouve sur [URL]#https://time.is/time_zones#. +
+L'idée est d'afficher l'heure courante selon le fuseau horaire donné en argument.
+C'est un paramètre obligatoire qu'il n'est pas nécessaire de nommer :
+
+----
+$ node options/timezone.js Europe/London
+22:29
+$ node options/timezone.js America/New_York
+17:29
+$ node options/timezone.js Indian/Antananarivo  # <1>
+17/6/2018, 00:36
+----
+<1> Fuseau horaire de l'île de Madagascar.
+
+Nous pouvons travailler avec les fuseaux horaires sans module additionnel,
+grâce à la fonctionnalité de
+<<../chapter-03/index.adoc#intl.datetimeformat,formatage internationalisé>>
+(cf. <<../chapter-03/index.adoc#,chapitre 3>>) :
+
+[source,javascript]
+.options/timezone.js
+----
+include::{sourceDir}/options/timezone.js[]
+----
+<1> Nous assignons à `timezone` la première valeur du tableau d'arguments.
+<2> Configuration des préférences d'affichage de l'heure.
+<3> Utilisation de la méthode `toLocaleDateString()` avec nos options pour afficher la date courante.
+
+Cet exemple se transformerait de la manière suivante si nous souhaitions
+étendre l'affichage de l'heure à autant de fuseaux horaires que voulus :
+
+----
+$ node options/timezones.js Europe/London America/New_York
+Europe/London : 22:29
+America/New_York : 17:29
+----
+
+[source,javascript]
+.options/timezones.js
+----
+include::{sourceDir}/options/timezones.js[]
+----
+<1> Nous constituons un nouveau tableau en itérant sur chacun des arguments.
+<2> Valeur de retour utilisée dans le nouveau tableau `output` — cf. <<../chapter-03/index.adoc#array,chapitre 3>>.
+<3> Le tableau est joint pour constituer une chaîne de caractères multilignes.
+
+Ce script accepte un nombre indéfini d'arguments et son temps d'exécution
+dépendra de la longueur de cette liste.
+Elle n'a d'ailleurs pas forcément à être connue à l'avance et les valeurs
+s'obtiennent dynamiquement, en les sourçant depuis ce fichier, par exemple :
+
+[source,text]
+.options/zones.txt
+----
+include::{sourceDir}/options/zones.txt[]
+----
+
+Le contenu du fichier s'obtient d'une traite en bash avec l'utilisation combinée
+de la capture de sortie (`$(...)`) et de l'opérateur de redirection `<` :
+
+----
+$ node options/timezones.js $(< options/zones.txt)
+Europe/London : 22:29
+America/New_York : 17:29
+----
+
+C'est simple et ça fonctionne jusqu'à un certain point : le fichier doit être lu
+dans son intégralité et copié entièrement dans la mémoire de Node avant d'en
+faire quelque chose.
+Une approche plus économique est d'utiliser les
+<<../chapter-03/index.adoc#stream,streams>> (cf. <<../chapter-03/index.adoc#,chapitre 3>>.
+Nous parlerons plus en détail de cette technique dans la section
+<<streaming,passer le contenu complet d’un fichier en paramètre>> de ce même
+chapitre.
+
+[horizontal]
+.Synthèse des différentes formes d'arguments.
+`prog [argument1, ...]`::
+  L'ordre de placement étant important, les arguments facultatifs doivent
+  être placés à droite des arguments obligatoires.
+`prog sous-commande [argument1, ...]`::
+  C'est un cas particulier pour découper un programme complet en plusieurs
+  domaines d'action. +
+  Le premier argument est alors utilisé
+  Les sous-commandes ne gèrent pas forcément les mêmes arguments et options.
+
+////
+[[args.subcommand]]
+c'est l'équivalent d'une _route_ dans une application
+////
+
+Les arguments et les options ne sont *pas adaptées pour véhiculer le contenu*
+d'un fichier, ou toute autre donnée volumineuse.
+Deux solutions s'offrent à nous : <<streaming,diriger le contenu>> vers
+le programme (_streaming_) ou renseigner le chemin d'accès à ce contenu
+(URL, chemin d'accès, etc.).
 
 [[colours]]
 === Améliorer la lisibilité grâce aux couleurs
@@ -310,30 +585,50 @@ Sur un Raspberry Pi, y'a moins de mémoire donc on peut atteindre plus rapidemen
 - un autre module plus fonctionnel
 - ANSI (sous Windows c'est différent je crois)
 
+https://www.npmjs.com/package/supports-color
+
 [[questions]]
 === Demander une série d'informations
 
-- demand
-- <insérer un module npm qui fait ça bien>
+- https://www.npmjs.com/package/inquirer
+- https://www.npmjs.com/package/promptly
 
 [[progress]]
 === Informer de la progression
 
-- readline
-- spinner
-- progressbar
+- https://www.npmjs.com/ansi-escapes
+- https://www.npmjs.com/package/ora
+- https://www.npmjs.com/package/progress-string
 
 [[update]]
 === Inviter à mettre à jour le module
 
 - update-check
 
+[[tables]]
+=== Afficher des informations tabulaires
+
+- https://www.npmjs.com/package/table
+
 
 [[tests]]
-== Tester son code
+== Vers un code testable et réutilisable
+
+Obtenir la surface la plus faible possible entre son code et la lecture
+des arguments.
+
+[[interface]]
+=== Réduire la surface de code spécifique à la ligne de commande
+
+réduire le plus possible ce qu'il y a dans un fichier exécutable
+pour tester le plus facilement
+
+((exemple inDir outDir -- réutiliser du code métier))
+
+idéalement ce qui est dans le `main` est consommé par le `bin`
 
 [[tests.interface]]
-=== Seulement l'interface
+=== Tester le code partagé
 
 avec les outils habituels
 
@@ -346,6 +641,12 @@ plus dur, plus de code à écrire
 - tape-spawn
 - cli-tester
 - coffee
+
+[[doc]]
+=== Documenter notre programme
+
+- README
+- prog --help
 
 [[advanced]]
 == Aller plus loin
@@ -361,8 +662,11 @@ pratique si on a besoin de tout utiliser en même temps
 - commander
 - un autre truc plus léger
 
+[[wildcard]]
+=== Maîtriser le vocabulaire d'expansion de chemins (_wildcard_)
+
 [[streaming]]
-=== Lire et écrire des données en continu
+=== Passer le contenu complet d'un fichier en paramètre
 
 utilisation des streams
 
@@ -374,6 +678,8 @@ packager l'application (https://www.npmjs.com/package/pkg).
 [[declarative]]
 === Templating et interfaces déclaratives
 
+- https://www.npmjs.com/package/blessed
+- https://www.npmjs.com/package/react-blessed
 
 == Conclusion
 

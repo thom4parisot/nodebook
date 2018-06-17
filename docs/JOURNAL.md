@@ -8,6 +8,12 @@ a été écrit, relu et testé avec un public apprenant.
 
 ---
 
+## Dimanche 17 juin 2018 • Sète
+
+- _Chapitre 8_ : Utiliser des options et arguments
+
+**Météo** : 🙂 🍞
+
 ## Jeudi 14 juin 2018 • Sète
 
 - _Chapitre 8_ : Au départ, un simple script Node
@@ -15,7 +21,7 @@ a été écrit, relu et testé avec un public apprenant.
 - _Chapitre 8_ : Préciser le contexte d'exécution
 - _Chapitre 8_ : Faire le lien avec un module npm
 
-**Météo** : 😴
+**Météo** : 😴 🍞
 
 ## Mardi 12 juin 2018 • Sète
 
