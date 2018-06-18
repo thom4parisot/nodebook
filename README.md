@@ -2,12 +2,13 @@
 
 > Apprendre par l'exemple • Devenez autonome avec JavaScript, l'écosystème npm, le développement frontend, les applications web et en ligne de commande.
 
-Le contenu est actuellement **en cours d'écriture** 🚧.
-Les sections marquées par ✅ sont **terminées**.
+📖 **Journal de bord d'écriture** • [2018][journal-2018] • [2017][journal-2017].
 
-**Journal de bord d'écriture** 📖 [2018][journal-2018] • [2017][journal-2017].
+👀 **Disponibilité** • _livre_ (octobre 2018) • [web][livre-web] • [module npm][livre-npm].
 
 # Table des matières
+
+**Légende** • 🚧 = pas fini • ✍️ = en cours d'écriture • ✅ = terminé.
 
 | Statut | Chapitre                  | Objectif d'apprentissage | |
 | -------|---------------------------|--------- |---|
@@ -22,7 +23,7 @@ Les sections marquées par ✅ sont **terminées**.
 | 🚧      | **[Créer une application web][ch07]** |  _ça marche comment HTTP ?_ | [issues][ch07-issues]
 | ✍️      | **[Créer un outil en ligne de commande][ch08]** | _ça marche comment du code métier dans le terminal ?_ | [issues][ch08-issues]
 | ✅      | **[Créer une application frontend][ch09]** | _ça marche comment les modules Node dans les navigateurs web ?_ | [issues][ch09-issues]
-| 🚧      | **_Annexe_ : [Sélection de modules npm][a01]** | - | [issues][appendix-issues]
+| 🚧      | _Annexe_ : **[Sélection de modules npm][a01]** | - | [issues][appendix-issues]
 
 # Lire
 
@@ -31,12 +32,13 @@ Les sections marquées par ✅ sont **terminées**.
 🌐 L’épreuve est consultable gratuitement à cette adresse : [https://oncletom.io/node.js/][livre-web].<br>
 🙏 [Aide à financer son écriture si l'ouvrage t'a aidé](https://opencollective.com/nodebook#backer).
 
-De nombreux **exemples sont interactifs** sans avoir à installer le moindre logiciel sur son ordinateur.
+De nombreux **exemples sont interactifs** en un clic.
+
 **Fonctionnalités** : exemples interactifs, vidéos, renvois.
 
 ## Au format papier / e-book
 
-À venir.
+⏳ À venir.
 
 ## Avec Node.js et npm
 
@@ -117,21 +119,21 @@ $ npm test
 ### HTML
 
 ```bash
-$ npm run build:html
+$ make build-html
 $ open ./dist
 ```
 
 ### DocBook
 
 ```bash
-$ npm run build:docbook
+$ make build-docbook
 $ soffice ./dist/book.xml
 ```
 
 ### OpenDocument
 
 ```bash
-$ npm run build:odt
+$ make build-odt
 $ soffice ./dist/book.fodt
 ```
 
@@ -178,7 +180,7 @@ Les exemples de code sont placés sous la [licence MIT][].
 [ci-windows]: https://ci.appveyor.com/api/projects/status/crewvvqeybl8f16c?svg=true&amp;branch=master
 [journal-2018]: docs/JOURNAL.md
 [journal-2017]: docs/JOURNAL-2017.md
-[livre-web]: https://oncletom.io/node.js
+[livre-web]: https://oncletom.io/node.js/
 [livre-npm]: https://npmjs.com/nodebook
 [licence MIT]: LICENSE
 [cc-nc-by-sa]: https://creativecommons.org/licenses/by-nc-sa/4.0/deed.fr
