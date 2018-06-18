@@ -1,4 +1,4 @@
-# Node.js [![Build Linux][ci-linux]](https://travis-ci.org/oncletom/nodebook) [![Build Windows][ci-windows]](https://ci.appveyor.com/project/oncletom/nodebook) [![Backers on Open Collective](https://opencollective.com/nodebook/backers/badge.svg)](#backers) [![Sponsors on Open Collective](https://opencollective.com/nodebook/sponsors/badge.svg)](#sponsors)
+# Node.js [![Build Linux][ci-linux]](https://travis-ci.org/oncletom/nodebook) [![Build Windows][ci-windows]](https://ci.appveyor.com/project/oncletom/nodebook) [![Backers on Open Collective](https://opencollective.com/nodebook/backers/badge.svg)](backers) [![Sponsors on Open Collective](https://opencollective.com/nodebook/sponsors/badge.svg)](sponsors)
 
 > Apprendre par l'exemple • Devenez autonome avec JavaScript, l'écosystème npm, le développement frontend, les applications web et en ligne de commande.
 
@@ -140,7 +140,7 @@ $ soffice ./dist/book.fodt
 
 Merci à vous pour avoir contribué à l'ouvrage grâce à vos relectures, corrections et demandes de clarification.
 
-<a href="graphs/contributors"><img src="https://opencollective.com/nodebook/contributors.svg?width=890&button=false" /></a>
+[![](https://opencollective.com/nodebook/contributors.svg?width=890&button=false)](contributors)
 
 <!--
 ## Backers
@@ -182,6 +182,9 @@ Les exemples de code sont placés sous la [licence MIT][].
 [livre-npm]: https://npmjs.com/nodebook
 [licence MIT]: LICENSE
 [cc-nc-by-sa]: https://creativecommons.org/licenses/by-nc-sa/4.0/deed.fr
+[backers]: https://opencollective.com/nodebook#backers
+[sponsors]: https://opencollective.com/nodebook#sponsor
+[contributors]: https://github.com/oncletom/nodebook/graphs/contributors
 [foreword]: foreword/foreword-fr.adoc
 [preamble]: foreword/preamble.adoc
 [ch01]: chapter-01/index.adoc
@@ -205,4 +208,3 @@ Les exemples de code sont placés sous la [licence MIT][].
 [a01]: appendix-a/index.adoc
 [appendix-issues]: https://github.com/oncletom/nodebook/labels/:book:%20chapitre:annexes
 [a02]: appendix-b/index.adoc
-
