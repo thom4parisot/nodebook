@@ -1,4 +1,4 @@
-# Node.js [![Build Linux][ci-linux]](https://travis-ci.org/oncletom/nodebook) [![Build Windows][ci-windows]](https://ci.appveyor.com/project/oncletom/nodebook) [![Backers on Open Collective](https://opencollective.com/nodebook/backers/badge.svg)](backers) [![Sponsors on Open Collective](https://opencollective.com/nodebook/sponsors/badge.svg)](sponsors)
+# Node.js [![Build Linux][ci-linux]](https://travis-ci.org/oncletom/nodebook) [![Build Windows][ci-windows]](https://ci.appveyor.com/project/oncletom/nodebook) [![Backers on Open Collective](https://opencollective.com/nodebook/backers/badge.svg)][backers] [![Sponsors on Open Collective](https://opencollective.com/nodebook/sponsors/badge.svg)][sponsors]
 
 > Apprendre par l'exemple • Devenez autonome avec JavaScript, l'écosystème npm, le développement frontend, les applications web et en ligne de commande.
 
@@ -140,7 +140,7 @@ $ soffice ./dist/book.fodt
 
 Merci à vous pour avoir contribué à l'ouvrage grâce à vos relectures, corrections et demandes de clarification.
 
-[![](https://opencollective.com/nodebook/contributors.svg?width=890&button=false)](contributors)
+[![](https://opencollective.com/nodebook/contributors.svg?width=890&button=false)][contributors]
 
 <!--
 ## Backers
