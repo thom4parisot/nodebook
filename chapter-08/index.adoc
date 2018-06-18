@@ -624,7 +624,7 @@ L'alternance de texte coloré et monochrome a été créée à partir du
 script suivant :
 
 [source,javascript]
-.ansi.js
+.colors/ansi.js
 ----
 include::{sourceDir}/colors/ansi.js[]
 ----
@@ -664,7 +664,7 @@ Nous pouvons être quasiment certain·e que les 8 couleurs principales et les
 image::images/cli-colors-all.png[width="60%"]
 
 [source,javascript]
-.all.js
+.colors/all.js
 ----
 include::{sourceDir}/colors/all.js[]
 ----
@@ -691,7 +691,7 @@ mais aussi dans la _palette RGB_ (_Red Green Blue_, _Rouge Vert Bleu_ en frança
 Ces commandes débutent par `[38;5` et `[38;2]`, respectivement :
 
 [source,javascript]
-.palette.js
+.colors/palette.js
 ----
 include::{sourceDir}/colors/palette.js[]
 ----
@@ -704,7 +704,7 @@ la compatibilité du nombre de couleurs supportées par le terminal voire même
 en désactivant les couleurs si nécessaire.
 
 [source,javascript]
-.chalk.js
+.colors/chalk.js
 ----
 include::{sourceDir}/colors/chalk.js[]
 ----
@@ -716,16 +716,135 @@ Le module s'utilise aussi comme modèle avec les guillemets obliques,
 ce qui augmente encore plus la clarté d'affichage :
 
 [source,javascript]
-.chalk-literal.js
+.colors/chalk-literal.js
 ----
 include::{sourceDir}/colors/chalk-literal.js[]
 ----
 
-[[questions]]
+[[prompt]]
 === Demander une série d'informations
 
-- https://www.npmjs.com/package/inquirer
-- https://www.npmjs.com/package/promptly
+Les programmes interactifs servent à demander des informations de manière
+guidée à la personne utilisant l'exécutable,
+en plus des <<arguments,arguments et options>>.
+Poser une série de question est une manière d'accompagner une personne
+dans une décision, d'exposer des choix dynamiques et de réduire les erreurs
+dans la création de fichiers, par exemple.
+
+----
+$ node prompt/intro.js
+Quel est ton nom ? Thomas
+Coucou Thomas !
+----
+
+Le module `readline` proposé par Node est peu connu.
+Il sert à transformer les <<../chapter-04/index.adoc#process.std,flux d'entrée et de sortie>>
+(cf. <<../chapter-04/index.adoc#,chapitre 4>>.
+Le système de curseur sait mettre en pause, revenir en arrière et effacer tout
+ou une partie d'une ligne, entre autres.
+Ce module sait aussi poser des questions (!) :
+
+[source,javascript]
+.prompt/intro.js
+----
+include::{sourceDir}/prompt/intro.js[]
+----
+<1> Création de l'interface qui s'intercale entre les flux d'entrée et de sortie — ici, l'entrée et la sortie standard.
+<2> La fonction de callback est invoquée dès que l'utilisateur a saisi sa réponse.
+<3> La méthode `close()` stoppe l'interface et rend la main au script — sans cet appel le script tournerait indéfiniment.
+
+Nous allons utiliser le module npm _inquirer_ ([URL]#https://npmjs.com/inquirer#)
+dans la suite de cette section.
+Il se base sur le module `readline` et *simplifie grandement l'interactivité* :
+questions, listes à choix unique navigables au clavier, boîte à cocher,
+confirmation, validation de réponses et exécution conditionnelle, si telle ou
+telle question contient les valeurs qui nous intéressent, par exemple.
+
+L'exemple précédent peut être réécrit de la sortie :
+
+[source,javascript]
+.prompt/question.js
+----
+include::{sourceDir}/prompt/question.js[]
+----
+<1> La question est créée avec l'identifiant `name` — ça facilite l'utilisation des réponses.
+<2> Les résultats sont retournés dans une <<../chapter-04/index.adoc#promise,promesse>> — c'est plus élégant et pratique à gérer qu'un callback.
+<3> Les valeurs des réponses s'obtiennent grâce à leur identifiant.
+
+Ce n'est pas beaucoup plus compliqué de poser plusieurs questions et de les
+personnaliser avec les réponses des précédentes questions :
+
+----
+$ node prompt/questions.js
+? Quel est ton nom ? Thomas
+? Quel âge as-tu Thomas ? 35
+Thomas, tu as 35 ans.
+----
+
+[source,javascript]
+.prompt/questions.js
+----
+include::{sourceDir}/prompt/questions.js[]
+----
+<1> La valeur de `message` peut être une fonction à qui est passée l'intégralité des réponses aux questions précédentes.
+<2> Comme toute à l'heure, la valeur d'une réponse s'obtient au travers de son identifiant.
+
+Dans cet exemple, rien ne nous empêchait de saisir autre chose qu'un nombre
+dans la question de l'âge.
+C'est gênant mais ça se résoud à l'aide de la propriété de configuration `validate`.
+
+----
+$ node prompt/validate.js
+? Devine le nombre secret (entre 1 et 100): trois
+>> Ce n'est pas un nombre
+? Devine le nombre secret (entre 1 et 100): 10
+>> C'est plus petit.
+? Devine le nombre secret (entre 1 et 100): 5
+Bravo, la réponse est 5 !
+----
+
+Cette fonction est appelée à chaque tentative de réponse à la question.
+La question est inlassablement posée tant que la fonction `validate` retourne
+autre chose que le booléen `true` :
+
+[source,javascript]
+.prompt/validate.js
+----
+include::{sourceDir}/prompt/validate.js[]
+----
+<1> Nous nous assurons que la valeur saisie est assimilée à un nombre.
+<2> Sinon nous retournons un texte utilisé comme message d'erreur.
+<3> Cette condition remplie, le module passera à la question suivante.
+
+Enfin, deux modes de liste sont proposés par le module _inquirer_ : `list`
+et `checkbox`.
+Dans un cas nous naviguons au clavier pour sélectionner une seule réponse.
+Dans le deuxième cas, nous naviguons au clavier et sélectionnons les choix
+à l'aide de la touche espace :
+
+----
+$ node prompt/list.js
+? Tu fais quoi lundi ?
+  Je quitte mon job
+❯ Je pars en vacances
+  J'apprends Node.js
+----
+
+[source,javascript]
+.prompt/list.js
+----
+include::{sourceDir}/prompt/list.js[]
+----
+<1> Le champ `type` sert à expliciter la nature de la question — l'interface utilisateur s'adapte en fonction.
+<2> Le champ `choices` contient la liste des choix proposés à l'écran.
+
+Le potentiel de combinaison de ces éléments entre eux est gigantesque.
+Nous pourrions créer des quizz, des interfaces de recherche ou faciliter
+la création de fichiers de configuration sans avoir à mettre les mains dans le
+cambouis.
+Les différents choix peuvent se créer dynamiquement, à partir de données
+obtenues depuis une ressource distante — ils n'ont pas à être écrits en dur
+dans le code.
 
 [[progress]]
 === Informer de la progression

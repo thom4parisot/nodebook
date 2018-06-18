@@ -315,6 +315,7 @@ Cet outil s'interface optionnellement avec _PostCSS_ et offre un support des _So
 Une autre alternative à _cssmin_ et _csswring_ écrite par l'équipe derrière la méthodologie BEM ([URL]#https://en.bem.info#), moins bien documentée mais plus efficace en terme d'optimisations.
 _csso_ ira jusqu'à réécrire les codes couleurs, les `margin` et `padding` et factorisera les sélecteurs similaires.
 
+
 == Manipulations diverses
 
 Ces librairies adressent des besoins quotidiens en termes de  manipulation de chaînes ou de dates.
@@ -388,6 +389,8 @@ include::{sourceDir}/npm/eventemitter3.js[]
 <3> Affiche `on: ping,ping`.
 <4> N'affiche rien, l'événement étant désormais déconnecté.
 
+
+[[fs]]
 == Système de fichier
 
 Ces librairies adressent des besoins quotidiens de manipulation de fichiers, que ce soit leur création, suppression mais aussi leur sélection ou l'écoute d'événements liés à ces activités.
@@ -448,6 +451,7 @@ La librairie ajoute quelques fonctionnalités de filtre, de persistance d'observ
 [URL]#https://npmjs.com/chokidar#
 
 
+[[databases]]
 == Base de données
 
 Node supporte un vaste ensemble de bases de données grâce aux modules npm.
@@ -515,6 +519,7 @@ Il permet de travailler directement avec des buffers plutôt qu'avec des convers
 include::{sourceDir}/npm/redis.js[]
 ----
 
+[[cli]]
 == Ligne de commande
 
 Nous l'avions déjà entraperçu dans le chapitre 2 mais Node nous révèle un outillage facilitant les interactions dans un environnement _bash_.
@@ -529,6 +534,10 @@ Si seul le _parsing_ vous intéresse, optez pour _minimist_.
 [URL]#https://npmjs.com/yargs#
 
 Référez-vous à la section _Approche modulaire_ de ce même chapitre pour un exemple plus détaillé de cette librairie.
+
+=== yargs-parser
+
+https://npmjs.com/yargs-parser
 
 === chalk
 
@@ -570,6 +579,9 @@ _inquirer_ est le composant qu'il vous faut pour gérer l'interactivité avec un
 
 [URL]#https://npmjs.com/inquirer#
 
+- https://www.npmjs.com/package/inquirer
+- https://www.npmjs.com/package/promptly
+
 [source,javascript]
 .npm/inquirer.js
 ----
@@ -579,6 +591,9 @@ include::{sourceDir}/npm/inquirer.js[]
 Le programme précédent tente de charger le module Node saisi par l'utilisateur et rejette la réponse s'il n'existe pas.
 
 La saisie est préalablement nettoyée pour éviter que le chargement d'un module local puisse aboutir.
+
+
+https://www.npmjs.com/package/supports-color
 
 == HTTP et API
 

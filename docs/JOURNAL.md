@@ -11,6 +11,7 @@ a été écrit, relu et testé avec un public apprenant.
 ## Lundi 18 juin 2018 • Sète
 
 - _Chapitre 8_ : Améliorer la lisibilité grâce aux couleurs
+- _Chapitre 8_ : Demander une série d'informations
 
 **Météo** : 🙂
 
