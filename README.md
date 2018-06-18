@@ -28,10 +28,10 @@ Les sections marquées par ✅ sont **terminées**.
 
 ## Avec un navigateur web
 
-L’épreuve est consultable gratuitement dans un navigateur Web à cette adresse : [https://oncletom.io/node.js/][livre-web] 🌐.
+🌐 L’épreuve est consultable gratuitement à cette adresse : [https://oncletom.io/node.js/][livre-web].<br>
+🙏 [Aide à financer son écriture si l'ouvrage t'a aidé](https://opencollective.com/nodebook#backer).
 
 De nombreux **exemples sont interactifs** sans avoir à installer le moindre logiciel sur son ordinateur.
-
 **Fonctionnalités** : exemples interactifs, vidéos, renvois.
 
 ## Au format papier / e-book
@@ -40,7 +40,7 @@ De nombreux **exemples sont interactifs** sans avoir à installer le moindre log
 
 ## Avec Node.js et npm
 
-Le livre est disponible en tant que **module npm** : [`nodebook`][livre-npm].
+📦 Le livre est disponible en tant que **module npm** : [`nodebook`][livre-npm].
 C'est le moyen recommandé pour **exécuter les exemples sur son ordinateur**.
 
 ```bash
@@ -135,6 +135,37 @@ $ npm run build:odt
 $ soffice ./dist/book.fodt
 ```
 
+
+## Contributrices et Contributeurs
+
+Merci à vous pour avoir contribué à l'ouvrage grâce à vos relectures, corrections et demandes de clarification.
+
+<a href="graphs/contributors"><img src="https://opencollective.com/nodebook/contributors.svg?width=890&button=false" /></a>
+
+<!--
+## Backers
+
+Thank you to all our backers! 🙏 [[Become a backer](https://opencollective.com/nodebook#backer)]
+
+<a href="https://opencollective.com/nodebook#backers" target="_blank"><img src="https://opencollective.com/nodebook/backers.svg?width=890"></a>
+
+
+## Sponsors
+
+Support this project by becoming a sponsor. Your logo will show up here with a link to your website. [[Become a sponsor](https://opencollective.com/nodebook#sponsor)]
+
+<a href="https://opencollective.com/nodebook/sponsor/0/website" target="_blank"><img src="https://opencollective.com/nodebook/sponsor/0/avatar.svg"></a>
+<a href="https://opencollective.com/nodebook/sponsor/1/website" target="_blank"><img src="https://opencollective.com/nodebook/sponsor/1/avatar.svg"></a>
+<a href="https://opencollective.com/nodebook/sponsor/2/website" target="_blank"><img src="https://opencollective.com/nodebook/sponsor/2/avatar.svg"></a>
+<a href="https://opencollective.com/nodebook/sponsor/3/website" target="_blank"><img src="https://opencollective.com/nodebook/sponsor/3/avatar.svg"></a>
+<a href="https://opencollective.com/nodebook/sponsor/4/website" target="_blank"><img src="https://opencollective.com/nodebook/sponsor/4/avatar.svg"></a>
+<a href="https://opencollective.com/nodebook/sponsor/5/website" target="_blank"><img src="https://opencollective.com/nodebook/sponsor/5/avatar.svg"></a>
+<a href="https://opencollective.com/nodebook/sponsor/6/website" target="_blank"><img src="https://opencollective.com/nodebook/sponsor/6/avatar.svg"></a>
+<a href="https://opencollective.com/nodebook/sponsor/7/website" target="_blank"><img src="https://opencollective.com/nodebook/sponsor/7/avatar.svg"></a>
+<a href="https://opencollective.com/nodebook/sponsor/8/website" target="_blank"><img src="https://opencollective.com/nodebook/sponsor/8/avatar.svg"></a>
+<a href="https://opencollective.com/nodebook/sponsor/9/website" target="_blank"><img src="https://opencollective.com/nodebook/sponsor/9/avatar.svg"></a>
+-->
+
 # Mentions légales
 
 _Node.js • Apprendre par la pratique_ est un ouvrage rédigé par [Thomas Parisot](https://oncletom.io). Il est édité et publié en format papier et e-book par [Eyrolles](http://www.eyrolles.fr).
@@ -174,32 +205,4 @@ Les exemples de code sont placés sous la [licence MIT][].
 [a01]: appendix-a/index.adoc
 [appendix-issues]: https://github.com/oncletom/nodebook/labels/:book:%20chapitre:annexes
 [a02]: appendix-b/index.adoc
-
-## Contributors
-
-This project exists thanks to all the people who contribute. 
-<a href="graphs/contributors"><img src="https://opencollective.com/nodebook/contributors.svg?width=890&button=false" /></a>
-
-
-## Backers
-
-Thank you to all our backers! 🙏 [[Become a backer](https://opencollective.com/nodebook#backer)]
-
-<a href="https://opencollective.com/nodebook#backers" target="_blank"><img src="https://opencollective.com/nodebook/backers.svg?width=890"></a>
-
-
-## Sponsors
-
-Support this project by becoming a sponsor. Your logo will show up here with a link to your website. [[Become a sponsor](https://opencollective.com/nodebook#sponsor)]
-
-<a href="https://opencollective.com/nodebook/sponsor/0/website" target="_blank"><img src="https://opencollective.com/nodebook/sponsor/0/avatar.svg"></a>
-<a href="https://opencollective.com/nodebook/sponsor/1/website" target="_blank"><img src="https://opencollective.com/nodebook/sponsor/1/avatar.svg"></a>
-<a href="https://opencollective.com/nodebook/sponsor/2/website" target="_blank"><img src="https://opencollective.com/nodebook/sponsor/2/avatar.svg"></a>
-<a href="https://opencollective.com/nodebook/sponsor/3/website" target="_blank"><img src="https://opencollective.com/nodebook/sponsor/3/avatar.svg"></a>
-<a href="https://opencollective.com/nodebook/sponsor/4/website" target="_blank"><img src="https://opencollective.com/nodebook/sponsor/4/avatar.svg"></a>
-<a href="https://opencollective.com/nodebook/sponsor/5/website" target="_blank"><img src="https://opencollective.com/nodebook/sponsor/5/avatar.svg"></a>
-<a href="https://opencollective.com/nodebook/sponsor/6/website" target="_blank"><img src="https://opencollective.com/nodebook/sponsor/6/avatar.svg"></a>
-<a href="https://opencollective.com/nodebook/sponsor/7/website" target="_blank"><img src="https://opencollective.com/nodebook/sponsor/7/avatar.svg"></a>
-<a href="https://opencollective.com/nodebook/sponsor/8/website" target="_blank"><img src="https://opencollective.com/nodebook/sponsor/8/avatar.svg"></a>
-<a href="https://opencollective.com/nodebook/sponsor/9/website" target="_blank"><img src="https://opencollective.com/nodebook/sponsor/9/avatar.svg"></a>
 
