@@ -8,12 +8,18 @@ a été écrit, relu et testé avec un public apprenant.
 
 ---
 
+## Lundi 18 juin 2018 • Sète
+
+- _Chapitre 8_ : Améliorer la lisibilité grâce aux couleurs
+
+**Météo** : 🙂
+
 ## Dimanche 17 juin 2018 • Sète
 
 - _Chapitre 8_ : Utiliser des options et arguments
 - _Chapitre 8_ : Utiliser des options et arguments — sous-commandes
 
-**Météo** : 🙂 🍞
+**Météo** : 🙂
 
 ## Jeudi 14 juin 2018 • Sète
 

@@ -593,20 +593,20 @@ les options et arguments du script.
 ----
 include::{sourceDir}/options/random.js[lines="3..-1"]
 ----
-<1> L'action est le premier argument ; nous mettons les autres arguments dans un même tableau, `actionArgs`.
+<1> L'action est le premier argument ; le reste est accumulé dans le tableau `actionArgs`.
 <2> Fonction qui retourne un nombre aléatoire.
 <3> Fonction qui retourne un nombre défini de mots — 5 par défaut.
-<4> Nous passons la suite des arguments à la fonction pour personnaliser l'affichage en fonction de la saisie utilisateur.
+<4> Chaque argument qui suit la sous-commande correspondra ainsi à un argument de la fonction `words`.
 
-L'<<../chapter-05/index.adoc#,exécutable `npm`>> repose sur des sous-commande
+L'<<../chapter-05/index.adoc#,exécutable `npm`>> est un exemple d'application
+exécutable qui repose sur des sous-commandes
 pour déterminer quelle action exécuter — installer un module, lancer
 une recherche ou encore initialiser un projet, entre autres.
 
-Les arguments et les options suffisent dans des cas simples et maîtrisés.
-Dans des applications plus complètes et plus complexes, la *validation*
-des paramètres requiert plus de travail.
-Je pense à une gestion plus fine des sous-commandes ainsi qu'à la
-*génération automatique de la documentation*.
+Des applications en ligne de commande plus complexes soulèvent de nouveaux
+besoins pour éviter les effets de bord et pour faciliter la modularité de
+notre code : la *validation* des paramètres, une gestion plus fine des
+sous-commandes ainsi que la *génération automatique de la documentation*.
 
 Si ces choses vous intéressent, je vous invite à vous rendre à la section
 <<application,utilisation d'une framework>>.
@@ -614,11 +614,112 @@ Si ces choses vous intéressent, je vous invite à vous rendre à la section
 [[colours]]
 === Améliorer la lisibilité grâce aux couleurs
 
-- chalk
-- un autre module plus fonctionnel
-- ANSI (sous Windows c'est différent je crois)
+Les couleurs vont nous aider à faire ressortir, différencier et distinguer
+des éléments au sein d'une interface monochrome.
 
-https://www.npmjs.com/package/supports-color
+.Exemple d'utilisation de couleurs dans un terminal.
+image::images/cli-colors.png[width="60%"]
+
+L'alternance de texte coloré et monochrome a été créée à partir du
+script suivant :
+
+[source,javascript]
+.ansi.js
+----
+include::{sourceDir}/colors/ansi.js[]
+----
+
+Des combinaisons de caractères ont l'air de produire cet effet.
+Mais comment ?
+
+Par défaut, tout caractère envoyé vers la console est affiché.
+Un mécanisme de *commandes* s'active en envoyant un caractère invisible
+suivi d'une série de symbôles.
+Ces commandes changent la couleur du texte, sa couleur de fond, l'emphase,
+le soulignement et même la position du curseur.
+
+[NOTE]
+.[RemarquePreTitre]#ANSI# Structure d'une commande d'échappement
+====
+Le caractère d'_échappement_ est un caractère invisible, ici représenté
+en hexadécimal par `\x1B`.
+Il existe sur nos claviers d'ordinateur : c'est la fameuse touche
+kbd:[ECHAP] ou kbd:[ESC] ! +
+Une commande suit le caractère `[` jusqu'au caractère `m`.
+Les commandes composées utilisent le caractère `;` comme séparateur.
+
+Pour résumer, une commande a la forme `<ECHAP>[<commande>m` ou
+`<ECHAP>[<commande;commande;...>m`.
+====
+
+Pour en savoir plus à propos de cette syntaxe, je vous recommande la lecture de
+la page Wikipédia [URL]#https://en.wikipedia.org/wiki/ANSI_escape_code# (en anglais).
+C'est comme ça que j'ai tout appris.
+
+Nous pouvons être quasiment certain·e que les 8 couleurs principales et les
+8 couleurs vives s'affichent dans à peu près tous les terminaux.
+Ça vaut aussi pour leur utilisation en couleur de fond.
+
+.Affichage des 8 couleurs principales et des 8 couleurs vives.
+image::images/cli-colors-all.png[width="60%"]
+
+[source,javascript]
+.all.js
+----
+include::{sourceDir}/colors/all.js[]
+----
+<1> Couleur d'affichage du texte.
+<2> Couleur de fond du texte tandis que la couleur de texte est en noir (`30`).
+<3> Remise à zéro de tous les styles.
+
+[NOTE]
+.[RemarquePreTitre]#Compatibilité# Combien de couleurs dans mon terminal ?
+====
+Les terminaux supportent un nombre limité de couleurs, au moins 8, en majorité 256
+et parfois plusieurs millions selon le logiciel utilisé.
+Le programme Linux et macOS `tput` sert à obtenir des informations à propos
+du terminal, dont le nombre de couleurs supportées :
+
+----
+$ tput colors
+256
+----
+====
+
+Un autre type de commande sélectionne les couleurs dans une palette de 256 couleurs
+mais aussi dans la _palette RGB_ (_Red Green Blue_, _Rouge Vert Bleu_ en français).
+Ces commandes débutent par `[38;5` et `[38;2]`, respectivement :
+
+[source,javascript]
+.palette.js
+----
+include::{sourceDir}/colors/palette.js[]
+----
+<1> Utilisation de la palette de couleurs 8 bits (256 couleurs) - `213` est un rose clair.
+<2> Utilisation de la palette de couleurs RGB (millions de couleurs) — `255,69,0` correspond au orange.
+
+Le module npm _chalk_ ([URL]#https://npmjs.com/chalk#) facilite l'utilisation
+des codes ANSI en leur donnant des libellés mémorisables, en gérant
+la compatibilité du nombre de couleurs supportées par le terminal voire même
+en désactivant les couleurs si nécessaire.
+
+[source,javascript]
+.chalk.js
+----
+include::{sourceDir}/colors/chalk.js[]
+----
+<1> Utilisation de la couleur vive magenta.
+<2> Utilisation de la couleur verte et de l'italique.
+<3> Utilisateur de la couleur de fond rouge.
+
+Le module s'utilise aussi comme modèle avec les guillemets obliques,
+ce qui augmente encore plus la clarté d'affichage :
+
+[source,javascript]
+.chalk-literal.js
+----
+include::{sourceDir}/colors/chalk-literal.js[]
+----
 
 [[questions]]
 === Demander une série d'informations
