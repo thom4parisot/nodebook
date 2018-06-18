@@ -1,4 +1,4 @@
-# Node.js [![Build Linux][ci-linux]](https://travis-ci.org/oncletom/nodebook) [![Build Windows][ci-windows]](https://ci.appveyor.com/project/oncletom/nodebook)
+# Node.js [![Build Linux][ci-linux]](https://travis-ci.org/oncletom/nodebook) [![Build Windows][ci-windows]](https://ci.appveyor.com/project/oncletom/nodebook) [![Backers on Open Collective](https://opencollective.com/nodebook/backers/badge.svg)](#backers) [![Sponsors on Open Collective](https://opencollective.com/nodebook/sponsors/badge.svg)](#sponsors)
 
 > Apprendre par l'exemple • Devenez autonome avec JavaScript, l'écosystème npm, le développement frontend, les applications web et en ligne de commande.
 
@@ -174,3 +174,32 @@ Les exemples de code sont placés sous la [licence MIT][].
 [a01]: appendix-a/index.adoc
 [appendix-issues]: https://github.com/oncletom/nodebook/labels/:book:%20chapitre:annexes
 [a02]: appendix-b/index.adoc
+
+## Contributors
+
+This project exists thanks to all the people who contribute. 
+<a href="graphs/contributors"><img src="https://opencollective.com/nodebook/contributors.svg?width=890&button=false" /></a>
+
+
+## Backers
+
+Thank you to all our backers! 🙏 [[Become a backer](https://opencollective.com/nodebook#backer)]
+
+<a href="https://opencollective.com/nodebook#backers" target="_blank"><img src="https://opencollective.com/nodebook/backers.svg?width=890"></a>
+
+
+## Sponsors
+
+Support this project by becoming a sponsor. Your logo will show up here with a link to your website. [[Become a sponsor](https://opencollective.com/nodebook#sponsor)]
+
+<a href="https://opencollective.com/nodebook/sponsor/0/website" target="_blank"><img src="https://opencollective.com/nodebook/sponsor/0/avatar.svg"></a>
+<a href="https://opencollective.com/nodebook/sponsor/1/website" target="_blank"><img src="https://opencollective.com/nodebook/sponsor/1/avatar.svg"></a>
+<a href="https://opencollective.com/nodebook/sponsor/2/website" target="_blank"><img src="https://opencollective.com/nodebook/sponsor/2/avatar.svg"></a>
+<a href="https://opencollective.com/nodebook/sponsor/3/website" target="_blank"><img src="https://opencollective.com/nodebook/sponsor/3/avatar.svg"></a>
+<a href="https://opencollective.com/nodebook/sponsor/4/website" target="_blank"><img src="https://opencollective.com/nodebook/sponsor/4/avatar.svg"></a>
+<a href="https://opencollective.com/nodebook/sponsor/5/website" target="_blank"><img src="https://opencollective.com/nodebook/sponsor/5/avatar.svg"></a>
+<a href="https://opencollective.com/nodebook/sponsor/6/website" target="_blank"><img src="https://opencollective.com/nodebook/sponsor/6/avatar.svg"></a>
+<a href="https://opencollective.com/nodebook/sponsor/7/website" target="_blank"><img src="https://opencollective.com/nodebook/sponsor/7/avatar.svg"></a>
+<a href="https://opencollective.com/nodebook/sponsor/8/website" target="_blank"><img src="https://opencollective.com/nodebook/sponsor/8/avatar.svg"></a>
+<a href="https://opencollective.com/nodebook/sponsor/9/website" target="_blank"><img src="https://opencollective.com/nodebook/sponsor/9/avatar.svg"></a>
+
