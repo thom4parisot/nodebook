@@ -895,7 +895,11 @@ Il se trouve que certaines de ces commandes contrôlent la *position du curseur*
 Ainsi, au lieu d'écrire à la suite, nous pouvons revenir en arrière et même
 effacer le contenu d'une ligne.
 
+.Pendant et après la progression d'un script Node.
+image::images/cli-dots.png[]
 
+Il n'y a pas beaucoup de code à changer dans l'exemple précédent pour y
+parvenir :
 
 [source,javascript]
 .progress/dots.js
@@ -922,15 +926,47 @@ Commande;Effet
 des indicateurs d'activité et de ne garder à l'écran que les informations
 reflétant l'état actuel de l'application.
 
-Deux modules npm peuvent nous simplifier la vie si naviguer dans les
-commandes ANSI n'est pas particulièrement amusant.
+Deux modules npm simplifient la vie si les commandes ANSI ne sont pas
+notre tasse de thé.
 _ansi-escapes_ ([URL]#https://npmjs.com/ansi-escapes#) est l'équivalent
-de _chalk_ mais pour les déplacements de curseur.
-L'utilisation de méthodes nommées remplace celle des commandes ANSI.
-Enfin _progress-string_ ([URL]#https://npmjs.com/progress-string#) met
+de _chalk_ mais pour déplacer le curseur.
+L'utilisation de méthodes nommées remplace celle des commandes ANSI. +
+Le module _progress-string_ ([URL]#https://npmjs.com/progress-string#) met
 à disposition une base pour afficher des barres de progression
 avec un minimum d'options.
 
+Terminons cette section avec l'utilisation d'un indicateur d'activité
+et un feedback de réussite ou non de notre action.
+Nous nous aidons du module npm _ora_ ([URL]#https://npmjs.com/ora#).
+Il est rapide à configurer et propose une palette intéressante d'animations.
+
+.Pendant et après la progression avec le module _ora_.
+image::images/cli-spinner.png[]
+
+Nous nous retrouvons à enlever encore quelques lignes par rapport aux
+exemples précédents :
+
+[source,javascript]
+.progress/spinner.js
+----
+include::{sourceDir}/progress/spinner.js[]
+----
+<1> Crée et affiche un indicateur de progression animé.
+<2> Nous indiquons que la tâche est terminée — l'animation est remplacée par une marque de succès.
+
+Nous pouvons aussi tirer parti du fonctionnement du module _ora_ en reproduisant
+l'animation et en personnalisant le symbôle de réussite.
+
+.Pendant et après
+image::images/cli-spinner-custom.png[]
+
+[source,javascript]
+.progress/spinner-custom.js
+----
+include::{sourceDir}/progress/spinner-custom.js[]
+----
+<1> Création d'une série d'éléments d'animation.
+<2> Nous passons d'un index à l'autre à la vitesse exprimée en millisecondes.
 
 [[update]]
 === Inviter à mettre à jour le module
