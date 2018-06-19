@@ -11,6 +11,7 @@ a été écrit, relu et testé avec un public apprenant.
 ## Lundi 18 juin 2018 • Montpellier
 
 - _Chapitre 8_ : Informer de la progression
+- _Chapitre 8_ : Afficher des informations sous forme de tableau
 
 **Météo** : 🙂 🚂
 

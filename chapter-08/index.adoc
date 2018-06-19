@@ -968,15 +968,58 @@ include::{sourceDir}/progress/spinner-custom.js[]
 <1> Création d'une série d'éléments d'animation.
 <2> Nous passons d'un index à l'autre à la vitesse exprimée en millisecondes.
 
+[[tables]]
+=== Afficher des informations sous forme de tableau
+
+L'affichage d'informations sous forme de tableau est idéal pour
+le *confort de lecture de listes*.
+Notre lecture gagne en qualité quand notre vision s'attend
+à retrouver une structure prédictible.
+
+----
+$ node tables/intro.js
+╔═════════════════════════════╤════════════════╗
+║ Titre                       │ ISBN           ║
+╟─────────────────────────────┼────────────────╢
+║ Node.js                     │ 978-2212139938 ║
+╟─────────────────────────────┼────────────────╢
+║ Sass pour les web designers │ 978-2212141474 ║
+╟─────────────────────────────┼────────────────╢
+║ Design Systems              │ 978-3945749586 ║
+╚═════════════════════════════╧════════════════╝
+----
+
+Cet exemple est généré à l'aide du module npm _table_ ([URL]#https://npmjs.com/table#).
+Il s'utilise sans configuration pour démarrer.
+Il a aussi la capacité de tronquer et limiter la largeur des colonnes mais aussi
+de gérer l'alignement des contenus dans les cellules.
+
+[source,javascript]
+.tables/intro.js
+----
+include::{sourceDir}/tables/intro.js[]
+----
+<1> L'entête du tableau se distingue grâce à un style différent — du texte en gras.
+<2> Chaque ligne du tableau est elle-même un tableau, à deux colonnes dans ce cas de figure.
+<3> L'affichage se fait sur un simple appel de fonction — _table_ calcule la largeur des colonnes pour nous.
+
+[TIP]
+.[RemarquePreTitre]#Pratique# Utilisation des couleurs
+====
+La lecture de la section <<colors,améliorer la lisibilité grâce aux couleurs>>
+vous aidera à améliorer la lisibilité de vos tableaux.
+====
+
+À noter que le module _table_ expose aussi une interface en flux, pour ajouter
+des lignes au fur et à mesure — par exemple en cas de lecture continue
+ou sur un <<streaming,fichier volumineux>>.
+
+
 [[update]]
 === Inviter à mettre à jour le module
 
-- update-check
+_update-check_ ([URL]#https://npmjs.com/update-check#)
 
-[[tables]]
-=== Afficher des informations tabulaires
-
-- https://www.npmjs.com/package/table
 
 
 [[tests]]
