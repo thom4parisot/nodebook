@@ -12,6 +12,7 @@ a été écrit, relu et testé avec un public apprenant.
 
 - _Chapitre 8_ : Informer de la progression
 - _Chapitre 8_ : Afficher des informations sous forme de tableau
+- _Chapitre 9_ : Utilisation exclusive de `babel-preset-env`
 
 **Météo** : 🙂 🚂
 

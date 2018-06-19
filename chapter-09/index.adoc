@@ -163,7 +163,7 @@ $ npm run babel -- --no-babelrc examples/babel-es2015.js
 
 La sortie affichée correspond _exactement_ à notre code d'origine.
 C'est parce que sans configuration, _babel_ ne transforme rien. +
-L'ouvrage contient un fichier de configuration `.babelrc`.
+L'ouvrage contient un fichier de configuration `.babelrc.yml`.
 Nous expliquerons son contenu après en avoir observé son impact :
 
 ----
@@ -182,33 +182,28 @@ Il existe de nombreuses règles de transformation.
 Chacune d'entre elles cible une fonctionnalité spécifique d'une version d'_ECMAScript_.
 Les *_presets_ des modules _npm_ faisant office de groupes logiques*.
 
-Les _presets_ suivants nous aideront à convertir chaque édition de spécification _ECMAScript_ vers _ECMASCript 5_.
-Le *dernier _preset_ est le plus simple à utiliser*, car il se base sur les parts de marché des navigateurs web pour déterminer les règles de conversion :
+Le _preset_ `preset-env` [URL]#https://npmjs.com/babel-preset-env# convertit
+notre code dans une version compatible avec la majorité des navigateurs
+supportés sur le marché.
+Si vos besoins sont différents, sa configuration sait cibler des navigateurs
+soit en fonction de leur version, soit en fonction de leurs parts de marché.
 
-* `preset-es2015` ([URL]#https://babeljs.io/docs/plugins/preset-es2015/#) ;
-* `preset-es2016` ([URL]#https://babeljs.io/docs/plugins/preset-es2016/#) ;
-* `preset-es2017` ([URL]#https://babeljs.io/docs/plugins/preset-es2017/#) ;
-* `preset-latest` ([URL]#https://babeljs.io/docs/plugins/preset-latest/#) ;
-* `preset-env` ([URL]#https://npmjs.com/babel-preset-env#).
+La configuration des _presets_ et d'autres aspects de Babel se font
+dans un fichier nommé `.babelrc.yml`.
+L'exemple suivant configure Babel pour préserver les commentaires,
+transformer la syntaxe JSX pour <<react,React>> et transformer pour les
+dernières versions des navigateurs web sur le marché :
 
-Ils sont à placer dans un fichier de configuration nommé `.babelrc`.
-L'exemple suivant illustre la _combinaison_ de deux _presets_ pour convertir la syntaxe _ECMAScript 2015_ et _ECMAScript 2016_ vers _ECMAScript 5_ :
-
-.{empty}.babelrc
+.{empty}.babelrc.yml
 ----
-{
-  "presets": [
-    "es2015",
-    "es2016"
-  ]
-}
+include::{sourceDir}/.babelrc.yml[]
 ----
 
 [TIP]
 .[RemarquePreTitre]#Lien# Documentation de _babel_
 ====
 Toutes les options de configuration sont documentées sur le site officiel de _babel_.
-Une autre page explique où placer et quoi mettre dans les fichiers `.babelrc`.
+Une autre page explique où placer et quoi mettre dans les fichiers `.babelrc.yml`.
 
 - [URL]#https://babeljs.io/docs/usage/api/#options#
 - [URL]#https://babeljs.io/docs/usage/babelrc/#
@@ -294,20 +289,9 @@ Le module _npm_ `core-js` est une librairie exhaustive de _polyfills_ pouvant ê
 [TIP]
 .[RemarquePreTitre]#Documentation# `core-js`
 ====
-La documentation en ligne de `core-js` liste l'ensemble des _polyfills_ supportés par ainsi que des exemples d'utilisation.
-
-- [URL]#https://npmjs.com/core-js#
+La documentation en ligne de `core-js` ([URL]#https://npmjs.com/core-js#) liste
+l'ensemble des _polyfills_ supportés par ainsi que des exemples d'utilisation.
 ====
-
-_babel_ et son _preset_ `babel-preset-env` nous facilitent l'inclusion de _polyfills_ selon la compatibilité navigateurs que l'on souhaite maintenir au sein de notre application. Le fichier `.babelrc` suivant configure l'inclusion des _polyfills_ à l'aide des clés `useBuiltIns` et `targets` :
-
-[source,javascript]
-.{empty}.babelrc
-----
-include::{sourceDir}/.babelrc[]
-----
-
-Cette configuration illustre un souhait de compatibilité avec _Internet Explorer 9_ et les navigateurs web disposant d'une part de marché supérieure à 5%.
 
 [CAUTION]
 .[RemarquePreTitre]#Attention# Performance et duplication
