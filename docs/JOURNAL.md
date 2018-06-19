@@ -8,6 +8,12 @@ a été écrit, relu et testé avec un public apprenant.
 
 ---
 
+## Lundi 18 juin 2018 • Montpellier
+
+- _Chapitre 8_ : Informer de la progression
+
+**Météo** : 🙂 🚂
+
 ## Lundi 18 juin 2018 • Sète
 
 - _Chapitre 8_ : Améliorer la lisibilité grâce aux couleurs

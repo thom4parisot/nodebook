@@ -838,20 +838,99 @@ include::{sourceDir}/prompt/list.js[]
 <1> Le champ `type` sert à expliciter la nature de la question — l'interface utilisateur s'adapte en fonction.
 <2> Le champ `choices` contient la liste des choix proposés à l'écran.
 
-Le potentiel de combinaison de ces éléments entre eux est gigantesque.
+Le potentiel de combinaison de ces éléments est vraiment intéressant.
 Nous pourrions créer des quizz, des interfaces de recherche ou faciliter
 la création de fichiers de configuration sans avoir à mettre les mains dans le
 cambouis.
-Les différents choix peuvent se créer dynamiquement, à partir de données
-obtenues depuis une ressource distante — ils n'ont pas à être écrits en dur
-dans le code.
+Les choix mis à dispositon dans l'interface se créent aussi dynamiquement,
+à partir de données obtenues depuis une ressource distante —
+ils n'ont nécessairement à être écrits en dur dans le code.
 
 [[progress]]
 === Informer de la progression
 
-- https://www.npmjs.com/ansi-escapes
-- https://www.npmjs.com/package/ora
-- https://www.npmjs.com/package/progress-string
+Je trouve que *transmettre un feedback est un élément différenciant* dans la
+conception d'une application — qu'elle soit utilisée sur le web ou dans un
+terminal.
+Informer de la progression est un des moyens d'y parvenir.
+La progression concerne aussi bien l'indication du *franchissement d'étapes*
+que celle de *pourcentage d'accomplissement* d'une tâche.
+
+----
+$ node progress/intro.js
+(•··) Un-deux-trois
+(••·) Un-deux-trois
+(•••) Un-deux-trois ☀️
+----
+
+Cette approche est une première tentative d'indiquer une progression à travers
+deux mécanismes : le passage du vide au plein en utilisant un caractère qui
+véhicule ce changement et l'utilisation d'un signal visuel pour informer de
+l'accomplissement de la tâche.
+
+[source,javascript]
+.progress/intro.js
+----
+include::{sourceDir}/progress/intro.js[]
+----
+<1> Cette fonction affiche la progression toutes les secondes.
+<2> La méthode `padEnd` (cf. <<../chapter-03/index.adoc#,chapitre 3>>) complète la barre de progression jusqu'à atteindre le nombre souhaité de points.
+<3> Le message de progression est paramétré pour afficher les éléments nécessaires — l'émoji "soleil" s'affiche quand le compteur atteint `3`.
+
+[TIP]
+.[RemarquePreTitre]#Performance# La vitesse est toute relative
+====
+Une action qui est instantanée sur notre ordinateur peut durer
+plusieurs secondes sur un autre, du fait de ressources moindres ou d'un accès
+réseau moins favorable par exemple.
+====
+
+La seule chose qu'il manque à mon goût est d'avoir un réel sens de progression.
+C'est à dire en remplaçant le contenu qui informe de l'avancement avec un
+affichage actualisé qui reflète le nouvel état.
+
+Nous avons parlé des commandes ANSI pour <<colors,changer les couleurs>>
+quelques sections en amont.
+Il se trouve que certaines de ces commandes contrôlent la *position du curseur*.
+Ainsi, au lieu d'écrire à la suite, nous pouvons revenir en arrière et même
+effacer le contenu d'une ligne.
+
+
+
+[source,javascript]
+.progress/dots.js
+----
+include::{sourceDir}/progress/dots.js[]
+----
+<1> La séquence d'échappement `\x1B` suivie de la commande `1F` déplace le curseur d'une ligne vers le haut.
+<2> Cette séquence est ajoutée en début de ligne remonter d'une ligne avant d'écrire la suite des caractères.
+
+[format="csv", separator=";", options="header", cols="1,3"]
+.Liste de commandes ANSI pour déplacer le curseur.
+|===
+Commande;Effet
+`<n>E`; Descend le curseur de `<n>` lignes.
+`<n>F`; Remonte le curseur de `<n>` lignes.
+`<n>K`; Efface le contenu de la ligne, jusqu'à la fin si `<n>` vaut `0`, jusqu'au début si `<n>` vaut `1`, entièrement si `<n>` vaut `2`.
+`<n>A`; Déplace le curseur de `<n>` cases vers le haut.
+`<n>B`; Déplace le curseur de `<n>` cases vers le bas.
+`<n>C`; Déplace le curseur de `<n>` cases vers le droite.
+`<n>D`; Déplace le curseur de `<n>` cases vers le gauche.
+|===
+
+À partir de là, nous sommes libres d'écrire nos propres barres de progression,
+des indicateurs d'activité et de ne garder à l'écran que les informations
+reflétant l'état actuel de l'application.
+
+Deux modules npm peuvent nous simplifier la vie si naviguer dans les
+commandes ANSI n'est pas particulièrement amusant.
+_ansi-escapes_ ([URL]#https://npmjs.com/ansi-escapes#) est l'équivalent
+de _chalk_ mais pour les déplacements de curseur.
+L'utilisation de méthodes nommées remplace celle des commandes ANSI.
+Enfin _progress-string_ ([URL]#https://npmjs.com/progress-string#) met
+à disposition une base pour afficher des barres de progression
+avec un minimum d'options.
+
 
 [[update]]
 === Inviter à mettre à jour le module
