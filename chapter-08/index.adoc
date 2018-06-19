@@ -977,7 +977,7 @@ Notre lecture gagne en qualité quand notre vision s'attend
 à retrouver une structure prédictible.
 
 ----
-$ node tables/intro.js
+$ node table.js
 ╔═════════════════════════════╤════════════════╗
 ║ Titre                       │ ISBN           ║
 ╟─────────────────────────────┼────────────────╢
@@ -995,9 +995,9 @@ Il a aussi la capacité de tronquer et limiter la largeur des colonnes mais auss
 de gérer l'alignement des contenus dans les cellules.
 
 [source,javascript]
-.tables/intro.js
+.table.js
 ----
-include::{sourceDir}/tables/intro.js[]
+include::{sourceDir}/table.js[]
 ----
 <1> L'entête du tableau se distingue grâce à un style différent — du texte en gras.
 <2> Chaque ligne du tableau est elle-même un tableau, à deux colonnes dans ce cas de figure.
@@ -1018,8 +1018,60 @@ ou sur un <<streaming,fichier volumineux>>.
 [[update]]
 === Inviter à mettre à jour le module
 
-_update-check_ ([URL]#https://npmjs.com/update-check#)
+L'inconvénient de l'<<../chapter-05/index.adoc#install.global,installation d'un module exécutable>>,
+c'est la difficulté de savoir si une mise à jour intéressante a été publiée.
+Probablement parce que je ne pense pas à lancer la commande `npm outdated --global`.
+Il existe toutefois des moyens de signaler aux personnes qui utilisent votre
+exécutable qu'une version plus récente existe.
 
+J'aime l'approche minimaliste du module npm _update-check_
+([URL]#https://npmjs.com/update-check#).
+Il compare le numéro de version passé en paramètre avec celui de la dernière
+version de ce même module, sur le registre npm.
+
+----
+$ node update/intro.js
+{ latest: '0.10.0', fromCache: false }
+----
+
+Dans cet exemple, le module _update-check_ requête le registre npm
+pour déterminer la version la plus récente du module npm _nodebook_.
+Si le module _update-check_ estime que la version installée localement est plus
+ancienne, il retourne un objet avec le numéro de version à installer.
+
+[source,javascript]
+.update/intro.js
+----
+include::{sourceDir}/update/intro.js[]
+----
+<1> Les champs `name` et `version` suffisent à accomplir la comparaison.
+<2> Démarrage de la comparaison.
+<3> Un objet est retourné en cas de version plus récente ou sinon, la valeur `null`.
+
+En temps normal, c'est à dire dans le cas d'un module dont nous sommes à l'origine
+et que nous publions sur le registre npm, nous aurions tendance
+à utiliser le contenu du fichier `package.json` en argument de la fonction `check`.
+
+Maintenant que nous savons ça, nous pouvons présenter une information
+plus digeste et actionnable à la personne qui utilise notre module :
+
+----
+$ node update/cli.js
+nodebook@0.10.0 est dispo
+Tape 'npm install -g nodebook'
+----
+
+[source,javascript]
+.update/cli.js
+----
+include::{sourceDir}/update/cli.js[]
+----
+<1> Nous vérifions et affichons la mise à jour si nécessaire ; nous gérons aussi une erreur (réseau indisponible, le registre npm est HS, etc.).
+<2> À nous ensuite de gérer le code de notre exécutable — _parsing_ des arguments, gestion des actions, etc..
+
+Les personnes qui utilisent nos modules sont notifiées de leurs mises à jour
+dès qu'elles les utilisent.
+La décision d'effectuer la mise à jour leur appartient toutefois.
 
 
 [[tests]]
