@@ -45,7 +45,7 @@ processor.Extensions.register(MDNExtension);
 processor.Extensions.register(hashScroll);
 
 const builder = (backend, ext, attributes=DEFAULT_ATTRIBUTES) => {
-  const spinner = ora();
+  const spinner = ora({ interval: 30 });
 
   return (SOURCE_FILE) => {
     const destinationFile = SOURCE_FILE.replace('.adoc', ext);
