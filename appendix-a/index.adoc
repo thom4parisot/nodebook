@@ -413,6 +413,10 @@ Encore une fois, sans la complexité d'avoir à gérer un enchevêtrement de fon
 
 [URL]#https://npmjs.com/rimraf#
 
+=== sanitize-filename
+
+https://www.npmjs.com/package/sanitize-filename
+
 
 === glob
 
@@ -522,78 +526,11 @@ include::{sourceDir}/npm/redis.js[]
 [[cli]]
 == Ligne de commande
 
-Nous l'avions déjà entraperçu dans le chapitre 2 mais Node nous révèle un outillage facilitant les interactions dans un environnement _bash_.
-
-=== yargs
-
-_yargs_ est une librairie de _parsing_ et de validation d'arguments.
-Elle vous aidera à gérer les valeurs par défaut, à rejeter toute option inconnue ou encore à accumuler les valeurs d'options identiques.
-
-Si seul le _parsing_ vous intéresse, optez pour _minimist_.
-
-[URL]#https://npmjs.com/yargs#
-
-Référez-vous à la section _Approche modulaire_ de ce même chapitre pour un exemple plus détaillé de cette librairie.
-
-=== yargs-parser
-
-https://npmjs.com/yargs-parser
-
-=== chalk
-
-_chalk_ est un simple outil de colorisation et de mise en forme de texte dans un terminal.
-Oubliez les code ANSI, _chalk_ ne vous demandera que deux appels de fonction pour afficher un texte en bleu, italique et souligné !
-
-[URL]#https://npmjs.com/chalk#
-
-[source,javascript]
-.npm/chalk.js
-----
-include::{sourceDir}/npm/chalk.js[]
-----
-
-Ce script produira l'affichage suivant :
-
-image::images/npm-chalk.png[width="85%"]
-
-=== table
-
-_table_ est un utilitaire qui transforme un tableau d'objets ECMAScript
-en un tableau visuel ASCII.
-dans le terminal.
-
-Des options vous permettent de gérer la largeur des colonnes, les alignements
-de texte et les troncatures, entre autres.
-
-[URL]#https://npmjs.com/table#
-
-[source,javascript]
-.npm/table.js
-----
-include::{sourceDir}/npm/table.js[]
-----
-
-=== inquirer
-
-_inquirer_ est le composant qu'il vous faut pour gérer l'interactivité avec un utilisateur dans le terminal : questions à choix multiple, validation de saisie, texte libre multiple etc.
-
-[URL]#https://npmjs.com/inquirer#
-
-- https://www.npmjs.com/package/inquirer
+- https://npmjs.com/yargs-parser
+- https://www.npmjs.com/package/args
+- https://www.npmjs.com/package/caporal
 - https://www.npmjs.com/package/promptly
-
-[source,javascript]
-.npm/inquirer.js
-----
-include::{sourceDir}/npm/inquirer.js[]
-----
-
-Le programme précédent tente de charger le module Node saisi par l'utilisateur et rejette la réponse s'il n'existe pas.
-
-La saisie est préalablement nettoyée pour éviter que le chargement d'un module local puisse aboutir.
-
-
-https://www.npmjs.com/package/supports-color
+- https://www.npmjs.com/package/supports-color
 
 == HTTP et API
 
