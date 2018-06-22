@@ -1,6 +1,12 @@
 {
   "name": "nodebook.chapter-08",
-  "bin": "examples/bin/time-sh.js",
+  "bin": {
+    "nodebook.chapter-08": "examples/bin/time-sh.js",
+    "nodebook.ch08.omelette": "examples/autocomplete/intro.js",
+    "nodebook.ch08.yargs": "examples/autocomplete/yargs.js",
+    "nodebook.ch08.commands": "examples/application/commands.js",
+    "nodebook.ch08.commands-dir": "examples/application/commands-dir.js"
+  },
   "private": true,
   "version": "1.0.0",
   "description": "Exemples de code du chapitre 8 du livre \"Node.js\" publié aux éditions Eyrolles.",
@@ -19,11 +25,14 @@
     "ansi-escapes": "^3.1.0",
     "chalk": "^2.4.1",
     "faker": "^4.1.0",
+    "get-stdin": "^6.0.0",
     "inquirer": "^6.0.0",
     "minimist": "^1.2.0",
+    "omelette": "^0.4.11",
     "ora": "^2.1.0",
     "supports-color": "^5.4.0",
     "table": "^4.0.3",
+    "tz-ids": "^1.0.0",
     "update-check": "^1.5.2"
   }
 }

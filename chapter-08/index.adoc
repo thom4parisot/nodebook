@@ -235,8 +235,10 @@ Par exemple :
 [source,json]
 .package.json
 ----
-include::package.json[lines="1..3"]
-  ...
+{
+  "name": "nodebook.chapter-08",
+  "bin": "examples/bin/time-sh.js",
+  "...": "..."
 }
 ----
 
@@ -1069,8 +1071,8 @@ include::{sourceDir}/update/cli.js[]
 <1> Nous vérifions et affichons la mise à jour si nécessaire ; nous gérons aussi une erreur (réseau indisponible, le registre npm est HS, etc.).
 <2> À nous ensuite de gérer le code de notre exécutable — _parsing_ des arguments, gestion des actions, etc..
 
-Les personnes qui utilisent nos modules sont notifiées de leurs mises à jour
-dès qu'elles les utilisent.
+Les utilisatrices et utilisateurs sont notifiées de la disponibilité d'une mise
+à jour dès qu'elles utilisent le module exécutable en question.
 La décision d'effectuer la mise à jour leur appartient toutefois.
 
 
@@ -1114,24 +1116,233 @@ plus dur, plus de code à écrire
 [[advanced]]
 == Aller plus loin
 
+Dans les précédentes sections, nous avons vu des composantes essentielles
+pour créer une programme exécutable clair et fonctionnel.
+Cette dernière section va se focaliser sur des concepts qui structurent,
+simplifient et rapprochent un exécutable en ligne de commande d'une application
+web ou d'une application front-end.
+
 [[application]]
 === Utilisation d'un framework d'application en ligne de commande
 
-ça fait beaucoup de choses qu'on a fait bout par bout
-pratique si on a besoin de tout utiliser en même temps
-équivalent des express & co pour le web (cf. chapitre 7)
+Une application en ligne de commande dont le nombre de lignes de code augmente
+devient de *plus en plus complexe à maintenir*.
+Potentiellement, l'expérience d'utilisation se dégrade aussi.
+Il faut continuer à *prendre soin de la cohérence des arguments*, des options et
+de valider que ce sont les valeurs attendues.
+Cette complexité appelle aussi à afficher une aide à la demande ou de manière
+contextuelle, par exemple au niveau de la sous-commande.
 
-- yargs
-- commander
-- un autre truc plus léger
+Des modules npm comme _yargs_ ([URL]#https://npmjs.com/yargs#) aident à
+structurer la création d'applications en ligne de commande en intégrant
+la majorité des fonctionnalités vues dans la section
+<<interactive,du script au programme interactif>>.
+La génération de l'aide, le _parsing_ d'arguments et d'options et leur validation
+sont connectés ensemble, de manière transparente.
 
-[[wildcard]]
-=== Maîtriser le vocabulaire d'expansion de chemins (_wildcard_)
+Ce genre de modules est intéressant à utiliser quand l'assemblage d'autres
+modules indépendant rend le <<interface,programme trop fragile>> et
+<<tests,trop compliqué à tester>>.
+
+----
+$ node application/intro.js --help
+Options:
+  --version  Affiche le numéro de version      [booléen]
+  --utc, -u                                    [booléen]
+  --help     Affiche de l'aide                 [booléen]
+----
+
+La commande d'aide est générée automatiquement à partir de la
+définition d'arguments et d'options.
+
+----
+$ node application/intro.js
+{ _: [],
+  version: false,
+  utc: false,
+  u: false,
+  help: false,
+  '$0': 'application/intro.js' }
+----
+
+[source,javascript]
+.application/intro.js
+----
+include::{sourceDir}/application/intro.js[]
+----
+<1> Création de l'option `--utc` avec l'alias `-u`, de type booléen.
+<2> Les messages générés par l'application seront en français — sans cette option, la langue s'adapte à celle du système d'exploitation.
+<3> Applique les règles précédentes aux éléments contenus dans `process.argv` et retourne un résultat sous forme d'objet.
+
+Le mécanisme de concercition définit la règle de transformation d'une option
+vers une autre représentation, plus pratique à utiliser.
+C'est le cas des dates par exemple : nous les recevons sous forme de chaîne de
+caractères alors qu'il serait plus facile de travailler avec
+<<../chapter-03/index.adoc#date,objet `Date`>>
+(cf. <<../chapter-03/index.adoc#,chapitre 3>>).
+
+----
+$ node application/coerce.js --help
+Options:
+  --help     Affiche de l'aide               [booléen]
+  --version  Affiche le numéro de version    [booléen]
+  --date               [chaine de caractère] [défaut: now]
+----
+
+Par défaut, la date est calée sur l'instant présent :
+
+----
+$ node application/coerce.js
+2018-06-21T08:41:23.091Z
+----
+
+Une date, même incomplète,
+
+----
+$ node application/coerce.js --date 2018-03-24
+2018-03-24T00:00:00.000Z
+----
+
+[source,javascript]
+.application/coerce.js
+----
+include::{sourceDir}/application/coerce.js[]
+----
+<1> La valeur par défaut de l'option `--date` est un objet `Date`.
+<2> Ce réglage personnalise l'affichage de la valeur par défaut dans la zone d'aide — sans ça, la date complète serait affichée, ce qui est peu élégant et moins informatif.
+<3> Cette fonction s'assure que toute valeur passée en option est transformée en objet `Date`.
+
+Autre exemple du mécanisme de coercition, cette fois-ci appliqué
+à un chemin d'accès de fichier :
+
+----
+$ node application/coerce-file.js --json-file ../package.json
+{ name: 'nodebook.chapter-08',
+  version: '1.0.0',
+  ...
+}
+----
+
+Le chemin d'accès passé en option est intercepté par une fonction.
+Elle reçoit le chemin d'accès en argument et a la responsabilité d'en lire
+le contenu et de le transformer en objet ECMAScript grâce à la fonction
+<<../chapter-03.index.adoc#json,`JSON.parse()`>>
+(cf. <<../chapter-03/index.adoc#,chapitre 3>>).
+
+[source,javascript]
+.application/coerce-file.js
+----
+include::{sourceDir}/application/coerce-file.js[]
+----
+<1> Notre fonction `parseJSON` assure la transformation de l'argument `--json-file`.
+<2> C'est bien le contenu du fichier qui s'affiche et non la valeur passée au programme.
+
+[CAUTION]
+.[RemarquePreTitre]#Performance# Lire et écrire des fichiers
+====
+La lecture de fichiers dont la taille dépasse quelques centaines de kilo-octets
+devient problématique sur des machines avec peu de ressources,
+si vous souhaitez obtenir des résultats le plus tôt possible et si
+vous avez d'autres impératifs de performance.
+
+Je vous invite à lire la section <<streaming,utiliser des flux de données>>
+pour en savoir plus.
+====
+
+Cette pratique renforce une approche applicative modulaire.
+L'*interface absorbe* les spécificités de la ligne de commande.
+L'*application réagit aux paramètres* sans avoir à se préoccuper du contexte,
+que ça soit sur le web ou dans un terminal.
+
+Les frameworks d'application en ligne de commande facilitent
+l'organisation et la définition de <<args.subcommand,sous-commandes>>.
+
+----
+$ node application/random.js --help
+random.js [command]
+
+Commandes:
+  random.js words [count]  Des mots
+  random.js number         Un nombre
+
+Options:
+  --help     Affiche de l'aide                [booléen]
+  --version  Affiche le numéro de version     [booléen]
+----
+
+C'est l'occasion d'adapter l'exemple utilisé dans la section
+<<args.subcommand,utiliser des arguments et des options>>.
+L'intention est de modifier le moins possible le code initial.
+
+[source,javascript]
+.application/random.js
+----
+include::{sourceDir}/application/random.js[]
+----
+<1> La commande `words` accepte un argument optionnel `count`.
+<2> Cette fonction est déclenchée quand la commande `words` est exécutée.
+
+Je trouve qu'il est plus facile d'exécuter une fonction avec les bons arguments
+en utilisant ce mécanisme de sous-commandes.
+Nous n'avons même pas eu à modifier la signature des fonctions `words` et `number`.
+
+[NOTE]
+.[RemarquePreTitre]#Syntaxe# Annotation des arguments dans une commande
+====
+Certains frameworks comme _yargs_ interprètent la commande que nous déclarons.
+Lorsque c'est le cas, les arguments sont rangés dans un objet d'arguments nommés.
+Les frameworks gèrent plusieurs cas de figure qui ont chacun leur notation.
+
+[format="csv", options="header", cols="1,1,3"]
+|===
+Syntaxe, Type d'argument, Explication
+`cmd [arg1]`, Optionnel, L'argument `arg1` n'est pas obligatoire.
+`cmd <arg1>`, Obligatoire, L'argument `arg1` est obligatoire.
+`cmd <arg1|arg2>`, Alias, L'argument est obligatoire et accepte deux informations différentes — un identifiant _ou_ un e-email par exemple.
+`cmd [...args]`, Tableau, Les arguments sont regroupés dans le tableau `args`.
+|===
+====
+
+Un résultat identique s'obtient en organisant les sous-commandes dans des fichiers
+individuels et en indiquant à _yargs_ dans quel répertoire les charger.
+
+[source,javascript]
+.application/random-dir.js
+----
+include::{sourceDir}/application/random-dir.js[]
+----
+<1> Déclaration du répertoire dans lequel nous avons rangé les sous-commandes.
+
+Nous ne déclarons plus les commandes sous forme d'un appel de fonction mais
+en retournant un module Node.
+Chacune de ses clés configure un aspect de la commande :
+
+[source,javascript]
+.application/commands/words.js
+----
+include::{sourceDir}/application/commands/words.js[]
+----
+<1> Arguments acceptés par la commande.
+<2> Description de la commande.
+<3> Fonction déclenchée lorsque la commande est exécutée.
+
+
+[[files]]
+=== Stratégies pour gérer les chemins d'accès
+
+glob
+faire attention au cwd : attente c'est par rapport où se trouve l'utilisateur
+cwd + absolu ou cwd + relatif = c'est pour les fichiers donnés par les utilisateurs
+__dirname : c'est pour les fichiers sources (naviguer depuis le script courant)
 
 [[streaming]]
 === Utiliser les flux de données (`stdin`, `stdout` et `stderr`)
 
 utilisation des streams
+
+get-stdin pour attraper des petits trucs
+ReadStream pour lire
+WriteStream pour écrire
 
 [[autocomplete]]
 === Activer l'autocomplétion des commandes
