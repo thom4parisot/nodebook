@@ -2,10 +2,11 @@
   "name": "nodebook.chapter-08",
   "bin": {
     "nodebook.chapter-08": "examples/bin/time-sh.js",
-    "nodebook.ch08.omelette": "examples/autocomplete/intro.js",
+    "nodebook.ch08.autocomplete": "examples/autocomplete/intro.js",
+    "nodebook.ch08.omelette": "examples/autocomplete/omelette.js",
     "nodebook.ch08.yargs": "examples/autocomplete/yargs.js",
-    "nodebook.ch08.commands": "examples/application/commands.js",
-    "nodebook.ch08.commands-dir": "examples/application/commands-dir.js"
+    "nodebook.ch08.commands": "examples/application/random.js",
+    "nodebook.ch08.commands-dir": "examples/application/random-dir.js"
   },
   "private": true,
   "version": "1.0.0",
@@ -26,6 +27,7 @@
     "chalk": "^2.4.1",
     "faker": "^4.1.0",
     "get-stdin": "^6.0.0",
+    "globby": "^7.1.1",
     "inquirer": "^6.0.0",
     "minimist": "^1.2.0",
     "omelette": "^0.4.11",

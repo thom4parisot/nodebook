@@ -39,6 +39,11 @@ Mais ça peut se changer.
 
 node est adapté au modèle de tâche de courte ou longue durée
 modèle plus proche des applications web qu'il n'y parait
+
+programmes qui aident à automatiser des actions
+outillage pour ses applications
+interfaces visuelles (dans un terminal -- potentiel à être partagé sur une appli web)
+modules redistribuables
 ////
 
 Le développement d'un outil en ligne de commande est proche de celui
@@ -352,8 +357,8 @@ le trouve robuste, bien testé et minimaliste.
 .[RemarquePreTitre]#Histoire# Au commencement était `getopt`
 ====
 `getopt` ([URL]#https://linux.die.net/man/3/getopt#) est le programme Linux
-sur lequel se calque une très grande majorité des exécutables en ligne de
-commande.
+qui sert à l'analyse des arguments et des options.
+Les modules npm se calquent sur son modèle de fonctionnement.
 ====
 
 [[args.options]]
@@ -1330,10 +1335,90 @@ include::{sourceDir}/application/commands/words.js[]
 [[files]]
 === Stratégies pour gérer les chemins d'accès
 
-glob
-faire attention au cwd : attente c'est par rapport où se trouve l'utilisateur
-cwd + absolu ou cwd + relatif = c'est pour les fichiers donnés par les utilisateurs
-__dirname : c'est pour les fichiers sources (naviguer depuis le script courant)
+Il y a des cas où passer des chemins d'accès à des fichiers en <<args,arguments>>
+d'un exécutable ne suffit pas.
+C'est le cas notamment quand on ne connaît pas la liste exacte des fichiers ou
+lorsqu'elle est susceptible de changer.
+
+----
+$ node files/intro.js ../package.json \
+  "$(nodebook dir chapter-08 --root)/package-lock.json"
+
+[ '…/chapter-08/package.json',
+  '…/chapter-08/package-lock.json' ]
+----
+
+L'exemple ci-dessus illustre l'utilisation d'un chemin relatif et d'un
+chemin absolu, tous deux normalisés en chemins absolus.
+En faisant ainsi, nous rendons notre code indépendant du contexte de son
+contexte d'exécution — ici, notre emplacement au sein du système de fichiers.
+
+[source,javascript]
+.files/intro.js
+----
+include::{sourceDir}/files/intro.js[]
+----
+<1> La liste des fichiers correspond à tous les arguments du script.
+<2> Chaque chemin d'accès est transformé en chemin absolu.
+<3> La liste homogénéisée est affichée à l'écran.
+
+[NOTE]
+.[RemarquePreTitre]#Repère# Chemin relatif, absolu ou `__dirname` ?
+====
+Les fichiers passés en argument peuvent être un mélange de chemins absolus
+et de chemins relatifs.
+Les chemins se normalisent avec la fonction `path.resolve()`.
+La base à considérer est le _répertoire courant_, là où le programme est exécuté,
+c'est-à-dire la valeur de `process.cwd()`
+(cf. <<../chapter-04/index.adoc#path,chapitre 4>>).
+
+`__dirname` est une base à utiliser lorsqu'un chemin est relatif au code source.
+====
+
+La saisie des chemins se simplifie en utilisant deux mécanismes : l'_expansion_
+et le _globbing_.
+Le module npm _glob_ ([URL]#https://npmjs.com/glob#) fait très bien ce travail
+mais nous allons nous baser sur _globby_ ([URL]#https://npmjs.com/globby#) à la place.
+Il supporte les <<../chapter-03/index.adoc#promise,promesses>> et je le trouve
+plus simple d'utilisation.
+
+----
+$ node files/glob.js '../package-*.json'
+['…/chapter-08/package.json', '…/package-lock.json']
+----
+
+Dans cet exemple, nous partons à la recherche de tous les fichiers préfixés
+par `package-` et terminés par `.json`.
+Cette intention est exprimée par un seul argument qui contient le caractère
+de _globbing_ (`*`).
+
+[source,javascript]
+.files/glob.js
+----
+include::{sourceDir}/files/glob.js[]
+----
+<1> Le module _globby_ accepte un ou plusieurs motifs — ici nous n'en utilisons qu'un.
+<2> Nous transformons les fichiers identifiés en chemins absolus.
+<3> Pour ensuite les afficher dans le terminal.
+
+L'expansion est caractérisée par l'utilisation des accolades (`{` et `}`).
+Les valeurs sont séparées par une virgule, qui signifie _ou_.
+Les deux syntaxes se combinent, ici pour récupérer les fichiers suffixés par
+`.adoc` ou par `.html` :
+
+----
+$ node files/glob.js '../*.{adoc,html}'
+['…/chapter-08/index.adoc']
+----
+
+Enfin, l'utilisation de la double-étoile (`**`) signifie _dans tous les répertoires_.
+Nous récupérons ainsi tous les fichiers `.js` contenu dans ce répertoire
+et les sous-répertoires :
+
+----
+$ node files/glob.js '**/*.js'
+['…/chapter-08/examples/hello.js', …]
+----
 
 [[streaming]]
 === Utiliser les flux de données (`stdin`, `stdout` et `stderr`)

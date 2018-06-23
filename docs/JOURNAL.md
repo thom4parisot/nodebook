@@ -8,6 +8,12 @@ a été écrit, relu et testé avec un public apprenant.
 
 ---
 
+## Samedi 24 juin 2018 • Burret/Foix
+
+- _Chapitre 8_ : Stratégies pour gérer les chemins d'accès
+
+**Météo** : 👍 🙂 ☀️ 🍦
+
 ## Vendredi 23 juin 2018 • Sète/Auterive/Burret
 
 - _Chapitre 8_ : Utilisation d'un framework d'application en ligne de commande
