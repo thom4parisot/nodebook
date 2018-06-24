@@ -1970,19 +1970,33 @@ mdn::reference[Classes/static]
 [[object-getset]]
 === Accesseurs et mutateurs
 
-Ce type particulier de méthode permet de définir des _attributs_
-dont la valeur est _dynamique_ (accesseur).
-Le _mutateur_ gère l'affectation de valeur vers cet _attribut dynamique_.
-Ces méthodes sont préfixées par `get` ou `set`.
+Ce type de méthode définit des _attributs_ dont la lecture ou l'écriture
+sont dynamiques.
+
+L'_accesseur_ est une fonction préfixée par le mot-clé `get` ; elle retourne
+la valeur d'un attribut.
 
 [source%interactive,javascript]
-.class/getters.js
+.getters.js
 ----
-include::{sourceDir}/class/getters.js[]
+include::{sourceDir}/getters.js[]
 ----
 <1> Définition de l'_accesseur_ `isbn`.
 <2> Affiche `"9782212139938"` — c'est une propriété de l'objet `nodebook`.
 <3> Affiche `"2212139938"` — `isbn` s'utilise comme un attribut mais sa valeur est calculée à chaque fois qu'elle est appelée.
+
+Le _mutateur_ est une fonction préfixée par le mot-clé `set` ; elle définit
+la valeur d'un ou plusieurs attributs.
+
+[source%interactive,javascript]
+.setters.js
+----
+include::{sourceDir}/setters.js[]
+----
+<1> Définition du _mutateur_ `ean13` — il accepte un seul argument.
+<2> Affiche `978` — l'attribut a été créé lors de l'appel du mutateur.
+<3> Affiche `2212139938` — idem.
+<4> Affiche `undefined` — il faudrait créer un _accesseur_ `get ean13()` pour recomposer dynamiquement sa valeur.
 
 mdn::reference[Functions/get]
 mdn::reference[Functions/set]

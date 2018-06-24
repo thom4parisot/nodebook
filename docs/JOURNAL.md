@@ -8,11 +8,17 @@ a été écrit, relu et testé avec un public apprenant.
 
 ---
 
+## Dimanche 25 juin 2018 • Burret
+
+- _Chapitre 3_ : Ajout d'un exemple sur les mutateurs
+
+**Météo** : 😴 ☀️
+
 ## Samedi 24 juin 2018 • Burret/Foix
 
 - _Chapitre 8_ : Stratégies pour gérer les chemins d'accès
 
-**Météo** : 👍 🙂 ☀️ 🍦
+**Météo** : 👍 🙂 ☀️ 🍦 🍞
 
 ## Vendredi 23 juin 2018 • Sète/Auterive/Burret
 
