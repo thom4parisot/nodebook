@@ -1584,17 +1584,91 @@ l'entrée standard ou écrivent vers la sortie standard.
 [[autocomplete]]
 === Activer l'autocomplétion des commandes
 
+
+
 [[packaging]]
 === Rendre le programme indépendant de Node
 
-docker
-packager l'application (https://www.npmjs.com/package/pkg).
+Nos programmes exécutables Node souffrent d'un défaut : ils imposent
+l'installation préalable de Node pour fonctionner.
+Ce n'est pas grave pour une machine de devéloppeur·se ou sur une machine
+de production car nous sommes à même de contrôler l'environnement d'exécution.
 
+La première solution consiste à empaqueter notre application avec le module
+npm _pkg_ ([URL]#https://npmjs.com/pkg#).
+Cet exécutable embarque notre code, les dépendances npm du projet
+et la version de Node de notre choix sous la forme d'un seul et unique
+fichier exécutable.
+
+----
+$ npm install --global pkg
+$ pkg --targets latest-linux,latest-macos,latest-win ..
+$ ./nodebook
+Il est 22h49.
+----
+
+Dans ce cas, nous avons empaqueté une même application à la fois pour les
+systèmes d'exploitation Windows, Linux et macOS.
+Nous pourrions faire de même pour des ordinateurs légers de type Raspberry Pi.
+
+Une solution alternative consiste à utiliser le logiciel _Docker_
+([URL]#https://docker.com/community-edition#).
+Ce système crée une base d'environnement réutilisable (le conteneur) à partir
+d'une recette d'installation (l'image).
+Une même image applicative se réplique à l'infini, sans avoir
+connaissance de notre système d'exploitation.
+
+----
+$ docker build -t nodebook/chapter-08 ..
+$ docker run -ti --rm nodebook/chapter-08
+Bienvenue dans le chapitre 8 😊
+----
+
+Une image se construit depuis un fichier `Dockerfile` avec la commande `docker build`.
+Elle s'exécute sous forme d'un conteneur jetable avec la commande `docker run`.
+La recette d'installation est une suite d'instructions jouées les unes à la suite
+des autres :
+
+[source,dockerfile]
+.Dockerfile
+----
+include::Dockerfile[]
+----
+
+Je recommande de doubler le fichier `Dockerfile` d'un fichier `.dockerignore`.
+Il suit les mêmes règles de fonctionnement qu'un fichier `.gitignore`.
+Il exclut une liste définie de fichiers du contexte d'exécution et d'une possible
+copie vers l'image Docker.
+
+[source]
+.{blank}.dockerignore
+----
+node_modules
+----
+
+Une fois construite, une image se distribue sous forme de fichier transférable,
+sur le registre public [URL]#https://hub.docker.com# ou sur tout autre
+registre privé — dont ceux fournis par certains
+<<../chapter-06/index.adoc#deploy.docker,hébergeurs _cloud_>>
+(cf. <<../chapter-06/index.adoc#,chapitre 6>>).
+
+[NOTE]
+.[RemarquePreTitre]#Alternative# Windows sous Docker
+====
+Microsoft met à disposition des images de Windows Server pour Docker à cette
+adresse : [URL]#https://hub.docker.com/r/microsoft/windowsservercore/#.
+
+Nous pouvons tester une application Node dans un environnement Windows
+sans quitter notre système d'exploitation Linux ou macOS.
+====
+
+////
 [[declarative]]
 === Templating et interfaces déclaratives
 
 - https://www.npmjs.com/package/blessed
 - https://www.npmjs.com/package/react-blessed
+////
 
 == Conclusion
 
