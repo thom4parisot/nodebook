@@ -12,6 +12,8 @@ a été écrit, relu et testé avec un public apprenant.
 
 - _Chapitre 3_ : Ajout d'un exemple sur les mutateurs
 - _Chapitre 8_ : Utiliser les flux de données
+- _Chapitre 8_ : Activer l'autocomplétion des commandes
+- _Chapitre 8_ : Rendre le programme indépendant de Node
 
 **Météo** : 😴 ☀️
 

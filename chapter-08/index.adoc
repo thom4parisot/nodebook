@@ -1584,7 +1584,111 @@ l'entrée standard ou écrivent vers la sortie standard.
 [[autocomplete]]
 === Activer l'autocomplétion des commandes
 
+Faire en sorte que les options possibles s'affichent à l'écran sur une simple
+pression de la touche kbd:[Tab] est la cerise sur le gâteau !
+Cette technique facilite la découverte d'une application par tatonnement.
+Elle accélère et réduit le risque d'erreurs durant la saisie des commandes.
 
+[CAUTION]
+.[RemarquePreTitre]#Compatibilité# Incertitudes de fonctionnement sous Windows
+====
+Cette section n'a pas été testée avec les systèmes d'exploitation Windows.
+Les commandes référencées ci-après ne fonctionnent peut-être pas avec.
+====
+
+.Prérequis pour installer les exécutables de ce chapitre.
+----
+$ npm install --global $(nodebook dir chapter-08 --root)
+----
+
+Le mécanisme d'autocomplétion est fourni par l'environnement d'exécution
+de notre terminal, le _shell_.
+Sous Linux et macOS, il s'agit de _bash_, de _zsh_ ou plus rarement, de _fish_.
+Il "suffit" donc d'interconnecter notre programme exécutable pour qu'il fournisse
+les résultats de complétion au mécanisme de notre _shell_.
+
+[subs="+macros"]
+----
+$ eval $(nodebook.ch08.autocomplete --completion) # <1>
+$ nodebook.ch08.autocomplete kbd:[Tab]
+--help coucou
+----
+<1> L'option `--completion` est une option spéciale comprise par le module npm utilisé dans cet exemple.
+
+Le mécanisme de complétion est fourni par le module npm _omelette_
+([URL]#https://npmjs.com/omelette#).
+Il est totalement indépendant de notre outillage d'<<args,arguments et d'options>>.
+Je le trouve léger et rapide à prendre en main.
+
+[source,javascript]
+.autocomplete/intro.js
+----
+include::{sourceDir}/autocomplete/intro.js[]
+----
+<1> Déclaration du nom de programme et des options et arguments à suggérer.
+<2> Ces deux options et arguments sont utilisés pour la complétion du programme.
+<3> Cette partie est atteinte seulement quand le programme est exécuté.
+
+L'autocomplétion peut aller jusqu'à suggérer les valeurs associées aux options
+et arguments de notre programme.
+
+[subs="+macros"]
+----
+$ eval $(nodebook.ch08.omelette --completion)
+$ nodebook.ch08.omelette kbd:[Tab]
+--timezone now
+
+$ nodebook.ch08.omelette --timezonekbd:[Tab]kbd:[Tab]
+Africa/Abidjan                  Asia/Almaty
+Africa/Accra                    Asia/Amman
+Africa/Addis_Ababa              Asia/Anadyr
+…
+----
+
+Pour cela, le module _omelette_ accepte un arbre de déclarations afin de
+comprendre quoi suggérer en fonction de ce qui a été précédemment saisi :
+
+[source,javascript]
+.autocomplete/omelette.js
+----
+include::{sourceDir}/autocomplete/omelette.js[]
+----
+<1> L'arbre est un objet ECMAScript.
+<2> L'option `--timezone` suggère la liste complète des fuseaux horaires.
+
+C'est clairement pratique quand on ne sait pas par où commencer et quand on ne
+connaît pas la liste exhaustive des propositions.
+
+Nous avons parlé du module npm _yargs_ dans la section
+<<application,utilisation d'un framework>>.
+Il embarque un module d'autocomplétion.
+Si vous utilisez déjà ce module, l'autocomplétion revient à ajouter une ligne
+de code à notre programme.
+L'autocomplétion est un peu plus basique et demande plus de travail pour
+arriver à la qualité des résultats du module _omelette_.
+
+[subs="+macros"]
+----
+$ eval $(nodebook.ch08.yargs completion)
+$ nodebook.ch08.yargs -kbd:[Tab]
+--help      --timezone  --version
+----
+
+[source,javascript]
+.autocomplete/yargs.js
+----
+include::{sourceDir}/autocomplete/yargs.js[]
+----
+<1> Cette méthode ajoute la compréhension de l'argument `completion` pour s'intégrer avec le _shell_ de notre système d'exploitation.
+
+[TIP]
+.[RemarquePreTitre]#Pratique# Rendre l'autocomplétion permanente
+====
+Les commandes `eval $(...)` des précédents exemples sont à consigner
+dans le fichier de configuration de votre shell.
+C'est à dire dans le fichier `~/.bashrc` pour _bash_, `~/.zshrc` pour _zsh_
+et `~/.config/fish/config.fish` pour _fish_.
+====
 
 [[packaging]]
 === Rendre le programme indépendant de Node
