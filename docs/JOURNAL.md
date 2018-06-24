@@ -11,6 +11,7 @@ a été écrit, relu et testé avec un public apprenant.
 ## Dimanche 25 juin 2018 • Burret
 
 - _Chapitre 3_ : Ajout d'un exemple sur les mutateurs
+- _Chapitre 8_ : Utiliser les flux de données
 
 **Météo** : 😴 ☀️
 

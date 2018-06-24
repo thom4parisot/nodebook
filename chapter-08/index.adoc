@@ -1423,11 +1423,163 @@ $ node files/glob.js '**/*.js'
 [[streaming]]
 === Utiliser les flux de données (`stdin`, `stdout` et `stderr`)
 
-utilisation des streams
+Cette section complète notre découverte du
+<<../chapter-04/index.adoc#stream,module `stream`>>
+(cf. <<../chapter-04/index.adoc#,chapitre 4>>).
+Mon intention est de vous aiguiller dans la conception d'applications
+en ligne de commande qui acceptent des flux de données, en entrée
+comme en sortie.
+La ligne de commande se prête tout particulièrement au _streaming_ et
+nos applications gagnent à fonctionner longtemps en consommant le
+moins de ressources possibles.
 
-get-stdin pour attraper des petits trucs
-ReadStream pour lire
-WriteStream pour écrire
+----
+$ cat blah.txt
+blah blah
+$ cat blah.txt | node streaming/intro.js
+BLAH BLAH
+----
+
+[source,javascript]
+.streaming/intro.js
+----
+include::{sourceDir}/streaming/intro.js[]
+----
+<1> Le module npm _get-stdin_ ([URL]#https://npmjs.com/get-stdin#) est pratique pour un flux d'entrée à petit volume.
+<2> Le module _get-stdin_ retourne une promesse quand il a terminé de lire le flux d'entrée.
+
+J'aime bien proposer une alternative à l'entrée standard, en utilisant
+les *arguments lorsqu'il y a un nombre indéfini d'éléments* à lire.
+Je trouve que cette proposition évite de renoncer à un outil
+dans un contexte où il est impossible de configurer un flux d'entrée.
+
+----
+$ cat blah.txt | node streaming/intro-fallback.js
+BLAH BLAH
+$ node streaming/intro-fallback.js $(< blah.txt)
+BLAH BLAH
+----
+
+La stratégie consiste à utiliser l'entrée standard quand on détecte une absence
+d'arguments et sinon, d'utiliser ces derniers.
+
+[source,javascript]
+.streaming/intro-fallback.js
+----
+include::{sourceDir}/streaming/intro-fallback.js[]
+----
+<1> Nous récupérons les arguments du script.
+<2> Chaque mot (séparé par un espace) est considéré comme un argument — s'il n'y en a pas nous pouvons utiliser l'entrée standard.
+<3> Sinon nous rassemblons les mots en une seule chaîne de caractères.
+
+Notons au passage l'utilisation de `Promise.resolve()`
+(cf. <<../chapter-03/index.adoc#promise,chapitre 3>>) pour transformer deux
+sources de données de manière identique.
+
+Les <<args.options,options>> sont adaptées pour *indiquer l'emplacement d'une ressource*.
+La méthode `fs.createReadStream` (cf. <<../chapter-04/index.adoc#fs,chapitre 4>>)
+lit les données d'une ressource de la même manière que nous consommons
+l'entrée standard.
+
+----
+$ node streaming/input.js --input blah.txt
+BLAH BLAH
+----
+
+[source,javascript]
+.streaming/input.js
+----
+include::{sourceDir}/streaming/input.js[]
+----
+<1> Le module npm _get-stream_ ([URL]#https://npmjs.com/get-stream#) est similaire à _get-stdin_ et fonctionne avec tout _stream_ de lecture.
+<2> _get-stream_ résout une promesse dès qu'il a terminé de consommer le flux de lecture.
+
+Là aussi, je trouve intéressant de proposer une approche double, en acceptant
+un chemin de fichier en option et son contenu via l'entrée standard :
+
+----
+$ node streaming/input-fallback.js --input blah.txt
+BLAH BLAH
+$ cat blah.txt | node streaming/input-fallback.js
+BLAH BLAH
+----
+
+[source,javascript]
+.streaming/input-fallback.js
+----
+include::{sourceDir}/streaming/input-fallback.js[]
+----
+<1> Le module npm _through2_ ([URL]#https://npmjs.com/through2#) s'intègre à un _stream_ en exécutant une fonction à chaque afflux de données.
+<2> Nous transformons la chaîne de caractères entrante dans le flux de sortie.
+<3> Ce flux de sortie est lui-même redirigé vers la sortie standard du programme.
+
+Ce qui est intéressant avec cette approche est qu'elle nous apprend
+à intervenir nous-même sur un flux sans avoir à connaître les tenants et aboutissants
+des _streams_.
+
+[TIP]
+.[RemarquePreTitre]#Alternative# Spécifier l'entrée ou la sortie standard en tant qu'option
+====
+Certains programmes Linux utilisent le caractère `-` pour symboliser l'entrée
+ou la sortie standard, selon l'intention de l'option.
+
+----
+$ cat blah.txt | node streaming/input-fallback.js --input -
+----
+
+Cette notation est utile quand vous voulez rendre l'entrée standard
+optionnelle et explicite.
+====
+
+Le précédent exemple nous permet aussi de nous libérer des modules
+_get-stdin_ et _get-stream_.
+Ces derniers obligent quand même à _charger tout le contenu_ du flux entrant
+en mémoire.
+En travaillant directement sur les _streams_ avec le module _through2_,
+les transformations sont faites en temps réel, au fur et à mesure où les données
+sont lues, bloc par bloc.
+
+Nous sommes désormais en mesure de travailler sur avec des fichiers au même
+titre qu'avec l'entrée et la sortie standard.
+
+----
+$ cat blah.txt | node streaming/pipe-in.js
+BLAH BLAH
+----
+
+[source,javascript]
+.streaming/pipe-in.js
+----
+include::{sourceDir}/streaming/pipe-in.js[]
+----
+<1> La source de données provient soit du flux de lecture de fichier soit de l'entrée standard.
+<2> Le travail sur le contenu est ainsi factorisé, avec un fonctionnement identique peu importe la source de données.
+
+L'utilisation d'un même concept pour lire et pour écrire des données
+simplifie notre code tout en offrant des performances optimales.
+
+Il ne reste plus grand chose à faire pour appliquer cet effort à la sortie du
+programme, pour écrire en continu dans un fichier ou bien vers la sortie standard.
+
+----
+$ node streaming/pipe-out.js -i blah.txt
+BLAH BLAH
+$ node streaming/pipe-out.js -i blah.txt -o debug.txt
+$ cat blah.txt | node streaming/pipe-out.js -o debug.txt
+----
+
+[source,javascript]
+.streaming/pipe-out.js
+----
+include::{sourceDir}/streaming/pipe-out.js[]
+----
+<1> La destination des données est choisie en utilisant un mécanisme similaire à la source de données.
+<2> Le processus de traitement est désormais indifférent à la source et à la destination des données.
+
+En quelques exemples, nous sommes passé·e·s d'une utilisation potentiellement
+énergivore à un traitement en continu, plus doux pour les ressources systèmes
+et intégrable à tous les outils en ligne de commande qui lisent depuis
+l'entrée standard ou écrivent vers la sortie standard.
 
 [[autocomplete]]
 === Activer l'autocomplétion des commandes
@@ -1435,6 +1587,7 @@ WriteStream pour écrire
 [[packaging]]
 === Rendre le programme indépendant de Node
 
+docker
 packager l'application (https://www.npmjs.com/package/pkg).
 
 [[declarative]]
