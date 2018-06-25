@@ -299,5 +299,25 @@ module.exports = {
   'chapter-08/examples/options/timezone.js': {
     args: 'Europe/Paris',
     stdout: /\d{2}:\d{2}/
-  }
+  },
+  'chapter-08/examples/streaming/input-fallback.js': {
+    stdin: 'cou cou',
+    stdout: /COU COU/
+  },
+  'chapter-08/examples/streaming/intro-fallback.js': {
+    stdin: 'cou cou',
+    stdout: /COU COU/
+  },
+  'chapter-08/examples/streaming/intro.js': {
+    stdin: 'cou cou',
+    stdout: /COU COU/
+  },
+  'chapter-08/examples/streaming/pipe-in.js': {
+    stdin: 'cou cou',
+    stdout: /COU COU/
+  },
+  'chapter-08/examples/streaming/pipe-out.js': {
+    stdin: 'cou cou',
+    stdout: /COU COU/
+  },
 };

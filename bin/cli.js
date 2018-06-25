@@ -15,15 +15,15 @@ updateNotifier(pkg)
   }, err => err)
   .then(() => {
     yargs
+      .locale('fr')
       .commandDir('commands')
-      .usage('nodebook')
+      .usage('nodebook [command]')
       .example('nodebook install chapter-04', 'Installe les dépendances du chapitre 4')
       .example('nodebook install all', 'Installe les dépendances de tous les chapitres')
       .example('cd $(nodebook dir chapter-04)', 'Place le terminal dans le répertoire d\'exemples du chapitre 4')
       .example('cd $(nodebook dir chapter-04 --root)', 'Place le terminal dans le répertoire racine du chapitre 4')
-      .demandCommand(1)
+      .demandCommand(1, '')
+      .recommendCommands()
       .strict()
-      .locale('fr')
-      .help()
       .argv;
   });
