@@ -8,6 +8,15 @@ a été écrit, relu et testé avec un public apprenant.
 
 ---
 
+## Dimanche 25 juin 2018 • Burret/Mirepoix
+
+- _Chapitre 8_ : Modulariser le code du fichier exécutable
+- _Chapitre 8_ : Tester le code partagé
+- _Chapitre 8_ : Présenter les messages en contexte
+- _Chapitre 8_ : Tester l'exécutable
+
+**Météo** : 🚂 🙂 ☀️
+
 ## Dimanche 25 juin 2018 • Burret
 
 - _Chapitre 3_ : Ajout d'un exemple sur les mutateurs
