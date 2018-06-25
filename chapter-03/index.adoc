@@ -24,7 +24,7 @@ Nous utiliserons une approche par l'exemple.
 .Sommaire
 - Qu'est-ce que JavaScript, pour de vrai ?
 - Comprendre l'évolution de la spécification ECMAScript
-- Manipuler les différentes structures du langage
+- Jongler avec les différentes structures du langage
 - En savoir plus sur des éléments avancés du langage
 ====
 
@@ -208,13 +208,13 @@ Les fonctionnalités approuvées sont consignées dans ce document :
 [URL]#https://github.com/tc39/proposals/blob/master/finished-proposals.md#.
 
 [[primitives]]
-== Les éléments de base du langage
+== Éléments de base du langage
 
-ECMAScript permet de manipuler différents _types_ de données.
+ECMAScript définit plusieurs _types_ de données.
 Cette section s'intéresse à décrire les notions nécessaires
 pour s'approprier le reste des exemples de l'ouvrage.
-On apprendra notamment à manipuler des variables, à faire
-des boucles sur des collections et à faire la différence
+On apprendra notamment à créer des variables, à naviguer dans
+des listes d'éléments et à faire la différence
 entre un objet et une fonction.
 
 Mais qu'entend-t-on par _type de données_ ?
@@ -377,7 +377,7 @@ L'exemple suivant générera une erreur si on déclare deux fois la même variab
 include::{sourceDir}/variables/const.js[lines=3..-1]
 ----
 
-=== Instructions
+=== Les instructions
 
 Des _instructions_ nous servent à suivre, éviter ou répéter
 des chemins dans notre code.
@@ -399,7 +399,8 @@ L'exemple précédent vérifie que les deux conditions sont remplies
 On notera au passage que `book.title` n'est pas un booléen.
 ECMAScript regarde dans ce cas que la chaîne de caractères
 contient _au moins 1 caractère_.
-On expliquera ce comportement plus en détail dans la section <<#boolean,manipuler des booléens>>.
+On expliquera ce comportement plus en détail dans la section
+<<#boolean,jongler avec des valeurs vraies ou fausses>>.
 
 L'instruction `if` peut être complétée avec l'instruction `else`
 pour exécuter du code qui répondrait au cas contraire.
@@ -416,7 +417,7 @@ constater qu'on pourrait en emprunter un autre
 en modifiant la valeur des clés `title` et `published`.
 
 [[scope]]
-=== Portée (_scope_)
+=== La portée (_scope_)
 
 La _portée_ est un concept très présent dans ECMAScript.
 On y fait souvent référence en parlant de _variable globale_ et
@@ -485,11 +486,11 @@ des variables sans _polluer_ le reste du script,
 pour que son existence soit oubliée aussitôt le bloc exécuté.
 
 [[string]]
-== Manipuler du texte
+== Jongler avec du texte (chaînes de caractères)
 
-Il est commun d'avoir à manipuler des chaînes de caractères.
-Pour stocker des URL, des titres, des identifiants,
-des tweets voire des textes longs.
+Il est commun d'avoir à travailler avec des chaînes de caractères.
+Elles servent à stocker des URL, des titres, des identifiants,
+des tweets, des messages et des textes longs, entre autres.
 
 [source%interactive,javascript]
 .string/base.js
@@ -518,7 +519,7 @@ include::{sourceDir}/string/concat.js[]
 Toute chaîne de caractères offre un ensemble
 d'_attributs_ (`.quelque-chose`)
 et de _méthodes_ (`.autre-chose()`) pour en savoir plus
-sur la chaine mais aussi pour la manipuler.
+sur la chaine mais aussi pour la transformer.
 
 Par exemple, on peut connaître la longueur d'une chaîne via son attribut `length`.
 
@@ -769,10 +770,12 @@ include::{sourceDir}/regexp/replace-function.js[]
 
 
 [[boolean]]
-== Manipuler des booléens
+== Jongler avec des valeurs vraies ou fausses (booléens)
 
-Un booléen est une donnée de type logique qui peut être _vraie_ ou _fausse_ en prenant respectivement la valeur `true` ou `false`.
-C'est un type de choix pour effectuer des _assertions_ et vérifier des _conditions_.
+Un booléen est élément logique dont la valeur est soit `true` soit `false`,
+c'est à dire respectivement _vrai_ ou _faux_.
+Ce type de valeur sert à exprimer des résultats de condition
+("si ça alors … sinon") ainsi qu'à affirmer ou infirmer quelque chose.
 
 [source%interactive,javascript]
 .boolean/base.js
@@ -805,7 +808,7 @@ include::{sourceDir}/boolean/convert.js[]
 <3> Affiche `true` — le tableau est vide mais l'objet en lui-même _vaut_ quelque chose : un tableau.
 
 [[number]]
-== Manipuler des nombres (_Number_, _Math_)
+== Jongler avec des valeurs numériques (_Number_, _Math_)
 
 ECMAScript ne fait pas de distinction entre des nombres entiers et des
 nombres contenant des décimales : ce sont des _nombres_ un point c'est tout.
@@ -1033,11 +1036,11 @@ include::{sourceDir}/number/to-fixed.js[]
 <2> Affiche `'10'`.
 
 [[functions]]
-== Manipuler des fonctions
+== Créer et réutiliser des blocs de code (fonctions)
 
-Une fonction est un mécanisme pour *rendre du code réutilisable*.
-Une fonction _retourne_ un résultat.
-À l'aide de _paramètres_, on peut faire varier ce résultat.
+Une fonction est un *bloc de code réutilisable et paramétrable*.
+Elle _retourne_ un résultat dont la valeur se prédit en fonction des
+paramètres que nous lui passons.
 
 Cela se passe en deux temps :
 
@@ -1136,7 +1139,7 @@ include::{sourceDir}/functions/rest.js[]
 
 
 [[array]]
-== Manipuler des tableaux (_Array_)
+== Lister, filtrer et trier des éléments (_Array_)
 
 Les tableaux (ou listes indexées) servent à *lister des éléments*,
 de tout type et dans l'ordre de notre choix.
@@ -1513,7 +1516,7 @@ include::{sourceDir}/array/slice-negative.js[]
 
 
 [[object]]
-== Manipuler des structures d'objet
+== Représenter et accéder à des structures d'objet
 
 Les structures d'objet servent à *lister des éléments* de tout type
 au sein d'une même variable.
@@ -1699,7 +1702,7 @@ include::{sourceDir}/object/key-undefined.js[]
 
 
 [[json]]
-== Manipuler des structures de données JSON
+== Lire et écrire des données au format JSON
 
 JSON ([URL]#http://json.org#) est un format de données textuel standardisé.
 Son but est de pouvoir *représenter des données informatiques* de manière
@@ -1778,7 +1781,7 @@ mdn::global[JSON]
 
 
 [[date]]
-== Manipuler des dates
+== Interagir avec des dates
 
 Les calculs de date s'effectuent à l'aide des objets `Date`.
 Chaque instance de `Date` représente un moment dans le temps, à un jour
@@ -1873,7 +1876,7 @@ mdn::global[DateTimeFormat]
 
 
 [[class]]
-== Manipuler des classes d'objet (_Class_)
+== Partager une logique avec des objets de même nature (_Class_)
 
 Une classe est une *structure qui partage des propriétés*
 et des méthodes entre objets qui l'instancient.
@@ -2039,7 +2042,7 @@ C'est un exemple populaire d'héritage de composants graphiques.
 
 
 [[promise]]
-== Manipuler des promesses (_Promise_)
+== Coordonner des actions asynchrones (_Promise_)
 
 Une promesse est *un objet retourné immédiatement*.
 Le *résultat est obtenu plus tard*.
