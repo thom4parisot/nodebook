@@ -17,6 +17,10 @@ install:
 - npm ci
 - npm run install:all
 
+script:
+- ./bin/cli.js --help
+- npm test
+
 after_success:
 - make build-html
 - make build-odt
