@@ -16,6 +16,7 @@ updateNotifier(pkg)
   .then(() => {
     yargs
       .locale('fr')
+      .scriptName('nodebook')
       .commandDir('commands')
       .usage('nodebook [command]')
       .example('nodebook install chapter-04', 'Installe les dépendances du chapitre 4')

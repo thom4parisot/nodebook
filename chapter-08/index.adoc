@@ -12,53 +12,56 @@ endif::[]
 
 = Créer un outil en ligne de commande
 
-TBD.
+Créer un outil en ligne de commande est un savoir utile pour se forger nos
+propres outils, automatiser des actions et mieux s'intégrer au
+système d'exploitation.
 
 ====
 .Sommaire
-- TBD.
+- Créer un script exécutable.
+- Du script au programme interactif.
+- Vers un code réutilisable et testable.
+- Utilisation d’un framework d’application en ligne de commande.
+- Gérer les chemins d'accès et les flux de données.
+- Rendre le programme indépendant de Node.
 ====
 
 [abstract]
 --
-TBD.
+Ce chapitre est une invitation à créer des applications au plus proche des
+systèmes d'exploitation ; une chose dans laquelle Node excelle.
+
+Nous apprendrons à passer d'un script Node ordinaire à un script qui
+s'exécute comme un programme de notre système d'exploitation.
+
+Nous renforcerons ce programme en améliorant son expérience utilisateur
+mais aussi en le rendant robuste grâce aux tests et à l'écriture d'une
+documentation minimaliste, générée automatiquement.
+
+Enfin, nous verrons aussi comment aller plus loin en organisation son code
+comme dans une véritable application, avec une compréhension plus poussée
+des chemins d'accès et des traitements en continu sur des flux de données.
 --
 
 include::../docs/tip-versions.adoc[]
 
-////
-install global : pour quelqu'un qui n'a pas besoin de l'inclure dans un projet.
-Être autonome.
-En faire un outil système.
-Taper la commande sans avoir à se soucier d'autre chose.
+Un script en ligne de commande revient souvent à une installation globale
+d'un module npm (`npm install --global <module>`).
+Ce script prend aussi bien la forme d'un petit outil que d'une application complète.
+Dans tous les cas, le terminal est l'interface d'affichage.
 
-utilisation : le nom c'est le même.
-Plus logique.
-Plus facile à retenir.
-Mais ça peut se changer.
+Node est particulièrement adapté à la création d'outils en ligne de commande
+grâce à son modèle de gestion mémoire et de son processus unique.
+Il doit toutefois partager la mémoire et les ressources de la machine avec
+les autres programmes — à nous de faire le choix de la frugalité.
 
-node est adapté au modèle de tâche de courte ou longue durée
-modèle plus proche des applications web qu'il n'y parait
+Ces outils nous servent à outiller nos projets, à créer des programmes autonomes,
+des interfaces visuelles dans un terminal et à automatiser ce qu'il nous semble
+juste d'automatiser.
+Leur distribution sur le registre npm (cf. <<../chapter-05/index.adoc#,chapitre 5>>)
+les rend facile d'accès et facile à partager.
+Surtout après avoir appris à <<bien les tests,tester et à bien les documenter>>.
 
-programmes qui aident à automatiser des actions
-outillage pour ses applications
-interfaces visuelles (dans un terminal -- potentiel à être partagé sur une appli web)
-modules redistribuables
-////
-
-Le développement d'un outil en ligne de commande est proche de celui
-d'une <<../chapter-07/index.adoc#,application web>>
-(cf. <<../chapter-07/index.adoc#,chapitre 7>>).
-L'équivalent du script qui démarre le serveur web est un script exécutable,
-les routes de l'application sont des sous-commandes,
-les arguments d'URL (_query string_) sont des options et l'affichage dans
-un navigateur web est l'affichage dans un terminal.
-
-////
-Et la mémoire ?
-Le script utilisera la mémoire disponible, à concurrence des autres applications qui tournent sur la même machine
-Sur un Raspberry Pi, y'a moins de mémoire donc on peut atteindre plus rapidement des limites si les fichiers dépassent les capacités (centaine de Mo — vs. plus Go sur des ordinateurs modernes)
-////
 
 [[start]]
 == Créer un script exécutable
@@ -2053,4 +2056,16 @@ sans quitter notre système d'exploitation Linux ou macOS.
 
 == Conclusion
 
-TBD.
+L'écriture d'un exécutable en ligne de commande est un
+*exercice proche de celui d'une application web* écrite avec Node.
+
+Nous avons vu que l'enjeu majeur tient dans la *modularisation du code applicatif*
+et dans la *création d'une interface cohérente*, informative et documentée.
+
+<<args,*Les options et les arguments*>> sont essentiels à maîtriser et
+à <<doc,documenter>> car ils servent de pierre angulaire pour créer un pont
+avec les utilisateurs.
+
+Ils deviennent encore plus puissants une fois combinés avec
+la <<files,gestion des chemins d'accès>> ainsi qu'avec
+les <<streaming,flux d'entrée et de sortie>>.

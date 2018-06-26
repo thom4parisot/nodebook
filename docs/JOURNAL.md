@@ -11,6 +11,7 @@ a été écrit, relu et testé avec un public apprenant.
 ## Mardi 27 juin 2018 • Burret
 
 - _Chapitre 8_ : Documenter notre programme
+- _Chapitre 8_ : Introduction et conclusion
 
 **Météo** : 😴 ☀️
 
