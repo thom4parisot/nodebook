@@ -59,7 +59,7 @@ Ces outils nous servent à outiller nos projets, à créer des programmes autono
 des interfaces visuelles dans un terminal et à automatiser ce qu'il nous semble
 juste d'automatiser.
 Leur distribution sur le registre npm (cf. <<../chapter-05/index.adoc#,chapitre 5>>)
-les rend facile d'accès et facile à partager.
+les rend faciles d'accès et facile à partager.
 Surtout après avoir appris à <<bien les tests,tester et à bien les documenter>>.
 
 
@@ -80,17 +80,17 @@ code distribuable sous forme d'un <<../chapter-05/index.adoc#modules,module npm>
 Ce dont nous avons besoin pour démarrer, c'est d'un script Node que nous
 pouvons appeler depuis notre terminal.
 Nous allons placer l'exemple suivant dans le répertoire `bin`
-(pour _binary_ en anglais, c'est à dire _exécutable_).
+(pour _binary_ en anglais, c'est-à-dire _exécutable_).
 Ça n'a pas d'incidence technique mais c'est une pratique courante au sein
 de la communauté Node pour repérer plus facilement les exécutables
-sans ambiguité.
+sans ambiguïté.
 
 [source%interactive,javascript]
 .bin/time.js
 ----
 include::{sourceDir}/bin/time.js[]
 ----
-<1> Crée un objet qui représente la <<../chapter-03/index.adoc#date,date>> courante — cf. <<../chapter-03/index.adoc#,chapitre 3>> pour se raffraichir la mémoire au sujet de cette API.
+<1> Crée un objet qui représente la <<../chapter-03/index.adoc#date,date>> courante — cf. <<../chapter-03/index.adoc#,chapitre 3>> pour se rafraichir la mémoire au sujet de cette API.
 
 include::../docs/tip-examples.adoc[]
 
@@ -112,7 +112,7 @@ L'appel à un fichier exécutable se fait sans avoir à connaître quoique ce so
 d'autre que son emplacement.
 
 Essayons d'exécuter le script précédent pour nous en rendre compte.
-Pour se faire, nous allons l'invoquer seulement avec son chemin
+pour ce faire, nous allons l'invoquer seulement avec son chemin
 — ici, son chemin relatif :
 
 ----
@@ -174,7 +174,7 @@ $ ./bin/time.js
 ----
 
 La bonne nouvelle c'est que le fichier est exécutable.
-Par contre, il semblerait que le système d'exploitation aie du mal
+Par contre, il semblerait que le système d'exploitation ait du mal
 à interpréter le fichier.
 
 [[shebang]]
@@ -296,7 +296,7 @@ clés et valeurs.
 == Du script au programme interactif
 
 Nous avons appris à transformer un script Node ordinaire en un script
-exécutable et prêt à <<../chapter-05/index.adoc#publish,distribué avec npm>>
+exécutable et prêt à le <<../chapter-05/index.adoc#publish,publier sur un registre npm>>
 (cf. <<../chapter-05/index.adoc#,chapitre 5>>).
 
 Cette section se focalise sur l'enrichissement d'un tel script pour en faire
@@ -384,8 +384,8 @@ include::{sourceDir}/options/parse.js[]
 ----
 
 Les options s'écrivent sous une *forme raccourcie* (_alias_).
-Elle signalée avec un seul tiret et elle réduit l'encombrement visuel
-d'une commande :
+Un alias réduit l'encombrement visuel et est signalé avec un seul tiret
+(au lieu de deux pour leur forme complète) :
 
 ----
 $ node options/alias.js <i>-c</i> FR
@@ -460,7 +460,7 @@ include::{sourceDir}/options/types.js[]
   Un nombre ou une chaîne de caractères.
 `--country FR UK`::
 `--country FR --country UK`::
-  Un ou ou plusieurs nombres ou chaînes de caractères.
+  Un ou plusieurs nombres ou chaînes de caractères.
 `--fast`::
 `--no-fast`::
 `-f`::
@@ -619,7 +619,7 @@ notre code : la *validation* des paramètres, une gestion plus fine des
 sous-commandes ainsi que la *génération automatique de la documentation*.
 
 Si ces choses vous intéressent, je vous invite à vous rendre à la section
-<<application,utilisation d'une framework>>.
+<<application,utilisation d'un framework>>.
 
 [[colours]]
 === Améliorer la lisibilité grâce aux couleurs
@@ -644,7 +644,7 @@ Mais comment ?
 
 Par défaut, tout caractère envoyé vers la console est affiché.
 Un mécanisme de *commandes* s'active en envoyant un caractère invisible
-suivi d'une série de symbôles.
+suivi d'une série de symboles.
 Ces commandes changent la couleur du texte, sa couleur de fond, l'emphase,
 le soulignement et même la position du curseur.
 
@@ -710,7 +710,7 @@ include::{sourceDir}/colors/palette.js[]
 
 Le module npm _chalk_ ([URL]#https://npmjs.com/chalk#) facilite l'utilisation
 des codes ANSI en leur donnant des libellés mémorisables, en gérant
-la compatibilité du nombre de couleurs supportées par le terminal voire même
+la compatibilité du nombre de couleurs supportées par le terminal voire
 en désactivant les couleurs si nécessaire.
 
 [source,javascript]
@@ -801,7 +801,7 @@ include::{sourceDir}/prompt/questions.js[]
 
 Dans cet exemple, rien ne nous empêchait de saisir autre chose qu'un nombre
 dans la question de l'âge.
-C'est gênant mais ça se résoud à l'aide de la propriété de configuration `validate`.
+C'est gênant mais ça se résout à l'aide de la propriété de configuration `validate`.
 
 ----
 $ node prompt/validate.js
@@ -849,10 +849,10 @@ include::{sourceDir}/prompt/list.js[]
 <2> Le champ `choices` contient la liste des choix proposés à l'écran.
 
 Le potentiel de combinaison de ces éléments est vraiment intéressant.
-Nous pourrions créer des quizz, des interfaces de recherche ou faciliter
+Nous pourrions créer des quiz, des interfaces de recherche ou faciliter
 la création de fichiers de configuration sans avoir à mettre les mains dans le
 cambouis.
-Les choix mis à dispositon dans l'interface se créent aussi dynamiquement,
+Les choix mis à disposition dans l'interface se créent aussi dynamiquement,
 à partir de données obtenues depuis une ressource distante —
 ils n'ont nécessairement à être écrits en dur dans le code.
 
@@ -896,7 +896,7 @@ réseau moins favorable par exemple.
 ====
 
 La seule chose qu'il manque à mon goût est d'avoir un réel sens de progression.
-C'est à dire en remplaçant le contenu qui informe de l'avancement avec un
+C'est-à-dire en remplaçant le contenu qui informe de l'avancement avec un
 affichage actualisé qui reflète le nouvel état.
 
 Nous avons parlé des commandes ANSI pour <<colors,changer les couleurs>>
@@ -928,8 +928,8 @@ Commande;Effet
 `<n>K`; Efface le contenu de la ligne, jusqu'à la fin si `<n>` vaut `0`, jusqu'au début si `<n>` vaut `1`, entièrement si `<n>` vaut `2`.
 `<n>A`; Déplace le curseur de `<n>` cases vers le haut.
 `<n>B`; Déplace le curseur de `<n>` cases vers le bas.
-`<n>C`; Déplace le curseur de `<n>` cases vers le droite.
-`<n>D`; Déplace le curseur de `<n>` cases vers le gauche.
+`<n>C`; Déplace le curseur de `<n>` cases vers la droite.
+`<n>D`; Déplace le curseur de `<n>` cases vers la gauche.
 |===
 
 À partir de là, nous sommes libres d'écrire nos propres barres de progression,
@@ -965,7 +965,7 @@ include::{sourceDir}/progress/spinner.js[]
 <2> Nous indiquons que la tâche est terminée — l'animation est remplacée par une marque de succès.
 
 Nous pouvons aussi tirer parti du fonctionnement du module _ora_ en reproduisant
-l'animation et en personnalisant le symbôle de réussite.
+l'animation et en personnalisant le symbole de réussite.
 
 .Pendant et après
 image::images/cli-spinner-custom.png[]
@@ -1058,7 +1058,7 @@ include::{sourceDir}/update/intro.js[]
 <2> Démarrage de la comparaison.
 <3> Un objet est retourné en cas de version plus récente ou sinon, la valeur `null`.
 
-En temps normal, c'est à dire dans le cas d'un module dont nous sommes à l'origine
+En temps normal, c'est-à-dire dans le cas d'un module dont nous sommes à l'origine
 et que nous publions sur le registre npm, nous aurions tendance
 à utiliser le contenu du fichier `package.json` en argument de la fonction `check`.
 
@@ -1246,8 +1246,8 @@ include::{sourceDir}/testing/02/lib.js[]
 
 Nous n'avons plus à modifier le fichier `cli.js` pour gérer de nouveaux messages
 d'erreur.
-Nous pourrions mieux gérer certains cas de figure, comme par exemple quand
-un fuseau horaire inexistant est spécifié.
+Nous pourrions mieux gérer certains cas de figure, par exemple quand
+un fuseau horaire inconnu est spécifié.
 
 ----
 $ node testing/02/cli.js Brexit/London
@@ -1278,11 +1278,11 @@ ok 3 exit code matched
 # ok
 ----
 
-Nous avons à nouveau recourt au moduel _tape_.
+Nous avons à nouveau recours au module _tape_.
 Cette fois-ci nous l'accompagnons d'un autre module,
 _tape-spawn_ ([URL]#https://npmjs.com/tape-spawn#).
 Ce dernier intègre à _tape_ le test de processus externes.
-En l'occurence ici, ça concerne nos exécutables en ligne de commande.
+En l'occurrence ici, ça concerne nos exécutables en ligne de commande.
 
 [source,javascript]
 .testing/02/cli.test.js
@@ -1347,7 +1347,7 @@ Exemples:
 Elle véhicule l'*intention du programme*, des exemples qui précisent un concept
 que je ne connais pas (fuseau horaire IANA) et j'y découvre même
 l'existence d'une commande qui liste ces fameux fuseaux horaires.
-Au premier coup d'œil, je ne décelle pas d'impasse et j'y vois plutôt une
+Au premier coup d'œil, je ne décèle pas d'impasse et j'y vois plutôt une
 invitation à essayer sans appréhension.
 
 Cette aide a été générée automatiquement en utilisant le <<application,framework>>
@@ -1374,7 +1374,7 @@ Le seul risque est d'avoir une documentation qui est désynchronisée du
 fonctionnement du programme.
 ====
 
-Un autre lieu courant pour documenter un projet est le le fichier `README`.
+Un autre lieu courant pour documenter un projet est le fichier `README`.
 C'est un fichier texte souvent affiché en premier sur la page d'accueil
 d'un projet logiciel.
 Sa mise en forme s'améliore avec l'utilisation d'une syntaxe de balisage léger
@@ -1459,7 +1459,7 @@ include::{sourceDir}/application/intro.js[]
 <2> Les messages générés par l'application seront en français — sans cette option, la langue s'adapte à celle du système d'exploitation.
 <3> Applique les règles précédentes aux éléments contenus dans `process.argv` et retourne un résultat sous forme d'objet.
 
-Le mécanisme de concercition définit la règle de transformation d'une option
+Le mécanisme de coercition définit la règle de transformation d'une option
 vers une autre représentation, plus pratique à utiliser.
 C'est le cas des dates par exemple : nous les recevons sous forme de chaîne de
 caractères alors qu'il serait plus facile de travailler avec
@@ -1838,7 +1838,7 @@ include::{sourceDir}/streaming/pipe-in.js[]
 L'utilisation d'un même concept pour lire et pour écrire des données
 simplifie notre code tout en offrant des performances optimales.
 
-Il ne reste plus grand chose à faire pour appliquer cet effort à la sortie du
+Il ne reste plus grand-chose à faire pour appliquer cet effort à la sortie du
 programme, pour écrire en continu dans un fichier ou bien vers la sortie standard.
 
 ----
@@ -1866,7 +1866,7 @@ l'entrée standard ou écrivent vers la sortie standard.
 
 Faire en sorte que les options possibles s'affichent à l'écran sur une simple
 pression de la touche kbd:[Tab] est la cerise sur le gâteau !
-Cette technique facilite la découverte d'une application par tatonnement.
+Cette technique facilite la découverte d'une application par tâtonnement.
 Elle accélère et réduit le risque d'erreurs durant la saisie des commandes.
 
 [CAUTION]
@@ -1966,7 +1966,7 @@ include::{sourceDir}/autocomplete/yargs.js[]
 ====
 Les commandes `eval $(...)` des précédents exemples sont à consigner
 dans le fichier de configuration de votre shell.
-C'est à dire dans le fichier `~/.bashrc` pour _bash_, `~/.zshrc` pour _zsh_
+c'est-à-dire dans le fichier `~/.bashrc` pour _bash_, `~/.zshrc` pour _zsh_
 et `~/.config/fish/config.fish` pour _fish_.
 ====
 
