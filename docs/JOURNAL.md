@@ -8,7 +8,13 @@ a été écrit, relu et testé avec un public apprenant.
 
 ---
 
-## Dimanche 25 juin 2018 • Burret/Mirepoix
+## Mardi 27 juin 2018 • Burret
+
+- _Chapitre 8_ : Documenter notre programme
+
+**Météo** : 😴 ☀️
+
+## Lundi 26 juin 2018 • Burret/Mirepoix
 
 - _Chapitre 8_ : Modulariser le code du fichier exécutable
 - _Chapitre 8_ : Tester le code partagé

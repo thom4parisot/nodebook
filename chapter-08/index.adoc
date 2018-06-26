@@ -1298,10 +1298,102 @@ incohérences d'interface utilisateur.
 [[doc]]
 === Documenter notre programme
 
-véhicule l'intention
+La documentation d'un logiciel est aussi importante que son code.
+C'est le premier élément qui donne à nous rendre compte de la simplicité ou de
+la complexité d'utilisation d'un logiciel, de ce qu'il est possible de faire avec
+et de prendre connaissance des concepts qui s'y rapportent.
 
-- dans le README
-- prog --help (cf. frameworks pour générer l'aide) sinon des trucs comme meow
+Le premier endroit où documenter son application est dans l'exécutable lui-même,
+avec l'option `--help` — ou son raccourci, `-h`.
+C'est une convention pour afficher une aide synthétique, rapide d'accès
+et facile à comprendre.
+
+----
+$ node application/intro.js --help
+
+Options:
+  --help     Affiche de l'aide             [booléen]
+  --version  Affiche le numéro de version  [booléen]
+  --utc, -u                                [booléen]
+----
+
+L'aide ci-contre est minimale et n'indique que trop peu l'intention du programme.
+Nous n'avons pas d'idée de l'impact de l'utilisation de telle ou telle option,
+du résultat qui va se produire ou encore des valeurs acceptées par le programme.
+
+Une aide qui me rassure et m'informe ressemble plutôt à ça :
+
+----
+$ node help/time.js --help
+Affiche l'heure courante d'ici ou d'ailleurs.
+
+Commandes:
+  time.js timezones  Affiche les fuseaux horaires IANA.
+
+Options:
+  --version   Affiche le numéro de version            [booléen]
+  --utc       Utilise le fuseau horaire universel.    [booléen]
+  --timezone  Précise le fuseau horaire au format IANA.
+  --help      Affiche de l'aide                       [booléen]
+
+Exemples:
+  time.js --utc                    Heure universelle.
+  time.js --timezone=Europe/Lisbon Heure de Lisbonne.
+----
+
+Elle véhicule l'*intention du programme*, des exemples qui précisent un concept
+que je ne connais pas (fuseau horaire IANA) et j'y découvre même
+l'existence d'une commande qui liste ces fameux fuseaux horaires.
+Au premier coup d'œil, je ne décelle pas d'impasse et j'y vois plutôt une
+invitation à essayer sans appréhension.
+
+Cette aide a été générée automatiquement en utilisant le <<application,framework>>
+_yargs_ — nous en parlerons dans la section suivante.
+Ses méthodes `.usage()`, `.example()` et la propriété `description` de chaque
+option suffisent à constituer un affichage clair et informatif.
+
+[source,javascript]
+.help/time.js
+----
+include::{sourceDir}/help/time.js[]
+----
+<1> Documente un exemple d'utilisation et une description qui précise l'intention.
+<2> Le type de l'option est rendu explicite lors de l'affichage de la documentation.
+<3> La description précise l'intention de l'option pour mieux comprendre son impact si elle est activée.
+
+[NOTE]
+.[RemarquePreTitre]#Alternative# Module npm _help-version_
+====
+Le module _help-version_ ([URL]#https://npmjs.com/help-version#) gère l'appel
+à l'option `--help` et il est indépendant de tout autre module.
+
+Le seul risque est d'avoir une documentation qui est désynchronisée du
+fonctionnement du programme.
+====
+
+Un autre lieu courant pour documenter un projet est le le fichier `README`.
+C'est un fichier texte souvent affiché en premier sur la page d'accueil
+d'un projet logiciel.
+Sa mise en forme s'améliore avec l'utilisation d'une syntaxe de balisage léger
+comme _Markdown_.
+
+Ce type de fichier est très largement suffisant pour documenter un projet.
+C'est l'équivalent de l'option `--help`, à l'échelle de l'application —
+son intention générale, sa compatibilité de version avec Node, comment l'installer,
+où poser des questions et peut-être même davantage d'exemples pour mieux comprendre
+ce qui ne tiendrait pas dans l'option `--help`.
+
+Ça tombe bien, je trouve que le `README` est un excellent endroit pour y reporter
+l'affichage de la commande `--help`.
+
+.Présentation de la documentation d'un exécutable dans un `README`.
+image::images/documentation-readme.png[]
+
+Je ne pense pas qu'il y ait besoin de faire plus compliqué pour véhiculer
+autant d'informations essentielles avec un minimum d'efforts.
+Démarrer un projet en écrivant cette documentation est un excellent moyen pour
+travailler à la clarification de ses idées et pour commencer à imaginer la
+forme que va prendre l'<<tests,écriture des tests>>.
 
 [[advanced]]
 == Pour aller plus loin
