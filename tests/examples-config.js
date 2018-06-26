@@ -320,4 +320,12 @@ module.exports = {
     stdin: 'cou cou',
     stdout: /COU COU/
   },
+  'chapter-08/examples/testing/01/cli.js': {
+    exitCode: 1,
+    stderr: /Merci d'indiquer un fuseau horaire/
+  },
+  'chapter-08/examples/testing/02/cli.js': {
+    exitCode: 1,
+    stderr: /Merci d'indiquer un fuseau horaire/
+  },
 };
