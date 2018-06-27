@@ -1577,23 +1577,24 @@ Les navigateurs doivent déjà être disponibles sur la machine de test (Firefox
 Les navigateurs lancés par défaut lors des tests sont listés dans l'option `browsers` :
 
 [source,javascript,indent=0]
-.karma.conf.js#L82
+.karma.conf.js#L49
 ----
-include::karma.conf.js[lines=82]
+include::karma.conf.js[lines=49]
 ----
 
 _karma_ se charge d'*inclure les fichiers JavaScript* ou de *servir des fichiers statiques* en fonction de _motifs_ de chemins.
 Ces fichiers peuvent être locaux (de préférence) ou distants et même être de types différents comme JSON ou HTML :
 
 [source,javascript,indent=0]
-.karma.conf.js#L17-23
+.karma.conf.js#L7-17
 ----
-include::karma.conf.js[lines=17..23]
+include::karma.conf.js[lines=7..17]
 ----
 <1> Il suffirait de décommenter cette ligne pour inclure les <<polyfills,_polyfills_ de navigateurs web>> sans toucher à notre code.
-<2> Inclusion des fichiers de tests spécifiques aux navigateurs web.
-<3> Inclusion de fichiers HTML, sans effet à moins.
-<4> Mise à disposition du fichier `package.json`, accessible via une requête HTTP vers `/base/package.json`.
+<2> Inclusion des fichiers de tests — ils sont appelés dans des balises HTML `<script>`.
+<3> Inclusion de fichiers HTML — ils sont accessibles via HTTP.
+<4> Mise à disposition du fichier `package.json` — accessible via HTTP à l'adresse `/base/package.json`.
+<5> Indique que ce fichier ne doit pas être inclus dans une balise HTML `<script>`.
 
 Des _intégrations_ doivent être déclarés pour augmenter les fonctionnalités de base de _karma_.
 Les fonctionnalités de base de _karma_ se résument à charger des fichiers _ECMAScript_ dans une balise `<script>`.
@@ -1601,17 +1602,18 @@ Les fonctionnalités de base de _karma_ se résument à charger des fichiers _EC
 L'extrait de configuration suivant illustre le chargement des _plugins_ pour _browserify_ (modules _CommonJS_ et transpilation), _mocha_ (_suites de tests_) et _fixture_ (données représentant des cas d'utilisation) – respectivement les modules _npm_ `karma-browserify`, `karma-mocha` et `karma-fixture` :
 
 [source,javascript,indent=0]
-.karma.conf.js#L13
+.karma.conf.js#L5
 ----
-include::karma.conf.js[lines=13]
+include::karma.conf.js[lines=5]
 ----
 
-Une fois encore des _motifs de chemins_ sont utilisés pour indiquer aux _plugins_ leur responsabilité de prise en charge.
+Une fois encore des _motifs de chemins_ sont utilisés pour indiquer aux _plugins_
+leur responsabilité de prise en charge.
 
 [source,javascript,indent=0]
-.karma.conf.js#L33-37
+.karma.conf.js#L21-25
 ----
-include::karma.conf.js[lines=33..37]
+include::karma.conf.js[lines=21..25]
 ----
 <1> Ces fichiers seront transpilés par _browserify_ avant d'être chargés dans les tests de navigateurs web.
 <2> Ces fichiers seront pris en charge par le _préprocesseur_ nommé _html2js_, utilisé par `karma-fixture` pour transformer du HTML en arbre DOM.
@@ -1691,18 +1693,24 @@ L'intégration avec Node est également documentée au cas où vous souhaiteriez
 - [URL]#https://www.browserstack.com/list-of-browsers-and-platforms#
 ====
 
-_BrowserStack_ n'est pas un navigateur en soi mais offre un accès à une multitude de navigateurs.
-Il faut donc créer de nouvelles configurations de navigateurs dans la propriété de configuration `customLaunchers`.
-L'extrait de configuration suivant illustre la création d'un navigateur _Safari_ pour _iPhone 4S_ sous _iOS 5.1_ :
+_BrowserStack_ n'est pas un navigateur en soi mais offre un accès à une multitude
+de navigateurs.
+Il faut donc créer de nouvelles configurations de navigateurs dans la propriété
+de configuration `customLaunchers`.
+L'extrait de configuration suivant illustre la création d'un navigateur _Safari_
+pour _iPhone 4S_ sous _iOS 5.1_ :
 
 [source,javascript,indent=0]
-.karma.conf.js#L84-91
+.karma.conf.js#L51-58
 ----
-include::karma.conf.js[lines=84..91]
+include::karma.conf.js[lines=51..58]
 ----
 
-L'utilisation de _BrowserStack_ nécessite un compte et l'obtention d'une clé d'API afin d'utiliser leur service.
-Notre _npm d'utilisateur_ et la _clé d'API_ doivent être renseignés en tant que *variables d'environnement* pour établir une connexion au service et démarrer notre bon vieil iPhone 4 :
+L'utilisation de _BrowserStack_ nécessite un compte et l'obtention d'une clé
+d'API afin d'utiliser leur service.
+Notre _npm d'utilisateur_ et la _clé d'API_ doivent être renseignés en tant que
+*variables d'environnement* pour établir une connexion au service et démarrer
+notre bon vieil iPhone 4 :
 
 ----
 $ export BROWSER_STACK_USERNAME=...
@@ -1711,25 +1719,29 @@ $ npm run test:browser -- --browsers iphone4
 ----
 
 _BrowserStack_ peut être configuré plus finement selon vos besoins.
-Le réglage suivant s'assure de faire transiter les données HTTP (scripts, HTML, etc.) via la connexion sécurisée entre notre ordinateur et _BrowserStack_.
-C'est un réglage utile en cas de *proxy exigeant* ou de *réglages de connexion à Internet* bien spécifiques.
+Le réglage suivant s'assure de faire transiter les données HTTP
+(scripts, HTML, etc.) via la connexion sécurisée entre notre ordinateur et
+_BrowserStack_.
+C'est un réglage utile en cas de *proxy exigeant* ou de
+*réglages de connexion à Internet* bien spécifiques.
 
 [source,javascript,indent=0]
-.karma.conf.js#L52-54
+.karma.conf.js#L39-41
 ----
-include::karma.conf.js[lines=52..54]
+include::karma.conf.js[lines=39..41]
 ----
 
 [TIP]
 .[RemarquePreTitre]#Alternative# _Sauce Labs_
 ====
-_Sauce Labs_ est un concurrent de _BrowserStack_ et offre des fonctionnalités similaires.
-Il est gratuit pour les projets _open source_.
-
-- [URL]#https://saucelabs.com#
+_Sauce Labs_ ([URL]#https://saucelabs.com#) est un concurrent de _BrowserStack_.
+Il offre des fonctionnalités similaires et est gratuit pour les projets _open source_.
 ====
 
-Indépendamment de _BrowserStack_, l'*intégration continue* est un mécanisme permettant l'*exécution automatique* des tests, de manière *reproductible* et dans un *environnement systématiquement propre* – sans trace d'exécution d'un précédent test.
+Indépendamment de _BrowserStack_, l'*intégration continue* est un mécanisme
+permettant l'*exécution automatique* des tests, de manière *reproductible* et
+dans un *environnement systématiquement propre* – sans trace d'exécution d'un
+précédent test.
 
 Cela a deux avantages indéniables :
 
@@ -1777,8 +1789,14 @@ image::images/travis-ci-encrypted-env.png[width="85%"]
 
 == Conclusion
 
-Nous sommes désormais en mesure d'*exécuter des tests unitaires* impliquant des *navigateurs web* sur notre machine, sur des *services distants* mais également de manière automatique avec des services d'*intégration continue* comme _Travis CI_.
+Nous sommes désormais en mesure d'*exécuter des tests unitaires* impliquant
+des *navigateurs web* sur notre machine, sur des *services distants* mais
+également de manière automatique avec des services d'*intégration continue*
+comme _Travis CI_.
 
-Le recours aux modules _npm_ combinés aux modules _ECMAScript_ facilite le *design et la maintenance de code testable et réutilisable*.
+Le recours aux modules _npm_ combinés aux modules _ECMAScript_ facilite le
+*design et la maintenance de code testable et réutilisable*.
 
-Ces pratiques de modularisation – jusqu'au rendu intermédiaire de _React_ – encouragent une *rigueur ayant un impact positif* sur la qualité de notre code et notre confiance à le déployer en production.
+Ces pratiques de modularisation – jusqu'au rendu intermédiaire de _React_
+– encouragent une *rigueur ayant un impact positif* sur la qualité de notre
+code et notre confiance à le déployer en production.

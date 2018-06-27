@@ -1,8 +1,10 @@
 const getOS = userAgent => {
-  const [, os, version] = userAgent.match(/\(([^;]+)\s?;\s?([^)]+)\)/);
+  const USER_AGENT = /\(([^;]+)\s?;\s?([^)]+)\)/;
+  const [, os, version] = userAgent.match(USER_AGENT);
+
   return {os, version};
 };
 
 const {userAgent} = window.navigator; // <1>
 
-console.log(getOS(userAgent)); // <2>
+console.log(getOS(userAgent));        // <2>

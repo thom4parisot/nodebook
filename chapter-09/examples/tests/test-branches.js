@@ -2,8 +2,8 @@ import isOdd from '../test-branches.js'
 import {expect} from 'chai';
 
 describe('isOdd', () => {
-  it('jette une exception si le paramètre n\'est pas un nombre', () => {
-    expect(() => isOdd(NaN)).to.throw(/devrait être un nombre/);
+  it('crée une exception si ce n\'est pas un nombre', () => {
+    expect(() => isOdd(NaN)).to.throw(/être un nombre/);
   });
 
   it('renvoie true si 3 est un chiffre impair', () => {

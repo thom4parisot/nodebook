@@ -1,10 +1,9 @@
+const isString = (thing) => typeof word === 'string';
+
 const isWord = (word) => {
-  return /^[\w\s.,\-?!;+]{2,}$/.test(word) && Number.isNaN(Number(word));
+  return isString(word) && /^[\w\s.,\-?!;+]{2,}$/.test(word);
 };
 
 export default function countWords (sentence) { // <1>
-  return sentence
-    .split(' ')
-    .filter(isWord)
-    .length;
+  return sentence.split(' ').filter(isWord).length;
 }
