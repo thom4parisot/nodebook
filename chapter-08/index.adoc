@@ -196,17 +196,16 @@ car l'exécutable `npm` gère l'interopérabilité pour nous.
 Nous verrons comment dans la <<package.json,section suivante>>.
 ====
 
-Le caractère `#` placé en début de ligne d'un script système signale une ligne
+Le caractère `+#+` placé en début de ligne d'un script système signale une ligne
 placée en commentaire.
-C'est l'équivalent du commentaire `//` en ECMAScript.
-Il existe un cas spécial : lorsque le caractère `#` est
-suivi par un `!` en tout début de fichier.
+C'est l'équivalent de `+//+` en ECMAScript.
+Il existe un cas spécial : lorsque le caractère `+#+` est suivi d'un `!`
+_et_ lorsqu'il s'agit de la première ligne d'un fichier.
 Le contenu du commentaire est alors utilisé par le système d'exploitation
 pour déterminer quel programme utiliser pour interpréter le script.
 C'est ce qu'on appelle _shebang_ (en anglais).
 
-Modifions le script de la section précédente pour ajouter le
-_shebang_ en entête :
+Modifions le script de la section précédente pour ajouter le _shebang_ :
 
 [source,javascript]
 .bin/time-sh.js
@@ -214,11 +213,11 @@ _shebang_ en entête :
 include::{sourceDir}/bin/time-sh.js[lines=1..5]
 ...
 ----
+<1> Le programme `/usr/bin/env` est exécuté avec un argument, `node`.
 
-La ligne du _shebang_ crée un nouvel environnement d'exécution avec `env`,
-référencé ici par son chemin absolu.
-Ce nouvel environnement survit pendant la durée d'exécution du programme
-passé en argument, ici `node` :
+Le programme `/usr/bin/env` crée un nouvel environnement d'exécution
+et le reste du script est passé au programme référencé en argument — ici, `node`.
+Ce nouvel environnement dure le temps de l'exécution du script.
 
 ----
 $ ./bin/time-sh.js
