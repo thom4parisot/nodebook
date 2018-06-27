@@ -1,3 +1,5 @@
 export function log (message, target = '#logs') {
-  document.querySelector(target).textContent = String(message).trim();
+  const text = String(message).trim();
+
+  document.querySelector(target).textContent = text;
 }

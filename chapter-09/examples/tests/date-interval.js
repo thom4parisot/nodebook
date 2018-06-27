@@ -1,20 +1,24 @@
 import { createElement } from 'react';
 import { expect } from 'chai';
 import { shallow } from 'enzyme';
-import DateInterval from '../modules/date-interval.jsx';    // <1>
+import DateInterval from '../modules/date-interval.jsx';// <1>
 
 describe('<DateInterval />', () => {
-  it('should render a time element', () => {                // <2>
-    const component = shallow(createElement(DateInterval)); // <3>
+  const element = createElement(DateInterval);
 
-    expect(component.find('time')).to.have.length(1);       // <4>
+  it('affiche un élément <time>', () => {               // <2>
+    const component = shallow(element);                 // <3>
+
+    expect(component.find('time')).to.have.length(1);   // <4>
   });
 
-  it('should populate props.tickData with now+className properties', () => {
-    const component = shallow(createElement(DateInterval)); // <5>
-    const {tickData} = component.state();                   // <6>
+  it('la propriété tickDate influence la classe HTML', () => {
+    const OK_CLASS = ['pair', 'impair'];
+    const component = shallow(element);                 // <5>
+    const {tickData} = component.state();               // <6>
 
-    expect(tickData.now.getTime()).to.be.closeTo(Date.now(), 3);  // <7>
-    expect(tickData.className).to.be.oneOf(['pair', 'impair']);   // <8>
+    const time = tickData.now.getTime();
+    expect(time).to.be.closeTo(Date.now(), 3);          // <7>
+    expect(tickData.className).to.be.oneOf(OK_CLASS);   // <8>
   });
 });

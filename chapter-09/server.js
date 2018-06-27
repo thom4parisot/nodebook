@@ -1,3 +1,5 @@
+/* eslint-disable max-len */
+
 const http = require('http');
 const express = require('express');
 const getPort = require('get-port');
