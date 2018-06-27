@@ -3,6 +3,9 @@
 const YEAR = new Date().getFullYear();
 
 module.exports = {
+  'appendix-a/examples/npm/debug.js': {
+    timeout: 6000
+  },
   'appendix-a/examples/npm/faye.js': {
     skip: true
   },
@@ -270,9 +273,6 @@ module.exports = {
   'chapter-06/examples/sql-connect.js': {
     exitCode: 1,
     stderr: 'TypeError'
-  },
-  'chapter-06/examples/debug.js': {
-    timeout: 6000
   },
   'chapter-06/examples/sentry.js': {
     errorCode: 1,
