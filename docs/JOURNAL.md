@@ -18,6 +18,8 @@ a été écrit, relu et testé avec un public apprenant.
 
 - _Chapitre 8_ : Documenter notre programme
 - _Chapitre 8_ : Introduction et conclusion
+- _Chapitre 8_ : correction pour afficher le shebang
+- _Outillage_ : exemples sur une longueur de 63 caractères
 
 **Météo** : 😴 ☀️
 
