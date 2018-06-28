@@ -3,8 +3,9 @@
 > Apprendre par l'exemple • Devenez autonome avec JavaScript, l'écosystème npm, le développement frontend, les applications web et en ligne de commande.
 
 📖 **Journal de bord d'écriture** • [2018][journal-2018] • [2017][journal-2017].
+👀 **Lire l'ouvrage** • [sur papier](#sur-papier) • [sur le web](#sur-le-web) • [avec Node.js](#avec-node-js).
+🙏 [Aide à financer son écriture si l'ouvrage t'a aidé](https://opencollective.com/nodebook#backer).
 
-👀 **Disponibilité** • _livre_ (octobre 2018) • [web][livre-web] • [module npm][livre-npm].
 
 # Table des matières
 
@@ -25,33 +26,40 @@
 | ✅      | **[Créer une application frontend][ch09]** | _ça marche comment les modules Node dans les navigateurs web ?_ | [issues][ch09-issues]
 | 🚧      | _Annexe_ : **[Sélection de modules npm][a01]** | - | [issues][appendix-issues]
 
-# Lire
+# Lire l'ouvrage
 
-## Avec un navigateur web
+## Sur le web
 
 🌐 L’épreuve est consultable gratuitement à cette adresse : [https://oncletom.io/node.js/][livre-web].<br>
-🙏 [Aide à financer son écriture si l'ouvrage t'a aidé](https://opencollective.com/nodebook#backer).
 
-De nombreux **exemples sont interactifs** en un clic.
+**Fonctionnalités** : exemples interactifs, vidéos, mise à jour en continu.
 
-**Fonctionnalités** : exemples interactifs, vidéos, renvois.
-
-## Au format papier / e-book
+## Sur papier
 
 ⏳ À venir.
 
-## Avec Node.js et npm
+**Fonctionnalités** : confort de lecture, annotations libres, rémunère mon travail.
+
+## Sur liseuse numérique
+
+⏳ À venir.
+
+**Fonctionnalités** : ne prend pas de place, rémunère mon travail.
+
+## Avec Node.js
 
 📦 Le livre est disponible en tant que **module npm** : [`nodebook`][livre-npm].
-C'est le moyen recommandé pour **exécuter les exemples sur son ordinateur**.
+
+**Fonctionnalités** : apprendre Node.js avec Node.js, tous les exemples sont fonctionnels, lecture hors-ligne.
 
 ```bash
 $ npm install --global nodebook
+$ nodebook install all
 ```
 
-La commande précédente télécharge une copie du livre, les exemples associés ainsi que leurs dépendances pour une utilisation hors-ligne.
+Cette commande télécharge une copie du livre et les dépendances des exemples pour une utilisation hors-ligne.
 
-Une fois installé, le manuel d'utilisation s'invoque avec l'argument `--help` :
+Le manuel d'utilisation s'invoque avec l'argument `--help` :
 
 ```bash
 $ nodebook --help
@@ -79,8 +87,9 @@ Exemples:
 
 # Contribuer
 
-Le moyen le plus simple de contribuer est de proposer une _pull request_.
-L'**interface en ligne de GitHub** est de loin la plus simple à prendre en main.
+Je vous invite à contribuer **de la manière de votre choix** — par e-mail, en ouvrant une _issue_ ou en contribuant du texte ou du code.
+
+Si vous n'êtes pas sûr·e de votre coup mais que l'envie est là, c'est suffisant pour démarrer 🙂. Nous éclaircirons les choses ensemble si nécessaire.
 
 ## Installation
 
@@ -89,14 +98,19 @@ Il est possible de travailler sur une copie locale de l'épreuve en la dupliquan
 ```bash
 $ git clone --single-branch https:/github.com/oncletom/nodebok
 $ cd nodebook
-$ npm install
+# Installe les dépendances de développement
+$ npm ci
+# Installe les dépendances des chapitres
+$ npm run install:all
 ```
 
-Optionellement, [git-lfs](https://git-lfs.github.com/) récupère les vidéos.
+Cette commande facultative récupère les vidéos localement :
 
 ```bash
 $ git lfs pull
 ```
+
+Elle utilise l'extension [git-lfs](https://git-lfs.github.com/).
 
 ## Prévisualiser
 
@@ -105,6 +119,8 @@ Un serveur local est disponible pour prévisualiser les modifications sans être
 ```bash
 $ npm start
 ```
+
+L'épreuve est accessible sur [http://localhost:3000](http://localhost:3000).
 
 ## Tests
 
@@ -170,10 +186,9 @@ Support this project by becoming a sponsor. Your logo will show up here with a l
 
 # Mentions légales
 
-_Node.js • Apprendre par la pratique_ est un ouvrage rédigé par [Thomas Parisot](https://oncletom.io). Il est édité et publié en format papier et e-book par [Eyrolles](http://www.eyrolles.fr).
+_Node.js • Apprendre par la pratique_ est un ouvrage rédigé par [Thomas Parisot](https://oncletom.io). Il est édité, publié et distribué en papier et e-book par [Eyrolles][].
 
-L’épreuve est soumise à la licence [Creative Commons NC-BY-SA 4.0][cc-nc-by-sa] (_Attribution, Non-Commercial, Share Alike_).
-
+L’épreuve est soumise à la licence [Creative Commons NC-BY-SA 4.0][cc-nc-by-sa] (_Attribution, Non-Commercial, Share Alike_).<br>
 Les exemples de code sont placés sous la [licence MIT][].
 
 [ci-linux]: https://travis-ci.org/oncletom/nodebook.svg?branch=master
@@ -182,6 +197,7 @@ Les exemples de code sont placés sous la [licence MIT][].
 [journal-2017]: docs/JOURNAL-2017.md
 [livre-web]: https://oncletom.io/node.js/
 [livre-npm]: https://npmjs.com/nodebook
+[Eyrolles]: http://www.eyrolles.fr
 [licence MIT]: LICENSE
 [cc-nc-by-sa]: https://creativecommons.org/licenses/by-nc-sa/4.0/deed.fr
 [backers]: https://opencollective.com/nodebook#backers
@@ -209,4 +225,3 @@ Les exemples de code sont placés sous la [licence MIT][].
 [ch09-issues]: https://github.com/oncletom/nodebook/labels/:book:%20chapitre:9
 [a01]: appendix-a/index.adoc
 [appendix-issues]: https://github.com/oncletom/nodebook/labels/:book:%20chapitre:annexes
-[a02]: appendix-b/index.adoc
