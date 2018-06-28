@@ -25,20 +25,20 @@ Je pose régulièrement 2-3 questions à des personnes qui font des contribution
 
 > au taf on n'utilise pas énormément de Node. (…) mes 7 dernières années étaient dans un écosystème PHP (et maintenant Java), où l'utilisation de Node/NPM est surtout pour la gestion des assets.
 
-# Personne 3
+## Personne 3
 
 > J'ai appris pas mal de chose sur la genèse de Node, sa "structure", sur npm, les exemples et le texte sont clair, je n'ai pas encore ressenti le besoin d'exécuter les exemples mais là je commence à voir des choses que je n'ai pas expérimenté directement, donc ça va venir.
 
 > Sinon c'est limpide jusqu'ici 👍
 
-# Personne 4
+## Personne 4
 
 > Je suis développeur front/intégrateur en fin de mission.
 > Donc, il faut que je me fasse une mise à jour pour être opérationnelle pour mes futurs entretiens.
 
 > Ce que je cherche quand je lis un ouvrage informatique. C’est soit de découvrir quelques choses de nouveaux, soit avoir une meilleure compréhension d’un sujet, par les explications d’un auteur et peut-être faire tilt sur certains sujets obscures, soit pour me remémorer certaines info et vérifier si je suis à peu prêt a jour.
 
-# Personne 5
+## Personne 5
 
 > j’ai déjà travaillé un an avec Node, il y a deux ans. Donc les
 > premiers chapitres relèvent de la révision dans mon cas.
@@ -49,7 +49,7 @@ Je pose régulièrement 2-3 questions à des personnes qui font des contribution
 > lecture me conforte dans mes connaissances actuelles, c’est toujours
 > bon à prendre
 
-# Personne 6
+## Personne 6
 
 > Faisant du PHP depuis 15 ans, j'ai envie de changer de langage, du coup, je me tourne vers node et python pour une "reconversion".
 
