@@ -8,6 +8,12 @@ a été écrit, relu et testé avec un public apprenant.
 
 ---
 
+
+
+## Mercredi 28 juin 2018 • Burret
+
+**Météo** : 🙂 ☀️
+
 ## Mardi 27 juin 2018 • Burret
 
 - _Chapitre 8_ : Documenter notre programme

@@ -12,15 +12,11 @@ endif::[]
 
 = Créer une application web
 
-
+TBD.
 
 ====
 .Sommaire
-- Créer un serveur HTTP
-- Développer rapidement avec un _framework_ web
-- Se connecter à une base de données
-- Utiliser un moteur de rendu
-- Tester son application web
+- TBD.
 ====
 
 [abstract]
@@ -31,44 +27,7 @@ TBD.
 include::../docs/tip-versions.adoc[]
 include::../docs/tip-examples.adoc[]
 
-== Comment ça marche HTTP ?
-
-Une personne qui vient de PHP + Apache
---> pourquoi lancer un serveur ?
-Parce que moi j'ai Apache qui fait déjà ça pour moi.
-J'ai mon fichier index.php et ensuite Symfony fait le reste.
-
-- la page PHP est interpétée le temps de la requête, puis tout est mis à la poubelle (en termes de  mémoire, donc les valeurs des variables)
-- j'ai apache ou nginx devant, j'ai pas besoin d'un serveur web
-- modèle Apache + script ou Apache + port
-- pourquoi Apache lancerait pas un script Node comme il ferait avec php ?
-  - on cherche à s'éloigner du modèle où on recrée et détruit tout à chaque requête
-  - c'est rassurant parce que ça encapsule
-  - mais le coût il est en termes de  perf (charger tous les modules, résoudre les chemins, connecter à la base de données, i/o disque/réseau), pour chaque requête, et donc en termes de  perception de l'autre côté de la ligne : le spinner il tourne côté navigateur
-  - au bout de combien de temps un utilisateur quitte un site web s'il ne voit rien s'afficher ?
-  - stats sur la perception d'instantanéité (400ms de Halt & Catch Fire), observé en publicité, effondrement du taux de clic
-  - plus intéressant de servir "à chaud" (réduire les ressources et temps de calcul avant de pouvoir commencer à effectivement traiter la requête)
-
-- quand une requête arrive ça veut dire quoi
-  - browser : GET http://monsite.com
-  - montrer une requête HTTP brute
-  - surprise : c'est que du texte
-  - c'est interprété de deux côtés : par le client (programme qui demande, adresse une requête -- un navigateur web c'est un type de client) et le serveur (programme qui reçoit et renvoie des réponses)
-  - et une réponse ça ressemble à quoi ?
-    - dans la réponse y'a un statut (200, etc) (c'est pour ça 404)
-    - dans la réponse y'a un type de contenu (Content-Type)
-    - le corps de la réponse peut être du texte, qui suit un certain format (HTML, texte, XML, JSON, image/jpg, image/png)
-  - le client interprète en fonction de ses capacités et d'hypothèses pragmatiques
-    - un navigateur web : il interprète le HTML, l'affiche, et demande les ressources listées dans les différentes balises (img, video, audio)
-      - fait autant de requêtes que nécessaire pour les obtenir et les afficher
-      - attention s'il y en a trop, ça fait le même effet que retirer un courier à la Poste à la mauvaise heure
-      - le poids des ressources à transférer a un impact (plus c'est lourd, plus c'est gros, plus c'est long à charger — c'est amplifié par la qualité et le débit de la connexion Internet)
-      - [TIP] : les WebView ce sont des navigateurs web, genre pour iOS, Android etc.
-    - un client en ligne de commande (curl, wget) : il n'interpète pas, récupère juste
-      - c'est utilisé pour faire du scrapping
-      - c'est utilisé pour donner ça à d'autres programmes (enjoliver le résultat, extraire des informations)
-      - voir au chapitre 8 pour en savoir plus sur le fonctionnement d'applications en ligne de commande
-
+////
 # Et si je devais créer un serveur web, comment ça se passe ?
 - distingo serveur web/serveur http ? (pas sûr que ça vaille le coup/coût à ce stade là)
 - c'est quoi cette histoire d'ouvrir un port pour lancer un serveur ?
@@ -80,10 +39,6 @@ J'ai mon fichier index.php et ensuite Symfony fait le reste.
   - qu'est-ce qui occupe de la mémoire ?
   - ça a d'autant plus d'impact qu'on est sur des processus longs (aka programme qui tourne en continu — le serveur web)
   - donc si on nettoie pas (ce qu'on ouvre, si on charge tout d'un coup), les ressources disponibles diminuent jusqu'au plantage
-
-
-////
-Et https ?
 ////
 
 // === Prendre en compte des changements pendant le développement
@@ -94,22 +49,99 @@ Et https ?
 nodemon
 ////
 
+== Développer une application web
+
+<<../chapter-04/index.adoc#http,module `http`>>
+
+enjeu : passer
+
+[[server]]
+=== Exposer le serveur sur un port réseau
+
+- https://npmjs.com/get-port
+- bash
+
+[[path]]
+=== Réagir à une URL (`GET`)
+
+à la main mais c'est pénible
+https://npmjs.com/find-my-way
+
+[[static]]
+=== Répondre avec des fichiers
+
+tip : utiliser nginx static quand vous l'avez sous le coude (cf. chap 6)
+
+[[arguments]]
+=== Réagir aux arguments de l'URL
+
+https://npmjs.com/parseurl
+
+[[cookies]]
+=== Créer un lien avec le client grâce aux cookies
+
+[[post]]
+=== Interpréter un corps de message (`POST`, `PUT`)
+
+- JSON
+- formulaire
+
+[[upload]]
+=== Recevoir des fichiers
+
+- solo
+- plusieurs (multipart)
+
+[[templating]]
+=== Modulariser les gabarits de présentation
+
+je parle de nunjucks mais en fait on s'en fiche y'en a plein de bien
+chacun son tyle : pug, twig, ejs, handlebars
+
+[[dev]]
+=== Pendant le développement : relancer le serveur automatiquement
+
+nodemon, clairement
+
 [[express]]
-== Développement rapide avec des _frameworks_ web
+== Organiser une application avec le _framework_ express
 
-=== Les _middlewares_
+Express mais ça pourrait être un autre
+Y'a plus performant (fastify), plus orienté données (restify),
+plus asynchrone (koa) et plus tout terrain (hapi).
 
-TBD.
+choix du bien documenté, bien outillé
+proche du module http (plus facile pour greffer des modules npm)
 
-=== Router des requêtes vers des modules
+ce qui est expliqué après s'applique sans les frameworks
+c'est une manière "consolidée" d'organiser son code et d'y brancher des trucs
 
-TBD.
+[[middleware]]
+=== Greffer des extensions
 
-=== Sécuriser une requête entrante
+interception / transformation des requêtes entrantes
+les routes obtiennent
 
-TBD.
+[[views]]
+=== Brancher les gabarits de présentation
 
+c'est pas très différent mais y'a un module intermédiaire
+qui gère ça tranquillement
 
+[[frontend]]
+=== Intégrer les ressources front-end (CSS, JavaScript)
+
+mieux vaut les générer statiquement
+rebuild à la demande
+des fois y'a des outils qui font ça (on perd de vue les erreurs je trouve)
+
+[[security]]
+=== Protéger l'application
+
+https://npmjs.com/helmet
+https://www.npmjs.com/package/safe-regex pour utiliser une regex sur du contenu fourni par utilisateur
+
+////
 L'organisme _Open Web Application Security Project_ (_OWASP_) recueille et diffuse nombre de critères de sécurité à connaître et vérifier pour déjouer au mieux des attaques.
 Citons quelques uns de ces critères :
 
@@ -131,17 +163,21 @@ Le site d'OWASP offre guides, référentiels, fiches récapitulatives, applicati
 - [URL]#https://www.owasp.org/#
 - [URL]#https://nodegoat.herokuapp.com/tutorial#
 ====
-
-=== Authentifier des utilisateurs
-
-TBD.
+////
 
 
 [[database]]
-== Connexion à des bases de données
+=== Brancher une base de données
 
+Mémoriser les données entre deux redémarrages
+Partager les données entre plusieurs instances
 
-=== Quelle base de données choisir ?
+on va utiliser sqlite parce que pas de dépendance logicielle
+node-sqlite pour les promesses mais on aurait très bien pu utiliser sqlite3
+
+==== Quelle base de données choisir ?
+
+en fait on peut en prendre plusieurs, ajuster stratégies
 
 * *en mémoire* +
   Le stockage est dit _éphémère_ car l'information est stockée dans la mémoire vive de la machine et disparait dès que l'application est interrompue ;
@@ -156,44 +192,113 @@ TBD.
   Le stockage n'est _pas nécessairement lié_ à la machine hébergeant l'application.
   L'information persiste si l'application est interrompue.
 
+[NOTE]
+.[RemarquePreTitre]#Question# Dois-je forcément utiliser MongoDB avec Node ?
+====
 Doit-on nécessairement *utiliser _MongoDB_*, une base de données _orientée documents_ ou _JSON_ avec une application Node ?
 La réponse est catégorique : c'est *non*.
 
 *Tout type de base de données s'interface avec Node*, qu'elle soit _relationnelle_ (Postgres, MariaDB, MySQL), _clé/valeur_ (Redis), en _colonnes_ (Cassandra) ou _orientée documents_ (MongoDB, ElasticSearch).
+====
 
-=== Modèles de données
+[[sessions]]
+=== Sessions utilisateur
 
-TBD.
+[[logs]]
+=== Tracer les actions
+
+importants pour retrouver des problèmes
+contexte où plein de personnes accèdent à une application, font plein de trucs
+(ça dépasse l'échelle de compréhension d'un cerveau)
+
+[[tests]]
+== Vers un code réutilisable et testable
+
+=== Modulariser le code des routes
+
+but est de rendre une fonction de render la plus fine possible
+
+- middlewares
+- initialisation
+
+=== Tester le code indépendamment du framework
+
+mocha, chai, bon duo
+
+=== Tester les aspects cruciaux du front-end
+
+Cf. chapter-09/karma
+
+=== Déployer automatiquement
+
+Cf. chapter-06
 
 
-== Affichage et templating de données
 
-=== Fichiers statiques
+[[advanced]]
+== Pour aller plus loin
 
-TBD.
 
-=== Templating HTML
+[[server]]
+=== Pourquoi lancer un serveur ?
 
-TBD.
+Une personne qui vient de PHP + Apache
+Parce que moi j'ai Apache qui fait déjà ça pour moi.
+J'ai mon fichier index.php et ensuite Symfony fait le reste.
 
-=== Ressources RESTful
+- la page PHP est interpétée le temps de la requête, puis tout est mis à la poubelle (en termes de  mémoire, donc les valeurs des variables)
+- j'ai apache ou nginx devant, j'ai pas besoin d'un serveur web
+- modèle Apache + script ou Apache + port
+- pourquoi Apache lancerait pas un script Node comme il ferait avec php ?
+  - on cherche à s'éloigner du modèle où on recrée et détruit tout à chaque requête
+  - c'est rassurant parce que ça encapsule
+  - mais le coût il est en termes de  perf (charger tous les modules, résoudre les chemins, connecter à la base de données, i/o disque/réseau), pour chaque requête, et donc en termes de  perception de l'autre côté de la ligne : le spinner il tourne côté navigateur
+  - au bout de combien de temps un utilisateur quitte un site web s'il ne voit rien s'afficher ?
+  - stats sur la perception d'instantanéité (400ms de Halt & Catch Fire), observé en publicité, effondrement du taux de clic
+  - plus intéressant de servir "à chaud" (réduire les ressources et temps de calcul avant de pouvoir commencer à effectivement traiter la requête)
 
-TBD.
 
-== Tester son application
+[[http]]
+=== Comprendre le modèle HTTP
 
-=== Tests unitaires
+- quand une requête arrive ça veut dire quoi
+  - browser : GET http://monsite.com
+  - montrer une requête HTTP brute
+  - surprise : c'est que du texte
+  - c'est interprété de deux côtés : par le client (programme qui demande, adresse une requête -- un navigateur web c'est un type de client) et le serveur (programme qui reçoit et renvoie des réponses)
+  - et une réponse ça ressemble à quoi ?
+    - dans la réponse y'a un statut (200, etc) (c'est pour ça 404)
+    - dans la réponse y'a un type de contenu (Content-Type)
+    - le corps de la réponse peut être du texte, qui suit un certain format (HTML, texte, XML, JSON, image/jpg, image/png)
+  - le client interprète en fonction de ses capacités et d'hypothèses pragmatiques
+    - un navigateur web : il interprète le HTML, l'affiche, et demande les ressources listées dans les différentes balises (img, video, audio)
+      - fait autant de requêtes que nécessaire pour les obtenir et les afficher
+      - attention s'il y en a trop, ça fait le même effet que retirer un courier à la Poste à la mauvaise heure
+      - le poids des ressources à transférer a un impact (plus c'est lourd, plus c'est gros, plus c'est long à charger — c'est amplifié par la qualité et le débit de la connexion Internet)
+      - [TIP] : les WebView ce sont des navigateurs web, genre pour iOS, Android etc.
+    - un client en ligne de commande (curl, wget) : il n'interpète pas, récupère juste
+      - c'est utilisé pour faire du scrapping
+      - c'est utilisé pour donner ça à d'autres programmes (enjoliver le résultat, extraire des informations)
+      - voir au chapitre 8 pour en savoir plus sur le fonctionnement d'applications en ligne de commande
 
-TBD.
+https://github.com/jshttp
 
-=== Tests fonctionnels
+[[authentication]]
+=== Authentifier des utilisateurs
 
-TBD.
+[[api]]
+=== API REST : l'application web orientée données
 
-=== Tests d'API REST
+[[jobqueue]]
+=== Déléguer le travail aux files d'attente
 
-TBD.
+[[lambda]]
+=== Une application minimaliste avec les Lambda
 
+https://npmjs.com/micro
+
+[[https]]
+=== Et HTTPS dans tout ça ?
 
 == Conclusion
 
