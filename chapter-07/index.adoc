@@ -25,7 +25,21 @@ TBD.
 --
 
 include::../docs/tip-versions.adoc[]
-include::../docs/tip-examples.adoc[]
+
+Une application web est une *construction applicative qui est à l'écoute*
+de connexions réseaux initiées par un client.
+Elle est structurée autour de la lecture d'une requête entrante (lecture)
+et l'émission d'une réponse sortante (écriture).
+Chaque *requête porte en elle une intention* — un chemin d'accès, une préférence
+de format, des éléments d'identification — et implique une réponse en retour
+— des données et des éléments pour les contextualiser.
+
+L'ingéniérie d'une application web consiste à comprendre les requêtes entrantes
+et à construire une réponse appropriée à chaque fois, le plus rapidement possible.
+
+Ce chapitre s'inscrit dans la continuité du
+<<../chapter-04/index.adoc#http,module `http`>> (re)découvert au cours du
+<<../chapter-04/index.adoc#,chapitre 4>>.
 
 ////
 # Et si je devais créer un serveur web, comment ça se passe ?
@@ -41,19 +55,72 @@ include::../docs/tip-examples.adoc[]
   - donc si on nettoie pas (ce qu'on ouvre, si on charge tout d'un coup), les ressources disponibles diminuent jusqu'au plantage
 ////
 
-// === Prendre en compte des changements pendant le développement
+== Composer son application web
 
-// TBD.
+Dans cette première section, nous allons nous focaliser sur la construction
+d'une application web avec une approche modulaire.
+Nous partirons du concept de requête et de réponse
+Petit à petit, nous allons greffer des modules pour comprendre et
+donner du sens à leur contenu respectif.
 
-////
-nodemon
-////
+include::../docs/tip-examples.adoc[]
 
-== Développer une application web
+Le _protocole HTTP_ est le dialecte informatique utilisé et compris pour exprimer
+les requêtes (émises par un client) et les réponses (émises par un serveur).
+Les navigateurs web sont des clients tandis que notre application Node est un serveur.
 
-<<../chapter-04/index.adoc#http,module `http`>>
+Le logiciel _curl_ ([URL]#https://curl.haxx.se#) est un client en ligne de commande.
+Il est souvent installé par défaut sur les distributions Linux, sur macOS et
+à partir de Windows 7 — via le terminal _PowerShell_.
 
-enjeu : passer
+Utilisons _curl_ pour observer le contenu d'une requête et sa réponse.
+
+.Exemple de requête HTTP vers le site [URL]#perdu.com#.
+----
+$ curl -v http://perdu.com  # <1>
+GET / HTTP/1.1              # <2>
+Host: perdu.com             # <3>
+User-Agent: curl/7.54.0
+Accept: */*
+----
+<1> Exécution de la requête.
+<2> Expression de la méthode, du chemin d'accès demandé et du protocole de discussion employé — ici, le protocole HTTP dans sa version `1.1`.
+<3> Entête de requête.
+
+Une entête est exprimée sous la forme `Clé: Valeur`.
+Chaque entête précise un élément de contexte.
+Certaines entêtes influencent plus que d'autres la réponse du serveur, si
+celui-ci la comprend.
+
+Voyons maintenant la réponse.
+
+.Exemple de réponse HTTP transmise en retour.
+----
+HTTP/1.1 200 OK                                       # <1>
+Date: Thu, 28 Jun 2018 19:02:27 GMT                   # <2>
+Server: Apache
+Last-Modified: Thu, 02 Jun 2016 06:01:08 GMT
+ETag: "cc-5344555136fe9"
+Accept-Ranges: bytes
+Content-Length: 204
+Vary: Accept-Encoding
+Content-Type: text/html                               # <3>
+
+&lt;html>&lt;head>&lt;title>Vous Etes Perdu ?&lt;/title> …&lt;/html> # <4>
+----
+<1> Expression du statut de la réponse avec un code numérique et une version intelligible.
+<2> Entête de réponse.
+<3> Entête de réponse — celle-ci indique au client comment interpréter le corps du message.
+<4> Corps du message.
+
+La réponse dispose elle aussi d'entêtes.
+Cette fois, elles guident le client dans son interprétation du résultat.
+Le corps du message est séparé par une ligne vide.
+C'est la partie visible de la réponse dans un navigateur web, c'est le contenu
+qui s'affiche sous nos yeux.
+
+Nous retracerons l'odyssée d'une requête HTTP dans la section
+<<http,Comprendre le modèle HTTP>> en fin de chapitre.
 
 [[server]]
 === Exposer le serveur sur un port réseau
@@ -77,20 +144,21 @@ tip : utiliser nginx static quand vous l'avez sous le coude (cf. chap 6)
 
 https://npmjs.com/parseurl
 
-[[cookies]]
-=== Créer un lien avec le client grâce aux cookies
-
 [[post]]
 === Interpréter un corps de message (`POST`, `PUT`)
 
 - JSON
 - formulaire
 
+
 [[upload]]
 === Recevoir des fichiers
 
 - solo
 - plusieurs (multipart)
+
+[[cookies]]
+=== Créer un lien avec le client grâce aux cookies
 
 [[templating]]
 === Modulariser les gabarits de présentation
@@ -239,7 +307,7 @@ Cf. chapter-06
 == Pour aller plus loin
 
 
-[[server]]
+[[advanced.server]]
 === Pourquoi lancer un serveur ?
 
 Une personne qui vient de PHP + Apache
@@ -289,7 +357,7 @@ https://github.com/jshttp
 [[api]]
 === API REST : l'application web orientée données
 
-[[jobqueue]]
+[[job-queue]]
 === Déléguer le travail aux files d'attente
 
 [[lambda]]

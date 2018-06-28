@@ -8,22 +8,29 @@ a été écrit, relu et testé avec un public apprenant.
 
 ---
 
+## Jeudi 28 juin 2018 • Burret
 
-
-## Mercredi 28 juin 2018 • Burret
+- _Chapitre 7_ : Composer son application web
 
 **Météo** : 🙂 ☀️
 
-## Mardi 27 juin 2018 • Burret
+## Mercredi 27 juin 2018 • Burret
+
+- _Outillage_ : exemples sur une longueur de 63 caractères
+- _Chapitre 7_ : premier jet de structure
+- _Chapitre 8_ : correction pour afficher le shebang
+
+**Météo** : 🙂 ☀️ 🍞
+
+## Mardi 26 juin 2018 • Burret
 
 - _Chapitre 8_ : Documenter notre programme
 - _Chapitre 8_ : Introduction et conclusion
-- _Chapitre 8_ : correction pour afficher le shebang
-- _Outillage_ : exemples sur une longueur de 63 caractères
+- _Chapitre 8_ : Grammalecte !
 
 **Météo** : 😴 ☀️
 
-## Lundi 26 juin 2018 • Burret/Mirepoix
+## Lundi 25 juin 2018 • Burret/Mirepoix
 
 - _Chapitre 8_ : Modulariser le code du fichier exécutable
 - _Chapitre 8_ : Tester le code partagé
@@ -32,7 +39,7 @@ a été écrit, relu et testé avec un public apprenant.
 
 **Météo** : 🚂 🙂 ☀️
 
-## Dimanche 25 juin 2018 • Burret
+## Dimanche 24 juin 2018 • Burret
 
 - _Chapitre 3_ : Ajout d'un exemple sur les mutateurs
 - _Chapitre 8_ : Utiliser les flux de données
@@ -41,13 +48,13 @@ a été écrit, relu et testé avec un public apprenant.
 
 **Météo** : 😴 ☀️
 
-## Samedi 24 juin 2018 • Burret/Foix
+## Samedi 23 juin 2018 • Burret/Foix
 
 - _Chapitre 8_ : Stratégies pour gérer les chemins d'accès
 
 **Météo** : 👍 🙂 ☀️ 🍦 🍞
 
-## Vendredi 23 juin 2018 • Sète/Auterive/Burret
+## Vendredi 22 juin 2018 • Sète/Auterive/Burret
 
 - _Chapitre 8_ : Utilisation d'un framework d'application en ligne de commande
 

@@ -2,9 +2,9 @@
 
 > Apprendre par l'exemple • Devenez autonome avec JavaScript, l'écosystème npm, le développement frontend, les applications web et en ligne de commande.
 
-📖 **Journal de bord d'écriture** • [2018][journal-2018] • [2017][journal-2017].
-👀 **Lire l'ouvrage** • [sur papier](#sur-papier) • [sur le web](#sur-le-web) • [avec Node.js](#avec-node-js).
-🙏 [Aide à financer son écriture si l'ouvrage t'a aidé](https://opencollective.com/nodebook#backer).
+📖 **Journal de bord d'écriture** • [2018][journal-2018] • [2017][journal-2017].<br>
+👀 **Lire l'ouvrage** • [sur papier](#sur-papier) • [sur le web](#sur-le-web) • [avec Node.js](#avec-nodejs).<br>
+🎧 [Ce que j'écoute en boucle quand j'écris][playlist].
 
 
 # Table des matières
@@ -198,6 +198,7 @@ Les exemples de code sont placés sous la [licence MIT][].
 [livre-web]: https://oncletom.io/node.js/
 [livre-npm]: https://npmjs.com/nodebook
 [Eyrolles]: http://www.eyrolles.fr
+[playlist]: https://open.spotify.com/user/oncletom/playlist/4Ywqaz0XpFVNa5CKohuUN8?si=edpuGs_NRgapHyigrrwU3w
 [licence MIT]: LICENSE
 [cc-nc-by-sa]: https://creativecommons.org/licenses/by-nc-sa/4.0/deed.fr
 [backers]: https://opencollective.com/nodebook#backers
