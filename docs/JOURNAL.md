@@ -8,6 +8,12 @@ a été écrit, relu et testé avec un public apprenant.
 
 ---
 
+## Venderdi 29 juin 2018 • Foix/Burret
+
+- _Chapitre 7_ : Démarrer un serveur HTTP
+
+**Météo** : 🙂 ☀️
+
 ## Jeudi 28 juin 2018 • Burret
 
 - _Chapitre 7_ : Composer son application web

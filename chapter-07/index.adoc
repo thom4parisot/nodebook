@@ -63,8 +63,6 @@ Nous partirons du concept de requête et de réponse
 Petit à petit, nous allons greffer des modules pour comprendre et
 donner du sens à leur contenu respectif.
 
-include::../docs/tip-examples.adoc[]
-
 Le _protocole HTTP_ est le dialecte informatique utilisé et compris pour exprimer
 les requêtes (émises par un client) et les réponses (émises par un serveur).
 Les navigateurs web sont des clients tandis que notre application Node est un serveur.
@@ -119,14 +117,69 @@ Le corps du message est séparé par une ligne vide.
 C'est la partie visible de la réponse dans un navigateur web, c'est le contenu
 qui s'affiche sous nos yeux.
 
-Nous retracerons l'odyssée d'une requête HTTP dans la section
-<<http,Comprendre le modèle HTTP>> en fin de chapitre.
+Dans la prochaine section, nous allons visualiser ces mêmes informations
+à partir d'un serveur HTTP que nous allons créer par nous-même.
+Nous retracerons plus en détail l'odyssée d'une requête HTTP dans la section
+<<http,Comprendre le modèle HTTP>>, en fin de chapitre.
+
+include::../docs/tip-examples.adoc[]
 
 [[server]]
-=== Exposer le serveur sur un port réseau
+=== Démarrer un serveur HTTP
 
-- https://npmjs.com/get-port
-- bash
+Nous l'avons vu juste avant : une requête HTTP envoyée vers un hôte
+renvoie une réponse.
+Cet hôte doit au préalable avoir installé et démarré un serveur HTTP qui
+écoute ces demandes.
+
+Le script d'exemple `server/start.js` répond à ce besoin.
+Une fois démarré, il est joignable à l'adresse `http://localhost:4000`.
+Il affichera alors les entêtes des requêtes et de leur réponse :
+
+----
+$ node server/start.js
+----
+
+[source%interactive%endpoint,javascript]
+.server/start.js
+----
+include::{sourceDir}/server/start.js[]
+----
+<1> Comme nous retournons du HTML au client, nous explicitons le type de contenu retourné en réponse.
+<2> Affiche les entêtes de la requête reçue par le serveur — le contenu varie selon le client utilisé.
+<3> Affiche les entêtes de la réponse — en l'occurence `{ 'content-type': 'text/html' }`.
+
+Nous avons composé la fondation minimum pour créer une application web
+en étant en mesure d'accepter des requêtes et de répondre, quelque chose
+d'arbitraire certes mais quelque chose qui est compris par un navigateur web.
+
+*Pourquoi avoir démarré le serveur sur le port 4000* dans l'exemple précédent ?
+C'est un choix arbitraire : nous pouvons démarrer un serveur HTTP sur n'importe
+quel port tant qu'il est supérieur ou égal à 1000
+et qu'un autre programme ne l'utilise pas déjà.
+Quand on cherche à se connecter à une adresse comme `http://localhost` (HTTP)
+ou `https://localhost` (HTTPS), la valeur du port est implicitement réglée à
+80 et 443, respectivement.
+
+Le module npm _get-port_ ([URL]#https://npmjs.com/get-port#) retourne
+un numéro de port parmi ceux disponibles sur le système d'exploitation.
+
+----
+$ node server/port.js
+http://localhost:51765
+----
+
+[source%interactive,javascript]
+.server/port.js
+----
+include::{sourceDir}/server/port.js[]
+----
+<1> Exprime une préférence pour retourner le port 4000 s'il est disponible.
+<2> Affiche `http://localhost:4000` si le port est disponible, sinon un autre nombre s'affichera à la place.
+<3> Le serveur se met à l'écoute sur ce port.
+
+Pour vous en rendre compte, démarrez le script `server/start.js` pour occuper
+le port 4000 et ensuite démarrez `server/port.js`.
 
 [[path]]
 === Réagir à une URL (`GET`)
