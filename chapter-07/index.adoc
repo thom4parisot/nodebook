@@ -363,21 +363,34 @@ Cf. chapter-06
 [[advanced.server]]
 === Pourquoi lancer un serveur ?
 
-Une personne qui vient de PHP + Apache
-Parce que moi j'ai Apache qui fait déjà ça pour moi.
-J'ai mon fichier index.php et ensuite Symfony fait le reste.
+Il y a des environnements ou des logiciels comme Apache ou Nginx intègrent
+notre langage de programmation avec des modules, par exemple PHP avec le `mod_php`
+ou Perl avec le `mod_cgi`.
+Les requêtes entrantes sont dirigées vers un script que le module interprète
+et retourne une réponse, dynamiquement.
 
-- la page PHP est interpétée le temps de la requête, puis tout est mis à la poubelle (en termes de  mémoire, donc les valeurs des variables)
-- j'ai apache ou nginx devant, j'ai pas besoin d'un serveur web
-- modèle Apache + script ou Apache + port
-- pourquoi Apache lancerait pas un script Node comme il ferait avec php ?
-  - on cherche à s'éloigner du modèle où on recrée et détruit tout à chaque requête
-  - c'est rassurant parce que ça encapsule
-  - mais le coût il est en termes de  perf (charger tous les modules, résoudre les chemins, connecter à la base de données, i/o disque/réseau), pour chaque requête, et donc en termes de  perception de l'autre côté de la ligne : le spinner il tourne côté navigateur
-  - au bout de combien de temps un utilisateur quitte un site web s'il ne voit rien s'afficher ?
-  - stats sur la perception d'instantanéité (400ms de Halt & Catch Fire), observé en publicité, effondrement du taux de clic
-  - plus intéressant de servir "à chaud" (réduire les ressources et temps de calcul avant de pouvoir commencer à effectivement traiter la requête)
+Le *script PHP est interprété à chaque requête* et tout cette représentation
+est détruite une fois la réponse envoyée — mémoire, valeurs des variables, configuration.
+Il faut recourir à un ensemble de modules additionnels pour optimiser ce gâchis
+de ressources informatiques — cache d'interprétation, cache applicatif, cache de configuration.
 
+Démarrer un serveur HTTP dans le langage de notre application nous éloigne de
+ce modèle coûteux et nous rapproche d'un fonctionnement plus performant, organisé
+autour de ces 3 piliers :
+
+- *Node et Apache/Nginx fonctionnent ensemble* — ils se font le relais des requêtes
+et des réponses car ils parlent le même protocole ;
+- *le serveur Node est préchauffé* — une requête entrante trouve une application
+déjà opérationnelle, déjà configurée, déjà connectée à une base de données
+et prête à répondre ;
+- *le code exécuté est spécifique à la requête* — l'application reçoit chaque
+requête de manière indépendante en ayant le minimum d'effort à faire pour
+générer une réponse.
+
+Autrement dit, ce modèle réduit le temps de parcours entre une requête entrante
+et une réponse sortante.
+Ça a un impact significatif sur le temps d'apparition de l'icône de chargement
+côté client.
 
 [[http]]
 === Comprendre le modèle HTTP

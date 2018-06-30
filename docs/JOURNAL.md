@@ -8,7 +8,19 @@ a été écrit, relu et testé avec un public apprenant.
 
 ---
 
-## Venderdi 29 juin 2018 • Foix/Burret
+## Dimanche 1er juillet 2018 • Burret
+
+- _Chapitre 3_, _Chapitre 4_, _Annexe A_ : Réduction de la longueur des exemples à 64 caractères par ligne
+
+**Météo** : 🙂 ☀️
+
+## Samedi 30 juin 2018 • Burret
+
+- _Chapitre 7_ : Pourquoi lancer un serveur ?
+
+**Météo** : 🙂 ☀️
+
+## Vendredi 29 juin 2018 • Foix/Burret
 
 - _Chapitre 7_ : Démarrer un serveur HTTP
 
