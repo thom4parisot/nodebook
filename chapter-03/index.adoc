@@ -1288,7 +1288,7 @@ dans la section <<array.map,transformer les valeurs>>.
 include::{sourceDir}/array/foreach-function.js[]
 ----
 <1> Applique la fonction `printIndex` pour chaque élément du tableau `undeux`.
-<2> Affiche successivement `"un se trouve à l'index 0"` puis `"deux se trouve à l'index 1"`.
+<2> Affiche successivement `"un : index 0"` puis `"deux : index 1"`.
 
 Outre l'inspection et l'affichage des valeurs, les boucles offrent la liberté
 de <<array.sort,faire des tris>>, de <<array.map,transformer les valeurs>>, de <<array.filter,filtrer selon des conditions>>
@@ -1589,7 +1589,7 @@ include::{sourceDir}/object/assign.js[]
 ----
 <1> Affiche `{ first_name: "Francine", location: "Drôme" }` — la nouvelle variable contient nos deux objets combinés.
 <2> Affiche `{ first_name: "Francine" }` — ce sont les valeurs originelles de notre objet.
-<3> Affiche `{ first_name: "Francine", location: 'Ardèche' }` — l'objet `francine26` a reçu la nouvelle propriété `location`.
+<3> Affiche `{ first_name: "Francine", location: 'Ardèche' }` — l'objet `o2` a reçu la nouvelle propriété `location`.
 
 À noter que les assignations se font de _gauche à droite_.
 Toute clé existante est remplacée.
@@ -2017,20 +2017,19 @@ L'héritage se caractérise par l'usage de l'opérateur `extends` lors de la
 définition de la classe et aussi par l'utilisation du mot-clé `super`
 dans le constructeur.
 
-
 [source%interactive,javascript]
 .class/extends.js
 ----
 include::{sourceDir}/class/extends.js[]
 ----
-<1> Affiche `"Node.js"` — la propriété `title` est assignée dans le constructeur de la classe `Book`.
-<2> Affiche `"9782212139938"` — la propriété `ean13` est assignée dans le constructeur de `Product`, la classe dont on hérite grâce à `extends` et à l'appel de `super()` qui transmet les arguments d'initialisation.
-<3> Affiche `undefined` — la propriété `title` n'est pas assignée dans le constructeur de la classe `Product`.
-<4> Affiche `"9782212139938"` — la propriété `ean13` est assignée dans le constructeur de `Product` qu'on appelle directement cette fois-ci.
+<1> La classe `Product` assigne un titre par défaut lorsqu'un nouvel objet est initialisé.
+<2> La classe `Book` assigne un titre donné en argument et sinon, elle se base sur la valeur par défaut de la classe `Product`.
+<3> Affiche `'Node.js'`.
+<4> Affiche `'Sans titre'` — la propriété `title` ne se définit par dans le constructeur (cf. `class Product`)
 
 En pratique, c'est comme si on empilait les classes les unes sur les autres.
 On lègue des méthodes aux classes qui héritent.
-Si une méthode porte le même nom, elle sera écrasée.
+Si une méthode porte le même nom, la méthode "en haut de la pile" a la priorité.
 
 L'appel à la fonction `super()` _appelle le constructeur de la classe étendue_.
 Si on ne l'appelle pas, le constructeur de la classe parent ne sera pas invoqué.
@@ -2038,7 +2037,7 @@ Si on ne l'appelle pas, le constructeur de la classe parent ne sera pas invoqué
 On reparlera de l'héritage dans la
 <<../chapter-09/index.adoc#react,section React>>
 du <<../chapter-09/index.adoc,chapitre 9>>.
-C'est un exemple populaire d'héritage de composants graphiques.
+C'est un exemple populaire d'héritage appliqué aux composants visuels.
 
 
 [[promise]]

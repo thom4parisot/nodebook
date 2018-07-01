@@ -1,10 +1,10 @@
-const francine = {
+const o = {
   first_name: 'Francine',
 };
 
-const francine26 = Object.assign({}, francine, {location: 'Drôme'});
-console.log(francine26);      // <1>
-console.log(francine);        // <2>
+const o2 = Object.assign({}, o, {location: 'Drôme'});
+console.log(o2);        // <1>
+console.log(o);         // <2>
 
-Object.assign(francine26, {location: 'Paris'}, {location: 'Ardèche'});
-console.log(francine26);      // <3>
+Object.assign(o2, {location: 'Paris'}, {location: 'Ardèche'});
+console.log(o2);        // <3>

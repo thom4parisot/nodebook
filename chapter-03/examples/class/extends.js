@@ -1,21 +1,21 @@
-class Product {
-  constructor({ ean13 }) {
-    this.ean13 = ean13;
+class Product {               // <1>
+  constructor() {
+    this.title = 'Sans titre';
   }
 }
 
-class Book extends Product {
+class Book extends Product {  // <2>
   constructor(options) {
     super(options);
 
-    this.title = options.title;
+    if (options.title) {
+      this.title = options.title;
+    }
   }
 }
 
-const nodebook = new Book({ title: 'Node.js', ean13: '9782212139938' });
-console.log(nodebook.title);    // <1>
-console.log(nodebook.ean13);    // <2>
+const book = new Book({ title: 'Node.js' });
+console.log(book.title);    // <3>
 
-const nodeproduct = new Product({ title: 'Node.js', ean13: '9782212139938' });
-console.log(nodeproduct.title); // <3>
-console.log(nodeproduct.ean13); // <4>
+const product = new Product({ title: 'Node.js' });
+console.log(product.title); // <4>

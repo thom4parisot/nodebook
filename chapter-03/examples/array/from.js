@@ -1,4 +1,5 @@
-console.log(Array.from('fromage'));                                   // <1>
+console.log(Array.from('fromage'));            // <1>
 
 // utilisation du second argument
-console.log(Array.from('fromage', (letter) => letter.toUpperCase())); // <2>
+const uppercase = (letter) => letter.toUpperCase();
+console.log(Array.from('fromage', uppercase)); // <2>

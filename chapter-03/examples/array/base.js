@@ -1,4 +1,6 @@
-const weekdays = ['lundi', 'mardi', 'mercredi', 'jeudi', 'vendredi'];
+const weekdays = [
+  'lundi', 'mardi', 'mercredi', 'jeudi', 'vendredi'
+];
 
 console.log(weekdays);          // <1>
 console.log(weekdays.length);   // <2>

@@ -1,4 +1,6 @@
-const weekdays = ['lundi', 'mardi', 'mercredi', 'jeudi', 'vendredi'];
+const weekdays = [
+  'lundi', 'mardi', 'mercredi', 'jeudi', 'vendredi'
+];
 
 for (const day of weekdays) {
   console.log(day);                           // <1>

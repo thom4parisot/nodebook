@@ -1,8 +1,7 @@
+const t = 'I ♥ JavaScript';
 
-const text = 'I ♥ JavaScript';
+console.log(t.replace('♥', 'love'));    // <1>
+console.log(t.replace(/\b\w+$/, 'PHP'));// <2>
 
-
-console.log(text.replace('♥', 'love'));     // <1>
-console.log(text.replace(/\b\w+$/, 'PHP')); // <2>
-
-console.log(text.replace(/^.+(\u{2665}) (\w+)$/u, '$2 $1 me')); // <3>
+const text = t.replace(/^.+(\u{2665}) (\w+)$/u, '$2 $1 me');
+console.log(text);                      // <3>

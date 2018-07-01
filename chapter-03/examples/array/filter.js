@@ -1,4 +1,7 @@
 const values = [null, 'un', 'deux', 3];
 
-console.log(values.filter(value => Number.isFinite(value)));  // <1>
-console.log(values.filter(value => value));                   // <2>
+const is_finite = (value) => Number.isFinite(value);
+const direct = (value) => value;
+
+console.log(values.filter(is_finite));  // <1>
+console.log(values.filter(direct));     // <2>
