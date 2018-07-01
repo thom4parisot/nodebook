@@ -283,13 +283,19 @@ module.exports = {
   'chapter-07/examples/server/port.js': {
     skip: true
   },
-  'chapter-07/examples/path/manual.js': {
+  'chapter-07/examples/path/404.js': {
     skip: true
   },
-  'chapter-07/examples/path/redirect.js': {
+  'chapter-07/examples/path/request-url.js': {
+    skip: true
+  },
+  'chapter-07/examples/path/method.js': {
     skip: true
   },
   'chapter-07/examples/path/routes.js': {
+    skip: true
+  },
+  'chapter-07/examples/path/route-params.js': {
     skip: true
   },
   'chapter-07/examples/cookies/read.js': {

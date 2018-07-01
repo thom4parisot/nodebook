@@ -1,6 +1,7 @@
 :chapterNumber: 7
 :chapterId: chapter-07
 :sourceDir: ./examples
+:serverUrl: http://localhost:4000
 :nodeCurrentVersion: v10
 :npmCurrentVersion: v6
 :sectnums:
@@ -54,6 +55,17 @@ Ce chapitre s'inscrit dans la continuité du
   - ça a d'autant plus d'impact qu'on est sur des processus longs (aka programme qui tourne en continu — le serveur web)
   - donc si on nettoie pas (ce qu'on ouvre, si on charge tout d'un coup), les ressources disponibles diminuent jusqu'au plantage
 ////
+
+[NOTE]
+.[RemarquePreTitre]#Documentation# Entêtes HTTP
+====
+Ce chapitre fait souvent référence à des entêtes HTTP.
+La documentation _MDN web docs_ ([URL]#https://developer.mozilla.org/fr/docs/Web/HTTP/Headers#)
+les liste toutes, avec le détail de leurs valeurs possibles.
+
+C'est un onglet intéressant à ouvrir en parallèle de cette lecture
+— je l'ai ouvert en permanence pour écrire ce chapitre.
+====
 
 == Composer son application web
 
@@ -133,7 +145,7 @@ Cet hôte doit au préalable avoir installé et démarré un serveur HTTP qui
 écoute ces demandes.
 
 Le script d'exemple `server/start.js` répond à ce besoin.
-Une fois démarré, il est joignable à l'adresse `http://localhost:4000`.
+Une fois démarré, il est joignable à l'adresse `{serverUrl}`.
 Il affichera alors les entêtes des requêtes et de leur réponse :
 
 ----
@@ -154,12 +166,11 @@ en étant en mesure d'accepter des requêtes et de répondre, quelque chose
 d'arbitraire certes mais quelque chose qui est compris par un navigateur web.
 
 *Pourquoi avoir démarré le serveur sur le port 4000* dans l'exemple précédent ?
-C'est un choix arbitraire : nous pouvons démarrer un serveur HTTP sur n'importe
-quel port tant qu'il est supérieur ou égal à 1000
-et qu'un autre programme ne l'utilise pas déjà.
+C'est un choix arbitraire de ma part : nous pouvons démarrer un serveur HTTP
+sur n'importe quel port tant qu'il est libre et supérieur ou égal à 1000.
 Quand on cherche à se connecter à une adresse comme `http://localhost` (HTTP)
-ou `https://localhost` (HTTPS), la valeur du port est implicitement réglée à
-80 et 443, respectivement.
+ou `https://localhost` (HTTPS), la valeur du port vaut implicitement 80 et 443,
+respectivement.
 
 Le module npm _get-port_ ([URL]#https://npmjs.com/get-port#) retourne
 un numéro de port parmi ceux disponibles sur le système d'exploitation.
@@ -175,17 +186,217 @@ http://localhost:51765
 include::{sourceDir}/server/port.js[]
 ----
 <1> Exprime une préférence pour retourner le port 4000 s'il est disponible.
-<2> Affiche `http://localhost:4000` si le port est disponible, sinon un autre nombre s'affichera à la place.
+<2> Affiche `{serverUrl}` si le port est disponible, sinon un autre nombre s'affichera à la place.
 <3> Le serveur se met à l'écoute sur ce port.
 
-Pour vous en rendre compte, démarrez le script `server/start.js` pour occuper
-le port 4000 et ensuite démarrez `server/port.js`.
+Pour vous en rendre compte, démarrez le script `server/start.js` pour utiliser
+le port 4000 et démarrez ensuite `server/port.js`.
 
 [[path]]
-=== Réagir à une URL (`GET`)
+=== Répondre à un chemin (_routing_)
 
-à la main mais c'est pénible
-https://npmjs.com/find-my-way
+Nous avons vu qu'une URL est un identifiant qui se décompose en plusieurs
+parties grâce au <<../chapter-04/index.adoc#url,module `url`>>
+(cf. <<../chapter-04/index.adoc#,chapitre 4>>).
+Une de ces parties est le _chemin d'accès_ à une ressource. +
+Par exemple, le chemin de l'URL `{serverUrl}/coucou` est `/coucou`.
+
+----
+$ node path/request-url.js
+----
+
+[source,javascript]
+.path/request-url.js
+----
+include::{sourceDir}/path/request-url.js[]
+----
+<1> Affiche un message spécifique au chemin `/`.
+<2> Affiche un autre message spécifique au chemin `/coucou`.
+
+Les deux seules ressources mises à disposition sur `http://localhost:4000`
+sont accessibles avec les chemins `/` et `/coucou`.
+Tout autre chemin n'aboutira pas.
+
+C'est d'ailleurs un problème puisqu'en réalité, nous n'envoyons pas de réponse
+pour un chemin inconnu.
+Et c'est à nous de gérer ce cas de figure :
+
+----
+$ node path/404.js
+----
+
+[source,javascript]
+.path/404.js
+----
+include::{sourceDir}/path/404.js[]
+----
+<1> Seul le chemin `/` est disponible dans l'application.
+<2> Le code HTTP de la réponse est réglé sur `404`.
+<3> Une page introuvable peut quand même retourner du contenu.
+
+La prise en compte d'une ressource inconnue à notre application fait émerger
+un nouveau concept : le _statut de la réponse_.
+Ce statut est un code numérique qui donne des indications sur la ressource retournée.
+Dans ce cas de figure le statut `404` de la réponse indique au client de
+ne pas considérer le contenu comme celui qui était demandé. +
+Par défaut et sauf mention contraire, le statut est `200`.
+
+[format="csv", options="header", cols="1,1,4"]
+.Principaux codes HTTP et leur signification.
+|===
+Code, Raison, Explication
+`200`, `OK`, La ressource demandée est retournée en réponse.
+`301`, `Moved Permanently`, La ressource demandée a été déplacée.
+`304`, `Not Modified`, La ressource n'a pas été modifiée depuis la dernière fois.
+`400`, `Bad Request`, La requête est incomplète ou incompréhensible par le serveur.
+`401`, `Unauthorized`, La ressource est accessible sur preuve d'identification.
+`403`, `Forbidden`, L'accès à la ressource est interdit.
+`404`, `Not Found`, La ressource n'existe pas.
+`500`, `Internal Server Error`, Le serveur distant est en erreur.
+|===
+
+Les statuts HTTP sont importants dans la création d'applications web.
+Leur code permet de vérifier que le client et le serveur se sont bien compris. +
+Si une page d'erreur est affichée avec un statut `200`, le client sera dans
+l'impossiblité de deviner qu'il ne s'agit pas du contenu attendu.
+
+[options="header", cols="1,1,4"]
+.D'autres codes HTTP utiles à connaître.
+|===
+| Code | Raison | Explication
+| `201` | `Created` | La ressource demandée a été créée.
+| `202` | `Accepted` | La demande a été acceptée et la ressource sera disponible ultérieurement.
+| `204` | `No Content` | La ressource demandée n'a pas de contenu.
+| `302` | `Found` | La ressource demandée est temporairement disponible à une autre adresse.
+| `503` | `Service Unavailable` | Le serveur distant répond qu'il n'est pas disponible pour l'instant.
+|===
+
+Une application web devient vite compliquée à se gérer si nous avons à lister
+tous les chemins possibles.
+C'est à ce moment qu'entre en jeu le _routing_, une technique pour décrire
+des chemins d'accès au lieu de s'embourber dans une longue liste de `if/else`.
+
+Nous utilisons le module npm _find-my-way_ ([URL]#https://npmjs.com/find-my-way#)
+pour transformer l'exemple `path/request-url.js`
+en quelque chose de plus modulaire :
+
+----
+$ node path/routes.js
+----
+
+[source,javascript]
+.path/routes.js
+----
+include::{sourceDir}/path/routes.js[]
+----
+<1> Création de la table de routage.
+<2> Définition de la réponse du chemin d'accès `/`.
+<3> Définition de la réponse du chemin d'accès `/coucou`.
+<4> Intégration du routeur aux requêtes entrantes du serveur HTTP.
+
+Les routeurs commencent à nous vraiment nous faire gagner du temps
+lorsqu'il s'agit d'extraire des informations utiles depuis le chemin et
+de les gérer dynamiquement :
+
+----
+$ node path/route-params.js
+----
+
+[source,javascript]
+.path/route-params.js
+----
+include::{sourceDir}/path/route-params.js[]
+----
+<1> Création d'une route paramétrée — le symbole `:word` est accessible dans le troisième argument, en tant que `params.word`.
+<2> Affiche une phrase composée avec le paramètre de notre route.
+
+Dirigez vous vers `{serverUrl}/hello/word` pour voir le résultat s'afficher.
+Changez le dernier segment du chemin pour observer le changement.
+
+Ce mécanisme est utile pour relier un identifiant à un enregistrement précis
+en base de données, par exemple.
+Il se complète avec les <<argument,arguments d'URL>> pour véhiculer des
+éléments optionnels — nous en parlons quelques sections plus loin.
+
+[CAUTION]
+.[RemarquePreTitre]#Sécurité# Filtrer les données entrantes
+====
+C'est le moment de rappeler que *toute information saisie par l'utilisateur*
+doit être filtrée et nettoyée avant d'être utilisée.
+L'exemple `path/route-params.js` n'est pas sécurisé ; vous vous en rendrez
+compte en visitant [URL]#{serverUrl}/hello/<script>alert(h4ck)<%2Fscript>#. +
+Ce type de failles s'exploite pour faire fuiter des données confidentielles.
+
+Nous verrons tous ces aspects plus en détail dans la section
+<<security,protéger l'application>>.
+====
+
+Enfin, les routeurs contextualisent les actions à effectuer vis à vis d'une
+ressource grâce au _verbe HTTP_.
+Le verbe communique une intention — récupération, mise à jour, suppression.
+Le routeur organise notre code pour déclencher une action adaptée
+à la méthode employée :
+
+----
+$ node path/method.js
+----
+
+[source,javascript]
+.path/method.js
+----
+include::{sourceDir}/path/method.js[]
+----
+<1> Définition du chemin d'accès `/` — verbe `GET` (récupération).
+<2> Définition du chemin d'accès `/` — verbe `HEAD` cette fois.
+<3> La méthode `response.writeHead` est un moyen de définir le statut en même temps que les entêtes de réponse.
+<4> Définition d'une entête personnalisée — le préfixe `X-` indique qu'elle n'est pas liée au standard HTTP.
+<5> Écriture du corps du message — nous verrons qu'il est ignoré et n'est pas transmis au client.
+
+Un navigateur web n'afficherait que notre route `GET` car c'est leur fonctionnement
+par défaut.
+Ils comprennent le verbe `POST` pour <<upload,uploader des fichiers>> ou
+<<post,transmettre des formulaires>>.
+Tournons-nous à nouveau vers le programme `curl` pour observer la différence de
+réponse en fonction de nos verbes HTTP :
+
+[subs="+attributes"]
+----
+$ curl {serverUrl}
+Bienvenue
+$ curl <i>--head</i> {serverUrl}
+HTTP/1.1 200 OK
+<i>X-Jobs: https://jobs.humancoders.com</i>
+Date: Sun, 01 Jul 2018 15:43:56 GMT
+Connection: keep-alive
+----
+
+La compréhension de `HEAD` nous sert à retourner des informations importantes
+en entêtes de réponse, sans (faire) perdre de temps à
+<<templating,générer un gabarit de réponse>>.
+
+[options="header", cols="1,1,4"]
+.Principaux verbes HTTP et leur utilisation.
+|===
+| Verbe | Description
+| `GET` | Récupération d'une ressource.
+| `HEAD` | Récupération d'une ressource — seulement les entêtes.
+| `POST` | Création d'une ressource.
+| `PUT` | Mise à jour d'une ressource.
+| `PATCH` | Mise à jour _partielle_ d'une ressource.
+| `DELETE` | Demande de suppression d'une ressource.
+|===
+
+[TIP]
+.[RemarquePreTitre]#Pratique# Relancer le serveur automatiquement
+====
+Vous avez essayé de modifier un des exemples précédents pendant que le script
+était lancé et vous avez remarqué que _rien ne changeait_ ?
+
+C'est normal, le code exécuté est tel qu'au moment où il a été interprété par
+Node à son lancement.
+La section <<dev,relancer le serveur automatiquement>> nous donne une piste
+pour y remédier.
+====
 
 [[static]]
 === Répondre avec des fichiers
@@ -205,13 +416,26 @@ https://npmjs.com/parseurl
 
 
 [[upload]]
-=== Recevoir des fichiers
+=== Uploader des fichiers
 
 - solo
 - plusieurs (multipart)
 
 [[cookies]]
-=== Créer un lien avec le client grâce aux cookies
+=== Créer un lien avec le client avec les cookies
+
+[options="header", cols="1,2,4a"]
+.Directives complémentaires à la valeur d'un cookie.
+|===
+| Directive | Exemple | Explication
+| `Max-Age` | `Max-Age=3600` | Durée de vie du cookie en secondes. +
+Si le nombre est inférieur ou égal à zéro, le cookie est supprimé. +
+Si cette valeur n'est pas préciée, le cookie est supprimé à la fin de la session.
+| `Domain` | `Domain=oncletom.io` | Spécifie le domaine ou les sous-domaines applicables au cookie.
+| `Path` | `Path=/` | Contraint le cookie à ce répertoire et tous ses sous-répertoires.
+| `Secure` | `Secure` | Le cookie n'est envoyée que si le document est demandé via HTTPS.
+| `HttpOnly` | `HttpOnly` | Le cookie ne peut pas être modifié côté client, via la variable `document.cookie`.
+|===
 
 [[templating]]
 === Modulariser les gabarits de présentation
