@@ -1503,7 +1503,7 @@ Idem par rapport au type de système d'exploitation (Windows, Linux, etc.).
 ----
 include::{sourceDir}/os/intro.js[]
 ----
-<1> Affiche un message du genre `L'ordinateur a 4 CPU et une session ouverte par anonymous.`.
+<1> Affiche un message du genre `Salut anonymous, cet ordinateur a 4 CPU.`.
 
 Node a pour vocation de nous abstraire du système d'exploitation
 en faisant en sorte que notre code fonctionne partout pareil.
@@ -1598,7 +1598,7 @@ les <<process.std,flux standards>>.
 include::{sourceDir}/child_process/intro.js[]
 ----
 <1> L'exécution de la commande exécute la fonction de callback, avec comme arguments la <<process.std,sortie standard>> et la <<process.std,sortie erreur>> du processus enfant.
-<2> Affiche `version installée de npm : {npmV}`.
+<2> Affiche `npm version {npmV}`.
 
 L'utilisation du module `child_process` se justifie quand un programme
 externe fournit une fonctionnalité _mais_ ne s'interface pas avec Node.
@@ -2436,7 +2436,7 @@ include::{sourceDir}/stream/write.js[]
 <1> On crée un _flux d'écriture_ vers le fichier `stream/debug.txt`.
 <2> Écrit `Hell` dans le flux.
 <3> Écrit `d!` dans le flux et signale que nous n'avons plus de données à transmettre.
-<4> Lit le contenu du fichier en une seule fois et affiche `Hello World!`.
+<4> L'utilisation de `stream.end()` déclenche l'événement `finish` — nous lisons le contenu du fichier à ce moment là.
 
 Cette écriture par morceaux a pour effet de réduire la pression mémoire
 exercée par Node sur le système d'exploitation _et_ pour le reste du programme.

@@ -1,12 +1,14 @@
 const {type} = require('os');
 const {readdir} = require('fs');
 
-const log = (label) => (error, modules) => {
-  console.log('Applications installées sous %s : %j', label, modules);
+const log = (error, modules) => {
+  return error
+    ? console.error(error.message)
+    : console.log(modules);
 };
 
 switch (type()) {
-  case 'Windows_NT':  readdir('C:\\Program Files', log('Windows')); break;
-  case 'Linux':       readdir('/usr/bin', log('Linux')); break;
-  case 'Darwin':      readdir('/Applications', log('macOS')); break;
+  case 'Windows_NT': readdir('C:\\Program Files', log); break;
+  case 'Linux':      readdir('/usr/bin', log);          break;
+  case 'Darwin':     readdir('/Applications', log);     break;
 }

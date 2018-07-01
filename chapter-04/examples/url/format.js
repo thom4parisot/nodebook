@@ -1,6 +1,7 @@
 const {format} = require('url');
 
-const example = new URL('https://user:password@oncletom.io/#top?test=1');
+const url = 'https://user:password@oncletom.io/#top?test=1';
+const example = new URL(url);
 const options = {
   auth: false,
   search: false,

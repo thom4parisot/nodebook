@@ -1,10 +1,15 @@
 const http = require('http');
 const server = http.createServer();
 
-server.listen(4000, 'localhost');                                   // <1>
-server.on('listening', () => console.log('Serveur démarré !'));     // <2>
-server.on('request', (request, response) => {
-  console.log('URL demandée : %s %s', request.method, request.url); // <3>
+server.listen(4000, 'localhost');                   // <1>
 
-  response.end('Coucou');                                           // <4>
+server.on('listening', () => {                      // <2>
+  console.log('Serveur démarré !');
+});
+
+server.on('request', (request, response) => {
+  const {method, url} = request;
+  console.log('URL demandée : %s %s', method, url); // <3>
+
+  response.end('Coucou');                           // <4>
 });

@@ -1,7 +1,8 @@
 const {get} = require('https');
+const url = 'https://oncletom.io/node.js/package.json';
 
-get('https://oncletom.io/node.js/package.json', (response) => { // <1>
+get(url, (response) => {                        // <1>
   response.on('data', (data) => {
-    console.log(data.toString());                               // <2>
+    console.log(data.toString());               // <2>
   });
 });

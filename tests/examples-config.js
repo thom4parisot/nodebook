@@ -92,7 +92,7 @@ module.exports = {
     stderr: 'Error: Oops !'
   },
   'chapter-04/examples/errors/promise-chain.js': {
-    stderr: 'Une erreur s\'est produite : Oops !'
+    stderr: 'Erreur : Oops !'
   },
   'chapter-04/examples/errors/promise.js': {
     stderr: 'Error: Oops !'
@@ -164,7 +164,7 @@ module.exports = {
     stdout: 'https://oncletom.io/\n',
   },
   'chapter-04/examples/child_process/intro.js': {
-    stdout: /version installée de npm : \d+.\d+.\d+/,
+    stdout: /npm version \d+.\d+.\d+/,
   },
   'chapter-04/examples/child_process/ls.js': {
     stdout: /index.adoc/,
@@ -183,7 +183,7 @@ module.exports = {
     stdout: 'abcd klmn\n',
   },
   'chapter-04/examples/events/class.js': {
-    stdout: 'La voiture Boombo est en train de démarrer\n',
+    stdout: 'Boombo est en train de démarrer\n',
   },
   'chapter-04/examples/events/intro.js': {
     stdout: 'Année : 2018\nAnnée : 1983\n',
@@ -210,10 +210,10 @@ module.exports = {
     stdout: /"name": "nodebook"/,
   },
   'chapter-04/examples/http/get.js': {
-    stdout: /Transmission finie en \d+ morceaux/,
+    stdout: /Fini (.+ morceaux)/m,
   },
   'chapter-04/examples/http/request.js': {
-    stdout: /Dernière modification : .+ \d{4} .+ GMT/,
+    stdout: /Modifié le .+ \d{4} .+ GMT/,
   },
   'chapter-04/examples/http/server.js': {
     skip: true
@@ -231,17 +231,16 @@ module.exports = {
     stdout: '214 octets lus\n'
   },
   'chapter-04/examples/stream/read.js': {
-    stdout: '100 octets reçus\n100 octets reçus\n60 octets reçus\nLecture terminée\n'
+    stdout: /(\d+ octets reçus\n){3}Lecture terminée\n/
   },
   'chapter-04/examples/stream/write.js': {
     stdout: 'Hello World!\n'
   },
   'chapter-04/examples/os/intro.js': {
-    stdout: /L'ordinateur a \d+ CPU et une session ouverte par .+./,
+    stdout: /Salut .+, cet ordinateur a \d+ CPU./,
   },
   'chapter-04/examples/os/apps.js': {
-    stdout: /^Applications installées sous (Linux|macOS) :/,
-    win32stdout: /^Applications installées sous Windows :/,
+    stdout: /.+/,
   },
   'chapter-04/examples/url/intro.js': {
     stdout: 'oncletom.io\n/node.js/\n',

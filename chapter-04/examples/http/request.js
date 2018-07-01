@@ -1,5 +1,5 @@
 const https = require('https');
-const options = {                                           // <1>
+const options = {                                 // <1>
   protocol: 'https:',
   host: 'oncletom.io',
   path: '/node.js/package.json',
@@ -7,11 +7,11 @@ const options = {                                           // <1>
 };
 
 const request = https.request(options);
-request.setHeader('Accept', 'application/json');            // <2>
-request.end();                                              // <3>
+request.setHeader('Accept', 'application/json');  // <2>
+request.end();                                    // <3>
 
 request.on('response', (response) => {
   const lastModified = response.headers['last-modified'];
 
-  console.log('Dernière modification : %s', lastModified);  // <4>
+  console.log('Modifié le %s', lastModified);     // <4>
 });
