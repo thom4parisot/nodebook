@@ -3,8 +3,8 @@
 const EventEmitter = require('eventemitter3');
 const emitter = new EventEmitter();
 
-emitter.on('ping', pingData => console.log('on: %s', pingData));
-emitter.once('ping', pingData => console.log('once: %s', pingData));
+emitter.on('ping', data => console.log('on: %s', data));
+emitter.once('ping', data => console.log('once: %s', data));
 
 console.log(emitter.listeners('ping')); // <1>
 

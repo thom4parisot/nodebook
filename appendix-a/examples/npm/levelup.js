@@ -5,11 +5,12 @@ const memdown = require('memdown');
 const uuid = require('uuid').v4;
 
 const db = levelup(memdown());
+const options = { valueEncoding: 'json' };
 
 db.batch()
-  .put(uuid(), { title: 'Node.js' }, { valueEncoding: 'json' })
-  .put(uuid(), { title: 'CSS maintenables' }, { valueEncoding: 'json' })
-  .put(uuid(), { title: 'Open Sky' }, { valueEncoding: 'json' })
+  .put(uuid(), { title: 'Node.js' }, options)
+  .put(uuid(), { title: 'CSS maintenables' }, options)
+  .put(uuid(), { title: 'Open Sky' }, options)
   .write((err) => {
     if (err) {
       return console.error(err);

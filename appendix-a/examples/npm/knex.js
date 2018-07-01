@@ -14,7 +14,8 @@ db.schema.dropTableIfExists('books')
       table.increments('id').primary();
 
       table.string('title');
-      table.timestamp('created_at').defaultTo(db.raw('CURRENT_TIMESTAMP'));
+      table.timestamp('created_at')
+        .defaultTo(db.raw('CURRENT_TIMESTAMP'));
     });
   })
   .then(() => {

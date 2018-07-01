@@ -17,6 +17,7 @@ const responseV1 = (request, response, next) => {
   next();
 };
 
-server.get({ path: '/countries/:code', version: '1.0.0' }, responseV1);
-
-server.listen(8080, () => console.log('Serveur accessible sur %s', server.url));
+server.get({ path: '/:code', version: '1.0.0' }, responseV1);
+server.listen(8080, () => {
+  console.log('Serveur accessible sur %s', server.url);
+});

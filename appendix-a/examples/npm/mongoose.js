@@ -1,14 +1,15 @@
 'use strict';
 
 // docker run -ti --rm -p 0.0.0.0:27017:27017 mongo:3.1
-// MONGODB_URL=mongodb://192.168.59.103:27017/nodebook node npm-mongoose.js
+// MONGODB_URL=mongodb://... node npm-mongoose.js
 
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
+const DEFAULT_URL = 'mongodb://localhost:27017/nodebook';
 const MONGODB_URL = process.env.MONGODB_URL;
 
-mongoose.connect(MONGODB_URL || 'mongodb://localhost:27017/nodebook');
+mongoose.connect(MONGODB_URL || DEFAULT_URL);
 
 const BookSchema = new Schema({
   id: Schema.ObjectId,
@@ -26,6 +27,6 @@ Promise.all([
   new Book({ title: 'Open Sky' }).save()
 ])
 .then(records => {
-  console.log('%d enregistrements créés.', records.length);   // <1>
+  console.log('+%d enregistrements', records.length); // <1>
   mongoose.disconnect();
 });

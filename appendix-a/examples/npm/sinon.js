@@ -12,10 +12,10 @@ test('Date', (t) => {
 
   d.now();
   t.equal(stub.calledOnce, true);
-  t.equal(stub.returnValues[0] > new Date('1983-03-24').getTime(), true);
+  t.ok(stub.returnValues[0] > new Date('1983-03-24').getTime());
 
   stub.returns(100);
   d.now();
 
-  t.equal(stub.returnValues[0] > new Date('1983-03-24').getTime(), true);
+  t.ok(stub.returnValues[0] > new Date('1983-03-24').getTime());
 });

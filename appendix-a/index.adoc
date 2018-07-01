@@ -594,21 +594,6 @@ Elle rend possible le débogage complet à partir de _dtrace_, la gestion des ve
 include::{sourceDir}/npm/restify.js[]
 ----
 
-L'exemple précédent expose une même route permettant d'obtenir des informations sur les déclarations de versions d'un fichier `package.json`.
-
-Par défaut, la version 2 de l'API est utilisée :
-
-----
-$ curl http://localhost:8080/modules/express
-{"modules":[{"name":"express","version":"4.9.5"}]}
-----
-
-Une version obsolète de l'API peut toutefois être utilisée si l'on mentionne explicitement cette information :
-
-----
-$ curl -H 'Accept-version: ~1' http://localhost:8080/modules/express
-"^4.9.5"
-----
 
 === faye
 
