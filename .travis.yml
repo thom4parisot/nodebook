@@ -12,8 +12,8 @@ env:
   DEBUG=tape-spawn
   SHARP_IGNORE_GLOBAL_LIBVIPS=1
 
-before_install:
-- npm i -g npm@${npm_version}
+# before_install:
+# - npm i -g npm@${npm_version}
 
 install:
 - npm ci
