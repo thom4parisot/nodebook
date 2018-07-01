@@ -277,7 +277,25 @@ module.exports = {
     errorCode: 1,
     stderr: 'no DSN provided, error reporting disabled\nReferenceError: test is not defined'
   },
-  'chapter-07/examples/http-app.js': {
+  'chapter-07/examples/server/start.js': {
+    skip: true
+  },
+  'chapter-07/examples/server/port.js': {
+    skip: true
+  },
+  'chapter-07/examples/path/manual.js': {
+    skip: true
+  },
+  'chapter-07/examples/path/redirect.js': {
+    skip: true
+  },
+  'chapter-07/examples/path/routes.js': {
+    skip: true
+  },
+  'chapter-07/examples/cookies/read.js': {
+    skip: true
+  },
+  'chapter-07/examples/cookies/write.js': {
     skip: true
   },
   'chapter-08/examples/prompt/intro.js': {
