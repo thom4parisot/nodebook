@@ -277,6 +277,15 @@ module.exports = {
     errorCode: 1,
     stderr: 'no DSN provided, error reporting disabled\nReferenceError: test is not defined'
   },
+  'chapter-07/examples/arguments/format.js': {
+    skip: true
+  },
+  'chapter-07/examples/arguments/intro.js': {
+    skip: true
+  },
+  'chapter-07/examples/arguments/parse.js': {
+    skip: true
+  },
   'chapter-07/examples/server/start.js': {
     skip: true
   },

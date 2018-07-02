@@ -558,9 +558,87 @@ Node derrière un autre serveur web.
 ====
 
 [[arguments]]
-=== Réagir aux arguments de l'URL
+=== Réagir aux arguments d'URL
 
-https://npmjs.com/parseurl
+Les arguments d'une URL servent à *affiner le contexte d'affichage* d'une
+ressource donnée.
+Ces options servent par exemple à paginer du contenu ou spécifier une dimension,
+un filtre d'affichage ou encore une expression de recherche.
+En clair, elles servent à influencer la représentation d'une ressource
+ou information.
+
+Par défaut, les arguments sont représentés de manière textuelle avec
+le chemin d'accès, dans l'attribut `request.url` :
+
+----
+$ node arguments/intro.js
+----
+
+[source,javascript]
+.arguments/intro.js
+----
+include::{sourceDir}/arguments/intro.js[]
+----
+<1> La page demandée affiche l'attribut de requête `url`.
+
+Nous voyons s'afficher `/test?cle=valeur&option` en nous rendant à l'adresse
+`{serverUrl}/test?cle=valeur&option`.
+Ce n'est pas utilisable en l'état.
+
+Le <<../chapter-04/index.adoc#url,module `url`>>
+(cf. <<../chapter-04/index.adoc#,chapitre 4>>) entre en jeu.
+En plus de destructurer une URL entière, il sait aussi décomposer les options
+et les transformer en un objet utilisable côté Node :
+
+----
+$ node arguments/parse.js
+----
+
+[source,javascript]
+.arguments/parse.js
+----
+include::{sourceDir}/arguments/parse.js[]
+----
+<1> Le deuxième argument de la fonction `url.parse` décompose les arguments, disponibles dans l'attribut `query` de l'objet retourné.
+<2> L'attribut `search` correspond aux arguments, sous forme textuelle.
+<3> L'attribut `query` est un objet — ici, transformé pour être affiché dans la page sous forme de texte.
+
+Cette fois, nous voyons s'afficher `{"cle": "valeur", "option": ""}` dans notre
+navigateur lorsque nous nous rendons sur `{serverUrl}/test?cle=valeur&option`.
+C'est tout ce qu'il nous fallait pour l'utiliser dans notre application.
+
+----
+$ node arguments/format.js
+----
+
+[source,javascript]
+.arguments/format.js
+----
+include::{sourceDir}/arguments/format.js[]
+----
+<1> Nous rentrons dans ce bloc en présence de l'argument d'URL `format=svg`.
+<2> Une entête `Content-Type` fait que le contenu est interprêté (et affiché) comme du HTML — en retirant cette ligne, le document sera alors téléchargé.
+<3> Sinon, le reste du temps nous affichons la date telle quelle, en tant que texte.
+
+Les deux URL `{serverUrl}/date?format=svg` et `{serverUrl}/date` font
+référence à une même ressource mais l'affichage s'adapte au contexte.
+
+[options="header"]
+.Exemples d'arguments et de leur représentation en structure ECMAScript.
+|===
+| Argument            | Représentation
+| `?cle=valeur`        | `{cle: "valeur"}`
+| `?cle`               | `{cle: ""}`
+| `?cle[]=1&cle[]=2`   | `{cle: [1,2]}`
+|===
+
+[TIP]
+.[RemarquePreTitre]#Performance# Module npm _parseurl_
+====
+Si vous êtes à la recherche de performance, le module npm _parseurl_
+([URL]#https://npmjs.com/parseurl#) retourne les mêmes résultats
+tout en étant jusqu'à 10 fois plus rapide que le module natif à Node.
+====
 
 [[post]]
 === Interpréter un corps de message (`POST`, `PUT`)
@@ -652,7 +730,13 @@ des fois y'a des outils qui font ça (on perd de vue les erreurs je trouve)
 === Protéger l'application
 
 https://npmjs.com/helmet
-https://www.npmjs.com/package/safe-regex pour utiliser une regex sur du contenu fourni par utilisateur
+https://npmjs.com/safe-regex pour utiliser une regex sur du contenu fourni par utilisateur
+https://npmjs.com/xss
+https://npmjs.com/sql-escape-string
+https://npmjs.com/dompurify
+
+path traversal (indexOf)
+use strict (réduit les possibilités d'exploiter des bizarreries de JS)
 
 ////
 L'organisme _Open Web Application Security Project_ (_OWASP_) recueille et diffuse nombre de critères de sécurité à connaître et vérifier pour déjouer au mieux des attaques.
@@ -806,6 +890,9 @@ côté client.
       - c'est utilisé pour faire du scrapping
       - c'est utilisé pour donner ça à d'autres programmes (enjoliver le résultat, extraire des informations)
       - voir au chapitre 8 pour en savoir plus sur le fonctionnement d'applications en ligne de commande
+
+.Temporalité de l'exécution d'une requête HTTP et des entêtes de réponse.
+image::images/httpstat.png[]
 
 https://github.com/jshttp
 
