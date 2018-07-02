@@ -298,6 +298,15 @@ module.exports = {
   'chapter-07/examples/path/route-params.js': {
     skip: true
   },
+  'chapter-07/examples/static/routes.js': {
+    skip: true
+  },
+  'chapter-07/examples/static/send.js': {
+    skip: true
+  },
+  'chapter-07/examples/static/stream.js': {
+    skip: true
+  },
   'chapter-07/examples/cookies/read.js': {
     skip: true
   },

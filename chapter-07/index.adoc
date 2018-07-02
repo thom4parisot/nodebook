@@ -241,7 +241,7 @@ Dans ce cas de figure le statut `404` de la réponse indique au client de
 ne pas considérer le contenu comme celui qui était demandé. +
 Par défaut et sauf mention contraire, le statut est `200`.
 
-[format="csv", options="header", cols="1,1,4"]
+[format="csv", options="header", cols="1,2,4"]
 .Principaux codes HTTP et leur signification.
 |===
 Code, Raison, Explication
@@ -352,12 +352,12 @@ include::{sourceDir}/path/method.js[]
 <4> Définition d'une entête personnalisée — le préfixe `X-` indique qu'elle n'est pas liée au standard HTTP.
 <5> Écriture du corps du message — nous verrons qu'il est ignoré et n'est pas transmis au client.
 
-Un navigateur web n'afficherait que notre route `GET` car c'est leur fonctionnement
-par défaut.
+Les navigateurs web affichent seulement notre route `GET` car c'est
+leur fonctionnement par défaut.
 Ils comprennent le verbe `POST` pour <<upload,uploader des fichiers>> ou
-<<post,transmettre des formulaires>>.
-Tournons-nous à nouveau vers le programme `curl` pour observer la différence de
-réponse en fonction de nos verbes HTTP :
+<<post,transmettre des formulaires>>. +
+Tournons-nous à nouveau vers le programme `curl` pour observer les différences
+entre la réponse nos deux verbes HTTP `GET` et `HEAD` :
 
 [subs="+attributes"]
 ----
@@ -370,11 +370,13 @@ Date: Sun, 01 Jul 2018 15:43:56 GMT
 Connection: keep-alive
 ----
 
-La compréhension de `HEAD` nous sert à retourner des informations importantes
-en entêtes de réponse, sans (faire) perdre de temps à
-<<templating,générer un gabarit de réponse>>.
+L'utilisation de `HEAD` renvoie uniquement les entêtes de réponse et nous
+économise la <<templating,génération d'un gabarit>>.
+D'un point de vue client, le verbe `HEAD` aide à inspecter des ressources
+sans avoir à télécharger le contenu — ce sont autant de kilo ou méga-octets
+d'économisés.
 
-[options="header", cols="1,1,4"]
+[options="header", cols="1,4"]
 .Principaux verbes HTTP et leur utilisation.
 |===
 | Verbe | Description
@@ -385,6 +387,9 @@ en entêtes de réponse, sans (faire) perdre de temps à
 | `PATCH` | Mise à jour _partielle_ d'une ressource.
 | `DELETE` | Demande de suppression d'une ressource.
 |===
+
+La responsabilité de comprendre ces verbes revient à notre application.
+C'est donc à nous de leur associer une action pour les prendre en charge.
 
 [TIP]
 .[RemarquePreTitre]#Pratique# Relancer le serveur automatiquement
@@ -399,9 +404,158 @@ pour y remédier.
 ====
 
 [[static]]
-=== Répondre avec des fichiers
+=== Répondre avec des fichiers statiques
 
-tip : utiliser nginx static quand vous l'avez sous le coude (cf. chap 6)
+Les <<path,chemins d'accès>> s'associent aussi à des fichiers statiques.
+Ainsi, une URL correspond un fichier placé sur notre disque dur.
+J'ai placé 3 fichiers de différente nature (texte, image, PDF) pour illustrer
+les exemples de cette section.
+
+----
+$ tree -a static/files
+static/files
+├── .eslintrc.yaml
+├── doc.pdf
+└── screenshot.jpg
+----
+
+Nous allons commencer par mettre à disposition un seul fichier, quel que soit
+le chemin demandé :
+
+----
+$ node static/routes.js
+----
+
+[source,javascript]
+.static/routes.js
+----
+include::{sourceDir}/static/routes.js[]
+----
+<1> Nous constituons un chemin d'accès avec `path.join` — cf. <<../chapter-04/index.adoc#path,chapitre 4>>, module `path`.
+<2> Nous créons un flux de lecture vers ce fichier — cf. <<../chapter-04/index.adoc#stream,chapitre 4>>, module `stream`.
+<3> Nous redirigeons le flux de lecture vers la réponse.
+
+Ce que cet exemple nous apprend,
+c'est que l'*objet de réponse est aussi un flux d'écriture*.
+Peu importe le volume du fichier, l'envoi se régulera en fonction de la capacité
+de téléchargement du client et en consommant le minimum de mémoire possible.
+La lecture sera interrompue si le client annule le téléchargement.
+
+Nous pouvons à présent étendre ce savoir nouvellement acquis en
+<<path,routant un chemin d'accès>> vers le répertoire qui contient nos fichiers.
+
+----
+$ node static/routes.js
+----
+
+[source,javascript]
+.static/routes.js
+----
+include::{sourceDir}/static/routes.js[]
+----
+<1> Création d'une route paramétrée qui répond avec la fonction `staticFiles`.
+<2> Réutilisation de la fonction `staticFiles` pour répondre à la méthode `HEAD` — nous verrons plus loin pourquoi c'est important.
+<3> Composition dynamique du chemin d'accès au fichier.
+<4> Comme toute à l'heure, nous redirigeons le flux de lecture du fichier vers la réponse.
+
+Si nous accédons à `{serverUrl}/files/doc.pdf` et `{serverUrl}/files/screenshot.jpg`,
+nous verrons les deux documents s'afficher dans notre navigateur.
+Un problème cependant : l'accès à un chemin inconnu fait planter l'application.
+
+Notre approche est un peu trop naïve en regardant les entêtes
+de réponse d'un peu plus près :
+
+----
+$ curl --head 'http://localhost:4000/files/doc.pdf' # <1>
+HTTP/1.1 200 OK
+Date: Mon, 02 Jul 2018 15:47:33 GMT
+Connection: keep-alive
+----
+<1> C'est pour exécuter cette commande que j'ai ajouté l'écoute de la méthode `HEAD`.
+
+En fait, nous gagnerions à documenter la ressource en transmettant
+des entêtes supplémentaires.
+La question est : lesquelles ?
+
+[CAUTION]
+.[RemarquePreTitre]#Sécurité# Filtrer les données entrantes
+====
+*Toute information saisie par l'utilisateur* doit être filtrée et nettoyée avant
+d'être utilisée.
+L'exemple `static/routes.js` n'est pas sécurisé ; vous vous rendrez
+compte en visitant [URL]#{serverUrl}/files/..%2F..%2Fhello.js# que ce chemin
+permet de remonter jusqu'à un fichier situé hors du répertoire `static/files`. +
+Ce type de faille s'exploite pour accéder aux données confidentielles de notre
+système d'exploitation.
+
+Nous verrons tous ces aspects plus en détail dans la section
+<<security,protéger l'application>>.
+====
+
+Nous allons nous baser sur le module npm _send_ ([URL]#https://npmjs.com/send#)
+pour améliorer l'exemple précédent et constater par nous-même quelles
+entêtes sont utiles.
+
+----
+$ node static/send.js
+----
+
+[source,javascript]
+.static/send.js
+----
+include::{sourceDir}/static/send.js[]
+----
+<1> En utilisant la syntaxe `*`, le routeur accepte une arborescence de chemins — `doc.pdf` tout comme `un/long/chemin.pdf`.
+<2> L'arborescence se récupère avec un paramètre du même nom — `*`.
+<3> Le module _send_ prend en charge la suite de la transmission.
+
+Pas de grands bouleversements donc.
+Si ce n'est que les fichiers inexistants ne font plus planter l'application
+et que les entêtes de réponses sont plus fournies qu'avant :
+
+----
+$ curl --head 'http://localhost:4000/files/doc.pdf'
+HTTP/1.1 200 OK
+Accept-Ranges: bytes
+Cache-Control: public, max-age=0
+Last-Modified: Tue, 12 Jun 2018 08:02:40 GMT
+ETag: W/"10c5d-163f304b0d2"
+Content-Type: application/pdf
+Content-Length: 68701
+Date: Mon, 02 Jul 2018 15:52:18 GMT
+Connection: keep-alive
+----
+
+Parmi les entêtes les plus importantes, nous trouvons `Content-Type`,
+`Content-Length` et `Last-Modified`.
+Elles aident le client à interpréter ou représenter le contenu de manière optimale,
+à informer de la taille du contenu (utile à l'animation de la barre de
+téléchargement du navigateur web) et à distinguer l'ancienneté du fichier.
+
+[options="header", cols="1,3"]
+.Entêtes de réponse utiles pour transmettre des fichiers.
+|===
+| Entête                | Utilité
+| `Content-Type`        | Explicite la nature du contenu mis à disposition.
+| `Content-Disposition` | Indique si le contenu doit être affiché dans le client ou téléchargé sous un nom particulier.
+| `Cache-Control`       | Active ou désactive la mise en cache de ce fichier par le client.
+| `Last-Modified`       | Indique la date de dernière modification du contenu.
+| `Content-Length`      | Indique la longueur (en octets) du contenu.
+| `Content-Encoding`    | Indique le mode de compression utilisé pour transmettre les données.
+| `Accept-Ranges`       | Indique la possibilité ou non de reprendre un téléchargement ou d'en choisir un segment avec l'entête de requête `Range`.
+|===
+
+[TIP]
+.[RemarquePreTitre]#Performance# Utiliser Apache ou nginx en production
+====
+Si Node s'en sort bien pour envoyer des fichiers vers le client,
+les serveurs web _Apache_ et _nginx_ sont encore plus performants à ce niveau.
+C'est quelque chose à considérer si votre application sert principalement
+des fichiers statiques.
+
+Lisez le <<../chapter-06/index.adoc#,chapitre 6>> pour apprendre à configurer
+Node derrière un autre serveur web.
+====
 
 [[arguments]]
 === Réagir aux arguments de l'URL
@@ -423,6 +577,20 @@ https://npmjs.com/parseurl
 
 [[cookies]]
 === Créer un lien avec le client avec les cookies
+
+[options="header", cols="2,3a,3"]
+.Entêtes de réponse
+|===
+| Entête          | Valeurs possibles | Utilité
+| `Set-Cookie`  |   |
+|===
+
+[options="header", cols="2,3a,3"]
+.Entêtes de requête
+|===
+| Entête          | Valeurs possibles | Utilité
+| `Cookie`  |   |
+|===
 
 [options="header", cols="1,2,4a"]
 .Directives complémentaires à la valeur d'un cookie.

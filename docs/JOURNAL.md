@@ -8,10 +8,17 @@ a été écrit, relu et testé avec un public apprenant.
 
 ---
 
+## Lundi 2 juillet 2018 • Burret
+
+- _Chapitre 7_ : Répondre avec des fichiers statiques
+
+**Météo** : 🙂 ☀️
+
 ## Dimanche 1er juillet 2018 • Burret
 
 - _Chapitre 3_, _Chapitre 4_, _Annexe A_ : Réduction de la longueur des exemples à 64 caractères par ligne
 - _Chapitre 7_ : Répondre à un chemin (_routing_)
+- _Chapitre 7_ : Répondre avec des fichiers
 
 **Météo** : 🙂 ☀️ 🍞
 
