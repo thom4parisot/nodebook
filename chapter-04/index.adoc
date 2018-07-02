@@ -807,14 +807,14 @@ Il faudrait vérifier l'argument `error` à chaque fois et décider quoi faire
 en fonction de la <<errors,nature du problème>>.
 
 Je vous invite à modifier le code de l'exemple précédent
-pour afficher la valeur des variables `error` avec à l'aide des
+pour afficher la valeur des variables `error` à l'aide des
 <<console,fonctions du module `console`>>.
-Certaines erreurs apparaissent quand invoque le script une deuxième fois.
+Certaines erreurs apparaissent quand le script est invoqué une seconde fois.
 
 L'imbrication des <<callbacks,fonctions de callback>> fait qu'il est
 *difficile d'interrompre une suite de _callbacks_*.
 Une bonne piste serait d'appliquer l'<<util,utilitaire `promisify`>>
-sur les fonctions du module `fs` créer une
+sur les fonctions du module `fs` afin de créer une
 <<../chapter-03/index.adoc#promise,chaine de promesses>>. +
 Nous apprendrons à faire ça dans la section du <<util,module `util`>>.
 
