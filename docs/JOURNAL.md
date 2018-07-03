@@ -11,6 +11,7 @@ a été écrit, relu et testé avec un public apprenant.
 ## Mardi 3 juillet 2018 • Burret/Montpellier/La Borie
 
 - _Chapitre 7_ : Garder un lien avec les cookies
+- _Chapitre 7_ : Pendant le développement : relancer le serveur automatiquement
 
 **Météo** : 🙂 ☀️ 🚂
 

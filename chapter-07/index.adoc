@@ -391,18 +391,6 @@ d'économisés.
 La responsabilité de comprendre ces verbes revient à notre application.
 C'est donc à nous de leur associer une action pour les prendre en charge.
 
-[TIP]
-.[RemarquePreTitre]#Pratique# Relancer le serveur automatiquement
-====
-Vous avez essayé de modifier un des exemples précédents pendant que le script
-était lancé et vous avez remarqué que _rien ne changeait_ ?
-
-C'est normal, le code exécuté est tel qu'au moment où il a été interprété par
-Node à son lancement.
-La section <<dev,relancer le serveur automatiquement>> nous donne une piste
-pour y remédier.
-====
-
 [[static]]
 === Répondre avec des fichiers statiques
 
@@ -777,7 +765,53 @@ chacun son tyle : pug, twig, ejs, handlebars
 [[dev]]
 === Pendant le développement : relancer le serveur automatiquement
 
-nodemon, clairement
+Vous avez modifié un des exemples de ce chapitre pendant qu'il était en
+cours d'exécution et vous avez remarqué que résultat ne changeait pas ?
+
+C'est normal : la version du code utilisée par Node est celle qui a été évaluée
+au lancement du script.
+Les *changements sont pris en compte manuellement, à la prochaine exécution*.
+C'est à dire après avoir stoppé et lancé à nouveau le script.
+
+Le module npm exécutable _nodemon_ ([URL]#https://npmjs.com/nodemon#)
+relance automatiquement une commande dès qu'il détecte un changement
+dans le répertoire courant.
+
+----
+$ nodemon cookies/parse.js
+# au lieu de "node cookies/parse.js"
+----
+
+La commande précédente relance `cookies/parse.js` si ce fichier change,
+si un fichier dans le répertoire `cookies/` change mais aussi si un fichier
+dans les répertoires voisins au répertoire `cookies/` change.
+
+L'option `--watch` restreint ou élargit le champ d'observation.
+La commande suivante relance le serveur seulement si un fichier JavaScript
+est modifié dans le répertoire `cookies/` :
+
+----
+$ nodemon --watch cookies cookies/parse.js
+----
+
+L'option `--ext` filtre les fichiers observés en fonction de leur type.
+La commande suivante relance le serveur si un fichier JavaScript, CSS ou HTML
+est modifié dans le répertoire courant :
+
+----
+$ nodemon --ext js,css,html cookies/parse.js
+----
+
+[NOTE]
+.[RemarquePreTitre]#Question# Installation globale, installation locale ?
+====
+Vous n'êtes pas sûr·e de la meilleure manière d'installer et d'utiliser
+le module _nodemon_ ?
+Je vous invite à relire la section
+<<../chapter-05/index.adoc#install.global,exécutable système>> du chapitre 5
+consacré à npm.
+====
+
 
 [[express]]
 == Organiser une application avec le _framework_ express
