@@ -328,9 +328,6 @@ module.exports = {
   'chapter-07/examples/static/stream.js': {
     skip: true
   },
-  'chapter-07/examples/cookies/read.js': {
-    skip: true
-  },
   'chapter-07/examples/cookies/write.js': {
     skip: true
   },
