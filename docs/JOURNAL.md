@@ -8,9 +8,16 @@ a été écrit, relu et testé avec un public apprenant.
 
 ---
 
+## Mardi 3 juillet 2018 • Burret/Montpellier/La Borie
+
+- _Chapitre 7_ : Garder un lien avec les cookies
+
+**Météo** : 🙂 ☀️ 🚂
+
 ## Lundi 2 juillet 2018 • Burret
 
 - _Chapitre 7_ : Répondre avec des fichiers statiques
+- _Chapitre 7_ : Réagir aux arguments d'URL
 
 **Météo** : 🙂 ☀️
 

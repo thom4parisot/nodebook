@@ -654,34 +654,119 @@ tout en étant jusqu'à 10 fois plus rapide que le module natif à Node.
 - plusieurs (multipart)
 
 [[cookies]]
-=== Créer un lien avec le client avec les cookies
+=== Garder un lien avec les cookies
 
-[options="header", cols="2,3a,3"]
-.Entêtes de réponse
-|===
-| Entête          | Valeurs possibles | Utilité
-| `Set-Cookie`  |   |
-|===
+Un cookie est une information partagée entre un client et un serveur pour
+une durée limitée dans le temps.
+Le client transmet les cookies au serveur afin que ce dernier contextualise
+la demande — un identifiant utilisateur, des préférences ou autre.
+Un cookie créé par le domaine `example.com` est envoyé seulement lors d'une
+visite à `example.com` — sous-domaines inclus.
 
-[options="header", cols="2,3a,3"]
-.Entêtes de requête
-|===
-| Entête          | Valeurs possibles | Utilité
-| `Cookie`  |   |
-|===
+Ce mécanisme est aujourd'hui tristement célèbre pour son détournement
+par les industries de la publicité, du marketing et de la revente de données.
 
-[options="header", cols="1,2,4a"]
+----
+$ node cookies/set-cookie.js
+----
+
+[source,javascript]
+.cookies/set-cookie.js
+----
+include::{sourceDir}/cookies/set-cookie.js[]
+----
+<1> L'entête de réponse `Set-Header` crée/modifie la valeur d'un cookie chez le client — ici, le cookie `compteur` est créé avec la valeur `1`.
+
+Nous pouvons observer la création du cookie en nous rendant sur `{serverUrl}`
+avec un navigateur, puis en ouvrant les outils de développement.
+
+.Visualisation des cookies avec les outils de développement du navigateur Firefox.
+image::images/cookies-browser.png[]
+
+Les cookies sont transmis du client au serveur *à chaque requête*.
+
+----
+$ node cookies/read.js
+----
+
+[source,javascript]
+.cookies/read.js
+----
+include::{sourceDir}/cookies/read.js[]
+----
+<1> Les cookies se lisent en inspectant l'entête de requête `Cookie`.
+<2> Affiche `Contenu : compteur=1`.
+
+Nous avons récupéré la valeur de l'entête contenant le cookie.
+Nous devons faire un effort supplémentaire pour transformer cette valeur textuelle
+en une structure ECMAScript qui fait sens pour notre application.
+
+Nous allons nous aider pour cela du module npm _cookie_
+([URL]#https://npmjs.com/cookie#).
+Il sait interpréter le contenu d'une entête HTTP et il sait également faire
+l'inverse, transformer une structure ECMAScript vers du texte utilisable
+dans une entête de réponse `Set-Cookie`.
+
+----
+$ node cookies/parse.js
+----
+
+[source,javascript]
+.cookies/parse.js
+----
+include::{sourceDir}/cookies/parse.js[]
+----
+<1> Nous passons l'intégralité de l'entête de requête `Cookie` à la fonction `cookie.parse`.
+<2> Affiche `{"compteur":"1"}`.
+
+La méthode `response.setHeader()` accepte un tableau pour créer plusieurs
+cookies en même temps :
+
+----
+$ node cookies/set-multiple.js
+----
+
+[source,javascript]
+.cookies/set-multiple.js
+----
+include::{sourceDir}/cookies/set-multiple.js[]
+----
+<1> Nous créons plusieurs cookies en passant un tableau de valeurs à la méthode `response.setHeader()`.
+<2> Crée un cookie dont la durée est limitée à 9 millions de secondes (~104 jours).
+<3> Crée un cookie visible pour le chemin d'accès `/path` (et les sous-chemins) — la deuxième directive empêche les scripts clients de lire et modifier la valeur du cookie.
+<4> L'utilisation de `cookie.serialize` est une autre manière de créer des cookies en construisant un objet ECMAScript au lieu d'une chaîne de caractères.
+<5> La ligne précédente équivaut à l'écriture de cette ligne.
+
+Le précédent exemple était aussi l'occasion de compléter les cookies avec
+des directives.
+Ces directives impactent leur durée de vie et leur visibilité.
+
+Ça s'observe en lançant à nouveau le script `cookies/parse.js` :
+
+----
+$ node cookies/parse.js
+----
+
+L'accès à `{serverUrl}` affiche quelque chose comme `{"compteur":"1","language":"fr"}`
+tandis que `{serverUrl}/admin` affiche un cookie supplémentaire —
+`{"is_admin":"1","compteur":"1","language":"fr"}`.
+
+[options="header", cols="1,4a"]
 .Directives complémentaires à la valeur d'un cookie.
 |===
-| Directive | Exemple | Explication
-| `Max-Age` | `Max-Age=3600` | Durée de vie du cookie en secondes. +
+| Directive | Explication
+| `Max-Age` | Durée de vie du cookie en secondes. +
 Si le nombre est inférieur ou égal à zéro, le cookie est supprimé. +
 Si cette valeur n'est pas préciée, le cookie est supprimé à la fin de la session.
-| `Domain` | `Domain=oncletom.io` | Spécifie le domaine ou les sous-domaines applicables au cookie.
-| `Path` | `Path=/` | Contraint le cookie à ce répertoire et tous ses sous-répertoires.
-| `Secure` | `Secure` | Le cookie n'est envoyée que si le document est demandé via HTTPS.
-| `HttpOnly` | `HttpOnly` | Le cookie ne peut pas être modifié côté client, via la variable `document.cookie`.
+| `Domain` | Spécifie le domaine ou les sous-domaines applicables au cookie.
+| `Path` | Contraint le cookie à ce répertoire et tous ses sous-répertoires.
+| `Secure` | Le cookie n'est envoyée que si le document est demandé via HTTPS.
+| `HttpOnly` | Le cookie ne peut pas être lu ou modifié côté client, via la variable `document.cookie`.
 |===
+
+Nous savons maintenant garder le lien avec nos utilisateurs.
+Nous utiliserons d'ailleurs les cookies pour <<sessions,maintenir une session>>
+avec un framework web.
 
 [[templating]]
 === Modulariser les gabarits de présentation

@@ -286,6 +286,18 @@ module.exports = {
   'chapter-07/examples/arguments/parse.js': {
     skip: true
   },
+  'chapter-07/examples/cookies/parse.js': {
+    skip: true
+  },
+  'chapter-07/examples/cookies/read.js': {
+    skip: true
+  },
+  'chapter-07/examples/cookies/set-cookie.js': {
+    skip: true
+  },
+  'chapter-07/examples/cookies/set-multiple.js': {
+    skip: true
+  },
   'chapter-07/examples/server/start.js': {
     skip: true
   },
