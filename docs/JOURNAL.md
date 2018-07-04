@@ -8,6 +8,12 @@ a été écrit, relu et testé avec un public apprenant.
 
 ---
 
+## Mercerdi 4 juillet 2018 • Florac
+
+- _Outillage_ : Build avec les styles Eyrolles \o/
+
+**Météo** : 🙂 ☀️
+
 ## Mardi 3 juillet 2018 • Burret/Montpellier/La Borie
 
 - _Chapitre 7_ : Garder un lien avec les cookies
