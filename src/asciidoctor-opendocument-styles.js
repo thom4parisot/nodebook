@@ -1,6 +1,6 @@
 'use strict';
 
-const styles = `<office:settings>
+const settings = `<office:settings>
   <config:config-item-set config:name="ooo:view-settings">
    <config:config-item config:name="ViewAreaTop" config:type="long">159715</config:config-item>
    <config:config-item config:name="ViewAreaLeft" config:type="long">0</config:config-item>
@@ -113,8 +113,9 @@ const styles = `<office:settings>
    <config:config-item config:name="ChartAutoUpdate" config:type="boolean">true</config:config-item>
    <config:config-item config:name="AddParaTableSpacing" config:type="boolean">false</config:config-item>
   </config:config-item-set>
- </office:settings>
- <office:scripts>
+ </office:settings>`;
+
+const scripts = `<office:scripts>
   <office:script script:language="ooo:Basic">
    <ooo:libraries xmlns:ooo="http://openoffice.org/2004/office" xmlns:xlink="http://www.w3.org/1999/xlink">
     <ooo:library-embedded ooo:name="Standard">
@@ -210,8 +211,9 @@ End Sub
    <script:event-listener script:language="ooo:StarBasic" script:event-name="office:start-app" script:macro-name="application:Indesko.FixOutline.FixOutline"/>
    <script:event-listener script:language="ooo:StarBasic" script:event-name="office:save" script:macro-name="application:Indesko.FixOutline.FixOutline"/>
   </office:event-listeners>
- </office:scripts>
- <office:font-face-decls>
+ </office:scripts>`;
+
+const fonts = `<office:font-face-decls>
   <style:font-face style:name="StarSymbol" svg:font-family="StarSymbol" style:font-charset="x-symbol"/>
   <style:font-face style:name="Wingdings" svg:font-family="Wingdings" style:font-adornments="Normal" style:font-pitch="variable" style:font-charset="x-symbol"/>
   <style:font-face style:name="Symbol" svg:font-family="Symbol" style:font-adornments="Normal" style:font-family-generic="roman" style:font-pitch="variable" style:font-charset="x-symbol"/>
@@ -237,8 +239,9 @@ End Sub
   <style:font-face style:name="DejaVu Sans Condensed1" svg:font-family="&apos;DejaVu Sans Condensed&apos;" style:font-adornments="Book" style:font-family-generic="swiss" style:font-pitch="variable"/>
   <style:font-face style:name="DejaVu Sans Condensed" svg:font-family="&apos;DejaVu Sans Condensed&apos;" style:font-adornments="Gras" style:font-family-generic="swiss" style:font-pitch="variable"/>
   <style:font-face style:name="Tahoma" svg:font-family="Tahoma" style:font-adornments="Italique gras" style:font-family-generic="swiss" style:font-pitch="variable"/>
- </office:font-face-decls>
- <office:styles>
+ </office:font-face-decls>`;
+
+const styles = `<office:styles>
   <style:default-style style:family="graphic">
    <style:graphic-properties svg:stroke-color="#000000" draw:fill-color="#99ccff" fo:wrap-option="no-wrap" draw:shadow-offset-x="0.1181in" draw:shadow-offset-y="0.1181in" draw:start-line-spacing-horizontal="0.1114in" draw:start-line-spacing-vertical="0.1114in" draw:end-line-spacing-horizontal="0.1114in" draw:end-line-spacing-vertical="0.1114in" style:flow-with-text="true"/>
    <style:paragraph-properties style:text-autospace="ideograph-alpha" style:line-break="strict" style:font-independent-line-spacing="false">
@@ -556,7 +559,7 @@ End Sub
   <style:style style:name="ListeSuite" style:family="paragraph" style:parent-style-name="TexteCourant">
    <style:paragraph-properties fo:margin-left="0.9839in" fo:margin-right="2.5591in" fo:margin-top="0in" fo:margin-bottom="0in" loext:contextual-spacing="false" fo:text-indent="0in" style:auto-text-indent="false"/>
   </style:style>
-  <style:style style:name="ChapitreTitre" style:family="paragraph" style:next-style-name="ChapitreIntroduction" style:default-outline-level="1">
+  <style:style style:name="ChapitreTitre" style:family="paragraph" style:next-style-name="ChapitreIntroduction" style:default-outline-level="1" style:master-page-name="PageEyrolles15-20">
    <loext:graphic-properties draw:fill="solid" draw:fill-color="#e6e6e6" draw:opacity="100%"/>
    <style:paragraph-properties fo:margin-top="0.5835in" fo:margin-bottom="0.3335in" loext:contextual-spacing="false" fo:text-align="end" style:justify-single-word="false" fo:orphans="2" fo:widows="2" fo:background-color="#e6e6e6" fo:padding-left="0in" fo:padding-right="0in" fo:padding-top="0in" fo:padding-bottom="0.0138in" fo:border-left="none" fo:border-right="none" fo:border-top="none" fo:border-bottom="0.06pt solid #000000" style:shadow="none"/>
    <style:text-properties style:use-window-font-color="true" style:font-name="Fontin" fo:font-family="Fontin" style:font-style-name="Gras" style:font-pitch="variable" fo:font-size="28pt" fo:language="fr" fo:country="FR" fo:font-weight="bold" style:font-name-asian="Times New Roman1" style:font-family-asian="&apos;Times New Roman&apos;" style:font-family-generic-asian="roman" style:font-pitch-asian="variable" style:font-size-asian="20pt" style:font-weight-asian="bold"/>
@@ -1341,51 +1344,44 @@ End Sub
   </style:master-page>
  </office:master-styles>`;
 
-module.exports = (xmlDocument, parser) => {
-  const xmlStyles = new parser().parseFromString(styles);
-  const root = xmlDocument.firstChild;
+const attributes = [
+  'xmlns:style="urn:oasis:names:tc:opendocument:xmlns:style:1.0"',
+  'xmlns:text="urn:oasis:names:tc:opendocument:xmlns:text:1.0"',
+  'xmlns:table="urn:oasis:names:tc:opendocument:xmlns:table:1.0"',
+  'xmlns:draw="urn:oasis:names:tc:opendocument:xmlns:drawing:1.0"',
+  'xmlns:fo="urn:oasis:names:tc:opendocument:xmlns:xsl-fo-compatible:1.0"',
+  'xmlns:xlink="http://www.w3.org/1999/xlink"',
+  'xmlns:dc="http://purl.org/dc/elements/1.1/"',
+  'xmlns:meta="urn:oasis:names:tc:opendocument:xmlns:meta:1.0"',
+  'xmlns:number="urn:oasis:names:tc:opendocument:xmlns:datastyle:1.0"',
+  'xmlns:svg="urn:oasis:names:tc:opendocument:xmlns:svg-compatible:1.0"',
+  'xmlns:chart="urn:oasis:names:tc:opendocument:xmlns:chart:1.0"',
+  'xmlns:dr3d="urn:oasis:names:tc:opendocument:xmlns:dr3d:1.0"',
+  'xmlns:math="http://www.w3.org/1998/Math/MathML"',
+  'xmlns:form="urn:oasis:names:tc:opendocument:xmlns:form:1.0"',
+  'xmlns:script="urn:oasis:names:tc:opendocument:xmlns:script:1.0"',
+  'xmlns:config="urn:oasis:names:tc:opendocument:xmlns:config:1.0"',
+  'xmlns:ooo="http://openoffice.org/2004/office"',
+  'xmlns:ooow="http://openoffice.org/2004/writer"',
+  'xmlns:oooc="http://openoffice.org/2004/calc"',
+  'xmlns:dom="http://www.w3.org/2001/xml-events"',
+  'xmlns:xforms="http://www.w3.org/2002/xforms"',
+  'xmlns:xsd="http://www.w3.org/2001/XMLSchema"',
+  'xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"',
+  'xmlns:rpt="http://openoffice.org/2005/report"',
+  'xmlns:of="urn:oasis:names:tc:opendocument:xmlns:of:1.2"',
+  'xmlns:xhtml="http://www.w3.org/1999/xhtml"',
+  'xmlns:grddl="http://www.w3.org/2003/g/data-view#"',
+  'xmlns:officeooo="http://openoffice.org/2009/office"',
+  'xmlns:tableooo="http://openoffice.org/2009/table"',
+  'xmlns:drawooo="http://openoffice.org/2010/draw"',
+  'xmlns:calcext="urn:org:documentfoundation:names:experimental:calc:xmlns:calcext:1.0"',
+  'xmlns:loext="urn:org:documentfoundation:names:experimental:office:xmlns:loext:1.0"',
+  'xmlns:field="urn:openoffice:names:experimental:ooo-ms-interop:xmlns:field:1.0"',
+  'xmlns:formx="urn:openoffice:names:experimental:ooxml-odf-interop:xmlns:form:1.0"',
+  'xmlns:css3t="http://www.w3.org/TR/css3-text/"',
+  'office:version="1.2"',
+  'office:mimetype="application/vnd.oasis.opendocument.text"',
+];
 
-  xmlDocument.documentElement.setAttribute('xmlns:style', 'urn:oasis:names:tc:opendocument:xmlns:style:1.0');
-  xmlDocument.documentElement.setAttribute('xmlns:text', 'urn:oasis:names:tc:opendocument:xmlns:text:1.0');
-  xmlDocument.documentElement.setAttribute('xmlns:table', 'urn:oasis:names:tc:opendocument:xmlns:table:1.0');
-  xmlDocument.documentElement.setAttribute('xmlns:draw', 'urn:oasis:names:tc:opendocument:xmlns:drawing:1.0');
-  xmlDocument.documentElement.setAttribute('xmlns:fo', 'urn:oasis:names:tc:opendocument:xmlns:xsl-fo-compatible:1.0');
-  xmlDocument.documentElement.setAttribute('xmlns:xlink', 'http://www.w3.org/1999/xlink');
-  xmlDocument.documentElement.setAttribute('xmlns:dc', 'http://purl.org/dc/elements/1.1/');
-  xmlDocument.documentElement.setAttribute('xmlns:meta', 'urn:oasis:names:tc:opendocument:xmlns:meta:1.0');
-  xmlDocument.documentElement.setAttribute('xmlns:number', 'urn:oasis:names:tc:opendocument:xmlns:datastyle:1.0');
-  xmlDocument.documentElement.setAttribute('xmlns:svg', 'urn:oasis:names:tc:opendocument:xmlns:svg-compatible:1.0');
-  xmlDocument.documentElement.setAttribute('xmlns:chart', 'urn:oasis:names:tc:opendocument:xmlns:chart:1.0');
-  xmlDocument.documentElement.setAttribute('xmlns:dr3d', 'urn:oasis:names:tc:opendocument:xmlns:dr3d:1.0');
-  xmlDocument.documentElement.setAttribute('xmlns:math', 'http://www.w3.org/1998/Math/MathML');
-  xmlDocument.documentElement.setAttribute('xmlns:form', 'urn:oasis:names:tc:opendocument:xmlns:form:1.0');
-  xmlDocument.documentElement.setAttribute('xmlns:script', 'urn:oasis:names:tc:opendocument:xmlns:script:1.0');
-  xmlDocument.documentElement.setAttribute('xmlns:config', 'urn:oasis:names:tc:opendocument:xmlns:config:1.0');
-  xmlDocument.documentElement.setAttribute('xmlns:ooo', 'http://openoffice.org/2004/office');
-  xmlDocument.documentElement.setAttribute('xmlns:ooow', 'http://openoffice.org/2004/writer');
-  xmlDocument.documentElement.setAttribute('xmlns:oooc', 'http://openoffice.org/2004/calc');
-  xmlDocument.documentElement.setAttribute('xmlns:dom', 'http://www.w3.org/2001/xml-events');
-  xmlDocument.documentElement.setAttribute('xmlns:xforms', 'http://www.w3.org/2002/xforms');
-  xmlDocument.documentElement.setAttribute('xmlns:xsd', 'http://www.w3.org/2001/XMLSchema');
-  xmlDocument.documentElement.setAttribute('xmlns:xsi', 'http://www.w3.org/2001/XMLSchema-instance');
-  xmlDocument.documentElement.setAttribute('xmlns:rpt', 'http://openoffice.org/2005/report');
-  xmlDocument.documentElement.setAttribute('xmlns:of', 'urn:oasis:names:tc:opendocument:xmlns:of:1.2');
-  xmlDocument.documentElement.setAttribute('xmlns:xhtml', 'http://www.w3.org/1999/xhtml');
-  xmlDocument.documentElement.setAttribute('xmlns:grddl', 'http://www.w3.org/2003/g/data-view#');
-  xmlDocument.documentElement.setAttribute('xmlns:officeooo', 'http://openoffice.org/2009/office');
-  xmlDocument.documentElement.setAttribute('xmlns:tableooo', 'http://openoffice.org/2009/table');
-  xmlDocument.documentElement.setAttribute('xmlns:drawooo', 'http://openoffice.org/2010/draw');
-  xmlDocument.documentElement.setAttribute('xmlns:calcext', 'urn:org:documentfoundation:names:experimental:calc:xmlns:calcext:1.0');
-  xmlDocument.documentElement.setAttribute('xmlns:loext', 'urn:org:documentfoundation:names:experimental:office:xmlns:loext:1.0');
-  xmlDocument.documentElement.setAttribute('xmlns:field', 'urn:openoffice:names:experimental:ooo-ms-interop:xmlns:field:1.0');
-  xmlDocument.documentElement.setAttribute('xmlns:formx', 'urn:openoffice:names:experimental:ooxml-odf-interop:xmlns:form:1.0');
-  xmlDocument.documentElement.setAttribute('xmlns:css3t', 'http://www.w3.org/TR/css3-text/');
-  xmlDocument.documentElement.setAttribute('office:version', '1.2');
-  xmlDocument.documentElement.setAttribute('office:mimetype', 'application/vnd.oasis.opendocument.text');
-
-  root.insertBefore(xmlStyles, root.firstChild);
-
-  Array.from(xmlDocument.getElementsByTagName('style:style'))
-    .find(el => el.getAttribute('style:name') === 'ChapitreTitre')
-    .setAttribute('style:master-page-name', 'PageEyrolles15-20');
-}
+module.exports = {styles, attributes, fonts, scripts, settings};

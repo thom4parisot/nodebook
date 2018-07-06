@@ -8,9 +8,9 @@ const microtypoExtension = require('../src/asciidoctor-microtypography-french.js
 const bash$Extension = require('../src/asciidoctor-extension-bash-dollar.js');
 const MDNExtension = require('../src/asciidoctor-extension-mdn.js');
 const hashScroll = require('../src/asciidoctor-toc-hash-scroll.js');
-const applyStyles = require('../src/asciidoctor-opendocument-styles.js');
+const styles = require('../src/asciidoctor-opendocument-styles.js');
 
-require('asciidoctor-converter-opendocument')(processor, {withXml: applyStyles});
+require('asciidoctor-converter-opendocument')(processor, {styles});
 require('asciidoctor-docbook.js')();
 
 var DEFAULT_ATTRIBUTES = [
