@@ -559,7 +559,7 @@ const styles = `<office:styles>
   <style:style style:name="ListeSuite" style:family="paragraph" style:parent-style-name="TexteCourant">
    <style:paragraph-properties fo:margin-left="0.9839in" fo:margin-right="2.5591in" fo:margin-top="0in" fo:margin-bottom="0in" loext:contextual-spacing="false" fo:text-indent="0in" style:auto-text-indent="false"/>
   </style:style>
-  <style:style style:name="ChapitreTitre" style:family="paragraph" style:next-style-name="ChapitreIntroduction" style:default-outline-level="1" style:master-page-name="PageEyrolles15-20">
+  <style:style style:name="ChapitreTitre" style:family="paragraph" style:next-style-name="ChapitreIntroduction" style:default-outline-level="1">
    <loext:graphic-properties draw:fill="solid" draw:fill-color="#e6e6e6" draw:opacity="100%"/>
    <style:paragraph-properties fo:margin-top="0.5835in" fo:margin-bottom="0.3335in" loext:contextual-spacing="false" fo:text-align="end" style:justify-single-word="false" fo:orphans="2" fo:widows="2" fo:background-color="#e6e6e6" fo:padding-left="0in" fo:padding-right="0in" fo:padding-top="0in" fo:padding-bottom="0.0138in" fo:border-left="none" fo:border-right="none" fo:border-top="none" fo:border-bottom="0.06pt solid #000000" style:shadow="none"/>
    <style:text-properties style:use-window-font-color="true" style:font-name="Fontin" fo:font-family="Fontin" style:font-style-name="Gras" style:font-pitch="variable" fo:font-size="28pt" fo:language="fr" fo:country="FR" fo:font-weight="bold" style:font-name-asian="Times New Roman1" style:font-family-asian="&apos;Times New Roman&apos;" style:font-family-generic-asian="roman" style:font-pitch-asian="variable" style:font-size-asian="20pt" style:font-weight-asian="bold"/>
@@ -1384,4 +1384,4 @@ const attributes = [
   'office:mimetype="application/vnd.oasis.opendocument.text"',
 ];
 
-module.exports = {styles, attributes, fonts, scripts, settings};
+module.exports = {styles, attributes, fonts, scripts: '', settings};
