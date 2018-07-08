@@ -1,4 +1,7 @@
 const {format} = require('util');
 
-const message = format('Il fait %s aujourd\'hui', '☀️ '); // <1>
+const message = format(           // <1>
+  'Il fait %s aujourd\'hui',
+  '☀️ '
+);
 // console.log(message);

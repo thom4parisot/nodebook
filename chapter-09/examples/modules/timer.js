@@ -7,8 +7,8 @@ const tick = () => {              // <1>
   }
 };
 
-module.exports = function timer ({ onTick, interval }) {  // <3>
-  setInterval(() => onTick(tick()), interval);            // <4>
+module.exports = function timer ({ onTick, interval }) {// <3>
+  setInterval(() => onTick(tick()), interval);          // <4>
 
   return tick();                  // <5>
 }

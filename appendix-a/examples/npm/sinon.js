@@ -7,15 +7,16 @@ test('Date', (t) => {
   t.plan(3);
 
   const d = Date;
+  const dateTime = new Date('1983-03-24').getTime();
   const stub = sinon.stub(d, 'now');
   stub.returns(9999999999999);
 
   d.now();
   t.equal(stub.calledOnce, true);
-  t.ok(stub.returnValues[0] > new Date('1983-03-24').getTime());
+  t.ok(stub.returnValues[0] > dateTime);
 
   stub.returns(100);
   d.now();
 
-  t.ok(stub.returnValues[0] > new Date('1983-03-24').getTime());
+  t.ok(stub.returnValues[0] > dateTime);
 });
