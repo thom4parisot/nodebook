@@ -11,10 +11,6 @@ const microtypo = (line) => {
 module.exports = function microTypography () {
   this.treeProcessor(function(){
     this.process((doc) => {
-      if (doc.backend !== 'html5') {
-        return doc;
-      }
-
       doc.findBy({ context: 'paragraph' }).forEach(block => {
         block.lines = block.lines.map(microtypo);
       });

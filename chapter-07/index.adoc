@@ -359,13 +359,13 @@ Ils comprennent le verbe `POST` pour <<upload,uploader des fichiers>> ou
 Tournons-nous à nouveau vers le programme `curl` pour observer les différences
 entre la réponse nos deux verbes HTTP `GET` et `HEAD` :
 
-[subs="+attributes"]
+[subs="+attributes,+quotes"]
 ----
 $ curl {serverUrl}
 Bienvenue
-$ curl <i>--head</i> {serverUrl}
+$ curl ##--head## {serverUrl}
 HTTP/1.1 200 OK
-<i>X-Jobs: https://jobs.humancoders.com</i>
+##X-Jobs: https://jobs.humancoders.com##
 Date: Sun, 01 Jul 2018 15:43:56 GMT
 Connection: keep-alive
 ----

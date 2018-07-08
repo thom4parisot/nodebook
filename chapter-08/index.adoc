@@ -125,9 +125,10 @@ adéquates.
 Comme nous ne les connaissons pas, utilisons la commande `ls` ainsi que
 l'option `-l` pour afficher ses informations détaillées :
 
+[subs="+quotes"]
 ----
 $ ls -l bin/time.js
-<i>-rw-r--r--</i> oncletom  staff  175 Jun 14 13:47 bin/time.js
+##-rw-r--r--## oncletom  staff  175 Jun 14 13:47 bin/time.js
 ----
 
 Cet affichage détaille les permissions du fichier, l'utilisateur et le groupe
@@ -277,13 +278,13 @@ système tandis que la valeur contient le chemin d'accès au script exécutable.
 Plusieurs exécutables sont alors installés si nous renseignons plusieurs
 clés et valeurs.
 
-[source,json,subs="-specialchars"]
+[source,json,subs="-specialchars,+quotes"]
 .package.json
 ----
 {
   "name": "nodebook.chapter-08",
   "bin": {
-    "<i>quelle-heure-est-il</i>": "examples/bin/time-sh.js"
+    "##quelle-heure-est-il##": "examples/bin/time-sh.js"
   }
 }
 ----
@@ -387,8 +388,9 @@ Les options s'écrivent sous une *forme raccourcie* (_alias_).
 Un alias réduit l'encombrement visuel et est signalé avec un seul tiret
 (au lieu de deux pour leur forme complète) :
 
+[subs="+quotes"]
 ----
-$ node options/alias.js <i>-c</i> FR
+$ node options/alias.js ##-c## FR
 { _: [], c: 'FR', country: 'FR' }
 ----
 

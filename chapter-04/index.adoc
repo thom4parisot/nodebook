@@ -2069,9 +2069,10 @@ est fourni par défaut sur les systèmes Linux et macOS.
 Il ne retourne que les lignes qui contiennent le motif
 donné en <<process.arv,argument>> :
 
+[subs="+quotes"]
 ----
 $ node process/stdout.js | grep 'tre'
-qua<i>tre</i>
+qua##tre##
 ----
 
 La _sortie standard_ de `process/stdout.js` est devenue l'_entrée standard_
@@ -2208,19 +2209,20 @@ include::{sourceDir}/process/exit-error.js[]
 
 Que verrions-nous si on lançait le script ?
 
+[subs="+quotes"]
 ----
 $ node process/exit-error.js
 Le processus termine avec le code 1
 
-<i>ReferenceError</i>: jenexistepas is not defined
-    at Object.<anonymous> (/.../examples/process/<i>exit-error.js</i>:<i>5</i>:13)
+##ReferenceError##: jenexistepas is not defined
+    at Object.<anonymous> (/.../examples/process/##exit-error.js##:##5##:13)
 ----
 
 Cette fois-ci le code de sortie est `1`.
 Cela correspond à une _erreur qui n'a pas été capturée_.
 Le reste du message décrit _pourquoi_ l'erreur s'est manifestée.
 
-<i>On peut écouter d'autres événements liés au cycle de vie de nos applications :
+On peut écouter d'autres événements liés au cycle de vie de nos applications :
 
 
 [cols="1,1,2",options="header"]
@@ -2950,12 +2952,13 @@ et quel est le chemin parcouru au sein du code pour y parvenir.
 
 Commençons avec une _erreur de syntaxe_ :
 
+[subs="+quotes"]
 ----
-$ node <i>syntax-error.js</i>
-console.log(<i>'oups j'</i>ai fait une erreur de guillemets);
-            ^^^^^^^^
+$ node ##syntax-error.js##
+console.log(##'oups j'##ai fait une erreur de guillemets);
+            \^^^\^^^^^
 
-<i>SyntaxError</i>: <i>missing ) after argument list</i>
+##SyntaxError##: ##missing ) after argument list##
     at new Script (vm.js:74:7)
     at createScript (vm.js:246:10)
     at Object.runInThisContext (vm.js:298:10)
@@ -2978,12 +2981,13 @@ Node l'interprétera alors comme un caractère.
 Penchons-nous à présent sur les _erreurs d'exécution_,
 *provoquée lorsque le code est exécuté* :
 
+[subs="+quotes"]
 ----
 $ node process/exit-error.js
-console.log(<i>jenexistepas</i>);
+console.log(##jenexistepas##);
             ^
-<i>ReferenceError</i>: <i>jenexistepas</i> <i>is not defined</i>
-    at Object.<anonymous> (/.../chapter-04/examples/process/<i>exit-error.js</i>:<i>5</i>:13)
+##ReferenceError##: ##jenexistepas## ##is not defined##
+    at Object.<anonymous> (/.../chapter-04/examples/process/##exit-error.js##:##5##:13)
     at Module._compile (module.js:643:30)
 ----
 
@@ -3001,11 +3005,12 @@ Les erreurs d'exécution sont pernicieuses elles sont parfois
 provoquées après le démarrage de l'application.
 Dans, elle se produit deux secondes après le démarrage du script :
 
+[subs="+quotes"]
 ----
 $ node runtime-error.js
-setTimeout(() => console.log(<i>secret.toLocaleUperCase()</i>), 2000);
+setTimeout(() => console.log(##secret.toLocaleUperCase()##), 2000);
                                     ^
-<i>TypeError</i>: <i>secret.toLocaleUperCase</i> <i>is not a function</i>
+##TypeError##: ##secret.toLocaleUperCase## ##is not a function##
     at Timeout.setTimeout [as _onTimeout] (/.../chapter-04/examples/runtime-error.js:4:37)
 ----
 
@@ -3072,9 +3077,10 @@ include::{sourceDir}/errors/callback.js[]
 <2> `error.message` contient une raison textuelle de l'erreur.
 <3> Affichage de l'objet d'erreur complet.
 
+[subs="+quotes"]
 ----
 $ node errors/callback.js
-<i>ENOENT</i>: <i>no such file or directory</i>, open '<i>je-n-existe-pas.txt</i>'
+##ENOENT##: ##no such file or directory##, open '##je-n-existe-pas.txt##'
 { Error: ENOENT: no such file or directory, open 'je-n-existe-pas.txt'
   errno: -2,
   code: 'ENOENT',
@@ -3123,10 +3129,11 @@ include::{sourceDir}/errors/promise.js[]
 Le contenu de l'erreur est accessible dans le premier et seul argument de
 la fonction de _callback_ passée à `.catch()`.
 
+[subs="+quotes"]
 ----
 $ node errors/promise.js
-Error: <i>Oops !</i>
-    at <i>Promise.resolve</i>.<i>then</i> (/.../chapter-04/examples/errors/<i>promise.js</i>:<i>5</i>:11)
+Error: ##Oops !##
+    at ##Promise.resolve##.##then## (/.../chapter-04/examples/errors/##promise.js##:##5##:11)
     at process._tickCallback (internal/process/next_tick.js:178:7)
 ----
 
@@ -3154,10 +3161,11 @@ de l'<<process.on,événement de processus>> `unhandledRejection` :
 include::{sourceDir}/errors/promise-no-catch.js[]
 ----
 
+[subs="+quotes"]
 ----
 $ node errors/promise-no-catch.js
-(node:27412) <i>UnhandledPromiseRejectionWarning</i>: Error: Oops !
-    at <i>Promise.resolve</i>.<i>then</i> (/.../chapter-04/examples/errors/<i>promise-no-catch.js</i>:<i>5</i>:11)
+(node:27412) ##UnhandledPromiseRejectionWarning##: Error: Oops !
+    at ##Promise.resolve##.##then## (/.../chapter-04/examples/errors/##promise-no-catch.js##:##5##:11)
     at process._tickCallback (internal/process/next_tick.js:178:7)
 ----
 
@@ -3179,10 +3187,11 @@ include::{sourceDir}/errors/on-error.js[]
 <1> On émet un événement `error` avec un objet `Error` précisant la nature du problème.
 <2> L'objet d'erreur est transmis à l'événement `error`.
 
+[subs="+quotes"]
 ----
 $ node errors/on-error.js
-Error: <i>Oops !</i>
-    at Object.<i>&lt;anonymous&gt;</i> (/.../chapter-04/examples/errors/<i>on-error.js</i>:<i>5</i>:23)
+Error: ##Oops !##
+    at Object.##&lt;anonymous&gt;## (/.../chapter-04/examples/errors/##on-error.js##:##5##:23)
     at Module._compile (internal/modules/cjs/loader.js:678:30)
 ----
 
@@ -3199,14 +3208,15 @@ l'événement `uncaughtException` est produit :
 include::{sourceDir}/errors/on-error-uncaught.js[]
 ----
 
+[subs="+quotes"]
 ----
 $ node errors/on-error-uncaught.js
 events.js:167
-      throw er; // <i>Unhandled 'error'</i> event
+      throw er; // ##Unhandled 'error'## event
       ^
 
 Error: Oops !
-    at Object.<i>&lt;anonymous&gt;</i> (/.../chapter-04/examples/errors/<i>on-error-uncaught.js</i>:<i>3</i>:23)
+    at Object.##&lt;anonymous&gt;## (/.../chapter-04/examples/errors/##on-error-uncaught.js##:##3##:23)
     at Module._compile (internal/modules/cjs/loader.js:678:30)
 ----
 

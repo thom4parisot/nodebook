@@ -254,7 +254,8 @@ deux commandes suivantes :
 
 [subs="+attributes"]
 ----
-$ curl -sL https://deb.nodesource.com/setup_{v}.x | sudo -E bash -
+$ sudo su
+$ curl -sL https://deb.nodesource.com/setup_{v}.x | bash -
 $ sudo apt-get install -y nodejs
 ----
 
@@ -305,7 +306,7 @@ L'installation de _Homebrew_ se fait en deux étapes :
 .Installation des _Command Line Tools_ et de _Homebrew_ sous macOS
 ----
 $ xcode-select --install
-$ BREWRL=https://raw.githubusercontent.com/Homebrew/install/master/install \
+$ BREWRL=https://rawgit.com/Homebrew/install/master/install \
    /usr/bin/ruby -e "$(curl -fsSL $BREWRL)"
 ----
 

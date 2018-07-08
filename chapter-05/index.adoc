@@ -457,9 +457,10 @@ Le problème est qu'à ce stade, nous ne connaissons pas le numéro de version
 Idéalement, je préfèrerais installer la version la plus récente de la série 3.
 Il se trouve que l'exécutable `npm` sait le faire pour nous et sans effort :
 
+[subs="+quotes"]
 ----
 $ npm install lodash@3
-+ lodash@<i>3.10.1</i>
++ lodash@##3.10.1##
 ----
 
 Nous pouvons faire la même chose avec la version
@@ -479,8 +480,9 @@ La <<view,commande `npm view`>> affiche les informations d'un module npm
 directement depuis notre terminal.
 Elle affiche toutes les versions publiées avec l'argument `versions` :
 
+[subs="+quotes"]
 ----
-$ npm view lodash <i>versions</i>
+$ npm view lodash ##versions##
 [ '0.1.0',
   '0.2.0',
   ...
@@ -503,14 +505,14 @@ Quelque chose d'inattendu s'est produit : la version la plus récente
 de la série 2 a été installée au lieu de la version {lodashVersion}.
 Nous trouverons un élément de réponse dans le fichier `package.json` :
 
-[source,json,subs="-specialchars,+attributes"]
+[source,json,subs="-specialchars,+attributes,+quotes"]
 .package.json
 ----
 {
   ...
   "dependencies": {
     "cowsay": "^{cowsayVersion}",
-    "lodash": "<i>^2.4.2</i>"
+    "lodash": "##^2.4.2##"
   }
 }
 ----
@@ -523,9 +525,9 @@ la plus récente.
 L'étiquette `latest` explicite notre envie d'installer la version
 la plus récente et sans tenir compte du fichier `package.json` :
 
-[subs="+attributes"]
+[subs="+attributes,+quotes"]
 ----
-$ npm install lodash@<i>latest</i>
+$ npm install lodash@##latest##
 + lodash@{lodashVersion}
 ----
 
@@ -542,10 +544,10 @@ dans le fichier `package.json`.
 La <<view,commande `npm view`>> va à nouveau nous aider.
 Elle affiche toutes les versions publiées avec l'argument `dist-tags` :
 
-[subs="+attributes"]
+[subs="+attributes,+quotes"]
 ----
 $ npm view lodash dist-tags
-{ <i>latest</i>: '{lodashVersion}' }
+{ ##latest##: '{lodashVersion}' }
 ----
 
 Ce mécanisme d'étiquette sert de raccourci pour associer un numéro de version
@@ -763,7 +765,7 @@ $ npm install --save-dev mocha
 L'exécutable `npm` range alors ce module dans une nouvelle section du
 fichier `package.json` — la section `devDependencies` :
 
-[source,json,subs="+attributes,-specialchars"]
+[source,json,subs="+attributes,-specialchars,+quotes"]
 ----
 {
   ...
@@ -771,7 +773,7 @@ fichier `package.json` — la section `devDependencies` :
     "cowsay": "^{cowsayVersion}",
     "lodash": "^{lodashVersion}"
   },
-  "<i>devDependencies</i>": {
+  "##devDependencies##": {
     "mocha": "^5.2.0"
   }
 }
@@ -807,9 +809,9 @@ de fichiers HTML sans avoir à configurer de logiciels comme _Apache_ ou _nginx_
 L'installation est rendue globale — à l'échelle du système d'exploitation
 — avec l'utilisation de l'option `--global` :
 
-[subs="+attributes"]
+[subs="+attributes,+quotes"]
 ----
-$ npm install <i>--global</i> serve
+$ npm install ##--global## serve
 + serve@{serveVersion}
 ----
 
@@ -1005,8 +1007,9 @@ ou de l'application.
 
 Les scripts personnalisés se démarrent avec `npm run` :
 
+[subs="+quotes"]
 ----
-$ npm <i>run</i> print-args
+$ npm ##run## print-args
 
 > nodebook.chapter-05@1.0.0 print-args
 > node examples/print-args.js
@@ -1057,14 +1060,14 @@ $ npm run print-args -- un --test=true
 
 Un script npm peut faire appel à d'autres scripts npm :
 
-[source,json,subs="-specialchars"]
+[source,json,subs="-specialchars,+quotes"]
 .package.json
 ----
 {
   ...
   "scripts": {
     "lint": "eslint ./examples",
-    "test": "npm run lint <i>&&</i> mocha examples/tests.js"
+    "test": "npm run lint ##&&## mocha examples/tests.js"
   }
 }
 ----
@@ -1100,16 +1103,16 @@ Leur nom est préfixé par `npm_package` suivi de leur nom "mis à plat".
 Ainsi le champ `version` est accessible en tant que `$npm_package_version`
 et le champ `config.port` en tant que `$npm_package_config_port` :
 
-[source,json,subs="-specialchars"]
+[source,json,subs="-specialchars,+quotes"]
 .package.json
 ----
 {
   ...
-  "<i>config</i>": {
-    "<i>port</i>": "4000"
+  "##config##": {
+    "##port##": "4000"
   };
   "scripts": {
-    "start": "node server --port $npm_package_<i>config</i>_<i>port</i>",
+    "start": "node server --port $npm_package_##config##_##port##",
   }
 }
 ----
@@ -1123,7 +1126,7 @@ L'ordre d'exécution des scripts se contrôle en utilisant les préfixes
 Par exemple, les scripts nommés `pretest` et `posttest` seront exécutés
 respectivement avant et après le script `test`.
 
-[source,json,subs="-specialchars"]
+[source,json,subs="-specialchars,+quotes"]
 .package.json
 ----
 {
@@ -1131,7 +1134,7 @@ respectivement avant et après le script `test`.
   "scripts": {
     "lint": "eslint ./examples",
     "test": "mocha examples/tests.js",
-    "<i>pre</i>test": "npm run lint"
+    "##pre##test": "npm run lint"
   }
 }
 ----
@@ -1374,9 +1377,9 @@ $ npm view nodebook dependencies
 Il est même possible de zoomer sur un niveau plus fin de métadonnée,
 avec une annotation similaire à celle d'un objet ECMAScript :
 
-[subs="-specialchars"]
+[subs="-specialchars,+quotes"]
 ----
-$ npm view nodebook dist.<i>unpackedSize</i>
+$ npm view nodebook dist.##unpackedSize##
 14985184
 $ npm view nodebook dist
 { integrity:
@@ -1385,7 +1388,7 @@ $ npm view nodebook dist
   tarball:
     'https://registry.npmjs.org/nodebook/nodebook-0.9.1.tgz',
   fileCount: 486,
-  <i>unpackedSize</i>: 14985184 }
+  ##unpackedSize##: 14985184 }
 ----
 
 [[npx]]
@@ -1455,7 +1458,7 @@ found 1 low severity vulnerability
 
 Un affichage plus détaillé est présenté en exécutant `npm audit` :
 
-[subs="-specialchars"]
+[subs="-specialchars,+quotes"]
 ----
 $ npm audit
 
@@ -1464,11 +1467,11 @@ Recommended action is a potentially breaking change
 ┌───────────────┬───────────────────────────────────────────┐
 │ Low           │ Prototype Pollution                       │
 ├───────────────┼───────────────────────────────────────────┤
-│ Package       │ <i>lodash</i>                                    │
+│ Package       │ ##lodash##                                    │
 ├───────────────┼───────────────────────────────────────────┤
 │ Dependency of │ lodash                                    │
 ├───────────────┼───────────────────────────────────────────┤
-│ <i>Path</i>          │ lodash                                    │
+│ ##Path##          │ lodash                                    │
 ├───────────────┼───────────────────────────────────────────┤
 │ More info     │ https://nodesecurity.io/advisories/577    │
 └───────────────┴───────────────────────────────────────────┘
@@ -2032,22 +2035,22 @@ s'il est développé sous un nouveau nom ou si nous sommes encouragé·e·s à
 Un module déprécié ne nous regarde pas sauf s'il est listé dans le champ
 `dependencies` ou `devDependencies` d'un fichier `package.json`.
 
-[subs="-specialchars"]
+[subs="-specialchars,+quotes"]
 .Exemple d'encouragements à utiliser un autre module.
 ----
 npm WARN deprecated babel-preset-es2017@6.24.1:
-  Thanks for using Babel: <i>we recommend using babel-preset-env</i>
+  Thanks for using Babel: ##we recommend using babel-preset-env##
   now: please read babeljs.io/env to update!
 
 npm WARN deprecated babel-preset-babili@0.0.10: babili has
-  been <i>renamed to babel-minify</i>.
+  been ##renamed to babel-minify##.
   Please update to babel-preset-minify
 ----
 
-[subs="-specialchars"]
+[subs="-specialchars,+quotes"]
 .Exemple de module qui n'est plus maintenu.
 ----
-npm WARN deprecated nomnom@1.6.2: <i>Package no longer supported</i>.
+npm WARN deprecated nomnom@1.6.2: ##Package no longer supported##.
   Contact support@npmjs.com for more info.
 ----
 
@@ -2125,10 +2128,10 @@ fonctionner.
 Toutefois ces modules complémentaires sont à installer manuellement.
 C'est la signification du message d'erreur suivant.
 
-[subs="-specialchars"]
+[subs="-specialchars,+quotes"]
 ----
-npm WARN <i>react-power-picture</i>@1.0.0 <i>requires</i> a peer of
-  <i>react</i>@^15.0.0-0 || ^16.0.0-0 but none is installed.
+npm WARN ##react-power-picture##@1.0.0 ##requires## a peer of
+  ##react##@^15.0.0-0 || ^16.0.0-0 but none is installed.
   You must install peer dependencies yourself.
 ----
 

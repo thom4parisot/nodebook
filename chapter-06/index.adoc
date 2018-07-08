@@ -322,13 +322,14 @@ On peut faire la même chose dans un navigateur web en nous rendant sur
 [URL]#https://dashboard.heroku.com/new-app#.
 La commande `heroku git:remote` associe notre copie locale Git à cette application :
 
+[subs="+quotes"]
 .Configuration de notre dépôt Git pour en faire une application Heroku.
 ----
 $ heroku apps:create --region eu
-Creating app... done, ⬢ <i>polar-taiga-61296</i>, region is eu
+Creating app... done, ⬢ ##polar-taiga-61296##, region is eu
 https://polar-taiga-61296.herokuapp.com/
 https://git.heroku.com/polar-taiga-61296.git
-$ heroku git:remote --app <i>polar-taiga-61296</i>
+$ heroku git:remote --app ##polar-taiga-61296##
 ----
 
 Il ne nous reste plus qu'à <<deploy.git,pousser notre code avec Git>>
@@ -354,11 +355,12 @@ l'<<deploy.cli,outil de déploiement>> Heroku (cf. section précédente).
 Nous pouvons vérifier si le dépôt est bien configuré à l'aide de la
 commande `git remote` :
 
+[subs="+quotes"]
 .Liste des dépôts distants d'un projet Git configuré pour Heroku.
 ----
 $ git remote -v
-<i>heroku</i>	https://git.heroku.com/mon-application.git (fetch)
-<i>heroku</i>	https://git.heroku.com/mon-application.git (push)
+##heroku##	https://git.heroku.com/mon-application.git (fetch)
+##heroku##	https://git.heroku.com/mon-application.git (push)
 origin	git@github.com:mon-compte/mon-application.git (fetch)
 origin	git@github.com:mon-compte/mon-application.git (push)
 ----
@@ -578,8 +580,9 @@ du service _now_ ([URL]#https://zeit.co/now#) dans la section du même nom.
 Il est aussi capable de déployer un conteneur Docker en se basant sur un fichier
 `Dockerfile` en rajoutant l'option `--docker` :
 
+[subs="+quotes"]
 ----
-$ now <i>--docker</i> --public
+$ now ##--docker## --public
 > Deploying ~/.../examples under oncletom
 > https://examples-zlssezfiej.now.sh [in clipboard] (bru1) [7s]
 > Synced 1 file (156B) [7s]
@@ -1145,9 +1148,10 @@ include::{sourceDir}/server-port-dynamic.js[]
 La variable d'environnement `PORT` sera utilisée si elle existe et sinon,
 le port `8000` sera la valeur par défaut :
 
+[subs="+quotes"]
 ----
 $ node server-port-dynamic.js             # <1>
-$ <i>PORT=4000</i> node server-port-dynamic.js   # <2>
+$ ##PORT=4000## node server-port-dynamic.js   # <2>
 ----
 <1> Affiche `localhost:8000`.
 <2> Affiche `localhost:4000`.
@@ -1493,9 +1497,10 @@ include::{sourceDir}/systemd/nodebook.d/app.conf[]
 Le service associé au fichier de configuration précédent peut être démarré
 manuellement comme suit :
 
+[subs="+quotes"]
 ----
-# Cf. /etc/systemd/<i>nodebook</i>.d/app.conf
-$ sudo systemctl start <i>nodebook</i>.service
+# Cf. /etc/systemd/##nodebook##.d/app.conf
+$ sudo systemctl start ##nodebook##.service
 ----
 
 Les commandes `systemctl stop` et `systemctl restart`

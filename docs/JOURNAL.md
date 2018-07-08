@@ -10,12 +10,14 @@ a été écrit, relu et testé avec un public apprenant.
 
 ## Dimanche 8 juillet 2018 • Paris
 
+- _Outillage_ : Implémentation de la quasi totalité de la mise en page
+- _Tous les chapitres_ : Utilisation d'une autre syntaxe de surlignage des exemples
+
 **Météo** : 😴 ☀️
 
 ## Samedi 7 juillet 2018 • Florac/Paris
 
 - _Outillage_ : Suite du travail d'export vers le format OpenDocument
-- _Chapitre 8_, _Chapitre 9_ :
 
 **Météo** : 🙂 ☀️ 🚂
 
