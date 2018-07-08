@@ -8,9 +8,26 @@ a été écrit, relu et testé avec un public apprenant.
 
 ---
 
-## Mercerdi 4 juillet 2018 • Florac
+## Dimanche 8 juillet 2018 • Paris
 
-- _Outillage_ : Build avec les styles Eyrolles \o/
+**Météo** : 😴 ☀️
+
+## Samedi 7 juillet 2018 • Florac/Paris
+
+- _Outillage_ : Suite du travail d'export vers le format OpenDocument
+- _Chapitre 8_, _Chapitre 9_ :
+
+**Météo** : 🙂 ☀️ 🚂
+
+## Vendredi 6 juillet 2018 • Florac
+
+- _Outillage_ : Suite du travail d'export vers le format OpenDocument
+
+**Météo** : 🙂 ☀️ 🍞
+
+## Mercedi 4 juillet 2018 • Florac
+
+- _Outillage_ : Premier build avec les styles Eyrolles 🎉
 
 **Météo** : 🙂 ☀️
 
