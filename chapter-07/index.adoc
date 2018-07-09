@@ -324,7 +324,7 @@ Il se complète avec les <<argument,arguments d'URL>> pour véhiculer des
 C'est le moment de rappeler que *toute information saisie par l'utilisateur*
 doit être filtrée et nettoyée avant d'être utilisée.
 L'exemple `path/route-params.js` n'est pas sécurisé ; vous vous en rendrez
-compte en visitant [URL]#{serverUrl}/hello/<script>alert(h4ck)<%2Fscript>#. +
+compte en visitant [URL]#{serverUrl}/hello/++<script>alert(h4ck)<%2Fscript>++#. +
 Ce type de failles s'exploite pour faire fuiter des données confidentielles.
 
 Nous verrons tous ces aspects plus en détail dans la section

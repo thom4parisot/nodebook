@@ -2225,31 +2225,21 @@ Le reste du message décrit _pourquoi_ l'erreur s'est manifestée.
 On peut écouter d'autres événements liés au cycle de vie de nos applications :
 
 
-[cols="1,1,2",options="header"]
+[cols="a1,a1,a2",options="header"]
 .Événements liés au cycle de vie du processus Node
 |===
-| Événement
-| Paramètres
-| Raison du déclenchement
+| Événement | Paramètres | Raison du déclenchement
 
-| `exit`
-| `(exitCode)`
-| Le programme se termine et va rendre la main au système d'exploitation.
+| `exit` | `(exitCode)` | Le programme se termine et va rendre la main au système d'exploitation.
 
-| `unhandledRejection`
-| `(reason, promise)`
-| Une <<../chapter-03/index.adoc#promise,promesse>> a échoué
+| `unhandledRejection` | `(reason, promise)` | Une <<../chapter-03/index.adoc#promise,promesse>> a échoué
 et n'a pas été capturée à l'aide de la méthode `.catch()`.
 
-| `uncaughtException`
-| `(error)`
-| Une erreur s'est produite et n'a pas été capturée.
+| `uncaughtException` | `(error)` | Une erreur s'est produite et n'a pas été capturée.
 Si rien n'est fait, le processus va s'arrêter avec un code erreur. +
 *Note* : il vaut mieux qu'un programme s'arrête en cas de problème.
 
-| `message`
-| `(message, sourceSocket)`
-| Un <<child_process,processus parent>> nous envoie un message.
+| `message` | `(message, sourceSocket)` | Un <<child_process,processus parent>> nous envoie un message.
 |===
 
 [[signals]]
@@ -3238,56 +3228,28 @@ Les erreurs systèmes indiquent la raison du problème.
 .Erreurs couramment rencontrées
 [cols="1,2,2",options="header"]
 |===
-| Code erreur
-| Raison
-| Indice de résolution
+| Code erreur | Raison | Indice de résolution
 
-| `EACCES`
-| Permission refusée : nous n'avons pas le droit d'accéder à cette ressource.
-| Changer les permissions d'accès sans mettre en péril la sécurité.
+| `EACCES` | Permission refusée : nous n'avons pas le droit d'accéder à cette ressource. | Changer les permissions d'accès sans mettre en péril la sécurité.
 
-| `EADDRINUSE`
-| Adresse déjà utilisée : nous tentons de créer une ressource réseau alors qu'une
-interface existe déjà à la même adresse.
-| Vérifier l'origine du serveur déjà en place à cette adresse.
-Attribuer une autre adresse/port à la ressource réseau.
+| `EADDRINUSE` | Adresse déjà utilisée : nous tentons de créer une ressource réseau alors qu'une
+interface existe déjà à la même adresse. | Vérifier l'origine du serveur déjà en place à cette adresse. Attribuer une autre adresse/port à la ressource réseau.
 
-| `ECONNREFUSED`
-| La ressource distante a refusé la connexion.
-| Vérifier si c'est normal que la ressource distante soit inactive.
-Vérifier qu'on se connecte à la bonne ressource.
+| `ECONNREFUSED` | La ressource distante a refusé la connexion. | Vérifier si c'est normal que la ressource distante soit inactive. Vérifier qu'on se connecte à la bonne ressource.
 
-| `ECONNRESET`
-| La ressource distante a été interrompue en cours de route.
-| Retenter la connexion. Vérifier la stabilité de la connexion réseau.
+| `ECONNRESET` | La ressource distante a été interrompue en cours de route. | Retenter la connexion. Vérifier la stabilité de la connexion réseau.
 
-| `EEXIST`
-| La ressource à créer existe déjà.
-| C'est un problème seulement si la ressource n'était pas censée exister au prélable.
+| `EEXIST` | La ressource à créer existe déjà. | C'est un problème seulement si la ressource n'était pas censée exister au prélable.
 
-| `EMFILE`
-| Trop de fichiers sont ouverts en simultané.
-| Les systèmes d'exploitation peuvent travailler sur une quantité finie de fichiers.
-Peut-être que vous avez ouvert trop de fichiers en même temps.
-Fermer l'accès aux fichiers ouverts.
+| `EMFILE` | Trop de fichiers sont ouverts en simultané. | Les systèmes d'exploitation peuvent travailler sur une quantité finie de fichiers. Peut-être que vous avez ouvert trop de fichiers en même temps. Fermer l'accès aux fichiers ouverts.
 
-| `ENOENT`
-| Ressource inexistante.
-| Vérifier que le chemin d'accès est correct.
-Inspecter la raison de l'inexistance de la ressource.
+| `ENOENT` | Ressource inexistante. | Vérifier que le chemin d'accès est correct. Inspecter la raison de l'inexistance de la ressource.
 
-| `EPERM`
-| L'opération n'est pas autorisée.
-| Des droits d'administration sont nécessaires pour effectuer cette opération.
+| `EPERM` | L'opération n'est pas autorisée. | Des droits d'administration sont nécessaires pour effectuer cette opération.
 
-| `EPIPE`
-| L'accès à la ressource distante a été interrompu.
-| Retenter l'opération.
+| `EPIPE` | L'accès à la ressource distante a été interrompu. | Retenter l'opération.
 
-| `ETIMEDOUT`
-| L'opération a été annulée car la ressource distante a mis trop de temps pour aboutir.
-| Retenter l'opération. Vérifier la disponibilité de la ressource distante.
-S'assurer que le volume demandé n'est pas trop important.
+| `ETIMEDOUT` | L'opération a été annulée car la ressource distante a mis trop de temps pour aboutir. | Retenter l'opération. Vérifier la disponibilité de la ressource distante. S'assurer que le volume demandé n'est pas trop important.
 |===
 
 
