@@ -79,10 +79,9 @@ Cet arbre est lui-même analysable par de *nouveaux outils émergents* :
 [TIP]
 .[RemarquePreTitre]#Lien# Annonce d'_esprima_
 ====
-_Aryia Hidayat_ introduit esprima dans un billet de blog.
-Il y présente notamment des comparatifs de performances d'exécution sur différentes VM ECMAScript et face à d'autres parseurs.
-
-- [URL]#https://ariya.io/2011/12/introducing-esprima#
+_Aryia Hidayat_ introduit esprima dans ce billet de blog : [URL]#https://ariya.io/2011/12/introducing-esprima#.
+Il y présente notamment des comparatifs de performances d'exécution sur
+différentes VM ECMAScript et face à d'autres parseurs.
 ====
 
 === La fin de l'approche par le dénominateur commun
@@ -202,11 +201,11 @@ include::{sourceDir}/.babelrc.yml[]
 [TIP]
 .[RemarquePreTitre]#Lien# Documentation de _babel_
 ====
-Toutes les options de configuration sont documentées sur le site officiel de _babel_.
-Une autre page explique où placer et quoi mettre dans les fichiers `.babelrc.yml`.
+Toutes les options de configuration sont documentées sur le site officiel
+de _babel_ : [URL]#https://babeljs.io/docs/usage/api/#options#.
 
-- [URL]#https://babeljs.io/docs/usage/api/#options#
-- [URL]#https://babeljs.io/docs/usage/babelrc/#
+Une autre page explique où placer et quoi mettre dans les fichiers
+`.babelrc.yml` : [URL]#https://babeljs.io/docs/usage/babelrc/#.
 ====
 
 [[polyfills]]
@@ -261,10 +260,8 @@ include::{sourceDir}/polyfill.io.html[]
 [TIP]
 .[RemarquePreTitre]#Documentation# polyfill.io
 ====
-_polyfill.io_ possède une documentation très complète.
+_polyfill.io_ possède une documentation très complète sur [URL]#https://qa.polyfill.io/v2/docs/#.
 Elle nous aidera à configurer finement le service en fonction de nos besoins.
-
-- [URL]#https://qa.polyfill.io/v2/docs/#
 ====
 
 Nous pouvons déduire *deux règles* de l'exemple précédent :
@@ -326,9 +323,8 @@ include::{sourceDir}/polyfill-require.js[]
 [TIP]
 .[RemarquePreTitre]#Guide# Bonnes pratiques constatées
 ====
-De bons usages des _polyfills_ ainsi les risques liés à leur utilisation sont compilés dans un guide édité par le W3C.
-
-- [URL]#https://w3ctag.github.io/polyfills/#
+De bons usages des _polyfills_ ainsi les risques liés à leur utilisation
+sont compilés dans ce guide édité par le W3C : [URL]#https://w3ctag.github.io/polyfills/#.
 ====
 
 [[modules]]
@@ -477,11 +473,12 @@ _browserify_ est intéressant au sens où il nous apprend à nous constituer nou
 [TIP]
 .[RemarquePreTitre]#Guide# Utiliser browserify
 ====
-_browserify_ est un outil extrêmement versatile, modulaire et puissant.
-Son apprentissage progressif peut faire de lui un allié de choix dans tous vos projets Node et web.
+_browserify_ ([URL]#https://npmjs.com/browserify#) est un outil extrêmement
+versatile, modulaire et puissant.
+Son apprentissage progressif peut faire de lui un allié de choix dans tous
+vos projets Node et web.
 
-- [URL]#https://npmjs.com/browserify#
-- [URL]#https://github.com/substack/browserify-handbook#
+Pour en savoir plus : [URL]#https://github.com/substack/browserify-handbook#.
 ====
 
 Revenons maintenant à notre code auquel il manque la compréhension des modules _npm_.
@@ -534,12 +531,14 @@ image::images/modules-time.png[width="85%"]
 [TIP]
 .[RemarquePreTitre]#Documentation# _jQuery_
 ====
-Les exemples suivants se basent sur l'utilisation de la librairie _jQuery_.
-Elle facilite la manipulation du _DOM_ tout en gérant les incompatibilités des différents navigateurs web.
-Son utilisation est devenue moins dominante du fait d'une nette amélioration de la qualité de ces derniers.
+Les exemples suivants se basent sur l'utilisation de la librairie _jQuery_ ([URL]#https://api.jquery.com/#).
 
-- [URL]#https://api.jquery.com/#
-- [URL]#http://learn.jquery.com/using-jquery-core/#
+Elle facilite la manipulation du _DOM_ tout en gérant les incompatibilités des
+différents navigateurs web.
+Son utilisation est devenue moins dominante du fait d'une nette amélioration de
+la qualité de ces derniers.
+
+Pour apprendre à l'utiliser : [URL]#http://learn.jquery.com/using-jquery-core/#.
 ====
 
 === Le syndrome du plugin _jQuery_
@@ -687,11 +686,8 @@ Pas seulement parce qu'il s'agit d'un outil bien conçu mais justement parce qu'
 [TIP]
 .[RemarquePreTitre]#Documentation# API React
 ====
-Les exemples suivants se basent sur la librairie _React_.
+Les exemples suivants se basent sur la librairie _React_ ([URL]#https://facebook.github.io/react/#).
 Sa documentation offre de bons exemples pour se familiariser avec son utilisation.
-
-- [URL]#https://facebook.github.io/react/#
-- [URL]#https://facebook.github.io/react/docs/thinking-in-react.html#
 ====
 
 Notre code HTML n'est qu'un *résultat* exposant des *surfaces d'interaction*.
@@ -750,11 +746,11 @@ _React_ nous permet de *diriger l'affichage* du document plutôt que d'en dépen
 [TIP]
 .[RemarquePreTitre]#Outil# React Developer Tools
 ====
-Cette extension pour le navigateur Chrome détaille l'arborescence des composants montés dans le document HTML ainsi qu'une vue de leurs propriétés respectives.
+L'extension [URL]#https://chrome.google.com/webstore/detail/fmkadmapgofadopljbjfkapdkoienihi#
+pour le navigateur Chrome détaille l'arborescence des composants montés
+dans le document HTML ainsi qu'une vue de leurs propriétés respectives.
 
 image::images/react-devtools.png[width="85%"]
-
-- [URL]#https://chrome.google.com/webstore/detail/fmkadmapgofadopljbjfkapdkoienihi#
 ====
 
 [[io]]
@@ -825,9 +821,9 @@ include::{sourceDir}/io/fetch-server.js[]
 [TIP]
 .[RemarquePreTitre]#Guide# Collection d'exemples
 ====
-Le guide communautaire _MDN_ met à disposition une dizaine d'exemples pour illustrer différents cas d'utilisation de `fetch()`.
-
-- [URL]#https://github.com/mdn/fetch-examples#
+Le site communautaire _MDN_ met à disposition une dizaine d'exemples
+sur [URL]#https://github.com/mdn/fetch-examples# pour illustrer différents
+cas d'utilisation de `fetch()`.
 ====
 
 En _résumé_, `fetch()` est idéal pour des demandes ponctuelles de données, du client vers le serveur.
@@ -1039,10 +1035,8 @@ $ npm start -- --with-sync
 [TIP]
 .[RemarquePreTitre]#Documentation# _browser-sync_
 ====
-_browser-sync_ est richement documenté et illustré, y compris ses intégrations avec les outils _gulp_ et _grunt_.
-
-- [URL]#https://browsersync.io/#
-- [URL]#https://npmjs.com/browser-sync#
+_browser-sync_ ([URL]#https://browsersync.io/#) est richement documenté et
+illustré, y compris ses intégrations avec les outils _gulp_ et _grunt_.
 ====
 
 _browser-sync_ a beau maintenir la position du _scroll_, il n'en reste pas moins que *chaque changement remet à zéro* l'espace mémoire de la page.
@@ -1064,15 +1058,17 @@ ifeval::["{backend}" == "html5"]
 video::videos/react-hmr.mp4[width="70%"]
 endif::[]
 
-Le _plugin browserify_ nommé _livereactload_ est très certainement le plus facile à mettre en place pour remplacer des modules _React_ à la volée.
-Il nécessite une ligne de configuration côté _browserify_ et ne nécessite aucun changement de code côté client.
+Le _plugin browserify_ nommé _livereactload_ ([URL]#https://npmjs.com/livereactload#)
+est très certainement le plus facile à mettre en place pour remplacer des
+modules _React_ à la volée.
+Il nécessite une ligne de configuration côté _browserify_ et ne nécessite aucun
+changement de code côté client.
 
 [TIP]
 .[RemarquePreTitre]#Documentation# _livereactload_
 ====
-Des aides à l'installation du module _livereactload_ sont disponibles dans son fichier README.
-
-- [URL]#https://npmjs.com/livereactload#
+Des aides à l'installation du module _livereactload_ sont disponibles dans
+son fichier README.
 ====
 
 Le remplacement à chaud n'est possible que lorsque nous sommes dans un état de reconstruction en continu, par exemple avec <<watchify,watchify>>.
@@ -1126,10 +1122,10 @@ include::{sourceDir}/livereload/button-count.jsx[]
 [TIP]
 .[RemarquePreTitre]#Alternative# _ud_ et _browserify-hmr_
 ====
-Deux modules sont à disposition pour respectivement déclarer des modules remplaçables et pour démarrer un serveur de remplacement à chaud minimaliste.
-
-- [URL]#https://npmjs.com/ud#
-- [URL]#https://npmjs.com/browserify-hmr#
+Deux modules vont nous aider : _ud_ ([URL]#https://npmjs.com/ud#)
+et _browserify-hmr_ ([URL]#https://npmjs.com/browserify-hmr#), respectivement pour
+déclarer des modules remplaçables et pour démarrer un serveur de remplacement
+à chaud minimaliste.
 ====
 
 [[node-sass]]
@@ -1145,10 +1141,13 @@ Le langage _Sass_ est originaire du monde Ruby mais il a été depuis rendu acce
 [TIP]
 .[RemarquePreTitre]#Lecture# CSS maintenables avec Sass et Compass
 ====
-Je recommande la lecture de cet ouvrage de référence écrit par _Kaelig Deloumeau-Prigent_ aux éditions _Eyrolles_.
-Il décrit très bien les tenants et aboutissants de Sass ainsi que de bonnes méthodes d'organisation du code et de maintenabilité au sein d'une équipe de travail.
+Je recommande la lecture de l'ouvrage de référence _CSS maintenables avec Sass et Compass_
+([URL]#https://editions-eyrolles.com/Livre/9782212136401#).
+Il écrit par _Kaelig Deloumeau-Prigent_ aux éditions _Eyrolles_.
 
-- [URL]#http://editions-eyrolles.com/Livre/9782212136401#
+Il décrit très bien les tenants et aboutissants de Sass ainsi que de bonnes
+méthodes d'organisation du code et de maintenabilité au sein d'une équipe de
+travail.
 ====
 
 _node-sass_ offre un outil en ligne de commande pour compiler un fichier Sass, plusieurs fichiers Sass ou encore une arborescence de répertoires contenant des fichiers Sass vers des fichiers CSS compréhensibles par les navigateurs web.
@@ -1183,12 +1182,13 @@ include::{sourceDir}/ui/buttons.css[]
 .[RemarquePreTitre]#Astuce# Oublions les _vendor prefix_
 ====
 Les navigateurs évoluent plus vite que le cycle de vie de nos projets.
-Certaines propriétés CSS sont abritées derrière des préfixes (`-moz`, `-webkit` etc.) avant d'être standardisées.
+Certaines propriétés CSS sont abritées derrière des préfixes (`-moz`, `-webkit`
+etc.) avant d'être standardisées.
 
-Ces deux modules nous facilitent la vie en préfixant et réécrivant automatiquement les attributs en fonction de nos exigences de compatibilité navigateurs.
-
-- [URL]#https://npmjs.com/autoprefixer#
-- [URL]#https://npmjs.com/postcss#
+Les modules _autoprefixer_ ([URL]#https://npmjs.com/autoprefixer#) et
+_postcss_ ([URL]#https://npmjs.com/postcss#) facilitent notre vie en préfixant
+et réécrivant automatiquement les attributs en fonction de nos exigences de
+compatibilité navigateurs.
 ====
 
 [[ui-bundling]]
@@ -1236,16 +1236,6 @@ $ ./node_modules/.bin/browserify \
   -e {sourceDir}/Buttons.jsx \
   -o {sourceDir}/Button-browserify.js
 ----
-
-[TIP]
-.[RemarquePreTitre]#Alternative# CSS Modules
-====
-Une autre philosophie émergente est de continuer à transformer son code _Sass_ ou CSS en styles en ligne, à leur adjoindre un préfixe unique et à les insérer directement dans le code HTML. +
-Elle demande moins d'outillage et s'applique pleinement à des composants visuels modulaires :
-
-- [URL]#https://npmjs.com/css-modules#
-- [URL]#https://npmjs.com/css-modulesify#
-====
 
 === Optimiser ses ressources graphiques
 
@@ -1310,34 +1300,44 @@ Il faudra recourir à l'API Node de _sharp_ et chaîner les opérations en s'aid
 [TIP]
 .[RemarquePreTitre]#Alternative# gm
 ====
-Le module _gm_ est le module _classique_ de redimensionnement dans l'écosystème Node.
-Il s'interface avec le programme _GraphicsMagick_ et _ImageMagick_ – et nécessite donc leur présence sur le système d'exploitation.
-Cela rend l'utilisation de _gm_ légèrement moins triviale que celle de _sharp_ mais la quantité de ressources et la qualité du module en font une bonne alternative à considérer.
+Le module _gm_ ([URL]#https://npmjs.com/gm#) est le module _classique_ de
+redimensionnement dans l'écosystème Node.
+Il s'interface avec le programme _GraphicsMagick_ et _ImageMagick_ –
+et nécessite donc leur présence sur le système d'exploitation.
 
-- [URL]#https://npmjs.com/gm#
-- [URL]#https://aheckmann.github.io/gm/#
+Cela rend l'utilisation de _gm_ légèrement moins triviale que celle de _sharp_
+mais la quantité de ressources et la qualité du module en font une bonne
+alternative à considérer.
 ====
 
 L'utilisation d'un <<../chapter-05/index.adoc#npm-scripts,script npm>>
 (cf. chapitre 5) est idéale pour décrire les différentes actions d'optimisation.
 Les _scripts_ sont alors à invoquer manuellement, sur un _crochet git_
 (_git hook_) ou automatiquement lors du déploiement avec un
-<<../chapter-06/index.adoc#deploy.ci,service d'intégration continue>>, par exemple.
+<<../chapter-06/index.adoc#deploy.ci,service d'intégration continue>>, par
+exemple.
 
 [[testing]]
 == Tester son code
 
-C'est bien connu que lorsqu'on produit du code de qualité, écrire des tests est amplement superflu et ne sert qu'à nous ralentir.
+C'est bien connu que lorsqu'on produit du code de qualité, écrire des tests est
+amplement superflu et ne sert qu'à nous ralentir.
 
-La réalité est toute autre et suit un paradigme très simple : *plus il y a de lignes de code, plus il y a de chances de faire des erreurs*.
+La réalité est toute autre et suit un paradigme très simple :
+*plus il y a de lignes de code, plus il y a de chances de faire des erreurs*.
 Cela vaut aussi bien pour du HTML que du CSS ou encore de l'_ECMAScript_.
 
-Cette ultime et dernière section de ce chapitre nous aidera à comprendre quoi et comment tester pour *diminuer le coût de maintenance de nos applications*.
+Cette ultime et dernière section de ce chapitre nous aidera à comprendre
+quoi et comment tester pour
+*diminuer le coût de maintenance de nos applications*.
 
 [[testing-101]]
 === Que tester ?
 
-L'idée d'écrire des tests pour améliorer la qualité de son code est attrayante mais quand on en sait pas quoi tester et ni à qui demander pour se lancer, il est évident qu'on ne va pas s'y mettre pour s'assurer que 1+1 valent bien [line-through]#3# 2.
+L'idée d'écrire des tests pour améliorer la qualité de son code est attrayante
+mais quand on en sait pas quoi tester et ni à qui demander pour se lancer,
+il est évident qu'on ne va pas s'y mettre pour s'assurer que 1+1 valent bien
+[line-through]#3# 2.
 
 Je pense à ces _trois règles_ lorsque je souhaite écrire des tests :
 
@@ -1345,19 +1345,24 @@ Je pense à ces _trois règles_ lorsque je souhaite écrire des tests :
 . qu'est-ce qui crée des *branches dans mon code* ?
 . qu'est-ce qui *vient du monde extérieur* ?
 
-La syntaxe de modules _ECMAScript 2015_ est idéale pour visualiser les segments de code qui sont exportés par nos différents fichiers.
-Élément marquant : ce code est simple et devrait arriver à compter le nombre de mots mais nous n'avons aucune idée s'il fera correctement le travail sans l'exécuter dans une application.
+La syntaxe de modules _ECMAScript 2015_ est idéale pour visualiser les segments
+de code qui sont exportés par nos différents fichiers.
+Élément marquant : ce code est simple et devrait arriver à compter le nombre
+de mots mais nous n'avons aucune idée s'il fera correctement le travail sans
+l'exécuter dans une application.
 
 [source,javascript]
 .test-export.js
 ----
 include::{sourceDir}/test-export.js[]
 ----
-<1> La fonction `countWords` le seul élément exporté par notre module et devrait donc être le seul sujet de nos tests.
+<1> La fonction `countWords` le seul élément exporté par notre module et
+devrait donc être le seul sujet de nos tests.
 
 Une _branche_ est une portion de *code qui s'exécute de manière ponctuelle*.
 Ces sections de code s'activent ou non selon l'état d'une structure de données.
-Il faut *prévoir _au moins autant_ de tests que de branches* pour valider les attentes.
+Il faut *prévoir _au moins autant_ de tests que de branches* pour valider les
+attentes.
 
 [source,javascript]
 .test-branches.js
@@ -1368,8 +1373,10 @@ include::{sourceDir}/test-branches.js[]
 <2> Seconde branche.
 <3> Troisième branche.
 
-Enfin, l'*accès à toute donnée externe* est susceptible de mal fonctionner sans que nous puissions maitriser l'origine des problèmes.
-En revanche l'écriture de tests nous aidera à *accepter ce cas de figure* et à le signaler à nos applications.
+Enfin, l'*accès à toute donnée externe* est susceptible de mal fonctionner
+sans que nous puissions maitriser l'origine des problèmes.
+En revanche l'écriture de tests nous aidera à *accepter ce cas de figure* et
+à le signaler à nos applications.
 
 [source,javascript]
 .test-outside-world.js
@@ -1416,11 +1423,12 @@ J'ai favorisé des approches itératives et modulaires pour faciliter l'ajout ou
 [TIP]
 .[RemarquePreTitre]#Documentation# _chai_, _mocha_ et _karma_
 ====
-Ces trois librairies disposent d'une documentation en ligne expliquant leurs options respectives ainsi que des exemples d'utilisation.
+Ces trois librairies disposent d'une documentation en ligne expliquant leurs
+options respectives ainsi que des exemples d'utilisation.
 
-- [URL]#http://chaijs.com/api/bdd/#
-- [URL]#https://mochajs.org/#
-- [URL]#https://karma-runner.github.io/#
+- _chai_ : [URL]#http://chaijs.com/api/bdd/# ;
+- _mocha_ : [URL]#https://mochajs.org/# ;
+- _karma_ : [URL]#https://karma-runner.github.io/#.
 ====
 
 [source%interactive,javascript]
@@ -1471,13 +1479,14 @@ Dans tous les cas, elle nous permettra de monter nos composants soit de manière
 [TIP]
 .[RemarquePreTitre]#Documentation# _Enzyme_
 ====
-L'équipe d'Airbnb offre une documentation exhaustive ainsi que des exemples complets d'intégration avec des outils comme _mocha_, _webpack_, _tape_ ou encore _ava_.
-
-- [URL]#http://airbnb.io/enzyme/#
-- [URL]#http://airbnb.io/enzyme/docs/api/#
+L'équipe d'Airbnb offre une documentation exhaustive sur [URL]#http://airbnb.io/enzyme/#.
+J'ai beaucoup apprécié les exemples complets d'intégration avec
+_mocha_, _webpack_ et _tape_.
 ====
 
-Nous allons nous baser sur le composant créé dans la section <<react,rapprocher données, rendu et interactions avec React>> pour s'assurer de son comportement _avant même de l'inclure_ dans notre application.
+Nous allons nous baser sur le composant créé dans la section
+<<react,rapprocher données, rendu et interactions avec React>> pour s'assurer
+de son comportement _avant même de l'inclure_ dans notre application.
 
 [source,javascript]
 .tests/date-interval.js
@@ -1496,7 +1505,9 @@ include::{sourceDir}/tests/date-interval.js[]
 
 En complément à ceci, la librairie _chai-enzyme_ ([URL]#https://npmjs.com/chai-enzyme#) étend le vocabulaire de _chai_ pour ajouter des assertions de composants.
 C'est une question de goût plus qu'une nécessité. +
-L'exemple suivant reprend le composant créé dans la section <<livereload,changements en temps-réel dans le navigateur>> et illustre une assertion suite à un clic sur le bouton :
+L'exemple suivant reprend le composant créé dans la section
+<<livereload,changements en temps-réel dans le navigateur>> et illustre une
+assertion suite à un clic sur le bouton :
 
 [source,javascript]
 .tests/button-count.js
@@ -1518,16 +1529,13 @@ $ npm run test:node
 image::images/mocha-react.png[width="80%", align="center"]
 
 
-
-
 [TIP]
 .[RemarquePreTitre]#Alternative# _jest_
 ====
-_jest_ est un exécuteur de tests moderne et rapide particulièrement adapté au test de composants côté serveur.
-Au moment d'écrire cet ouvrage, il n'était pas encore possible de l'exécuter dans un navigateur web.
-
-- [URL]#https://npmjs.com/jest#
-- [URL]#https://facebook.github.io/jest/#
+_jest_ ([URL]#https://npmjs.com/jest#) est un exécuteur de tests moderne et
+rapide particulièrement adapté au test de composants côté serveur.
+Au moment d'écrire cet ouvrage, il n'était pas encore possible de l'exécuter
+dans un navigateur web.
 ====
 
 Il est intéressant de retenir que les tests navigateurs ne sont pas indispensables pour s'assurer du bon fonctionnement de nos composants.
@@ -1686,11 +1694,12 @@ Il s'agit du module `karma-browserstack-launcher` ([URL]#https://npmjs.com/karma
 [TIP]
 .[RemarquePreTitre]#Documentation# _BrowserStack_
 ====
-La documentation de _BrowserStack_ décrit les différents systèmes d'exploitation à disposition ainsi que les navigateurs web compatibles, pour PC, Mac, iOS et Android.
-L'intégration avec Node est également documentée au cas où vous souhaiteriez effectuer des tests sans passer par _karma_.
+La documentation de _BrowserStack_ ([URL]#https://www.browserstack.com/automate/node#)
+décrit les différents systèmes d'exploitation à disposition ainsi que les
+navigateurs web compatibles, pour PC, Mac, iOS et Android.
 
-- [URL]#https://www.browserstack.com/automate/node#
-- [URL]#https://www.browserstack.com/list-of-browsers-and-platforms#
+L'intégration avec Node est également documentée au cas où vous souhaiteriez
+effectuer des tests sans passer par _karma_.
 ====
 
 _BrowserStack_ n'est pas un navigateur en soi mais offre un accès à une multitude
@@ -1777,14 +1786,12 @@ include::.travis.yml[]
 [TIP, id="travis-ci"]
 .[RemarquePreTitre]#Documentation# _Travis CI_
 ====
-Des services comme _Travis CI_ sont puissants et amplement configurable pour de nombreux besoins, y compris la connexion à des bases de données Postgres ou MariaDB.
+Des services comme _Travis CI_ sont puissants et amplement configurable
+pour de nombreux besoins — dont Node ([URL]#https://docs.travis-ci.com/user/languages/javascript-with-nodejs/#) —
+et y compris pour se connecter à des bases de données Postgres ou MariaDB.
 
 .Écran de paramétrage des variables d'environnement secrètes sur Travis CI.
 image::images/travis-ci-encrypted-env.png[width="85%"]
-
-- [URL]#https://docs.travis-ci.com/user/languages/javascript-with-nodejs/#
-- [URL]#https://docs.travis-ci.com/user/gui-and-headless-browsers/#
-- [URL]#https://docs.travis-ci.com/user/firefox/#
 ====
 
 == Conclusion

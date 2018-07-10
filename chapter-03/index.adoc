@@ -2100,12 +2100,11 @@ include::{sourceDir}/promise/then-catch.js[]
 ====
 Historiquement, de nombreuses librairies ont proposé leur propre implémentation de promesses.
 Elles avaient le défaut de ne pas être interopérables entre elles.
-La spécification _Promise/A+_ a émergé pour établir un standard de compatibilité.
+La spécification _Promise/A+_ ([URL]#https://github.com/promises-aplus/promises-spec#)
+a émergé pour établir un standard de compatibilité.
 
 ECMAScript 2015 introduit nativement cette API.
 Plus besoin de _polyfill_ ou de librairie pour en bénéficier nativement.
-
-[URL]#https://github.com/promises-aplus/promises-spec#
 ====
 
 En général, on utilise les promesses *pour aller plus vite*.
@@ -2120,20 +2119,20 @@ Au final, le ticket de commande contient la liste des promesses dont
 on attend la résolution.
 
 Nous verrons d'autres utilisations des promesses
-avec <<../chapter-09/index.adoc#io-fetch,fetch()>> au chapitre 9,
-avec <<../chapter-04/index.adoc#util.promisify,promisify>> au chapitre 4
-et dans l'<<../appendix-b/index.adoc#promise,annexe B>>.
+dans le reste de l'ouvrage, et plus particulièrement
+avec <<../chapter-09/index.adoc#io-fetch,fetch()>> au chapitre 9
+ainsi qu'avec <<../chapter-04/index.adoc#util.promisify,promisify>> au chapitre 4.
 
 mdn::global[Promise]
 
 [TIP]
 .[RemarquePreTitre]#Lien# Guide des promesses
 ====
-Un guide _très_ complet — en anglais — est publié en libre consultation sur le site du W3C.
-Un dépôt sur GitHub permet d'y contribuer.
+Le guide [URL]#https://www.w3.org/2001/tag/doc/promises-guide# est _très_ complet.
+Il est en anglais ainsi qu'en libre consultation sur le site du W3C.
 
-- [URL]#https://www.w3.org/2001/tag/doc/promises-guide#
-- [URL]#https://github.com/w3ctag/promises-guide#
+Son dépôt GitHub [URL]#https://github.com/w3ctag/promises-guide# permet
+d'y contribuer.
 ====
 
 [[promise.all]]

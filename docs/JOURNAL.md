@@ -8,6 +8,19 @@ a été écrit, relu et testé avec un public apprenant.
 
 ---
 
+## Mardi 10 juillet 2018 • Paris
+
+- _Tous les chapitres_ : mise en forme des liens orphelins
+- _Annexe A_ : structuration
+
+**Météo** : 💪 ☀️
+
+## Lundi 9 juillet 2018 • Paris
+
+- _Outillage_ : Production de la version OpenDocument du livre
+
+**Météo** : 🙂 🍞 ☀️
+
 ## Dimanche 8 juillet 2018 • Paris
 
 - _Outillage_ : Implémentation de la quasi totalité de la mise en page

@@ -24,19 +24,6 @@ module.exports = {
   'appendix-a/examples/npm/restify.js': {
     skip: true
   },
-  'appendix-b/examples/events-setmaxlisteners.js': {
-    skip: true
-  },
-  'appendix-b/examples/callback.js': {
-    stderr: 'TypeError: message is not a String'
-  },
-  'appendix-b/examples/promise-errors.js': {
-    stderr: 'Erreur volontaire'
-  },
-  'appendix-b/examples/streams-large.js': {
-    exitCode: 1,
-    stderr: 'SyntaxError: Unexpected end of JSON input'
-  },
   'chapter-03/examples/array/node-list.js': {
     exitCode: 1,
     stderr: 'ReferenceError: document is not defined'
