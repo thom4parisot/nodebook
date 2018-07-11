@@ -13,7 +13,6 @@
 
 | Statut | Chapitre                  | Objectif d'apprentissage | |
 | -------|---------------------------|--------- |---|
-| 🚧      | [Préface de David Bruant][foreword] | - | -
 | ✅      | [Avant-propos][preamble] | - | -
 | ✅      | **[Histoire, écosystème et gouvernance][ch01]** | _ça marche comment la vie de Node et des gens qui le font ?_ | [issues][ch01-issues]
 | ✅      | **[Installer, mettre à jour et développer][ch02]** | _ça marche comment Node sur une machine ?_ | [issues][ch02-issues]
@@ -204,7 +203,6 @@ Les exemples de code sont placés sous la [licence MIT][].
 [backers]: https://opencollective.com/nodebook#backers
 [sponsors]: https://opencollective.com/nodebook#sponsor
 [contributors]: https://github.com/oncletom/nodebook/graphs/contributors
-[foreword]: foreword/foreword-fr.adoc
 [preamble]: foreword/preamble.adoc
 [ch01]: chapter-01/index.adoc
 [ch01-issues]: https://github.com/oncletom/nodebook/labels/:book:%20chapitre:1
