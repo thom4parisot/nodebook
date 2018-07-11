@@ -781,6 +781,13 @@ include::{sourceDir}/redis.js[]
 _hiredis_ ([URL]#https://npmjs.com/hiredis#) est un _driver_ C++ qui
 augmente les performances de connexion à une base de données _redis_.
 
+=== elasticsearch
+
+_elasticsearch_ ([URL]#https://npmjs.com/elasticsearch#) est un client pour
+simplifier la connexion à une base de données ElasticSearch.
+Ce type de base est particulièrement adaptée à l'indexation des données,
+pour des recherches performantes et complexes.
+
 [[cli]]
 == Ligne de commande
 
@@ -827,54 +834,40 @@ au lieu d'être interprétés comme des couleurs.
 
 == Applications web
 
-Une majorité d'articles et de tutoriaux pour Node ont pour habitude
-d'illustrer la création d'un serveur HTTP.
-S'il est vrai que Node rend les interactions réseaux aisées grâce à
-leur gestion non-bloquante, créer un serveur respectant réellement la
-spécification du protocole HTTP est une autre paire de manches.
-
-La plupart des modules n'imposant pas de choix d'architecture, vous aurez
-souvent à composer vous-même votre application HTTP en fonction de vos besoins.
-
-=== express
-
-_express_ est probablement la librairie la plus populaire.
-Elle gère le routage HTTP et la passation de données vers le moteur de rendu de votre choix.
-Son système de _middlewares_
-
+Ces modules complètent le panorama déjà très varié présenté
+dans le <<../chapter-07/index.adoc,chapitre 7>>.
 
 === fastify
 
-_fastify_ ([URL]#https://npmjs.com/fastify#).
+_fastify_ ([URL]#https://npmjs.com/fastify#) est un framework
+inspiré de _express_.
+Il se focalise sur la simplicité de l'expérience de développement et sur
+de hautes performances.
+Il sait valider les données sortantes à l'aide de schémas.
 
-
-_point-of-view_ ([URL]#https://npmjs.com/point-of-view#).
+Pour aller au-delà des données, il se combine avec le module _point-of-view_
+([URL]#https://npmjs.com/point-of-view#).
+Vous avez ainsi accès à l'utilisation de <<templating,modules de templating>>.
 
 === passport
 
-_passport_ ([URL]#https://npmjs.com/passport#) est une librairie de gestion
-d'authentification.
-De nombreux modules complémentaires permettent de gérer une authentification
-par mot de passe, par OAuth, par compte Google Apps etc.
+_passport_ ([URL]#https://npmjs.com/passport#) est une librairie modulaire
+d'authentification pour _express_.
+Elle permet de se brancher à différents mécanismes pour vérifier les utilisateurs :
+utilisateur et mot de passe, compte GitHub, Twitter, OAuth, etc.
 
-Elle fonctionne particulièrement bien puisqu'elle n'impose pas de mécanisme
-de persistence d'utilisateurs ni de session.
+Les sessions d'utilisateurs se gèrent à côté — pour mémoriser
+qui est connecté ou non, et avec quel identifiant sécurisé et unique.
 
-
-
-Référez-vous à sa documentation pour des exemples détaillés d'utilisation
-et d'implémentation au sein de votre application.
+Référez-vous à sa documentation pour des exemples détaillés d'utilisation.
 
 === restify
 
-_restify_ ([URL]#https://npmjs.com/restify#) est une alternative à
-_express_ si votre application n'a pour
-seul but que d'exposer une API REST, sans rendu HTML ou nécessitant un
-templating particulier.
+_restify_ ([URL]#https://npmjs.com/restify#) est un framework web
+spécialisé dans la création d'API HTTP.
 
-Elle rend possible le débogage complet à partir de _dtrace_, la gestion
-des versions d'API et expose un client permettant de consommer des données
-sur d'autres API REST.
+Il gère les versions de routes et expose un client permettant de consommer
+des données sur d'autres API REST — proxy.
 
 [source,javascript]
 .restify.js
@@ -885,10 +878,10 @@ include::{sourceDir}/restify.js[]
 
 === faye
 
-_faye_ ([URL]#https://npmjs.com/faye#) est à la fois un serveur et un client
-de communication en temps réel entre un client et un serveur.
-Il utilise WebSocket, Ajax ou JSON-P selon les capacités du client, notamment
-les navigateurs anciens qui ne supportent pas WebSocket.
+_faye_ ([URL]#https://npmjs.com/faye#) est un serveur WebSocket pour communiquer
+en temps réel entre un client et un serveur.
+Il sait débrayer vers Ajax ou JSON-P pour les navigateurs anciens qui
+ne supportent pas WebSocket.
 
 [source,javascript]
 .faye.js
@@ -896,22 +889,21 @@ les navigateurs anciens qui ne supportent pas WebSocket.
 include::{sourceDir}/faye.js[]
 ----
 
-Ce serveur extrêmement minimaliste expose un point d'entrée qui peut
+Cet exemple de serveur minimaliste expose un point d'entrée qui peut
 être accédé via le client _Faye_, dans un navigateur web ou via un autre
 script Node.
 
 Tout message émit par un client sera relayé auprès des autres clients
 connectés.
-Un mécanisme de canaux et d'authentification vous permettra de canaliser
-les messages en fonction des besoins de votre application.
 
 === swagger-client
 
-_swagger-client_ ([URL]#https://npmjs.com/swagger-client#).
+_swagger-client_ ([URL]#https://npmjs.com/swagger-client#) sert à valider
+des requêtes et des réponses HTTP en fonction de schémas qui répondent
+à la spécification OpenAPI.
 
-=== elasticsearch
-
-_elasticsearch_ ([URL]#https://npmjs.com/elasticsearch#).
+Cette spécification permet entre autre de gérer automatiquement les routes
+de notre application pour se concentrer sur le code qui génère les données de sortie.
 
 
 == Modules front-end et templating
