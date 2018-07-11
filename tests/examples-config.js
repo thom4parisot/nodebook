@@ -3,25 +3,25 @@
 const YEAR = new Date().getFullYear();
 
 module.exports = {
-  'appendix-a/examples/npm/debug.js': {
+  'appendix-a/examples/debug.js': {
     timeout: 6000
   },
-  'appendix-a/examples/npm/faye.js': {
+  'appendix-a/examples/faye.js': {
     skip: true
   },
-  'appendix-a/examples/npm/inquirer.js': {
+  'appendix-a/examples/inquirer.js': {
     skip: true
   },
-  'appendix-a/examples/npm/knex.js': {
+  'appendix-a/examples/knex.js': {
     skip: true
   },
-  'appendix-a/examples/npm/mongoose.js': {
+  'appendix-a/examples/mongoose.js': {
     skip: true
   },
-  'appendix-a/examples/npm/redis.js': {
+  'appendix-a/examples/redis.js': {
     skip: true
   },
-  'appendix-a/examples/npm/restify.js': {
+  'appendix-a/examples/restify.js': {
     skip: true
   },
   'appendix-a/examples/tcomb.js': {

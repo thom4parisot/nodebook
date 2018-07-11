@@ -38,12 +38,12 @@ des tableaux, des fonctions et des objets.
 Vous pourrez ainsi filtrer, sélectionner, fusionner, vérifier et composer
 de nouvelles variables aussi bien pour Node que dans les navigateurs web.
 
-[source,javascript]
-.npm/lodash.js
+[source%interactive,javascript]
+.lodash.js
 ----
-include::{sourceDir}/npm/lodash.js[]
+include::{sourceDir}/lodash.js[]
 ----
-<1> Affiche `['A', 'B', 'C', 'D']`.
+<1> Affiche `Thor`.
 
 === he
 
@@ -56,7 +56,7 @@ des entités HTML dans des chaînes de caractères.
 include::{sourceDir}/he.js[]
 ----
 <1> Affiche `<h1>Blog Post</h1>`.
-<2> Affiche `&#x3C;h1&#x3E;Blog Post&#x3C;/h1&#x3E;`.
+<2> Affiche `++&#x3C;h1&#x3E;Blog Post&#x3C;/h1&#x3E;++`.
 
 === chance
 
@@ -89,8 +89,8 @@ données n'ont pas la structure attendue.
 include::{sourceDir}/tcomb.js[]
 ----
 <1> Définition d'une structure stricte qui a pour propriété `lat` et `lon`, pour _latitude_ et _longitude_.
-<2> Cet appel va jeter une exception car la propriété `long` est inconnue.
-<3> Cet appel va jeter une exception car la propriété `lon` doit être un nombre.
+<2> Cet appel va lancer une exception car la propriété `long` est inconnue.
+<3> Cet appel va lancer une exception car la propriété `lon` doit être un nombre.
 
 === eventemitter3
 
@@ -98,12 +98,12 @@ _eventemitter3_ ([URL]#https://npmjs.com/eventemitter3#) permet de gérer
 des événements de manière uniforme dans un script Node et dans les navigateurs web.
 
 [source%interactive,javascript]
-.npm/eventemitter3.js
+.eventemitter3.js
 ----
 include::{sourceDir}/eventemitter3.js[]
 ----
 <1> Affiche `[ [Function], [Function] ]`.
-<2> Affiche `on: ping,ping\nonce: ping,ping`.
+<2> Affiche `on: ping,ping` puis `once: ping,ping`.
 <3> Affiche `on: ping,ping`.
 <4> N'affiche rien, l'événement étant désormais déconnecté.
 
@@ -113,51 +113,162 @@ include::{sourceDir}/eventemitter3.js[]
 
 === debug
 
-TBD.
+_debug_ ([URL]#https://npmjs.com/debug#) rend l'affichage de messages de déboguage
+optionnels.
+Les messages s'affichent en présence d'une variable d'environnement.
+Nous pouvons ainsi lancer un processus et retracer un cheminement complexe de
+données.
+
+Par défaut, les messages ne s'affichent pas :
+
+----
+$ node examples/debug.js
+----
+
+Les messages du débogueur `app` s'affichent désormais :
+
+[subs="+quotes"]
+----
+$ ##DEBUG=app## node examples/debug.js
+  app fromages [ 'livarot', 'chaource' ] +0ms
+----
+
+Nous pouvons en afficher plusieurs en même temps, en usant du caractère `*`
+ou en séparant les noms de débogueurs avec le caractère `,` :
+
+[subs="+quotes"]
+----
+$ DEBUG=app##*## node examples/debug.js
+  app fromages [ 'livarot', 'chaource' ] +0ms
+  app:timer now 1531304027271 +0ms
+----
 
 [source,javascript]
-.npm/debug.js
+.debug.js
 ----
-include::{sourceDir}/npm/debug.js[]
+include::{sourceDir}/debug.js[]
 ----
+<1> Création du débogueur `app`.
+<2> Création du débogueur `app:timer`.
+<3> La fonction de débogage s'utilise de la même manière que `console.log`.
+<4> Cette fonction fait appel au débogueur `app:timer`.
 
 === nodemon
 
-TBD.
+_nodemon_ ([URL]#https://npmjs.com/nodemon#) relance le processus actif
+dès qu'un fichier ECMAScript ou JSON est modifié.
+C'est un module exécutable particulièrement utile lorsque nous voulons prendre
+en compte les changements dans une application qui tourne en continu.
+C'est le cas des application web, entre autres.
+
+Pour en savoir plus, rendez-vous à la section
+<<../chapter-07/index.adoc#dev,Pendant le développement : relancer le serveur automatiquement>>
+du <<../chapter-07/index.adoc#,chapitre 7>>.
 
 === npm-run-all
 
 _npm-run-all_ ([URL]#https://npmjs.com/npm-run-all#) est mon outil favori
 pour composer avec les _scripts npm_.
-Il a l'avantage d'être versatile, de permettre de régler finement ce qui
-doit être exécuté en parallèle ou en série et transfère les options aux
-sous-scripts.
+Il a l'avantage d'être versatile, de régler finement ce qui
+doit être exécuté en parallèle ou séquentiellement.
+Le module transfère les arguments aux sous-scripts.
 
-[source,javascript]
-.package.npm-run-all.json
+[source,json]
+.package.json
 ----
-include::{sourceDir}/package.npm-run-all.json[]
+{
+  "...": "...",
+  "scripts": {
+    "build": "npm-run-all -p 'build:*' -s start",
+    "build:css": "sass ...",
+    "build:js": "browserify ...",
+    "start": "node server.js"
+  }
+}
 ----
 
 === husky
 
+_husky_ ([URL]#https://npmjs.com/husky#) intègre Git aux
+<<../chapter-05/index.adoc#scripts,scripts npm>>.
+Autrement dit, vous pouvez déclencher des scripts lors d'événements Git,
+lors d'un _push_, avant un _commit_ ou après avoir rapatrié des changements.
+
+[source,json]
+.package.json
+----
+{
+  "...": "...",
+  "scripts": {
+    "precommit": "lint-staged",
+    "post-merge": "npm install"
+  }
+}
+----
+
+La liste complète des _hooks_ Git se trouve dans la documentation
+officielle à cette adresse [URL]#https://git-scm.com/docs/githooks#.
+
 === onchange
+
+_onchange_ ([URL]#https://npmjs.com/onchange#) observe une liste de fichiers
+en continu et délenche une commande dès que l'un d'entre eux est modifié.
+C'est particulièrement utile pour reconstruire des fichiers de configuration
+ou des fichiers front-end pendant le développement, sans avoir à le faire à la main.
+
+[source,json]
+.package.json
+----
+{
+  "...": "...",
+  "scripts": {
+    "build:css": "sass ...",
+    "dev": "npm-run-script -p 'watch:*' start",
+    "watch:css": "onchange '**/*.scss' -- npm run build:css",
+    "start": "node server.js"
+  }
+}
+----
 
 === tiny-lr
 
+_tiny-lr_ ([URL]#https://npmjs.com/tiny-lr#) est une implémentation minimale
+du protocole _livereload_ ([URL]#http://livereload.com/#).
+Il s'intègre à un serveur HTTP ou à une application _express_ pour relayer
+la liste des fichiers modifié côté client.
+
+Le script ou l'extension navigateur client remplace les anciens fichiers
+par les nouveaux pour refléter les changements sans recharger la page.
+
 === livereactload
 
+_livereactload_ ([URL]#https://npmjs.com/livereactload#) recherche les composants
+<<react,React>> à chaud.
+C'est à dire sans raffraichir la page et sans perdre l'état des données.
+C'est un module indispensable pour développer des applications front-end réactives.
+
+Rendez-vous dans la section <<../chapter-09/index.adoc#livereload,changements en temps-réel>>
+du <<../chapter-09/index.adoc#,chapitre 9>> pour en savoir plus sur son
+installation et son intégration.
 
 
 == Protéger nos applications
 
 === sanitize-filename
 
+_sanitize-filename_ ([URL]#https://npmjs.com/sanitize-filename#).
+
 === helmet
+
+_helmet_ ([URL]#https://npmjs.com/helmet#).
 
 === dompurify
 
+_dompurify_ ([URL]#https://npmjs.com/dompurify#).
+
 === filenamify
+
+_filenamify_ ([URL]#https://npmjs.com/filenamify#).
 
 === retire.js
 _retire.js_ ([URL]#https://npmjs.com/retire#) est un module npm pour
@@ -511,7 +622,7 @@ factorisera les sélecteurs similaires.
 
 === svgo
 
-[URL]#https://www.npmjs.com/svgo#
+_svgo_ ([URL]#https://www.npmjs.com/svgo#).
 
 
 
@@ -579,9 +690,9 @@ Aux fonctionnalités précédemment listées s'ajoutent une prise en charge
 plus aisée de multiples modules ainsi que la compilation de fichiers CSS ou Less.
 
 [source,javascript]
-.npm/browserify.js
+.browserify.js
 ----
-include::{sourceDir}/npm/browserify.js[]
+include::{sourceDir}/browserify.js[]
 ----
 <1> Affiche `Open Sky`.
 
@@ -606,10 +717,10 @@ La commande `browserify` remplacera l'appel au module _cheerio_ par un appel
 au module _jquery_ :
 
 ----
-$ browserify npm/browserify.js -o npm/browserify.bundle.js
+$ browserify browserify.js -o browserify.bundle.js
 ----
 
-Inclus dans un navigateur Web, le fichier `npm/browserify.bundle.js` affichera
+Inclus dans un navigateur Web, le fichier `browserify.bundle.js` affichera
 le même résultat que l'interpréteur Node.
 
 
@@ -644,9 +755,9 @@ Sa syntaxe équivalente à ce qui se fait dans le monde UNIX évite une écritur
 de code complexe reposant sur l'API `fs`.
 
 [source%interactive,javascript]
-.npm/glob.js
+.glob.js
 ----
-include::{sourceDir}/npm/glob.js[]
+include::{sourceDir}/glob.js[]
 ----
 <1> Affiche un tableau contenant la liste des fichiers du répertoire courant.
 
@@ -696,19 +807,23 @@ Les auteurs de _knex_ ont créé la surcouche _bookshelf_
 lieu de requêtes SQL.
 
 [source,javascript]
-.npm/knex.js
+.knex.js
 ----
-include::{sourceDir}/npm/knex.js[]
+include::{sourceDir}/knex.js[]
 ----
-<1> Affiche `[ { id: 1, title: 'Node.js ', created_at: '2015-10-09 16:06:17' } ]`.
+<1> Indique que nous allons nous connecter à une base de données de type SQLite.
+<2> Spécifie l'emplacement de la base de données.
+<3> Effectue une recherche floue sur les lignes dont le titre contient le mot 'Node'.
+<4> Compte le nombre de lignes et retourne le premier (et seul) résultat de la requête.
+<5> Affiche `[ { id: 1, title: 'Node.js ', created_at: '2018-07-11 10:34:33' } ]`.
+<6> Affiche `{ count: 3 }`.
 
 L'exemple précédent se charge de créer une table dans une base de données
 SQLite, puis y insère trois nouveaux enregistrements.
 
 === sequelize
 
-https://npmjs.com/sequelize
-https://sequelize.readthedocs.io/
+_sequelize_ ([URL]#https://npmjs.com/sequelize#).
 
 === mongoose
 
@@ -719,9 +834,9 @@ de données mais aussi à définir des comportements annexes comme des mixins
 ou des _accesseurs_ dynamiques.
 
 [source,javascript]
-.npm/mongoose.js
+.mongoose.js
 ----
-include::{sourceDir}/npm/mongoose.js[]
+include::{sourceDir}/mongoose.js[]
 ----
 <1> Affiche `3 enregistrements créés`.
 
@@ -733,9 +848,9 @@ par défaut mais qui peut évoluer vers du stockage en mémoire (module `memdown
 Et encore mieux, cette base de données fonctionne aussi dans un navigateur web !
 
 [source,javascript]
-.npm/levelup.js
+.levelup.js
 ----
-include::{sourceDir}/npm/levelup.js[]
+include::{sourceDir}/levelup.js[]
 ----
 
 === redis
@@ -751,9 +866,9 @@ conversions JSON, ce qui accélère le processus de conversion/déconversion
 depuis la base de données.
 
 [source,javascript]
-.npm/redis.js
+.redis.js
 ----
-include::{sourceDir}/npm/redis.js[]
+include::{sourceDir}/redis.js[]
 ----
 
 [[cli]]
@@ -761,23 +876,23 @@ include::{sourceDir}/npm/redis.js[]
 
 === yargs-parser
 
-https://npmjs.com/yargs-parser
+_yargs-parser_ ([URL]#https://npmjs.com/yargs-parser#).
 
 === args
 
-https://www.npmjs.com/package/args
+_args_ ([URL]#https://npmjs.com/args#).
 
 === caporal
 
-https://www.npmjs.com/package/caporal
+_caporal_ ([URL]#https://npmjs.com/caporal#).
 
 === promptly
 
-https://www.npmjs.com/package/promptly
+_promptly_ ([URL]#https://npmjs.com/promptly#).
 
 === supports-color
 
-https://www.npmjs.com/package/supports-color
+_supports-color_ ([URL]#https://npmjs.com/supports-color#).
 
 
 == Applications web
@@ -800,8 +915,10 @@ Son système de _middlewares_
 
 === fastify
 
-https://npmjs.com/fastify
-https://npmjs.com/point-of-view
+_fastify_ ([URL]#https://npmjs.com/fastify#).
+
+
+_point-of-view_ ([URL]#https://npmjs.com/point-of-view#).
 
 === passport
 
@@ -830,9 +947,9 @@ des versions d'API et expose un client permettant de consommer des données
 sur d'autres API REST.
 
 [source,javascript]
-.npm/restify.js
+.restify.js
 ----
-include::{sourceDir}/npm/restify.js[]
+include::{sourceDir}/restify.js[]
 ----
 
 
@@ -840,13 +957,13 @@ include::{sourceDir}/npm/restify.js[]
 
 _faye_ ([URL]#https://npmjs.com/faye#) est à la fois un serveur et un client
 de communication en temps réel entre un client et un serveur.
-Il utilisera WebSocket, Ajax ou JSON-P selon les capacités technologiques du
-client.
+Il utilise WebSocket, Ajax ou JSON-P selon les capacités du client, notamment
+les navigateurs anciens qui ne supportent pas WebSocket.
 
 [source,javascript]
-.npm/faye.js
+.faye.js
 ----
-include::{sourceDir}/npm/faye.js[]
+include::{sourceDir}/faye.js[]
 ----
 
 Ce serveur extrêmement minimaliste expose un point d'entrée qui peut
@@ -860,7 +977,11 @@ les messages en fonction des besoins de votre application.
 
 === swagger-client
 
+_swagger-client_ ([URL]#https://npmjs.com/swagger-client#).
+
 === elasticsearch
+
+_elasticsearch_ ([URL]#https://npmjs.com/elasticsearch#).
 
 
 == Modules front-end et templating
@@ -985,9 +1106,9 @@ Elle se base sur la sortie de `console.log` pour
 s'assurer de l'état global d'exécution des tests.
 
 [source,javascript]
-.npm/tape.js
+.tape.js
 ----
-include::{sourceDir}/npm/tape.js[]
+include::{sourceDir}/tape.js[]
 ----
 
 === sinon
@@ -1002,9 +1123,9 @@ _sinon_ peut étendre _chai_ via le module _sinon-chai_ ou être utilisé
 directement avec le _framework_ de tests _buster_.
 
 [source,javascript]
-.npm/sinon.js
+.sinon.js
 ----
-include::{sourceDir}/npm/sinon.js[]
+include::{sourceDir}/sinon.js[]
 ----
 
 === nyc
@@ -1102,27 +1223,49 @@ recevoir les instructions.
 
 === a11y
 
+_a11y_ ([URL]#https://npmjs.com/a11y#).
+
 === chai-a11y
+
+_chai-a11y_ ([URL]#https://npmjs.com/chai-a11y#).
 
 === a11y.css
 
+_a11y.css_ ([URL]#https://npmjs.com/a11y.css#).
+
 === lighthouse
 
+_lighthouse_ ([URL]#https://npmjs.com/lighthouse#).
+
 === storybook-addon-a11y
+
+_storybook-addon-a11y_ ([URL]#https://npmjs.com/storybook-addon-a11y#).
 
 
 == Travailler avec des images, des sons et des vidéos
 
 === sharp
 
+_sharp_ ([URL]#https://npmjs.com/sharp#).
+
 
 === wawoff2
+
+_wawoff2_ ([URL]#https://npmjs.com/wawoff2#).
 
 [[av]]
 === av / mp3.js / aac.js
 
+_av_ ([URL]#https://npmjs.com/av#).
+
 === jsmediatags
+
+_jsmediatags_ ([URL]#https://npmjs.com/jsmediatags#).
 
 === video.js
 
+_video.js_ ([URL]#https://npmjs.com/video.js#).
+
 === hlsify
+
+_hlsify_ ([URL]#https://npmjs.com/hlsify#).
