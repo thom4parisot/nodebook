@@ -784,25 +784,45 @@ augmente les performances de connexion à une base de données _redis_.
 [[cli]]
 == Ligne de commande
 
+Ces modules complètent le panorama déjà très varié présenté
+dans le <<../chapter-08/index.adoc,chapitre 8>>.
+
 === yargs-parser
 
-_yargs-parser_ ([URL]#https://npmjs.com/yargs-parser#).
+_yargs-parser_ ([URL]#https://npmjs.com/yargs-parser#) est le module
+d'interprétation des arguments utilisé par le module _yargs_.
+C'est une alternative plus puissante et plus complexe que _minimist_.
 
 === args
 
-_args_ ([URL]#https://npmjs.com/args#).
+_args_ ([URL]#https://npmjs.com/args#) est un module minimaliste
+pour interpréter les arguments, les structurer et afficher une aide
+claire à nos utilisateurs et utilisatrices.
+
+Cerise sur le gâteau : le module suggère un choix de commande en cas
+d'erreur de frappe.
 
 === caporal
 
-_caporal_ ([URL]#https://npmjs.com/caporal#).
+_caporal_ ([URL]#https://npmjs.com/caporal#) est un framework complet
+pour bâtir des applications en ligne de commande.
+Il gère les classiques arguments et options ainsi que les sous-commandes,
+les types de valeurs et l'autocomplétion.
 
 === promptly
 
-_promptly_ ([URL]#https://npmjs.com/promptly#).
+_promptly_ ([URL]#https://npmjs.com/promptly#) est un utilitaire pour
+poser des questions, valider et travaillers avec les réponses obtenues.
+Il est minimaliste et a un faible nombre de dépendances.
 
 === supports-color
 
-_supports-color_ ([URL]#https://npmjs.com/supports-color#).
+_supports-color_ ([URL]#https://npmjs.com/supports-color#) est un module
+pour vérifier si le contexte d'exécution du programme en ligne de commande
+supporte les couleurs.
+
+Ça nous évite d'envoyer des codes ANSI qui du coup, seraient affichés
+au lieu d'être interprétés comme des couleurs.
 
 
 == Applications web
