@@ -4,7 +4,9 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "snyk-protect": "snyk protect",
+    "prepare": "npm run snyk-protect"
   },
   "engines": {
     "node": "^10.0.0"
@@ -40,6 +42,8 @@
     "sqlite3": "^4.0.1",
     "tape": "^4.2.0",
     "tcomb": "^3.2.27",
-    "uuid": "^2.0.0"
-  }
+    "uuid": "^2.0.0",
+    "snyk": "^1.88.2"
+  },
+  "snyk": true
 }
