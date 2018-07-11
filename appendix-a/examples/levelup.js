@@ -2,19 +2,18 @@
 
 const levelup = require('levelup');
 const memdown = require('memdown');
-const uuid = require('uuid').v4;
+const encode = require('encoding-down');
 
-const db = levelup(memdown());
-const options = { valueEncoding: 'json' };
+const db = levelup(encode(memdown(),          // <1>
+  { valueEncoding: 'json' }
+));
 
-db.batch()
-  .put(uuid(), { title: 'Node.js' }, options)
-  .put(uuid(), { title: 'CSS maintenables' }, options)
-  .put(uuid(), { title: 'Open Sky' }, options)
-  .write((err) => {
-    if (err) {
-      return console.error(err);
-    }
-
-    console.log('Enregistrements créés en mémoire.');
-  });
+Promise.all([
+  db.put('node', {title: 'Node.js'}),
+  db.put('css', {title: 'CSS maintenables'}),
+  db.put('opensky', {title: 'Open Sky'}),
+])
+.then(() => db.get('node'))                   // <2>
+.then(result => {
+  console.log(result);                        // <3>
+});

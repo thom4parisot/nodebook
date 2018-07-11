@@ -17,6 +17,7 @@ a été écrit, relu et testé avec un public apprenant.
 - _Annexe A_ : Optimiser notre code
 - _Annexe A_ : Passer d'un langage à un autre
 - _Annexe A_ : Gérer des fichiers
+- _Annexe A_ : Stocker dans des bases de données
 
 **Météo** : 💪 ☀️
 

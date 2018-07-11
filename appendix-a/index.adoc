@@ -705,21 +705,17 @@ de déclencher des actions quand des fichiers sont modifiés.
 [[databases]]
 == Stocker dans des bases de données
 
-Node supporte un vaste ensemble de bases de données grâce aux modules npm.
-Favorisez toujours les modules faisant état de _driver_ natif/binaire : la communication vers la base de données n'en sera que plus rapide.
+Node sait communiquer avec tout type de bases de données grâce à l'écosystème npm.
+Préférez les modules faisant état de _driver_ natif/binaire —
+les transferts de données n'en sera que plus rapide.
 
 === knex
 
-_knex_ ([URL]#https://npmjs.com/knex#) est une librairie de manipulation
-de base de données SQL.
-Elle est notamment compatible avec PostgreSQL, MariaDB, MySQL et SQLite.
-Son API fluide basée sur des _callbacks_ et des _promesses_ vous sera précieuse pour ne pas écrire de requête à la main.
+_knex_ ([URL]#https://npmjs.com/knex#) propose d'interagir et d'interroger
+des bases de données SQL comme PostgreSQL, MariaDB, MySQL et SQLite.
 
-=== bookshelf
-
-Les auteurs de _knex_ ont créé la surcouche _bookshelf_
-([URL]#https://npmjs.com/bookshelf#) pour gérer des modèles de données au
-lieu de requêtes SQL.
+Les requêtes s'écrivent en SQL pur ou en utilisant une API dite "fluide",
+pour ne pas écrire le SQL à la main.
 
 [source,javascript]
 .knex.js
@@ -733,58 +729,57 @@ include::{sourceDir}/knex.js[]
 <5> Affiche `[ { id: 1, title: 'Node.js ', created_at: '2018-07-11 10:34:33' } ]`.
 <6> Affiche `{ count: 3 }`.
 
-L'exemple précédent se charge de créer une table dans une base de données
-SQLite, puis y insère trois nouveaux enregistrements.
+=== bookshelf
+
+_bookshelf_ ([URL]#https://npmjs.com/bookshelf#) est une surcouche à <<knex>>,
+écrite par les mêmes personnes.
+Elle modèlise les données sous formes d'objets et de schémas (ORM) pour
+automatiser des actions et ajouter plus d'"intelligence" à notre modèle de données.
 
 === sequelize
 
-_sequelize_ ([URL]#https://npmjs.com/sequelize#).
+_sequelize_ ([URL]#https://npmjs.com/sequelize#) est une alternative
+à <<knex>> et <<bookshelf>>.
+Elle gère des schémas de données de manière optionnelle mais aussi les migrations.
+Ces dernières permettent de scripter les changements de structure d'une base
+de données, de les tester en local avant de les jouer en production.
 
 === mongoose
 
-_mongoose_ ([URL]#https://npmjs.com/mongoose#) est un _ODM_
-(_Object Document Model_) pour MongoDB.
-Il vous aidera à composer vos modèles, gérer la connexion à la base
-de données mais aussi à définir des comportements annexes comme des mixins
+_mongoose_ ([URL]#https://npmjs.com/mongoose#) sert à composer des modèles
+de données pour la base de données MongoDB — dite NoSQL.
+Elle définit des comportements annexes comme des mixins
 ou des _accesseurs_ dynamiques.
-
-[source,javascript]
-.mongoose.js
-----
-include::{sourceDir}/mongoose.js[]
-----
-<1> Affiche `3 enregistrements créés`.
 
 === levelup
 
 _LevelDB_ ([URL]#https://npmjs.com/levelup#) est un système de base de
-données clé/valeur extrêmement modulaire, avec un stockage sur disque
-par défaut mais qui peut évoluer vers du stockage en mémoire (module `memdown`).
-Et encore mieux, cette base de données fonctionne aussi dans un navigateur web !
+données clé/valeur extrêmement modulaire.
+Le stockage se fait sur disque par défaut mais il peut évoluer vers du stockage
+en mémoire (module `memdown`) ou même dans un navigateur web (avec IndexedDB).
 
 [source,javascript]
 .levelup.js
 ----
 include::{sourceDir}/levelup.js[]
 ----
+<1> Crée la connexion à la base de données en mémoire.
+<2> Recherche un enregistrement après les avoir enregistré en mémoire.
+<3> Affiche `{ title: 'Node.js' }`.
 
 === redis
 
-_redis_ ([URL]#https://npmjs.com/redis#) est une autre base de données
-clé/valeur focalisée sur la performance et la distribution sur de
-multiples serveurs.
-
-_hiredis_ ([URL]#https://npmjs.com/hiredis#) est un _driver_ C++ pouvant
-être utilisé par le module Node _redis_.
-Il permet de travailler directement avec des buffers plutôt qu'avec des
-conversions JSON, ce qui accélère le processus de conversion/déconversion
-depuis la base de données.
+_redis_ ([URL]#https://npmjs.com/redis#) est une base de données
+clé/valeur distribuée et performante.
 
 [source,javascript]
 .redis.js
 ----
 include::{sourceDir}/redis.js[]
 ----
+
+_hiredis_ ([URL]#https://npmjs.com/hiredis#) est un _driver_ C++ qui
+augmente les performances de connexion à une base de données _redis_.
 
 [[cli]]
 == Ligne de commande
