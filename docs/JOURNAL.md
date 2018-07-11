@@ -15,6 +15,7 @@ a été écrit, relu et testé avec un public apprenant.
 - _Annexe A_ : Protéger nos applications
 - _Annexe A_ : Vérifier la syntaxe de notre code
 - _Annexe A_ : Optimiser notre code
+- _Annexe A_ : Passer d'un langage à un autre
 
 **Météo** : 💪 ☀️
 

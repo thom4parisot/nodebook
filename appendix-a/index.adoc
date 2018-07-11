@@ -568,19 +568,21 @@ Il simplifie les chemins et supprime les attributs et déclarations superflues.
 Vous pouvez l'essayer en ligne sur [URL]#https://jakearchibald.github.io/svgomg/#
 ou l'intégrer comme extension à <<postcss,PostCSS>>.
 
+[[transpiling]]
+== Passer d'un langage à un autre
 
-== Transformer du code
+Les préprocesseurs sont des outils de productivité pour CSS.
+Ils transforment un langage plus avancé dans quelque chose qui est compris
+par un navigateur web.
 
-Les préprocesseurs sont des outils de productivité transformant un langage vers un autre langage, en général compatible avec une majorité de navigateurs.
-
-Certains vous permettront même de compiler du code Node vers du code compatible avec un navigateur Web.
+La même chose s'applique avec la compilation ou la transpilation pour ECMAScript,
+pour utiliser dès maintenant une version du futur.
 
 === less
 
-_less_ ([URL]#https://npmjs.com/less#) est un préprocesseur permettant de
-compiler vers du code CSS.
-Ses atouts résident dans la gestion des variables, de _mixins_ et de fonctions
-encourageant une écriture modulaire, plus logique et plus succincte.
+_less_ ([URL]#https://npmjs.com/less#) est un préprocesseur CSS.
+Il gère des variables, de _mixins_, des calculs de couleurs et des fonctions
+qui encouragent une écriture modulaire, plus logique et plus succincte.
 
 [source]
 .stylesheet.less
@@ -591,81 +593,44 @@ include::{sourceDir}/stylesheet.less[]
 L'exécutable `lessc` compile le fichier LESS:
 
 ----
-$ lessc stylesheet.less
-----
-
-La sortie de la commande précédente génère ce résultat :
-
-[source,css]
-----
-.btn {
-  border: 1px solid black;
-  border-radius: 3px;
-  font-size: 18px;
-}
-.btn--large {
-  font-size: 27px;
-}
-.btn--warning {
-  border-color: rgba(255, 0, 0, 0.9);
-  color: #ff0000;
-}
+$ ../node_modules/.bin/lessc stylesheet.less
 ----
 
 === sass
 
-_Sass_ ([URL]#https://npmjs.com/node-sass#) est un autre préprocesseur
-populaire issu du monde Ruby.
-Un portage en C++ est disponible via le module _node-sass_ et ne requiert pas
-l'installation de Ruby.
+_Sass_ ([URL]#https://npmjs.com/node-sass#) est un autre préprocesseur CSS.
+Il est issu du monde Ruby et est désormais tout aussi puissant dans Node
+grâce à _libsass_, un module rapide et portable écrit C++.
 
 === browserify
 
-_browserify_ ([URL]#https://npmjs.com/browserify#) transforme des modules
-CommonJS et des appels aux API Node en un code ECMAScript capable d'être
-exécuté dans un navigateur Web.
+_browserify_ ([URL]#https://npmjs.com/browserify#) transforme des modules et du
+code initialement écrit pour Node vers du code exécutable dans un navigateur Web.
 
-Un puissant mécanisme de _transforms_ introduit des remplacements de modules
-à la volée ou le mélange de modules AMD et CommonJS.
+Un puissant mécanisme de _transformations_ étend ses capacités au coup par coup.
 
-_webpack_ ([URL]#https://npmjs.com/webpack#) est une alternative à _browserify_.
-Aux fonctionnalités précédemment listées s'ajoutent une prise en charge
-plus aisée de multiples modules ainsi que la compilation de fichiers CSS ou Less.
+Nous en parlons plus en détails dans la section
+<<../chapter-09/index.adoc#browserify,importer des modules npm pour le web>>
+au <<../chapter-09/index.adoc#,chapitre 9>>.
 
-[source,javascript]
-.browserify.js
-----
-include::{sourceDir}/browserify.js[]
-----
-<1> Affiche `Open Sky`.
+=== babel
 
-[source,javascript]
-.package.json
-----
-{
-  "browser": {
-    "cheerio": "jquery"
-  },
-  "dependencies": {
-    "cheerio": "^0.17.0",
-    "jquery": "^2.1.1",
-  },
-  "devDependencies": {
-    "browserify": "^5.0.0"
-  }
-}
-----
+_babel_ ([URL]#https://npmjs.com/babel#) est un outil qui permet de passer
+d'une version d'ECMAScript à une autre, fonctionnalité par fonctionnalité.
+C'est un outil indispensable pour écrire un code moderne et le faire
+fonctionner dans des navigateurs anciens.
 
-La commande `browserify` remplacera l'appel au module _cheerio_ par un appel
-au module _jquery_ :
+=== typescript
 
-----
-$ browserify browserify.js -o browserify.bundle.js
-----
+_TypeScript_ ([URL]#https://npmjs.com/typescript#) est un langage de programmation
+typé.
+Toute structure utilisée est décrite avec un schéma que TypeScript valide.
+Nous sommes prévenu·e·s des erreurs avant même d'avoir exécuté notre code
+car l'outillage sait si on manipule des données qui existent.
 
-Inclus dans un navigateur Web, le fichier `browserify.bundle.js` affichera
-le même résultat que l'interpréteur Node.
-
+Au final, le code est transformé en ECMAScript et exécuté en tant que tel.
+Le code est tellement propre que nous pouvons arrêter d'utiliser TypeScript
+du jour au lendemain et travailler sur le code qu'il aura généré sans aucun problème.
 
 
 [[fs]]
