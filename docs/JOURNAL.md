@@ -12,6 +12,7 @@ a été écrit, relu et testé avec un public apprenant.
 
 - _Annexe A_ : Boîte à outil du quotidien
 - _Annexe A_ : Pendant le développement
+- _Annexe A_ : Protéger nos applications
 
 **Météo** : 💪 ☀️
 

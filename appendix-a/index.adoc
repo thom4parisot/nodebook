@@ -15,7 +15,7 @@ endif::[]
 
 Cette annexe est une sélection de modules npm ([URL]#https://npmjs.com#)
 à laquelle vous réferer pour démarrer rapidement mais aussi pour découvrir
-les nombreux contextes d'utilisation de Node.
+des usages et des domaines d'applications insoupçonnés.
 
 J'ai bâti cette liste à partir de mon expérience personnelle et sur la confiance
 que je porte aux personnes à l'origine de ces modules.
@@ -254,29 +254,62 @@ installation et son intégration.
 
 == Protéger nos applications
 
+Le code que nous écrivons se protège dès la conception et dans le temps.
+Des modules nous protègent en filtrant les tentatives d'exploitation de nos
+applications tandis que d'autres vérifient si le code déployé est toujours sûr.
+
 === sanitize-filename
 
-_sanitize-filename_ ([URL]#https://npmjs.com/sanitize-filename#).
+_sanitize-filename_ ([URL]#https://npmjs.com/sanitize-filename#) nettoie
+une variable de tout caractère ambigü ou qui ne serait pas attendu de la part
+d'un·e usagèr·e.
+
+[source%interactive,javascript]
+.sanitize-filename.js
+----
+include::{sourceDir}/sanitize-filename.js[]
+----
+<1> Affiche `aucun-problème.txt`.
+<2> Affiche `.....sshid_rsa` — les caractères `/` ont été nettoyés car il permettrait de créer des chemins compromettant pour l'application ou le système d'exploitation.
 
 === helmet
 
-_helmet_ ([URL]#https://npmjs.com/helmet#).
+_helmet_ ([URL]#https://npmjs.com/helmet#) est un module à intégrer systématiquement
+dans toute application _express_.
+Il ajoute des entêtes HTTP _Content-Security Policy_, _Strict Transport Policy_
+et d'autres qui empêchent le détournement d'informations.
+
+Chacune de ses protections se configure aussi au cas par cas.
+Elles s'intègrent manuellement dans d'autres types d'applications web,
+y compris un serveur HTTP natif à Node.
 
 === dompurify
 
-_dompurify_ ([URL]#https://npmjs.com/dompurify#).
+_dompurify_ ([URL]#https://npmjs.com/dompurify#) nettoie un contenu HTML
+pour le rendre affichable en toute sécurité.
+Il nettoie des scripts indésirés, des balises mal formées qui casseraient l'affichage,
+ou encore des _iframes_ qui injecteraient des contenus tiers sans notre consentement.
 
 === filenamify
 
-_filenamify_ ([URL]#https://npmjs.com/filenamify#).
+_filenamify_ ([URL]#https://npmjs.com/filenamify#) nettoie une valeur
+pour retirer tout caractère invalide dans un nom de fichier.
+C'est pratique dans le cas où vous laissez la possibilité à un·e usagèr·e
+de choisir un nom de fichier sans pour autant leur laisser la possibilité
+de mettre en danger le système ou l'application.
 
 === retire.js
-_retire.js_ ([URL]#https://npmjs.com/retire#) est un module npm pour
-scanner soi-même des vulnérabilités connues dans le code JavaScript de son
-choix.
 
-Il fonctionne aussi bien pour du JavaScript interprété par un navigateur
-web que dans Node.
+_retire.js_ ([URL]#https://npmjs.com/retire#) est un module npm pour
+scanner soi-même des vulnérabilités connues dans des fichiers JavaScript.
+Il est complémentaire de la commande <<../chapter-05/index.adoc#audit,`npm audit`>>
+car il inspecte des dépendances qui ne sont pas forcément sur npm.
+
+=== snyk
+
+_snyk_ ([URL]#https://npmjs.com/snyk#) est à la fois un service en ligne
+et un module pour vérifier la présence de failles de sécurité connues
+dans les dépendances de nos projets.
 
 
 == Vérifier la syntaxe de notre code
