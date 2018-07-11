@@ -20,6 +20,7 @@ a été écrit, relu et testé avec un public apprenant.
 - _Annexe A_ : Stocker dans des bases de données
 - _Annexe A_ : Ligne de commande
 - _Annexe A_ : Applications web
+- _Annexe A_ : Modules front-end et templating
 
 **Météo** : 💪 ☀️
 

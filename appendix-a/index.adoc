@@ -832,6 +832,7 @@ supporte les couleurs.
 au lieu d'être interprétés comme des couleurs.
 
 
+[[webapp]]
 == Applications web
 
 Ces modules complètent le panorama déjà très varié présenté
@@ -905,14 +906,16 @@ des requêtes et des réponses HTTP en fonction de schémas qui répondent
 Cette spécification permet entre autre de gérer automatiquement les routes
 de notre application pour se concentrer sur le code qui génère les données de sortie.
 
-
+[[templating]]
 == Modules front-end et templating
 
-Les librairies de templating proposent chacune à leur manière d'associer une structure de données à une logique de présentation.
+Les librairies de templating proposent d'associer
+une structure de données à une logique de présentation.
+La plupart fonctionnent aussi bien sous Node que dans les navigateurs web.
+Ce qui est une excellente nouvelle pour partager des comportements d'affichage
+entre les deux environnements.
 
-Node n'y échappe pas bien sûr, mais a l'avantage de disposer de langages de templating fonctionnant aussi bien dans un environnement Node que dans des navigateurs Web.
-
-Tous les exemples suivant généreront cette sortie HTML :
+Tous les modules que nous allons voir généreront cette sortie HTML :
 
 [source,html]
 ----
@@ -934,7 +937,7 @@ Tous les exemples suivant généreront cette sortie HTML :
 === nunjucks
 
 _nunjucks_ ([URL]#https://npmjs.com/nunjucks#) est un portage de _Jinja_,
-librairie bien connue par les personnes développant en Python.
+librairie bien connue par les adeptes de Python.
 Sa syntaxe inclut des fonctionnalités comme les filtres, les blocs ou
 l'héritage de gabarit.
 
@@ -951,7 +954,7 @@ sont les vétérans du templating Node.
 Leur parti pris est de proposer le minimum de logique afin que celle-ci
 reste au plus près des données.
 
-_handlebars_ compile ou précompile les gabarits en des fonctions ECMAScript.
+_handlebars_ sait aussi précompiler les gabarits sous forme de fonctions ECMAScript.
 
 [source,javascript]
 .template.hbs
@@ -959,14 +962,11 @@ _handlebars_ compile ou précompile les gabarits en des fonctions ECMAScript.
 include::{sourceDir}/template.hbs[]
 ----
 
-Cela présuppose que les données adéquates soient passées à la fonction de template `Handlebars.template['template.hbs']`.
-
 === pug
 
-_pug_ ([URL]#https://npmjs.com/pug#) s'inspire de _yaml_ en optant pour un
-parti pris à base d'indentation et d'un balisage dépourvu de chevron.
-Son mécanisme de blocs facilite la réutilisation de logiques d'affichage
-au sein de votre application.
+_pug_ ([URL]#https://npmjs.com/pug#) opte pour pour un
+parti minimaliste qui repose entièrement sur l'indentation.
+Son mécanisme de blocs facilite la réutilisation d'éléments de présentation.
 
 [source,javascript]
 .template.pug
@@ -990,10 +990,9 @@ include::{sourceDir}/template.ejs[]
 === react
 
 _react_ ([URL]#https://npmjs.com/react#) est une librairie de présentation
-essentiellement connue pour son approche efficace du côté des navigateurs Web.
-Ce qui est moins connu en revanche est sa capacité à pouvoir également générer
-du balisage côté Node et de servir de moteur de rendu pour des _frameworks_
-comme _express_.
+dite "réactive" et orientée composants.
+Elle génère un arbre visuel à partir de données passées en entrée.
+Cet arbre est ensuite transformé en HTML, en interface iOS ou Android, entre autres.
 
 [source,javascript]
 .template.jsx
@@ -1003,8 +1002,13 @@ include::{sourceDir}/template.jsx[]
 
 === storybook
 
-https://github.com/storybooks/storybook + react
+_storybook_ ([URL]#https://github.com/storybooks/storybook#) complète <<react,React>>
+et d'autres frameworks de _templating_ en créant un catalogue de composants
+auto-documentés.
+Les composants sont affichés en même temps que le code nécessaire pour les utiliser
+dans une autre application.
 
+[[testing]]
 == Tester notre code
 
 L'outillage permettant de tester vos applications est également richement fourni.
