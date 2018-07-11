@@ -270,7 +270,7 @@ d'un·e usagèr·e.
 include::{sourceDir}/sanitize-filename.js[]
 ----
 <1> Affiche `aucun-problème.txt`.
-<2> Affiche `.....sshid_rsa` — les caractères `/` ont été nettoyés car il permettrait de créer des chemins compromettant pour l'application ou le système d'exploitation.
+<2> Affiche `+.....sshid_rsa+` — les caractères `/` sont nettoyés car il permettrait de créer des chemins compromettant pour l'application ou le système d'exploitation.
 
 === helmet
 
@@ -454,15 +454,13 @@ sample.css:14:1: CSS 2.1 selectors not supported by: IE (6)
 == Optimiser notre code
 
 Commentaires, indentations ou encore noms de variables : tout ça occupe de
-la place, donc des caractères textuels et donc des octets de bande passante.
+la place — autant d'octets transférés sur le réseau avant d'être exécutés
+par un client web.
+Les outils d'optimisation offrent l'opportunité aux développeurs et développeuses
+d'écrire du code sans compromettre sa lisibilité et sa maintenabilité.
 
-Sans outillage, l'optimisation repose littéralement entre les mains des
-développeurs.
-Ces derniers doivent alors compromettre lisibilité et maintenabilité au
-profit de quelques kilo-octets. +
-Ce que nous chercherons à tout prix à ne pas sacrifier.
-
-Les minifieurs mettent en œuvre différentes techniques pour réduire cette occupation d'espace :
+Les minifieurs et optimiseurs mettent en œuvre différentes techniques pour
+réduire le poids de notre code :
 
 - suppression des commentaires et caractères non-significatifs ;
 - renommage de variables ;
@@ -471,38 +469,14 @@ Les minifieurs mettent en œuvre différentes techniques pour réduire cette occ
 - suppression du code inutilisé ;
 - écriture automatique de code pour supporter des environnements anciens ou futurs.
 
-=== cssmin
-
-_cssmin_ ([URL]#https://npmjs.com/cssmin#) est un portage ECMAScript du
-compresseur CSS _YUICompressor_ développé par la compagnie _Yahoo!_ à la
-fin des années 2000. +
-L'approche de _cssmin_ consiste principalement à supprimer les caractères
-et commentaires non-significatifs.
-Il ne cherche pas à faire davantage que son homologue originel.
-
-_cssmin_ est donc un outil simple, exposant un exécutable système ainsi
-qu'un module Node.
-Il ne fournit en revanche aucun support pour les _Source Maps_. Il vous
-faudra reposer sur l'outillage proposé par les navigateurs web modernes
-pour le débogage (reformatage du code, inspection des propriétés etc.).
-
-.Exemples d'utilisation de *cssmin*
-----
-$ cssmin sample.css > sample.min.css # <1>
-
-$ cat sample.css | cssmin | wc -c | awk '{print $1}' # <2>
-----
-<1> Exporte le résultat de la minification dans le fichier `sample.min.css`.
-<2> Utilisation des _pipes_ UNIX pour afficher le nombre de caractères d'une version minifiée de `sample.css`.
-
 === uglify-js2
 
 _UglifyJS_ ([URL]#https://npmjs.com/uglify-js2#) est un des premiers
-compresseurs à utiliser une  représentation syntaxique en arbre
+compresseurs à utiliser une représentation syntaxique en arbre
 (_Abstract Syntax Tree_ — _AST_) en lieu et place des classiques
 optimisations à coups d'expressions régulières.
 
-Cette méthode permet d'élargir les perspectives de la compression via de
+Cette méthode élargit les perspectives de la compression via de
 la réécriture de code :
 
 - _hoisting_ des variables (remontée de leur déclaration en début de _scope_) ;
@@ -511,87 +485,88 @@ la réécriture de code :
 - réécriture partielle d'expressions ;
 - injection en ligne du contenu de variables.
 
-_UglifyJS_ s'utilise de manière autonome, en ligne de commande ou via son
-API ECMAScript, mais aussi par le biais de plugins grunt, gulp et
-<<browserify,browserify>> (uglifyify et minifyify).
+_UglifyJS_ s'utilise en ligne de commande ou comme un module Node.
+
+=== postcss
+
+_PostCSS_ ([URL]#https://npmjs.com/postcss#) est une optimiseur CSS modulaire.
+Cet outil est construit autour d'un parseur CSS, d'un arbre syntaxique
+et d'un compilateur texte.
+C'est la même recette qui a participé au succès et à la richesse fonctionnelle
+d'outils comme <<uglify-js2,UglifyJS>> et <<eslint,ESLint>>.
+
+Avec une ou plusieurs extensions, vous basculez d'un optimiseur de code
+vers la possibilité de créer votre propre préprocesseur, à la Sass !
 
 === autoprefixer
 
 _autoprefixer_ ([URL]#https://npmjs.com/autoprefixer#) est _le_ module qui
-vous épargnera l'écriture de centaines de lignes en ajoutant automatiquement
-les bons préfixes aux bons endroits.
-Travail d'autant plus ingrat si vous n'avez pas envie ni le loisir de
-recourir à des _mixins_ Less ou Sass. +
-_autoprefixer_ expose une API ECMAScript, un exécutable système ainsi qu'une
-API de _streaming_ permettant une intégration sans plugin avec
-<<browserify,browserify>>, entre autres.
+vous épargnera l'écriture de centaines de lignes CSS.
+Il ajoute automatiquement les préfixes navigateurs aux bons endroits
+— `-webkit`, `-moz`, etc.
 
-.Exemple d'utilisation d'_autoprefixer_ en fonction des besoins en compatibilité navigateur
+_autoprefixer_ s'utilise comme extension au module <<postcss,PostCSS>>,
+en ligne de commande ou comme module Node.
+
 ----
-$ autoprefixer -o - sample.css | grep transition
-  -webkit-transition: font-weight 0.2s ease;
+$ ../node_modules/.bin/postcss sample.css \
+    --use autoprefixer  | grep transition
           transition: font-weight 0.2s ease;
+----
 
-$ autoprefixer -b 'firefox > 8' -o - sample.css | grep transition
-  -webkit-transition: font-weight 0.2s ease;
+Le choix de compatibilité avec les navigateurs repose sur la variable
+d'environnement `BROWSERSLIST`, gérée par le module _browserslist_
+([URL]#https://npmjs.com/browserslist#) :
+
+----
+$ export BROWSERSLIST='firefox > 8'
+$ ../node_modules/.bin/postcss sample.css \
+    --use autoprefixer | grep transition
      -moz-transition: font-weight 0.2s ease;
           transition: font-weight 0.2s ease;
 ----
 
-L'exemple précédent illustre comment la propriété `transition` a été préfixée pour couvrir les navigateurs ayant plus de 1% de part de marché, puis en incluant les versions supérieures à Firefox 8 — assez obsolètes il faut se l'avouer. +
-L'utilisation du paramètre `-o -` (_o_ pour _output_) suivi du caractère _trait d'union_ redirige le code réécrit en _sortie standard_ au lieu de modifier le fichier originel.
-
 === uncss
 
 _uncss_ ([URL]#https://npmjs.com/uncss#) est le pendant inverse d'_autoprefixer_
-puisqu'il se charge de supprimer le code inutilisé.
-Pour se faire, _uncss_ charge une ou plusieurs pages de référence et fait la
-différence entre les règles CSS utilisées et celles qui ne le sont pas.
-Libre à vous de mentionner une liste blanche de règles à ne jamais supprimer
-pour éviter qu'elles soient écrémées par mégarde.
+puisqu'il se charge de supprimer le code CSS inutilisé.
+Il s'utilise de manière autonome ou comme module <<postcss,PostCSS>>.
 
-Si le monde de l'optimisation ECMAScript a explosé depuis l'apparition d'_esprima_,
-il en est de même pour CSS avec _PostCSS_ ([URL]#https://npmjs.com/postcss#). +
-Cet outil est construit autour du triptyque suivant :
+Le module charge une ou plusieurs pages web, calcule la différence entre
+les règles utilisées et celles qui ne le sont pas.
+Libre à vous de mentionner une liste blanche de règles à ne jamais supprimer.
 
-- un parseur CSS ;
-- un arbre syntaxique ;
-- un compilateur texte.
+=== csswring
 
-Cette combinaison rend possible la production de _Source Maps_ mais aussi la
-construction d'une multitude d'outils destinés à faciliter la vie des développeurs.
-Ces outils se greffent sur le parseur, l'arbre ou le compilateur pour parvenir
-à leurs fins. +
-Avec une ou plusieurs extensions, vous avez ainsi accès à _autoprefixer_, à
-votre nettoyeur de code mort ou même à votre propre réimplémentation de Sass
-entièrement en ECMAScript !
+_csswring_ ([URL]#https://npmjs.com/csswring#) est un minifieur de code CSS
+qui s'interface lui aussi avec <<postcss,PostCSS>>.
+Vous lui donnez du code, il en ressort une version avec le minimum de caractères
+possibles.
 
 === google-closure-compiler-js
 
 _Google Closure Compiler_ ([URL]#https://npmjs.com/google-closure-compiler-js#)
 est un compilateur ECMAScript plus poussé qu'_UglifyJS_ mais qui impose un
 style d'écriture plus strict, voire plus contraignant.
-
-=== csswring
-
-_csswring_ ([URL]#https://npmjs.com/csswring#) est une alternative plus
-moderne que _cssmin_.
-Il s'interface aussi avec _PostCSS_ et offre un support des _Source Maps_.
+Ses optimisations sont en général bien plus poussées et permettent d'atteindre
+des niveaux de finesse difficiles à obtenir autrement.
 
 === csso
 
-_csso_ ([URL]#https://npmjs.com/csso#) est une alternative à _cssmin_ et _csswring_.
-Elle est écrite par l'équipe derrière la méthodologie BEM
-([URL]#https://en.bem.info#), moins bien documentée mais plus efficace en
-terme d'optimisations.
+_csso_ ([URL]#https://npmjs.com/csso#) est une alternative à <<csswring,csswring>>.
+Elle est écrite par l'équipe derrière la méthodologie BEM ([URL]#https://en.bem.info#).
 
 _csso_ ira jusqu'à réécrire les codes couleurs, les `margin` et `padding` et
 factorisera les sélecteurs similaires.
 
 === svgo
 
-_svgo_ ([URL]#https://www.npmjs.com/svgo#).
+_svgo_ ([URL]#https://www.npmjs.com/svgo#) s'attaque au nettoyage des fichiers
+graphiques vectoriels au format SVG.
+Il simplifie les chemins et supprime les attributs et déclarations superflues.
 
+Vous pouvez l'essayer en ligne sur [URL]#https://jakearchibald.github.io/svgomg/#
+ou l'intégrer comme extension à <<postcss,PostCSS>>.
 
 
 == Transformer du code
