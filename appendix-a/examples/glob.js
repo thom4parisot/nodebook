@@ -1,9 +1,8 @@
-const glob = require('glob');
+'use strict';
 
-glob('*.js', (err, files) => {
-  if (err) {
-    return console.error(err);
-  }
+const {promisify} = require('util');
+const glob = promisify(require('glob'));
 
-   console.log(files); // <1>
-});
+glob('*.js').then(console.log);     // <1>
+glob('re*.js').then(console.log);   // <2>
+glob('sample.*').then(console.log); // <3>

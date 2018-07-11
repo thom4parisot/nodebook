@@ -636,63 +636,70 @@ du jour au lendemain et travailler sur le code qu'il aura généré sans aucun p
 [[fs]]
 == Gérer des fichiers
 
-Ces librairies adressent des besoins quotidiens de manipulation de fichiers, que ce soit leur création, suppression mais aussi leur sélection ou l'écoute d'événements liés à ces activités.
+Ces librairies nous permettent d'écrire moins de lignes de code
+pour des besoins quotidiens de manipulation de fichiers.
 
 === mkdirp
 
-_mkdirp_ ([URL]#https://npmjs.com/mkdirp#) est identique à la commande UNIX `mkdir -p`.
-C'est-à-dire que les répertoires seront créés récursivement s'ils n'existent pas au préalable.
+_mkdirp_ ([URL]#https://npmjs.com/mkdirp#) est identique à la
+commande Unix `mkdir -p`.
+C'est-à-dire que les répertoires seront créés récursivement
+s'ils n'existent pas au préalable.
 
-L'exemple précédent illustre l'écriture de la date courante dans un fichier.
-Ce fichier n'est écrit que lorsque l'arborescence est préalablement créée.
+Si nous utilisions le module Node `fs`, nous devrions créer l'arborescence de
+répertoires par nous-même, niveau par niveau.
 
 === rimraf
 
-_rimraf_ ([URL]#https://npmjs.com/rimraf#) se situe dans la lignée de
-_mkdirp_ : il supprime une arborescence de manière récursive — équivalent
-de la commande `rm -rf`.
-Encore une fois, sans la complexité d'avoir à gérer un enchevêtrement de
-fonctions asynchrones.
+_rimraf_ ([URL]#https://npmjs.com/rimraf#) est le pendant opposé _mkdirp_.
+Il supprime une arborescence de manière récursive.
+C'est l'équivalent de la commande Unix `rm -rf`.
+
+Si nous utilisions le module Node `fs`, nous devrions supprimer d'abord
+les fichiers puis les répertoires, un par un.
 
 === glob
 
-_glob_ ([URL]#https://npmjs.com/glob#) est un utilitaire très pratique pour
-filtrer une recherche récursive au sein du système de fichiers.
-
-Sa syntaxe équivalente à ce qui se fait dans le monde UNIX évite une écriture
-de code complexe reposant sur l'API `fs`.
+_glob_ ([URL]#https://npmjs.com/glob#) est un utilitaire pour obtenir
+une liste de fichiers en utilisant des motifs.
 
 [source%interactive,javascript]
 .glob.js
 ----
 include::{sourceDir}/glob.js[]
 ----
-<1> Affiche un tableau contenant la liste des fichiers du répertoire courant.
+<1> Affiche une liste de fichiers dont l'extension est `.js`.
+<2> Affiche une liste de fichiers qui commencent par `re` et dont l'extension est `.js`.
+<3> Affiche une liste de fichiers qui s'appelle `sample`, peu importe leur extension.
 
 === fs-extra
 
-_fs-extra_ ([URL]#https://npmjs.com/fs-extra#) complète _rimraf_ et
-_mkdirp_ et ajoute d'autres fonctions utilitaires telles que la copie et
-le déplacement récursifs.
-
+_fs-extra_ ([URL]#https://npmjs.com/fs-extra#) est une collection
+de fonctions pour gérer les opérations de fichiers.
+Le module inclut _rimraf_ et _mkdirp_ en plus d'autres fonctions récursives,
+pour copier, déplacer ou supprimer des fichiers.
 
 === graceful-fs
 
-_graceful-fs_ ([URL]#https://npmjs.com/graceful-fs#) n'apporte aucune API
-supplémentaire à l'API native Node `fs`.
-Sous le capot la librairie simplifie l'écriture de notre code en tentant
-plusieurs fois d'accéder à un fichier si celui-ci n'est pas disponible.
-Un module qui vous sera utile si l'activité de lecture et d'écriture sur
-disque dépasse les capacités du système.
+_graceful-fs_ ([URL]#https://npmjs.com/graceful-fs#) est identique
+au module Node `fs`.
 
+La différence se situe sous le capot : le module gère les défaillances
+du système et tente d'accéder à nouveau aux ressources demandées
+si les erreurs sont liées à des problèmes de performance.
+
+C'est un module à utiliser si notre application dépend fortement de la disponibilité
+du système de fichiers et que celui est fortement sollicité.
 
 === chokidar
 
-_chokidar_ ([URL]#https://npmjs.com/chokidar#) normalise l'observation du
-système de fichiers pour une très grande majorité de systèmes d'exploitation.
-La librairie ajoute quelques fonctionnalités de filtre, de persistance
-d'observation et permet de dynamiquement ajouter ou retirer des fichiers
-de l'observation.
+_chokidar_ ([URL]#https://npmjs.com/chokidar#) crée des observateurs du
+système de fichiers.
+Il gère les différences des systèmes d'exploitation et nous permet d'écrire
+un seul et même code.
+
+C'est la librairie vers laquelle se tourner lorsque nous avons besoin
+de déclencher des actions quand des fichiers sont modifiés.
 
 
 [[databases]]
