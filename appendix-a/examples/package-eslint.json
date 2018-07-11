@@ -1,15 +1,13 @@
 {
-  "name": "nodebook.chapter-04",
-  "private": true,
-  "dependencies": {
-    "eslint": "^1.10.3"
-  },
   "...": "...",
   "eslintConfig": {
     "env": {
       "node": true,
       "es6": true
     },
+    "extends": [
+      "eslint:recommended"
+    ],
     "rules": {
       "strict": ["error", "global"],
       "quotes": ["error", "single"],
