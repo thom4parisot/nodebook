@@ -24,6 +24,10 @@ module.exports = {
   'appendix-a/examples/npm/restify.js': {
     skip: true
   },
+  'appendix-a/examples/tcomb.js': {
+    errorCode: 1,
+    stderr: 'Invalid additional prop',
+  },
   'chapter-03/examples/array/node-list.js': {
     exitCode: 1,
     stderr: 'ReferenceError: document is not defined'

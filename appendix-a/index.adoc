@@ -14,11 +14,11 @@ endif::[]
 = Sélection de modules npm
 
 Cette annexe est une sélection de modules npm ([URL]#https://npmjs.com#)
-à laquelle vous réferer pour démarrer rapidement mais aussi pour mieux comprendre
-tous les contextes d'utilisation de Node.
+à laquelle vous réferer pour démarrer rapidement mais aussi pour découvrir
+les nombreux contextes d'utilisation de Node.
 
-J'ai bâti cette liste sur mon expérience personnelle et sur la confiance que je
-porte aux personnes à l'origine de ces modules.
+J'ai bâti cette liste à partir de mon expérience personnelle et sur la confiance
+que je porte aux personnes à l'origine de ces modules.
 
 include::../docs/tip-versions.adoc[]
 include::../docs/tip-examples.adoc[]
@@ -26,19 +26,17 @@ include::../docs/tip-examples.adoc[]
 
 == Boîte à outil du quotidien
 
-Ces librairies adressent des besoins quotidiens en termes de manipulation de chaînes ou de dates.
-Elles vous permettront aussi d'organiser votre code en exécutant des
-fonctions de manière séquentielle, parallèle ou en boucles asynchrones.
+Ces modules adressent des besoins quotidiens, pour travailler plus rapidement
+sur des structures ECMAScript.
 
 === lodash
 
-_lodash_ ([URL]#https://npmjs.com/lodash#) est une excellente librairie
-de manipulation de tableaux, d'objets, de fonctions et de chaînes.
+_lodash_ ([URL]#https://npmjs.com/lodash#) est une collection de plusieurs
+dizaines de fonctions pour travailler plus facilement avec des chaînes de caractères,
+des tableaux, des fonctions et des objets.
 
-Vous pourrez ainsi boucler, filtrer, extraire et composer sans vous soucier
-de la compatibilité de l'environnement d'exécution.
-
-Ce module est compatible avec Node et les navigateurs Web.
+Vous pourrez ainsi filtrer, sélectionner, fusionner, vérifier et composer
+de nouvelles variables aussi bien pour Node que dans les navigateurs web.
 
 [source,javascript]
 .npm/lodash.js
@@ -47,51 +45,67 @@ include::{sourceDir}/npm/lodash.js[]
 ----
 <1> Affiche `['A', 'B', 'C', 'D']`.
 
-=== string
+=== he
 
-_string_ ([URL]#https://npmjs.com/string#) est un utilitaire de
-transformation de chaînes de caractère.
-Le module fournit des méthodes pour échapper, nettoyer, tronquer, remplacer,
-compter, entre autres.
-
-Compatible Node et navigateurs Web.
+_he_ ([URL]#https://npmjs.com/he#) est un utilitaire pour encoder et décoder
+des entités HTML dans des chaînes de caractères.
 
 [source%interactive,javascript]
-.npm/string.js
+.he.js
 ----
-include::{sourceDir}/npm/string.js[]
+include::{sourceDir}/he.js[]
 ----
-<1> Affiche `blog-post`.
-<2> Affiche `<h1>Blog Post</h1>`.
-<3> Affiche `\&lt;h1\&gt;Blog Post\&lt;/h1\&gt;`.
+<1> Affiche `<h1>Blog Post</h1>`.
+<2> Affiche `&#x3C;h1&#x3E;Blog Post&#x3C;/h1&#x3E;`.
 
 === chance
 
+_chance_ ([URL]#https://npmjs.com/chance#) crée des données de manière aléatoire.
+Le module retourne aussi des prénoms fictifs mais aussi des numéros de téléphone,
+des nombres, des paragraphes, des dates d'anniversaire, des identifiants Android ou Apple, etc.
+
+Il s'utilise surtout pour générer des données factices à des fins de tests,
+en attendant les vraies données.
+
 === date-fns
+
+_date-fns_ ([URL]#https://npmjs.com/date-fns#) est une collection de fonctions
+pour travailler avec des dates, plus facilement qu'avec l'objet natif `Date`.
+
+Vous pouvez formatter, ajouter ou retirer des jours, vérifier si deux périodes
+de temps se chevauchent ou si deux dates font partie d'une même semaine calendaire.
+
 
 === tcomb
 
-structures de données
+_tcomb_ ([URL]#https://npmjs.com/tcomb#) renforce la création de structures
+typées et immutables.
+Ça a pour effet de réduire les effets de bord de nos applications lorsque les
+données n'ont pas la structure attendue.
 
+[source%interactive,javascript]
+.tcomb.js
+----
+include::{sourceDir}/tcomb.js[]
+----
+<1> Définition d'une structure stricte qui a pour propriété `lat` et `lon`, pour _latitude_ et _longitude_.
+<2> Cet appel va jeter une exception car la propriété `long` est inconnue.
+<3> Cet appel va jeter une exception car la propriété `lon` doit être un nombre.
 
 === eventemitter3
 
-_eventemitter3_ ([URL]#https://npmjs.com/eventemitter3#) est une librairie
-performante de gestion d'événements.
-
-Compatible Node et navigateurs Web.
-
+_eventemitter3_ ([URL]#https://npmjs.com/eventemitter3#) permet de gérer
+des événements de manière uniforme dans un script Node et dans les navigateurs web.
 
 [source%interactive,javascript]
 .npm/eventemitter3.js
 ----
-include::{sourceDir}/npm/eventemitter3.js[]
+include::{sourceDir}/eventemitter3.js[]
 ----
 <1> Affiche `[ [Function], [Function] ]`.
 <2> Affiche `on: ping,ping\nonce: ping,ping`.
 <3> Affiche `on: ping,ping`.
 <4> N'affiche rien, l'événement étant désormais déconnecté.
-
 
 
 [[dev]]
@@ -514,8 +528,6 @@ compiler vers du code CSS.
 Ses atouts résident dans la gestion des variables, de _mixins_ et de fonctions
 encourageant une écriture modulaire, plus logique et plus succincte.
 
-Compatible Node et navigateurs Web.
-
 [source]
 .stylesheet.less
 ----
@@ -883,9 +895,6 @@ librairie bien connue par les personnes développant en Python.
 Sa syntaxe inclut des fonctionnalités comme les filtres, les blocs ou
 l'héritage de gabarit.
 
-Compatible Node et navigateurs Web.
-
-
 [source,javascript]
 .template.html
 ----
@@ -900,9 +909,6 @@ Leur parti pris est de proposer le minimum de logique afin que celle-ci
 reste au plus près des données.
 
 _handlebars_ compile ou précompile les gabarits en des fonctions ECMAScript.
-
-Compatible Node et navigateurs Web.
-
 
 [source,javascript]
 .template.hbs
@@ -919,8 +925,6 @@ parti pris à base d'indentation et d'un balisage dépourvu de chevron.
 Son mécanisme de blocs facilite la réutilisation de logiques d'affichage
 au sein de votre application.
 
-Compatible Node et navigateurs Web.
-
 [source,javascript]
 .template.pug
 ----
@@ -933,9 +937,6 @@ _ejs_ ([URL]#https://npmjs.com/ejs#) part du principe qu'il n'y a pas besoin
 d'un langage de templating autre qu'ECMAScript.
 Donc c'est tout simplement ce qui vous sera proposé, impliquant de ce fait
 une faible courbe d'apprentissage.
-
-Compatible Node et navigateurs Web.
-
 
 [source,javascript]
 .template.ejs
@@ -950,8 +951,6 @@ essentiellement connue pour son approche efficace du côté des navigateurs Web.
 Ce qui est moins connu en revanche est sa capacité à pouvoir également générer
 du balisage côté Node et de servir de moteur de rendu pour des _frameworks_
 comme _express_.
-
-Compatible Node et navigateurs Web.
 
 [source,javascript]
 .template.jsx
@@ -985,8 +984,6 @@ d'exécution de tests et d'assertion minimaliste.
 Elle se base sur la sortie de `console.log` pour
 s'assurer de l'état global d'exécution des tests.
 
-Compatible Node et navigateurs Web.
-
 [source,javascript]
 .npm/tape.js
 ----
@@ -1003,8 +1000,6 @@ de leur environnement.
 
 _sinon_ peut étendre _chai_ via le module _sinon-chai_ ou être utilisé
 directement avec le _framework_ de tests _buster_.
-
-Compatible Node et navigateurs Web.
 
 [source,javascript]
 .npm/sinon.js
@@ -1094,8 +1089,6 @@ haut-niveau pour Arduino, Raspberry Pi et autres microcontrôleurs.
 Son API expose des fonctionnalités de manipulations avancées pour simplifier
 les interactions avec des moteurs, des servo-contrôleurs, des capteurs etc.
 
-Compatible Node et navigateurs Web.
-
 === node-red
 
 _node-red_ ([URL]#https://npmjs.com/node-red#) est une interface visuelle de
@@ -1103,9 +1096,6 @@ programmation d'objets connectés.
 Le module Node démarre un serveur web dont l'interface a pour but de relier
 des sources de données, des interactions possibles ainsi que les objets devant
 recevoir les instructions.
-
-Compatible Node et navigateurs Web.
-
 
 
 == Accessibilité

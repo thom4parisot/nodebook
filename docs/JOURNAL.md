@@ -8,10 +8,16 @@ a été écrit, relu et testé avec un public apprenant.
 
 ---
 
+## Mercredi 11 juillet 2018 • Paris
+
+- _Annexe A_ : Boîte à outil du quotidien
+
+**Météo** : 💪 ☀️
+
 ## Mardi 10 juillet 2018 • Paris
 
 - _Tous les chapitres_ : mise en forme des liens orphelins
-- _Annexe A_ : structuration
+- _Annexe A_ : restructuration
 
 **Météo** : 💪 ☀️
 
