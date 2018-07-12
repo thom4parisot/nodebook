@@ -11,6 +11,7 @@ a été écrit, relu et testé avec un public apprenant.
 ## Jeudi 12 juillet 2018 • Paris
 
 - _Annexe A_ : Tester notre code
+- _Annexe A_ : Objets connectés
 
 **Météo** : 💪 ☀️
 

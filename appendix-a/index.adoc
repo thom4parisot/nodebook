@@ -1110,45 +1110,54 @@ bien ce qui est attendu — code HTTP, structure de réponse etc.
 Je trouve ce module pratique pour tester des choses qui seraient difficiles
 à couvrir seulement avec des tests unitaires.
 
-
+[[internet-of-things]]
 == Objets connectés
+
+Node a bénéficié de l'engouement autour des objets connectés grâce à sa nature
+asynchrone et à sa légèreté.
+C'est une plate-forme de choix pour dialoguer ou être embarquée dans des
+nano-ordinateurs, frigo et autres ampoules connectées.
 
 === nitrogen
 
-_nitrogen_ ([URL]#https://npmjs.com/nitrogen#) est une plateforme permettant
-de gérer les interactions entre différents périphériques, sur un même réseau
-local et à travers Internet.
+_nitrogen_ ([URL]#https://npmjs.com/nitrogen#) gère les interactions entre
+différents périphériques, sur un même réseau local et à travers Internet.
 
 La librairie se base sur un mécanisme déclaratif de fonctionnalités et de
 terminaux ainsi que la publication de messages.
 
 === serialport
 
-_serialport_ ([URL]#https://npmjs.com/serialport#) est une librairie pour
-communiquer avec tout appareil bénéficiant d'un port série et relié à un
-périphérique via un port USB.
+_serialport_ ([URL]#https://npmjs.com/serialport#) est la librairie de base
+pour communiquer avec le _port série_ d'un appareil.
+Un câble USB suffit ensuite pour envoyer nos instructions à cet appareil.
 
 === firmata
 
 _firmata_ ([URL]#https://npmjs.com/firmata#) est un _firmware_, un protocole
 de communication ainsi qu'une librairie de communication pour microcontrôleur
 Arduino.
-Le module Node communique via ce protocole avec un Arduino préalablement
+
+Le module Node apprend ainsi à communiquer avec un Arduino préalablement
 flashé avec Firmata.
+Ça nous permet notamment d'écrire des applications en JavaScript au lieu
+d'utiliser du C.
 
 === johnny-five
 
 _johnny-five_ ([URL]#https://npmjs.com/johnny-five#) est une librairie
-haut-niveau pour Arduino, Raspberry Pi et autres microcontrôleurs.
-Son API expose des fonctionnalités de manipulations avancées pour simplifier
-les interactions avec des moteurs, des servo-contrôleurs, des capteurs etc.
+haut-niveau pour Arduino, Raspberry Pi et tout autre microcontrôleur.
+Elle simplifie les interactions avec des moteurs, des servo-contrôleurs,
+des capteurs etc.
 
 === node-red
 
-_node-red_ ([URL]#https://npmjs.com/node-red#) est une interface visuelle de
-programmation d'objets connectés.
-Le module Node démarre un serveur web dont l'interface a pour but de relier
-des sources de données, des interactions possibles ainsi que les objets devant
+_node-red_ ([URL]#https://npmjs.com/node-red#) est une interface visuelle
+pour programmer des flux de données entre objets connectés.
+Le projet émane d'employé·e·s d'IBM.
+
+L'exécutable démarre un serveur web dont l'interface nous sert à relier
+des sources de données, des réactions à des événements avec des objets prêts à
 recevoir les instructions.
 
 
