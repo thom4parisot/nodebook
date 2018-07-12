@@ -4,8 +4,6 @@ const test = require('tape');
 const sinon = require('sinon');
 
 test('Date', (t) => {
-  t.plan(3);
-
   const d = Date;
   const dateTime = new Date('1983-03-24').getTime();
   const stub = sinon.stub(d, 'now');    // <1>
@@ -14,4 +12,5 @@ test('Date', (t) => {
   d.now();
   t.equal(stub.calledOnce, true);       // <3>
   t.ok(stub.returnValues[0] > dateTime);
+  t.end();
 });
