@@ -8,15 +8,10 @@ test('Date', (t) => {
 
   const d = Date;
   const dateTime = new Date('1983-03-24').getTime();
-  const stub = sinon.stub(d, 'now');
-  stub.returns(9999999999999);
+  const stub = sinon.stub(d, 'now');    // <1>
+  stub.returns(9999999999999);          // <2>
 
   d.now();
-  t.equal(stub.calledOnce, true);
-  t.ok(stub.returnValues[0] > dateTime);
-
-  stub.returns(100);
-  d.now();
-
+  t.equal(stub.calledOnce, true);       // <3>
   t.ok(stub.returnValues[0] > dateTime);
 });

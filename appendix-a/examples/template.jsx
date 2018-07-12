@@ -1,36 +1,24 @@
 'use strict';
 
-const React, { Component } = require('react');
+const React = require('react');
 
-class BookList extends Component {
-  render() {
-    return (<ul>
-      {this.props.books.map((bookName, i) => (
-        <li key={i}>{bookName}</li>
-      ))}
-    </ul>);
-  }
+const BookList = ({books=[]}) => {
+  return (<ul>
+    {books.map((bookName, i) => (
+      <li key={i}>{bookName}</li>
+    ))}
+  </ul>);
 }
 
-BookList.defaultProps = {
-  books: [],
-};
-
-BookList.propTypes = {
-  books: React.PropTypes.array,
-};
-
-const App = (props) => {
+module.exports = ({title, books}) => {
   return (
     <html>
       <head>
-        <title>{props.title || 'Template demo'}</title>
+        <title>{title || 'Template demo'}</title>
       </head>
       <body>
-        <BookList books={props.books} />
+        <BookList books={books} />
       </body>
     </html>
   );
 };
-
-module.exports = App;

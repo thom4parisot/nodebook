@@ -994,7 +994,7 @@ dite "réactive" et orientée composants.
 Elle génère un arbre visuel à partir de données passées en entrée.
 Cet arbre est ensuite transformé en HTML, en interface iOS ou Android, entre autres.
 
-[source,javascript]
+[source,jsx]
 .template.jsx
 ----
 include::{sourceDir}/template.jsx[]
@@ -1011,97 +1011,104 @@ dans une autre application.
 [[testing]]
 == Tester notre code
 
-L'outillage permettant de tester vos applications est également richement fourni.
-Il y a bien sûr de quoi couvrir les tests unitaires, générer des couverture de code, exécuter les tests dans différents navigateurs, tester vos API HTTP ou encore créer des _stubs_ et des _mocks_.
-
-[TIP]
-.[RemarquePreTitre]#Remarque# require('assert')
-====
-Node dispose du module `assert` ([URL]#https://nodejs.org/api/assert.html#).
-Vous pouvez donc vous lancer dans vos premiers tests Node avec
-ce module de base.
-
-Une exception sera levée à chaque fois qu'une assertion ne sera pas satisfaite.
-====
+Le module `assert` intégré à Node peut suffire à démarrer.
+Il existe tout un outillage pour tester notre code à destination de Node (tests unitaires)
+ou des navigateurs (tests fonctionnels) ainsi que pour écrire des assertions
+plus facilement.
 
 === tape
 
 _tape_ ([URL]#https://npmjs.com/tape#) est une librairie
-d'exécution de tests et d'assertion minimaliste.
-Elle se base sur la sortie de `console.log` pour
-s'assurer de l'état global d'exécution des tests.
+d'exécution de tests minimaliste qui se base sur le
+_Test Anything Protocol_ (_TAP_, [URL]#https://testanything.org#).
+Elle embarque aussi le minimum vital pour écrire des assertions.
 
 [source,javascript]
 .tape.js
 ----
 include::{sourceDir}/tape.js[]
 ----
+<1> Création d'un test.
+<2> Écriture d'une assertion.
+
+=== chai
+
+_chai_ ([URL]#https://npmjs.com/chai#) est une librairie poussée d'assertions.
+Son mécanisme chaîne permet de quasiment écrire des phrases pour exprimer
+l'intention des choses à vérifier.
+
+[source,javascript]
+.chai.js
+----
+include::{sourceDir}/chai.js[]
+----
+<1> Vérification du type d'une variable.
+<2> Vérification stricte de valeur d'une variable.
+<3> Double vérification — il s'agit bien d'objet et il est vide, sans clé/valeur.
 
 === sinon
 
-_sinon_ ([URL]#https://npmjs.com/sinon#) est votre compagnon idéal pour
-gérer _spys_, _stubs_ et _mocks_.
-En d'autres termes, vous prenez la main sur des portions de votre propre
-API pour vérifier que leur _comportement_ répond comme prévu aux signaux
-de leur environnement.
+_sinon_ ([URL]#https://npmjs.com/sinon#) est un compagnon idéal pour
+intercepter le fonctionnement interne de variables et d'objets.
+Le module propose de créer des écouteurs (_spys_) et des bouchons
+(_stubs_, _mocks_).
 
-_sinon_ peut étendre _chai_ via le module _sinon-chai_ ou être utilisé
-directement avec le _framework_ de tests _buster_.
+En d'autres termes, vous prenez la main sur des portions de votre propre
+code pendant la durée des tests.
+Ces techniques permettent de simuler des erreurs et différentes situations
+tout en observant le comportement réel de notre code.
 
 [source,javascript]
 .sinon.js
 ----
 include::{sourceDir}/sinon.js[]
 ----
+<1> Création d'un bouchon pour la méthode `now()` d'un objet `Date`.
+<2> Surcharge de la valeur retournée par la méthode `d.now()`.
+<3> Nous constatons le nombre de fois où la méthode `d.now()` a été appelée.
+
+Le module _sinon-chai_ ([URL]#https://npmjs.com/sinon-chai#)
+intègre _sinon_ avec le mécanisme d'assertions de <<chai>>.
 
 === nyc
 
-_nyc_ ([URL]#https://npmjs.com/nyc#) génère une couverture de code en
-inspectant le code exécuté par vos tests unitaires.
-Les portions de votre applications ignorées par vos tests sont signalées
-et une exception peut être lancée si un seuil de couverture n'est pas atteint.
+_nyc_ ([URL]#https://npmjs.com/nyc#) génère une couverture de code.
+Il inspecte le code exécuté pendant les tests et en déduit les portions
+qui n'ont pas été visitées, et donc qui n'ont pas été testées.
+C'est un indicateur utile pour attester de la fiabilité d'une base de code
+— plus la couverture est importante, plus il y a de chances que les cas à la marge
+ont été vérifiés.
 
-.Résultat de couverture visualisée dans le terminal
+.Couverture de code visualisée dans un terminal.
 image::images/nyc-cli.png[width="85%"]
 
-_nyc_ se greffe sur n'importe quel librairie d'exécution de tests et se base
-sur la librairie _istanbul_ ([URL]#https://npmjs.com/istanbul#) pour calculer
-la couverture de code.
+_nyc_ se greffe sur n'importe quel librairie d'exécution de tests.
+Sous le capot, c'est le module _istanbul_ ([URL]#https://npmjs.com/istanbul#)
+qui est utilisé pour effectuer les calculs de couverture de code.
 
-.Résultat de couverture visualisée dans un navigateur web
+.Couverture de code visualisée dans un navigateur web.
 image::images/nyc-web.png[width="85%"]
 
 === karma
 
-_karma_ ([URL]#https://npmjs.com/karma#) pilote l'exécution de tests unitaires
+_karma_ ([URL]#https://npmjs.com/karma#) pilote l'exécution de tests
 depuis un ou plusieurs navigateurs web.
-Ces navigateurs peuvent tout aussi bien être ceux présents sur votre machine,
-que des navigateurs résidant dans une VM ou exécutés à distance via des services
-comme SauceLabs ou BrowserStack.
+Ces navigateurs se pilotent sur notre ordinateur (Chrome, Safari, Firefox, etc.),
+depuis une machine virtuelle (VirtualBox) ou même par le biais d'un service
+en ligne (SauceLabs, BrowserStack, etc.).
 
-.Exemple d'exécution continues de tests avec Karma
+.Exemple d'exécution de tests en continu avec Karma.
 image::images/karma.png[width="85%"]
 
 === supertest
 
-_supertest_ ([URL]#https://npmjs.com/supertest#) est une librairie de tests
-pour API HTTP.
-Autrement dit, au lieu de tester directement le code de votre application,
-vous testez le comportement de votre API au travers des codes HTTP et des
-structures de données exposées.
+_supertest_ ([URL]#https://npmjs.com/supertest#) nous permet de tester
+une interface HTTP.
+Le module envoie des requêtes et nos assertions vérifient qu'elles retournent
+bien ce qui est attendu — code HTTP, structure de réponse etc.
 
-
-=== eslint
-
-_eslint_ ([URL]#https://npmjs.com/eslint#) teste la qualité de votre code et
-signale des pratiques de programmation à risque.
-
-Disponible via une invocation en ligne de commande, libre à vous de paramétrer
-le comportement du _linter_ selon vos propres règles ou selon des règles
-pré-établies, partagées sur le registre _npm_.
-
-C'est un excellent moyen d'éviter des bugs tout en uniformisant vos pratiques
-de codage au sein de vos applications.
+Je trouve ce module pratique pour tester des choses qui seraient difficiles
+à couvrir seulement avec des tests unitaires.
 
 
 == Objets connectés

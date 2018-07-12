@@ -8,6 +8,12 @@ a été écrit, relu et testé avec un public apprenant.
 
 ---
 
+## Jeudi 12 juillet 2018 • Paris
+
+- _Annexe A_ : Tester notre code
+
+**Météo** : 💪 ☀️
+
 ## Mercredi 11 juillet 2018 • Paris
 
 - _Annexe A_ : Boîte à outil du quotidien
