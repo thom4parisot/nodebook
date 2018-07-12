@@ -1,64 +1,83 @@
 = Avant-propos
 
-*Node.js* – appelons-le *Node* dès à présent – est né dans le cerveau de Ryan Dahl, ancien étudiant sans le sou et au parcours informatique atypique.
-Son talent a été de s'obstiner à *résoudre un problème d'expérience utilisateur* fréquent sur le web : *l'attente devant un navigateur web figé*.
-Son but ? Rendre possible et facile la création de *barres de progression* dans les navigateurs Web.
+*Node.js* – appelons-le *Node* dès à présent – est né dans le cerveau de
+Ryan Dahl, ancien étudiant sans le sou et au parcours informatique atypique.
+Son talent a été de s'obstiner à *résoudre un problème d'expérience utilisateur*
+fréquent sur le web : *l'attente devant un navigateur web figé*.
+Son but ? Rendre possible et facile la création de *barres de progression*
+dans les navigateurs Web.
 
 J'ai utilisé Node pour la première fois en 2010, par curiosité.
-On en était alors qu'à la version `0.4`.
-Pouvoir créer mon propre serveur HTTP me semblait étrange, moi qui étais un habitué du duo PHP et Apache.
-*L'effet _wahou_ était pourtant là* : une installation en quelques secondes, quelques lignes de JavaScript et j'avais une API REST câblée avec une base de données _CouchDB_ pour impressionner mes collègues de l'agence _Clever Age_.
+Nous en étaions alors à la version `0.4`.
+Créer mon propre serveur HTTP était un concept qui semblait étrange,
+moi qui étais un habitué à écrire des applications PHP et à les mettre derrière
+un serveur Apache — nginx commençait à peine à décoller.
 
-Je bascule dans un *contexte startup* fin 2011 : nous sommes quatre développeurs avec des bagages différents.
-Nous partons sur Node que notre hébergeur _Alwaysdata_ installe sans encombre.
+*L'effet _wahou_ était pourtant là* : une installation en quelques secondes,
+quelques lignes de JavaScript et j'avais une API REST câblée avec une base
+de données _CouchDB_ pour impressionner mes collègues.
+
+Je bascule dans un *contexte startup* fin 2011 : nous sommes quatre développeurs
+avec des bagages différents.
+Nous voulions *un langage commun* pour le back-end et le front-end.
+Nous partons sur Node, installé sans encombre sur notre serveur dédié
+géré par l'hébergeur _AlwaysData_.
 Nous avions la *sensation de progresser rapidement*.
-Nous allions _réellement_ vite. +
-*JavaScript était devenu notre langue commune grâce à Node*.
+Nous allions _réellement_ vite.
 
-Depuis, de nombreuses entreprises ont communiqué sur leur adoption de Node :  Paypal, LinkedIn, eBay, Airbnb, British Gaz, Allociné, The New York Times, Yahoo!, Microsoft, Mozilla, Flickr ou encore Twitter.
-Leur utilisation couvre aussi bien l'outillage métier que les transactions bancaires, des serveurs LDAP, des web services ou des sites web.
-
-Pourtant, nombre d'ouvrages et de ressources se focalisent uniquement sur le dernier _framework_ ou librairie à la mode en passant à côté de l'essentiel.
+Depuis, de nombreuses entreprises ont communiqué sur leur adoption de Node :
+Paypal, LinkedIn, eBay, Airbnb, British Gaz, Allociné, The New York Times,
+Yahoo!, Microsoft, Mozilla, Flickr ou encore Twitter.
+Ces entreprises l'utilisent pour façonner leur outillage métier,
+gérer les transactions bancaires, leurs serveurs LDAP, des web services ou
+des sites web.
 
 == Pourquoi ce livre ?
 
-*Node est un environnement plaisant et agréable à utiliser*, c'est ce que j'aime et aspire à partager avec vous au cours des prochaines pages de cet ouvrage.
+Je trouve que *Node est un environnement élégant et agréable*.
+Je prends beaucoup de plaisir à l'uitliser au quotidien mais je regrette
+l'accent placé sur la nouveauté permanente et la sur-ingéniérie des articles
+et ouvrages en langue française.
 
-Node est *mon outil de travail principal* depuis 2011.
-Outillage, tests, API, applications, prototypes et automatisation.
-Sa simplicité, son architecture et l'emphase sur la modularité m'ont fait *progresser dans l'usage de JavaScript* ainsi que sur la compréhension bas-niveau des systèmes d'exploitation.
+Node est *mon outil de travail principal* depuis 2011 et je fais quasiment tout avec
+— y compris l'outillage de publication de cet ouvrage.
+J'avais envie de communiquer sur la simplicité, l'architecture modulaire et
+la versatilité de Node pour que vous puissiez *progresser dans l'usage de JavaScript*,
+*façonner votre propre outillage* et pour mieux
+*utiliser les ressources des systèmes d'exploitation*.
 
-Je souhaite offrir un *contenu moins technique que d'ordinaire*, plus pratique et encourageant la bidouille : le livre lui-même peut être installé avec Node, lu et pratiqué dans un _shell_.
+Je vous propose donc un *contenu moins technique que d'ordinaire*, orienté sur
+l'apprentissage par la pratique et des concepts qui durent dans le temps.
+Cet ouvrage s'installe avec Node : tous les exemples sont réels et fonctionnent
+dans votre terminal.
 
-Je souhaite aussi *partager les principes clés de Node* et de la programmation JavaScript.
-Ces principes traversent le temps et vous donneront, je l'espère, un appétit et des bases plus solides pour créer de petits programmes, faire un prototype rapide ou déployer une application complète.
-
-Enfin, l'écriture de ce livre est également pour moi l'occasion d'*apprendre de mes pairs*, de leurs heures d'expérience en tant que formateurs, d'explorer des sujets qui me font peur et sur lesquels je ne me sens pas à l'aise.
-
-Indirectement, je veux *déconstruire la posture de l'expert et du lecteur* en ouvrant le contenu pendant le processus d'écriture, dans un endroit où éditeur, lecteurs et auteurs apprennent les uns des autres.
+Indirectement, je souhaite *déconstruire la posture d'expert et de lecteur*
+en me mettant à vos côté pendant votre apprentissage.
+Une partie des contenus a été conçue et relue en ateliers collectifs pour que
+la progression se fasse de manière naturelle.
 
 == À qui s'adresse cet ouvrage ?
 
-Réponse _courte_ : *à tout le monde*. Vraiment.
+J'ai écris cet ouvrage avec _trois profils de personnes_ en tête :
+des personnes qui souhaitent *se mettre à Node sans savoir par où commencer*,
+celles et ceux qui font du *front-end et souhaitent mieux comprendre leur outillage*
+et enfin, les personnes qui veulent *renforcer leurs connaissances* en Node et
+JavaScript afin de changer de travail/métier.
 
-Réponse _informelle_ : à toute *personne curieuse* ou *souhaitant apprendre* ou *s'améliorer en programmation*, sans forcément trop savoir par où commencer.
-Je crois fermement qu'apprendre à programmer n'implique pas de faire de la programmation son métier ni de pratiquer sans erreur – on peut avoir envie de *découvrir par plaisir*, par *envie de comprendre* ses pairs ou pour *engager une conversation* avec ses collègues.
-
-Réponse _formelle_ :
-
-* à des personnes dont la *programmation est le métier* mais pratiquant peu ou pas assez JavaScript ;
-* à des personnes adeptes du *développement _front-end_* et cherchant à mieux s'outiller ;
-* à des *personnes non-techniques* qui chercheraient à prototyper une idée d'application dans le cadre d'un projet perso ou d'une startup ;
-* à des personnes souhaitant *introduire de nouvelles pratiques* dans leur équipe ;
-* à des personnes cherchant à faire de JavaScript une
-*langue commune entre le _back-end_ et le _front-end_* de leurs applications.
+Cet ouvrage s'adresse aussi à des personnes qui ne programment pas pour gagner leur
+vie et qui veulent mieux comprendre de quoi parlent les développeurs et développeuses.
+Je pense que les interactions de travail sont de meilleures qualité quand nous
+avons le loisir de comprendre les implications des personnes avec qui nous travaillons.
 
 == Structure de l'ouvrage
 
-Cet ouvrage a été conçu pour être lu dans _deux ordres_ :
-*séquentiel*, comme une histoire et *transversal*, en fonction de vos envies.
+Cet ouvrage se lit dans l'ordre de votre choix.
 
-Cette édition se compose de _neuf chapitres_ :
+J'ai fait en sorte que la lecture soit progressive, du plus simple au plus complexe.
+Le contenu des chapitres est progressif, explore une problématique et se termine
+souvent sur une section avancée, *pour aller plus loin*.
+
+Cette édition est composée de _neuf chapitres_ et d'_une annexe_ :
 
 . *Histoire, écosystème et gouvernance* +
   Nous apprendrons d'où vient Node et qui sont les acteurs participant à son histoire.
@@ -94,25 +113,18 @@ Cette édition se compose de _neuf chapitres_ :
   et à profiter des modules pour écrire des
   applications front-end de qualité.
 
-Des *annexes* complètent l'ouvrage avec une *sélection de modules _npm_*
-et des exemples de *design patterns*.
-De quoi élargir notre perception et écrire du code plus robuste.
-
-Cet ouvrage est également consultable sur _cinq supports_ :
-
-- *livre*, le format par excellence — vendu en librairie et sur Internet ;
-- *e-book*, idéal si vous disposez d'une liseuse numérique ;
-- *web*, idéal pour bénéficier d'exemples interactifs, des exemples vidéo et d'un contenu à jour ;
-- *npm*, idéal pour apprendre Node.js par la pratique ;
-- *source*, idéal pour proposer ou corriger le contenu et apprendre comment l'ouvrage est constitué.
+L'*annexe* complète l'ouvrage avec une *sélection de modules _npm_*,
+pour démarrer plus vite et mieux cerner ce qu'on peut faire avec Node.
 
 [TIP]
 .[RemarquePreTitre]#Ressources# Contenu en [line-through]#livre# libre accès
 ====
-Le contenu de cet ouvrage est géré sur [URL]#https://github.com/oncletom/nodebook#
-grâce à la plate-forme collaborative _GitHub_.
+Le contenu de cet ouvrage est actualisé en permanence sur [URL]#https://oncletom.io/node.js/#.
 
-Je vous invite à l'utiliser pour me transmettre vos avis, corrections et suggestions.
+L'intégralité du code source du livre et des exemples sont hébergés sur
+[URL]#https://github.com/oncletom/nodebook#.
+J'utilise la plate-forme collaborative _GitHub_ pour recueillir vos avis,
+corrections et suggestions.
 ====
 
 == Remerciements
@@ -121,29 +133,40 @@ Cet ouvrage a été rédigé sur près de _quatre années_ – longue est la lis
 exhaustive des personnes à remercier.
 Longue aussi est la liste de celles et ceux à qui je dois m'excuser pour mes
 sautes d'humeur, mes absences ou mes passages à vide.
-Écrire est une activité que je trouve éprouvante et nécessite une attention
-particulière vis à vis de moi-même pour ne pas (trop) en souffrir.
+L'écriture sur une longue durée est une activité que je trouve éprouvante.
+Elle nécessite un ajustement permanent vis à vis de moi-même pour ne pas
+(trop) en souffrir.
 
 Mes premiers remerciements vont à Noémie.
 Ta joie, tes encouragements et ta présence sont essentiels à mon équilibre.
-Ils me donnent confiance, m'inspirent et atténuent les peurs qui me paralysent.
+Ils m'emplissent de confiance, m'inspirent et atténuent les peurs qui me paralysent.
 
 Je remercie Karine, Laurène, Elsa et Alexandre d'_Eyrolles_ pour cette opportunité.
 Je trouve que vous avez fait preuve d'une patience et d'une confiance
-infinies malgré tous ces rebondissements.
+infinies malgré le délai d'écriture.
 
 Je tiens à remercier mes anciens collègues de BBC R&D pour leur soutien,
 leur confiance et leur tolérance aux jeux de mots.
 Olivier, Sean, Katie, Chris N et Chris L : c'était un plaisir et un honneur
 d'être à vos côtés.
 
-Certain·e·s d'entre vous m'ont beaucoup aidé de par leurs conseils, leurs relectures et leurs encouragements.
-Alors un grand merci Stéphane, Frank, Thierry, Boris, Béa, Efi, Alexandra, Thomas, Xavier, Bastien, Nicolas C, n1k0 et Loic.
+Certain·e·s d'entre vous m'ont beaucoup aidé de par leurs conseils,
+leurs relectures et leurs encouragements.
+Alors un grand merci pour ça à Béa, Claire, Clémentine, David, Efi, Fabien,
+Frank, Philippe, Stéphane et Thierry.
 
-J'ai organisé une résidence d'écriture itinérante de janvier à mars 2017.
-On m'a hébergé, nourri et parfois blanchi.
-Merci beaucoup beaucoup Maxime W, Brice F, Nicolas F, les gens du Yelloworking à Aix, Antoine F, les gens de la Coop à Grenoble, Cédric et Hélyette, Agnès, les gens de Mix-IT, les gens de la Cordée à Lyon, Maxime L, les gens de la Myne à Villeurbane, Clément D et Quentin A, les gens de Clever Cloud, Thomas M et Lilian M, les gens du ByteClub, Alexis J, les gens de Matlo, les gens du Fab Lab 127°, Arnaud R, Ismaël H et les gens de BetaGouv.
+Merci à l'équipe d'Asciidoctor pour leur travail précieux et leurs réponses à
+mes innombrables questions.
+Je pense notamment à Guillaume et à Dan.
+
+Merci à Antoine pour notre travail en duo sur l'écriture numérique.
+Je suis fier d'apporter ce mode d'écriture dans les communautés académiques,
+du design et des archivistes.
+
+Enfin, je remercie toutes les personnes qui m'ont accueilli chez elles,
+dans leur maison, dans leur bureau ou dans leur communauté/meet-up pendant mon
+écriture itinérante en 2017 et 2018.
 
 Bonne lecture,
 
-— Thomas Parisot • [URL]#https://oncletom.io#
+— Thomas

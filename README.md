@@ -13,7 +13,7 @@
 
 | Statut | Chapitre                  | Objectif d'apprentissage | |
 | -------|---------------------------|--------- |---|
-| ✅      | [Avant-propos][preamble] | - | -
+| ✅      | [Avant-propos][preamble] | _pourquoi tu écris cet ouvrage ?_ | -
 | ✅      | **[Histoire, écosystème et gouvernance][ch01]** | _ça marche comment la vie de Node et des gens qui le font ?_ | [issues][ch01-issues]
 | ✅      | **[Installer, mettre à jour et développer][ch02]** | _ça marche comment Node sur une machine ?_ | [issues][ch02-issues]
 | ✅      | **[Jouer avec JavaScript][ch03]** | _ça marche comment JavaScript ?_ | [issues][ch03-issues]
@@ -23,7 +23,7 @@
 | ✍️      | **[Créer une application web][ch07]** |  _ça marche comment HTTP ?_ | [issues][ch07-issues]
 | ✅      | **[Créer un outil en ligne de commande][ch08]** | _ça marche comment du code métier dans le terminal ?_ | [issues][ch08-issues]
 | ✅      | **[Créer une application frontend][ch09]** | _ça marche comment les modules Node dans les navigateurs web ?_ | [issues][ch09-issues]
-| ✅      | _Annexe_ : **[Sélection de modules npm][a01]** | - | [issues][appendix-issues]
+| ✅      | _Annexe_ : **[Sélection de modules npm][a01]** | _quel(s) module(s) npm choisir ou découvrir ?_ | [issues][appendix-issues]
 
 # Lire l'ouvrage
 

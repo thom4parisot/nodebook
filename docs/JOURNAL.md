@@ -13,8 +13,9 @@ a été écrit, relu et testé avec un public apprenant.
 - _Annexe A_ : Tester notre code
 - _Annexe A_ : Objets connectés
 - _Annexe A_ : Accessibilité
+- _Avant-Propos_ : Actualisation
 
-**Météo** : 💪 ☀️
+**Météo** : 💪 ☀️ 🍞
 
 ## Mercredi 11 juillet 2018 • Paris
 
