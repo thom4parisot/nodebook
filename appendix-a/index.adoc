@@ -1163,25 +1163,56 @@ recevoir les instructions.
 
 == Accessibilité
 
+L'écosystème npm a participé à un essor d'outillage lié à l'accessibilité
+d'applications web.
+Auparavant, les outils étaient difficilement automatisables.
+
 === a11y
 
-_a11y_ ([URL]#https://npmjs.com/a11y#).
+_a11y_ ([URL]#https://npmjs.com/a11y#) est un automate d'inspection de pages web.
+Il détecte des problèmes de contrastes, de calques qui masquent du contenu
+ou d'éléments qui ne seraient pas navigables au clavier, entre autres.
 
-=== chai-a11y
+C'est un excellent outil pour améliorer la qualité d'une application tout en
+l'ouvrant à un public trop souvent mis de côté.
 
-_chai-a11y_ ([URL]#https://npmjs.com/chai-a11y#).
+----
+$ npx a11y https://oncletom.io
+  ✖ Controls and media elements should have labels
+
+  #search > .form-control
+
+
+✔ This element does not support ARIA roles
+✔ Elements with ARIA roles must be in the correct scope
+✔ This element has an invalid ARIA attribute
+✔ ARIA state and property values must be valid
+----
 
 === a11y.css
 
-_a11y.css_ ([URL]#https://npmjs.com/a11y.css#).
+_a11y.css_ ([URL]#https://npmjs.com/a11y.css#) est une feuille de styles CSS
+à injecter dans une page web pour rendre visible des incohérences.
+Parmi ces incohérences, nous retrouvons des boutons sans intitulés, l'absence
+de langue du document ou encore l'absence de bouton de validation de formulaire
+ou de texte alternatif d'images.
 
 === lighthouse
 
-_lighthouse_ ([URL]#https://npmjs.com/lighthouse#).
+_lighthouse_ ([URL]#https://npmjs.com/lighthouse#) est l'outil d'analyse de
+performances, de référencement (SEO) et d'accessibilité embarqué dans
+le navigateur web Google Chrome.
+
+Ce module npm le rend utilisable depuis un terminal et écrit le rapport
+dans un fichier HTML.
 
 === storybook-addon-a11y
 
-_storybook-addon-a11y_ ([URL]#https://npmjs.com/storybook-addon-a11y#).
+_storybook-addon-a11y_ ([URL]#https://npmjs.com/storybook-addon-a11y#)
+est une extension au module <<storybook>>.
+Le module signale les problèmes d'accessibilité au niveau de chaque composant.
+Le suivi est ainsi fait en continu, au plus proche des composants distribués
+et utilisés dans les applications.
 
 
 == Travailler avec des images, des sons et des vidéos

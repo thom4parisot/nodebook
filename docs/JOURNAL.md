@@ -12,6 +12,7 @@ a été écrit, relu et testé avec un public apprenant.
 
 - _Annexe A_ : Tester notre code
 - _Annexe A_ : Objets connectés
+- _Annexe A_ : Accessibilité
 
 **Météo** : 💪 ☀️
 
