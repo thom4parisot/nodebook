@@ -930,26 +930,43 @@ contexte où plein de personnes accèdent à une application, font plein de truc
 [[tests]]
 == Vers un code réutilisable et testable
 
+le but est d'arriver à un fichier qui assemble les composants : server.js qui assemble la base de données aux routes
+des composants les plus indépendants possibles des requêtes/réponses
+des données toutes prêtes envoyées au template
+fonctions des
+
 === Modulariser le code des routes
 
 but est de rendre une fonction de render la plus fine possible
 
-- middlewares
-- initialisation
+- fichier server le plus fin possible
+- si ça plante, que ça plante le plus vite possible (avant la première requête) car plus rapide à corriger
+- créer des middlewares pour mettre en commun/sortir des choses qui n'ont rien à voir avec l'objet de la route (genre, l'authentification)
+- dans les routes, appeler des fonctions testables
 
-=== Tester le code indépendamment du framework
+=== Un code testable est un code indépendant du framework
+
+la modularisation découple les différents aspects et les rend testable
+
+tester les helpers
+tester les middlewares
+tester les données entrantes
+tester le code qui retourne des données
 
 mocha, chai, bon duo
 
 === Tester les aspects cruciaux du front-end
 
-Cf. chapter-09/karma
+supertest pour assurer de bout en bout que la page génère ce qu'il faut
+Cf. chapter-09/karma pour tester les interactions (rendering JavaScript compris)
 
 === Déployer automatiquement
 
+on se rend plus vite compte des erreurs quand on publie souvent,
+on peut corriger plus rapidement ce qui bloque l'automatisation
+on fait davantage gaffe à ce qu'on fait quand tout le monde peut déployer
+
 Cf. chapter-06
-
-
 
 [[advanced]]
 == Pour aller plus loin
@@ -1055,19 +1072,69 @@ image::images/httpstat.png[]
 [[authentication]]
 === Authentifier des utilisateurs
 
+cookie
+idéalement qui ne puisse pas être forgé (httpOnly)
+contenu du cookie se vérifie côté serveur
+information associée à une session
+
+ensuite différents moyens d'authentifier (user+password, ou en délégant à un autre service l'identité -- OAuth)
+
+passport, module pour faciliter tout ça sans avoir à tout connaitre
+
 [[api]]
 === API REST : l'application web orientée données
+
+pour faire une application orientée données
+séparer la présentation de l'accès à la base qui les contient
+
+on construit l'interface par-dessus (une autre appli web, appli front-end)
+enjeux sur la robustesse du modèle de données car toutes les applis qui en dépendent
+cassent si la manière de les interpréter change
+
+restify/fastify/express font le taf
+
+module express-openapi pour générer le routing à partir de la spec OpenAPI
 
 [[job-queue]]
 === Déléguer le travail aux files d'attente
 
+action qui demande un traitement asynchrone (stocker vidéo, redimensionner, analyser)
+au lieu de retenir la réponse pendant le traitement (genre même 1 seconde)
+tu prends les données, tu les stockes, ack la demande et rend la main
+si ça prend quelques secondes, le temps de charger le reste de la page invisibilise la durée du traitement
+sinon c'est
+
+(exemple avec l'upload d'une vidéo sur youtube -- la progression du traitement est indiquée même si la ressource est déjà créée)
+cas de figure du statut 202 (au lieu de 201)
+
 [[lambda]]
 === Une application minimaliste avec les Lambda
+
+être allumé quand il y en a besoin
+faire un truc et un seul, de temps en temps
+
+créer un truc qui ressemble à une appli avec portail d'API
+agréger avec un portail d'API (_API Gateway_), décrit avec schéma OpenAPI
+API unifiée avec des services fragmentés, plus proches de leur source de données
 
 https://npmjs.com/micro
 
 [[https]]
 === Et HTTPS dans tout ça ?
+
+utiliser le module https -- pareil que http
+j'ai tendance à ce que l'application serve en http et à mettre l'application derrière un serveur Apache ou Nginx configuré pour https
+la plupart des hébergeurs sérieux en filent par défaut (ça aide à faire le tri)
+
+[NOTE] mais c'est quoi https ? C'est une organisation qui fait tiers de confiance
+tu la paies pour servir de garant sur ton identité que tel certificat c'est tel nom(s) de domaine
+tu paies plus ou moins cher pour ajouter d'autres éléments de vérification (physique -- pour avoir le nom de la boîte dans l'URL)
+let's encrypt a créé un protocole libre et un service d'attribution de certificats gratuits (financé par des dons+financements), limite la durée à 90 jours pour pousser au renouvellement automatique (preuve suffisante que tu es toi)
+
+si vous avez besoin d'en acheter, il suffit d'indiquer le chemin vers les différentes clés
+
+. générer une clé auto-signé (pour localhost)
+. démarrer le serveur
 
 == Conclusion
 

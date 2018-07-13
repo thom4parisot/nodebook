@@ -11,6 +11,7 @@ a été écrit, relu et testé avec un public apprenant.
 ## Vendredi 13 juillet 2018 • Paris
 
 - _Chapitre 7_ : Comprendre le modèle HTTP
+- _Chapitre 7_ : Rempli les sections petit à petit
 
 **Météo** : 😴 ☀️
 
