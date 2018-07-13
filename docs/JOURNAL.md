@@ -8,6 +8,12 @@ a été écrit, relu et testé avec un public apprenant.
 
 ---
 
+## Vendredi 13 juillet 2018 • Paris
+
+- _Chapitre 7_ : Comprendre le modèle HTTP
+
+**Météo** : 😴 ☀️
+
 ## Jeudi 12 juillet 2018 • Paris
 
 - _Annexe A_ : Tester notre code
@@ -15,7 +21,7 @@ a été écrit, relu et testé avec un public apprenant.
 - _Annexe A_ : Accessibilité
 - _Avant-Propos_ : Actualisation
 
-**Météo** : 💪 ☀️ 🍞
+**Météo** : 💪 😴 ☀️ 🍞
 
 ## Mercredi 11 juillet 2018 • Paris
 

@@ -990,30 +990,67 @@ côté client.
 [[http]]
 === Comprendre le modèle HTTP
 
-- quand une requête arrive ça veut dire quoi
-  - browser : GET http://monsite.com
-  - montrer une requête HTTP brute
-  - surprise : c'est que du texte
-  - c'est interprété de deux côtés : par le client (programme qui demande, adresse une requête -- un navigateur web c'est un type de client) et le serveur (programme qui reçoit et renvoie des réponses)
-  - et une réponse ça ressemble à quoi ?
-    - dans la réponse y'a un statut (200, etc) (c'est pour ça 404)
-    - dans la réponse y'a un type de contenu (Content-Type)
-    - le corps de la réponse peut être du texte, qui suit un certain format (HTML, texte, XML, JSON, image/jpg, image/png)
-  - le client interprète en fonction de ses capacités et d'hypothèses pragmatiques
-    - un navigateur web : il interprète le HTML, l'affiche, et demande les ressources listées dans les différentes balises (img, video, audio)
-      - fait autant de requêtes que nécessaire pour les obtenir et les afficher
-      - attention s'il y en a trop, ça fait le même effet que retirer un courier à la Poste à la mauvaise heure
-      - le poids des ressources à transférer a un impact (plus c'est lourd, plus c'est gros, plus c'est long à charger — c'est amplifié par la qualité et le débit de la connexion Internet)
-      - [TIP] : les WebView ce sont des navigateurs web, genre pour iOS, Android etc.
-    - un client en ligne de commande (curl, wget) : il n'interpète pas, récupère juste
-      - c'est utilisé pour faire du scrapping
-      - c'est utilisé pour donner ça à d'autres programmes (enjoliver le résultat, extraire des informations)
-      - voir au chapitre 8 pour en savoir plus sur le fonctionnement d'applications en ligne de commande
+Deux éléments ressortent du modèle de fonctionnement du protocole HTTP :
+*tout est du texte* (entêtes et contenu) et *chaque requête est indépendante*.
+C'est à dire que chaque requête emporte son contexte avec elle, toutes les
+informations nécessaires à sa compréhension.
+
+Qu'est-ce qu'il se passe lorsque notre navigateur web ou que le programme `curl`
+demande à accéder à `http://example.com` ?
+
+. *résolution de DNS* : nous ne savons pas encore à quelle adresse IP parler ;
+la résolution de DNS interroge un des annuaires DNS pour savoir quelle adresse
+IP est associée au nom de domaine ;
+. *établissement de la connexion* : le client (nous) ouvre une connexion réseau
+avec le serveur pour échanger des données ;
+. *envoi de la requête HTTP* : la requête contient des informations au format
+texte (méthode, entêtes, des fois un corps de message) pour que le serveur
+s'adapte au mieux à notre demande ;
+. *réception de la requête* : le serveur interprète la demande
+(est-ce qu'il la comprend ?), cherche la ressource associée au chemin demandé ;
+. *envoi de la réponse* : le serveur répond avec des données au format texte
+(statut, entêtes, corps de message) ;
+. *interprétation de la réponse* : l'entête `Content-Type` aide le client à déterminer
+comment afficher les informations - XML, HTML, JSON, CSS, vidéo etc — et si
+le document contient d'autres ressources à aller récupérer.
+
+Dans le cas du programme `curl`, la réponse est affichée telle quelle, en texte.
+
+Avec un navigateur web en revanche, le HTML est interprété et le navigateur
+demande les ressources listées dans les différentes balises (`img`, `video`, `audio`).
+Le navigateur fait ensuite autant de nécessaires — l'indicateur de chargement
+s'arrête quand toutes les ressources ont été demandées et téléchargées.
+
+.Cascade de requêtes HTTP suite à l'interprétation d'un document HTML par un navigateur web.
+image::images/http-waterfall.png[]
+
+Le nombre de requêtes et la taille des ressources impactent donc la vitesse de
+chargement d'une page.
+Plus il y en a, plus le client doit en demander et plus le serveur multiplie le
+nombre de réponses.
+Le temps de téléchargement augmente
+
+[NOTE]
+.[RemarquePreTitre]#Technique# Les WebViews sur mobile
+====
+Les WebViews sont des composants proposés par les systèmes d'exploitation
+pour embarquer du contenu HTML dans une application native.
+
+Elles fonctionnent comme des navigateurs web, sans les boutons de navigation.
+====
+
+Le module npm _jshttp_ ([URL]#https://github.com/jshttp#) affiche les entêtes
+de réponse comme le programme `curl` le ferait et détaille le parcours réseau,
+de la résolution du nom de domaine jusqu'au temps passé à négocier une transaction
+sécurisée. +
+Nous comprenons ainsi mieux des temps qui sont rendus invisibles et où nous
+pouvons faire des efforts — réduire les temps de transfert ou le temps de réponse
+de notre application par exemple.
 
 .Temporalité de l'exécution d'une requête HTTP et des entêtes de réponse.
 image::images/httpstat.png[]
 
-https://github.com/jshttp
+
 
 [[authentication]]
 === Authentifier des utilisateurs
