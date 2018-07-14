@@ -3,6 +3,7 @@
 :sourceDir: ./examples
 :npmCurrentVersion: v6
 :nodeCurrentVersion: v10
+:nodePrevVersion: v9
 :nodeV: 10.3.0
 :nodeVNext: 11.0.0
 :v: 10
@@ -191,42 +192,40 @@ _nvm_ et Node peuvent s'installer encore plus facilement sous macOS si vous util
 Rendez-vous dans la section <<install-macos,macOS>> pour en savoir plus.
 ====
 
-Une fois installé, vous serez libre d'installer les versions exactes de Node qui vous intéressent en appelant la commande `nvm` dans un <<shell,terminal>>.
+Nous sommes libre d'installer toutes les versions de Node qui nous intéressent
+en appelant la commande `nvm install` dans un <<shell,terminal>> :
 
 [subs="+attributes"]
-.Installation de Node {nodeCurrentVersion} avec la commande `nvm install`
+.Installation de deux versions différentes de Node.
 ----
 $ nvm install {nodeCurrentVersion}
-$ nvm alias default {nodeCurrentVersion}
+$ nvm install {nodePrevVersion}
 ----
 
-Dans l'exemple précédent,
-la première ligne est responsable de l'*installation de la version de Node la plus récente* dans la branche {v}.x.
-La deuxième ligne est quant à elle responsable de signaler que l'on veut *en faire _notre_ version par défaut* sur cet ordinateur.
-
-On pourra retrouver à tout moment les versions installées en utilisant la commande `nvm ls`.
+Dans l'exemple précédent, nous avons installé deux versions de Node sur le même
+ordinateur.
+La version active est la dernière version installée.
+On retrouve à tout moment les versions installées avec la commande `nvm ls`.
 
 [subs="+attributes"]
 .Liste des versions installées de Node avec la commande `nvm ls`
 ----
 $ nvm ls
 ->       v{nodeV}
-         v9.3.0
+         {nodePrevVersion}.0.0
          system
-default -> v{v} (-> v{nodeV})
-node -> stable (-> v9.3.0)
-stable -> 9.3 (-> v9.3.0) (default)
+default -> v{v} (-> v{nodeV}) (default)
 ----
 
-L'exemple précédent détaille 2 choses :
+L'exemple précédent détaille *la liste des versions de Node installées*
+et la *liste des _alias_* — une association entre un libellé et une version.
 
-. la liste des versions de Node installées sur le système ;
-. la liste des _alias_, et leur version correspondante.
+La commande `nvm use` nous fait naviguer entre des versions différentes de Node.
+L'utilisation répétée de `nvm use {nodeCurrentVersion}` et de
+`nvm use {nodePrevVersion}` nous fera aller et venir entre ces deux versions,
+sans rien perdre à ce que nous étions en train de faire.
 
-Taper `nvm use stable` nous fait basculer vers la branche `9.3`.
-C'est l'équivalent de `nvm use v9.3.0`.
-
-Vous pouvez saisir la commande `nvm --help` à tout moment pour obtenir de l'aide sur la syntaxe des commandes.
+La commande `nvm --help` affiche de l'aide à propos des commandes disponibles.
 J'utilise principalement ces commandes :
 
 - `nvm install` : installe ou met à jour une version de Node ;
@@ -235,6 +234,16 @@ J'utilise principalement ces commandes :
 - `nvm alias <nom> <version>` : crée un alias nommé vers une version de Node ;
 - `nvm run <version> <script>` : exécute un script Node dans une version donnée de Node.
 
+Quand nous sommes fixé·e·s sur une version de Node à utiliser au quotidien,
+l'alias spécial `default` en fait la version qui est systématiquement activée :
+
+[subs="+attributes"]
+----
+$ nvm alias default {v}
+----
+
+La commande `nvm use` nous sert alors à activer une autre version pendant
+la durée nécessaire à notre expérimentation.
 
 [[install-ubuntu]]
 === Distributions Linux : Debian/Ubuntu et RedHat/CentOS
@@ -817,12 +826,10 @@ Les versions majeures sortent 2 fois par an.
 Une migration peut demander d'investir un certain temps pour adapter
 et tester nos applications Node.
 
-Que faire en cas de sortie d'une version majeure sur :
-
-- notre *ordinateur de développement* : on cherchera à prendre du temps
-pour tester nos applications sur cette version
-et s'assurer de leur bon fonctionnement ;
-- notre *site web* : pas d'action immédiate requise.
+Que faire en cas de sortie d'une version majeure ? +
+Sur notre *ordinateur de développement*, nous chercherons à prendre du temps
+pour tester nos applications et s'assurer de leur bon fonctionnement.
+Sur la *machine de production*, il n'y a pas d'action immédiate requise.
 
 [[lifecycle]]
 === Comprendre le cycle de vie produit
