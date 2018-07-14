@@ -44,31 +44,63 @@ ainsi qu'à mieux les traiter.
 [[definition]]
 == Qu'est-ce que JavaScript ?
 
-Au lieu d'écrire plusieurs paragraphes expliquant ce qu'est et
-ce que n'est _pas_ JavaScript, regardons ensemble
-un bloc de code contenant plusieurs _expressions_ écrites
-en JavaScript :
+Je vais vous présenter plusieurs exemples de code.
+Ils sont en commun d'être tous écrits en JavaScript.
+
+[source%interactive,javascript]
+.intro/ecmascript.js
+----
+include::{sourceDir}/intro/ecmascript.js[]
+----
+
+Cet exemple illustrait la création de variables, de chaînes de caractères.
+Ce sont des fonctionnalités de base de la spécification _ECMAScript_.
 
 [source,javascript]
-.definition.js
+.intro/web.js
 ----
-include::{sourceDir}/definition.js[]
+include::{sourceDir}/intro/web.js[]
 ----
-<1> Code JavaScript standard.
-<2> Code JavaScript pour manipuler la DOM API (documents web).
-<3> Code JavaScript pour manipuler des Web API (fonctionnalités des navigateurs web).
-<4> Code JavaScript pour manipuler Node.js.
 
-Ce que l'on peut comprendre de l'exemple de code ci-dessus,
-c'est que JavaScript permet de s'interfacer avec plusieurs choses :
+`fetch()` ne fait pas partie de la spécification _ECMAScript_.
+C'est un ajout des navigateurs web.
+On parle alors d'*API JavaScript pour le web*.
 
-. des documents web représentés par le Document Object Model (DOM) ;
-. des navigateurs web au travers des Web API ;
-. des systèmes informatiques avec Node.
+[NOTE]
+.[RemarquePreTitre]#Glossaire# API (Interfaces de programmation)
+====
+Les API sont des interfaces pour dialoguer avec un programme ou une
+ressource informatique.
+Elles définissent des vocabulaires pour exécuter des actions spécifiques.
+====
 
-_ECMAScript_ correspond à l'ensemble des expressions du langage.
-Ces expressions sont étendues par des interfaces de programmation (_API_).
-Ces interfaces nous permettent de communiquer avec les documents web, les navigateurs web ou les systèmes informatiques.
+[source,javascript]
+.intro/dom.js
+----
+include::{sourceDir}/intro/dom.js[]
+----
+
+La variable `document` et les méthodes `querySelector` et `addEventListener`
+font aussi partie des *API JavaScript pour le Web*.
+En l'occurence, elles font partie de l'API _DOM_ (_Document Object Model_),
+un mécanisme pour interagir avec une page web grâce à ECMAScript.
+
+[source%interactive,javascript]
+.intro/node.js
+----
+include::{sourceDir}/intro/node.js[]
+----
+
+Ce dernier exemple est spécifique à Node.
+Node propose la fonction `require()` pour charger des modules et interagir
+avec le système d'exploitation.
+
+Autrement dit,
+*ECMAScript est un langage, une grammaire avec des fonctionnalités de base*.
+Chaque environnement — les navigateurs web, Node — le comprend et lui ajoute
+de nouvelles expressions, contextuelles à cet environnement d'exécution.
+*JavaScript est le grand ensemble des technologies qui se reposent sur ECMAScript*
+pour fonctionner.
 
 [NOTE]
 .[RemarquePreTitre]#Histoire# À propos de JavaScript
@@ -90,15 +122,15 @@ Esprima qui est elle-même écrite en ECMAScript.
 Si d'autres langages de programmation se cantonnent
 soit au _côté client_ (VBScript, ActionScript, Elm)
 soit au _côté serveur_ (Ruby, Python, Haskell),
-JavaScript a débuté _côté client_ pour s'étendre au _côté serveur_.
-Ce à quoi se réfère l'expression anglophone _full stack_.
-
-.Écosystème des technologies JavaScript.
-image::images/javascript.svg[]
+JavaScript a débuté _côté client_ pour s'étendre aussi _côté serveur_.
+Un développeur ou une développeuse dite "_full stack_" programme des applications
+sur les deux fronts.
+Node a cet avantage d'unifier le langage de programmation entre les environnements
+clients et serveurs.
 
 Le langage _ECMAScript_ — appelons-le ainsi à partir de maintenant —
 a évolué au fil du temps.
-Il s'est enrichi au fur et à mesure de nouvelles fonctionnalités,
+Il s'est enrichi de nouvelles fonctionnalités au fil des versions mais aussi
 de sucres syntaxiques (raccourcis d'écriture)
 et de rigueur aussi, pour corriger des défauts de _design_.
 
