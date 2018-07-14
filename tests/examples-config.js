@@ -54,9 +54,13 @@ module.exports = {
   'chapter-03/examples/class-constructor.js': {
     stderr: 'Error: Extend the View class to render content'
   },
-  'chapter-03/examples/definition.js': {
+  'chapter-03/examples/intro/dom.js': {
     exitCode: 1,
     stderr: 'ReferenceError: document is not defined'
+  },
+  'chapter-03/examples/intro/web.js': {
+    exitCode: 1,
+    stderr: 'ReferenceError: fetch is not defined'
   },
   'chapter-03/examples/function.js': {
     exitCode: 1,
@@ -310,6 +314,25 @@ module.exports = {
   'chapter-07/examples/path/route-params.js': {
     skip: true
   },
+  'chapter-07/examples/post/send.js': {
+    stderr: 'ECONNREFUSED',
+    errorCode: 1
+  },
+  'chapter-07/examples/post/server.js': {
+    skip: true
+  },
+  'chapter-07/examples/post/server-parse.js': {
+    skip: true
+  },
+  'chapter-07/examples/upload/send.js': {
+    stderr: 'ExperimentalWarning',
+  },
+  'chapter-07/examples/upload/server.js': {
+    skip: true
+  },
+  'chapter-07/examples/upload/server-parse.js': {
+    skip: true
+  },
   'chapter-07/examples/static/routes.js': {
     skip: true
   },
@@ -368,8 +391,5 @@ module.exports = {
   'chapter-08/examples/testing/02/cli.js': {
     exitCode: 1,
     stderr: /Merci d'indiquer un fuseau horaire/
-  },
-  'chapter-08/examples/testing/02/cli.test.js': {
-    stderr: /.+/
   },
 };

@@ -629,11 +629,165 @@ tout en étant jusqu'à 10 fois plus rapide que le module natif à Node.
 ====
 
 [[post]]
-=== Interpréter un corps de message (`POST`, `PUT`)
+=== Recevoir des données de formulaire (`POST`)
 
-- JSON
-- formulaire
+Lorsque nous ne précisons pas la méthode employée, les outils et logiciels
+utilisent par défaut la méthode `GET`.
+Elle est associée à une récupération de données sans transmettre autre chose
+que des entêtes et un chemin d'accès.
 
+Il y a des cas où nous avons besoin d'envoyer des données, pour les stocker
+ou pour demander à créer un enregistrement.
+Dans ce cas, nous utilisons la méthode `POST` et nous transmettons les informations
+d'une manière différente des <<arguments>>.
+
+Le serveur suivant affichera deux choses à chaque requête reçue : l'entête
+`Content-Type` et le corps du message transmis par la requête.
+
+----
+$ node post/server.js
+----
+
+La commande `curl` règle le nom et la valeur d'un champ de formulaire
+avec l'option `-d`.
+Nous pouvons ainsi transmettre des données avec la méthode `POST` à notre
+serveur :
+
+----
+$ curl -XPOST -d 'fromage=cabécou' -d 'remember_me=1' \
+  http://localhost:4000
+----
+
+C'est vraiment l'équivalent d'un classique formulaire HTML.
+
+.Représentation d'un formulaire HTML qui envoie les mêmes informations que la commande `curl` précédente.
+image::images/send-data.png[]
+
+[source,html]
+.post/index.html
+----
+include::{sourceDir}/post/index.html[]
+----
+<1> Nous retrouvons l'indication de la méthode `POST`.
+
+L'ouverture dans un navigateur web d'une page HTML affichera les mêmes informations
+que la commande `curl` sur appui du bouton btn:[Transmettre].
+
+Il se trouve que Node aussi sait envoyer des informations de formulaire
+avec le <<../chapter-04/index.adoc#http,module `http`>>
+(cf. <<../chapter-04/index.adoc#,chapitre 4>>).
+
+----
+$ node post/send.js
+----
+
+[source,javascript]
+.post/send.js
+----
+include::{sourceDir}/post/send.js[]
+----
+<1> Création de la structure des données à transmettre.
+<2> Indication de la méthode `POST`.
+<3> Cette entête caractérise la manière d'organiser les données de formulaire — personnellement, je n'arrive jamais à retenir cette valeur et je la copie/colle toujours depuis Stack Overflow ou une documentation technique.
+<4> Les données sont sérialisées sous forme d'une chaîne de caractères, identique à ce que ferait un navigateur web avec les données d'un formulaire.
+
+Nous retrouvons l'entête `Content-Type` dans l'affichage du script `post/server.js`.
+Le contenu du message envoyé ressemble beaucoup à des arguments d'URL
+encodés avec <<encode-uri,encodeURIComponent>>.
+
+.Extrait d'affichage d'un message reçu par `post/server.js`.
+----
+application/x-www-form-urlencoded
+fromage=cab%C3%A9cou&remember_me=1
+----
+
+Comme dans les sections précédentes, nous devons _décoder_ une chaîne de
+caractères pour en extraire sa signification et en faire quelque chose
+en ECMAScript.
+
+Nous pourrions utiliser la fonction `parse` du module Node `querystring`
+pour décoder le contenu de cette chaîne  mais nous allons plutôt faire appel
+au module npm _co-body_ ([URL]#https://npmjs.com/co-body#).
+Ce module décode plusieurs types de requêtes `POST`, illustrés dans d'autres
+exemples de cette même section.
+
+----
+$ node post/server-parse.js
+----
+
+[source,javascript]
+.post/server-parse.js
+----
+include::{sourceDir}/post/server-parse.js[]
+----
+<1> Le module _co-body_ transforme une requête HTTP en un objet utilisable dans Node.
+<2> Le contenu de la variable ressemblera plutôt à quelque chose du genre de `{fromage: 'cabécou', remember_me: '1'}`.
+<3> Une erreur s'affichera en cas de problème pour décoder le corps de la requête entrante.
+
+Il nous suffit d'exécuter à nouveau le script `post/send.js` pour observer
+la différence et constater que nous pouvons désormais interpréter les données
+d'un formulaire.
+
+Le fichier `post/send.js` se simplifie si on utilise le module npm _superagent_
+([URL]#https://npmjs.com/superagent#).
+Je le trouve simple d'utilisation et il fonctionne avec des promesses,
+des formulaires et les <<upload,uploads de fichiers>>.
+
+[source,javascript]
+.post/send-data.js
+----
+include::{sourceDir}/post/send-data.js[]
+----
+<1> URL de la ressource vers laquelle poster les informations.
+<2> La définition d'un champ de formulaire s'effectue à l'aide de la méthode `send()` et d'une valeur ayant la forme d'une chaîne de caractères.
+
+À ce stade là, nous avons fait le nécessaire pour interpréter le contenu d'un
+formulaire sans pièce-jointe.
+Notre serveur est même prêt à recevoir des données transmises en dehors d'un
+formulaire, au format JSON :
+
+----
+$ node post/send-json.js
+----
+
+[source,javascript]
+.post/send-json.js
+----
+include::{sourceDir}/post/send-json.js[]
+----
+<1> L'utilisation d'un objet ECMAScript suffit au module _superagent_ pour transmettre les données au format JSON.
+
+Nous constatons que la valeur de l'entête `Content-Type` change pour devenir
+`application/json`.
+Là aussi, le module _co-body_ nous est utile car il s'adapte au type de données
+entrantes et les décode de manière transparente.
+
+Il existe un dernier type d'encodage de données que nous pouvons nous
+attendre à recevoir.
+Ce sont les formulaires dits "_multipart_".
+
+----
+$ node post/send-multipart.js
+----
+
+[source,javascript]
+.post/send-multipart.js
+----
+include::{sourceDir}/post/send-multipart.js[]
+----
+<1> Le module _superagent_ utilise la méthode `field()` pour définir la valeur d'un champ _multipart_.
+
+Le serveur va pourtant afficher une erreur du type :
+
+----
+Unsupported content-type: multipart/form-data;
+  boundary=--------------------------070345340228095473881249
+----
+
+Ce type d'encodage de données est plus complexe à gérer.
+Il va nous falloir passer à une autre stratégie ; elle est incontournable
+pour gérer l'<<upload,upload de fichiers>>.
+C'est l'objet de la section suivante.
 
 [[upload]]
 === Uploader des fichiers
