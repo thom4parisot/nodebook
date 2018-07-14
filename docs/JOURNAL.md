@@ -8,6 +8,12 @@ a été écrit, relu et testé avec un public apprenant.
 
 ---
 
+## Samedi 14 juillet 2018 • Paris
+
+- _Chapitre 4_ : Intro et conclusion
+
+**Météo** : 😴 ☀️
+
 ## Vendredi 13 juillet 2018 • Paris
 
 - _Chapitre 7_ : Comprendre le modèle HTTP

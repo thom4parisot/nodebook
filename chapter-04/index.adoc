@@ -33,7 +33,16 @@ et Windows.
 
 [abstract]
 --
-TBD.
+Après avoir exécuté notre premier script Node, nous allons nous découvrir
+l'étendue des modules Node et ce qu'ils nous offrent en terme de capacité
+d'interaction avec le système d'exploitation — disque, réseau, calculs, etc.
+
+Nous apprendrons ensuite à créer et organiser nos propres modules — nous
+découvrirons comment les partager et les distribuer dans le chapitre 5.
+
+Enfin, nous passerons en revue des erreurs typiques pour apprendre à les lire
+et à mieux réagir avant de terminer sur des manières alternatives d'exécuter
+des scripts Node, par exemple pour débogueur ou charger d'autres modules.
 --
 
 include::../docs/tip-versions.adoc[]
@@ -3588,4 +3597,18 @@ Elles sont encore au stade expérimental.
 
 == Conclusion
 
-TBD.
+Les modules de base sont un élément différenciant entre Node et le langage
+ECMAScript.
+Ils nous interfacent avec le système d'exploitation pour naviguer dans les fichiers,
+ouvrir des connexions réseau et télécharger des fichiers distants.
+*Bien les connaître nous aidera au quotidien*.
+
+L'organisation des modules CommonJS — voire des modules ECMAScript — est l'autre
+élément majeur de ce chapitre.
+Avec ça, nous rendons notre *code modulaire, réutilisable et donc testable*.
+
+Toutes ces connaissances seront largement réutilisées dans les chapitres suivants.
+Elles nous aideront à mieux choisir nos modules npm dans le chapitre 5,
+à structurer une application web au chapitre 7, à créer de belles applications
+en ligne de commande au chapitre 8 et même à partager du code entre Node
+et les navigateurs web au chapitre 9.
