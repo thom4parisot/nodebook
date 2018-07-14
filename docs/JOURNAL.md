@@ -11,6 +11,10 @@ a été écrit, relu et testé avec un public apprenant.
 ## Samedi 14 juillet 2018 • Paris
 
 - _Chapitre 4_ : Intro et conclusion
+- _Chapitre 2_ : clarification sur nvm use
+- _Chapitre 3_ : réécriture de JavaScript/Ecmascript
+- _Chapitre 7_ : recevoir des données de formulaire
+- _Chapitre 7_ : Uploader des fichiers
 
 **Météo** : 😴 ☀️
 

@@ -792,8 +792,130 @@ C'est l'objet de la section suivante.
 [[upload]]
 === Uploader des fichiers
 
-- solo
-- plusieurs (multipart)
+L'upload de fichier implique un peu plus de travail qu'un <<post,simple formulaire>>
+car la structure des données envoyées diffère mais surtout,
+parce que la réception et la gestion des fichiers demandent encore plus
+d'attention.
+
+Voyons par nous-même à quoi ressemble une requête qui contient une pièce-jointe.
+
+----
+$ node upload/server.js
+----
+
+[source,javascript]
+.upload/server.js
+----
+include::{sourceDir}/upload/server.js[]
+----
+
+Ce serveur affiche le contenu d'une requête entrante.
+La requête suivante illustre l'upload d'un fichier avec le programme `curl`.
+Notez que cette fois-ci nous utilisons l'options `-F` et que la valeur
+est préfixée avec le caractère `@`, suivi du chemin d'accès au fichier en question.
+
+[subs="+quotes"]
+----
+$ curl -XPOST -F 'hello=##@upload/hello.txt##' \
+    http://localhost:4000
+----
+
+Cette commande est équivalente à l'envoi du formulaire HTML suivant :
+
+.Représentation d'un formulaire HTML qui téléverse un fichier.
+image::images/send-file.png[]
+
+[source,html]
+.upload/index.html
+----
+include::{sourceDir}/upload/index.html[]
+----
+<1> Nous retrouvons l'encodage `multipart/form-data` dans l'attribut `enctype`.
+<2> Un fichier se téléverse avec un champ de type `file`.
+
+Ainsi, la commande `curl` ou l'envoi du formulaire précédent affiche quelque
+chose de cet ordre là :
+
+----
+multipart/form-data; boundary=-----1acfa07ebbd71d3c # <1>
+
+-----1acfa07ebbd71d3c                               # <2>
+Content-Disposition: form-data; name="hello";
+  filename="hello.txt"                              # <3>
+Content-Type: text/plain                            # <4>
+
+Hello World
+
+-----1acfa07ebbd71d3c----                           # <5>
+----
+<1> Contenu de l'entête `Content-Type` — l'attribut `boundary` précise le motif de délimitation des différents champs.
+<2> Ouverture des informations du premier champ.
+<3> Les attributs `name` et `filename` définissent le nom du champ de formulaire et le nom du fichier en question, respectivement.
+<4> L'attribut `Content-Type` concerne le fichier et aide à comprendre comment interpréter son contenu — ici, du texte brut.
+<5> Fermeture des informations du premier champ.
+
+Ça nous demanderait d'écrire davantage que 20 lignes de code si nous devions
+nous-même interpréter un contenu de requête qui contient des pièces-jointes.
+C'est suffisamment compliqué à programmer de manière robuste que le module
+_co-body_ vu dans la <<post,section précédente>> ne s'en charge pas et recommande
+le module _formidable_ ([URL]#https://npmjs.com/formidable#).
+C'est exactement ce que nous allons faire pour outiller un nouveau serveur.
+
+----
+$ node upload/server-parse.js
+----
+
+[source,javascript]
+.upload/server-parse.js
+----
+include::{sourceDir}/upload/server-parse.js[]
+----
+<1> Le module _formidable_ différencie les données et les fichiers.
+<2> Nous accédons aux informations d'un fichier au travers d'un clé, identique à celle de son champ `name` dans le formulaire.
+<3> Affiche `text/plain` — la valeur du `Content-Type` du fichier.
+<4> Affiche `hello.txt` — c'est le nom du fichier tel qu'il était nommé sur le poste client.
+<5> Affiche `12` — c'est le poids total du fichier.
+<6> Affiche un chemin d'accès vers l'emplacement de stockage temporaire du fichier téléversé.
+
+Nous sommes en mesure de recevoir des pièces-jointes depuis un formulaire.
+Le <<../chapter-04/index.adoc#fs,module `fs`>> (cf. <<../chapter-04/index.adoc#,chapitre 4>>)
+propose le nécessaire pour déplacer le fichier ailleurs sur le système ou
+pour en lire le contenu et le stocker ailleurs — sur un service de stockage distant
+comme Amazon S3, par exemple.
+
+[CAUTION]
+.[RemarquePreTitre]#Sécurité# Un fichier texte n'a de texte que le nom
+====
+Comme toutes données transmises par un utilisateur ou une utilisatrice,
+nous devons rester vigileant·e sur le contenu des fichiers pour
+éviter des attaques malicieuses.
+
+Un fichier texte qui contient du JavaScript pourrait être exécuté comme un
+script sur le poste client et ainsi servir à subtiliser des données privées
+ou aider quelqu'un·e à usurper une identité sur le service.
+====
+
+Je recommande deux approches sensibles avant même de faire quoique ce soit
+avec pièce-jointe fraichement téléversée :
+
+- s'il s'agit d'un *fichier texte* : filtrer le contenu du fichier en retirant
+tout ce qui ressemble à du code arbitraire et filtrer le contenu à l'affichage
+pour retirer tout balisage HTML — cf. section <<security,protéger son application>>
+dans ce même chapitre ;
+- s'il s'agit d'un *fichier binaire* (image, vidéo, PDF) : utiliser un antivirus
+en ligne de commande pour scanner le contenu — _ClamAV_ ([URL]#https://www.clamav.net#)
+est un excellent antivirus _open source_.
+
+Ces opérations peuvent prendre du temps — de quelques secondes à plusieurs
+minutes dans le cas de fichiers volumineux.
+Au lieu de faire attendre l'utilisateur devant son écran, je recommande
+de faire appel à un <<job-queue,mécanisme de file d'attente>> pour traiter
+l'effort indépendamment, en fonction des capacités de calcul disponibles.
+
+Enfin, quand vous avez fini d'utiliser la pièce-jointe — ou si vous ne l'utilisez pas —
+pensez aussi à la *supprimer du répertoire temporaire*.
+Le disque dur du serveur pourrait manquer d'espace si plusieurs fichiers volumineux
+étaient déposés en peu de temps.
 
 [[cookies]]
 === Garder un lien avec les cookies
