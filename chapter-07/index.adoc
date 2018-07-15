@@ -67,6 +67,7 @@ C'est un onglet intéressant à ouvrir en parallèle de cette lecture
 — je l'ai ouvert en permanence pour écrire ce chapitre.
 ====
 
+[[webapp]]
 == Composer son application web
 
 Dans cette première section, nous allons nous focaliser sur la construction
@@ -1230,6 +1231,10 @@ La configuration initiale d'_express_ configure un serveur HTTP — à la maniè
 de ce que nous pouvions déjà faire avec `http.createServer()` — et retourne
 un <<paths,routeur>> pour attacher des comportements à des chemins d'accès.
 
+----
+$ node framework/setup.js
+----
+
 [source,javascript]
 .framework/setup.js
 ----
@@ -1244,11 +1249,120 @@ C'est vraiment très proche si ce n'est identique à ce nous avons déjà appris
 à faire dans les sections <<server,démarrer un serveur HTTP>> et
 <<paths,répondre à un chemin>>.
 
-[[middleware]]
-=== Greffer des extensions
+[NOTE]
+.[RemarquePreTitre]#Documentation# Quelles méthodes et pour quoi faire ?
+====
+La documentation d'_express_ est le meilleur endroit pour savoir quoi faire
+avec les différents objets du module.
+Leur lecture vous aidera à mieux suivre cette section car vous comprendrez
+d'où sortent les méthodes utilisées.
 
-interception / transformation des requêtes entrantes
-les routes obtiennent
+- *express* : [URL]#https://expressjs.com/4x/api.html#express#
+- *application* : [URL]#https://expressjs.com/4x/api.html#app#
+- *requête* : [URL]#https://expressjs.com/4x/api.html#req#
+- *réponse* : [URL]#https://expressjs.com/4x/api.html#res#
+- *routeur* : [URL]#https://expressjs.com/4x/api.html#routeur#
+====
+
+[[middleware]]
+=== Greffer des extensions (_middlewares_)
+
+Un des premiers élément différenciant est le *branchement d'extensions*.
+Une fois configurées, ces extensions s'appliquent à chaque requête entrante.
+Elles offrent la liberté d'ajouter des capacités de compréhension de la requête
+(<<post,parser des données de formulaire>> par exemple), de modifier la réponse
+ou de <<views,connecter des gabarits de présentation>>.
+
+Chaque couche de transformation est appelée un _middleware_ — une fonction
+intermédiaire entre la requête et la réponse.
+
+----
+$ node framework/middleware.js
+----
+
+[source,javascript]
+.framework/middleware.js
+----
+include::{sourceDir}/framework/middleware.js[]
+----
+<1> Une _middleware_ se branche avec la méthode `app.use()`.
+<2> L'objet `response.locals` passe des données jusqu'à la route — les données sont effacées une fois la réponse envoyée.
+<3> La fonction `next()` passe la main au prochain _middleware_.
+<4> Nous récupérons l'objet `response.locals.pokemon` créé par notre _middleware_.
+<5> Affichage d'un message similaire à `Pokémon aléatoire : Patrat`.
+
+Un _middleware_ n'est pas très différent d'une route : c'est une fonction
+qui a accès à la requête et à la réponse HTTP.
+Elle n'est pas forcément assignée à une méthode HTTP (`app.get()`, `app.post()`,
+etc.) ni à un chemin d'accès.
+
+Dans l'exemple suivant, nous allons connecter plusieurs _middlewares_ grâce
+aux modules npm _helmet_ ([URL]#https://npmjs.com/helmet#) et _serve-static_
+([URL]#https://npmjs.com/serve-static#).
+Ce dernier est une version embarquée de <<static,serve>> par le module _express_.
+
+----
+$ node framework/middleware-multi.js
+----
+
+[source,javascript]
+.framework/middleware-multi.js
+----
+include::{sourceDir}/framework/middleware-multi.js[]
+----
+<1> Nous branchons le _middleware_ utilisé dans la section <<static,répondre avec des fichiers statiques>> sur l'URL `{serveUrl}/files`.
+<2> Nous branchons les _middlewares_ de <<security,sécurité>> à notre application.
+<3> La racine de l'application affiche une image contenue dans un autre répertoire.
+
+Le mécanisme de _middlewares_ est minimaliste et pourtant, il nous permet de
+brancher des modules dont leur seul pré-requis est de comprendre les objets
+de requête et de réponse HTTP.
+*Les _middlewares_ relient tous les concepts* évoqués dans la section
+<<webapp,composer son application web>>.
+
+.Extraits des entêtes d'une réponse HTTP une fois le module _helmet_ configuré.
+----
+$ curl --head http://localhost:4000
+HTTP/1.1 200 OK
+X-DNS-Prefetch-Control: off
+X-Frame-Options: SAMEORIGIN
+Strict-Transport-Security: max-age=15552000; includeSubDomains
+X-Download-Options: noopen
+X-Content-Type-Options: nosniff
+X-XSS-Protection: 1; mode=block
+Content-Type: text/html; charset=utf-8
+Content-Length: 33
+ETag: W/"21-tmPtjMCysQ8MzbRDY67vN+isCos"
+Date: Sun, 15 Jul 2018 17:12:48 GMT
+Connection: keep-alive
+----
+
+Le module _helmet_ agit seulement sur les entêtes de réponse.
+Nous verrons dans la section <<security,protéger nos applications>> quelles
+entêtes sont essentielles à la sécurité et pourquoi.
+
+Enfin, notons une méthode alternative pour appliquer un _middleware_ : au niveau
+d'une route, au lieu de toutes les routes — avec `app.use()`.
+Pour cela nous allons transformer l'exemple `framework/middleware.js` et
+l'appliquer à une seule route :
+
+----
+$ node framework/middleware-function.js
+----
+
+[source,javascript]
+.framework/middleware-function.js
+----
+include::{sourceDir}/framework/middleware-function.js[]
+----
+<1> Nous avons factorisé la route dans une fonction afin de la rendre réutilisable.
+<2> La route `/` reçoit d'abord le middleware puis la fonction d'affichage.
+<3> La route `/rondoudou` reçoit uniquement la fonction d'affichage.
+
+Nous verrons que même si la fonction d'affichage est identique, les routes
+`{httpServer}/` et `{httpServer}/rondoudou` produisent des résultats différents.
+Cette dernière n'ayant pas reçu le _middleware_ `pokéMiddleware`, sa variable
+`response.locals.pokemon` n'a pas été définie et elle vaut donc `undefined`.
 
 [[views]]
 === Brancher les gabarits de présentation

@@ -296,6 +296,12 @@ module.exports = {
   'chapter-07/examples/framework/middleware.js': {
     skip: true
   },
+  'chapter-07/examples/framework/middleware-multi.js': {
+    skip: true
+  },
+  'chapter-07/examples/framework/middleware-function.js': {
+    skip: true
+  },
   'chapter-07/examples/framework/setup.js': {
     skip: true
   },
