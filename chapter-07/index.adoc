@@ -1278,31 +1278,7 @@ Partager les données entre plusieurs instances
 on va utiliser sqlite parce que pas de dépendance logicielle
 node-sqlite pour les promesses mais on aurait très bien pu utiliser sqlite3
 
-==== Quelle base de données choisir ?
-
-en fait on peut en prendre plusieurs, ajuster stratégies
-
-* *en mémoire* +
-  Le stockage est dit _éphémère_ car l'information est stockée dans la mémoire vive de la machine et disparait dès que l'application est interrompue ;
-* sous forme de *fichiers* +
-  Le stockage est _physiquement lié_ à la machine hébergeant l'application.
-  Ce support est davantage adapté à un _cache_ n'ayant pas besoin d'être actualisé après l'initialisation de l'application ;
-* via une *API* +
-  Le stockage est _nécessairement dissocié_ à la machine hébergeant l'application.
-  L'accès à la lecture et à l'écriture de l'information se fait au travers d'une _interface de données_ accessible via HTTPS. +
-  Nous pourrions tout à fait envisager d'utiliser les APIs de GitHub, Kinto, Google Drive ou KeyBase.io pour persister et collecter des données brutes ou transformées ;
-* en *base de données* +
-  Le stockage n'est _pas nécessairement lié_ à la machine hébergeant l'application.
-  L'information persiste si l'application est interrompue.
-
-[NOTE]
-.[RemarquePreTitre]#Question# Dois-je forcément utiliser MongoDB avec Node ?
-====
-Doit-on nécessairement *utiliser _MongoDB_*, une base de données _orientée documents_ ou _JSON_ avec une application Node ?
-La réponse est catégorique : c'est *non*.
-
-*Tout type de base de données s'interface avec Node*, qu'elle soit _relationnelle_ (Postgres, MariaDB, MySQL), _clé/valeur_ (Redis), en _colonnes_ (Cassandra) ou _orientée documents_ (MongoDB, ElasticSearch).
-====
+voir plus loin à <<database-choice>>.
 
 [[sessions]]
 === Sessions utilisateur
@@ -1455,6 +1431,82 @@ de notre application par exemple.
 image::images/httpstat.png[]
 
 
+[[database-choice]]
+==== Quelle(s) base(s) de données choisir ?
+
+Quand je faisais du PHP, nous parlions beaucoup de la pile technique _LAMP_
+— pour Linux, Apache, MySQL et PHP.
+C'était la combinaison _de facto_ des différents projets.
+MySQL était la base de données de choix tandis que les Pythonistes et Rubyistes
+se focalisaient plutôt sur PostgreSQL.
+
+J'ai croisé beaucoup de développeurs et développeuses qui se lançaient dans
+les bases de données dite "documents" comme MongoDB "parce que les données
+sont stockées en JSON et donc c'est un choix logique pour Node".
+
+Je suis fortement en désaccord avec cette affirmation et je pense que la bonne
+base de données est celle qui tient la route par rapport
+Node n'est pas meilleur en MongoDB qu'en MySQL.
+Le *débit de données* entre Node et la base de données compte davantage, ainsi que
+la *rapidité de la base à exécuter une requête* et retourner des résultats
+— certaines gèrent mieux que d'autres la concurrence d'accès ou les critères
+de filtrage.
+Le troisième critère est subjectif : c'est le *confort d'utilisation* de la base
+en question.
+Postgres est peut-être plus rapide pour un cas d'usage précis mais si vous
+êtes plus à l'aise avec MariaDB ou MySQL, commencez avec la base qui vous parle
+le plus — ou expérimentez et réservez-vous le droit de changer d'avis après
+avoir joué avec un nombre représentatif de données en base.
+
+Je choisis une base de données en fonction de plusieurs critères :
+la rapidité de lecture, l'intégrité des données, la volumétrie acceptée avant
+de devoir distribuer les données sur plusieurs machines et enfin,
+des fonctionnalités spéciales (recherche géographique, type de champ particulier
+comme le champ JSON de Postgres).
+
+Stockage fichier::
+  Nous pourrions tout à fait décider d'utiliser un fichier JSON ou CSV pour
+  lire et écrire des données.
+  C'est facile à mettre en œuvre mais c'est la solution la plus lente en tous
+  points de vue : la recherche est lente et l'écriture aussi.
+Stockage en mémoire::
+  _Redis_ et _memcache_ sont des bases de données très rapides en lecture et en écriture
+  — elles sont idéales pour accéder et modifier fréquemment des données, avant
+  de les persister sur un stockage moins rapide mais plus sûr.
+  Elles sont généralement dites "clé/valeur" car nous cherchons un identifiant
+  donné pour récupérer un, voire plusieurs champs associés.
+Stockage sur disque::
+  _MySQL_, _MSSQL_, _Postgres_ et _MongoDB_ stockent leur données sur disque,
+  dans des fichiers optimisés pour la recherche d'informations — les _index_.
+  Elles sont souvent rapides en lecture et plus lentes en écriture — selon
+  le type de disque dur utilisé pour le stockage.
+  Certaines sont contraintes par des schémas (les bases SQL) tandis que d'autres
+  ont une structure libre (MongoDB). +
+  En pratique, nous typons ou structurons les données d'une manière ou d'une autre
+  — à minima pour les manipuler de manière cohérente dans notre code.
+  Certaines bases SQL ont un type de champ JSON, en structure libre.
+Stockage sur un service en ligne::
+  _Firebase_, _DynamoDB_, _Parse_ et _Kinto_ sont des bases de données accessibles
+  comme des services, avec des requêtes HTTP.
+  Les services d'hébergement gèrent la distribution des données et leur résilience.
+
+J'utilise souvent SQLite pour prototyper quelque chose de rapide sur ma machine.
+Je passe ensuite à MySQL ou Postsgres selon le projet — je me sens autonome sur
+MySQL pour l'installation tandis que je préfère un service qui gère tout de
+bout en bout avec Postgres.
+
+Je peux être amené à indexer les données dans une base de données ElasticSearch
+ou Algolia pour leur donner une autre structure, spécialement optimisée pour
+la recherche — une lecture très rapide sur des critères variables.
+Je le fais si un des aspects principaux du projet est de préserver des performances
+élevées, qui ne soient pas ralenties par l'activité d'une base SQL.
+
+Je complète en général avec Redis pour gérer les <<job-queues,files d'attente>>,
+des données intermédiaires que je considère comme "jetables".
+
+S'il est plus simple de tout gérer avec un seul support de stockage, utiliser
+*plusieurs bases de données* dans une même application est quelque chose de tout
+à fait encouragé pour profiter de leurs caractéristiques.
 
 [[authentication]]
 === Authentifier des utilisateurs

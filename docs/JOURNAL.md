@@ -11,6 +11,7 @@ a été écrit, relu et testé avec un public apprenant.
 ## Dimanche 15 juillet 2018 • Paris
 
 - _Chapitre 7_ : Structurer l'affichage avec les gabarits de présentation
+- _Chapitre 7_ : Quelle(s) base(s) de données choisir ?
 
 **Météo** : 🙂 ☀️ ☕️
 
