@@ -392,4 +392,7 @@ module.exports = {
     exitCode: 1,
     stderr: /Merci d'indiquer un fuseau horaire/
   },
+  'chapter-08/examples/testing/02/cli.test.js': {
+    stderr: /Merci d'indiquer un fuseau horaire/
+  },
 };

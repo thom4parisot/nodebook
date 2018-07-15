@@ -15,7 +15,7 @@
     "prestart": "npm run build:html",
     "start": "node server.js",
     "test": "tape 'tests/*.js' | tap-spec",
-    "test:docker": "docker run -ti --rm -v $(pwd):/tests -e CI=1 -w /tests node:${npm_package_engines_node}-slim npm test",
+    "test:docker": "docker run -ti --rm -v $(pwd):/tests -e CI=1 -e DEBUG=tape-spawn -w /tests node:${npm_package_engines_node}-slim npm test",
     "posttest": "npm run lint"
   },
   "engines": {
