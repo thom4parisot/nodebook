@@ -324,6 +324,9 @@ module.exports = {
   'chapter-07/examples/post/server-parse.js': {
     skip: true
   },
+  'chapter-07/examples/templating/server.js': {
+    skip: true
+  },
   'chapter-07/examples/upload/send.js': {
     stderr: 'ExperimentalWarning',
   },
@@ -393,6 +396,6 @@ module.exports = {
     stderr: /Merci d'indiquer un fuseau horaire/
   },
   'chapter-08/examples/testing/02/cli.test.js': {
-    stderr: /Merci d'indiquer un fuseau horaire/
+    stderr: /(Merci d'indiquer un fuseau horaire|is not recognized as an internal or external command)/,
   },
 };
