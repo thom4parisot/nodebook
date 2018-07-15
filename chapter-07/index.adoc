@@ -1033,10 +1033,121 @@ Nous utiliserons d'ailleurs les cookies pour <<sessions,maintenir une session>>
 avec un framework web.
 
 [[templating]]
-=== Modulariser les gabarits de présentation
+=== Structurer l'affichage avec les gabarits de présentation
 
-je parle de nunjucks mais en fait on s'en fiche y'en a plein de bien
-chacun son tyle : pug, twig, ejs, handlebars
+Les gabarits de présentation (ou _templating_) répondent à deux problèmes :
+séparer le code applicatif (le fond) de la présentation (la forme) et aussi
+de structurer la complexité visuelle avec des composants réutilisables.
+
+Nous allons nous pencher sur le module _nunjucks_ ([URL]#https://npmjs.com/nunjucks#).
+Je l'apprécie pour son élégance et pour son caractère extensible.
+Il y en a d'<<templating-engines,autres modules de présentation>> bien sûr,
+et je vous invite à choisir celui qui vous parle le plus,
+quitte à en changer par la suite.
+
+J'attends plusieurs choses d'un système de gabarits : itérer facilement
+sur des collections (tableaux, objets), appliquer des filtres, inclure des
+portions de présentation et imbriquer ma page dans un modèle de présentation
+— une sorte de décoration qui contient des choses que je veux garder hors du gabarit
+(le menu principal, les balises `<meta>`, etc.).
+
+Dans la suite de cette section, nous allons créer une présentation à partir
+d'une liste de modules npm contenue dans un fichier JSON.
+L'image suivante illustre très bien ce que nous cherchons à atteindre.
+
+.Exemple de présentation qui met en scène des données dynamiques et des composants HTML.
+image::images/template.png[width="70%"]
+
+[source,javascript]
+.templating/server.js
+----
+include::{sourceDir}/templating/server.js[]
+----
+<1> Nous configurons le module _nunjucks_ pour qu'il cherche les gabarits dans le même répertoire que le script de l'application.
+<2> La méthode `render()` prend le contenu du fichier `list.njk` ainsi que les variables passées en argument pour compiler du HTML.
+<3> Ce HTML est envoyé en réponse pour être interprété par un navigateur web.
+
+Dans cet exemple, nous répondons la même chose peu importe le chemin demandé
+au serveur.
+Nous pourrions tout à fait ajouter un <<path,routeur>> afin de répondre avec
+un template différent pour chacune des routes.
+Nous verrons aussi dans la section <<express,organiser une application>>
+qu'un des buts des _frameworks web_ est d'apporter ce genre de cohérence.
+
+Côté serveur, nous prenons une structure qui ne change pas (le gabarit)
+et nous la combinons avec une structure qui change (les données) pour générer
+un rendu HTML adapté au client à l'origine de la requête.
+
+[source,html]
+.templating/list.njk
+----
+include::{sourceDir}/templating/list.njk[]
+----
+<1> Nous indiquons à _nunjuck_ d'envelopper ce gabarit avec la structure décrite dans `layout.njk`.
+<2> Début de la déclaration d'un block nommé `content`.
+<3> L'objet `dependencies` (qui est passé en paramètre au gabarit) est affiché après avoir été filtré avec la fonction native _nunjucks_ `length`.
+<4> La boucle `for` répète le bloc de gabarit pour chaque élément de la collection — à la manière des méthodes `map()` et `forEach` des <<../chapter-03/index.adoc#array,tableaux ECMAScript>>.
+<5> Les valeurs de `pkg` et de `version` changent à chaque itération.
+
+Le gabarit se concentre sur la *transformation de données*.
+Il faut au préalable avoir réuni et structuré les données nécessaires à l'affichage.
+Nous avons la possibilité de fragmenter notre code de sorte à ce que chaque
+gabarit contienne uniquement ce qui dépend de sa responsabilité.
+
+Nous retrouvons ces principes de fonctionnement dans d'autres langages, à quelques
+variations près.
+
+[horizontal]
+.Fonctionnement des expressions _nunjucks_.
+`{%{nbsp}...{nbsp}%}`::
+  Expression _nunjucks_ qui peut marquer le début ou la fin d'un bloc.
+  Ce block contient une expression dont le contenu est affiché, inclus ou répété
+  selon certaines conditions.
+`{{{nbsp}variable{nbsp}}}`::
+  Affichage de la valeur d'une variable sous forme d'une chaîne de caractères.
+`{{{nbsp}variable{nbsp}|{nbsp}filtre{nbsp}}}`::
+  Affichage de la valeur d'une variable après application d'un filtre de transformation.
+  Le filtre n'est autre qu'une fonction ECMAScript intégrée au mécanisme de _nunjucks_.
+  Nous pouvons accumuler les filtres pour transformer la valeur jusqu'à obtenir
+  le résultat attendu.
+
+Intéressons-nous maintenant au gabarit parent, `layout.njk` :
+
+[source,html]
+.templating/layout.njk
+----
+include::{sourceDir}/templating/layout.njk[]
+----
+<1> La variable `title` est elle aussi un argument passé au template dans `templating/server.js` — ce gabarit y a aussi accès.
+<2> Le block `content` défini dans le fichier `list.njk` est injecté à cet endroit du gabarit.
+
+Ce gabarit sert de "décoration", en englobant puis injectant son contenu de
+manière précise et contrôlée.
+Nous sommes en mesure de hiérarchiser l'organisation de la présentation et de
+choisir comment imbriquer les gabarits entre eux.
+
+[NOTE]
+.[RemarquePreTitre]#Documentation# Gabarit et API
+====
+La documentation complète des fonctions de gabarit se trouve sur
+[URL]#https://mozilla.github.io/nunjucks/templating.html#.
+La section _API_ vous aidera à ajuster son intégration à votre application Node.
+====
+
+[options="header", cols="1,2,4a", id="templating-engines"]
+.Sélection de moteurs de gabarits et dans quelle situation j'aurais une préférence à les utiliser.
+|===
+| Module      | Adresse                             | Pourquoi l'utiliser ?
+| ejs         | [URL]#https://npmjs.com/ejs#        | Pour écrire ses gabarits avec ECMAScript.
+| handlebars  | [URL]#https://npmjs.com/handlebars# | Performant, éprouvé et large catalogue de filtres prêt à l'emploi.
+| nunjucks    | [URL]#https://npmjs.com/nunjucks#   | Mécanisme élégant de blocs, de filtres et d'héritage de gabarit.
+| pug         | [URL]#https://npmjs.com/pug#        | Écriture très concise des balises avec un système d'indentation.
+| React       | [URL]#https://npmjs.com/react#      | Pour réutiliser les mêmes composants que le front-end.
+|===
+
+Nous détaillons des <<../appendix-a/index.adoc#templating,exemples de rendu de gabarit>>
+en <<../appendix-a/index.adoc#,annexe A>>.
+
 
 [[dev]]
 === Pendant le développement : relancer le serveur automatiquement

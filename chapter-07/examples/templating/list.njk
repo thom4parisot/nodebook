@@ -1,0 +1,14 @@
+{% extends "layout.njk" %}                      <!--1-->
+
+{% block content %}                             <!--2-->
+<p>
+  Il y a {{ dependencies | length }} modules    <!--3-->
+  dans le fichier <code>package.json</code>.
+</p>
+
+<ul>
+  {% for pkg,version in dependencies %}         <!--4-->
+  <li><code>{{ pkg }}@{{ version }}</code></li> <!--5-->
+  {% endfor %}
+</ul>
+{% endblock %}
