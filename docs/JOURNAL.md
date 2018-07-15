@@ -14,6 +14,7 @@ a été écrit, relu et testé avec un public apprenant.
 - _Chapitre 7_ : Quelle(s) base(s) de données choisir ?
 - _Chapitre 7_ : Configuration du framework
 - _Chapitre 7_ : Greffer des extensions
+- _Chapitre 7_ : Brancher les gabarits de présentation
 
 **Météo** : 🙂 ☀️ ☕️
 

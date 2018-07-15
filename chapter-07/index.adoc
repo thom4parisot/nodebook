@@ -1360,15 +1360,72 @@ include::{sourceDir}/framework/middleware-function.js[]
 <3> La route `/rondoudou` reçoit uniquement la fonction d'affichage.
 
 Nous verrons que même si la fonction d'affichage est identique, les routes
-`{httpServer}/` et `{httpServer}/rondoudou` produisent des résultats différents.
+`{serverUrl}/` et `{serverUrl}/rondoudou` produisent des résultats différents.
 Cette dernière n'ayant pas reçu le _middleware_ `pokéMiddleware`, sa variable
 `response.locals.pokemon` n'a pas été définie et elle vaut donc `undefined`.
 
 [[views]]
 === Brancher les gabarits de présentation
 
-c'est pas très différent mais y'a un module intermédiaire
-qui gère ça tranquillement
+La configuration des gabarits de présentation n'est pas très différente
+de ce que nous avons vu dans la section
+<<templating,structurer l'affichage avec les gabarits de présentation>>.
+
+----
+$ node framework/templating.js
+----
+
+[source,javascript]
+.framework/templating.js
+----
+include::{sourceDir}/framework/templating.js[]
+----
+<1> Configuration de _nunjucks_, comme dans la section <<templating,structurer l'affichage avec les gabarits de présentation>>.
+<2> Utilisation de la méthode `express()` pour laisser à _nunjucks_ le travail de configuration d'_express_.
+<3> Nous appelons la méthode `response.render()` au lieu de `response.send()` — elle charge le template donné et lui passe un objet dont chaque clé devient une variable dans le gabarit.
+
+Nous avons de la chance car _nunjucks_ prend en charge toute la configuration
+d'_express_ pour nous.
+La seule différence avec les précédents exemples est l'utilisation de la
+méthode `response.render()`.
+Le premier effet que ça me fait c'est une sensation de légèreté — nous avons
+le strict minimum à gérer pour que ça fonctionne.
+
+En comparaison, voilà comment _express_ se configure à la main :
+
+----
+$ node framework/templating-manual.js
+----
+
+[source,javascript]
+.framework/templating-manual.js
+----
+include::{sourceDir}/framework/templating-manual.js[]
+----
+<1> On indique à _express_ de contextualiser le répertoire racine où se trouvent les gabarits.
+<2> Déclaration de la fonction de rendu pour les fichiers `.njk` — elle est appelée à chaque fois que `response.render()` est appelée avec un fichier `.njk`.
+<3> Rendu du fichier passé en paramètre — comme dans la section <<templating,structurer l'affichage avec les gabarits de présentation>>.
+<4> Le HTML généré est passé à la fonction de _callback_ `next()` — le premier argument est utilisé pour transmettre une erreur, le second le résultat en cas de succès.
+
+Cette méthode demande davantage de travail.
+Elle implique aussi d'être suffisamment familier·ère avec _express_ pour en
+venir à créer cette fonction de rendu.
+
+Au final, nous pourrions utiliser différents moteurs de gabarits si le besoin
+se faisait ressentir, pour les exploiter à leur(s) avantage(s).
+Leur intégration demande un effort minimum et retire tous les aspects de
+présentation de la configuration du routeur.
+
+[TIP]
+.[RemarquePreTitre]#Pratique# Un module pour les présenter tous
+====
+Le module npm _consolidate_ ([URL]#https://npmjs.com/consolidate#)
+gomme les différences de configuration pour plusieurs dizaines de moteurs
+de gabarit.
+
+Il pourra vous être utile si vous peinez à configurer _express_ avec le
+moteur de gabarits favori.
+====
 
 [[frontend]]
 === Intégrer les ressources front-end (CSS, JavaScript)
@@ -1376,42 +1433,6 @@ qui gère ça tranquillement
 mieux vaut les générer statiquement
 rebuild à la demande
 des fois y'a des outils qui font ça (on perd de vue les erreurs je trouve)
-
-[[security]]
-=== Protéger l'application
-
-https://npmjs.com/helmet
-https://npmjs.com/safe-regex pour utiliser une regex sur du contenu fourni par utilisateur
-https://npmjs.com/xss
-https://npmjs.com/sql-escape-string
-https://npmjs.com/dompurify
-
-path traversal (indexOf)
-use strict (réduit les possibilités d'exploiter des bizarreries de JS)
-
-////
-L'organisme _Open Web Application Security Project_ (_OWASP_) recueille et diffuse nombre de critères de sécurité à connaître et vérifier pour déjouer au mieux des attaques.
-Citons quelques uns de ces critères :
-
-* *dépendences logicielles* ;
-* *injection de code arbitraire* ;
-* *données d'authentification* (vols, interceptions, brute force etc.) ;
-* *contrôles d'accès* (impersonnification etc.) ;
-* *optimisme sécuritaire* et *absences de vérifications* ;
-* exposition de *données critiques* ;
-* attaques *CSRF* (un script tiers actionne des commandes à notre insu) ;
-* *uploads de fichiers* (poids limite, formats, chevaux de Troie etc.)
-* *redirections* non-contrôlées.
-
-[TIP]
-.[RemarquePreTitre]#Ressources# [URL]#owasp.org#
-====
-Le site d'OWASP offre guides, référentiels, fiches récapitulatives, applications types, outils et tutoriaux pour sensibiliser à la sécurité applicative.
-
-- [URL]#https://www.owasp.org/#
-- [URL]#https://nodegoat.herokuapp.com/tutorial#
-====
-////
 
 
 [[database]]
@@ -1653,10 +1674,70 @@ S'il est plus simple de tout gérer avec un seul support de stockage, utiliser
 *plusieurs bases de données* dans une même application est quelque chose de tout
 à fait encouragé pour profiter de leurs caractéristiques.
 
+[[security]]
+=== Protéger nos applications
+
+https://npmjs.com/helmet
+https://npmjs.com/safe-regex pour utiliser une regex sur du contenu fourni par utilisateur
+https://npmjs.com/xss
+https://npmjs.com/sql-escape-string
+https://npmjs.com/dompurify
+
+path traversal (indexOf)
+use strict (réduit les possibilités d'exploiter des bizarreries de JS)
+
+[options="header", cols="2, 4a"]
+|===
+| Entête | Description
+| `X-DNS-Prefetch-Control` |
+| `X-Frame-Options` |
+| `Strict-Transport-Security` |
+| `X-Download-Options` |
+| `X-Content-Type-Options` |
+| `X-XSS-Protection` |
+|===
+
+////
+L'organisme _Open Web Application Security Project_ (_OWASP_) recueille et diffuse nombre de critères de sécurité à connaître et vérifier pour déjouer au mieux des attaques.
+Citons quelques uns de ces critères :
+
+* *dépendences logicielles* ;
+* *injection de code arbitraire* ;
+* *données d'authentification* (vols, interceptions, brute force etc.) ;
+* *contrôles d'accès* (impersonnification etc.) ;
+* *optimisme sécuritaire* et *absences de vérifications* ;
+* exposition de *données critiques* ;
+* attaques *CSRF* (un script tiers actionne des commandes à notre insu) ;
+* *uploads de fichiers* (poids limite, formats, chevaux de Troie etc.)
+* *redirections* non-contrôlées.
+
+[TIP]
+.[RemarquePreTitre]#Ressources# [URL]#owasp.org#
+====
+Le site d'OWASP offre guides, référentiels, fiches récapitulatives, applications types, outils et tutoriaux pour sensibiliser à la sécurité applicative.
+
+- [URL]#https://www.owasp.org/#
+- [URL]#https://nodegoat.herokuapp.com/tutorial#
+====
+////
+
+
+////
 [[authentication]]
 === Authentifier des utilisateurs
 
-cookie
+L'authentification utilisateur consiste à vérifier des informations de connexion
+auprès d'une source de vérité (base de données, service tiers, lien secret)
+et à <<sessions,créer une session>> en déposant un <<cookies,cookie>> côté client.
+
+[TIP]
+.[RemarquePreTitre]#Important# Utiliser l'attribut de cookie `HttpOnly`
+====
+Les cookies ne sont pas modifiables par un script tiers lorsqu'ils sont créés
+avec l'attribut `HttpOnly`.
+C'est une mesure de protection parmi d'autres.
+====
+
 idéalement qui ne puisse pas être forgé (httpOnly)
 contenu du cookie se vérifie côté serveur
 information associée à une session
@@ -1664,6 +1745,7 @@ information associée à une session
 ensuite différents moyens d'authentifier (user+password, ou en délégant à un autre service l'identité -- OAuth)
 
 passport, module pour faciliter tout ça sans avoir à tout connaitre
+////
 
 [[api]]
 === API REST : l'application web orientée données

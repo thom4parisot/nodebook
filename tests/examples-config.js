@@ -305,6 +305,12 @@ module.exports = {
   'chapter-07/examples/framework/setup.js': {
     skip: true
   },
+  'chapter-07/examples/framework/templating-manual.js': {
+    skip: true
+  },
+  'chapter-07/examples/framework/templating.js': {
+    skip: true
+  },
   'chapter-07/examples/path/404.js': {
     skip: true
   },
