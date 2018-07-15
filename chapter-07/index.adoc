@@ -1203,15 +1203,46 @@ consacré à npm.
 [[express]]
 == Organiser une application avec le _framework_ express
 
-Express mais ça pourrait être un autre
-Y'a plus performant (fastify), plus orienté données (restify),
-plus asynchrone (koa) et plus tout terrain (hapi).
+La section précédente a détaillé un ensemble de fonctionnalités individuelles
+qui permettent à la fois de mieux comprendre comment fonctionne HTTP mais aussi
+comment constituer des briques d'une application web avec Node. +
+Les _frameworks applicatifs web_ sont des outils qui proposent de créer une
+cohérence dans l'organisation de ces fonctionnalités, de sorte à ce que nos
+efforts se concentrent plus sur l'écriture du code et moins sur la création du cadre.
 
-choix du bien documenté, bien outillé
-proche du module http (plus facile pour greffer des modules npm)
+Dans cette section, je vous propose d'appliquer ces connaissances au framework
+_express_ ([URL]#https://npmjs.com/express#).
+C'est un outil versatile, flexible et bien documenté.
+Ça en fait un choix de prédilection pour commencer. +
+Vous pouvez vous en tenir à ce framework ou bien évoluer ou compléter son utilisation
+avec _fastify_ (plus récent et plus rapide), _restify_ (orienté <<api,API REST>>),
+_koa_ (asynchrone et plus rapide) ou encore _hapi_ (plus structuré et plus complexe).
 
-ce qui est expliqué après s'applique sans les frameworks
-c'est une manière "consolidée" d'organiser son code et d'y brancher des trucs
+J'ai une préférence pour les outils qui ne font pas trop de choix à notre place,
+bien documentés et si possible, qui travaillent autour du
+<<../chapter-04/index.adoc#http,module `http`>> — ça conserve une certaine
+clarté autour des concepts que nous manipulons.
+
+[[setup]]
+=== Configuration du framework
+
+La configuration initiale d'_express_ configure un serveur HTTP — à la manière
+de ce que nous pouvions déjà faire avec `http.createServer()` — et retourne
+un <<paths,routeur>> pour attacher des comportements à des chemins d'accès.
+
+[source,javascript]
+.framework/setup.js
+----
+include::{sourceDir}/framework/setup.js[]
+----
+<1> Création de l'application _express_.
+<2> Déclaration d'une <<paths,route>> pour la page d'accueil.
+<3> La méthode `response.send()` est un raccourci qui automatise qui combine et configure `response.write()`, `response.statusCode` et de `response.end()`.
+<4> Branchement du serveur HTTP sur l'interface réseau du système d'exploitation.
+
+C'est vraiment très proche si ce n'est identique à ce nous avons déjà appris
+à faire dans les sections <<server,démarrer un serveur HTTP>> et
+<<paths,répondre à un chemin>>.
 
 [[middleware]]
 === Greffer des extensions
@@ -1432,7 +1463,7 @@ image::images/httpstat.png[]
 
 
 [[database-choice]]
-==== Quelle(s) base(s) de données choisir ?
+=== Quelle(s) base(s) de données choisir ?
 
 Quand je faisais du PHP, nous parlions beaucoup de la pile technique _LAMP_
 — pour Linux, Apache, MySQL et PHP.

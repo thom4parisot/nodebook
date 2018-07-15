@@ -293,10 +293,10 @@ module.exports = {
   'chapter-07/examples/cookies/set-multiple.js': {
     skip: true
   },
-  'chapter-07/examples/server/start.js': {
+  'chapter-07/examples/framework/middleware.js': {
     skip: true
   },
-  'chapter-07/examples/server/port.js': {
+  'chapter-07/examples/framework/setup.js': {
     skip: true
   },
   'chapter-07/examples/path/404.js': {
@@ -322,6 +322,12 @@ module.exports = {
     skip: true
   },
   'chapter-07/examples/post/server-parse.js': {
+    skip: true
+  },
+  'chapter-07/examples/server/start.js': {
+    skip: true
+  },
+  'chapter-07/examples/server/port.js': {
     skip: true
   },
   'chapter-07/examples/templating/server.js': {
