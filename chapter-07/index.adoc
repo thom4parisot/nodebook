@@ -834,8 +834,9 @@ include::{sourceDir}/upload/index.html[]
 <1> Nous retrouvons l'encodage `multipart/form-data` dans l'attribut `enctype`.
 <2> Un fichier se téléverse avec un champ de type `file`.
 
-Ainsi, la commande `curl` ou l'envoi du formulaire précédent affiche quelque
-chose de cet ordre-là :
+La structure du corps de message d'une requête `multipart/form-data` envoyée
+avec la commande `curl` ou un formulaire HTML ressemble à quelque chose
+de cet ordre-là :
 
 ----
 multipart/form-data; boundary=-----1acfa07ebbd71d3c # <1>
@@ -854,6 +855,15 @@ Hello World
 <3> Les attributs `name` et `filename` définissent le nom du champ de formulaire et le nom du fichier en question, respectivement.
 <4> L'attribut `Content-Type` concerne le fichier et aide à comprendre comment interpréter son contenu — ici, du texte brut.
 <5> Fermeture des informations du premier champ.
+
+[TIP]
+.[RemarquePreTitre]#Pratique# E-mails et pièces-jointes
+====
+Les e-mails utilisent aussi l'encodage `multipart/form-data` pour joindre
+des fichiers à un message.
+Si vous savez encoder ou décoder des fichiers pour le web, vous savez scripter
+l'ajout de pièces-jointes pour les e-mails.
+====
 
 Ça nous demanderait d'écrire davantage que 20 lignes de code si nous devions
 nous-même interpréter un contenu de requête qui contient des pièces-jointes.
@@ -1257,11 +1267,11 @@ avec les différents objets du module.
 Leur lecture vous aidera à mieux suivre cette section car vous comprendrez
 d'où sortent les méthodes utilisées.
 
-- *express* : [URL]#https://expressjs.com/4x/api.html#express#
-- *application* : [URL]#https://expressjs.com/4x/api.html#app#
-- *requête* : [URL]#https://expressjs.com/4x/api.html#req#
-- *réponse* : [URL]#https://expressjs.com/4x/api.html#res#
-- *routeur* : [URL]#https://expressjs.com/4x/api.html#routeur#
+- *express* : [URL]#https://expressjs.com/fr/4x/api.html#express#
+- *application* : [URL]#https://expressjs.com/fr/4x/api.html#app#
+- *requête* : [URL]#https://expressjs.com/fr/4x/api.html#req#
+- *réponse* : [URL]#https://expressjs.com/fr/4x/api.html#res#
+- *routeur* : [URL]#https://expressjs.com/fr/4x/api.html#routeur#
 ====
 
 [[middleware]]
@@ -1428,12 +1438,111 @@ moteur de gabarits favori.
 ====
 
 [[frontend]]
-=== Intégrer les ressources front-end (CSS, JavaScript)
+=== Intégrer les ressources front-end (CSS, images, JavaScript)
 
-mieux vaut les générer statiquement
-rebuild à la demande
-des fois y'a des outils qui font ça (on perd de vue les erreurs je trouve)
+La gestion des ressources front-end ne demande pas à changer nos habitudes.
+Les fichiers CSS, JavaScript et les images sont des fichiers statiques
+à mettre à disposition via un <<middleware,middleware>>.
 
+----
+$ node framework/assets.js
+----
+
+[source,javascript]
+.framework/assets.js
+----
+include::{sourceDir}/framework/assets.js[]
+----
+<1> La méthode `express.static()` configure le module npm _send_ documenté dans la section <<static>> ce même chapitre.
+<2> Affichage d'une image dont la source `screenshot.jpg` est à la racine du répertoire virtuel `/static`.
+
+J'ai tendance à exposer les fichiers statiques depuis un répertoire virtuel dédié
+— ici, le répertoire `/static`.
+Je trouve que ça les rend *plus clairement identifiables* et ça évite toute
+ambiguïté avec les autres routes de l'application.
+Ça a aussi l'avantage de dissocier les fichiers sources (Sass, Less, etc.)
+des fichiers compilés.
+
+Dans le <<../chapter-05/index.adoc#,chapitre 5>>, j'explique comment
+<<../chapter-05/index.adoc#run-all,automatiser l'outillage projet>>.
+Ces connaissances s'appliquent dans notre cas de figure, sans distinction. +
+L'extrait suivant de fichier `package.json` illustre l'organisation
+des scripts pour démarrer le site en temps normal, pour générer les fichiers
+compilés et pour le faire en continu dans un contexte de développement :
+
+[source,json]
+.package.json
+----
+{
+  "...": "...",
+  "scripts": {
+    "build": "npm-run-all 'build:*'",
+    "build:css": "node-sass ./assets --output ./assets",
+    "start": "node assets.js",
+    "...": "...",
+    "dev": "npm-run-all 'watch:*'",
+    "watch:server": "nodemon assets.js",
+    "watch:css": "npm run build:css -- --watch --source-map"
+  }
+}
+----
+
+La première partie est dédiée aux scripts dits "de production" :
+`npm run build` génère les fichiers utiles quand le serveur tourne,
+après avoir lancé `npm start`.
+
+La seconde partie lance le serveur de développement et la construction
+des fichiers Sass en continu avec l'option `--watch`.
+L'option `--source-map` s'utilisent dans un contexte de développement pour
+associer les lignes du fichier compilé au fichiers sources.
+L'utilisation des doubles tirets (`--`) nous permet de réutiliser le script
+`build:css` en lui passant deux options supplémentaires.
+
+Le _middleware_ statique s'utilise aussi avec des fichiers.
+
+----
+$ node framework/assets-file.js
+----
+
+[source,javascript]
+.framework/assets-file.js
+----
+include::{sourceDir}/framework/assets-file.js[]
+----
+<1> Nous définissions le fichier statique `/wikipedia.jpg` alors qu'il était initialement nommé `screenshot.jpg`.
+<2> Ce chemin d'accès affiche bien l'image attendue.
+
+Cette technique pour être utilisée pour exposer un seul fichier au lieu
+d'un répertoire entier.
+
+Enfin, le module npm _express-minify_ ([URL]#https://npmjs.com/express-minify#)
+est à considérer pour profiter d'une mise en place rapide ou
+pour prototyper quelque chose en attendant de mettre en place un outillage
+plus robuste.
+
+----
+$ node framework/minify.js
+----
+
+[source,javascript]
+.framework/minify.js
+----
+include::{sourceDir}/framework/minify.js[]
+----
+<1> Le module _express-minify_ transforme les fichiers Sass si leur entête de réponse `Content-Type` vaut `text/x-scss` — cette ligne assigne cette entête aux fichiers dont l'extension est `.scss`.
+<2> Ajout du module comme <<middleware,middleware>>.
+<3> Le fichier `main.scss` sera converti en CSS.
+
+Si ce module permet de démarrer plus vite, sans avoir à se familiariser
+avec les scripts npm ni même la commande `node-sass`, je vois deux inconvénients
+majeurs : les *erreurs sont difficiles à déceler* et elles peuvent se produire
+au cas où notre machine de développement est significativement différente du
+sereur de production (compilateur, installation manquée, etc.).
+Ça représente aussi un *gâchis de ressources* dans la mesure où ces fichiers
+ne changent plus une fois mis en ligne ; ça ne veut pas le coup de rajouter
+du temps de compilation à la volée.
+
+En clair, c'est pratique pour dépanner et pour démarrer.
 
 [[database]]
 === Brancher une base de données

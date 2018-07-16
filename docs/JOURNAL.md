@@ -8,6 +8,12 @@ a été écrit, relu et testé avec un public apprenant.
 
 ---
 
+## Lundi 16 juillet 2018 • Paris
+
+- _Chapitre 7_ : Intégrer les ressources front-end
+
+**Météo** : 💪 ☀️
+
 ## Dimanche 15 juillet 2018 • Paris
 
 - _Chapitre 7_ : Structurer l'affichage avec les gabarits de présentation
@@ -16,7 +22,7 @@ a été écrit, relu et testé avec un public apprenant.
 - _Chapitre 7_ : Greffer des extensions
 - _Chapitre 7_ : Brancher les gabarits de présentation
 
-**Météo** : 🙂 ☀️ ☕️
+**Météo** : 🙂 ☀️ 🍞 ☕️
 
 ## Samedi 14 juillet 2018 • Paris
 
