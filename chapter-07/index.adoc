@@ -35,7 +35,7 @@ Chaque *requête porte en elle une intention* — un chemin d'accès, une préf�
 de format, des éléments d'identification — et implique une réponse en retour
 — des données et des éléments pour les contextualiser.
 
-L'ingéniérie d'une application web consiste à comprendre les requêtes entrantes
+L'ingénierie d'une application web consiste à comprendre les requêtes entrantes
 et à construire une réponse appropriée à chaque fois, le plus rapidement possible.
 
 Ce chapitre s'inscrit dans la continuité du
@@ -98,7 +98,7 @@ Accept: */*
 <2> Expression de la méthode, du chemin d'accès demandé et du protocole de discussion employé — ici, le protocole HTTP dans sa version `1.1`.
 <3> Entête de requête.
 
-Une entête est exprimée sous la forme `Clé: Valeur`.
+Un entête est exprimé sous la forme `Clé: Valeur`.
 Chaque entête précise un élément de contexte.
 Certaines entêtes influencent plus que d'autres la réponse du serveur, si
 celui-ci la comprend.
@@ -160,7 +160,7 @@ include::{sourceDir}/server/start.js[]
 ----
 <1> Comme nous retournons du HTML au client, nous explicitons le type de contenu retourné en réponse.
 <2> Affiche les entêtes de la requête reçue par le serveur — le contenu varie selon le client utilisé.
-<3> Affiche les entêtes de la réponse — en l'occurence `{ 'content-type': 'text/html' }`.
+<3> Affiche les entêtes de la réponse — en l'occurrence `{ 'content-type': 'text/html' }`.
 
 Nous avons composé la fondation minimum pour créer une application web
 en étant en mesure d'accepter des requêtes et de répondre, quelque chose
@@ -259,7 +259,7 @@ Code, Raison, Explication
 Les statuts HTTP sont importants dans la création d'applications web.
 Leur code permet de vérifier que le client et le serveur se sont bien compris. +
 Si une page d'erreur est affichée avec un statut `200`, le client sera dans
-l'impossiblité de deviner qu'il ne s'agit pas du contenu attendu.
+l'impossibilité de deviner qu'il ne s'agit pas du contenu attendu.
 
 [options="header", cols="1,1,4"]
 .D'autres codes HTTP utiles à connaître.
@@ -311,7 +311,7 @@ include::{sourceDir}/path/route-params.js[]
 <1> Création d'une route paramétrée — le symbole `:word` est accessible dans le troisième argument, en tant que `params.word`.
 <2> Affiche une phrase composée avec le paramètre de notre route.
 
-Dirigez vous vers `{serverUrl}/hello/word` pour voir le résultat s'afficher.
+Dirigez-vous vers `{serverUrl}/hello/word` pour voir le résultat s'afficher.
 Changez le dernier segment du chemin pour observer le changement.
 
 Ce mécanisme est utile pour relier un identifiant à un enregistrement précis
@@ -332,7 +332,7 @@ Nous verrons tous ces aspects plus en détail dans la section
 <<security,protéger l'application>>.
 ====
 
-Enfin, les routeurs contextualisent les actions à effectuer vis à vis d'une
+Enfin, les routeurs contextualisent les actions à effectuer vis-à-vis d'une
 ressource grâce au _verbe HTTP_.
 Le verbe communique une intention — récupération, mise à jour, suppression.
 Le routeur organise notre code pour déclencher une action adaptée
@@ -350,7 +350,7 @@ include::{sourceDir}/path/method.js[]
 <1> Définition du chemin d'accès `/` — verbe `GET` (récupération).
 <2> Définition du chemin d'accès `/` — verbe `HEAD` cette fois.
 <3> La méthode `response.writeHead` est un moyen de définir le statut en même temps que les entêtes de réponse.
-<4> Définition d'une entête personnalisée — le préfixe `X-` indique qu'elle n'est pas liée au standard HTTP.
+<4> Définition d'un entête personnalisé — le préfixe `X-` indique qu'il n'est pas lié au standard HTTP.
 <5> Écriture du corps du message — nous verrons qu'il est ignoré et n'est pas transmis au client.
 
 Les navigateurs web affichent seulement notre route `GET` car c'est
@@ -576,7 +576,7 @@ Ce n'est pas utilisable en l'état.
 
 Le <<../chapter-04/index.adoc#url,module `url`>>
 (cf. <<../chapter-04/index.adoc#,chapitre 4>>) entre en jeu.
-En plus de destructurer une URL entière, il sait aussi décomposer les options
+En plus de déstructurer une URL entière, il sait aussi décomposer les options
 et les transformer en un objet utilisable côté Node :
 
 ----
@@ -606,7 +606,7 @@ $ node arguments/format.js
 include::{sourceDir}/arguments/format.js[]
 ----
 <1> Nous rentrons dans ce bloc en présence de l'argument d'URL `format=svg`.
-<2> Une entête `Content-Type` fait que le contenu est interprêté (et affiché) comme du HTML — en retirant cette ligne, le document sera alors téléchargé.
+<2> L'entête `Content-Type` fait que le contenu est interprété (et affiché) comme du HTML — en retirant cette ligne, le document sera alors téléchargé.
 <3> Sinon, le reste du temps nous affichons la date telle quelle, en tant que texte.
 
 Les deux URL `{serverUrl}/date?format=svg` et `{serverUrl}/date` font
@@ -742,7 +742,7 @@ include::{sourceDir}/post/send-data.js[]
 <1> URL de la ressource vers laquelle poster les informations.
 <2> La définition d'un champ de formulaire s'effectue à l'aide de la méthode `send()` et d'une valeur ayant la forme d'une chaîne de caractères.
 
-À ce stade là, nous avons fait le nécessaire pour interpréter le contenu d'un
+À ce stade-là, nous avons fait le nécessaire pour interpréter le contenu d'un
 formulaire sans pièce-jointe.
 Notre serveur est même prêt à recevoir des données transmises en dehors d'un
 formulaire, au format JSON :
@@ -835,7 +835,7 @@ include::{sourceDir}/upload/index.html[]
 <2> Un fichier se téléverse avec un champ de type `file`.
 
 Ainsi, la commande `curl` ou l'envoi du formulaire précédent affiche quelque
-chose de cet ordre là :
+chose de cet ordre-là :
 
 ----
 multipart/form-data; boundary=-----1acfa07ebbd71d3c # <1>
@@ -872,7 +872,7 @@ $ node upload/server-parse.js
 include::{sourceDir}/upload/server-parse.js[]
 ----
 <1> Le module _formidable_ différencie les données et les fichiers.
-<2> Nous accédons aux informations d'un fichier au travers d'un clé, identique à celle de son champ `name` dans le formulaire.
+<2> Nous accédons aux informations d'un fichier au travers d'une clé, identique à celle de son champ `name` dans le formulaire.
 <3> Affiche `text/plain` — la valeur du `Content-Type` du fichier.
 <4> Affiche `hello.txt` — c'est le nom du fichier tel qu'il était nommé sur le poste client.
 <5> Affiche `12` — c'est le poids total du fichier.
@@ -888,7 +888,7 @@ comme Amazon S3, par exemple.
 .[RemarquePreTitre]#Sécurité# Un fichier texte n'a de texte que le nom
 ====
 Comme toutes données transmises par un utilisateur ou une utilisatrice,
-nous devons rester vigileant·e sur le contenu des fichiers pour
+nous devons rester vigilant·e sur le contenu des fichiers pour
 éviter des attaques malicieuses.
 
 Un fichier texte qui contient du JavaScript pourrait être exécuté comme un
@@ -968,9 +968,9 @@ en une structure ECMAScript qui fait sens pour notre application.
 
 Nous allons nous aider pour cela du module npm _cookie_
 ([URL]#https://npmjs.com/cookie#).
-Il sait interpréter le contenu d'une entête HTTP et il sait également faire
+Il sait interpréter le contenu d'un entête HTTP et il sait également faire
 l'inverse, transformer une structure ECMAScript vers du texte utilisable
-dans une entête de réponse `Set-Cookie`.
+dans l'entête de réponse `Set-Cookie`.
 
 ----
 $ node cookies/parse.js
@@ -1022,10 +1022,10 @@ tandis que `{serverUrl}/admin` affiche un cookie supplémentaire —
 | Directive | Explication
 | `Max-Age` | Durée de vie du cookie en secondes. +
 Si le nombre est inférieur ou égal à zéro, le cookie est supprimé. +
-Si cette valeur n'est pas préciée, le cookie est supprimé à la fin de la session.
+Si cette valeur n'est pas précisée, le cookie est supprimé à la fin de la session.
 | `Domain` | Spécifie le domaine ou les sous-domaines applicables au cookie.
 | `Path` | Contraint le cookie à ce répertoire et tous ses sous-répertoires.
-| `Secure` | Le cookie n'est envoyée que si le document est demandé via HTTPS.
+| `Secure` | Le cookie est envoyé seulement si le document est demandé via HTTPS.
 | `HttpOnly` | Le cookie ne peut pas être lu ou modifié côté client, via la variable `document.cookie`.
 |===
 
@@ -1085,7 +1085,7 @@ un rendu HTML adapté au client à l'origine de la requête.
 include::{sourceDir}/templating/list.njk[]
 ----
 <1> Nous indiquons à _nunjuck_ d'envelopper ce gabarit avec la structure décrite dans `layout.njk`.
-<2> Début de la déclaration d'un block nommé `content`.
+<2> Début de la déclaration d'un bloc nommé `content`.
 <3> L'objet `dependencies` (qui est passé en paramètre au gabarit) est affiché après avoir été filtré avec la fonction native _nunjucks_ `length`.
 <4> La boucle `for` répète le bloc de gabarit pour chaque élément de la collection — à la manière des méthodes `map()` et `forEach` des <<../chapter-03/index.adoc#array,tableaux ECMAScript>>.
 <5> Les valeurs de `pkg` et de `version` changent à chaque itération.
@@ -1102,7 +1102,7 @@ variations près.
 .Fonctionnement des expressions _nunjucks_.
 `{%{nbsp}...{nbsp}%}`::
   Expression _nunjucks_ qui peut marquer le début ou la fin d'un bloc.
-  Ce block contient une expression dont le contenu est affiché, inclus ou répété
+  Ce bloc contient une expression dont le contenu est affiché, inclus ou répété
   selon certaines conditions.
 `{{{nbsp}variable{nbsp}}}`::
   Affichage de la valeur d'une variable sous forme d'une chaîne de caractères.
@@ -1120,7 +1120,7 @@ Intéressons-nous maintenant au gabarit parent, `layout.njk` :
 include::{sourceDir}/templating/layout.njk[]
 ----
 <1> La variable `title` est elle aussi un argument passé au template dans `templating/server.js` — ce gabarit y a aussi accès.
-<2> Le block `content` défini dans le fichier `list.njk` est injecté à cet endroit du gabarit.
+<2> Le bloc `content` défini dans le fichier `list.njk` est injecté à cet endroit du gabarit.
 
 Ce gabarit sert de "décoration", en englobant puis injectant son contenu de
 manière précise et contrôlée.
@@ -1159,7 +1159,7 @@ cours d'exécution et vous avez remarqué que résultat ne changeait pas ?
 C'est normal : la version du code utilisée par Node est celle qui a été évaluée
 au lancement du script.
 Les *changements sont pris en compte manuellement, à la prochaine exécution*.
-C'est à dire après avoir stoppé et lancé à nouveau le script.
+C'est-à-dire après avoir stoppé et lancé à nouveau le script.
 
 Le module npm exécutable _nodemon_ ([URL]#https://npmjs.com/nodemon#)
 relance automatiquement une commande dès qu'il détecte un changement
@@ -1245,7 +1245,7 @@ include::{sourceDir}/framework/setup.js[]
 <3> La méthode `response.send()` est un raccourci qui automatise qui combine et configure `response.write()`, `response.statusCode` et de `response.end()`.
 <4> Branchement du serveur HTTP sur l'interface réseau du système d'exploitation.
 
-C'est vraiment très proche si ce n'est identique à ce nous avons déjà appris
+C'est vraiment très proche de ce que nous avons déjà appris
 à faire dans les sections <<server,démarrer un serveur HTTP>> et
 <<paths,répondre à un chemin>>.
 
@@ -1267,7 +1267,7 @@ d'où sortent les méthodes utilisées.
 [[middleware]]
 === Greffer des extensions (_middlewares_)
 
-Un des premiers élément différenciant est le *branchement d'extensions*.
+Un des premiers éléments différenciant est le *branchement d'extensions*.
 Une fois configurées, ces extensions s'appliquent à chaque requête entrante.
 Elles offrent la liberté d'ajouter des capacités de compréhension de la requête
 (<<post,parser des données de formulaire>> par exemple), de modifier la réponse
@@ -1285,7 +1285,7 @@ $ node framework/middleware.js
 ----
 include::{sourceDir}/framework/middleware.js[]
 ----
-<1> Une _middleware_ se branche avec la méthode `app.use()`.
+<1> Un _middleware_ se branche avec la méthode `app.use()`.
 <2> L'objet `response.locals` passe des données jusqu'à la route — les données sont effacées une fois la réponse envoyée.
 <3> La fonction `next()` passe la main au prochain _middleware_.
 <4> Nous récupérons l'objet `response.locals.pokemon` créé par notre _middleware_.
@@ -1447,7 +1447,7 @@ node-sqlite pour les promesses mais on aurait très bien pu utiliser sqlite3
 voir plus loin à <<database-choice>>.
 
 [[sessions]]
-=== Sessions utilisateur
+=== Sessions utilisateurs
 
 [[logs]]
 === Tracer les actions
@@ -1538,7 +1538,7 @@ côté client.
 
 Deux éléments ressortent du modèle de fonctionnement du protocole HTTP :
 *tout est du texte* (entêtes et contenu) et *chaque requête est indépendante*.
-C'est à dire que chaque requête emporte son contexte avec elle, toutes les
+C'est-à-dire que chaque requête emporte son contexte avec elle, toutes les
 informations nécessaires à sa compréhension.
 
 Qu'est-ce qu'il se passe lorsque notre navigateur web ou que le programme `curl`
@@ -1642,7 +1642,7 @@ Stockage en mémoire::
   Elles sont généralement dites "clé/valeur" car nous cherchons un identifiant
   donné pour récupérer un, voire plusieurs champs associés.
 Stockage sur disque::
-  _MySQL_, _MSSQL_, _Postgres_ et _MongoDB_ stockent leur données sur disque,
+  _MySQL_, _MSSQL_, _Postgres_ et _MongoDB_ stockent leurs données sur disque,
   dans des fichiers optimisés pour la recherche d'informations — les _index_.
   Elles sont souvent rapides en lecture et plus lentes en écriture — selon
   le type de disque dur utilisé pour le stockage.
