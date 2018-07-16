@@ -293,6 +293,15 @@ module.exports = {
   'chapter-07/examples/cookies/set-multiple.js': {
     skip: true
   },
+  'chapter-07/examples/framework/assets.js': {
+    skip: true
+  },
+  'chapter-07/examples/framework/assets-file.js': {
+    skip: true
+  },
+  'chapter-07/examples/framework/database.js': {
+    skip: true
+  },
   'chapter-07/examples/framework/middleware.js': {
     skip: true
   },
@@ -300,6 +309,9 @@ module.exports = {
     skip: true
   },
   'chapter-07/examples/framework/middleware-function.js': {
+    skip: true
+  },
+  'chapter-07/examples/framework/minify.js': {
     skip: true
   },
   'chapter-07/examples/framework/setup.js': {

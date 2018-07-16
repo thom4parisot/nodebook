@@ -469,9 +469,9 @@ réduire le poids de notre code :
 - suppression du code inutilisé ;
 - écriture automatique de code pour supporter des environnements anciens ou futurs.
 
-=== uglify-js2
+=== uglify-es
 
-_UglifyJS_ ([URL]#https://npmjs.com/uglify-js2#) est un des premiers
+_UglifyJS_ ([URL]#https://npmjs.com/uglify-es#) est un des premiers
 compresseurs à utiliser une représentation syntaxique en arbre
 (_Abstract Syntax Tree_ — _AST_) en lieu et place des classiques
 optimisations à coups d'expressions régulières.
@@ -715,6 +715,14 @@ de déclencher des actions quand des fichiers sont modifiés.
 Node sait communiquer avec tout type de bases de données grâce à l'écosystème npm.
 Préférez les modules faisant état de _driver_ natif/binaire —
 les transferts de données n'en sera que plus rapide.
+
+=== db-migrate
+
+_db-migrate_ ([URL]#https://npmjs.com/db-migrate#) est un outil de gestion
+de migrations pour MySQL, SQLite, MongoDB et Postgres.
+À l'aide de scripts de migration, il rend reproductible des changements
+de structure dans une base de données — ajout ou suppression de champ, de table
+ou d'index.
 
 === knex
 

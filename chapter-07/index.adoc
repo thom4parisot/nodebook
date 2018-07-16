@@ -1547,13 +1547,43 @@ En clair, c'est pratique pour dépanner et pour démarrer.
 [[database]]
 === Brancher une base de données
 
-Mémoriser les données entre deux redémarrages
-Partager les données entre plusieurs instances
+L'utilisation d'une base de données sert à mémoriser des informations entre
+deux redémarrages de notre application — sinon, ce qui est en mémoire
+applicative disparaît.
+Je vous recommande de lire la section <<database-choice>> pour éclairer votre choix.
 
-on va utiliser sqlite parce que pas de dépendance logicielle
-node-sqlite pour les promesses mais on aurait très bien pu utiliser sqlite3
+----
+$ node framework/database.js
+----
 
-voir plus loin à <<database-choice>>.
+[source,javascript]
+.framework/database.js
+----
+include::{sourceDir}/framework/database.js[]
+----
+<1> La connexion à la base de données est asynchrone — l'objet `db` qui permet d'exécuter des requêtes est renvoyé par la promesse.
+<2> Exécution d'une requête avec un paramètre issu du <<path,routing>> — le champ `:id`.
+<3> Le résultat est fourni lors de la résolution de la promesse — il vaut `undefined` si aucun enregistrement n'a été trouvé.
+<4> Affichage de l'enregistrement côté client (sans mise en forme aucune).
+
+L'intégration d'une base de données se fait en deux temps. +
+D'abord l'ouverture d'une connexion qui est asynchrone.
+Les connexions HTTP sont acceptées seulement si la connexion à la base réussit. +
+La réponse est renvoyée après avoir fait un aller-retour vers la base
+afin d'en extraire un ou plusieurs résultats.
+
+[CAUTION]
+.[RemarquePreTitre]#Sécurité# Systématiser les emplacements de paramètre
+====
+L'utilisation des _emplacements de paramètre_ dans les requêtes SQL avec
+le caractère `?` renforce la sécurité de notre application.
+
+La valeur est filtrée pour éviter de déjouer le moteur de base de données en
+le faisant planter ou en exposant davantage d'informations que prévues.
+====
+
+Nous verrons dans la section <<tests>> qu'un des enjeux est de rendre le fichier
+de démarrage le plus _fin_ possible.
 
 [[sessions]]
 === Sessions utilisateurs
@@ -1582,6 +1612,7 @@ but est de rendre une fonction de render la plus fine possible
 - créer des middlewares pour mettre en commun/sortir des choses qui n'ont rien à voir avec l'objet de la route (genre, l'authentification)
 - dans les routes, appeler des fonctions testables
 
+[[tests.unit]]
 === Un code testable est un code indépendant du framework
 
 la modularisation découple les différents aspects et les rend testable
@@ -1591,13 +1622,19 @@ tester les middlewares
 tester les données entrantes
 tester le code qui retourne des données
 
+db en param
+prob c'est qu'on initialise la db différemment
+un des moyens c'est de tester une ou plusieurs routes <<tests.frontend>>
+
 mocha, chai, bon duo
 
+[[tests.frontend]]
 === Tester les aspects cruciaux du front-end
 
 supertest pour assurer de bout en bout que la page génère ce qu'il faut
 Cf. chapter-09/karma pour tester les interactions (rendering JavaScript compris)
 
+[[deployment]]
 === Déployer automatiquement
 
 on se rend plus vite compte des erreurs quand on publie souvent,
