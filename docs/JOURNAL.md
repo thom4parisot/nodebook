@@ -12,8 +12,7 @@ a été écrit, relu et testé avec un public apprenant.
 
 - _Chapitre 7_ : Intégrer les ressources front-end
 - _Chapitre 7_ : Brancher une base de données
-- _Chapitre 7_ : Sessions utilisateurs
-- _Chapitre 7_ : Tracer les actions
+- _Chapitre 7_ : Une application minimaliste avec les Lambda
 
 **Météo** : 💪 ☀️
 

@@ -1922,14 +1922,51 @@ cas de figure du statut 202 (au lieu de 201)
 [[lambda]]
 === Une application minimaliste avec les Lambda
 
-être allumé quand il y en a besoin
-faire un truc et un seul, de temps en temps
+Le principe d'une application web est d'afficher un résultat à partir d'un
+chemin d'accès et de rester allumée en permanence, sauf exception.
+Les _lambda_ sont une approche minimaliste d'application web : il n'y a qu'une
+seule route, c'est *une seule fonction qui retourne un résultat*.
 
-créer un truc qui ressemble à une appli avec portail d'API
-agréger avec un portail d'API (_API Gateway_), décrit avec schéma OpenAPI
-API unifiée avec des services fragmentés, plus proches de leur source de données
+L'application s'endort quand elle ne reçoit pas de trafic dans un laps de temps donné.
+Elle est "réveillée" quand du trafic arrive.
+La facturation se fait à l'échelle de la seconde et au nombre de requêtes entrantes.
+Nous en parlons un peu plus en détails dans le <<../chapter-06/index.adoc#,chapitre 6>>,
+consacré à l'hébergement et aux déploiements.
 
-https://npmjs.com/micro
+Ce mécanisme s'adapte à des résultats en réaction à un événément : _webhook_,
+notification, erreur, etc.
+
+Le module npm _micro_ ([URL]#https://npmjs.com/micro#) est un serveur minimaliste
+qui répond à ce principe de micro-application, prête à être mise en pause à
+tout instant.
+
+[source%interactive%endpoint,javascript]
+.micro.js
+----
+include::{sourceDir}/micro.js[]
+----
+<1> Nous avons accès à la requête et à la réponse mais nous avons aussi la liberté de renvoyer un résultat en le retournant à la _fonction de callback_.
+<2> À la manière d'une <<server,application classique>>, nous la démarrons sur le port HTTP de notre choix.
+
+Un service comme _AWS Lambda_ ([URL]#https://aws.amazon.com/lambda#) pousse
+le concept encore plus loin.
+La fonction réagit à un événement interne (notification SQS, quelque chose lié
+à notre infrastructure, déploiement, etc.) ou à un événement externe (via l'API
+ou un autre service ouvert vers l'extérieur).
+Elle n'est pas forcément exposée sur le web.
+
+[source,javascript]
+.lambda.js
+----
+include::{sourceDir}/lambda.js[]
+----
+<1> C'est tout ce qu'il faut pour qu'une _lambda_ retourne un résultat pour qu'il soit utilisable pour l'appelant.
+
+La versatilité de se mécanisme permet de créer une API complète en agrégeant
+plusieurs lambda derrière une _portail d'API_ comme _AWS API Gateway_
+([URL]#https://aws.amazon.com/api-gateway#).
+À une API et une ressource (chemin et méthode HTTP) est associée une ressource
+AWS, dont les _lambda_ font partie.
 
 [[https]]
 === Et HTTPS dans tout ça ?

@@ -323,6 +323,9 @@ module.exports = {
   'chapter-07/examples/framework/templating.js': {
     skip: true
   },
+  'chapter-07/examples/micro.js': {
+    skip: true
+  },
   'chapter-07/examples/path/404.js': {
     skip: true
   },
