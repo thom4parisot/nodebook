@@ -1823,49 +1823,74 @@ S'il est plus simple de tout gérer avec un seul support de stockage, utiliser
 [[security]]
 === Protéger nos applications
 
-https://npmjs.com/helmet
-https://npmjs.com/safe-regex pour utiliser une regex sur du contenu fourni par utilisateur
-https://npmjs.com/xss
-https://npmjs.com/sql-escape-string
-https://npmjs.com/dompurify
+Il faut prendre des mesures de précaution dès lors que nous utilisons des
+données saisies par un utilisateur.
+C'est à dire *toute variable dont la valeur provient de l'extérieur*.
+Je pense à des données de formulaire, des paramètres d'URL, des chemins d'accès,
+des fichiers uploadés mais aussi des scripts qu'ils ou elles injectent dans la page,
+de leur plein gré ou via un logiciel vérolé installé sur leur ordinateur.
 
-path traversal (indexOf)
-use strict (réduit les possibilités d'exploiter des bizarreries de JS)
+[URL]#https://npmjs.com/helmet#::
+  Déjoue les injections de scripts et d'iframes non-sollicitées.
+[URL]#https://npmjs.com/safe-regex#::
+  Filtre une expression régulière fournie ou composée avec une valeur fournie par un utilisateur.
+  Ça évite certains bugs qui surchargent le CPU ou qui déjouent les motifs des expressions.
+[URL]#https://npmjs.com/dompurify#::
+[URL]#https://npmjs.com/xss#::
+  Nettoie du HTML d'attributs et de balises non-sollicitées.
+  Les injections de scripts et les événements malicieux de clics sont supprimées.
+[URL]#https://npmjs.com/sql-escape-string#::
+  Nettoie une saisie utilisateur de tout caractère qui pourrait déjouer nos attentes
+  au sein d'une requête SQL.
+
+Outre les données arbitraire, il faut toujours s'assurer des *permissions*.
+L'utilisateur a-t-il ou a-t-elle vraiment le droit d'être là ou il/elle est ?
+Le volume du fichier uploadé est-il vraiment cohérent ?
+
+L'utilisation du <<../chapter-03/index.adoc#strict,mode strict>> a l'avantage
+de nous protéger de l'exploitation d'anciennes bizarreries de JavaScript.
+Ce qui doit planter plante au lieu d'être passé sous silence.
+
+Des fois, même les caractères autorisés suffisent à déjouer notre attention.
+C'est le cas si une variable est utilisée pour composer un chemin avec
+`path.resolve()` ou `path.join()` par exemple.
+La saisie utilisateur crée un chemin de traverse qui permet d'aller exploiter
+des données ailleurs sur l'ordinateur.
+
+[source%interactive,javascript]
+.path-traversal.js
+----
+include::{sourceDir}/path-traversal.js[]
+----
+<1> Affiche `/etc/passwd` — notre chemin de base a été complètement remplacé.
+<1> Affiche `+/.../chapter-07/examples+` — notre chemin de base a été complètement remplacé.
+
+Un moyen solide de vérifier que nous n'avons pas été déraillé·e en dehors
+d'un répertoire racine — ici, `base_dir` — est de vérifier que le chemin final
+débute bien par le chemin du répertoire racine.
 
 [options="header", cols="2, 4a"]
+.Entêtes de réponse qui ont un impact sur la sécurité de navigation.
 |===
 | Entête | Description
-| `X-DNS-Prefetch-Control` |
-| `X-Frame-Options` |
-| `Strict-Transport-Security` |
-| `X-Download-Options` |
-| `X-Content-Type-Options` |
-| `X-XSS-Protection` |
+| `X-DNS-Prefetch-Control` | Avec la valeur `off`, le navigateur ne va pas proactivement chercher les informations DNS des ressources contenues dans la page. Nos informations de navigation ne sont pas divulguées à notre insu.
+| `X-Frame-Options` | Avec la valeur `SAMEORIGIN`, le navigateur autorise la création d'``<iframe>`` seulement depuis le même domaine — les `<iframe>` tierces sont bloquées.
+| `Strict-Transport-Security` | Lorsque l'option est activée, le navigateur accèdera par défaut à ce site en HTTPS au lieu de HTTP.
+| `X-Download-Options` | Avec la valeur `noopen`, Internet Explorer téléchargera un fichier au lieu de tenter de l'ouvrir à même le navigateur — ça peut être exploité pour pirater le navigateur par des fichiers malicieux.
+| `X-Content-Type-Options` | Avec la valeur `nosniff`, les navigateurs bloquent les scripts et les styles qui n'ont respectivement pas l'entête `Content-Type` à `application/javascript` et `text/css`.
+| `X-XSS-Protection` | Avec la valeur `1; mode=block`, les navigateurs interrompent le chargement d'une page s'ils détecte une exploitation malicieuse de chargement de données ou de fichier.
 |===
 
-////
-L'organisme _Open Web Application Security Project_ (_OWASP_) recueille et diffuse nombre de critères de sécurité à connaître et vérifier pour déjouer au mieux des attaques.
-Citons quelques uns de ces critères :
-
-* *dépendences logicielles* ;
-* *injection de code arbitraire* ;
-* *données d'authentification* (vols, interceptions, brute force etc.) ;
-* *contrôles d'accès* (impersonnification etc.) ;
-* *optimisme sécuritaire* et *absences de vérifications* ;
-* exposition de *données critiques* ;
-* attaques *CSRF* (un script tiers actionne des commandes à notre insu) ;
-* *uploads de fichiers* (poids limite, formats, chevaux de Troie etc.)
-* *redirections* non-contrôlées.
-
 [TIP]
-.[RemarquePreTitre]#Ressources# [URL]#owasp.org#
+.[RemarquePreTitre]#Guide# Open Web Application Security Project (_OWASP_)
 ====
-Le site d'OWASP offre guides, référentiels, fiches récapitulatives, applications types, outils et tutoriaux pour sensibiliser à la sécurité applicative.
+L'organisme _Open Web Application Security Project_ (_OWASP_) recueille et
+diffuse nombre de critères de sécurité à connaître et vérifier pour déjouer
+au mieux des attaques.
 
-- [URL]#https://www.owasp.org/#
-- [URL]#https://nodegoat.herokuapp.com/tutorial#
+Ils mettent à disposition un guide spécialisé pour Node à l'adresse
+[URL]#https://nodegoat.herokuapp.com/tutorial#.
 ====
-////
 
 
 ////
