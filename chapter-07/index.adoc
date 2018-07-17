@@ -1588,6 +1588,88 @@ de démarrage le plus _fin_ possible.
 [[sessions]]
 === Sessions utilisateurs
 
+Nous avons appris à mémoriser des données et à les partager avec un serveur
+grâce au mécanisme des <<cookies,cookies>>.
+Les sessions utilisateurs centralisent cette mémoire du côté du serveur.
+Elles se basent sur un *cookie de session* pour garder un lien.
+
+Les sessions sont destinées à *stocker des données temporaires*, liées à une
+personne.
+Un utilisateur peut avoir plusieurs sessions — une par appareil par exemple.
+Chaque session est propre à son environnement immédiat.
+Elles sont pratiques pour mémoriser des informations liées à un état
+(connecté·e, déconnecté·e, date de dernière activité). +
+Tout stockage qui serait permanent relève des _préférences utilisateurs_.
+
+Le middleware _express-session_ ([URL]#https://npmjs.com/express-session#)
+se charge de ce travail pour nous.
+Il ajoute un élément `request.session` qu'il mémorise et récupère à partir
+d'un identifiant de session difficile à deviner.
+
+----
+$ node framework/session.js
+----
+
+[source,javascript]
+.framework/session.js
+----
+include::{sourceDir}/framework/session.js[]
+----
+<1> Configuration du _middleware_ avec un secret qui rend moins prévisible le nommage du <<cookies,cookie>>.
+<2> Création d'une donnée de session nommée `pokemon`, de valeur aléatoire.
+<3> Affiche un message du genre de `Mon Pokémon en session : Pikachu`.
+
+La même valeur s'affiche si vous ouvrez un nouvel onglet dans le même navigateur
+et en vous rendant sur `{serverUrl}/my-pokemon`.
+Le serveur fait fait le lien entre votre identifiant de session (stocké en cookie)
+et les valeurs associées (stockées en mémoire, pour l'instant) grâce à un identifiant
+unique stocké dans le cookie de session.
+
+Le _middleware_ de session retrouve les informations associées à cet identifiant
+depuis l'espace de stockage des données de sessions.
+
+[subs="+quotes"]
+.Extrait des entêtes de réponse à l'origine de la création du cookie de session.
+----
+$ curl -i -L http://localhost:4000
+HTTP/1.1 302 Found
+Location: my-pokemon
+Content-Type: text/plain; charset=utf-8
+Content-Length: 32
+##set-cookie##: connect.sid=s%3AWfP...SRr5Q; Path=/; HttpOnly
+Date: Tue, 17 Jul 2018 09:46:15 GMT
+----
+
+Le seul inconvénient à notre exemple est que si nous stoppons et que
+nous relançons le serveur, la page `{serverUrl}/my-pokemon` affiche
+`undefined` comme nom de Pokémon.
+C'est normal : le stockage par défaut étant en mémoire, les données de session
+sont détruites dès que le processus Node s'interrompt.
+
+Fort heureusement pour nous, ces données se stockent avec la
+<<database-choice,base de données de notre choix>>.
+Nous allons utiliser le moteur de base de données _SQLite_
+à l'aide du module _connect-sqlite3_ ([URL]#https://npmjs.com/connect-sqlite3#)
+pour illustrer la persistance des données de session.
+
+----
+$ node framework/session-database.js
+----
+
+[source,javascript]
+.framework/session-database.js
+----
+include::{sourceDir}/framework/session-database.js[]
+----
+<1> Branchement du module de stockage au gestionnaire de sessions d'express.
+<2> Configuration du connecteur de stockage et de l'emplacement du fichier qui contient les données des sessions.
+<3> L'écriture et la lecture des données de session est inchangée.
+
+Cette fois, si nous stoppons le serveur et que nous le relançons,
+le gestionnaire de session affiche le nom de Pokémon associé à notre identifiant
+de session.
+La persistance a fonctionné !
+
 [[logs]]
 === Tracer les actions
 
