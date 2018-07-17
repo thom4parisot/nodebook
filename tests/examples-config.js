@@ -341,6 +341,9 @@ module.exports = {
   'chapter-07/examples/path/route-params.js': {
     skip: true
   },
+  'chapter-07/examples/path-traversal.js': {
+    stderr: 'nodebook/chapter-07/examples'
+  },
   'chapter-07/examples/post/send.js': {
     stderr: 'ECONNREFUSED',
     errorCode: 1
