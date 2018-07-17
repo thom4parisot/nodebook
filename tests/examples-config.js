@@ -314,6 +314,12 @@ module.exports = {
   'chapter-07/examples/framework/minify.js': {
     skip: true
   },
+  'chapter-07/examples/framework/session.js': {
+    skip: true
+  },
+  'chapter-07/examples/framework/session-database.js': {
+    skip: true
+  },
   'chapter-07/examples/framework/setup.js': {
     skip: true
   },
@@ -352,12 +358,6 @@ module.exports = {
     skip: true
   },
   'chapter-07/examples/post/server-parse.js': {
-    skip: true
-  },
-  'chapter-07/examples/post/session.js': {
-    skip: true
-  },
-  'chapter-07/examples/post/session-database.js': {
     skip: true
   },
   'chapter-07/examples/server/start.js': {

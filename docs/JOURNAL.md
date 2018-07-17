@@ -11,6 +11,7 @@ a été écrit, relu et testé avec un public apprenant.
 ## Mardi 17 juillet 2018 • Paris
 
 - _Chapitre 7_ : Sessions utilisateurs
+- _Chapitre 7_ : Tracer les actions (_logs_)
 
 **Météo** : 😴 💪 ☀️
 

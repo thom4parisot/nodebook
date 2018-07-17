@@ -1671,11 +1671,58 @@ de session.
 La persistance a fonctionné !
 
 [[logs]]
-=== Tracer les actions
+=== Tracer les actions (_logs_)
 
-importants pour retrouver des problèmes
-contexte où plein de personnes accèdent à une application, font plein de trucs
-(ça dépasse l'échelle de compréhension d'un cerveau)
+Consigner les actions (_logging_ en anglais) est une pratique courante
+en informatique pour créer une mémoire des actions effectuées par une application.
+Ces consignes aident à garder des traces de choses invisibles en surface,
+d'événements sensibles ou critiques (envoi de mot de passe, création de compte)
+afin de détecter des anomalies de fréquence.
+
+C'est un endroit idéal pour historiser les erreurs avec des indications qui
+aideraient à reproduire le problème.
+D'ailleurs, l'habitude est à tenir un journal d'erreurs séparé du journal des
+événements afin de retrouver plus facilement ces premières.
+J'ai tendance à préférer l'installation d'une _sonde_, comme expliqué dans
+la section
+<<../chapter-06/index.adoc#exceptions,s'informer des erreurs applicatives>>
+du <<../chapter-06/index.adoc#,chapitre 6>>.
+
+C'est *à nous de choisir la granularité des informations* historisées.
+Nous sommes responsables de rendre ces informations anonymes et de ne pas
+mettre d'autre information personnelle qu'un identifiant (numérique ou généré)
+pour rattacher des informations à un utilisateur si c'est nécessaire
+— dans le cas de transaction bancaire ou de renvoi de mot de passe par exemple.
+
+[CAUTION]
+.[RemarquePreTitre]#Attention# Rotation de logs
+====
+Consigner des informations est bien jusqu'au moment où l'historique finit
+par saturer le disque dur de la machine qui héberge l'application.
+
+Sous Linux, le logiciel _logrotate_ ([URL]#https://doc.ubuntu-fr.org/logrotate#)
+est souvent installé par défaut.
+Il indique au système quand tronquer le fichier d'historique —
+tous les X Mégaoctets, tous les X jours.
+====
+
+Les modules npm pour consigner nos actions fonctionnent comme des `console.log()`
+finement configurables.
+Les modules _winston_ ([URL]#https://npmjs.com/winston#), _morgan_
+([URL]#https://npmjs.com/morgan#) et _bunyan_ ([URL]#https://npmjs.com/bunyan#)
+sont à essayer, pour voir celui qui vous convient le mieux.
+
+.Extrait de logs retournés par une application hébergée chez Heroku.
+image::images/heroku-logs.png[]
+
+Les journaux de sorties se connectent à des logiciels comme _rsyslog_
+([URL]#https://rsyslog.com#) ou à des services en ligne comme
+_Papertrail_ ([URL]#https://papertrailapp.com#), _Logstash_
+([URL]#https://elastic.co/products/logstash#) et _AWS CloudWatch_
+([URL]#https://aws.amazon.com/cloudwatch#).
+Elles vous aident — ou vous demandent de travailler davantage — pour visualiser,
+orchestrer et déclencher des actions quand des valeurs spécifiques sont rencontrées
+dans les journaux.
 
 [[tests]]
 == Vers un code réutilisable et testable
