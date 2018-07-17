@@ -5,7 +5,9 @@
   "description": "Exemples de code du chapitre 3 du livre \"Node.js\" publié aux éditions Eyrolles.",
   "scripts": {
     "migrations": "DATABASE_URL=examples/framework/db.sqlite db-migrate up --migrations-dir examples/framework/migrations",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "snyk-protect": "snyk protect",
+    "prepare": "npm run snyk-protect"
   },
   "engines": {
     "node": "^10.0.0"
@@ -40,6 +42,8 @@
     "sequelize-cli": "^4.0.0",
     "serve": "^9.2.0",
     "sqlite": "^2.9.2",
-    "superagent": "^3.8.3"
-  }
+    "superagent": "^3.8.3",
+    "snyk": "^1.88.4"
+  },
+  "snyk": true
 }
