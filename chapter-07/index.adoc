@@ -1807,7 +1807,7 @@ Je passe ensuite à MySQL ou Postsgres selon le projet — je me sens autonome s
 MySQL pour l'installation tandis que je préfère un service qui gère tout de
 bout en bout avec Postgres.
 
-Je peux être amené à indexer les données dans une base de données ElasticSearch
+Je peux être amené à indexer les données dans une base de données Elasticsearch
 ou Algolia pour leur donner une autre structure, spécialement optimisée pour
 la recherche — une lecture très rapide sur des critères variables.
 Je le fais si un des aspects principaux du projet est de préserver des performances
@@ -1863,7 +1863,7 @@ des données ailleurs sur l'ordinateur.
 include::{sourceDir}/path-traversal.js[]
 ----
 <1> Affiche `/etc/passwd` — notre chemin de base a été complètement remplacé.
-<1> Affiche `+/.../chapter-07/examples+` — notre chemin de base a été complètement remplacé.
+<2> Affiche `+/.../chapter-07/examples+` — notre chemin de base a été complètement remplacé.
 
 Un moyen solide de vérifier que nous n'avons pas été déraillé·e en dehors
 d'un répertoire racine — ici, `base_dir` — est de vérifier que le chemin final
