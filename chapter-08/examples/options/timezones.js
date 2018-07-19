@@ -9,7 +9,6 @@ const output = timezones.map(timeZone => {              // <1>
     timeZone,
     hour: 'numeric', minute: 'numeric', hour12: false
   });
-
   return `${timeZone} : ${date}`;                       // <2>
 });
 

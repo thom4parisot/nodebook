@@ -14,7 +14,7 @@ sqlite.open(join(__dirname, 'db.sqlite')).then(db => {  // <1>
         record
           ? response.send(record)                       // <4>
           : response.status(404).send('Livre inconnu');
-      })
+      });
   });
 
   app.listen(4000);

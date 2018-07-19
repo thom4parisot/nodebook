@@ -332,6 +332,12 @@ module.exports = {
   'chapter-07/examples/micro.js': {
     skip: true
   },
+  'chapter-07/examples/modularity/01/server.js': {
+    skip: true
+  },
+  'chapter-07/examples/modularity/02/server.js': {
+    skip: true
+  },
   'chapter-07/examples/path/404.js': {
     skip: true
   },

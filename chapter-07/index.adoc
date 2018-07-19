@@ -1724,22 +1724,157 @@ Elles vous aident — ou vous demandent de travailler davantage — pour visuali
 orchestrer et déclencher des actions quand des valeurs spécifiques sont rencontrées
 dans les journaux.
 
-[[tests]]
+[[modularity]]
 == Vers un code réutilisable et testable
 
-le but est d'arriver à un fichier qui assemble les composants : server.js qui assemble la base de données aux routes
-des composants les plus indépendants possibles des requêtes/réponses
-des données toutes prêtes envoyées au template
-fonctions des
+L'intention de cette section est de consolider les différents concepts
+évoqués au cours de ce chapitre.
+Nous a composé pas à pas une application web jusqu'à l'organiser avec le framework
+_express_.
+Maintenant, nous allons réorganiser les composants pour améliorer la
+maintenance et la résilience aux changementds de nos applications web.
+
+Notre but ?
+*Diminuer la taille du script de lancement*, rendre les composants indépendants
+et préparer au mieux les données passées à nos templates pour faciliter
+l'écriture de tests et favoriser l'automatisation du déploiement.
 
 === Modulariser le code des routes
 
-but est de rendre une fonction de render la plus fine possible
+Le défi de lisibilité et de maintenance augmente au fur et à mesure où
+le volume de code augmente.
+C'est particulièrement vrai quand le nombre de lignes dépasse un seuil
+psychologique dans un même fichier — je commence à saturer au-delà de 100 lignes,
+par exemple.
+Ce phénomène se renforce quand plusieurs concepts s'entrecroisent visuellement.
 
-- fichier server le plus fin possible
-- si ça plante, que ça plante le plus vite possible (avant la première requête) car plus rapide à corriger
-- créer des middlewares pour mettre en commun/sortir des choses qui n'ont rien à voir avec l'objet de la route (genre, l'authentification)
-- dans les routes, appeler des fonctions testables
+La modularisation des routes et de notre application web va nous rendre la vie
+plus confortable.
+Nous ouvrons la porte à l'écriture de <<tests.unit,tests unitaires>>, à un
+déplacement plus aisé du code et à une quasi-disparition des variables globales.
+Nous en profitons pour rendre nos intentions explicites, ce à quoi nous oblige
+les réflexions de nommage de fichiers et de fonctions.
+
+----
+$ node modularity/01/server.js
+----
+
+[source,javascript]
+.modularity/01/server.js
+----
+include::{sourceDir}/modularity/01/server.js[]
+----
+<1> Nous déplaçons la configuration et connexion à la base de données dans son propre module.
+<2> Nous déplaçons aussi le code des routes.
+<3> Au premier coup d'œil, la route est une association de chemin et d'une fonction.
+
+Nous créons des modules qui retournent des fonctions ou des objets.
+Nous connectons ensuite ces fonctions aux chemins d'accès du routeur.
+
+Profitons du mécanisme de promesses pour que tout autre module
+puisse réagir à l'aboutissement de la connexion :
+
+[source,javascript]
+.modularity/01/src/database.js
+----
+include::{sourceDir}/modularity/01/src/database.js[]
+----
+<1> Nous réutilisons la base de données de la section <<database>> de ce même chapitre.
+<2> La fonction `sqlite.open()` retourne une promesse — c'est cette dernière qui exporte une seule et même connexion.
+
+Je trouve ça agréable de regrouper ce genre de lignes de code dans un même fichier.
+Les dépendances aux modules Node et aux modules npm deviennent vraiment claires.
+Je suis moins dérangé par l'organisation visuelle du code — elle aurait ralenti
+ma lecture du fichier `server.js` autrement.
+
+[source,javascript]
+.modularity/01/src/routes.js
+----
+include::{sourceDir}/modularity/01/src/routes.js[]
+----
+
+Le fichier de routes a vocation à réexporter les fonctions de _routing_.
+Je trouve que cette organisation sous forme de catalogue fait énormément
+gagner en lisibilité lors de l'intégration avec le routeur.
+
+Le dernier morceau est la route elle-même :
+
+[source,javascript]
+.modularity/01/src/routes/books.js
+----
+include::{sourceDir}/modularity/01/src/routes/books.js[]
+----
+<1> Récupération de la promesse de connexion à la base de données — elle est déjà pré-configurée.
+<2> De fait, l'exécution d'une requête dépend de la résolution de la connexion.
+
+Le code de la route est quasi inchangé mais on voit à quel point elle prenait
+de la place dans le code d'origine.
+Ce déplacement révèle le positionnement du point d'attention et quels fichiers
+sont amenés à changer au quotidien.
+Peu importe l'organisation de votre, ce qui compte c'est que cette organisation
+vous convienne, soit communicable aux personnes qui utilisent ce code et que
+nous puissions suivre le fil logique.
+
+Je vois toutefois apparaître une zone d'ombre : je ne suis pas satisfait
+de la connexion à la base de données.
+C'est la résolution de la promesse dans la route qui me fait dire ça ; ça ne
+semble pas à sa place.
+
+Faisons une nouvelle itération pour ajuster ce code et tendre vers quelque
+chose d'un peu plus explicite.
+
+----
+$ node modularity/02/server.js
+----
+
+[source,javascript]
+.modularity/02/server.js
+----
+include::{sourceDir}/modularity/02/server.js[]
+----
+<1> Nous regroupons les éléments de configuration de l'application.
+<2> Nous passons les dépendances du module en argument — ici, l'objet de base de données.
+
+La grande différence ici est l'invocation d'une fonction pour définir la route.
+C'est le moyen le plus propre pour transmettre une variable en enlevant la
+dépendance au module `database.js` dans le script `books.js` :
+
+
+[source,javascript]
+.modularity/02/src/routes/books.js
+----
+include::{sourceDir}/modularity/02/src/routes/books.js[]
+----
+<1> Cette fois, nous exportons une fonction qui accepte un objet de base de données en argument.
+<2> Le code exécuté par le routeur est la fonction qui est retournée ici.
+
+L'appel à la fonction `require()` a disparu.
+La résolution de la promesse aussi.
+Notre module est autonome tant qu'il reçoit un objet de base de données en
+paramètres.
+Ça le rend nettement plus lisible — le code est désormais uniquement lié
+à la réception d'une requête HTTP et à l'établissement d'une réponse.
+
+[source,javascript]
+.modularity/02/configure.js
+----
+include::{sourceDir}/modularity/02/configure.js[]
+----
+<1> Nous utilisons la syntaxe raccourcie de création d'objets pour les exporter en une seule fois.
+
+Nous retrouvons le même mécanisme que celui rencontré dans le fichier `routes.js`.
+
+Au final, le motif qui émerge est celui de
+l'*encapsulation de code dans des fonctions paramétrables*.
+Les paramètres sont les seuls points d'entrées.
+Les arguments font office de contrat et les fichiers font office de regroupement
+logique — de fonctions et d'objets.
+
+Nous avons allégé le fichier `server.js` et rendu lisible les points importants
+de l'application : la connexion à la base de données, le rendu d'une route
+et la configuration de l'application. +
+Ce travail va nous permettre de tester petit à petit les différents éléments
+de l'application web, par ordre de criticité.
 
 [[tests.unit]]
 === Un code testable est un code indépendant du framework
