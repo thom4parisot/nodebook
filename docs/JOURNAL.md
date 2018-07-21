@@ -8,6 +8,12 @@ a été écrit, relu et testé avec un public apprenant.
 
 ---
 
+## Samedi 21 juillet 2018 • Paris
+
+- _Chapitre 7_ : Déployer automatiquement
+
+**Météo** : 😴 💪 🍞 ☀️
+
 ## Jeudi 19 juillet 2018 • Paris
 
 - _Chapitre 7_ : Modulariser le code des routes

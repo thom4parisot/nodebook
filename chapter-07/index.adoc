@@ -1780,7 +1780,13 @@ puisse réagir à l'aboutissement de la connexion :
 include::{sourceDir}/modularity/01/src/database.js[]
 ----
 <1> Nous réutilisons la base de données de la section <<database>> de ce même chapitre.
-<2> La fonction `sqlite.open()` retourne une promesse — c'est cette dernière qui exporte une seule et même connexion.
+<2> La fonction `sqlite.open()` retourne une promesse résolue lorsque la connexion à la base est établie.
+
+Notons que nous exploitons le <<../chapter-04/index.adoc#require,mécanisme de cache>>
+des modules Node dans cette dernière ligne.
+Chaque appel au fichier `database.js` retourne la même promesse.
+Nous créons ainsi une seule connexion à la base de données même si nous chargeons
+plusieurs fois ce module.
 
 Je trouve ça agréable de regrouper ce genre de lignes de code dans un même fichier.
 Les dépendances aux modules Node et aux modules npm deviennent vraiment claires.
@@ -1879,6 +1885,7 @@ de l'application web, par ordre de criticité.
 [[tests.unit]]
 === Un code testable est un code indépendant du framework
 
+L'écriture de tests unitaires
 la modularisation découple les différents aspects et les rend testable
 
 tester les helpers
@@ -1901,11 +1908,32 @@ Cf. chapter-09/karma pour tester les interactions (rendering JavaScript compris)
 [[deployment]]
 === Déployer automatiquement
 
-on se rend plus vite compte des erreurs quand on publie souvent,
-on peut corriger plus rapidement ce qui bloque l'automatisation
-on fait davantage gaffe à ce qu'on fait quand tout le monde peut déployer
+Cette section s'inscrit dans la continuité de l'ajout d'automatisation
+dans notre manière de fonctionner.
+Elle n'est pas donc pas spécifique aux frameworks et est tout à fait valide
+si vous vous constituez votre propre application, brique par brique.
 
-Cf. chapter-06
+Le déploiement automatique sert principalement à *révéler les points de friction*.
+Si nous ne sommes pas confident·e dans le déploiement, c'est probablement qu'il
+y a des nœuds à démêler.
+L'automatisation du déploiement et la facilité de sa répétabilité nous permet
+de gommer ces frictions petit à petit.
+La pression de la mise en production se transforme en incitation au changement.
+
+La fréquence des déploiements *révèle les points de congestion*.
+Tout ce qui est trop lent à notre goût est un appel à gommer cette lenteur,
+à trouver une autre approche pour finalement observer le résultat du déploiement
+plus rapidement.
+
+L'enjeu des livraisons automatisée est double.
+Le premier enjeu est de *faciliter le transport du code vers le serveur de production*.
+En cas de bug, le temps passé concerne seulement la résolution du problème et non
+la livraison elle-même.
+Enfin, l'automatisation sert de *documentation du processus de livraison*.
+
+Nous abordons plus en détails les différents mécanismes techniques
+dans le <<../chapter-06/index.adoc#,chapitre 6>>, que ça soit "à la main",
+avec des recettes de déploiement ou par le biais de notre service d'hébergement.
 
 [[advanced]]
 == Pour aller plus loin

@@ -2706,6 +2706,7 @@ spécification _CommonJS_, à peu de choses près.
 Pour en savoir plus : [URL]#http://www.commonjs.org/specs/modules/1.0/#.
 ====
 
+[[require]]
 === Aller plus loin avec `require()`
 
 Lorsqu'on fait appel à la fonction `require()`, Node effectue la *liste d'actions* suivantes :
@@ -3447,7 +3448,7 @@ Ce dernier exemple illustre la transformation de
 <<../chapter-03/index.adoc#string,chaîne de caractères>> documentée
 dans le <<../chapter-03/index.adoc#,chapitre 3>>.
 
-[[require]]
+[[options-require]]
 === Précharger un module
 
 L'option de démarrage `--require` charge le module indiqué _avant_ le script Node.
@@ -3536,7 +3537,7 @@ comme un serveur HTTP.
 L'option `--inspect-brk` est adaptée à des processus de courte durée et qui
 se termineraient avant qu'on ait le temps de jeter un œil au contenu.
 
-
+[[options-v8]]
 === Ajuster les options de compatibilité et de traçabilité de V8
 
 Node repose sur la <<../chapter-01/index.adoc#v8,machine virtuelle V8>>
