@@ -11,6 +11,7 @@ a été écrit, relu et testé avec un public apprenant.
 ## Dimanche 22 juillet 2018 • Paris/Bordeaux
 
 - _Chapitre 7_ : Un code testable est un code indépendant du framework
+- _Chapitre 7_ : Introduction/conclusion
 
 **Météo** : 😴 ☀️ 🚂
 

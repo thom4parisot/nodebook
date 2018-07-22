@@ -354,7 +354,8 @@ module.exports = {
     skip: true
   },
   'chapter-07/examples/path-traversal.js': {
-    stderr: 'nodebook/chapter-07/examples'
+    stderr: 'nodebook/chapter-07/examples',
+    win32stderr: 'nodebook\\chapter-07\\examples'
   },
   'chapter-07/examples/post/send.js': {
     stderr: 'ECONNREFUSED',
@@ -382,7 +383,8 @@ module.exports = {
     command: 'mocha'
   },
   'chapter-07/examples/testing/with-sinon.js': {
-    stderr: 'SQLITE_ERROR: no such table: books'
+    stderr: 'SQLITE_ERROR: no such table: books',
+    exitCode: 1
   },
   'chapter-07/examples/upload/send.js': {
     stderr: 'ExperimentalWarning',

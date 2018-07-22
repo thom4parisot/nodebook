@@ -20,7 +20,7 @@
 | ✅      | **[Jouer avec Node.js][ch04]** | _ça marche comment les modules ?_ | [issues][ch04-issues]
 | ✅      | **[Jouer avec npm][ch05]** | _ça marche comment l'outil npm ?_ | [issues][ch05-issues]
 | ✅      | **[Déployer notre code][ch06]** | _ça marche comment côté hosting ?_ | [issues][ch06-issues]
-| ✍️      | **[Créer une application web][ch07]** |  _ça marche comment HTTP ?_ | [issues][ch07-issues]
+| ✅      | **[Créer une application web][ch07]** |  _ça marche comment HTTP ?_ | [issues][ch07-issues]
 | ✅      | **[Créer un outil en ligne de commande][ch08]** | _ça marche comment du code métier dans le terminal ?_ | [issues][ch08-issues]
 | ✅      | **[Créer une application frontend][ch09]** | _ça marche comment les modules Node dans les navigateurs web ?_ | [issues][ch09-issues]
 | ✅      | Annexe : **[Sélection de modules npm][a01]** | _quel(s) module(s) npm choisir ou découvrir ?_ | [issues][appendix-issues]

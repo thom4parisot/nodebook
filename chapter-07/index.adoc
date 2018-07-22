@@ -13,24 +13,39 @@ endif::[]
 
 = Créer une application web
 
-TBD.
+Nous allons apprendre à composer et à tester une application web créée de toute
+pièce ou avec l'aide du framework _express_.
 
 ====
 .Sommaire
-- TBD.
+- Composer son application web
+- Organiser une application avec le framework express
+- Vers un code réutilisable et testable
+- Pour aller plus loin
 ====
 
 [abstract]
 --
-TBD.
+Le modèle d'application web de Node se rapproche de celui de Ruby et diffère
+de l'univers PHP.
+
+Nous allons mieux comprendre le mécanisme de requête et de réponse HTTP en
+créant une application web module par module, fonctionnalité par fonctionnalité.
+
+Dans un second temps, nous organiserons notre code avec le framework _express_.
+Nous verrons en quoi notre application gagne en clarté, comment générer du HTML
+dynamiquement avec des informations issues d'une base de données.
+
+Nous consoliderons notre savoir en organisation notre code de sorte à le
+rendre plus résilient et testable — chose que nous apprendrons à faire pas à pas.
 --
 
 include::../docs/tip-versions.adoc[]
 
 Une application web est une *construction applicative qui est à l'écoute*
-de connexions réseaux initiées par un client.
+de connexions réseaux initiées par un client — un navigateur, un automate, etc.
 Elle est structurée autour de la lecture d'une requête entrante (lecture)
-et l'émission d'une réponse sortante (écriture).
+et de l'émission d'une réponse sortante (écriture).
 Chaque *requête porte en elle une intention* — un chemin d'accès, une préférence
 de format, des éléments d'identification — et implique une réponse en retour
 — des données et des éléments pour les contextualiser.
@@ -41,20 +56,6 @@ et à construire une réponse appropriée à chaque fois, le plus rapidement pos
 Ce chapitre s'inscrit dans la continuité du
 <<../chapter-04/index.adoc#http,module `http`>> (re)découvert au cours du
 <<../chapter-04/index.adoc#,chapitre 4>>.
-
-////
-# Et si je devais créer un serveur web, comment ça se passe ?
-- distingo serveur web/serveur http ? (pas sûr que ça vaille le coup/coût à ce stade là)
-- c'est quoi cette histoire d'ouvrir un port pour lancer un serveur ?
-
-- dans le cas de formulaire, le client _envoie_ des informations en même temps que la requête
-  - comme on est dans un format texte, il faut l'interpréter le parser
-
-- les trucs auxquels il faut faire gaffe
-  - qu'est-ce qui occupe de la mémoire ?
-  - ça a d'autant plus d'impact qu'on est sur des processus longs (aka programme qui tourne en continu — le serveur web)
-  - donc si on nettoie pas (ce qu'on ouvre, si on charge tout d'un coup), les ressources disponibles diminuent jusqu'au plantage
-////
 
 [NOTE]
 .[RemarquePreTitre]#Documentation# Entêtes HTTP
@@ -192,6 +193,18 @@ include::{sourceDir}/server/port.js[]
 
 Pour vous en rendre compte, démarrez le script `server/start.js` pour utiliser
 le port 4000 et démarrez ensuite `server/port.js`.
+
+[NOTE]
+.[RemarquePreTitre]#Performance# Programme de longue durée
+====
+Une application web est un programme qui tourne en continu, pendant des heures
+et des journées entières.
+
+Chaque requête entrante occupe 1Ko de mémoire — davantage si nous
+recevons des données de formulaire ou une pièce-jointe.
+Une application web peut en recevoir plusieurs centaines à plusieurs milliers
+par seconde, selon la popularité du service.
+====
 
 [[path]]
 === Répondre à un chemin (_routing_)
@@ -2181,12 +2194,6 @@ Maintenant que nos tests sont écrits, nous sommes en mesure de
 <<deployment,déployer notre application>> automatiquement seulement et seulement
 si l'exécution des tests est réussie.
 
-[[tests.frontend]]
-=== Tester les aspects cruciaux du front-end
-
-supertest pour assurer de bout en bout que la page génère ce qu'il faut
-Cf. chapter-09/karma pour tester les interactions (rendering JavaScript compris)
-
 [[deployment]]
 === Déployer automatiquement
 
@@ -2592,4 +2599,21 @@ si vous avez besoin d'en acheter, il suffit d'indiquer le chemin vers les diffé
 
 == Conclusion
 
-TBD.
+Nous avons vu qu'une *application web est bâtie autour du protocole HTTP*.
+Elle passe son temps à interpréter le texte des requêtes entrantes et à produire
+des réponses, elles aussi au format texte.
+Ces données de sorties sont aussi bien issues des fichiers placés sur notre disque
+que des pages HTML assemblées dynamiquement depuis une base de données.
+
+Les frameworks structurent notre pensée et automatisent l'application de
+vérifications et de transformations pour toutes les requêtes entrantes.
+Une fois le concept maîtrisé, il devient plus facile d'en essayer de nouveaux
+et d'utiliser celui qui nous plait le plus.
+
+Nous avons aussi constaté qu'une *approche modulaire permet d'interchanger des modules*
+entre eux mais aussi qu'elle amène naturellement à une structure adaptée aux
+frameworks et à l'écriture de tests, indispensables pour maintenir une
+confiance dans notre code grandissante et pour en automatiser les déploiements.
+
+Le protocole HTTP est une pierre angulaire du web tel que nous l'utilisons.
+Le pratiquer avec Node est un bon moyen d'apprendre à le comprendre par la pratique.
