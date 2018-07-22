@@ -6,6 +6,11 @@ cache:
   directories:
   - $HOME/.npm
 
+addons:
+  apt:
+    packages:
+      - libxml2-utils
+
 node_js: v10
 env:
 - npm_version=6
@@ -14,6 +19,8 @@ env:
 
 # before_install:
 # - npm i -g npm@${npm_version}
+before_install:
+- npm config --global set prefer-offline true
 
 install:
 - npm ci
@@ -22,14 +29,13 @@ install:
 script:
 - ./bin/cli.js --help
 - npm test
-
-after_success:
-- make build-html
 - make build-odt
-- make build-docbook
+- xmllint --noout dist/book.fodt 2>&1
 
 before_deploy:
 - git-lfs pull
+- make build-html
+- make build-docbook
 
 deploy:
   - provider: pages
