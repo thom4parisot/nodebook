@@ -11,6 +11,7 @@ install:
   - ps: Install-Product node $env:nodejs_version x64
 #  - ps: npm install -g "npm@${env:npm_version}"
   - npm config set script-shell "C:\\Program Files\\git\\bin\\bash.exe"
+  - npm config set prefer-offline true
   - npm install
   - npm run install:all
 

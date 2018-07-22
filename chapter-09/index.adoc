@@ -1488,18 +1488,44 @@ Nous allons nous baser sur le composant créé dans la section
 de son comportement _avant même de l'inclure_ dans notre application.
 
 [source,javascript]
-.tests/date-interval.js
+.tests/date-interval.js (configuration)
 ----
-include::{sourceDir}/tests/date-interval.js[]
+include::{sourceDir}/tests/date-interval.js[lines="1..6"]
+  // ... (tests)
+});
 ----
 <1> Import du module `DateInterval`.
-<2> Création d'un _test_ destiné à vérifier la nature de la balise HTML à générer.
-<3> Création du composant isolé (_shallow_) – aucun élément DOM ne sera créé ni inséré dans le document.
-<4> On écrit une _assertion_ garantissant que l'on retourne un élément `<time>`.
-<5> Création d'un second composant isolé dont l'état est indépendant du premier.
-<6> Récupération de l'état (_state_) du composant.
-<7> Assertion vérifiant que la date utilisée par le composant est proche de la date courante (à quelques millisecondes près).
-<8> Assertion vérifiant qu'une propriété de l'état ne peut être qu'une des deux valeurs parmi `pair` et `impair`.
+
+Notre premier test consiste à vérifier que notre composant React génère
+bien une balise `<time>` en sortie.
+
+[source,javascript]
+.tests/date-interval.js (tests)
+----
+// (configuration)
+include::{sourceDir}/tests/date-interval.js[lines="6..13"]
+  // ...
+});
+----
+<1> Création d'un _test_ destiné à vérifier la nature de la balise HTML à générer.
+<2> Création du composant isolé (_shallow_) – aucun élément DOM ne sera créé ni inséré dans le document.
+<3> On écrit une _assertion_ garantissant que l'on retourne un élément `<time>`.
+
+Le deuxième aspect à tester concerne les données du composant, et leur impact
+sur la valeur de classe de l'élément HTML généré en sortie.
+
+[source,javascript]
+.tests/date-interval.js (tests, suite)
+----
+// (configuration)
+include::{sourceDir}/tests/date-interval.js[lines="6..7"]
+  // ...
+include::{sourceDir}/tests/date-interval.js[lines="15..-1"]
+----
+<1> Création d'un second composant isolé dont l'état est indépendant du premier.
+<2> Récupération de l'état (_state_) du composant.
+<3> Assertion vérifiant que la date utilisée par le composant est proche de la date courante (à quelques millisecondes près).
+<4> Assertion vérifiant qu'une propriété de l'état ne peut être qu'une des deux valeurs parmi `pair` et `impair`.
 
 
 En complément à ceci, la librairie _chai-enzyme_ ([URL]#https://npmjs.com/chai-enzyme#) étend le vocabulaire de _chai_ pour ajouter des assertions de composants.
