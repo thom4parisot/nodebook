@@ -1876,7 +1876,7 @@ Les paramètres sont les seuls points d'entrées.
 Les arguments font office de contrat et les fichiers font office de regroupement
 logique — de fonctions et d'objets.
 
-Nous avons allégé le fichier `server.js` et rendu lisible les points importants
+Nous avons allégé le fichier `server.js` et rendu lisibles les points importants
 de l'application : la connexion à la base de données, le rendu d'une route
 et la configuration de l'application. +
 Ce travail va nous permettre de tester petit à petit les différents éléments
@@ -1885,19 +1885,185 @@ de l'application web, par ordre de criticité.
 [[tests.unit]]
 === Un code testable est un code indépendant du framework
 
-L'écriture de tests unitaires
-la modularisation découple les différents aspects et les rend testable
+L'écriture de tests unitaires est influencée par et influence l'organisation
+de notre code en unité réutilisables.
+Ils accroissent la qualité, la confiance et la prédictibilité d'une éventuelle
+mise en ligne.
 
-tester les helpers
-tester les middlewares
-tester les données entrantes
-tester le code qui retourne des données
+Cette section se déroule dans la continuité de la section précédente.
+Nous allons préparer et mettre en place pas à pas un environnement de test
+pour vérifier les intentions de notre code.
 
-db en param
-prob c'est qu'on initialise la db différemment
-un des moyens c'est de tester une ou plusieurs routes <<tests.frontend>>
+[NOTE]
+.[RemarquePreTitre]#Anecdote# Tu peux pas test
+====
+J'entends régulièrement des témoignages de personnes qui n'écrivent pas de tests
+car il n'y a pas assez de temps ou de budget dans leurs projets, parce que les
+clients ne les paient pas pour ça ou parce que ça ralentit la cadence de développement.
 
-mocha, chai, bon duo
+J'ai écrit mes premiers tests unitaires en rejoignant un
+*environnement favorble au travail de qualité* et en
+*apprenant au contact d'autres praticien·ne·s*.
+J'ai beaucoup appris lors de mon premier _Global Day of Code Retreat_
+([URL]#https://www.coderetreat.org#), une journée propice pour explorer des
+concepts de programmation au travers des tests unitaires.
+====
+
+Les tests unitaires sont destinés à couvrir les différents cas de figures
+des entrées et des sorties de nos fonctions.
+Nous testons leurs réactions aux arguments pour vérifier que nous obtenons
+le résultat attendu.
+Je teste en priorité le code critique, partagé (en tant que librairie) et
+qui est au plus proche de l'interface utilisateur.
+
+De quoi on a besoin pour tester `routes/books.js` ?
+La fonction qui est exportée par le module dépend d'une connexion établie
+à une base de données et de deux objets — la requête entrante et la réponse sortante.
+Nous avons aussi besoin d'écrire des _assertions_ — des attentes — et nous
+allons utiliser le module d'assertion de Node dans un premier temps.
+
+[source,javascript]
+.testing/tests/initial.js
+----
+include::{sourceDir}/testing/tests/initial.js[]
+----
+<1> C'est notre première assertion — l'élément retourné par `routes/books.js` est une fonction.
+<2> En commentaire : comment allons-nous nous connecter à la base de données ?
+
+----
+$ node testing/tests/initial.js
+----
+
+Le script n'affiche rien de particulier.
+C'est normal, c'est parce que le test s'est bien passé.
+Une assertion lance une erreur si elle constate un résultat différent de l'attente.
+
+Nous avons toutefois testé une évidence, que le module retourne une fonction.
+Ce qui serait plus révélateur serait de tester l'invocation de cette fonction
+pour vérifier qu'elle produit un résultat prédictible.
+
+Modifions notre fichier de test pour établir une connexion à la base de données.
+Nous avons une contrainte toutefois : nous devons utiliser une base dont
+l'emplacement est différent de notre environnement de développement.
+Le raisonnement est de pouvoir la recréer et la détruire sans craindre
+de générer des effets secondaires, y compris si exécute les tests unitaires
+sur le serveur de production.
+
+[source,javascript]
+.testing/tests/with-db.js
+----
+include::{sourceDir}/testing/tests/with-db.js[]
+----
+<1> Nous pouvons nous passer de ce test vu que nous allons tester l'exécution de la fonction — les tests seraient redondants.
+<2> La valeur `:memory:` est une valeur spéciale de _SQLite_ — la base est créée en mémoire et disparaît à la fin de l'exécution du script.
+<3> Configuration de la route — comme nous le faisons dans le fichier `configure.js`.
+<4> La route configurée retourne bien une fonction — comme toute à l'heure, ça ne suffit pas à affirmer que son fonctionnement correspond à nos attentes.
+<5> En commentaire : comment tester le résultat de la route express ?
+
+rappel de la structure de la route pour expliquer le param
+
+
+[source,javascript]
+.testing/tests/with-sinon.js
+----
+include::{sourceDir}/testing/tests/with-sinon.js[]
+----
+<1> .
+<2> .
+<3> .
+
+[source,javascript]
+.testing/tests/with-sinon-data.js
+----
+// ...
+include::{sourceDir}/testing/tests/with-sinon-data.js[lines=8..-1]
+----
+<1> .
+<2> .
+
+[source,javascript]
+.testing/tests/fixtures.js
+----
+include::{sourceDir}/testing/tests/fixtures.js[]
+----
+
+cas idéal pour async/await
+
+[source,javascript]
+.testing/tests/with-sinon-full.js
+----
+// ...
+include::{sourceDir}/testing/tests/with-sinon-full.js[lines=10..-1]
+----
+<1> .
+<2> .
+<3> .
+<4> .
+
+////
+Si votre application écrit des informations en base de données, je recommande alors
+que chaque exécution des tests soit responsable de la mise en place de cette
+base de données.
+
+Elle doit être absolument indépendante de toute autre base, créée de zéro
+en début de tests et supprimée lorsqu'ils leur exécution se termine.
+////
+
+tester la requête entrante : facile, y'a juste à donner un paramètre
+deux cas ici : un paramètre qui donne une 404 et un paramètre qui retourne des résultats
+
+ça se corse un peu avec la réponse car il y a une dépendance à un objet réponse http
+on pourrait écrire le code nous-même mais avec autant de chances d'introduire des bugs/biais
+
+c'est là qu'intervienne les bouchons
+on peut injecter du code qui répond comme le ferait un autre objet - on définit un comportement attendu
+
+[CAUTION]
+On écrit de manière optimiste : ne sont pas testés les cas de fonctionnement dont nous n'avons pas encore
+connaissance dont nous ne sommes pas protégées de tout
+
+
+----
+$ ../node_modules/.bin/mocha testing/tests/with-mocha.js
+----
+
+[source,javascript]
+.testing/tests/with-mocha.js (modules)
+----
+include::{sourceDir}/testing/tests/with-mocha.js[lines=1..10]
+// ...
+----
+<1> .
+<2> .
+
+[source,javascript]
+.testing/tests/with-mocha.js (configuration)
+----
+// ...
+include::{sourceDir}/testing/tests/with-mocha.js[lines=12..21]
+  // ...
+});
+----
+<1> .
+<2> .
+<3> .
+
+[source,javascript]
+.testing/tests/with-mocha.js (tests)
+----
+// ...
+include::{sourceDir}/testing/tests/with-mocha.js[lines=12]
+  // ...
+include::{sourceDir}/testing/tests/with-mocha.js[lines=23..-1]
+----
+<1> .
+<2> .
+<3> .
+<4> .
+
+Maintenant que nos tests sont écrits, nous sommes en mesure de
+<<deployment,déployer notre application>> automatiquement seulement et seulement
+si l'exécution des tests est réussie.
 
 [[tests.frontend]]
 === Tester les aspects cruciaux du front-end
