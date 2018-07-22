@@ -10,7 +10,11 @@ database(':memory:').then(db => {
   const route = configRoute(db);
   const sendFake = sinon.stub(response, 'send');  // <2>
 
-  route({params: {id: 1}}, response).then(() => {
+  return route({params: {id: 1}}, response).then(() => {
     assert.ok(sendFake.called);                   // <3>
   })
+})
+.catch(error => {
+  console.error(error.message);
+  process.exit(1);
 });

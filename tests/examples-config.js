@@ -379,10 +379,10 @@ module.exports = {
   'chapter-07/examples/testing/server.js': {
     skip: true
   },
-  'chapter-07/examples/testing/with-mocha.js': {
+  'chapter-07/examples/testing/tests/with-mocha.js': {
     command: 'mocha'
   },
-  'chapter-07/examples/testing/with-sinon.js': {
+  'chapter-07/examples/testing/tests/with-sinon.js': {
     stderr: 'SQLITE_ERROR: no such table: books',
     exitCode: 1
   },
