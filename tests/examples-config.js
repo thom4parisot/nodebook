@@ -354,8 +354,7 @@ module.exports = {
     skip: true
   },
   'chapter-07/examples/path-traversal.js': {
-    stderr: 'nodebook/chapter-07/examples',
-    win32stderr: 'nodebook\\chapter-07\\examples'
+    stderr: ' doit commencer par '
   },
   'chapter-07/examples/post/send.js': {
     stderr: 'ECONNREFUSED',
