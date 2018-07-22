@@ -15,7 +15,7 @@
     "prestart": "npm run build:html",
     "start": "node server.js",
     "test": "tape 'tests/*.js' | tap-spec",
-    "test:docker": "docker run -ti --rm -v $(pwd):/tests -e CI=1 -e DEBUG=tape-spawn -w /tests node:${npm_package_engines_node}-slim npm test",
+    "test:docker": "docker run -ti --rm -v $(pwd):/tests -e CI=1 -e DEBUG=tape-spawn -w /tests node:${npm_package_engines_node}-slim npm cit",
     "posttest": "npm run lint"
   },
   "engines": {
@@ -54,13 +54,13 @@
     "yargs": "^12.0.1"
   },
   "devDependencies": {
-    "asciidoctor-converter-opendocument": "^1.0.0-alpha.7",
+    "asciidoctor-converter-opendocument": "^1.0.0-alpha.8",
     "asciidoctor-docbook.js": "^1.5.7-rc.2",
     "asciidoctor-extension-interactive-runner": "^1.2.1",
     "asciidoctor.js": "^1.5.7-rc.1",
     "blue-tape": "^1.0.0",
     "chokidar": "^2.0.4",
-    "eslint": "^5.1.0",
+    "eslint": "^5.2.0",
     "eslint-plugin-react": "^7.10.0",
     "ora": "^3.0.0",
     "tap-spec": "^5.0.0",
