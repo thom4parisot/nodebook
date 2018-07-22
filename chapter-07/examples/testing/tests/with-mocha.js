@@ -24,13 +24,13 @@ describe('routes/books.js', () => {                   // <1>
     const sendFake = sinon.stub(response, 'send');
 
     return route({params: {id: 1}}, response).then(() => {
-      assert.ok(sendFake.calledWith(sinon.match({     // <3>
-        'title': 'Design Systems'                     // <4>
+      assert.ok(sendFake.calledWith(sinon.match({
+        'title': 'Design Systems'
       })));
     });
   });
 
-  test('statut 404', () => {
+  test('statut 404', () => {                          // <3>
     const sendFake = sinon.stub(response, 'send');
     const statusSpy = sinon.spy(response, 'status');
 

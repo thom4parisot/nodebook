@@ -1946,8 +1946,22 @@ Modifions notre fichier de test pour établir une connexion à la base de donné
 Nous avons une contrainte toutefois : nous devons utiliser une base dont
 l'emplacement est différent de notre environnement de développement.
 Le raisonnement est de pouvoir la recréer et la détruire sans craindre
-de générer des effets secondaires, y compris si exécute les tests unitaires
+de générer des effets secondaires, y compris si nous exécutons les tests
 sur le serveur de production.
+
+Pour se faire, commençons par simplifier le fichier `src/database.js` en
+supprimant toute chemin d'accès écrit en dur :
+
+[source,javascript]
+.testing/src/database.js
+----
+include::{sourceDir}/testing/src/database.js[]
+----
+<1> Le module n'a plus d'opinion sur l'emplacement de la base de données.
+<2> Le module exporte désormais une fonction à paramétrer lors de son exécution.
+
+Ça nous ouvre la voie à nous connecter à une base de données différente
+dans notre script de tests :
 
 [source,javascript]
 .testing/tests/with-db.js
@@ -1955,31 +1969,69 @@ sur le serveur de production.
 include::{sourceDir}/testing/tests/with-db.js[]
 ----
 <1> Nous pouvons nous passer de ce test vu que nous allons tester l'exécution de la fonction — les tests seraient redondants.
-<2> La valeur `:memory:` est une valeur spéciale de _SQLite_ — la base est créée en mémoire et disparaît à la fin de l'exécution du script.
+<2> La valeur `:memory:` est une valeur spéciale de chemin d'accès pour _SQLite_ — la base est créée en mémoire et disparaît à la fin de l'exécution du script.
 <3> Configuration de la route — comme nous le faisons dans le fichier `configure.js`.
 <4> La route configurée retourne bien une fonction — comme toute à l'heure, ça ne suffit pas à affirmer que son fonctionnement correspond à nos attentes.
 <5> En commentaire : comment tester le résultat de la route express ?
 
-rappel de la structure de la route pour expliquer le param
+Résultat : la connexion à la base de données réussit et nous sommes en mesure
+de la transmettre à la fonction de paramétrage de la route.
 
+Le chemin d'accès était d'ailleurs exprimé de la manière suivante : `/books/:id`.
+Autrement dit, la requête à la base de données dépend d'un objet `request.params`
+dont la clé `id` vaut `1`.
+
+C'est ce que nous allons passer à la fonction `route`.
+Mais qu'en est-il de la réponse ? Doit-on réécrire un objet qui reproduit
+l'objet `response` d'_express_ ?
+Je déconseille cette option car ça nous oblige à écrire du code, faillible,
+et donc à introduire des biais dans nos propres tests.
+
+Les _librairies d'interception_ se destinent à éviter ce cas de figure.
+Elles se greffent à du code existant pour observer ses réactions voire pour les
+remplacer temporairement, le temps des tests.
+J'ai l'habitude d'utiliser le module npm _sinon.js_ ([URL]#https://npmjs.com/sinon#,
+[URL]#https://sinonjs.org/#).
+Il propose tout le nécessaire, est bien documenté et fonctionne aussi bien
+côté Node que côté navigateurs web.
 
 [source,javascript]
 .testing/tests/with-sinon.js
 ----
 include::{sourceDir}/testing/tests/with-sinon.js[]
 ----
-<1> .
-<2> .
-<3> .
+<1> Nous récupérons l'objet de réponse d'_express_ — je l'ai découvert en fouillant dans les objets exportés par le module.
+<2> Nous neutralisons la fonction `response.send()` avec un _stub_ pour observer les données qui lui sont données en argument.
+<3> La propriété `called` d'un _stub_ ou d'un espion passe à `true` si elle a été appelée.
 
-[source,javascript]
-.testing/tests/with-sinon-data.js
-----
-// ...
-include::{sourceDir}/testing/tests/with-sinon-data.js[lines=8..-1]
-----
-<1> .
-<2> .
+C'est une chance que le module _express_ expose directement un objet de réponse
+sans avoir à attendre qu'une vraie requête HTTP atteigne notre serveur web.
+Le _stub_ neutralise son action — nous nous contentons seulement d'observer
+comment la fonction est appelée.
+L'enjeu est de constater que la connexion à la base de donnée se fasse bien,
+que la requête retourne bien la ligne attendue et que ses valeurs soient
+bien transmises en réponse.
+
+Malheureusement pour nous : la base de données en mémoire n'a aucune donnée.
+Le test échoue donc.
+Notre nouvel objectif est de maintenir l'intention du test et de lui ajouter
+les données nécessaires à son exécution.
+
+[NOTE]
+.[RemarquePreTitre]#Glossaire# Espions, stubs et mocks
+====
+Les espions, _stubs_ et _mocks_ couvrent trois aspects complémentaires.
+Les *espions enregistrent les appels* à des attributs et à des fonctions
+— le nombre de fois, quels arguments, quels résultats.
+Les *_stubs_ interceptent les appels* à des fonctions — vous pouvez même définir
+les valeurs de retours ou de _callback_ en fonction des paramètres d'appel.
+Les *_mocks_ interceptent les résultats* — je n'en parle pas car notre
+exemple ne s'y prête pas.
+====
+
+C'est la raison d'être des fichiers dits de "_fixtures_".
+Ces données peuplent une base de données d'enregistrements suffisamment
+réalistes pour illustrer les différents cas de figure de notre application.
 
 [source,javascript]
 .testing/tests/fixtures.js
@@ -1987,7 +2039,35 @@ include::{sourceDir}/testing/tests/with-sinon-data.js[lines=8..-1]
 include::{sourceDir}/testing/tests/fixtures.js[]
 ----
 
-cas idéal pour async/await
+Ce cas est particulièrement adapté à la syntaxe
+<<../chapter-03/index.adoc#async-await,`async`/`await`>>.
+Ces promesses sont séquentielles et cette syntaxe linéarise leur lecture.
+Le même exemple sans `async`/`await` et juste avec les promesses est moins
+digeste à lire.
+
+Il ne nous reste plus qu'à appeler cette fonction de génération de données
+depuis notre script de tests :
+
+[source,javascript]
+.testing/tests/with-sinon-data.js
+----
+// ...
+include::{sourceDir}/testing/tests/with-sinon-data.js[lines=8..-1]
+----
+<1> Chargement du module qui contient les requêtes SQL nécessaires à l'initialisation de la table et des données.
+<2> Les données sont chargées après la connexion à la base et avant l'exécution des tests.
+<3> Nous remplaçons l'appel à `sendFake.called()` par `sendFake.calledWith()` pour affirmer plus explicitement le résultat attendu.
+<4> Le module sinon propose un ensemble de fonction de vérification (les _matchers_) — ici, nous vérifions que `response.send()` est appelée avec un objet, qui contient au moins une clé `title` dont la valeur est `Design Systems`.
+
+Le test passe !
+Et en plus de ça, nous n'avons plus de doute que la fonction `response.send()`
+est bien appelée avec la valeur issue de la base de données.
+Le module _sinon_ a été d'une grande aide pour intercepter l'exécution de cette
+fonction et pour nous faciliter son introspection, après coup.
+
+Pour être exhaustifs, il nous faudrait maintenant tester le deuxième cas de figure,
+celui où le paramètre `id` de l'URL fait référence à un enregistrement qui
+n'existe pas en base de données pour générer une erreur 404.
 
 [source,javascript]
 .testing/tests/with-sinon-full.js
@@ -1995,33 +2075,31 @@ cas idéal pour async/await
 // ...
 include::{sourceDir}/testing/tests/with-sinon-full.js[lines=10..-1]
 ----
-<1> .
-<2> .
-<3> .
-<4> .
+<1> Création d'un espion sur la méthode `response.status()` du module _express_.
+<2> Création d'un deuxième cas de test, pour couvrir l'appel à un enregistrement inconnu en base de données.
+<3> La méthode `calledWith()` détermine si une fonction est appelée avec cette exacte valeur.
+<4> Cette méthode s'applique aussi aux _stubs_.
 
-////
-Si votre application écrit des informations en base de données, je recommande alors
-que chaque exécution des tests soit responsable de la mise en place de cette
-base de données.
+Dans ce cas, nous avons eu recourt à un _espion_ pour observer la méthode
+`response.status()` d'_express_.
+Nous avons fait ainsi car nous n'avions pas à neutraliser son fonctionnement
+et seulement d'observer la valeur de son argument.
+Le fait qu'il soit de `404` prouve que la branche de code à l'intérieur de la
+condition `if` a bien été visitée.
 
-Elle doit être absolument indépendante de toute autre base, créée de zéro
-en début de tests et supprimée lorsqu'ils leur exécution se termine.
-////
+Je constate un problème dans cette écriture cependant.
+L'espion et le _stub_ sont créés une seule fois et partagés entre chaque test.
+Cette pratique génèrera des effets de bord si nous ne prêtons pas attention
+au déroulé des tests.
+Ils devraient être remis à zéro entre chaque test.
 
-tester la requête entrante : facile, y'a juste à donner un paramètre
-deux cas ici : un paramètre qui donne une 404 et un paramètre qui retourne des résultats
-
-ça se corse un peu avec la réponse car il y a une dépendance à un objet réponse http
-on pourrait écrire le code nous-même mais avec autant de chances d'introduire des bugs/biais
-
-c'est là qu'intervienne les bouchons
-on peut injecter du code qui répond comme le ferait un autre objet - on définit un comportement attendu
-
-[CAUTION]
-On écrit de manière optimiste : ne sont pas testés les cas de fonctionnement dont nous n'avons pas encore
-connaissance dont nous ne sommes pas protégées de tout
-
+Les _suites de tests_ sont des outils qui aident à donner davantage de cohérence
+et de structure, notamment pour automatiser l'exécution d'actions avant et après
+des tests.
+J'utilise le module npm _mocha_ ([URL]#https://npmjs.com/mocha#,
+[URL]#https://mochajs.org#), par habitude, parce qu'il ne demande aucune
+configuration et parce qu'il fait le travail à la fois côté Node et du côté des
+navigateurs web.
 
 ----
 $ ../node_modules/.bin/mocha testing/tests/with-mocha.js
@@ -2033,33 +2111,71 @@ $ ../node_modules/.bin/mocha testing/tests/with-mocha.js
 include::{sourceDir}/testing/tests/with-mocha.js[lines=1..10]
 // ...
 ----
-<1> .
-<2> .
+<1> Import des fonctions qui décrivent respectivement la suite de tests, l'exécution de code avant le démarrage de la suite et l'exécution de code après chaque test.
+<2> Import de la fonction de test.
+
+Notre script de test comporte désormais ce qu'on appelle une _suite de tests_.
+C'est à dire, un *ensemble de tests qui expriment nos attentes* vis à vis
+d'une fonctionnalité — ici, une route d'application web.
 
 [source,javascript]
 .testing/tests/with-mocha.js (configuration)
 ----
-// ...
+// ... (modules)
 include::{sourceDir}/testing/tests/with-mocha.js[lines=12..21]
   // ...
 });
 ----
-<1> .
-<2> .
-<3> .
+<1> Déclaration de la suite de test — sa valeur reflète généralement le sujet des tests.
+<2> Avant le démarrage des tests, nous créons la base de données et configurons la route.
+<3> Après chaque test, nous remettons à zéro l'état de _sinon_ — nos tests n'ont plus la possibilité de se parasiter entre eux.
+
+Ce découpage a le mérite de clarifier les différents temps de nos tests,
+à savoir la préparation de l'environnement d'exécution, le nettoyage puis
+l'exécution-même des tests.
 
 [source,javascript]
 .testing/tests/with-mocha.js (tests)
 ----
-// ...
+// ... (modules)
 include::{sourceDir}/testing/tests/with-mocha.js[lines=12]
-  // ...
+  // ... (configuration)
 include::{sourceDir}/testing/tests/with-mocha.js[lines=23..-1]
 ----
-<1> .
-<2> .
-<3> .
-<4> .
+<1> La suite compte deux tests.
+<2> Premier test — il se termine quand la promesse retournée par la fonction `route()` est résolue.
+<3> Deuxième test — cette fois, l'espion et le stub ne sont pas affectés par le précédent test.
+
+La suite de tests se fiche pas mal de savoir comment nous testons notre code.
+Son objectif est de capturer les messages d'erreur des assertions qui échouent
+et de nous les communiquer en contexte.
+
+.Exemple d'une suite de tests _mocha_ qui se termine avec succès.
+image::images/tests-ok.png[width="66%"]
+
+
+[CAUTION]
+.[RemarquePreTitre]#Réflexion# Écriture optimiste
+====
+Nous avons l'habitude d'écrire des tests de manière optimiste.
+Ce biais naturel fait que nous ne testons pas les cas dont les fonctionnements
+dont nous n'avons pas encore connaissance.
+
+Trouver les cas de figure qui font échouer notre code est un vrai travail
+de réflexion.
+====
+
+L'approche _Test Driven Development_ (_TDD_) est pilotée par les tests.
+Dans ce contexte, nous écrivons les tests avant même d'avoir écrit notre code.
+L'écriture des tests nous force à réfléchir à l'intention et à concevoir
+le code de manière à ce qu'il soit testable.
+Qu'on adopte ou non cette méthode, nous gagnons en qualité en faisant échouer
+les tests, juste pour nous assurer que le passage au vert d'un test n'est pas
+un _bug_.
+Oui ça arrive.
+
+.Exemple d'une suite de tests _mocha_ dont un test échoue.
+image::images/tests-ko.png[width="80%"]
 
 Maintenant que nos tests sont écrits, nous sommes en mesure de
 <<deployment,déployer notre application>> automatiquement seulement et seulement
@@ -2376,6 +2492,7 @@ ensuite différents moyens d'authentifier (user+password, ou en délégant à un
 passport, module pour faciliter tout ça sans avoir à tout connaitre
 ////
 
+////
 [[api]]
 === API REST : l'application web orientée données
 
@@ -2389,7 +2506,9 @@ cassent si la manière de les interpréter change
 restify/fastify/express font le taf
 
 module express-openapi pour générer le routing à partir de la spec OpenAPI
+////
 
+////
 [[job-queue]]
 === Déléguer le travail aux files d'attente
 
@@ -2401,6 +2520,7 @@ sinon c'est
 
 (exemple avec l'upload d'une vidéo sur youtube -- la progression du traitement est indiquée même si la ressource est déjà créée)
 cas de figure du statut 202 (au lieu de 201)
+////
 
 [[lambda]]
 === Une application minimaliste avec les Lambda
@@ -2451,6 +2571,7 @@ plusieurs lambda derrière une _portail d'API_ comme _AWS API Gateway_
 À une API et une ressource (chemin et méthode HTTP) est associée une ressource
 AWS, dont les _lambda_ font partie.
 
+////
 [[https]]
 === Et HTTPS dans tout ça ?
 
@@ -2467,6 +2588,7 @@ si vous avez besoin d'en acheter, il suffit d'indiquer le chemin vers les diffé
 
 . générer une clé auto-signé (pour localhost)
 . démarrer le serveur
+////
 
 == Conclusion
 

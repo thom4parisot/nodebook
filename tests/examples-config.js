@@ -375,6 +375,15 @@ module.exports = {
   'chapter-07/examples/templating/server.js': {
     skip: true
   },
+  'chapter-07/examples/testing/server.js': {
+    skip: true
+  },
+  'chapter-07/examples/testing/with-mocha.js': {
+    command: 'mocha'
+  },
+  'chapter-07/examples/testing/with-sinon.js': {
+    stderr: 'SQLITE_ERROR: no such table: books'
+  },
   'chapter-07/examples/upload/send.js': {
     stderr: 'ExperimentalWarning',
   },

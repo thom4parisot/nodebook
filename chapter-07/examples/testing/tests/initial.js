@@ -8,5 +8,5 @@ assert.deepEqual(typeof configRoute, 'function'); // <1>
 /*
 const db = require('../src/database.js');         // <2>
 const route = configRoute(db);
-assert.deepEqual(route({ book: 1 }, ???));
+assert.deepEqual(route(request, response));
 */

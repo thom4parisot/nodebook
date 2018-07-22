@@ -10,6 +10,6 @@ database(':memory:').then(db => {                   // <2>
   const route = configRoute(db);                    // <3>
   assert.deepEqual(typeof route, 'function');       // <4>
   /*
-  assert.deepEqual(route({ book: 1 }, ???));        // <5>
+  assert.deepEqual(route(request, response));       // <5>
   */
 });

@@ -8,6 +8,12 @@ a été écrit, relu et testé avec un public apprenant.
 
 ---
 
+## Dimanche 22 juillet 2018 • Paris/Bordeaux
+
+- _Chapitre 7_ : Un code testable est un code indépendant du framework
+
+**Météo** : 😴 ☀️ 🚂
+
 ## Samedi 21 juillet 2018 • Paris
 
 - _Chapitre 7_ : Déployer automatiquement
