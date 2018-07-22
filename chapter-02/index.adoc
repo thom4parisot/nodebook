@@ -474,18 +474,29 @@ Nous nous repencherons dessus dans la section
 <<../chapter-06/index.adoc#,chapitre 6>>.
 
 [[shell]]
-== Utiliser Node.js avec un terminal (_shell_)
+== Vérifier l'installation de Node depuis un terminal (_shell_)
 
-La section précédente nous a permis d'installer l'environnement d'exécution Node sur notre machine.
-Il se peut aussi que vous ayez privilégié l'utilisation d'un <<online,service en ligne>>.
+Nous avons installé un environnement d'exécution Node dans la section précédente.
+Pour vérifier qu'elle s'est bien déroulée, ouvrez un terminal et saisissez
+la commande suivante :
 
-Nous allons nous assurer dans cette section que nous pouvons
-*voir nos premiers résultats* d'une interaction avec Node.
+[subs="+attributes"]
+----
+$ node --version
+v{nodeV}
+----
+
+Le numéro de version de la version de Node fraichement installée devrait apparaitre.
+Si le mot _terminal_ ne vous parle pas, la suite de cette section va vous
+éclairer — vous pourrez ensuite revenir essayer cette commande.
+
+=== Qu'est-ce qu'un terminal ?
 
 Le <<shell,terminal>> est notre compagnon pour dialoguer avec le système d'exploitation.
 L'_invite de commande_ est son nom véritable.
 Ce nom nous donne un indice sur la fonction de ce type de logiciel :
-inviter l'utilisateur à saisir des commandes pour obtenir des résultats calculés par un ordinateur.
+inviter l'utilisateur à saisir des commandes pour obtenir des résultats calculés
+par un ordinateur.
 
 .Terminal iTerm2 sous macOS.
 image::images/macos-terminal.png[width="70%"]
@@ -501,14 +512,15 @@ distants des claviers qui les interrogeaient.
 Pour en savoir plus : [URL]#https://fr.wikipedia.org/wiki/Terminal_informatique#.
 ====
 
-Une application de type _terminal_ sert également à communiquer avec
-Node quand celui-ci est installé sur un ordinateur.
+Un _terminal_ est notre *moyen privilégé pour interagir avec Node* lorsqu'il
+est installé sur un ordinateur.
+La plupart des systèmes d'exploitation ont un _terminal_ installé par défaut.
+Ça vaut également pour la majorité des <<online,services en ligne>>.
 
-La majorité des systèmes d'exploitation embarquent un logiciel utilitaire permettant d'ouvrir un _terminal_.
-Cela vaut également pour les <<online,services en ligne>> offrant la fonctionnalité d'<<ide,éditeur de code>>.
+.Terminal du <<online,service en ligne>> _Glitch_.
+image::images/glitch-terminal.png[width="70%"]
 
-.Terminal du <<online,service en ligne>> _Cloud9_.
-image::images/cloud9-terminal.png[width="70%"]
+=== Choisir un terminal
 
 Voici une liste non exhaustive d'applications de type _terminal_ :
 
