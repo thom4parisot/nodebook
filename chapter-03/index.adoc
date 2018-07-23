@@ -81,7 +81,7 @@ include::{sourceDir}/intro/dom.js[]
 ----
 
 La variable `document` et les méthodes `querySelector` et `addEventListener`
-font aussi partie des *API JavaScript pour le Web*.
+font aussi partie des API JavaScript pour le Web.
 En l'occurence, elles font partie de l'API _DOM_ (_Document Object Model_),
 un mécanisme pour interagir avec une page web grâce à ECMAScript.
 
@@ -153,7 +153,7 @@ ECMAScript a été standardisé dans sa version 5 en décembre 2009.
 La révision 5.1 de juin 2011 est une correction mineure de la spécification.
 
 Il s'agit d'une évolution majeure dans l'histoire du langage.
-La précédente version — ECMAScript 3 — était âgée de *dix ans*.
+La précédente version — ECMAScript 3 — était âgée de dix ans.
 
 ECMAScript 5 limite drastiquement certains effets indésirables du langage
 grâce au _mode strict_.
@@ -174,8 +174,8 @@ image::images/compat-table.png[width="85%"]
 
 === ECMAScript 2015 (aka _ES6_ puis _ES2015_)
 
-La spécification *ECMAScript 2015* (_ES2015_) a été publiée en juin 2015.
-Elle succède à *ECMAScript 5* après 6 années de gestation. +
+La spécification _ECMAScript 2015_ (_ES2015_) a été publiée en juin 2015.
+Elle succède à _ECMAScript 5_ après 6 années de gestation. +
 Cette version a successivement été appelée _ECMAScript Harmony_, _ECMAScript 6_, puis _ECMAScript 2015_.
 
 Le processus de standardisation a mis 6 années pour aboutir,
@@ -256,7 +256,7 @@ include::{sourceDir}/base/string.js[]
 ----
 
 Une valeur entourée de guillemets est considérée
-par l'interpréteur ECMAScript comme une *chaîne de caractères*, du texte.
+par l'interpréteur ECMAScript comme une chaîne de caractères, du texte.
 
 Ces guillemets peuvent être des guillemets simples (`'`),
 des guillemets doubles (`"`) ou des guillemets obliques (```).
@@ -275,7 +275,7 @@ ECMAScript considère les entiers (`3` dans cet exemple)
 et les nombres flottants (`12.3` dans cet exemple) comme des nombres.
 Il ne fait _pas_ de distinction entre les deux.
 
-On peut effectuer des *opérations mathématiques* entre plusieurs
+On peut effectuer des opérations mathématiques entre plusieurs
 valeurs de _type nombre_.
 
 [source%interactive,javascript]
@@ -287,7 +287,7 @@ include::{sourceDir}/base/boolean.js[]
 ECMAScript considère deux valeurs pour signifier _vrai_ ou _faux_,
 respectivement `true` et `false`.
 
-On peut effectuer des *opérations logiques* avec une
+On peut effectuer des opérations logiques avec une
 valeur de _type booléen_.
 
 
@@ -297,7 +297,7 @@ valeur de _type booléen_.
 include::{sourceDir}/base/null.js[]
 ----
 
-On utilise `null` pour signifier l'*absence de valeur*.
+On utilise `null` pour signifier l'absence de valeur.
 
 
 [source%interactive,javascript]
@@ -307,7 +307,7 @@ include::{sourceDir}/base/undefined.js[]
 ----
 
 La valeur `undefined` est utilisée pour signifier
-qu'une *valeur est inconnue*.
+qu'une valeur est inconnue.
 Rares sont les cas où on choisira ce type de données par nous-même.
 
 mdn::javascript[Data_structures, title="primitives"]
@@ -330,7 +330,7 @@ Un tableau peut contenir n'importe quel type de valeurs,
 et autant que nécessaire.
 L'ordre des valeurs a généralement une importance.
 
-On peut effectuer des **opérations de tri et de sélection** avec un
+On peut effectuer des opérations de tri et de sélection avec un
 _tableau de valeurs_.
 
 [source%interactive,javascript]
@@ -346,7 +346,7 @@ Un objet fonctionne comme un _dictionnaire_ : on associe une valeur
 à un intitulé, un label.
 L'ordre des valeurs n'a généralement pas d'importance.
 
-On peut effectuer des **opérations de sélection** avec un
+On peut effectuer des opérations de sélection avec un
 _objet de valeurs_.
 
 
@@ -365,7 +365,7 @@ mot-clé `return`.
 Dans le cas contraire, ECMAScript considère
 que la valeur retournée équivaut implicitement à `undefined`.
 
-On peut effectuer des **opérations de transformation** avec une fonction.
+On peut effectuer des opérations de transformation avec une fonction.
 
 Les fonctions sont destinées à être _appelées_, pour effectuer
 des traitements répétitifs.
@@ -374,7 +374,7 @@ on l'écrit dans une fonction et on l'appelle deux fois.
 
 === Les variables
 
-Les *variables* servent à ranger des valeurs.
+Les variables servent à ranger des valeurs.
 On peut ainsi les réutiliser plus tard, les transmettre et prendre
 des décisions en fonction de ce qu'elles contiennent.
 
@@ -489,7 +489,8 @@ ECMAScript génèrera une erreur si on tente
 d'y accéder en dehors de sa portée.
 
 *La portée est délimitée par les fonctions*.
-En l'absence de fonction, la portée maximale est celle du module (script) dans lequel la variable est déclarée.
+En l'absence de fonction, la portée maximale est celle du module (script)
+dans lequel la variable est déclarée.
 
 Il existe un deuxième type de portée : la _portée lexicale_.
 L'exemple suivant servira à illustrer la nature de sa délimitation.
@@ -668,7 +669,7 @@ include::{sourceDir}/regexp/flags.js[]
 <3> affiche `Node` et `node` en combinant les deux options `i` et `g` — les occurrences contenues dans le mot `Node.js` et `Anode`.
 
 Des éléments de syntaxe complètent les options pour
-*identifier des motifs* au sein de chaînes de caractères :
+identifier des motifs au sein de chaînes de caractères :
 
 ensemble de caractères (entre `[` et `]`)::
   Liste l'ensemble des caractères recherchés.
@@ -697,7 +698,7 @@ include::{sourceDir}/regexp/syntax.js[]
 <5> Affiche `["92410 Ville"]` — capture les caractères jusqu'à ce que la condition ne soit plus remplie en rencontrant le _trait d'union_ (`-`).
 <6> Affiche `["92410 Ville-d'Avray"]`.
 
-D'autres opérateurs *délimitent notre recherche* :
+D'autres opérateurs délimitent notre recherche :
 
 début et fin de chaîne (`^` et `$`)::
   Symbolise le début (`^`) ou la fin (`$`) d'une chaîne de caractères. +
@@ -1118,7 +1119,7 @@ en début de section.
 [[anonymous-function]]
 === Les fonctions anonymes
 
-Les fonctions anonymes sont employées en *arguments d'autres fonctions*.
+Les fonctions anonymes sont employées en arguments d'autres fonctions.
 On les dit _anonymes_, car elles ne sont pas consignées dans des _variables_.
 Il est fréquent de les utiliser pour _itérer_ sur des tableaux,
 lors d'événements ou dans des <<promise,promesses>>.
@@ -1155,7 +1156,7 @@ include::{sourceDir}/functions/callback.js[]
 === Paramètres du reste (_rest parameters_)
 
 Les _paramètres du reste_ collecte un nombre indéfini de paramètres.
-Les paramètres sont *regroupés dans un même <<array,tableau>>* (voir ci-après).
+Les paramètres sont regroupés dans un même <<array,tableau>> (voir ci-après).
 
 [source%interactive,javascript]
 .functions/rest.js
@@ -1168,7 +1169,7 @@ include::{sourceDir}/functions/rest.js[]
 [[array]]
 == Lister, filtrer et trier des éléments (_Array_)
 
-Les tableaux (ou listes indexées) servent à *lister des éléments*,
+Les tableaux (ou listes indexées) servent à lister des éléments,
 de tout type et dans l'ordre de notre choix.
 Chaque élément de tableau se voit attribué un numéro (_index_).
 On peut retrouver l'élément par son numéro, en itérant à l'aide de boucles
@@ -1264,7 +1265,7 @@ include::{sourceDir}/array/join.js[]
 [[array.forEach]]
 === Itérer sur les valeurs avec des boucles
 
-Les boucles sont une manière de *parcourir plusieurs valeurs*.
+Les boucles sont une manière de parcourir plusieurs valeurs.
 Elles aident la mise en place d'automatismes pour éviter de répéter du code.
 
 [source%interactive,javascript]
@@ -1299,9 +1300,7 @@ include::{sourceDir}/array/for-of-in.js[]
 <3> Affiche successivement `"samedi"` puis `"dimanche"`.
 
 La méthode `forEach` propage en réalité 3 arguments à notre fonction anonyme :
-l'*élément* en cours de l'itération,
-l'*index* de l'élément,
-le *tableau* d'origine.
+l'élément en cours de l'itération, l'index de l'élément et le tableau d'origine.
 
 Pourquoi passer le tableau d'origine alors qu'on itère sur ce même tableau ?
 Pour donner du contexte au cas où on opère
@@ -1417,7 +1416,7 @@ C'est comme si elle _accumulait_ les résultats.
 include::{sourceDir}/array/reduce.js[]
 ----
 <1> Effectue une _réduction_ à l'aide de la fonction `sum` et d'une valeur par défaut de `0` — affiche `22` à l'issue des itérations .
-<2> La valeur de l'*élément* est le _second paramètre_ le premier paramètre correspond au résultat de l'itération précédente ou à la valeur initiale, passée en argument à `reduce`.
+<2> La valeur de l'élément est le _second paramètre_ le premier paramètre correspond au résultat de l'itération précédente ou à la valeur initiale, passée en argument à `reduce`.
 
 [[array.filter]]
 === Filtrer les valeurs
@@ -1545,7 +1544,7 @@ include::{sourceDir}/array/slice-negative.js[]
 [[object]]
 == Représenter et accéder à des structures d'objet
 
-Les structures d'objet servent à *lister des éléments* de tout type
+Les structures d'objet servent à lister des éléments de tout type
 au sein d'une même variable.
 L'indexation se fait _comme dans un dictionnaire_,
 avec un identifiant unique pour chaque valeur.
@@ -1732,7 +1731,7 @@ include::{sourceDir}/object/key-undefined.js[]
 == Lire et écrire des données au format JSON
 
 JSON ([URL]#http://json.org#) est un format de données textuel standardisé.
-Son but est de pouvoir *représenter des données informatiques* de manière
+Son but est de pouvoir représenter des données informatiques de manière
 interopérable entre différents langages.
 
 [source,javascript]
@@ -1791,7 +1790,7 @@ include::{sourceDir}/json/to-json.js[]
 <2> Affiche `"{\"lat\":48.8503439,\"lon\":2.34658949}"` — sans la clé `toJSON`, notre objet initial est sérialisé tel quel.
 
 Notre implémentation contenue dans la fonction `toJSON` est
-responsable de *renvoyer du texte seulement* _et_ de *choisir les clés*
+responsable de renvoyer du texte seulement et de choisir les clés
 à sérialiser.
 
 [source%interactive,javascript]
@@ -1905,8 +1904,8 @@ mdn::global[DateTimeFormat]
 [[class]]
 == Partager une logique avec des objets de même nature (_Class_)
 
-Une classe est une *structure qui partage des propriétés*
-et des méthodes entre objets qui l'instancient.
+Une classe est une structure qui partage des propriétés
+et des méthodes entre objets qui y font appel.
 Une instance de classe est créée en préfixant un appel de fonction
 par l'opérateur `new`.
 
@@ -1921,7 +1920,7 @@ nos deux variables sont des objets issus de la _classe_ <<date,Date>>.
 Chacune des variables bénéficie des méthodes définies par la classe `Date`.
 
 Autrement dit, si les <<object,structures d'objet>> définissent des données,
-les classes définissent des *comportements partagés*.
+les classes définissent des comportements partagés.
 
 [source%interactive,javascript]
 .class/base.js
@@ -2070,10 +2069,9 @@ C'est un exemple populaire d'héritage appliqué aux composants visuels.
 [[promise]]
 == Coordonner des actions asynchrones (_Promise_)
 
-Une promesse est *un objet retourné immédiatement*.
-Le *résultat est obtenu plus tard*.
-Cette résolution peut être soit _positive_ soit _négative_.
-On dit alors que l'action est _asynchrone_.
+Une promesse est *un objet retourné immédiatement* mais le
+*résultat est obtenu plus tard*, de manière asynchrone.
+Cette résolution est soit _positive_ soit _négative_.
 
 [source%interactive,javascript]
 .promise/base.js
@@ -2094,9 +2092,9 @@ un résultat s'appelle le _pattern Executor_.
 
 
 Une `Promise` s'orchestre en deux temps.
-L'*initialisation* : on décide de la manière dont le traitement asynchrone
+L'initialisation : on décide de la manière dont le traitement asynchrone
 sera effectué.
-Puis la *résolution* : _positive_ en appelant `resolve()`
+Puis la résolution : _positive_ en appelant `resolve()`
 ou _négative_, en appelant `reject()`.
 Le résultat passé à `resolve` sera transmis au premier argument de `then`.
 Le résultat passé à `reject` sera transmis au deuxième argument de `then`
@@ -2135,8 +2133,8 @@ Plus besoin de _polyfill_ ou de librairie pour en bénéficier nativement.
 ====
 
 En général, on utilise les promesses *pour aller plus vite*.
-Parce qu'on peut continuer à traiter d'autres actions
-*en attendant l'arrivée du résultat*.
+Parce qu'on peut continuer à traiter d'autres actions en attendant
+l'arrivée du résultat.
 
 C'est comme quand on se rend au restaurant :
 les personnes en cuisine effectuent le traitement des commandes
@@ -2213,9 +2211,8 @@ include::{sourceDir}/promise/async-await.js[]
 <2> Chaque utilisation de `await` met l'interpréteur en pause.
 <3> L'affichage du temps d'exécution de chaque promesse se fait lorsque les 3 promesses sont résolues.
 
-On gagne en lisibilité, mais *on perd en vitesse*.
-Les promesses sont exécutées _les unes à la suite des autres_
-et non plus en parallèle.
+On gagne en lisibilité, mais on perd en vitesse.
+Les promesses sont exécutées séquentiellement et non en parallèle.
 Il est important d'arbitrer les choix de _design_ et d'éviter de bloquer
 l'exécution de vos scripts sans raison explicite.
 
@@ -2227,7 +2224,7 @@ Ce chapitre nous a *appris les différentes structures de langage*
 communes à toutes les environnements comprenant ECMAScript.
 Cela s'applique aussi bien à Node qu'aux navigateurs web. +
 Je vous invite à revenir à ce chapitre pour vous rafraîchir la mémoire
-mais aussi pour *jouer avec les exemples* afin de confirmer votre compréhension
+mais aussi pour jouer avec les exemples afin de confirmer votre compréhension
 du langage.
 
 Dans le <<../chapter-04/index.adoc,chapitre suivant>>, nous allons

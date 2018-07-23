@@ -36,7 +36,7 @@ Certains systèmes d'exploitation embarquent l'environnement d'exécution Node.
 D'autres ne le font pas.
 Et d'autres embarquent Node mais dans une version trop ancienne.
 Voire avec une configuration exotique dont il est difficile de connaître les tenants et aboutissants.
-Idéalement, on voudrait pouvoir *installer la version de Node de notre choix* sur notre ordinateur.
+Idéalement, nous voudrions pouvoir *installer la version de Node de notre choix* sur notre ordinateur.
 
 Les *éditeurs de code* nous facilitent la vie en rendant le code lisible
 en ajoutant de la couleur et des repères visuels.
@@ -73,10 +73,10 @@ Certaines manières sont plus adaptées que d'autres,
 selon votre aisance avec un <<shell,terminal>>
 et selon le besoin de jongler rapidement entre différentes versions de Node.
 
-- *si vous vous êtes déjà servi·e d'un terminal* : je recommande d'utiliser <<nvm,nvm>> ;
-- *si vous ne vous êtes jamais servi·e d'un terminal* : il est plus simple d'utiliser un _installeur_ depuis le site officiel de Node ;
-- *si vous souhaitez maitriser les options d'installation* : il serait logique de <<build,compiler depuis les _sources_>> et/ou <<docker,d'utiliser Docker>> ;
-- *si rien de tout ça ne vous parle* : des services en ligne rendent <<online,Node accessible depuis un simple navigateur web>>.
+- si vous vous êtes déjà servi·e d'un terminal : je recommande d'utiliser <<nvm,nvm>> ;
+- si vous ne vous êtes jamais servi·e d'un terminal : il est plus simple d'utiliser un _installeur_ depuis le site officiel de Node ;
+- si vous souhaitez maitriser les options d'installation : il serait logique de <<build,compiler depuis les _sources_>> et/ou <<docker,d'utiliser Docker>> ;
+- si rien de tout ça ne vous parle : des services en ligne rendent <<online,Node accessible depuis un simple navigateur web>>.
 
 [NOTE]
 .[RemarquePreTitre]#Question# Pourquoi utiliser un installeur ?
@@ -86,7 +86,7 @@ Les installeurs permettent d'installer Node facilement, en quelques clics et san
 Si vous utilisez un installeur correspondant à une version plus récente de Node,
 cette nouvelle version sera utilisée dans _tous_ vos projets Node.
 
-C'est la *solution la plus simple pour installer Node*.
+C'est la solution la plus simple pour installer Node.
 ====
 
 [[online]]
@@ -217,8 +217,8 @@ $ nvm ls
 default -> v{v} (-> v{nodeV}) (default)
 ----
 
-L'exemple précédent détaille *la liste des versions de Node installées*
-et la *liste des _alias_* — une association entre un libellé et une version.
+L'exemple précédent détaille la liste des versions de Node installées
+et la liste des _alias_ — une association entre un libellé et une version.
 
 La commande `nvm use` nous fait naviguer entre des versions différentes de Node.
 L'utilisation répétée de `nvm use {nodeCurrentVersion}` et de
@@ -282,12 +282,12 @@ $ curl -sL https://rpm.nodesource.com/setup_8.x | bash -
 
 Des paquets officiels pour d'autres distributions que Debian, Ubuntu et Mint sont maintenus et accessibles par le biais des gestionnaires de paquets habituels :
 
-- *Gentoo* : `emerge nodejs`
-- *Ubuntu >= 12.04*, *Debian >= jessie*, *Mint* : <<install-ubuntu,voir ci-après>>
-- *Fedora >= 18* : `sudo yum install nodejs npm`
-- *Red Hat Enterprise* et *CentOS* : `sudo yum install nodejs npm --enablerepo=epel`
-- *Arch Linux* : `pacman -S nodejs`
-- *FreeBSD*, *OpenBSD* : `pkg install node`
+- Gentoo : `emerge nodejs`
+- Ubuntu >= 12.04, Debian >= jessie, Mint : <<install-ubuntu,voir ci-après>>
+- Fedora >= 18 : `sudo yum install nodejs npm`
+- Red Hat Enterprise et *CentOS : `sudo yum install nodejs npm --enablerepo=epel`
+- Arch Linux : `pacman -S nodejs`
+- FreeBSD, OpenBSD : `pkg install node`
 
 La liste à jour est maintenue sur cette page du site officiel de Node [URL]#https://nodejs.org/fr/download/package-manager#.
 
@@ -525,14 +525,14 @@ image::images/glitch-terminal.png[width="70%"]
 Voici une liste non exhaustive d'applications de type _terminal_ :
 
 macOS::
-* *Terminal.app* : fourni par défaut (dans `Applications / Utilitaires`) ;
-* *iTerm2* : une version améliorée disponible sur [URL]#https://iterm2.com# (ou `brew cask install iterm2`) ;
+* _Terminal.app_ : fourni par défaut (dans `Applications / Utilitaires`) ;
+* _iTerm2_ : une version améliorée disponible sur [URL]#https://iterm2.com# (ou `brew cask install iterm2`) ;
 Linux::
-* *GNOME Terminal* : fourni par défaut sous Debian, Ubuntu et les distributions utilisant le bureau _GNOME_ ([URL]#https://wiki.gnome.org/Apps/Terminal#) ;
-* *Terminator* : un autre terminal populaire ([URL]#https://gnometerminator.blogspot.com#) ;
+* _GNOME Terminal_ : fourni par défaut sous Debian, Ubuntu et les distributions utilisant le bureau _GNOME_ ([URL]#https://wiki.gnome.org/Apps/Terminal#) ;
+* _Terminator_ : un autre terminal populaire ([URL]#https://gnometerminator.blogspot.com#) ;
 Windows::
-* *Node.js Command Prompt* : fourni avec l'<<windows,installeur Windows>> ;
-* *PowerShell* : fourni par défaut depuis Windows 7, sinon disponible sur [URL]#https://github.com/PowerShell/PowerShell# — également disponible pour macOS et Linux.
+* _Node.js Command Prompt_ : fourni avec l'<<windows,installeur Windows>> ;
+* _PowerShell_ : fourni par défaut depuis Windows 7, sinon disponible sur [URL]#https://github.com/PowerShell/PowerShell# — également disponible pour macOS et Linux.
 
 .Node.js Command Prompt sous Windows 10.
 image::images/windows-terminal.png[width="70%"]
@@ -763,8 +763,8 @@ soit disponible, par mesure de précaution.
 
 Que faire si la faille de sécurité affecte la version de Node installée sur :
 
-- notre *ordinateur de développement* : c'est peu risqué - sauf à ce qu'un module tiers exploite cette faille ;
-- notre *site web* : redéployer aussitôt le site en question avec une version corrigeant la faille.
+- notre ordinateur de développement : c'est peu risqué - sauf à ce qu'un module tiers exploite cette faille ;
+- notre site web : redéployer aussitôt le site en question avec une version corrigeant la faille.
 
 Les versions de Node qui corrigent des failles de sécurité ou des bugs connus
 n'ont quasiment aucune chance de casser une application existante.
@@ -819,9 +819,9 @@ Une migration ne demande pas nécessairement d'investir beaucoup de temps pour a
 
 Que faire en cas de sortie d'une version mineure sur :
 
-- notre *ordinateur de développement* : on peut migrer si l'on veut tester
+- notre ordinateur de développement : on peut migrer si l'on veut tester
 ou bénéficier des nouvelles fonctionnalités de cette version ;
-- notre *site web* : pas d'action immédiate requise ;
+- notre site web : pas d'action immédiate requise ;
 on peut migrer si l'on veut bénéficier des nouvelles fonctionnalités
 de cette version.
 
@@ -839,9 +839,9 @@ Une migration peut demander d'investir un certain temps pour adapter
 et tester nos applications Node.
 
 Que faire en cas de sortie d'une version majeure ? +
-Sur notre *ordinateur de développement*, nous chercherons à prendre du temps
+Sur notre ordinateur de développement, nous chercherons à prendre du temps
 pour tester nos applications et s'assurer de leur bon fonctionnement.
-Sur la *machine de production*, il n'y a pas d'action immédiate requise.
+Sur la machine de production, il n'y a pas d'action immédiate requise.
 
 [[lifecycle]]
 === Comprendre le cycle de vie produit
@@ -849,8 +849,9 @@ Sur la *machine de production*, il n'y a pas d'action immédiate requise.
 Le développement de la plate-forme Node prend soin de ne pas
 aller trop vite ni d'altérer la stabilité des applications et des
 outils en fonctionnement.
-Il sort au maximum *deux versions majeures par an*.
-Parmi ces deux versions, *une version majeure est supportée à long terme* (_Long Term Support_, _LTS_).
+Il sort *au maximum deux versions majeures par an*.
+Parmi ces deux versions, une version majeure est supportée à long terme
+(_Long Term Support_, _LTS_).
 
 La notion de version supportée à long terme (_LTS_)
 a été introduit pour donner un repère de stabilité.

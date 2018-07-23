@@ -19,10 +19,12 @@ animent la communauté et d'où vient cette plate-forme qui fait tant parler d'e
 
 ====
 .Sommaire
-- Comprendre ce qu'est Node.js
-- Savoir qui assure la gouvernance de Node.js
-- Décider si Node.js et JavaScript peuvent compléter ou remplacer le langage de programmation de votre entreprise/organisation
-- Pourquoi autant de _hype_ ?
+- Bref historique
+- Les raisons du succès
+- Pourquoi éviter Node
+- Pourquoi choisir Node
+- L'écosystème des acteurs
+- Gouvernance du projet
 ====
 
 [abstract]
@@ -42,23 +44,34 @@ peut vous apporter, que ce soit dans un contexte personnel ou professionnel.
 Node.js n'est pas un langage de programmation. Node.js n'est pas non plus un _framework_ JavaScript. *Node.js est un environnement d'exécution JavaScript*. +
 La différence entre ces trois désignations peut sembler subtile, futile voire inutile mais le terme *environnement* est la véritable nature de Node.
 
-*Exécuter du JavaScript côté serveur n'est pas une révolution*. +
-L'entreprise _Netscape_ s'y est déjà essayée au début des années 1990 avec _Netscape Enterprise Server_, juste après l'avoir introduit dans son navigateur web _Netscape Navigator_.
+Exécuter du JavaScript côté serveur n'est pas une révolution.
+L'entreprise _Netscape_ s'y est déjà essayée au début des années 1990 avec
+_Netscape Enterprise Server_, juste après l'avoir introduit dans son navigateur
+web _Netscape Navigator_.
 
-En 1997, _Netscape_ s'est attelée à créer _Rhino_ ([URL]#https://www.mozilla.org/rhino/#), un environnement d'exécution JavaScript tournant sous Java disponible sous licence libre.
+En 1997, _Netscape_ s'est attelée à créer _Rhino_
+([URL]#https://www.mozilla.org/rhino/#), un environnement d'exécution JavaScript
+tournant sous Java disponible sous licence libre.
 _Rhino_ était un des projets liés à la réécriture de _Netscape Navigator_ en Java.
-Si _Netscape_ a depuis fermé ses portes, _Rhino_ a permis l'émergence de projets utiles aux développeurs web.
+Si _Netscape_ a depuis fermé ses portes, _Rhino_ a permis l'émergence de projets
+utiles aux développeurs web.
 
-Entre temps le langage JavaScript évolue, le _Web 2.0_ émerge des cendres de la première bulle Internet et d'autres initiatives émergent dans les années 2000 comme _APE_ (_Ajax Push Engine_, [URL]#http://ape-project.org/#).
+Entre temps le langage JavaScript évolue, le _Web 2.0_ émerge des cendres de la
+première bulle Internet et d'autres initiatives émergent dans les années 2000
+comme _APE_ (_Ajax Push Engine_, [URL]#http://ape-project.org/#).
 Elles mettent également en œuvre JavaScript côté serveur.
-JavaScript était surtout un choix logique de partage de code entre client et serveur pour Comet, le précurseur des <<../chapter-09/index.adoc#websockets,WebSockets>>.
+JavaScript était surtout un choix logique de partage de code entre client et
+serveur pour Comet, le précurseur des <<../chapter-09/index.adoc#websockets,WebSockets>>.
 
 [TIP]
 .[RemarquePreTitre]#Glossaire# Comet
 ====
-_Comet_ est un terme regroupant les différentes tentatives techniques permettant à un serveur web d'envoyer des données à un client sans que celui-ci ne les ait demandées initialement.
+_Comet_ est un terme regroupant les différentes tentatives techniques permettant
+à un serveur web d'envoyer des données à un client sans que celui-ci ne les ait
+demandées initialement.
 
-Parmi ces techniques, on retrouve le _long polling_, consistant à conserver une connexion Ajax ouverte pendant la durée de vie d'une page web.
+Parmi ces techniques, on retrouve le _long polling_, consistant à conserver une
+connexion Ajax ouverte pendant la durée de vie d'une page web.
 ====
 
 [TIP]
@@ -87,32 +100,50 @@ Ce dernier est écrit en JavaScript et repose sur Node. +
 La boucle est bouclée.
 ====
 
-Node représente un *environnement d'exécution* (_runtime_), un *ensemble d'API JavaScript* ainsi qu'une *machine virtuelle (VM) JavaScript* performante (parseur, interpréteur et compilateur) pouvant accéder à des ressources système telles que des fichiers (_filesystem_) ou des connexions réseau (_sockets_).
+Node représente un *environnement d'exécution* (_runtime_), un
+*ensemble d'API JavaScript* ainsi qu'une *machine virtuelle (VM) JavaScript*
+performante (parseur, interpréteur et compilateur) pouvant accéder à des ressources
+système telles que des fichiers (_filesystem_) ou des connexions réseau (_sockets_).
 
-Typiquement, une personne développant en Node écrit du code se basant sur les API à disposition.
-Ce code est lu par le _runtime_ Node qui le transmet à la VM JavaScript. Enfin, la VM traduit le programme en langage machine (_bytecode_) avant que le programme soit effectivement exécuté par le processeur.
+Typiquement, une personne développant en Node écrit du code se basant sur les
+API à disposition.
+Ce code est lu par le _runtime_ Node qui le transmet à la VM JavaScript. Enfin,
+la VM traduit le programme en langage machine (_bytecode_) avant que le programme
+soit effectivement exécuté par le processeur.
 
-Pour comprendre comment Node a opté pour cette approche, retournons en 2009, lorsque son créateur **Ryan Dahl** cherchait à résoudre élégamment un problème de performance de programmation.
+Pour comprendre comment Node a opté pour cette approche, retournons en 2009,
+lorsque son créateur Ryan Dahl cherche à résoudre élégamment un problème de
+performance de programmation.
 
 == Bref historique
 
-En 2006, _Ryan Dahl_ est un étudiant américain en troisième année de doctorat de mathématiques.
-Si son but initial était de devenir professeur de mathématiques, il prend la décision de ne pas terminer sa thèse et d'entreprendre un voyage au Chili.
+En 2006, _Ryan Dahl_ est un étudiant américain en troisième année de doctorat
+de mathématiques.
+Si son but initial était de devenir professeur de mathématiques, il prend la
+décision de ne pas terminer sa thèse et d'entreprendre un voyage au Chili.
 
-Alors qu'il cherche à effectuer des petits boulots, il y rencontre une autre personne développant des sites web.
+Alors qu'il cherche à effectuer des petits boulots, il y rencontre une autre
+personne développant des sites web.
 Ruby on Rails connaît un succès grandissant et attire son attention.
-Alors que Ryan envisageait d'utiliser Rails, il découvre avec horreur la lenteur du _framework_ et cherche à en découvrir les causes.
+Alors que Ryan envisageait d'utiliser Rails, il découvre avec horreur la lenteur
+du _framework_ et cherche à en découvrir les causes.
 
-Ryan débute alors sa *quête des applications web performantes* et découvre _Mongrel_, un serveur HTTP écrit en Ruby.
+Ryan débute alors sa quête des applications web performantes et découvre _Mongrel_,
+un serveur HTTP écrit en Ruby.
 Il est séduit par deux choses :
 
-- la possibilité d'*inclure* un serveur HTTP comme librairie applicative ;
+- la possibilité d'inclure un serveur HTTP comme librairie applicative ;
 - la simplicité de fonctionnement : recevoir une requête HTTP et décider soi-même de la réponse à apporter.
 
-La quête initiale se dirige alors sur la possibilité de créer *un serveur web non bloquant*.
-En d'autres termes, un serveur capable dans un même processus de traiter d'autres requêtes en attendant de renvoyer la réponse initiale.
+La quête initiale le dirige alors vers la possibilité de
+*créer un serveur web non bloquant*.
+En d'autres termes, un serveur capable dans un même processus de traiter d'autres
+requêtes en attendant de renvoyer la réponse initiale.
 
-Nous sommes alors en 2008 et le site de partage de photos Flickr innove avec un nouveau système de téléversement d'images : une *barre de progression* représentant le statut du téléversement remplace alors la page figée – effet  inhérent à l'envoi de fichiers depuis un formulaire HTML.
+Nous sommes alors en 2008 et le site de partage de photos Flickr innove avec un
+nouveau système de téléversement d'images : une *barre de progression* représentant
+le statut du téléversement remplace alors la page figée – effet  inhérent à l'envoi
+de fichiers depuis un formulaire HTML.
 
 
 .Interface du service Flickr après et avant l'introduction du téléversement progressif.
@@ -126,12 +157,12 @@ comment elle a contourné le problème  de l'upload via un formulaire classique.
 Ce problème gelait la fenêtre du navigateur pendant la durée du téléversement.
 ====
 
-C'est le *déclic* pour Ryan : _Mongrel_ avait déjà un plug-in pour cette fonctionnalité mais il souhaitait simplifier davantage le travail pour les développeurs.
+C'est le déclic pour Ryan : _Mongrel_ avait déjà un plug-in pour cette fonctionnalité mais il souhaitait simplifier davantage le travail pour les développeurs.
 Il reproduit le mécanisme avec succès en C.
 Les développeurs web jugeant la solution trop complexe, Ryan tente la même approche avec d'autres langages, comme Python, Lua ou même Haskell.
 Il se heurte au sempiternel problème des ressources bloquantes des différents interpréteurs.
 
-Le deuxième *déclic* se produit en janvier 2009 lorsque _JavaScript_ émerge dans une discussion entre développeurs.
+Le deuxième déclic se produit en janvier 2009 lorsque _JavaScript_ émerge dans une discussion entre développeurs.
 _Eurêka_{nbsp}!
 La machine virtuelle JavaScript V8 de Google a été libérée en _open source_ depuis quelques mois et Apple, Microsoft, Mozilla et Google se livrent à une course à la performance de leur machine virtuelle respective.
 En ligne de mire, rendre la navigation sur _mobile_ et sur _ordinateur_ plus rapide et moins gourmande en ressources.
@@ -150,12 +181,13 @@ endif::[]
 
 L'entreprise américaine _Joyent_ l'embauche à plein temps pour continuer le développement de Node.
 Ils pressentent que Node répondra à leurs projets de _datacenter_ et d'hébergement.
+*Node et sa communauté se constituent* et continuent leur chemin depuis lors.
+Pour une simple affaire de _barre de progression_ et une obsession de
+_perception de rapidité_.
 
-*Node et sa communauté sont nés* et ont continué à prospérer depuis lors.
-Pour une simple affaire de _barre de progression_ et une obsession de _perception de rapidité_.
-
-En 2018, l'avenir de Node est au beau fixe avec plus de {nodeContributorsCount} contributeurs
-et plus de {npmModulesCount} modules publics hébergés sur le registre _npm_.
+En 2018, l'avenir de Node est au beau fixe avec plus de {nodeContributorsCount}
+contributeurs et plus de {npmModulesCount} modules publics hébergés sur
+le registre _npm_.
 
 [TIP]
 .[RemarquePreTitre]#Vidéo# _History of Node.js_
@@ -176,12 +208,17 @@ endif::[]
 == Les raisons du succès
 
 La tension et l'attention autour de JavaScript sont énormes en 2009.
-La mode du tout _Ajax_ et des _mashups_ s'est estompée mais une chose en est ressortie : JavaScript n'a plus à rougir ni à être relégué au rang de sous-langage.
-Les initiatives JSLint, CommonJS et les _good parts_ de Douglas Crockford sont pour beaucoup dans la création de code élégant.
+La mode du tout _Ajax_ et des _mashups_ s'est estompée mais une chose en est
+ressortie : JavaScript n'a plus à rougir ni à être relégué au rang de sous-langage.
+Les initiatives JSLint, CommonJS et les _good parts_ de Douglas Crockford sont
+pour beaucoup dans la création de code élégant.
 
-D'un autre côté, les entreprises développant des navigateurs web se livrent à une féroce compétition d'optimisation.
-Google, Mozilla et Apple ont besoin de navigateurs rapides pour améliorer leurs parts de marché sur les ordinateurs mais aussi les téléphones et tablettes.
-On peut considérer que JavaScript est à cette époque le langage de programmation bénéficiant du plus grand investissement financier et humain en R&D.
+D'un autre côté, les entreprises développant des navigateurs web se livrent à
+une féroce compétition d'optimisation.
+Google, Mozilla et Apple ont besoin de navigateurs rapides pour améliorer leurs
+parts de marché sur les ordinateurs mais aussi les téléphones et tablettes.
+On peut considérer que JavaScript est à cette époque le langage de programmation
+bénéficiant du plus grand investissement financier et humain en R&D.
 
 La communauté JavaScript accueille avec ferveur Node lors
 de la conférence JSConf Europe en 2009.
@@ -198,7 +235,7 @@ _npm_ devient une pierre angulaire.
 À tel point qu'il est inclus dans l'installation de Node
 à partir de la version 0.6.3 en novembre 2011.
 La communauté Node fait le reste du travail
-en constituant un *écosystème de modules riche et varié* :
+en constituant un *écosystème de modules riches et variés* :
 frameworks web, drivers de bases de données,
 serveurs HTTP, serveurs WebSockets, préprocesseurs CSS,
 CoffeeScript, parseurs, proxy, serveurs de log, modules de tests,
@@ -208,7 +245,7 @@ Malgré ses défauts de jeunesse, Node réussit le tour
 de force de la performance : la recette de l'accès non-bloquant
 a-t-elle fonctionné ?
 À en croire les personnes ayant migré vers Node pour ces raisons,
-la réponse est *oui*.
+la réponse est "oui".
 
 [[avoiding-node]]
 == Pourquoi éviter Node.js ?
@@ -230,7 +267,8 @@ L'*offre logicielle est également à prendre en compte* : CMS,
 systèmes e-commerce ou autre application prête à l'emploi
 que la communauté Node n'offrirait pas à ce jour.
 
-Un facteur important et souvent oublié est *l'acceptation et la compréhension de l'utilisation de Node* par une ou plusieurs équipes.
+Un facteur important et souvent oublié est
+*l'acceptation et la compréhension de l'utilisation de Node* par une ou plusieurs équipes.
 Il est alors plus intéressant de comprendre les raisons
 d'un blocage que de forcer ou d'imposer Node. +
 Cela peut être simple : balayer des idées reçues,
@@ -245,8 +283,8 @@ Difficile d'égaler la richesse fonctionnelle de Python
 et de ses librairies SciPy, NumPy ou scikit-learn.
 Difficile aussi d'égaler la finesse de gestion de mémoire de _{cpp}_ ou de _Rust_.
 
-Node ne va *pas résoudre les problèmes par magie*.
-Cela reste avant tout une affaire de compétences et d'expérience.
+*Node ne résout pas les problèmes par magie*.
+Ça reste avant tout une affaire de compétences et d'expérience.
 
 
 == Pourquoi choisir Node.js ?
@@ -324,15 +362,22 @@ l'entreprise Joyent sur le blog officiel du projet Node
 
 === npm
 
-_npm_ est une dénomination qui abrite plusieurs concepts : un *outil en ligne de commande*, un *registre de modules* ainsi qu'une *entreprise privée* à but lucratif (<<npm-inc,npm, Inc>>).
+_npm_ est une dénomination qui abrite plusieurs concepts : un outil en ligne
+de commande, un registre de modules ainsi qu'une entreprise privée à but lucratif
+(<<npm-inc>>).
 
 _npm_ est originellement un module Node créé par Isaacs Schlueter.
-Ce module permet d'installer des modules tiers et de les lier sous forme d'un arbre de dépendances.
-Il est l’équivalent de _Rubygems_ ([URL]#https://rubygems.org/#) pour Ruby, de _CPAN_ ([URL]#http://www.cpan.org/#) pour Perl ou encore de _pypi_ ([URL]#https://pypi.python.org/pypi#) pour Python.
+Ce module permet d'installer des modules tiers et de les lier sous forme d'un
+arbre de dépendances.
+Il est l’équivalent de _Rubygems_ ([URL]#https://rubygems.org/#) pour Ruby, de
+_CPAN_ ([URL]#http://www.cpan.org/#) pour Perl ou encore de _pypi_
+([URL]#https://pypi.python.org/pypi#) pour Python.
 
-Nous reviendrons plus en détail sur son utilisation dans le <<../chapter-05/index.adoc#,chapitre 5 _Utiliser des modules tiers_>>.
+Nous reviendrons plus en détail sur son utilisation dans le
+<<../chapter-05/index.adoc#,chapitre 5 _Utiliser des modules tiers_>>.
 
-_npm_ désigne également le _registre_ principal qui héberge les modules des communautés Node : [URL]#https://www.npmjs.com/#.
+_npm_ désigne également le _registre_ principal qui héberge les modules des
+communautés Node : [URL]#https://npmjs.com#.
 
 [TIP]
 .[RemarquePreTitre]#Lien# Annonce de l’inclusion de _npm_ dans Node
@@ -350,13 +395,16 @@ Isaacs Schlueter a été embauché par Joyent en septembre 2010.
 Il a succédé à Ryan Dahl dans la gestion du projet Node de
 janvier 2012 jusqu’à janvier 2014.
 
-_npm, Inc_ est une entreprise privée américaine fondée en janvier 2014 par Isaacs Schlueter, directement après son départ de Joyent.
+_npm, Inc_ est une entreprise privée américaine fondée en janvier 2014 par Isaacs
+Schlueter, directement après son départ de Joyent.
 Le but de _npm, Inc_ est de fournir des solutions professionnelles basées sur _npm_.
 L'entreprise souhaite en parallèle soutenir l’effort open source
 et les coûts d’infrastructure du registre _npm_.
 
-Elle lève 2,6 millions de dollars en février 2014 pour élaborer une nouvelle architecture du registre _npm_.
-Ce financement a également pour vocation la mise en place d'une stratégie commerciale basée sur les modules privés et les solutions professionnelles.
+Elle lève 2,6 millions de dollars en février 2014 pour élaborer une nouvelle
+architecture du registre _npm_.
+Ce financement a également pour vocation la mise en place d'une stratégie
+commerciale basée sur les modules privés et les solutions professionnelles.
 
 La société _npm, Inc_ détient la marque _npm_, _npm, Inc_ et le _logo npm_.
 
@@ -367,12 +415,14 @@ image::images/logo-npm.png[width="40%"]
 === io.js
 
 _io.js_ est un _fork_ de Node initié par la communauté Node en décembre 2014.
-La raison ? La main-mise de Joyent sur les développements et la communication erratique du projet.
+La raison ? La main-mise de Joyent sur les développements et la communication
+erratique du projet.
 
 Les objectifs initiaux du projet _io.js_ sont doubles :
 
 - offrir à la communauté Node une gestion transparente, inclusive et ouverte ;
-- fournir un environnement technique plus moderne, une version de v8 plus récente ainsi qu'une intégration rapide des nouvelles fonctionnalités ECMAScript.
+- fournir un environnement technique plus moderne, une version de v8 plus récente
+ainsi qu'une intégration rapide des nouvelles fonctionnalités ECMAScript.
 
 Le projet _io.js_ connait une fin heureuse en 2015 :
 les efforts du projet et de sa communauté auront abouti à
@@ -410,10 +460,12 @@ La fondation fait partie intégrante de la <<governance,gouvernance du projet No
 === Nodejitsu
 
 _Nodejitsu_ est une entreprise privée américaine fondée en 2010.
-Elle vise à fournir des solutions professionnelles autour de Node en tant que _Platform as a Service_ (_PaaS_) ainsi qu'avec des dépôts _npm_ privés. +
-Son activité en fait un concurrent direct de <<joyent,Joyent>> et de <<npm-inc,npm, Inc.>>.
+Elle vise à fournir des solutions professionnelles autour de Node en tant que
+_Platform as a Service_ (_PaaS_) ainsi qu'avec des dépôts _npm_ privés. +
+Son activité en fait un concurrent direct de <<joyent>> et de <<npm-inc>>.
 
-_Nodejitsu_ démontre un investissement fort dans la communauté Node en contribuant à plusieurs centaines de modules.
+_Nodejitsu_ démontre un investissement fort dans la communauté Node en contribuant
+à plusieurs centaines de modules.
 La société prend en charge l'hébergement du registre _npm_ de 2010 jusqu'en décembre 2013.
 
 En 2013, _Nodejitsu_ lance l'initiative controversée <<scalenpm,scalenpm>> (voir l'encadré ci-après).
@@ -446,8 +498,11 @@ Le contenu est depuis archivé sur
 
 === Node Security Platform
 
-Le _Node Security Platform_ ([URL]#https://nodesecurity.io/# — anciennement _Node Security Project_) est un projet à but lucratif soutenu par la société américaine _&yet_ ([URL]#https://andyet.com/#).
+Le _Node Security Platform_ ([URL]#https://nodesecurity.io/# —
+anciennement _Node Security Project_) est un projet à but lucratif soutenu par
+la société américaine _&yet_ ([URL]#https://andyet.com/#).
 Il a été initié au début de l'année 2013.
+La société, les employés et les logiciels ont été rachetés par <<npm-inc>> en 2018.
 
 Son but est triple :
 
@@ -470,7 +525,7 @@ Nous aborderons le sujet de la sécurité tout au long de cet ouvrage :
 [[governance]]
 == Gouvernance du projet
 
-Node a connu une *forte croissance depuis 2012*.
+Node a connu une forte croissance depuis 2012.
 La gouvernance du projet open source a été effectuée
 par la <<joyent,société Joyent>>.
 Ses agissements et la direction donnée au projet ont régulièrement
@@ -546,6 +601,9 @@ sont répartis dans les dépôts GitHub des différents acteurs :
 
 == Conclusion
 
-Nous venons d'en apprendre davantage sur les *origines de Node*, les différentes parties prenantes dans son développement mais aussi sa *philosophie* — de _conception_, de _distribution_ et d'_évolution_.
+Nous venons d'en apprendre davantage sur les origines de Node,
+les différentes parties prenantes dans son développement mais aussi sa
+philosophie — de conception, de distribution et d'évolution.
 
-Nous allons voir dans le prochain chapitre comment installer un environnement fonctionnel pour développer et exécuter des programmes Node.
+Nous allons voir dans le prochain chapitre comment installer un environnement
+fonctionnel pour développer et exécuter des programmes Node.
