@@ -1,6 +1,6 @@
-# Node.js [![Build Linux][ci-linux]](https://travis-ci.org/oncletom/nodebook) [![Build Windows][ci-windows]](https://ci.appveyor.com/project/oncletom/nodebook) [![Backers on Open Collective](https://opencollective.com/nodebook/backers/badge.svg)][backers] [![Sponsors on Open Collective](https://opencollective.com/nodebook/sponsors/badge.svg)][sponsors]
+# Node.js • Apprendre par l'exemple [![Build Linux][ci-linux]](https://travis-ci.org/oncletom/nodebook) [![Build Windows][ci-windows]](https://ci.appveyor.com/project/oncletom/nodebook) [![Backers on Open Collective](https://opencollective.com/nodebook/backers/badge.svg)][backers] [![Sponsors on Open Collective](https://opencollective.com/nodebook/sponsors/badge.svg)][sponsors]
 
-> Apprendre par l'exemple • Devenez autonome avec JavaScript, l'écosystème npm, le développement frontend, les applications web et en ligne de commande.
+> Devenez autonome avec JavaScript, l'écosystème npm, le développement frontend, les applications web et en ligne de commande.
 
 📖 **Journal de bord d'écriture** • [2018][journal-2018] • [2017][journal-2017].<br>
 👀 **Lire l'ouvrage** • [sur papier](#sur-papier) • [sur le web](#sur-le-web) • [avec Node.js](#avec-nodejs).<br>
@@ -9,7 +9,7 @@
 
 # Table des matières
 
-**Légende** • 🚧 = pas fini • ✍️ = en cours d'écriture • ✅ = terminé.
+**Légende** • ✍️ = écriture/corrections • ✅ = terminé.
 
 | Statut | Chapitre                  | Objectif d'apprentissage | |
 | -------|---------------------------|--------- |---|
@@ -35,15 +35,15 @@
 
 ## Sur papier
 
-⏳ À venir.
+⏳ Sortie fin octobre 2018.
 
 **Fonctionnalités** : confort de lecture, annotations libres, rémunère mon travail.
 
 ## Sur liseuse numérique
 
-⏳ À venir.
+⏳ Sortie fin octobre 2018 (à confirmer).
 
-**Fonctionnalités** : ne prend pas de place, rémunère mon travail.
+**Fonctionnalités** : ne prend pas de place sur l'étagère, rémunère mon travail.
 
 ## Avec Node.js
 
@@ -88,7 +88,7 @@ Exemples:
 
 Je vous invite à contribuer **de la manière de votre choix** — par e-mail, en ouvrant une _issue_ ou en contribuant du texte ou du code.
 
-Si vous n'êtes pas sûr·e de votre coup mais que l'envie est là, c'est suffisant pour démarrer 🙂. Nous éclaircirons les choses ensemble si nécessaire.
+Si vous n'êtes pas sûr·e de votre coup mais que l'envie est là, c'est suffisant pour démarrer 🙂. Nous éclaircirons les choses ensemble.
 
 ## Installation
 
@@ -185,7 +185,7 @@ Support this project by becoming a sponsor. Your logo will show up here with a l
 
 # Mentions légales
 
-_Node.js • Apprendre par la pratique_ est un ouvrage rédigé par [Thomas Parisot](https://oncletom.io). Il est édité, publié et distribué en papier et e-book par [Eyrolles][].
+_Node.js • Apprendre par la pratique_ est un ouvrage rédigé par [Thomas Parisot](https://oncletom.io). Il est édité, publié et distribué en papier et e-book par les [éditions Eyrolles][Eyrolles].
 
 L’épreuve est soumise à la licence [Creative Commons NC-BY-SA 4.0][cc-nc-by-sa] (_Attribution, Non-Commercial, Share Alike_).<br>
 Les exemples de code sont placés sous la [licence MIT][].
