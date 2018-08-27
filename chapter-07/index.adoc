@@ -37,18 +37,18 @@ Nous verrons en quoi notre application gagne en clarté, comment générer du HT
 dynamiquement avec des informations issues d'une base de données.
 
 Nous consoliderons notre savoir en organisation notre code de sorte à le
-rendre plus résilient et testable — chose que nous apprendrons à faire pas à pas.
+rendre plus résilient et testable – chose que nous apprendrons à faire pas à pas.
 --
 
 include::../docs/tip-versions.adoc[]
 
 Une application web est une *construction applicative qui est à l'écoute*
-de connexions réseaux initiées par un client — un navigateur, un automate, etc.
+de connexions réseaux initiées par un client – un navigateur, un automate, etc.
 Elle est structurée autour de la lecture d'une requête entrante (lecture)
 et de l'émission d'une réponse sortante (écriture).
-Chaque *requête porte en elle une intention* — un chemin d'accès, une préférence
-de format, des éléments d'identification — et implique une réponse en retour
-— des données et des éléments pour les contextualiser.
+Chaque *requête porte en elle une intention* – un chemin d'accès, une préférence
+de format, des éléments d'identification – et implique une réponse en retour
+– des données et des éléments pour les contextualiser.
 
 L'ingénierie d'une application web consiste à comprendre les requêtes entrantes
 et à construire une réponse appropriée à chaque fois, le plus rapidement possible.
@@ -65,7 +65,7 @@ La documentation _MDN web docs_ ([URL]#https://developer.mozilla.org/fr/docs/Web
 les liste toutes, avec le détail de leurs valeurs possibles.
 
 C'est un onglet intéressant à ouvrir en parallèle de cette lecture
-— je l'ai ouvert en permanence pour écrire ce chapitre.
+– je l'ai ouvert en permanence pour écrire ce chapitre.
 ====
 
 [[webapp]]
@@ -83,7 +83,7 @@ Les navigateurs web sont des clients tandis que notre application Node est un se
 
 Le logiciel _curl_ ([URL]#https://curl.haxx.se#) est un client en ligne de commande.
 Il est souvent installé par défaut sur les distributions Linux, sur macOS et
-à partir de Windows 7 — via le terminal _PowerShell_.
+à partir de Windows 7 – via le terminal _PowerShell_.
 
 Utilisons _curl_ pour observer le contenu d'une requête et sa réponse.
 
@@ -96,7 +96,7 @@ User-Agent: curl/7.54.0
 Accept: */*
 ----
 <1> Exécution de la requête.
-<2> Expression de la méthode, du chemin d'accès demandé et du protocole de discussion employé — ici, le protocole HTTP dans sa version `1.1`.
+<2> Expression de la méthode, du chemin d'accès demandé et du protocole de discussion employé – ici, le protocole HTTP dans sa version `1.1`.
 <3> Entête de requête.
 
 Un entête est exprimé sous la forme `Clé: Valeur`.
@@ -122,7 +122,7 @@ Content-Type: text/html                               # <3>
 ----
 <1> Expression du statut de la réponse avec un code numérique et une version intelligible.
 <2> Entête de réponse.
-<3> Entête de réponse — celle-ci indique au client comment interpréter le corps du message.
+<3> Entête de réponse – celle-ci indique au client comment interpréter le corps du message.
 <4> Corps du message.
 
 La réponse dispose elle aussi d'entêtes.
@@ -160,8 +160,8 @@ $ node server/start.js
 include::{sourceDir}/server/start.js[]
 ----
 <1> Comme nous retournons du HTML au client, nous explicitons le type de contenu retourné en réponse.
-<2> Affiche les entêtes de la requête reçue par le serveur — le contenu varie selon le client utilisé.
-<3> Affiche les entêtes de la réponse — en l'occurrence `{ 'content-type': 'text/html' }`.
+<2> Affiche les entêtes de la requête reçue par le serveur – le contenu varie selon le client utilisé.
+<3> Affiche les entêtes de la réponse – en l'occurrence `{ 'content-type': 'text/html' }`.
 
 Nous avons composé la fondation minimum pour créer une application web
 en étant en mesure d'accepter des requêtes et de répondre, quelque chose
@@ -200,7 +200,7 @@ le port 4000 et démarrez ensuite `server/port.js`.
 Une application web est un programme qui tourne en continu, pendant des heures
 et des journées entières.
 
-Chaque requête entrante occupe 1Ko de mémoire — davantage si nous
+Chaque requête entrante occupe 1Ko de mémoire – davantage si nous
 recevons des données de formulaire ou une pièce-jointe.
 Une application web peut en recevoir plusieurs centaines à plusieurs milliers
 par seconde, selon la popularité du service.
@@ -321,7 +321,7 @@ $ node path/route-params.js
 ----
 include::{sourceDir}/path/route-params.js[]
 ----
-<1> Création d'une route paramétrée — le symbole `:word` est accessible dans le troisième argument, en tant que `params.word`.
+<1> Création d'une route paramétrée – le symbole `:word` est accessible dans le troisième argument, en tant que `params.word`.
 <2> Affiche une phrase composée avec le paramètre de notre route.
 
 Dirigez-vous vers `{serverUrl}/hello/word` pour voir le résultat s'afficher.
@@ -330,7 +330,7 @@ Changez le dernier segment du chemin pour observer le changement.
 Ce mécanisme est utile pour relier un identifiant à un enregistrement précis
 en base de données, par exemple.
 Il se complète avec les <<argument,arguments d'URL>> pour véhiculer des
-éléments optionnels — nous en parlons quelques sections plus loin.
+éléments optionnels – nous en parlons quelques sections plus loin.
 
 [CAUTION]
 .[RemarquePreTitre]#Sécurité# Filtrer les données entrantes
@@ -347,7 +347,7 @@ Nous verrons tous ces aspects plus en détail dans la section
 
 Enfin, les routeurs contextualisent les actions à effectuer vis-à-vis d'une
 ressource grâce au _verbe HTTP_.
-Le verbe communique une intention — récupération, mise à jour, suppression.
+Le verbe communique une intention – récupération, mise à jour, suppression.
 Le routeur organise notre code pour déclencher une action adaptée
 à la méthode employée :
 
@@ -360,11 +360,11 @@ $ node path/method.js
 ----
 include::{sourceDir}/path/method.js[]
 ----
-<1> Définition du chemin d'accès `/` — verbe `GET` (récupération).
-<2> Définition du chemin d'accès `/` — verbe `HEAD` cette fois.
+<1> Définition du chemin d'accès `/` – verbe `GET` (récupération).
+<2> Définition du chemin d'accès `/` – verbe `HEAD` cette fois.
 <3> La méthode `response.writeHead` est un moyen de définir le statut en même temps que les entêtes de réponse.
-<4> Définition d'un entête personnalisé — le préfixe `X-` indique qu'il n'est pas lié au standard HTTP.
-<5> Écriture du corps du message — nous verrons qu'il est ignoré et n'est pas transmis au client.
+<4> Définition d'un entête personnalisé – le préfixe `X-` indique qu'il n'est pas lié au standard HTTP.
+<5> Écriture du corps du message – nous verrons qu'il est ignoré et n'est pas transmis au client.
 
 Les navigateurs web affichent seulement notre route `GET` car c'est
 leur fonctionnement par défaut.
@@ -387,7 +387,7 @@ Connection: keep-alive
 L'utilisation de `HEAD` renvoie uniquement les entêtes de réponse et nous
 économise la <<templating,génération d'un gabarit>>.
 D'un point de vue client, le verbe `HEAD` aide à inspecter des ressources
-sans avoir à télécharger le contenu — ce sont autant de kilo ou méga-octets
+sans avoir à télécharger le contenu – ce sont autant de kilo ou méga-octets
 d'économisés.
 
 [options="header", cols="1,4"]
@@ -395,7 +395,7 @@ d'économisés.
 |===
 | Verbe | Description
 | `GET` | Récupération d'une ressource.
-| `HEAD` | Récupération d'une ressource — seulement les entêtes.
+| `HEAD` | Récupération d'une ressource – seulement les entêtes.
 | `POST` | Création d'une ressource.
 | `PUT` | Mise à jour d'une ressource.
 | `PATCH` | Mise à jour _partielle_ d'une ressource.
@@ -433,8 +433,8 @@ $ node static/routes.js
 ----
 include::{sourceDir}/static/routes.js[]
 ----
-<1> Nous constituons un chemin d'accès avec `path.join` — cf. <<../chapter-04/index.adoc#path,chapitre 4>>, module `path`.
-<2> Nous créons un flux de lecture vers ce fichier — cf. <<../chapter-04/index.adoc#stream,chapitre 4>>, module `stream`.
+<1> Nous constituons un chemin d'accès avec `path.join` – cf. <<../chapter-04/index.adoc#path,chapitre 4>>, module `path`.
+<2> Nous créons un flux de lecture vers ce fichier – cf. <<../chapter-04/index.adoc#stream,chapitre 4>>, module `stream`.
 <3> Nous redirigeons le flux de lecture vers la réponse.
 
 Ce que cet exemple nous apprend,
@@ -456,7 +456,7 @@ $ node static/routes.js
 include::{sourceDir}/static/routes.js[]
 ----
 <1> Création d'une route paramétrée qui répond avec la fonction `staticFiles`.
-<2> Réutilisation de la fonction `staticFiles` pour répondre à la méthode `HEAD` — nous verrons plus loin pourquoi c'est important.
+<2> Réutilisation de la fonction `staticFiles` pour répondre à la méthode `HEAD` – nous verrons plus loin pourquoi c'est important.
 <3> Composition dynamique du chemin d'accès au fichier.
 <4> Comme toute à l'heure, nous redirigeons le flux de lecture du fichier vers la réponse.
 
@@ -507,8 +507,8 @@ $ node static/send.js
 ----
 include::{sourceDir}/static/send.js[]
 ----
-<1> En utilisant la syntaxe `*`, le routeur accepte une arborescence de chemins — `doc.pdf` tout comme `un/long/chemin.pdf`.
-<2> L'arborescence se récupère avec un paramètre du même nom — `*`.
+<1> En utilisant la syntaxe `*`, le routeur accepte une arborescence de chemins – `doc.pdf` tout comme `un/long/chemin.pdf`.
+<2> L'arborescence se récupère avec un paramètre du même nom – `*`.
 <3> Le module _send_ prend en charge la suite de la transmission.
 
 Pas de grands bouleversements donc.
@@ -603,7 +603,7 @@ include::{sourceDir}/arguments/parse.js[]
 ----
 <1> Le deuxième argument de la fonction `url.parse` décompose les arguments, disponibles dans l'attribut `query` de l'objet retourné.
 <2> L'attribut `search` correspond aux arguments, sous forme textuelle.
-<3> L'attribut `query` est un objet — ici, transformé pour être affiché dans la page sous forme de texte.
+<3> L'attribut `query` est un objet – ici, transformé pour être affiché dans la page sous forme de texte.
 
 Cette fois, nous voyons s'afficher `{"cle": "valeur", "option": ""}` dans notre
 navigateur lorsque nous nous rendons sur `{serverUrl}/test?cle=valeur&option`.
@@ -619,7 +619,7 @@ $ node arguments/format.js
 include::{sourceDir}/arguments/format.js[]
 ----
 <1> Nous rentrons dans ce bloc en présence de l'argument d'URL `format=svg`.
-<2> L'entête `Content-Type` fait que le contenu est interprété (et affiché) comme du HTML — en retirant cette ligne, le document sera alors téléchargé.
+<2> L'entête `Content-Type` fait que le contenu est interprété (et affiché) comme du HTML – en retirant cette ligne, le document sera alors téléchargé.
 <3> Sinon, le reste du temps nous affichons la date telle quelle, en tant que texte.
 
 Les deux URL `{serverUrl}/date?format=svg` et `{serverUrl}/date` font
@@ -702,7 +702,7 @@ include::{sourceDir}/post/send.js[]
 ----
 <1> Création de la structure des données à transmettre.
 <2> Indication de la méthode `POST`.
-<3> Cette entête caractérise la manière d'organiser les données de formulaire — personnellement, je n'arrive jamais à retenir cette valeur et je la copie/colle toujours depuis Stack Overflow ou une documentation technique.
+<3> Cette entête caractérise la manière d'organiser les données de formulaire – personnellement, je n'arrive jamais à retenir cette valeur et je la copie/colle toujours depuis Stack Overflow ou une documentation technique.
 <4> Les données sont sérialisées sous forme d'une chaîne de caractères, identique à ce que ferait un navigateur web avec les données d'un formulaire.
 
 Nous retrouvons l'entête `Content-Type` dans l'affichage du script `post/server.js`.
@@ -863,10 +863,10 @@ Hello World
 
 -----1acfa07ebbd71d3c----                           # <5>
 ----
-<1> Contenu de l'entête `Content-Type` — l'attribut `boundary` précise le motif de délimitation des différents champs.
+<1> Contenu de l'entête `Content-Type` – l'attribut `boundary` précise le motif de délimitation des différents champs.
 <2> Ouverture des informations du premier champ.
 <3> Les attributs `name` et `filename` définissent le nom du champ de formulaire et le nom du fichier en question, respectivement.
-<4> L'attribut `Content-Type` concerne le fichier et aide à comprendre comment interpréter son contenu — ici, du texte brut.
+<4> L'attribut `Content-Type` concerne le fichier et aide à comprendre comment interpréter son contenu – ici, du texte brut.
 <5> Fermeture des informations du premier champ.
 
 [TIP]
@@ -896,15 +896,15 @@ include::{sourceDir}/upload/server-parse.js[]
 ----
 <1> Le module _formidable_ différencie les données et les fichiers.
 <2> Nous accédons aux informations d'un fichier au travers d'une clé, identique à celle de son champ `name` dans le formulaire.
-<3> Affiche `text/plain` — la valeur du `Content-Type` du fichier.
-<4> Affiche `hello.txt` — c'est le nom du fichier tel qu'il était nommé sur le poste client.
-<5> Affiche `12` — c'est le poids total du fichier.
+<3> Affiche `text/plain` – la valeur du `Content-Type` du fichier.
+<4> Affiche `hello.txt` – c'est le nom du fichier tel qu'il était nommé sur le poste client.
+<5> Affiche `12` – c'est le poids total du fichier.
 <6> Affiche un chemin d'accès vers l'emplacement de stockage temporaire du fichier téléversé.
 
 Nous sommes en mesure de recevoir des pièces-jointes depuis un formulaire.
 Le <<../chapter-04/index.adoc#fs,module `fs`>> (cf. <<../chapter-04/index.adoc#,chapitre 4>>)
 propose le nécessaire pour déplacer le fichier ailleurs sur le système ou
-pour en lire le contenu et le stocker ailleurs — sur un service de stockage distant
+pour en lire le contenu et le stocker ailleurs – sur un service de stockage distant
 comme Amazon S3, par exemple.
 
 [CAUTION]
@@ -924,19 +924,19 @@ avec pièce-jointe fraichement téléversée :
 
 - s'il s'agit d'un *fichier texte* : filtrer le contenu du fichier en retirant
 tout ce qui ressemble à du code arbitraire et filtrer le contenu à l'affichage
-pour retirer tout balisage HTML — cf. section <<security,protéger son application>>
+pour retirer tout balisage HTML – cf. section <<security,protéger son application>>
 dans ce même chapitre ;
 - s'il s'agit d'un *fichier binaire* (image, vidéo, PDF) : utiliser un antivirus
-en ligne de commande pour scanner le contenu — _ClamAV_ ([URL]#https://www.clamav.net#)
+en ligne de commande pour scanner le contenu – _ClamAV_ ([URL]#https://www.clamav.net#)
 est un excellent antivirus _open source_.
 
-Ces opérations peuvent prendre du temps — de quelques secondes à plusieurs
+Ces opérations peuvent prendre du temps – de quelques secondes à plusieurs
 minutes dans le cas de fichiers volumineux.
 Au lieu de faire attendre l'utilisateur devant son écran, je recommande
 de faire appel à un <<job-queue,mécanisme de file d'attente>> pour traiter
 l'effort indépendamment, en fonction des capacités de calcul disponibles.
 
-Enfin, quand vous avez fini d'utiliser la pièce-jointe — ou si vous ne l'utilisez pas —
+Enfin, quand vous avez fini d'utiliser la pièce-jointe – ou si vous ne l'utilisez pas –
 pensez aussi à la *supprimer du répertoire temporaire*.
 Le disque dur du serveur pourrait manquer d'espace si plusieurs fichiers volumineux
 étaient déposés en peu de temps.
@@ -947,9 +947,9 @@ Le disque dur du serveur pourrait manquer d'espace si plusieurs fichiers volumin
 Un cookie est une information partagée entre un client et un serveur pour
 une durée limitée dans le temps.
 Le client transmet les cookies au serveur afin que ce dernier contextualise
-la demande — un identifiant utilisateur, des préférences ou autre.
+la demande – un identifiant utilisateur, des préférences ou autre.
 Un cookie créé par le domaine `example.com` est envoyé seulement lors d'une
-visite à `example.com` — sous-domaines inclus.
+visite à `example.com` – sous-domaines inclus.
 
 Ce mécanisme est aujourd'hui tristement célèbre pour son détournement
 par les industries de la publicité, du marketing et de la revente de données.
@@ -963,7 +963,7 @@ $ node cookies/set-cookie.js
 ----
 include::{sourceDir}/cookies/set-cookie.js[]
 ----
-<1> L'entête de réponse `Set-Header` crée/modifie la valeur d'un cookie chez le client — ici, le cookie `compteur` est créé avec la valeur `1`.
+<1> L'entête de réponse `Set-Header` crée/modifie la valeur d'un cookie chez le client – ici, le cookie `compteur` est créé avec la valeur `1`.
 
 Nous pouvons observer la création du cookie en nous rendant sur `{serverUrl}`
 avec un navigateur, puis en ouvrant les outils de développement.
@@ -1021,7 +1021,7 @@ include::{sourceDir}/cookies/set-multiple.js[]
 ----
 <1> Nous créons plusieurs cookies en passant un tableau de valeurs à la méthode `response.setHeader()`.
 <2> Crée un cookie dont la durée est limitée à 9 millions de secondes (~104 jours).
-<3> Crée un cookie visible pour le chemin d'accès `/path` (et les sous-chemins) — la deuxième directive empêche les scripts clients de lire et modifier la valeur du cookie.
+<3> Crée un cookie visible pour le chemin d'accès `/path` (et les sous-chemins) – la deuxième directive empêche les scripts clients de lire et modifier la valeur du cookie.
 <4> L'utilisation de `cookie.serialize` est une autre manière de créer des cookies en construisant un objet ECMAScript au lieu d'une chaîne de caractères.
 <5> La ligne précédente équivaut à l'écriture de cette ligne.
 
@@ -1036,7 +1036,7 @@ $ node cookies/parse.js
 ----
 
 L'accès à `{serverUrl}` affiche quelque chose comme `{"compteur":"1","language":"fr"}`
-tandis que `{serverUrl}/admin` affiche un cookie supplémentaire —
+tandis que `{serverUrl}/admin` affiche un cookie supplémentaire –
 `{"is_admin":"1","compteur":"1","language":"fr"}`.
 
 [options="header", cols="1,4a"]
@@ -1072,7 +1072,7 @@ quitte à en changer par la suite.
 J'attends plusieurs choses d'un système de gabarits : itérer facilement
 sur des collections (tableaux, objets), appliquer des filtres, inclure des
 portions de présentation et imbriquer ma page dans un modèle de présentation
-— une sorte de décoration qui contient des choses que je veux garder hors du gabarit
+– une sorte de décoration qui contient des choses que je veux garder hors du gabarit
 (le menu principal, les balises `<meta>`, etc.).
 
 Dans la suite de cette section, nous allons créer une présentation à partir
@@ -1110,7 +1110,7 @@ include::{sourceDir}/templating/list.njk[]
 <1> Nous indiquons à _nunjuck_ d'envelopper ce gabarit avec la structure décrite dans `layout.njk`.
 <2> Début de la déclaration d'un bloc nommé `content`.
 <3> L'objet `dependencies` (qui est passé en paramètre au gabarit) est affiché après avoir été filtré avec la fonction native _nunjucks_ `length`.
-<4> La boucle `for` répète le bloc de gabarit pour chaque élément de la collection — à la manière des méthodes `map()` et `forEach` des <<../chapter-03/index.adoc#array,tableaux ECMAScript>>.
+<4> La boucle `for` répète le bloc de gabarit pour chaque élément de la collection – à la manière des méthodes `map()` et `forEach` des <<../chapter-03/index.adoc#array,tableaux ECMAScript>>.
 <5> Les valeurs de `pkg` et de `version` changent à chaque itération.
 
 Le gabarit se concentre sur la *transformation de données*.
@@ -1142,7 +1142,7 @@ Intéressons-nous maintenant au gabarit parent, `layout.njk` :
 ----
 include::{sourceDir}/templating/layout.njk[]
 ----
-<1> La variable `title` est elle aussi un argument passé au template dans `templating/server.js` — ce gabarit y a aussi accès.
+<1> La variable `title` est elle aussi un argument passé au template dans `templating/server.js` – ce gabarit y a aussi accès.
 <2> Le bloc `content` défini dans le fichier `list.njk` est injecté à cet endroit du gabarit.
 
 Ce gabarit sert de "décoration", en englobant puis injectant son contenu de
@@ -1244,14 +1244,14 @@ _koa_ (asynchrone et plus rapide) ou encore _hapi_ (plus structuré et plus comp
 
 J'ai une préférence pour les outils qui ne font pas trop de choix à notre place,
 bien documentés et si possible, qui travaillent autour du
-<<../chapter-04/index.adoc#http,module `http`>> — ça conserve une certaine
+<<../chapter-04/index.adoc#http,module `http`>> – ça conserve une certaine
 clarté autour des concepts que nous manipulons.
 
 [[setup]]
 === Configuration du framework
 
-La configuration initiale d'_express_ configure un serveur HTTP — à la manière
-de ce que nous pouvions déjà faire avec `http.createServer()` — et retourne
+La configuration initiale d'_express_ configure un serveur HTTP – à la manière
+de ce que nous pouvions déjà faire avec `http.createServer()` – et retourne
 un <<paths,routeur>> pour attacher des comportements à des chemins d'accès.
 
 ----
@@ -1296,7 +1296,7 @@ Elles offrent la liberté d'ajouter des capacités de compréhension de la requ�
 (<<post,parser des données de formulaire>> par exemple), de modifier la réponse
 ou de <<views,connecter des gabarits de présentation>>.
 
-Chaque couche de transformation est appelée un _middleware_ — une fonction
+Chaque couche de transformation est appelée un _middleware_ – une fonction
 intermédiaire entre la requête et la réponse.
 
 ----
@@ -1309,7 +1309,7 @@ $ node framework/middleware.js
 include::{sourceDir}/framework/middleware.js[]
 ----
 <1> Un _middleware_ se branche avec la méthode `app.use()`.
-<2> L'objet `response.locals` passe des données jusqu'à la route — les données sont effacées une fois la réponse envoyée.
+<2> L'objet `response.locals` passe des données jusqu'à la route – les données sont effacées une fois la réponse envoyée.
 <3> La fonction `next()` passe la main au prochain _middleware_.
 <4> Nous récupérons l'objet `response.locals.pokemon` créé par notre _middleware_.
 <5> Affichage d'un message similaire à `Pokémon aléatoire : Patrat`.
@@ -1365,7 +1365,7 @@ Nous verrons dans la section <<security,protéger nos applications>> quelles
 entêtes sont essentielles à la sécurité et pourquoi.
 
 Enfin, notons une méthode alternative pour appliquer un _middleware_ : au niveau
-d'une route, au lieu de toutes les routes — avec `app.use()`.
+d'une route, au lieu de toutes les routes – avec `app.use()`.
 Pour cela nous allons transformer l'exemple `framework/middleware.js` et
 l'appliquer à une seule route :
 
@@ -1405,13 +1405,13 @@ include::{sourceDir}/framework/templating.js[]
 ----
 <1> Configuration de _nunjucks_, comme dans la section <<templating,structurer l'affichage avec les gabarits de présentation>>.
 <2> Utilisation de la méthode `express()` pour laisser à _nunjucks_ le travail de configuration d'_express_.
-<3> Nous appelons la méthode `response.render()` au lieu de `response.send()` — elle charge le template donné et lui passe un objet dont chaque clé devient une variable dans le gabarit.
+<3> Nous appelons la méthode `response.render()` au lieu de `response.send()` – elle charge le template donné et lui passe un objet dont chaque clé devient une variable dans le gabarit.
 
 Nous avons de la chance car _nunjucks_ prend en charge toute la configuration
 d'_express_ pour nous.
 La seule différence avec les précédents exemples est l'utilisation de la
 méthode `response.render()`.
-Le premier effet que ça me fait c'est une sensation de légèreté — nous avons
+Le premier effet que ça me fait c'est une sensation de légèreté – nous avons
 le strict minimum à gérer pour que ça fonctionne.
 
 En comparaison, voilà comment _express_ se configure à la main :
@@ -1426,9 +1426,9 @@ $ node framework/templating-manual.js
 include::{sourceDir}/framework/templating-manual.js[]
 ----
 <1> On indique à _express_ de contextualiser le répertoire racine où se trouvent les gabarits.
-<2> Déclaration de la fonction de rendu pour les fichiers `.njk` — elle est appelée à chaque fois que `response.render()` est appelée avec un fichier `.njk`.
-<3> Rendu du fichier passé en paramètre — comme dans la section <<templating,structurer l'affichage avec les gabarits de présentation>>.
-<4> Le HTML généré est passé à la fonction de _callback_ `next()` — le premier argument est utilisé pour transmettre une erreur, le second le résultat en cas de succès.
+<2> Déclaration de la fonction de rendu pour les fichiers `.njk` – elle est appelée à chaque fois que `response.render()` est appelée avec un fichier `.njk`.
+<3> Rendu du fichier passé en paramètre – comme dans la section <<templating,structurer l'affichage avec les gabarits de présentation>>.
+<4> Le HTML généré est passé à la fonction de _callback_ `next()` – le premier argument est utilisé pour transmettre une erreur, le second le résultat en cas de succès.
 
 Cette méthode demande davantage de travail.
 Elle implique aussi d'être suffisamment familier·ère avec _express_ pour en
@@ -1470,7 +1470,7 @@ include::{sourceDir}/framework/assets.js[]
 <2> Affichage d'une image dont la source `screenshot.jpg` est à la racine du répertoire virtuel `/static`.
 
 J'ai tendance à exposer les fichiers statiques depuis un répertoire virtuel dédié
-— ici, le répertoire `/static`.
+– ici, le répertoire `/static`.
 Je trouve que ça les rend *plus clairement identifiables* et ça évite toute
 ambiguïté avec les autres routes de l'application.
 Ça a aussi l'avantage de dissocier les fichiers sources (Sass, Less, etc.)
@@ -1542,7 +1542,7 @@ $ node framework/minify.js
 ----
 include::{sourceDir}/framework/minify.js[]
 ----
-<1> Le module _express-minify_ transforme les fichiers Sass si leur entête de réponse `Content-Type` vaut `text/x-scss` — cette ligne assigne cette entête aux fichiers dont l'extension est `.scss`.
+<1> Le module _express-minify_ transforme les fichiers Sass si leur entête de réponse `Content-Type` vaut `text/x-scss` – cette ligne assigne cette entête aux fichiers dont l'extension est `.scss`.
 <2> Ajout du module comme <<middleware,middleware>>.
 <3> Le fichier `main.scss` sera converti en CSS.
 
@@ -1561,7 +1561,7 @@ En clair, c'est pratique pour dépanner et pour démarrer.
 === Brancher une base de données
 
 L'utilisation d'une base de données sert à mémoriser des informations entre
-deux redémarrages de notre application — sinon, ce qui est en mémoire
+deux redémarrages de notre application – sinon, ce qui est en mémoire
 applicative disparaît.
 Je vous recommande de lire la section <<database-choice>> pour éclairer votre choix.
 
@@ -1574,9 +1574,9 @@ $ node framework/database.js
 ----
 include::{sourceDir}/framework/database.js[]
 ----
-<1> La connexion à la base de données est asynchrone — l'objet `db` qui permet d'exécuter des requêtes est renvoyé par la promesse.
-<2> Exécution d'une requête avec un paramètre issu du <<path,routing>> — le champ `:id`.
-<3> Le résultat est fourni lors de la résolution de la promesse — il vaut `undefined` si aucun enregistrement n'a été trouvé.
+<1> La connexion à la base de données est asynchrone – l'objet `db` qui permet d'exécuter des requêtes est renvoyé par la promesse.
+<2> Exécution d'une requête avec un paramètre issu du <<path,routing>> – le champ `:id`.
+<3> Le résultat est fourni lors de la résolution de la promesse – il vaut `undefined` si aucun enregistrement n'a été trouvé.
 <4> Affichage de l'enregistrement côté client (sans mise en forme aucune).
 
 L'intégration d'une base de données se fait en deux temps. +
@@ -1608,7 +1608,7 @@ Elles se basent sur un *cookie de session* pour garder un lien.
 
 Les sessions sont destinées à *stocker des données temporaires*, liées à une
 personne.
-Un utilisateur peut avoir plusieurs sessions — une par appareil par exemple.
+Un utilisateur peut avoir plusieurs sessions – une par appareil par exemple.
 Chaque session est propre à son environnement immédiat.
 Elles sont pratiques pour mémoriser des informations liées à un état
 (connecté·e, déconnecté·e, date de dernière activité). +
@@ -1705,7 +1705,7 @@ C'est *à nous de choisir la granularité des informations* historisées.
 Nous sommes responsables de rendre ces informations anonymes et de ne pas
 mettre d'autre information personnelle qu'un identifiant (numérique ou généré)
 pour rattacher des informations à un utilisateur si c'est nécessaire
-— dans le cas de transaction bancaire ou de renvoi de mot de passe par exemple.
+– dans le cas de transaction bancaire ou de renvoi de mot de passe par exemple.
 
 [CAUTION]
 .[RemarquePreTitre]#Attention# Rotation de logs
@@ -1715,7 +1715,7 @@ par saturer le disque dur de la machine qui héberge l'application.
 
 Sous Linux, le logiciel _logrotate_ ([URL]#https://doc.ubuntu-fr.org/logrotate#)
 est souvent installé par défaut.
-Il indique au système quand tronquer le fichier d'historique —
+Il indique au système quand tronquer le fichier d'historique –
 tous les X Mégaoctets, tous les X jours.
 ====
 
@@ -1733,7 +1733,7 @@ Les journaux de sorties se connectent à des logiciels comme _rsyslog_
 _Papertrail_ ([URL]#https://papertrailapp.com#), _Logstash_
 ([URL]#https://elastic.co/products/logstash#) et _AWS CloudWatch_
 ([URL]#https://aws.amazon.com/cloudwatch#).
-Elles vous aident — ou vous demandent de travailler davantage — pour visualiser,
+Elles vous aident – ou vous demandent de travailler davantage – pour visualiser,
 orchestrer et déclencher des actions quand des valeurs spécifiques sont rencontrées
 dans les journaux.
 
@@ -1757,7 +1757,7 @@ l'écriture de tests et favoriser l'automatisation du déploiement.
 Le défi de lisibilité et de maintenance augmente au fur et à mesure où
 le volume de code augmente.
 C'est particulièrement vrai quand le nombre de lignes dépasse un seuil
-psychologique dans un même fichier — je commence à saturer au-delà de 100 lignes,
+psychologique dans un même fichier – je commence à saturer au-delà de 100 lignes,
 par exemple.
 Ce phénomène se renforce quand plusieurs concepts s'entrecroisent visuellement.
 
@@ -1803,7 +1803,7 @@ plusieurs fois ce module.
 
 Je trouve ça agréable de regrouper ce genre de lignes de code dans un même fichier.
 Les dépendances aux modules Node et aux modules npm deviennent vraiment claires.
-Je suis moins dérangé par l'organisation visuelle du code — elle aurait ralenti
+Je suis moins dérangé par l'organisation visuelle du code – elle aurait ralenti
 ma lecture du fichier `server.js` autrement.
 
 [source,javascript]
@@ -1823,7 +1823,7 @@ Le dernier morceau est la route elle-même :
 ----
 include::{sourceDir}/modularity/01/src/routes/books.js[]
 ----
-<1> Récupération de la promesse de connexion à la base de données — elle est déjà pré-configurée.
+<1> Récupération de la promesse de connexion à la base de données – elle est déjà pré-configurée.
 <2> De fait, l'exécution d'une requête dépend de la résolution de la connexion.
 
 Le code de la route est quasi inchangé mais on voit à quel point elle prenait
@@ -1852,7 +1852,7 @@ $ node modularity/02/server.js
 include::{sourceDir}/modularity/02/server.js[]
 ----
 <1> Nous regroupons les éléments de configuration de l'application.
-<2> Nous passons les dépendances du module en argument — ici, l'objet de base de données.
+<2> Nous passons les dépendances du module en argument – ici, l'objet de base de données.
 
 La grande différence ici est l'invocation d'une fonction pour définir la route.
 C'est le moyen le plus propre pour transmettre une variable en enlevant la
@@ -1871,7 +1871,7 @@ L'appel à la fonction `require()` a disparu.
 La résolution de la promesse aussi.
 Notre module est autonome tant qu'il reçoit un objet de base de données en
 paramètres.
-Ça le rend nettement plus lisible — le code est désormais uniquement lié
+Ça le rend nettement plus lisible – le code est désormais uniquement lié
 à la réception d'une requête HTTP et à l'établissement d'une réponse.
 
 [source,javascript]
@@ -1887,7 +1887,7 @@ Au final, le motif qui émerge est celui de
 l'*encapsulation de code dans des fonctions paramétrables*.
 Les paramètres sont les seuls points d'entrées.
 Les arguments font office de contrat et les fichiers font office de regroupement
-logique — de fonctions et d'objets.
+logique – de fonctions et d'objets.
 
 Nous avons allégé le fichier `server.js` et rendu lisibles les points importants
 de l'application : la connexion à la base de données, le rendu d'une route
@@ -1931,8 +1931,8 @@ qui est au plus proche de l'interface utilisateur.
 
 De quoi on a besoin pour tester `routes/books.js` ?
 La fonction qui est exportée par le module dépend d'une connexion établie
-à une base de données et de deux objets — la requête entrante et la réponse sortante.
-Nous avons aussi besoin d'écrire des _assertions_ — des attentes — et nous
+à une base de données et de deux objets – la requête entrante et la réponse sortante.
+Nous avons aussi besoin d'écrire des _assertions_ – des attentes – et nous
 allons utiliser le module d'assertion de Node dans un premier temps.
 
 [source,javascript]
@@ -1940,7 +1940,7 @@ allons utiliser le module d'assertion de Node dans un premier temps.
 ----
 include::{sourceDir}/testing/tests/initial.js[]
 ----
-<1> C'est notre première assertion — l'élément retourné par `routes/books.js` est une fonction.
+<1> C'est notre première assertion – l'élément retourné par `routes/books.js` est une fonction.
 <2> En commentaire : comment allons-nous nous connecter à la base de données ?
 
 ----
@@ -1981,10 +1981,10 @@ dans notre script de tests :
 ----
 include::{sourceDir}/testing/tests/with-db.js[]
 ----
-<1> Nous pouvons nous passer de ce test vu que nous allons tester l'exécution de la fonction — les tests seraient redondants.
-<2> La valeur `:memory:` est une valeur spéciale de chemin d'accès pour _SQLite_ — la base est créée en mémoire et disparaît à la fin de l'exécution du script.
-<3> Configuration de la route — comme nous le faisons dans le fichier `configure.js`.
-<4> La route configurée retourne bien une fonction — comme toute à l'heure, ça ne suffit pas à affirmer que son fonctionnement correspond à nos attentes.
+<1> Nous pouvons nous passer de ce test vu que nous allons tester l'exécution de la fonction – les tests seraient redondants.
+<2> La valeur `:memory:` est une valeur spéciale de chemin d'accès pour _SQLite_ – la base est créée en mémoire et disparaît à la fin de l'exécution du script.
+<3> Configuration de la route – comme nous le faisons dans le fichier `configure.js`.
+<4> La route configurée retourne bien une fonction – comme toute à l'heure, ça ne suffit pas à affirmer que son fonctionnement correspond à nos attentes.
 <5> En commentaire : comment tester le résultat de la route express ?
 
 Résultat : la connexion à la base de données réussit et nous sommes en mesure
@@ -2013,13 +2013,13 @@ côté Node que côté navigateurs web.
 ----
 include::{sourceDir}/testing/tests/with-sinon.js[]
 ----
-<1> Nous récupérons l'objet de réponse d'_express_ — je l'ai découvert en fouillant dans les objets exportés par le module.
+<1> Nous récupérons l'objet de réponse d'_express_ – je l'ai découvert en fouillant dans les objets exportés par le module.
 <2> Nous neutralisons la fonction `response.send()` avec un _stub_ pour observer les données qui lui sont données en argument.
 <3> La propriété `called` d'un _stub_ ou d'un espion passe à `true` si elle a été appelée.
 
 C'est une chance que le module _express_ expose directement un objet de réponse
 sans avoir à attendre qu'une vraie requête HTTP atteigne notre serveur web.
-Le _stub_ neutralise son action — nous nous contentons seulement d'observer
+Le _stub_ neutralise son action – nous nous contentons seulement d'observer
 comment la fonction est appelée.
 L'enjeu est de constater que la connexion à la base de donnée se fasse bien,
 que la requête retourne bien la ligne attendue et que ses valeurs soient
@@ -2035,10 +2035,10 @@ les données nécessaires à son exécution.
 ====
 Les espions, _stubs_ et _mocks_ couvrent trois aspects complémentaires.
 Les *espions enregistrent les appels* à des attributs et à des fonctions
-— le nombre de fois, quels arguments, quels résultats.
-Les *_stubs_ interceptent les appels* à des fonctions — vous pouvez même définir
+– le nombre de fois, quels arguments, quels résultats.
+Les *_stubs_ interceptent les appels* à des fonctions – vous pouvez même définir
 les valeurs de retours ou de _callback_ en fonction des paramètres d'appel.
-Les *_mocks_ interceptent les résultats* — je n'en parle pas car notre
+Les *_mocks_ interceptent les résultats* – je n'en parle pas car notre
 exemple ne s'y prête pas.
 ====
 
@@ -2070,7 +2070,7 @@ include::{sourceDir}/testing/tests/with-sinon-data.js[lines=8..-1]
 <1> Chargement du module qui contient les requêtes SQL nécessaires à l'initialisation de la table et des données.
 <2> Les données sont chargées après la connexion à la base et avant l'exécution des tests.
 <3> Nous remplaçons l'appel à `sendFake.called()` par `sendFake.calledWith()` pour affirmer plus explicitement le résultat attendu.
-<4> Le module sinon propose un ensemble de fonction de vérification (les _matchers_) — ici, nous vérifions que `response.send()` est appelée avec un objet, qui contient au moins une clé `title` dont la valeur est `Design Systems`.
+<4> Le module sinon propose un ensemble de fonction de vérification (les _matchers_) – ici, nous vérifions que `response.send()` est appelée avec un objet, qui contient au moins une clé `title` dont la valeur est `Design Systems`.
 
 Le test passe !
 Et en plus de ça, nous n'avons plus de doute que la fonction `response.send()`
@@ -2129,7 +2129,7 @@ include::{sourceDir}/testing/tests/with-mocha.js[lines=1..10]
 
 Notre script de test comporte désormais ce qu'on appelle une _suite de tests_.
 C'est à dire, un *ensemble de tests qui expriment nos attentes* vis à vis
-d'une fonctionnalité — ici, une route d'application web.
+d'une fonctionnalité – ici, une route d'application web.
 
 [source,javascript]
 .testing/tests/with-mocha.js (configuration)
@@ -2139,9 +2139,9 @@ include::{sourceDir}/testing/tests/with-mocha.js[lines=12..21]
   // ...
 });
 ----
-<1> Déclaration de la suite de test — sa valeur reflète généralement le sujet des tests.
+<1> Déclaration de la suite de test – sa valeur reflète généralement le sujet des tests.
 <2> Avant le démarrage des tests, nous créons la base de données et configurons la route.
-<3> Après chaque test, nous remettons à zéro l'état de _sinon_ — nos tests n'ont plus la possibilité de se parasiter entre eux.
+<3> Après chaque test, nous remettons à zéro l'état de _sinon_ – nos tests n'ont plus la possibilité de se parasiter entre eux.
 
 Ce découpage a le mérite de clarifier les différents temps de nos tests,
 à savoir la préparation de l'environnement d'exécution, le nettoyage puis
@@ -2156,8 +2156,8 @@ include::{sourceDir}/testing/tests/with-mocha.js[lines=12]
 include::{sourceDir}/testing/tests/with-mocha.js[lines=23..-1]
 ----
 <1> La suite compte deux tests.
-<2> Premier test — il se termine quand la promesse retournée par la fonction `route()` est résolue.
-<3> Deuxième test — cette fois, l'espion et le stub ne sont pas affectés par le précédent test.
+<2> Premier test – il se termine quand la promesse retournée par la fonction `route()` est résolue.
+<3> Deuxième test – cette fois, l'espion et le stub ne sont pas affectés par le précédent test.
 
 La suite de tests se fiche pas mal de savoir comment nous testons notre code.
 Son objectif est de capturer les messages d'erreur des assertions qui échouent
@@ -2238,20 +2238,20 @@ Les requêtes entrantes sont dirigées vers un script que le module interprète
 et retourne une réponse, dynamiquement.
 
 Le *script PHP est interprété à chaque requête* et tout cette représentation
-est détruite une fois la réponse envoyée — mémoire, valeurs des variables, configuration.
+est détruite une fois la réponse envoyée – mémoire, valeurs des variables, configuration.
 Il faut recourir à un ensemble de modules additionnels pour optimiser ce gâchis
-de ressources informatiques — cache d'interprétation, cache applicatif, cache de configuration.
+de ressources informatiques – cache d'interprétation, cache applicatif, cache de configuration.
 
 Démarrer un serveur HTTP dans le langage de notre application nous éloigne de
 ce modèle coûteux et nous rapproche d'un fonctionnement plus performant, organisé
 autour de ces 3 piliers :
 
-- *Node et Apache/Nginx fonctionnent ensemble* — ils se font le relais des requêtes
+- *Node et Apache/Nginx fonctionnent ensemble* – ils se font le relais des requêtes
 et des réponses car ils parlent le même protocole ;
-- *le serveur Node est préchauffé* — une requête entrante trouve une application
+- *le serveur Node est préchauffé* – une requête entrante trouve une application
 déjà opérationnelle, déjà configurée, déjà connectée à une base de données
 et prête à répondre ;
-- *le code exécuté est spécifique à la requête* — l'application reçoit chaque
+- *le code exécuté est spécifique à la requête* – l'application reçoit chaque
 requête de manière indépendante en ayant le minimum d'effort à faire pour
 générer une réponse.
 
@@ -2284,14 +2284,14 @@ s'adapte au mieux à notre demande ;
 . *envoi de la réponse* : le serveur répond avec des données au format texte
 (statut, entêtes, corps de message) ;
 . *interprétation de la réponse* : l'entête `Content-Type` aide le client à déterminer
-comment afficher les informations - XML, HTML, JSON, CSS, vidéo etc — et si
+comment afficher les informations - XML, HTML, JSON, CSS, vidéo etc – et si
 le document contient d'autres ressources à aller récupérer.
 
 Dans le cas du programme `curl`, la réponse est affichée telle quelle, en texte.
 
 Avec un navigateur web en revanche, le HTML est interprété et le navigateur
 demande les ressources listées dans les différentes balises (`img`, `video`, `audio`).
-Le navigateur fait ensuite autant de nécessaires — l'indicateur de chargement
+Le navigateur fait ensuite autant de nécessaires – l'indicateur de chargement
 s'arrête quand toutes les ressources ont été demandées et téléchargées.
 
 .Cascade de requêtes HTTP suite à l'interprétation d'un document HTML par un navigateur web.
@@ -2317,7 +2317,7 @@ de réponse comme le programme `curl` le ferait et détaille le parcours réseau
 de la résolution du nom de domaine jusqu'au temps passé à négocier une transaction
 sécurisée. +
 Nous comprenons ainsi mieux des temps qui sont rendus invisibles et où nous
-pouvons faire des efforts — réduire les temps de transfert ou le temps de réponse
+pouvons faire des efforts – réduire les temps de transfert ou le temps de réponse
 de notre application par exemple.
 
 .Temporalité de l'exécution d'une requête HTTP et des entêtes de réponse.
@@ -2328,7 +2328,7 @@ image::images/httpstat.png[]
 === Quelle(s) base(s) de données choisir ?
 
 Quand je faisais du PHP, nous parlions beaucoup de la pile technique _LAMP_
-— pour Linux, Apache, MySQL et PHP.
+– pour Linux, Apache, MySQL et PHP.
 C'était la combinaison _de facto_ des différents projets.
 MySQL était la base de données de choix tandis que les Pythonistes et Rubyistes
 se focalisaient plutôt sur PostgreSQL.
@@ -2342,13 +2342,13 @@ base de données est celle qui tient la route par rapport
 Node n'est pas meilleur en MongoDB qu'en MySQL.
 Le *débit de données* entre Node et la base de données compte davantage, ainsi que
 la *rapidité de la base à exécuter une requête* et retourner des résultats
-— certaines gèrent mieux que d'autres la concurrence d'accès ou les critères
+– certaines gèrent mieux que d'autres la concurrence d'accès ou les critères
 de filtrage.
 Le troisième critère est subjectif : c'est le *confort d'utilisation* de la base
 en question.
 Postgres est peut-être plus rapide pour un cas d'usage précis mais si vous
 êtes plus à l'aise avec MariaDB ou MySQL, commencez avec la base qui vous parle
-le plus — ou expérimentez et réservez-vous le droit de changer d'avis après
+le plus – ou expérimentez et réservez-vous le droit de changer d'avis après
 avoir joué avec un nombre représentatif de données en base.
 
 Je choisis une base de données en fonction de plusieurs critères :
@@ -2364,19 +2364,19 @@ Stockage fichier::
   points de vue : la recherche est lente et l'écriture aussi.
 Stockage en mémoire::
   _Redis_ et _memcache_ sont des bases de données très rapides en lecture et en écriture
-  — elles sont idéales pour accéder et modifier fréquemment des données, avant
+  – elles sont idéales pour accéder et modifier fréquemment des données, avant
   de les persister sur un stockage moins rapide mais plus sûr.
   Elles sont généralement dites "clé/valeur" car nous cherchons un identifiant
   donné pour récupérer un, voire plusieurs champs associés.
 Stockage sur disque::
   _MySQL_, _MSSQL_, _Postgres_ et _MongoDB_ stockent leurs données sur disque,
-  dans des fichiers optimisés pour la recherche d'informations — les _index_.
-  Elles sont souvent rapides en lecture et plus lentes en écriture — selon
+  dans des fichiers optimisés pour la recherche d'informations – les _index_.
+  Elles sont souvent rapides en lecture et plus lentes en écriture – selon
   le type de disque dur utilisé pour le stockage.
   Certaines sont contraintes par des schémas (les bases SQL) tandis que d'autres
   ont une structure libre (MongoDB). +
   En pratique, nous typons ou structurons les données d'une manière ou d'une autre
-  — à minima pour les manipuler de manière cohérente dans notre code.
+  – à minima pour les manipuler de manière cohérente dans notre code.
   Certaines bases SQL ont un type de champ JSON, en structure libre.
 Stockage sur un service en ligne::
   _Firebase_, _DynamoDB_, _Parse_ et _Kinto_ sont des bases de données accessibles
@@ -2384,13 +2384,13 @@ Stockage sur un service en ligne::
   Les services d'hébergement gèrent la distribution des données et leur résilience.
 
 J'utilise souvent SQLite pour prototyper quelque chose de rapide sur ma machine.
-Je passe ensuite à MySQL ou Postsgres selon le projet — je me sens autonome sur
+Je passe ensuite à MySQL ou Postsgres selon le projet – je me sens autonome sur
 MySQL pour l'installation tandis que je préfère un service qui gère tout de
 bout en bout avec Postgres.
 
 Je peux être amené à indexer les données dans une base de données Elasticsearch
 ou Algolia pour leur donner une autre structure, spécialement optimisée pour
-la recherche — une lecture très rapide sur des critères variables.
+la recherche – une lecture très rapide sur des critères variables.
 Je le fais si un des aspects principaux du projet est de préserver des performances
 élevées, qui ne soient pas ralenties par l'activité d'une base SQL.
 
@@ -2443,11 +2443,11 @@ des données ailleurs sur l'ordinateur.
 ----
 include::{sourceDir}/path-traversal.js[]
 ----
-<1> Affiche `/etc/passwd` — notre chemin de base a été complètement remplacé.
-<2> Affiche `+/.../chapter-07/examples+` — notre chemin de base a été complètement remplacé.
+<1> Affiche `/etc/passwd` – notre chemin de base a été complètement remplacé.
+<2> Affiche `+/.../chapter-07/examples+` – notre chemin de base a été complètement remplacé.
 
 Un moyen solide de vérifier que nous n'avons pas été déraillé·e en dehors
-d'un répertoire racine — ici, `base_dir` — est de vérifier que le chemin final
+d'un répertoire racine – ici, `base_dir` – est de vérifier que le chemin final
 débute bien par le chemin du répertoire racine.
 
 [options="header", cols="2, 4a"]
@@ -2455,9 +2455,9 @@ débute bien par le chemin du répertoire racine.
 |===
 | Entête | Description
 | `X-DNS-Prefetch-Control` | Avec la valeur `off`, le navigateur ne va pas proactivement chercher les informations DNS des ressources contenues dans la page. Nos informations de navigation ne sont pas divulguées à notre insu.
-| `X-Frame-Options` | Avec la valeur `SAMEORIGIN`, le navigateur autorise la création d'``<iframe>`` seulement depuis le même domaine — les `<iframe>` tierces sont bloquées.
+| `X-Frame-Options` | Avec la valeur `SAMEORIGIN`, le navigateur autorise la création d'``<iframe>`` seulement depuis le même domaine – les `<iframe>` tierces sont bloquées.
 | `Strict-Transport-Security` | Lorsque l'option est activée, le navigateur accèdera par défaut à ce site en HTTPS au lieu de HTTP.
-| `X-Download-Options` | Avec la valeur `noopen`, Internet Explorer téléchargera un fichier au lieu de tenter de l'ouvrir à même le navigateur — ça peut être exploité pour pirater le navigateur par des fichiers malicieux.
+| `X-Download-Options` | Avec la valeur `noopen`, Internet Explorer téléchargera un fichier au lieu de tenter de l'ouvrir à même le navigateur – ça peut être exploité pour pirater le navigateur par des fichiers malicieux.
 | `X-Content-Type-Options` | Avec la valeur `nosniff`, les navigateurs bloquent les scripts et les styles qui n'ont respectivement pas l'entête `Content-Type` à `application/javascript` et `text/css`.
 | `X-XSS-Protection` | Avec la valeur `1; mode=block`, les navigateurs interrompent le chargement d'une page s'ils détecte une exploitation malicieuse de chargement de données ou de fichier.
 |===

@@ -48,8 +48,8 @@ include::../docs/tip-versions.adoc[]
 == Quel rapport entre Node et les navigateurs web ?
 
 Ce chapitre peut sembler confus au premier abord.
-Si Node s'exécute au niveau du système d'exploitation — "côté serveur" — en quoi
-est-il lié au développement _front-end_ — "côté client" ?
+Si Node s'exécute au niveau du système d'exploitation – "côté serveur" – en quoi
+est-il lié au développement _front-end_ – "côté client" ?
 Est-ce parce que du code écrit pour Node peut aussi fonctionner dans un navigateur web ?
 Quid de l'utilisation de `require('fs')` pour accéder au système de fichiers ?
 
@@ -84,7 +84,7 @@ qu'ECMAScript lui-même: _Rhino_ nécessitait Java, _Spidermonkey_ nécessitait 
 et _Trident_ nécessitait un environnement Windows en plus de {cpp}.
 
 _esprima_ ([URL]#https://npmjs.com/esprima#) chamboule les règles du jeu en
-décembre 2011 : ce parseur _ECMAScript_ — lui-même écrit en _ECMAScript_ –
+décembre 2011 : ce parseur _ECMAScript_ – lui-même écrit en _ECMAScript_ –
 exporte une compréhension de code sous forme d'arbre syntaxique abstrait
 (_abstract syntax tree_, _AST_).
 Cet arbre est lui-même analysable par de nouveaux outils émergents :
@@ -660,7 +660,7 @@ include::{sourceDir}/modules/jquery-plugin.js[]
 <2> La donnée de temps est obtenue chaque seconde par notre _plugin jQuery_.
 <3> Certaines décisions métier sont mélangées avec l'affichage de la donnée temps.
 <4> L'intervalle est déterminé par la valeur de l'attribut "data-interval".
-<5> Ce bloc de code est exécuté dès que le document HTML est prêt — toute sa structure HTML est disponible.
+<5> Ce bloc de code est exécuté dès que le document HTML est prêt – toute sa structure HTML est disponible.
 <6> Le _plugin jQuery_ est appliqué à toutes les occurrences de `<time>` dans lequel le _plugin_ est exécuté.
 
 Certains motifs illustrés dans la section <<modules,Importer des modules>> refont surface :
@@ -669,7 +669,7 @@ Certains motifs illustrés dans la section <<modules,Importer des modules>> refo
 - connaissance implicite du document : que faire si une personne tierce remplace la balise `<time>` par une autre balise ?
 - code JavaScript piloté par le document : que faire si une personne tierce exprime l'intervalle en secondes et non en millisecondes ?
 
-La faute n'est pas vraiment celle de _jQuery_ mais plutôt la nôtre — enfin, la mienne.
+La faute n'est pas vraiment celle de _jQuery_ mais plutôt la nôtre – enfin, la mienne.
 Nous avons mélangé règles de fonctionnement (contenu de balise, classe CSS à ajouter/enlever) et données (date courante, parité des secondes, événement de mise à jour `setInterval`).
 
 === Vers une approche _jQuery_ composite
@@ -1293,12 +1293,12 @@ $ watchify -dv \
   -o {sourceDir}/livereload/react-app-hmr-browserify.js
 ----
 
-Dans cet exemple, le _transform_ (`-t`) modifie le code source à la volée —
+Dans cet exemple, le _transform_ (`-t`) modifie le code source à la volée –
 ici, adapter le code écrit dans une syntaxe compréhensible par la majorité
 des navigateurs web grâce à l'outil <<transpilation,Babel>>.
 
 Le _plugin_ (`-p`) ne transforme pas le code mais le fonctionnement de
-_watchify_ pour y ajouter des fonctionnalités — ici, refléter les
+_watchify_ pour y ajouter des fonctionnalités – ici, refléter les
 changements du fichier source vers le navigateur en temps réel.
 
 Il faudra ensuite modifier l'un des deux fichiers suivants – en décommentant les lignes concernées par exemple – pour constater les changements dans notre navigateur.
@@ -1902,9 +1902,9 @@ types différents comme JSON ou HTML :
 include::karma.conf.js[lines=7..17]
 ----
 <1> Il suffirait de décommenter cette ligne pour inclure les <<polyfills,_polyfills_ de navigateurs web>> sans toucher à notre code.
-<2> Inclusion des fichiers de tests — ils sont appelés dans des balises HTML `<script>`.
-<3> Inclusion de fichiers HTML — ils sont accessibles via HTTP.
-<4> Mise à disposition du fichier `package.json` — accessible via HTTP à l'adresse `/base/package.json`.
+<2> Inclusion des fichiers de tests – ils sont appelés dans des balises HTML `<script>`.
+<3> Inclusion de fichiers HTML – ils sont accessibles via HTTP.
+<4> Mise à disposition du fichier `package.json` – accessible via HTTP à l'adresse `/base/package.json`.
 <5> Indique que ce fichier ne doit pas être inclus dans une balise HTML `<script>`.
 
 Des intégrations doivent être déclarés pour augmenter les fonctionnalités de
@@ -2121,7 +2121,7 @@ include::.travis.yml[]
 .[RemarquePreTitre]#Documentation# _Travis CI_
 ====
 Des services comme _Travis CI_ sont puissants et amplement configurable
-pour de nombreux besoins — dont Node ([URL]#https://docs.travis-ci.com/user/languages/javascript-with-nodejs/#) —
+pour de nombreux besoins – dont Node ([URL]#https://docs.travis-ci.com/user/languages/javascript-with-nodejs/#) –
 et y compris pour se connecter à des bases de données Postgres ou MariaDB.
 
 .Écran de paramétrage des variables d'environnement secrètes sur Travis CI.

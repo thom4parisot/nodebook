@@ -57,9 +57,9 @@ include::../docs/tip-versions.adoc[]
 Le mot _npm_ correspond à trois concepts différents que nous aborderons
 tout au long de ce chapitre :
 
-- l'*exécutable* `npm` — un programme écrit en JavaScript ;
-- le *registre* _npm_ — une plate-forme de distribution de modules ;
-- un *module* _npm_ — en général installé depuis le registre et utilisable
+- l'*exécutable* `npm` – un programme écrit en JavaScript ;
+- le *registre* _npm_ – une plate-forme de distribution de modules ;
+- un *module* _npm_ – en général installé depuis le registre et utilisable
 avec les fonctions `require()` et `import`.
 
 Je préciserai toujours si l'utilisation de _npm_ fait référence
@@ -87,7 +87,7 @@ include::../docs/tip-examples.adoc[]
 
 La présence d'un fichier `package.json` devient nécessaire dès qu'un projet
 inclut un <<modules,module npm>> ou a vocation à être publié pour être repris
-dans un autre projet — que ça soit dans un cadre professionnel ou personnel.
+dans un autre projet – que ça soit dans un cadre professionnel ou personnel.
 
 Le fichier `package.json` est une clé de voute pour reproduire l'installation
 du projet et créer un <<scripts,outillage autonome>>.
@@ -100,7 +100,7 @@ $ npm init --yes
 ----
 
 Si un fichier `package.json` n'existe pas dans le répertoire courant,
-il sera créé avec des valeurs par défaut — le nom du module correspondra
+il sera créé avec des valeurs par défaut – le nom du module correspondra
 au nom du répertoire courant.
 Si ce fichier existait déjà, il sera alors préservé et son contenu sera affiché :
 
@@ -163,7 +163,7 @@ dans le fichier `package.json` :
 L'exécutable `npm` tient les comptes des modules installés à notre demande.
 Ça nous sera utile pour <<install,installer les modules sur un autre ordinateur>>.
 Nous reviendrons plus tard sur la notation des versions
-— on en reparlera sous le nom de _versions sémantiques_ (_Semantic Versionning_).
+– on en reparlera sous le nom de _versions sémantiques_ (_Semantic Versionning_).
 
 [source%interactive,javascript]
 .cow.js
@@ -229,7 +229,7 @@ pour en savoir plus.
 === Trouver son bonheur dans le registre npm
 
 Le _registre npm_ ([URL]#https://npmjs.com#) fourmille de modules
-— de simples fonctions, des librairies ou des _frameworks_ complets.
+– de simples fonctions, des librairies ou des _frameworks_ complets.
 Ils couvrent un spectre d'usages allant de l'accès aux bases de données,
 à des frameworks web, à des outils front-end, des utilitaires de test,
 de compression de données, du paiement bancaire, des frameworks mobiles, etc.
@@ -243,7 +243,7 @@ rendant sur [URL]#https://npmjs.com/search?q=mysql# :
 .Extrait des résultats d'une recherche de modules npm avec le mot-clé _mysql_.
 image::images/npm-registry-search.png[]
 
-Les résultats sont triés par pertinence — un mélange entre popularité,
+Les résultats sont triés par pertinence – un mélange entre popularité,
 qualité et maintenance des projets.
 
 Je trouve qu'il est difficile de décider uniquement en regardant la liste.
@@ -262,7 +262,7 @@ et m'aident à juger de la robustesse de ce module :
 - il s'utilise avec des <<../chapter-03/index.adoc#promise,promesses>> ;
 - le nombre important de modules dépendants ;
 - *je reconnais une autrice* qui contribue du code de qualité
-— Rebecca Turner ([URL]#https://npmjs.com/~iarna#).
+– Rebecca Turner ([URL]#https://npmjs.com/~iarna#).
 
 J'ai un doute quand je lis _108 issues_ et _13 pull requests_.
 Dans ce cas-là je me dis que les personnes qui maintiennent le projet ne sont
@@ -282,7 +282,7 @@ La page du module ne met pas d'exemple simple à comprendre et fait référence
 Rien n'indique qu'il ne peut pas fonctionner avec Node {nodeCurrentVersion}
 mais la présence du mot _binding_ m'évoque que l'installation du module
 compile un programme écrit dans un autre langage
-— en l'occurrence, _libmysqlclient_.
+– en l'occurrence, _libmysqlclient_.
 
 Point positif : il n'y a que 14 _issues_ GitHub.
 C'est peu mais l'une d'entre elle est intitulée
@@ -305,20 +305,20 @@ Il y a très peu de chances que nous puissions en faire quelque chose.
 Voici au final ce que j'estime être le plus important pour me faire
 une idée d'un module et décider de l'installer ou non :
 
-- présence d'une *documentation* — je peux me faire une idée des fonctionnalités
+- présence d'une *documentation* – je peux me faire une idée des fonctionnalités
 et de la complexité d'utilisation du module ;
-- des badges d'*intégration continue* — je sais ainsi qu'il y a des tests
+- des badges d'*intégration continue* – je sais ainsi qu'il y a des tests
 unitaires qui sont exécutés automatiquement avant que le module soit publié ;
-- le nombre de *téléchargements* — je sais si d'autres personnes s'en servent
+- le nombre de *téléchargements* – je sais si d'autres personnes s'en servent
 en espérant qu'ils remontent les problèmes rencontrés ;
-- le nombre de *versions* — ça me donne une idée de la maturité du projet
+- le nombre de *versions* – ça me donne une idée de la maturité du projet
 et de la réactivité aux demandes de la communauté.
 
 Ce sont des *critères subjectifs*.
 Un module peut être populaire par ancienneté alors qu'il existe des alternatives,
 plus légères ou plus simple d'utilisation.
 C'est le cas du module _moment.js_ qui est plus populaire que _date-fns_
-— alors que je préfère ce dernier.
+– alors que je préfère ce dernier.
 
 Il y a aussi des modules dans lesquels j'ai une confiance quasi-aveugle.
 Ils sont publiés par les personnes présentes dans cette liste non-exhaustive :
@@ -376,7 +376,7 @@ Error: Cannot find module 'cowsay'
 ----
 
 Le chargement du module _cowsay_ a échoué car Node n'arrive pas à le trouver
-— et c'est normal.
+– et c'est normal.
 
 Nous devons à nouveau lancer la commande `npm install cowsay`
 pour que le script fonctionne à nouveau.
@@ -390,7 +390,7 @@ La procédure est légèrement différente quand nous installons le projet de z�
 ou quand le fichier `package.json` a été mis à jour par un·e collègue, par exemple.
 
 L'exemple suivante illustre la remise à zéro des modules
-utilisés en exemple de ce chapitre — cf. la notice d'installation
+utilisés en exemple de ce chapitre – cf. la notice d'installation
 du module _nodebook_ :
 
 [subs="+attributes"]
@@ -569,10 +569,10 @@ Pour le numéro de version `1.2.3`, `1` est le numéro de version majeur,
 
 Si nous devions mettre à jour `lodash@2.2.0` :
 
-- vers `lodash@2.2.1` : mise à jour patch — des bugs sont corrigés ;
-- vers `lodash@2.4.2` : mise à jour mineure — des fonctionnalités sont ajoutées,
+- vers `lodash@2.2.1` : mise à jour patch – des bugs sont corrigés ;
+- vers `lodash@2.4.2` : mise à jour mineure – des fonctionnalités sont ajoutées,
 corrigées ou modifiées et ce, sans affecter notre code ;
-- vers `lodash@{lodashVersion}` : mise à jour majeure — des fonctionnalités ont
+- vers `lodash@{lodashVersion}` : mise à jour majeure – des fonctionnalités ont
 été modifiées, remaniées ou supprimées et peuvent casser notre code qui repose dessus.
 
 Une mise à jour majeure demande de lire attentivement la documentation du module
@@ -763,7 +763,7 @@ $ npm install --save-dev mocha
 ----
 
 L'exécutable `npm` range alors ce module dans une nouvelle section du
-fichier `package.json` — la section `devDependencies` :
+fichier `package.json` – la section `devDependencies` :
 
 [source,json,subs="+attributes,-specialchars,+quotes"]
 ----
@@ -806,8 +806,8 @@ C'est le cas du module _serve_ ([URL]#https://npmjs.com/serve#), par exemple.
 Il démarre un serveur web en ligne de commande pour tester le rendu
 de fichiers HTML sans avoir à configurer de logiciels comme _Apache_ ou _nginx_.
 
-L'installation est rendue globale — à l'échelle du système d'exploitation
-— avec l'utilisation de l'option `--global` :
+L'installation est rendue globale – à l'échelle du système d'exploitation
+– avec l'utilisation de l'option `--global` :
 
 [subs="+attributes,+quotes"]
 ----
@@ -885,7 +885,7 @@ au projet en question.
 === Démarrer l'application
 
 Le script `npm start` concerne les projets dont le script principal
-tourne en continu — une application web par exemple.
+tourne en continu – une application web par exemple.
 
 L'exemple suivant démarre un serveur web sans que nous ayons à connaître
 la commande associée pour démarrer le-dit serveur :
@@ -1260,7 +1260,7 @@ Section;Obligatoire{nbsp}?;Type;Modifiable;Description
 `version`;{tick};<<semver,Semver>>;Avec <<version,`npm version`>>;""
 `description`;{tick};Texte;À la main;Explique l'intention du module à une personne qui le découvre
 `keywords`;{cross};Tableau de texte;À la main;Facilite sa découverte sur [URL]#npmjs.com#
-`homepage`;{tick};Texte (URL);À la main;Indique où trouver de la documentation et des exemples d'utilisation — ça peut être l'adresse du dépôt GitLab ou GitHub
+`homepage`;{tick};Texte (URL);À la main;Indique où trouver de la documentation et des exemples d'utilisation – ça peut être l'adresse du dépôt GitLab ou GitHub
 `license`;{cross};Texte;À la main;Explicite les conditions de réutilisation du code dans un autre projet
 `bugs.url`;{cross};Texte (URL);À la main;Facilite la remontée de bugs
 `repository.type`;{cross};Texte;À la main;En général la valeur est `git`
@@ -1271,10 +1271,10 @@ Section;Obligatoire{nbsp}?;Type;Modifiable;Description
 .Points d'entrée pour utiliser votre module
 |===
 Section;Obligatoire{nbsp}?;Type;Modifiable;Description
-`name`;{tick};Texte;À la main;Correspond au nom à spécifier aux fonctions `require()` et `import` — Un changement de nom obligera de mettre à jour tous les scripts qui appelle ce module
-`main`;{cross};Texte (chemin);À la main;Script qui sera utilisé lors de l'appel à `require()` et `import` — par défaut `index.js`
+`name`;{tick};Texte;À la main;Correspond au nom à spécifier aux fonctions `require()` et `import` – Un changement de nom obligera de mettre à jour tous les scripts qui appelle ce module
+`main`;{cross};Texte (chemin);À la main;Script qui sera utilisé lors de l'appel à `require()` et `import` – par défaut `index.js`
 `bin`;{cross};Texte (chemin);À la main;Script qui sera utilisé comme exécutable lors de l'appel `npx <module>`
-`bin`;{cross};Objet (nom/chemin);À la main;Idem — forme qui permet de déclarer plusieurs exécutables au sein d'un même module
+`bin`;{cross};Objet (nom/chemin);À la main;Idem – forme qui permet de déclarer plusieurs exécutables au sein d'un même module
 |===
 
 [format="csv", options="header", separator=";", cols="1,1,1,2,2"]
@@ -1322,7 +1322,7 @@ ainsi que d'autres, fournies par le registre npm.
 $ npm view nodebook
 
 nodebook@0.9.1 | CC-BY-NC-SA-4.0 | deps: 6 | versions: 21
-Node.js — Apprendre par l'exemple
+Node.js – Apprendre par l'exemple
 
 keywords: nodejs, book, french, livre, learn, apprendre
 
@@ -1482,7 +1482,7 @@ found 1 low severity vulnerability
 
 Chaque module concerné par une faille connue est listée à l'écran (champ `Package`).
 Le champ `Path` spécifie l'arbre de dépendances qui mène à la vulnérabilité
-— c'est utile pour identifier quelle dépendance directe actualiser.
+– c'est utile pour identifier quelle dépendance directe actualiser.
 
 La commande `npm audit` précise la marche à suivre dès qu'elle le peut. +
 Ici, elle indique qu'une <<semver,mise à jour majeure>> est
@@ -1507,7 +1507,7 @@ elle supprime systématiquement le répertoire `node_modules` pour rendre
 chaque installation reproductible à l'identique.
 Elle fait aussi une chose de moins : elle se contente d'installer les
 modules tels que listés dans le <<package-lock,fichier `package-lock.json`>>.
-C'est ce dernier point qui rend cette commande si rapide — moins de vérifications,
+C'est ce dernier point qui rend cette commande si rapide – moins de vérifications,
 moins d'aller-retours, moins de complexité.
 
 [source,yaml,subs="+attributes"]
@@ -1520,7 +1520,7 @@ script: npm test
 cache: npm        # <2>
 ----
 <1> Surcharge la commande par défaut (`npm install`)
-<2> Les modules npm seront sauvegardés entre deux jobs — l'installation ira plus vite si les modules sont obtenus depuis le cache plutôt que depuis le registre npm.
+<2> Les modules npm seront sauvegardés entre deux jobs – l'installation ira plus vite si les modules sont obtenus depuis le cache plutôt que depuis le registre npm.
 
 [TIP]
 .[RemarquePreTitre]#Pratique# Remettre un projet à zéro
@@ -1628,16 +1628,16 @@ machine de développement ou sur votre configuration de production :
 |===
 Clé;Par défaut;Remarque
 `access`;`restricted`;Passez à `public` pour faire en sorte que les modules faisant partie d'une organisation soient considérés comme publics.
-`audit`;`true`;Passez à `false` pour désactiver l'audit automatique à chaque installation de module — cf. <<audit,`npm audit`>>.
+`audit`;`true`;Passez à `false` pour désactiver l'audit automatique à chaque installation de module – cf. <<audit,`npm audit`>>.
 `cache`;`~/.npm`;Modifiez le chemin pour que le cache des modules npm soit géré ailleurs.
 `color`;`true`;Passez à `false` pour désactiver l'utilisation des couleurs de npm.
 `depth`;`Infinity`;Le nombre utilisé limitera la profondeur d'affichage des commandes `npm ls`, `npm outdated`, etc.
 `git`;`git`;Nom de l'exécutable ou chemin d'accès de l'exécutable `git`.
-`https-proxy`;``;Adresse du proxy HTTPS — remplace alors la variable d'environnement `HTTPS_PROXY`.
-`loglevel`;`notice`;Change la verbosité d'affichage des messages — `silent`, `error`, `warn` diminueront la verbosité tandis que `http`, `timing`, `info`, `verbose` ou `silly` augmenteront le niveau de détails.
+`https-proxy`;``;Adresse du proxy HTTPS – remplace alors la variable d'environnement `HTTPS_PROXY`.
+`loglevel`;`notice`;Change la verbosité d'affichage des messages – `silent`, `error`, `warn` diminueront la verbosité tandis que `http`, `timing`, `info`, `verbose` ou `silly` augmenteront le niveau de détails.
 `offline`;`false`;Passez à `true` pour que l'installation des modules npm se fasse sans transiter par le réseau.
 `progress`;`true`;Passez à `false` pour désactiver l'affichage de la barre de progression.
-`proxy`;`true`;Adresse du proxy HTTP — remplace alors la variable d'environnement `HTTP_PROXY`.
+`proxy`;`true`;Adresse du proxy HTTP – remplace alors la variable d'environnement `HTTP_PROXY`.
 `registry`;`https://registry.npmjs.org/`;Changez cette valeur par celle de votre registre auto-hébergé.
 `send-metrics`;`false`;Passez à `true` pour envoyer des statistiques d'utilisation à l'équipe de npm.
 `tmp`;`$TMPDIR`;Changez cette valeur pour utiliser un autre répertoire temporaire.
@@ -1661,7 +1661,7 @@ L'option `--dry-run` est peut-être la première option à utiliser avec cette
 commande puisqu'elle fait comme si nous voulions publier le module, mais
 sans aller jusqu'à téléverser le code sur le registre npm.
 Je la recommande pour voir de nos propres yeux ce qui serait transmis
-et rectifier un problème avant qu'il ne se produise — vous n'avez pas envie
+et rectifier un problème avant qu'il ne se produise – vous n'avez pas envie
 de mettre en ligne un fichier qui contient un mot de passe n'est-ce pas ?
 
 ----
@@ -1717,7 +1717,7 @@ Si ça ne vous parle pas du tout, je vous invite à aller lire la section
 La publication d'un module nécessite de se créer un compte sur le registre
 [URL]#https://npmjs.com#.
 Si vous publiez un module pour la première fois, l'exécutable `npm` vous
-demandera alors de vous identifier — le module sera ensuite publié en votre nom.
+demandera alors de vous identifier – le module sera ensuite publié en votre nom.
 
 Idéalement, je recommande de ne pas publier de module à la main mais de
 *préférer l'utilisation d'un service d'intégration continue* comme
@@ -1744,7 +1744,7 @@ node_modules    # <2>
 src/*.html      # <3>
 !src/index.html # <4>
 ----
-<1> Ignore un fichier nommé `.DS_Store` — courant sous macOS.
+<1> Ignore un fichier nommé `.DS_Store` – courant sous macOS.
 <2> Ignore le répertoire `node_modules` et tout ce qu'il contient.
 <3> Ignore tous les fichiers `.html` contenus dans le répertoire `src`.
 <4> À l'exception du fichier `index.html` contenu dans le répertoire `src`.
@@ -1780,7 +1780,7 @@ pour automatiser d'autres actions lors d'une montée en version :
 `preversion`::
   Le nouveau numéro de version n'a pas encore été appliqué.
 `version`::
-  Le nouveau numéro de version est appliqué — vous pouvez encore ajouter de nouveaux fichiers au commit Git.
+  Le nouveau numéro de version est appliqué – vous pouvez encore ajouter de nouveaux fichiers au commit Git.
 `postversion`::
   Le nouveau numéro de version est appliqué et un commit a été ajouté à l'historique Git.
 
@@ -1933,8 +1933,8 @@ Avantages::
   - Je n'en vois pas.
 Inconvénients::
   - Difficile à versionner avec Git en cas de conflit.
-  - Ça va exploser si deux personnes utilisent des systèmes d'exploitation différents — certaines dépendances génèrent des fichiers en fonction du système.
-  - Ça va exploser s'il manque un module quelque part — et ça sera un problème plus à régler que de _ne pas_ versionner ce répertoire.
+  - Ça va exploser si deux personnes utilisent des systèmes d'exploitation différents – certaines dépendances génèrent des fichiers en fonction du système.
+  - Ça va exploser s'il manque un module quelque part – et ça sera un problème plus à régler que de _ne pas_ versionner ce répertoire.
 
 [[yarn]]
 === Il paraît que Yarn, c'est mieux
@@ -1945,7 +1945,7 @@ Le programme vise une installation rapide, hors-ligne et sécurisée.
 
 npm rattrape régulièrement les fonctionnalités qui "donnent de l'avance" à _yarn_.
 Le choix tient donc plutôt du goût ou de l'idéologie.
-Essayez donc _yarn_ et gardez-le pour les bonnes raisons — les vôtres.
+Essayez donc _yarn_ et gardez-le pour les bonnes raisons – les vôtres.
 
 Avantages::
   - Le mode _workspace_ permet de lier plusieurs projets entre eux de manière déclarative.
@@ -2065,7 +2065,7 @@ code source est écrit dans un autre langage que l'ECMAScript et ils
 font en sorte de créer un pont avec Node.
 
 Il arrive que l'opération de compilation n'aboutisse pas pour diverses raisons
-— il manque un logiciel, incompatibilité avec le système d'exploitation
+– il manque un logiciel, incompatibilité avec le système d'exploitation
 ou avec l'architecture du CPU.
 
 Le fait qu'il y ait marqué `SKIPPING` et `OPTIONAL` me laisse penser
@@ -2146,7 +2146,7 @@ avec `npm install react`. +
 Si vous pensez que c'est une erreur ou une incompréhension, désinstallez
 le module et cherchez une alternative.
 Ça se produit généralement quand on n'aperçoit pas qu'un module est dédié
-à un certain framework — et qu'on ne veut pas utiliser ce framework.
+à un certain framework – et qu'on ne veut pas utiliser ce framework.
 
 == Conclusion
 

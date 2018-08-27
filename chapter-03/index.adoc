@@ -97,7 +97,7 @@ avec le système d'exploitation.
 
 Autrement dit,
 *ECMAScript est un langage, une grammaire avec des fonctionnalités de base*.
-Chaque environnement — les navigateurs web, Node — le comprend et lui ajoute
+Chaque environnement – les navigateurs web, Node – le comprend et lui ajoute
 de nouvelles expressions, contextuelles à cet environnement d'exécution.
 *JavaScript est le grand ensemble des technologies qui se reposent sur ECMAScript*
 pour fonctionner.
@@ -128,7 +128,7 @@ sur les deux fronts.
 Node a cet avantage d'unifier le langage de programmation entre les environnements
 clients et serveurs.
 
-Le langage _ECMAScript_ — appelons-le ainsi à partir de maintenant —
+Le langage _ECMAScript_ – appelons-le ainsi à partir de maintenant –
 a évolué au fil du temps.
 Il s'est enrichi de nouvelles fonctionnalités au fil des versions mais aussi
 de sucres syntaxiques (raccourcis d'écriture)
@@ -153,7 +153,7 @@ ECMAScript a été standardisé dans sa version 5 en décembre 2009.
 La révision 5.1 de juin 2011 est une correction mineure de la spécification.
 
 Il s'agit d'une évolution majeure dans l'histoire du langage.
-La précédente version — ECMAScript 3 — était âgée de dix ans.
+La précédente version – ECMAScript 3 – était âgée de dix ans.
 
 ECMAScript 5 limite drastiquement certains effets indésirables du langage
 grâce au _mode strict_.
@@ -229,7 +229,7 @@ dans ce dépôt GitHub : [URL]#https://github.com/tc39/proposals#.
 Le dernier stade avant la validation d'une fonctionnalité est le _stage 3_.
 Dès qu'une fonctionnalité passe en _stage 4_, elle est incluse
 dans la prochaine version d'ECMAScript
-— _ECMAScript {docyear}_ une fois l'année {docyear} terminée.
+– _ECMAScript {docyear}_ une fois l'année {docyear} terminée.
 
 Les fonctionnalités approuvées sont consignées dans ce document :
 [URL]#https://github.com/tc39/proposals/blob/master/finished-proposals.md#.
@@ -484,7 +484,7 @@ Elle est définie un cran au-dessus des fonctions `next` et `nextYear`.
 On peut y accéder, comme en atteste le code de la fonction `nextYear`.
 
 À l'inverse, la variable `value` a une portée locale
-— elle est passée en paramètre de la fonction `next`.
+– elle est passée en paramètre de la fonction `next`.
 ECMAScript génèrera une erreur si on tente
 d'y accéder en dehors de sa portée.
 
@@ -526,8 +526,8 @@ des tweets, des messages et des textes longs, entre autres.
 include::{sourceDir}/string/base.js[]
 ----
 <1> Utilisation de guillemets simples (`\n` permet de revenir à la ligne).
-<2> Utilisation de guillemets doubles — évite d'échapper le guillemet simple.
-<3> Utilisation de guillemets obliques — autorise le multi-ligne.
+<2> Utilisation de guillemets doubles – évite d'échapper le guillemet simple.
+<3> Utilisation de guillemets obliques – autorise le multi-ligne.
 
 On peut utiliser n'importe quel caractère : lettres, chiffres,
 caractères accentués, émojis et même des sinogrammes ou des kanjis.
@@ -609,9 +609,9 @@ Si la valeur n'est pas trouvée, elle renvoie la valeur `-1`.
 include::{sourceDir}/string/index-of.js[]
 ----
 <1> Retourne `4`.
-<2> Retourne `-1` — aucune occurrence n'a été trouvée.
-<3> Retourne `5` — première occurrence de la lettre `a`.
-<4> Retourne `7` — dernière occurrence de la lettre `a`.
+<2> Retourne `-1` – aucune occurrence n'a été trouvée.
+<3> Retourne `5` – première occurrence de la lettre `a`.
+<4> Retourne `7` – dernière occurrence de la lettre `a`.
 
 [[regexp]]
 === Expressions régulières (_RegExp_)
@@ -651,7 +651,7 @@ multi-ligne (`m`)::
   La recherche s'effectue sur _toutes_ les lignes ;
 global (`g`)::
   La recherche identifie _tous_ les résultats
-  — au lieu d'un seul et le premier ;
+  – au lieu d'un seul et le premier ;
 unicode (`u`)::
   À utiliser si le motif de recherche exprime des séquences de caractères
   Unicode sous la forme `\u{....}` (voir les _classes de caractères_ ci-après).
@@ -665,8 +665,8 @@ Illustrons leur utilisation en _identifiant du texte_ répondant (`match`)
 include::{sourceDir}/regexp/flags.js[]
 ----
 <1> identifie et affiche `Node`, l'occurrence contenue dans le mot `Node.js`.
-<2> affiche 2 fois `ode` — les occurrences contenues dans le mot `Node.js` et `Anode`.
-<3> affiche `Node` et `node` en combinant les deux options `i` et `g` — les occurrences contenues dans le mot `Node.js` et `Anode`.
+<2> affiche 2 fois `ode` – les occurrences contenues dans le mot `Node.js` et `Anode`.
+<3> affiche `Node` et `node` en combinant les deux options `i` et `g` – les occurrences contenues dans le mot `Node.js` et `Anode`.
 
 Des éléments de syntaxe complètent les options pour
 identifier des motifs au sein de chaînes de caractères :
@@ -677,9 +677,9 @@ ensemble de caractères (entre `[` et `]`)::
   Exemple `[a-d]` correspond à `[abcd]`, donc _a_ ou _b_ ou _c_ ou _d_) ;
 nombre de caractères (entre `{` et `}`)::
   Répète un caractère ou ensemble de caractères,
-  _exactement_ (`{2}` — exactement 2)
-  _au moins_ (`{2,}` — au moins 2)
-  ou _entre_ (`{1,2}` — entre 1 et 2 fois) ;
+  _exactement_ (`{2}` – exactement 2)
+  _au moins_ (`{2,}` – au moins 2)
+  ou _entre_ (`{1,2}` – entre 1 et 2 fois) ;
 nombre de caractères (`?`, `+` et `*`)::
   Version raccourcie du nombre de caractères pour des besoins usuels :
   _0 ou 1 caractère_ avec `?`,
@@ -691,11 +691,11 @@ nombre de caractères (`?`, `+` et `*`)::
 ----
 include::{sourceDir}/regexp/syntax.js[]
 ----
-<1> Affiche `["75"]` — les 2 premiers caractères numériques de la chaîne.
+<1> Affiche `["75"]` – les 2 premiers caractères numériques de la chaîne.
 <2> Affiche `["75015"]` – les 5 premiers caractères numériques (satisfait la condition `5` de _entre 2 et 5_ de `{2,5}`).
 <3> Affiche `["75015 Paris"]`.
-<4> Affiche `["75015 Paris"]` — l'option `i` nous permet de nous passer de l'ensemble `A-Z`.
-<5> Affiche `["92410 Ville"]` — capture les caractères jusqu'à ce que la condition ne soit plus remplie en rencontrant le _trait d'union_ (`-`).
+<4> Affiche `["75015 Paris"]` – l'option `i` nous permet de nous passer de l'ensemble `A-Z`.
+<5> Affiche `["92410 Ville"]` – capture les caractères jusqu'à ce que la condition ne soit plus remplie en rencontrant le _trait d'union_ (`-`).
 <6> Affiche `["92410 Ville-d'Avray"]`.
 
 D'autres opérateurs délimitent notre recherche :
@@ -723,9 +723,9 @@ groupe de capture (entre `(` et `)`)::
 include::{sourceDir}/regexp/limits.js[]
 ----
 <1> Affiche `["75015 Paris"]`.
-<2> Affiche `["75015 Paris", "75015"]` — le premier élément correspond à la chaîne identifiée tandis que le second élément correspond au _premier_ groupe de capture.
+<2> Affiche `["75015 Paris", "75015"]` – le premier élément correspond à la chaîne identifiée tandis que le second élément correspond au _premier_ groupe de capture.
 <3> Affiche `["33900", "33900"]` – l'option multi-ligne itère de ligne en ligne jusqu'à trouver un motif.
-<4> Affiche `["33900", "33074", "33700"]` — l'option multi-ligne globale retourne tous les groupes de capture.
+<4> Affiche `["33900", "33074", "33700"]` – l'option multi-ligne globale retourne tous les groupes de capture.
 
 On notera qu'il faut faire attention à ce que l'on regarde dans les résultats :
 le format de résultat varie selon qu'on utilise ou non des groupes de capture,
@@ -759,8 +759,8 @@ d'espacement", etc.
 ----
 include::{sourceDir}/regexp/classes.js[]
 ----
-<1> Affiche `["♥ RegExp", "RegExp"]` — et s'arrête là car l'espace suivant n'est pas un caractère de mot.
-<2> Affiche `"I ♥ {docyear}"` — on a extrait le début de la phrase et l'année placée en fin de chaîne.
+<1> Affiche `["♥ RegExp", "RegExp"]` – et s'arrête là car l'espace suivant n'est pas un caractère de mot.
+<2> Affiche `"I ♥ {docyear}"` – on a extrait le début de la phrase et l'année placée en fin de chaîne.
 
 mdn::global[RegExp,title="expressions régulières"]
 
@@ -782,9 +782,9 @@ caractères, surtout en combinaison avec les groupes de capture :
 ----
 include::{sourceDir}/regexp/replace.js[]
 ----
-<1> Affiche `"I love JavaScript"` — si le premier argument de `replace` est une chaîne, elle est convertie automatiquement en expression régulière.
+<1> Affiche `"I love JavaScript"` – si le premier argument de `replace` est une chaîne, elle est convertie automatiquement en expression régulière.
 <2> Affiche `"I ♥ PHP"`.
-<3> Affiche `JavaScript ♥ me"` — les symboles `$<numéro>` représentent les groupes de capture on peut les placer dans l'ordre de notre choix.
+<3> Affiche `JavaScript ♥ me"` – les symboles `$<numéro>` représentent les groupes de capture on peut les placer dans l'ordre de notre choix.
 
 D'ailleurs le second argument accepte une <<functions,fonction>>
 pour procéder à des remplacements dynamiques :
@@ -794,7 +794,7 @@ pour procéder à des remplacements dynamiques :
 ----
 include::{sourceDir}/regexp/replace-function.js[]
 ----
-<1> Affiche `"I ♥ JAVASCRIPT"` — le dernier mot est transformé en majuscules.
+<1> Affiche `"I ♥ JAVASCRIPT"` – le dernier mot est transformé en majuscules.
 
 
 [[boolean]]
@@ -811,9 +811,9 @@ Ce type de valeur sert à exprimer des résultats de condition
 include::{sourceDir}/boolean/base.js[]
 ----
 <1> Affiche `3`.
-<2> Affiche `true` — la condition est vérifiée (3 équivaut strictement à 3).
-<3> Affiche `true` — c'est la valeur de la variable `check` suite à son assignation lors de la ligne précédente.
-<4> Affiche `true` — la variable `check` équivaut strictement à `true`.
+<2> Affiche `true` – la condition est vérifiée (3 équivaut strictement à 3).
+<3> Affiche `true` – c'est la valeur de la variable `check` suite à son assignation lors de la ligne précédente.
+<4> Affiche `true` – la variable `check` équivaut strictement à `true`.
 
 Une donnée d'un autre type peut être convertie en booléen.
 La logique qui déterminera si la conversion retournera `true` ou `false`
@@ -831,9 +831,9 @@ est la suivante :
 ----
 include::{sourceDir}/boolean/convert.js[]
 ----
-<1> Affiche `false` — il s'agit d'une _chaîne vide_.
-<2> Affiche `true` — il s'agit d'une valeur _non-nulle_.
-<3> Affiche `true` — le tableau est vide mais l'objet en lui-même _vaut_ quelque chose : un tableau.
+<1> Affiche `false` – il s'agit d'une _chaîne vide_.
+<2> Affiche `true` – il s'agit d'une valeur _non-nulle_.
+<3> Affiche `true` – le tableau est vide mais l'objet en lui-même _vaut_ quelque chose : un tableau.
 
 [[number]]
 == Jongler avec des valeurs numériques (_Number_, _Math_)
@@ -846,8 +846,8 @@ nombres contenant des décimales : ce sont des _nombres_ un point c'est tout.
 ----
 include::{sourceDir}/number/base.js[]
 ----
-<1> Affiche `true` — les deux valeurs sont strictement équivalentes.
-<2> Affiche `false` — un élément entre guillemets est une chaîne de caractère.
+<1> Affiche `true` – les deux valeurs sont strictement équivalentes.
+<2> Affiche `false` – un élément entre guillemets est une chaîne de caractère.
 
 Les nombres sont représentés par défaut en _base 10_.
 La plage de nombre utilisable démarre à _moins l'infini_ et va jusqu'à _plus l'infini_.
@@ -862,7 +862,7 @@ include::{sourceDir}/number/constants.js[]
 
 Il est aussi possible de compter dans d'autres bases comme la _base 16_,
 c'est-à-dire une représentation hexadécimale de 0 à 16, exprimée de 0 à F
-— A vaut 10 (car juste après 9), B vaut 11, etc.
+– A vaut 10 (car juste après 9), B vaut 11, etc.
 Leur notation se fait en préfixant la valeur par `0x` :
 
 [source%interactive,javascript]
@@ -871,9 +871,9 @@ Leur notation se fait en préfixant la valeur par `0x` :
 include::{sourceDir}/number/hexa.js[]
 ----
 <1> Affiche `0`.
-<2> Affiche `10` — car `A` en hexadécimal vaut 10 en décimal.
-<3> Affiche `160` — pour `10 x 16` (une dizaine vaut 16).
-<4> Affiche `2560` — pour `10 x 16 x 16` (une centaine vaut 16x16).
+<2> Affiche `10` – car `A` en hexadécimal vaut 10 en décimal.
+<3> Affiche `160` – pour `10 x 16` (une dizaine vaut 16).
+<4> Affiche `2560` – pour `10 x 16 x 16` (une centaine vaut 16x16).
 
 
 [NOTE]
@@ -1011,8 +1011,8 @@ include::{sourceDir}/number/parse.js[]
 ----
 <1> Affiche `3`.
 <2> Affiche `3.141592653589793`.
-<3> Affiche `14` — ça ne change rien pour `parseInt`.
-<4> Affiche `14.1` — la fonction s'arrête à la décimale précédant une lettre.
+<3> Affiche `14` – ça ne change rien pour `parseInt`.
+<4> Affiche `14.1` – la fonction s'arrête à la décimale précédant une lettre.
 
 `parseInt` a cette particularité que l'on peut choisir la base
 de la conversion avec le second argument de la fonction :
@@ -1023,8 +1023,8 @@ de la conversion avec le second argument de la fonction :
 include::{sourceDir}/number/parse-int.js[]
 ----
 <1> Affiche `16`.
-<2> Affiche `10` — `A` étant juste après `10` en hexadécimal.
-<3> Affiche `2560` — aurait pu s'écrire `0xF00` — cf. le <<number,début de cette même section>>, à propos des bases.
+<2> Affiche `10` – `A` étant juste après `10` en hexadécimal.
+<3> Affiche `2560` – aurait pu s'écrire `0xF00` – cf. le <<number,début de cette même section>>, à propos des bases.
 
 === Formater et arrondir des nombres
 
@@ -1045,9 +1045,9 @@ Math.ceil, Math.floor
 ----
 include::{sourceDir}/number/round.js[]
 ----
-<1> Affiche `3` — l'entier le plus proche est 3.
-<2> Affiche `4` — l'entier le plus proche est 4.
-<3> Affiche `4` — idem.
+<1> Affiche `3` – l'entier le plus proche est 3.
+<2> Affiche `4` – l'entier le plus proche est 4.
+<3> Affiche `4` – idem.
 <4> Affiche `4`.
 <5> Affiche `3`.
 
@@ -1086,9 +1086,9 @@ Nous avons la liberté d'en créer nous-même, spécifiques à nos besoins.
 include::{sourceDir}/functions/base.js[]
 ----
 <1> On _crée_ la fonction `hello`.
-<2> Affiche `[Function: hello]` — il s'agit de la définition de la fonction.
-<3> Affiche `"Hello World"` — il s'agit de l'_exécution_ de la fonction, qui _retourne_ un résultat.
-<4> Affiche un nombre aléatoire entre 0 et 100 — cette fonction est invoquée sans paramètre.
+<2> Affiche `[Function: hello]` – il s'agit de la définition de la fonction.
+<3> Affiche `"Hello World"` – il s'agit de l'_exécution_ de la fonction, qui _retourne_ un résultat.
+<4> Affiche un nombre aléatoire entre 0 et 100 – cette fonction est invoquée sans paramètre.
 
 L'exemple précédent nous indique qu'une fonction se découpe en 3 parties :
 
@@ -1150,7 +1150,7 @@ include::{sourceDir}/functions/callback.js[]
 ----
 <1> Le troisième argument (et les suivants) de `setTimeout` sont transmis en paramètre de la fonction de _callback_.
 <2> Cette fonction sera invoquée une seconde après le début du script, et recevra la date du moment en paramètre.
-<3> Affiche l'année de la date passée en argument — l'année en cours dans cet exemple.
+<3> Affiche l'année de la date passée en argument – l'année en cours dans cet exemple.
 
 [[rest-parameters]]
 === Paramètres du reste (_rest parameters_)
@@ -1181,9 +1181,9 @@ ou en ayant recours à d'autres méthodes d'identification.
 include::{sourceDir}/array/base.js[]
 ----
 <1> Affiche `["lundi", "mardi", "mercredi", "jeudi", "vendredi"]`.
-<2> Affiche `5` — soit la longueur du tableau.
-<3> Affiche `"mardi"` — c'est l'élément défini à l'index `1`.
-<4> Affiche `undefined` — il n'y a aucun élément défini à l'index `5`.
+<2> Affiche `5` – soit la longueur du tableau.
+<3> Affiche `"mardi"` – c'est l'élément défini à l'index `1`.
+<4> Affiche `undefined` – il n'y a aucun élément défini à l'index `5`.
 
 L'exemple précédent illustre plusieurs caractéristiques des collections :
 
@@ -1202,8 +1202,8 @@ un tableau à partir de quelque chose qui _ressemble à un tableau_.
 ----
 include::{sourceDir}/array/from.js[]
 ----
-<1> Affiche `["f", "r", "o", "m", "a", "g", "e"]` — chaque lettre de la chaîne.
-<2> Affiche `["F", "R", "O", "M", "A", "G", "E"]` — chaque lettre de la chaîne a été passée en majuscules.
+<1> Affiche `["f", "r", "o", "m", "a", "g", "e"]` – chaque lettre de la chaîne.
+<2> Affiche `["F", "R", "O", "M", "A", "G", "E"]` – chaque lettre de la chaîne a été passée en majuscules.
 
 Le deuxième argument de `Array.from` est facultatif.
 C'est une <<anonymous-function,fonction anonyme>> qui s'utilise comme les <<array.forEach,méthodes d'itération>> `Array.forEach` et `Array.map`.
@@ -1258,8 +1258,8 @@ Ce séparateur est optionnel.
 ----
 include::{sourceDir}/array/join.js[]
 ----
-<1> Affiche `"ID,NOM,PRENOM"` — le séparateur par défaut est une virgule (`,`).
-<2> Affiche `"ID;NOM;PRENOM"` — on a choisi le séparateur `;`.
+<1> Affiche `"ID,NOM,PRENOM"` – le séparateur par défaut est une virgule (`,`).
+<2> Affiche `"ID;NOM;PRENOM"` – on a choisi le séparateur `;`.
 <3> Affiche `"IDNOMPRENOM"`.
 
 [[array.forEach]]
@@ -1273,7 +1273,7 @@ Elles aident la mise en place d'automatismes pour éviter de répéter du code.
 ----
 include::{sourceDir}/array/loop.js[]
 ----
-<1> Affiche successivement chaque valeur du tableau — `"lundi"`, `"mardi"`, `"mercredi"`, `"jeudi"`, `"vendredi"`.
+<1> Affiche successivement chaque valeur du tableau – `"lundi"`, `"mardi"`, `"mercredi"`, `"jeudi"`, `"vendredi"`.
 
 Prenons le temps de revenir sur cet exemple.
 On y découvre plusieurs manières de faire des boucles sur un tableau :
@@ -1296,7 +1296,7 @@ et sur les _valeurs_ (avec l'opérateur `of`).
 include::{sourceDir}/array/for-of-in.js[]
 ----
 <1> Affiche successivement `0` puis `1`.
-<2> Affiche successivement `"samedi"` puis `"dimanche"` — l'index permet de retrouver la valeur du tableau.
+<2> Affiche successivement `"samedi"` puis `"dimanche"` – l'index permet de retrouver la valeur du tableau.
 <3> Affiche successivement `"samedi"` puis `"dimanche"`.
 
 La méthode `forEach` propage en réalité 3 arguments à notre fonction anonyme :
@@ -1345,7 +1345,7 @@ l'ordre des éléments restera inchangé.
 include::{sourceDir}/array/sort.js[]
 ----
 <1> Affiche `[1, 2, 3]`.
-<2> Affiche `[ { label: "un", order: 1 }, { label: "deux", order: 2 } ]` — le tableau a été trié sur la valeur de `order`.
+<2> Affiche `[ { label: "un", order: 1 }, { label: "deux", order: 2 } ]` – le tableau a été trié sur la valeur de `order`.
 
 Les <<string,chaînes de caractères>> peuvent être comparées
 avec la méthode `localeCompare`.
@@ -1357,8 +1357,8 @@ entre deux chaînes :
 ----
 include::{sourceDir}/array/sort-strings.js[]
 ----
-<1> Affiche `["a", "A", "b", "c"]` — les majuscules influencent le tri.
-<2> Affiche `[ { label: "deux", order: 2 }, { label: "un", order: 1 } ]` — le tableau a été trié sur la valeur de `label` cette fois-ci.
+<1> Affiche `["a", "A", "b", "c"]` – les majuscules influencent le tri.
+<2> Affiche `[ { label: "deux", order: 2 }, { label: "un", order: 1 } ]` – le tableau a été trié sur la valeur de `label` cette fois-ci.
 
 [TIP]
 .[RemarquePreTitre]#Alternative# `Array.reverse`
@@ -1387,7 +1387,7 @@ constitué des valeurs retournées par la fonction appliquée sur chaque éléme
 ----
 include::{sourceDir}/array/map.js[]
 ----
-<1> Retourne `['A', 'B', 'C']` — on a passé tous les éléments en lettres majuscules.
+<1> Retourne `['A', 'B', 'C']` – on a passé tous les éléments en lettres majuscules.
 
 Le troisième argument de la méthode `map` prend ici tout son sens.
 Par exemple si l'on souhaite dédoublonner un tableau :
@@ -1415,7 +1415,7 @@ C'est comme si elle _accumulait_ les résultats.
 ----
 include::{sourceDir}/array/reduce.js[]
 ----
-<1> Effectue une _réduction_ à l'aide de la fonction `sum` et d'une valeur par défaut de `0` — affiche `22` à l'issue des itérations .
+<1> Effectue une _réduction_ à l'aide de la fonction `sum` et d'une valeur par défaut de `0` – affiche `22` à l'issue des itérations .
 <2> La valeur de l'élément est le _second paramètre_ le premier paramètre correspond au résultat de l'itération précédente ou à la valeur initiale, passée en argument à `reduce`.
 
 [[array.filter]]
@@ -1431,8 +1431,8 @@ se retrouvent dans le nouveau tableau.
 ----
 include::{sourceDir}/array/filter.js[]
 ----
-<1> Retourne `[3]` — c'est la seule valeur qui est un nombre.
-<2> Retourne `["un", "deux", 3]` — ce sont les valeurs non-nulles.
+<1> Retourne `[3]` – c'est la seule valeur qui est un nombre.
+<2> Retourne `["un", "deux", 3]` – ce sont les valeurs non-nulles.
 
 [[array.find]]
 === Identifier une ou plusieurs valeurs
@@ -1450,12 +1450,12 @@ est fructueuse (`true`) ou non (`false`).
 ----
 include::{sourceDir}/array/index-of-includes.js[]
 ----
-<1> Affiche `0` — le premier `"un"` est l'élément `0` du tableau.
-<2> Affiche `1` — le premier `"deux"` est l'élément `1` du tableau.
-<3> Affiche `-1` — cet élément est absent du tableau.
-<4> Affiche `3` — le dernier `"deux"` est l'élément `3` du tableau.
-<5> Affiche `true` — l'élément `"un"` existe dans le tableau.
-<6> Affiche `false` — l'élément `"trois"` n'existe pas dans le tableau.
+<1> Affiche `0` – le premier `"un"` est l'élément `0` du tableau.
+<2> Affiche `1` – le premier `"deux"` est l'élément `1` du tableau.
+<3> Affiche `-1` – cet élément est absent du tableau.
+<4> Affiche `3` – le dernier `"deux"` est l'élément `3` du tableau.
+<5> Affiche `true` – l'élément `"un"` existe dans le tableau.
+<6> Affiche `false` – l'élément `"trois"` n'existe pas dans le tableau.
 
 Il existe ensuite d'autres méthodes comme `find`, `some` et `every`.
 Elles *identifient des éléments à partir d'une fonction*.
@@ -1473,7 +1473,7 @@ include::{sourceDir}/array/find.js[]
 ----
 <1> La fonction `isFinite` retourne `true` si la valeur passée en argument est un nombre supérieur à `50`.
 <2> Affiche `100`.
-<3> Affiche `3` — c'est l'index de la valeur `100`.
+<3> Affiche `3` – c'est l'index de la valeur `100`.
 
 Les méthodes `some` et `every` retournent un <<boolean,booléen>>
 lorsque la condition est satisfaite.
@@ -1485,9 +1485,9 @@ lorsque la condition est satisfaite.
 ----
 include::{sourceDir}/array/some.js[]
 ----
-<1> Affiche `false` — toutes les valeurs ne sont pas égales à `undefined`.
-<2> Affiche `true` — au moins une valeur est égale à `undefined`.
-<3> Affiche `false` — il n'y a plus de valeur `undefined` dans le tableau, car on a utilisé la méthode <<array.filter,filter>> pour supprimer les valeurs non-vides.
+<1> Affiche `false` – toutes les valeurs ne sont pas égales à `undefined`.
+<2> Affiche `true` – au moins une valeur est égale à `undefined`.
+<3> Affiche `false` – il n'y a plus de valeur `undefined` dans le tableau, car on a utilisé la méthode <<array.filter,filter>> pour supprimer les valeurs non-vides.
 
 [[array-destructuring]]
 === Décomposition de tableau (_destructuring_)
@@ -1504,7 +1504,7 @@ include::{sourceDir}/array/destructuring.js[]
 ----
 <1> Affiche `"lundi"`.
 <2> Affiche `"mardi"`.
-<3> Affiche `"mercredi"` — l'utilisation des virgules sans variable a permis de _sauter_ des positions dans la décomposition.
+<3> Affiche `"mercredi"` – l'utilisation des virgules sans variable a permis de _sauter_ des positions dans la décomposition.
 
 La décomposition se combine agréablement avec l'opérateur `...` (opérateur _spread_).
 Il accumule _le reste_ des éléments dans une variable, sous forme de tableau.
@@ -1524,8 +1524,8 @@ On choisit _l'index de début_ et _l'index de fin_ de la décomposition.
 ----
 include::{sourceDir}/array/slice.js[]
 ----
-<1> Affiche `["deux", "trois", "quatre"]` — à partir de l'index `1`.
-<2> Affiche `["deux"]` — à partir de l'index `1` et jusqu'à l'index `2` (non-inclus).
+<1> Affiche `["deux", "trois", "quatre"]` – à partir de l'index `1`.
+<2> Affiche `["deux"]` – à partir de l'index `1` et jusqu'à l'index `2` (non-inclus).
 
 Si les valeurs de début et/ou de fin sont _négatives_,
 les index sont calculés _à partir de la fin_ du tableau.
@@ -1535,10 +1535,10 @@ les index sont calculés _à partir de la fin_ du tableau.
 ----
 include::{sourceDir}/array/slice-negative.js[]
 ----
-<1> Affiche `["quatre"]` — premier élément à partir de la fin.
-<2> Affiche `["deux", "trois", "quatre"]` — les trois premiers éléments à partir de la fin.
-<3> Affiche `["un", "deux", "trois"]` — jusqu'au dernier élément à partir de la fin (non-inclus).
-<4> Affiche `["un"]` — jusqu'au troisième élément à partir de la fin (non-inclus).
+<1> Affiche `["quatre"]` – premier élément à partir de la fin.
+<2> Affiche `["deux", "trois", "quatre"]` – les trois premiers éléments à partir de la fin.
+<3> Affiche `["un", "deux", "trois"]` – jusqu'au dernier élément à partir de la fin (non-inclus).
+<4> Affiche `["un"]` – jusqu'au troisième élément à partir de la fin (non-inclus).
 
 
 [[object]]
@@ -1556,8 +1556,8 @@ include::{sourceDir}/object/base.js[]
 ----
 <1> Affiche `"Francine"`.
 <2> On assigne une valeur numérique dans l'index `age` une fois l'objet créé.
-<3> Affiche `25` — la valeur numérique précédemment assignée.
-<4> Affiche `undefined` — aucune valeur n'est assignée pour cette clé.
+<3> Affiche `25` – la valeur numérique précédemment assignée.
+<4> Affiche `undefined` – aucune valeur n'est assignée pour cette clé.
 
 Nous pouvons nous baser sur une autre syntaxe pour _créer_ et _accéder_
 à des valeurs en utilisant des variables en guise d'identifiant d'index :
@@ -1583,9 +1583,9 @@ Ce mécanisme existe aussi pour les <<array-destructuring,tableaux>>.
 ----
 include::{sourceDir}/object/destructuring.js[]
 ----
-<1> Affiche `"Drôme"` — on a décomposé la clé `location`.
-<2> Affiche `"Francine"` — on a décomposé puis renommé la clé `first_name` en une nouvelle variable : `prenom`.
-<3> Affiche `false` — on a décomposé la clé `is_admin` et comme elle n'existe pas, on a spécifié la valeur par défaut `false`, au lieu de `undefined`.
+<1> Affiche `"Drôme"` – on a décomposé la clé `location`.
+<2> Affiche `"Francine"` – on a décomposé puis renommé la clé `first_name` en une nouvelle variable : `prenom`.
+<3> Affiche `false` – on a décomposé la clé `is_admin` et comme elle n'existe pas, on a spécifié la valeur par défaut `false`, au lieu de `undefined`.
 
 La décomposition se combine agréablement avec l'opérateur `...`
 (opérateur _spread_).
@@ -1613,9 +1613,9 @@ Les objets sont combinés dans le premier paramètre de la fonction.
 ----
 include::{sourceDir}/object/assign.js[]
 ----
-<1> Affiche `{ first_name: "Francine", location: "Drôme" }` — la nouvelle variable contient nos deux objets combinés.
-<2> Affiche `{ first_name: "Francine" }` — ce sont les valeurs originelles de notre objet.
-<3> Affiche `{ first_name: "Francine", location: 'Ardèche' }` — l'objet `o2` a reçu la nouvelle propriété `location`.
+<1> Affiche `{ first_name: "Francine", location: "Drôme" }` – la nouvelle variable contient nos deux objets combinés.
+<2> Affiche `{ first_name: "Francine" }` – ce sont les valeurs originelles de notre objet.
+<3> Affiche `{ first_name: "Francine", location: 'Ardèche' }` – l'objet `o2` a reçu la nouvelle propriété `location`.
 
 À noter que les assignations se font de _gauche à droite_.
 Toute clé existante est remplacée.
@@ -1689,11 +1689,11 @@ retourne un <<boolean,booléen>>.
 include::{sourceDir}/object/has-own-property.js[]
 ----
 <1> Affiche `true`.
-<2> Affiche `false` — cette clé n'existe pas dans cet objet.
+<2> Affiche `false` – cette clé n'existe pas dans cet objet.
 
 La seconde manière est d'utiliser l'opérateur `in`.
 On l'aura déjà rencontré lors des <<array.forEach,boucles>>.
-Sauf que cette fois, on l'utilise une seule fois — et non dans une boucle.
+Sauf que cette fois, on l'utilise une seule fois – et non dans une boucle.
 
 [source%interactive,javascript]
 .object/key-in.js
@@ -1701,7 +1701,7 @@ Sauf que cette fois, on l'utilise une seule fois — et non dans une boucle.
 include::{sourceDir}/object/key-in.js[]
 ----
 <1> Affiche `true`.
-<2> Affiche `false` — cette clé n'existe pas dans cet objet.
+<2> Affiche `false` – cette clé n'existe pas dans cet objet.
 
 Enfin, on peut tester la valeur associée avec la syntaxe standard `objet.clé`.
 
@@ -1721,10 +1721,10 @@ Si la clé existe et contient `undefined`, vous ne verrez pas la différence.
 ----
 include::{sourceDir}/object/key-undefined.js[]
 ----
-<1> Affiche `false` — la valeur `undefined` est convertie en `false`.
-<2> Affiche `false` — la clé existe bien, mais elle contient la valeur `undefined`.
-<3> Affiche `true` — le test se fait sur l'existence de la clé.
-<4> Affiche `true` — idem.
+<1> Affiche `false` – la valeur `undefined` est convertie en `false`.
+<2> Affiche `false` – la clé existe bien, mais elle contient la valeur `undefined`.
+<3> Affiche `true` – le test se fait sur l'existence de la clé.
+<4> Affiche `true` – idem.
 
 
 [[json]]
@@ -1786,8 +1786,8 @@ elle l'utilisera pour effectuer la conversion :
 ----
 include::{sourceDir}/json/to-json.js[]
 ----
-<1> Affiche `"\"geo=48.8503439,2.34658949\""` — c'est la sérialisation definie par notre fonction `toJSON`.
-<2> Affiche `"{\"lat\":48.8503439,\"lon\":2.34658949}"` — sans la clé `toJSON`, notre objet initial est sérialisé tel quel.
+<1> Affiche `"\"geo=48.8503439,2.34658949\""` – c'est la sérialisation definie par notre fonction `toJSON`.
+<2> Affiche `"{\"lat\":48.8503439,\"lon\":2.34658949}"` – sans la clé `toJSON`, notre objet initial est sérialisé tel quel.
 
 Notre implémentation contenue dans la fonction `toJSON` est
 responsable de renvoyer du texte seulement et de choisir les clés
@@ -1819,8 +1819,8 @@ et à une heure donnée.
 include::{sourceDir}/date/base.js[]
 ----
 <1> On initialise l'objet date `past` au 04 décembre 2013.
-<2> Affiche `2013` — l'année liée à l'objet `past`.
-<3> Affiche `{docyear}` — l'année liée à l'objet `now` (aujourd'hui).
+<2> Affiche `2013` – l'année liée à l'objet `past`.
+<3> Affiche `{docyear}` – l'année liée à l'objet `now` (aujourd'hui).
 
 Un certain nombre de méthodes _retournent_ différents éléments de la date
 contenue dans l'objet : année, secondes, jour de la semaine, etc.
@@ -1834,14 +1834,14 @@ include::{sourceDir}/date/set.js[]
 <1> Change la date vers l'année `2015`.
 <2> Affiche `"2015-12-04T10:00:00.000Z"`.
 <3> Change la date vers le mois `1`.
-<4> Affiche `"2015-02-04T10:00:00.000Z"` — pourquoi le mois de février ??
+<4> Affiche `"2015-02-04T10:00:00.000Z"` – pourquoi le mois de février ??
 
 L'exemple précédent illustre l'ambiguïté de la notion de _mois_.
 Il s'agit en réalité de l'_index du mois_ :
 0 correspond à janvier, 1 à février, etc.
 
 La plupart des méthodes natives font référence à l'anglais.
-Elles offrent peu de confort de manipulation — on aimerait pouvoir
+Elles offrent peu de confort de manipulation – on aimerait pouvoir
 compter facilement le nombre de jours entre deux dates, ou retirer 30 jours.
 
 Quand nous utiliserons <<../chapter-04/index.adoc,Node>> et
@@ -1858,7 +1858,7 @@ La spécification _ECMA Intl_ a été conçue pour ajouter des
 fonctionnalités relatives aux langues.
 Cette spécification est complémentaire.
 Son comportement varie en fonction du système d'exploitation
-— mode d'installation de Node et/ou version du navigateur web.
+– mode d'installation de Node et/ou version du navigateur web.
 
 Les méthodes de date `toLocaleString`, `toLocaleDateString` et
 `toLocaleTimeString` renvoient une version localisée
@@ -1930,8 +1930,8 @@ include::{sourceDir}/class/base.js[]
 <1> Le constructeur reçoit un ou plusieurs arguments lors de l'instanciation de la classe.
 <2> `this` fait référence à _ce contexte_, c'est-à-dire à _cette instance de classe_ ; deux instances peuvent être initialisées avec des données différentes.
 <3> `toJSON` est une méthode de la classe.
-<4> `isbn` est un accesseur (préfixe `get`) — une propriété dont la valeur est calculée à chaque fois qu'elle est appelée.
-<5> `clean` est une méthode dite _statique_ — elle est appelée en dehors d'une instance.
+<4> `isbn` est un accesseur (préfixe `get`) – une propriété dont la valeur est calculée à chaque fois qu'elle est appelée.
+<5> `clean` est une méthode dite _statique_ – elle est appelée en dehors d'une instance.
 
 Nous développerons cet exemple dans les sections qui suivent.
 On peut d'ores et déjà noter que la structure d'une classe
@@ -1968,9 +1968,9 @@ Elles servent à _retourner_ ou _transformer_ des valeurs rattachées à l'objet
 ----
 include::{sourceDir}/class/methods.js[]
 ----
-<1> Affiche `false` — la propriété n'existe pas.
-<2> Affiche `true` — la propriété `is_published` a été changée à la ligne précédente.
-<3> Affiche `false` — les données sont étanches entre chaque instance.
+<1> Affiche `false` – la propriété n'existe pas.
+<2> Affiche `true` – la propriété `is_published` a été changée à la ligne précédente.
+<3> Affiche `false` – les données sont étanches entre chaque instance.
 
 
 [[class.static]]
@@ -1986,8 +1986,8 @@ Elles se caractérisent par le préfixe `static` devant un nom de fonction.
 include::{sourceDir}/class/static.js[]
 ----
 <1> On appelle la méthode statique `Book.clean` pour nettoyer le code EAN13.
-<2> Affiche `"9782212139938"` — la valeur a bien été nettoyée.
-<3> Affiche `undefined` — les méthodes statiques ne sont pas accessibles depuis l'instance de classe.
+<2> Affiche `"9782212139938"` – la valeur a bien été nettoyée.
+<3> Affiche `undefined` – les méthodes statiques ne sont pas accessibles depuis l'instance de classe.
 
 On verra dans le <<../chapter-04/index.adoc,chapitre sur Node>>
 qu'on peut se baser sur les modules pour partager du code
@@ -2011,8 +2011,8 @@ la valeur d'un attribut.
 include::{sourceDir}/getters.js[]
 ----
 <1> Définition de l'_accesseur_ `isbn`.
-<2> Affiche `"9782212139938"` — c'est une propriété de l'objet `nodebook`.
-<3> Affiche `"2212139938"` — `isbn` s'utilise comme un attribut mais sa valeur est calculée à chaque fois qu'elle est appelée.
+<2> Affiche `"9782212139938"` – c'est une propriété de l'objet `nodebook`.
+<3> Affiche `"2212139938"` – `isbn` s'utilise comme un attribut mais sa valeur est calculée à chaque fois qu'elle est appelée.
 
 Le _mutateur_ est une fonction préfixée par le mot-clé `set` ; elle définit
 la valeur d'un ou plusieurs attributs.
@@ -2022,10 +2022,10 @@ la valeur d'un ou plusieurs attributs.
 ----
 include::{sourceDir}/setters.js[]
 ----
-<1> Définition du _mutateur_ `ean13` — il accepte un seul argument.
-<2> Affiche `978` — l'attribut a été créé lors de l'appel du mutateur.
-<3> Affiche `2212139938` — idem.
-<4> Affiche `undefined` — il faudrait créer un _accesseur_ `get ean13()` pour recomposer dynamiquement sa valeur.
+<1> Définition du _mutateur_ `ean13` – il accepte un seul argument.
+<2> Affiche `978` – l'attribut a été créé lors de l'appel du mutateur.
+<3> Affiche `2212139938` – idem.
+<4> Affiche `undefined` – il faudrait créer un _accesseur_ `get ean13()` pour recomposer dynamiquement sa valeur.
 
 mdn::reference[Functions/get]
 mdn::reference[Functions/set]
@@ -2051,7 +2051,7 @@ include::{sourceDir}/class/extends.js[]
 <1> La classe `Product` assigne un titre par défaut lorsqu'un nouvel objet est initialisé.
 <2> La classe `Book` assigne un titre donné en argument et sinon, elle se base sur la valeur par défaut de la classe `Product`.
 <3> Affiche `'Node.js'`.
-<4> Affiche `'Sans titre'` — la propriété `title` ne se définit par dans le constructeur (cf. `class Product`)
+<4> Affiche `'Sans titre'` – la propriété `title` ne se définit par dans le constructeur (cf. `class Product`)
 
 En pratique, c'est comme si on empilait les classes les unes sur les autres.
 On lègue des méthodes aux classes qui héritent.
@@ -2078,9 +2078,9 @@ Cette résolution est soit _positive_ soit _négative_.
 ----
 include::{sourceDir}/promise/base.js[]
 ----
-<1> Affiche `Promise` — ce n'est pas le résultat que l'on voit mais l'objet avec lequel interagir pour être prévenu de la mise à disposition du résultat.
+<1> Affiche `Promise` – ce n'est pas le résultat que l'on voit mais l'objet avec lequel interagir pour être prévenu de la mise à disposition du résultat.
 <2> Affiche `"un"`.
-<3> Affiche `"deux"` — c'est parce que la ligne d'avant a mis en attente la <<anonymous-function,fonction anonyme>>.
+<3> Affiche `"deux"` – c'est parce que la ligne d'avant a mis en attente la <<anonymous-function,fonction anonyme>>.
 <4> Affiche `"promesse tenue"` en dernier.
 
 [NOTE]
@@ -2176,7 +2176,7 @@ include::{sourceDir}/promise/all.js[]
 ----
 <1> Cette fonction résout la promesse après un délai aléatoire compris entre 0 et 2000 millisecondes.
 <2> On passe 3 promesses à `Promise.all`.
-<3> La résolution est déclenchée dès que les 3 promesses sont résolues — l'argument contient un tableau listant les résultats _dans l'ordre initial_ des promesses.
+<3> La résolution est déclenchée dès que les 3 promesses sont résolues – l'argument contient un tableau listant les résultats _dans l'ordre initial_ des promesses.
 
 L'exemple précédent illustre la *parallélisation des actions*.
 Si la promesse la plus longue prend 1 seconde à être résolue,
@@ -2207,7 +2207,7 @@ pour comprendre l'impact de `async` et de `await`.
 ----
 include::{sourceDir}/promise/async-await.js[]
 ----
-<1> On crée une _fonction asynchrone auto-invoquée_ — c'est pas pour frimer mais parce qu'on ne peut pas encore utiliser de fonction asynchrone directement au niveau principal d'un script.
+<1> On crée une _fonction asynchrone auto-invoquée_ – c'est pas pour frimer mais parce qu'on ne peut pas encore utiliser de fonction asynchrone directement au niveau principal d'un script.
 <2> Chaque utilisation de `await` met l'interpréteur en pause.
 <3> L'affichage du temps d'exécution de chaque promesse se fait lorsque les 3 promesses sont résolues.
 
@@ -2228,6 +2228,6 @@ mais aussi pour jouer avec les exemples afin de confirmer votre compréhension
 du langage.
 
 Dans le <<../chapter-04/index.adoc,chapitre suivant>>, nous allons
-*relier ces apprentissages avec Node* — l'interpréteur et l'environnement
+*relier ces apprentissages avec Node* – l'interpréteur et l'environnement
 d'exécution JavaScript que nous avons appris à installer au
 <<../chapter-02/index.adoc,chapitre 2>>.

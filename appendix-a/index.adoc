@@ -270,7 +270,7 @@ d'un·e usagèr·e.
 include::{sourceDir}/sanitize-filename.js[]
 ----
 <1> Affiche `aucun-problème.txt`.
-<2> Affiche `+.....sshid_rsa+` — les caractères `/` sont nettoyés car il permettrait de créer des chemins compromettant pour l'application ou le système d'exploitation.
+<2> Affiche `+.....sshid_rsa+` – les caractères `/` sont nettoyés car il permettrait de créer des chemins compromettant pour l'application ou le système d'exploitation.
 
 === helmet
 
@@ -454,7 +454,7 @@ sample.css:14:1: CSS 2.1 selectors not supported by: IE (6)
 == Optimiser notre code
 
 Commentaires, indentations ou encore noms de variables : tout ça occupe de
-la place — autant d'octets transférés sur le réseau avant d'être exécutés
+la place – autant d'octets transférés sur le réseau avant d'être exécutés
 par un client web.
 Les outils d'optimisation offrent l'opportunité aux développeurs et développeuses
 d'écrire du code sans compromettre sa lisibilité et sa maintenabilité.
@@ -473,7 +473,7 @@ réduire le poids de notre code :
 
 _UglifyJS_ ([URL]#https://npmjs.com/uglify-es#) est un des premiers
 compresseurs à utiliser une représentation syntaxique en arbre
-(_Abstract Syntax Tree_ — _AST_) en lieu et place des classiques
+(_Abstract Syntax Tree_ – _AST_) en lieu et place des classiques
 optimisations à coups d'expressions régulières.
 
 Cette méthode élargit les perspectives de la compression via de
@@ -503,7 +503,7 @@ vers la possibilité de créer votre propre préprocesseur, à la Sass !
 _autoprefixer_ ([URL]#https://npmjs.com/autoprefixer#) est _le_ module qui
 vous épargnera l'écriture de centaines de lignes CSS.
 Il ajoute automatiquement les préfixes navigateurs aux bons endroits
-— `-webkit`, `-moz`, etc.
+– `-webkit`, `-moz`, etc.
 
 _autoprefixer_ s'utilise comme extension au module <<postcss,PostCSS>>,
 en ligne de commande ou comme module Node.
@@ -572,7 +572,7 @@ ou l'intégrer comme extension à <<postcss,PostCSS>>.
 
 _wawoff2_ ([URL]#https://npmjs.com/wawoff2#) optimise des polices de caractères
 pour le web.
-Le module convertit des polices au format TTF vers le format WOFF2 — à préférer
+Le module convertit des polices au format TTF vers le format WOFF2 – à préférer
 car plus léger et donc rapide à charger.
 
 [[transpiling]]
@@ -713,7 +713,7 @@ de déclencher des actions quand des fichiers sont modifiés.
 == Stocker dans des bases de données
 
 Node sait communiquer avec tout type de bases de données grâce à l'écosystème npm.
-Préférez les modules faisant état de _driver_ natif/binaire —
+Préférez les modules faisant état de _driver_ natif/binaire –
 les transferts de données n'en sera que plus rapide.
 
 === db-migrate
@@ -721,7 +721,7 @@ les transferts de données n'en sera que plus rapide.
 _db-migrate_ ([URL]#https://npmjs.com/db-migrate#) est un outil de gestion
 de migrations pour MySQL, SQLite, MongoDB et Postgres.
 À l'aide de scripts de migration, il rend reproductible des changements
-de structure dans une base de données — ajout ou suppression de champ, de table
+de structure dans une base de données – ajout ou suppression de champ, de table
 ou d'index.
 
 === knex
@@ -762,7 +762,7 @@ de données, de les tester en local avant de les jouer en production.
 === mongoose
 
 _mongoose_ ([URL]#https://npmjs.com/mongoose#) sert à composer des modèles
-de données pour la base de données MongoDB — dite NoSQL.
+de données pour la base de données MongoDB – dite NoSQL.
 Elle définit des comportements annexes comme des mixins
 ou des _accesseurs_ dynamiques.
 
@@ -872,7 +872,7 @@ d'authentification pour _express_.
 Elle permet de se brancher à différents mécanismes pour vérifier les utilisateurs :
 utilisateur et mot de passe, compte GitHub, Twitter, OAuth, etc.
 
-Les sessions d'utilisateurs se gèrent à côté — pour mémoriser
+Les sessions d'utilisateurs se gèrent à côté – pour mémoriser
 qui est connecté ou non, et avec quel identifiant sécurisé et unique.
 
 Référez-vous à sa documentation pour des exemples détaillés d'utilisation.
@@ -883,7 +883,7 @@ _restify_ ([URL]#https://npmjs.com/restify#) est un framework web
 spécialisé dans la création d'API HTTP.
 
 Il gère les versions de routes et expose un client permettant de consommer
-des données sur d'autres API REST — proxy.
+des données sur d'autres API REST – proxy.
 
 [source,javascript]
 .restify.js
@@ -1059,7 +1059,7 @@ include::{sourceDir}/chai.js[]
 ----
 <1> Vérification du type d'une variable.
 <2> Vérification stricte de valeur d'une variable.
-<3> Double vérification — il s'agit bien d'objet et il est vide, sans clé/valeur.
+<3> Double vérification – il s'agit bien d'objet et il est vide, sans clé/valeur.
 
 === sinon
 
@@ -1091,7 +1091,7 @@ _nyc_ ([URL]#https://npmjs.com/nyc#) génère une couverture de code.
 Il inspecte le code exécuté pendant les tests et en déduit les portions
 qui n'ont pas été visitées, et donc qui n'ont pas été testées.
 C'est un indicateur utile pour attester de la fiabilité d'une base de code
-— plus la couverture est importante, plus il y a de chances que les cas à la marge
+– plus la couverture est importante, plus il y a de chances que les cas à la marge
 ont été vérifiés.
 
 .Couverture de code visualisée dans un terminal.
@@ -1120,7 +1120,7 @@ image::images/karma.png[width="85%"]
 _supertest_ ([URL]#https://npmjs.com/supertest#) nous permet de tester
 une interface HTTP.
 Le module envoie des requêtes et nos assertions vérifient qu'elles retournent
-bien ce qui est attendu — code HTTP, structure de réponse etc.
+bien ce qui est attendu – code HTTP, structure de réponse etc.
 
 Je trouve ce module pratique pour tester des choses qui seraient difficiles
 à couvrir seulement avec des tests unitaires.

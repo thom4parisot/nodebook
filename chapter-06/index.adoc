@@ -123,7 +123,7 @@ plus loin en développant, hébergeant et partageant des applications complètes
 Le service redéploie notre application à chaque changement.
 Le fichier `.env` stocke les
 <<../chapter-04/index.adoc#process.env,variables d'environnement>> de manière
-sécurisée — nous seul y avons accès.
+sécurisée – nous seul y avons accès.
 
 .Exemple d'application Node sur glitch.com.
 image::images/glitch-app.png[width="85%"]
@@ -197,7 +197,7 @@ Importer du code depuis GitHub est la manière la plus simple de transférer
 tous les fichiers versionnés sans être familier avec Git.
 
 La plate-forme de <<deploy.notebook,programmation en ligne>> glitch
-offre une option pour importer n'importe quel projet GitHub — à partir du moment
+offre une option pour importer n'importe quel projet GitHub – à partir du moment
 où le dépôt est public.
 
 .Bouton d'import d'un dépôt GitHub sur glitch.com.
@@ -390,7 +390,7 @@ $ git push heroku
 > remote:
 > remote: Verifying deploy... done.
 ----
-<1> C'est le trentième déploiement — on peut revenir à une version antérieure si nécessaire.
+<1> C'est le trentième déploiement – on peut revenir à une version antérieure si nécessaire.
 
 L'URL de l'application est rappelée dans les _logs_ du déploiement. +
 En cas d'erreur, la version précédente de l'application reste en ligne.
@@ -423,7 +423,7 @@ Dans le cas d'une mise à jour, nous récupérons les changements depuis le dép
 distant en faisant `git pull`.
 `npm install` mettra à jour les dépendances s'il y a des différences entre
 le contenu du fichier `package.json` et les modules déjà installés
-— voir le <<../chapter-05/index.adoc#,chapitre 5>> :
+– voir le <<../chapter-05/index.adoc#,chapitre 5>> :
 
 .Mise à jour d'une application lors d'une session SSH.
 ----
@@ -454,7 +454,7 @@ Nous retrouvons _Puppet_ ([URL]#https://puppet.com#),
 _Chef_ ([URL]#https://www.chef.io#) et _Ansible_ ([URL]#https://ansible.com#)
 parmi les outils les plus utilisés et les mieux documentés.
 Ils ont chacun une philosophie de configuration et d'exécution différente
-— l'idéal est encore d'essayer d'écrire une première recette avec chacun d'entre
+– l'idéal est encore d'essayer d'écrire une première recette avec chacun d'entre
 eux pour voir celui qui vous semble le plus naturel à utiliser.
 
 Ma préférence va vers _Ansible_ car le logiciel s'installe facilement
@@ -507,13 +507,13 @@ les serveurs étiquetés dans notre _inventaire_ en tant que `webservers` :
 ----
 include::{sourceDir}/ansible/playbook.yaml[]
 ----
-<1> Actions Git — pour en savoir plus [URL]#https://docs.ansible.com/ansible/2.5/modules/git_module#.
+<1> Actions Git – pour en savoir plus [URL]#https://docs.ansible.com/ansible/2.5/modules/git_module#.
 <2> Adresse du dépôt Git à récupérer.
 <3> Indique de cloner le dépôt s'il n'est pas déjà présent.
 <4> Indique de récupérer les commits du dépôt en faisant `git pull`.
-<5> Actions npm — pour en savoir plus [URL]#https://docs.ansible.com/ansible/2.5/modules/npm_module#.
+<5> Actions npm – pour en savoir plus [URL]#https://docs.ansible.com/ansible/2.5/modules/npm_module#.
 <6> Indique d'installer les dépendances npm en faisant `npm install`.
-<7> Indique de lancer la mise en jour des modules npm avec l'option `--production` — c'est-à-dire sans les dépendances listées dans le champ `devDependencies`.
+<7> Indique de lancer la mise en jour des modules npm avec l'option `--production` – c'est-à-dire sans les dépendances listées dans le champ `devDependencies`.
 
 Les tâches sont réplicables sur les serveurs listés dans un fichier d'inventaire :
 
@@ -536,7 +536,7 @@ machines, avec peu de chances d'oublier une opération et une plus grande facili
 
 Une image Docker est un moyen fiable de reproduire le même environnement
 applicatif et ses dépendances sur plusieurs systèmes d'exploitation
-— y compris Windows, Linux et macOS.
+– y compris Windows, Linux et macOS.
 
 Un des objectifs de Node est de pouvoir faire fonctionner un script
 sur tout système d'exploitation compatible.
@@ -544,7 +544,7 @@ Docker ([URL]#https://www.docker.com#) pousse cette compatibilité plus
 loin en empaquetant tout ce qui est nécessaire au bon fonctionnement
 de l'application (dépendances, logiciels système).
 Le mécanisme d'exécution aide à la fois à orchestrer plusieurs conteneurs entre
-eux — y compris bases de données et moteurs de recherche — et de pouvoir
+eux – y compris bases de données et moteurs de recherche – et de pouvoir
 revenir dans l'état applicatif initial.
 
 Le fichier suivant est un exemple fonctionnel d'image Docker.
@@ -606,7 +606,7 @@ Docker Hub construit l'image à chaque nouveau commit, puis la met à dispositio
 image::images/docker-automated-build.png[width="85%"]
 
 Il ne reste alors plus qu'à la collecter sur un ordinateur avec la commande
-`docker pull` — que ce soit sur notre machine, chez notre hébergeur
+`docker pull` – que ce soit sur notre machine, chez notre hébergeur
 ou par le biais du <<deploy.ci,service d'intégration continue>>.
 
 [NOTE]
@@ -650,7 +650,7 @@ et l'intégration continue.
 J'utilise AppVeyor ([URL]#https://appveyor.com#) en complément d'un autre
 service d'intégration continue quand il s'agit de tester
 la *compatibilité du code avec Windows*
-— ce qui est le cas des exemples de cet ouvrage.
+– ce qui est le cas des exemples de cet ouvrage.
 ====
 
 J'ai une préférence pour GitLab lorsque le projet y est hébergé.
@@ -668,7 +668,7 @@ include::{sourceDir}/.travis.yml[]
 
 Cet exemple est structuré en 3 parties :
 
-. la *configuration de l'environnement* — en l'occurrence Node {nodeCurrentVersion} ;
+. la *configuration de l'environnement* – en l'occurrence Node {nodeCurrentVersion} ;
 . la *commande de test* ;
 . la *configuration du déploiement* en cas de succès.
 
@@ -700,7 +700,7 @@ include::{sourceDir}/.travis-now.yml[]
 ----
 
 Les informations d'exécution des tests sont consignés au même titre que le statut
-du déploiement — voir image ci-contre.
+du déploiement – voir image ci-contre.
 
 .Écran illustrant le déploiement automatique d'une application Node avec la commande `now`.
 image::images/travisci-build.png[width="85%"]
@@ -827,7 +827,7 @@ les champs de configuration qui nous intéressent.
 
 La _commande_ se configure de la même manière
 que l'<<../chapter-04/index.adoc#script,exécution d'un script Node>>
-— cf. <<../chapter-04/index.adoc#,chapitre 4>>.
+– cf. <<../chapter-04/index.adoc#,chapitre 4>>.
 On peut aussi faire appel au
 <<../chapter-05/index.adoc#start,script `npm start`>> comme vu pendant
 la lecture du <<../chapter-05/index.adoc#,chapitre 5>> :
@@ -872,7 +872,7 @@ sur leurs services.
 === Serveur virtualisé, dédié ou cloud
 
 La location d'un serveur dédié revient à payer pour un ordinateur complet,
-son entretien physique et son placement dans un _datacenter_ — un immense
+son entretien physique et son placement dans un _datacenter_ – un immense
 parking à ordinateurs connecté à un réseau haute-capacité.
 
 Les _Virtual Private Servers_ (_VPS_) sont des machines virtuelles
@@ -899,7 +899,7 @@ l'<<deploy.ci,intégration continue>>.
 
 L'offre de serveurs virtualisés et dédiés (VPS, VM) est adaptée à des
 besoins constants et pour héberger plusieurs applications sur une même machine
-— à coût constant.
+– à coût constant.
 
 [format="csv", options="header", separator=";"]
 .Sélection de fournisseurs de serveur virtualisé et dédié
@@ -911,7 +911,7 @@ Service; Déploiement; Add-ons; Tarif horaire; Tarif mensuel
 |===
 
 L'offre _cloud_ est plus intéressante si vos besoins sont
-singulièrement fluctuants — par exemple lorsqu'il y a besoin de doubler le CPU
+singulièrement fluctuants – par exemple lorsqu'il y a besoin de doubler le CPU
 pendant 2 heures, à heure fixe ou en fonction de la charge mais aussi quand il
 s'agit d'ajouter 10 serveurs d'un coup pour traiter un calcul gourmand.
 
@@ -932,7 +932,7 @@ Service; Déploiement; Add-ons; Tarif horaire; Tarif mensuel
 ====
 Le logiciel _Terraform_ ([URL]#https://terraform.io/#) a pour intention
 de documenter une infrastructure (serveurs, DNS, stockage, etc.) sous forme
-d'un fichier de configuration — versionnable avec Git.
+d'un fichier de configuration – versionnable avec Git.
 
 C'est un outil idéal pour automatiser le déploiement d'une infrastructure de zéro
 mais pour la faire évoluer d'une version à une autre.
@@ -967,7 +967,7 @@ une *fonction qui retourne un résultat de manière asynchrone* :
 ----
 include::{sourceDir}/webtask.js[]
 ----
-<1> Le paramètre `context` contient des informations à propos de la requête entrante — paramètres, corps du message, etc.
+<1> Le paramètre `context` contient des informations à propos de la requête entrante – paramètres, corps du message, etc.
 
 Ce code est très similaire à ce que nous pourrions écrire lors de l'événement
 `server.on('request')` du <<../chapter-04/index.adoc#http,module `http`>>.
@@ -1018,7 +1018,7 @@ Les Lambda d'Amazon ne sont pas accessibles depuis Internet par défaut.
 Pour ce faire, il faut les relier au service  et associer
 chaque route à une Lambda.
 Le service se charge de transformer le résultat
-— une chaîne de caractère, un tableau ou un objet ECMAScript —
+– une chaîne de caractère, un tableau ou un objet ECMAScript –
 en une réponse HTTP.
 ====
 
@@ -1029,7 +1029,7 @@ en une réponse HTTP.
 Ce type d'infrastructure a été nommé _serverless_ suite à une organisation
 du marché pour proposer des alternatives aux Lambda d'Amazon.
 
-Quand on entend le mot _serverless_ — littéralement, sans serveur — il faut comprendre
+Quand on entend le mot _serverless_ – littéralement, sans serveur – il faut comprendre
 "sans serveur à gérer soi-même".
 L'hébergeur dispose quand même de machines pour exécuter le code.
 Leurs ressources sont mutualisées au maximum.
@@ -1042,7 +1042,7 @@ déploiement en ligne.
 
 Cette section a pour but de mettre en lumière des
 *points importants qui contribuent à la portabilité de l'application*
-— c'est-à-dire son bon fonctionnement une fois en fonctionnement autre part
+– c'est-à-dire son bon fonctionnement une fois en fonctionnement autre part
 que sur un ordinateur de développement et ce,
 indépendamment du service d'hébergement retenu.
 
@@ -1129,7 +1129,7 @@ include::{sourceDir}/server-port.js[]
 Le déploiement sera considéré comme réussi mais l'application est injoignable.
 C'est parce que les plates-formes de service choisissent ce port pour nous
 et l'associent à l'URL de notre application
-— `monapplication.heroku.com` par exemple.
+– `monapplication.heroku.com` par exemple.
 
 Le port est exposé au travers d'une
 <<../chapter-04/index.adoc#process.env,variable d'environnement>>
@@ -1165,7 +1165,7 @@ C'est un premier pas pour s'affranchir des
 
 La <<port,configuration du port>> de l'application n'est pas le seul
 élément contextuel à changer entre notre ordinateur et un autre
-— que ce soit celui d'une personne contribuant au projet,
+– que ce soit celui d'une personne contribuant au projet,
 au <<deploy.ci,service d'intégration continue>> ou au serveur d'hébergement.
 
 Les <<../chapter-04/index.adoc#process.env,variables d'environnement>>
@@ -1175,8 +1175,8 @@ Elles s'appliquent aux :
 * *URL* d'accès aux bases de données, à des API distantes ;
 * *clés d'API* pour utiliser des services externes ;
 * *réglages* influençant le comportement de l'application ;
-* *chemins d'accès* vers des fichiers ou répertoires — stockage, cache, etc ;
-* *environnements d'exécution* — développement, test, production, etc.
+* *chemins d'accès* vers des fichiers ou répertoires – stockage, cache, etc ;
+* *environnements d'exécution* – développement, test, production, etc.
 
 L'accès à une base de données est un parfait exemple.
 Le nom d'utilisateur, mot de passe et adresse du serveur
@@ -1197,7 +1197,7 @@ include::{sourceDir}/sql-connect.js[]
 ----
 <1> Connexion à la base de données en utilisant la variable d'environnement `MYSQL_URL`.
 <2> Affiche `Connexion réussie :-)` en cas de succès de connexion à la base de données.
-<3> Clôture de la connexion — autrement le script ne se terminerait pas sans avoir recours à kbd:[Ctrl+C].
+<3> Clôture de la connexion – autrement le script ne se terminerait pas sans avoir recours à kbd:[Ctrl+C].
 
 Le script d'exemple devrait avoir affiché la liste des tables contenues
 dans cette base de données ou un message d'erreur le cas échéant.
@@ -1223,15 +1223,15 @@ le script d'exemple `sql-connect.js`
 ====
 
 Certaines variables d'environnement sont tellement spécifiques à chaque usage
-qu'elles doivent être obligatoirement configurées — identifiants, URL de la
+qu'elles doivent être obligatoirement configurées – identifiants, URL de la
 base de données, etc.
-Je trouve pratique de proposer une valeur par défaut pour les autres — le port
+Je trouve pratique de proposer une valeur par défaut pour les autres – le port
 de l'application ou d'autres éléments plus "cosmétiques".
 
 Enfin, j'ai aussi pris l'habitude de documenter les variables d'environnement
 dans le fichier `README.md` à la racine de chaque projet.
 Nous pouvons ainsi avoir une vue d'ensemble de la complexité de configuration
-en un rapide coup d'œil — et ça nous évite de fouiller dans le code applicatif.
+en un rapide coup d'œil – et ça nous évite de fouiller dans le code applicatif.
 
 [TIP]
 .[RemarquePreTitre]#Optimisation# `NODE_ENV=production`
@@ -1240,7 +1240,7 @@ Certains <<../chapter-05/index.adoc#modules,modules npm>> comme _express_
 ([URL]#https://npmjs.com/express#) lisent la valeur de `process.env.NODE_ENV`.
 Ils s'en servent pour procéder à des optimisations et masquer des informations
 sensibles dans un contexte de production
-— l'environnement qui fait face à nos utilisateurs.
+– l'environnement qui fait face à nos utilisateurs.
 
 ----
 $ NODE_ENV=production node app.js
@@ -1264,9 +1264,9 @@ Prenons cet exemple d'arborescence :
 
 Les images sont stockées à deux endroits :
 
-- `app/images` : images statiques affichées par notre application web — on les versionne avec Git;
+- `app/images` : images statiques affichées par notre application web – on les versionne avec Git;
 - `app/uploads/images` : fichiers enregistrés sur le disque par l'intermédiaire
-de notre application — on ne les versionne pas avec Git.
+de notre application – on ne les versionne pas avec Git.
 
 Un inconvénient se présente à nous : nous perdons tout si nous supprimons
 le répertoire `app` pour réinstaller l'application de zéro.
@@ -1372,8 +1372,8 @@ Elles s'utilisent aussi pour *créer la structure de notre base de données* :
 include::{sourceDir}/db-migration-init.js[]
 ----
 <1> Création d'une nouvelle table `fromages` avec 2 colonnes.
-<2> La première colonne se nomme `id` — elle est numérique et s'auto-incrémente à chaque nouvel enregistrement.
-<3> La seconde colonne se nomme `name` — c'est une chaîne de caractères.
+<2> La première colonne se nomme `id` – elle est numérique et s'auto-incrémente à chaque nouvel enregistrement.
+<3> La seconde colonne se nomme `name` – c'est une chaîne de caractères.
 
 Si on met ces deux exemples bout à bout, nous sommes alors en mesure
 de créer une table puis d'y appliquer un changement en ajoutant une nouvelle
@@ -1410,8 +1410,8 @@ C'est tout.
 
 Un gestionnaire de processus a deux utilités :
 
-. *détacher un processus* de notre terminal — si on le ferme, l'application tourne toujours ;
-. *gérer plusieurs processus par application* — un frontal web et l'admin par exemple.
+. *détacher un processus* de notre terminal – si on le ferme, l'application tourne toujours ;
+. *gérer plusieurs processus par application* – un frontal web et l'admin par exemple.
 
 _pm2_ ([URL]#https://pm2.keymetrics.io#) est un gestionnaire de processus
 disponible en tant que <<../chapter-05/index.adoc#modules,module npm>>
@@ -1489,9 +1489,9 @@ C'est le gestionnaire de services des distributions Linux _Ubuntu_,
 include::{sourceDir}/systemd/nodebook.d/app.conf[]
 ----
 <1> L'application démarrera dès que l'interface réseau sera opérationnelle.
-<2> L'application sera relancée en cas de plantage — maximum 5 fois dans un délai de 120 secondes.
+<2> L'application sera relancée en cas de plantage – maximum 5 fois dans un délai de 120 secondes.
 <3> Le processus sera démarré au nom de l'utilisateur système `nobody`.
-<4> C'est comme si nous faisions `cd /usr/local/node-app` avant de lancer l'application — c'est la valeur qu'on retrouve avec `process.cwd()`.
+<4> C'est comme si nous faisions `cd /usr/local/node-app` avant de lancer l'application – c'est la valeur qu'on retrouve avec `process.cwd()`.
 <5> Commande à exécuter pour démarrer l'application.
 
 Le service associé au fichier de configuration précédent peut être démarré
@@ -1538,7 +1538,7 @@ Leur capacité à redémarrer une application Node en cas de plantage ou de
 nouveau déploiement nous enlève une épine du pied.
 Certains ont même des facultés de _répartition de charge_ (_load balancing_) :
 plusieurs instances de la même application tournent alors en parallèle
-— une par CPU.
+– une par CPU.
 Le trafic est réparti vers l'instance qui a le plus de CPU disponible.
 ====
 
@@ -1575,7 +1575,7 @@ include::{sourceDir}/nginx/phusion-webapp.conf[lines=2..-1]
 <1> Activation du module _Phusion Passenger_ pour _nginx_.
 <2> Nous indiquons à _Phusion Passenger_ qu'il s'agit d'une application Node.
 <3> L'application se trouve dans le répertoire `/var/apps/my-app`.
-<4> Le script à démarrer est `app.js` — c'est-à-dire `/var/apps/my-app/app.js`.
+<4> Le script à démarrer est `app.js` – c'est-à-dire `/var/apps/my-app/app.js`.
 <5> Emplacement où _Phusion Passenger_ ira chercher les fichiers statiques.
 
 _Phusion Passenger_ démarre l'application Node pour nous.
@@ -1629,7 +1629,7 @@ nous aurons besoin d'avoir plus de précisions, rapidement.
 _Sentry_ ([URL]#https://sentry.io#) est un service en ligne qui s'intègre
 dans notre code comme une sonde.
 Une fois placée, la sonde transmet les erreurs vers la plate-forme _Sentry_.
-Cette plate-forme affiche les erreurs connues sous forme de tableau de bord —
+Cette plate-forme affiche les erreurs connues sous forme de tableau de bord –
 leur nature, combien de fois elles se répètent.
 Elle nous envoie également une notification par e-mail avec une indication
 de sévérité, pour que nous puissions réagir plus ou moins rapidement.
@@ -1645,8 +1645,8 @@ L'inclusion d'une sonde basique revient à insérer 2 lignes dans notre code :
 include::{sourceDir}/sentry.js[]
 ----
 <1> _raven_ est le nom du module npm édité par Sentry pour collecter les erreurs.
-<2> Configuration du client Sentry — il collectera et enverra les erreurs auprès du service Sentry.
-<3> Cette ligne est la source de notre erreur — la variable n'est pas définie.
+<2> Configuration du client Sentry – il collectera et enverra les erreurs auprès du service Sentry.
+<3> Cette ligne est la source de notre erreur – la variable n'est pas définie.
 
 _Sentry_ nous communique une clé d'API pour chaque projet à monitorer.
 Quand vous obtenez la vôtre, modifiez la ligne de commande suivante afin
@@ -1739,7 +1739,7 @@ image::images/snyk-vulnerability.png[width="85%"]
 
 La correction du problème implique de passer à la version 5.
 Cette action nous demandera surement d'adapter notre code car nous changeons
-de version majeure — de la version 4 à la version 5.
+de version majeure – de la version 4 à la version 5.
 Ces migrations sont souvent documentées par les auteurs des modules.
 
 [TIP]

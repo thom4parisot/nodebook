@@ -35,9 +35,9 @@ et Windows.
 --
 Après avoir exécuté notre premier script Node, nous allons nous découvrir
 l'étendue des modules Node et ce qu'ils nous offrent en terme de capacité
-d'interaction avec le système d'exploitation — disque, réseau, calculs, etc.
+d'interaction avec le système d'exploitation – disque, réseau, calculs, etc.
 
-Nous apprendrons ensuite à créer et organiser nos propres modules — nous
+Nous apprendrons ensuite à créer et organiser nos propres modules – nous
 découvrirons comment les partager et les distribuer dans le chapitre 5.
 
 Enfin, nous passerons en revue des erreurs typiques pour apprendre à les lire
@@ -199,7 +199,7 @@ Ces touches ou combinaisons de touches sont utiles pour naviguer dans
 l'invite de commande :
 
 - la combinaison de touches kbd:[Ctrl+C] annule
-la saisie de la ligne en cours — c'est kbd:[{ctrl}+C] sous macOS ;
+la saisie de la ligne en cours – c'est kbd:[{ctrl}+C] sous macOS ;
 - les touches _flèche haut_ (kbd:[{arrowUp}]) et _flèche bas_
 (kbd:[{arrowDown}]) aident à naviguer dans l'historique des commandes ;
 - la touche _tabulation_ (kbd:[TAB]) tente de compléter la saisie avec une
@@ -296,7 +296,7 @@ Le chargement d'un module de base s'effectue en passant son identifiant
 Cette fonction retourne alors un objet avec un certain nombre de _propriétés_ et
 de _fonctions_.
 
-Ainsi, on chargera le <<fs,module `fs`>> (pour _file system_ — _système de fichiers_)
+Ainsi, on chargera le <<fs,module `fs`>> (pour _file system_ – _système de fichiers_)
 afin d'interagir avec les fichiers et les répertoires présents sur l'ordinateur :
 
 [source%interactive,javascript]
@@ -304,7 +304,7 @@ afin d'interagir avec les fichiers et les répertoires présents sur l'ordinateu
 ----
 include::{sourceDir}/fs/read-dir.js[]
 ----
-<1> On assigne les fonctions et attributs du module `fs` dans la variable `fs` — on pourrait l'appeler autrement si on en avait envie.
+<1> On assigne les fonctions et attributs du module `fs` dans la variable `fs` – on pourrait l'appeler autrement si on en avait envie.
 <2> L'appel à la fonction `fs.readdir` passe un objet d'erreur ainsi que la liste des fichiers et répertoires contenus dans le chemin indiqué.
 <3> Affiche un tableau contenant les noms de fichiers et de répertoires présents dans le dossier courant.
 
@@ -458,7 +458,7 @@ Le module `path` offre un ensemble de fonctions et de propriétés pour
 manipuler et construire des chemins vers des fichiers et répertoires.
 
 Ces opérations permettent à notre code de fonctionner de manière identique
-sur des systèmes d'exploitation exprimant les chemins de manière différente —
+sur des systèmes d'exploitation exprimant les chemins de manière différente –
 comme Linux et Windows par exemple.
 
 [source%interactive,javascript]
@@ -480,8 +480,8 @@ Le résultat d'un même appel de fonction sera différent _mais_ correspondra
 ----
 include::{sourceDir}/path/platform.js[]
 ----
-<1> Affiche `/` — `\` sous Windows.
-<2> Affiche `tmp/package.json` — `tmp\package.json` sous Windows.
+<1> Affiche `/` – `\` sous Windows.
+<2> Affiche `tmp/package.json` – `tmp\package.json` sous Windows.
 
 On constate que `path.join` assemble les chemins en utilisant la valeur de
 `path.sep`.
@@ -496,8 +496,8 @@ des chemins complets, _relatifs à notre emplacement_ actuel :
 ----
 include::{sourceDir}/path/relative.js[]
 ----
-<1> Affiche `../source` — `..\source` sous Windows — c'est le chemin à parcourir pour aller du premier chemin au second chemin.
-<2> Affiche `/tmp/source` — `C:\tmp\source` sous Windows — on constate que le chemin _résolu_ est absolu, et intègre la lettre du lecteur sous Windows.
+<1> Affiche `../source` – `..\source` sous Windows – c'est le chemin à parcourir pour aller du premier chemin au second chemin.
+<2> Affiche `/tmp/source` – `C:\tmp\source` sous Windows – on constate que le chemin _résolu_ est absolu, et intègre la lettre du lecteur sous Windows.
 
 Les résultats produits par les fonctions du module `path`
 se combinent particulièrement bien avec celles <<fs,du module `fs`>>, pour
@@ -586,7 +586,7 @@ et de récupérer une URL sous forme d'une chaîne de caractères :
 ----
 include::{sourceDir}/url/to-string.js[]
 ----
-<1> Affiche `https://oncletom.io/#top` — le chemin et le fragment ont été modifiées.
+<1> Affiche `https://oncletom.io/#top` – le chemin et le fragment ont été modifiées.
 
 La fonction `format()` va plus loin que `url.toString()`.
 Ses options contrôlent plus finement ce qui sera conservé ou retiré lors
@@ -597,7 +597,7 @@ de la conversion en chaîne de caractères :
 ----
 include::{sourceDir}/url/format.js[]
 ----
-<1> Affiche `https://oncletom.io/` — les identifiants, l'ancre et les arguments ont été retirés par la fonction `format()`.
+<1> Affiche `https://oncletom.io/` – les identifiants, l'ancre et les arguments ont été retirés par la fonction `format()`.
 
 Le constructeur `URL` accepte une URL de référence en second argument.
 Cette adresse résout un chemin absolu à partir du premier argument :
@@ -648,9 +648,9 @@ Les paramètres ne sont pas en reste avec l'attribut `searchParams` :
 ----
 include::{sourceDir}/url/search-params.js[]
 ----
-<1> Affiche `https://oncletom.io/?search=node.js` — représentation de l'URL complète.
-<2> Affiche `search=node.js` — représentation des paramètres seulement.
-<3> Affiche `https://oncletom.io/` — le paramètre `search` et sa valeur ont été supprimés de l'URL.
+<1> Affiche `https://oncletom.io/?search=node.js` – représentation de l'URL complète.
+<2> Affiche `search=node.js` – représentation des paramètres seulement.
+<3> Affiche `https://oncletom.io/` – le paramètre `search` et sa valeur ont été supprimés de l'URL.
 
 [horizontal]
 .Propriétés notables de la classe `URLSearchParams`
@@ -706,7 +706,7 @@ include::{sourceDir}/fs/intro.js[]
 include::{sourceDir}/dirname-filename.js[]
 ----
 <1> Affiche `/.../chapter-04/examples/dirname-filename.js`.
-<2> Affiche `true` — ça ne serait pas un _raccourci_ sinon ;-).
+<2> Affiche `true` – ça ne serait pas un _raccourci_ sinon ;-).
 <3> Affiche `/.../chapter-04/examples`.
 
 Ces variables sont utiles pour opérer sur
@@ -772,7 +772,7 @@ Cela veut aussi dire que les erreurs sont obtenues de manière asynchrone :
 ----
 include::{sourceDir}/fs/rmdir.js[]
 ----
-<1> Indique que la suppression n'a pas abouti car le répertoire en question n'est pas vide — et pour cause, c'est celui qui contient notre fichier d'exemple.
+<1> Indique que la suppression n'a pas abouti car le répertoire en question n'est pas vide – et pour cause, c'est celui qui contient notre fichier d'exemple.
 
 On peut articuler plusieurs opérations entre elles.
 Et utiliser le <<path,module `path`>> pour construire des chemins robustes
@@ -860,7 +860,7 @@ Nous apprendrons à faire ça dans la section du <<util,module `util`>>.
 [NOTE]
 .[RemarquePreTitre]#Définition# Lien symbolique
 ====
-Fichier qui fait référence à un autre fichier — c'est comme un _alias_.
+Fichier qui fait référence à un autre fichier – c'est comme un _alias_.
 Toutes les modifications effectuées sur le lien symbolique sont
 répercutées sur le fichier d'origine.
 
@@ -888,7 +888,7 @@ en guise de courriers.
 include::{sourceDir}/events/intro.js[]
 ----
 <1> Création d'un gestionnaire d'événements.
-<2> Enregistrement d'une fonction d'écoute — elle sera exécutée à chaque émission de l'événement `date`.
+<2> Enregistrement d'une fonction d'écoute – elle sera exécutée à chaque émission de l'événement `date`.
 <3> Émission d'un événement `date` avec comme argument, un <<../chapter-03/index.adoc#date,objet `Date`>>.
 
 Un événement se décompose en 3 parties : les fonctions d'écoute,
@@ -902,7 +902,7 @@ Contrairement à ce que l'on pourrait penser, le langage ECMAScript ne possède
 aucune structure de gestion d'événements.
 
 S'il est possible de réagir à des événements dans les navigateurs web,
-c'est grâce à la spécification DOM — l'API JavaScript pour manipuler
+c'est grâce à la spécification DOM – l'API JavaScript pour manipuler
 une structure de document HTML.
 
 Pour en savoir plus : [URL]#https://developer.mozilla.org/fr/docs/Web/Events#.
@@ -1112,7 +1112,7 @@ vers des adresses commençant par `https://`.
 ----
 include::{sourceDir}/http/intro.js[]
 ----
-<1> Initialisation de la requête — un objet représentant la <<http.IncomingMessage,réponse du serveur distant>> nous est transmis. À ce stade là, le serveur n'a pas encore commencé à renvoyer des données.
+<1> Initialisation de la requête – un objet représentant la <<http.IncomingMessage,réponse du serveur distant>> nous est transmis. À ce stade là, le serveur n'a pas encore commencé à renvoyer des données.
 <2> On en est à l'étape où on reçoit des données. Le contenu du fichier `package.json` est affiché sous forme de chaînes de caractères.
 
 Ce premier exemple met en lumière *la nature asynchrone et non-bloquante par défaut de Node*.
@@ -1126,7 +1126,7 @@ le fonctionnement d'une requête HTTP :
 . envoi de la requête au serveur distant (`get()`)
 . obtention d'une réponse (objet `response` dans le callback)
 . transmission d'informations (événement `data`)
-. clôture de la transmission (événement `end` — cf. exemple suivant)
+. clôture de la transmission (événement `end` – cf. exemple suivant)
 
 Pour rester rapide, Node fait aussi le choix de transmettre les données
 au fur et à mesure.
@@ -1260,7 +1260,7 @@ Nous verrons comment arriver au même résultat en écrivant moins de code grâc
 `message.on('readable')`::
   Déclenché quand nous pouvons commencer à lire les données.
 `message.read()`::
-  Obtient un morceau de données manuellement — au lieu d'utiliser
+  Obtient un morceau de données manuellement – au lieu d'utiliser
   l'événement `data`, automatique.
   On apprendra mieux comment manipuler cette fonction dans la section
   <<stream,module `streams`>>.
@@ -1268,7 +1268,7 @@ Nous verrons comment arriver au même résultat en écrivant moins de code grâc
   Termine la transmission des données sans que le serveur distant
   nous aie tout transmis.
 attribut `message.headers`::
-  Objet contenant les entêtes de la réponse — c'est le serveur distant qui décide
+  Objet contenant les entêtes de la réponse – c'est le serveur distant qui décide
   de leur contenu.
 attribut `message.statusCode`::
   Code qui reflète l'état de compréhension de notre requête par le serveur distant.
@@ -1283,10 +1283,10 @@ d'un serveur HTTP.
 ----
 include::{sourceDir}/http/server.js[]
 ----
-<1> Ouverture de l'acceptation des connexions réseaux sur le port `8000`, uniquement sur la boucle locale (`localhost`) — une erreur sera affichée si ce port réseau est déjà pris par un autre processus.
-<2> Affiche `Serveur démarré !` quand Node a fini de négocier l'accès aux ressources réseau avec le système d'exploitation — à ce stade, le serveur est prêt à recevoir des _connexions entrantes_.
+<1> Ouverture de l'acceptation des connexions réseaux sur le port `8000`, uniquement sur la boucle locale (`localhost`) – une erreur sera affichée si ce port réseau est déjà pris par un autre processus.
+<2> Affiche `Serveur démarré !` quand Node a fini de négocier l'accès aux ressources réseau avec le système d'exploitation – à ce stade, le serveur est prêt à recevoir des _connexions entrantes_.
 <3> Lorsqu'une requête arrive, affiche l'URL demandée par le client.
-<4> Termine la connexion avec le client — ce dernier considère sa requête comme terminée.
+<4> Termine la connexion avec le client – ce dernier considère sa requête comme terminée.
 
 [NOTE]
 .[RemarquePreTitre]#Apparté# Pourquoi démarrer un serveur HTTP ?
@@ -1315,7 +1315,7 @@ Serveur démarré !
 Le serveur continuera d'accepter les requêtes entrantes jusqu'à ce que le
 <<process,processus>> soit interrompu par une erreur ou par un
 <<signals,signal d'arrêt>>
-— en utilisant la combinaison de touches kbd:[Ctrl+C] par exemple.
+– en utilisant la combinaison de touches kbd:[Ctrl+C] par exemple.
 
 Accédez au serveur HTTP en ouvrant un navigateur web comme Firefox ou Chrome
 puis en inscrivant `http://localhost:4000` dans la barre d'adresses.
@@ -1357,7 +1357,7 @@ include::{sourceDir}/http/web-server.js[]
 .[RemarquePreTitre]#Important# La fonction `response.end()`
 ====
 L'appel de la fonction `response.end()` est impératif.
-Sans ça, le client — ici, le navigateur web — pense que des données peuvent
+Sans ça, le client – ici, le navigateur web – pense que des données peuvent
 encore arriver.
 
 Si on supprime l'appel à `response.end()` dans l'exemple précédent,
@@ -1653,7 +1653,7 @@ Si on arrive au même résultat en utilisant `exec('ls')`, pourquoi utiliser
 la fonction `fs.readdir` du <<fs,module `fs`>> ?
 `fs.readdir` a au moins 3 avantages :
 
-. elle est plus rapide — à écrire, à exécuter, à diagnostiquer
+. elle est plus rapide – à écrire, à exécuter, à diagnostiquer
 . on économise la création d'un processus système
 . compatibilité avec tous les systèmes d'exploitation
 ====
@@ -1704,7 +1704,7 @@ et de communication avec un processus externe.
 ----
 include::{sourceDir}/child_process/spawn.js[]
 ----
-<1> `cat` est un programme qui affiche le contenu d'un fichier — un peu comme `fs.readFile`.
+<1> `cat` est un programme qui affiche le contenu d'un fichier – un peu comme `fs.readFile`.
 <2> Les données retournées par la commande externe se lisent depuis les <<process.std,flux de sorties>>.
 <3> Affiche le contenu du fichier `package.json`.
 
@@ -1722,7 +1722,7 @@ C'est un <<stream,Stream d'écriture>> dont le fonctionnement est identique
 include::{sourceDir}/child_process/spawn-stdin.js[]
 ----
 <1> Écrit `0123 abcd` dans le flux d'entrée.
-<2> Signale au processus externe qu'il n'aura plus de donnée — le programme `tr` rendra la main dès qu'il nous aura tout transmis.
+<2> Signale au processus externe qu'il n'aura plus de donnée – le programme `tr` rendra la main dès qu'il nous aura tout transmis.
 <3> Affiche `abcd klmn`.
 
 L'exécutable `tr` ([URL]#https://fr.wikipedia.org/wiki/Tr_(Unix)#)
@@ -1786,8 +1786,8 @@ est globale.
 ----
 include::{sourceDir}/process/intro.js[]
 ----
-<1> Affiche quelque chose comme `['LANG', 'SHELL', 'PATH', 'HOME', 'USER', ...]` — cf.{nbsp}<<process.env,variables d'environnement>>.
-<2> Affiche `[ '.../v{nodeV}/bin/node', '.../chapter-04/examples/process/intro.js' ]` — cf.{nbsp}<<process.argv,arguments d'exécution>>.
+<1> Affiche quelque chose comme `['LANG', 'SHELL', 'PATH', 'HOME', 'USER', ...]` – cf.{nbsp}<<process.env,variables d'environnement>>.
+<2> Affiche `[ '.../v{nodeV}/bin/node', '.../chapter-04/examples/process/intro.js' ]` – cf.{nbsp}<<process.argv,arguments d'exécution>>.
 
 Notre code peut être interprété par Node
 sur plusieurs types de machines
@@ -2109,13 +2109,13 @@ Voyons comment ça fonctionne sous le capot :
 include::{sourceDir}/process/stdin-uppercase.js[]
 ----
 <1> Chaque afflux de donnée appelle notre fonction en lui fournissant un seul paramètre contenant les données en question.
-<2> Le paramètre est de <<buffer,type Buffer>> — on souhaite le transformer en <<../chapter-03/index.adoc#string,chaîne de caractères>>.
+<2> Le paramètre est de <<buffer,type Buffer>> – on souhaite le transformer en <<../chapter-03/index.adoc#string,chaîne de caractères>>.
 <3> La chaîne de caractères est transformable en majuscules, que l'on écrit dans le flux de sortie.
 
 Terminons avec la sortie erreur (`process.stderr`).
 Elle fonctionne de manière identique à la sortie standard (`process.stdout`).
 S'il n'y a visuellement aucune différence, la sortie erreur écrit son contenu
-dans un canal différent — un descripteur différent. +
+dans un canal différent – un descripteur différent. +
 On l'utilise pour *déboguer des programmes*, pour *lister des erreurs* ou des
 contenus que l'on souhaite dissocier de la sortie standard.
 
@@ -2147,7 +2147,7 @@ de touches kbd:[Ctrl+C].
 include::{sourceDir}/process/stdout-long.js[]
 ----
 <1> Écrit un nombre entre 0 et 30 dans la sortie standard.
-<2> On vérifie si la valeur du compteur est divisible par 5 — c'est le cas si la division produit un entier au lieu d'un nombre à virgule.
+<2> On vérifie si la valeur du compteur est divisible par 5 – c'est le cas si la division produit un entier au lieu d'un nombre à virgule.
 <3> Affiche `Compteur = 5` puis `Compteur = 10` (et ainsi de suite) dans la sortie erreur.
 
 On pourrait décider de n'afficher que le flux d'erreur.
@@ -2430,7 +2430,7 @@ include::{sourceDir}/stream/write.js[]
 <1> On crée un flux d'écriture vers le fichier `stream/debug.txt`.
 <2> Écrit `Hell` dans le flux.
 <3> Écrit `d!` dans le flux et signale que nous n'avons plus de données à transmettre.
-<4> L'utilisation de `stream.end()` déclenche l'événement `finish` — nous lisons le contenu du fichier à ce moment là.
+<4> L'utilisation de `stream.end()` déclenche l'événement `finish` – nous lisons le contenu du fichier à ce moment là.
 
 Cette écriture par morceaux a pour effet de réduire la pression mémoire
 exercée par Node sur le système d'exploitation et pour le reste du programme.
@@ -2505,7 +2505,7 @@ $ node stream/pipe-transform.js
 ----
 
 L'affichage semble bizarre et c'est normal : ce sont des données compressées
-au format _gzip_ — un format de compression libre.
+au format _gzip_ – un format de compression libre.
 
 Le programme Unix `gzip` sait décoder des données compressées dans ce format.
 Il sait aussi les décoder à la volée avec un _pipe_ :
@@ -2718,7 +2718,7 @@ liste d'actions suivantes :
 
 L'utilisation de `require()` est synchrone et bloquante.
 Si l'exécution du code dans le module chargé prend du temps
-— code _lent_, accès à une ressource distante — le chargement
+– code _lent_, accès à une ressource distante – le chargement
 du module en prendra un coup.
 
 `require()` permet de charger 3 types de modules :
@@ -2749,7 +2749,7 @@ Voici un module illustrant une variable privée et une variable exportée :
 include::{sourceDir}/modules/increment.js[]
 ----
 <1> Variable privée.
-<2> `increment` est rendue publique à cet endroit — la fonction incrémente la variable privée `counter`.
+<2> `increment` est rendue publique à cet endroit – la fonction incrémente la variable privée `counter`.
 
 Nous allons importer ce module par deux fois, dans deux variables différentes :
 
@@ -2858,7 +2858,7 @@ Reprenons cet exemple pour importer plusieurs exports d'un coup :
 ----
 include::{sourceDir}/modules/ecmascript-multiple.mjs[]
 ----
-<1> On importe la valeur par défaut ainsi qu'une valeur nommée — c'est particulièrement pratique pour sélectionner avec finesse ce que l'on veut utiliser d'un module.
+<1> On importe la valeur par défaut ainsi qu'une valeur nommée – c'est particulièrement pratique pour sélectionner avec finesse ce que l'on veut utiliser d'un module.
 <2> La fonction `reset` remet le compteur à zéro.
 
 On notera au passage qu'on utilise la
@@ -2881,7 +2881,7 @@ Résumons les différences notables avec le mécanisme de modules Node :
 - on ne peut pas utiliser `import` de manière dynamique
 (dans un `if/else` par exemple)
 - on peut exporter une variable par défaut et plusieurs variables nommées
-- on peut importer des modules Node depuis un module ECMAScript —
+- on peut importer des modules Node depuis un module ECMAScript –
 l'inverse n'est pas vrai
 - les fichiers doivent être suffixés par `.mjs`
 
@@ -3251,10 +3251,10 @@ interface existe déjà à la même adresse. | Vérifier l'origine du serveur d�
 Il arrive qu'un programme ne se termine pas contrairement à nos attentes.
 Il peut y avoir plusieurs raisons à ça :
 
-- une ressource distante *met du temps à répondre* —
+- une ressource distante *met du temps à répondre* –
 un _timeout_ déclenchera une erreur (généralement sous 30 secondes)
 - un traitement prend du temps
-- un *événement est en cours d'écoute* — typiquement un serveur web qui attend
+- un *événement est en cours d'écoute* – typiquement un serveur web qui attend
 des requêtes entrantes
 - une erreur n'a pas été capturée et perturbe les instructions suivantes
 
@@ -3591,7 +3591,7 @@ Ils nous interfacent avec le système d'exploitation pour naviguer dans les fich
 ouvrir des connexions réseau et télécharger des fichiers distants.
 *Bien les connaître nous aidera au quotidien*.
 
-L'organisation des modules CommonJS — voire des modules ECMAScript — est l'autre
+L'organisation des modules CommonJS – voire des modules ECMAScript – est l'autre
 élément majeur de ce chapitre.
 Avec ça, nous rendons notre *code modulaire, réutilisable et donc testable*.
 
