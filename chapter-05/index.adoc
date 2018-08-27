@@ -39,7 +39,7 @@ de nos projets.
 
 [abstract]
 --
-Ce chapitre va nous permettre d'y voir plus clair du côté des <<modules,modules npm>>.
+Ce chapitre va nous permettre d'y voir plus clair du côté des <<modules,modules `npm`>>.
 Nous apprendrons comment identifier des module de confiance, les installer et
 les mettre à jour sans casser nos projets.
 
@@ -115,18 +115,18 @@ En attendant, focalisons-nous sur les opérations courantes comme
 l'installation de modules.
 
 [[modules]]
-== Installer des modules npm
+== Installer des modules `npm`
 
 Le mécanisme de modules est documenté dans
 le <<../chapter-04/index.adoc#modules,chapitre 4>>.
 Les fonctions `require()` et `import` chargent nos propres modules mais aussi
 les modules de base, installés avec Node.
-Les modules npm sont des *modules complémentaires et téléchargeables* à l'aide
+Les modules `npm` sont des *modules complémentaires et téléchargeables* à l'aide
 de l'exécutable `npm`.
 
 Cette section va nous aider à comprendre ce qu'il se passe sous le capot
 pendant les phases d'installation, de mise à jour et de désinstallation
-des modules npm.
+des modules `npm`.
 
 === Depuis le registre npm
 
@@ -193,9 +193,9 @@ Maintenant que nous savons installer un module npm, nous pouvons en chercher
 d'autres et comprendre comment les utiliser.
 
 [NOTE]
-.[RemarquePreTitre]#Question# Où sont stockés les modules npm ?
+.[RemarquePreTitre]#Question# Où sont stockés les modules `npm` ?
 ====
-Les modules npm et leurs dépendances sont stockés dans un répertoire
+Les modules `npm` et leurs dépendances sont stockés dans un répertoire
 `node_modules`.
 Ce répertoire est situé au même niveau que le fichier `package.json`.
 ====
@@ -228,7 +228,7 @@ pour en savoir plus.
 [[registry]]
 === Trouver son bonheur dans le registre npm
 
-Le _registre npm_ ([URL]#https://npmjs.com#) fourmille de modules
+Le registre `npm` ([URL]#https://npmjs.com#) fourmille de modules
 – de simples fonctions, des librairies ou des _frameworks_ complets.
 Ils couvrent un spectre d'usages allant de l'accès aux bases de données,
 à des frameworks web, à des outils front-end, des utilitaires de test,
@@ -240,7 +240,7 @@ Tapez `mysql` dans le champ de recherche du registre npm ou saisissez
 directement l'URL menant aux résultats de cette recherche en vous
 rendant sur [URL]#https://npmjs.com/search?q=mysql# :
 
-.Extrait des résultats d'une recherche de modules npm avec le mot-clé _mysql_.
+.Extrait des résultats d'une recherche de modules `npm` avec le mot-clé _mysql_.
 image::images/npm-registry-search.png[]
 
 Les résultats sont triés par pertinence – un mélange entre popularité,
@@ -324,7 +324,7 @@ Il y a aussi des modules dans lesquels j'ai une confiance quasi-aveugle.
 Ils sont publiés par les personnes présentes dans cette liste non-exhaustive :
 
 [format="csv"]
-.Auteurs et autrices de modules npm à suivre
+.Auteurs et autrices de modules `npm` à suivre
 |===
 dougwilson, [URL]#https://npmjs.com/~dougwilson#
 feross, [URL]#https://npmjs.com/~feross#
@@ -342,7 +342,7 @@ zkat, [URL]#https://npmjs.com/~zkat#
 |===
 
 [TIP]
-.[RemarquePreTitre]#Pratique# Sélection de modules npm
+.[RemarquePreTitre]#Pratique# Sélection de modules `npm`
 ====
 J'ai compilé une liste de modules utiles pour mieux démarrer
 dans vos projets.
@@ -427,7 +427,7 @@ Rendez-vous dans la <<ci,section `npm ci`>> pour en savoir plus à son sujet.
 
 Par défaut, l'exécutable `npm` installe la dernière version d'un module.
 Nous avons la liberté d'en installer d'autres qui sont antérieures.
-C'est pratique quand des modules npm arrêtent de supporter
+C'est pratique quand des modules `npm` arrêtent de supporter
 des navigateurs web ou des versions de Node alors que nous les utilisons encore.
 
 Nous allons utiliser le module _lodash_ ([URL]#https://npmjs.com/lodash#)
@@ -578,7 +578,7 @@ corrigées ou modifiées et ce, sans affecter notre code ;
 Une mise à jour majeure demande de lire attentivement la documentation du module
 pour comprendre le volume de travail à fournir avant de monter en version.
 La mise à jour mineure peut occasionnellement demander du travail selon
-interprétation des développeurs de modules npm.
+interprétation des développeurs de modules `npm`.
 
 [format="csv", options="header", cols="1,2,3,3"]
 .Différentes manières d'exprimer des versions
@@ -599,13 +599,13 @@ car elles contiennent des corrections qui peuvent bénéficier à nos applicatio
 .[RemarquePreTitre]#Pratique# Calculateur de version
 ====
 L'outil en ligne [URL]#https://semver.npmjs.com# sert à tester
-la syntaxe des versions sémantiques avec de véritables modules npm.
+la syntaxe des versions sémantiques avec de véritables modules `npm`.
 ====
 
 [[update]]
 === Mises à jour
 
-Nous avons appris à installer des modules npm dans les versions de notre choix
+Nous avons appris à installer des modules `npm` dans les versions de notre choix
 et à les réinstaller depuis la liste contenue dans le fichier `package.json`.
 Comment savoir si ces derniers sont à mettre à jour ?
 
@@ -672,7 +672,7 @@ $ npm outdated
 
 Si rien ne s'affiche, c'est que tout est bon : nos modules sont à jour !
 
-== Autres manières d'installer et d'utiliser des modules npm
+== Autres manières d'installer et d'utiliser des modules `npm`
 
 Dans la section précédente, nous avons appris à installer des modules
 depuis le registre npm. +
@@ -745,7 +745,7 @@ une option payante sur le registre npm principal.
 [[install.dev]]
 === Dépendance de développement
 
-Les dépendances de développement sont des modules npm utilisés
+Les dépendances de développement sont des modules `npm` utilisés
 pour *exécuter les tests unitaires*.
 Les *modules utilisés pour de l'outillage* sont aussi des dépendances de développement.
 Ce sont des modules que nous n'appelons pas directement avec les
@@ -798,7 +798,7 @@ C'est l'idéal dans le cas du déploiement de
 [[install.global]]
 === Exécutable système (installation globale)
 
-Certains modules npm s'installent comme des programmes exécutables.
+Certains modules `npm` s'installent comme des programmes exécutables.
 Ils s'appellent ensuite dans un terminal, exactement comme nous le faisions
 jusqu'à présent avec l'exécutable `npm`.
 
@@ -818,7 +818,7 @@ $ npm install ##--global## serve
 [NOTE]
 .[RemarquePreTitre]#Question# Comment savoir si un module npm s'installe comme un exécutable système ?
 ====
-En général, les modules npm qui se prêtent bien au jeu du `npm install --global`
+En général, les modules `npm` qui se prêtent bien au jeu du `npm install --global`
 sont ceux qui documentent des exemples de commande à exécuter,
 qui se décrivent comme des outils en ligne de commande ou qui
 mentionnent explicitement l'installation globale.
@@ -843,7 +843,7 @@ INFO: Accepting connections at http://localhost:3000
 [TIP]
 .[RemarquePreTitre]#Documentation# L'option `--help`
 ====
-Par convention, les modules npm qui s'utilisent en ligne de commande
+Par convention, les modules `npm` qui s'utilisent en ligne de commande
 sont accompagnés d'une documentation.
 Ce manuel décrit des cas d'usages ainsi que les options à disposition.
 
@@ -872,7 +872,7 @@ Les scripts npm sont des outils puissants qui *autonomisent l'outillage projet*,
 complexes à mémoriser.
 
 Les scripts npm sont consignés dans la section `scripts` du fichier `package.json`.
-Ils se basent sur des scripts Node et des modules npm pour
+Ils se basent sur des scripts Node et des modules `npm` pour
 lancer des actions quand des fichiers sont modifiés,
 transformer des feuilles de style, exécuter des tests unitaires ou fonctionnels,
 déployer le projet, entre autres.
@@ -923,12 +923,12 @@ pour démarrer une application web.
 Plus exactement, nous avons utilisé l'exécutable fourni par ce module.
 
 [TIP]
-.[RemarquePreTitre]#Pratique# Les modules npm exécutables dans les scripts npm
+.[RemarquePreTitre]#Pratique# Les modules `npm` exécutables dans les scripts npm
 ====
-Les <<install.global,modules npm exécutables>> sont disponibles au niveau du
+Les <<install.global,modules `npm` exécutables>> sont disponibles au niveau du
 système lorsqu'ils sont installés avec l'option `--global`.
 
-Les exécutables des modules npm listés dans `dependencies` et `devDependencies`
+Les exécutables des modules `npm` listés dans `dependencies` et `devDependencies`
 sont utilisables dans les scripts npm.
 
 Nous pouvons ainsi contenir tous les exécutables nécessaires dans les
@@ -1243,7 +1243,7 @@ Tant mieux si nous pouvons nous en passer pour façonner nos propres outils.
 == Anatomie du fichier `package.json`
 
 Le fichier `package.json` est essentiel pour tirer parti de l'exécutable `npm`.
-Tout projet intéressé par l'<<install,installation de modules npm>> ou par
+Tout projet intéressé par l'<<install,installation de modules `npm`>> ou par
 l'<<scripts,outillage des scripts>> va forcément avoir ce fichier quelque
 part dans son arborescence.
 
@@ -1283,7 +1283,7 @@ Section;Obligatoire{nbsp}?;Type;Modifiable;Description
 Section;Obligatoire{nbsp}?;Type;Modifiable;Description
 `private`;{cross};Booléen;À la main;Empêche la publication accidentelle sur le registre npm
 `engines`;{cross};Objet (nom/<<semver,SemVer>>);À la main;Certains hébergeurs utilisent ce champ pour déterminer la version de Node à utiliser
-`dependencies`;{cross};Objet (nom/<<semver,SemVer>>);Avec `npm install`;Voir la section <<install,installer des modules npm>>
+`dependencies`;{cross};Objet (nom/<<semver,SemVer>>);Avec `npm install`;Voir la section <<install,installer des modules `npm`>>
 `devDependencies`;{cross};Objet (nom/<<semver,SemVer>>);Avec `npm install`;Voir la section <<install.dev,dépendances de développement>>
 `scripts`;{cross};Objet (nom/commande);À la main;Voir la section <<scripts,scripts npm>>
 |===
@@ -1520,7 +1520,7 @@ script: npm test
 cache: npm        # <2>
 ----
 <1> Surcharge la commande par défaut (`npm install`)
-<2> Les modules npm seront sauvegardés entre deux jobs – l'installation ira plus vite si les modules sont obtenus depuis le cache plutôt que depuis le registre npm.
+<2> Les modules `npm` seront sauvegardés entre deux jobs – l'installation ira plus vite si les modules sont obtenus depuis le cache plutôt que depuis le registre npm.
 
 [TIP]
 .[RemarquePreTitre]#Pratique# Remettre un projet à zéro
@@ -1629,13 +1629,13 @@ machine de développement ou sur votre configuration de production :
 Clé;Par défaut;Remarque
 `access`;`restricted`;Passez à `public` pour faire en sorte que les modules faisant partie d'une organisation soient considérés comme publics.
 `audit`;`true`;Passez à `false` pour désactiver l'audit automatique à chaque installation de module – cf. <<audit,`npm audit`>>.
-`cache`;`~/.npm`;Modifiez le chemin pour que le cache des modules npm soit géré ailleurs.
+`cache`;`~/.npm`;Modifiez le chemin pour que le cache des modules `npm` soit géré ailleurs.
 `color`;`true`;Passez à `false` pour désactiver l'utilisation des couleurs de npm.
 `depth`;`Infinity`;Le nombre utilisé limitera la profondeur d'affichage des commandes `npm ls`, `npm outdated`, etc.
 `git`;`git`;Nom de l'exécutable ou chemin d'accès de l'exécutable `git`.
 `https-proxy`;``;Adresse du proxy HTTPS – remplace alors la variable d'environnement `HTTPS_PROXY`.
 `loglevel`;`notice`;Change la verbosité d'affichage des messages – `silent`, `error`, `warn` diminueront la verbosité tandis que `http`, `timing`, `info`, `verbose` ou `silly` augmenteront le niveau de détails.
-`offline`;`false`;Passez à `true` pour que l'installation des modules npm se fasse sans transiter par le réseau.
+`offline`;`false`;Passez à `true` pour que l'installation des modules `npm` se fasse sans transiter par le réseau.
 `progress`;`true`;Passez à `false` pour désactiver l'affichage de la barre de progression.
 `proxy`;`true`;Adresse du proxy HTTP – remplace alors la variable d'environnement `HTTP_PROXY`.
 `registry`;`https://registry.npmjs.org/`;Changez cette valeur par celle de votre registre auto-hébergé.
@@ -1963,7 +1963,7 @@ reprise, sur un autre projet.
 L'équipe de développement de l'exécutable `npm` travaille à améliorer
 ses performances et sa qualité d'utilisation.
 Cette équipe n'a pas d'influence sur les choix faits par les autrices et auteurs
-de modules npm.
+de modules `npm`.
 
 Le temps de téléchargement d'un module npm dépend de deux choses :
 du *nombre de dépendances* à installer et de leur *poids respectif*.
@@ -1976,7 +1976,7 @@ augmente le coût de téléchargement de 14Mo lors de `npm install`.
 Ce n'est pas rien et ce n'est certainement pas la faute à l'exécutable `npm`.
 
 Le service en ligne _Package Phobia_ ([URL]#https://packagephobia.now.sh#)
-garde un historique du poids des modules npm.
+garde un historique du poids des modules `npm`.
 Celui de _webpack_ se trouve sur
 [URL]#https://packagephobia.now.sh/result?p=webpack#.
 
@@ -2008,7 +2008,7 @@ $ npx cost-of-modules               # <1>
 │ 3 modules │ 28 children │ 2.22M │
 └───────────┴─────────────┴───────┘
 ----
-<1> La <<npx,commande `npx`>> est un raccourci pour exécuter des modules npm sans les installer.
+<1> La <<npx,commande `npx`>> est un raccourci pour exécuter des modules `npm` sans les installer.
 ====
 
 

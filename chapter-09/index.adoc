@@ -19,7 +19,7 @@ web _front-end_ alors profitons-en pour partager du code entre client et serveur
 ====
 .Sommaire
 - Polyfills et compatibilité _ECMASCript_
-- Importer des modules _npm_ pour le web
+- Importer des modules `npm` pour le web
 - Créer du code modulaire, avec ou sans _framework_
 - Échanges de données en temps-réel
 - Outillage utile au quotidien
@@ -33,7 +33,7 @@ plusieurs plates-formes de développement : _YUICompressor_ demandait Java,
 _Google Closure Compiler_ demandait Java, _sprockets_ Ruby et _pngquant_
 quelques dépendances système comme _libpng_.
 
-L'existence de Node et du registre _npm_ a favorisé le développement d'un
+L'existence de Node et du registre `npm` a favorisé le développement d'un
 écosystème orienté _front-end_ plus simple à appréhender.
 Cela s'étend de la découverte au téléchargement des librairies tierces ainsi
 qu'à la compilation, l'optimisation et l'exécution des tests des applications
@@ -225,7 +225,7 @@ include::{sourceDir}/babel-es2015ified.js[]
 
 Il existe de nombreuses règles de transformation.
 Chacune d'entre elles cible une fonctionnalité spécifique d'une version d'_ECMAScript_.
-Les _presets_ des modules _npm_ faisant office de groupes logiques.
+Les _presets_ des modules `npm` faisant office de groupes logiques.
 
 Le preset _preset-env_ [URL]#https://npmjs.com/babel-preset-env# convertit
 notre code dans une version compatible avec la majorité des navigateurs
@@ -487,15 +487,15 @@ include::{sourceDir}/import/dom-log.js[]
 ----
 
 [[browserify]]
-=== Importer des modules _npm_ pour le web
+=== Importer des modules `npm` pour le web
 
-Qu'en est-il alors des modules _npm_ ?
+Qu'en est-il alors des modules `npm` ?
 Nous pouvons transpiler et importer du code, ce serait très utile si nous pouvions
 également importer du code tiers.
 Cela nous éviterait de réinventer la roue, d'avoir accès à du code bien testé
 et trop coûteux à écrire nous-mêmes.
 
-Nous avons vu comment <<../chapter-05/index.adoc#modules,charger des modules _npm_>>
+Nous avons vu comment <<../chapter-05/index.adoc#modules,charger des modules `npm`>>
 dans le chapitre 5.
 Intéressons-nous à leur utilisation dans le contexte d'une application front-end.
 Pour cela, adaptons l'exemple de la section précédente :
@@ -553,10 +553,10 @@ vos projets Node et web.
 Pour en savoir plus : [URL]#https://github.com/substack/browserify-handbook#.
 ====
 
-Revenons maintenant à notre code auquel il manque la compréhension des modules _npm_.
+Revenons maintenant à notre code auquel il manque la compréhension des modules `npm`.
 Nous allons maintenant chercher à transformer le fichier `script-import-jquery.js`
 pour à la fois rendre la syntaxe `import` intelligible  (c'est le rôle de _babel_)
-mais aussi pour faire le lien avec les modules _npm_ :
+mais aussi pour faire le lien avec les modules `npm` :
 
 ----
 $ npm run browserify -- \
@@ -590,7 +590,7 @@ un code modulaire et compatible avec n'importe quel type de syntaxe :
 
 - _babel_ pour transformer la syntaxe ;
 - des _polyfills_ pour harmoniser les fonctionnalités ;
-- _browserify_ pour l'intégration avec les modules _npm_.
+- _browserify_ pour l'intégration avec les modules `npm`.
 
 Ceux-ci ont l'avantage d'être faciles à prendre en main, modulaires et évolutifs.
 Nous pourrons aussi nous tourner vers d'autres outils de transformation de code
@@ -762,7 +762,7 @@ $ node examples/modules/node-timer.js
 Chaque seconde, la fonction `console.log` est appelée et affiche la structure
 de données de notre minuteur dans la sortie standard du terminal.
 
-Nous pourrions dès à présent utiliser le minuteur dans d'autres applications, côté client, côté serveur et pourquoi pas un jour, le publier sur le _registre npm_.
+Nous pourrions dès à présent utiliser le minuteur dans d'autres applications, côté client, côté serveur et pourquoi pas un jour, le publier sur le registre `npm`.
 
 === Séparation du fond et de la forme : données, rendu et interactions
 
@@ -1122,7 +1122,7 @@ optimisant nos fichiers graphiques.
 === Reconstruire en continu avec `watchify`
 
 L'utilisation de <<browserify,browserify>> nous apporte le confort de pouvoir
-inclure des modules _npm_ dans les navigateurs web.
+inclure des modules `npm` dans les navigateurs web.
 En revanche, ça nous demande de générer des artéfacts – des _bundles_ – à
 chaque modification pour consolider ces changements.
 
@@ -1440,7 +1440,7 @@ include::{sourceDir}/ui/Buttons.jsx[]
 
 Sans surprise, le module _sassify_ se charge comme la majorité des
 _transform browserify_ comme vu dans la section
-<<browserify,Importer des modules npm pour le web>> dans ce même chapitre :
+<<browserify,Importer des modules `npm` pour le web>> dans ce même chapitre :
 
 [subs="+attributes"]
 ----
@@ -1468,7 +1468,7 @@ $ ./node_modules/.bin/browserify \
 Node est un outil de choix lorsque l'on souhaite s'atteler au développement
 _front-end_ et ce n'est pas sans raison.
 Outre l'outillage lié à la réécriture du code – comme <<babel,Babel>> et
-<<browserify,browserify>> évoqués ci-avant – Node regorge de modules _npm_
+<<browserify,browserify>> évoqués ci-avant – Node regorge de modules `npm`
 réduisant les tâches manuelles répétitives et possiblement sujettes à erreur.
 
 Nous retrouvons l'optimisation des ressources graphiques parmi cet ensemble de
@@ -1855,7 +1855,7 @@ Node dédié aux tests dans les navigateurs web.
 Il a été créé en 2012 pour faciliter l'exécution des suites de tests de la
 librairie _Angular_ et s'exécute en ligne de commande.
 
-Les fonctionnalités de _karma_ s'étendent à l'aide de modules _npm_ :
+Les fonctionnalités de _karma_ s'étendent à l'aide de modules `npm` :
 
 * intégrations avec des suites de tests ;
 * lanceurs de navigateurs web ;
@@ -1915,7 +1915,7 @@ _ECMAScript_ dans une balise `<script>`.
 L'extrait de configuration suivant illustre le chargement des _plugins_ pour
 _browserify_ (modules _CommonJS_ et transpilation), _mocha_ (suites de tests)
 et _fixture_ (données représentant des cas d'utilisation) – respectivement
-les modules _npm_ `karma-browserify`, `karma-mocha` et `karma-fixture` :
+les modules `npm` `karma-browserify`, `karma-mocha` et `karma-fixture` :
 
 [source,javascript,indent=0]
 .karma.conf.js#L5
@@ -2009,7 +2009,7 @@ ifeval::["{backend}" == "html5"]
 video::videos/karma-browserstack.mp4[width="70%"]
 endif::[]
 
-L'écosystème de modules _npm_ liés à _karma_ s'est déjà penché sur la question.
+L'écosystème de modules `npm` liés à _karma_ s'est déjà penché sur la question.
 C'est le cas notamment du produit _BrowserStack_ qui offre une intégration pour
 déléguer l'exécution des tests sur leur plate-forme commerciale.
 Il s'agit du module `karma-browserstack-launcher`
@@ -2135,7 +2135,7 @@ des *navigateurs web* sur notre machine, sur des *services distants* mais
 également de manière automatique avec des services d'*intégration continue*
 comme _Travis CI_.
 
-Le recours aux modules _npm_ combinés aux modules _ECMAScript_ facilite le
+Le recours aux modules `npm` combinés aux modules _ECMAScript_ facilite le
 *design et la maintenance de code testable et réutilisable*.
 
 Ces pratiques de modularisation – jusqu'au rendu intermédiaire de _React_

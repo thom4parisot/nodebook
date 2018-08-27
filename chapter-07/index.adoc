@@ -1076,7 +1076,7 @@ portions de présentation et imbriquer ma page dans un modèle de présentation
 (le menu principal, les balises `<meta>`, etc.).
 
 Dans la suite de cette section, nous allons créer une présentation à partir
-d'une liste de modules npm contenue dans un fichier JSON.
+d'une liste de modules `npm` contenue dans un fichier JSON.
 L'image suivante illustre très bien ce que nous cherchons à atteindre.
 
 .Exemple de présentation qui met en scène des données dynamiques et des composants HTML.
@@ -1320,7 +1320,7 @@ Elle n'est pas forcément assignée à une méthode HTTP (`app.get()`, `app.post
 etc.) ni à un chemin d'accès.
 
 Dans l'exemple suivant, nous allons connecter plusieurs _middlewares_ grâce
-aux modules npm _helmet_ ([URL]#https://npmjs.com/helmet#) et _serve-static_
+aux modules `npm` _helmet_ ([URL]#https://npmjs.com/helmet#) et _serve-static_
 ([URL]#https://npmjs.com/serve-static#).
 Ce dernier est une version embarquée de <<static,serve>> par le module _express_.
 
@@ -1719,7 +1719,7 @@ Il indique au système quand tronquer le fichier d'historique –
 tous les X Mégaoctets, tous les X jours.
 ====
 
-Les modules npm pour consigner nos actions fonctionnent comme des `console.log()`
+Les modules `npm` pour consigner nos actions fonctionnent comme des `console.log()`
 finement configurables.
 Les modules _winston_ ([URL]#https://npmjs.com/winston#), _morgan_
 ([URL]#https://npmjs.com/morgan#) et _bunyan_ ([URL]#https://npmjs.com/bunyan#)
@@ -1802,7 +1802,7 @@ Nous créons ainsi une seule connexion à la base de données même si nous char
 plusieurs fois ce module.
 
 Je trouve ça agréable de regrouper ce genre de lignes de code dans un même fichier.
-Les dépendances aux modules Node et aux modules npm deviennent vraiment claires.
+Les dépendances aux modules Node et aux modules `npm` deviennent vraiment claires.
 Je suis moins dérangé par l'organisation visuelle du code – elle aurait ralenti
 ma lecture du fichier `server.js` autrement.
 
@@ -2496,7 +2496,7 @@ information associée à une session
 
 ensuite différents moyens d'authentifier (user+password, ou en délégant à un autre service l'identité -- OAuth)
 
-passport, module pour faciliter tout ça sans avoir à tout connaitre
+passport, module pour faciliter tout ça sans avoir à tout connaître
 ////
 
 ////

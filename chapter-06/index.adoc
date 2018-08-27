@@ -91,7 +91,7 @@ avec un navigateur web.
 Je recommande _RunKit_ ([URL]#https://runkit.com/#) pour créer rapidement
 du code qui tient dans un seul fichier, sans installer Node sur sa machine.
 Le code est exécuté sur les serveurs de RunKit, le résultat s'affiche chez nous.
-Les <<../chapter-05/index.adoc#modules,modules npm>>
+Les <<../chapter-05/index.adoc#modules,modules `npm`>>
 (<<../chapter-05/index.adoc#,chapitre 5>>) sont installés automatiquement dans
 leur version la plus récente.
 
@@ -476,7 +476,7 @@ ok: [ssh-moncompte.alwaysdata.net]
 TASK [code source via git] **********************
 ok: [ssh-moncompte.alwaysdata.net]
 
-TASK [mise à jour des modules npm] **************
+TASK [mise à jour des modules `npm`] **************
 ok: [ssh-moncompte.alwaysdata.net]
 
 PLAY RECAP **************************************
@@ -513,7 +513,7 @@ include::{sourceDir}/ansible/playbook.yaml[]
 <4> Indique de récupérer les commits du dépôt en faisant `git pull`.
 <5> Actions npm – pour en savoir plus [URL]#https://docs.ansible.com/ansible/2.5/modules/npm_module#.
 <6> Indique d'installer les dépendances npm en faisant `npm install`.
-<7> Indique de lancer la mise en jour des modules npm avec l'option `--production` – c'est-à-dire sans les dépendances listées dans le champ `devDependencies`.
+<7> Indique de lancer la mise en jour des modules `npm` avec l'option `--production` – c'est-à-dire sans les dépendances listées dans le champ `devDependencies`.
 
 Les tâches sont réplicables sur les serveurs listés dans un fichier d'inventaire :
 
@@ -1236,7 +1236,7 @@ en un rapide coup d'œil – et ça nous évite de fouiller dans le code applica
 [TIP]
 .[RemarquePreTitre]#Optimisation# `NODE_ENV=production`
 ====
-Certains <<../chapter-05/index.adoc#modules,modules npm>> comme _express_
+Certains <<../chapter-05/index.adoc#modules,modules `npm`>> comme _express_
 ([URL]#https://npmjs.com/express#) lisent la valeur de `process.env.NODE_ENV`.
 Ils s'en servent pour procéder à des optimisations et masquer des informations
 sensibles dans un contexte de production
@@ -1703,9 +1703,9 @@ Fil RSS::
 image::images/node-security-bulletin.png[]
 
 [[security.npm]]
-=== Un des modules npm fait l'objet d'une faille de sécurité
+=== Un des modules `npm` fait l'objet d'une faille de sécurité
 
-Les modules npm sont aussi affectés par des failles de sécurité.
+Les modules `npm` sont aussi affectés par des failles de sécurité.
 
 Les conséquences de leur exploitation sont similaires aux failles de Node :
 les personnes à l'origine des attaques peuvent saturer le serveur et
@@ -1771,7 +1771,7 @@ $ npm audit fix
 
 Rester à l'écoute des vulnérabilités en combinaison de l'utilisation
 de Snyk ou de `npm audit fix` suffit à prendre des mesures de correction
-efficaces sans avoir à trop s'y connaitre.
+efficaces sans avoir à trop s'y connaître.
 
 La lecture des rapports de vulnérabilité est un bon moyen de comprendre
 comment ces exploits fonctionnent, et comment penser nos applications

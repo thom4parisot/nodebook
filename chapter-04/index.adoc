@@ -312,7 +312,7 @@ Ces modules de base représentent la pierre angulaire de nos applications Node.
 Ils fournissent le nécessaire pour tout faire !
 On apprendra à étendre encore plus le champ des possibles dans
 le <<../chapter-05/index.adoc#,chapitre 5>>
-grâce aux <<../chapter-05/index.adoc#modules,modules npm>>.
+grâce aux <<../chapter-05/index.adoc#modules,modules `npm`>>.
 
 Les modules de base changent au fil du temps :
 les nouvelles versions de Node ajoutent, corrigent et complètent les modules et
@@ -1221,7 +1221,7 @@ On ajoute progressivement de plus en plus de travail pour bien envoyer une
 requête, collecter les données et gérer les erreurs.
 
 Nous verrons comment arriver au même résultat en écrivant moins de code grâce aux
-<<../chapter-05/index.adoc#modules,modules npm>>
+<<../chapter-05/index.adoc#modules,modules `npm`>>
 (<<../chapter-05/index.adoc#,chapitre 5>>).
 
 [horizontal, id="http.ClientRequest"]
@@ -1438,7 +1438,7 @@ le protocole HTTP sur lequel repose une majorité de notre activité sur Interne
 On a couvert les principes du module `http` mais il reste beaucoup de choses
 à apprendre pour développer une application web maintenable.
 C'est justement le sujet du <<../chapter-07/index.adoc,chapitre 7>>,
-aidé par les <<../chapter-05/index.adoc#modules,modules npm>> que l'on apprendra
+aidé par les <<../chapter-05/index.adoc#modules,modules `npm`>> que l'on apprendra
 à manipuler dans le <<../chapter-05/index.adoc#,chapitre 5>>.
 
 [horizontal, id="http.Server"]
@@ -1938,7 +1938,7 @@ $ node print-first.js "salut ça va ?" "oui et toi ?"
 ----
 
 L'inconvénient des arguments est que leur ordre compte
-et qu'il devient difficile de connaitre leur rôle sans se référer
+et qu'il devient difficile de connaître leur rôle sans se référer
 au manuel d'utilisation.
 
 C'est là qu'interviennent les options.
@@ -2872,7 +2872,7 @@ $ node --experimental-modules modules/ecmascript-multiple.mjs
 1
 ----
 
-La fonction `reset` a bien remis à zéro le compteur entre temps.
+La fonction `reset` a bien remis à zéro le compteur entre-temps.
 Objectif accompli !
 
 Résumons les différences notables avec le mécanisme de modules Node :
@@ -3047,7 +3047,7 @@ $ node -r pretty-error/start process/exit-error.js
 ----
 
 On apprendra au <<../chapter-05/index.adoc#,chapitre 5>> comment installer
-des modules npm.
+des modules `npm`.
 ====
 
 === Une erreur est retournée dans un _callback_
@@ -3143,7 +3143,7 @@ include::{sourceDir}/errors/promise-chain.js[]
 <1> On gère l'erreur en la signalant dans le terminal.
 <2> Le _callback_ d'erreur a la possibilité de retourner un résultat.
 <3> Ce résultat est transmis à la prochaine occurrence de `.then()`.
-<4> Dans ce cas, le dernier `.catch()` n'affiche rien car nous n'avons pas rencontré d'autre erreur entre temps.
+<4> Dans ce cas, le dernier `.catch()` n'affiche rien car nous n'avons pas rencontré d'autre erreur entre-temps.
 
 L'absence de `.catch()` provoque un plantage applicatif et le délenchement
 de l'<<process.on,événement de processus>> `unhandledRejection` :
@@ -3460,7 +3460,7 @@ On peut appeler l'option `--require` plusieurs fois.
 On peut aussi utiliser l'option raccourcie `-r`.
 
 Ce mécanisme fonctionne très bien avec des
-<<../chapter-05/index.adoc#,modules npm>> conçus pour
+<<../chapter-05/index.adoc#,modules `npm`>> conçus pour
 rendre nos scripts <<esm,compatibles avec les modules ECMAScript>>
 ou pour <<pretty-error,simplifier les erreurs>> affichées
 lors d'un plantage applicatif, entre autres.
@@ -3596,7 +3596,7 @@ L'organisation des modules CommonJS – voire des modules ECMAScript – est l'a
 Avec ça, nous rendons notre *code modulaire, réutilisable et donc testable*.
 
 Toutes ces connaissances seront largement réutilisées dans les chapitres suivants.
-Elles nous aideront à mieux choisir nos modules npm dans le chapitre 5,
+Elles nous aideront à mieux choisir nos modules `npm` dans le chapitre 5,
 à structurer une application web au chapitre 7, à créer de belles applications
 en ligne de commande au chapitre 8 et même à partager du code entre Node
 et les navigateurs web au chapitre 9.
