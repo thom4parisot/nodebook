@@ -343,7 +343,7 @@ versions de Node en parallèle.
 image::images/windows-node-installer.png[width="50%"]
 
 L'installeur officiel créera plusieurs raccourcis dans le
-dossier kbd:[Node.js] du kbd:[menu Démarrer] :
+dossier du menu menu:Démarrer[Node.js] :
 
 .Node.js dans le menu Démarrer sous{nbsp}Windows{nbsp}10
 image::images/windows-node-menu.png[width="50%"]
@@ -351,9 +351,9 @@ image::images/windows-node-menu.png[width="50%"]
 Le menu créé par l'installeur contient deux icônes que nous utiliserons tout
 au long de la lecture de cet ouvrage :
 
-- kbd:[Node.js] : un terminal pour jouer avec JavaScript et voir les résultats que
+- menu:Node.js[Node.js] : un terminal pour jouer avec JavaScript et voir les résultats que
 Node va interpréter ;
-- kbd:[Node.js command prompt] : un terminal pour exécuter nos programmes écrits
+- menu:Node.js[Node.js command prompt] : un terminal pour exécuter nos programmes écrits
 en JavaScript.
 
 Si vous utilisez déjà un gestionnaire de paquets comme Scoop ([URL]#http://scoop.sh#)
@@ -475,13 +475,13 @@ $ docker run -ti --rm node:{v} node
 
 Plusieurs variantes d'images Node se trouvent à notre disposition :
 
-kbd:[standard] (`node:{v}`)::
+[Menu]#standard# (`node:{v}`)::
   Base Linux Debian pour tout type d'applications Node.
-kbd:[Debian] (`node:{v}-wheezy`)::
-  Comme kbd:[standard] mais sur des bases Debian différentes, comme Wheezy, Stretch, etc..
-kbd:[Alpine] (`node:{v}-alpine`)::
+[Menu]#Debian# (`node:{v}-wheezy`)::
+  Comme [Menu]#standard# mais sur des bases Debian différentes, comme Wheezy, Stretch, etc..
+[Menu]#Alpine# (`node:{v}-alpine`)::
   Distribution spécialement créée pour Docker ([URL]#http://alpinelinux.org#), qui pèse à peine quelques{nbsp}Mo.
-kbd:[Allégée] (`node:{v}-slim`)::
+[Menu]#Allégée# (`node:{v}-slim`)::
   Base Linux Debian sans outillage parfois nécessaire à des modules Node – utile si vous souhaitez économiser de l'espace disque.
 
 L'intégralité des versions et architectures prises en charge est disponible sur
@@ -543,13 +543,13 @@ image::images/glitch-terminal.png[width="70%"]
 Voici une liste non exhaustive d'applications de type _terminal_ :
 
 macOS::
-* Terminal.app : fourni par défaut (dans kbd:[Applications / Utilitaires]) ;
+* Terminal.app : fourni par défaut (dans menu:Applications[Utilitaires]) ;
 * iTerm2 : une version améliorée disponible sur [URL]#https://iterm2.com# (ou `brew cask install iterm2`) ;
 Linux::
 * GNOME Terminal : fourni par défaut sous Debian, Ubuntu et les distributions utilisant le bureau GNOME ([URL]#https://wiki.gnome.org/Apps/Terminal#) ;
 * Terminator : un autre terminal populaire ([URL]#https://gnometerminator.blogspot.com#) ;
 Windows::
-*_Node.js Command Prompt : fourni avec l'<<windows,installeur Windows>> ;
+* Node.js Command Prompt : fourni avec l'<<windows,installeur Windows>> ;
 * PowerShell : fourni par défaut depuis Windows{nbsp}7, sinon disponible sur [URL]#https://github.com/PowerShell/PowerShell# – également disponible pour macOS et{nbsp}Linux.
 
 .Node.js Command Prompt sous Windows{nbsp}10.
