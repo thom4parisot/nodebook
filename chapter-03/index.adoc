@@ -1331,11 +1331,11 @@ Elle utilise une <<anonymous-function,fonction anonyme>> qui compare deux élém
 entre eux ; elle retourne un nombre positif, négatif ou égal à zéro selon la
 logique que l'on souhaite donner au tri :
 
-* Quand la comparaison est _positive_,
+* Quand la comparaison est _négative_,
 `sort` place le premier élément _avant_ le second.
-* Quand la comparaison est _négative_ :
+* Quand la comparaison est _positive_,
 `sort` place le premier élément _après_ le second.
-* Quand la comparaison est égale à zéro, nulle ou non spécifiée :
+* Quand la comparaison est égale à zéro, nulle ou non spécifiée,
 l'ordre des éléments reste inchangé.
 
 [source%interactive,javascript]
@@ -1346,18 +1346,17 @@ include::{sourceDir}/array/sort.js[]
 <1> Affiche `[1, 2, 3]`.
 <2> Affiche `[ { label: "un", order: 1 }, { label: "deux", order: 2 } ]` – le tableau a été trié sur la valeur de `order`.
 
-Les <<string,chaînes de caractères>> peuvent être comparées
-avec la méthode `localeCompare`.
+Les <<string,chaînes de caractères>> peuvent être comparées avec `localeCompare`.
 Cette méthode retourne un nombre après une comparaison caractère par caractère
-entre deux chaînes :
+entre deux chaînes.
 
 [source%interactive,javascript]
 .array/sort-strings.js
 ----
 include::{sourceDir}/array/sort-strings.js[]
 ----
-<1> Affiche `["a", "A", "b", "c"]` – les majuscules influencent le tri.
-<2> Affiche `[ { label: "deux", order: 2 }, { label: "un", order: 1 } ]` – le tableau a été trié sur la valeur de `label` cette fois-ci.
+<1> Affiche `["a", "A", "b", "c"]` – les majuscules influencent le{nbsp}tri.
+<2> Affiche `[ { label: "deux", order: 2 }, { label: "un", order: 1 } ]` – le tableau a été trié sur la valeur de `label`.
 
 [TIP]
 .[RemarquePreTitre]#Alternative# `Array.reverse`
@@ -1377,9 +1376,9 @@ include::{sourceDir}/array/reverse.js[]
 [[array.map]]
 === Transformer les valeurs
 
-La méthode `map` fonctionne quasiment comme la méthode `forEach`.
-À ceci près qu'elle retourne un nouveau tableau,
-constitué des valeurs retournées par la fonction appliquée sur chaque élément.
+La méthode `map` fonctionne quasiment comme `forEach`, à ceci près qu'elle
+retourne un nouveau tableau, constitué des valeurs retournées par la fonction
+appliquée sur chaque élément.
 
 [source%interactive,javascript]
 .array/map.js
@@ -1389,7 +1388,7 @@ include::{sourceDir}/array/map.js[]
 <1> Retourne `['A', 'B', 'C']` – on a passé tous les éléments en lettres majuscules.
 
 Le troisième argument de la méthode `map` prend ici tout son sens.
-Par exemple si l'on souhaite dédoublonner un tableau :
+Par exemple, si l'on souhaite dédoublonner un tableau :
 
 [source%interactive,javascript]
 .array/map-dedupe.js
@@ -1398,31 +1397,30 @@ include::{sourceDir}/array/map-dedupe.js[]
 ----
 <1> Affiche `[null, null, "un", "deux"]`.
 
-L'exemple précédent vérifie à chaque itération si la valeur de l'élément
+Cet exemple vérifie, à chaque itération, si la valeur de l'élément
 est contenue dans la _suite du tableau_.
 `array.slice(index+1)` crée un nouveau tableau contenant tous les éléments
 situés _après_ l'élément courant (`index+1`).
 
-La méthode `reduce` est une autre méthode de transformation.
-Elle est différente, car elle passe le résultat de la précédente itération
-à la suivante.
+La méthode de transformation `reduce` est différente, car elle passe le résultat
+de la précédente itération à la suivante.
 C'est comme si elle _accumulait_ les résultats.
-`reduce` retourne une valeur finale qui peut être autre chose qu'un tableau.
+Elle retourne une valeur finale qui peut être autre chose qu'un tableau.
 
 [source%interactive,javascript]
 .array/reduce.js
 ----
 include::{sourceDir}/array/reduce.js[]
 ----
-<1> Effectue une _réduction_ à l'aide de la fonction `sum` et d'une valeur par défaut de `0` – affiche `22` à l'issue des itérations .
-<2> La valeur de l'élément est le _second paramètre_ le premier paramètre correspond au résultat de l'itération précédente ou à la valeur initiale, passée en argument à `reduce`.
+<1> Effectue une _réduction_ à l'aide de la fonction `sum` et d'une valeur par défaut de{nbsp}``0`` – affiche{nbsp}``22`` à l'issue des itérations .
+<2> La valeur de l'élément est le _second paramètre_ ; le premier paramètre correspond au résultat de l'itération précédente ou à la valeur initiale, passée en argument à `reduce`.
 
 [[array.filter]]
 === Filtrer les valeurs
 
 La méthode `filter` retourne un nouveau tableau filtré à l'aide
 d'une <<anonymous-function,fonction anonyme>>.
-Seuls les éléments qui satisfont la condition établie par la fonction
+Seuls les éléments qui satisfont à la condition établie par la fonction
 se retrouvent dans le nouveau tableau.
 
 [source%interactive,javascript]
@@ -1430,17 +1428,17 @@ se retrouvent dans le nouveau tableau.
 ----
 include::{sourceDir}/array/filter.js[]
 ----
-<1> Retourne `[3]` – c'est la seule valeur qui est un nombre.
+<1> Retourne{nbsp}``[3]` – c'est la seule valeur qui soit un nombre.
 <2> Retourne `["un", "deux", 3]` – ce sont les valeurs non{nbsp}nulles.
 
 [[array.find]]
-=== Identifier une ou plusieurs valeurs
+=== Identifier des valeurs
 
 Les méthodes `indexOf`, `lastIndexOf` et `includes` identifient une
 _valeur exacte_ au sein d'un tableau.
 
 `indexOf` et `lastIndexOf` retournent l'_index_ de la valeur recherchée.
-Si aucun élément n'a été retrouvé, elles retourneront la valeur `-1`. +
+Si aucun élément n'a été retrouvé, elles retourneront la valeur{nbsp}``-1``. +
 `includes` retourne un <<boolean,booléen>> indiquant si la recherche
 est fructueuse (`true`) ou non (`false`).
 
@@ -1449,35 +1447,33 @@ est fructueuse (`true`) ou non (`false`).
 ----
 include::{sourceDir}/array/index-of-includes.js[]
 ----
-<1> Affiche `0` – le premier `"un"` est l'élément `0` du tableau.
-<2> Affiche `1` – le premier `"deux"` est l'élément `1` du tableau.
-<3> Affiche `-1` – cet élément est absent du tableau.
-<4> Affiche `3` – le dernier `"deux"` est l'élément `3` du tableau.
-<5> Affiche `true` – l'élément `"un"` existe dans le tableau.
-<6> Affiche `false` – l'élément `"trois"` n'existe pas dans le tableau.
+<1> Affiche{nbsp}``0`` – le premier `"un"` est l'élément{nbsp}``0` du tableau.
+<2> Affiche{nbsp}``1`` – le premier `"deux"` est l'élément{nbsp}``1` du tableau.
+<3> Affiche{nbsp}``-1`` – cet élément est absent du tableau.
+<4> Affiche{nbsp}``3`` – le dernier `"deux"` est l'élément{nbsp}``3` du tableau.
+<5> Affiche{nbsp}``true`` – l'élément `"un"` existe dans le tableau.
+<6> Affiche{nbsp}``false`` – l'élément `"trois"` n'existe pas dans le tableau.
 
 Il existe ensuite d'autres méthodes comme `find`, `some` et `every`.
 Elles *identifient des éléments à partir d'une fonction*.
 Les conditions de recherche sont plus complètes, car on n'est pas obligé
 de connaître la valeur exacte recherchée.
 
-La méthode `find` retourne l'_élément_ qui satisfait la condition en premier.
-La méthode `findIndex` retourne l'_index de l'élément_
-qui satisfait la condition en premier.
+La méthode `find` retourne le premier _élément_ qui remplisse la condition ;
+ `findIndex` en retourne l'_index_.
 
 [source%interactive,javascript]
 .array/find.js
 ----
 include::{sourceDir}/array/find.js[]
 ----
-<1> La fonction `isFinite` retourne `true` si la valeur passée en argument est un nombre supérieur à `50`.
-<2> Affiche `100`.
-<3> Affiche `3` – c'est l'index de la valeur `100`.
+<1> La fonction retourne `true` si la valeur passée en argument est un nombre supérieur{nbsp}à{nbsp}``50``.
+<2> Affiche{nbsp}``100``.
+<3> Affiche{nbsp}``3`` – c'est l'index de la valeur{nbsp}``100``.
 
-Les méthodes `some` et `every` retournent un <<boolean,booléen>>
-lorsque la condition est satisfaite.
-`some` retourne `true` si _au moins une itération_ est satisfaisante.
-`every` retourne `true` si _toutes les itérations_ sont satisfaisantes.
+Les méthodes `some` et `every` retournent `true` respectivement
+si _au moins une itération_ est satisfaisante et
+si _toutes les itérations_ sont satisfaisantes.
 
 [source%interactive,javascript]
 .array/some.js
@@ -1486,15 +1482,15 @@ include::{sourceDir}/array/some.js[]
 ----
 <1> Affiche `false` – toutes les valeurs ne sont pas égales à `undefined`.
 <2> Affiche `true` – au moins une valeur est égale à `undefined`.
-<3> Affiche `false` – il n'y a plus de valeur `undefined` dans le tableau, car on a utilisé la méthode <<array.filter,filter>> pour supprimer les valeurs non-vides.
+<3> Affiche `false` – il n'y a plus de valeur `undefined` dans le tableau, car on a utilisé la méthode <<array.filter,filter>> pour supprimer les valeurs vides.
 
 [[array-destructuring]]
 === Décomposition de tableau (_destructuring_)
 
 L'affectation par _décomposition_ (_destructuring_) est une manière élégante
-de piocher une ou plusieurs valeurs dans un <<array,tableau>>.
-La décomposition n'altère pas le contenu des variables décomposées.
-Ce mécanisme existe aussi pour les <<object-destructuring,objets>>.
+de piocher des valeurs dans un <<array,tableau>>.
+Ce mécanisme n'altère pas le contenu des variables décomposées et existe aussi
+pour les <<object-destructuring,objets>>.
 
 [source%interactive,javascript]
 .array/destructuring.js
@@ -1505,7 +1501,7 @@ include::{sourceDir}/array/destructuring.js[]
 <2> Affiche `"mardi"`.
 <3> Affiche `"mercredi"` – l'utilisation des virgules sans variable a permis de _sauter_ des positions dans la décomposition.
 
-La décomposition se combine agréablement avec l'opérateur `...` (opérateur _spread_).
+La décomposition se combine agréablement avec l'opérateur `...` (_spread_).
 Il accumule _le reste_ des éléments dans une variable, sous forme de tableau.
 
 [source%interactive,javascript]
@@ -1516,15 +1512,15 @@ include::{sourceDir}/array/destructuring-rest.js[]
 <1> Affiche `["mercredi", "jeudi", "vendredi"]`.
 
 La méthode `slice` offre davantage de souplesse pour gérer les _limites_.
-On choisit _l'index de début_ et _l'index de fin_ de la décomposition.
+On choisit _l'index de début_ (inclus) et celui _de fin_ (non inclus) de la décomposition.
 
 [source%interactive,javascript]
 .array/slice.js
 ----
 include::{sourceDir}/array/slice.js[]
 ----
-<1> Affiche `["deux", "trois", "quatre"]` – à partir de l'index `1`.
-<2> Affiche `["deux"]` – à partir de l'index `1` et jusqu'à l'index `2` (non-inclus).
+<1> Affiche `["deux", "trois", "quatre"]` – à partir de l'index{nbsp}``1``.
+<2> Affiche `["deux"]` – à partir de l'index{nbsp}``1`` et jusqu'à l'index{nbsp}``2`` (non{nbsp}inclus).
 
 Si les valeurs de début et/ou de fin sont _négatives_,
 les index sont calculés _à partir de la fin_ du tableau.
@@ -1534,14 +1530,14 @@ les index sont calculés _à partir de la fin_ du tableau.
 ----
 include::{sourceDir}/array/slice-negative.js[]
 ----
-<1> Affiche `["quatre"]` – premier élément à partir de la fin.
-<2> Affiche `["deux", "trois", "quatre"]` – les trois premiers éléments à partir de la fin.
-<3> Affiche `["un", "deux", "trois"]` – jusqu'au dernier élément à partir de la fin (non-inclus).
-<4> Affiche `["un"]` – jusqu'au troisième élément à partir de la fin (non-inclus).
+<1> Affiche `["quatre"]` – premier élément à partir de la{nbsp}fin.
+<2> Affiche `["deux", "trois", "quatre"]` – les trois premiers éléments à partir de la{nbsp}fin.
+<3> Affiche `["un", "deux", "trois"]` – jusqu'au dernier élément à partir de la fin (non{nbsp}inclus).
+<4> Affiche `["un"]` – jusqu'au troisième élément à partir de la fin (non{nbsp}inclus).
 
 
 [[object]]
-== Représenter et accéder à des structures d'objet
+== Représenter des structures d'objet et y accéder
 
 Les structures d'objet servent à lister des éléments de tout type
 au sein d'une même variable.
@@ -1554,19 +1550,19 @@ avec un identifiant unique pour chaque valeur.
 include::{sourceDir}/object/base.js[]
 ----
 <1> Affiche `"Francine"`.
-<2> On assigne une valeur numérique dans l'index `age` une fois l'objet créé.
-<3> Affiche `25` – la valeur numérique précédemment assignée.
-<4> Affiche `undefined` – aucune valeur n'est assignée pour cette clé.
+<2> On affecte une valeur numérique à l'index `age` une fois l'objet{nbsp}créé.
+<3> Affiche{nbsp}``25` – la valeur numérique précédemment affectée.
+<4> Affiche{nbsp}``undefined` – aucune valeur n'est affectée pour cette{nbsp}clé.
 
-Nous pouvons nous baser sur une autre syntaxe pour _créer_ et _accéder_
-à des valeurs en utilisant des variables en guise d'identifiant d'index :
+Une autre syntaxe existe pour _créer_ des valeurs et y _accéder_ en utilisant
+des variables en guise d'identifiant d'index :
 
 [source%interactive,javascript]
 .object/dynamic.js
 ----
 include::{sourceDir}/object/dynamic.js[]
 ----
-<1> Assigne la chaîne `@FrancineDu26` dans l'index correspondant à la valeur de la variable `SOCIAL_NETWORK`.
+<1> Affecte la chaîne `@FrancineDu26` dans l'index correspondant à la valeur de la variable `SOCIAL_NETWORK`.
 <2> Affiche `"@FrancineDu26"`.
 
 
@@ -1574,7 +1570,7 @@ include::{sourceDir}/object/dynamic.js[]
 === Décomposition d'objet (_destructuring_)
 
 L'affectation par décomposition (_destructuring_) est une manière
-élégante de piocher une ou plusieurs valeurs dans un <<object,objet>>.
+élégante de piocher des valeurs dans un <<object,objet>>.
 Ce mécanisme existe aussi pour les <<array-destructuring,tableaux>>.
 
 [source%interactive,javascript]
@@ -1584,12 +1580,10 @@ include::{sourceDir}/object/destructuring.js[]
 ----
 <1> Affiche `"Drôme"` – on a décomposé la clé `location`.
 <2> Affiche `"Francine"` – on a décomposé puis renommé la clé `first_name` en une nouvelle variable : `prenom`.
-<3> Affiche `false` – on a décomposé la clé `is_admin` et comme elle n'existe pas, on a spécifié la valeur par défaut `false`, au lieu de `undefined`.
+<3> Affiche `false` – on a décomposé la clé `is_admin` et, comme elle n'existe pas, on a spécifié la valeur par défaut `false`, au lieu de `undefined`.
 
-La décomposition se combine agréablement avec l'opérateur `...`
-(opérateur _spread_).
-Il accumule _le reste_ des éléments dans une variable,
-sous forme d'objet.
+La décomposition se combine agréablement avec l'opérateur `...` (_spread_).
+Il accumule _le reste_ des éléments dans une variable, sous forme d'objet.
 
 [source%interactive,javascript]
 .object/destructuring-rest.js
@@ -1602,7 +1596,7 @@ include::{sourceDir}/object/destructuring-rest.js[]
 [[object.assign]]
 === Combiner des objets
 
-`Object.assign` est une méthode qui permet d'étendre et combiner plusieurs objets.
+`Object.assign` est une méthode qui sert à étendre et combiner plusieurs objets.
 On a le choix d'intégrer les nouveaux éléments à un objet existant
 ou bien d'en créer un nouveau.
 Les objets sont combinés dans le premier paramètre de la fonction.
@@ -1614,13 +1608,13 @@ include::{sourceDir}/object/assign.js[]
 ----
 <1> Affiche `{ first_name: "Francine", location: "Drôme" }` – la nouvelle variable contient nos deux objets combinés.
 <2> Affiche `{ first_name: "Francine" }` – ce sont les valeurs originelles de notre objet.
-<3> Affiche `{ first_name: "Francine", location: 'Ardèche' }` – l'objet `o2` a reçu la nouvelle propriété `location`.
+<3> Affiche `{ first_name: "Francine", location: 'Ardèche' }` – l'objet{nbsp}``o2`` a reçu la nouvelle propriété `location`.
 
-À noter que les assignations se font de _gauche à droite_.
+Notez que les affectations se font de _gauche à droite_.
 Toute clé existante est remplacée.
 
 La <<object-destructuring,décomposition d'objet>> sert également à combiner
-un ou plusieurs objets entre eux.
+des objets entre{nbsp}eux.
 
 [source%interactive,javascript]
 .object/destructuring-spread.js
@@ -1632,11 +1626,9 @@ include::{sourceDir}/object/destructuring-spread.js[]
 
 === Itérer sur des objets
 
-La méthode `Object.entries` est probablement la méthode
-la plus adaptée pour itérer à la fois sur les _clés_ et sur les _valeurs_
-d'un objet.
-`Object.entries` est une fonction qui retourne un tableau.
-Ce tableau contient autant de paires de `[clé, valeur]` qu'il y a
+La méthode `Object.entries` est probablement la plus adaptée pour itérer à la
+fois sur les _clés_ et sur les _valeurs_ d'un objet.
+Elle retourne un tableau qui contient autant de paires de `[clé, valeur]` qu'il y a
 d'éléments dans l'objet.
 
 [source%interactive,javascript]
@@ -1646,7 +1638,7 @@ include::{sourceDir}/object/entries.js[]
 ----
 <1> Affiche `[[ "first_name", "Francine" ], [ "location", "Drôme" ]]`.
 
-Libre à nous d'<<array.forEach,itérer sur les valeurs>>
+Nous sommes libres d'<<array.forEach,itérer sur les valeurs>>
 et d'utiliser la <<array-destructuring,décomposition de tableaux>>
 pour rendre notre code explicite :
 
@@ -1656,13 +1648,10 @@ pour rendre notre code explicite :
 include::{sourceDir}/object/entries-loop.js[]
 ----
 <1> Affiche successivement `"francine.first_name vaut Francine"` puis `"francine.location vaut Drôme"`.
-<2> Idem.
 
-Deux autres méthodes récupèrent
-soit _la liste des clés_ d'un objet (`Object.keys`)
-soit _la liste des valeurs_ d'un objet (`Object.values`).
-Dans les deux cas, les résultats sont retournés
-sous forme d'un <<array,tableau>>.
+Deux autres méthodes récupèrent soit _la liste des clés_ d'un objet (`Object.keys`)
+soit _la liste de ses valeurs_ (`Object.values`).
+Dans les deux cas, les résultats sont retournés sous forme d'un <<array,tableau>>.
 
 [source%interactive,javascript]
 .object/keys.js
@@ -1673,10 +1662,10 @@ include::{sourceDir}/object/keys.js[]
 <2> Affiche `["Francine", "Drôme"]`.
 
 
-=== Identifier une ou plusieurs valeurs
+=== Identifier des valeurs
 
 Il y a trois manières d'identifier si un objet contient une valeur
-associée à une clé.
+associée à une{nbsp}clé.
 
 Le plus simple est d'utiliser la méthode `hasOwnProperty`.
 Elle prend en argument le nom de la clé à tester et
@@ -1690,9 +1679,9 @@ include::{sourceDir}/object/has-own-property.js[]
 <1> Affiche `true`.
 <2> Affiche `false` – cette clé n'existe pas dans cet objet.
 
-La seconde manière est d'utiliser l'opérateur `in`.
-On l'aura déjà rencontré lors des <<array.forEach,boucles>>.
-Sauf que cette fois, on l'utilise une seule fois – et non dans une boucle.
+La seconde manière est d'utiliser l'opérateur{nbsp}``in``.
+On l'aura déjà rencontré lors des <<array.forEach,boucles>> ;
+ici, on l'utilise une seule{nbsp}fois.
 
 [source%interactive,javascript]
 .object/key-in.js
@@ -1712,7 +1701,7 @@ include::{sourceDir}/object/key.js[]
 <1> Affiche `true`.
 <2> Affiche `false`.
 
-Attention toutefois, car cette méthode _teste uniquement la valeur_.
+Attention toutefois : cette méthode _teste uniquement la valeur_.
 Si la clé existe et contient `undefined`, vous ne verrez pas la différence.
 
 [source%interactive,javascript]
@@ -1722,7 +1711,7 @@ include::{sourceDir}/object/key-undefined.js[]
 ----
 <1> Affiche `false` – la valeur `undefined` est convertie en `false`.
 <2> Affiche `false` – la clé existe bien, mais elle contient la valeur `undefined`.
-<3> Affiche `true` – le test se fait sur l'existence de la clé.
+<3> Affiche `true` – le test se fait sur l'existence de la{nbsp}clé.
 <4> Affiche `true` – idem.
 
 
@@ -1730,7 +1719,7 @@ include::{sourceDir}/object/key-undefined.js[]
 == Lire et écrire des données au format JSON
 
 JSON ([URL]#http://json.org#) est un format de données textuel standardisé.
-Son but est de pouvoir représenter des données informatiques de manière
+Son but est de représenter des données informatiques de manière
 interopérable entre différents langages.
 
 [source,javascript]
@@ -1744,7 +1733,7 @@ La représentation est plus stricte car _toute donnée_ doit être représentée
 de manière textuelle.
 Ainsi, toutes les clés sont entourées de _guillemets doubles_.
 
-Les types de données autorisés sont les nombres, les chaînes de caractère,
+Les types de données autorisés sont les nombres, les chaînes de caractères,
 les booléens, les tableaux, les objets et la valeur `null`.
 On ne peut donc pas représenter de <<function,fonction>>,
 d'<<class,instance d'objet>> ni même la valeur `undefined`.
@@ -1762,11 +1751,11 @@ en cas de problème.
 include::{sourceDir}/json/parse.js[]
 ----
 <1> Affiche `"Hello World!"`.
-<2> Affiche `32`.
+<2> Affiche{nbsp}``32``.
 <3> Affiche `{price_tag: 32, title: "Node.js"}`.
 
 À l'inverse, la fonction `JSON.stringify` convertit une structure ECMAScript
-en chaîne de caractères au format JSON :
+en chaîne de caractères au format{nbsp}JSON :
 
 [source%interactive,javascript]
 .json/stringify.js
@@ -1777,16 +1766,16 @@ include::{sourceDir}/json/stringify.js[]
 
 La fonction `JSON.stringify` parcourt tous les éléments
 pour les sérialiser en forme textuelle.
-Quand la fonction de sérialisation rencontre la la clé spéciale `toJSON`,
-elle l'utilisera pour effectuer la conversion :
+Quand elle rencontre la la clé spéciale `toJSON`,
+elle l'utilise pour effectuer la conversion :
 
 [source%interactive,javascript]
 .json/to-json.js
 ----
 include::{sourceDir}/json/to-json.js[]
 ----
-<1> Affiche `"\"geo=48.8503439,2.34658949\""` – c'est la sérialisation definie par notre fonction `toJSON`.
-<2> Affiche `"{\"lat\":48.8503439,\"lon\":2.34658949}"` – sans la clé `toJSON`, notre objet initial est sérialisé tel quel.
+<1> Affiche `"\"geo=48.8503439,2.34658949\""` – c'est la sérialisation définie par notre fonction `toJSON`.
+<2> Affiche `"{\"lat\":48.8503439,\"lon\":2.34658949}"` – sans la clé `toJSON`, notre objet initial est sérialisé tel{nbsp}quel.
 
 Notre implémentation contenue dans la fonction `toJSON` est
 responsable de renvoyer du texte seulement et de choisir les clés
@@ -1800,7 +1789,7 @@ include::{sourceDir}/json/to-json-extra.js[]
 <1> Affiche `"\"geo=48.8503439,2.34658949\""`.
 
 Dans cette variante d'exemple, la clé `city` n'a pas été sérialisée
-car notre fonction `toJSON` se préoccupait seulement des clés `lat` et `lon`.
+car notre fonction `toJSON` se préoccupait seulement des clés `lat` et{nbsp}`lon`.
 
 mdn::global[JSON]
 
@@ -1809,7 +1798,7 @@ mdn::global[JSON]
 == Interagir avec des dates
 
 Les calculs de date s'effectuent à l'aide des objets `Date`.
-Chaque instance de `Date` représente un moment dans le temps, à un jour
+Chaque instance représente un moment dans le temps, à un jour
 et à une heure donnée.
 
 [source%interactive,javascript]
@@ -1817,9 +1806,9 @@ et à une heure donnée.
 ----
 include::{sourceDir}/date/base.js[]
 ----
-<1> On initialise l'objet date `past` au 04 décembre 2013.
-<2> Affiche `2013` – l'année liée à l'objet `past`.
-<3> Affiche `{docyear}` – l'année liée à l'objet `now` (aujourd'hui).
+<1> On initialise l'objet date `past` au 04{nbsp}décembre{nbsp}2013.
+<2> Affiche `2013` – l'année liée à l'objet{nbsp}``past``.
+<3> Affiche `{docyear}` – l'année liée à l'objet{nbsp}``now`` (date du jour).
 
 Un certain nombre de méthodes _retournent_ différents éléments de la date
 contenue dans l'objet : année, secondes, jour de la semaine, etc.
@@ -1830,38 +1819,38 @@ Il en existe tout autant pour _modifier_ ces éléments de date.
 ----
 include::{sourceDir}/date/set.js[]
 ----
-<1> Change la date vers l'année `2015`.
+<1> Change la date vers l'année{nbsp}``2015``.
 <2> Affiche `"2015-12-04T10:00:00.000Z"`.
-<3> Change la date vers le mois `1`.
+<3> Change la date vers le mois{nbsp}``1``.
 <4> Affiche `"2015-02-04T10:00:00.000Z"` – pourquoi le mois de février ??
 
 L'exemple précédent illustre l'ambiguïté de la notion de _mois_.
 Il s'agit en réalité de l'_index du mois_ :
-0 correspond à janvier, 1 à février, etc.
+0{nbsp}correspond à janvier, 1 à février, etc.
 
-La plupart des méthodes natives font référence à l'anglais.
+Les méthodes natives font pour la plupart référence à l'anglais.
 Elles offrent peu de confort de manipulation – on aimerait pouvoir
-compter facilement le nombre de jours entre deux dates, ou retirer 30 jours.
+compter facilement le nombre de jours entre deux dates, ou retirer 30{nbsp}jours.
 
 Quand nous utiliserons <<../chapter-04/index.adoc,Node>> et
 <<../chapter-05/index.adoc,npm>>, nous verrons que nous aurons
-à disposition des librairies facilitant les manipulations de dates.
+à disposition des bibliothèques facilitant les manipulations de dates.
 
 mdn::global[Date]
 
 
 [[intl.datetimeformat]]
-=== Formatage internationalisé (_Intl.DateTimeFormat_)
+=== Formatage internationalisé (Intl.DateTimeFormat)
 
-La spécification _ECMA Intl_ a été conçue pour ajouter des
+La spécification _ECMA{nbsp}Intl_ a été conçue pour ajouter des
 fonctionnalités relatives aux langues.
 Cette spécification est complémentaire.
 Son comportement varie en fonction du système d'exploitation
-– mode d'installation de Node et/ou version du navigateur web.
+– mode d'installation de Node et/ou version du navigateur{nbsp}web.
 
-Les méthodes de date `toLocaleString`, `toLocaleDateString` et
-`toLocaleTimeString` renvoient une version localisée
-d'une date complète, d'une date et d'une heure, respectivement.
+Les méthodes `toLocaleString`, `toLocaleDateString` et
+`toLocaleTimeString` renvoient respectivement une version localisée
+d'une date complète, d'une date et d'une heure.
 
 [source%interactive,javascript]
 .date/to-locale-date.js
@@ -1872,9 +1861,9 @@ include::{sourceDir}/date/to-locale-date.js[]
 <2> Affiche `décembre`.
 
 [CAUTION]
-.[RemarquePreTitre]#Attention# Tu vois M01, M02, etc. ?
+.[RemarquePreTitre]#Attention# M01,{nbsp}M02,{nbsp}etc. ?
 ====
-Si en formatant une date, les caractères `M01`, `M02` ou autre s'affiche,
+Si, en formatant une date, les caractères `M01`, `M02` ou autre s'affichent,
 c'est que le système n'est pas configuré avec les libellés de la langue
 demandée.
 
@@ -1901,12 +1890,12 @@ mdn::global[DateTimeFormat]
 
 
 [[class]]
-== Partager une logique avec des objets de même nature (_Class_)
+== Partager une logique avec des objets de même nature (Class)
 
 Une classe est une structure qui partage des propriétés
-et des méthodes entre objets qui y font appel.
+et des méthodes entre les objets qui y font appel.
 Une instance de classe est créée en préfixant un appel de fonction
-par l'opérateur `new`.
+par l'opérateur{nbsp}`new`.
 
 [source%interactive,javascript]
 ----
@@ -1914,9 +1903,8 @@ const date1 = new Date();
 const date2 = new Date('2013-12-04');
 ----
 
-Si on se réfère à l'exemple précédent,
-nos deux variables sont des objets issus de la _classe_ <<date,Date>>.
-Chacune des variables bénéficie des méthodes définies par la classe `Date`.
+Nos deux variables sont des objets issus de la _classe_ <<date,Date>>.
+Chacune des variables bénéficie des méthodes définies par cette classe.
 
 Autrement dit, si les <<object,structures d'objet>> définissent des données,
 les classes définissent des comportements partagés.
@@ -1926,7 +1914,7 @@ les classes définissent des comportements partagés.
 ----
 include::{sourceDir}/class/base.js[]
 ----
-<1> Le constructeur reçoit un ou plusieurs arguments lors de l'instanciation de la classe.
+<1> Le constructeur reçoit un ou plusieurs argument(s) lors de l'instanciation de la classe.
 <2> `this` fait référence à _ce contexte_, c'est-à-dire à _cette instance de classe_ ; deux instances peuvent être initialisées avec des données différentes.
 <3> `toJSON` est une méthode de la classe.
 <4> `isbn` est un accesseur (préfixe `get`) – une propriété dont la valeur est calculée à chaque fois qu'elle est appelée.
@@ -1936,22 +1924,22 @@ Nous développerons cet exemple dans les sections qui suivent.
 On peut d'ores et déjà noter que la structure d'une classe
 se décompose en plusieurs parties :
 
-la définition::
+La définition::
   Définit le nom de la classe que l'on pourra instancier.
-le constructeur::
+Le constructeur::
   Partie exécutée lorsque la classe est instanciée.
   On y met le moins de choses possibles.
-  En général on copie les données passées en argument.
-les méthodes::
+  En général, on copie les données passées en argument.
+Les méthodes::
   Fonctions partagées entre toutes les instances de la classe.
-les méthodes statiques::
+Les méthodes statiques::
   Fonctions partagées sans avoir à instancier la classe.
-les accesseurs et mutateurs::
+Les accesseurs et mutateurs::
   Fonctions qui définissent le comportement de propriétés dynamiques.
-le contexte (`this`)::
-  On peut y référer dans les méthodes de la classe pour dire
-  _je fais référence à cet objet_.
-  Et donc d'appeler les données et méthodes attenantes.
+Le contexte (`this`)::
+  On peut s'y référer dans les méthodes de la classe pour dire
+  _je fais référence à cet objet_ et, donc,
+  appeler les données et méthodes attenantes.
 
 mdn::reference[Classes]
 
@@ -2009,12 +1997,12 @@ la valeur d'un attribut.
 ----
 include::{sourceDir}/getters.js[]
 ----
-<1> Définition de l'_accesseur_ `isbn`.
+<1> Définition de l'__accesseur__{nbsp}``isbn``.
 <2> Affiche `"9782212139938"` – c'est une propriété de l'objet `nodebook`.
 <3> Affiche `"2212139938"` – `isbn` s'utilise comme un attribut mais sa valeur est calculée à chaque fois qu'elle est appelée.
 
 Le _mutateur_ est une fonction préfixée par le mot-clé `set` ; elle définit
-la valeur d'un ou plusieurs attributs.
+la valeur d'un ou plusieurs attribut(s).
 
 [source%interactive,javascript]
 .setters.js
@@ -2036,7 +2024,7 @@ mdn::reference[Functions/set]
 
 L'héritage est un mécanisme d'extension de classe.
 C'est une pratique peu employée en JavaScript,
-principalement de par sa nature modulaire et fonctionnelle.
+principalement en raison de sa nature modulaire et fonctionnelle.
 
 L'héritage se caractérise par l'usage de l'opérateur `extends` lors de la
 définition de la classe et aussi par l'utilisation du mot-clé `super`
@@ -2047,28 +2035,27 @@ dans le constructeur.
 ----
 include::{sourceDir}/class/extends.js[]
 ----
-<1> La classe `Product` assigne un titre par défaut lorsqu'un nouvel objet est initialisé.
-<2> La classe `Book` assigne un titre donné en argument et sinon, elle se base sur la valeur par défaut de la classe `Product`.
+<1> La classe `Product` affecte un titre par défaut lorsqu'un nouvel objet est initialisé.
+<2> La classe `Book` affecte un titre donné en argument et, sinon, se base sur la valeur par défaut de la classe `Product`.
 <3> Affiche `'Node.js'`.
-<4> Affiche `'Sans titre'` – la propriété `title` ne se définit par dans le constructeur (cf. `class Product`)
+<4> Affiche `'Sans titre'` – la propriété `title` ne se définit pas dans le constructeur (cf.{nbsp}``class Product``).
 
 En pratique, c'est comme si on empilait les classes les unes sur les autres.
 On lègue des méthodes aux classes qui héritent.
-Si une méthode porte le même nom, la méthode "en haut de la pile" a la priorité.
+Si une méthode porte le même nom, la méthode "`en haut de la pile`" a la priorité.
 
 L'appel à la fonction `super()` _appelle le constructeur de la classe étendue_.
-Si on ne l'appelle pas, le constructeur de la classe parent ne sera pas invoqué.
+Si on ne l'appelle pas, le constructeur de la classe parente ne sera pas invoqué.
 
-On reparlera de l'héritage dans la
-<<../chapter-09/index.adoc#react,section React>>
-du <<../chapter-09/index.adoc,chapitre 9>>.
-C'est un exemple populaire d'héritage appliqué aux composants visuels.
+On reparlera de l'héritage dans le <<../chapter-09/index.adoc,chapitre 9>>
+avec un exemple populaire d'héritage appliqué aux composants visuels avec
+la bibliothèque React.
 
 
 [[promise]]
-== Coordonner des actions asynchrones (_Promise_)
+== Coordonner des actions asynchrones (Promise)
 
-Une promesse est *un objet retourné immédiatement* mais le
+Une promesse est *un objet retourné immédiatement* mais dont le
 *résultat est obtenu plus tard*, de manière asynchrone.
 Cette résolution est soit _positive_ soit _négative_.
 
@@ -2077,7 +2064,7 @@ Cette résolution est soit _positive_ soit _négative_.
 ----
 include::{sourceDir}/promise/base.js[]
 ----
-<1> Affiche `Promise` – ce n'est pas le résultat que l'on voit mais l'objet avec lequel interagir pour être prévenu de la mise à disposition du résultat.
+<1> Affiche `Promise` – ce n'est pas le résultat que l'on voit, mais l'objet avec lequel interagir pour être prévenu de la mise à disposition du résultat.
 <2> Affiche `"un"`.
 <3> Affiche `"deux"` – c'est parce que la ligne d'avant a mis en attente la <<anonymous-function,fonction anonyme>>.
 <4> Affiche `"promesse tenue"` en dernier.
@@ -2090,21 +2077,22 @@ un résultat s'appelle le _pattern Executor_.
 ====
 
 
-Une `Promise` s'orchestre en deux temps.
-L'initialisation : on décide de la manière dont le traitement asynchrone
-sera effectué.
-Puis la résolution : _positive_ en appelant `resolve()`
-ou _négative_, en appelant `reject()`.
+Une `Promise` s'orchestre en deux temps :
+
+- L'initialisation +
+On décide de la manière dont le traitement asynchrone sera effectué.
+- La résolution +
+_Positive_ en appelant `resolve()` ou _négative_, en appelant `reject()`.
 Le résultat passé à `resolve` sera transmis au premier argument de `then`.
-Le résultat passé à `reject` sera transmis au deuxième argument de `then`
+Le résultat passé à `reject` sera transmis au deuxième argument de `then`,
 mais aussi au premier argument de `catch`.
 
-Une instance de `Promise` expose plusieurs méthodes
-pour propager le statut de son exécution.
+Une instance de `Promise` expose plusieurs méthodes pour propager
+le statut de son exécution :
 
 `then(onSuccess[, onError])`::
   Fonction acceptant un _callback_ de résolution et
-  un _callback_ de rejet (facultatif).
+  un autre de rejet (facultatif).
 `catch(onError)`::
   Fonction acceptant un _callback_ de rejet.
 
@@ -2113,39 +2101,39 @@ pour propager le statut de son exécution.
 ----
 include::{sourceDir}/promise/then-catch.js[]
 ----
-<1> La fonction `oddTime` accepte un argument de type <<date,Date>. Elle résout la promesse _positivement_ (`resolve`) si le nombre de secondes est impair, sinon elle résout la promesse _négativement_ (`reject`).
+<1> La fonction `oddTime` accepte un argument de type <<date,Date>. Elle résout la promesse _positivement_ (`resolve`) si le nombre de secondes est impair et _négativement_ (`reject`) sinon.
 <2> Utilisation de la forme compacte de `then` avec deux _callbacks_ : un de succès (associé à `resolve`) et un d'échec (associé à `reject`).
-<3> On crée une nouvelle promesse, avec une date calée une seconde plus tard c'est histoire de s'assurer que les deux appels aboutissent à une résolution différente.
-<4> Affiche `"le nombre de secondes est impair :-)"` si la résolution est positive.
-<5> Affiche `"le nombre de secondes n'est pas impair :-("` si la résolution est négativement.
+<3> On crée une nouvelle promesse, avec une date calée une seconde plus tard.
+<4> Affiche `"le nombre de secondes est impair :-)"` puisque la résolution est positive.
+<5> Affiche `"le nombre de secondes n'est pas impair :-("` puisque la résolution est négative.
 
 [NOTE]
 .[RemarquePreTitre]#Histoire# Standard `Promise/A+`
 ====
-Historiquement, de nombreuses librairies ont proposé leur propre implémentation de promesses.
-Elles avaient le défaut de ne pas être interopérables entre elles.
+Historiquement, de nombreuses bibliothèques ont proposé leur propre implémentation de promesses.
+Elles avaient le défaut de ne pas être interopérables.
 La spécification _Promise/A+_ ([URL]#https://github.com/promises-aplus/promises-spec#)
 a émergé pour établir un standard de compatibilité.
 
-ECMAScript 2015 introduit nativement cette API.
-Plus besoin de _polyfill_ ou de librairie pour en bénéficier nativement.
+ECMAScript{nbsp}2015 introduit nativement cette API.
+Il n'y a donc plus besoin de _polyfill_ ou de bibliothèque pour en bénéficier.
 ====
 
-En général, on utilise les promesses *pour aller plus vite*.
-Parce qu'on peut continuer à traiter d'autres actions en attendant
+En général, on utilise les promesses *pour aller plus vite*,
+parce qu'on peut continuer à traiter d'autres actions en attendant
 l'arrivée du résultat.
 
 C'est comme quand on se rend au restaurant :
-les personnes en cuisine effectuent le traitement des commandes
+les personnes en cuisine traitent des commandes
 (actions longues) tandis que les personnes au service gèrent
 des interactions plus courtes mais plus fréquentes.
 Au final, le ticket de commande contient la liste des promesses dont
 on attend la résolution.
 
 Nous verrons d'autres utilisations des promesses
-dans le reste de l'ouvrage, et plus particulièrement
-avec <<../chapter-09/index.adoc#io-fetch,fetch()>> au chapitre 9
-ainsi qu'avec <<../chapter-04/index.adoc#util.promisify,promisify>> au chapitre 4.
+dans le reste de l'ouvrage, plus particulièrement
+avec <<../chapter-09/index.adoc#io-fetch,fetch()>> au chapitre{nbsp}9
+ainsi qu'avec <<../chapter-04/index.adoc#util.promisify,promisify>> au chapitre{nbsp}4.
 
 mdn::global[Promise]
 
@@ -2153,7 +2141,7 @@ mdn::global[Promise]
 .[RemarquePreTitre]#Lien# Guide des promesses
 ====
 Le guide [URL]#https://www.w3.org/2001/tag/doc/promises-guide# est _très_ complet.
-Il est en anglais ainsi qu'en libre consultation sur le site du W3C.
+Il est en anglais ainsi qu'en libre consultation sur le site du{nbsp}W3C.
 
 Son dépôt GitHub [URL]#https://github.com/w3ctag/promises-guide# permet
 d'y contribuer.
@@ -2163,25 +2151,24 @@ d'y contribuer.
 === Collection de promesses
 
 `Promise.all` est une <<class.static,méthode statique>> de la class _Promise_.
-Elle accepte un <<array,tableau>> de promesses.
-`Promise.all` retourne elle-même une promesse.
-Cette promesse est résolue positivement si toutes les promesses réussissent.
-Elle est résolue négativement dès que l'_une d'entre elles_ échoue.
+Elle accepte un <<array,tableau>> de promesses et en retourne elle-même une promesse.
+Cette dernière est résolue positivement si toutes les promesses réussissent
+et négativement dès que l'_une d'entre elles_ échoue.
 
 [source%interactive,javascript]
 .promise/all.js
 ----
 include::{sourceDir}/promise/all.js[]
 ----
-<1> Cette fonction résout la promesse après un délai aléatoire compris entre 0 et 2000 millisecondes.
-<2> On passe 3 promesses à `Promise.all`.
-<3> La résolution est déclenchée dès que les 3 promesses sont résolues – l'argument contient un tableau listant les résultats _dans l'ordre initial_ des promesses.
+<1> Cette fonction résout la promesse après un délai aléatoire compris entre{nbsp}0 et 2000{nbsp}millisecondes.
+<2> On passe trois promesses à `Promise.all`.
+<3> La résolution est déclenchée dès que les trois promesses sont résolues – l'argument contient un tableau listant les résultats _dans l'ordre initial_ des promesses.
 
 L'exemple précédent illustre la *parallélisation des actions*.
-Si la promesse la plus longue prend 1 seconde à être résolue,
+Si la promesse la plus longue est résolue en une seconde,
 alors le temps d'attente pour la résolution de _toutes les promesses_
-est de 1 seconde. +
-Si on avait été dans un enchainement séquentiel, le temps d'attente
+est de une seconde. +
+Si on avait été dans un enchaînement séquentiel, le temps d'attente
 final aurait été l'accumulation des temps d'attente de la résolution
 de chacune des promesses.
 
@@ -2196,37 +2183,36 @@ l'interpréteur ECMAScript, en attendant le résultat d'une
 fonction asynchrone (préfixée par `async`).
 Les <<promise,promesses>> sont implicitement compatibles.
 On peut donc les mettre à plat pour obtenir un résultat
-sans avoir à utiliser `then` ni `catch`.
+sans avoir à utiliser `then` ni{nbsp}`catch`.
 
-Transformons l'exemple de la section <<promise.all,Promise.all>>
-pour comprendre l'impact de `async` et de `await`.
+Transformons l'exemple de la <<promise.all,section précédente>>
+pour comprendre l'impact de `async` et de{nbsp}`await`.
 
 [source%interactive,javascript]
 .promise/async-await.js
 ----
 include::{sourceDir}/promise/async-await.js[]
 ----
-<1> On crée une _fonction asynchrone auto-invoquée_ – c'est pas pour frimer mais parce qu'on ne peut pas encore utiliser de fonction asynchrone directement au niveau principal d'un script.
+<1> On crée une _fonction asynchrone auto-invoquée_ – parce qu'on ne peut pas encore utiliser de fonction asynchrone directement au niveau principal d'un script.
 <2> Chaque utilisation de `await` met l'interpréteur en pause.
-<3> L'affichage du temps d'exécution de chaque promesse se fait lorsque les 3 promesses sont résolues.
+<3> L'affichage du temps d'exécution de chaque promesse se fait lorsque les trois promesses sont résolues.
 
 On gagne en lisibilité, mais on perd en vitesse.
 Les promesses sont exécutées séquentiellement et non en parallèle.
-Il est important d'arbitrer les choix de _design_ et d'éviter de bloquer
+Il est important d'arbitrer les choix de conception et d'éviter de bloquer
 l'exécution de vos scripts sans raison explicite.
 
 == Conclusion
 
-ECMAScript est un langage bien plus riche, complet et élégant qu'il n'y parait.
+ECMAScript est un langage bien plus riche, complet et élégant qu'il n'y paraît.
 
 Ce chapitre nous a *appris les différentes structures de langage*
-communes à toutes les environnements comprenant ECMAScript.
+communes à tous les environnements comprenant ECMAScript.
 Cela s'applique aussi bien à Node qu'aux navigateurs web. +
-Je vous invite à revenir à ce chapitre pour vous rafraîchir la mémoire
+Je vous invite à revenir à ce chapitre pour vous rafraîchir la mémoire,
 mais aussi pour jouer avec les exemples afin de confirmer votre compréhension
 du langage.
 
 Dans le <<../chapter-04/index.adoc,chapitre suivant>>, nous allons
-*relier ces apprentissages avec Node* – l'interpréteur et l'environnement
-d'exécution JavaScript que nous avons appris à installer au
-<<../chapter-02/index.adoc,chapitre 2>>.
+*relier ces apprentissages avec Node* – notre interpréteur et environnement
+d'exécution JavaScript.

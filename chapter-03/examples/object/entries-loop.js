@@ -9,5 +9,5 @@ Object.entries(francine).forEach(([key, value]) => {
 
 // même résultat, autre méthode
 for (const [key, value] of Object.entries(francine)) {
-  console.log(`francine.${key} vaut ${value}`);   // <2>
+  console.log(`francine.${key} vaut ${value}`);
 }
