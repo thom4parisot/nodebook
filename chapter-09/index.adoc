@@ -18,7 +18,7 @@ web _front-end_ alors profitons-en pour partager du code entre client et serveur
 
 ====
 .Sommaire
-- Polyfills et compatibilité _ECMASCript_
+- Polyfills et compatibilité ECMAScript
 - Importer des modules `npm` pour le web
 - Créer du code modulaire, avec ou sans _framework_
 - Échanges de données en temps-réel
@@ -40,7 +40,7 @@ qu'à la compilation, l'optimisation et l'exécution des tests des applications
 web côté client.
 
 Cet *écosystème rend l'écriture de code moderne normale* ; un code anticipant
-les futurs standards d'_ECMAScript_ et _HTML5_, sur les navigateurs actuels et anciens.
+les futurs standards d'ECMAScript et _HTML5_, sur les navigateurs actuels et anciens.
 --
 
 include::../docs/tip-versions.adoc[]
@@ -64,10 +64,10 @@ de notre propre application web.
 
 Il faut également bien comprendre qu'il y a plusieurs "problèmes" cachés sous une même question :
 
-- Les navigateurs web et Node utilisent différentes machines virtuelles JavaScript, avec différents niveaux de complétion dans l'implémentation d'_ECMAScript_ ;
+- Les navigateurs web et Node utilisent différentes machines virtuelles JavaScript, avec différents niveaux de complétion dans l'implémentation d'ECMAScript ;
 - Les navigateurs web et Node n'ont pas accès aux mêmes APIs – Node accède à `fs` et `http` tandis que les navigateurs ont `File` et `fetch`/`XmlHttpRequest` ;
 - Les navigateurs web et Node ne gèrent pas le chargement de modules de la même manière – voir la section <<managing-dependencies,gestion des dépendances>> ;
-- L'implémentation même d'_ECMAScript_ va différer selon les versions de Node employées – un navigateur moderne et Node 6 comprendraient l'objet natif `Promise` mais pas Node 0.12.
+- L'implémentation même d'ECMAScript va différer selon les versions de Node employées – un navigateur moderne et Node 6 comprendraient l'objet natif `Promise` mais pas Node 0.12.
 
 Ce processus n'est _pas magique_ et nous verrons graduellement au cours des prochaines sections comment tout ceci fonctionne.
 
@@ -84,7 +84,7 @@ qu'ECMAScript lui-même: _Rhino_ nécessitait Java, _Spidermonkey_ nécessitait 
 et _Trident_ nécessitait un environnement Windows en plus de {cpp}.
 
 _esprima_ ([URL]#https://npmjs.com/esprima#) chamboule les règles du jeu en
-décembre 2011 : ce parseur _ECMAScript_ – lui-même écrit en _ECMAScript_ –
+décembre 2011 : ce parseur ECMAScript – lui-même écrit en ECMAScript –
 exporte une compréhension de code sous forme d'arbre syntaxique abstrait
 (_abstract syntax tree_, _AST_).
 Cet arbre est lui-même analysable par de nouveaux outils émergents :
@@ -94,7 +94,7 @@ notamment dans les outils de développement des navigateurs web ;
 - des minifieurs plus efficaces et ayant connaissance des portions de code exécutées ;
 - des analyseurs de code pour informer le développeur d'erreurs de syntaxe,
 de non-respect de styles de développement, etc. ;
-- des convertisseurs de code pour passer d'_ECMAScript_ vers _CoffeeScript_,
+- des convertisseurs de code pour passer d'ECMAScript vers _CoffeeScript_,
 e modules _CommonJS_ vers des modules _ECMAScript 2015_, etc.
 
 [TIP]
@@ -116,7 +116,7 @@ La version de navigateur la plus ancienne ou la moins conforme aux standards
 était celle qui donnait le _la_. +
 Cela voulait dire se priver de techniques modernes, standardisées ou en cours
 de standardisation.
-Cela voulait dire des _hacks_ dans ses CSS, dans son code _ECMAScript_ et dans
+Cela voulait dire des _hacks_ dans ses CSS, dans son code ECMAScript et dans
 ses ressources graphiques.
 
 [[transpilation]]
@@ -128,7 +128,7 @@ Son existence facilite l'*émergence d'outils automatisant les transformations d
 pour satisfaire nos besoins spécifiques.
 
 Il y a plusieurs éléments à prendre en compte concernant la standardisation
-de nouvelles versions d'_ECMAScript_ et les évolutions de sa syntaxe :
+de nouvelles versions d'ECMAScript et les évolutions de sa syntaxe :
 
 . la cadence de standardisation a été revue pour devenir prédictible – une
 volonté d'une fois par an ;
@@ -224,7 +224,7 @@ include::{sourceDir}/babel-es2015ified.js[]
 ----
 
 Il existe de nombreuses règles de transformation.
-Chacune d'entre elles cible une fonctionnalité spécifique d'une version d'_ECMAScript_.
+Chacune d'entre elles cible une fonctionnalité spécifique d'une version d'ECMAScript.
 Les _presets_ des modules `npm` faisant office de groupes logiques.
 
 Le preset _preset-env_ [URL]#https://npmjs.com/babel-preset-env# convertit
@@ -279,7 +279,7 @@ Promise.resolve('ok');
 
 Comprenons que :
 
-- cette syntaxe est valide dans toutes les versions d'_ECMAScript_
+- cette syntaxe est valide dans toutes les versions d'ECMAScript
 (_babel_ ne changera rien à ce code) ;
 - l'objet global `Promise` existe dans un navigateur moderne ;
 - l'objet global `Promise` n'existe pas dans _Internet Explorer 11_, entre autres.
@@ -336,7 +336,7 @@ include::{sourceDir}/polyfill-import.html[]
 <1> Nous verrons <<modules,comment importer des modules>> ci-après.
 <2> On importe un deuxième _polyfill_, celui de la méthode `Number.isNaN`.
 
-Le module _npm_ `core-js` est une librairie exhaustive de _polyfills_ pouvant être inclus un à un ou par versions d'_ECMAScript_.
+Le module _npm_ `core-js` est une librairie exhaustive de _polyfills_ pouvant être inclus un à un ou par versions d'ECMAScript.
 
 [TIP]
 .[RemarquePreTitre]#Documentation# `core-js`
@@ -600,7 +600,7 @@ _broccoli_, etc.
 == Conception modulaire
 
 Un autre paradigme change avec la mise à disposition des modules et de l'outillage
-à disposition : le code que l'on écrit dépend surtout d'_ECMAScript_ et de
+à disposition : le code que l'on écrit dépend surtout d'ECMAScript et de
 l'environnement dans lequel on l'exécute, à savoir Node ou un navigateur web.
 
 La section suivante s'intéresse à l'évolution de l'écriture du code, autrefois
@@ -620,7 +620,7 @@ image::images/modules-time.png[width="85%"]
 Les exemples suivants se basent sur l'utilisation de la librairie _jQuery_
 ([URL]#https://api.jquery.com#).
 
-Elle facilite la manipulation du _DOM_ tout en gérant les incompatibilités des
+Elle facilite la manipulation du DOM tout en gérant les incompatibilités des
 différents navigateurs web.
 Son utilisation est devenue moins dominante du fait d'une nette amélioration de
 la qualité de ces derniers.
@@ -704,7 +704,7 @@ include::{sourceDir}/modules/jquery-app.js[]
 Le code a été divisé en deux sections distinctes :
 
 . celui qui décrit la réaction à une donnée ;
-. celui qui intègre le minuteur avec les éléments du _DOM_.
+. celui qui intègre le minuteur avec les éléments du DOM.
 
 Nous n'avons pas réellement besoin de savoir comment fonctionne le minuteur à
 ce niveau – nous avons juste besoin de pouvoir compter sur les données qu'il
@@ -733,7 +733,7 @@ Tout n'est pas parfait, car nous sommes encore liés à la structure du document
 
 Cette séparation de principes (_separation of concerns_) va au-delà du plaisir
 de l'esthète.
-Nous venons sans le savoir de créer du *code _ECMAScript_ universel*.
+Nous venons sans le savoir de créer du *code ECMAScript universel*.
 
 Pourquoi universel ?
 Parce que nous pouvons tout aussi bien l'inclure et l'exécuter dans Node que
@@ -1513,7 +1513,7 @@ aux différentes dispositions d'un site web _responsive_.
 _sharp-cli_ ([URL]#https://npmjs.com/sharp-cli#) répond exactement à ce cahier
 des charges.
 Ce module en ligne de commande est basé sur _sharp_ ([URL]#https://npmjs.com/sharp#),
-une librairie Node de modification d'images écrite en _ECMAScript_ et _C++_.
+une librairie Node de modification d'images écrite en ECMAScript et _C++_.
 _sharp_ nous aidera entre autres à redimensionner, découper, retourner, recentrer,
 assembler et appliquer des effets graphiques de manière prédictible.
 
@@ -1574,7 +1574,7 @@ amplement superflu et ne sert qu'à nous ralentir.
 
 La réalité est toute autre et suit un paradigme très simple :
 *plus il y a de lignes de code, plus il y a de chances de faire des erreurs*.
-Cela vaut aussi bien pour du HTML que du CSS ou encore de l'_ECMAScript_.
+Cela vaut aussi bien pour du HTML que du CSS ou encore de l'ECMAScript.
 
 Cette ultime et dernière section de ce chapitre nous aidera à comprendre
 quoi et comment tester pour diminuer le coût de maintenance de nos applications.
@@ -1829,7 +1829,7 @@ Des librairies comme _React_ sont déjà solidement testées.
 Cela nous laisse l'opportunité de nous concentrer uniquement sur notre logique métier.
 
 Les tests navigateurs sont en revanche utiles pour tester la compatibilité
-navigateurs, que ce soit au niveau de la syntaxe _ECMAScript_ ou du rendu CSS.
+navigateurs, que ce soit au niveau de la syntaxe ECMAScript ou du rendu CSS.
 
 === Tester code et composants dans les navigateurs web
 
@@ -1910,7 +1910,7 @@ include::karma.conf.js[lines=7..17]
 Des intégrations doivent être déclarés pour augmenter les fonctionnalités de
 base de _karma_.
 Les fonctionnalités de base de _karma_ se résument à charger des fichiers
-_ECMAScript_ dans une balise `<script>`.
+ECMAScript dans une balise `<script>`.
 
 L'extrait de configuration suivant illustre le chargement des _plugins_ pour
 _browserify_ (modules _CommonJS_ et transpilation), _mocha_ (suites de tests)
@@ -2135,7 +2135,7 @@ des *navigateurs web* sur notre machine, sur des *services distants* mais
 également de manière automatique avec des services d'*intégration continue*
 comme _Travis CI_.
 
-Le recours aux modules `npm` combinés aux modules _ECMAScript_ facilite le
+Le recours aux modules `npm` combinés aux modules ECMAScript facilite le
 *design et la maintenance de code testable et réutilisable*.
 
 Ces pratiques de modularisation – jusqu'au rendu intermédiaire de _React_

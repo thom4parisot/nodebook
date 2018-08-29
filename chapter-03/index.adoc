@@ -17,7 +17,7 @@ ce qui en fait un langage élégant et moderne.
 
 ====
 .Sommaire
-- Qu'est-ce que JavaScript, pour de vrai ?
+- Qu'est-ce que JavaScript ?
 - Comprendre l'évolution de la spécification ECMAScript
 - Jongler avec les différentes structures du langage
 - En savoir plus sur des éléments avancés du langage
@@ -45,7 +45,7 @@ ainsi qu'à mieux les traiter.
 == Qu'est-ce que JavaScript ?
 
 Je vais vous présenter plusieurs exemples de code.
-Ils sont en commun d'être tous écrits en JavaScript.
+Ils ont en commun d'être tous écrits en JavaScript.
 
 [source%interactive,javascript]
 .intro/ecmascript.js
@@ -54,7 +54,7 @@ include::{sourceDir}/intro/ecmascript.js[]
 ----
 
 Cet exemple illustrait la création de variables, de chaînes de caractères.
-Ce sont des fonctionnalités de base de la spécification _ECMAScript_.
+Ce sont des fonctionnalités de base de la spécification ECMAScript.
 
 [source,javascript]
 .intro/web.js
@@ -62,12 +62,12 @@ Ce sont des fonctionnalités de base de la spécification _ECMAScript_.
 include::{sourceDir}/intro/web.js[]
 ----
 
-`fetch()` ne fait pas partie de la spécification _ECMAScript_.
+`fetch()` ne fait pas partie de la spécification ECMAScript.
 C'est un ajout des navigateurs web.
-On parle alors d'*API JavaScript pour le web*.
+On parle alors d'*API JavaScript pour le Web*.
 
 [NOTE]
-.[RemarquePreTitre]#Glossaire# API (Interfaces de programmation)
+.[RemarquePreTitre]#Glossaire# API (Interface de programmation)
 ====
 Les API sont des interfaces pour dialoguer avec un programme ou une
 ressource informatique.
@@ -82,7 +82,7 @@ include::{sourceDir}/intro/dom.js[]
 
 La variable `document` et les méthodes `querySelector` et `addEventListener`
 font aussi partie des API JavaScript pour le Web.
-En l'occurence, elles font partie de l'API _DOM_ (_Document Object Model_),
+En l'occurrence, elles font partie de l'API DOM (_Document Object Model_),
 un mécanisme pour interagir avec une page web grâce à ECMAScript.
 
 [source%interactive,javascript]
@@ -92,76 +92,81 @@ include::{sourceDir}/intro/node.js[]
 ----
 
 Ce dernier exemple est spécifique à Node.
-Node propose la fonction `require()` pour charger des modules et interagir
+Ce dernier propose la fonction `require()` pour charger des modules et interagir
 avec le système d'exploitation.
 
 Autrement dit,
 *ECMAScript est un langage, une grammaire avec des fonctionnalités de base*.
 Chaque environnement – les navigateurs web, Node – le comprend et lui ajoute
 de nouvelles expressions, contextuelles à cet environnement d'exécution.
-*JavaScript est le grand ensemble des technologies qui se reposent sur ECMAScript*
+*JavaScript est le grand ensemble des technologies qui reposent sur ECMAScript*
 pour fonctionner.
 
 [NOTE]
 .[RemarquePreTitre]#Histoire# À propos de JavaScript
 ====
-JavaScript a été inventé en 1995 par Brendan Eich alors qu'il était employé de la société _Netscape Communications_.
-Microsoft lui emboîte le pas en incluant JavaScript dans son logiciel Internet Explorer, alors en version 3.
-Pour des raisons de droits de marque, il y est dénommé _JScript_.
+JavaScript est inventé en 1995 par Brendan{nbsp}Eich alors qu'il est employé de
+la société Netscape Communications.
+Microsoft lui emboîte le pas en incluant JavaScript dans son logiciel
+Internet{nbsp}Explorer, alors en version{nbsp}3.
+Pour des raisons de droits de marque, il y est dénommé JScript.
 
-La spécification est ensuite validée par l'organisme _Ecma International_ en juin 1997 sous le nom d'_ECMAScript_, standard ECMA-262.
+La spécification est ensuite validée par l'organisme _Ecma International_
+en juin 1997 sous le nom d'ECMAScript, standard ECMA-262.
 
-L'utilisation du terme _JavaScript_ est resté dans le vocabulaire courant. Mais c'est bien d'_ECMAScript_ dont on parle, vraiment.
+Le terme JavaScript est resté dans le vocabulaire courant, mais, en fait,
+il s'agit bien d'ECMAScript.
 
 Adobe Flash utilise un dérivé d'ECMAScript : ActionScript.
 Bien des machines virtuelles sont capables d'interpréter partiellement ou
 intégralement ECMAScript : Rhino, Konq, BESEN en Object Pascal ou encore
-Esprima qui est elle-même écrite en ECMAScript.
+Esprima, qui est elle-même écrite dans ce langage.
 ====
 
 Si d'autres langages de programmation se cantonnent
-soit au _côté client_ (VBScript, ActionScript, Elm)
-soit au _côté serveur_ (Ruby, Python, Haskell),
-JavaScript a débuté _côté client_ pour s'étendre aussi _côté serveur_.
-Un développeur ou une développeuse dite "_full stack_" programme des applications
+soit au côté client (VBScript, ActionScript, Elm),
+soit au côté serveur (Ruby, Python, Haskell),
+JavaScript a débuté côté client pour s'étendre aussi côté serveur.
+Un développeur ou une développeuse dite _full{nbsp}stack_ programme des applications
 sur les deux fronts.
 Node a cet avantage d'unifier le langage de programmation entre les environnements
-clients et serveurs.
+client et serveur.
 
-Le langage _ECMAScript_ – appelons-le ainsi à partir de maintenant –
+Le langage ECMAScript – appelons-le ainsi à partir de maintenant –
 a évolué au fil du temps.
-Il s'est enrichi de nouvelles fonctionnalités au fil des versions mais aussi
+Il s'est enrichi de nouvelles fonctionnalités au fil des versions, mais aussi
 de sucres syntaxiques (raccourcis d'écriture)
 et de rigueur aussi, pour corriger des défauts de _design_.
 
-Le comité de travail _TC39_ (_Technical Committee_,
+Le comité de travail TC39 (_Technical Committee_,
 [URL]#https://github.com/tc39#) est en charge de l'évolution
-du langage, standardisé sous le doux sobriquet de _standard ECMA-262_.
-À charge ensuite aux différents implémenteurs de suivre les changements
+du langage, standardisé sous le doux sobriquet de _standard ECMA-262_,
+à charge ensuite aux différents implémenteurs de suivre les changements
 et de les incorporer dans leurs machines virtuelles.
 
-Node se base sur la machine virtuelle <<../chapter-01/index.adoc#v8,V8 de Google>> pour interpréter les expressions ECMAScript.
-De fait, Node comprend les mêmes expressions ECMAScript que _V8_.
+Node se base sur la machine virtuelle{nbsp}<<../chapter-01/index.adoc#v8,V8 de Google>>
+pour interpréter les expressions ECMAScript.
+De fait, Node comprend les mêmes expressions ECMAScript que{nbsp}V8.
 
 Nous verrons un peu plus tard dans ce chapitre comment suivre la
 compatibilité de Node avec ECMAScript.
-Intéressons-nous à l'évolution du langage, et ce que ça nous apporte.
+Intéressons-nous à l'évolution du langage et à ce que ça nous apporte.
 
-=== ECMAScript 5 (aka _ES5_)
+=== ECMAScript{nbsp}5 (aka ES5)
 
-ECMAScript a été standardisé dans sa version 5 en décembre 2009.
-La révision 5.1 de juin 2011 est une correction mineure de la spécification.
+ECMAScript a été standardisé dans sa version{nbsp}5 en décembre{nbsp}2009.
+La révision{nbsp}5.1 de juin{nbsp}2011 est une correction mineure de la spécification.
 
 Il s'agit d'une évolution majeure dans l'histoire du langage.
-La précédente version – ECMAScript 3 – était âgée de dix ans.
+La précédente version – ECMAScript{nbsp}3 – était âgée de dix{nbsp}ans.
 
-ECMAScript 5 limite drastiquement certains effets indésirables du langage
+ECMAScript{nbsp}5 limite drastiquement certains effets indésirables du langage
 grâce au _mode strict_.
-De nouvelles méthodes de manipulation de tableaux et d'objets voient le jour
-ainsi qu'un support natif du format de données <<json,JSON>>.
+De nouvelles méthodes de manipulation de tableaux et d'objets voient le jour,
+ainsi qu'une prise en charge native du format de données{nbsp}<<json,JSON>>.
 
 La standardisation de cette version d'ECMAScript a contribué à redorer
-l'image du langage mais aussi à faire émerger de nouvelles pratiques
+l'image du langage, mais aussi à faire émerger de nouvelles pratiques
 de programmation.
 
 [horizontal]
@@ -172,21 +177,20 @@ Spécification::
 
 image::images/compat-table.png[width="85%"]
 
-=== ECMAScript 2015 (aka _ES6_ puis _ES2015_)
+=== ECMAScript 2015 (aka{nbsp}ES6 puis{nbsp}ES2015)
 
-La spécification _ECMAScript 2015_ (_ES2015_) a été publiée en juin 2015.
-Elle succède à _ECMAScript 5_ après 6 années de gestation. +
-Cette version a successivement été appelée _ECMAScript Harmony_, _ECMAScript 6_, puis _ECMAScript 2015_.
+La spécification ECMAScript{nbsp}2015 (ES2015) a été publiée en juin{nbsp}2015.
+Elle succède à ECMAScript{nbsp}5 après six années de gestation.
+Cette version a successivement été appelée ECMAScript Harmony, ECMAScript{nbsp}6,
+puis ECMAScript{nbsp}2015.
 
-Le processus de standardisation a mis 6 années pour aboutir,
-mais cette fois-ci, les choses se sont déroulées différemment. +
 De nombreuses idées ont été piochées dans le langage
-_CoffeeScript_ ([URL]#http://coffeescript.org#).
+CoffeeScript ([URL]#http://coffeescript.org#).
 Et surtout, un nouveau type d'outillage s'est formé pour commencer
-à utiliser ce JavaScript du futur avec les compilateurs
-_traceur_ de Google dès 2011 ([URL]#https://github.com/google/traceur-compiler#)
-puis le projet indépendant _6to5_ dès 2014.
-_6to5_ a été renommé en _babel_ ([URL]#https://babeljs.io#)
+à utiliser ce JavaScript du futur avec le compilateur
+_traceur_ de Google dès{nbsp}2011 ([URL]#https://github.com/google/traceur-compiler#),
+puis avec le projet indépendant _6to5_ dès{nbsp}2014.
+Ce dernier a été renommé en Babel ([URL]#https://babeljs.io#)
 et son instigateur a par la suite été embauché par Facebook.
 
 La pratique de compiler du JavaScript en JavaScript était en rupture
@@ -195,56 +199,55 @@ attendre qu'une fonctionnalité soit adoptée par un dénominateur commun
 de navigateurs web pour s'en servir.
 Cette fois-ci, on pouvait se servir du futur, dès aujourd'hui.
 
-De fait, il n'y a pas eu à attendre 6 ans et l'implémentation
-par les différents implémenteurs pour profiter de ce
-qu'il y avait de meilleur.
+De fait, il n'y a pas eu à attendre six ans et les différentes implémentations
+pour profiter de ce qu'il y avait de meilleur.
 
 Le prix à payer ? Un ticket d'entrée plus élevé lié à la maîtrise
 de l'outillage associé.
 
 [horizontal]
-Table de compatibilité (navigateurs web)::
+Table de compatibilité (navigateurs{nbsp}web)::
   [URL]#https://kangax.github.io/compat-table/es6/#
 Table de compatibilité (Node.js)::
   [URL]#https://node.green/#
 Spécification::
   [URL]#https://www.ecma-international.org/ecma-262/6.0/#
 
-.Illustration de l'évolution de la compatibilité ECMAScript au fil des versions de Node.
+.Illustration de l'évolution de la compatibilité ECMAScript au fil des versions de{nbsp}Node.
 image::images/node-green.png[width="85%"]
 
 
-=== ECMAScript 2016, etc. (aka _ES2016_)
+=== ECMAScript 2016, etc. (aka{nbsp}ES2016)
 
-Depuis la sortie d'_ECMAScript 2015_, l'intention est de publier une
-nouvelle spécification par an.
-L'envie était de travailler fonctionnalité par fonctionnalité
-et de ne pas attendre trop longtemps avant de les ratifier.
-En conséquent, les nouvelles versions annuelles sont beaucoup plus
+Depuis la sortie d'ECMAScript{nbsp}2015, l'intention est de publier une
+nouvelle spécification par an, de travailler les fonctionnalités une par une
+pour ne pas attendre trop longtemps avant de les ratifier.
+En conséquence, les nouvelles versions annuelles sont beaucoup plus
 incrémentales.
 Elles se font moins attendre et contiennent moins de grands bouleversements.
 
 Les fonctionnalités en cours de préparation sont listées
-dans ce dépôt GitHub : [URL]#https://github.com/tc39/proposals#.
-Le dernier stade avant la validation d'une fonctionnalité est le _stage 3_.
-Dès qu'une fonctionnalité passe en _stage 4_, elle est incluse
+dans le dépôt GitHub suivant : [URL]#https://github.com/tc39/proposals#.
+Le dernier stade avant la validation est le _stage{nbsp}3_.
+Dès qu'une fonctionnalité passe en _stage{nbsp}4_, elle est incluse
 dans la prochaine version d'ECMAScript
-– _ECMAScript {docyear}_ une fois l'année {docyear} terminée.
+– ECMAScript{nbsp}{docyear} une fois l'année {docyear} terminée.
 
-Les fonctionnalités approuvées sont consignées dans ce document :
+Les fonctionnalités approuvées sont consignées dans un document :
 [URL]#https://github.com/tc39/proposals/blob/master/finished-proposals.md#.
 
 [[primitives]]
 == Éléments de base du langage
 
-ECMAScript définit plusieurs _types_ de données.
-Cette section s'intéresse à décrire les notions nécessaires
+Cette section décrit les notions nécessaires
 pour s'approprier le reste des exemples de l'ouvrage.
 On apprendra notamment à créer des variables, à naviguer dans
 des listes d'éléments et à faire la différence
 entre un objet et une fonction.
 
-Mais qu'entend-t-on par _type de données_ ?
+=== Les types de données
+
+Qu'entend-t-on par _type de données_ ?
 Faisons-nous notre propre idée avec une suite d'exemples.
 Ces notions seront développées dans le reste du chapitre,
 pour mieux comprendre ce que l'on peut en faire.
@@ -258,11 +261,11 @@ include::{sourceDir}/base/string.js[]
 Une valeur entourée de guillemets est considérée
 par l'interpréteur ECMAScript comme une chaîne de caractères, du texte.
 
-Ces guillemets peuvent être des guillemets simples (`'`),
-des guillemets doubles (`"`) ou des guillemets obliques (```).
+Ces guillemets sont selon les cas des guillemets simples{nbsp}(+'+),
+doubles (+"+) ou obliques (+`+).
 
 On peut effectuer des opérations d'identification ou d'assemblage avec une
-valeur de _type chaîne de caractères_.
+valeur de type *chaîne de caractères*.
 
 
 [source%interactive,javascript]
@@ -271,12 +274,12 @@ valeur de _type chaîne de caractères_.
 include::{sourceDir}/base/number.js[]
 ----
 
-ECMAScript considère les entiers (`3` dans cet exemple)
-et les nombres flottants (`12.3` dans cet exemple) comme des nombres.
-Il ne fait _pas_ de distinction entre les deux.
+ECMAScript considère les entiers (`3`{nbsp}dans cet exemple)
+et les réels (`12.3`{nbsp}dans cet exemple) comme des nombres.
+Il ne fait _pas_ de distinction entre les{nbsp}deux.
 
 On peut effectuer des opérations mathématiques entre plusieurs
-valeurs de _type nombre_.
+valeurs de type *nombre*.
 
 [source%interactive,javascript]
 .base/boolean.js
@@ -284,11 +287,11 @@ valeurs de _type nombre_.
 include::{sourceDir}/base/boolean.js[]
 ----
 
-ECMAScript considère deux valeurs pour signifier _vrai_ ou _faux_,
+ECMAScript considère deux valeurs pour signifier _vrai_ ou _faux_ :
 respectivement `true` et `false`.
 
 On peut effectuer des opérations logiques avec une
-valeur de _type booléen_.
+valeur de type *booléen*.
 
 
 [source%interactive,javascript]
@@ -297,7 +300,7 @@ valeur de _type booléen_.
 include::{sourceDir}/base/null.js[]
 ----
 
-On utilise `null` pour signifier l'absence de valeur.
+On utilise `null` pour signifier l'*absence de valeur*.
 
 
 [source%interactive,javascript]
@@ -307,15 +310,15 @@ include::{sourceDir}/base/undefined.js[]
 ----
 
 La valeur `undefined` est utilisée pour signifier
-qu'une valeur est inconnue.
+qu'une *valeur* est *inconnue*.
 Rares sont les cas où on choisira ce type de données par nous-même.
 
 mdn::javascript[Data_structures, title="primitives"]
 
 Il existe trois autres types de données qui se basent sur ces types
 dits _primitifs_.
-Ces autres types sont destinés à ranger, classer et
-à exprimer de nouvelles valeurs en fonction d'autres.
+Ils sont destinés à ranger, à classer et à exprimer de nouvelles valeurs
+en fonction d'autres.
 
 
 [source%interactive,javascript]
@@ -324,14 +327,12 @@ Ces autres types sont destinés à ranger, classer et
 include::{sourceDir}/base/array.js[]
 ----
 
-Un tableau se déclare en encadrant une suite de valeurs entre crochets
-(`[` et `]`).
-Un tableau peut contenir n'importe quel type de valeurs,
-et autant que nécessaire.
+Un tableau se déclare en encadrant une suite de valeurs entre crochets.
+Il est capable de contenir n'importe quel type de valeurs et autant que nécessaire.
 L'ordre des valeurs a généralement une importance.
 
 On peut effectuer des opérations de tri et de sélection avec un
-_tableau de valeurs_.
+*tableau de valeurs*.
 
 [source%interactive,javascript]
 .base/object.js
@@ -339,15 +340,14 @@ _tableau de valeurs_.
 include::{sourceDir}/base/object.js[lines=2..-1]
 ----
 
-Un objet se déclare en encadrant une suite de _paires de valeurs_
-entre accolade (`{` et `}`).
-Une _clé_ désigne une _valeur_, qui peut être de n'importe quel type.
-Un objet fonctionne comme un _dictionnaire_ : on associe une valeur
-à un intitulé, un label.
-L'ordre des valeurs n'a généralement pas d'importance.
+Un objet se déclare en encadrant une suite de _paires clé/valeur_
+entre accolades.
+Il fonctionne comme un _dictionnaire_ : on associe une valeur (type au choix)
+à une clé (un intitulé, un label).
+L'ordre des paires n'a généralement pas d'importance.
 
 On peut effectuer des opérations de sélection avec un
-_objet de valeurs_.
+*objet de valeurs*.
 
 
 [source%interactive,javascript]
@@ -358,7 +358,8 @@ include::{sourceDir}/base/function.js[lines=3..-1]
 
 Une fonction accepte des _arguments_, de n'importe quel type et
 autant que nécessaire.
-Une fonction peut être _déclarée_ et être _exécutée_ (dernière ligne de l'exemple précédent).
+Elle doit être _déclarée_ pour être _exécutée_
+(dernière ligne de l'exemple précédent).
 
 Une fonction _retourne_ un résultat explicite avec le
 mot-clé `return`.
@@ -369,8 +370,8 @@ On peut effectuer des opérations de transformation avec une fonction.
 
 Les fonctions sont destinées à être _appelées_, pour effectuer
 des traitements répétitifs.
-Dès que l'on sent que l'on doit écrire deux fois la même chose,
-on l'écrit dans une fonction et on l'appelle deux fois.
+Dès que l'on doit écrire deux fois la même chose,
+on l'écrit dans une fonction qu'on appelle deux{nbsp}fois.
 
 === Les variables
 
@@ -388,15 +389,15 @@ ainsi qu'à nommer des choses comme on le ferait dans notre quotidien.
 include::{sourceDir}/base/variables.js[lines=3..-1]
 ----
 
-À votre avis, combien vaut le prix du livre calculé dans
+À votre avis, quel est le prix du livre calculé dans
 l'exemple précédent ?
-Il suffirait de suivre le chemin que prend la nouvelle valeur
+Il suffit de suivre le chemin que prend la nouvelle valeur
 rangée dans la clé `price` de l'objet `book`, calculée par la fonction
-`double` à qui on passe la valeur contenue dans la variable `base_price`.
+`double` à laquelle on passe la valeur contenue dans la variable `base_price`.
 
-Le mot-clé `const` nous a servi à _déclarer_ des variables.
-On ne peut étiqueter une variable avec le même nom qu'une seule fois.
-L'exemple suivant générera une erreur si on déclare deux fois la même variable avec `const` :
+Le mot-clé `const` nous a servi à _déclarer_ une variable.
+On ne peut étiqueter ainsi une variable avec le même nom qu'une seule fois.
+L'exemple suivant générera une erreur :
 
 [source%interactive,javascript]
 .variables/const.js
@@ -409,10 +410,9 @@ include::{sourceDir}/variables/const.js[lines=3..-1]
 Des _instructions_ nous servent à suivre, éviter ou répéter
 des chemins dans notre code.
 
-L'instruction `if` nous aide à exécuter du code qui remplit une condition.
-Cette condition peut être une _valeur_ ou une _expression_.
-Cette expression est interprétée pour savoir à quel _booléen_
-elle correspond.
+L'instruction{nbsp}`if` exécute du code s'il remplit une condition.
+Cette dernière peut être une _valeur_ ou une _expression_ interprétée
+pour savoir à quel _booléen_ elle correspond.
 
 [source%interactive,javascript]
 .instructions/if.js
@@ -421,17 +421,17 @@ include::{sourceDir}/instructions/if.js[lines=3..-1]
 ----
 
 L'exemple précédent vérifie que les deux conditions sont remplies
-(opérateur `&&`) pour afficher un message en conséquent.
+(opérateur `&&`) pour afficher un message en conséquence.
 
 On notera au passage que `book.title` n'est pas un booléen.
 ECMAScript regarde dans ce cas que la chaîne de caractères
-contient _au moins 1 caractère_.
+contient _au moins un caractère_.
 On expliquera ce comportement plus en détail dans la section
-<<#boolean,jongler avec des valeurs vraies ou fausses>>.
+"<<#boolean,jongler avec des valeurs vraies ou fausses>>".
 
-L'instruction `if` peut être complétée avec l'instruction `else`
+L'instruction{nbsp}`if` peut être complétée avec l'instruction `else`
 pour exécuter du code qui répondrait au cas contraire.
-On peut imbriquer plusieurs `else if` à la suite.
+Il est possible d'imbriquer plusieurs `else if` à la suite.
 
 [source%interactive,javascript]
 .instructions/else-if.js
@@ -439,17 +439,17 @@ On peut imbriquer plusieurs `else if` à la suite.
 include::{sourceDir}/instructions/else-if.js[lines=3..-1]
 ----
 
-Notre exemple n'empruntera qu'un seul des chemins, mais on peut
-constater qu'on pourrait en emprunter un autre
+Notre exemple n'empruntera qu'un seul des chemins, mais on constate
+qu'on pourrait en emprunter un autre
 en modifiant la valeur des clés `title` et `published`.
 
 [[scope]]
-=== La portée (_scope_)
+=== La portée (scope)
 
 La _portée_ est un concept très présent dans ECMAScript.
-On y fait souvent référence en parlant de _variable globale_ et
+On y fait souvent référence en parlant de _variable globale_{nbsp}et
 de _variable locale_.
-On peut y sentir une notion de frontière d'accès à la valeur
+C'est une sorte de frontière d'accès à la valeur
 d'une variable.
 
 
@@ -459,13 +459,8 @@ d'une variable.
 include::{sourceDir}/scopes/local.js[lines=3..-1]
 ----
 
-Ce que nous dit l'exemple précédent,
-c'est que la variable `secret` de type fonction a une portée globale
-au script en question.
-Qu'en-est-il de la variable `mot` encapsulée dans cette fonction ?
-
-On pourrait le résumer ainsi :
-la variable `mot` est définie dans la fonction `secret`
+Dans cet exemple, la variable `secret` de type fonction a une portée globale au script.
+En revanche, la variable `mot` est définie dans la fonction `secret`
 et n'est donc pas accessible en dehors de la portée de la fonction.
 À l'inverse, ce qui est défini _en dehors_ d'une fonction
 est accessible _à l'intérieur_ d'une fonction.
@@ -478,7 +473,7 @@ La portée de la variable `mot` est locale à la fonction `secret`.
 include::{sourceDir}/scopes/global.js[lines=3..-1]
 ----
 
-Dans le précédent exemple, nous illustrons la portée globale de la variable
+Ici, nous illustrons la portée globale de la variable
 `year`.
 Elle est définie un cran au-dessus des fonctions `next` et `nextYear`.
 On peut y accéder, comme en atteste le code de la fonction `nextYear`.
@@ -506,11 +501,9 @@ mais une variable dont la portée est _lexicale_.
 *La portée lexicale est délimitée par le bloc d'instructions*
 dans lequel la variable est déclarée.
 
-Ainsi la variable `price` n'existe que dans le cadre du bloc `if`.
+Ainsi, la variable `price` n'existe que dans le cadre du bloc `if`.
 
-
-L'utilisation de la portée lexicale sert déclarer
-des variables sans _polluer_ le reste du script,
+La portée lexicale sert à déclarer des variables sans "polluer" le reste du script,
 pour que son existence soit oubliée aussitôt le bloc exécuté.
 
 [[string]]
@@ -525,15 +518,15 @@ des tweets, des messages et des textes longs, entre autres.
 ----
 include::{sourceDir}/string/base.js[]
 ----
-<1> Utilisation de guillemets simples (`\n` permet de revenir à la ligne).
-<2> Utilisation de guillemets doubles – évite d'échapper le guillemet simple.
-<3> Utilisation de guillemets obliques – autorise le multi-ligne.
+<1> Utilisation de guillemets simples (`\n` sert à revenir à la ligne).
+<2> Utilisation de guillemets doubles : évite d'échapper le guillemet simple.
+<3> Utilisation de guillemets obliques : autorise l'écriture sur plusieurs lignes.
 
-On peut utiliser n'importe quel caractère : lettres, chiffres,
+Tous les caractères sont utilisables : lettres, chiffres,
 caractères accentués, émojis et même des sinogrammes ou des kanjis.
 Autrement dit, il n'y a pas de limite.
 Les environnements d'exécution se représentent les caractères au format
-UTF-16 (tables de stockage Unicode sur 16 bits de données).
+UTF-16 (tables de stockage Unicode sur 16{nbsp}bits de données).
 
 Il est fréquent d'avoir à _concaténer_ des chaînes de caractères,
 ou à les composer à partir d'une autre variable.
@@ -547,31 +540,37 @@ include::{sourceDir}/string/concat.js[]
 Toute chaîne de caractères offre un ensemble
 d'_attributs_ (`.quelque-chose`)
 et de _méthodes_ (`.autre-chose()`) pour en savoir plus
-sur la chaine mais aussi pour la transformer.
+sur la chaîne mais aussi pour la transformer.
 
-Par exemple, on peut connaître la longueur d'une chaîne via son attribut `length`.
+Par exemple, on connaît la longueur d'une chaîne via son attribut `length`.
 
 [source%interactive,javascript]
 .string/length.js
 ----
 include::{sourceDir}/string/length.js[]
 ----
-<1> Affiche `14`.
-<2> Affiche `0`.
+<1> Affiche{nbsp}`14`.
+<2> Affiche{nbsp}`0`.
 
-On peut aussi accéder à un caractère spécifique en utilisant
-la chaîne comme un tableau, ou en utilisant une méthode dédiée :
+On accède à un caractère spécifique en utilisant
+la chaîne comme un tableau, ou à l'aide d'une méthode dédiée :
 
 [source%interactive,javascript]
 .string/char-at.js
 ----
 include::{sourceDir}/string/char-at.js[]
 ----
-<1> Affiche `N`.
-<2> Affiche `o`.
+<1> Affiche{nbsp}`N`.
+<2> Affiche{nbsp}`o`.
+
+[WARNING]
+.[RemarquePreTitre]#Attention#
+====
+Le premier caractère d'une chaîne est à l'index{nbsp}0 et non pas à{nbsp}1.
+====
 
 Deux autres fonctions transforment
-un texte en lettres minuscules et majuscules :
+un texte en lettres minuscules ou majuscules :
 
 [source%interactive,javascript]
 .string/lower-upper-case.js
@@ -594,13 +593,13 @@ include::{sourceDir}/string/trim-pad.js[]
 <3> Affiche `{nbsp}{nbsp}Node.js`.
 <4> Affiche `BARCGB22XXX`.
 
-Dans cet exemple, la méthode `padEnd` complète jusqu'à `11` caractères,
-avec le caractère `X`.
+Dans cet exemple, la méthode `padEnd` complète jusqu'à `11`{nbsp}caractères,
+avec la lettre `X`.
 La méthode `padStart` fait la même chose mais avec le début de la chaîne.
 
-`indexOf` retourne la position de la _première occurrence_
-dans une chaîne.
-Si la valeur n'est pas trouvée, elle renvoie la valeur `-1`.
+`indexOf` retourne la position de la _première occurrence_ dans une chaîne
+d'une sous-chaîne passée en paramètre.
+Si la valeur n'est pas trouvée, la méthode renvoie la valeur{nbsp}`-1`.
 À l'inverse, `lastIndexOf` retournera la dernière occurrence trouvée :
 
 [source%interactive,javascript]
@@ -608,13 +607,13 @@ Si la valeur n'est pas trouvée, elle renvoie la valeur `-1`.
 ----
 include::{sourceDir}/string/index-of.js[]
 ----
-<1> Retourne `4`.
-<2> Retourne `-1` – aucune occurrence n'a été trouvée.
-<3> Retourne `5` – première occurrence de la lettre `a`.
-<4> Retourne `7` – dernière occurrence de la lettre `a`.
+<1> Retourne{nbsp}`4`.
+<2> Retourne{nbsp}`-1` – aucune occurrence n'a été trouvée.
+<3> Retourne{nbsp}`5` – première occurrence de la lettre{nbsp}`a`.
+<4> Retourne{nbsp}`7` – dernière occurrence de la lettre{nbsp}`a`.
 
 [[regexp]]
-=== Expressions régulières (_RegExp_)
+=== Expressions régulières (RegExp)
 
 Si `indexOf` et `lastIndexOf` identifient des caractères exacts,
 comment faire lorsque l'on souhaite chercher de manière approximative,
@@ -630,11 +629,11 @@ ces motifs au sein d'une chaîne de caractères.
 .[RemarquePreTitre]#Anecdote# RegExp et Perl
 ====
 La syntaxe d'expressions régulières est inspirée de celle du langage
-de programmation _Perl_ ([URL]#https://www.perl.org#) dans sa version 5.
+de programmation Perl ([URL]#https://www.perl.org#) dans sa version{nbsp}5.
 ====
 
 Une expression régulière est décrite le plus souvent en tant que motif
-encadré par les caractères `/` (_slash_), suffixé d'_options_ exprimées sous forme de lettres :
+encadré par des barres obliques, suffixé d'_options_ exprimées sous forme de lettres :
 
 [source%interactive,javascript]
 .regexp/base.js
@@ -642,80 +641,77 @@ encadré par les caractères `/` (_slash_), suffixé d'_options_ exprimées sous
 include::{sourceDir}/regexp/base.js[]
 ----
 
-Cet exemple utilise l'option `i` mais il en existe plusieurs :
+Cet exemple utilise l'option{nbsp}`i` mais il en existe plusieurs :
 
 [horizontal]
-insensible à la casse (`i`)::
-  On souhaite identifier du contenu, peu importe s'il est en majuscules ou non ;
-multi-ligne (`m`)::
-  La recherche s'effectue sur _toutes_ les lignes ;
-global (`g`)::
-  La recherche identifie _tous_ les résultats
-  – au lieu d'un seul et le premier ;
-unicode (`u`)::
-  À utiliser si le motif de recherche exprime des séquences de caractères
-  Unicode sous la forme `\u{....}` (voir les _classes de caractères_ ci-après).
+Insensible à la casse{nbsp}(`i`)::
+  On souhaite identifier du contenu, peu importe s'il est en majuscules ou non.
+Multi-ligne{nbsp}(`m`)::
+  La recherche s'effectue sur _toutes_ les lignes.
+Global{nbsp}(`g`)::
+  La recherche identifie _tous_ les résultats – au lieu du seul premier.
+Unicode{nbsp}(`u`)::
+  S'utilise si le motif de recherche exprime des séquences de caractères
+  Unicode sous la forme{nbsp}`\u{....}` (voir les _classes de caractères_ ci-après).
 
 Illustrons leur utilisation en _identifiant du texte_ répondant (`match`)
-à une _expression régulière_ (`/.../`) :
+à une _expression régulière_{nbsp}(`/.../`) :
 
 [source%interactive,javascript]
 .regexp/flags.js
 ----
 include::{sourceDir}/regexp/flags.js[]
 ----
-<1> identifie et affiche `Node`, l'occurrence contenue dans le mot `Node.js`.
-<2> affiche 2 fois `ode` – les occurrences contenues dans le mot `Node.js` et `Anode`.
-<3> affiche `Node` et `node` en combinant les deux options `i` et `g` – les occurrences contenues dans le mot `Node.js` et `Anode`.
+<1> Identifie et affiche `Node`, l'occurrence contenue dans le mot `Node.js`.
+<2> Affiche deux fois `ode` – les occurrences contenues dans les mots `Node.js` et `Anode`.
+<3> Affiche `Node` et `node` en combinant les deux options{nbsp}`i` et{nbsp}`g` – les occurrences contenues dans les mots `Node.js` et `Anode`.
 
 Des éléments de syntaxe complètent les options pour
 identifier des motifs au sein de chaînes de caractères :
 
-ensemble de caractères (entre `[` et `]`)::
+Ensemble de caractères (entre{nbsp}`[`{nbsp}et{nbsp}`]`)::
   Liste l'ensemble des caractères recherchés.
-  Le caractère `-` correspond à une plage de caractère. +
-  Exemple `[a-d]` correspond à `[abcd]`, donc _a_ ou _b_ ou _c_ ou _d_) ;
-nombre de caractères (entre `{` et `}`)::
-  Répète un caractère ou ensemble de caractères,
-  _exactement_ (`{2}` – exactement 2)
-  _au moins_ (`{2,}` – au moins 2)
-  ou _entre_ (`{1,2}` – entre 1 et 2 fois) ;
-nombre de caractères (`?`, `+` et `*`)::
+  Le caractère{nbsp}`-` indique une plage de caractères.
+  (ex. `[a-d]` correspond à `[abcd]`, donc _a_ ou{nbsp}_b_ ou{nbsp}_c_{nbsp}ou{nbsp}_d_).
+Nombre de caractères (entre{nbsp}`{`{nbsp}et{nbsp}`}`)::
+  Répète un caractère ou une sous-chaîne ;
+  _exactement_ (`{2}` – exactement deux fois),
+  _au moins_ (`{2,}` – au moins deux fois)
+  ou _entre_ (`{1,2}` – entre une et deux fois).
+Nombre de caractères (`?`,{nbsp}`+`{nbsp}et{nbsp}`*`)::
   Version raccourcie du nombre de caractères pour des besoins usuels :
-  _0 ou 1 caractère_ avec `?`,
-  _1 caractère et plus_ avec `+` et
-  _0 caractère et plus_ avec `*`.
+  0{nbsp}ou{nbsp}1 caractère avec{nbsp}`?`,
+  1 caractère et plus avec{nbsp}`+` et
+  0 caractère et plus avec{nbsp}`*`.
 
 [source%interactive,javascript]
 .regexp/syntax.js
 ----
 include::{sourceDir}/regexp/syntax.js[]
 ----
-<1> Affiche `["75"]` – les 2 premiers caractères numériques de la chaîne.
-<2> Affiche `["75015"]` – les 5 premiers caractères numériques (satisfait la condition `5` de _entre 2 et 5_ de `{2,5}`).
+<1> Affiche `["75"]` – les 2{nbsp}premiers caractères numériques de la chaîne.
+<2> Affiche `["75015"]` – les 5{nbsp}premiers caractères numériques (satisfait la condition{nbsp}`5` de{nbsp}`{2,5}`).
 <3> Affiche `["75015 Paris"]`.
-<4> Affiche `["75015 Paris"]` – l'option `i` nous permet de nous passer de l'ensemble `A-Z`.
-<5> Affiche `["92410 Ville"]` – capture les caractères jusqu'à ce que la condition ne soit plus remplie en rencontrant le _trait d'union_ (`-`).
+<4> Affiche `["75015 Paris"]` – l'option{nbsp}`i` évite de préciser l'ensemble{nbsp}`A-Z`.
+<5> Affiche `["92410 Ville"]` – capture les caractères jusqu'à ce que la condition ne soit plus remplie en rencontrant le trait d'union{nbsp}(`-`).
 <6> Affiche `["92410 Ville-d'Avray"]`.
 
 D'autres opérateurs délimitent notre recherche :
 
-début et fin de chaîne (`^` et `$`)::
-  Symbolise le début (`^`) ou la fin (`$`) d'une chaîne de caractères. +
-  Quand l'option multi-ligne (`m`) est utilisée, les notions de _début_
-  et de _fin_ s'appliquent au niveau de la _ligne_ ;
-limite de mot (`\b`)::
-  Symbolise tout caractère ne faisant pas partie d'un mot, y compris le début ou la fin d'une chaîne ;
-ou (`|`)::
-  Sépare deux choix l'un de l'autre.
-  Exemple : `/noir|blanc/` ;
-groupe de capture (entre `(` et `)`)::
+Début et fin de chaîne (`^`{nbsp}et{nbsp}`$`)::
+  Quand l'option multi-ligne (`m`) est utilisée, les notions de début
+  et de fin s'appliquent au niveau de la ligne.
+Limite de mot{nbsp}(`\b`)::
+  Symbolise tout caractère ne faisant pas partie d'un mot, y compris le début
+  ou la fin d'une chaîne.
+Ou{nbsp}(`|`)::
+  Sépare deux choix (ex. `/noir|blanc/`).
+Groupe de capture (entre{nbsp}`(`{nbsp}et{nbsp}`)`)::
   Délimite un groupe de caractères.
   Les groupes peuvent par la suite être _identifiés_ et _remplacés_. +
   On notera également que l'emploi des _groupes_ change
-  la structure des résultats en un tableau de plusieurs éléments.
-  Ce tableau a la forme `["chaine identifiée", "groupe 1", "groupe 2" ...]`.
-
+  la structure des résultats en un tableau de plusieurs éléments,
+  de la forme `["chaîne identifiée", "groupe 1", "groupe 2" ...]`.
 
 [source%interactive,javascript]
 .regexp/limits.js
@@ -723,35 +719,33 @@ groupe de capture (entre `(` et `)`)::
 include::{sourceDir}/regexp/limits.js[]
 ----
 <1> Affiche `["75015 Paris"]`.
-<2> Affiche `["75015 Paris", "75015"]` – le premier élément correspond à la chaîne identifiée tandis que le second élément correspond au _premier_ groupe de capture.
+<2> Affiche `["75015 Paris", "75015"]` – le premier élément correspond à la chaîne identifiée tandis que le second correspond au _premier_ groupe de capture.
 <3> Affiche `["33900", "33900"]` – l'option multi-ligne itère de ligne en ligne jusqu'à trouver un motif.
 <4> Affiche `["33900", "33074", "33700"]` – l'option multi-ligne globale retourne tous les groupes de capture.
 
-On notera qu'il faut faire attention à ce que l'on regarde dans les résultats :
-le format de résultat varie selon qu'on utilise ou non des groupes de capture,
+On notera qu'il faut faire attention à ce que l'on regarde :
+le format de résultat varie selon qu'on utilise ou non des groupes de capture et
 selon qu'on utilise l'option globale ou multi-ligne.
 
-Des classes de caractère servent de raccourcis pour désigner
-plusieurs caractères à la fois :
+Des symboles servent de raccourcis pour désigner
+plusieurs caractères simultanément :
 
-tout caractère (`.`)::
-  Équivalent à _tout caractère_ sauf le saut de ligne.
-caractère de mot (`\w`)::
-  Équivalent à tout caractère pouvant composer un mot anglais :
-  les caractères accentués ne sont pas englobés par cette classe de caractères.
-  Identique à `[A-Za-z0-9_]`.
-caractère numérique (`\d`)::
-  Équivalent à tout caractère numérique.
-  Identique à `[0-9]`.
-caractère d'espacement (`\s`)::
-  Équivalent à tout caractère d'espacement
-  (espace, tabulation, retour chariot, etc.).
-caractère Unicode (`\u{....}`)::
-  Doit être combiné avec l'option `u` (`/.../u`).
-  Exemple : ♥︎ -> `\u{2665}`.
+Tout caractère{nbsp}(`.`)::
+  tout caractère sauf le saut de ligne.
+Caractère de mot{nbsp}(`\w`)::
+  Tout caractère pouvant composer un mot anglais :
+  les caractères accentués ne sont pas englobés
+  (identique à `[A-Za-z0-9_]`).
+Caractère numérique{nbsp}(`\d`)::
+  Identique à{nbsp}`[0-9]`.
+Caractère d'espacement{nbsp}(`\s`)::
+  Tout caractère d'espacement : espace, tabulation, retour chariot, etc.
+Caractère Unicode{nbsp}(`\u{....}`)::
+  Doit être combiné avec l'option{nbsp}`u` (`/.../u`).
+  Exemple : ♥︎{nbsp}->{nbsp}`\u{2665}`.
 
 Les alternatives de classes en majuscules sont des _négations_.
-`\W` pour "tout sauf un caractère de mot", `\S` pour "tout sauf un caractère
+`\W`{nbsp}pour "tout sauf un caractère de mot", `\S`{nbsp}pour "tout sauf un caractère
 d'espacement", etc.
 
 [source%interactive,javascript,subs="+attributes"]
@@ -759,10 +753,10 @@ d'espacement", etc.
 ----
 include::{sourceDir}/regexp/classes.js[]
 ----
-<1> Affiche `["♥ RegExp", "RegExp"]` – et s'arrête là car l'espace suivant n'est pas un caractère de mot.
+<1> Affiche `["♥ RegExp", "RegExp"]` – et s'arrête là car l'espace suivant n'est pas un caractère de{nbsp}mot.
 <2> Affiche `"I ♥ {docyear}"` – on a extrait le début de la phrase et l'année placée en fin de chaîne.
 
-mdn::global[RegExp,title="expressions régulières"]
+mdn::global[RegExp,title="Expressions régulières"]
 
 
 La méthode `test` est pratique si la seule chose qui vous intéresse
@@ -784,9 +778,9 @@ include::{sourceDir}/regexp/replace.js[]
 ----
 <1> Affiche `"I love JavaScript"` – si le premier argument de `replace` est une chaîne, elle est convertie automatiquement en expression régulière.
 <2> Affiche `"I ♥ PHP"`.
-<3> Affiche `JavaScript ♥ me"` – les symboles `$<numéro>` représentent les groupes de capture on peut les placer dans l'ordre de notre choix.
+<3> Affiche `JavaScript ♥ me"` – les symboles `$<numéro>` représentent les groupes de capture, qu'on place dans l'ordre de notre choix.
 
-D'ailleurs le second argument accepte une <<functions,fonction>>
+Le second argument accepte une <<functions,fonction>>
 pour procéder à des remplacements dynamiques :
 
 [source%interactive,javascript]
@@ -800,20 +794,20 @@ include::{sourceDir}/regexp/replace-function.js[]
 [[boolean]]
 == Jongler avec des valeurs vraies ou fausses (booléens)
 
-Un booléen est élément logique dont la valeur est soit `true` soit `false`,
-c'est à dire respectivement _vrai_ ou _faux_.
+Un booléen est un élément logique dont la valeur est soit `true` soit `false`,
+c'est-à-dire respectivement _vrai_ ou _faux_.
 Ce type de valeur sert à exprimer des résultats de condition
-("si ça alors … sinon") ainsi qu'à affirmer ou infirmer quelque chose.
+("si{nbsp}ça alors{nbsp}… sinon") ainsi qu'à affirmer ou infirmer quelque chose.
 
 [source%interactive,javascript]
 .boolean/base.js
 ----
 include::{sourceDir}/boolean/base.js[]
 ----
-<1> Affiche `3`.
-<2> Affiche `true` – la condition est vérifiée (3 équivaut strictement à 3).
-<3> Affiche `true` – c'est la valeur de la variable `check` suite à son assignation lors de la ligne précédente.
-<4> Affiche `true` – la variable `check` équivaut strictement à `true`.
+<1> Affiche{nbsp}`3`.
+<2> Affiche `true` – la condition est vérifiée.
+<3> Affiche `true` – c'est la valeur de la variable `check` suite à son affectation à la ligne précédente.
+<4> Affiche `true`.
 
 Une donnée d'un autre type peut être convertie en booléen.
 La logique qui déterminera si la conversion retournera `true` ou `false`
@@ -821,9 +815,9 @@ est la suivante :
 
 [horizontal]
 `true`::
-  Toute valeur non-nulle.
+  Toute valeur non{nbsp}nulle.
 `false`::
-  Toute valeur nulle (`null`, `0`, `NaN`), vide (`''`)
+  Toute valeur nulle (`null`, `0`,{nbsp}`NaN`), vide (`''`)
   ou indéfinie (`undefined`).
 
 [source%interactive,javascript]
@@ -831,14 +825,14 @@ est la suivante :
 ----
 include::{sourceDir}/boolean/convert.js[]
 ----
-<1> Affiche `false` – il s'agit d'une _chaîne vide_.
-<2> Affiche `true` – il s'agit d'une valeur _non-nulle_.
+<1> Affiche `false` – il s'agit d'une chaîne{nbsp}vide.
+<2> Affiche `true` – il s'agit d'une valeur non{nbsp}nulle.
 <3> Affiche `true` – le tableau est vide mais l'objet en lui-même _vaut_ quelque chose : un tableau.
 
 [[number]]
-== Jongler avec des valeurs numériques (_Number_, _Math_)
+== Jongler avec des valeurs numériques (Number, Math)
 
-ECMAScript ne fait pas de distinction entre des nombres entiers et des
+ECMAScript ne fait pas de distinction entre des entiers et des
 nombres contenant des décimales : ce sont des _nombres_ un point c'est tout.
 
 [source%interactive,javascript]
@@ -847,39 +841,45 @@ nombres contenant des décimales : ce sont des _nombres_ un point c'est tout.
 include::{sourceDir}/number/base.js[]
 ----
 <1> Affiche `true` – les deux valeurs sont strictement équivalentes.
-<2> Affiche `false` – un élément entre guillemets est une chaîne de caractère.
+<2> Affiche `false` – un élément entre guillemets est une chaîne de caractères, pas un nombre.
 
-Les nombres sont représentés par défaut en _base 10_.
-La plage de nombre utilisable démarre à _moins l'infini_ et va jusqu'à _plus l'infini_.
-Des constantes définies par ECMAScript contiennent les valeurs minimales et
-maximales que l'on peut représenter dans un programme :
+Les nombres sont représentés par défaut en _base{nbsp}10_.
+La plage de nombres utilisable dans un programme est définie par des
+constantes ECMAScript :
 
 [source%interactive,javascript]
 .number/constants.js
 ----
 include::{sourceDir}/number/constants.js[]
 ----
+<1> Affiche{nbsp}`Infinity`.
+<2> Affiche{nbsp}`-Infinity`.
+<3> Affiche{nbsp}`1.7976931348623157e+308` – le plus grand réel utilisable.
+<4> Affiche{nbsp}`5e-324` – le plus petit réel utilisable.
+<5> Affiche{nbsp}`9007199254740991` – le plus grand entier utilisable.
+<6> Affiche{nbsp}`-9007199254740991` – le plus petit entier utilisable.
 
-Il est aussi possible de compter dans d'autres bases comme la _base 16_,
-c'est-à-dire une représentation hexadécimale de 0 à 16, exprimée de 0 à F
-– A vaut 10 (car juste après 9), B vaut 11, etc.
-Leur notation se fait en préfixant la valeur par `0x` :
+Il est aussi possible de compter dans d'autres bases, notamment en hexadécimal
+(_base{nbsp}16_).
+Cette dernière est exprimée en préfixant la valeur par{nbsp}`0x` et avec les
+caractères de{nbsp}0 à{nbsp}F – 0{nbsp}à{nbsp}9 puis A (vaut{nbsp}10),
+B (vaut{nbsp}11), etc.
 
 [source%interactive,javascript]
 .number/hexa.js
 ----
 include::{sourceDir}/number/hexa.js[]
 ----
-<1> Affiche `0`.
-<2> Affiche `10` – car `A` en hexadécimal vaut 10 en décimal.
-<3> Affiche `160` – pour `10 x 16` (une dizaine vaut 16).
-<4> Affiche `2560` – pour `10 x 16 x 16` (une centaine vaut 16x16).
+<1> Affiche{nbsp}`0`.
+<2> Affiche{nbsp}`10` – car `A`{nbsp}en hexadécimal vaut{nbsp}10 en décimal.
+<3> Affiche{nbsp}`160` – pour `10×16` (une "dizaine" vaut{nbsp}16).
+<4> Affiche{nbsp}`2560` – pour `10×16×16` (une "centaine" vaut{nbsp}16×16).
 
 
 [NOTE]
 .[RemarquePreTitre]#Rumeur# JavaScript est nul en virgule flottante !
 ====
-ECMAScript est souvent décrié par son incapacité à gérer les opérations
+ECMAScript est souvent décrié pour son incapacité à gérer les opérations
 mathématiques avec précision.
 
 [source%interactive,javascript]
@@ -887,7 +887,8 @@ mathématiques avec précision.
 0.2 + 0.6
 ----
 
-ECMAScript respecte le standard _IEEE 754_ de gestion de nombres à virgule flottante sur 64 bits de données.
+ECMAScript respecte le standard _IEEE{nbsp}754_ de gestion de nombres à virgule
+flottante sur 64{nbsp}bits de données.
 Qui d'autre l'utilise ?
 D'autres langages "inconnus" comme Python, PHP et Ruby, entre autres.
 
@@ -899,56 +900,54 @@ Pour en savoir plus : [URL]#https://fr.wikipedia.org/wiki/IEEE_754#.
 Les nombres s'utilisent pour effectuer des opérations mathématiques.
 Chaque opération est dotée d'un symbole :
 
-[horizontal]
-addition::
-  `+`
-soustraction::
-  `-`
-multiplication::
-  `*`
-division::
-  `/`
-modulo (reste de division)::
-  `%`
-exposant (puissance)::
-  `**`
+[options="header"]
+|===
+| Opération | Symbole
+| addition  | `+`
+| soustraction  | `-`
+| multiplication  | `*`
+| division  | `/`
+| modulo (reste de division)  | `%`
+| exposant (puissance)  | `**`
+|===
 
 [source%interactive,javascript]
 .number/operations.js
 ----
 include::{sourceDir}/number/operations.js[]
 ----
-<1> Affiche `6`.
-<2> Affiche `-2`.
-<3> Affiche `8`.
-<4> Affiche `0.5`.
-<5> Affiche `2`.
-<6> Affiche `16`.
+<1> Affiche{nbsp}`6`.
+<2> Affiche{nbsp}`-2`.
+<3> Affiche{nbsp}`8`.
+<4> Affiche{nbsp}`0.5`.
+<5> Affiche{nbsp}`2`.
+<6> Affiche{nbsp}`16`.
+
+[[nan]]
+=== Les nombres qui n'en sont pas (_NaN_)
 
 [CAUTION]
 .[RemarquePreTitre]#Attention# Opérations exotiques
 ====
 Est-ce que vous avez déjà tenté d'additionner un nombre avec un tableau ?
-Pas forcément mais ECMAScript ne vous en empêchera pas.
+Pas forcément, mais ECMAScript ne vous en empêchera pas.
 
 [source%interactive,javascript]
 .number/operations-types.js
 ----
 include::{sourceDir}/number/operations-types.js[]
 ----
-<1> La chaîne `'1'` sera convertie en nombre (voir section ci-après).
-<2> On nous a toujours interdit la division par zéro ? En vrai on crée l'_infini_.
-<3> Seule cette opération retournera autre chose qu'un nombre.
-
-Rendez-vous à la <<nan,section suivante>> pour se prémunir des nombres qui n'en sont pas.
+<1> La chaîne{nbsp}`'1'` sera convertie en nombre (voir plus loin).
+<2> On nous a toujours interdit la division par zéro ; ici, on affiche{nbsp}`Infinity`.
+<3> Affiche aussi{nbsp}`Infinity`.
+<4> Seule cette opération retourne{nbsp}`NaN`.
+<5> Affiche{nbsp}`10`.
+<6> Affiche{nbsp}`11` — la valeur `true` est implicitement convertie en un entier.
 ====
 
-[[nan]]
-=== Les nombres qui n'en sont pas (_NaN_)
-
-Certaines opérations n'aboutiront pas et n'afficheront pas d'erreur pour autant.
-Dans ce cas, le résultat de l'opération vaudra `NaN`.
-Pour _not a number_ (littéralement : "n'est pas un nombre").
+Certaines opérations n'aboutiront pas mais n'afficheront pas d'erreur pour autant.
+Dans ce cas, leur résultat vaudra `NaN` pour _not{nbsp}a{nbsp}number_
+(littéralement : "n'est pas un nombre").
 
 [source%interactive,javascript]
 .number/nan.js
@@ -957,7 +956,7 @@ include::{sourceDir}/number/nan.js[]
 ----
 
 La fonction `Number.isNaN` nous aidera à vérifier si la valeur d'une variable
-ou le résultat d'une opération est un `NaN` ou non.
+ou le résultat d'une opération est un{nbsp}`NaN` ou non.
 Cette fonction retourne un <<boolean,booléen>>.
 
 [source%interactive,javascript]
@@ -965,22 +964,28 @@ Cette fonction retourne un <<boolean,booléen>>.
 ----
 include::{sourceDir}/number/is-nan.js[]
 ----
+<1> Affiche `true`.
+<2> Affiche `true`.
+<3> Affiche `false`.
+<4> Affiche `false`.
 
 [WARNING]
 .[RemarquePreTitre]#Assertion# `NaN` n'est pas un nombre ?
 ====
-Il faut se méfier de `NaN` comme de la peste car il est considéré
-comme un nombre d'un point ECMAScript.
-Toute opération mathématique impliquant `NaN` renverra un `NaN` :
+Il faut se méfier de `NaN` comme de la peste, car il est considéré
+comme un nombre du point de vue d'ECMAScript.
+Toute opération mathématique impliquant{nbsp}`NaN` renverra un{nbsp}`NaN` :
 
 [source%interactive,javascript]
 .number/nan-number.js
 ----
 include::{sourceDir}/number/nan-number.js[]
 ----
+<1> Affiche `'number'`.
+<2> Affiche `'number'`.
 
 Il vaut mieux s'assurer qu'une variable est à la fois un nombre et
-n'est pas équivalent à `NaN` :
+qu'elle ne vaut pas{nbsp}`NaN` :
 
 [source%interactive,javascript]
 .number/is-not-a-nan.js
@@ -999,7 +1004,7 @@ Pour cela nous avons deux fonctions à disposition :
 
 [horizontal]
 `parseInt`::
-  Essaie d'interpréter un nombre entier ;
+  Essaie d'interpréter un nombre entier.
 `parseFloat`::
   Essaie d'interpréter un nombre à virgule.
   La fonction s'arrête dès qu'elle n'a plus affaire à un chiffre.
@@ -1009,10 +1014,10 @@ Pour cela nous avons deux fonctions à disposition :
 ----
 include::{sourceDir}/number/parse.js[]
 ----
-<1> Affiche `3`.
-<2> Affiche `3.141592653589793`.
-<3> Affiche `14` – ça ne change rien pour `parseInt`.
-<4> Affiche `14.1` – la fonction s'arrête à la décimale précédant une lettre.
+<1> Affiche{nbsp}`3`.
+<2> Affiche{nbsp}`3.141592653589793`.
+<3> Affiche{nbsp}`14` – ça ne change rien pour `parseInt`.
+<4> Affiche{nbsp}`14.1` – la fonction s'arrête à la décimale précédant une lettre.
 
 `parseInt` a cette particularité que l'on peut choisir la base
 de la conversion avec le second argument de la fonction :
@@ -1022,34 +1027,33 @@ de la conversion avec le second argument de la fonction :
 ----
 include::{sourceDir}/number/parse-int.js[]
 ----
-<1> Affiche `16`.
-<2> Affiche `10` – `A` étant juste après `10` en hexadécimal.
-<3> Affiche `2560` – aurait pu s'écrire `0xF00` – cf. le <<number,début de cette même section>>, à propos des bases.
+<1> Affiche{nbsp}`16`.
+<2> Affiche{nbsp}`10` – `A`{nbsp}vaut{nbsp}`10` en hexadécimal.
+<3> Affiche{nbsp}`2560` – aurait pu s'écrire `0xA00`.
 
 === Formater et arrondir des nombres
 
 Si l'envie vous prenait de vouloir arrondir des nombres, il existe
-quelques fonctions pour nous aider.
+quelques fonctions pour vous aider :
 
 [horizontal]
 `Math.round`::
-  Arrondit à l'entier le plus proche ;
+  Arrondit à l'entier le plus proche.
 `Math.ceil`::
-  Arrondit à l'entier supérieur du nombre donné ;
+  Arrondit à l'entier supérieur du nombre donné.
 `Math.floor`::
   Arrondit à l'entier inférieur du nombre donné.
 
-Math.ceil, Math.floor
 [source%interactive,javascript]
 .number/round.js
 ----
 include::{sourceDir}/number/round.js[]
 ----
-<1> Affiche `3` – l'entier le plus proche est 3.
-<2> Affiche `4` – l'entier le plus proche est 4.
-<3> Affiche `4` – idem.
-<4> Affiche `4`.
-<5> Affiche `3`.
+<1> Affiche{nbsp}`3`.
+<2> Affiche{nbsp}`4`.
+<3> Affiche{nbsp}`4`.
+<4> Affiche{nbsp}`4`.
+<5> Affiche{nbsp}`3`.
 
 Enfin, on peut préserver le formatage du nombre de décimales
 après la virgule en transformant le nombre _en chaîne de caractères_
@@ -1060,25 +1064,24 @@ grâce à la méthode `toFixed` :
 ----
 include::{sourceDir}/number/to-fixed.js[]
 ----
-<1> Affiche `'10.01'`.
-<2> Affiche `'10'`.
+<1> Affiche{nbsp}`'10.01'`.
+<2> Affiche{nbsp}`'10'`.
 
 [[functions]]
 == Créer et réutiliser des blocs de code (fonctions)
 
 Une fonction est un *bloc de code réutilisable et paramétrable*.
-Elle _retourne_ un résultat dont la valeur se prédit en fonction des
+Elle _retourne_ un résultat dont la valeur se calcule en fonction des
 paramètres que nous lui passons.
 
 Cela se passe en deux temps :
 
 . la _création_ de la fonction ;
-. l'_exécution_ de la fonction.
+. l'_exécution_.
 
-ECMAScript fournit un ensemble de fonctions de base
-(`console.log`, `setTimeout` etc).
+ECMAScript fournit un ensemble de fonctions de base : `console.log`, `setTimeout`, etc.
 Node ajoute les siennes (comme `require`).
-Nous avons la liberté d'en créer nous-même, spécifiques à nos besoins.
+Nous avons la liberté d'en créer nous-mêmes, spécifiques à nos besoins.
 
 [source%interactive,javascript]
 .functions/base.js
@@ -1088,32 +1091,29 @@ include::{sourceDir}/functions/base.js[]
 <1> On _crée_ la fonction `hello`.
 <2> Affiche `[Function: hello]` – il s'agit de la définition de la fonction.
 <3> Affiche `"Hello World"` – il s'agit de l'_exécution_ de la fonction, qui _retourne_ un résultat.
-<4> Affiche un nombre aléatoire entre 0 et 100 – cette fonction est invoquée sans paramètre.
+<4> Affiche un nombre aléatoire entre{nbsp}0 et{nbsp}100 – cette fonction est invoquée sans paramètre.
 
-L'exemple précédent nous indique qu'une fonction se découpe en 3 parties :
+L'exemple précédent nous indique qu'une fonction se découpe en trois parties :
 
-les *arguments*::
-  C'est la partie à gauche de la flèche (`=>`).
-  Les arguments sont séparés par des virgules (exemple : `(argument1, argument2, etc.)`) ;
-le *corps*::
-  C'est la partie entre accolades (`{ ... }`).
+Les *arguments*::
+  C'est la partie à gauche de la flèche{nbsp}(`=>`).
+  Les arguments sont séparés par des virgules.
+Le *corps*::
+  C'est la partie entre accolades.
   Quand la fonction est sur une ligne,
   le résultat de l'opération est _implicitement retourné_.
-  On peut dans ce cas se passer du mot-clé `return` ;
-la *valeur de retour*::
+  On peut dans ce cas se passer du mot-clé `return`.
+La *valeur de retour*::
   C'est la valeur renvoyée en dehors de la fonction.
-  La valeur de retour est définie à l'aide du mot-clé `return`.
+  Elle est définie à l'aide du mot-clé `return`.
   La valeur `undefined` est retournée de manière implicite
-  lorsque le mot-clé `return` est absent.
+  lorsque ce dernier est absent.
 
 [TIP]
-.[RemarquePreTitre]#Rappelle-toi# Variables et portée
+.[RemarquePreTitre]#Rappel# Variables et portée
 ====
 Le corps d'une fonction constitue une _portée_ : toute variable définie
 dans le corps d'une fonction est invisible en dehors.
-
-On en parle plus en détails dans la <<scope,section portée>>
-en début de section.
 ====
 
 [[anonymous-function]]
@@ -1135,12 +1135,12 @@ include::{sourceDir}/functions/anonymous.js[]
 <2> Affiche `"Le processus se termine"` quand le processus se termine, une fois que toutes les actions en attente ont été exécutées.
 
 [[callback]]
-=== Les fonctions de _callback_
+=== Les fonctions de rappel (callback)
 
 Quand une fonction est passée en argument d'une autre fonction,
 on appelle cela un _callback_.
-On l'appelle plus tard (_to call back_) que le moment où elle est définie.
-La fonction peut recevoir des paramètres qui aident à reconstruire un contexte
+On l'appelle plus tard (_to{nbsp}call back_) que le moment où elle est définie.
+Elle reçoit des paramètres qui aident à reconstruire un contexte
 _au moment_ de son exécution.
 
 [source%interactive,javascript]
@@ -1148,15 +1148,15 @@ _au moment_ de son exécution.
 ----
 include::{sourceDir}/functions/callback.js[]
 ----
-<1> Le troisième argument (et les suivants) de `setTimeout` sont transmis en paramètre de la fonction de _callback_.
-<2> Cette fonction sera invoquée une seconde après le début du script, et recevra la date du moment en paramètre.
-<3> Affiche l'année de la date passée en argument – l'année en cours dans cet exemple.
+<1> Le troisième argument (et les suivants) de `setTimeout` sont transmis en paramètres de la fonction de rappel (_callback_).
+<2> Cette fonction est invoquée une seconde après le début du script, et reçoit en paramètre la date du moment.
+<3> Affiche l'année de la date passée en argument – dans cet exemple, l'année en courss.
 
 [[rest-parameters]]
-=== Paramètres du reste (_rest parameters_)
+=== Paramètres du reste (rest parameters)
 
-Les _paramètres du reste_ collecte un nombre indéfini de paramètres.
-Les paramètres sont regroupés dans un même <<array,tableau>> (voir ci-après).
+Les _paramètres du reste_ sont un nombre indéfini de paramètres
+regroupés dans un même <<array,tableau>>.
 
 [source%interactive,javascript]
 .functions/rest.js
@@ -1167,12 +1167,12 @@ include::{sourceDir}/functions/rest.js[]
 
 
 [[array]]
-== Lister, filtrer et trier des éléments (_Array_)
+== Lister, filtrer et trier des éléments (Array)
 
 Les tableaux (ou listes indexées) servent à lister des éléments,
 de tout type et dans l'ordre de notre choix.
-Chaque élément de tableau se voit attribué un numéro (_index_).
-On peut retrouver l'élément par son numéro, en itérant à l'aide de boucles
+Chaque élément de tableau se voit attribuer un numéro (_index_)
+qui sert à le retrouver, en itérant à l'aide de boucles
 ou en ayant recours à d'autres méthodes d'identification.
 
 [source%interactive,javascript]
@@ -1181,15 +1181,15 @@ ou en ayant recours à d'autres méthodes d'identification.
 include::{sourceDir}/array/base.js[]
 ----
 <1> Affiche `["lundi", "mardi", "mercredi", "jeudi", "vendredi"]`.
-<2> Affiche `5` – soit la longueur du tableau.
-<3> Affiche `"mardi"` – c'est l'élément défini à l'index `1`.
-<4> Affiche `undefined` – il n'y a aucun élément défini à l'index `5`.
+<2> Affiche{nbsp}`5` – soit la longueur du tableau.
+<3> Affiche `"mardi"` – un tableau commence à l'index{nbsp}`0`.
+<4> Affiche `undefined` – il n'y a aucun élément défini à l'index{nbsp}`5`.
 
 L'exemple précédent illustre plusieurs caractéristiques des collections :
 
-. la numérotation débute à l'index `0` ;
-. la propriété `length` contient la longueur du tableau ;
-. la valeur `undefined` est retournée quand on tente d'accéder à un index
+- La numérotation débute à l'index `0`.
+- La propriété `length` contient la longueur du tableau.
+- La valeur `undefined` est retournée quand on tente d'accéder à un index
 qui n'existe pas.
 
 === Créer des tableaux à partir d'autres valeurs
@@ -1203,7 +1203,7 @@ un tableau à partir de quelque chose qui _ressemble à un tableau_.
 include::{sourceDir}/array/from.js[]
 ----
 <1> Affiche `["f", "r", "o", "m", "a", "g", "e"]` – chaque lettre de la chaîne.
-<2> Affiche `["F", "R", "O", "M", "A", "G", "E"]` – chaque lettre de la chaîne a été passée en majuscules.
+<2> Affiche `["F", "R", "O", "M", "A", "G", "E"]` – chaque lettre de la chaîne a été passée en majuscule.
 
 Le deuxième argument de `Array.from` est facultatif.
 C'est une <<anonymous-function,fonction anonyme>> qui s'utilise comme les <<array.forEach,méthodes d'itération>> `Array.forEach` et `Array.map`.
@@ -1228,13 +1228,12 @@ Une première manière d'y parvenir est d'utiliser la méthode `concat` :
 ----
 include::{sourceDir}/array/concat.js[]
 ----
-<1> Affiche `["Atos", "Portos", "Aramis", "d'Artagnan", "Albert"]`.
+<1> Affiche `["Athos", "Porthos", "Aramis", "d'Artagnan", "Albert"]`.
 
-Cette méthode _crée un nouveau tableau_ à partir d'une liste de tableaux
-passés en paramètre.
+Cette méthode _crée un nouveau tableau_ à partir de deux passés en paramètres.
 
 [NOTE]
-.[RemarquePreTitre]#Alternative# Opérateur `...` (_spread_)
+.[RemarquePreTitre]#Alternative# Opérateur{nbsp}`...`{nbsp}(_spread_)
 ====
 Une autre manière de faire est d'utiliser l'opérateur `...`
 (aussi appelé <<spread,spread>>) pour éclater plusieurs tableaux et
@@ -1245,28 +1244,27 @@ les rassembler dans un autre :
 ----
 include::{sourceDir}/array/spread.js[]
 ----
-<1> Affiche `["Atos", "Portos", "Aramis", "d'Artagnan", "Albert"]`.
+<1> Affiche `["Athos", "Porthos", "Aramis", "d'Artagnan", "Albert"]`.
 
 ====
 
-À l'inverse, la méthode `join` _concatène_ tous les éléments
-dans une <<string,chaîne de caractères>> avec le séparateur de notre choix.
-Ce séparateur est optionnel.
+À l'inverse, la méthode `join` _concatène_ tous les éléments dans une
+<<string,chaîne de caractères>> avec le séparateur de notre choix (optionnel).
 
 [source%interactive,javascript]
 .array/join.js
 ----
 include::{sourceDir}/array/join.js[]
 ----
-<1> Affiche `"ID,NOM,PRENOM"` – le séparateur par défaut est une virgule (`,`).
-<2> Affiche `"ID;NOM;PRENOM"` – on a choisi le séparateur `;`.
+<1> Affiche `"ID,NOM,PRENOM"` – le séparateur par défaut est une virgule.
+<2> Affiche `"ID;NOM;PRENOM"` – on a choisi le point-virgule comme séparateur.
 <3> Affiche `"IDNOMPRENOM"`.
 
 [[array.forEach]]
 === Itérer sur les valeurs avec des boucles
 
 Les boucles sont une manière de parcourir plusieurs valeurs.
-Elles aident la mise en place d'automatismes pour éviter de répéter du code.
+Elles aident à mettre en place des automatismes pour éviter de répéter du code.
 
 [source%interactive,javascript]
 .array/loop.js
@@ -1276,37 +1274,37 @@ include::{sourceDir}/array/loop.js[]
 <1> Affiche successivement chaque valeur du tableau – `"lundi"`, `"mardi"`, `"mercredi"`, `"jeudi"`, `"vendredi"`.
 
 Prenons le temps de revenir sur cet exemple.
-On y découvre plusieurs manières de faire des boucles sur un tableau :
+On y découvre plusieurs manières d'écrire des boucles sur un tableau :
 
 `for...of`::
-  On assigne une variable pour chaque élément (opérateur `of`) du tableau.
-  Les expressions situées entre accolade (`{...}`) sont exécutées pour
+  On affecte une variable avec chaque élément (opérateur `of`) du tableau.
+  Les expressions situées entre accolade sont exécutées pour
   chaque élément du tableau.
 `forEach(element => expression)`::
   La méthode `forEach` applique une <<anonymous-function,fonction anonyme>>
   pour chaque élément du tableau.
 
-Il y a en réalité deux manières d'itérer avec la boucle `for` :
-sur les _index_ (avec l'opérateur `in`)
-et sur les _valeurs_ (avec l'opérateur `of`).
+Il y a en réalité deux manières d'itérer avec la boucle{nbsp}`for` :
+sur les _index_ (avec l'opérateur{nbsp}`in`)
+et sur les _valeurs_ (avec l'opérateur{nbsp}`of`).
 
 [source%interactive,javascript]
 .array/for-of-in.js
 ----
 include::{sourceDir}/array/for-of-in.js[]
 ----
-<1> Affiche successivement `0` puis `1`.
-<2> Affiche successivement `"samedi"` puis `"dimanche"` – l'index permet de retrouver la valeur du tableau.
+<1> Affiche successivement{nbsp}`0` puis{nbsp}`1`.
+<2> Affiche successivement `"samedi"` puis `"dimanche"` – l'index sert à retrouver la valeur dans le tableau.
 <3> Affiche successivement `"samedi"` puis `"dimanche"`.
 
-La méthode `forEach` propage en réalité 3 arguments à notre fonction anonyme :
+La méthode `forEach` propage en réalité trois arguments à notre fonction anonyme :
 l'élément en cours de l'itération, l'index de l'élément et le tableau d'origine.
 
-Pourquoi passer le tableau d'origine alors qu'on itère sur ce même tableau ?
+Pourquoi passer le tableau d'origine alors qu'on itère dessus ?
 Pour donner du contexte au cas où on opère
 avec une <<function,fonction nommée>>.
 Nous verrons un usage concret de ce troisième argument
-dans la section <<array.map,transformer les valeurs>>.
+dans la section "<<array.map,transformer les valeurs>>".
 
 [source%interactive,javascript]
 .array/foreach-function.js
@@ -1317,7 +1315,8 @@ include::{sourceDir}/array/foreach-function.js[]
 <2> Affiche successivement `"un : index 0"` puis `"deux : index 1"`.
 
 Outre l'inspection et l'affichage des valeurs, les boucles offrent la liberté
-de <<array.sort,faire des tris>>, de <<array.map,transformer les valeurs>>, de <<array.filter,filtrer selon des conditions>>
+de <<array.sort,trier>>, de <<array.map,transformer les valeurs>>,
+de <<array.filter,filtrer selon des conditions>>,
 mais aussi de <<array.reduce,créer de nouvelles structures de données>>.
 
 Ces méthodes sont décrites dans les sections suivantes.
@@ -1327,17 +1326,16 @@ Ces méthodes sont décrites dans les sections suivantes.
 === Trier les valeurs
 
 La méthode `sort` change l'ordre des éléments d'un tableau.
-Cette méthode utilise une <<anonymous-function,fonction anonyme>>.
-La fonction anonyme compare deux éléments entre eux.
-Elle retourne un nombre positif, négatif ou égal à zéro selon la
+Elle utilise une <<anonymous-function,fonction anonyme>> qui compare deux éléments
+entre eux ; elle retourne un nombre positif, négatif ou égal à zéro selon la
 logique que l'on souhaite donner au tri :
 
-* quand la comparaison est _positive_ :
-`sort` placera le premier élément _avant_ le second ;
-* quand la comparaison est _négative_ :
-`sort` placera le premier élément _après_ le second ;
-* quand la comparaison est nulle ou non spécifiée :
-l'ordre des éléments restera inchangé.
+* Quand la comparaison est _positive_,
+`sort` place le premier élément _avant_ le second.
+* Quand la comparaison est _négative_ :
+`sort` place le premier élément _après_ le second.
+* Quand la comparaison est égale à zéro, nulle ou non spécifiée :
+l'ordre des éléments reste inchangé.
 
 [source%interactive,javascript]
 .array/sort.js
@@ -1432,7 +1430,7 @@ se retrouvent dans le nouveau tableau.
 include::{sourceDir}/array/filter.js[]
 ----
 <1> Retourne `[3]` – c'est la seule valeur qui est un nombre.
-<2> Retourne `["un", "deux", 3]` – ce sont les valeurs non-nulles.
+<2> Retourne `["un", "deux", 3]` – ce sont les valeurs non{nbsp}nulles.
 
 [[array.find]]
 === Identifier une ou plusieurs valeurs
