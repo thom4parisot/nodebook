@@ -1,4 +1,4 @@
-:chapterNumber: 3
+:chapter-number: 3
 :chapterId: chapter-03
 :sourceDir: ./examples
 :nodeCurrentVersion: v10
@@ -274,8 +274,8 @@ valeur de type *chaîne de caractères*.
 include::{sourceDir}/base/number.js[]
 ----
 
-ECMAScript considère les entiers (`3`{nbsp}dans cet exemple)
-et les réels (`12.3`{nbsp}dans cet exemple) comme des nombres.
+ECMAScript considère les entiers (``3``{nbsp}dans cet exemple)
+et les réels (``12.3``{nbsp}dans cet exemple) comme des nombres.
 Il ne fait _pas_ de distinction entre les{nbsp}deux.
 
 On peut effectuer des opérations mathématiques entre plusieurs
@@ -410,7 +410,7 @@ include::{sourceDir}/variables/const.js[lines=3..-1]
 Des _instructions_ nous servent à suivre, éviter ou répéter
 des chemins dans notre code.
 
-L'instruction{nbsp}`if` exécute du code s'il remplit une condition.
+L'instruction{nbsp}``if`` exécute du code s'il remplit une condition.
 Cette dernière peut être une _valeur_ ou une _expression_ interprétée
 pour savoir à quel _booléen_ elle correspond.
 
@@ -429,7 +429,7 @@ contient _au moins un caractère_.
 On expliquera ce comportement plus en détail dans la section
 "<<#boolean,jongler avec des valeurs vraies ou fausses>>".
 
-L'instruction{nbsp}`if` peut être complétée avec l'instruction `else`
+L'instruction{nbsp}``if`` peut être complétée avec l'instruction `else`
 pour exécuter du code qui répondrait au cas contraire.
 Il est possible d'imbriquer plusieurs `else if` à la suite.
 
@@ -549,8 +549,8 @@ Par exemple, on connaît la longueur d'une chaîne via son attribut `length`.
 ----
 include::{sourceDir}/string/length.js[]
 ----
-<1> Affiche{nbsp}`14`.
-<2> Affiche{nbsp}`0`.
+<1> Affiche{nbsp}``14``.
+<2> Affiche{nbsp}``0``.
 
 On accède à un caractère spécifique en utilisant
 la chaîne comme un tableau, ou à l'aide d'une méthode dédiée :
@@ -560,8 +560,8 @@ la chaîne comme un tableau, ou à l'aide d'une méthode dédiée :
 ----
 include::{sourceDir}/string/char-at.js[]
 ----
-<1> Affiche{nbsp}`N`.
-<2> Affiche{nbsp}`o`.
+<1> Affiche{nbsp}``N``.
+<2> Affiche{nbsp}``o``.
 
 [WARNING]
 .[RemarquePreTitre]#Attention#
@@ -593,13 +593,13 @@ include::{sourceDir}/string/trim-pad.js[]
 <3> Affiche `{nbsp}{nbsp}Node.js`.
 <4> Affiche `BARCGB22XXX`.
 
-Dans cet exemple, la méthode `padEnd` complète jusqu'à `11`{nbsp}caractères,
+Dans cet exemple, la méthode `padEnd` complète jusqu'à ``11``{nbsp}caractères,
 avec la lettre `X`.
 La méthode `padStart` fait la même chose mais avec le début de la chaîne.
 
 `indexOf` retourne la position de la _première occurrence_ dans une chaîne
 d'une sous-chaîne passée en paramètre.
-Si la valeur n'est pas trouvée, la méthode renvoie la valeur{nbsp}`-1`.
+Si la valeur n'est pas trouvée, la méthode renvoie la valeur{nbsp}``-1``.
 À l'inverse, `lastIndexOf` retournera la dernière occurrence trouvée :
 
 [source%interactive,javascript]
@@ -607,10 +607,10 @@ Si la valeur n'est pas trouvée, la méthode renvoie la valeur{nbsp}`-1`.
 ----
 include::{sourceDir}/string/index-of.js[]
 ----
-<1> Retourne{nbsp}`4`.
-<2> Retourne{nbsp}`-1` – aucune occurrence n'a été trouvée.
-<3> Retourne{nbsp}`5` – première occurrence de la lettre{nbsp}`a`.
-<4> Retourne{nbsp}`7` – dernière occurrence de la lettre{nbsp}`a`.
+<1> Retourne{nbsp}``4``.
+<2> Retourne{nbsp}``-1`` – aucune occurrence n'a été trouvée.
+<3> Retourne{nbsp}``5`` – première occurrence de la lettre{nbsp}``a``.
+<4> Retourne{nbsp}``7`` – dernière occurrence de la lettre{nbsp}``a``.
 
 [[regexp]]
 === Expressions régulières (RegExp)
@@ -641,7 +641,7 @@ encadré par des barres obliques, suffixé d'_options_ exprimées sous forme de 
 include::{sourceDir}/regexp/base.js[]
 ----
 
-Cet exemple utilise l'option{nbsp}`i` mais il en existe plusieurs :
+Cet exemple utilise l'option{nbsp}``i`` mais il en existe plusieurs :
 
 [horizontal]
 Insensible à la casse{nbsp}(`i`)::
@@ -652,7 +652,7 @@ Global{nbsp}(`g`)::
   La recherche identifie _tous_ les résultats – au lieu du seul premier.
 Unicode{nbsp}(`u`)::
   S'utilise si le motif de recherche exprime des séquences de caractères
-  Unicode sous la forme{nbsp}`\u{....}` (voir les _classes de caractères_ ci-après).
+  Unicode sous la forme{nbsp}``\u{....}`` (voir les _classes de caractères_ ci-après).
 
 Illustrons leur utilisation en _identifiant du texte_ répondant (`match`)
 à une _expression régulière_{nbsp}(`/.../`) :
@@ -664,25 +664,25 @@ include::{sourceDir}/regexp/flags.js[]
 ----
 <1> Identifie et affiche `Node`, l'occurrence contenue dans le mot `Node.js`.
 <2> Affiche deux fois `ode` – les occurrences contenues dans les mots `Node.js` et `Anode`.
-<3> Affiche `Node` et `node` en combinant les deux options{nbsp}`i` et{nbsp}`g` – les occurrences contenues dans les mots `Node.js` et `Anode`.
+<3> Affiche `Node` et `node` en combinant les deux options{nbsp}``i`` et{nbsp}``g`` – les occurrences contenues dans les mots `Node.js` et `Anode`.
 
 Des éléments de syntaxe complètent les options pour
 identifier des motifs au sein de chaînes de caractères :
 
-Ensemble de caractères (entre{nbsp}`[`{nbsp}et{nbsp}`]`)::
+Ensemble de caractères (entre{nbsp}``[``{nbsp}et{nbsp}``]``)::
   Liste l'ensemble des caractères recherchés.
-  Le caractère{nbsp}`-` indique une plage de caractères.
+  Le caractère{nbsp}``-`` indique une plage de caractères.
   (ex. `[a-d]` correspond à `[abcd]`, donc _a_ ou{nbsp}_b_ ou{nbsp}_c_{nbsp}ou{nbsp}_d_).
-Nombre de caractères (entre{nbsp}`{`{nbsp}et{nbsp}`}`)::
+Nombre de caractères (entre{nbsp}``{``{nbsp}et{nbsp}``}``)::
   Répète un caractère ou une sous-chaîne ;
   _exactement_ (`{2}` – exactement deux fois),
   _au moins_ (`{2,}` – au moins deux fois)
   ou _entre_ (`{1,2}` – entre une et deux fois).
-Nombre de caractères (`?`,{nbsp}`+`{nbsp}et{nbsp}`*`)::
+Nombre de caractères (`?`,{nbsp}``+``{nbsp}et{nbsp}``*``)::
   Version raccourcie du nombre de caractères pour des besoins usuels :
-  0{nbsp}ou{nbsp}1 caractère avec{nbsp}`?`,
-  1 caractère et plus avec{nbsp}`+` et
-  0 caractère et plus avec{nbsp}`*`.
+  0{nbsp}ou{nbsp}1 caractère avec{nbsp}``?``,
+  1 caractère et plus avec{nbsp}``+`` et
+  0 caractère et plus avec{nbsp}``*``.
 
 [source%interactive,javascript]
 .regexp/syntax.js
@@ -690,15 +690,15 @@ Nombre de caractères (`?`,{nbsp}`+`{nbsp}et{nbsp}`*`)::
 include::{sourceDir}/regexp/syntax.js[]
 ----
 <1> Affiche `["75"]` – les 2{nbsp}premiers caractères numériques de la chaîne.
-<2> Affiche `["75015"]` – les 5{nbsp}premiers caractères numériques (satisfait la condition{nbsp}`5` de{nbsp}`{2,5}`).
+<2> Affiche `["75015"]` – les 5{nbsp}premiers caractères numériques (satisfait la condition{nbsp}``5`` de{nbsp}``{2,5}``).
 <3> Affiche `["75015 Paris"]`.
-<4> Affiche `["75015 Paris"]` – l'option{nbsp}`i` évite de préciser l'ensemble{nbsp}`A-Z`.
+<4> Affiche `["75015 Paris"]` – l'option{nbsp}``i`` évite de préciser l'ensemble{nbsp}``A-Z``.
 <5> Affiche `["92410 Ville"]` – capture les caractères jusqu'à ce que la condition ne soit plus remplie en rencontrant le trait d'union{nbsp}(`-`).
 <6> Affiche `["92410 Ville-d'Avray"]`.
 
 D'autres opérateurs délimitent notre recherche :
 
-Début et fin de chaîne (`^`{nbsp}et{nbsp}`$`)::
+Début et fin de chaîne (``^``{nbsp}et{nbsp}``$``)::
   Quand l'option multi-ligne (`m`) est utilisée, les notions de début
   et de fin s'appliquent au niveau de la ligne.
 Limite de mot{nbsp}(`\b`)::
@@ -706,7 +706,7 @@ Limite de mot{nbsp}(`\b`)::
   ou la fin d'une chaîne.
 Ou{nbsp}(`|`)::
   Sépare deux choix (ex. `/noir|blanc/`).
-Groupe de capture (entre{nbsp}`(`{nbsp}et{nbsp}`)`)::
+Groupe de capture (entre{nbsp}``(``{nbsp}et{nbsp}``)``)::
   Délimite un groupe de caractères.
   Les groupes peuvent par la suite être _identifiés_ et _remplacés_. +
   On notera également que l'emploi des _groupes_ change
@@ -737,15 +737,15 @@ Caractère de mot{nbsp}(`\w`)::
   les caractères accentués ne sont pas englobés
   (identique à `[A-Za-z0-9_]`).
 Caractère numérique{nbsp}(`\d`)::
-  Identique à{nbsp}`[0-9]`.
+  Identique à{nbsp}``[0-9]``.
 Caractère d'espacement{nbsp}(`\s`)::
   Tout caractère d'espacement : espace, tabulation, retour chariot, etc.
 Caractère Unicode{nbsp}(`\u{....}`)::
-  Doit être combiné avec l'option{nbsp}`u` (`/.../u`).
-  Exemple : ♥︎{nbsp}->{nbsp}`\u{2665}`.
+  Doit être combiné avec l'option{nbsp}``u`` (`/.../u`).
+  Exemple : ♥︎{nbsp}->{nbsp}``\u{2665}``.
 
 Les alternatives de classes en majuscules sont des _négations_.
-`\W`{nbsp}pour "tout sauf un caractère de mot", `\S`{nbsp}pour "tout sauf un caractère
+``\W``{nbsp}pour "tout sauf un caractère de mot", ``\S``{nbsp}pour "tout sauf un caractère
 d'espacement", etc.
 
 [source%interactive,javascript,subs="+attributes"]
@@ -804,7 +804,7 @@ Ce type de valeur sert à exprimer des résultats de condition
 ----
 include::{sourceDir}/boolean/base.js[]
 ----
-<1> Affiche{nbsp}`3`.
+<1> Affiche{nbsp}``3``.
 <2> Affiche `true` – la condition est vérifiée.
 <3> Affiche `true` – c'est la valeur de la variable `check` suite à son affectation à la ligne précédente.
 <4> Affiche `true`.
@@ -817,7 +817,7 @@ est la suivante :
 `true`::
   Toute valeur non{nbsp}nulle.
 `false`::
-  Toute valeur nulle (`null`, `0`,{nbsp}`NaN`), vide (`''`)
+  Toute valeur nulle (`null`, `0`,{nbsp}``NaN``), vide (`''`)
   ou indéfinie (`undefined`).
 
 [source%interactive,javascript]
@@ -852,16 +852,16 @@ constantes ECMAScript :
 ----
 include::{sourceDir}/number/constants.js[]
 ----
-<1> Affiche{nbsp}`Infinity`.
-<2> Affiche{nbsp}`-Infinity`.
-<3> Affiche{nbsp}`1.7976931348623157e+308` – le plus grand réel utilisable.
-<4> Affiche{nbsp}`5e-324` – le plus petit réel utilisable.
-<5> Affiche{nbsp}`9007199254740991` – le plus grand entier utilisable.
-<6> Affiche{nbsp}`-9007199254740991` – le plus petit entier utilisable.
+<1> Affiche{nbsp}``Infinity``.
+<2> Affiche{nbsp}``-Infinity``.
+<3> Affiche{nbsp}``1.7976931348623157e+308`` – le plus grand réel utilisable.
+<4> Affiche{nbsp}``5e-324`` – le plus petit réel utilisable.
+<5> Affiche{nbsp}``9007199254740991`` – le plus grand entier utilisable.
+<6> Affiche{nbsp}``-9007199254740991`` – le plus petit entier utilisable.
 
 Il est aussi possible de compter dans d'autres bases, notamment en hexadécimal
 (_base{nbsp}16_).
-Cette dernière est exprimée en préfixant la valeur par{nbsp}`0x` et avec les
+Cette dernière est exprimée en préfixant la valeur par{nbsp}``0x`` et avec les
 caractères de{nbsp}0 à{nbsp}F – 0{nbsp}à{nbsp}9 puis A (vaut{nbsp}10),
 B (vaut{nbsp}11), etc.
 
@@ -870,11 +870,12 @@ B (vaut{nbsp}11), etc.
 ----
 include::{sourceDir}/number/hexa.js[]
 ----
-<1> Affiche{nbsp}`0`.
-<2> Affiche{nbsp}`10` – car `A`{nbsp}en hexadécimal vaut{nbsp}10 en décimal.
-<3> Affiche{nbsp}`160` – pour `10×16` (une "dizaine" vaut{nbsp}16).
-<4> Affiche{nbsp}`2560` – pour `10×16×16` (une "centaine" vaut{nbsp}16×16).
+<1> Affiche{nbsp}``0``.
+<2> Affiche{nbsp}``10`` – car ``A``{nbsp}en hexadécimal vaut{nbsp}10 en décimal.
+<3> Affiche{nbsp}``160`` – pour `10×16` (une "`dizaine`" vaut{nbsp}16).
+<4> Affiche{nbsp}``2560`` – pour `10×16×16` (une "`centaine`" vaut{nbsp}16×16).
 
+Test "ah".
 
 [NOTE]
 .[RemarquePreTitre]#Rumeur# JavaScript est nul en virgule flottante !
@@ -916,12 +917,12 @@ Chaque opération est dotée d'un symbole :
 ----
 include::{sourceDir}/number/operations.js[]
 ----
-<1> Affiche{nbsp}`6`.
-<2> Affiche{nbsp}`-2`.
-<3> Affiche{nbsp}`8`.
-<4> Affiche{nbsp}`0.5`.
-<5> Affiche{nbsp}`2`.
-<6> Affiche{nbsp}`16`.
+<1> Affiche{nbsp}``6``.
+<2> Affiche{nbsp}``-2``.
+<3> Affiche{nbsp}``8``.
+<4> Affiche{nbsp}``0.5``.
+<5> Affiche{nbsp}``2``.
+<6> Affiche{nbsp}``16``.
 
 [[nan]]
 === Les nombres qui n'en sont pas (_NaN_)
@@ -937,12 +938,12 @@ Pas forcément, mais ECMAScript ne vous en empêchera pas.
 ----
 include::{sourceDir}/number/operations-types.js[]
 ----
-<1> La chaîne{nbsp}`'1'` sera convertie en nombre (voir plus loin).
-<2> On nous a toujours interdit la division par zéro ; ici, on affiche{nbsp}`Infinity`.
-<3> Affiche aussi{nbsp}`Infinity`.
-<4> Seule cette opération retourne{nbsp}`NaN`.
-<5> Affiche{nbsp}`10`.
-<6> Affiche{nbsp}`11` — la valeur `true` est implicitement convertie en un entier.
+<1> La chaîne{nbsp}``'1'`` sera convertie en nombre (voir plus loin).
+<2> On nous a toujours interdit la division par zéro ; ici, on affiche{nbsp}``Infinity``.
+<3> Affiche aussi{nbsp}``Infinity``.
+<4> Seule cette opération retourne{nbsp}``NaN``.
+<5> Affiche{nbsp}``10``.
+<6> Affiche{nbsp}``11`` — la valeur `true` est implicitement convertie en un entier.
 ====
 
 Certaines opérations n'aboutiront pas mais n'afficheront pas d'erreur pour autant.
@@ -956,7 +957,7 @@ include::{sourceDir}/number/nan.js[]
 ----
 
 La fonction `Number.isNaN` nous aidera à vérifier si la valeur d'une variable
-ou le résultat d'une opération est un{nbsp}`NaN` ou non.
+ou le résultat d'une opération est un{nbsp}``NaN`` ou non.
 Cette fonction retourne un <<boolean,booléen>>.
 
 [source%interactive,javascript]
@@ -974,7 +975,7 @@ include::{sourceDir}/number/is-nan.js[]
 ====
 Il faut se méfier de `NaN` comme de la peste, car il est considéré
 comme un nombre du point de vue d'ECMAScript.
-Toute opération mathématique impliquant{nbsp}`NaN` renverra un{nbsp}`NaN` :
+Toute opération mathématique impliquant{nbsp}``NaN`` renverra un{nbsp}``NaN`` :
 
 [source%interactive,javascript]
 .number/nan-number.js
@@ -985,7 +986,7 @@ include::{sourceDir}/number/nan-number.js[]
 <2> Affiche `'number'`.
 
 Il vaut mieux s'assurer qu'une variable est à la fois un nombre et
-qu'elle ne vaut pas{nbsp}`NaN` :
+qu'elle ne vaut pas{nbsp}``NaN`` :
 
 [source%interactive,javascript]
 .number/is-not-a-nan.js
@@ -1014,10 +1015,10 @@ Pour cela nous avons deux fonctions à disposition :
 ----
 include::{sourceDir}/number/parse.js[]
 ----
-<1> Affiche{nbsp}`3`.
-<2> Affiche{nbsp}`3.141592653589793`.
-<3> Affiche{nbsp}`14` – ça ne change rien pour `parseInt`.
-<4> Affiche{nbsp}`14.1` – la fonction s'arrête à la décimale précédant une lettre.
+<1> Affiche{nbsp}``3``.
+<2> Affiche{nbsp}``3.141592653589793``.
+<3> Affiche{nbsp}``14`` – ça ne change rien pour `parseInt`.
+<4> Affiche{nbsp}``14.1`` – la fonction s'arrête à la décimale précédant une lettre.
 
 `parseInt` a cette particularité que l'on peut choisir la base
 de la conversion avec le second argument de la fonction :
@@ -1027,9 +1028,9 @@ de la conversion avec le second argument de la fonction :
 ----
 include::{sourceDir}/number/parse-int.js[]
 ----
-<1> Affiche{nbsp}`16`.
-<2> Affiche{nbsp}`10` – `A`{nbsp}vaut{nbsp}`10` en hexadécimal.
-<3> Affiche{nbsp}`2560` – aurait pu s'écrire `0xA00`.
+<1> Affiche{nbsp}``16``.
+<2> Affiche{nbsp}``10`` – ``A``{nbsp}vaut{nbsp}``10`` en hexadécimal.
+<3> Affiche{nbsp}``2560`` – aurait pu s'écrire `0xA00`.
 
 === Formater et arrondir des nombres
 
@@ -1049,11 +1050,11 @@ quelques fonctions pour vous aider :
 ----
 include::{sourceDir}/number/round.js[]
 ----
-<1> Affiche{nbsp}`3`.
-<2> Affiche{nbsp}`4`.
-<3> Affiche{nbsp}`4`.
-<4> Affiche{nbsp}`4`.
-<5> Affiche{nbsp}`3`.
+<1> Affiche{nbsp}``3``.
+<2> Affiche{nbsp}``4``.
+<3> Affiche{nbsp}``4``.
+<4> Affiche{nbsp}``4``.
+<5> Affiche{nbsp}``3``.
 
 Enfin, on peut préserver le formatage du nombre de décimales
 après la virgule en transformant le nombre _en chaîne de caractères_
@@ -1064,8 +1065,8 @@ grâce à la méthode `toFixed` :
 ----
 include::{sourceDir}/number/to-fixed.js[]
 ----
-<1> Affiche{nbsp}`'10.01'`.
-<2> Affiche{nbsp}`'10'`.
+<1> Affiche{nbsp}``'10.01'``.
+<2> Affiche{nbsp}``'10'``.
 
 [[functions]]
 == Créer et réutiliser des blocs de code (fonctions)
@@ -1181,9 +1182,9 @@ ou en ayant recours à d'autres méthodes d'identification.
 include::{sourceDir}/array/base.js[]
 ----
 <1> Affiche `["lundi", "mardi", "mercredi", "jeudi", "vendredi"]`.
-<2> Affiche{nbsp}`5` – soit la longueur du tableau.
-<3> Affiche `"mardi"` – un tableau commence à l'index{nbsp}`0`.
-<4> Affiche `undefined` – il n'y a aucun élément défini à l'index{nbsp}`5`.
+<2> Affiche{nbsp}``5`` – soit la longueur du tableau.
+<3> Affiche `"mardi"` – un tableau commence à l'index{nbsp}``0``.
+<4> Affiche `undefined` – il n'y a aucun élément défini à l'index{nbsp}``5``.
 
 L'exemple précédent illustre plusieurs caractéristiques des collections :
 
@@ -1233,7 +1234,7 @@ include::{sourceDir}/array/concat.js[]
 Cette méthode _crée un nouveau tableau_ à partir de deux passés en paramètres.
 
 [NOTE]
-.[RemarquePreTitre]#Alternative# Opérateur{nbsp}`...`{nbsp}(_spread_)
+.[RemarquePreTitre]#Alternative# Opérateur{nbsp}``...``{nbsp}(_spread_)
 ====
 Une autre manière de faire est d'utiliser l'opérateur `...`
 (aussi appelé <<spread,spread>>) pour éclater plusieurs tableaux et
@@ -1284,16 +1285,16 @@ On y découvre plusieurs manières d'écrire des boucles sur un tableau :
   La méthode `forEach` applique une <<anonymous-function,fonction anonyme>>
   pour chaque élément du tableau.
 
-Il y a en réalité deux manières d'itérer avec la boucle{nbsp}`for` :
-sur les _index_ (avec l'opérateur{nbsp}`in`)
-et sur les _valeurs_ (avec l'opérateur{nbsp}`of`).
+Il y a en réalité deux manières d'itérer avec la boucle{nbsp}``for`` :
+sur les _index_ (avec l'opérateur{nbsp}``in``)
+et sur les _valeurs_ (avec l'opérateur{nbsp}``of``).
 
 [source%interactive,javascript]
 .array/for-of-in.js
 ----
 include::{sourceDir}/array/for-of-in.js[]
 ----
-<1> Affiche successivement{nbsp}`0` puis{nbsp}`1`.
+<1> Affiche successivement{nbsp}``0`` puis{nbsp}``1``.
 <2> Affiche successivement `"samedi"` puis `"dimanche"` – l'index sert à retrouver la valeur dans le tableau.
 <3> Affiche successivement `"samedi"` puis `"dimanche"`.
 
