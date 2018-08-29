@@ -58,9 +58,9 @@ Ce chapitre s'inscrit dans la continuité du
 <<../chapter-04/index.adoc#,chapitre 4>>.
 
 [NOTE]
-.[RemarquePreTitre]#Documentation# Entêtes HTTP
+.[RemarquePreTitre]#Documentation# En-têtes HTTP
 ====
-Ce chapitre fait souvent référence à des entêtes HTTP.
+Ce chapitre fait souvent référence à des en-têtes HTTP.
 La documentation _MDN web docs_ ([URL]#https://developer.mozilla.org/fr/docs/Web/HTTP/Headers#)
 les liste toutes, avec le détail de leurs valeurs possibles.
 
@@ -97,11 +97,11 @@ Accept: */*
 ----
 <1> Exécution de la requête.
 <2> Expression de la méthode, du chemin d'accès demandé et du protocole de discussion employé – ici, le protocole HTTP dans sa version `1.1`.
-<3> Entête de requête.
+<3> En-tête de requête.
 
-Un entête est exprimé sous la forme `Clé: Valeur`.
-Chaque entête précise un élément de contexte.
-Certaines entêtes influencent plus que d'autres la réponse du serveur, si
+Un en-tête est exprimé sous la forme `Clé: Valeur`.
+Chaque en-tête précise un élément de contexte.
+Certaines en-têtes influencent plus que d'autres la réponse du serveur, si
 celui-ci la comprend.
 
 Voyons maintenant la réponse.
@@ -121,11 +121,11 @@ Content-Type: text/html                               # <3>
 &lt;html>&lt;head>&lt;title>Vous Etes Perdu ?&lt;/title> …&lt;/html> # <4>
 ----
 <1> Expression du statut de la réponse avec un code numérique et une version intelligible.
-<2> Entête de réponse.
-<3> Entête de réponse – celle-ci indique au client comment interpréter le corps du message.
+<2> En-tête de réponse.
+<3> En-tête de réponse – celle-ci indique au client comment interpréter le corps du message.
 <4> Corps du message.
 
-La réponse dispose elle aussi d'entêtes.
+La réponse dispose elle aussi d'en-têtes.
 Cette fois, elles guident le client dans son interprétation du résultat.
 Le corps du message est séparé par une ligne vide.
 C'est la partie visible de la réponse dans un navigateur web, c'est le contenu
@@ -148,7 +148,7 @@ Cet hôte doit au préalable avoir installé et démarré un serveur HTTP qui
 
 Le script d'exemple `server/start.js` répond à ce besoin.
 Une fois démarré, il est joignable à l'adresse `{serverUrl}`.
-Il affichera alors les entêtes des requêtes et de leur réponse :
+Il affichera alors les en-têtes des requêtes et de leur réponse :
 
 ----
 $ node server/start.js
@@ -160,8 +160,8 @@ $ node server/start.js
 include::{sourceDir}/server/start.js[]
 ----
 <1> Comme nous retournons du HTML au client, nous explicitons le type de contenu retourné en réponse.
-<2> Affiche les entêtes de la requête reçue par le serveur – le contenu varie selon le client utilisé.
-<3> Affiche les entêtes de la réponse – en l'occurrence `{ 'content-type': 'text/html' }`.
+<2> Affiche les en-têtes de la requête reçue par le serveur – le contenu varie selon le client utilisé.
+<3> Affiche les en-têtes de la réponse – en l'occurrence `{ 'content-type': 'text/html' }`.
 
 Nous avons composé la fondation minimum pour créer une application web
 en étant en mesure d'accepter des requêtes et de répondre, quelque chose
@@ -362,8 +362,8 @@ include::{sourceDir}/path/method.js[]
 ----
 <1> Définition du chemin d'accès `/` – verbe `GET` (récupération).
 <2> Définition du chemin d'accès `/` – verbe `HEAD` cette fois.
-<3> La méthode `response.writeHead` est un moyen de définir le statut en même temps que les entêtes de réponse.
-<4> Définition d'un entête personnalisé – le préfixe `X-` indique qu'il n'est pas lié au standard HTTP.
+<3> La méthode `response.writeHead` est un moyen de définir le statut en même temps que les en-têtes de réponse.
+<4> Définition d'un en-tête personnalisé – le préfixe `X-` indique qu'il n'est pas lié au standard HTTP.
 <5> Écriture du corps du message – nous verrons qu'il est ignoré et n'est pas transmis au client.
 
 Les navigateurs web affichent seulement notre route `GET` car c'est
@@ -384,7 +384,7 @@ Date: Sun, 01 Jul 2018 15:43:56 GMT
 Connection: keep-alive
 ----
 
-L'utilisation de `HEAD` renvoie uniquement les entêtes de réponse et nous
+L'utilisation de `HEAD` renvoie uniquement les en-têtes de réponse et nous
 économise la <<templating,génération d'un gabarit>>.
 D'un point de vue client, le verbe `HEAD` aide à inspecter des ressources
 sans avoir à télécharger le contenu – ce sont autant de kilo ou méga-octets
@@ -395,7 +395,7 @@ d'économisés.
 |===
 | Verbe | Description
 | `GET` | Récupération d'une ressource.
-| `HEAD` | Récupération d'une ressource – seulement les entêtes.
+| `HEAD` | Récupération d'une ressource – seulement les en-têtes.
 | `POST` | Création d'une ressource.
 | `PUT` | Mise à jour d'une ressource.
 | `PATCH` | Mise à jour _partielle_ d'une ressource.
@@ -464,7 +464,7 @@ Si nous accédons à `{serverUrl}/files/doc.pdf` et `{serverUrl}/files/screensho
 nous verrons les deux documents s'afficher dans notre navigateur.
 Un problème cependant : l'accès à un chemin inconnu fait planter l'application.
 
-Notre approche est un peu trop naïve en regardant les entêtes
+Notre approche est un peu trop naïve en regardant les en-têtes
 de réponse d'un peu plus près :
 
 ----
@@ -476,7 +476,7 @@ Connection: keep-alive
 <1> C'est pour exécuter cette commande que j'ai ajouté l'écoute de la méthode `HEAD`.
 
 En fait, nous gagnerions à documenter la ressource en transmettant
-des entêtes supplémentaires.
+des en-têtes supplémentaires.
 La question est : lesquelles ?
 
 [CAUTION]
@@ -496,7 +496,7 @@ Nous verrons tous ces aspects plus en détail dans la section
 
 Nous allons nous baser sur le module npm _send_ ([URL]#https://npmjs.com/send#)
 pour améliorer l'exemple précédent et constater par nous-même quelles
-entêtes sont utiles.
+en-têtes sont utiles.
 
 ----
 $ node static/send.js
@@ -513,7 +513,7 @@ include::{sourceDir}/static/send.js[]
 
 Pas de grands bouleversements donc.
 Si ce n'est que les fichiers inexistants ne font plus planter l'application
-et que les entêtes de réponses sont plus fournies qu'avant :
+et que les en-têtes de réponses sont plus fournies qu'avant :
 
 ----
 $ curl --head 'http://localhost:4000/files/doc.pdf'
@@ -528,23 +528,23 @@ Date: Mon, 02 Jul 2018 15:52:18 GMT
 Connection: keep-alive
 ----
 
-Parmi les entêtes les plus importantes, nous trouvons `Content-Type`,
+Parmi les en-têtes les plus importantes, nous trouvons `Content-Type`,
 `Content-Length` et `Last-Modified`.
 Elles aident le client à interpréter ou représenter le contenu de manière optimale,
 à informer de la taille du contenu (utile à l'animation de la barre de
 téléchargement du navigateur web) et à distinguer l'ancienneté du fichier.
 
 [options="header", cols="1,3"]
-.Entêtes de réponse utiles pour transmettre des fichiers.
+.En-têtes de réponse utiles pour transmettre des fichiers.
 |===
-| Entête                | Utilité
+| En-tête                | Utilité
 | `Content-Type`        | Explicite la nature du contenu mis à disposition.
 | `Content-Disposition` | Indique si le contenu doit être affiché dans le client ou téléchargé sous un nom particulier.
 | `Cache-Control`       | Active ou désactive la mise en cache de ce fichier par le client.
 | `Last-Modified`       | Indique la date de dernière modification du contenu.
 | `Content-Length`      | Indique la longueur (en octets) du contenu.
 | `Content-Encoding`    | Indique le mode de compression utilisé pour transmettre les données.
-| `Accept-Ranges`       | Indique la possibilité ou non de reprendre un téléchargement ou d'en choisir un segment avec l'entête de requête `Range`.
+| `Accept-Ranges`       | Indique la possibilité ou non de reprendre un téléchargement ou d'en choisir un segment avec l'en-tête de requête `Range`.
 |===
 
 [TIP]
@@ -619,7 +619,7 @@ $ node arguments/format.js
 include::{sourceDir}/arguments/format.js[]
 ----
 <1> Nous rentrons dans ce bloc en présence de l'argument d'URL `format=svg`.
-<2> L'entête `Content-Type` fait que le contenu est interprété (et affiché) comme du HTML – en retirant cette ligne, le document sera alors téléchargé.
+<2> L'en-tête `Content-Type` fait que le contenu est interprété (et affiché) comme du HTML – en retirant cette ligne, le document sera alors téléchargé.
 <3> Sinon, le reste du temps nous affichons la date telle quelle, en tant que texte.
 
 Les deux URL `{serverUrl}/date?format=svg` et `{serverUrl}/date` font
@@ -648,14 +648,14 @@ tout en étant jusqu'à 10 fois plus rapide que le module natif à Node.
 Lorsque nous ne précisons pas la méthode employée, les outils et logiciels
 utilisent par défaut la méthode `GET`.
 Elle est associée à une récupération de données sans transmettre autre chose
-que des entêtes et un chemin d'accès.
+que des en-têtes et un chemin d'accès.
 
 Il y a des cas où nous avons besoin d'envoyer des données, pour les stocker
 ou pour demander à créer un enregistrement.
 Dans ce cas, nous utilisons la méthode `POST` et nous transmettons les informations
 d'une manière différente des <<arguments>>.
 
-Le serveur suivant affichera deux choses à chaque requête reçue : l'entête
+Le serveur suivant affichera deux choses à chaque requête reçue : l'en-tête
 `Content-Type` et le corps du message transmis par la requête.
 
 ----
@@ -702,10 +702,10 @@ include::{sourceDir}/post/send.js[]
 ----
 <1> Création de la structure des données à transmettre.
 <2> Indication de la méthode `POST`.
-<3> Cette entête caractérise la manière d'organiser les données de formulaire – personnellement, je n'arrive jamais à retenir cette valeur et je la copie/colle toujours depuis Stack Overflow ou une documentation technique.
+<3> Cette en-tête caractérise la manière d'organiser les données de formulaire – personnellement, je n'arrive jamais à retenir cette valeur et je la copie/colle toujours depuis Stack Overflow ou une documentation technique.
 <4> Les données sont sérialisées sous forme d'une chaîne de caractères, identique à ce que ferait un navigateur web avec les données d'un formulaire.
 
-Nous retrouvons l'entête `Content-Type` dans l'affichage du script `post/server.js`.
+Nous retrouvons l'en-tête `Content-Type` dans l'affichage du script `post/server.js`.
 Le contenu du message envoyé ressemble beaucoup à des arguments d'URL
 encodés avec <<encode-uri,encodeURIComponent>>.
 
@@ -771,7 +771,7 @@ include::{sourceDir}/post/send-json.js[]
 ----
 <1> L'utilisation d'un objet ECMAScript suffit au module _superagent_ pour transmettre les données au format JSON.
 
-Nous constatons que la valeur de l'entête `Content-Type` change pour devenir
+Nous constatons que la valeur de l'en-tête `Content-Type` change pour devenir
 `application/json`.
 Là aussi, le module _co-body_ nous est utile car il s'adapte au type de données
 entrantes et les décode de manière transparente.
@@ -863,7 +863,7 @@ Hello World
 
 -----1acfa07ebbd71d3c----                           # <5>
 ----
-<1> Contenu de l'entête `Content-Type` – l'attribut `boundary` précise le motif de délimitation des différents champs.
+<1> Contenu de l'en-tête `Content-Type` – l'attribut `boundary` précise le motif de délimitation des différents champs.
 <2> Ouverture des informations du premier champ.
 <3> Les attributs `name` et `filename` définissent le nom du champ de formulaire et le nom du fichier en question, respectivement.
 <4> L'attribut `Content-Type` concerne le fichier et aide à comprendre comment interpréter son contenu – ici, du texte brut.
@@ -963,7 +963,7 @@ $ node cookies/set-cookie.js
 ----
 include::{sourceDir}/cookies/set-cookie.js[]
 ----
-<1> L'entête de réponse `Set-Header` crée/modifie la valeur d'un cookie chez le client – ici, le cookie `compteur` est créé avec la valeur `1`.
+<1> L'en-tête de réponse `Set-Header` crée/modifie la valeur d'un cookie chez le client – ici, le cookie `compteur` est créé avec la valeur `1`.
 
 Nous pouvons observer la création du cookie en nous rendant sur `{serverUrl}`
 avec un navigateur, puis en ouvrant les outils de développement.
@@ -982,18 +982,18 @@ $ node cookies/read.js
 ----
 include::{sourceDir}/cookies/read.js[]
 ----
-<1> Les cookies se lisent en inspectant l'entête de requête `Cookie`.
+<1> Les cookies se lisent en inspectant l'en-tête de requête `Cookie`.
 <2> Affiche `Contenu : compteur=1`.
 
-Nous avons récupéré la valeur de l'entête contenant le cookie.
+Nous avons récupéré la valeur de l'en-tête contenant le cookie.
 Nous devons faire un effort supplémentaire pour transformer cette valeur textuelle
 en une structure ECMAScript qui fait sens pour notre application.
 
 Nous allons nous aider pour cela du module npm _cookie_
 ([URL]#https://npmjs.com/cookie#).
-Il sait interpréter le contenu d'un entête HTTP et il sait également faire
+Il sait interpréter le contenu d'un en-tête HTTP et il sait également faire
 l'inverse, transformer une structure ECMAScript vers du texte utilisable
-dans l'entête de réponse `Set-Cookie`.
+dans l'en-tête de réponse `Set-Cookie`.
 
 ----
 $ node cookies/parse.js
@@ -1004,7 +1004,7 @@ $ node cookies/parse.js
 ----
 include::{sourceDir}/cookies/parse.js[]
 ----
-<1> Nous passons l'intégralité de l'entête de requête `Cookie` à la fonction `cookie.parse`.
+<1> Nous passons l'intégralité de l'en-tête de requête `Cookie` à la fonction `cookie.parse`.
 <2> Affiche `{"compteur":"1"}`.
 
 La méthode `response.setHeader()` accepte un tableau pour créer plusieurs
@@ -1343,7 +1343,7 @@ de requête et de réponse HTTP.
 *Les _middlewares_ relient tous les concepts* évoqués dans la section
 <<webapp,composer son application web>>.
 
-.Extraits des entêtes d'une réponse HTTP une fois le module _helmet_ configuré.
+.Extraits des en-têtes d'une réponse HTTP une fois le module _helmet_ configuré.
 ----
 $ curl --head http://localhost:4000
 HTTP/1.1 200 OK
@@ -1360,9 +1360,9 @@ Date: Sun, 15 Jul 2018 17:12:48 GMT
 Connection: keep-alive
 ----
 
-Le module _helmet_ agit seulement sur les entêtes de réponse.
+Le module _helmet_ agit seulement sur les en-têtes de réponse.
 Nous verrons dans la section <<security,protéger nos applications>> quelles
-entêtes sont essentielles à la sécurité et pourquoi.
+en-têtes sont essentielles à la sécurité et pourquoi.
 
 Enfin, notons une méthode alternative pour appliquer un _middleware_ : au niveau
 d'une route, au lieu de toutes les routes – avec `app.use()`.
@@ -1542,7 +1542,7 @@ $ node framework/minify.js
 ----
 include::{sourceDir}/framework/minify.js[]
 ----
-<1> Le module _express-minify_ transforme les fichiers Sass si leur entête de réponse `Content-Type` vaut `text/x-scss` – cette ligne assigne cette entête aux fichiers dont l'extension est `.scss`.
+<1> Le module _express-minify_ transforme les fichiers Sass si leur en-tête de réponse `Content-Type` vaut `text/x-scss` – cette ligne assigne cet en-tête aux fichiers dont l'extension est `.scss`.
 <2> Ajout du module comme <<middleware,middleware>>.
 <3> Le fichier `main.scss` sera converti en CSS.
 
@@ -1642,7 +1642,7 @@ Le _middleware_ de session retrouve les informations associées à cet identifia
 depuis l'espace de stockage des données de sessions.
 
 [subs="+quotes"]
-.Extrait des entêtes de réponse à l'origine de la création du cookie de session.
+.Extrait des en-têtes de réponse à l'origine de la création du cookie de session.
 ----
 $ curl -i -L http://localhost:4000
 HTTP/1.1 302 Found
@@ -2264,7 +2264,7 @@ côté client.
 === Comprendre le modèle HTTP
 
 Deux éléments ressortent du modèle de fonctionnement du protocole HTTP :
-*tout est du texte* (entêtes et contenu) et *chaque requête est indépendante*.
+*tout est du texte* (en-têtes et contenu) et *chaque requête est indépendante*.
 C'est-à-dire que chaque requête emporte son contexte avec elle, toutes les
 informations nécessaires à sa compréhension.
 
@@ -2277,13 +2277,13 @@ IP est associée au nom de domaine ;
 . *établissement de la connexion* : le client (nous) ouvre une connexion réseau
 avec le serveur pour échanger des données ;
 . *envoi de la requête HTTP* : la requête contient des informations au format
-texte (méthode, entêtes, des fois un corps de message) pour que le serveur
+texte (méthode, en-têtes, des fois un corps de message) pour que le serveur
 s'adapte au mieux à notre demande ;
 . *réception de la requête* : le serveur interprète la demande
 (est-ce qu'il la comprend ?), cherche la ressource associée au chemin demandé ;
 . *envoi de la réponse* : le serveur répond avec des données au format texte
-(statut, entêtes, corps de message) ;
-. *interprétation de la réponse* : l'entête `Content-Type` aide le client à déterminer
+(statut, en-têtes, corps de message) ;
+. *interprétation de la réponse* : l'en-tête `Content-Type` aide le client à déterminer
 comment afficher les informations - XML, HTML, JSON, CSS, vidéo etc – et si
 le document contient d'autres ressources à aller récupérer.
 
@@ -2312,7 +2312,7 @@ pour embarquer du contenu HTML dans une application native.
 Elles fonctionnent comme des navigateurs web, sans les boutons de navigation.
 ====
 
-Le module npm _jshttp_ ([URL]#https://github.com/jshttp#) affiche les entêtes
+Le module npm _jshttp_ ([URL]#https://github.com/jshttp#) affiche les en-têtes
 de réponse comme le programme `curl` le ferait et détaille le parcours réseau,
 de la résolution du nom de domaine jusqu'au temps passé à négocier une transaction
 sécurisée. +
@@ -2320,7 +2320,7 @@ Nous comprenons ainsi mieux des temps qui sont rendus invisibles et où nous
 pouvons faire des efforts – réduire les temps de transfert ou le temps de réponse
 de notre application par exemple.
 
-.Temporalité de l'exécution d'une requête HTTP et des entêtes de réponse.
+.Temporalité de l'exécution d'une requête HTTP et des en-têtes de réponse.
 image::images/httpstat.png[]
 
 
@@ -2451,14 +2451,14 @@ d'un répertoire racine – ici, `base_dir` – est de vérifier que le chemin 
 débute bien par le chemin du répertoire racine.
 
 [options="header", cols="2, 4a"]
-.Entêtes de réponse qui ont un impact sur la sécurité de navigation.
+.En-têtes de réponse qui ont un impact sur la sécurité de navigation.
 |===
-| Entête | Description
+| En-tête | Description
 | `X-DNS-Prefetch-Control` | Avec la valeur `off`, le navigateur ne va pas proactivement chercher les informations DNS des ressources contenues dans la page. Nos informations de navigation ne sont pas divulguées à notre insu.
 | `X-Frame-Options` | Avec la valeur `SAMEORIGIN`, le navigateur autorise la création d'``<iframe>`` seulement depuis le même domaine – les `<iframe>` tierces sont bloquées.
 | `Strict-Transport-Security` | Lorsque l'option est activée, le navigateur accèdera par défaut à ce site en HTTPS au lieu de HTTP.
 | `X-Download-Options` | Avec la valeur `noopen`, Internet Explorer téléchargera un fichier au lieu de tenter de l'ouvrir à même le navigateur – ça peut être exploité pour pirater le navigateur par des fichiers malicieux.
-| `X-Content-Type-Options` | Avec la valeur `nosniff`, les navigateurs bloquent les scripts et les styles qui n'ont respectivement pas l'entête `Content-Type` à `application/javascript` et `text/css`.
+| `X-Content-Type-Options` | Avec la valeur `nosniff`, les navigateurs bloquent les scripts et les styles qui n'ont respectivement pas l'en-tête `Content-Type` à `application/javascript` et `text/css`.
 | `X-XSS-Protection` | Avec la valeur `1; mode=block`, les navigateurs interrompent le chargement d'une page s'ils détecte une exploitation malicieuse de chargement de données ou de fichier.
 |===
 

@@ -925,7 +925,7 @@ Nous pouvons vérifier la compatibilité navigateur de `fetch()` sur
 Le déroulé d'exécution d'un appel à `fetch()` est le suivant :
 
 . construction de la requête (_URL_ ou objet `Request`, options) ;
-. réception des entêtes de la réponse (objet `Response`) ;
+. réception des en-têtes de la réponse (objet `Response`) ;
 . décodage de la réponse.
 
 Plusieurs décodeurs de réponse sont fournis nativement : texte
@@ -1075,7 +1075,7 @@ qu'il faut aussi écouter les messages transmis par le client.
 ====
 Voici ce qui se passe lorsqu'un client _WebSocket_ se connecte sur `ws://example.com` :
 
-. requête HTTP `http://example.com` standard contenant les entêtes `Upgrade: websocket` et `Connection: Upgrade` ;
+. requête HTTP `http://example.com` standard contenant les en-têtes `Upgrade: websocket` et `Connection: Upgrade` ;
 . le serveur HTTP répond avec un statut `101 Switching Protocols` ;
 . le serveur _WebSocket_ prend le relais dans le dialogue client/serveur ;
 . client et serveur communiquent désormais via le protocole `ws` au sein de la connexion HTTP initiale.

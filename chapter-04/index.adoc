@@ -1084,17 +1084,16 @@ La documentation du module `util` est disponible sur le site officiel de Node :
 [[http]]
 === http : créer et interroger des ressources via le protocole{nbsp}HTTP
 
-Le module `http` est un module incontournable de Node.
-Il a 2 facettes : la création de requêtes HTTP et la création
-de serveurs HTTP.
-Dans un cas on utilise le protocole HTTP pour accéder à une ressource distante
+Le module `http` est un incontournable de Node.
+Il a deux facettes : la création de requêtes et celle de serveurs.
+Dans le premier cas, on utilise le protocole HTTP pour accéder à une ressource distante
 et recevoir une _réponse_.
-Dans l'autre cas on utilise le protocole HTTP pour
+Dans le second, on utilise le protocole HTTP pour
 *mettre à disposition des ressources* et les envoyer en _réponse_.
 
 Le module `https` offre exactement les mêmes propriétés.
 Il est à privilégier pour établir des connections sécurisées
-vers des adresses commençant par `https://`.
+vers des adresses commençant par{nbsp}``https://``.
 
 
 [source%interactive,javascript]
@@ -1102,29 +1101,29 @@ vers des adresses commençant par `https://`.
 ----
 include::{sourceDir}/http/intro.js[]
 ----
-<1> Initialisation de la requête – un objet représentant la <<http.IncomingMessage,réponse du serveur distant>> nous est transmis. À ce stade là, le serveur n'a pas encore commencé à renvoyer des données.
+<1> Initialisation de la requête – un objet représentant la <<http.IncomingMessage,réponse du serveur distant>> nous est transmis. À ce stade-là, le serveur n'a pas encore commencé à renvoyer des données.
 <2> On en est à l'étape où on reçoit des données. Le contenu du fichier `package.json` est affiché sous forme de chaînes de caractères.
 
 Ce premier exemple met en lumière *la nature asynchrone et non-bloquante par défaut de Node*.
 La création d'une requête et l'obtention de la réponse sont séparées d'un délai
-variable pendant lequel Node ne bloque pas le reste du code de s'exécuter.
-Les <<callbacks,callbacks>> sont appelés lorque l'action est terminée.
+variable, pendant lequel Node ne bloque pas le reste du code.
+Les <<callbacks,fonctions de rappel>> sont appelées lorsque l'action est terminée.
 
 En regardant le code de l'exemple précédent, on en apprend un peu plus sur
-le fonctionnement d'une requête HTTP :
+le fonctionnement d'une requête{nbsp}HTTP :
 
-. envoi de la requête au serveur distant (`get()`)
-. obtention d'une réponse (objet `response` dans le callback)
-. transmission d'informations (événement `data`)
-. clôture de la transmission (événement `end` – cf. exemple suivant)
+. Envoi de la requête au serveur distant : `get()`.
+. Obtention d'une réponse : objet `response` dans la fonction de rappel.
+. Transmission d'informations : événement `data`.
+. Clôture de la transmission : événement `end` – voir exemple suivant.
 
 Pour rester rapide, Node fait aussi le choix de transmettre les données
 au fur et à mesure.
-L'<<events,événement>> `data` renvoie en réalité environ `10Ko` de données.
+L'<<events,événement>> `data` renvoie en réalité environ 10{nbsp}Ko de données.
 L'exemple précédent a tout renvoyé d'un coup car le volume des données
-était inférieur à 10Ko.
+était inférieur à 10{nbsp}Ko.
 
-Voyons maintenant ce qu'il se passe lorsqu'on fait appel à un fichier
+Voyons maintenant ce qui se passe lorsqu'on fait appel à un fichier
 plus volumineux :
 
 [source%interactive,javascript]
@@ -1137,20 +1136,20 @@ include::{sourceDir}/http/get.js[]
 <3> Affiche le nombre de morceaux reçus pour obtenir une réponse complète.
 
 [TIP]
-.[RemarquePreTitre]#Pratique# Paramètre URL
+.[RemarquePreTitre]#Pratique# Paramètre{nbsp}URL
 ====
-Les fonctions `http.get()` et `http.request()` accepte une chaîne de caractères
+Les fonctions `http.get()` et `http.request()` acceptent une chaîne de caractères
 comme premier argument.
 
-Il est aussi possible de lui passer un <<url,objet URL>>.
-Pratique si vous manipulez des URL complexes ou si vous paginez.
+Il est aussi possible de leur passer un <<url,objet{nbsp}URL>>.
+C'est plus pratique si vous manipulez des URL complexes ou si vous paginez.
 ====
 
 En clair, on peut recevoir une réponse en plusieurs fois, petit bout par petit bout.
 Les données reçues ne sont pas forcément complètes.
-Ça pose problème à des fonctions comme
-<<../chapter-03/index.adoc#json,`JSON.parse`>>.
-Elle nécessite un document JSON complet pour produire un résultat.
+Cela pose problème à des fonctions comme
+<<../chapter-03/index.adoc#json,`JSON.parse`>>, qui nécessitent un document
+JSON complet pour produire un résultat.
 
 Une solution consiste accumuler les morceaux de réponse et à les assembler.
 Cela veut aussi dire que l'on consomme autant de mémoire que l'on reçoit de données.
@@ -1162,23 +1161,23 @@ On en parle plus loin, dans la section sur le <<stream,module `streams`>>.
 [horizontal]
 .Propriétés notables
 `http.createServer()`::
-  Initialise un serveur HTTP et fournit une boîte à outil pour
+  Initialise un serveur HTTP et fournit une boîte à outils pour
   gérer les connexions entrantes via <<http.Server,`http.Server`>>
 `http.get()`::
-  Crée une connexion HTTP de type `GET`.
+  Crée une connexion HTTP de type{nbsp}``GET``.
   Il s'agit d'une version simplifiée de `http.request()`.
 `http.request()`::
-  Crée une connexion HTTP du type de son choix (`GET`, `POST`, `OPTION`, `PUT`,
-  etc.).
+  Crée une connexion HTTP du type de son choix : `GET`, `POST`, `OPTION`, `PUT`,
+  etc.
 
 [[http.request]]
 La fonction `http.request()` gère une requête plus finement.
-On peut aisément régler les entêtes, le verbe HTTP et les modalités de
+On peut aisément régler les en-têtes, le verbe HTTP et les modalités de
 transmission des données.
 
 L'exemple suivant illustre l'envoi d'une requête `HEAD`.
 Ce verbe HTTP indique au serveur distant de répondre avec les métadonnées
-de la ressource mais sans les données (`response.on('data')`) :
+de la ressource, mais sans les données (`response.on('data')`) :
 
 [source%interactive,javascript]
 .http/request.js
@@ -1193,7 +1192,7 @@ include::{sourceDir}/http/request.js[]
 [NOTE]
 .[RemarquePreTitre]#Avancé# Parser, destructurer, combiner
 ====
-La fonction `url.parse` du <<url,module `url`>> est une alternative à la
+La fonction `url.parse` du <<url,module{nbsp}``url``>> est une alternative à la
 construction manuelle de l'URL.
 Les opérateurs de <<../chapter-03/index.adoc#object,manipulation d'objets>>
 comme le _destructuring_ et l'expansion (_rest_) favorisent
@@ -1211,85 +1210,84 @@ On ajoute progressivement de plus en plus de travail pour bien envoyer une
 requête, collecter les données et gérer les erreurs.
 
 Nous verrons comment arriver au même résultat en écrivant moins de code grâce aux
-<<../chapter-05/index.adoc#modules,modules `npm`>>
-(<<../chapter-05/index.adoc#,chapitre 5>>).
+<<../chapter-05/index.adoc#modules,modules{nbsp}``npm``>>
+(<<../chapter-05/index.adoc#,chapitre{nbsp}5>>).
 
 [horizontal, id="http.ClientRequest"]
 .Propriétés notables de `http.ClientRequest`
 `request.on('response')`::
-  Déclenché lorsque la ressource distante a accepté la requête et s'apprête
+  Se déclenche lorsque la ressource distante a accepté la requête et s'apprête
   à nous transmettre les données.
 `request.on('end')`::
-  Délenché lorsque la ressource distante a signalé ne plus avoir de données
+  Se déclenche lorsque la ressource distante a signalé ne plus avoir de données
   à nous transmettre.
 `request.end()`::
-  Termine l'initialisation et entame la connexion vers la ressource distante. +
+  Termine l'initialisation et entame la connexion vers la ressource distante.
   Dans le cas d'une requête `POST`, `PUT` ou `DELETE`, le premier paramètre
   sert à passer une donnée au serveur distant.
 `request.getHeader()`::
-  Retourne la valeur d'une entête de requête.
+  Retourne la valeur d'un en-tête de requête.
 `request.setHeader()`::
-  Change la valeur d'une entête de requête.
+  Change la valeur d'un en-tête de requête.
   C'est une pratique courante pour préciser nos intentions auprès du serveur
-  distant : format de fichier à réponse attendu (`Accept`), agent utilisateur
+  distant : format de fichier réponse attendu (`Accept`), agent utilisateur
   (`User-Agent`), nature des données envoyées (`Content-Type`), etc.
 `request.setTimeout()`::
   Définit un chronomètre pour déclarer la requête en erreur si aucune réponse
   n'a été obtenue dans ce délai imparti.
 `request.write()`::
-  Transmets un morceau de contenu vers la ressource distante.
+  Transmet un morceau de contenu vers la ressource distante.
   Cette méthode s'utilise lorsque l'on effectue un téléversement progressif.
 
 
 [horizontal, id="http.IncomingMessage"]
 .Propriétés notables de `http.IncomingMessage`
 `message.on('data')`::
-  Déclenché quand un morceau de données est obtenu par le client.
+  Se déclenche quand un morceau de données est obtenu par le client.
 `message.on('end')`::
-  Déclenché quand nous avons obtenu toutes les données émises par le serveur.
+  Se déclenche quand nous avons obtenu toutes les données émises par le serveur.
 `message.on('readable')`::
-  Déclenché quand nous pouvons commencer à lire les données.
+  Se déclenche quand nous pouvons commencer à lire les données.
 `message.read()`::
   Obtient un morceau de données manuellement – au lieu d'utiliser
   l'événement `data`, automatique.
-  On apprendra mieux comment manipuler cette fonction dans la section
+  On apprendra mieux comment manipuler cette fonction dans la section sur le
   <<stream,module `streams`>>.
 `message.destroy()`::
   Termine la transmission des données sans que le serveur distant
   nous aie tout transmis.
-attribut `message.headers`::
-  Objet contenant les entêtes de la réponse – c'est le serveur distant qui décide
+Attribut `message.headers`::
+  Objet contenant les en-têtes de la réponse – c'est le serveur distant qui décide
   de leur contenu.
-attribut `message.statusCode`::
+Attribut `message.statusCode`::
   Code qui reflète l'état de compréhension de notre requête par le serveur distant.
   `200` correspond à _tout va bien_, `404` à _ressource introuvable_,
   `301` à _la ressource a été déplacée_.
 
 Il est temps de nous pencher sur l'autre versant du module : la création
-d'un serveur HTTP.
+d'un serveur{nbsp}HTTP.
 
 [source%interactive%endpoint,javascript]
 .http/server.js
 ----
 include::{sourceDir}/http/server.js[]
 ----
-<1> Ouverture de l'acceptation des connexions réseaux sur le port `8000`, uniquement sur la boucle locale (`localhost`) – une erreur sera affichée si ce port réseau est déjà pris par un autre processus.
+<1> Ouverture de l'acceptation des connexions réseau sur le port `4000`, uniquement sur la boucle locale (`localhost`) – une erreur sera affichée si ce port réseau est déjà pris par un autre processus.
 <2> Affiche `Serveur démarré !` quand Node a fini de négocier l'accès aux ressources réseau avec le système d'exploitation – à ce stade, le serveur est prêt à recevoir des _connexions entrantes_.
 <3> Lorsqu'une requête arrive, affiche l'URL demandée par le client.
 <4> Termine la connexion avec le client – ce dernier considère sa requête comme terminée.
 
 [NOTE]
-.[RemarquePreTitre]#Apparté# Pourquoi démarrer un serveur HTTP ?
+.[RemarquePreTitre]#Aparté# Pourquoi démarrer un serveur{nbsp}HTTP ?
 ====
 Ce concept peut sembler étrange lorsqu'on vient d'un autre langage de programmation.
 Après tout, Apache ou nginx s'en chargent très bien pour nous.
 
 Un serveur HTTP embarqué avec Node, c'est avant tout
 *une question d'autonomie et d'interopérabilité*.
-Pas besoin de module spécial pour Apache.
-Pas besoin de module spécial pour nginx.
+Il n'y a pas besoin de module spécial pour Apache ni pour nginx.
 
-On peut développer un site web et le faire fonctionner instantément sans
+On peut développer un site web et le faire fonctionner instantanément sans
 installer autre chose.
 L'intégration avec un serveur Apache, nginx ou autre nécessite ensuite
 très peu d'efforts.
@@ -1323,19 +1321,18 @@ $ curl -i http://localhost:4000/test
 $ curl -i -XHEAD http://localhost:4000/test
 ----
 
-L'option `-i` affiche les entêtes de réponse.
+L'option{nbsp}``-i`` affiche les en-têtes de réponse.
 C'est l'équivalent de `response.headers`.
 ====
 
-On a posé les bases d'un serveur HTTP minimaliste sur lequel on va
-pouvoir construire pas à pas tout type d'applications web.
-Et qu'est-ce qu'il manque pour en faire un serveur web ?
-De pouvoir _typer_ les ressources renvoyées afin qu'elles soient comprises
-par un navigateur web.
-c'est-à-dire de pouvoir signaler que nos réponses contiennent du HTML, du CSS,
-des images etc.
+On a posé les bases d'un serveur HTTP minimaliste sur lequel on pourra
+construire pas à pas tout type d'application web.
+Que manque-t-il pour en faire un serveur web ?
+De _typer_ les ressources renvoyées afin qu'elles soient comprises
+par un navigateur, c'est-à-dire de pouvoir signaler que nos réponses
+contiennent du HTML, du CSS, des images, etc.
 
-Modifions notre exemple précédent pour renvoyer du HTML :
+Modifions notre exemple précédent pour renvoyer du{nbsp}HTML :
 
 [source%interactive%endpoint,javascript]
 .http/web-server.js
@@ -1347,54 +1344,51 @@ include::{sourceDir}/http/web-server.js[]
 .[RemarquePreTitre]#Important# La fonction `response.end()`
 ====
 L'appel de la fonction `response.end()` est impératif.
-Sans ça, le client – ici, le navigateur web – pense que des données peuvent
-encore arriver.
+Sinon, le client – ici, le navigateur – pense que des données vont encore arriver.
 
 Si on supprime l'appel à `response.end()` dans l'exemple précédent,
-l'indicateur de chargement du navigateur sera actif pendant 2 minutes,
+l'indicateur de chargement du navigateur sera actif pendant deux minutes,
 suite à quoi Node interrompra la connexion, considérant qu'elle met trop
 de temps pour aboutir.
 ====
 
-Dirigeons notre navigateur web vers `http://localhost:4000` pour observer
+Dirigeons notre navigateur vers `http://localhost:4000` pour observer
 le résultat.
 
 .Rendu navigateur de l'exemple `http/web-server.js`.
 image::images/web-server.png[width="65%"]
 
-La balise HTML `<h1>` a bien été prise en compte mais qu'en est-il du
-caractère `Ã{nbsp}` ?
-Il semblerait que le caractère accentué n'aie pas été compris par le navigateur.
+La balise HTML{nbsp}``<h1>`` a bien été prise en compte, mais le
+caractère{nbsp}``à`` n'a pas été compris par le navigateur, qui affiche `Ã{nbsp}`.
 
 Si le serveur distant ne précise pas l'encodage des caractères,
-le navigateur va l'interpréter en <<ascii,ASCII>>.
-Or les éditeurs de code enregistrent les fichiers avec un autre encodage : _UTF-8_.
+le navigateur l'interprète en <<ascii,ASCII>>.
+Or, les éditeurs de code enregistrent les fichiers avec un autre encodage : UTF-8.
 Ce standard englobe les alphabets du monde entier, dont les accents et
 caractères diacritique de la langue française.
 
 [NOTE,id="ascii"]
-.[RemarquePreTitre]#Histoire# American Standard Code for Information Interchange (_ASCII_)
+.[RemarquePreTitre]#Histoire# American Standard Code for Information Interchange{nbsp}(ASCII)
 ====
 L'informatique contemporaine a débuté aux États-Unis.
 Les systèmes ont été conçus à cette époque pour comprendre l'alphabet anglais,
 les signes de ponctuations et des caractères spéciaux.
-On parle alors de standard d'encodage ASCII.
+On parle alors de standard d'encodage{nbsp}ASCII.
 
-L'émergence d'Internet et du World Wide Web ont popularisé l'encodage UTF-8
+L'émergence d'Internet et du World{nbsp}Wide{nbsp}Web ont popularisé l'encodage UTF-8
 afin d'exprimer de manière commune les caractères spéciaux de toutes les
 langues du monde entier.
 ====
 
-Ce qui nous intéresse, c'est de pouvoir indiquer aux navigateurs web
-quel est l'encodage utilisé pour qu'il soit respecté à l'affichage. +
-Le protocole HTTP dispose justement de l'entête `Content-Type` :
+Pour indiquer aux navigateurs web quel est l'encodage utilisé,
+le protocole HTTP dispose de l'en-tête `Content-Type` :
 
 [source,javascript]
 .http/web-server-ok.js
 ----
 include::{sourceDir}/http/web-server-ok.js[]
 ----
-<1> L'entête HTTP `Content-Type` indique explicitement que le contenu transféré est du HTML, encodé en UTF-8.
+<1> L'en-tête HTTP `Content-Type` indique explicitement que le contenu transféré est du HTML, encodé en{nbsp}UTF-8.
 
 Cette indication suffit au navigateur pour décoder les caractères
 et les afficher comme on l'espérait.
@@ -1403,20 +1397,19 @@ et les afficher comme on l'espérait.
 image::images/web-server-ok.png[width="65%"]
 
 L'étape suivante consisterait à transmettre deux contenus différents selon
-l'URL demandée.
-Par exemple, une page HTML et un fichier CSS habillant la page HTML.
+l'URL demandée, par exemple, une page HTML et un fichier CSS pour l'habiller.
 
 [source%interactive%endpoint,javascript]
 .http/web-server-routes.js
 ----
 include::{sourceDir}/http/web-server-routes.js[]
 ----
-<1> Si la requête entrante indique `/main.css` comme chemin, alors on lui renvoie du contenu interprétable comme du CSS.
-<2> On indique au client que ce contenu est du texte contenant une feuille de style CSS.
+<1> Si la requête entrante indique `/main.css` comme chemin, alors on lui renvoie du contenu interprétable comme du{nbsp}CSS.
+<2> On indique au client que ce contenu est du texte contenant une feuille de styles{nbsp}CSS.
 
 Si tout se passe bien, le chargement de la page HTML devrait déclencher
 une requête vers `http://localhost:4000/main.css`.
-La confirmation est visuelle en visitant notre serveur avec un navigateur web :
+La confirmation est visuelle en visitant notre serveur avec un navigateur{nbsp}web :
 
 .Rendu navigateur de l'exemple `http/web-server-routes.js`.
 image::images/web-server-routes.png[width="65%"]
@@ -1425,54 +1418,51 @@ On est en situation de contrôle : on décide de ce qu'on répond.
 C'est une manière d'apprendre petit à petit comment fonctionne
 le protocole HTTP sur lequel repose une majorité de notre activité sur Internet.
 
-On a couvert les principes du module `http` mais il reste beaucoup de choses
+On a couvert les principes du module{nbsp}``http``, mais il reste beaucoup de choses
 à apprendre pour développer une application web maintenable.
-C'est justement le sujet du <<../chapter-07/index.adoc,chapitre 7>>,
-aidé par les <<../chapter-05/index.adoc#modules,modules `npm`>> que l'on apprendra
-à manipuler dans le <<../chapter-05/index.adoc#,chapitre 5>>.
+Ce sera le sujet du <<../chapter-07/index.adoc,chapitre{nbsp}7>>,
+aidé par les <<../chapter-05/index.adoc#modules,modules{nbsp}``npm``>> que l'on apprendra
+à manipuler dans le <<../chapter-05/index.adoc#,chapitre{nbsp}5>>.
 
 [horizontal, id="http.Server"]
-.Propriétés notables de `http.Server`
+.Propriétés notables de `http.Server` et de `https.Server`
 `server.close()`::
   Arrête l'écoute de nouvelles connexions.
   Les connexions existantes sont maintenues jusqu'à ce qu'elles soient honorées.
 `server.listen()`::
-  Démarre l'acceptation des connexions sur un port et une adresse donnée.
+  Démarre l'acceptation des connexions sur un port et une adresse donnés.
   Combinée avec <<os,`os.networkInterfaces()`>>, vous pourriez choisir
   sur quelle carte/adresse réseau écouter les requêtes entrantes.
 `server.on('close')`::
-  Déclenché lorsque le serveur s'arrête et a terminé d'honorer toutes les
+  Se déclenche lorsque le serveur s'arrête et a terminé d'honorer toutes les
   connexions déjà ouvertes.
 `server.on('connection')`::
-  Déclenché lorsqu'une nouvelle connexion réseau est établie.
+  Se déclenche lorsqu'une nouvelle connexion réseau est établie.
 `server.on('request')`::
-  Déclenché lorsqu'une nouvelle requête entrante est adressée au serveur.
+  Se déclenche lorsqu'une nouvelle requête entrante est adressée au serveur.
 `server.on('upgrade')`::
-  Déclenché lorsqu'une requête entrante demande un changement de protocole.
-  Utilisé pour basculer vers HTTP/2 et
+  Se déclenche lorsqu'une requête entrante demande un changement de protocole.
+  Utilisée pour basculer vers HTTP/2 et
   <<../chapter-09/index.adoc#io-websocket,WebSocket>>.
-
-[horizontal, id="http.ServerResponse"]
-.Propriétés notables de `http.ServerResponse`
 `response.on('close')`::
-  Déclenché lorsque la requête a été terminée par le client,
+  Se délenche lorsque la requête a été terminée par le client,
   avant qu'on ait pu transmettre l'intégralité des données.
 `response.on('finish')`::
-  Déclenché lorsqu'on a envoyé le dernier morceau de données au client
+  Se délenche lorsqu'on a envoyé le dernier morceau de données au client
   ayant initié la requête.
 `response.end()`::
   Signale au client que nous n'avons plus de données à transmettre.
 `response.getHeader()`::
-  Retourne la valeur d'une entête de la réponse.
+  Retourne la valeur d'un en-tête de la réponse.
 `response.removeHeader()`::
-  Supprime une entête de la réponse.
+  Supprime un en-tête de la réponse.
 `response.setHeader()`::
-  Assigne une valeur à une entête de la réponse.
+  Affecte une valeur à un en-tête de la réponse.
 `response.write()`::
   Transmet un morceau de données au client.
 `response.writeHead()`::
-  Transmet le code de réponse et un ensemble d'entêtes au client.
-attribut `response.statusCode`::
+  Transmet le code de réponse et un ensemble d'en-têtes au client.
+Attribut `response.statusCode`::
   Contient le code de réponse qui sera transmis au client.
 
 [NOTE]
@@ -1485,28 +1475,28 @@ La documentation du module `http` est disponible sur le site officiel de Node :
 
 
 [[os]]
-=== `os` : en savoir plus sur les capacités de l'ordinateur
+=== os : en savoir plus sur les capacités de l'ordinateur
 
-Le module `os` permet d'en savoir plus sur l'environnement système dans lequel
+Le module{nbsp}``os`` donne des informations sur l'environnement système dans lequel
 le script est exécuté.
-Ça permet par exemple de *prendre des décisions par rapport aux ressources disponibles*
-(mémoire, CPU, réseau, etc.).
-Idem par rapport au type de système d'exploitation (Windows, Linux, etc.).
+Cela permet par exemple de *prendre des décisions par rapport aux ressources disponibles*
+(mémoire, CPU, réseau) et par rapport au système d'exploitation (Windows, Linux, macOS).
 
 [source%interactive,javascript]
 .os/intro.js
 ----
 include::{sourceDir}/os/intro.js[]
 ----
-<1> Affiche un message du genre `Salut anonymous, cet ordinateur a 4 CPU.`.
+<1> Affiche un message comme `Salut anonymous, cet ordinateur a 4{nbsp}CPU`.
 
 Node a pour vocation de nous abstraire du système d'exploitation
-en faisant en sorte que notre code fonctionne partout pareil.
-Pourtant des situations nous obligent à prendre en compte certains critères
+en faisant en sorte que notre code fonctionne partout de la même façon.
+Pourtant, des situations nous obligent à prendre en compte certains critères
 pour déterminer un choix.
 
-Par exemple, lister les applications installées sur l'ordinateur.
-Leur emplacement d'installation est différent sous Linux, Windows et macOS.
+Par exemple, lister les applications installées sur l'ordinateur dépend
+du système ; leur emplacement d'installation est différent sous Linux, Windows
+et macOS.
 
 [source%interactive,javascript]
 .os/apps.js
@@ -1515,74 +1505,73 @@ include::{sourceDir}/os/apps.js[]
 ----
 
 L'exemple précédent se base sur la valeur retournée par la fonction `os.type()`
-afin de choisir quel est le bon répertoire à lister.
+afin de choisir le répertoire à lister.
 
 On pourrait combiner ce mécanisme avec le <<child_process,module `child_process`>>,
-pour appeler une application système différent pour parvenir
-à un résultat similaire.
+pour appeler une application système différente et parvenir à un résultat similaire.
 
 À l'inverse, on peut *accéder à une ressource de manière uniforme*, peu importe
 le nom du compte utilisateur ou du type de système d'exploitation.
 Nous allons maintenant lire le contenu du fichier `.npmrc`,
 le fichier de configuration de
-l'<<../chapter-05/index.adoc#cli,exécutable npm>> :
+l'<<../chapter-05/index.adoc#cli,exécutable{nbsp}npm>> :
 
 [source%interactive,javascript]
 .os/npmrc.js
 ----
 include::{sourceDir}/os/npmrc.js[]
 ----
-<1> Construit un chemin agnostique du système d'exploitation. Par exemple `C:\Users\anonymous\.npmrc` pour Windows, `/Users/anonymous/.npmrc` pour macOS et `/home/anonymous/.npmrc` pour Linux.
+<1> Construit un chemin sans connaissance préalable du système d'exploitation sur lequel tournera le script : par exemple `C:\Users\anonymous\.npmrc` pour Windows, `/Users/anonymous/.npmrc` pour macOS et `/home/anonymous/.npmrc` pour Linux.
 <2> `ENOENT` est un <<fs.errors,code d'erreur>> indiquant que le fichier n'existe pas ; on se permet de l'ignorer et de considérer que le fichier est vide.
 
 [horizontal]
 .Propriétés notables
 `os.arch()`::
-  Retourne l'architecture du CPU.
-  Les valeurs les plus courantes sont généralement `x64`, `arm` et `arm64`.
+  Retourne l'architecture CPU.
+  Les valeurs les plus courantes sont généralement `x64`, `arm` et{nbsp}``arm64``.
 `os.cpus()`::
-  Retourne un tableau contenant des informations à propos du ou des CPU. +
-  Parmi ces informations, on retrouve leur modèle, leur fréquence et
+  Retourne un tableau contenant des informations à propos de la ou des CPU.
+  Entre autres, on retrouve leur modèle, leur fréquence et
   le temps passé en attente ou en action depuis le démarrage de l'ordinateur.
 `os.homedir()`::
-  Retourne le chemin vers le répertoire utilisateur. +
-  Équivalent à la variable `$HOME` sous Unix et `%USERPROFILE%` ou `%AppData%`
+  Retourne le chemin vers le répertoire utilisateur.
+  Équivalent de la variable `$HOME` sous Unix et `%USERPROFILE%` ou `%AppData%`
   sous Windows.
 `os.hostname()`::
   Retourne l'identifiant réseau de la machine.
 `os.networkInterfaces()`::
   Retourne un tableau contenant des informations à propos de la ou des
-  cartes réseaux de l'ordinateur. +
-  Parmi ces informations, on retrouve l'adresse IP (IPv4, IPv6), l'adresse MAC
+  carte(s) réseau de l'ordinateur.
+  Entre autres, on retrouve l'adresse{nbsp}IP (IPv4, IPv6), l'adresse MAC
   et le masque réseau.
 `os.platform()`::
-  Retourne la nature du système d'exploitation. +
+  Retourne la nature du système d'exploitation.
   Les valeurs les plus courantes sont généralement `win32`, `linux`, `darwin`
   et `freebsd`.
 `os.tmpdir()`::
   Retourne l'emplacement du répertoire temporaire fourni par
   le système d'exploitation.
 `os.type()`::
-  Retourne une forme normalisée de nature de système d'exploitation.
-  La valeur est équivalente à ce que retournerait la commande Unix `uname -s`. +
+  Retourne une forme normalisée de la nature du système d'exploitation,
+  équivalent à ce que retournerait la commande Unix `uname -s`.
   Les valeurs les plus courantes sont généralement
   `Windows_NT`, `Linux`, `Darwin` et `FreeBSD`.
-attribut `os.constants`::
+Attribut `os.constants`::
   Objet contenant la liste des <<signals,signaux système>> et des codes d'erreur.
-attribut `os.EOL`::
-  Caractère utilisé pour marquer les fins de ligne. +
-  En général le caractère `\n` sous Unix et `\r\n` sous Windows.
+Attribut `os.EOL`::
+  Caractère utilisé pour marquer les fins de ligne.
+  En général le caractère{nbsp}``\n`` sous Unix et `\r\n` sous Windows.
 
 [NOTE]
 .[RemarquePreTitre]#Documentation# Module os
 ====
-La documentation du module `os` est disponible sur le site officiel de Node :
+La documentation du module{nbsp}``os`` est disponible sur le site officiel de Node :
 
 - [URL]#https://nodejs.org/docs/latest-{nodeCurrentVersion}.x/api/os.html#
 ====
 
 [[child_process]]
-=== `child_process` : appeler un exécutable système
+=== child_process : appeler un exécutable système
 
 Le module `child_process` exécute des programmes externes,
 leur transmet des données et consulte leurs résultats via
@@ -1593,23 +1582,23 @@ les <<process.std,flux standards>>.
 ----
 include::{sourceDir}/child_process/intro.js[]
 ----
-<1> L'exécution de la commande exécute la fonction de callback, avec comme arguments la <<process.std,sortie standard>> et la <<process.std,sortie erreur>> du processus enfant.
+<1> Exécute la commande exécute la fonction de rappel, avec comme arguments la <<process.std,sortie standard>> et la <<process.std,sortie erreur>> du processus enfant.
 <2> Affiche `npm version {npmV}`.
 
 L'utilisation du module `child_process` se justifie quand un programme
-externe fournit une fonctionnalité mais ne s'interface pas avec Node.
-Ou encore quand on veut sortir l'exécution d'un script Node du processus courant
+externe fournit une fonctionnalité mais ne s'interface pas avec Node,
+ou encore quand on veut sortir l'exécution d'un script Node du processus courant
 pour tirer parti des autres CPU de l'ordinateur sans ralentir l'application principale.
 
-La fonction `child_process.exec` accepte un deuxième argument optionnel. +
-`cwd` (_current working directory_) est une des options utiles de cet argument.
+La fonction `child_process.exec` accepte un deuxième argument optionnel.
+`cwd` (_current working directory_) en est une des options utiles.
 
 [source%interactive,javascript]
 .child_process/ls.js
 ----
 include::{sourceDir}/child_process/ls.js[]
 ----
-<1> On lance la commande système `ls` sans spécifier le répertoire de travail.
+<1> On lance la commande système{nbsp}``ls`` sans spécifier le répertoire de travail.
 
 Exécutons le script pour observer le résultat :
 
@@ -1617,40 +1606,40 @@ Exécutons le script pour observer le résultat :
 $ node child_process/ls.js
 ----
 
-Le constat est similaire à celui produit avec le <<fs,module `fs`>> :
+Le constat est similaire à celui produit avec le <<fs,module{nbsp}``fs``>> :
 les fichiers listés sont ceux du _répertoire courant_,
 notre emplacement dans le terminal.
 
-Modifions maintenant la valeur de l'option `cwd` :
+Modifions maintenant la valeur de l'option{nbsp}``cwd`` :
 
 [source%interactive,javascript]
 .child_process/ls-root.js
 ----
 include::{sourceDir}/child_process/ls-root.js[]
 ----
-<1> La valeur de `cwd` est réglée sur `/`, c'est-à-dire le répertoire racine du système de fichiers.
+<1> La valeur de{nbsp}``cwd`` est réglée sur{nbsp}``/``, c'est-à-dire le répertoire racine du système de fichiers.
 
 ----
 $ node child_process/ls-root.js
 ----
 
-La liste des fichiers et répertoires affichée est désormais différente,
+La liste des fichiers et répertoires affichés est désormais différente,
 même si la commande passée à `child_process.exec` est la même.
-`cwd` a changé le répertoire courant l'espace d'une commande.
+``cwd``{nbsp}a changé le répertoire courant l'espace d'une commande.
 
 [NOTE]
-.[RemarquePreTitre]#Performance# commande `ls` vs. `fs.readdir`
+.[RemarquePreTitre]#Performance# ls{nbsp}vs. fs.readdir
 ====
-Si on arrive au même résultat en utilisant `exec('ls')`, pourquoi utiliser
-la fonction `fs.readdir` du <<fs,module `fs`>> ?
-`fs.readdir` a au moins 3 avantages :
+Si on arrive au même résultat avec `exec('ls')`, pourquoi utiliser
+la fonction `fs.readdir` du <<fs,module{nbsp}``fs``>> ?
+Cette dernière présente au moins trois avantages :
 
-. elle est plus rapide – à écrire, à exécuter, à diagnostiquer
-. on économise la création d'un processus système
-. compatibilité avec tous les systèmes d'exploitation
+. Elle est plus rapide – à écrire, à exécuter, à diagnostiquer.
+. On économise la création d'un processus système.
+. Elle est compatible avec tous les systèmes d'exploitation.
 ====
 
-`env` est une deuxième option à passer à `child_process.exec`.
+``env``{nbsp}est une deuxième option à passer à `child_process.exec`.
 Elle redéfinit les <<process.env,variables d'environnement>> utilisables
 par le processus enfant :
 
@@ -1660,11 +1649,11 @@ par le processus enfant :
 include::{sourceDir}/child_process/ping.js[]
 ----
 <1> On transmet les variables d'environnement existantes au processus enfant.
-<2> Utilisation de la variable d'environnement `PING_COUNT` comme valeur d'option du programme `ping`.
+<2> Utilisation de la variable d'environnement `PING_COUNT` comme valeur d'option du programme{nbsp}``ping``.
 
 Si on ne transmettait pas les valeurs de `process.env` au processus enfant,
 la variable d'environnement `PATH` ne serait pas définie.
-Le processus enfant ne saurait plus où chercher l'exécutable `ping`. +
+Le processus enfant ne saurait plus où chercher l'exécutable{nbsp}``ping``. +
 On aurait pu appeler le programme `ping` en utilisant un chemin absolu comme
 `/sbin/ping` mais son emplacement varie selon les systèmes d'exploitation.
 
@@ -1682,9 +1671,9 @@ round-trip min/avg/max/stddev = 23.763/23.763/23.763/0.000 ms
 .[RemarquePreTitre]#Compatibilité# Mon programme ne fonctionne pas sous Windows/Linux/macOS
 ====
 Le programme externe peut ne pas exister sur tous les systèmes d'exploitation,
-voire il ne s'appelle pas avec les mêmes arguments, ni avec le même nom.
+ou ne pas s'appeler avec les mêmes arguments, ni avec le même{nbsp}nom.
 
-Une des solutions pourrait consister à se reposer sur le <<os,module `os`>>
+Une des solutions consiste à se reposer sur le <<os,module{nbsp}``os``>>
 et adapter la commande en fonction du système d'exploitation.
 ====
 
@@ -1696,16 +1685,16 @@ et de communication avec un processus externe.
 ----
 include::{sourceDir}/child_process/spawn.js[]
 ----
-<1> `cat` est un programme qui affiche le contenu d'un fichier – un peu comme `fs.readFile`.
-<2> Les données retournées par la commande externe se lisent depuis les <<process.std,flux de sorties>>.
+<1> ``cat``{nbsp}est un programme qui affiche le contenu d'un fichier – un peu comme `fs.readFile`.
+<2> Les données retournées par la commande externe se lisent depuis les <<process.std,flux de sortie>>.
 <3> Affiche le contenu du fichier `package.json`.
 
-Les arguments et options à transmettre au programme sont passées dans un tableau.
+Les arguments et options à transmettre au programme sont passés dans un tableau.
 Dans le programme externe, on y accède avec <<process.argv,`process.argv`>>.
 
 Pour transmettre un volume de données plus important en paramètre,
-il vaut mieux faire appel appel à la propriété `stdin`.
-C'est un <<stream,Stream d'écriture>> dont le fonctionnement est identique
+il vaut mieux faire appel à la propriété `stdin`.
+C'est un <<stream,flux d'écriture>> dont le fonctionnement est identique
 à <<process.std,`process.stdin`>> :
 
 [source%interactive,javascript]
@@ -1714,29 +1703,29 @@ C'est un <<stream,Stream d'écriture>> dont le fonctionnement est identique
 include::{sourceDir}/child_process/spawn-stdin.js[]
 ----
 <1> Écrit `0123 abcd` dans le flux d'entrée.
-<2> Signale au processus externe qu'il n'aura plus de donnée – le programme `tr` rendra la main dès qu'il nous aura tout transmis.
+<2> Signale au processus externe qu'il n'aura plus de donnée – le programme{nbsp}``tr`` rendra la main dès qu'il nous aura tout transmis.
 <3> Affiche `abcd klmn`.
 
 L'exécutable `tr` ([URL]#https://fr.wikipedia.org/wiki/Tr_(Unix)#)
-substitue des plages de caractères.
+remplace des plages de caractères.
 On lui a transmis des caractères en entrée et spécifié les plages de traduction
 en arguments.
 Nous avons utilisé la <<process.std,sortie standard>> pour lire les résultats.
 
-L'exemple précédent revient au même que cette commande :
+L'exemple précédent revient au même que la commande suivante :
 
 ----
 $ echo -n '0123 abcd' | tr 0-9a-f a-p
 abcd klmn
 ----
 
-Dans ce cas précis, je trouve que le _scripting shell_ est plus concis
-que l'utilisation d'un script Node faisant appel à `child_process.spawn`.
+Dans ce cas précis, je trouve que l'instruction en ligne de commande est plus
+concise que l'utilisation d'un script Node faisant appel à `child_process.spawn`.
 J'aurais plutôt tendance à transmettre le résultat de cette commande
 à l'<<process.std,entrée standard>> d'un script Node.
 
 [horizontal]
-.Propriétés notables
+.Propriétés notables du module child_process
 `child_process.exec()`::
   Exécute une commande et retourne son résultat.
 `child_process.spawn()`::
@@ -1746,7 +1735,7 @@ J'aurais plutôt tendance à transmettre le résultat de cette commande
 [horizontal]
 .Propriétés notables de la classe `ChildProcess`
 `process.on('message')`::
-  Déclenché lorsque le processus enfant reçoit un message envoyé par l'autre script.
+  Se déclenche lorsque le processus enfant reçoit un message envoyé par l'autre script.
 `process.kill()`::
   Envoie un <<signals,signal d'arrêt>> au processus enfant.
 `process.send()`::
@@ -1767,11 +1756,11 @@ La documentation du module `child_process` est disponible sur le site officiel d
 
 
 [[process]]
-=== `process` : en savoir plus sur le processus en cours
+=== process : en savoir plus sur le processus en cours
 
 La module `process` retourne des informations
 sur l'environnement dans lequel le script est exécuté.
-À l'instar du <<console,module `console`>>, la variable `process`
+À l'instar de <<console,`console`>>, la variable `process`
 est globale.
 
 [source%interactive,javascript]
@@ -1779,21 +1768,20 @@ est globale.
 ----
 include::{sourceDir}/process/intro.js[]
 ----
-<1> Affiche quelque chose comme `['LANG', 'SHELL', 'PATH', 'HOME', 'USER', ...]` – cf.{nbsp}<<process.env,variables d'environnement>>.
-<2> Affiche `[ '.../v{nodeV}/bin/node', '.../chapter-04/examples/process/intro.js' ]` – cf.{nbsp}<<process.argv,arguments d'exécution>>.
+<1> Affiche quelque chose comme `['LANG', 'SHELL', 'PATH', 'HOME', 'USER', …]` – voir plus bas, les "`<<process.env,variables d'environnement>>`".
+<2> Affiche `[ '.../v{nodeV}/bin/node', '.../chapter-04/examples/process/intro.js' ]` – voir plus bas, les "`{nbsp}<<process.argv,arguments d'exécution>>`".
 
 Notre code peut être interprété par Node
 sur plusieurs types de machines
-(ordinateur récent ou fatigué, Raspberry Pi, etc.),
-sur différents systèmes d'exploitation (Windows, Linux, macOS, etc.). +
-Nous avons ainsi tout le loisir d'adapter notre code
-à ces différents environnements.
+(ordinateur récent ou fatigué, Raspberry{nbsp}Pi, etc.) et sur différents
+systèmes d'exploitation (Windows, Linux, macOS, etc.).
+Nous avons avec le module `process` tout le loisir d'adapter nos scripts
+à ces diverses conditions.
 
 
 [[process.env]]
-Les variables d'environnement sont des
-*variables définies au niveau du système d'exploitation*.
-Elles contiennent des informations comme le répertoire courant, langue du
+Les variables d'environnement sont *définies au niveau du système d'exploitation*.
+Elles contiennent des informations comme le répertoire courant, la langue du
 système d'exploitation, l'utilisateur système courant, le type de terminal,
 les emplacements d'installation des exécutables, etc.
 
@@ -1812,7 +1800,7 @@ $ node -p 'process.env'
 }
 ----
 
-Nous pouvons créer des variables d'environnement pour
+En créant des variables d'environnement, nous sommes en mesure de
 *transmettre des informations contextuelles* à nos programmes :
 des chemins d'accès à une base de données, si on est en situation de test
 ou de production, l'emplacement de fichiers nécessaires au fonctionnement
@@ -1837,7 +1825,6 @@ avec l'opérateur `set` sous Windows. +
 La définition `export CLÉ=valeur` est placée sur sa propre ligne.
 Elle restera accessible par tout programme jusqu'à la fin de la session
 ou jusqu'à ce qu'on efface la variable.
-
 ----
 $ export NODE_ENV=production
 $ node process/env.js
@@ -1878,14 +1865,14 @@ mode : dev
 
 Nous verrons d'autres mises en situation des variables d'environnement pour
 <<../chapter-06/index.adoc#configuration,configurer une application>>
-dans le <<../chapter-06/index.adoc#,chapitre 6>> et pour
+dans le <<../chapter-06/index.adoc#,chapitre{nbsp}6>> et pour
 <<../chapter-08/index.adoc#debug,déboguer une application en ligne de commande>>
-dans le <<../chapter-08/index.adoc#,chapitre 8>>.
+dans le <<../chapter-08/index.adoc#,chapitre{nbsp}8>>.
 
 [[process.argv]]
 Les arguments d'exécution sont des morceaux d'information transmis
 à un script Node.
-On les place à la droite du nom du fichier, comme illustré dans cet exemple :
+On les place à la droite du nom du fichier :
 
 ----
 $ node print-first.js salut
@@ -1895,7 +1882,7 @@ $ node print-first.js salut
 On utilise les arguments pour affiner le comportement d'un programme.
 Je pense par exemple au numéro du port sur lequel lancer un serveur web,
 une liste de fichiers à traiter ou
-encore de fonctionnalités à activer ou à désactiver.
+encore des fonctionnalités à activer ou à désactiver.
 
 Il faut imaginer les arguments comme des paramètres de fonction,
 accessibles dans un programme Node dans
@@ -1911,7 +1898,7 @@ Les deux premiers éléments de `process.argv` sont rarement utilisés.
 Ils correspondent respectivement à l'emplacement de l'exécutable Node
 et à l'emplacement du script.
 
-Tous les autres arguments sont accessibles à partir de l'index 2 de
+Tous les autres arguments sont accessibles à partir de l'index{nbsp}2 de
 `process.argv`, dans l'ordre où ils sont placés :
 
 ----
@@ -1920,7 +1907,7 @@ $ node print-first.js salut ça va ?
 ----
 
 Le script `print-first.js` affiche le premier argument.
-On peut en conclure que les arguments sont séparés par le caractère "espace".
+On en conclut que les arguments sont séparés par le caractère "`espace`".
 
 Dans le cas où un argument doit contenir un espace, on l'encadre alors
 entre guillemets :
@@ -1935,9 +1922,9 @@ et qu'il devient difficile de connaître leur rôle sans se référer
 au manuel d'utilisation.
 
 C'est là qu'interviennent les options.
-Comme le nom l'indique, ce sont des arguments optionnels.
+Comme leur nom l'indique, ce sont des arguments optionnels.
 Elles sont préfixées de deux traits d'union (`--`).
-On peut choisir de leur associer ou non une valeur.
+On leur associe ou non une valeur.
 
 ----
 $ node print-text.js "salut ça va ?" --uppercase
@@ -1946,7 +1933,7 @@ SALUT ÇA VA ?
 
 Quand on n'associe pas de valeur à une option,
 on considère qu'elle équivaut à un <<../chapter-03/index.adoc#boolean,booléen>>
-de valeur `true`.
+de valeur{nbsp}``true``.
 
 [source,javascript]
 .print-text.js
@@ -1965,9 +1952,8 @@ $ node print-text-limit.js "salut ça va ?" --limit 2
 salut ça
 ----
 
-L'exemple précédent illustre la césure d'une phrase à 2 mots
-lorsque l'option `--limit` est associée à la valeur `2`.
-
+L'exemple précédent illustre la césure d'une phrase après deux{nbsp}mots
+lorsque l'option `--limit` est associée à la valeur{nbsp}`2`.
 
 [source,javascript]
 .print-text-limit.js
@@ -1979,41 +1965,40 @@ include::{sourceDir}/print-text-limit.js[]
 <3> La troncature est paramétrée en fonction de la valeur associée à `--limit`.
 
 Au fond, *les options sont des repères pour les utilisateurs* de nos programmes.
-Elles leur permettent de s'interfacer avec leurs fonctionnalités.
-Un peu à la manière des différents boutons qu'on retrouve
+Elles leur permettent de s'interfacer avec leurs fonctionnalités, un peu à la
+manière des différents boutons qu'on retrouve
 en façade d'une machine à laver.
 
-L'exemple suivant est totalement fictif mais il illustre comment
-on s'interfacerait avec une machine à laver
-si elle mettait à disposition en ligne de commande :
+L'exemple suivant est totalement fictif, mais il illustre comment
+on s'interfacerait avec une machine à laver en ligne de commande :
 
 ----
 $ machine-a-laver P-ECO 40 --fast --no-dry --room kitchen
 ----
 
 Ce qu'il faut en comprendre, c'est qu'on démarrerait la machine située
-dans la cuisine avec un programme économique _et_ à 40°C,
+dans la cuisine avec un programme économique _et_ à{nbsp}40°C,
 en activant l'option rapide et _en désactivant_ l'option séchage.
 
 Nous verrons d'autres mises en situation pour
 <<../chapter-08/index.adoc#argv,passer des paramètres à une application en ligne de commande>>
-dans le <<../chapter-08/index.adoc#,chapitre 8>>.
+dans le <<../chapter-08/index.adoc#,chapitre{nbsp}8>>.
 
 [[process.std]]
-Chaque processus système est doté de 3 flux de données :
+Chaque processus système est doté de trois flux de données :
 le flux d'entrée (`stdin`), le flux de sortie (`stdout`)
 et le flux d'erreur (`stderr`).
 
 Les flux standards peuvent être alimentés pendant la durée de vie du processus
 en utilisant peu de mémoire.
 On les utilisera pour passer le résultat d'un autre programme
-à notre script Node, pour informer l'utilisateur de notre programme
+à notre script Node, pour informer l'utilisateur de notre programme,
 mais aussi pour consigner les erreurs.
 
 Node expose ces flux standards via les variables `process.stdin` (entrée),
 `process.stdout` (sortie) et `process.stderr` (erreur).
-Chacune de ces variables possède des méthodes pour écouter ce qu'il s'y passe,
-pour y écrire du contenu et pour <<stream,rediriger leur flux>>.
+Chacune possède des méthodes pour écouter ce qui s'y passe,
+pour y écrire du contenu et pour <<stream,rediriger leur{nbsp}flux>>.
 
 Commençons par l'utilisation de `process.stdout` pour écrire un message
 dans notre terminal :
@@ -2025,8 +2010,8 @@ quatre
 ----
 
 Le code source de `process/stdout.js` fait appel à la fonction
-`process.stdout.write` par deux fois. +
-On notera que le caractère `\n` symbolise un retour à la ligne
+`process.stdout.write` par deux fois.
+On notera que le caractère{nbsp}``\n`` symbolise un retour à la ligne
 (`\r\n` sous Windows) :
 
 [source,javascript]
@@ -2035,10 +2020,8 @@ On notera que le caractère `\n` symbolise un retour à la ligne
 include::{sourceDir}/process/stdout.js[]
 ----
 
-Ça ne vous rappelle pas nos précédentes utilisations de la fonction
-`console.log` ?
-Pas étonnant puisque `console.log` se repose sur `process.stdout`
-(voir encadré ci-contre).
+Cela rappelle nos précédentes utilisations de la fonction `console.log()`,
+qui se repose en effet sur `process.stdout` (voir encadré).
 
 
 [TIP]
@@ -2052,18 +2035,17 @@ Sans surprise, `console.error` écrit dans le flux d'erreur
 Elles ajoutent un retour à la ligne et des options de formatage pour
 notre confort.
 
-On en parlera davantage dans la section <<console,console>>.
+On en parle davantage dans la section sur le <<console,module `console`>>.
 ====
 
-Les flux de sortie et d'erreur sont manipulables en continu.
-Comment ?
-À l'aide d'utilitaires systèmes existants (`grep`, `awk` etc.)
-ou des programmes spécifiques (analyse de _logs_, etc.). +
+Les flux de sortie et d'erreur sont manipulables en continu,
+à l'aide d'utilitaires systèmes existants (`grep`, `awk`, etc.)
+ou de programmes spécifiques (analyse de _logs_).
 On peut ainsi se concentrer sur un programme qui fait juste ce dont on a besoin.
 On laisse le travail de spécialisation à d'autres programmes.
 
 Filtrons la sortie de l'exemple précédent sans écrire une ligne de code de plus.
-Le programme _grep_ ([URL]#https://fr.wikipedia.org/wiki/Grep#)
+Le programme `grep` ([URL]#https://fr.wikipedia.org/wiki/Grep#)
 est fourni par défaut sur les systèmes Linux et macOS.
 Il ne retourne que les lignes qui contiennent le motif
 donné en <<process.arv,argument>> :
@@ -2074,10 +2056,10 @@ $ node process/stdout.js | grep 'tre'
 qua##tre##
 ----
 
-La _sortie standard_ de `process/stdout.js` est devenue l'_entrée standard_
-de `grep` grâce à l'utilisation du _pipe_ (`|`).
+La sortie standard de `process/stdout.js` est devenue l'entrée standard
+de `grep` grâce à l'utilisation du __pipe__{nbsp}(`|`).
 
-C'est le moment idéal pour regarder du côté de l'_entrée standard_ de Node.
+C'est le moment idéal pour regarder du côté de l'entrée standard de Node.
 Implémentons quelque chose qui transforme un message :
 
 ----
@@ -2094,7 +2076,7 @@ UN DEUXTROIS
 QUATRE
 ----
 
-Voyons comment ça fonctionne sous le capot :
+Voyons comment cela fonctionne :
 
 [source,javascript]
 .process/stdin-uppercase.js
@@ -2103,17 +2085,17 @@ include::{sourceDir}/process/stdin-uppercase.js[]
 ----
 <1> Chaque afflux de donnée appelle notre fonction en lui fournissant un seul paramètre contenant les données en question.
 <2> Le paramètre est de <<buffer,type Buffer>> – on souhaite le transformer en <<../chapter-03/index.adoc#string,chaîne de caractères>>.
-<3> La chaîne de caractères est transformable en majuscules, que l'on écrit dans le flux de sortie.
+<3> La chaîne de caractères est transformée en majuscules et écrite dans le flux de sortie.
 
 Terminons avec la sortie erreur (`process.stderr`).
 Elle fonctionne de manière identique à la sortie standard (`process.stdout`).
 S'il n'y a visuellement aucune différence, la sortie erreur écrit son contenu
-dans un canal différent – un descripteur différent. +
+dans un canal différent – un descripteur différent.
 On l'utilise pour *déboguer des programmes*, pour *lister des erreurs* ou des
 contenus que l'on souhaite dissocier de la sortie standard.
 
 L'exemple suivant affiche un nombre toutes les demi-secondes et l'état
-du compteur de nombres tous les 10 affichages :
+du compteur de nombres tous les cinq affichages :
 
 ----
 $ node process/stdout-long.js
@@ -2128,10 +2110,10 @@ Compteur = 5
 ----
 
 [NOTE]
-.[RemarquePreTitre]#Rappel# Interrompre un programme avec kbd:[Ctrl+C]
+.[RemarquePreTitre]#Rappel# Interrompre un programme avec{nbsp}kbd:[Ctrl+C]
 ====
 Un programme peut être interrompu à tout moment en utilisant la combinaison
-de touches kbd:[Ctrl+C].
+de touches{nbsp}kbd:[Ctrl+C].
 ====
 
 [source,javascript]
@@ -2139,12 +2121,12 @@ de touches kbd:[Ctrl+C].
 ----
 include::{sourceDir}/process/stdout-long.js[]
 ----
-<1> Écrit un nombre entre 0 et 30 dans la sortie standard.
-<2> On vérifie si la valeur du compteur est divisible par 5 – c'est le cas si la division produit un entier au lieu d'un nombre à virgule.
+<1> Écrit un nombre entre{nbsp}0 et 30{nbsp}dans la sortie standard.
+<2> On vérifie si la valeur du compteur est divisible par{nbsp}5 – c'est le cas si la division produit un entier au lieu d'un nombre à virgule.
 <3> Affiche `Compteur = 5` puis `Compteur = 10` (et ainsi de suite) dans la sortie erreur.
 
 On pourrait décider de n'afficher que le flux d'erreur.
-Utilisons l'opérateur `>` pour *rediriger la sortie standard vers un fichier* :
+Utilisons l'opérateur{nbsp}``>`` pour *rediriger la sortie standard vers un fichier* :
 
 ----
 $ node process/stdout-long.js > stdout.txt
@@ -2154,21 +2136,20 @@ Compteur = 10
 ----
 
 En ouvrant le fichier `stdout.txt`, on voit
-la liste de nombre générée par notre programme.
+la liste de nombres générée par notre programme.
 
-En maîtrisant les flux standards, on peut *créer des programmes modulaires*
+En maîtrisant les flux standards, on est capable de *créer des programmes modulaires*
 qui consomment du contenu sans avoir à connaître leur provenance.
-*Les données peuvent aller et venir* depuis et vers des programmes externes,
+*Les données circulent* depuis et vers des programmes externes,
 des fichiers ou des sites web distants.
 
 Pour mieux comprendre la logique de flux continu que l'on vient de découvrir,
-je vous invite à lire la section liée au <<stream,module `stream`>>
-de ce même chapitre.
-On y détaillera la liste des événements à écouter ainsi que les différentes
+je vous invite à lire la section liée au <<stream,module `stream`>>.
+On y détaillera la liste des événements à écouter, ainsi que les différentes
 méthodes d'écriture, de pause et de lecture.
 
 [[process.on]]
-Un processus système reçoit et émet des données mais il peut aussi
+Un processus système reçoit et émet des données, mais il peut aussi
 *écouter des événements* grâce à la fonction `process.on`.
 
 [source,javascript]
@@ -2177,14 +2158,13 @@ Un processus système reçoit et émet des données mais il peut aussi
 include::{sourceDir}/process/exit.js[]
 ----
 
-L'exemple ci-dessus illustre l'événement `exit`.
-Cet événement est déclenché quand le processus se termine.
+Cet exemple illustre l'événement `exit`, qui est déclenché quand le processus se termine.
 À ce titre, un *code de sortie* est fourni pour signaler l'état dans
 lequel le programme se termine.
-On parlera davantage du code de sortie et de leur signification
-dans la section ci-après, <<process.exit,Mettre fin au processus>>.
+On parlera davantage du code de sortie et de sa signification
+dans la section "`<<process.exit,Mettre fin au processus>>`".
 
-Essayons de lancer l'exemple précédent pour voir :
+Lançons le script précédent :
 
 ----
 $ node process/exit.js
@@ -2193,10 +2173,9 @@ Le processus termine avec le code 0
 ----
 
 Tout s'est passé correctement.
-Le code de sortie équivaut alors à `0`.
+Le code de sortie est alors{nbsp}``0``.
 
-Si le programme venait à se terminer de manière imprévue, nous pouvons
-supposer que le code serait différent. +
+Si le programme venait à se terminer de manière imprévue, le code serait différent.
 L'exemple suivant provoque volontairement une erreur en faisant
 référence à une variable qui n'existe pas :
 
@@ -2206,7 +2185,7 @@ référence à une variable qui n'existe pas :
 include::{sourceDir}/process/exit-error.js[]
 ----
 
-Que verrions-nous si on lançait le script ?
+Lançons le script :
 
 [subs="+quotes"]
 ----
@@ -2217,12 +2196,11 @@ Le processus termine avec le code 1
     at Object.<anonymous> (/.../examples/process/##exit-error.js##:##5##:13)
 ----
 
-Cette fois-ci le code de sortie est `1`.
+Cette fois-ci, le code de sortie est{nbsp}``1``.
 Cela correspond à une erreur qui n'a pas été capturée.
 Le reste du message décrit pourquoi l'erreur s'est manifestée.
 
-On peut écouter d'autres événements liés au cycle de vie de nos applications :
-
+D'autres événements liés au cycle de vie de nos applications sont disponibles :
 
 [cols="a1,a1,a2",options="header"]
 .Événements liés au cycle de vie du processus Node
@@ -2239,29 +2217,25 @@ Si rien n'est fait, le processus va s'arrêter avec un code erreur. +
 
 [[signals]]
 La méthode `process.on` est à l'écoute des signaux système.
-Vous vous souvenez de la combinaison de touches kbd:[Ctrl+C]
-utilisée précédemment ?
-Cette combinaison émet en réalité un signal d'interruption.
-Un signal d'interruption répond à l'identifiant `SIGINT`.
+Par exemple, la combinaison de touches kbd:[Ctrl+C] met en réalité
+un signal d'interruption qui répond à l'identifiant `SIGINT`.
 
-Node gère ces signaux pour nous.
-Mais on peut aussi se mettre à les écouter et décider de faire autrement
-que son comportement par défaut.
+Node gère ces signaux pour nous, mais on peut aussi se mettre à les écouter
+et décider de faire autrement que son comportement par défaut.
 
-On pourrait par exemple afficher l'heure de l'arrêt
-du processus avant de rendre la main :
+Par exemple, affichons l'heure de l'arrêt du processus avant de rendre la main :
 
 [source,javascript]
 .process/interrupt.js
 ----
 include::{sourceDir}/process/interrupt.js[]
 ----
-<1> Un premier message s'affichera au démarrage du script.
+<1> Un premier message s'affiche au démarrage du script.
 <2> Cette <<../chapter-03/index.adoc#function,fonction>> se déclenche lors de la réception du _signal d'interruption_ (`SIGINT`), lorsque le système d'exploitation lui relaie notre combinaison de touches kbd:[Ctrl+C].
-<3> La fonction <<process.exit,`process.exit`>> nous permet de mettre fin manuellement au processus (voir section ci-après).
-<4> Sinon ce _timer_ mettra fin au processus au bout de 5 secondes.
+<3> La fonction <<process.exit,`process.exit`>> termine le processus.
+<4> Sinon, ce chronomètre mettra fin au processus au bout de 5 secondes.
 
-En pratique le résultat ressemblerait à ceci :
+En pratique le résultat ressemble à ceci :
 
 [subs="+macros"]
 ----
@@ -2274,35 +2248,34 @@ kbd:[Ctrl+C]
 En plus du signal `SIGINT`, Node nous relaie les signaux suivants :
 
 [cols="1,2",options="header"]
-.Événements liés aux _signaux_ systèmes
+.Événements liés aux signaux systèmes
 |===
 | Événement   | Raison du déclenchement
-| `SIGINT`    | Interruption de la commande en cours
+| `SIGINT`    | Interruption de la commande en{nbsp}cours
 | `SIGTERM`   | Demande au processus de s'arrêter
 | `SIGUSR1`   | Node reçoit le signal d'attacher l'<<inspect,inspecteur>>
 | `SIGHUP`    | Le terminal est en train d'être fermé
 | `SIGWINCH`  | Le terminal a été redimensionné
 |===
 
-`SIGKILL` est un autre événement important mais on ne peut pas l'écouter.
+`SIGKILL` est un autre événement important, mais on ne peut pas l'écouter.
 Quand il est émis, le processus doit être arrêté quoiqu'il arrive.
 On l'utilise justement en cas de dernier recours, quand `SIGINT`
-et `SIGTERM` ne font pas effet ; par exemple à cause d'un bug dans notre code,
-ou une ressource qui ne rend pas la main.
+et `SIGTERM` ne font pas effet ; par exemple à cause d'un bogue dans notre code,
+ou d'une ressource qui ne rend pas la main.
 
 [[process.exit]]
 *Un processus Node se termine quand il n'a plus d'instructions à exécuter*.
-Un processus Node peut être terminé via
-l'<<signals,émission d'un signal extérieur>>.
-Mais on peut aussi y mettre fin de l'intérieur par l'intermédiaire
-de la fonction `process.exit`.
+Ce peut être provoqué via
+l'<<signals,émission d'un signal extérieur>>, mais aussi de l'intérieur
+par l'intermédiaire de la fonction `process.exit()`.
 
 On utilise cette fonction car le programme a atteint son but.
 On le fait aussi lorsqu'on intercepte une erreur en souhaitant
 effectuer un *traitement spécial avant de mettre fin au processus*.
 Il se peut aussi qu'il vaille mieux terminer l'application en cas de perte
-d'accès à des ressources distantes (base de données, stockage de fichiers, etc)
-et ce, au lieu de présenter une application web instable.
+d'accès à des ressources distantes (base de données, stockage de fichiers)
+au lieu de présenter une application web instable.
 
 L'exemple suivant illustre que l'on souhaite clôturer notre script
 si on trouve le bon nombre :
@@ -2311,38 +2284,38 @@ si on trouve le bon nombre :
 ----
 $ node process/exit-devinette.js
 JEU ! Trouve le nombre auquel je pense :
-10kbd:[ENTER]
+10kbd:[ENTRÉE]
 Hm hm, essaie encore.
-3kbd:[ENTER]
+3kbd:[ENTRÉE]
 Tu as trouvé, bravo !
 ----
 
 Dans cet exemple, on écoute l'utilisateur de manière indéfinie, jusqu'à ce qu'il
 ou elle trouve le bon nombre.
-Lorsque c'est le cas, on peut interrompre le programme en transmettant
-un code de sortie de réussite : le code `0` (zéro).
+Lorsque c'est le cas, on interrompt le programme en transmettant
+un code de sortie de réussite : le code `0`.
 
 [source,javascript]
 .process/exit-devinette.js
 ----
 include::{sourceDir}/process/exit-devinette.js[]
 ----
-<1> Le nombre secret est `3` par défaut, sauf s'il est passé <<process.argv,en argument>> du script.
-<2> Cette fonction est invoquée à chaque saisie suivie de l'utilisation de la touche kbd:[ENTER].
+<1> Le nombre secret est{nbsp}``3`` par défaut, sauf s'il est passé <<process.argv,en argument>> du script.
+<2> Cette fonction est invoquée à chaque saisie suivie de l'appui sur la touche kbd:[ENTRÉE].
 <3> Cette ligne met fin immédiatement au script, après avoir affiché un message de félicitations.
-<4> Ce message s'affichera à chaque saisie erronée, jusqu'à ce que le nombre secret soit trouvé.
+<4> Ce message s'affiche à chaque saisie erronée, jusqu'à ce que le nombre secret soit trouvé.
 
 On pourrait tout à fait imaginer une variante de ce script dans laquelle
 on limiterait le nombre de mauvaises réponses.
 Lorsqu'on attendrait cette limite, le programme utiliserait un code de sortie
-différent de zéro.
-Le code `9` ferait l'affaire puisqu'il indique qu'un argument invalide a été
+différent de{nbsp}``0``.
+Le code{nbsp}``9`` ferait l'affaire puisqu'il indique qu'un argument invalide a été
 passé.
 
 [NOTE]
-.[RemarquePreTitre]#Avancé# `process.abort`
+.[RemarquePreTitre]#Avancé# process.abort()
 ====
-À la manière de `process.exit`, le programme est terminé immédiatement.
+Comme avec `process.exit`, le programme est terminé immédiatement.
 On l'utilise quand quelque chose d'inopiné et nécessitant un débogage
 avancé se produit.
 
