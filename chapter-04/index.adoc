@@ -23,12 +23,12 @@ et Windows.
 
 ====
 .Sommaire
-- Interagir avec l'interpréteur Node
+- Interagir avec l'interpréteur{nbsp}Node
 - Les modules de base
 - Créer ses propres modules
 - S'en sortir quand ça ne se passe pas comme prévu
-- Les différences de JavaScript entre Node et les navigateurs web
-- Options utiles pour démarrer Node
+- Les différences de JavaScript entre Node et les navigateurs{nbsp}web
+- Options utiles pour démarrer{nbsp}Node
 ====
 
 [abstract]
@@ -50,19 +50,22 @@ include::../docs/tip-versions.adoc[]
 
 == Interagir avec l'interpréteur Node
 
-L'interpréteur Node est le programme qui nous permet d'obtenir des résultats
+L'interpréteur Node est le programme qui nous fournit des résultats
 en échange d'instructions ECMAScript.
-Le terminal est un autre programme qui nous permet de dialoguer avec
+Le terminal est un autre programme pour dialoguer avec
 un ordinateur et les programmes installés.
 
+[NOTE]
+====
 Le <<../chapter-02/index.adoc#,chapitre 2>> détaille comment installer
-_Node_ et un _terminal_ sur son ordinateur.
+Node et un terminal.
 Il contient également des conseils pour utiliser Node depuis un
 navigateur web.
 Cela peut rendre l'accès au terminal plus facile.
+====
 
-La suite de ce chapitre se base sur le principe que vous avez un terminal
-sous le nez, prêt·e à saisir des instructions ECMAScript.
+Ce chapitre se base sur le principe que vous avez un terminal installé,
+sur lequel vous allez saisir des instructions ECMAScript.
 
 .Exemple de _terminal_ sous macOS.
 image::images/terminal.png[width="85%"]
@@ -72,10 +75,9 @@ include::../docs/tip-examples.adoc[]
 [[node-version]]
 === Afficher la version
 
-Nous pourrions commencer par afficher la version de l'interpréteur Node.
+Commençons par afficher la version de l'interpréteur Node.
 Nous nous assurons ainsi que nous pouvons interagir avec
-l'interpréteur Node avec succès et que l'interpréteur
-est celui que nous attendons, dans la bonne version.
+lui avec succès et qu'il est celui que nous attendons, dans la bonne version.
 La version de Node conditionne la liste des fonctionnalités du langage
 ECMAScript à disposition.
 
@@ -86,7 +88,7 @@ Le site web [URL]#https://node.green# liste le niveau de compatibilité
 des fonctionnalités ECMAScript.
 
 Cette page vous aidera à comprendre quelles fonctionnalités utiliser en toute
-sécurité, version par version de Node.
+sécurité, version par version de{nbsp}Node.
 ====
 
 Une fois votre terminal ouvert, saisissez la commande suivante :
@@ -95,15 +97,13 @@ Une fois votre terminal ouvert, saisissez la commande suivante :
 $ node --version
 ----
 
-Le numéro de version de l'interpréteur Node s'affiche alors.
-Par exemple : `v{nodeV}`.
+Le numéro de version de l'interpréteur Node s'affiche alors,
+par exemple `v{nodeV}`.
 
-Si c'est ce à quoi vous vous attendiez, nous pouvons passer à la suite.
-À l'inverse, si une erreur se produit ou que le numéro de version
-n'est pas celui que vous attendiez, jetez un œil à la
-<<../chapter-02/index.adoc#install,section _Installer Node.js_>> du chapitre 2.
-
-include::../docs/tip-examples.adoc[]
+Si c'est ce à quoi vous vous attendiez, passez à la suite.
+À l'inverse, si une erreur se produit ou si la version
+n'est pas la bonne, retournez à la section
+"`<<../chapter-02/index.adoc#install,Installer Node.js>>`" du chapitre{nbsp}2.
 
 [[script]]
 === Avec un script
@@ -120,7 +120,7 @@ soient traitées.
 include::{sourceDir}/script.js[]
 ----
 
-Dans cet exemple, le fichier `script.js` contient deux instructions.
+Le fichier exemple `script.js` contient deux instructions.
 Node les interprète lorsqu'on lui passe le chemin du fichier en paramètre
 dans une invite de commande :
 
@@ -130,8 +130,7 @@ $ node script.js
 ABC
 ----
 
-Node interprète le contenu du fichier `script.js`.
-Il nous rend ensuite la main pour exécuter d'autres commandes.
+Node nous rend ensuite la main pour exécuter d'autres commandes.
 
 On apprendra à passer des <<process.argv,arguments d'exécution>>
 dans la section <<process,module `process`>>.
@@ -140,20 +139,19 @@ dans la section <<process,module `process`>>.
 .[RemarquePreTitre]#Performances# Ressources machine
 ====
 Démarrer un processus Node a un coût incompressible en ressources machine :
-environ *30Mo de RAM* et *environ 40 millisecondes de CPU* avant d'exécuter nos
+environ *30{nbsp}Mo de{nbsp}RAM* et *40{nbsp}ms de CPU* avant d'exécuter nos
 instructions.
 ====
 
 [[repl]]
-=== Avec l'invite de commande interactive (_REPL_)
+=== Avec l'invite de commande interactive (REPL)
 
-L'invite de commande interactive est une manière de parler
+L'invite de commande interactive est un moyen de parler
 à l'interpréteur Node sans écrire de fichier.
+Je l'utilise pour tester des idées et des éléments de syntaxe
+quand je ne m'en rappelle{nbsp}plus.
 
-J'utilise l'invite de commande pour tester des idées et des éléments de syntaxe
-quand je ne m'en rappelle plus.
-
-Le mode interactif s'active en exécutant Node sans aucun autre argument :
+Le mode interactif s'active en exécutant Node sans aucun argument :
 
 [subs="+attributes"]
 ----
@@ -161,10 +159,10 @@ $ node
 > {empty}
 ----
 
-On notera au passage que l'invite est préfixée par le caractère `>`
+On notera au passage que l'invite est préfixée par le caractère{nbsp}`>`
 afin de marquer notre présence dans un environnement différent.
 On retrouve un comportement similaire dans les invites de commande
-des langages Ruby (`irb`), Python (`python`) et PHP (`php -a`)
+des langages Ruby{nbsp}(`irb`), Python{nbsp}(`python`) et PHP{nbsp}(`php -a`)
 
 Lorsque nous sommes dans l'interpréteur interactif,
 toutes les expressions sont interprétées par Node :
@@ -180,7 +178,7 @@ $ node
 ----
 
 Des expressions sont réservées pour obtenir de l'aide, sortir de l'interpréteur
-ou simplement pour nettoyer ce que l'on voit à l'écran.
+ou simplement nettoyer ce que l'on voit à l'écran.
 Pour cela on fait appel à l'instruction `.help` :
 
 ----
@@ -195,18 +193,13 @@ $ node
 .save     Save all evaluated commands in this REPL session to a file
 ----
 
-Ces touches ou combinaisons de touches sont utiles pour naviguer dans
+Les touches ou combinaisons de touches suivantes sont utiles pour naviguer dans
 l'invite de commande :
 
-- la combinaison de touches kbd:[Ctrl+C] annule
-la saisie de la ligne en cours – c'est kbd:[{ctrl}+C] sous macOS ;
-- les touches _flèche haut_ (kbd:[{arrowUp}]) et _flèche bas_
-(kbd:[{arrowDown}]) aident à naviguer dans l'historique des commandes ;
-- la touche _tabulation_ (kbd:[TAB]) tente de compléter la saisie avec une
-expression ou variable connue.
-
-La touche kbd:[TAB] complètera automatiquement la saisie,
-offrira une liste de choix de complétion :
+- kbd:[Ctrl+C] annule
+la saisie de la ligne en cours – c'est kbd:[{ctrl}+C] sous macOS.
+- kbd:[{arrowUp}] et kbd:[{arrowDown}] aident à naviguer dans l'historique des commandes.
+- kbd:[TAB] tente de compléter la saisie avec une expression ou variable connue.
 
 [subs="+attributes,+macros"]
 ----
@@ -219,16 +212,15 @@ console.assert                console.clear                 console.count
 ...
 ----
 
-On notera que l'utilisation de kbd:[TAB] après un caractère _point_ (`.`)
-listera l'intégralité des propriétés de cet objet.
+On notera que l'utilisation de kbd:[TAB] après un caractère __point__{nbsp}(`.`)
+liste l'intégralité des propriétés de cet objet.
 
 [TIP]
-.[RemarquePreTitre]#Raccourci# Afficher tous les variables connues
+.[RemarquePreTitre]#Raccourci# Afficher toutes les variables connues
 ====
-L'utilisation de la touche kbd:[TAB] affichera _toutes_ les variables connues
+La touche kbd:[TAB] affiche _toutes_ les variables connues
 de la session interactive en cours.
-Il suffit d'appuyer une ou deux fois sur la touche kbd:[TAB]
-dans une invite vide :
+Il suffit d'appuyer une ou deux fois dessus dans une invite vide :
 
 [subs="+macros"]
 ----
@@ -249,7 +241,7 @@ La sortie de l'invite de commande se fait à l'aide de
 l'utilisation répétée de la combinaison de touches kbd:[Ctrl+C]
 (ou kbd:[{ctrl}+C] sous macOS).
 On revient ainsi à l'état initial où l'on était avant de
-saisir la commande `node` :
+saisir la commande{nbsp}`node` :
 
 [subs="+attributes"]
 ----
@@ -264,10 +256,10 @@ Ce même résultat s'obtient en saisissant `.exit`
 ou en utilisant la combinaison de touches kbd:[Ctrl+D] (ou kbd:[{ctrl}+D] sous macOS).
 
 [TIP]
-.[RemarquePreTitre]#Raccourci# Variable magique `_`
+.[RemarquePreTitre]#Raccourci# Variable magique{nbsp}``_``
 ====
-La variable `\_` est spécifique à l'invite de commande Node.
-Elle contient systématiquement le _résultat retourné_ par
+La variable{nbsp}``\_`` est spécifique à l'invite de commande Node.
+Elle contient systématiquement le résultat retourné par
 la dernière évaluation de code :
 
 ----
@@ -278,7 +270,7 @@ $ node
 6
 ----
 
-Cette variable magique est équivalente à la variable `$_` dans la console
+Elle est équivalente à la variable{nbsp}``$_`` dans la console
 des outils de développement des navigateurs web.
 ====
 
@@ -286,17 +278,16 @@ des outils de développement des navigateurs web.
 == Les modules de base
 
 Les modules de base *étendent le champ d'action de Node*.
-Ils servent d'interface pour communiquer avec le système d'exploitation,
-le système de fichier, des ressources HTTP et des connexions réseau, entre autres. +
-Ces modules sont inclus avec chaque installation de Node.
+Ils servent d'interfaces pour communiquer avec le système d'exploitation,
+le système de fichiers, des ressources HTTP et des connexions réseau, entre autres.
+Ils sont inclus avec chaque installation de Node.
 On peut donc en bénéficier sans effort supplémentaire.
 
-Le chargement d'un module de base s'effectue en passant son identifiant
-à la fonction `require()`.
-Cette fonction retourne alors un objet avec un certain nombre de _propriétés_ et
-de _fonctions_.
+Un module de base se charge en passant son identifiant
+à la fonction `require()`, qui retourne alors un objet avec un certain nombre
+de _propriétés_ et de _fonctions_.
 
-Ainsi, on chargera le <<fs,module `fs`>> (pour _file system_ – _système de fichiers_)
+Ainsi, on charge le <<fs,module `fs`>> (pour _file system_ – _système de fichiers_)
 afin d'interagir avec les fichiers et les répertoires présents sur l'ordinateur :
 
 [source%interactive,javascript]
@@ -304,21 +295,21 @@ afin d'interagir avec les fichiers et les répertoires présents sur l'ordinateu
 ----
 include::{sourceDir}/fs/read-dir.js[]
 ----
-<1> On assigne les fonctions et attributs du module `fs` dans la variable `fs` – on pourrait l'appeler autrement si on en avait envie.
+<1> On charge les fonctions et attributs du module `fs` dans la variable du même nom (on pourrait l'appeler autrement).
 <2> L'appel à la fonction `fs.readdir` passe un objet d'erreur ainsi que la liste des fichiers et répertoires contenus dans le chemin indiqué.
 <3> Affiche un tableau contenant les noms de fichiers et de répertoires présents dans le dossier courant.
 
 Ces modules de base représentent la pierre angulaire de nos applications Node.
 Ils fournissent le nécessaire pour tout faire !
 On apprendra à étendre encore plus le champ des possibles dans
-le <<../chapter-05/index.adoc#,chapitre 5>>
-grâce aux <<../chapter-05/index.adoc#modules,modules `npm`>>.
+le <<../chapter-05/index.adoc#,chapitre{nbsp}5>>,
+grâce aux <<../chapter-05/index.adoc#modules,modules{nbsp}``npm``>>.
 
 Les modules de base changent au fil du temps :
 les nouvelles versions de Node ajoutent, corrigent et complètent les modules et
-fonctions existantes.
+fonctions existants.
 La documentation officielle de Node reflète ces changements et
-affiche un indice de stabilité pour savoir à quoi s'en tenir.
+affiche un indice de stabilité pour savoir à quoi s'en{nbsp}tenir.
 
 .Documentation du module `fs` et son indice de stabilité.
 image::images/api-fs.png[width="85%"]
@@ -326,10 +317,10 @@ image::images/api-fs.png[width="85%"]
 Exceptionnellement, un module de base (ou une de ses fonctions) peut être supprimé.
 L'équipe de Node annonce ces changements en dépréciant le module en question :
 le code reste en place et sera supprimé dans une version ultérieure.
-En général, c'est une question de mois voire d'années. +
+En général, c'est une question de mois voire d'années.
 On verra plus loin comment <<deprecation,afficher les alertes de dépréciation>>.
 
-.Documentation de la fonction `fs.exists`, affichée comme dépréciée depuis Node v1.
+.Documentation de la fonction `fs.exists`, affichée comme dépréciée depuis Node{nbsp}v1.
 image::images/api-deprecation-fs-exists.png[width="85%"]
 
 [NOTE]
@@ -338,31 +329,27 @@ image::images/api-deprecation-fs-exists.png[width="85%"]
 Node communique un indice de stabilité pour les modules de base.
 Cette échelle se décompose en trois niveaux :
 
-[horizontal]
-déprécié::
-  Le module sera supprimé dans une prochaine version majeure.
+- *Déprécié* : le module sera supprimé dans une prochaine version majeure.
   À l'avenir, il vaut mieux ne pas se compter dessus.
-expérimental::
-  Le module est en cours de développement.
+- *Expérimental* : le module est en cours de développement.
   Une fonctionnalité expérimentale peut changer radicalement entre deux
   versions de Node.
-stable::
-  On peut faire confiance à ce module.
+- *Stable* : on peut faire confiance à ce module.
   Des choses peuvent changer exceptionnellement mais l'intention est d'offrir
   une stabilité.
 
 L'indice est parfois appliqué à des fonctions dont les attentes
-changeraient d'une version à l'autre de Node.
+changeraient d'une version à l'autre de{nbsp}Node.
 ====
 
 Les sections suivantes illustrent des usages courants des modules de base
 pour mieux comprendre quoi en attendre et comment les utiliser.
 
 [[console]]
-=== `console` : déboguer rapidement des variables
+=== console : déboguer rapidement des variables
 
 L'objet `console` est une boîte à outils pour afficher
-ce qu'il se passe à un moment donné dans un de nos scripts.
+ce qui se passe à un moment donné dans un de nos scripts.
 
 [source%interactive,javascript]
 .console/log.js
@@ -379,15 +366,15 @@ Valeur de count : 3
 ----
 
 [TIP]
-.[RemarquePreTitre]#Raccourci# Variable globale `console`
+.[RemarquePreTitre]#Raccourci# Variable globale console
 ====
 Node charge automatiquement le module pour nous et
 le rend utilisable à tout moment à travers la variable globale `console`.
 
-Nul besoin de charger le module manuellement avec `require('console')`.
+Il est donc inutile de charger le module manuellement avec `require('console')`.
 ====
 
-`console.log` sait interpoler les valeurs passées en argument avec le marqueur `%s`.
+`console.log` sait interpoler les valeurs passées en argument avec le marqueur{nbsp}``%s``.
 C'est utile pour structurer un message complexe en gardant les variables à part :
 
 [source,javascript]
@@ -397,18 +384,18 @@ include::{sourceDir}/console/interpolate.js[]
 ----
 <1> Affiche `Soupe lentilles et carottes`.
 
-`%s` ne sait afficher que des chaînes de caractères.
+``%s``{nbsp}ne sait afficher que des chaînes de caractères.
 D'autres marqueurs savent afficher d'autres types de données :
 
 [horizontal]
 `%d`::
   Affiche la valeur en tant que <<../chapter-03/index.adoc#number,nombre>>.
 `%j`::
-  Affiche la valeur en tant que <<../chapter-03/index.adoc#json,structure JSON>>.
+  Affiche la valeur en tant que <<../chapter-03/index.adoc#json,structure{nbsp}JSON>>.
 `%O`::
-  Affiche l'objet avec une profondeur maximum de 4 éléments.
+  Affiche l'objet avec une profondeur maximum de 4{nbsp}éléments.
 `%o`::
-  Idem que `%O` mais sur une profondeur maximum de 2 éléments.
+  Idem que{nbsp}``%O`` mais sur une profondeur maximum de 2{nbsp}éléments.
 
 [horizontal]
 .Propriétés notables
@@ -420,24 +407,24 @@ D'autres marqueurs savent afficher d'autres types de données :
 `console.dir()`::
   Affichage dédié aux objets et tableaux.
   On peut paramétrer la profondeur d'affichage
-  (par défaut, jusqu'à 2 niveaux).
+  (par défaut, jusqu'à deux niveaux).
 `console.group()`::
-  Regroupe visuellement les appels à `console.log` et `console.error`. +
+  Regroupe visuellement les appels à `console.log` et `console.error`.
   Un groupe se clôt avec `console.groupEnd()`.
 `console.time()`::
-  Démarre un chronomètre en lui attribuant un nom. +
+  Démarre un chronomètre en lui attribuant un nom.
   Le chronomètre s'arrête et sa durée s'affiche avec `console.timeEnd()`.
 classe `Console`::
   Crée un objet similaire à `console` mais en dirigeant l'affichage ailleurs
   que vers les <<process.std,flux standards>>.
 
 [TIP]
-.[RemarquePreTitre]#Web# Console et navigateurs web
+.[RemarquePreTitre]#Web# Console et navigateurs{nbsp}web
 ====
 L'objet `console` est originaire du monde des navigateurs web.
 C'est un onglet de la boîte à outils de développement.
 On peut y lire des messages placés dans le code JavaScript de la page web.
-On l'utilise aussi pour inspecter et interagir la page avec du code.
+On l'utilise aussi pour inspecter la page et interagir avec du{nbsp}code.
 
 .Console web dans le navigateur web Firefox.
 image::images/web-console.png[]
@@ -445,21 +432,22 @@ image::images/web-console.png[]
 ====
 
 [NOTE]
-.[RemarquePreTitre]#Documentation# `console`
+.[RemarquePreTitre]#Documentation# Module console
 ====
 La documentation du module `console` est disponible sur le site officiel de Node :
-[URL]#https://nodejs.org/docs/latest-{nodeCurrentVersion}.x/api/console.html#
+
+- [URL]#https://nodejs.org/docs/latest-{nodeCurrentVersion}.x/api/console.html#
 ====
 
 [[path]]
-=== `path` : manipuler des chemins de fichier
+=== path : manipuler des chemins de{nbsp}fichiers
 
 Le module `path` offre un ensemble de fonctions et de propriétés pour
 manipuler et construire des chemins vers des fichiers et répertoires.
 
 Ces opérations permettent à notre code de fonctionner de manière identique
-sur des systèmes d'exploitation exprimant les chemins de manière différente –
-comme Linux et Windows par exemple.
+sur des systèmes d'exploitation qui expriment différemment les chemins –
+Linux et Windows par exemple.
 
 [source%interactive,javascript]
 .path/intro.js
@@ -472,7 +460,7 @@ include::{sourceDir}/path/intro.js[]
 
 Certaines fonctions comme `path.join` tiennent compte de la nature du système
 d'exploitation.
-Le résultat d'un même appel de fonction sera différent _mais_ correspondra
+Le résultat d'un même appel de fonction sera différent, mais correspondra
 à la même intention :
 
 [source%interactive,javascript]
@@ -480,7 +468,7 @@ Le résultat d'un même appel de fonction sera différent _mais_ correspondra
 ----
 include::{sourceDir}/path/platform.js[]
 ----
-<1> Affiche `/` – `\` sous Windows.
+<1> Affiche{nbsp}``/`` (``\``{nbsp}sous Windows).
 <2> Affiche `tmp/package.json` – `tmp\package.json` sous Windows.
 
 On constate que `path.join` assemble les chemins en utilisant la valeur de
@@ -496,12 +484,12 @@ des chemins complets, _relatifs à notre emplacement_ actuel :
 ----
 include::{sourceDir}/path/relative.js[]
 ----
-<1> Affiche `../source` – `..\source` sous Windows – c'est le chemin à parcourir pour aller du premier chemin au second chemin.
-<2> Affiche `/tmp/source` – `C:\tmp\source` sous Windows – on constate que le chemin _résolu_ est absolu, et intègre la lettre du lecteur sous Windows.
+<1> Affiche `../source` (`..\source` sous Windows) – c'est ce qu'il faut parcourir pour aller du premier chemin au second.
+<2> Affiche `/tmp/source` (`C:\tmp\source` sous Windows) – on constate que le chemin _résolu_ est absolu, et intègre la lettre du lecteur sous Windows.
 
 Les résultats produits par les fonctions du module `path`
-se combinent particulièrement bien avec celles <<fs,du module `fs`>>, pour
-accéder aux fichiers en question.
+se combinent particulièrement bien avec celles <<fs,du module{nbsp}``fs``>>, pour
+accéder aux fichiers.
 
 [horizontal]
 .Propriétés notables
@@ -512,26 +500,26 @@ accéder aux fichiers en question.
 `path.extname()`::
   Retourne l'extension d'un fichier.
 `path.isAbsolute()`::
-  Indique si le chemin est _absolu_ ou non.
+  Indique si le chemin est _absolu_ ou{nbsp}non.
 `path.join()`::
   Assemble des bouts de chemin.
 `path.parse()`::
   Retourne des informations liées à la compréhension d'un chemin
   (extension, nom de fichier, nom de répertoire).
 `path.relative()`::
-  Calcule le chemin relatif entre un chemin source et un chemin de destination.
+  Calcule le chemin relatif entre un chemin source et un de destination.
 `path.resolve()`::
   Calcule un chemin absolu à partir de plusieurs bouts de chemin.
-attribut `path.sep`::
+Attribut `path.sep`::
   Retourne le caractère servant de séparateur de répertoires
-  pour le système d'exploitation sur lequel est exécuté le script.
-  Par exemple `/` pour Linux et macOS ; `\` pour Windows.
+  pour le système d'exploitation sur lequel est exécuté le script :
+  ``/``{nbsp}pour Linux et macOS, ``\``{nbsp}pour Windows.
 
 [TIP]
 .[RemarquePreTitre]#Compatibilité# Manipuler des chemins Windows sous Linux et vice-versa
 ====
 On peut avoir besoin de manipuler des chemins Windows avec du code
-exécuté sur un autre système d'exploitation comme Linux et macOS.
+exécuté sur un autre système d'exploitation comme Linux ou macOS.
 C'est exactement ce que proposent les fonctions de `path.win32`.
 
 [source%interactive,javascript]
@@ -548,14 +536,15 @@ L'objet `path.posix` fonctionne de la même manière pour des chemins Linux.
 ====
 
 [NOTE]
-.[RemarquePreTitre]#Documentation# `path`
+.[RemarquePreTitre]#Documentation# Module path
 ====
 La documentation du module `path` est disponible sur le site officiel de Node :
-[URL]#https://nodejs.org/docs/latest-{nodeCurrentVersion}.x/api/path.html#
+
+- [URL]#https://nodejs.org/docs/latest-{nodeCurrentVersion}.x/api/path.html#
 ====
 
 [[url]]
-=== `url` : manipuler des URL
+=== url : manipuler des URL
 
 Le module `url` offre des outils pour interpréter des URL, les transformer
 et les assembler à nouveau sous forme de chaîne de caractères.
@@ -578,7 +567,7 @@ Son fonctionnement suit le standard [URL]#https://url.spec.whatwg.org#.
 ====
 
 L'objet retourné par le constructeur de `URL` est modifiable.
-Il est ainsi possible de modifier les parties de l'URL qui nous intéressent
+Il est ainsi possible de changer les parties de l'URL qui nous intéressent
 et de récupérer une URL sous forme d'une chaîne de caractères :
 
 [source%interactive,javascript]
@@ -586,7 +575,7 @@ et de récupérer une URL sous forme d'une chaîne de caractères :
 ----
 include::{sourceDir}/url/to-string.js[]
 ----
-<1> Affiche `https://oncletom.io/#top` – le chemin et le fragment ont été modifiées.
+<1> Affiche `https://oncletom.io/#top` – le chemin et le fragment ont été modifiés.
 
 La fonction `format()` va plus loin que `url.toString()`.
 Ses options contrôlent plus finement ce qui sera conservé ou retiré lors
@@ -616,18 +605,18 @@ include::{sourceDir}/url/resolve.js[]
   Transforme une chaîne de caractères en un objet utilisable avec la fonction
   <<http.request,`http.request()`>>.
 classe `URL`::
-  Représentation de la structure d'une URL.
+  Représentation de la structure d'une{nbsp}URL.
 classe `URLSearchParams`::
-  Représentation des paramètres d'URL.
+  Représentation des paramètres{nbsp}d'URL.
 
 [horizontal]
 .Propriétés notables de la classe `URL`
 `url.format()`::
-Transforme un objet `URL` en chaîne de caractères grâce à des contrôles fins.
+Transforme un objet `URL` en chaîne de caractères grâce à des contrôles{nbsp}fins.
 `url.toString()`::
 Transforme l'objet `URL` en chaîne de caractères.
 attribut `url.hash`::
-  Fragment de l'URL.
+  Fragment de{nbsp}l'URL.
 attribut `url.hostname`::
   Nom de l'hôte.
 attribut `url.pathname`::
@@ -635,7 +624,7 @@ attribut `url.pathname`::
 attribut `url.protocol`::
   Protocole spécifié.
 attribut `url.search`::
-  Paramètres de l'URL, caractère `?` inclus.
+  Paramètres de l'URL, caractère{nbsp}``?`` inclus.
 attribut `url.searchParams`::
   Objet permettant de manipuler les paramètres.
   Voir ci-après.
@@ -650,7 +639,7 @@ include::{sourceDir}/url/search-params.js[]
 ----
 <1> Affiche `https://oncletom.io/?search=node.js` – représentation de l'URL complète.
 <2> Affiche `search=node.js` – représentation des paramètres seulement.
-<3> Affiche `https://oncletom.io/` – le paramètre `search` et sa valeur ont été supprimés de l'URL.
+<3> Affiche `https://oncletom.io/` – le paramètre `search` et sa valeur ont été supprimés de{nbsp}l'URL.
 
 [horizontal]
 .Propriétés notables de la classe `URLSearchParams`
@@ -658,30 +647,31 @@ include::{sourceDir}/url/search-params.js[]
   Ajoute un paramètre à la suite de l'URL.
   Cette fonction permet d'ajouter plusieurs fois une même clé, peu importe sa valeur.
 `searchParams.delete()`::
-  Supprime un paramètre d'URL.
+  Supprime un paramètre{nbsp}d'URL.
 `searchParams.get()`::
   Retoure la valeur d'un paramètre donné.
 `searchParams.getAll()`::
-  Retourne toutes les valeurs d'un paramètre donné.
+  Renvoie toutes les valeurs d'un paramètre donné.
 `searchParams.has()`::
-  Retourne `true` si les paramètres contiennent une clé donnée.
+  Indique `true` si les paramètres contiennent une clé donnée.
 `searchParams.set()`::
-  Assigne une valeur à un paramètre d'URL.
+  Affecte une valeur à un paramètre{nbsp}d'URL.
 `searchParams.toString()`::
   Retourne une représentation de l'objet sous forme d'une chaîne
-  de caractères exploitable dans une URL.
+  de caractères exploitable dans une{nbsp}URL.
 
 [NOTE]
-.[RemarquePreTitre]#Documentation# `url`
+.[RemarquePreTitre]#Documentation# Module url
 ====
 La documentation du module `url` est disponible sur le site officiel de Node :
-[URL]#https://nodejs.org/docs/latest-{nodeCurrentVersion}.x/api/url.html#
+
+- [URL]#https://nodejs.org/docs/latest-{nodeCurrentVersion}.x/api/url.html#
 ====
 
 [[fs]]
-=== `fs` : manipuler le système de fichiers
+=== fs : manipuler le système de fichiers
 
-Le module `fs` est un incontournable.
+Le module{nbsp}``fs`` est un incontournable.
 On y a recours dès que l'on a besoin de lire ou d'écrire dans un fichier.
 On s'en sert également pour créer, déplacer ou supprimer des fichiers
 et des répertoires.
@@ -691,11 +681,11 @@ et des répertoires.
 ----
 include::{sourceDir}/fs/intro.js[]
 ----
-<1> Lorsque la lecture du fichier aboutit, la <<callbacks,fonction de callback>> est appelée avec 2 paramètres : un objet d'erreur et le contenu.
+<1> Lorsque la lecture du fichier aboutit, la <<callbacks,fonction de rappel>> est appelée avec deux paramètres : un objet d'erreur et le contenu.
 <2> Affiche le contenu d'un fichier `package.json`.
 
 [TIP]
-.[RemarquePreTitre]#Raccourci# Variables `+__filename+` et `+__dirname+`
+.[RemarquePreTitre]#Raccourci# Variables +__filename+ et +__dirname+
 ====
 `+__filename+` est une chaîne de caractères faisant référence au fichier actuel. +
 `+__dirname+` fait référence au répertoire du fichier actuel.
@@ -706,11 +696,10 @@ include::{sourceDir}/fs/intro.js[]
 include::{sourceDir}/dirname-filename.js[]
 ----
 <1> Affiche `/.../chapter-04/examples/dirname-filename.js`.
-<2> Affiche `true` – ça ne serait pas un _raccourci_ sinon ;-).
+<2> Affiche `true` – ça ne serait pas un _raccourci_ sinon{nbsp};-).
 <3> Affiche `/.../chapter-04/examples`.
 
-Ces variables sont utiles pour opérer sur
-des _chemins relatifs au fichier actuel_.
+Ces variables sont utiles pour opérer sur des _chemins relatifs au fichier actuel_.
 
 ====
 
@@ -723,7 +712,7 @@ Dans l'exemple précédent, nous avons parcouru le contenu d'un fichier.
 include::{sourceDir}/fs/ls.js[]
 ----
 
-En l'exécutant, nous obtenons ces résultats :
+En l'exécutant, nous obtenons le résultat suivant :
 
 ----
 $ node fs/ls.js
@@ -736,12 +725,13 @@ $ node fs/ls.js
   'util' ]
 ----
 
-Dans les environnements UNIX, le `.` fait référence au _répertoire courant_
-et `..` au _répertoire parent_.
+Dans les environnements UNIX, le point{nbsp}(`.`) pour faire référence au
+_répertoire courant_ et deux points (`..`) pour le _répertoire parent_.
 C'est le cas avec Node également.
-Par la notion de _courant_ fait référence
-à l'emplacement depuis lequel nous appelons l'exécutable `node`. +
-Changeons de répertoire pour voir :
+La notion de _courant_ fait référence à l'emplacement depuis lequel nous
+appelons l'exécutable `node`.
+
+Changeons de répertoire :
 
 ----
 $ cd ../..
@@ -754,15 +744,15 @@ $ node chapter-04/examples/fs/ls.js
   'tests' ]
 ----
 
-Les _chemins relatifs_ sont
-relatifs à l'emplacement depuis lequel on exécute la commande `node`.
-`+__dirname+` et de `+__filename+` sont déterminés par rapport
+Les _chemins relatifs_ se définissent par rapport à l'emplacement depuis
+lequel on exécute la commande `node`.
+`+__dirname+` et `+__filename+` sont déterminées par rapport
 à l'emplacement du script qui fait référence à ces variables.
 
-Puisque les opérations liées au système de fichier ne sont pas immédiates
-alors la majorité des fonctions de ce module est *asynchrone*.
+Puisque les opérations liées au système de fichiers ne sont pas immédiates
+les fonctions de ce module sont en majorité *asynchrones*.
 Leur rapidité d'exécution varie en fonction du support de stockage utilisé
-(à disque, à mémoire), de son usure et de la capacité de traitement du CPU
+(disque, mémoire), de son usure et de la capacité de traitement de la CPU
 de l'ordinateur.
 
 Cela veut aussi dire que les erreurs sont obtenues de manière asynchrone :
@@ -774,12 +764,12 @@ include::{sourceDir}/fs/rmdir.js[]
 ----
 <1> Indique que la suppression n'a pas abouti car le répertoire en question n'est pas vide – et pour cause, c'est celui qui contient notre fichier d'exemple.
 
-On peut articuler plusieurs opérations entre elles.
-Et utiliser le <<path,module `path`>> pour construire des chemins robustes
-qui fonctionnent avec tous les systèmes d'exploitation, sans effort.
+On peut articuler plusieurs opérations entre elles et utiliser le <<path,module{nbsp}``path``>>
+pour construire des chemins robustes qui fonctionnent avec tous les systèmes
+d'exploitation, sans effort.
 
 L'exemple suivant crée un répertoire dans un <<os,dossier temporaire>>,
-effectue une copie de fichier sous un autre nom et liste le contenu du répertoire
+copie un fichier sous un autre nom et liste le contenu du répertoire
 une fois la copie effectuée :
 
 [source%interactive,javascript]
@@ -798,29 +788,28 @@ Le script Node exécuté a le droit d'accéder, d'altérer et de supprimer
 au même titre que l'utilisateur système qui lance le script.
 
 Ce n'est pas grave si on exécute du code écrit soi-même.
-Il faut être vigilant·e et pouvoir faire confiance si le code exécuté provient
-d'une autre personne.
+Il faut être vigilant·e si le code exécuté provient d'une autre personne.
 ====
 
 Si l'exemple précédent semble agréable à lire, il révèle deux points de vigilance.
 
 J'ai écrit le code de manière _optimiste_, pour des questions de lisibilité.
-Pourtant à chaque opération, il y a une possibilité d'erreur à gérer :
-de la création du répertoire jusqu'à la lecture des fichiers de ce répertoire. +
+Pourtant, à chaque opération, il y a une possibilité d'erreur à gérer :
+de la création du répertoire jusqu'à la lecture des fichiers qu'il contient.
 Il faudrait vérifier l'argument `error` à chaque fois et décider quoi faire
 en fonction de la <<errors,nature du problème>>.
 
-Je vous invite à modifier le code de l'exemple précédent
+Je vous invite à modifier ce code
 pour afficher la valeur des variables `error` à l'aide des
 <<console,fonctions du module `console`>>.
 Certaines erreurs apparaissent quand nous invoquons le script une seconde fois.
 
-L'imbrication des <<callbacks,fonctions de callback>> fait qu'il est
-*difficile d'interrompre une suite de _callbacks_*.
+L'imbrication des <<callbacks,fonctions de rappel>> fait qu'il est
+*difficile d'en interrompre la suite*.
 Une bonne piste serait d'appliquer l'<<util,utilitaire `promisify`>>
-sur les fonctions du module `fs` afin de créer une
+sur les fonctions du module{nbsp}``fs`` afin de créer une
 <<../chapter-03/index.adoc#promise,chaîne de promesses>>. +
-Nous apprendrons à faire ça dans la section du <<util,module `util`>>.
+Nous apprendrons à le faire dans la section sur le <<util,module{nbsp}``util``>>.
 
 
 [horizontal]
@@ -844,14 +833,14 @@ Nous apprendrons à faire ça dans la section du <<util,module `util`>>.
   Il doit être vide.
 `fs.stat()`::
   Retourne des informations à propos d'un chemin d'accès :
-  est-ce que c'est un fichier, un répertoire, un lecteur, un lien symbolique etc.
-  Des attributs clarifient la taille du fichier (en octets), l'identifiant
-  système de son propriétaire, la date de création/modification/dernier accès etc.
+  est-ce que c'est un fichier, un répertoire, un lecteur, un lien symbolique ?
+  Des attributs précisent la taille du fichier (en octets), l'identifiant
+  système de son propriétaire, la date de création/modification/dernier accès, etc.
 `fs.symlink()`::
   Crée un lien symbolique vers un emplacement.
 `fs.truncate()`::
   Raccourcit le contenu d'un fichier à une longueur donnée (en nombre d'octets).
-  Si aucun argument n'est donné, le contenu du fichier est remis à zéro.
+  Si aucun argument n'est donné, le contenu du fichier est remis à{nbsp}zéro.
 `fs.createReadStream()`::
   Crée un <<stream,flux de lecture>>, pour lire un fichier en continu.
 `fs.createWriteStream()`::
@@ -864,22 +853,23 @@ Fichier qui fait référence à un autre fichier – c'est comme un _alias_.
 Toutes les modifications effectuées sur le lien symbolique sont
 répercutées sur le fichier d'origine.
 
-En savoir plus sur [URL]#https://fr.wikipedia.org/wiki/Lien_symbolique#.
+- [URL]#https://fr.wikipedia.org/wiki/Lien_symbolique#
 ====
 
 [NOTE]
-.[RemarquePreTitre]#Documentation# `fs`
+.[RemarquePreTitre]#Documentation# Module fs
 ====
 La documentation du module `fs` est disponible sur le site officiel de Node :
-[URL]#https://nodejs.org/docs/latest-{nodeCurrentVersion}.x/api/fs.html#
+
+- [URL]#https://nodejs.org/docs/latest-{nodeCurrentVersion}.x/api/fs.html#
 ====
 
 [[events]]
-=== `events` : programmer des événements
+=== events : programmer des événements
 
 Le module `events` contient le nécessaire pour créer du code communiquant
 à l'aide de fonctions d'écoute et d'émission de messages.
-C'est comme un _centre de tri postal_ mais pour Node avec des variables
+C'est comme un _centre de tri postal_, mais avec des variables
 en guise de courriers.
 
 [source%interactive,javascript]
@@ -888,10 +878,10 @@ en guise de courriers.
 include::{sourceDir}/events/intro.js[]
 ----
 <1> Création d'un gestionnaire d'événements.
-<2> Enregistrement d'une fonction d'écoute – elle sera exécutée à chaque émission de l'événement `date`.
-<3> Émission d'un événement `date` avec comme argument, un <<../chapter-03/index.adoc#date,objet `Date`>>.
+<2> Enregistrement d'une fonction d'écoute – elle sera exécutée à chaque émission de l'événement{nbsp}``date``.
+<3> Émission d'un événement `date`, avec comme argument, un <<../chapter-03/index.adoc#date,objet{nbsp}``Date``>>.
 
-Un événement se décompose en 3 parties : les fonctions d'écoute,
+Un événement se décompose en trois parties : les fonctions d'écoute,
 les émissions de message et un objet `EventEmitter`
 qui fait le lien entre les deux.
 
@@ -903,12 +893,12 @@ aucune structure de gestion d'événements.
 
 S'il est possible de réagir à des événements dans les navigateurs web,
 c'est grâce à la spécification DOM – l'API JavaScript pour manipuler
-une structure de document HTML.
+une structure de document{nbsp}HTML.
 
-Pour en savoir plus : [URL]#https://developer.mozilla.org/fr/docs/Web/Events#.
+- [URL]#https://developer.mozilla.org/fr/docs/Web/Events#
 ====
 
-On peut décider d'écouter un événement une seule fois avec `emitter.once()` :
+On peut décider d'écouter un événement une seule fois avec{nbsp}``once()`` :
 
 [source%interactive,javascript]
 .events/once.js
@@ -917,7 +907,7 @@ include::{sourceDir}/events/once.js[]
 ----
 <1> Bien que l'événement `date` soit appelé deux fois, la fonction d'écoute ne réagira qu'une seule fois.
 
-La fonction `emitter.remove` débranche une fonction d'écoute selon
+La fonction `removeListener()` débranche une fonction d'écoute selon
 les critères de notre choix :
 
 [source%interactive,javascript]
@@ -927,7 +917,7 @@ include::{sourceDir}/events/remove.js[]
 ----
 <1> L'événement `date` est émis toutes les secondes.
 <2> La fonction `tick` est appelée toutes les secondes.
-<3> La fonction `tick` est débranchée de l'événement `date` au bout de 3 incréments.
+<3> La fonction `tick` est débranchée de l'événement `date` au bout de trois incréments.
 
 On remarquera qu'il faut pouvoir faire référence à la fonction d'écoute
 afin de la débrancher.
@@ -952,9 +942,8 @@ tout en rendant notre code communiquant vers l'extérieur.
 
 Plusieurs modules Node utilisent les événements pour nous permettre d'y
 réagir de manière totalement optionnelle.
-Tout ce que l'on vient d'expliquer s'applique à l'identique
-au <<process,module `process`>>, au <<child_process,module `child_process`>>
-ainsi qu'au <<http,module `http`>>.
+Tout ce que l'on vient d'expliquer s'applique à l'identique aux modules
+<<process,`process`>>, <<child_process,`child_process`>> et <<http,`http`>>.
 
 [horizontal]
 .Propriétés notables de la classe `EventEmitter`
@@ -964,7 +953,7 @@ ainsi qu'au <<http,module `http`>>.
   Enregistre une nouvelle fonction réagissant _une seule fois_ à un événement donné.
 `emit()`::
   Émet un événement.
-  Si un ou plusieurs arguments additonnels sont présents,
+  Si des arguments additonnels sont présents,
   ils sont transmis aux fonctions écoutant cet événement.
 `eventNames()`::
   Liste les événements pour lesquels on a enregistré au moins une fonction d'écoute.
@@ -975,21 +964,21 @@ ainsi qu'au <<http,module `http`>>.
 `removeAllListeners()`::
   Supprime toutes les fonctions d'écoute d'un événement donné.
 `setMaxListeners()`::
-  Change le nombre maximum de fonctions d'écoute possibles. +
-  Par défaut cette limite est de _10 fonctions maximum_.
-  Ça paraît peu.
+  Change le nombre maximum de fonctions d'écoute possibles (10{nbsp}par défaut,
+  c'est{nbsp}peu).
 
 [NOTE]
-.[RemarquePreTitre]#Documentation# `events`
+.[RemarquePreTitre]#Documentation# Module events
 ====
 La documentation du module `events` est disponible sur le site officiel de Node :
-[URL]#https://nodejs.org/docs/latest-{nodeCurrentVersion}.x/api/events.html#
+
+- [URL]#https://nodejs.org/docs/latest-{nodeCurrentVersion}.x/api/events.html#
 ====
 
 [[util]]
-=== `util` : transformer des _callbacks_ en promesses
+=== util : transformer des fonctions de rappel en promesses
 
-Le module `util` est un petit module contenant des fonctions utilitaires
+Le petit module `util` contient des fonctions utilitaires
 qui ne rentreraient pas dans le périmètre d'autres modules.
 
 On y trouve `util.format()`, une fonction qui fait beaucoup penser à
@@ -1000,15 +989,14 @@ On y trouve `util.format()`, une fonction qui fait beaucoup penser à
 ----
 include::{sourceDir}/util/format.js[]
 ----
-<1> Assigne le message formaté dans une variable sans l'afficher.
+<1> Affecte le message formaté à une variable sans l'afficher.
 
 Pour afficher la valeur de la variable `message` de l'exemple précédent,
 il suffirait de décommenter la dernière ligne et de (re)lancer le script.
 
 La fonction `util.debuglog()` formate aussi des messages.
-Son affichage est toutefois conditionnel.
-Ce qui est pratique quand on veut déboguer des variables sans toucher au code
-entre deux exécutions :
+Son affichage est toutefois conditionnel, ce qui est pratique quand on veut
+déboguer des variables sans toucher au code entre deux exécutions :
 
 [source%interactive,javascript]
 .util/debuglog.js
@@ -1036,14 +1024,14 @@ Cet ordinateur a 4 CPU.
 NODEBOOK 32486: Le modèle de CPU est Intel(R) Core(TM) i5-6267U CPU @ 2.90GHz.
 ----
 
-Si l'on souhaite avoir plusieurs débogueurs, dans un ou plusieurs scripts,
-il suffit de séparer leur nom par une virgule.
-Par exemple `NODE_DEBUG=nodebook,test,fromage`.
+Si l'on souhaite avoir plusieurs débogueurs, dans un ou plusieurs script(s),
+il suffit de séparer leurs noms par des virgules
+(ex: `NODE_DEBUG=nodebook,test,fromage`).
 
 Une de mes fonctions préférées est `util.promisify()`.
 Elle convertit une fonction acceptant un <<callback,callback>> en une fonction
 retournant une <<../chapter-03/index.adoc#promise,promesse>>.
-C'est d'autant plus pratique quand on n'a pas la maîtrise du
+C'est particulièrement pratique quand on n'a pas la maîtrise du
 code source original :
 
 [source%interactive,javascript]
@@ -1051,15 +1039,16 @@ code source original :
 ----
 include::{sourceDir}/util/fs-readdir-promisified.js[]
 ----
-<1> Assigne une version transformée de `fs.readdir` grâce à `util.promisify`.
-<2> On ne passe pas de <<callbacks,callback>> contrairement à `fs.readdir`.
+<1> Affecte une version transformée de `fs.readdir` grâce à `util.promisify`.
+<2> On ne passe pas de <<callbacks,fonction de rappel>> contrairement à `fs.readdir`.
 <3> Le résultat de l'opération est passé à la résolution de promesse.
 
-Ça paraît rien mais ça ouvre un potentiel de simplification énorme pour nous.
-Fini l'argument `error` qui nous embête : on peut le collecter quand ça
+Cela ne paraît pas important mais cela ouvre un potentiel de simplification
+énorme pour nous.
+Fini l'argument `error` qui nous embête : on peut le collecter quand cela
 nous arrange grâce à `.catch()`.
 
-Ça nous évite aussi d'avoir à écrire toutes ces lignes de code
+Cela limite également le nombre de lignes de code à écrire
 pour arriver au même résultat :
 
 [source%interactive,javascript]
@@ -1076,23 +1065,24 @@ include::{sourceDir}/util/fs-readdir-promise.js[]
   `NODE_DEBUG` mentionne l'identifiant du débogueur.
 `util.deprecate()`::
   Affiche un message d'avertissement lorsque vous souhaitez retirer une fonction
-  partagée dans une version ultérieure de votre code.
+  partagée dans une version ultérieure de votre{nbsp}code.
 `util.format()`::
   Retourne une chaîne de caractères formatée, comme <<console,`console.log`>>
   mais sans l'envoyer dans un <<process.std,flux de sortie>>.
 `util.promisify()`::
-  Transforme une <<callbacks,fonction de callback>> en
+  Transforme une <<callbacks,fonction de rappel>> en
   <<../chapter-03/index.adoc#promise,promesse>>.
 
 [NOTE]
-.[RemarquePreTitre]#Documentation# `util`
+.[RemarquePreTitre]#Documentation# Module util
 ====
 La documentation du module `util` est disponible sur le site officiel de Node :
-[URL]#https://nodejs.org/docs/latest-{nodeCurrentVersion}.x/api/util.html#
+
+- [URL]#https://nodejs.org/docs/latest-{nodeCurrentVersion}.x/api/util.html#
 ====
 
 [[http]]
-=== `http` : créer et interroger des ressources via le protocole HTTP
+=== http : créer et interroger des ressources via le protocole{nbsp}HTTP
 
 Le module `http` est un module incontournable de Node.
 Il a 2 facettes : la création de requêtes HTTP et la création
@@ -1486,10 +1476,11 @@ attribut `response.statusCode`::
   Contient le code de réponse qui sera transmis au client.
 
 [NOTE]
-.[RemarquePreTitre]#Documentation# `http`
+.[RemarquePreTitre]#Documentation# Module http
 ====
 La documentation du module `http` est disponible sur le site officiel de Node :
-[URL]#https://nodejs.org/docs/latest-{nodeCurrentVersion}.x/api/http.html#
+
+- [URL]#https://nodejs.org/docs/latest-{nodeCurrentVersion}.x/api/http.html#
 ====
 
 
@@ -1583,10 +1574,11 @@ attribut `os.EOL`::
   En général le caractère `\n` sous Unix et `\r\n` sous Windows.
 
 [NOTE]
-.[RemarquePreTitre]#Documentation# `os`
+.[RemarquePreTitre]#Documentation# Module os
 ====
 La documentation du module `os` est disponible sur le site officiel de Node :
-[URL]#https://nodejs.org/docs/latest-{nodeCurrentVersion}.x/api/os.html#
+
+- [URL]#https://nodejs.org/docs/latest-{nodeCurrentVersion}.x/api/os.html#
 ====
 
 [[child_process]]
@@ -1766,10 +1758,11 @@ J'aurais plutôt tendance à transmettre le résultat de cette commande
   Idéal pour envoyer et récupérer des données en continu.
 
 [NOTE]
-.[RemarquePreTitre]#Documentation# `child_process`
+.[RemarquePreTitre]#Documentation# Module child_process
 ====
 La documentation du module `child_process` est disponible sur le site officiel de Node :
-[URL]#https://nodejs.org/docs/latest-{nodeCurrentVersion}.x/api/child_process.html#
+
+- [URL]#https://nodejs.org/docs/latest-{nodeCurrentVersion}.x/api/child_process.html#
 ====
 
 
@@ -2360,10 +2353,11 @@ Ce fichier dit _core file_ s'analyse avec des logiciels avancés comme `mdb_v8`.
 
 
 [NOTE]
-.[RemarquePreTitre]#Documentation# `process`
+.[RemarquePreTitre]#Documentation# Module process
 ====
 La documentation du module `process` est disponible sur le site officiel de Node :
-[URL]#https://nodejs.org/docs/latest-{nodeCurrentVersion}.x/api/process.html#
+
+- [URL]#https://nodejs.org/docs/latest-{nodeCurrentVersion}.x/api/process.html#
 ====
 
 
@@ -2546,10 +2540,11 @@ et entre deux scripts Node.
   Déclenché lorsqu'on a clôturé le flux d'écriture.
 
 [NOTE]
-.[RemarquePreTitre]#Documentation# `stream`
+.[RemarquePreTitre]#Documentation# Module stream
 ====
 La documentation du module `stream` est disponible sur le site officiel de Node :
-[URL]#https://nodejs.org/docs/latest-{nodeCurrentVersion}.x/api/stream.html#
+
+- [URL]#https://nodejs.org/docs/latest-{nodeCurrentVersion}.x/api/stream.html#
 ====
 
 === D'autres modules pour aller plus loin
@@ -2794,7 +2789,7 @@ est documentée sur le site web du projet Node.
 La documentation contient des informations à jour et qui ne sont pas
 forcément listées dans cet ouvrage.
 
-[URL]#https://nodejs.org/docs/latest-{nodeCurrentVersion}.x/api/modules.html#
+- [URL]#https://nodejs.org/docs/latest-{nodeCurrentVersion}.x/api/modules.html#
 ====
 
 [[esm]]
@@ -2921,7 +2916,7 @@ est documentée sur le site web du projet Node.
 La documentation contient des informations à jour et qui ne sont pas
 forcément listées dans cet ouvrage.
 
-[URL]#https://nodejs.org/docs/latest-{nodeCurrentVersion}.x/api/esm.html#
+- [URL]#https://nodejs.org/docs/latest-{nodeCurrentVersion}.x/api/esm.html#
 ====
 
 
@@ -3326,7 +3321,8 @@ elle décrit le processus exécutant notre code.
 .[RemarquePreTitre]#Documentation# Variables globales
 ====
 La documentation des variables globales est disponible sur le site officiel de Node :
-[URL]#https://nodejs.org/docs/latest-{nodeCurrentVersion}.x/api/globals.html#
+
+- [URL]#https://nodejs.org/docs/latest-{nodeCurrentVersion}.x/api/globals.html#
 ====
 
 === Il n'y a pas d'interface graphique
@@ -3404,7 +3400,8 @@ son comportement et l'affichage des résultats.
 .[RemarquePreTitre]#Documentation# Exécutable `node`
 ====
 La documentation de l'exécutable `node` est disponible sur le site officiel de Node :
-[URL]#https://nodejs.org/docs/latest-{nodeCurrentVersion}.x/api/cli.html#
+
+- [URL]#https://nodejs.org/docs/latest-{nodeCurrentVersion}.x/api/cli.html#
 ====
 
 [[print-eval]]

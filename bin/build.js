@@ -17,15 +17,9 @@ require('asciidoctor-docbook.js')();
 var DEFAULT_ATTRIBUTES = [
   'toc=left',
   'toclevels=4',
-  'caution-caption=⚠️',
-  'important-caption=‼️',
   'webfonts!',
   'stylesheet=main.css',
   `stylesdir=${join(__dirname, '..', 'src')}`,
-  'note-caption=💬',
-  'tip-caption=💡',
-  'warning-caption=🚨',
-  'mdn-caption-prefix=[RemarquePreTitre]#Documentation#',
   'linkattrs',
   'lang=fr',
   'env=ci',
@@ -35,7 +29,16 @@ var DEFAULT_ATTRIBUTES = [
   'source-highlighter=highlightjs',
   'toc-title=Table des matières',
   'appendix-caption=Annexe',
-  'last-update-label=Dernière mise à jour'
+  'last-update-label=Dernière mise à jour',
+  'example-caption=Exemple',
+  'caution-caption=⚠️',
+  'important-caption=‼️',
+  'note-caption=💬',
+  'tip-caption=💡',
+  'warning-caption=🚨',
+  'table-caption=Tableau',
+  'untitled-label=Sans titre',
+  'mdn-caption-prefix=[RemarquePreTitre]#Documentation#',
 ];
 
 const BUILD_DIR = 'dist';
