@@ -1261,8 +1261,8 @@ Attribut `message.headers`::
   de leur contenu.
 Attribut `message.statusCode`::
   Code qui reflète l'état de compréhension de notre requête par le serveur distant.
-  `200` correspond à _tout va bien_, `404` à _ressource introuvable_,
-  `301` à _la ressource a été déplacée_.
+  ``200``{nbsp}correspond à _tout va bien_, ``404``{nbsp}à _ressource introuvable_,
+  ``301``{nbsp}à _la ressource a été déplacée_.
 
 Il est temps de nous pencher sur l'autre versant du module : la création
 d'un serveur{nbsp}HTTP.
@@ -2319,9 +2319,9 @@ Comme avec `process.exit`, le programme est terminé immédiatement.
 On l'utilise quand quelque chose d'inopiné et nécessitant un débogage
 avancé se produit.
 
-La fonction génère un fichier de débogage qui contient tout le contenu
-de la mémoire utilisée par Node (_core file_).
-Ce fichier dit _core file_ s'analyse avec des logiciels avancés comme `mdb_v8`.
+La fonction génère un fichier de débogage (_core file_) qui contient tout le contenu
+de la mémoire utilisée par Node.
+Ce fichier s'analyse avec des logiciels avancés comme `mdb_v8`.
 ====
 
 
@@ -2335,14 +2335,14 @@ La documentation du module `process` est disponible sur le site officiel de Node
 
 
 [[stream]]
-=== `stream` : manipuler des flux de données
+=== stream : manipuler des flux de données
 
 Le module `stream` contient les éléments de base pour lire, écrire et
 transformer des flux de données rapidement et avec peu de mémoire.
 
 Créer ses propres flux est une chose assez compliquée à réaliser.
-Dans cette section nous allons nous focaliser sur l'utilisation des modules
-Node qui génèrent de tels flux.
+Dans cette section, nous allons nous focaliser sur l'utilisation des modules
+Node qui génèrent de tels{nbsp}flux.
 
 [source%interactive,javascript]
 .stream/intro.js
@@ -2350,7 +2350,7 @@ Node qui génèrent de tels flux.
 include::{sourceDir}/stream/intro.js[]
 ----
 <1> On crée un flux de lecture qui ouvre le fichier courant (`+__filename+`).
-<2> Invoque cette fonction à chaque morceau de données lu.
+<2> Invoque cette fonction à chaque morceau de données{nbsp}lu.
 <3> Affiche le nombre d'octets lus dans ce morceau.
 
 ----
@@ -2361,15 +2361,15 @@ $ node stream/intro.js
 *Un flux de lecture consomme les données petit à petit*.
 Il correspond à une instance de l'objet <<stream.Readable,`stream.Readable`>>.
 L'exemple précédent n'a affiché qu'un seul morceau car la taille maximale
-par défaut est d'environ `16Ko`.
+par défaut est d'environ `16{nbsp}Ko`.
 
 [source%interactive,javascript]
 .stream/read.js
 ----
 include::{sourceDir}/stream/read.js[]
 ----
-<1> On spécifie cette fois qu'on lit `100 octets` à la fois.
-<2> Affiche `Lecture terminée` lorsque tous les morceaux ont été lus.
+<1> On spécifie cette fois qu'on lit `100{nbsp}octets` à la fois.
+<2> Affiche `Lecture terminée` lorsque tous les morceaux ont été{nbsp}lus.
 
 L'option `highWaterMark` adapte le débit de lecture.
 Cette valeur est exprimé en octets.
@@ -2387,7 +2387,7 @@ Le mécanisme de flux s'applique également à l'écriture.
 *Un flux d'écriture écrit des données petit à petit*.
 Il correspond à une instance de l'objet <<stream.Writeable,`stream.Writeable`>>.
 
-L'exemple suivant illustre une succession d'écriture dans un même flux :
+L'exemple suivant illustre une succession d'écritures dans un même{nbsp}flux :
 
 [source%interactive,javascript]
 .stream/write.js
@@ -2395,13 +2395,13 @@ L'exemple suivant illustre une succession d'écriture dans un même flux :
 include::{sourceDir}/stream/write.js[]
 ----
 <1> On crée un flux d'écriture vers le fichier `stream/debug.txt`.
-<2> Écrit `Hell` dans le flux.
-<3> Écrit `d!` dans le flux et signale que nous n'avons plus de données à transmettre.
-<4> L'utilisation de `stream.end()` déclenche l'événement `finish` – nous lisons le contenu du fichier à ce moment là.
+<2> Écrit `Hell` dans le{nbsp}flux.
+<3> Écrit{nbsp}``d!`` dans le flux et signale que nous n'avons plus de données à transmettre.
+<4> L'utilisation de `stream.end()` déclenche l'événement `finish` – nous lisons le contenu du fichier à ce moment{nbsp}là.
 
 Cette écriture par morceaux a pour effet de réduire la pression mémoire
 exercée par Node sur le système d'exploitation et pour le reste du programme.
-Ce mécanisme est particulièrement adapté lorsque l'écriture prendra du temps
+Ce mécanisme est particulièrement adapté lorsque l'écriture prend du temps
 ou implique un certain volume de données.
 
 *Les flux de lecture et d'écriture se combinent*.
@@ -2415,29 +2415,28 @@ include::{sourceDir}/stream/pipe.js[]
 ----
 <1> On crée un flux de lecture.
 <2> On crée un flux d'écriture.
-<3> On redirige le flux de lecture vers le flux d'écriture.
+<3> On redirige le flux de lecture vers celui d'écriture.
 <4> La redirection retourne le flux d'écriture, que l'on écoute pour savoir quand il a terminé d'écrire sur le disque.
 
-Dans cet exemple, nous avons pris deux fichiers comme source de lecture
+Dans cet exemple, nous avons pris deux fichiers respectivement comme source de lecture
 et destination d'écriture.
 Nous avons assemblé les deux flux avec `pipe()` puis détecté la fin de la copie.
 
 [NOTE]
-.[RemarquePreTitre]#Unix# Opérateur _pipe_ (`|`)
+.[RemarquePreTitre]#Unix# Opérateur pipe{nbsp}(`|`)
 ====
-La fonction `stream.pipe()` correspond littéralement à l'opérateur Unix `|`.
+La fonction `stream.pipe()` correspond littéralement à l'opérateur Unix{nbsp}``|``.
 
 Les morceaux de données d'un premier programme sont transmis en entrée à un
 second programme.
-Ici, le mécanisme s'applique à des fonctions Node.
+Ici, le mécanisme s'applique à des fonctions{nbsp}Node.
 ====
 
-L'utilisation de `pipe()` peut paraitre superflue pour copier des fichiers.
-À vrai dire, la fonction <<fs,`fs.copyFile`>> fait exactement la même chose. +
-Le mécanisme de redirection proposé par `pipe()` est modulaire et composable.
-
-On peut par exemple diriger une source de données vers plusieurs flux d'écriture.
-En même temps :
+L'utilisation de `pipe()` semble superflue pour copier des fichiers.
+À vrai dire, la fonction <<fs,`fs.copyFile`>> fait exactement la même chose.
+Toutefois, le mécanisme de redirection proposé par `pipe()` est modulaire et composable.
+On peut par exemple diriger une source de données vers plusieurs flux d'écriture
+en même temps :
 
 [source%interactive,javascript]
 .stream/pipe-multi.js
@@ -2452,7 +2451,7 @@ d'agir sur les données avant de les envoyer vers leur flux d'écriture distinct
 
 On peut aussi *transformer les contenus à la volée* en utilisant plusieurs
 fois la fonction `pipe()`.
-Les données sont passées à des objets capable de lire et d'écrire des flux.
+Les données sont passées à des objets capables de lire et d'écrire des flux.
 C'est le cas du <<extras,module `zlib`>>, responsable de compresser et de
 décompresser des données :
 
@@ -2465,17 +2464,17 @@ include::{sourceDir}/stream/pipe-transform.js[]
 <2> Les données compressées sont transmises à la <<process.std,sortie standard>>.
 
 Cet exemple devrait afficher le contenu de notre fichier source avec une taille
-réduite grâce à la compression _gzip_ :
+réduite :
 
 ----
 $ node stream/pipe-transform.js
 ----
 
 L'affichage semble bizarre et c'est normal : ce sont des données compressées
-au format _gzip_ – un format de compression libre.
+au format Gzip – un format de compression libre.
 
 Le programme Unix `gzip` sait décoder des données compressées dans ce format.
-Il sait aussi les décoder à la volée avec un _pipe_ :
+Il sait aussi les décoder à la volée avec un{nbsp}__pipe__ :
 
 ----
 $ node stream/pipe-transform.js | gzip
@@ -2483,20 +2482,20 @@ $ node stream/pipe-transform.js | gzip
 
 Nous avons vu comment transmettre des flux de données de manière interopérable
 entre un script Node et un programme externe, entre deux programmes externes
-et entre deux scripts Node.
+et entre deux scripts{nbsp}Node.
 
 [horizontal, id="stream.Readable"]
 .Principaux attributs d'un flux _Readable_
 `stream.pipe()`::
   Redirige un flux de lecture vers un flux d'écriture.
 `stream.on('data')`::
-  Déclenché lorsqu'un morceau de données a été lu.
+  Se déclenche lorsqu'un morceau de données a été{nbsp}lu.
 `stream.on('error')`::
-  Déclenché lorqu'une erreur se produit.
+  Se déclenche lorqu'une erreur se produit.
 `stream.on('end')`::
-  Déclenché lorsqu'il n'y a plus de données à lire.
+  Se déclenche lorsqu'il n'y a plus de données à{nbsp}lire.
 `stream.on('readable')`::
-  Déclenché lorsque la lecture de données est prête à démarrer.
+  Se déclenche lorsque la lecture de données est prête à démarrer.
 
 [horizontal, id="stream.Writeable"]
 .Principaux attributs d'un flux _Writeable_
@@ -2505,12 +2504,12 @@ et entre deux scripts Node.
 `stream.end()`::
   Signale que nous n'avons plus de données à transmettre.
 `stream.on('drain')`::
-  Déclenché lorque la mémoire d'écriture est vide et prête à accepter
+  Se déclenche lorsque la mémoire d'écriture est vide et prête à accepter
   de nouvelles données.
 `stream.on('error')`::
-  Déclenché lorqu'une erreur se produit.
+  Se déclenche lorsqu'une erreur se produit.
 `stream.on('finish')`::
-  Déclenché lorsqu'on a clôturé le flux d'écriture.
+  Se déclenche à la clôture du flux d'écriture.
 
 [NOTE]
 .[RemarquePreTitre]#Documentation# Module stream
@@ -2524,44 +2523,43 @@ La documentation du module `stream` est disponible sur le site officiel de Node 
 
 Node embarque d'autres modules que ceux listés précédemment.
 Ils nécessitent des connaissances sur des sujets bas niveau,
-plus proches du matériel et des protocoles réseaux.
+plus proches du matériel et des protocoles réseau.
 
-[[cluster]]module `cluster`::
+[[cluster]]`cluster`::
   Gère la distribution d'une application sur plusieurs CPU d'un même ordinateur.
-[[crypto]]module `crypto`::
+[[crypto]]`crypto`::
   Fonctions cryptographiques pour chiffrer, signer et vérifier des données.
-[[dgram]]module `dgram`::
-  Création et consommation de ressources UDP.
-[[dns]]module `dns`::
-  Fonctions de résolution et de lecture d'enregistrements DNS.
-[[net]]module `net`::
-  Création et consommation de ressources TCP. +
+[[dgram]]`dgram`::
+  Création et consommation de ressources{nbsp}UDP.
+[[dns]]`dns`::
+  Résolution et lecture d'enregistrements{nbsp}DNS.
+[[net]]`net`::
+  Création et consommation de ressources TCP.
   Les modules `http`, `https` et `http2` se basent dessus.
-[[readline]]module `readline`::
-  Manipulation ligne par ligne d'un <<stream,stream>>.
-  Le module est particulièrement utilisé dans des
-  <<../chapter-08/index.adoc#,applications en ligne de commande>> (chapitre 8),
+[[readline]]`readline`::
+  Manipulation ligne par ligne d'un <<stream,flux>>.
+  Ce module est particulièrement utilisé dans des
+  <<../chapter-08/index.adoc#,applications en ligne de commande>> (chapitre{nbsp}8),
   pour mettre à jour une barre de progression et animer des éléments d'affichage.
-[[tty]]module `tty`::
+[[tty]]`tty`::
   Gestion d'interface de terminal en mode texte.
   Le module `readline` se base dessus.
-[[v8]]module `v8`::
-  Fonctions de lecture et d'écriture d'instructions de la machine virtuelle V8
+[[v8]]`v8`::
+  Lecture et écriture d'instructions de la machine virtuelle{nbsp}V8
   dans le processus actuel.
-[[vm]]module `vm`::
-  Fonctions de création de nouveaux contextes d'interprétation de la machine virtuelle V8.
-[[zlib]]module `zlib`::
-  Fonctions de compression et de décompression de données (Gzip, Inflate/Deflate). +
-  Ces formats sont utilisés pour la compression de requêtes HTTP.
+[[vm]]`vm`::
+  Création de nouveaux contextes d'interprétation de la machine virtuelle{nbsp}V8.
+[[zlib]]`zlib`::
+  Compression et décompression de données (Gzip, Inflate/Deflate).
+  Ces formats sont utilisés pour la compression de requêtes{nbsp}HTTP.
 
 
 [[modules]]
 == Créer ses propres modules Node
 
-Le chargement des <<modules-builtin,modules de base>> nous a aidé à utiliser
-des fonctionnalités fournies directement par Node.
-Nous pouvons exploiter ce mécanisme pour
-*organiser son code dans plusieurs fichiers*.
+Les <<modules-builtin,modules de base>> nous fournissent de nombreuses fonctionnalités.
+Nous pouvons réutiliser le même mécanisme mécanisme pour
+*organiser notre code dans plusieurs fichiers*.
 C'est un mécanisme comparable à ce que l'on retrouve en Python (`import`),
 PHP (`require`) et Ruby (`require` et `require_relative`).
 
@@ -2587,7 +2585,7 @@ include::{sourceDir}/modules/parent.js[]
 <2> Est-ce que cela affichera la valeur de la variable `number` ?
 <3> Mais au fond, que contient notre variable `enfant` ?
 
-Exécutons le fichier `modules/parent.js` avec Node pour en avoir le cœur net :
+Exécutons le fichier `modules/parent.js` avec Node pour en avoir le cœur{nbsp}net :
 
 ----
 $ node modules/parent.js
@@ -2595,10 +2593,10 @@ undefined
 {}
 ----
 
-De là nous pouvons en tirer un apprentissage important :
+Nous pouvons en tirer un apprentissage important :
 on ne peut pas voir ce qu'il y a dans un module depuis l'extérieur.
 
-Choisissons maintenant ce que l'on souhaite exporter en assignant
+Choisissons maintenant ce que l'on souhaite exporter en affectant
 la valeur de notre choix à `module.exports` :
 
 [source,javascript]
@@ -2607,7 +2605,7 @@ la valeur de notre choix à `module.exports` :
 include::{sourceDir}/modules/enfant-export.js[]
 ----
 
-Comment est-ce que ça se traduit lorsqu'on l'appelle avec `require()` ?
+Comment cela ça se traduit-il lorsqu'on l'appelle avec `require()` ?
 
 [source,javascript]
 .modules/parent-export.js
@@ -2615,10 +2613,9 @@ Comment est-ce que ça se traduit lorsqu'on l'appelle avec `require()` ?
 include::{sourceDir}/modules/parent-export.js[]
 ----
 <1> Affiche `undefined`.
-<2> Affiche `42`.
+<2> Affiche{nbsp}``42``.
 
-`module.exports` rend visible ce qui est exporté par un module.
-Les éléments exportés sont visibles depuis l'extérieur.
+`module.exports` rend visible depuis l'extérieur ce qui est exporté par un module.
 Par défaut, `module.exports` est un objet.
 
 Essayons maintenant d'exporter plusieurs valeurs en une seule fois :
@@ -2637,8 +2634,8 @@ Nous avons créé deux nouvelles valeurs : `number` (un nombre) et
 ----
 include::{sourceDir}/modules/parent-export-multiple.js[]
 ----
-<1> Affiche `42`.
-<2> Affiche un nombre aléatoire entre 0 et 100.
+<1> Affiche{nbsp}``42``.
+<2> Affiche un nombre aléatoire entre{nbsp}0 et{nbsp}100.
 <3> Réexporte la fonction `enfant.number`.
 
 
@@ -2656,58 +2653,54 @@ include::{sourceDir}/modules/enfant-export-shorthand.js[]
 
 ====
 
-En résumé, *pour Node tout fichier `.js` est un module*.
+En résumé, *pour Node*, *tout fichier{nbsp}``.js`` est un module*.
 Le mécanisme d'import et d'export est basé sur des chemins de fichiers.
-Si on n'utilise pas de chemin de fichiers, Node pense que l'on fait
+Si on n'utilise pas de chemin, Node pense que l'on fait
 référence à un <<modules-builtin,module de base>> ou à un
-<<../chapter-05/index.adoc#modules,module npm>>
-(cf. <<../chapter-05/index.adoc#,chapitre 5>>).
+<<../chapter-05/index.adoc#modules,module{nbsp}``npm``>>
+(<<../chapter-05/index.adoc#,chapitre{nbsp}5>>).
 
 [NOTE]
-.[RemarquePreTitre]#Histoire# Modules _CommonJS_
+.[RemarquePreTitre]#Histoire# Modules CommonJS
 ====
 Le mécanisme de modules implémenté dans Node est basé sur la
 spécification _CommonJS_, à peu de choses près.
 
-Pour en savoir plus : [URL]#http://www.commonjs.org/specs/modules/1.0/#.
+- [URL]#http://www.commonjs.org/specs/modules/1.0/#
 ====
 
 [[require]]
 === Aller plus loin avec `require()`
 
-Lorsqu'on fait appel à la fonction `require()`, Node effectue la
-liste d'actions suivantes :
+Lorsqu'on fait appel à la fonction `require()`, Node effectue les actions suivantes :
 
-. résolution du chemin vers le module en question
-. lecture du fichier
-. interprétation du code
-. exécution du code
-. retourne la valeur de `module.exports`
+. Résout le chemin vers le module en question.
+. Lit du fichier.
+. Interprète le code.
+. Exécute le code.
+. Retourne la valeur de `module.exports`.
 
 L'utilisation de `require()` est synchrone et bloquante.
 Si l'exécution du code dans le module chargé prend du temps
-– code _lent_, accès à une ressource distante – le chargement
-du module en prendra un coup.
+– code lent, accès à une ressource distante – le temps de chargement
+du module sera affecté.
 
-`require()` permet de charger 3 types de modules :
+`require()` permet de charger trois types de modules :
 
 Fichiers relatifs au module actuel::
-`require('./module.js')` cherchera le fichier `module.js` dans le répertoire courant.
-`require('../module.js')` cherchera `module.js` dans le répertoire parent.
-Modules Node::
+`require('./module.js')` cherche le fichier `module.js` dans le répertoire courant.
+`require('../module.js')` cherche `module.js` dans le répertoire parent.
+Modules Node de base::
 Ils sont disponibles avec chaque installation de Node.
-On en parle plus en détail dans la section <<modules-builtin,modules Node>>
-de ce même chapitre.
-Modules npm::
-Ils sont disponibles avec une étape d'installation supplémentaire.
-On en parle plus en détails dans le <<../chapter-05/index.adoc#,chapitre 5>>
-consacré à _npm_.
+Modules{nbsp}``npm``::
+Ils sont disponibles avec une étape d'installation supplémentaire
+(<<../chapter-05/index.adoc#,chapitre 5>>).
 
 *Node met les modules en cache*.
 Si on inclut deux fois le même module, le deuxième import ira directement
 à la dernière étape de la liste d'actions.
-Ça implique aussi que si le module modifie une de ses variables privée,
-cette modification impactera le deuxième import.
+Cela implique aussi que si le module modifie une de ses variables privée,
+cette modification affectera le deuxième import.
 
 Voici un module illustrant une variable privée et une variable exportée :
 
@@ -2726,9 +2719,9 @@ Nous allons importer ce module par deux fois, dans deux variables différentes :
 ----
 include::{sourceDir}/modules/double-import.js[]
 ----
-<1> Affiche `1`.
-<2> Affiche `2`.
-<3> Affiche `1` ou `3` ?
+<1> Affiche{nbsp}``1``.
+<2> Affiche{nbsp}``2``.
+<3> Affiche{nbsp}``1`` ou{nbsp}``3`` ?
 
 Quel est le verdict à votre avis ?
 Rien ne vaut une vérification, quitte à remettre en question
@@ -2742,20 +2735,19 @@ $ node modules/double-import.js
 ----
 
 Il faut garder cette information en tête lorsqu'on importe un module.
-Sans oublier que ce mécanisme se transforme en atout afin de partager
+Ce mécanisme se transforme en atout afin de partager
 une variable entre plusieurs modules.
-Pratique dans le cas d'un cache de données ou d'une configuration partagée.
+Il est pratique dans le cas d'un cache de données ou d'une configuration partagée.
 
-Enfin, plusieurs *problèmes* peuvent apparaître lors du chargement d'un module :
+Enfin, plusieurs *problèmes* sont susceptibles d'apparaître lors du chargement d'un module :
 
-- le chemin vers le module est erroné ;
-- le module contient une erreur de syntaxe.
+- Le chemin vers le module est erroné ;
+- Le module contient une erreur de syntaxe.
 
-Node lancera une <<errors,exception>> et
-le programme s'arrêtera aussitôt.
+Node lance alors une <<errors,exception>> et le programme s'arrête aussitôt.
 
 [NOTE,subs="attributes"]
-.[RemarquePreTitre]#Documentation# Module _modules_
+.[RemarquePreTitre]#Documentation# Module "`modules`"
 ====
 L'intégralité des variables, fonctions et classes du module `modules`
 est documentée sur le site web du projet Node.
@@ -2770,18 +2762,17 @@ forcément listées dans cet ouvrage.
 
 Pendant que le mécanisme de modules de Node montait en puissance,
 les navigateurs web étaient en attente d'une solution native.
-La spécification des modules ECMAScript a été validée en 2013
-mais les navigateurs ont tardé à implémenter le mécanisme.
-
-La plupart d'entre eux ont implémenté les modules ECMAScript en 2017.
+La spécification des modules ECMAScript a été validée en{nbsp}2013,
+mais les navigateurs ont tardé à en implémenter le mécanisme :
+en{nbsp}2017 pour la plupart.
 C'est le cas du navigateur web Chrome et de
-sa <<../chapter-01/index.adoc#v8,machine virtuelle V8>>.
+sa <<../chapter-01/index.adoc#v8,machine virtuelle{nbsp}V8>>.
 
 [WARNING]
 .[RemarquePreTitre]#Attention# Fonctionnalité expérimentale
 ====
 Si la syntaxe des modules ECMAScript est standardisée,
-ce n'est pas encore aussi stable du côté de Node.
+ce n'est pas encore aussi stable du côté de{nbsp}Node.
 
 Les modules ECMAScript sont suffixés de l'extension `.mjs`
 et nécessitent l'utilisation de l'<<options,option de démarrage>>
@@ -2826,11 +2817,11 @@ Reprenons cet exemple pour importer plusieurs exports d'un coup :
 ----
 include::{sourceDir}/modules/ecmascript-multiple.mjs[]
 ----
-<1> On importe la valeur par défaut ainsi qu'une valeur nommée – c'est particulièrement pratique pour sélectionner avec finesse ce que l'on veut utiliser d'un module.
-<2> La fonction `reset` remet le compteur à zéro.
+<1> On importe la valeur par défaut, ainsi qu'une valeur nommée – c'est particulièrement pratique pour sélectionner avec finesse ce que l'on veut utiliser d'un module.
+<2> La fonction `reset` remet le compteur à{nbsp}zéro.
 
 On notera au passage qu'on utilise la
-<<../chapter-03/index.adoc#object-destructuring,destructuration d'objet>>
+<<../chapter-03/index.adoc#object-destructuring,décomposition d'objet>>
 pour extraire un export nommé depuis un module ECMAScript.
 
 ----
@@ -2840,33 +2831,33 @@ $ node --experimental-modules modules/ecmascript-multiple.mjs
 1
 ----
 
-La fonction `reset` a bien remis à zéro le compteur entre-temps.
+La fonction `reset` a bien remis le compteur à zéro entre-temps.
 Objectif accompli !
 
-Résumons les différences notables avec le mécanisme de modules Node :
+Résumons les différences notables avec le mécanisme de modules{nbsp}Node :
 
-- tous les appels à `import` doivent se faire en début de fichier
-- on ne peut pas utiliser `import` de manière dynamique
-(dans un `if/else` par exemple)
-- on peut exporter une variable par défaut et plusieurs variables nommées
-- on peut importer des modules Node depuis un module ECMAScript –
-l'inverse n'est pas vrai
-- les fichiers doivent être suffixés par `.mjs`
+- Tous les appels à `import` doivent se faire en début de fichier.
+- On ne peut pas utiliser `import` de manière dynamique
+(dans un `if...else` par exemple).
+- On peut exporter une variable par défaut et plusieurs variables nommées.
+- Il est possible d'importer des modules Node depuis un module ECMAScript –
+l'inverse n'est pas{nbsp}vrai.
+- Les fichiers doivent être suffixés par{nbsp}``.mjs``.
 
 Ce dernier point est le plus embêtant car il ralentit l'interopérabilité
-entre les scripts destinés au développement web front-end et les scripts Node.
+entre les scripts destinés au développement web _front-end_ et les scripts{nbsp}Node.
 
 L'histoire nous dira si les modalités s'assoupliront avec le temps.
 
 [TIP]
-.[RemarquePreTitre]#npm# Module `esm`
+.[RemarquePreTitre]#NPM# Module{nbsp}esm
 ====
-Le <<../chapter-05/index.adoc#modules,module npm>> `esm`
+Le <<../chapter-05/index.adoc#modules,module{nbsp}``npm``>>{nbsp}``esm``
 ([URL]#https://npmjs.com/esm#) a pris le parti de déblayer le chemin
 de l'interopérabilité.
-Il suffit de charger le module `esm` avant de démarrer un script Node,
+Il suffit de le charger avant de démarrer un script Node,
 peu importe son mécanisme de chargement de modules :
-`esm` rendra le chargement des modules totalement transparent.
+`esm` rend le chargement des modules totalement transparent.
 
 ----
 $ node -r esm modules/ecmascript.js
@@ -2875,8 +2866,8 @@ $ node -r esm modules/ecmascript.mjs
 1
 ----
 
-Pour en savoir plus sur l'option `-r`, rendez-vous
-dans la section <<require,précharger un module>>
+Pour en savoir plus sur l'option{nbsp}``-r``, rendez-vous
+dans la section "`<<require,Précharger un module>>`".
 
 ====
 
@@ -2894,21 +2885,21 @@ forcément listées dans cet ouvrage.
 
 
 [[errors]]
-== S'en sortir quand ça ne se passe pas comme prévu
+== S'en sortir quand ça ne se passe pas comme{nbsp}prévu
 
 On fait toutes et tous des erreurs.
-Du coup forcément, notre code va mener à des plantages applicatifs.
-La nature des causes varie et impacte notre lecture des messages d'erreur.
+Notre code va forcément mener à des plantages applicatifs.
+La nature des causes varie et affecte notre lecture des messages d'erreur.
 
 Cette section a pour intention de nous aider à prendre confiance dans ce qu'on
 voit et de piocher l'information qui va nous aider à résoudre le problème.
 
-=== Une erreur est nichée dans notre code
+=== Une erreur est nichée dans notre{nbsp}code
 
-Il y a 2 familles d'erreurs dans du code ECMAScript : les erreurs de syntaxe
-et les erreurs d'exécution.
+Il y a deux familles d'erreurs dans du code ECMAScript : celles de syntaxe
+et celles d'exécution.
 
-Dans tous les cas, Node lance une exception complétée d'une trace d'erreurs.
+Dans tous les cas, Node lance une exception complétée d'une trace d'erreur.
 Le but est de comprendre où l'interpréteur se prend les pieds dans le tapis
 et quel est le chemin parcouru au sein du code pour y parvenir.
 
@@ -2930,15 +2921,14 @@ console.log(##'oups j'##ai fait une erreur de guillemets);
 Node la détecte lorsqu'il _parse_ notre code.
 
 Dans l'exemple précédent, Node indique qu'il manque une parenthèse après le
-deuxième guillemet, car c'est le symbole que l'interpréteur attend. +
-Pourquoi Node attend-il une parenthèse ?
-Car le guillemet indique une intention incorrecte : on ne veut pas qu'il
-signifie la fin de la chaîne mais qu'il représente un caractère apostrophe dans
+deuxième guillemet, car c'est le symbole que l'interpréteur attend.
+En effet, le guillemet indique une intention incorrecte : on ne veut pas qu'il
+signifie la fin de la chaîne, mais qu'il représente un caractère apostrophe dans
 la chaîne.
 
 La correction à entreprendre ne sera pas d'ajouter une parenthèse après le
-guillemet mais bien de l'échapper en le préfixant d'un caractère `\`.
-Node l'interprétera alors comme un caractère.
+guillemet mais bien de l'échapper en le préfixant d'un caractère{nbsp}``\``.
+Node l'interprétera alors correctement.
 
 Penchons-nous à présent sur les erreurs provoquées lorsque le code est exécuté :
 
@@ -2952,19 +2942,19 @@ console.log(##jenexistepas##);
     at Module._compile (module.js:643:30)
 ----
 
-Le marqueur `+^+` indique l'emplacement où le problème est rencontré.
+Le marqueur ``+^+``{nbsp}indique l'emplacement où le problème est rencontré.
 La ligne en-dessous documente le type d'erreur (`ReferenceError`)
-en précisant ce qui n'est pas défini (la variable `jenexistepas`). +
+en précisant ce qui n'est pas défini (la variable `jenexistepas`).
 La notation `exit-error.js:5:13` indique que l'origine de l'erreur
-se trouve à la _ligne 5_ du fichier `exit-error.js`.
+se trouve à la _ligne{nbsp}5_ du fichier `exit-error.js`.
 
-Comment y remédier ?
-En vérifiant si on appelle bien la bonne variable ou en la créant
-avec la valeur attendue le cas échéant.
+Pour y remédier, il faut vérifier si on appelle bien la bonne variable ou la
+créer avec la valeur attendue le cas échéant.
 
-Les erreurs d'exécution sont pernicieuses elles sont parfois
+Les erreurs d'exécution sont pernicieuses ; elles sont parfois
 provoquées après le démarrage de l'application.
-Dans, elle se produit deux secondes après le démarrage du script :
+Dans l'exemple qui suit, l'une d'elles se produit deux secondes après le
+démarrage du script :
 
 [subs="+quotes"]
 ----
@@ -2976,58 +2966,54 @@ setTimeout(() => console.log(##secret.toLocaleUperCase()##), 2000);
 ----
 
 La notation `runtime-error.js:4:37` indique que l'origine de l'erreur
-se trouve à la _ligne 4_ du fichier `runtime-error.js`, _colonne 37_.
+se trouve à la _ligne{nbsp}4_ du fichier `runtime-error.js`, _colonne{nbsp}37_.
 Le type d'erreur (`TypeError`) signifie qu'on cherche à manipuler une variable
 de manière *inattendue par rapport à son type*.
 Le message d'erreur nous précise qu'on appelle comme une fonction quelque chose
 qui ne serait donc pas une fonction.
 
-Pourquoi `toLocaleUperCase` n'est pas une fonction ?
-Une typo s'est introduite dans notre code : `secret.toLocaleUperCase` vaut `undefined`.
-L'erreur serait corrigée en utilisant `secret.toLocaleUpperCase` (avec 2 _p_).
+En effet, le nom de la fonction est mal orthographié et `secret.toLocaleUperCase`
+vaut `undefined`.
+L'erreur sera corrigée en utilisant `secret.toLocaleUpperCase`.
 
 [TIP]
-.[RemarquePreTitre]#npm# Module `eslint`
+.[RemarquePreTitre]#NPM# Module eslint
 ====
-Le module npm `eslint` ([URL]#https://npmjs.com/eslint#)
+Le module{nbsp}``npm``{nbsp}``eslint`` ([URL]#https://npmjs.com/eslint#)
 est un vérificateur syntaxique.
 Son intention est de s'accorder sur le style d'écriture et d'éviter des
 effets de bord du langage
 qui causent des problèmes difficiles à déceler.
 
-On apprendra à le configurer dans l'<<../appendix-a/index.adoc#eslint,annexe A>>.
+On apprendra à le configurer dans l'<<../appendix-a/index.adoc#eslint,annexe{nbsp}A>>.
 ====
 
 Les erreurs affichées affichent des informations importantes.
 Si elles n'indiquent pas forcément le chemin de résolution évident,
-elles demandent à ce qu'on cherche à comprendre la nature de l'erreur.
+elles demandent qu'on cherche à en comprendre la nature.
 
 [TIP]
-.[RemarquePreTitre]#npm# Module `pretty-error`
+.[RemarquePreTitre]#NPM# Module pretty-error
 ====
-Le module npm `pretty-error` ([URL]#https://npmjs.com/pretty-error#) enjolive
-l'affichage des erreurs.
+Le module{nbsp}``npm``{nbsp}``pretty-error`` ([URL]#https://npmjs.com/pretty-error#)
+enjolive l'affichage des erreurs.
 Il suffit de l'installer, de le <<require,précharger>> et
 d'exécuter un script pour en bénéficier.
 
 ----
 $ node -r pretty-error/start process/exit-error.js
 ----
-
-On apprendra au <<../chapter-05/index.adoc#,chapitre 5>> comment installer
-des modules `npm`.
 ====
 
-=== Une erreur est retournée dans un _callback_
+=== Une erreur est retournée dans une fonction de rappel
 
-La fonction de _callback_ est un des moyen de retourner le résultat
+La fonction de rappel est un des moyens de retourner le résultat
 d'une exécution asynchrone.
 Par convention, le premier paramètre est une erreur.
 
 Ce paramètre est nul (`null`) ou indéfini (`undefined`) lorsqu'il n'y a pas eu
 d'erreurs en cours de route.
-En revanche ce paramètre contient un objet d'erreur lorsque un problème
-s'est produit :
+En revanche, il contient un objet d'erreur lorsque un problème s'est produit :
 
 [source%interactive,javascript]
 .errors/callback.js
@@ -3050,10 +3036,10 @@ $ node errors/callback.js
 ----
 
 L'erreur affichée nous précise que le fichier demandé n'existe pas.
-Son code (`ENOENT`) signifie la même chose mais a l'avantage d'être plus
+Son code (`ENOENT`) signifie la même chose, mais a l'avantage d'être plus
 facile à vérifier dans une condition.
 
-L'objet `error` donné en argument de la fonction de callback est utile
+L'objet `error` donné en argument de la fonction de rappel est utile
 pour vérifier des détails précis de l'erreur et mieux interagir avec
 au niveau du code.
 Nous y retrouvons le type d'erreur (`errno`),
@@ -3061,22 +3047,22 @@ la référence vers la ressource concernée (`path`) et le nom de la fonction
 système utilisée par Node pour accéder à la ressource (`syscall`).
 
 La valeur et la signification du code d'erreur varie en fonction
-du module Node employé à ce moment là.
-Le <<fs,module `fs`>> ne retourne pas les mêmes codes
-que le <<http,module `http`>>. +
+du module Node employé à ce moment-là.
+Le <<fs,module{nbsp}``fs``>> ne retourne pas les mêmes codes
+que le <<http,module{nbsp}``http``>>.
 Les appels à des ressources système retournent
 <<errors.system,une variété de codes d'erreur>>.
 
 La décision nous appartient de savoir quoi faire quand l'erreur se produit.
-Doit-on arrêter le programme (avec <<process.exit,`process.exit()`>>) ?
-Est-ce que ce n'est pas grave et on passe à la suite ?
+Doit-on arrêter le programme avec <<process.exit,`process.exit()`>> ?
+Passe-t-on à la suite en considérant que ce n'est pas grave ?
 Ou peut-être que ce fichier était censé exister et qu'on devrait
-notifier l'équipe de maintenance et
+informer l'équipe de maintenance et
 afficher une page d'erreur côté utilisateur.
 
 === Une erreur est retournée dans une promesse
 
-La gestion d'erreurs des <<../chapter-03/index.adoc#promise,promesses>>
+La gestion d'erreur des <<../chapter-03/index.adoc#promise,promesses>>
 s'effectue à l'aide de la fonction `.catch()`.
 
 [source%interactive,javascript]
@@ -3087,8 +3073,8 @@ include::{sourceDir}/errors/promise.js[]
 <1> On génère une erreur dans notre code.
 <2> L'objet d'erreur est transmis à la prochaine occurrence de `.catch()`.
 
-Le contenu de l'erreur est accessible dans le premier et seul argument de
-la fonction de _callback_ passée à `.catch()`.
+Le contenu de l'erreur est accessible dans le seul argument de la fonction
+de rappel passée à `.catch()`.
 
 [subs="+quotes"]
 ----
@@ -3098,7 +3084,7 @@ Error: ##Oops !##
     at process._tickCallback (internal/process/next_tick.js:178:7)
 ----
 
-La trace indique que l'erreur s'est produite à la ligne 5,
+La trace indique que l'erreur s'est produite à la _ligne{nbsp}5_,
 dans la méthode `.then()` suite à l'utilisation de `Promise.resolve()`.
 
 L'utilisation multiple de `.catch()` nous aide à gérer finement les erreurs :
@@ -3109,18 +3095,18 @@ L'utilisation multiple de `.catch()` nous aide à gérer finement les erreurs :
 include::{sourceDir}/errors/promise-chain.js[]
 ----
 <1> On gère l'erreur en la signalant dans le terminal.
-<2> Le _callback_ d'erreur a la possibilité de retourner un résultat.
+<2> La fonction de rappel a la possibilité de retourner un résultat.
 <3> Ce résultat est transmis à la prochaine occurrence de `.then()`.
 <4> Dans ce cas, le dernier `.catch()` n'affiche rien car nous n'avons pas rencontré d'autre erreur entre-temps.
-
-L'absence de `.catch()` provoque un plantage applicatif et le délenchement
-de l'<<process.on,événement de processus>> `unhandledRejection` :
 
 [source%interactive,javascript]
 .errors/promise-no-catch.js
 ----
 include::{sourceDir}/errors/promise-no-catch.js[]
 ----
+
+L'absence de `.catch()` provoque un plantage applicatif et le délenchement
+de l'<<process.on,événement de processus>> `unhandledRejection` :
 
 [subs="+quotes"]
 ----
@@ -3137,7 +3123,7 @@ suite à l'utilisation de `Promise.resolve()`.
 
 === Une erreur est retournée dans un événement
 
-Tout élément dôté d'une méthode `.on()` a un événement spécial : `.on('error')`.
+Tout élément doté d'une méthode `.on()` a un événement spécial : `.on('error')`.
 Il est appelé à chaque fois qu'une erreur se produit.
 
 [source%interactive,javascript]
@@ -3156,11 +3142,11 @@ Error: ##Oops !##
     at Module._compile (internal/modules/cjs/loader.js:678:30)
 ----
 
-La trace d'erreur est similaire à celle des promesses et des callbacks.
+La trace d'erreur est similaire à celle des promesses et des fonctions de rappel.
 Le message d'erreur précise le problème tandis que son origine (fichier, ligne)
 nous indiquent quoi regarder pour mieux comprendre la cause.
 
-Si une erreur est émise et qu'aucune fonction n'est à l'écoute,
+Si une erreur est émise et si aucune fonction n'est à l'écoute,
 l'événement `uncaughtException` est produit :
 
 [source%interactive,javascript]
@@ -3181,7 +3167,7 @@ Error: Oops !
     at Module._compile (internal/modules/cjs/loader.js:678:30)
 ----
 
-La section liée au <<events,module `events`>> explique plus en détails
+La section liée au <<events,module `events`>> explique plus en détail
 la gestion des événements.
 On les retrouve par exemple dans les modules <<http,`http`>>, <<stream,`stream`>>
 et <<process,`process`>>.
@@ -3189,12 +3175,11 @@ et <<process,`process`>>.
 [[errors.system]]
 === Une erreur est renvoyée par le système d'exploitation
 
-L'accès à une ressource distante est plus complexe qu'il n'y parait
-car la nature des erreurs est variée et sujet à interprétation au cas par cas,
+L'accès à une ressource distante est plus complexe qu'il n'y paraît
+car les erreurs sont de natures variées et sujettes à interprétation au cas par cas,
 en fonction de notre intention et du contexte d'exécution.
 
-Les erreurs systèmes indiquent la raison du problème.
-À vous de trouver pourquoi un tel problème se produit.
+Les erreurs système indiquent la raison du problème.
 
 .Erreurs couramment rencontrées
 [cols="1,2,2",options="header"]
@@ -3205,8 +3190,8 @@ Les erreurs systèmes indiquent la raison du problème.
 interface existe déjà à la même adresse. | Vérifier l'origine du serveur déjà en place à cette adresse. Attribuer une autre adresse/port à la ressource réseau.
 | `ECONNREFUSED` | La ressource distante a refusé la connexion. | Vérifier si c'est normal que la ressource distante soit inactive. Vérifier qu'on se connecte à la bonne ressource.
 | `ECONNRESET` | La ressource distante a été interrompue en cours de route. | Retenter la connexion. Vérifier la stabilité de la connexion réseau.
-| `EEXIST` | La ressource à créer existe déjà. | C'est un problème seulement si la ressource n'était pas censée exister au prélable.
-| `EMFILE` | Trop de fichiers sont ouverts en simultané. | Les systèmes d'exploitation peuvent travailler sur une quantité finie de fichiers. Peut-être que vous avez ouvert trop de fichiers en même temps. Fermer l'accès aux fichiers ouverts.
+| `EEXIST` | La ressource à créer existe{nbsp}déjà. | C'est un problème seulement si la ressource n'était pas censée exister au préalable.
+| `EMFILE` | Trop de fichiers sont ouverts simultanément. | Les systèmes d'exploitation peuvent travailler sur une quantité finie de fichiers. Peut-être que vous avez ouvert trop de fichiers en même temps. Fermer l'accès aux fichiers ouverts.
 | `ENOENT` | Ressource inexistante. | Vérifier que le chemin d'accès est correct. Inspecter la raison de l'inexistance de la ressource.
 | `EPERM` | L'opération n'est pas autorisée. | Des droits d'administration sont nécessaires pour effectuer cette opération.
 | `EPIPE` | L'accès à la ressource distante a été interrompu. | Retenter l'opération.
@@ -3217,14 +3202,14 @@ interface existe déjà à la même adresse. | Vérifier l'origine du serveur d�
 === Le programme ne se termine pas
 
 Il arrive qu'un programme ne se termine pas contrairement à nos attentes.
-Il peut y avoir plusieurs raisons à ça :
+Il peut y avoir plusieurs raisons à cela :
 
-- une ressource distante *met du temps à répondre* –
-un _timeout_ déclenchera une erreur (généralement sous 30 secondes)
-- un traitement prend du temps
-- un *événement est en cours d'écoute* – typiquement un serveur web qui attend
-des requêtes entrantes
-- une erreur n'a pas été capturée et perturbe les instructions suivantes
+- Une ressource distante *met du temps à répondre* –
+un _timeout_ déclenchera une erreur (généralement sous{nbsp}30{nbsp}s).
+- Un traitement prend du temps.
+- Un *événement est en cours d'écoute* – typiquement un serveur web qui attend
+des requêtes entrantes.
+- Une erreur n'a pas été capturée et perturbe les instructions suivantes.
 
 Il faudra inspecter le système pour en savoir plus et observer la
 consommation mémoire et CPU du processus Node en question.
@@ -3233,23 +3218,23 @@ Peut-être qu'il faudra sonder le programme pour déceler le point de blocage.
 L'<<inspect,inspecteur Node>> est un outil particulièrement adapté à cet usage.
 
 [TIP]
-.[RemarquePreTitre]#npm# Module `debug`
+.[RemarquePreTitre]#NPM# Module debug
 ====
-Le module npm `debug` ([URL]#https://npmjs.com/debug#) affiche des
+Le module{nbsp}``npm``{nbsp}``debug`` ([URL]#https://npmjs.com/debug#) affiche des
 messages dans la console de manière conditionnelle.
 Les messages s'affichent lorsque les variables d'environnement de notre choix
 sont renseignées au démarrage de l'application.
 
-On apprendra à le configurer dans l'<<../appendix-a/index.adoc#debug,annexe A>>.
+On apprendra à le configurer dans l'<<../appendix-a/index.adoc#debug,annexe{nbsp}A>>.
 ====
 
 [[deprecation]]
 === Une alerte de dépréciation s'affiche
 
-Un des objectifs de l'équipe de développement de Node est de maintenir
+Un des objectifs de l'équipe développant Node est de maintenir
 la stabilité de la plate-forme.
 Certains de leurs choix de conception sont revisités en changeant
-leur comportement ou en les retirant des modules de base.
+leur comportement ou en les retirant des modules de{nbsp}base.
 
 Quand ce changement affecte notre code, une alerte de dépréciation s'affiche.
 Par exemple :
@@ -3269,12 +3254,10 @@ Nous avons ainsi le temps de modifier notre code pour migrer
 vers la nouvelle recommandation petit à petit.
 
 
-== Les différences de JavaScript entre Node et les navigateurs web
+== Les différences d'ECMAScript entre Node et les navigateurs{nbsp}web
 
-Puisqu'on utilise du code JavaScript avec Node et avec les navigateurs web,
+Puisqu'on utilise du code ECMAScript avec Node et avec les navigateurs web,
 qu'est-ce qui les distingue vraiment ?
-
-Cette section détricotte les derniers doutes que l'on pourrait avoir dans notre tête.
 
 === L'absence du DOM et des variables `window` et `document`
 
@@ -3283,9 +3266,9 @@ et `document` (raccourci pour `window.document`).
 
 Ces variables représentent respectivement la fenêtre/onglet et le document
 HTML interprété par le navigateur web.
-L'appel aux fonctions `document.querySelector()` et `document.createElement()`
+Les fonctions `document.querySelector()` et `document.createElement()`
 relèvent du DOM (_Document Object Model_), une représentation JavaScript interactive
-du document HTML.
+du document{nbsp}HTML.
 
 L'équivalent de `window` pour Node serait la variable <<process,`process`>> :
 elle décrit le processus exécutant notre code.
@@ -3305,89 +3288,87 @@ Le code exécuté n'affiche rien en tant que tel, à part les messages dirigés
 vers la <<console,console>>.
 
 L'<<inspect,inspecteur Node>> est un moyen de visualiser l'état interne
-d'un script .
+d'un script.
 
-On peut toutefois construire des applications graphiques en ligne de commande.
-Nous verrons comment faire dans le <<../chapter-08/index.adoc#,chapitre 8>>.
+On peut toutefois construire des applications graphiques en ligne de commande
+(<<../chapter-08/index.adoc#,chapitre{nbsp}8>>).
 
 === Le mécanisme de modules
 
-Node utilise un <<modules,mécanisme de modules>> (_CommonJS_) différent
-des _modules ECMAScript_ des navigateurs web.
+Pour l'instant, Node utilise un <<modules,mécanisme de modules>> (CommonJS)
+différent des modules ECMAScript des navigateurs.
 
-La convergence vers les _modules ECMAScript_ est en cours.
-Il y a fort à parier qu'ils soient supportés nativement par Node dans une
+La convergence vers les modules ECMAScript est en cours.
+Il y a fort à parier qu'ils soient pris en charge nativement par Node dans une
 version ultérieure.
 
-Nous verrons comment utiliser les modules Node dans les navigateurs web
-dans le <<../chapter-08/index.adoc#,chapitre 9>>.
+Nous verrons au <<../chapter-08/index.adoc#,chapitre{nbsp}9>> comment utiliser
+les modules Node dans les navigateurs.
 
 
 === L'interfaçage avec le système d'exploitation
 
-Les fonctions JavaScript spécifiques aux navigateurs web sont liées
+Les fonctions ECMAScript spécifiques aux navigateurs sont liées
 à la récupération d'informations (`AJAX`, `fetch()`),
-à l'affichage (Canvas, WebGL, WebVR) ainsi qu'à la manipulation de documents HTML.
+à l'affichage (Canvas, WebGL, WebVR) ainsi qu'à la manipulation de
+documents{nbsp}HTML.
 
-Les fonctions JavaScript fournies par les <<modules-builtin,modules Node>>
+Les fonctions ECMAScript fournies par les <<modules-builtin,modules Node>>
 sont liées à la gestion des ressources dont le système d'exploitation
-se fait l'interface : fichiers (<<fs,module `fs`>>),
-réseau (<<http,module `http`>>, <<net,module `net`>>, <<dns,module `dns`>>,
-<<dgram, module `dgram`>>), terminal (<<tty,module `tty`>>,
-<<readline,module `readline`>>) et processus
-(<<process,module `process`>>, <<child_process,module `child_process`>>).
+se fait l'interface : fichiers{nbsp}(<<fs,`fs`>>),
+réseau{nbsp}(<<http,`http`>>, <<net,`net`>>, <<dns,`dns`>>,
+<<dgram,`dgram`>>), terminal{nbsp}(<<tty,`tty`>>, <<readline,`readline`>>)
+et processus{nbsp}(<<process,`process`>>, <<child_process,`child_process`>>).
 
 === Node est un processus système
 
 Le système d'exploitation crée un nouveau processus dès
 qu'on exécute le programme `node`.
-Ce processus peut être de courte durée ou de longue durée,
-selon qu'il dure quelques secondes ou un temps indéfini.
+Il peut être de courte ou de longue durée, selon qu'il dure quelques secondes
+ou un temps indéfini.
 
 Le processus s'arrête en cas d'erreur, lorsqu'il n'y a plus d'opération
 à effectuer ou en cas d'interruption volontaire.
 
-Le code JavaScript exécuté dans un navigateur web dépasse rarement la durée
+Le code ECMAScript exécuté dans un navigateur dépasse rarement la durée
 d'une session utilisateur, de quelques secondes à quelques heures.
-En cas de problème, un rafraîchissement de la page remet à zéro l'état de la page.
+En cas de problème, un rafraîchissement de la page remet à zéro son{nbsp}état.
 
 [NOTE]
-.[RemarquePreTitre]#Performances# Utilisation des CPU
+.[RemarquePreTitre]#Performances# Utilisation des{nbsp}CPU
 ====
 Un processus Node est _mono_ CPU.
-Tous les autres processus système assignés à ce même CPU
+Tous les autres processus système affectés à cette même CPU
 se partageront une quantité finie de puissance.
 
-Par exemple, si un processus Node partage le même CPU qu'une base de données
-et qu'une requête gourmande s'exécute, la rapidité de notre application
+Par exemple, si un processus Node partage la même CPU qu'une base de données
+et si une requête gourmande s'exécute, la rapidité de notre application
 en sera affectée.
 ====
 
 [[options]]
-== Options utiles pour démarrer Node
+== Options utiles pour démarrer{nbsp}Node
 
 L'exécutable `node` accepte plusieurs options afin de personnaliser
 son comportement et l'affichage des résultats.
 
 [NOTE]
-.[RemarquePreTitre]#Documentation# Exécutable `node`
+.[RemarquePreTitre]#Documentation# Exécutable{nbsp}node
 ====
-La documentation de l'exécutable `node` est disponible sur le site officiel de Node :
+La documentation de l'exécutable `node` est disponible sur le site officiel :
 
 - [URL]#https://nodejs.org/docs/latest-{nodeCurrentVersion}.x/api/cli.html#
 ====
 
 [[print-eval]]
-=== Afficher le résultat d'une expression, sans script
+=== Afficher le résultat d'une expression, sans{nbsp}script
 
-L'interpréteur Node sait interpréter du code qu'on lui donnerait
-via l'option `-p` (pour _print_, c'est-à-dire _afficher_).
-L'interpréteur affichera le résultat de l'expression ou
-détaillera la <<errors,raison de l'erreur>>.
+L'interpréteur Node sait interpréter du code qu'on lui donne
+via l'option{nbsp}``-p`` (pour _print_, c'est-à-dire _afficher_).
+Il affiche le résultat de l'expression ou détaille la <<errors,raison de l'erreur>>.
 
 J'utilise cette forme d'interaction pour obtenir un résultat rapide,
-sans créer de nouveau fichier.
-Par exemple, le résultat d'une opération mathématique :
+sans créer de nouveau fichier, par exemple, pour une opération mathématique :
 
 ----
 $ node -p '2 + 2'
@@ -3401,14 +3382,10 @@ $ node -p '"abc".toLocaleUpperCase()'
 ABC
 ----
 
-Ce dernier exemple illustre la transformation de
-<<../chapter-03/index.adoc#string,chaîne de caractères>> documentée
-dans le <<../chapter-03/index.adoc#,chapitre 3>>.
-
 [[options-require]]
 === Précharger un module
 
-L'option de démarrage `--require` charge le module indiqué avant le script Node.
+L'option de démarrage `--require` charge le module indiqué avant le script{nbsp}Node.
 
 ----
 $ node --require ./print-exit.js url/intro.js
@@ -3426,21 +3403,20 @@ include::{sourceDir}/print-exit.js[]
 Le chargement de ce module aura pour effet d'afficher un message
 avec le chemin du fichier chargé et le <<process.exit,code de sortie>>.
 
-On peut appeler l'option `--require` plusieurs fois.
-On peut aussi utiliser l'option raccourcie `-r`.
+On peut appeler l'option `--require` plusieurs fois, ou son raccourci{nbsp}`-r`.
 
 Ce mécanisme fonctionne très bien avec des
-<<../chapter-05/index.adoc#,modules `npm`>> conçus pour
+<<../chapter-05/index.adoc#,modules{nbsp}``npm``>> conçus pour
 rendre nos scripts <<esm,compatibles avec les modules ECMAScript>>
 ou pour <<pretty-error,simplifier les erreurs>> affichées
 lors d'un plantage applicatif, entre autres.
 
 [[inspect]]
-=== Inspecter notre code avec Google Chrome
+=== Inspecter notre code avec Google{nbsp}Chrome
 
 Node accepte deux options `--inspect` et `--inspect-brk`.
-Elles exposent toutes deux un protocole de débogage
-auquel on peut se connecter avec le navigateur _Google Chrome_.
+Elles exposent un protocole de débogage auquel on peut se connecter
+avec le navigateur Chrome.
 
 ----
 $ node --inspect-brk print-text.js texte --uppercase
@@ -3449,19 +3425,19 @@ For help see https://nodejs.org/en/docs/inspector
 ----
 
 Cette commande lance un de nos exemples de la section
-<<process.argv,arguments d'exécution>> du <<process,module `process`>>.
+sur le <<process,module{nbsp}``process``>>.
 L'option `--inspect-brk` démarre l'inspecteur
 et met aussitôt son exécution en pause.
 
-Le logo de Node s'affiche dans les outils de développement de _Google Chrome_ :
+Le logo de Node s'affiche dans les outils de développement de Chrome :
 
-.Outils de développement _Google Chrome_ avec l'icône de l'inspecteur Node.
+.Outils de développement _Google Chrome_ avec l'icône de l'inspecteur{nbsp}Node.
 image::images/chrome-devtools.png[width="85%"]
 
-Un clic sur le logo Node ouvre une nouvelle fenêtre.
-Cette fenêtre est outillée pour inspecter ce qu'il se passe dans notre script Node.
+Un clic sur le logo Node ouvre une nouvelle fenêtre, outillée pour inspecter
+ce qui se passe dans notre script.
 
-.Inspecteur en pause sur la première ligne de notre script Node.
+.Inspecteur en pause sur la première ligne de notre script{nbsp}Node.
 image::images/inspector-paused.png[width="85%"]
 
 
@@ -3474,35 +3450,35 @@ Le débogueur se mettra en pause à chaque fois que le chemin d'exécution
 de l'interpréteur atteindra cette ligne.
 
 La valeur des variables ECMAScript courantes s'affichent au survol de la souris
-ou en interagissant avant la console.
+ou en interagissant avec la console.
 ====
 
-.Inspecteur en pause, avec un point d'arrêt marqué sur une des lignes du script.
+.Inspecteur en pause, avec un point d'arrêt marqué sur une des lignes du{nbsp}script.
 image::images/inspector-breakpoint.png[width="85%"]
 
-C'est le moment idéal pour placer un ou plusieurs points d'arrêt.
+C'est le moment idéal pour placer un ou plusieurs point(s) d'arrêt.
 
-Un clic sur le bouton btn:[&#9654;] met alors fin à la pause.
+Un clic sur le bouton{nbsp}btn:[&#9654;] met alors fin à la pause.
 Le script s'exécutera jusqu'à l'épuisement des instructions
 ou jusqu'au _prochain point d'arrêt_.
 
 .Inspecteur en pause, suite à la rencontre d'un point d'arrêt.
 image::images/inspector-breakpoint-in.png[width="85%"]
 
-L'option d'invocation `--inspect` est adaptée à des processus de longue durée,
+L'option `--inspect` est adaptée à des processus de longue durée,
 comme un serveur HTTP.
 L'option `--inspect-brk` est adaptée à des processus de courte durée et qui
 se termineraient avant qu'on ait le temps de jeter un œil au contenu.
 
 [[options-v8]]
-=== Ajuster les options de compatibilité et de traçabilité de V8
+=== Ajuster les options de compatibilité et de traçabilité de{nbsp}V8
 
-Node repose sur la <<../chapter-01/index.adoc#v8,machine virtuelle V8>>
-pour interpréter nos instructions ECMAScript.
-Node expose différentes options de V8 pour affiner son comportement en fonction
+Node repose sur la <<../chapter-01/index.adoc#v8,machine virtuelle{nbsp}V8>>
+pour interpréter nos instructions ECMAScript et en expose différentes options
+pour affiner son comportement en fonction
 de notre environnement.
 
-L'intégralité des options de configuration de V8 s'affiche
+L'intégralité des options de configuration de{nbsp}V8 s'affiche
 avec l'option `--v8-options` :
 
 ----
@@ -3516,37 +3492,37 @@ et d'ajuster les valeurs offrant le meilleur rapport stabilité/performances.
 .Options notables de V8
 `--optimize_for_size`::
   Optimise le fonctionnement interne pour utiliser moins de mémoire,
-  au détriment de la vitesse. +
+  au détriment de la vitesse.
   Idéal pour l'exécution de scripts Node sur des environnement à faible mémoire,
-  comme les Raspberry Pi.
+  comme les Raspberry{nbsp}Pi.
 `--mem_old_space_limit`::
-  Détermine la quantité de mémoire maximale qu'un processus Node pourra utiliser. +
-  Idéal pour confiner Node sur des environnements à faible mémoire.
+  Détermine la quantité de mémoire maximale qu'un processus Node pourra utiliser.
+  Idéal pour le confiner sur des environnements à faible mémoire.
 `--gc_inverval`::
   Détermine le nombre de cycles entre chaque déclenchement du ramasse-miettes.
 `--expose_gc`::
-  Expose les fonctions de manipulation du ramasse-miettes. +
+  Expose les fonctions de manipulation du ramasse-miettes.
   Idéal si vous souhaitez contrôler finement l'optimisation de la mémoire.
 `--stack_trace_limit`::
-  Change la limite du nombre de lignes affichées dans une trace d'erreurs. +
-  Par défaut : 10 lignes.
+  Change la limite du nombre de lignes affichées dans une trace d'erreur
+  (10 par défaut).
 `--trace-deopt`::
-  Signale les optimisations invalidées par V8.
+  Signale les optimisations invalidées par{nbsp}V8.
   Les portions de code indiquées gagneraient à être retravaillées, pour rendre
   uniforme le type de variables passées en arguments par exemple.
 `--trace-gc`::
   Signale les moments où le ramasse-miettes se déclenche.
-  On peut ainsi mieux comprendre les raisons qui le pousse à se déclencher.
+  On peut ainsi mieux en comprendre les raisons.
 
 [NOTE]
-.[RemarquePreTitre]#Notion# Ramasse-miettes (_garbage collector_)
+.[RemarquePreTitre]#Notion# Ramasse-miettes (garbage collector)
 ====
 Le ramasse-miettes est un mécanisme informatique qui libère les objets inutilisés
 de la mémoire.
-Il est déclenché de manière cyclique par la machine virtuelle
-<<../chapter-01/index.adoc#v8,V8>>.
+Il est déclenché de manière cyclique par la
+<<../chapter-01/index.adoc#v8,machine virtuelle{nbsp}V8>>.
 
-En savoir plus sur [URL]#https://fr.wikipedia.org/wiki/Ramasse-miettes_(informatique)#.
+- [URL]#https://fr.wikipedia.org/wiki/Ramasse-miettes_(informatique)#
 ====
 
 Les options préfixées par `harmony` activent la prise en charge
@@ -3563,10 +3539,10 @@ ouvrir des connexions réseau et télécharger des fichiers distants.
 
 L'organisation des modules CommonJS – voire des modules ECMAScript – est l'autre
 élément majeur de ce chapitre.
-Avec ça, nous rendons notre *code modulaire, réutilisable et donc testable*.
+Avec cela, nous rendons notre *code modulaire, réutilisable et donc testable*.
 
 Toutes ces connaissances seront largement réutilisées dans les chapitres suivants.
-Elles nous aideront à mieux choisir nos modules `npm` dans le chapitre 5,
-à structurer une application web au chapitre 7, à créer de belles applications
-en ligne de commande au chapitre 8 et même à partager du code entre Node
-et les navigateurs web au chapitre 9.
+Elles nous aideront à mieux choisir nos modules{nbsp}``npm`` dans le chapitre{nbsp}5,
+à structurer une application web au chapitre{nbsp}7, à créer de belles applications
+en ligne de commande au chapitre{nbsp}8 et même à partager du code entre Node
+et les navigateurs au chapitre{nbsp}9.
