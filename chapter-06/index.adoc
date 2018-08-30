@@ -15,10 +15,10 @@ ifdef::env[]
 :imagesdir: .
 endif::[]
 
-= Déployer notre code
+= Déployer notre{nbsp}code
 
-Le déploiement d'une application Node nous permettra d'améliorer la
-qualité de notre code en gommant les derniers bugs et en automatisant
+En déployant une application Node, nous améliorerons la
+qualité de notre code en gommant les derniers bogues et en automatisant
 la détection des erreurs et des failles de sécurité.
 
 ====
@@ -43,8 +43,7 @@ du chapitre 4 pour que nos applications en ligne
 fonctionnent de la même manière que sur notre ordinateur.
 
 Enfin, nous verrons différents types de service pour être tenu·e informé·e
-des erreurs applicatives et des failles de sécurité sans effort et sans
-être des expert·e.
+des erreurs applicatives et des failles de sécurité, sans effort.
 --
 
 include::../docs/tip-versions.adoc[]
@@ -52,47 +51,47 @@ include::../docs/tip-examples.adoc[]
 
 
 [[deploy]]
-== Déployer une application Node
+== Déployer une application{nbsp}Node
 
 Le choix de la technique de déploiement dépend de plusieurs facteurs qui se
 renvoient à eux-mêmes : l'hébergement peut dépendre du déploiement et vice-versa.
 
 Je vous propose de partir balayer les différentes techniques de déploiement
 avec des exemples et de voir quelles seraient les raisons d'opter pour l'une
-d'entre elles.
+ou l'autre d'entre{nbsp}elles.
 
 Le choix est subjectif et vous appartient, en fonction de l'aisance que vous avez
 à vous en emparer.
-C'est un sujet qui prend du temps avant d'être maîtrisé donc n'hésitez pas
-à vous y reprendre à plusieurs fois.
+C'est un sujet qui prend du temps avant d'être maîtrisé, donc n'hésitez pas
+à vous y reprendre à plusieurs{nbsp}fois.
 
 [format="csv", options="header", separator=";"]
-.Quelles techniques de déploiement s'utilisent avec quel type d'hébergement ?
+.Quelles techniques de déploiement utiliser avec quel type d'hébergement ?
 |===
 ; <<hosting.paas,_PaaS_>>; <<hosting.shared,Mutualisé>>; <<hosting.cloud,Cloud>>; <<hosting.lambda,Lambda>>
-<<deploy.notebook,Notebook Web>>; {cross}; {cross}; {cross}; {cross}
+<<deploy.notebook,Notebook{nbsp}web>>; {cross}; {cross}; {cross}; {cross}
 <<deploy.sftp,SSH/SFTP>>; {cross}; {tick}; {maybe}; {cross}
 <<deploy.github,Import GitHub>>; {tick}; {cross}; {cross}; {cross}
 <<deploy.cli,CLI>>; {tick}; {cross}; {tick}; {tick}
 <<deploy.git,`git push`>>; {tick}; {cross}; {tick}; {cross}
-<<deploy.clone,SSH + `git pull`>>; {tick}; {tick}; {tick}; {cross}
+<<deploy.clone,SSH +{nbsp}``git pull``>>; {tick}; {tick}; {tick}; {cross}
 <<deploy.recipe,Recette>>; {tick}; {tick}; {tick}; {tick}
 <<deploy.docker,`docker push`>>; {tick}; {cross}; {tick}; {cross}
 <<deploy.ci,Intégration continue>>; {tick}; {tick}; {tick}; {tick}
 |===
 
 [[deploy.notebook]]
-=== En codant dans un navigateur web
+=== En codant dans un navigateur{nbsp}web
 
-Le moyen le plus rapide d'exécuter du code Node sans avoir à se préoccuper
-du déploiement est d'utiliser un service en ligne et de modifier du code
-avec un navigateur web.
+Le moyen le plus rapide d'exécuter un programme Node sans avoir à se préoccuper
+du déploiement est d'utiliser un service en ligne et de modifier le code
+avec un navigateur{nbsp}web.
 
 Je recommande _RunKit_ ([URL]#https://runkit.com/#) pour créer rapidement
 du code qui tient dans un seul fichier, sans installer Node sur sa machine.
 Le code est exécuté sur les serveurs de RunKit, le résultat s'affiche chez nous.
 Les <<../chapter-05/index.adoc#modules,modules `npm`>>
-(<<../chapter-05/index.adoc#,chapitre 5>>) sont installés automatiquement dans
+(<<../chapter-05/index.adoc#,chapitre{nbsp}5>>) sont installés automatiquement dans
 leur version la plus récente.
 
 .Exemple de _notebook_ RunKit dans le navigateur Firefox.
@@ -109,41 +108,40 @@ rendant sur [URL]#https://runkit.com/new# :
 include::{sourceDir}/runkit-endpoint.js[]
 ----
 <1> Le module npm [URL]#https://npmjs.com/pokemon-random-name# exporte une fonction qui retourne un nom aléatoire de Pokémon.
-<2> `exports.endpoint` est spécifique à RunKit et accepte une fonction identique à l'événement `server.on('request')` du <<../chapter-04/index.adoc#http,module `http`>> (<<../chapter-04/index.adoc#,chapitre 4>>).
+<2> `exports.endpoint` est spécifique à RunKit et accepte une fonction identique à l'événement `server.on('request')` du <<../chapter-04/index.adoc#http,module `http`>> (<<../chapter-04/index.adoc#,chapitre{nbsp}4>>).
 
-Une fois sauvegardé et après avoir cliqué sur le lien *endpoint*,
+Une fois sauvegardé puis cliqué sur le lien [Menu]#endpoint#,
 un nouvel onglet s'ouvre et affiche un nom aléatoire de Pokémon.
-C'est la valeur de retour passé à la réponse, comme on l'aurait fait
-avec le <<../chapter-04/index.adoc#http,module `http`>>
-(<<../chapter-04/index.adoc#,chapitre 4>>) ou dans une
-<<../chapter-07/index.adoc#,application web>> (<<../chapter-07/index.adoc#,chapitre 7>>).
+C'est la valeur de retour passée à la réponse, comme on l'aurait fait
+avec le <<../chapter-04/index.adoc#http,module{nbsp}``http``>> ou dans une
+<<../chapter-07/index.adoc#,application web>> (<<../chapter-07/index.adoc#,chapitre{nbsp}7>>).
 
-Le service en ligne _glitch_ ([URL]#https://glitch.com/#) permet d'aller
-plus loin en développant, hébergeant et partageant des applications complètes.
+Le service en ligne _glitch_ ([URL]#https://glitch.com/#) va plus loin
+en développant, hébergeant et partageant des applications complètes.
 Le service redéploie notre application à chaque changement.
 Le fichier `.env` stocke les
 <<../chapter-04/index.adoc#process.env,variables d'environnement>> de manière
-sécurisée – nous seul y avons accès.
+sécurisée – personne d'autre que nous n'y a accès.
 
 .Exemple d'application Node sur glitch.com.
 image::images/glitch-app.png[width="85%"]
 
 [TIP]
-.[RemarquePreTitre]#Pratique# Console web
+.[RemarquePreTitre]#Pratique# Console{nbsp}web
 ====
 Glitch nous offre même une console web : un <<../chapter-04/index.adoc,terminal>>
-entièrement fonctionnel, depuis un navigateur web !
+entièrement fonctionnel, depuis un navigateur !
 
-Parfait pour <<../chapter-08/index.adoc#,coder un outil en ligne de commande>>
-(<<../chapter-08/index.adoc#,chapitre 8>>) en travaillant depuis plusieurs
-ordinateurs sans avoir à tout réinstaller à chaque fois.
+C'est parfait pour <<../chapter-08/index.adoc#,coder un outil en ligne de commande>>
+(<<../chapter-08/index.adoc#,chapitre{nbsp}8>>) en travaillant depuis plusieurs
+ordinateurs sans avoir à tout réinstaller à chaque{nbsp}fois.
 ====
 
 [TIP]
 .[RemarquePreTitre]#Pratique# Remixez les exemples de cet ouvrage
 ====
-Vous pouvez créer votre premier projet sur glitch.
-_Remixez_ cet ouvrage en cliquant en vous rendant sur
+Vous pouvez créer votre premier projet sur Glitch.
+Remixez cet ouvrage en vous rendant sur
 [URL]#+https://glitch.com/edit/#!/remix/nodebook+#.
 
 Le contenu et les exemples seront copiés dans un nouveau projet,
@@ -152,22 +150,22 @@ exécutable et modifiable selon vos envies.
 
 
 [[deploy.sftp]]
-=== En transférant des fichiers via SSH
+=== En transférant des fichiers via{nbsp}SSH
 
 Transférer des fichiers est idéal pour débuter et lorsqu'on n'utilise pas Git
-pour versionner son code.
+pour versionner son{nbsp}code.
 
 Les services d'hébergement mutualisé, virtualisé ou dédié accordent
-un accès à votre espace en ligne par le biais du protocole
+un accès à votre espace en ligne par le biais de
 SSH ([URL]#https://fr.wikipedia.org/wiki/Secure_Shell#).
 Ce protocole crée une connexion sécurisée : les commandes saisies dans votre
 terminal font effet sur la machine sur laquelle vous êtes connecté·e.
 
 Des logiciels comme _FileZilla Client_ ([URL]#https://filezilla-project.org/#)
-servent d'interfaces graphiques pour transférer des fichiers de notre machine
-vers une machine distante. +
-Les codes d'accès SSH se trouvent en général dans la section _Aide_ ou _Guides_
-de votre hébergeur.
+servent d'interfaces graphiques pour transférer des fichiers vers une machine distante.
+
+Les codes d'accès SSH se trouvent en général dans la section [Menu]#Aide#
+ou [Menu]#Guides# de votre hébergeur.
 
 .Exemple de connexion à un serveur SSH distant avec FileZilla Client sous macOS.
 image::images/filezilla-file-transfer.png[width="85%"]
@@ -180,7 +178,7 @@ FileZilla pour Windows.
 ====
 
 [NOTE]
-.[RemarquePreTitre]#Avancé# `scp` et `rsync`
+.[RemarquePreTitre]#Avancé# scp et rsync
 ====
 Notre terminal peut aussi servir à transférer des fichiers.
 Deux programmes se basent sur SSH et sont installés par défaut sur la plupart
@@ -194,9 +192,9 @@ des ordinateurs Linux et macOS :
 === En important du code depuis GitHub
 
 Importer du code depuis GitHub est la manière la plus simple de transférer
-tous les fichiers versionnés sans être familier avec Git.
+tous les fichiers versionnés sans être familier avec{nbsp}Git.
 
-La plate-forme de <<deploy.notebook,programmation en ligne>> glitch
+La plate-forme de <<deploy.notebook,programmation en ligne>> Glitch
 offre une option pour importer n'importe quel projet GitHub – à partir du moment
 où le dépôt est public.
 
@@ -204,7 +202,7 @@ où le dépôt est public.
 image::images/glitch-github-import.png[width="85%"]
 
 Un clic sur le bouton btn:[Import from GitHub] ouvre une invite de saisie
-destinée à mentionner le nom du dépôt GitHub à importer.
+destinée à mentionner le nom du dépôt GitHub concerné.
 Le projet en cours sera entièrement remplacé par le contenu du dépôt distant.
 C'est pratique pour récupérer des exercices ou pour apprendre en travaillant
 sur du code écrit par quelqu'un d'autre.
@@ -233,19 +231,19 @@ Nous réduisons ainsi les risques de déployer une version défectueuse.
 === Avec l'outil en ligne de commande de l'hébergeur
 
 L'outil en ligne de commande d'un hébergeur permet de gérer les déploiements
-_et_ d'autres aspects de l'hébergement en même temps.
+et d'autres aspects de l'hébergement en même temps.
 
 La <<paas,plate-forme de services>> _now_ ([URL]#https://zeit.co/now#)
 est un exemple de simplicité à ce niveau.
 
-.Installation et configuration de l'outil `now`
+.Installation et configuration de l'outil{nbsp}now
 ----
 $ npm install -g now
 $ now login
 ----
 
 Dans un terminal, déplacez-vous vers le répertoire de l'application à déployer.
-Il suffit de taper `now` pour transférer les fichiers.
+Il suffit de taper{nbsp}``now`` pour transférer les fichiers.
 Les dépendances s'installent et le déploiement est accessible quelques secondes
 plus tard :
 
@@ -279,7 +277,7 @@ $ now alias food-coops-dashboards-okgwzegyus.now.sh my-domain.com
 .[RemarquePreTitre]#Pratique# Application de bureau
 ====
 Le client en ligne de commande existe en version graphique.
-Un glissé/déposé de fichiers suffit à lancer un déploiement.
+Un glisser/déposer de fichiers suffit à lancer un déploiement.
 
 Il se télécharge sur [URL]#https://zeit.co/download#.
 ====
@@ -302,12 +300,11 @@ $ gandi deploy
 ----
 ////
 
-
 L'outil de la <<paas,plate-forme de services>> Heroku suit une approche
 légèrement différente.
 Il nous informe de l'état de nos applications et en augmente ou diminue
 la quantité de ressources allouée à leur fonctionnement.
-Il simplifie la configuration de Git et
+Il simplifie la configuration de{nbsp}Git et
 <<deploy.git,délègue le déploiement>> à ce dernier.
 L'outil se télécharge sur
 [URL]#https://devcenter.heroku.com/articles/heroku-cli#.
@@ -332,11 +329,11 @@ https://git.heroku.com/polar-taiga-61296.git
 $ heroku git:remote --app ##polar-taiga-61296##
 ----
 
-Il ne nous reste plus qu'à <<deploy.git,pousser notre code avec Git>>
+Il ne nous reste plus qu'à <<deploy.git,pousser notre code avec{nbsp}Git>>
 pour terminer la mise en ligne.
 
 [[deploy.git]]
-=== En faisant `git push` depuis sa machine
+=== En faisant git{nbsp}push depuis sa machine
 
 Le déploiement d'une branche Git est le moyen le plus facile d'automatiser
 tous les aspects d'un déploiement.
@@ -345,12 +342,12 @@ Cette méthode est privilégiée par les <<paas,plates-formes de services>>
 comme _Heroku_, _now_ et _Clever Cloud_.
 Chaque projet d'application est accessible via un dépôt Git distant
 (_remote_) : un dépôt est utilisé pour versionner notre code (GitHub par exemple)
-tandis qu'un autre dépôt est utilisé pour réceptionner le code à déployer.
+tandis qu'un autre sert pour réceptionner le code à déployer.
 
 L'exemple suivant part du principe que notre terminal est positionné dans un
-répertoire qui est un projet Git contenant au moins 1 commit.
+répertoire qui est un projet Git contenant au moins un _commit_.
 Vous avez déjà configuré le dépôt distant à l'aide de
-l'<<deploy.cli,outil de déploiement>> Heroku (cf. section précédente).
+l'<<deploy.cli,outil de déploiement>> Heroku (<<deploy.cli,section précédente>>).
 
 Nous pouvons vérifier si le dépôt est bien configuré à l'aide de la
 commande `git remote` :
@@ -365,9 +362,9 @@ origin	git@github.com:mon-compte/mon-application.git (fetch)
 origin	git@github.com:mon-compte/mon-application.git (push)
 ----
 
-Dans le cas d'Heroku, la commande `heroku git:remote` crée un _remote_ nommé
+La commande `heroku git:remote` crée un _remote_ nommé
 `heroku`.
-Heroku redéploie notre application dès qu'on lui envoie du code en faisant
+Heroku redéploie notre application dès qu'on lui envoie du code avec
 `git push heroku` :
 
 ----
@@ -392,12 +389,12 @@ $ git push heroku
 ----
 <1> C'est le trentième déploiement – on peut revenir à une version antérieure si nécessaire.
 
-L'URL de l'application est rappelée dans les _logs_ du déploiement. +
+L'URL de l'application est rappelée dans les _logs_ du déploiement.
 En cas d'erreur, la version précédente de l'application reste en ligne.
 Nous avons ainsi le temps de corriger le problème sans interruption de service.
 
 [[deploy.clone]]
-=== En faisant `git pull` lors d'une session SSH
+=== En faisant git{nbsp}pull lors d'une session{nbsp}SSH
 
 La récupération du code source à distance avec Git et SSH est une manière de déployer
 similaire à la mise à jour et au démarrage d'une application sur notre ordinateur.
@@ -409,37 +406,37 @@ Cette technique s'applique si notre application est placée sur un
 L'exemple suivant illustre l'initialisation d'un projet via la connexion
 SSH à un <<hosting.shared,hébergement mutualisé>> chez alwaysdata.
 
-.Première récupération d'un dépôt Git lors d'une session SSH.
+.Première récupération d'un dépôt Git lors d'une session{nbsp}SSH.
 ----
 $ ssh moncompte@ssh-moncompte.alwaysdata.net
 $$ git clone https://github.com/moncompte/monprojet .
 $$ npm install
 ----
 
-Nous avons cloné un projet comme nous aurions pu le faire si on installait
+Nous avons cloné un projet comme nous aurions pu le faire si nous installions
 notre projet depuis zéro sur notre ordinateur.
 
 Dans le cas d'une mise à jour, nous récupérons les changements depuis le dépôt
-distant en faisant `git pull`.
-`npm install` mettra à jour les dépendances s'il y a des différences entre
+distant avec `git pull`.
+`npm install` met à jour les dépendances s'il y a des différences entre
 le contenu du fichier `package.json` et les modules déjà installés
-– voir le <<../chapter-05/index.adoc#,chapitre 5>> :
+(<<../chapter-05/index.adoc#,chapitre{nbsp}5>>).
 
-.Mise à jour d'une application lors d'une session SSH.
+.Mise à jour d'une application lors d'une session{nbsp}SSH.
 ----
 $ ssh moncompte@ssh-moncompte.alwaysdata.net
 $$ git pull
 $$ npm install
 ----
 
-Dans le cas d'alwaysdata, l'application se redémarre depuis leur
-<<hosting.shared,interface d'administration>>. +
+Dans le cas d'alwaysdata, l'application se redémarre depuis
+l'<<hosting.shared,interface d'administration>>.
 Dans les autres cas, redémarrez l'application selon le procédé choisi après
-avoir lu la section <<startup,démarrer automatiquement nos applications>>.
+avoir lu la section "`<<startup,Démarrer automatiquement nos applications>>`".
 
 
 [[deploy.recipe]]
-=== Avec une recette de déploiement (_Ansible_, _Chef_, etc.)
+=== Avec une recette de déploiement (Ansible, Chef, etc.)
 
 La recette de déploiement est la manière la plus complète de partager et
 d'automatiser un déploiement complexe.
@@ -453,7 +450,7 @@ et sur quel(s) serveur(s).
 Nous retrouvons _Puppet_ ([URL]#https://puppet.com#),
 _Chef_ ([URL]#https://www.chef.io#) et _Ansible_ ([URL]#https://ansible.com#)
 parmi les outils les plus utilisés et les mieux documentés.
-Ils ont chacun une philosophie de configuration et d'exécution différente
+Ils ont des philosophies de configuration et d'exécution différentes
 – l'idéal est encore d'essayer d'écrire une première recette avec chacun d'entre
 eux pour voir celui qui vous semble le plus naturel à utiliser.
 
@@ -487,19 +484,24 @@ La commande précédente a eu pour effet de créer des connexions SSH avec les
 machines listées dans le fichier `inventory.yaml` puis de jouer les actions
 listées dans le fichier `playbook.yaml`.
 
-[horizontal]
-.Concepts importants d'Ansible
-Inventaire::
-  *Liste de serveurs connus* sur lesquels effectuer des déploiements. +
-  Les serveurs peuvent être catégorisés (par type, par emplacement)
-  pour contrôler finement les actions à déclencher.
-  Par exemple : uniquement les serveurs web de production,
-  les bases de données de test, l'API de la région Europe.
-Playbook::
-  *Liste des actions possibles* en fonction des types de serveurs. +
-  Ces actions peuvent être rejouées à l'infini et de manière prédictible.
 
-Le _playbook_ suivant illustre 2 tâches appliquées uniquement sur
+[NOTE]
+.Inventaire
+====
+*Liste de serveurs connus* sur lesquels effectuer des déploiements.
+En les catégorisant (par type, par emplacement), on contrôle finement
+les actions à déclencher ; par exemple, uniquement les serveurs web de production,
+les bases de données de test, l'API de la région Europe.
+====
+
+[NOTE]
+.Playbook
+====
+*Liste des actions possibles* en fonction des types de serveurs.
+Ces actions peuvent être rejouées à l'infini et de manière prédictible.
+====
+
+Le _playbook_ suivant illustre deux tâches appliquées uniquement sur
 les serveurs étiquetés dans notre _inventaire_ en tant que `webservers` :
 
 [source,yml]
@@ -507,13 +509,13 @@ les serveurs étiquetés dans notre _inventaire_ en tant que `webservers` :
 ----
 include::{sourceDir}/ansible/playbook.yaml[]
 ----
-<1> Actions Git – pour en savoir plus [URL]#https://docs.ansible.com/ansible/2.5/modules/git_module#.
+<1> Actions Git – [URL]#https://docs.ansible.com/ansible/2.5/modules/git_module#.
 <2> Adresse du dépôt Git à récupérer.
 <3> Indique de cloner le dépôt s'il n'est pas déjà présent.
-<4> Indique de récupérer les commits du dépôt en faisant `git pull`.
-<5> Actions npm – pour en savoir plus [URL]#https://docs.ansible.com/ansible/2.5/modules/npm_module#.
-<6> Indique d'installer les dépendances npm en faisant `npm install`.
-<7> Indique de lancer la mise en jour des modules `npm` avec l'option `--production` – c'est-à-dire sans les dépendances listées dans le champ `devDependencies`.
+<4> Indique de récupérer les _commit_ du dépôt en faisant `git pull`.
+<5> Actions npm – [URL]#https://docs.ansible.com/ansible/2.5/modules/npm_module#.
+<6> Indique d'installer les dépendances `npm` avec `npm install`.
+<7> Indique de lancer la mise à jour des modules `npm` avec l'option `--production` – c'est-à-dire sans les dépendances listées dans le champ `devDependencies`.
 
 Les tâches sont réplicables sur les serveurs listés dans un fichier d'inventaire :
 
@@ -523,11 +525,11 @@ Les tâches sont réplicables sur les serveurs listés dans un fichier d'inventa
 include::{sourceDir}/ansible/inventory.yaml[]
 ----
 
-Nous déployons sur un seul serveur dans ce cas de figure.
-Mais nous pourrions tout à fait déployer une même application avec la même
+Nous déployons sur un seul serveur dans ce cas de figure,
+mais nous pourrions tout à fait déployer une même application avec la même
 configuration sur une dizaine de serveurs (application à fort trafic)
-ou une même application déployée chez plusieurs centaines de clients.
-Dans tous les cas, l'application serait dans un état consistant sur toutes les
+ou chez plusieurs centaines de clients.
+Dans tous les cas, l'application serait dans un état cohérent sur toutes les
 machines, avec peu de chances d'oublier une opération et une plus grande facilité
 à revenir en arrière.
 
@@ -536,21 +538,21 @@ machines, avec peu de chances d'oublier une opération et une plus grande facili
 
 Une image Docker est un moyen fiable de reproduire le même environnement
 applicatif et ses dépendances sur plusieurs systèmes d'exploitation
-– y compris Windows, Linux et macOS.
+(Windows, Linux, macOS).
 
-Un des objectifs de Node est de pouvoir faire fonctionner un script
+Un des objectifs de Node est de faire fonctionner un même script
 sur tout système d'exploitation compatible.
 Docker ([URL]#https://www.docker.com#) pousse cette compatibilité plus
 loin en empaquetant tout ce qui est nécessaire au bon fonctionnement
 de l'application (dépendances, logiciels système).
 Le mécanisme d'exécution aide à la fois à orchestrer plusieurs conteneurs entre
-eux – y compris bases de données et moteurs de recherche – et de pouvoir
-revenir dans l'état applicatif initial.
+eux – y{nbsp}compris bases de données et moteurs de recherche –
+et à revenir dans l'état applicatif initial.
 
 Le fichier suivant est un exemple fonctionnel d'image Docker.
-Son intention est de créer un environnement Node {nodeCurrentVersion}
-pour une <<../chapter-07/index.adoc#,application web>> (cf. chapitre 7)
-qui comporte une <<../chapter-05/index.adoc#,dépendance npm>> (cf. chapitre 5) :
+Son intention est de créer un environnement Node{nbsp}{nodeCurrentVersion}
+pour une <<../chapter-07/index.adoc#,application web>> (chapitre{nbsp}7)
+qui comporte une <<../chapter-05/index.adoc#,dépendance{nbsp}``npm``>> (chapitre{nbsp}5) :
 
 [source,dockerfile,subs="+attributes"]
 .Dockerfile
@@ -558,10 +560,10 @@ qui comporte une <<../chapter-05/index.adoc#,dépendance npm>> (cf. chapitre 5) 
 include::{sourceDir}/Dockerfile[]
 ----
 
-Nous pouvons constater le choix de l'environnement Node (`FROM`),
-avant de procéder à la copie des fichiers applicatifs vers l'image (`COPY`).
-Suite à ça nous installons aussi les dépendances de l'application et spécifions
-quelle commande effectuer lorsque l'image Docker est lancée (`CMD`).
+Nous choisissons l'environnement Node (`FROM`), avant de procéder à la copie
+des fichiers applicatifs vers l'image (`COPY`).
+Suite à cela, nous installons aussi les dépendances de l'application et spécifions
+quelle commande effectuer lorsque l'image Docker est lancée{nbsp}(`CMD`).
 
 L'image se construit et le conteneur se démarre sur notre ordinateur comme suit :
 
@@ -570,10 +572,6 @@ $ docker build -t nodebook/demo .
 $ docker run -ti --rm -p 4000:4000 nodebook/demo
 $ curl -L http://localhost:4000
 ----
-
-Le transfert de l'image Docker vers un registre comme _Docker Hub_
-([URL]#https://hub.docker.com#) garantit l'exécution de ce même environnement
-applicatif, partout.
 
 Nous avons déjà parlé de l'<<deploy.cli,outil en ligne de commande>>
 du service _now_ ([URL]#https://zeit.co/now#) dans la section du même nom.
@@ -596,11 +594,10 @@ $ now ##--docker## --public
 > Success! Deployment ready
 ----
 
-Une autre solution consiste à publier notre image sur _Docker Hub_,
-la plate-forme officielle de partage d'images Docker.
-Docker Hub dispose d'une fonctionnalité de construction automatique connectée
-à GitHub.
-Docker Hub construit l'image à chaque nouveau commit, puis la met à disposition.
+Une autre solution consiste à publier notre image sur _Docker{nbsp}Hub_,
+la plate-forme officielle de partage d'images Docker,
+qui dispose d'une fonctionnalité de construction automatique connectée à GitHub.
+Docker{nbsp}Hub construit l'image à chaque nouveau commit, puis la met à disposition.
 
 .Création d'un _build_ automatisé à partir d'un dépôt GitHub.
 image::images/docker-automated-build.png[width="85%"]
@@ -608,6 +605,8 @@ image::images/docker-automated-build.png[width="85%"]
 Il ne reste alors plus qu'à la collecter sur un ordinateur avec la commande
 `docker pull` – que ce soit sur notre machine, chez notre hébergeur
 ou par le biais du <<deploy.ci,service d'intégration continue>>.
+Cette façon de procéder garantit l'exécution de ce même environnement applicatif,
+partout.
 
 [NOTE]
 .[RemarquePreTitre]#Avancé# Amazon Elastic Container Registry
@@ -632,15 +631,15 @@ dans notre code.
 L'idée est de livrer régulièrement du code pour détecter les erreurs au plus tôt. +
 Les services d'intégration continue automatisent cette pratique.
 Ils s'intègrent avec d'autres services pour prévisualiser les branches,
-compiler la documentation mais aussi pour déployer des artéfacts sur d'autres
-plates-formes : <<../chapter-05/index.adoc#publish,registre npm>>,
+compiler la documentation mais aussi pour déployer des artefacts sur d'autres
+plates-formes : <<../chapter-05/index.adoc#publish,registre{nbsp}``npm``>>,
 GitHub Pages, Heroku ou même <<hosting.lambda,Amazon Lambda>>.
 
 Le logiciel Jenkins ([URL]#https://jenkins.io/#) s'installe sur notre propre
 infrastructure tandis que des services en ligne comme
-Circle CI ([URL]#https://circleci.com#), Travis CI ([URL]#https://travis-ci.com#)
-et CodeShip ([URL]#https://codeship.com#) mette à disposition leur
-infrastructure gratuitement pour les projets _open source_.
+Circle{nbsp}CI ([URL]#https://circleci.com#), Travis{nbsp}CI ([URL]#https://travis-ci.com#)
+et CodeShip ([URL]#https://codeship.com#) mettent à disposition leur
+infrastructure gratuitement pour les projets _open{nbsp}source_.
 GitLab ([URL]#https://www.gitlab.com#) combine l'hébergement de dépôts Git
 et l'intégration continue.
 
@@ -654,11 +653,12 @@ la *compatibilité du code avec Windows*
 ====
 
 J'ai une préférence pour GitLab lorsque le projet y est hébergé.
-Le reste du temps, j'utilise Travis CI car j'aime la clarté du fichier de configuration,
-l'exhaustivité de leur documentation et la qualité des échanges avec leur support technique.
+Le reste du temps, j'utilise Travis{nbsp}CI car j'aime la clarté du fichier de configuration,
+l'exhaustivité de la documentation et la qualité des échanges avec le service
+d'assistance technique.
 
-Le fichier suivant est un exemple de configuration pour Travis CI.
-Il se place à la racine d'un projet à tester et s'écrit avec la syntaxe _YAML_ :
+Le fichier suivant est un exemple de configuration pour Travis{nbsp}CI.
+Il se place à la racine d'un projet à tester et s'écrit avec la syntaxe{nbsp}YAML :
 
 [subs="+attributes"]
 .{empty}.travis.yml
@@ -666,32 +666,31 @@ Il se place à la racine d'un projet à tester et s'écrit avec la syntaxe _YAML
 include::{sourceDir}/.travis.yml[]
 ----
 
-Cet exemple est structuré en 3 parties :
+Cet exemple est structuré en trois parties :
 
-. la *configuration de l'environnement* – en l'occurrence Node {nodeCurrentVersion} ;
-. la *commande de test* ;
-. la *configuration du déploiement* en cas de succès.
+- *configuration de l'environnement* – en l'occurrence Node{nbsp}{nodeCurrentVersion} ;
+- *commande de test* ;
+- *configuration du déploiement* en cas de succès.
 
-Ici, le déploiement consiste à
-<<../chapter-05/index.adoc#publish,déployer le code sur le registre npm>>
+Ici, le but est <<../chapter-05/index.adoc#publish,déployer le code sur le registre{nbsp}``npm``>>
 quand les tests passent lors de la création d'un tag Git.
-Les variables d'environnement `$NPM_EMAIL` et `$NPM_TOKEN` se configurent de
-manière sécurisée sur l'écran de configuration du projet
-(voir illustration ci-après).
+Les variables d'environnement `$NPM_EMAIL` et `$NPM_TOKEN` se règlent de
+manière sécurisée sur l'écran de configuration du projet.
 
 [NOTE]
 .[RemarquePreTitre]#Documentation# .travis.yml
 ====
-Une documentation adaptée aux projets Node est disponible à cette adresse :
-[URL]#https://docs.travis-ci.com/user/languages/javascript-with-nodejs/#.
+Une documentation adaptée aux projets Node est disponible à l'adresse suivante :
+
+- [URL]#https://docs.travis-ci.com/user/languages/javascript-with-nodejs/#
 ====
 
 .Écran de configuration des variables d'environnement sécurisées.
 image::images/travisci-secrets.png[width="85%"]
 
 L'exemple suivant illustre l'utilisation de
-l'<<deploy.cli,outil en ligne de commande>> `now` dès qu'un nouveau commit
-est poussé sur la branche `master` et que les tests passent au vert :
+l'<<deploy.cli,outil en ligne de commande>>{nbsp}``now`` dès qu'un nouveau
+_commit_ est poussé sur la branche `master` et que les tests passent au vert :
 
 [subs="+attributes"]
 .{empty}.travis.yml
@@ -699,31 +698,31 @@ est poussé sur la branche `master` et que les tests passent au vert :
 include::{sourceDir}/.travis-now.yml[]
 ----
 
-Les informations d'exécution des tests sont consignés au même titre que le statut
-du déploiement – voir image ci-contre.
+Les informations d'exécution des tests sont consignées au même titre que le statut
+du déploiement.
 
-.Écran illustrant le déploiement automatique d'une application Node avec la commande `now`.
+.Écran illustrant le déploiement automatique d'une application Node avec la commande{nbsp}now.
 image::images/travisci-build.png[width="85%"]
 
 [[hosting]]
 == Choisir son hébergement
 
 Nous allons nous intéresser aux différentes possibilités d'hébergement
-d'applications Node.
+d'applications{nbsp}Node.
 
 Côté tarifs, certaines sont gratuites sous certaines conditions,
 d'autres se paient à l'heure et d'autres à l'année.
-Certaines offres sont figées, d'autres permettent de rajouter des machines
-voire même de changer la puissance en cours de route.
+Certaines offres sont figées, d'autres permettent d'ajouter des machines,
+voire de changer la puissance en cours de route.
 
 
 [[hosting.paas]]
-=== Plate-forme de services (_Platform as a Service_, _PaaS_)
+=== Plate-forme de services (Platform as a Service, PaaS)
 
 Les plates-formes de services *automatisent la configuration et le déploiement*
-de nos applications Node mais également Ruby, Python et PHP, entre autres.
+de nos applications Node, mais également Ruby, Python et PHP, entre autres.
 Elles se spécialisent dans des déploiements rapides, une allocation des
-ressources flexible, à la demande et en un clic.
+ressources flexible, à la demande et en un{nbsp}clic.
 
 C'est le *moyen le plus facile de déployer une application Node*, surtout si
 on utilise déjà Git pour versionner son code.
@@ -734,25 +733,24 @@ Ces capacités s'augmentent ou se réduisent en quelques clics et sans changer
 une seule ligne de code dans notre application.
 
 Une application se déploie avec un <<deploy.cli,outil en ligne de commande>> ou
-en <<deploy.git,faisant `git push`>>.
+avec <<deploy.git,`git push`>>.
 Et nous pouvons l'automatiser avec une <<deploy.recipe,recette de déploiement>>
 et de l'<<deploy.ci,intégration continue>>.
 
 [format="csv", options="header"]
-.Sélection de fournisseurs _PaaS_
+.Sélection de fournisseurs PaaS
 |===
 Service, Déploiement, Add-ons, Gratuité, Tarif
-[URL]#https://zeit.co#, "cli", {cross}, 3 apps, 15$/mois/10 apps
-[URL]#https://clever-cloud.com#, "git", {tick}, crédit 20€, 5€/mois/app
-[URL]#https://gandi.net/hosting/simple#, "cli/git/SSH", {tick}, 10 jours, 5€/mois/app
-[URL]#https://scalingo.com#, "git/GitHub", {tick}, 30 jours, 7€/mois/app
-[URL]#https://heroku.com#, "cli/git/GitHub/Dropbox", {tick}, 1000 heures/mois, 7$/mois/app
+[URL]#https://zeit.co#, "cli", {cross}, 3{nbsp}apps, 15{nbsp}$/mois/10 apps
+[URL]#https://clever-cloud.com#, "Git", {tick}, crédit{nbsp}20{nbsp}€, 5{nbsp}€/mois/app
+[URL]#https://gandi.net/hosting/simple#, "cli/git/SSH", {tick}, 10{nbsp}jours, 5{nbsp}€/mois/app
+[URL]#https://scalingo.com#, "Git/GitHub", {tick}, 30{nbsp}jours, 7{nbsp}€/mois/app
+[URL]#https://heroku.com#, "cli/Git/GitHub/Dropbox", {tick}, 1{nbsp}000{nbsp}heures/mois, 7{nbsp}$/mois/app
 |===
 
 La startup californienne Zeit ([URL]#https://zeit.co#) édite le service
-_now_ ([URL]#https://zeit.co/now#).
-Ce service est focalisé sur l'hébergement de sites statiques,
-d'applications Node et de conteneurs Docker.
+_now_ ([URL]#https://zeit.co/now#), qui est focalisé sur l'hébergement de
+sites statiques, d'applications Node et de conteneurs Docker.
 
 Sa particularité est de créer une *nouvelle instance d'application par déploiement*.
 On ne modifie donc jamais un déploiement déjà existant.
@@ -765,10 +763,10 @@ si vous n'utilisez pas Git ou si l'application n'utilise pas de base de données
 _Heroku_ ([URL]#https://heroku.com#) est une autre alternative plus complète,
 toujours pour démarrer en douceur et sans sortir la carte bleue.
 Des modules optionnels couvrent nos besoins en bases de données comme
-_MySQL_, _MariaDB_, _redis_ ou _postgreSQL_ par exemple.
-D'autres services gèrent l'envoi d'emails,
+MySQL, MariaDB, Redis ou PostgreSQL.
+D'autres services gèrent l'envoi de courriels,
 l'indexation de contenus, le monitoring, les logs, etc.
-La majorité offre un petit espace de stockage gratuit pour tester le produit.
+En majorité, ils offrent un petit espace de stockage gratuit pour tester le produit.
 
 .Ensemble de ressources complémentaires à une application Node hébergée sur Heroku.
 image::images/heroku-addons.png[width="85%"]
@@ -776,8 +774,8 @@ image::images/heroku-addons.png[width="85%"]
 S'il est facile de déployer sur ces infrastructures et de gérer les ressources
 allouées à nos applications, à l'inverse la facture peut vite devenir salée
 à mesure qu'on augmente leur puissance.
-Ce coût est tout relatif : il est surement inférieur à celui de notre temps
-passé à gérer les machines si on devait tout faire à la main.
+Ce coût est tout relatif : il est sûrement inférieur à celui de notre temps
+passé à gérer les machines si on devait tout faire à la{nbsp}main.
 
 
 [[hosting.shared]]
@@ -790,10 +788,10 @@ car tout le travail d'automatisation repose sur nos épaules, si on le souhaite.
 
 Ce modèle est adapté pour l'hébergement de fichiers statiques ou des sites web
 construits avec des langages de scripts comme Python ou PHP.
-Rares sont ceux qui ont adapté leur fonctionnement au modèle applicatif de Node.
+Rares sont ceux qui ont adapté leur fonctionnement au modèle applicatif de{nbsp}Node.
 
 Alwaysdata ([URL]#https://alwaysdata.com#) fait exception à la règle.
-Ce service d'hébergement indépendant dispose d'une formule gratuite avec 100Mo
+Ce service d'hébergement indépendant dispose d'une formule gratuite avec 100{nbsp}Mo
 d'espace disque pour démarrer.
 
 Le <<deploy,déploiement>> de nos applications se fait via
@@ -802,58 +800,57 @@ avec un <<deploy.ci,service d'intégration continue>> ou bien en
 <<deploy.recipe,utilisant une recette>>.
 
 L'interface d'administration référence une section *Sites* dans la barre de
-navigation.
-Cette section liste les différents sites de notre compte.
+navigation, qui liste les différents sites de notre compte.
 Si vous venez juste de créer le vôtre, un site a automatiquement été créé.
 Son URL est déterminée à partir du *nom d'utilisateur* que vous avez choisi
 lors de la phase d'inscription.
 
-Un clic sur le bouton *Modifier* nous aidera à changer ses réglages :
+Un clic sur le bouton btn:[Modifier] nous aidera à changer ses réglages :
 
 
 .Liste de nos sites configurés chez alwaysdata.
 image::images/alwaysdata-site-list.png[width="85%"]
 
-Le nouvel écran mentionne les adresses auxquel le site répond.
-En basculant vers un compte payant, on pourra assigner un ou plusieurs domaines
-ou sous-domaines à ce même site.
+Le nouvel écran mentionne les adresses auxquelles le site répond.
+En basculant vers un compte payant, on a la possibilité d'affecter un ou
+plusieurs domaine(s) ou sous-domaine(s) à ce même{nbsp}site.
 
 .Écran de configuration d'un site chez alwaysdata.
 image::images/alwaysdata-site-informations.png[width="85%"]
 
 Les réglages liés à Node se trouvent sous les adresses.
-Le _type_ de site doit être changé en `Node.js` pour afficher
+Le [Menu]#type# de site doit être changé en `Node.js` pour afficher
 les champs de configuration qui nous intéressent.
 
-La _commande_ se configure de la même manière
+La [Menu]#commande# se configure de la même manière
 que l'<<../chapter-04/index.adoc#script,exécution d'un script Node>>
-– cf. <<../chapter-04/index.adoc#,chapitre 4>>.
+(<<../chapter-04/index.adoc#,chapitre{nbsp}4>>).
 On peut aussi faire appel au
-<<../chapter-05/index.adoc#start,script `npm start`>> comme vu pendant
-la lecture du <<../chapter-05/index.adoc#,chapitre 5>> :
+<<../chapter-05/index.adoc#start,script `npm start`>> comme vu
+au <<../chapter-05/index.adoc#,chapitre{nbsp}5>> :
 
 .Écran de configuration de Node.js pour un site chez alwaysdata.
 image::images/alwaysdata-site-configuration.png[width="85%"]
 
-La commande complète devrait apparaître dans la section *Processus*
+La commande complète devrait apparaître dans la section [Menu]#Processus#
 une fois la configuration sauvegardée.
 
 .Liste des processus liés à nos sites chez alwaysdata.
 image::images/alwaysdata-process-list.png[width="85%"]
 
-En cas de doute, un bouton *Redémarrer* est affiché à côté du bouton *Modifier*
-dans la liste des sites.
+En cas de doute, un bouton btn:[Redémarrer] est affiché à côté du bouton
+btn:[Modifier] dans la liste des sites.
 L'application sera alors interrompue et relancée.
 Cette opération est nécessaire pour que l'application prenne en compte
 les changements après une mise à jour ou un plantage.
 
 [NOTE]
-.[RemarquePreTitre]#Configuration# Une application Node par site
+.[RemarquePreTitre]#Configuration# Une application Node par{nbsp}site
 ====
-Alwaysdata nous permet d'associer un seul processus à un seul site.
+Alwaysdata nous permet d'associer un seul processus à un seul{nbsp}site.
 
-Pour rendre une application Node accessibles sur Internet, il faudra
-alors créer un nouveau site et lui associer un autre nom de domaine,
+Pour rendre une application Node accessible sur Internet, il faudra
+créer un nouveau site et lui associer un autre nom de domaine,
 ou un sous-domaine.
 ====
 
@@ -869,32 +866,32 @@ sur leurs services.
 
 
 [[hosting.cloud]]
-=== Serveur virtualisé, dédié ou cloud
+=== Serveur virtualisé, dédié ou{nbsp}cloud
 
 La location d'un serveur dédié revient à payer pour un ordinateur complet,
 son entretien physique et son placement dans un _datacenter_ – un immense
-parking à ordinateurs connecté à un réseau haute-capacité.
+parc à ordinateurs connecté à un réseau haute{nbsp}capacité.
 
 Les _Virtual Private Servers_ (_VPS_) sont des machines virtuelles
-(_Virtual Machine_, _VM_) : un serveur dédié dont les ressources sont réparties
-en plusieurs unités indépendantes les unes des autres, les VM.
+(_Virtual Machine_,{nbsp}__VM__) : les ressources d'un serveur dédié sont
+réparties en plusieurs unités indépendantes les unes des autres, les{nbsp}VM.
 
-Les offres _cloud_ sont une version "élastique" des VM : la puissance de calcul,
-la bande-passante et la mémoire allouées sont ajustables sans avoir à
+Les offres _cloud_ sont une version "`élastique`" des{nbsp}VM : la puissance de calcul,
+la bande{nbsp}passante et la mémoire allouées sont ajustables sans avoir à
 changer de machine, sans avoir à tout réinstaller.
-Ces ressources sont considérées comme étant "à la demande" : elles s'obtiennent
+Ces ressources sont considérées comme étant "`à{nbsp}la demande`" : elles s'obtiennent
 en quelques secondes et peuvent être mises en pause, réduites, augmentées ou
 supprimées à tout moment.
 
 Leur modèle de facturation s'adapte à la souplesse d'allocation des ressources :
 
-- au mois : VPS, serveur virtualisé, serveur dédié
-- à l'heure : serveur _cloud_
-- à la (milli)seconde : <<hosting.lambda,fonction événementielle>>
+- au mois : VPS, serveur virtualisé, serveur dédié ;
+- à l'heure : serveur _cloud_ ;
+- à la (milli)seconde : <<hosting.lambda,fonction événementielle>>.
 
-Les modes de déploiement adaptés sont l'<<deploy.clone,utilisation de Git>>
+Les modes de déploiement adaptés sont <<deploy.clone,Git>>
 pour obtenir le code, l'<<deploy.docker,orchestration d'applications avec Docker>>
-en combinaison avec des <<deploy.recipe,recettes de déploiement>> et de
+en combinaison avec des <<deploy.recipe,recettes de déploiement>> et
 l'<<deploy.ci,intégration continue>>.
 
 L'offre de serveurs virtualisés et dédiés (VPS, VM) est adaptée à des
@@ -905,26 +902,26 @@ besoins constants et pour héberger plusieurs applications sur une même machine
 .Sélection de fournisseurs de serveur virtualisé et dédié
 |===
 Service; Déploiement; Add-ons; Tarif horaire; Tarif mensuel
-[URL]#https://ovh.com/fr/vps/#; "SSH"; {tick}; -; 4.00€/VM
-[URL]#https://online.net/fr/serveur-dedie#; "SSH, CLI, API"; {tick}; -; 14.50€/serveur
-[URL]#https://alwaysdata.com/fr/pricing/#vps#; "SSH, API"; {tick}; -; 149.00€/VM
+[URL]#https://ovh.com/fr/vps/#; "SSH"; {tick}; -; 4{nbsp}€/VM
+[URL]#https://online.net/fr/serveur-dedie#; "SSH, CLI, API"; {tick}; -; 14,5{nbsp}€/serveur
+[URL]#https://alwaysdata.com/fr/pricing/#vps#; "SSH, API"; {tick}; -; 149{nbsp}€/VM
 |===
 
 L'offre _cloud_ est plus intéressante si vos besoins sont
-singulièrement fluctuants – par exemple lorsqu'il y a besoin de doubler le CPU
-pendant 2 heures, à heure fixe ou en fonction de la charge mais aussi quand il
-s'agit d'ajouter 10 serveurs d'un coup pour traiter un calcul gourmand.
+singulièrement fluctuants – par exemple lorsqu'il y a besoin de doubler la CPU
+pendant deux heures, à heure fixe ou en fonction de la charge, mais aussi quand il
+s'agit d'ajouter dix serveurs d'un coup pour traiter un calcul gourmand.
 
 [format="csv", options="header", separator=";"]
-.Sélection de fournisseurs de serveur _cloud_
+.Sélection de fournisseurs de serveur cloud
 |===
 Service; Déploiement; Add-ons; Tarif horaire; Tarif mensuel
-[URL]#https://scaleway.com#; "CLI, SSH, API"; {cross}; 0.004€; 2.30€/VM
-[URL]#https://linode.com#; "CLI, Git, API, Web"; {tick}; 0.0075$; 5.00$/VM
-[URL]#https://gandi.net/hosting/iaas#; "CLI, Git"; {cross}; 0.0081€; 6.00€/VM
-[URL]#https://ovh.com/fr/public-cloud/#; "SSH, API, Web"; {tick}; 0.062€; 26.00€/VM
-[URL]#https://digitalocean.com#; "CLI, API"; {cross}; 0.007$; 5.00$/VM
-[URL]#https://aws.amazon.com/fr/ec2/#; "CLI, API, SSH, Web"; {tick}; 0.0132$; 9.67$/VM
+[URL]#https://scaleway.com#; "CLI, SSH, API"; {cross}; 0,004{nbsp}€; 2,30{nbsp}€/VM
+[URL]#https://linode.com#; "CLI, Git, API, Web"; {tick}; 0,0075{nbsp}$; 5,00{nbsp}$/VM
+[URL]#https://gandi.net/hosting/iaas#; "CLI, Git"; {cross}; 0,0081{nbsp}€; 6,00{nbsp}€/VM
+[URL]#https://ovh.com/fr/public-cloud/#; "SSH, API, Web"; {tick}; 0,062{nbsp}€; 26,00{nbsp}€/VM
+[URL]#https://digitalocean.com#; "CLI, API"; {cross}; 0,007{nbsp}$; 5,00{nbsp}$/VM
+[URL]#https://aws.amazon.com/fr/ec2/#; "CLI, API, SSH, Web"; {tick}; 0,0132{nbsp}$; 9,67{nbsp}$/VM
 |===
 
 [TIP]
@@ -932,21 +929,21 @@ Service; Déploiement; Add-ons; Tarif horaire; Tarif mensuel
 ====
 Le logiciel _Terraform_ ([URL]#https://terraform.io/#) a pour intention
 de documenter une infrastructure (serveurs, DNS, stockage, etc.) sous forme
-d'un fichier de configuration – versionnable avec Git.
+d'un fichier de configuration – versionnable avec{nbsp}Git.
 
-C'est un outil idéal pour automatiser le déploiement d'une infrastructure de zéro
-mais pour la faire évoluer d'une version à une autre.
+C'est un outil idéal pour automatiser le déploiement d'une infrastructure de zéro,
+mais aussi pour la faire évoluer d'une version à une autre.
 Nous pouvons ainsi créer une architecture combinant plusieurs fournisseurs
-sans gérer la complexité et la non-interopérabilité de leurs API.
+sans gérer la complexité et la non-interopérabilité de leurs{nbsp}API.
 ====
 
 [[hosting.lambda]]
-=== Fonction événementielle (_Serverless_, _Lambda_)
+=== Fonction événementielle (Serverless, Lambda)
 
 La fonction événementielle est l'évolution ultime des offres _cloud_.
 Au lieu de payer une machine ou une VM à l'heure,
 *nous payons pour exécuter du code à la milliseconde*.
-Ce code se déclenche en réaction à événement se produisant ailleurs
+Ce code se déclenche en réaction à un événement se produisant ailleurs
 sur l'infrastructure : une requête HTTP entrante, un nouveau fichier ou encore
 un appel de l'API de l'hébergeur.
 
@@ -956,7 +953,7 @@ On pourrait comparer ce modèle à celui de la téléphonie mobile lorsqu'on a �
 entre un forfait (coût fixe même si on ne consomme pas tout) et un paiement à la carte
 (coût dépendant de la consommation).
 
-Les applications destinées à être exécutées comme fonction événementielle
+Les applications destinées à être exécutées comme fonctions événementielles
 ont une architecture un peu différente.
 Au lieu de démarrer un serveur web basé sur le
 <<../chapter-04/index.adoc#http,module `http`>>, nous exposons
@@ -970,9 +967,9 @@ include::{sourceDir}/webtask.js[]
 <1> Le paramètre `context` contient des informations à propos de la requête entrante – paramètres, corps du message, etc.
 
 Ce code est très similaire à ce que nous pourrions écrire lors de l'événement
-`server.on('request')` du <<../chapter-04/index.adoc#http,module `http`>>.
+`server.on('request')` du <<../chapter-04/index.adoc#http,module{nbsp}``http``>>.
 
-Voyons ça en contexte dans l'interface web du service Webtask
+Voyons cela en contexte dans l'interface web du service Webtask
 ([URL]#https://webtask.io/make#) :
 
 .Exemple de fonction événementielle et de son historique d'exécutions avec le service Webtask.
@@ -985,23 +982,23 @@ de l'écran.
 .Sélection de fournisseurs
 |===
 Service; Déploiement; Gratuité; Tarif des requêtes
-[URL]#https://aws.amazon.com/lambda#; "Web, CLI, API"; 1M requêtes/mois; 0.2$/million
-[URL]#https://webtask.io#; "Web, GitHub, CLI, API"; 1 requête/seconde; sur devis
-[URL]#https://cloud.google.com/functions/#; "Web, GitHub, CLI, API"; 2M requêtes/mois; 0.4$/million
-[URL]#https://zeit.co/now# + `micro`; "CLI, API"; 3 apps; 15$/mois
+[URL]#https://aws.amazon.com/lambda#; "Web, CLI, API"; 1{nbsp}M{nbsp}requêtes/mois; 0,2{nbsp}$/million
+[URL]#https://webtask.io#; "Web, GitHub, CLI, API"; 1{nbsp}requête/seconde; sur devis
+[URL]#https://cloud.google.com/functions/#; "Web, GitHub, CLI, API"; 2{nbsp}M{nbsp}equêtes/mois; 0,4{nbsp}$/million
+[URL]#https://zeit.co/now# + `micro`; "CLI, API"; 3{nbsp}apps; 15{nbsp}$/mois
 |===
 
 Chaque fournisseur de fonction événementielle a sa propre vision des paramètres
-qui nous sont donnés mais leur fonctionnement reste très proche.
+qui nous sont donnés, mais leurs fonctionnements restent très proches.
 
 Je trouve que Webtask est le service avec la plus faible courbe d'apprentissage.
 Son interface y est pour beaucoup.
 
 Le service _now_ est intéressant à plus d'un titre.
-Il déploie avec un <<deploy.cli,outil en ligne de commande minimaliste>>,
+Il déploie un <<deploy.cli,outil en ligne de commande minimaliste>>,
 y compris des <<deploy.docker,conteneurs Docker>>.
 Il se transforme en fonction événementielle avec l'aide du
-<<../chapter-05/index.adoc#modules,module npm>>
+<<../chapter-05/index.adoc#modules,module{nbsp}``npm``>>
 _micro_ ([URL]#https://npmjs.com/micro#).
 
 Le service Amazon Lambda représente une marche d'apprentissage un peu plus importante.
@@ -1011,43 +1008,43 @@ Le service est complet, surtout une fois couplé avec le service
 _Amazon API Gateway_.
 
 [TIP]
-.[RemarquePreTitre]#Avancé# _Amazon API Gateway_
+.[RemarquePreTitre]#Avancé# Amazon API Gateway
 ====
 Les Lambda d'Amazon ne sont pas accessibles depuis Internet par défaut.
 
 Pour ce faire, il faut les relier au service  et associer
 chaque route à une Lambda.
 Le service se charge de transformer le résultat
-– une chaîne de caractère, un tableau ou un objet ECMAScript –
-en une réponse HTTP.
+– une chaîne de caractères, un tableau ou un objet ECMAScript –
+en une réponse{nbsp}HTTP.
 ====
 
 
 [NOTE]
-.[RemarquePreTitre]#Définition# _Serverless_
+.[RemarquePreTitre]#Définition# Serverless
 ====
 Ce type d'infrastructure a été nommé _serverless_ suite à une organisation
 du marché pour proposer des alternatives aux Lambda d'Amazon.
 
 Quand on entend le mot _serverless_ – littéralement, sans serveur – il faut comprendre
-"sans serveur à gérer soi-même".
+"`sans serveur à gérer soi-même`".
 L'hébergeur dispose quand même de machines pour exécuter le code.
 Leurs ressources sont mutualisées au maximum.
 ====
 
 == Améliorer la portabilité applicative
 
-Le fonctionnement d'une application Node peut être impacté suite à son
+Le fonctionnement d'une application Node risque d'être affecté suite à son
 déploiement en ligne.
 
 Cette section a pour but de mettre en lumière des
 *points importants qui contribuent à la portabilité de l'application*
-– c'est-à-dire son bon fonctionnement une fois en fonctionnement autre part
-que sur un ordinateur de développement et ce,
-indépendamment du service d'hébergement retenu.
+– c'est-à-dire son bon fonctionnement une fois installée autre part
+que sur un ordinateur de développement, indépendamment du service
+d'hébergement retenu.
 
 [[node.version]]
-=== Utiliser la bonne version de Node
+=== Utiliser la bonne version de{nbsp}Node
 
 Les <<hosting.paas,plates-formes de services>> et certains
 <<deploy.ci,services d'intégration continue>> utilisent deux mécanismes
@@ -1069,8 +1066,8 @@ C'est très utile quand je reprends le code après plusieurs mois d'inactivité.
 ====
 
 Si vous avez décidé d'utiliser <<../chapter-02/index.adoc#nvm,nvm>>
-(cf. <<../chapter-02/index.adoc#,chapitre 2>>) ou que vous utilisez un service
-compatible avec `nvm`, sachez que cet outil sait s'adapter à la version
+(<<../chapter-02/index.adoc#,chapitre{nbsp}2>>) ou si vous utilisez un service
+compatible, sachez que cet outil sait s'adapter à la version
 de Node précisée dans le fichier `.nvmrc`.
 
 Un fichier `.nvmrc` ressemble à ceci :
@@ -1094,7 +1091,7 @@ $ node --version
 ----
 
 Les <<hosting.paas,plates-formes de services>> qui ne se basent pas sur `nvm`
-vont en général jeter un œil du côté du fichier `package.json` :
+regardent en général dans le fichier `package.json` :
 
 [source,json,subs="+attributes"]
 ----
@@ -1106,7 +1103,7 @@ vont en général jeter un œil du côté du fichier `package.json` :
 }
 ----
 
-Cette notation signifie "la version la plus récente de Node {nodeCurrentVersion}".
+Cette notation signifie "`la version la plus récente de Node {nodeCurrentVersion}`".
 
 Enfin, la dernière version de Node est utilisée si cette information
 ne peut pas être déterminée avec les deux mécanismes précédemment cités.
@@ -1116,8 +1113,8 @@ ne peut pas être déterminée avec les deux mécanismes précédemment cités.
 
 Il est nécessaire de renseigner un _port_ lorsqu'on démarre un serveur
 avec le <<../chapter-04/index.adoc#http,module `http`>>
-(cf. <<../chapter-04/index.adoc#,chapitre 4>>). +
-Pourtant nous allons faire face à un "problème" si le code suivant est déployé
+(cf. <<../chapter-04/index.adoc#,chapitre{nbsp}4>>).
+Pourtant, nous allons faire face à un "`problème`" si le code suivant est déployé
 sur une <<hosting.paas,plate-forme de services>> :
 
 [source,javascript]
@@ -1126,14 +1123,14 @@ sur une <<hosting.paas,plate-forme de services>> :
 include::{sourceDir}/server-port.js[]
 ----
 
-Le déploiement sera considéré comme réussi mais l'application est injoignable.
-C'est parce que les plates-formes de service choisissent ce port pour nous
+Le déploiement est considéré comme réussi, mais l'application est injoignable.
+En effet, les plates-formes de services choisissent ce port pour nous
 et l'associent à l'URL de notre application
-– `monapplication.heroku.com` par exemple.
+– [URL]#monapplication.heroku.com# par exemple.
 
 Le port est exposé au travers d'une
 <<../chapter-04/index.adoc#process.env,variable d'environnement>>
-(cf. <<../chapter-04/index.adoc#,chapitre 4>>).
+(<<../chapter-04/index.adoc#,chapitre{nbsp}4>>).
 Par convention, c'est la variable `PORT` qui est utilisée.
 
 Nous n'avons qu'à adapter le script précédent de cette manière :
@@ -1145,7 +1142,7 @@ include::{sourceDir}/server-port-dynamic.js[]
 ----
 <1> Extrait la valeur de la variable d'environnement `process.env.PORT`.
 
-La variable d'environnement `PORT` sera utilisée si elle existe et sinon,
+La variable d'environnement `PORT` sera utilisée si elle existe et, sinon,
 le port `8000` sera la valeur par défaut :
 
 [subs="+quotes"]
@@ -1161,7 +1158,7 @@ C'est un premier pas pour s'affranchir des
 
 
 [[configuration]]
-=== S'affranchir des chemins et configurations écrits "en dur"
+=== S'affranchir des chemins et configurations écrits "`en dur`"
 
 La <<port,configuration du port>> de l'application n'est pas le seul
 élément contextuel à changer entre notre ordinateur et un autre
@@ -1175,12 +1172,12 @@ Elles s'appliquent aux :
 * *URL* d'accès aux bases de données, à des API distantes ;
 * *clés d'API* pour utiliser des services externes ;
 * *réglages* influençant le comportement de l'application ;
-* *chemins d'accès* vers des fichiers ou répertoires – stockage, cache, etc ;
-* *environnements d'exécution* – développement, test, production, etc.
+* *chemins d'accès* vers des fichiers ou répertoires (stockage, cache) ;
+* *environnements d'exécution* (développement, test, production).
 
 L'accès à une base de données est un parfait exemple.
-Le nom d'utilisateur, mot de passe et adresse du serveur
-peuvent d'ailleurs se combiner en une seule variable composée sous forme d'URL.
+Les nom d'utilisateur, mot de passe et adresse du serveur
+peuvent d'ailleurs se combiner en une seule variable composée sous forme{nbsp}d'URL.
 
 Par exemple, si vous avez connaissance des identifiants et de l'adresse d'une
 base de données MySQL ou MariaDB, composez l'URL de configuration comme suit :
@@ -1197,12 +1194,12 @@ include::{sourceDir}/sql-connect.js[]
 ----
 <1> Connexion à la base de données en utilisant la variable d'environnement `MYSQL_URL`.
 <2> Affiche `Connexion réussie :-)` en cas de succès de connexion à la base de données.
-<3> Clôture de la connexion – autrement le script ne se terminerait pas sans avoir recours à kbd:[Ctrl+C].
+<3> Clôture de la connexion – sinon, le script ne se terminerait pas sans avoir recours à{nbsp}kbd:[Ctrl+C].
 
 Le script d'exemple devrait avoir affiché la liste des tables contenues
 dans cette base de données ou un message d'erreur le cas échéant.
 
-La documentation du <<../chapter-05/index.adoc#modules,module npm>>
+La documentation du <<../chapter-05/index.adoc#modules,module{nbsp}``npm``>>
 _mysql2_ ([URL]#http://npmjs.com/mysql2#) détaille les différentes fonctions
 utilisables pour interagir avec les bases de données compatibles.
 
@@ -1226,17 +1223,17 @@ Certaines variables d'environnement sont tellement spécifiques à chaque usage
 qu'elles doivent être obligatoirement configurées – identifiants, URL de la
 base de données, etc.
 Je trouve pratique de proposer une valeur par défaut pour les autres – le port
-de l'application ou d'autres éléments plus "cosmétiques".
+de l'application ou d'autres éléments plus "`esthétiques`".
 
 Enfin, j'ai aussi pris l'habitude de documenter les variables d'environnement
 dans le fichier `README.md` à la racine de chaque projet.
 Nous pouvons ainsi avoir une vue d'ensemble de la complexité de configuration
-en un rapide coup d'œil – et ça nous évite de fouiller dans le code applicatif.
+en un rapide coup d'œil – et cela nous évite de fouiller dans le code applicatif.
 
 [TIP]
-.[RemarquePreTitre]#Optimisation# `NODE_ENV=production`
+.[RemarquePreTitre]#Optimisation# NODE_ENV=production
 ====
-Certains <<../chapter-05/index.adoc#modules,modules `npm`>> comme _express_
+Certains <<../chapter-05/index.adoc#modules,modules{nbsp}``npm``>> comme _express_
 ([URL]#https://npmjs.com/express#) lisent la valeur de `process.env.NODE_ENV`.
 Ils s'en servent pour procéder à des optimisations et masquer des informations
 sensibles dans un contexte de production
@@ -1248,9 +1245,9 @@ $ NODE_ENV=production node app.js
 ====
 
 [[data-persistence]]
-=== Persister les fichiers en dehors de notre application
+=== Faire persister les fichiers en dehors de notre application
 
-Les fichiers écrits par notre application devraient être persistés en dehors
+Les fichiers écrits par notre application devraient être sauvegardés en dehors
 de son arborescence de fichiers.
 
 Prenons cet exemple d'arborescence :
@@ -1264,14 +1261,14 @@ Prenons cet exemple d'arborescence :
 
 Les images sont stockées à deux endroits :
 
-- `app/images` : images statiques affichées par notre application web – on les versionne avec Git;
+- `app/images` : images statiques affichées par notre application web – on les versionne avec{nbsp}Git ;
 - `app/uploads/images` : fichiers enregistrés sur le disque par l'intermédiaire
-de notre application – on ne les versionne pas avec Git.
+de notre application – on ne les versionne pas avec{nbsp}Git.
 
 Un inconvénient se présente à nous : nous perdons tout si nous supprimons
 le répertoire `app` pour réinstaller l'application de zéro.
 Je conseille donc d'*écrire tout nouveau fichier dans un répertoire indépendant*.
-L'arborescence évoquée ci-dessus se transformerait ainsi :
+L'arborescence se transformerait comme suit :
 
 ----
 ├── app
@@ -1289,58 +1286,56 @@ avec une variable d'environnement.
 ----
 $ UPLOAD_DIR=/uploads npm start
 ----
-
-En savoir plus en lisant la <<configuration,section précédente>>.
 ====
 
-Ce qui peut sembler être une précaution s'avère encore plus utile
+Cette précaution s'avère encore plus utile
 dès lors que nous utilisons une <<hosting.paas,plate-forme de services>>
 ou lorsque nous démarrons une nouvelle <<hosting.cloud,machine virtuelle>>.
-*Chaque nouveau déploiement remet le système de fichiers à zéro*.
+*Chaque nouveau déploiement remet le système de fichiers à{nbsp}zéro*.
 
 Une solution complémentaire s'offre à nous lorsqu'il devient compliqué
-de partager un même stockage de fichiers entre plusieurs machines ou VM :
+de partager un même stockage de fichiers entre plusieurs machines ou{nbsp}VM :
 c'est le *stockage d'objets*.
 
 Le stockage d'objets est une solution de stockage élastique où la facturation
-est basée sur la quantité de données stockées et téléchargées.
+est basée sur la quantité des données stockées et téléchargées.
 Nous accédons aux ressources stockées et à leur contenu avec des requêtes HTTP.
 Les fichiers sont ainsi disponibles à tout moment, sans limite et
 pour tous nos contextes applicatifs.
 
 [NOTE]
-.[RemarquePreTitre]#Histoire# Amazon S3
+.[RemarquePreTitre]#Histoire# Amazon{nbsp}S3
 ====
 Amazon S3 est le premier service à avoir rendu populaire le stockage d'objets
 en 2006.
 C'était la première fois que nous pouvions stocker des fichiers de manière infinie,
-sans limitation de taille de fichiers.
+sans limitation de taille.
 
-Son interface d'accès (API) est même devenue un standard _de facto_ : il est
+Son interface d'accès est même devenue un standard _de{nbsp}facto_ : il est
 utilisé par la plupart des concurrents afin de pouvoir passer d'un fournisseur
 à un autre sans avoir à changer grand-chose à ses applications.
 ====
 
 [format="csv", options="header", separator=";"]
-.Services de stockage d'objets compatibles avec l'API Amazon S3
+.Services de stockage d'objets compatibles avec l'API Amazon{nbsp}S3
 |===
 Service;Emplacement(s) du stockage;Tarif mensuel
-[URL]#https://aws.amazon.com/s3/#;Paris, Europe, Monde;0.024$/Go
-[URL]#https://ovh.com/fr/public-cloud/storage/#;France;0.01€/Go
-[URL]#https://cloud.google.com/storage/#;Europe, Monde;0.026$/Go
+[URL]#https://aws.amazon.com/s3/#;Paris, Europe, Monde;0,024{nbsp}$/Go
+[URL]#https://ovh.com/fr/public-cloud/storage/#;France;0,01{nbsp}€/Go
+[URL]#https://cloud.google.com/storage/#;Europe, Monde;0,026{nbsp}$/Go
 [URL]#https://minio.io#;Flexible;-
 |===
 
 [[database-migration]]
 === Versionner les schémas de base de données
 
-Le contenu et la structure d'une application peuvent changer selon qu'elle tourne
+Le contenu et la structure d'une application risquent de changer selon qu'elle tourne
 sur notre ordinateur ou sur notre hébergement.
 Nous pourrions reporter les changements de structure à la main mais c'est
 sujet à erreurs, difficile à reproduire et difficile à intégrer dans le
 <<deploy,processus de déploiement>>.
 
-L'idéal serait de synchroniser la structure de nos bases de données.
+L'idéal est de synchroniser la structure de nos bases de données.
 Ou plutôt, l'idéal est de *reproduire les changements de structure*.
 
 L'exemple suivant illustre la création d'un nouveau champ :
@@ -1358,30 +1353,30 @@ Ce fichier représente une _étape de migration_.
 L'idée est de créer une nouvelle étape pour chaque changement de structure
 et de les jouer au prochain déploiement.
 
-Cet exemple de migration se base sur le module npm _db-migrate_
+Cet exemple de migration se base sur le module{nbsp}``npm`` _db-migrate_
 ([URL]#https://npmjs.com/db-migrate#).
 Il se connecte à la base de données de notre choix, charge la liste des
 migrations et exécute celles qui n'ont pas encore été jouées.
 
-Les migrations ne s'utilisent pas que pour changer la structure.
-Elles s'utilisent aussi pour *créer la structure de notre base de données* :
+Les migrations ne s'utilisent pas que pour changer la structure de la base de données,
+mais aussi pour *la créer* :
 
 [source,javascript]
 .db-migration-init.js
 ----
 include::{sourceDir}/db-migration-init.js[]
 ----
-<1> Création d'une nouvelle table `fromages` avec 2 colonnes.
+<1> Création d'une nouvelle table `fromages` avec deux colonnes.
 <2> La première colonne se nomme `id` – elle est numérique et s'auto-incrémente à chaque nouvel enregistrement.
 <3> La seconde colonne se nomme `name` – c'est une chaîne de caractères.
 
-Si on met ces deux exemples bout à bout, nous sommes alors en mesure
+Si nous mettons ces deux exemples bout à bout, nous sommes alors en mesure
 de créer une table puis d'y appliquer un changement en ajoutant une nouvelle
 colonne.
 
-Ainsi, nous pouvons répliquer les changements de structures sur d'autres ordinateurs
+Ainsi, nous sommes en mesure de répliquer les changements de structures sur d'autres ordinateurs
 et *reproduire l'évolution du schéma de la base de données en partant de zéro*.
-Nous avons ainsi rejoué toutes les migrations sur notre outil d'intégration
+Nous avons rejoué toutes les migrations sur notre outil d'intégration
 continue pour nous assurer de leur robustesse et revenir en arrière si nécessaire.
 
 [[startup]]
@@ -1398,7 +1393,7 @@ et pour *lancer l'application au démarrage ou redémarrage d'un ordinateur*.
 === L'hébergeur s'en occupe à notre place
 
 Les <<hosting.paas,plates-formes de service>> automatisent le démarrage de
-l'application. +
+l'application.
 Elles exécutent la <<../chapter-05/index.adoc#start,commande `npm start`>>
 dès que le déploiement est terminé.
 
@@ -1410,11 +1405,11 @@ C'est tout.
 
 Un gestionnaire de processus a deux utilités :
 
-. *détacher un processus* de notre terminal – si on le ferme, l'application tourne toujours ;
-. *gérer plusieurs processus par application* – un frontal web et l'admin par exemple.
+- *détacher un processus* de notre terminal – si on le ferme, l'application tourne toujours ;
+- *gérer plusieurs processus par application* – un frontal web et l'admin par exemple.
 
 _pm2_ ([URL]#https://pm2.keymetrics.io#) est un gestionnaire de processus
-disponible en tant que <<../chapter-05/index.adoc#modules,module npm>>
+disponible en tant que <<../chapter-05/index.adoc#modules,module{nbsp}``npm``>>
 ([URL]#https://npmjs.com/pm2#).
 Il fonctionne sous Linux, Windows et macOS.
 
@@ -1432,7 +1427,7 @@ se relance pour prendre en compte des changements de code avec `pm2 restart`.
 
 Les gestionnaires de processus facilitent l'intégration
 d'une application en tant que <<system-service,service système>>
-(cf. section suivante). +
+(section suivante).
 C'est mon choix de prédilection pour ne pas avoir à apprendre un nouveau
 fichier de configuration.
 
@@ -1458,10 +1453,10 @@ $ pm2 unstartup
 ----
 
 [NOTE]
-.[RemarquePreTitre]#Windows# Configurer pm2
+.[RemarquePreTitre]#Windows# Configurer{nbsp}pm2
 ====
 La commande `pm2 startup` pose problème sous Windows.
-Je recommande d'utiliser le module npm _pm2-windows-service_
+Je recommande d'utiliser le module{nbsp}``npm`` _pm2-windows-service_
 ([URL]#https://www.npmjs.com/package/pm2-windows-service#) pour simplifier
 cette procédure.
 ====
@@ -1480,8 +1475,7 @@ Ils se configurent avec des fichiers écrits dans des formats différents.
 
 Voici un exemple de fichier de configuration pour _systemd_
 ([URL]#https://doc.ubuntu-fr.org/systemd#).
-C'est le gestionnaire de services des distributions Linux _Ubuntu_,
- _Debian_, _Fedora_ et _CentOS_.
+C'est le gestionnaire de services des distributions Linux Ubuntu, Debian, Fedora et CentOS.
 
 [source]
 .systemd/nodebook.d/app.conf
@@ -1491,7 +1485,7 @@ include::{sourceDir}/systemd/nodebook.d/app.conf[]
 <1> L'application démarrera dès que l'interface réseau sera opérationnelle.
 <2> L'application sera relancée en cas de plantage – maximum 5 fois dans un délai de 120 secondes.
 <3> Le processus sera démarré au nom de l'utilisateur système `nobody`.
-<4> C'est comme si nous faisions `cd /usr/local/node-app` avant de lancer l'application – c'est la valeur qu'on retrouve avec `process.cwd()`.
+<4> C'est comme si nous nous placions dans `/usr/local/node-app` avant de lancer l'application – c'est la valeur qu'on retrouve avec `process.cwd()`.
 <5> Commande à exécuter pour démarrer l'application.
 
 Le service associé au fichier de configuration précédent peut être démarré
@@ -1510,16 +1504,15 @@ Dans tous les cas, le service sera lancé automatiquement au prochain
 démarrage du système d'exploitation.
 
 [TIP]
-.[RemarquePreTitre]#Alternative# Et pour Windows ?
+.[RemarquePreTitre]#Alternative# Et{nbsp}pour Windows ?
 ====
 Le gestionnaire de services Windows est compliqué à utiliser.
-Je recommande d'utiliser le module npm
-_node-windows_ ([URL]#https://npmjs.com/node-windows#).
+Je recommande le module npm _node-windows_ ([URL]#https://npmjs.com/node-windows#).
 ====
 
 
 [[application-manager]]
-=== Avec un serveur d'applications web
+=== Avec un serveur d'applications{nbsp}web
 
 Un serveur d'applications web est un logiciel informatique
 qui a deux objectifs : *être toujours disponible*
@@ -1545,10 +1538,10 @@ Le trafic est réparti vers l'instance qui a le plus de CPU disponible.
 *Phusion Passenger* ([URL]#https://phusionpassenger.com/#) est un
 serveur d'applications web open source, léger et performant.
 Il est compatible avec des applications Ruby, Node et Python.
-Il s'installe de manière autonome ou en complément des serveurs _nginx_
-([URL]#https://nginx.org#) et _Apache httpd_ ([URL]#https://httpd.apache.org#).
+Il s'installe de manière autonome ou en complément des serveurs nginx
+([URL]#https://nginx.org#) et Apache{nbsp}httpd ([URL]#https://httpd.apache.org#).
 
-Regardons ensemble à quoi ressemble un fichier de configuration _nginx_
+Regardons ensemble à quoi ressemble un fichier de configuration nginx
 minimaliste :
 
 [source,nginx]
@@ -1556,10 +1549,10 @@ minimaliste :
 ----
 include::{sourceDir}/nginx/static.conf[]
 ----
-<1> Répertoire racine où _nginx_ va chercher les fichiers.
+<1> Répertoire racine où nginx va chercher les fichiers.
 
-Si _nginx_ est lancé sur notre ordinateur avec ce fichier de configuration
-et que le fichier `image.jpg` est placé dans le répertoire `/var/www`,
+Si nginx est lancé sur notre ordinateur avec ce fichier de configuration
+et si le fichier `image.jpg` est placé dans le répertoire `/var/www`,
 alors nous pourrons y accéder dans un navigateur web
 sur `http://localhost/image.jpg`.
 
@@ -1588,7 +1581,7 @@ intégrale se trouve sur
 == À quoi penser après la mise en ligne ?
 
 De la programmation au déploiement, nous sommes toujours en mesure
-de savoir quand quelque chose ne va pas : les *erreurs se produisent sous nos yeux*.
+de savoir quand quelque chose ne va pas : les *erreurs se produisent sous nos{nbsp}yeux*.
 
 Les problèmes commencent à *échapper à notre attention dès la mise en ligne*.
 Regardons ensemble ce que nous pouvons faire pour intervenir au bon moment.
@@ -1601,7 +1594,7 @@ Que se passe-t-il lorsqu'une application plante en plein milieu du week-end ?
 _Rien_.
 Nous n'en savons rien tant que nous n'allons pas sur l'application en question.
 L'action la plus simple à mettre en œuvre est de *recevoir une alerte*
-par e-mail ou par SMS.
+par courriel ou par{nbsp}SMS.
 
 _Pingdom_ ([URL]#https://www.pingdom.com/free#) répond exactement à ce besoin.
 Il est gratuit pour un site web et payant au-delà.
@@ -1618,40 +1611,40 @@ Il offre en plus un flux RSS d'alertes et une intégration avec Slack.
 Lorsque nous prenons connaissance d'un plantage applicatif, comment déterminer
 ce qui l'a causé ?
 
-.Écran affiché par Heroku lorsque l'application a planté et ne répond plus.
+.Écran affiché par Heroku lorsque l'application a planté et ne répond{nbsp}plus.
 image::images/heroku-app-error.png[width="85%"]
 
 S'il s'agit d'une application personnelle ou sans enjeu,
-nous pouvons nous contenter de reproduire le problème localement. +
+nous pouvons nous contenter de reproduire le problème localement.
 Dans le cas d'une application professionnelle,
 nous aurons besoin d'avoir plus de précisions, rapidement.
 
 _Sentry_ ([URL]#https://sentry.io#) est un service en ligne qui s'intègre
 dans notre code comme une sonde.
 Une fois placée, la sonde transmet les erreurs vers la plate-forme _Sentry_.
-Cette plate-forme affiche les erreurs connues sous forme de tableau de bord –
+Cette dernière affiche les erreurs connues sous forme de tableau de bord –
 leur nature, combien de fois elles se répètent.
-Elle nous envoie également une notification par e-mail avec une indication
+Elle nous envoie également une notification par courriel avec une indication
 de sévérité, pour que nous puissions réagir plus ou moins rapidement.
 
-.Écran d'affichage d'une erreur analysée par Sentry.
+.Écran d'affichage d'une erreur analysée par{nbsp}Sentry.
 image::images/sentry-error.png[width="85%"]
 
-L'inclusion d'une sonde basique revient à insérer 2 lignes dans notre code :
+L'inclusion d'une sonde basique revient à insérer deux lignes dans notre code :
 
 [source,javascript]
 .sentry.js
 ----
 include::{sourceDir}/sentry.js[]
 ----
-<1> _raven_ est le nom du module npm édité par Sentry pour collecter les erreurs.
-<2> Configuration du client Sentry – il collectera et enverra les erreurs auprès du service Sentry.
+<1> _raven_ est le nom du module{nbsp}``npm`` édité par Sentry pour collecter les erreurs.
+<2> Configuration du client Sentry – il collectera et enverra les erreurs auprès de la plate-forme.
 <3> Cette ligne est la source de notre erreur – la variable n'est pas définie.
 
-_Sentry_ nous communique une clé d'API pour chaque projet à monitorer.
+_Sentry_ nous communique une clé d'API pour chaque projet à instrumenter.
 Quand vous obtenez la vôtre, modifiez la ligne de commande suivante afin
-de provoquer l'erreur, de recevoir l'e-mail d'alerte et de la visualiser
-en détails sur le tableau de bord :
+de provoquer l'erreur, de recevoir le courriel d'alerte et de la visualiser
+en détail sur le tableau de bord :
 
 ----
 $ SENTRY_DSN=https://0c...@sentry.io/1201870 node sentry.js
@@ -1661,15 +1654,15 @@ $ SENTRY_DSN=https://0c...@sentry.io/1201870 node sentry.js
 .[RemarquePreTitre]#Documentation# Configurer Sentry
 ====
 Un guide complet (en anglais) documente comment aller plus loin
-dans l'utilisation de Sentry.
+dans l'utilisation de Sentry :
 
-Il se lit sur [URL]#https://docs.sentry.io/clients/node/#.
+- [URL]#https://docs.sentry.io/clients/node/#
 ====
 
-Le service _New Relic_ ([URL]#https://newrelic.com/nodejs#)
+Le service _New{nbsp}Relic_ ([URL]#https://newrelic.com/nodejs#)
 est une alternative à _Sentry_.
 Il mesure également les performances et les sources de ralentissement.
-_New Relic_ s'installe gratuitement et en quelques clics sur la
+Il s'installe gratuitement et en quelques clics sur la
 <<hosting.paas,plate-forme de services>> Heroku.
 Il devient payant à partir d'un certain volume de requêtes.
 
@@ -1678,36 +1671,42 @@ Il devient payant à partir d'un certain volume de requêtes.
 === Notre version de Node fait l'objet d'une faille de sécurité
 
 Certaines versions de Node sortent pour apporter de nouvelles fonctionnalités
-ou pour corriger des bugs.
+ou pour corriger des bogues.
 D'autres sont publiées pour corriger des failles de sécurité.
 Ces *failles sont critiques pour nos applications*.
 
 Lorsqu'une faille est exploitée, la personne à l'origine de l'attaque
 peut ralentir, faire planter ou extraire des informations confidentielles
 de notre application.
-En cas de faille critique, l'attaquant·e peut aussi gagner un accès
+En cas de faille critique, l'attaquant·e risque aussi de gagner un accès
 à l'ordinateur et aux bases de données hébergeant l'application.
 
 Solution : *redéployer nos applications* avec une version de Node plus récente.
 
-Je vous encourage à recevoir des alertes par e-mail ou en
-vous abonnant au fil RSS pour être prevenu·e au bon moment.
+Je vous encourage à recevoir des alertes par courriel ou en
+vous abonnant au fil{nbsp}RSS pour être prevenu·e au bon moment.
 
-[horizontal]
-E-mail::
-  [URL]#https://groups.google.com/group/nodejs-sec#
-Fil RSS::
-  [URL]#https://nodejs.org/en/feed/vulnerability.xml#
+[NOTE]
+.Courriel
+====
+- [URL]#https://groups.google.com/group/nodejs-sec#
+====
 
-.Exemple d'alerte de sécurité envoyée par e-mail.
+[NOTE]
+.Fil{nbsp}RSS
+====
+- [URL]#https://nodejs.org/en/feed/vulnerability.xml#
+====
+
+.Exemple d'alerte de sécurité envoyée par courriel.
 image::images/node-security-bulletin.png[]
 
 [[security.npm]]
-=== Un des modules `npm` fait l'objet d'une faille de sécurité
+=== Un des modules{nbsp}npm fait l'objet d'une faille de sécurité
 
-Les modules `npm` sont aussi affectés par des failles de sécurité.
+Les modules{nbsp}``npm`` aussi risquent d'être affectés par des failles de sécurité.
 
-Les conséquences de leur exploitation sont similaires aux failles de Node :
+Les conséquences de leur exploitation sont similaires à celles des failles de Node :
 les personnes à l'origine des attaques peuvent saturer le serveur et
 paralyser l'application.
 Elles sont aussi en mesure de subtiliser des informations confidentielles
@@ -1715,35 +1714,35 @@ stockées en base de données ou saisies par les usagers.
 
 _Snyk_ ([URL]#https://snyk.io#) est un service de sécurité gratuit pour les
 projets open source.
-Il scanne les vulnérabilités de nos dépendances et
-des dépendances de nos dépendances.
+Il scanne les vulnérabilités de nos dépendances et sous-dépendances
 Il nous alerte sur la sévérité des failles décelées dans nos projets.
 
-.Tableau de bord des dépendances vulnérables avec Snyk.
+.Tableau de bord des dépendances vulnérables avec{nbsp}Snyk.
 image::images/snyk-dashboard.png[width="85%"]
 
-Ces failles sont classées en 3 niveaux : dangereuses, modérées et superficielles.
+Ces failles sont classées en trois niveaux : dangereuses, modérées et superficielles.
 Mieux vaut mettre à jour les dépendances affectées par une faille dangereuse
 le plus rapidement possible.
 
-Ce n'est pas grave si nous ne mettons pas à jour un vieux module npm.
-Ça peut avoir un impact négatif si cette vieille version est affectée par une faille.
+Ce n'est pas grave si nous ne mettons pas à jour un vieux module{nbsp}``npm``.
+En revanche, cela peut avoir un impact négatif si cette vieille version est
+affectée par une faille.
 
-La capture d'écran suivante illustre une vulnérabilité décelée dans le module
-npm _restify_ dans sa version 4 :
+La capture d'écran suivante illustre une vulnérabilité décelée dans le
+module{nbsp}``npm`` _restify_ dans sa version{nbsp}4 :
 
 [TIP]
 
-.Affichage d'une vulnérabilité et d'un chemin de résolution avec Snyk.
+.Affichage d'une vulnérabilité et d'un chemin de résolution avec{nbsp}Snyk.
 image::images/snyk-vulnerability.png[width="85%"]
 
-La correction du problème implique de passer à la version 5.
-Cette action nous demandera surement d'adapter notre code car nous changeons
-de version majeure – de la version 4 à la version 5.
+La correction du problème implique de passer à la version{nbsp}5.
+Cette action nous demandera sûrement d'adapter notre code car nous changeons
+de version majeure.
 Ces migrations sont souvent documentées par les auteurs des modules.
 
 [TIP]
-.[RemarquePreTitre]#Pratique# Intégrations npm, Heroku, etc.
+.[RemarquePreTitre]#Pratique# Intégrations{nbsp}npm, Heroku, etc.
 ====
 Snyk s'intègre à d'autres services que GitHub : GitLab, Heroku, BitBucket, etc.
 
@@ -1751,15 +1750,21 @@ Les applications au code source privé peuvent être vérifiées gratuitement
 avec l'API de Snyk ou son application en ligne de commande.
 ====
 
-[horizontal]
-.Ressources proposées par Snyk.
-Base de données::
-  [URL]#https://snyk.io/vuln/?type=npm#
-Fil RSS::
-  [URL]#https://snyk.io/vuln/feed.xml?type=npm#
+[NOTE]
+.Base de données
+====
+- [URL]#https://snyk.io/vuln/?type=npm#
+====
+
+[NOTE]
+.Fil{nbsp}RSS
+====
+- [URL]#https://snyk.io/vuln/feed.xml?type=npm#
+====
+
 
 Nous avons parlé de la commande `npm audit` dans
-le <<../chapter-05/index.adoc#audit,chapitre 5>>.
+le <<../chapter-05/index.adoc#audit,chapitre{nbsp}5>>.
 Elle dispose d'une option pour mettre à jour automatiquement
 les dépendances dangereuses : `npm audit fix`.
 
@@ -1774,7 +1779,7 @@ de Snyk ou de `npm audit fix` suffit à prendre des mesures de correction
 efficaces sans avoir à trop s'y connaître.
 
 La lecture des rapports de vulnérabilité est un bon moyen de comprendre
-comment ces exploits fonctionnent, et comment penser nos applications
+comment ces exploits fonctionnent et comment penser nos applications
 pour éviter d'exposer une surface d'attaque minimale.
 
 
@@ -1795,5 +1800,5 @@ L'*automatisation du démarrage* d'une application demande d'investir du temps
 pour être à l'aise.
 Ce temps est utile car le principe s'applique à d'autres langages
 et ouvre la porte de la maîtrise de l'hébergement applicatif,
-quand les <<hosting.paas,plate-formes de service>> commencent à nous
-coûter trop cher.
+quand les <<hosting.paas,plates-formes de service>> commencent à nous
+coûter trop{nbsp}cher.
