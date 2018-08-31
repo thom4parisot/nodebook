@@ -23,7 +23,7 @@ système d'exploitation.
 - Vers un code réutilisable et testable.
 - Utilisation d’un framework d’application en ligne de commande.
 - Gérer les chemins d'accès et les flux de données.
-- Rendre le programme indépendant de Node.
+- Rendre le programme indépendant de{nbsp}Node.
 ====
 
 [abstract]
@@ -46,42 +46,41 @@ des chemins d'accès et des traitements en continu sur des flux de données.
 include::../docs/tip-versions.adoc[]
 
 Un script en ligne de commande revient souvent à une installation globale
-d'un module npm (`npm install --global <module>`).
-Ce script prend aussi bien la forme d'un petit outil que d'une application complète.
+d'un module{nbsp}``npm`` (`npm install --global <module>`).
+Il prend aussi bien la forme d'un petit outil que d'une application complète.
 Dans tous les cas, le terminal est l'interface d'affichage.
 
 Node est particulièrement adapté à la création d'outils en ligne de commande
-grâce à son modèle de gestion mémoire et de son processus unique.
+grâce à son modèle de gestion mémoire et son processus unique.
 Il doit toutefois partager la mémoire et les ressources de la machine avec
 les autres programmes – à nous de faire le choix de la frugalité.
 
-Ces outils nous servent à outiller nos projets, à créer des programmes autonomes,
-des interfaces visuelles dans un terminal et à automatiser ce qu'il nous semble
-juste d'automatiser.
-Leur distribution sur le registre npm (cf. <<../chapter-05/index.adoc#,chapitre 5>>)
-les rend faciles d'accès et facile à partager.
-Surtout après avoir appris à <<bien les tests,tester et à bien les documenter>>.
+Ces codes nous servent à outiller nos projets, à créer des programmes autonomes,
+des interfaces visuelles dans un terminal et à automatiser ce qui doit l'être.
+Leur distribution sur le registre{nbsp}``npm``
+(<<../chapter-05/index.adoc#,chapitre{nbsp}5>>) en facilite l'accès et le partage,
+surtout si vous les avez bien <<tests,testés et documentés>>.
 
 
 [[start]]
 == Créer un script exécutable
 
-La première étape est de transformer un script Node en un script Node exécutable.
-Le système d'exploitation ne percevra plus le script comme un simple fichier texte
-mais bel et bien comme un programme au même titre que l'exécutable `npm`.
+La première étape est de rendre exécutable votre script Node.
+Le système d'exploitation ne le percevra plus comme un simple fichier texte,
+mais bel et bien comme un programme, au même titre que l'exécutable{nbsp}``npm``.
 
-Nous allons apprendre à faire ce cheminement ensemble, jusqu'à rendre notre
-code distribuable sous forme d'un <<../chapter-05/index.adoc#modules,module npm>>
-(cf. <<../chapter-05/index.adoc#,chapitre 5>>).
+Nous allons apprendre ce cheminement ensemble, jusqu'à rendre notre
+code distribuable sous forme d'un <<../chapter-05/index.adoc#modules,module{nbsp}``npm``>>
+(<<../chapter-05/index.adoc#,chapitre{nbsp}5>>).
 
 [[script]]
-=== Au départ, un simple script Node
+=== Au départ, un simple script{nbsp}Node
 
 Ce dont nous avons besoin pour démarrer, c'est d'un script Node que nous
 pouvons appeler depuis notre terminal.
 Nous allons placer l'exemple suivant dans le répertoire `bin`
 (pour _binary_ en anglais, c'est-à-dire _exécutable_).
-Ça n'a pas d'incidence technique mais c'est une pratique courante au sein
+Cela n'a pas d'incidence technique, mais c'est une pratique courante au sein
 de la communauté Node pour repérer plus facilement les exécutables
 sans ambiguïté.
 
@@ -90,12 +89,12 @@ sans ambiguïté.
 ----
 include::{sourceDir}/bin/time.js[]
 ----
-<1> Crée un objet qui représente la <<../chapter-03/index.adoc#date,date>> courante – cf. <<../chapter-03/index.adoc#,chapitre 3>> pour se rafraichir la mémoire au sujet de cette API.
+<1> Crée un objet qui représente la <<../chapter-03/index.adoc#date,date>> courante (<<../chapter-03/index.adoc#,chapitre{nbsp}3>>).
 
 include::../docs/tip-examples.adoc[]
 
 L'exécution du script avec Node retourne la date et l'heure courante – selon
-l'horloge de l'ordinateur qui exécute le code.
+l'horloge de l'ordinateur qui exécute le{nbsp}code.
 
 ----
 $ node bin/time.js
@@ -104,15 +103,15 @@ Il est 13h42.
 
 
 [[permissions]]
-=== Modifier les permissions du script
+=== Modifier les permissions du{nbsp}script
 
 Les systèmes d'exploitation modernes distinguent les fichiers ordinaires
 des fichiers exécutables.
-L'appel à un fichier exécutable se fait sans avoir à connaître quoique ce soit
+L'appel à un fichier exécutable se fait sans avoir à connaître quoi que ce soit
 d'autre que son emplacement.
 
 Essayons d'exécuter le script précédent pour nous en rendre compte.
-pour ce faire, nous allons l'invoquer seulement avec son chemin
+Pour ce faire, nous allons l'invoquer seulement avec son chemin
 – ici, son chemin relatif :
 
 ----
@@ -122,8 +121,8 @@ sh: permission denied: ./bin/time.js
 
 Le système refuse de l'exécuter car les permissions du fichier ne sont pas
 adéquates.
-Comme nous ne les connaissons pas, utilisons la commande `ls` ainsi que
-l'option `-l` pour afficher ses informations détaillées :
+Comme nous ne les connaissons pas, utilisons la commande{nbsp}``ls`` ainsi que
+l'option{nbsp}``-l`` pour afficher ses informations détaillées :
 
 [subs="+quotes"]
 ----
@@ -137,26 +136,24 @@ propriétaire, son poids et enfin la date de dernière modification.
 [NOTE]
 .[RemarquePreTitre]#Déchiffrer# Lire les permissions Unix
 ====
-Les permissions sont cryptiques à lire quand on tombe dessus pour la première fois.
-
 Le premier caractère spécifie le type (fichier, répertoire, lien symbolique) et
-ensuite, ce sont des blocs de 3 caractères qui décrivent les permissions de
+ensuite, ce sont des blocs de trois caractères qui décrivent les permissions de
 l'utilisateur propriétaire, du groupe propriétaire et du reste des utilisateurs
 du système d'exploitation.
 
-Chaque bloc affiche `r` s'il est lisible, `w` s'il est modifiable et
-`x` s'il est exécutable – c'est ce dernier qui nous intéresse.
+Chaque bloc affiche ``r``{nbsp}s'il est lisible, ``w``{nbsp}s'il est modifiable et
+``x``{nbsp}s'il est exécutable – c'est ce dernier qui nous intéresse.
 ====
 
-Nous allons rendre le fichier exécutable (`+x`) pour notre utilisateur (`u`)
-grâce à la commande `chmod`.
-Je préfère utiliser cette notation pour car elle évite des effets de bord :
+Nous allons rendre le fichier exécutable{nbsp}(`+x`) pour notre utilisateur{nbsp}(`u`)
+grâce à la commande{nbsp}``chmod``.
+Je préfère utiliser cette notation car elle évite des effets de bord :
 
 ----
 $ chmod u+x bin/time.js
 ----
 
-L'utilisation renouvelée de la commande `chmod` confirme que la
+L'utilisation renouvelée de la commande{nbsp}``ls`` confirme que la
 permission _exécutable_ du fichier a été attribuée à l'utilisateur propriétaire
 du fichier :
 
@@ -174,37 +171,37 @@ $ ./bin/time.js
 ./bin/time.js: line 3: syntax error near unexpected token `('
 ----
 
-La bonne nouvelle c'est que le fichier est exécutable.
-Par contre, il semblerait que le système d'exploitation ait du mal
-à interpréter le fichier.
+La bonne nouvelle, c'est que le fichier est exécutable.
+Néanmoins, il semblerait que le système d'exploitation ait du mal
+à l'interpréter.
 
 [[shebang]]
-=== Préciser le contexte d'exécution (_shebang_)
+=== Préciser le contexte d'exécution (shebang)
 
 Donner les permissions d'exécution à un fichier ne suffit donc pas.
 Nous avons perdu un élément contextuel en supprimant l'appel à `node`
-dans l'exécution du script et nous allons voir comment rectifier le tir.
+dans l'exécution du script.
 
 [CAUTION]
 .[RemarquePreTitre]#Interopérabilité# Un fonctionnement différent sous Windows
 ====
-Ce mécanisme est n'est pas compris par le système d'exploitation Windows.
+Ce mécanisme n'est pas compris par le système d'exploitation Windows.
 Ce dernier utilise une surcouche qui serait trop longue à expliquer dans
 cet ouvrage.
 
 Je recommande cependant de conserver le contexte d'exécution sous Windows
-car l'exécutable `npm` gère l'interopérabilité pour nous.
+car l'exécutable{nbsp}``npm`` gère l'interopérabilité pour nous.
 Nous verrons comment dans la <<package.json,section suivante>>.
 ====
 
-Le caractère `+#+` placé en début de ligne d'un script système signale une ligne
+Le caractère{nbsp}``+#+`` placé en début de ligne d'un script système signale une ligne
 placée en commentaire.
-C'est l'équivalent de `+//+` en ECMAScript.
-Il existe un cas spécial : lorsque le caractère `+#+` est suivi d'un `!`
+C'est l'équivalent de{nbsp}``+//+`` en ECMAScript.
+Il existe un cas spécial : lorsque le caractère{nbsp}``+#+`` est suivi d'un{nbsp}``!``
 _et_ lorsqu'il s'agit de la première ligne d'un fichier.
 Le contenu du commentaire est alors utilisé par le système d'exploitation
 pour déterminer quel programme utiliser pour interpréter le script.
-C'est ce qu'on appelle _shebang_ (en anglais).
+C'est ce qu'on appelle _shebang_.
 
 Modifions le script de la section précédente pour ajouter le _shebang_ :
 
@@ -214,10 +211,10 @@ Modifions le script de la section précédente pour ajouter le _shebang_ :
 include::{sourceDir}/bin/time-sh.js[lines=1..5]
 ...
 ----
-<1> Le programme `/usr/bin/env` est exécuté avec un argument, `node`.
+<1> Le programme `/usr/bin/env` est exécuté avec un argument,{nbsp}``node``.
 
 Le programme `/usr/bin/env` crée un nouvel environnement d'exécution
-et le reste du script est passé au programme référencé en argument – ici, `node`.
+et le reste du script est passé au programme référencé en argument – ici,{nbsp}``node``.
 Ce nouvel environnement dure le temps de l'exécution du script.
 
 ----
@@ -227,18 +224,17 @@ Il est 13h42.
 
 Le dernier effort à faire pour distribuer ce script exécutable de manière
 interopérable est de le lier à un
-<<../chapter-05/index.adoc#package.json,module npm>>.
+<<../chapter-05/index.adoc#package.json,module{nbsp}``npm``>>.
 
 [[package.json]]
-=== Faire le lien avec un module npm
+=== Faire le lien avec un module{nbsp}npm
 
-Nous avons vu dans le <<../chapter-05/index.adoc#,chapitre 5>>
+Nous avons vu dans le <<../chapter-05/index.adoc#,chapitre{nbsp}5>>
 que Node utilisait la valeur `main` du fichier `package.json` pour déterminer
 quel script inclure en faisant `require('<module>')` ou `import <module> from '<module>'`.
 
 Le champ `bin` est une transposition de `main` pour associer un script
-exécutable à notre module npm.
-Par exemple :
+exécutable à notre module{nbsp}``npm`` :
 
 [source,json]
 .package.json
@@ -253,7 +249,7 @@ Par exemple :
 Le moyen le plus simple pour tester l'intégration de l'exécutable
 avec notre système d'exploitation est de
 l'<<../chapter-05/index.adoc#install.global,installer globalement>>.
-L'exécutable `npm` sait aussi installer un module à partir
+L'exécutable{nbsp}``npm`` sait aussi installer un module à partir
 d'un chemin vers un répertoire contenant un fichier `package.json` :
 
 ----
@@ -271,10 +267,10 @@ Il est 13h42.
 [TIP]
 .[RemarquePreTitre]#Pratique# Un autre nom ou plusieurs exécutables
 ====
-Le champ `bin` s'écrit sous forme d'un objet si vous souhaitez utiliser
-un autre nom que celui du module npm.
+Le champ{nbsp}``bin`` s'écrit sous forme d'un objet si vous souhaitez utiliser
+un autre nom que celui du module{nbsp}``npm``.
 La clé correspond au nom de l'exécutable tel qu'il sera utilisable sur le
-système tandis que la valeur contient le chemin d'accès au script exécutable.
+système, tandis que la valeur contient le chemin d'accès au script exécutable.
 Plusieurs exécutables sont alors installés si nous renseignons plusieurs
 clés et valeurs.
 
@@ -297,21 +293,20 @@ L'installation de l'exécutable `examples/bin/time-sh.js` se fera sous le nom `q
 == Du script au programme interactif
 
 Nous avons appris à transformer un script Node ordinaire en un script
-exécutable et prêt à le <<../chapter-05/index.adoc#publish,publier sur un registre npm>>
-(cf. <<../chapter-05/index.adoc#,chapitre 5>>).
+exécutable et prêt à <<../chapter-05/index.adoc#publish,publier sur un registre{nbsp}``npm``>>
+(<<../chapter-05/index.adoc#,chapitre{nbsp}5>>).
 
 Cette section se focalise sur l'enrichissement d'un tel script pour en faire
-une application plus complète, interactive et robuste.
-De quoi se constituer un outillage sur mesure, partageable avec le reste de
-notre équipe et de l'écosystème de modules `npm`.
+une application plus complète, interactive et robuste, de quoi se constituer
+un outillage sur mesure, partageable avec le reste de notre équipe et de
+l'écosystème de modules `npm`.
 
 [[args]]
 === Utiliser des arguments et des options
 
 Nous avons vu comment récupérer les arguments d'un script Node
 en découvrant le <<../chapter-04/index.adoc#process,module `process`>>
-au <<../chapter-04/index.adoc#,chapitre 4>>
-– un des nombreux modules fournis avec chaque installation de Node.
+au <<../chapter-04/index.adoc#,chapitre{nbsp}4>>.
 Pour rappel, la variable `process.argv` est un tableau qui contient tous
 les arguments passés au script principal :
 
@@ -321,48 +316,47 @@ les arguments passés au script principal :
 include::{sourceDir}/options/intro.js[]
 ----
 
-Ce qui donne le résultat suivant quand nous lançons ce script dans un terminal :
+Cela donne le résultat suivant quand nous lançons ce script dans un terminal :
 
 ----
 $ node options/intro.js --country FR --fast
 [ '--country', 'FR', '--fast' ]
 ----
 
-Ce tableau est un peu "léger" car il se contente de retourner les arguments,
+Ce tableau est un peu "`léger`" car il se contente de retourner les arguments,
 sans compréhension de la logique recherchée.
-C'est à nous de faire la démarche de dire que `FR` est une valeur
-associée à `--country`.
+C'est à nous de dire que{nbsp}``FR`` est une valeur associée à `--country`.
 
 Dans le contexte des outils en ligne de commande,
 les arguments et les options sont des paramètres qui sont interprétées
 par le programme pour contextualiser son action.
 Ils fonctionnent un peu comme des arguments de
-<<../chapter-03/index.adoc#function,fonction>> et des paramètres d'URL.
+<<../chapter-03/index.adoc#function,fonction>> et des paramètres{nbsp}d'URL.
 
 L'enjeu des arguments et des options est de les
 *transformer en une structure de données* afin de les passer en tant
 que paramètres d'une fonction.
 
-[format="csv", separator=";", options="header", cols="1,2,2"]
-.Représentation des arguments et des options entre un outil en ligne de commande, une fonction et une URL.
+[options="header", cols="1,2,2"]
+.Représentation des arguments et des options dans un outil en ligne de commande, une fonction et une{nbsp}URL.
 |===
-;Options;Arguments
-Fonction; `prog({country: 'FR', 'fast': true})`; `prog('FR', 'fast')`
-Ligne de commande; `prog --country FR --fast`; `prog FR fast`
-URL; `prog/?country=FR&fast=true`; `prog/FR/fast`
+| {empty}           | Options                               | Arguments
+| Fonction          | `prog({country: 'FR', 'fast': true})` | `prog('FR', 'fast')`
+| Ligne de commande | `prog --country FR --fast`            | `prog FR fast`
+| URL               | `prog/?country=FR&fast=true`          | `prog/FR/fast`
 |===
 
-Nous allons utiliser le module npm _minimist_ ([URL]#https://npmjs.com/minimist#)
+Nous allons utiliser le module{nbsp}``npm`` _minimist_ ([URL]#https://npmjs.com/minimist#)
 dans les exemples suivants.
 Il prend en charge la complexité de l'interprétation de `process.argv` et je
 le trouve robuste, bien testé et minimaliste.
 
 [NOTE]
-.[RemarquePreTitre]#Histoire# Au commencement était `getopt`
+.[RemarquePreTitre]#Histoire# Au commencement était getopt
 ====
 `getopt` ([URL]#https://linux.die.net/man/3/getopt#) est le programme Linux
 qui sert à l'analyse des arguments et des options.
-Les modules `npm` se calquent sur son modèle de fonctionnement.
+Les modules{nbsp}``npm`` se calquent sur son modèle de fonctionnement.
 ====
 
 [[args.options]]
@@ -372,10 +366,10 @@ Commençons par les *options* et voyons ce que _minimist_ affiche :
 $ node options/parse.js --country FR --fast
 { _: [], country: 'FR', fast: true }  # <1>
 ----
-<1> La valeur `_` contient les <<args.arguments,arguments>> d'exécution – nous y reviendrons.
+<1> La valeur{nbsp}``_`` contient les <<args.arguments,arguments>> d'exécution – nous y reviendrons.
 
 Les options sont adaptées pour *nommer des paramètres facultatifs* dont
-l'ordre n'a pas d'importance, sous forme d'un "interrupteur" dans le cas
+l'ordre n'a pas d'importance, sous forme d'un "`interrupteur`" dans le cas
 d'un booléen ou d'une valeur – nombre ou chaîne de caractères, peu importe.
 
 [source,javascript]
@@ -399,15 +393,15 @@ $ node options/alias.js ##-c## FR
 ----
 include::{sourceDir}/options/alias.js[]
 ----
-<1> Définition de l'option `-c` en tant qu'alias de `--country`.
-<2> L'affichage représenté à la fois la valeur de l'option et la valeur de l'alias.
+<1> Définition de l'option{nbsp}``-c`` en tant qu'alias de `--country`.
+<2> L'affichage représente à la fois la valeur de l'option et celle de l'alias.
 
 La lecture est rendue plus difficile pour celui ou celle qui n'a pas lu
 le manuel d'utilisation en détail – ce qui est souvent le cas, surtout
 pour des personnes qui découvrent un nouveau logiciel.
 
 J'ai tendance à utiliser les alias pour les options principales ou importantes.
-Je privilégie la forme longue dans les exemples et dans la documentation
+Je privilégie la forme longue dans les exemples et dans la documentation,
 afin d'augmenter les chances de compréhension.
 
 Les *valeurs par défaut* simplifient le paramétrage en rendant certaines
@@ -417,7 +411,7 @@ valeurs implicites :
 $ node options/defaults.js --fast
 { _: [], country: 'FR', fast: true } # <1>
 ----
-<1> La valeur `country` affiche une valeur alors que nous ne l'avons pas spécifié dans la commande.
+<1> La clé `country` affiche une valeur alors que nous ne l'avons pas spécifiée dans la commande.
 
 L'enjeu réside alors dans l'utilisation des valeurs à bon escient, pour
 que le programme fasse ce qui est attendu d'un point de vue utilisateur.
@@ -428,7 +422,7 @@ Le paramétrage est similaire à celui des _alias_ :
 ----
 include::{sourceDir}/options/defaults.js[]
 ----
-<1> L'option `--country` aura `FR` comme valeur par défaut.
+<1> L'option `--country` aura{nbsp}``FR`` comme valeur par défaut.
 
 Un autre concept utile est celui des *types*.
 Nous définissons explicitement nos attentes sur ce que telle ou telle option
@@ -440,14 +434,13 @@ $ node options/types.js --country --fast furious  # <1>
 $ node options/types.js --country FR
 { _: [], fast: false, country: 'FR' }             # <2>
 ----
-<1> Omission de la valeur de `--option` et tentative d'assignation de valeur à l'option booléenne `--fast`.
-<2> Une vaut implicitement `false` par défaut quand elle est typée comme booléenne.
+<1> Omission de la valeur de `--option` et tentative d'affectation de valeur à l'option booléenne `--fast`.
+<2> Une option vaut implicitement `false` par défaut quand elle est typée comme booléenne.
 
 L'exemple précédent renforce nos attentes : l'option `--country` sans valeur
-ne sera pas comprise comme un booléen et au contraire, l'option booléenne `--fast`
+ne sera pas comprise comme un booléen et, au contraire, l'option booléenne `--fast`
 n'accepte pas de valeur – cette dernière est interprétée
 comme un <<args.arguments,argument>>.
-Nous allons nous y intéresser de suite après.
 
 [source,javascript]
 .options/types.js
@@ -462,25 +455,23 @@ include::{sourceDir}/options/types.js[]
   Un nombre ou une chaîne de caractères.
 `--country FR UK`::
 `--country FR --country UK`::
-  Un ou plusieurs nombres ou chaînes de caractères.
+  Un ou plusieurs nombre(s) ou chaîne(s) de caractères.
 `--fast`::
 `--no-fast`::
 `-f`::
   Un booléen dont la valeur vaut `true`.
-  La valeur vaut `false` quand l'option débute avec `no-`. +
-  Utile quand nous avons besoin d'activer ou de désactiver quelque chose.
+  La valeur vaut `false` quand l'option débute avec{nbsp}``no-``.
+  C'est utile quand nous avons besoin d'activer ou de désactiver quelque chose.
 `--verbose --verbose`::
 `-vv`::
-  Certaines librairies utilisent la répétition d'un booléen comme un compteur.
-  Auquel cas, la notation `--verbose --verbose` correspondrait à la
-  valeur `{verbose: 2}`. +
-  Utile pour gérer la gradation d'une option comme la verbosité de l'affichage
-  logs par exemple.
+  Certaines bibliothèques utilisent la répétition d'un booléen comme un compteur.
+  Auquel cas, la notation `--verbose --verbose` correspond à la valeur `{verbose: 2}`.
+  C'est utile pour gérer la gradation d'une option comme la loquacité de l'affichage
+  des _logs_.
 
 [[args.arguments]]
-Les arguments sont adaptés à des situations où
-*une ou plusieurs valeurs sont obligatoires*, n'ont pas besoin d'être nommées et
-pour en accepter un nombre arbitraire.
+Les arguments sont adaptés à des situations où *des valeurs sont obligatoires*,
+n'ont pas besoin d'être nommées et pour en accepter un nombre arbitraire.
 Si les valeurs ne correspondent pas à une liste, le positionnement des arguments
 est important car il détermine leur identification.
 Les arguments se prêtent particulièrement bien à exprimer
@@ -493,7 +484,7 @@ $ node options/parse.js Europe/London
 
 Le paramètre passé en argument est l'expression d'un fuseau horaire
 selon l'organisme de standardisation _IANA_ ([URL]#https://www.iana.org/time-zones#).
-Une liste de fuseau se trouve sur [URL]#https://time.is/time_zones#. +
+Une liste de fuseaux se trouve sur [URL]#https://time.is/time_zones#.
 L'idée est d'afficher l'heure courante selon le fuseau horaire donné en argument.
 C'est un paramètre obligatoire qu'il n'est pas nécessaire de nommer :
 
@@ -510,14 +501,14 @@ $ node options/timezone.js Indian/Antananarivo  # <1>
 Nous pouvons travailler avec les fuseaux horaires sans module additionnel,
 grâce à la fonctionnalité de
 <<../chapter-03/index.adoc#intl.datetimeformat,formatage internationalisé>>
-(cf. <<../chapter-03/index.adoc#,chapitre 3>>) :
+(<<../chapter-03/index.adoc#,chapitre{nbsp}3>>) :
 
 [source,javascript]
 .options/timezone.js
 ----
 include::{sourceDir}/options/timezone.js[]
 ----
-<1> Nous assignons à `timezone` la première valeur du tableau d'arguments.
+<1> Nous affectons à `timezone` la première valeur du tableau d'arguments.
 <2> Configuration des préférences d'affichage de l'heure.
 <3> Utilisation de la méthode `toLocaleDateString()` avec nos options pour afficher la date courante.
 
@@ -536,13 +527,13 @@ America/New_York : 17:29
 include::{sourceDir}/options/timezones.js[]
 ----
 <1> Nous constituons un nouveau tableau en itérant sur chacun des arguments.
-<2> Valeur de retour utilisée dans le nouveau tableau `output` – cf. <<../chapter-03/index.adoc#array,chapitre 3>>.
-<3> Le tableau est joint pour constituer une chaîne de caractères multilignes.
+<2> Valeur de retour utilisée dans le nouveau tableau `output` (<<../chapter-03/index.adoc#array,chapitre{nbsp}3>>).
+<3> Le tableau est joint pour constituer une chaîne de caractères sur plusieurs lignes.
 
 Ce script accepte un nombre indéfini d'arguments et son temps d'exécution
 dépendra de la longueur de cette liste.
 Elle n'a d'ailleurs pas forcément à être connue à l'avance et les valeurs
-s'obtiennent dynamiquement, en les sourçant depuis ce fichier, par exemple :
+s'obtiennent dynamiquement, en les listant depuis un fichier, par exemple :
 
 [source,text]
 .options/zones.txt
@@ -551,7 +542,7 @@ include::{sourceDir}/options/zones.txt[]
 ----
 
 Le contenu du fichier s'obtient d'une traite en bash avec l'utilisation combinée
-de capture de valeur (`$({nbsp})`) et de l'opérateur de redirection `<` :
+de capture de valeur (`$({nbsp})`) et de l'opérateur de redirection{nbsp}``<`` :
 
 ----
 $ node options/timezones.js $(< options/zones.txt)
@@ -559,23 +550,21 @@ Europe/London : 22:29
 America/New_York : 17:29
 ----
 
-C'est simple mais le fichier doit être lu
+C'est minimal, mais le fichier doit être lu
 dans son intégralité et copié entièrement dans la mémoire de Node avant d'en
 faire quelque chose.
 Une approche plus économique est d'utiliser les
-<<../chapter-03/index.adoc#stream,streams>> (cf. <<../chapter-03/index.adoc#,chapitre 3>>.
-Nous parlerons plus en détail de cette technique dans la section
-<<streaming,utiliser les flux de données>> de ce même
-chapitre.
+<<../chapter-04/index.adoc#stream,flux de données>> (<<../chapter-04/index.adoc#,chapitre{nbsp}4>>.
+Nous y reviendrons <<streaming,plus loin>>.
 
 [horizontal]
 .Synthèse des différentes formes d'arguments.
-`prog [argument1, ...]`::
+`prog [argument1, …]`::
   L'ordre de placement étant important, les arguments facultatifs doivent
   être placés à droite des arguments obligatoires.
-`prog sous-commande [argument1, ...]`::
+`prog sous-commande [argument1, …]`::
   C'est un cas particulier pour découper un programme complet en plusieurs
-  domaines d'action. +
+  domaines d'action.
   Le premier argument est alors utilisé comme identifiant d'action,
   avec ses propres arguments et options.
 
@@ -584,7 +573,7 @@ L'utilisation des sous-commandes est la bienvenue pour organiser des actions
 de manière indépendante, là où les choses deviendraient implicites et chaotiques
 avec les options.
 C'est l'équivalent d'une _route_ dans une
-<<../chapter-07/index.adoc#,application web>> (cf. <<../chapter-07/index.adoc#,chapitre 7>>).
+<<../chapter-07/index.adoc#,application web>> (<<../chapter-07/index.adoc#,chapitre{nbsp}7>>).
 
 Les commandes suivantes illustrent la génération de résultats aléatoires.
 Leur nature varie en fonction de la sous-commande employée ;
@@ -607,21 +596,18 @@ include::{sourceDir}/options/random.js[lines="3..-1"]
 ----
 <1> L'action est le premier argument ; le reste est accumulé dans le tableau `actionArgs`.
 <2> Fonction qui retourne un nombre aléatoire.
-<3> Fonction qui retourne un nombre défini de mots – 5 par défaut.
+<3> Fonction qui retourne un nombre défini de mots – 5{nbsp}par défaut.
 <4> Chaque argument qui suit la sous-commande correspondra ainsi à un argument de la fonction `words`.
 
-L'<<../chapter-05/index.adoc#,exécutable `npm`>> est un exemple d'application
-exécutable qui repose sur des sous-commandes
-pour déterminer quelle action exécuter – installer un module, lancer
-une recherche ou encore initialiser un projet, entre autres.
+L'<<../chapter-05/index.adoc#,exécutable{nbsp}``npm``>> est un exemple d'application
+qui repose sur des sous-commandes pour déterminer quelle action exécuter
+– installer un module, lancer une recherche ou encore initialiser un projet, entre autres.
 
 Des applications en ligne de commande plus complexes soulèvent de nouveaux
 besoins pour éviter les effets de bord et pour faciliter la modularité de
 notre code : la *validation* des paramètres, une gestion plus fine des
-sous-commandes ainsi que la *génération automatique de la documentation*.
-
-Si ces choses vous intéressent, je vous invite à vous rendre à la section
-<<application,utilisation d'un framework>>.
+sous-commandes, ainsi que la *génération automatique de la documentation*.
+Nous y reviendrons dans la section "`<<application,Utilisation d'un framework>>`".
 
 [[colours]]
 === Améliorer la lisibilité grâce aux couleurs
@@ -641,9 +627,6 @@ script suivant :
 include::{sourceDir}/colors/ansi.js[]
 ----
 
-Des combinaisons de caractères ont l'air de produire cet effet.
-Mais comment ?
-
 Par défaut, tout caractère envoyé vers la console est affiché.
 Un mécanisme de *commandes* s'active en envoyant un caractère invisible
 suivi d'une série de symboles.
@@ -654,25 +637,26 @@ le soulignement et même la position du curseur.
 .[RemarquePreTitre]#ANSI# Structure d'une commande d'échappement
 ====
 Le caractère d'_échappement_ est un caractère invisible, ici représenté
-en hexadécimal par `\x1B`.
+en hexadécimal par{nbsp}``\x1B``.
 Il existe sur nos claviers d'ordinateur : c'est la fameuse touche
 kbd:[ECHAP] ou kbd:[ESC] ! +
-Une commande suit le caractère `[` jusqu'au caractère `m`.
-Les commandes composées utilisent le caractère `;` comme séparateur.
+Une commande suit le caractère{nbsp}``[`` jusqu'au caractère{nbsp}``m``.
+Les commandes composées utilisent le caractère{nbsp}``;`` comme séparateur.
 
 Pour résumer, une commande a la forme `<ECHAP>[<commande>m` ou
 `<ECHAP>[<commande;commande;...>m`.
-====
 
 Pour en savoir plus à propos de cette syntaxe, je vous recommande la lecture de
-la page Wikipédia [URL]#https://en.wikipedia.org/wiki/ANSI_escape_code# (en anglais).
-C'est comme ça que j'ai tout appris.
+la page Wikipédia suivante :
 
-Nous pouvons être quasiment certain·e que les 8 couleurs principales et les
-8 couleurs vives s'affichent dans à peu près tous les terminaux.
-Ça vaut aussi pour leur utilisation en couleur de fond.
+- [URL]#https://en.wikipedia.org/wiki/ANSI_escape_code#
+====
 
-.Affichage des 8 couleurs principales et des 8 couleurs vives.
+Les huit couleurs principales et les huit couleurs vives s'affichent dans
+à peu près tous les terminaux.
+Cela vaut aussi pour leur utilisation en couleur de{nbsp}fond.
+
+.Affichage des huit couleurs principales et des huit couleurs{nbsp}vives.
 image::images/cli-colors-all.png[width="60%"]
 
 [source,javascript]
@@ -681,16 +665,16 @@ image::images/cli-colors-all.png[width="60%"]
 include::{sourceDir}/colors/all.js[]
 ----
 <1> Couleur d'affichage du texte.
-<2> Couleur de fond du texte tandis que la couleur de texte est en noir (`30`).
+<2> Couleur de fond du texte tandis que les caractères sont en noir (`30`).
 <3> Remise à zéro de tous les styles.
 
 [NOTE]
 .[RemarquePreTitre]#Compatibilité# Combien de couleurs dans mon terminal ?
 ====
-Les terminaux supportent un nombre limité de couleurs, au moins 8, en majorité 256
+Les terminaux proposent un nombre limité de couleurs, au moins{nbsp}8, en majorité{nbsp}256
 et parfois plusieurs millions selon le logiciel utilisé.
-Le programme Linux et macOS `tput` sert à obtenir des informations à propos
-du terminal, dont le nombre de couleurs supportées :
+Le programme Linux et macOS `tput` fournit des informations à propos
+du terminal, dont le nombre de couleurs :
 
 ----
 $ tput colors
@@ -698,21 +682,21 @@ $ tput colors
 ----
 ====
 
-Un autre type de commande sélectionne les couleurs dans une palette de 256 couleurs
-mais aussi dans la _palette RGB_ (_Red Green Blue_, _Rouge Vert Bleu_ en français).
-Ces commandes débutent par `[38;5` et `[38;2]`, respectivement :
+Un autre type de commande sélectionne dans une palette de 256{nbsp}couleurs
+mais aussi dans la _palette{nbsp}RGB_ (_Red Green Blue_, _Rouge Vert Bleu_).
+Ces commandes débutent par `[38;5` et `[38;2`, respectivement :
 
 [source,javascript]
 .colors/palette.js
 ----
 include::{sourceDir}/colors/palette.js[]
 ----
-<1> Utilisation de la palette de couleurs 8 bits (256 couleurs) - `213` est un rose clair.
-<2> Utilisation de la palette de couleurs RGB (millions de couleurs) – `255,69,0` correspond au orange.
+<1> Utilisation de la palette 8{nbsp}bits (256{nbsp}couleurs) - ``213``{nbsp}est un rose clair.
+<2> Utilisation de la palette RGB (millions de couleurs) – `255,69,0` correspond au orange.
 
-Le module npm _chalk_ ([URL]#https://npmjs.com/chalk#) facilite l'utilisation
+Le module{nbsp}``npm`` _chalk_ ([URL]#https://npmjs.com/chalk#) facilite l'utilisation
 des codes ANSI en leur donnant des libellés mémorisables, en gérant
-la compatibilité du nombre de couleurs supportées par le terminal voire
+la compatibilité du nombre des couleurs supportées par le terminal voire
 en désactivant les couleurs si nécessaire.
 
 [source,javascript]
@@ -722,7 +706,7 @@ include::{sourceDir}/colors/chalk.js[]
 ----
 <1> Utilisation de la couleur vive magenta.
 <2> Utilisation de la couleur verte et de l'italique.
-<3> Utilisateur de la couleur de fond rouge.
+<3> Utilisation de la couleur de fond rouge.
 
 Le module s'utilise aussi comme modèle avec les guillemets obliques,
 ce qui augmente encore plus la clarté d'affichage :
@@ -736,10 +720,10 @@ include::{sourceDir}/colors/chalk-literal.js[]
 [[prompt]]
 === Demander une série d'informations
 
-Les programmes interactifs servent à demander des informations de manière
+Les programmes interactifs demandent des informations de manière
 guidée à la personne utilisant l'exécutable,
 en plus des <<arguments,arguments et options>>.
-Poser une série de question est une manière d'accompagner une personne
+Poser une série de questions est une manière d'accompagner une personne
 dans une décision, d'exposer des choix dynamiques et de réduire les erreurs
 dans la création de fichiers, par exemple.
 
@@ -751,10 +735,10 @@ Coucou Thomas !
 
 Le module `readline` proposé par Node est peu connu.
 Il sert à transformer les <<../chapter-04/index.adoc#process.std,flux d'entrée et de sortie>>
-(cf. <<../chapter-04/index.adoc#,chapitre 4>>.
+(<<../chapter-04/index.adoc#,chapitre{nbsp}4>>.
 Le système de curseur sait mettre en pause, revenir en arrière et effacer tout
 ou une partie d'une ligne, entre autres.
-Ce module sait aussi poser des questions (!) :
+Ce module sait aussi poser des questions{nbsp}(!) :
 
 [source,javascript]
 .prompt/intro.js
@@ -762,29 +746,29 @@ Ce module sait aussi poser des questions (!) :
 include::{sourceDir}/prompt/intro.js[]
 ----
 <1> Création de l'interface qui s'intercale entre les flux d'entrée et de sortie – ici, l'entrée et la sortie standard.
-<2> La fonction de callback est invoquée dès que l'utilisateur a saisi sa réponse.
+<2> La fonction de rappel est invoquée dès que l'utilisateur a saisi sa réponse.
 <3> La méthode `close()` stoppe l'interface et rend la main au script – sans cet appel le script tournerait indéfiniment.
 
-Nous allons utiliser le module npm _inquirer_ ([URL]#https://npmjs.com/inquirer#)
+Nous allons utiliser le module{nbsp}``npm`` _inquirer_ ([URL]#https://npmjs.com/inquirer#)
 dans la suite de cette section.
-Il se base sur le module `readline` et *simplifie grandement l'interactivité* :
-questions, listes à choix unique navigables au clavier, boîte à cocher,
-confirmation, validation de réponses et exécution conditionnelle, si telle ou
+Il se base sur `readline` et *simplifie grandement l'interactivité* :
+question, liste à choix unique navigable au clavier, boîte à cocher,
+confirmation, validation de réponse et exécution conditionnelle, si telle ou
 telle question contient les valeurs qui nous intéressent, par exemple.
 
-L'exemple précédent peut être réécrit de la sortie :
+L'exemple précédent peut être réécrit de la sorte :
 
 [source,javascript]
 .prompt/question.js
 ----
 include::{sourceDir}/prompt/question.js[]
 ----
-<1> La question est créée avec l'identifiant `name` – ça facilite l'utilisation des réponses.
-<2> Les résultats sont retournés dans une <<../chapter-04/index.adoc#promise,promesse>> – c'est plus élégant et pratique à gérer qu'un callback.
-<3> Les valeurs des réponses s'obtiennent grâce à leur identifiant.
+<1> La question est créée avec l'identifiant `name` – cela facilite l'utilisation des réponses.
+<2> Les résultats sont retournés dans une <<../chapter-04/index.adoc#promise,promesse>> – c'est plus élégant et pratique à gérer qu'une fonction de rappel.
+<3> Les valeurs des réponses s'obtiennent grâce à leurs identifiants.
 
 Ce n'est pas beaucoup plus compliqué de poser plusieurs questions et de les
-personnaliser avec les réponses des précédentes questions :
+personnaliser avec les réponses aux précédentes questions :
 
 ----
 $ node prompt/questions.js
@@ -798,12 +782,12 @@ Thomas, tu as 35 ans.
 ----
 include::{sourceDir}/prompt/questions.js[]
 ----
-<1> La valeur de `message` peut être une fonction à qui est passée l'intégralité des réponses aux questions précédentes.
-<2> Comme toute à l'heure, la valeur d'une réponse s'obtient au travers de son identifiant.
+<1> La valeur de `message` peut être une fonction à laquelle est passée l'intégralité des réponses aux questions précédentes.
+<2> La valeur d'une réponse s'obtient au travers de son identifiant.
 
 Dans cet exemple, rien ne nous empêchait de saisir autre chose qu'un nombre
 dans la question de l'âge.
-C'est gênant mais ça se résout à l'aide de la propriété de configuration `validate`.
+C'est gênant, mais cela se résout à l'aide de la propriété de configuration `validate`.
 
 ----
 $ node prompt/validate.js
@@ -815,7 +799,7 @@ $ node prompt/validate.js
 Bravo, la réponse est 5 !
 ----
 
-Cette fonction est appelée à chaque tentative de réponse à la question.
+Cette fonction est appelée à chaque tentative de réponse.
 La question est inlassablement posée tant que la fonction `validate` retourne
 autre chose que le booléen `true` :
 
@@ -825,14 +809,14 @@ autre chose que le booléen `true` :
 include::{sourceDir}/prompt/validate.js[]
 ----
 <1> Nous nous assurons que la valeur saisie est assimilée à un nombre.
-<2> Sinon nous retournons un texte utilisé comme message d'erreur.
+<2> Sinon, nous retournons un texte utilisé comme message d'erreur.
 <3> Cette condition remplie, le module passera à la question suivante.
 
 Enfin, deux modes de liste sont proposés par le module _inquirer_ : `list`
 et `checkbox`.
-Dans un cas nous naviguons au clavier pour sélectionner une seule réponse.
-Dans le deuxième cas, nous naviguons au clavier et sélectionnons les choix
-à l'aide de la touche espace :
+Dans le premier cas, nous naviguons au clavier pour sélectionner une seule réponse.
+Dans le deuxième, nous naviguons au clavier et sélectionnons les choix
+à l'aide de la touche btn:[Espace] :
 
 ----
 $ node prompt/list.js
@@ -847,7 +831,7 @@ $ node prompt/list.js
 ----
 include::{sourceDir}/prompt/list.js[]
 ----
-<1> Le champ `type` sert à expliciter la nature de la question – l'interface utilisateur s'adapte en fonction.
+<1> Le champ `type` sert à expliciter la nature de la question – l'interface utilisateur s'adapte.
 <2> Le champ `choices` contient la liste des choix proposés à l'écran.
 
 Le potentiel de combinaison de ces éléments est vraiment intéressant.
@@ -856,13 +840,13 @@ la création de fichiers de configuration sans avoir à mettre les mains dans le
 cambouis.
 Les choix mis à disposition dans l'interface se créent aussi dynamiquement,
 à partir de données obtenues depuis une ressource distante –
-ils n'ont nécessairement à être écrits en dur dans le code.
+ils n'est pas nécessaire de les écrire en dur dans le code.
 
 [[progress]]
 === Informer de la progression
 
 Je trouve que *transmettre un feedback est un élément différenciant* dans la
-conception d'une application – qu'elle soit utilisée sur le web ou dans un
+conception d'une application – qu'elle soit utilisée sur le Web ou dans un
 terminal.
 Informer de la progression est un des moyens d'y parvenir.
 La progression concerne aussi bien l'indication du *franchissement d'étapes*
@@ -886,8 +870,8 @@ l'accomplissement de la tâche.
 include::{sourceDir}/progress/intro.js[]
 ----
 <1> Cette fonction affiche la progression toutes les secondes.
-<2> La méthode `padEnd` (cf. <<../chapter-03/index.adoc#,chapitre 3>>) complète la barre de progression jusqu'à atteindre le nombre souhaité de points.
-<3> Le message de progression est paramétré pour afficher les éléments nécessaires – l'émoji "soleil" s'affiche quand le compteur atteint `3`.
+<2> La méthode `padEnd` (<<../chapter-03/index.adoc#,chapitre{nbsp}3>>) complète la barre de progression jusqu'à atteindre le nombre souhaité de points.
+<3> Le message de progression est paramétré pour afficher les éléments nécessaires – l'émoji "`soleil`" s'affiche quand le compteur atteint{nbsp}``3``.
 
 [TIP]
 .[RemarquePreTitre]#Performance# La vitesse est toute relative
@@ -897,62 +881,59 @@ plusieurs secondes sur un autre, du fait de ressources moindres ou d'un accès
 réseau moins favorable par exemple.
 ====
 
-La seule chose qu'il manque à mon goût est d'avoir un réel sens de progression.
-C'est-à-dire en remplaçant le contenu qui informe de l'avancement avec un
-affichage actualisé qui reflète le nouvel état.
+La seule chose qu'il manque à mon goût est d'avoir un réel sens de progression,
+c'est-à-dire une actualisation du contenu qui informe de l'avancement.
 
-Nous avons parlé des commandes ANSI pour <<colors,changer les couleurs>>
-quelques sections en amont.
-Il se trouve que certaines de ces commandes contrôlent la *position du curseur*.
+Nous avons parlé des commandes ANSI pour <<colors,changer les couleurs>>.
+Il se trouve que certaines de ces commandes contrôlent aussi la *position du curseur*.
 Ainsi, au lieu d'écrire à la suite, nous pouvons revenir en arrière et même
 effacer le contenu d'une ligne.
 
-.Pendant et après la progression d'un script Node.
+.Pendant et après la progression d'un script{nbsp}Node.
 image::images/cli-dots.png[]
 
-Il n'y a pas beaucoup de code à changer dans l'exemple précédent pour y
-parvenir :
+Il n'y a pas beaucoup de code à changer dans l'exemple précédent pour y parvenir :
 
 [source,javascript]
 .progress/dots.js
 ----
 include::{sourceDir}/progress/dots.js[]
 ----
-<1> La séquence d'échappement `\x1B` suivie de la commande `1F` déplace le curseur d'une ligne vers le haut.
+<1> La séquence d'échappement{nbsp}``\x1B`` suivie de la commande{nbsp}``1F`` déplace le curseur d'une ligne vers le haut.
 <2> Cette séquence est ajoutée en début de ligne remonter d'une ligne avant d'écrire la suite des caractères.
 
 [format="csv", separator=";", options="header", cols="1,3"]
 .Liste de commandes ANSI pour déplacer le curseur.
 |===
 Commande;Effet
-`<n>E`; Descend le curseur de `<n>` lignes.
-`<n>F`; Remonte le curseur de `<n>` lignes.
-`<n>K`; Efface le contenu de la ligne, jusqu'à la fin si `<n>` vaut `0`, jusqu'au début si `<n>` vaut `1`, entièrement si `<n>` vaut `2`.
-`<n>A`; Déplace le curseur de `<n>` cases vers le haut.
-`<n>B`; Déplace le curseur de `<n>` cases vers le bas.
-`<n>C`; Déplace le curseur de `<n>` cases vers la droite.
-`<n>D`; Déplace le curseur de `<n>` cases vers la gauche.
+`<n>E`; Descend le curseur de ``<n>``{nbsp}lignes.
+`<n>F`; Remonte le curseur de ``<n>``{nbsp}lignes.
+`<n>K`; Efface le contenu de la ligne, jusqu'à la fin si ``<n>``{nbsp}vaut{nbsp}``0``, jusqu'au début si ``<n>``{nbsp}vaut{nbsp}``1``, entièrement si ``<n>``{nbsp}vaut{nbsp}``2``.
+`<n>A`; Déplace le curseur de ``<n>``{nbsp}cases vers le haut.
+`<n>B`; Déplace le curseur de ``<n>``{nbsp}cases vers le bas.
+`<n>C`; Déplace le curseur de ``<n>``{nbsp}cases vers la droite.
+`<n>D`; Déplace le curseur de ``<n>``{nbsp}cases vers la gauche.
 |===
 
 À partir de là, nous sommes libres d'écrire nos propres barres de progression,
 des indicateurs d'activité et de ne garder à l'écran que les informations
 reflétant l'état actuel de l'application.
 
-Deux modules `npm` simplifient la vie si les commandes ANSI ne sont pas
-notre tasse de thé.
-_ansi-escapes_ ([URL]#https://npmjs.com/ansi-escapes#) est l'équivalent
+Deux modules `npm` simplifient la vie quand on n'apprécie pas trop les commandes ANSI :
+
+- _ansi-escapes_ ([URL]#https://npmjs.com/ansi-escapes#) est l'équivalent
 de _chalk_ mais pour déplacer le curseur.
-L'utilisation de méthodes nommées remplace celle des commandes ANSI. +
-Le module _progress-string_ ([URL]#https://npmjs.com/progress-string#) met
+L'utilisation de méthodes nommées remplace celle des commandes{nbsp}ANSI.
+- _progress-string_ ([URL]#https://npmjs.com/progress-string#) met
 à disposition une base pour afficher des barres de progression
 avec un minimum d'options.
 
 Terminons cette section avec l'utilisation d'un indicateur d'activité
-et un feedback de réussite ou non de notre action.
-Nous nous aidons du module npm _ora_ ([URL]#https://npmjs.com/ora#).
+et une information de réussite ou non de notre action.
+Nous nous aidons du module{nbsp}``npm`` _ora_ ([URL]#https://npmjs.com/ora#).
 Il est rapide à configurer et propose une palette intéressante d'animations.
 
-.Pendant et après la progression avec le module _ora_.
+.Pendant et après la progression avec le module{nbsp}ora.
 image::images/cli-spinner.png[]
 
 Nous nous retrouvons à enlever encore quelques lignes par rapport aux
@@ -969,7 +950,7 @@ include::{sourceDir}/progress/spinner.js[]
 Nous pouvons aussi tirer parti du fonctionnement du module _ora_ en reproduisant
 l'animation et en personnalisant le symbole de réussite.
 
-.Pendant et après
+.Pendant et{nbsp}après
 image::images/cli-spinner-custom.png[]
 
 [source,javascript]
@@ -1001,9 +982,9 @@ $ node table.js
 ╚═════════════════════════════╧════════════════╝
 ----
 
-Cet exemple est généré à l'aide du module npm _table_ ([URL]#https://npmjs.com/table#).
+Cet exemple est généré à l'aide du module{nbsp}``npm`` _table_ ([URL]#https://npmjs.com/table#).
 Il s'utilise sans configuration pour démarrer.
-Il a aussi la capacité de tronquer et limiter la largeur des colonnes mais aussi
+Il a la capacité de tronquer et limiter la largeur des colonnes, mais aussi
 de gérer l'alignement des contenus dans les cellules.
 
 [source,javascript]
@@ -1013,16 +994,16 @@ include::{sourceDir}/table.js[]
 ----
 <1> L'en-tête du tableau se distingue grâce à un style différent – du texte en gras.
 <2> Chaque ligne du tableau est elle-même un tableau, à deux colonnes dans ce cas de figure.
-<3> L'affichage se fait sur un simple appel de fonction – _table_ calcule la largeur des colonnes pour nous.
+<3> L'affichage se fait sur un simple appel de fonction – _table_ calcule la largeur des colonnes pour{nbsp}nous.
 
 [TIP]
 .[RemarquePreTitre]#Pratique# Utilisation des couleurs
 ====
-La lecture de la section <<colors,améliorer la lisibilité grâce aux couleurs>>
+La lecture de la section "`<<colors,améliorer la lisibilité grâce aux couleurs>>`"
 vous aidera à améliorer la lisibilité de vos tableaux.
 ====
 
-À noter que le module _table_ expose aussi une interface en flux, pour ajouter
+Il est à noter que le module _table_ expose aussi une interface en flux, pour ajouter
 des lignes au fur et à mesure – par exemple en cas de lecture continue
 ou sur un <<streaming,fichier volumineux>>.
 
@@ -1030,25 +1011,25 @@ ou sur un <<streaming,fichier volumineux>>.
 [[update]]
 === Inviter à mettre à jour le module
 
-L'inconvénient de l'<<../chapter-05/index.adoc#install.global,installation d'un module exécutable>>,
-c'est la difficulté de savoir si une mise à jour intéressante a été publiée.
-Probablement parce que je ne pense pas à lancer la commande `npm outdated --global`.
+L'inconvénient d'<<../chapter-05/index.adoc#install.global,installer un module exécutable>>,
+c'est la difficulté de savoir si une mise à jour intéressante a été publiée
+(probablement parce que je ne pense pas à lancer la commande `npm outdated --global`).
 Il existe toutefois des moyens de signaler aux personnes qui utilisent votre
 exécutable qu'une version plus récente existe.
 
-J'aime l'approche minimaliste du module npm _update-check_
+J'aime l'approche minimaliste du module{nbsp}``npm`` _update-check_
 ([URL]#https://npmjs.com/update-check#).
 Il compare le numéro de version passé en paramètre avec celui de la dernière
-version de ce même module, sur le registre npm.
+version de ce même module, sur le registre{nbsp}``npm``.
 
 ----
 $ node update/intro.js
 { latest: '0.10.0', fromCache: false }
 ----
 
-Dans cet exemple, le module _update-check_ requête le registre npm
-pour déterminer la version la plus récente du module npm _nodebook_.
-Si le module _update-check_ estime que la version installée localement est plus
+Dans cet exemple, _update-check_ interroge le registre{nbsp}``npm``
+pour déterminer la version la plus récente de _nodebook_.
+S'il estime que la version installée localement est plus
 ancienne, il retourne un objet avec le numéro de version à installer.
 
 [source,javascript]
@@ -1058,13 +1039,13 @@ include::{sourceDir}/update/intro.js[]
 ----
 <1> Les champs `name` et `version` suffisent à accomplir la comparaison.
 <2> Démarrage de la comparaison.
-<3> Un objet est retourné en cas de version plus récente ou sinon, la valeur `null`.
+<3> Un objet est retourné en cas de version plus récente ; sinon, c'est la valeur{nbsp}``null``.
 
 En temps normal, c'est-à-dire dans le cas d'un module dont nous sommes à l'origine
-et que nous publions sur le registre npm, nous aurions tendance
+et que nous publions sur le registre{nbsp}``npm``, nous aurions tendance
 à utiliser le contenu du fichier `package.json` en argument de la fonction `check`.
 
-Maintenant que nous savons ça, nous pouvons présenter une information
+Maintenant, nous pouvons présenter une information
 plus digeste et actionnable à la personne qui utilise notre module :
 
 ----
@@ -1078,12 +1059,12 @@ Tape 'npm install -g nodebook'
 ----
 include::{sourceDir}/update/cli.js[]
 ----
-<1> Nous vérifions et affichons la mise à jour si nécessaire ; nous gérons aussi une erreur (réseau indisponible, le registre npm est HS, etc.).
-<2> À nous ensuite de gérer le code de notre exécutable – _parsing_ des arguments, gestion des actions, etc..
+<1> Nous vérifions et affichons la mise à jour si nécessaire ; nous gérons aussi une erreur (par exemple, réseau indisponible ou registre{nbsp}HS).
+<2> Nous gérons ensuite le code de notre exécutable – _parsing_ des arguments, gestion des actions, etc.
 
-Les utilisatrices et utilisateurs sont notifiées de la disponibilité d'une mise
-à jour dès qu'elles utilisent le module exécutable en question.
-La décision d'effectuer la mise à jour leur appartient toutefois.
+Les utilisatrices et utilisateurs sont informés de la disponibilité d'une mise
+à jour dès qu'elles se servenrt du module exécutable en question.
+La décision d'actualiser leur appartient toutefois.
 
 
 [[tests]]
@@ -1096,7 +1077,7 @@ Nous allons tout d'abord séparer ce qui est réutilisable de l'interface en lig
 de commande pour progressivement tester notre code, puis l'exécutable lui-même.
 
 Notre progression va s'effectuer en transformant l'exemple `options/timezone.js`
-de la section <<args,utiliser des arguments et des options>>.
+de la section "`<<args,Utiliser des arguments et des options>>`".
 
 [source,javascript]
 .options/timezone.js
@@ -1107,11 +1088,11 @@ include::{sourceDir}/options/timezone.js[]
 [[interface]]
 === Modulariser le code du fichier exécutable
 
-Un programme qui accepte de plus en plus d'options devient de plus en plus
-compliqué à maintenir car il est de plus en plus dur de tester tous les cas
+Un programme qui accepte beaucoup d'options devient de plus en plus
+compliqué à maintenir car il est difficile de tester tous les cas
 de figure à la main.
 
-Un programme exécutable robuste est un script qui contient le moins de code
+Un programme exécutable robuste est un script qui contient le moins possible de code
 spécifique à la gestion de la ligne de commande.
 Pour ce faire, nous allons séparer la logique d'exécution en la plaçant dans une
 fonction, dans un autre module.
@@ -1123,10 +1104,10 @@ include::{sourceDir}/testing/01/cli.js[lines="3..-1"]
 ----
 <1> Tout le code a été modularisé sous forme d'une seule fonction.
 
-Nous avons opéré un changement : l'utilisation du `console.log` pour l'affichage
+Nous avons opéré un changement : l'utilisation de `console.log` pour l'affichage
 des résultats revient du côté de l'exécutable.
 
-Notre code est portable s'il retourne un résultat et s'il laisse la
+Notre code est portable s'il retourne un résultat et en laissant la
 responsabilité de l'affichage au code le plus proche de l'utilisateur
 – c'est le cas ici avec la fonction `getTime()`.
 
@@ -1142,10 +1123,10 @@ Justement, parlons-en.
 [[tests.interface]]
 === Tester le code partagé
 
-L'écriture de tests nous aide découvrir qu'une modification produit un résultat
+L'écriture de tests nous aide à découvrir qu'une modification produit un résultat
 différent de celui attendu.
 Les tests documentent aussi les cas à la marge de notre code.
-En général, dès qu'il y a un `if/else`, ça implique d'écrire au moins une
+En général, dès qu'il y a un `if/else`, cela implique d'écrire au moins une
 nouvelle assertion.
 
 [NOTE]
@@ -1153,14 +1134,14 @@ nouvelle assertion.
 ====
 Une assertion est l'expression d'une attente quant au fonctionnement de notre code.
 
-Un test s'applique à une fonction et utilise une à plusieurs assertions pour
+Un test s'applique à une fonction et utilise une à plusieurs assertion(s) pour
 couvrir le spectre de ses fonctionnalités.
 ====
 
-Pour des besoins simples, j'utilise le module npm _tape_
+Pour des besoins simples, j'utilise le module{nbsp}``npm`` _tape_
 ([URL]#https://npmjs.com/tape#).
-Il gère l'exécution des tests et il fournit quelques méthodes qui permettent
-d'exprimer nos attentes – les assertions.
+Il gère l'exécution des tests et il fournit quelques méthodes pour exprimer
+nos attentes – les assertions.
 
 ----
 $ node testing/01/lib.test.js
@@ -1176,7 +1157,7 @@ ok 2 should throw
 # ok
 ----
 
-Dans cas précis, j'ai écrit deux assertions qui illustrent les différents
+Dans ce cas précis, j'ai écrit deux assertions qui illustrent les différents
 cas de figure représentés dans le fichier `01/lib.js`
 – quand l'erreur est provoquée et quand le résultat est retourné :
 
@@ -1185,13 +1166,13 @@ cas de figure représentés dans le fichier `01/lib.js`
 ----
 include::{sourceDir}/testing/01/lib.test.js[]
 ----
-<1> Création d'un test – le paramètre `t` contient les méthodes d'assertion.
+<1> Création d'un test – le paramètre{nbsp}``t`` contient les méthodes d'assertion.
 <2> La méthode `t.plan()` spécifie le nombre d'assertions attendues – si ce nombre n'est pas atteint, _tape_ considère qu'il y a un problème.
 <3> Assertion qui teste que la fonction `getTime` retourne bien un résultat.
 <4> Assertion qui teste que la fonction `getTime` provoque une erreur si aucun argument n'est passé.
 
-Nous sommes parés aux éventualités mais en y réfléchissant, le module `cli.js`
-ne gère pas vraiment l'éventualité qu'aucun argument ne soit transmis.
+Nous sommes parés aux éventualités, mais en y réfléchissant, le module `cli.js`
+ne gère pas vraiment le cas où aucun argument n'est transmis.
 
 ----
 $ node testing/01/cli.js
@@ -1207,14 +1188,14 @@ Error: Merci d'indiquer un fuseau horaire :-)
     …
 ----
 
-Je trouve ça peu élégant d'être accueilli·e avec une trace d'erreur comme celle-ci.
+Je trouve peu élégant d'être accueilli·e avec une trace d'erreur comme celle-ci.
 L'erreur mériterait d'être présentée en contexte, celui de notre utilisation
-et non celle des rouages internes de Node.
+et non celui des rouages internes de{nbsp}Node.
 
 [[display]]
 === Présenter les messages en contexte
 
-La présentation des messages de réussite et d'erreurs nécessite d'être à l'écoute
+La présentation des messages de réussite et d'erreur nécessite d'être à l'écoute
 des signaux envoyés par notre code afin de le restituer de manière adaptée.
 
 ----
@@ -1223,7 +1204,7 @@ Merci d'indiquer un fuseau horaire :-)
 ----
 
 Afin de parvenir à ce résultat, j'ai opté pour l'utilisation de
-<<../chapter-03/index.adoc#promise,promesse>> (cf. <<../chapter-03/index.adoc#,chapitre 3>>).
+<<../chapter-03/index.adoc#promise,promesse>> (<<../chapter-03/index.adoc#,chapitre{nbsp}3>>).
 Je trouve cette méthode plus élégante car nous gérons le résultat et le message
 d'erreur d'une manière visuellement similaire, mais séparée.
 
@@ -1261,7 +1242,7 @@ Unsupported time zone specified Brexit/London
 
 Tester l'exécutable est un moyen de vérifier que les câblages entre notre
 exécutable et notre mode Node sont bien faits.
-L'idée n'est pas de tester à nouveau les mêmes aspects du code mais bel et
+L'idée n'est pas de tester à nouveau les mêmes aspects du code, mais bel et
 bien de nous assurer que les conditions d'utilisation du programme soient remplies.
 
 ----
@@ -1281,22 +1262,22 @@ ok 3 exit code matched
 ----
 
 Nous avons à nouveau recours au module _tape_.
-Cette fois-ci nous l'accompagnons d'un autre module,
+Cette fois-ci, nous l'accompagnons d'un autre module,
 _tape-spawn_ ([URL]#https://npmjs.com/tape-spawn#).
 Ce dernier intègre à _tape_ le test de processus externes.
-En l'occurrence ici, ça concerne nos exécutables en ligne de commande.
+En l'occurrence ici, cela concerne nos exécutables en ligne de commande.
 
 [source,javascript]
 .testing/02/cli.test.js
 ----
 include::{sourceDir}/testing/02/cli.test.js[]
 ----
-<1> Nous démarrons un nouveau processus – ici nous spécifions que le chemin d'accès est relatif au répertoire du script de tests.
+<1> Nous démarrons un nouveau processus – ici, nous spécifions que le chemin d'accès est relatif au répertoire du script de tests.
 <2> Nous testons le code de sortie du programme – c'est cohérent avec l'invocation de `process.exit(1)` dans `cli.js`.
-<3> Dans le cas de réussite, nous avons bien une heure qui s'affiche dans la sortie standard.
+<3> En cas de réussite, nous avons bien une heure qui s'affiche dans la sortie standard.
 
-L'utilisation conjointe des tests unitaires et des tests de l'exécutable
-nous permettent de gagner en confiance dans la robustesse de notre code,
+L'utilisation conjointe des tests unitaires et de ceux de l'exécutable
+nous permet de gagner en confiance dans la robustesse de notre code,
 de déceler de nouveaux cas à la marge et de nous rendre compte de certaines
 incohérences d'interface utilisateur.
 
@@ -1304,12 +1285,12 @@ incohérences d'interface utilisateur.
 === Documenter notre programme
 
 La documentation d'un logiciel est aussi importante que son code.
-C'est le premier élément qui donne à nous rendre compte de la simplicité ou de
+C'est le premier élément qui donne une idée de la simplicité ou de
 la complexité d'utilisation d'un logiciel, de ce qu'il est possible de faire avec
-et de prendre connaissance des concepts qui s'y rapportent.
+et des concepts qui s'y rapportent.
 
 Le premier endroit où documenter son application est dans l'exécutable lui-même,
-avec l'option `--help` – ou son raccourci, `-h`.
+avec l'option `--help` – ou son raccourci{nbsp}``-h``.
 C'est une convention pour afficher une aide synthétique, rapide d'accès
 et facile à comprendre.
 
@@ -1322,11 +1303,11 @@ Options:
   --utc, -u                                [booléen]
 ----
 
-L'aide ci-contre est minimale et n'indique que trop peu l'intention du programme.
-Nous n'avons pas d'idée de l'impact de l'utilisation de telle ou telle option,
+L'aide proposée ici est minimale et n'indique que trop peu l'intention du programme.
+Nous n'avons aucune idée de l'effet de telle ou telle option,
 du résultat qui va se produire ou encore des valeurs acceptées par le programme.
 
-Une aide qui me rassure et m'informe ressemble plutôt à ça :
+Une aide qui me rassure et m'informe ressemble plutôt à ce qui suit :
 
 ----
 $ node help/time.js --help
@@ -1354,7 +1335,7 @@ invitation à essayer sans appréhension.
 
 Cette aide a été générée automatiquement en utilisant le <<application,framework>>
 _yargs_ – nous en parlerons dans la section suivante.
-Ses méthodes `.usage()`, `.example()` et la propriété `description` de chaque
+Ses méthodes `.usage()` et `.example()` ainsi que la propriété `description` de chaque
 option suffisent à constituer un affichage clair et informatif.
 
 [source,javascript]
@@ -1362,12 +1343,12 @@ option suffisent à constituer un affichage clair et informatif.
 ----
 include::{sourceDir}/help/time.js[]
 ----
-<1> Documente un exemple d'utilisation et une description qui précise l'intention.
+<1> Documente un exemple d'utilisation et une description qui précisent l'intention.
 <2> Le type de l'option est rendu explicite lors de l'affichage de la documentation.
-<3> La description précise l'intention de l'option pour mieux comprendre son impact si elle est activée.
+<3> La description précise l'intention de l'option pour mieux comprendre son effet si elle est activée.
 
 [NOTE]
-.[RemarquePreTitre]#Alternative# Module npm _help-version_
+.[RemarquePreTitre]#Alternative# module{nbsp}npm help-version
 ====
 Le module _help-version_ ([URL]#https://npmjs.com/help-version#) gère l'appel
 à l'option `--help` et il est indépendant de tout autre module.
@@ -1376,7 +1357,7 @@ Le seul risque est d'avoir une documentation qui est désynchronisée du
 fonctionnement du programme.
 ====
 
-Un autre lieu courant pour documenter un projet est le fichier `README`.
+Un autre lieu courant pour documenter un projet est le `README`.
 C'est un fichier texte souvent affiché en premier sur la page d'accueil
 d'un projet logiciel.
 Sa mise en forme s'améliore avec l'utilisation d'une syntaxe de balisage léger
@@ -1388,26 +1369,26 @@ son intention générale, sa compatibilité de version avec Node, comment l'inst
 où poser des questions et peut-être même davantage d'exemples pour mieux comprendre
 ce qui ne tiendrait pas dans l'option `--help`.
 
-Ça tombe bien, je trouve que le `README` est un excellent endroit pour y reporter
+Je trouve que le `README` est un excellent endroit pour reporter
 l'affichage de la commande `--help`.
 
-.Présentation de la documentation d'un exécutable dans un `README`.
+.Présentation de la documentation d'un exécutable dans un{nbsp}README.
 image::images/documentation-readme.png[]
 
 Je ne pense pas qu'il y ait besoin de faire plus compliqué pour véhiculer
 autant d'informations essentielles avec un minimum d'efforts.
 Démarrer un projet en écrivant cette documentation est un excellent moyen pour
 travailler à la clarification de ses idées et pour commencer à imaginer la
-forme que va prendre l'<<tests,écriture des tests>>.
+forme que va prendre l'<<tests,écriture des{nbsp}tests>>.
 
 [[advanced]]
 == Pour aller plus loin
 
 Dans les précédentes sections, nous avons vu des composantes essentielles
-pour créer une programme exécutable clair et fonctionnel.
+pour créer un programme exécutable clair et fonctionnel.
 Cette dernière section va se focaliser sur des concepts qui structurent,
 simplifient et rapprochent un exécutable en ligne de commande d'une application
-web ou d'une application front-end.
+web ou _front-end_.
 
 [[application]]
 === Utilisation d'un framework d'application en ligne de commande
@@ -1420,15 +1401,15 @@ de valider que ce sont les valeurs attendues.
 Cette complexité appelle aussi à afficher une aide à la demande ou de manière
 contextuelle, par exemple au niveau de la sous-commande.
 
-Des modules `npm` comme _yargs_ ([URL]#https://npmjs.com/yargs#) aident à
+Des modules{nbsp}``npm`` comme _yargs_ ([URL]#https://npmjs.com/yargs#) aident à
 structurer la création d'applications en ligne de commande en intégrant
 la majorité des fonctionnalités vues dans la section
-<<interactive,du script au programme interactif>>.
+"`<<interactive,Du script au programme interactif>>`".
 La génération de l'aide, le _parsing_ d'arguments et d'options et leur validation
 sont connectés ensemble, de manière transparente.
 
-Ce genre de modules est intéressant à utiliser quand l'assemblage d'autres
-modules indépendant rend le <<interface,programme trop fragile>> et
+Ce genre de module est intéressant à utiliser quand l'assemblage d'autres
+modules indépendants rend le <<interface,programme trop fragile>> et
 <<tests,trop compliqué à tester>>.
 
 ----
@@ -1457,16 +1438,16 @@ $ node application/intro.js
 ----
 include::{sourceDir}/application/intro.js[]
 ----
-<1> Création de l'option `--utc` avec l'alias `-u`, de type booléen.
+<1> Création de l'option `--utc` avec l'alias{nbsp}``-u``, de type booléen.
 <2> Les messages générés par l'application seront en français – sans cette option, la langue s'adapte à celle du système d'exploitation.
 <3> Applique les règles précédentes aux éléments contenus dans `process.argv` et retourne un résultat sous forme d'objet.
 
 Le mécanisme de coercition définit la règle de transformation d'une option
 vers une autre représentation, plus pratique à utiliser.
 C'est le cas des dates par exemple : nous les recevons sous forme de chaîne de
-caractères alors qu'il serait plus facile de travailler avec
-<<../chapter-03/index.adoc#date,objet `Date`>>
-(cf. <<../chapter-03/index.adoc#,chapitre 3>>).
+caractères alors qu'il serait plus facile de travailler avec des
+<<../chapter-03/index.adoc#date,objets{nbsp}``Date``>>
+(<<../chapter-03/index.adoc#,chapitre{nbsp}3>>).
 
 ----
 $ node application/coerce.js --help
@@ -1483,7 +1464,7 @@ $ node application/coerce.js
 2018-06-21T08:41:23.091Z
 ----
 
-Une date, même incomplète,
+Une date peut même être incomplète :
 
 ----
 $ node application/coerce.js --date 2018-03-24
@@ -1496,10 +1477,10 @@ $ node application/coerce.js --date 2018-03-24
 include::{sourceDir}/application/coerce.js[]
 ----
 <1> La valeur par défaut de l'option `--date` est un objet `Date`.
-<2> Ce réglage personnalise l'affichage de la valeur par défaut dans la zone d'aide – sans ça, la date complète serait affichée, ce qui est peu élégant et moins informatif.
-<3> Cette fonction s'assure que toute valeur passée en option est transformée en objet `Date`.
+<2> Ce réglage personnalise l'affichage de la valeur par défaut dans la zone d'aide – sans cela, la date complète serait affichée, ce qui est peu élégant et moins informatif.
+<3> Cette fonction s'assure que toute valeur passée en option est transformée en objet{nbsp}``Date``.
 
-Autre exemple du mécanisme de coercition, cette fois-ci appliqué
+Voici un autre exemple du mécanisme de coercition, cette fois-ci appliqué
 à un chemin d'accès de fichier :
 
 ----
@@ -1511,10 +1492,10 @@ $ node application/coerce-file.js --json-file ../package.json
 ----
 
 Le chemin d'accès passé en option est intercepté par une fonction.
-Elle reçoit le chemin d'accès en argument et a la responsabilité d'en lire
+Elle le reçoit en argument et a la responsabilité d'en lire
 le contenu et de le transformer en objet ECMAScript grâce à la fonction
 <<../chapter-03.index.adoc#json,`JSON.parse()`>>
-(cf. <<../chapter-03/index.adoc#,chapitre 3>>).
+(<<../chapter-03/index.adoc#,chapitre{nbsp}3>>).
 
 [source,javascript]
 .application/coerce-file.js
@@ -1532,14 +1513,14 @@ devient problématique sur des machines avec peu de ressources,
 si vous souhaitez obtenir des résultats le plus tôt possible et si
 vous avez d'autres impératifs de performance.
 
-Je vous invite à lire la section <<streaming,utiliser des flux de données>>
+Je vous invite à lire la section "`<<streaming,Utiliser des flux de données>>`"
 pour en savoir plus.
 ====
 
 Cette pratique renforce une approche applicative modulaire.
 L'*interface absorbe* les spécificités de la ligne de commande.
 L'*application réagit aux paramètres* sans avoir à se préoccuper du contexte,
-que ça soit sur le web ou dans un terminal.
+que ce soit sur le Web ou dans un terminal.
 
 Les frameworks d'application en ligne de commande facilitent
 l'organisation et la définition de <<args.subcommand,sous-commandes>>.
@@ -1558,7 +1539,7 @@ Options:
 ----
 
 C'est l'occasion d'adapter l'exemple utilisé dans la section
-<<args.subcommand,utiliser des arguments et des options>>.
+"`<<args.subcommand,Utiliser des arguments et des options>>`".
 L'intention est de modifier le moins possible le code initial.
 
 [source,javascript]
@@ -1580,13 +1561,13 @@ Certains frameworks comme _yargs_ interprètent la commande que nous déclarons.
 Lorsque c'est le cas, les arguments sont rangés dans un objet d'arguments nommés.
 Les frameworks gèrent plusieurs cas de figure qui ont chacun leur notation.
 
-[format="csv", options="header", cols="1,1,3"]
+[options="header", cols="1,1,3"]
 |===
-Syntaxe, Type d'argument, Explication
-`cmd [arg1]`, Optionnel, L'argument `arg1` n'est pas obligatoire.
-`cmd <arg1>`, Obligatoire, L'argument `arg1` est obligatoire.
-`cmd <arg1|arg2>`, Alias, L'argument est obligatoire et accepte deux informations différentes – un identifiant _ou_ un e-email par exemple.
-`cmd [...args]`, Tableau, Les arguments sont regroupés dans le tableau `args`.
+| Syntaxe           | Type d'argument | Explication
+| `cmd [arg1]`      | Optionnel       | L'argument `arg1` n'est pas obligatoire.
+| `cmd <arg1>`      | Obligatoire     | L'argument `arg1` est obligatoire.
+| `cmd <arg1|arg2>` | Alias           | L'argument est obligatoire et accepte deux informations différentes – un identifiant ou une adresse courriel par exemple.
+| `cmd [...args]`   | Tableau         | Les arguments sont regroupés dans le tableau{nbsp}``args``.
 |===
 ====
 
@@ -1630,9 +1611,9 @@ $ node files/intro.js ../package.json \
   '…/chapter-08/package-lock.json' ]
 ----
 
-L'exemple ci-dessus illustre l'utilisation d'un chemin relatif et d'un
+Cet exemple illustre l'utilisation d'un chemin relatif et d'un
 chemin absolu, tous deux normalisés en chemins absolus.
-En faisant ainsi, nous rendons notre code indépendant du contexte de son
+En procédant ainsi, nous rendons notre code indépendant de son
 contexte d'exécution – ici, notre emplacement au sein du système de fichiers.
 
 [source,javascript]
@@ -1645,23 +1626,22 @@ include::{sourceDir}/files/intro.js[]
 <3> La liste homogénéisée est affichée à l'écran.
 
 [NOTE]
-.[RemarquePreTitre]#Repère# Chemin relatif, absolu ou `__dirname` ?
+.[RemarquePreTitre]#Repère# Chemin relatif, absolu ou +__dirname+ ?
 ====
 Les fichiers passés en argument peuvent être un mélange de chemins absolus
-et de chemins relatifs.
-Les chemins se normalisent avec la fonction `path.resolve()`.
+et de chemins relatifs, qui se normalisent avec la fonction `path.resolve()`.
 La base à considérer est le _répertoire courant_, là où le programme est exécuté,
 c'est-à-dire la valeur de `process.cwd()`
-(cf. <<../chapter-04/index.adoc#path,chapitre 4>>).
+(<<../chapter-04/index.adoc#path,chapitre{nbsp}4>>).
 
 `__dirname` est une base à utiliser lorsqu'un chemin est relatif au code source.
 ====
 
 La saisie des chemins se simplifie en utilisant deux mécanismes : l'_expansion_
 et le _globbing_.
-Le module npm _glob_ ([URL]#https://npmjs.com/glob#) fait très bien ce travail
+Le module{nbsp}``npm`` _glob_ ([URL]#https://npmjs.com/glob#) fait très bien ce travail,
 mais nous allons nous baser sur _globby_ ([URL]#https://npmjs.com/globby#) à la place.
-Il supporte les <<../chapter-03/index.adoc#promise,promesses>> et je le trouve
+Il gère les <<../chapter-03/index.adoc#promise,promesses>> et je le trouve
 plus simple d'utilisation.
 
 ----
@@ -1672,29 +1652,29 @@ $ node files/glob.js '../package-*.json'
 Dans cet exemple, nous partons à la recherche de tous les fichiers préfixés
 par `package-` et terminés par `.json`.
 Cette intention est exprimée par un seul argument qui contient le caractère
-de _globbing_ (`*`).
+de __globbing__{nbsp}(`*`).
 
 [source,javascript]
 .files/glob.js
 ----
 include::{sourceDir}/files/glob.js[]
 ----
-<1> Le module _globby_ accepte un ou plusieurs motifs – ici nous n'en utilisons qu'un.
+<1> Le module _globby_ accepte un ou plusieurs motif(s) – ici nous n'en utilisons qu'un.
 <2> Nous transformons les fichiers identifiés en chemins absolus.
 <3> Pour ensuite les afficher dans le terminal.
 
-L'expansion est caractérisée par l'utilisation des accolades (`{` et `}`).
-Les valeurs sont séparées par une virgule, qui signifie _ou_.
+L'expansion est caractérisée par l'utilisation des accolades.
+Les valeurs sont séparées par des virgules, qui signifient _ou_.
 Les deux syntaxes se combinent, ici pour récupérer les fichiers suffixés par
-`.adoc` ou par `.html` :
+`.adoc` ou par{nbsp}``.html`` :
 
 ----
 $ node files/glob.js '../*.{adoc,html}'
 ['…/chapter-08/index.adoc']
 ----
 
-Enfin, l'utilisation de la double-étoile (`**`) signifie _dans tous les répertoires_.
-Nous récupérons ainsi tous les fichiers `.js` contenu dans ce répertoire
+Enfin, l'utilisation de la double-étoile{nbsp}(`**`) signifie _dans tous les répertoires_.
+Nous récupérons ainsi tous les fichiers{nbsp}``.js`` contenus dans ce répertoire
 et les sous-répertoires :
 
 ----
@@ -1703,11 +1683,11 @@ $ node files/glob.js '**/*.js'
 ----
 
 [[streaming]]
-=== Utiliser les flux de données (`stdin`, `stdout` et `stderr`)
+=== Utiliser les flux de données (stdin, stdout et stderr)
 
 Cette section complète notre découverte du
 <<../chapter-04/index.adoc#stream,module `stream`>>
-(cf. <<../chapter-04/index.adoc#,chapitre 4>>).
+(<<../chapter-04/index.adoc#,chapitre{nbsp}4>>).
 Mon intention est de vous aiguiller dans la conception d'applications
 en ligne de commande qui acceptent des flux de données, en entrée
 comme en sortie.
@@ -1727,8 +1707,8 @@ BLAH BLAH
 ----
 include::{sourceDir}/streaming/intro.js[]
 ----
-<1> Le module npm _get-stdin_ ([URL]#https://npmjs.com/get-stdin#) est pratique pour un flux d'entrée à petit volume.
-<2> Le module _get-stdin_ retourne une promesse quand il a terminé de lire le flux d'entrée.
+<1> Le module{nbsp}``npm`` _get-stdin_ ([URL]#https://npmjs.com/get-stdin#) est pratique pour un flux d'entrée à petit volume.
+<2> Il retourne une promesse quand il a terminé de lire le flux d'entrée.
 
 J'aime bien proposer une alternative à l'entrée standard, en utilisant
 les *arguments lorsqu'il y a un nombre indéfini d'éléments* à lire.
@@ -1743,7 +1723,7 @@ BLAH BLAH
 ----
 
 La stratégie consiste à utiliser l'entrée standard quand on détecte une absence
-d'arguments et sinon, d'utiliser ces derniers.
+d'arguments et, sinon, d'utiliser ces derniers.
 
 [source,javascript]
 .streaming/intro-fallback.js
@@ -1751,15 +1731,15 @@ d'arguments et sinon, d'utiliser ces derniers.
 include::{sourceDir}/streaming/intro-fallback.js[]
 ----
 <1> Nous récupérons les arguments du script.
-<2> Chaque mot (séparé par un espace) est considéré comme un argument – s'il n'y en a pas nous pouvons utiliser l'entrée standard.
+<2> Chaque mot (séparé par un espace) est considéré comme un argument – s'il n'y en a pas, nous pouvons utiliser l'entrée standard.
 <3> Sinon nous rassemblons les mots en une seule chaîne de caractères.
 
 Notons au passage l'utilisation de `Promise.resolve()`
-(cf. <<../chapter-03/index.adoc#promise,chapitre 3>>) pour transformer deux
+(<<../chapter-03/index.adoc#promise,chapitre{nbsp}3>>) pour transformer deux
 sources de données de manière identique.
 
 Les <<args.options,options>> sont adaptées pour *indiquer l'emplacement d'une ressource*.
-La méthode `fs.createReadStream` (cf. <<../chapter-04/index.adoc#fs,chapitre 4>>)
+La méthode `fs.createReadStream` (<<../chapter-04/index.adoc#fs,chapitre{nbsp}4>>)
 lit les données d'une ressource de la même manière que nous consommons
 l'entrée standard.
 
@@ -1773,8 +1753,8 @@ BLAH BLAH
 ----
 include::{sourceDir}/streaming/input.js[]
 ----
-<1> Le module npm _get-stream_ ([URL]#https://npmjs.com/get-stream#) est similaire à _get-stdin_ et fonctionne avec tout _stream_ de lecture.
-<2> _get-stream_ résout une promesse dès qu'il a terminé de consommer le flux de lecture.
+<1> Le module{nbsp}``npm`` _get-stream_ ([URL]#https://npmjs.com/get-stream#) est similaire à _get-stdin_ et fonctionne avec tout flux de lecture.
+<2> Il résout une promesse dès qu'il a terminé de consommer le flux de lecture.
 
 Là aussi, je trouve intéressant de proposer une approche double, en acceptant
 un chemin de fichier en option et son contenu via l'entrée standard :
@@ -1791,22 +1771,21 @@ BLAH BLAH
 ----
 include::{sourceDir}/streaming/input-fallback.js[]
 ----
-<1> Le module npm _through2_ ([URL]#https://npmjs.com/through2#) s'intègre à un _stream_ en exécutant une fonction à chaque afflux de données.
+<1> Le module{nbsp}``npm`` _through2_ ([URL]#https://npmjs.com/through2#) s'intègre à un flux en exécutant une fonction à chaque arrivée de données.
 <2> Nous transformons la chaîne de caractères entrante dans le flux de sortie.
 <3> Ce flux de sortie est lui-même redirigé vers la sortie standard du programme.
 
 Ce qui est intéressant avec cette approche est qu'elle nous apprend
-à intervenir nous-même sur un flux sans avoir à connaître les tenants et aboutissants
-des _streams_.
+à intervenir nous-même sur un flux sans avoir à en connaître les tenants et aboutissant.
 
 [TIP]
 .[RemarquePreTitre]#Alternative# Spécifier l'entrée ou la sortie standard en tant qu'option
 ====
-Certains programmes Linux utilisent le caractère `-` pour symboliser l'entrée
+Certains programmes Linux utilisent le caractère{nbsp}``-`` pour symboliser l'entrée
 ou la sortie standard, selon l'intention de l'option.
 
 ----
-$ cat blah.txt | node streaming/input-fallback.js --input -
+$ cat blah.txt | node streaming/input-fallback.js --input ##-##
 ----
 
 Cette notation est utile quand vous voulez rendre l'entrée standard
@@ -1817,12 +1796,12 @@ Le précédent exemple nous permet aussi de nous libérer des modules
 _get-stdin_ et _get-stream_.
 Ces derniers obligent quand même à _charger tout le contenu_ du flux entrant
 en mémoire.
-En travaillant directement sur les _streams_ avec le module _through2_,
+En travaillant directement sur les flux avec le module _through2_,
 les transformations sont faites en temps réel, au fur et à mesure où les données
-sont lues, bloc par bloc.
+sont lues, bloc par{nbsp}bloc.
 
-Nous sommes désormais en mesure de travailler sur avec des fichiers au même
-titre qu'avec l'entrée et la sortie standard.
+Nous sommes désormais en mesure de travailler avec des fichiers au même
+titre qu'avec l'entrée et la sortie standards.
 
 ----
 $ cat blah.txt | node streaming/pipe-in.js
@@ -1834,7 +1813,7 @@ BLAH BLAH
 ----
 include::{sourceDir}/streaming/pipe-in.js[]
 ----
-<1> La source de données provient soit du flux de lecture de fichier soit de l'entrée standard.
+<1> La source de données provient soit du flux de lecture de fichier, soit de l'entrée standard.
 <2> Le travail sur le contenu est ainsi factorisé, avec un fonctionnement identique peu importe la source de données.
 
 L'utilisation d'un même concept pour lire et pour écrire des données
@@ -1855,11 +1834,11 @@ $ cat blah.txt | node streaming/pipe-out.js -o debug.txt
 ----
 include::{sourceDir}/streaming/pipe-out.js[]
 ----
-<1> La destination des données est choisie en utilisant un mécanisme similaire à la source de données.
+<1> La destination des données est choisie par un mécanisme similaire à celui pour la source de données.
 <2> Le processus de traitement est désormais indifférent à la source et à la destination des données.
 
 En quelques exemples, nous sommes passé·e·s d'une utilisation potentiellement
-énergivore à un traitement en continu, plus doux pour les ressources systèmes
+énergivore à un traitement en continu, plus doux pour les ressources système
 et intégrable à tous les outils en ligne de commande qui lisent depuis
 l'entrée standard ou écrivent vers la sortie standard.
 
@@ -1875,7 +1854,7 @@ Elle accélère et réduit le risque d'erreurs durant la saisie des commandes.
 .[RemarquePreTitre]#Compatibilité# Incertitudes de fonctionnement sous Windows
 ====
 Cette section n'a pas été testée avec les systèmes d'exploitation Windows.
-Les commandes référencées ci-après ne fonctionnent peut-être pas avec.
+Les commandes référencées ci-après ne fonctionnent peut-être pas{nbsp}avec.
 ====
 
 .Prérequis pour installer les exécutables de ce chapitre.
@@ -1886,7 +1865,7 @@ $ npm install --global $(nodebook dir chapter-08 --root)
 Le mécanisme d'autocomplétion est fourni par l'environnement d'exécution
 de notre terminal, le _shell_.
 Sous Linux et macOS, il s'agit de _bash_, de _zsh_ ou plus rarement, de _fish_.
-Il "suffit" donc d'interconnecter notre programme exécutable pour qu'il fournisse
+Il "`suffit`" donc d'interconnecter notre programme exécutable pour qu'il fournisse
 les résultats de complétion au mécanisme de notre _shell_.
 
 [subs="+macros"]
@@ -1895,9 +1874,9 @@ $ eval $(nodebook.ch08.autocomplete --completion) # <1>
 $ nodebook.ch08.autocomplete kbd:[Tab]
 --help coucou
 ----
-<1> L'option `--completion` est une option spéciale comprise par le module npm utilisé dans cet exemple.
+<1> L'option `--completion` est une option spéciale comprise par le module{nbsp}``npm`` utilisé dans cet exemple.
 
-Le mécanisme de complétion est fourni par le module npm _omelette_
+Le mécanisme de complétion est fourni par le module{nbsp}``npm`` _omelette_
 ([URL]#https://npmjs.com/omelette#).
 Il est totalement indépendant de notre outillage d'<<args,arguments et d'options>>.
 Je le trouve léger et rapide à prendre en main.
@@ -1941,12 +1920,12 @@ include::{sourceDir}/autocomplete/omelette.js[]
 C'est clairement pratique quand on ne sait pas par où commencer et quand on ne
 connaît pas la liste exhaustive des propositions.
 
-Nous avons parlé du module npm _yargs_ dans la section
-<<application,utilisation d'un framework>>.
+Nous avons parlé du module{nbsp}``npm`` _yargs_ dans la section sur
+l'<<application,utilisation d'un _framework_>>.
 Il embarque un module d'autocomplétion.
 Si vous utilisez déjà ce module, l'autocomplétion revient à ajouter une ligne
 de code à notre programme.
-L'autocomplétion est un peu plus basique et demande plus de travail pour
+Elle est un peu plus basique et demande plus de travail pour
 arriver à la qualité des résultats du module _omelette_.
 
 [subs="+macros"]
@@ -1967,24 +1946,23 @@ include::{sourceDir}/autocomplete/yargs.js[]
 .[RemarquePreTitre]#Pratique# Rendre l'autocomplétion permanente
 ====
 Les commandes `eval $(...)` des précédents exemples sont à consigner
-dans le fichier de configuration de votre shell.
+dans le fichier de configuration de votre shell,
 c'est-à-dire dans le fichier `~/.bashrc` pour _bash_, `~/.zshrc` pour _zsh_
-et `~/.config/fish/config.fish` pour _fish_.
+et `~/.config/fish/config.fish` pour{nbsp}__fish__.
 ====
 
 [[packaging]]
-=== Rendre le programme indépendant de Node
+=== Rendre le programme indépendant de{nbsp}Node
 
-Nos programmes exécutables Node souffrent d'un défaut : ils imposent
+Nos programmes exécutables souffrent d'un défaut : ils imposent
 l'installation préalable de Node pour fonctionner.
-Ce n'est pas grave pour une machine de devéloppeur·se ou sur une machine
+Ce n'est pas grave pour une machine de devéloppement ou sur une machine
 de production car nous sommes à même de contrôler l'environnement d'exécution.
 
 La première solution consiste à empaqueter notre application avec le module
 npm _pkg_ ([URL]#https://npmjs.com/pkg#).
 Cet exécutable embarque notre code, les dépendances npm du projet
-et la version de Node de notre choix sous la forme d'un seul et unique
-fichier exécutable.
+et la version de Node de notre choix sous la forme d'un unique fichier exécutable.
 
 ----
 $ npm install --global pkg
@@ -1995,7 +1973,7 @@ Il est 22h49.
 
 Dans ce cas, nous avons empaqueté une même application à la fois pour les
 systèmes d'exploitation Windows, Linux et macOS.
-Nous pourrions faire de même pour des ordinateurs légers de type Raspberry Pi.
+Nous pourrions faire de même pour des ordinateurs légers de type Raspberry{nbsp}Pi.
 
 Une solution alternative consiste à utiliser le logiciel _Docker_
 ([URL]#https://docker.com/community-edition#).
@@ -2036,13 +2014,14 @@ Une fois construite, une image se distribue sous forme de fichier transférable,
 sur le registre public [URL]#https://hub.docker.com# ou sur tout autre
 registre privé – dont ceux fournis par certains
 <<../chapter-06/index.adoc#deploy.docker,hébergeurs _cloud_>>
-(cf. <<../chapter-06/index.adoc#,chapitre 6>>).
+(<<../chapter-06/index.adoc#,chapitre{nbsp}6>>).
 
 [NOTE]
 .[RemarquePreTitre]#Alternative# Windows sous Docker
 ====
-Microsoft met à disposition des images de Windows Server pour Docker à cette
-adresse : [URL]#https://hub.docker.com/r/microsoft/windowsservercore/#.
+Microsoft met à disposition des images de Windows Server pour Docker à l'adresse suivante :
+
+- [URL]#https://hub.docker.com/r/microsoft/windowsservercore/#.
 
 Nous pouvons tester une application Node dans un environnement Windows
 sans quitter notre système d'exploitation Linux ou macOS.
@@ -2059,7 +2038,7 @@ sans quitter notre système d'exploitation Linux ou macOS.
 == Conclusion
 
 L'écriture d'un exécutable en ligne de commande est un
-*exercice proche de celui d'une application web* écrite avec Node.
+*exercice proche de celui d'une application web* écrite avec{nbsp}Node.
 
 Nous avons vu que l'enjeu majeur tient dans la *modularisation du code applicatif*
 et dans la *création d'une interface cohérente*, informative et documentée.
