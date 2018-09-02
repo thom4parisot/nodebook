@@ -1,4 +1,4 @@
-const isString = (thing) => typeof word === 'string';
+const isString = (thing) => typeof thing === 'string';
 
 const isWord = (word) => {
   return isString(word) && /^[\w\s.,\-?!;+]{2,}$/.test(word);
