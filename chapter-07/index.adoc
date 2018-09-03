@@ -1226,30 +1226,31 @@ du <<../chapter-05/index.adoc#,chapitre{nbsp}5>> consacré à{nbsp}``npm``.
 == Organiser une application avec le framework Express
 
 La section précédente a détaillé un ensemble de fonctionnalités individuelles
-qui permettent à la fois de mieux comprendre comment fonctionne HTTP mais aussi
-comment constituer des briques d'une application web avec Node. +
+qui permettent à la fois de mieux comprendre comment fonctionne HTTP, mais aussi
+comment constituer des briques d'une application web avec{nbsp}Node.
+
 Les _frameworks applicatifs web_ sont des outils qui proposent de créer une
 cohérence dans l'organisation de ces fonctionnalités, de sorte à ce que nos
 efforts se concentrent plus sur l'écriture du code et moins sur la création du cadre.
 
 Dans cette section, je vous propose d'appliquer ces connaissances au framework
 Express ([URL]#https://npmjs.com/express#).
-C'est un outil versatile, flexible et bien documenté.
-Ça en fait un choix de prédilection pour commencer. +
+C'est un outil flexible et bien documenté, un choix de prédilection pour commencer.
+
 Vous pouvez vous en tenir à ce framework ou bien évoluer ou compléter son utilisation
-avec _fastify_ (plus récent et plus rapide), _restify_ (orienté <<api,API REST>>),
+avec _fastify_ (plus récent et plus rapide), _restify_ (orienté <<api,API{nbsp}REST>>),
 _koa_ (asynchrone et plus rapide) ou encore _hapi_ (plus structuré et plus complexe).
 
 J'ai une préférence pour les outils qui ne font pas trop de choix à notre place,
-bien documentés et si possible, qui travaillent autour du
-<<../chapter-04/index.adoc#http,module `http`>> – ça conserve une certaine
+bien documentés et, si possible, qui travaillent autour du
+<<../chapter-04/index.adoc#http,module{nbsp}``http``>> – cela conserve une certaine
 clarté autour des concepts que nous manipulons.
 
 [[setup]]
 === Configuration du framework
 
-La configuration initiale d'Express configure un serveur HTTP – à la manière
-de ce que nous pouvions déjà faire avec `http.createServer()` – et retourne
+La configuration initiale d'Express définit un serveur{nbsp}HTTP – à la manière
+de ce que nous faisions avec `http.createServer()` – et retourne
 un <<paths,routeur>> pour attacher des comportements à des chemins d'accès.
 
 ----
@@ -1263,19 +1264,19 @@ include::{sourceDir}/framework/setup.js[]
 ----
 <1> Création de l'application Express.
 <2> Déclaration d'une <<paths,route>> pour la page d'accueil.
-<3> La méthode `response.send()` est un raccourci qui automatise qui combine et configure `response.write()`, `response.statusCode` et de `response.end()`.
+<3> La méthode `response.send()` est un raccourci qui combine et configure `response.write()`, `response.statusCode` et de `response.end()`.
 <4> Branchement du serveur HTTP sur l'interface réseau du système d'exploitation.
 
 C'est vraiment très proche de ce que nous avons déjà appris
-à faire dans les sections <<server,démarrer un serveur HTTP>> et
-<<paths,répondre à un chemin>>.
+à faire dans les sections "`<<server,Démarrer un serveur HTTP>>`" et
+"`<<paths,Répondre à un chemin>>`".
 
 [NOTE]
 .[RemarquePreTitre]#Documentation# Quelles méthodes et pour quoi faire ?
 ====
 La documentation d'Express est le meilleur endroit pour savoir quoi faire
 avec les différents objets du module.
-Leur lecture vous aidera à mieux suivre cette section car vous comprendrez
+Sa lecture vous aidera à mieux suivre cette section car vous comprendrez
 d'où sortent les méthodes utilisées.
 
 - *express* : [URL]#https://expressjs.com/fr/4x/api.html#express#
@@ -1286,11 +1287,11 @@ d'où sortent les méthodes utilisées.
 ====
 
 [[middleware]]
-=== Greffer des extensions (_middlewares_)
+=== Greffer des extensions (middlewares)
 
 Un des premiers éléments différenciant est le *branchement d'extensions*.
 Une fois configurées, ces extensions s'appliquent à chaque requête entrante.
-Elles offrent la liberté d'ajouter des capacités de compréhension de la requête
+Elles ajoutent des capacités de compréhension de la requête
 (<<post,parser des données de formulaire>> par exemple), de modifier la réponse
 ou de <<views,connecter des gabarits de présentation>>.
 
@@ -1307,18 +1308,18 @@ $ node framework/middleware.js
 include::{sourceDir}/framework/middleware.js[]
 ----
 <1> Un _middleware_ se branche avec la méthode `app.use()`.
-<2> L'objet `response.locals` passe des données jusqu'à la route – les données sont effacées une fois la réponse envoyée.
+<2> L'objet `response.locals` passe des données jusqu'à la route – qui sont effacées une fois la réponse envoyée.
 <3> La fonction `next()` passe la main au prochain _middleware_.
 <4> Nous récupérons l'objet `response.locals.pokemon` créé par notre _middleware_.
 <5> Affichage d'un message similaire à `Pokémon aléatoire : Patrat`.
 
 Un _middleware_ n'est pas très différent d'une route : c'est une fonction
 qui a accès à la requête et à la réponse HTTP.
-Elle n'est pas forcément assignée à une méthode HTTP (`app.get()`, `app.post()`,
-etc.) ni à un chemin d'accès.
+Elle n'est pas forcément affectée à une méthode HTTP (`app.get()`, `app.post()`)
+ni à un chemin d'accès.
 
 Dans l'exemple suivant, nous allons connecter plusieurs _middlewares_ grâce
-aux modules `npm` _helmet_ ([URL]#https://npmjs.com/helmet#) et _serve-static_
+aux modules{nbsp}``npm`` _helmet_ ([URL]#https://npmjs.com/helmet#) et _serve-static_
 ([URL]#https://npmjs.com/serve-static#).
 Ce dernier est une version embarquée de <<static,serve>> par le module Express.
 
@@ -1335,13 +1336,13 @@ include::{sourceDir}/framework/middleware-multi.js[]
 <2> Nous branchons les _middlewares_ de <<security,sécurité>> à notre application.
 <3> La racine de l'application affiche une image contenue dans un autre répertoire.
 
-Le mécanisme de _middlewares_ est minimaliste et pourtant, il nous permet de
-brancher des modules dont leur seul pré-requis est de comprendre les objets
+Le mécanisme de _middlewares_ est minimaliste, et pourtant, il nous permet de
+brancher des modules dont le seul pré-requis est de comprendre les objets
 de requête et de réponse HTTP.
 *Les _middlewares_ relient tous les concepts* évoqués dans la section
-<<webapp,composer son application web>>.
+"`<<webapp,Composer son application{nbsp}web>>`".
 
-.Extraits des en-têtes d'une réponse HTTP une fois le module _helmet_ configuré.
+.Extraits des en-têtes d'une réponse HTTP une fois le module helmet configuré.
 ----
 $ curl --head http://localhost:4000
 HTTP/1.1 200 OK
@@ -1359,12 +1360,12 @@ Connection: keep-alive
 ----
 
 Le module _helmet_ agit seulement sur les en-têtes de réponse.
-Nous verrons dans la section <<security,protéger nos applications>> quelles
-en-têtes sont essentielles à la sécurité et pourquoi.
+Nous verrons dans la section "`<<security,Protéger nos applications>>`" quels
+en-têtes sont essentiels à la sécurité et pourquoi.
 
 Enfin, notons une méthode alternative pour appliquer un _middleware_ : au niveau
 d'une route, au lieu de toutes les routes – avec `app.use()`.
-Pour cela nous allons transformer l'exemple `framework/middleware.js` et
+Pour cela, nous allons transformer l'exemple `framework/middleware.js` et
 l'appliquer à une seule route :
 
 ----
@@ -1377,10 +1378,10 @@ $ node framework/middleware-function.js
 include::{sourceDir}/framework/middleware-function.js[]
 ----
 <1> Nous avons factorisé la route dans une fonction afin de la rendre réutilisable.
-<2> La route `/` reçoit d'abord le middleware puis la fonction d'affichage.
+<2> La route{nbsp}``/`` reçoit d'abord le _middleware_, puis la fonction d'affichage.
 <3> La route `/rondoudou` reçoit uniquement la fonction d'affichage.
 
-Nous verrons que même si la fonction d'affichage est identique, les routes
+Nous verrons que, même si la fonction d'affichage est identique, les routes
 `{serverUrl}/` et `{serverUrl}/rondoudou` produisent des résultats différents.
 Cette dernière n'ayant pas reçu le _middleware_ `pokéMiddleware`, sa variable
 `response.locals.pokemon` n'a pas été définie et elle vaut donc `undefined`.
@@ -1389,8 +1390,7 @@ Cette dernière n'ayant pas reçu le _middleware_ `pokéMiddleware`, sa variable
 === Brancher les gabarits de présentation
 
 La configuration des gabarits de présentation n'est pas très différente
-de ce que nous avons vu dans la section
-<<templating,structurer l'affichage avec les gabarits de présentation>>.
+de ce que nous avons vu dans la section <<templating,qui leur est consacrée>>.
 
 ----
 $ node framework/templating.js
@@ -1401,16 +1401,16 @@ $ node framework/templating.js
 ----
 include::{sourceDir}/framework/templating.js[]
 ----
-<1> Configuration de _nunjucks_, comme dans la section <<templating,structurer l'affichage avec les gabarits de présentation>>.
+<1> Configuration de _nunjucks_, comme dans la section "`<<templating,structurer l'affichage avec les gabarits de présentation>>`".
 <2> Utilisation de la méthode `express()` pour laisser à _nunjucks_ le travail de configuration d'Express.
-<3> Nous appelons la méthode `response.render()` au lieu de `response.send()` – elle charge le template donné et lui passe un objet dont chaque clé devient une variable dans le gabarit.
+<3> Nous appelons la méthode `response.render()` au lieu de `response.send()` – elle charge le gabarit donné et lui passe un objet dont chaque clé devient une variable.
 
 Nous avons de la chance car _nunjucks_ prend en charge toute la configuration
 d'Express pour nous.
 La seule différence avec les précédents exemples est l'utilisation de la
 méthode `response.render()`.
-Le premier effet que ça me fait c'est une sensation de légèreté – nous avons
-le strict minimum à gérer pour que ça fonctionne.
+Le premier effet que cela me fait est une sensation de légèreté – nous avons
+le strict minimum à gérer pour que cela fonctionne.
 
 En comparaison, voilà comment Express se configure à la main :
 
@@ -1424,9 +1424,9 @@ $ node framework/templating-manual.js
 include::{sourceDir}/framework/templating-manual.js[]
 ----
 <1> On indique à Express de contextualiser le répertoire racine où se trouvent les gabarits.
-<2> Déclaration de la fonction de rendu pour les fichiers `.njk` – elle est appelée à chaque fois que `response.render()` est appelée avec un fichier `.njk`.
-<3> Rendu du fichier passé en paramètre – comme dans la section <<templating,structurer l'affichage avec les gabarits de présentation>>.
-<4> Le HTML généré est passé à la fonction de _callback_ `next()` – le premier argument est utilisé pour transmettre une erreur, le second le résultat en cas de succès.
+<2> Déclaration de la fonction de rendu pour les fichiers{nbsp}``.njk`` – elle est lancée à chaque fois que `response.render()` est appelée avec un fichier{nbsp}``.njk``.
+<3> Rendu du fichier passé en paramètre.
+<4> Le HTML généré est passé à la fonction de rappel `next()` – le premier argument est utilisé pour transmettre une erreur, le second le résultat en cas de succès.
 
 Cette méthode demande davantage de travail.
 Elle implique aussi d'être suffisamment familier·ère avec Express pour en
@@ -1444,7 +1444,7 @@ Le module{nbsp}``npm`` _consolidate_ ([URL]#https://npmjs.com/consolidate#)
 gomme les différences de configuration pour plusieurs dizaines de moteurs
 de gabarit.
 
-Il pourra vous être utile si vous peinez à configurer Express avec le
+Il vous sera utile si vous peinez à configurer Express avec votre
 moteur de gabarits favori.
 ====
 
@@ -1453,7 +1453,7 @@ moteur de gabarits favori.
 
 La gestion des ressources front-end ne demande pas à changer nos habitudes.
 Les fichiers CSS, JavaScript et les images sont des fichiers statiques
-à mettre à disposition via un <<middleware,middleware>>.
+à mettre à disposition via un <<middleware,_middleware_>>.
 
 ----
 $ node framework/assets.js
@@ -1464,17 +1464,17 @@ $ node framework/assets.js
 ----
 include::{sourceDir}/framework/assets.js[]
 ----
-<1> La méthode `express.static()` configure le module{nbsp}``npm`` _send_ documenté dans la section <<static>> ce même chapitre.
+<1> La méthode `express.static()` configure le module{nbsp}``npm`` _send_.
 <2> Affichage d'une image dont la source `screenshot.jpg` est à la racine du répertoire virtuel `/static`.
 
 J'ai tendance à exposer les fichiers statiques depuis un répertoire virtuel dédié
-– ici, le répertoire `/static`.
-Je trouve que ça les rend *plus clairement identifiables* et ça évite toute
-ambiguïté avec les autres routes de l'application.
-Ça a aussi l'avantage de dissocier les fichiers sources (Sass, Less, etc.)
+– ici, `/static`.
+Cela rend *plus clairement identifiables* et évite toute ambiguïté avec les
+autres routes de l'application.
+Cela a aussi l'avantage de dissocier les fichiers sources (Sass, Less, etc.)
 des fichiers compilés.
 
-Dans le <<../chapter-05/index.adoc#,chapitre 5>>, j'explique comment
+Dans le <<../chapter-05/index.adoc#,chapitre{nbsp}5>>, j'explique comment
 <<../chapter-05/index.adoc#run-all,automatiser l'outillage projet>>.
 Ces connaissances s'appliquent dans notre cas de figure, sans distinction. +
 L'extrait suivant de fichier `package.json` illustre l'organisation
@@ -1498,7 +1498,7 @@ compilés et pour le faire en continu dans un contexte de développement :
 }
 ----
 
-La première partie est dédiée aux scripts dits "de production" :
+La première partie est dédiée aux scripts dits "`de production`" :
 `npm run build` génère les fichiers utiles quand le serveur tourne,
 après avoir lancé `npm start`.
 
@@ -1506,7 +1506,7 @@ La seconde partie lance le serveur de développement et la construction
 des fichiers Sass en continu avec l'option `--watch`.
 L'option `--source-map` s'utilisent dans un contexte de développement pour
 associer les lignes du fichier compilé au fichiers sources.
-L'utilisation des doubles tirets (`--`) nous permet de réutiliser le script
+L'utilisation des doubles tirets{nbsp}(`--`) nous permet de réutiliser le script
 `build:css` en lui passant deux options supplémentaires.
 
 Le _middleware_ statique s'utilise aussi avec des fichiers.
@@ -1523,8 +1523,7 @@ include::{sourceDir}/framework/assets-file.js[]
 <1> Nous définissions le fichier statique `/wikipedia.jpg` alors qu'il était initialement nommé `screenshot.jpg`.
 <2> Ce chemin d'accès affiche bien l'image attendue.
 
-Cette technique pour être utilisée pour exposer un seul fichier au lieu
-d'un répertoire entier.
+Cette technique est utilisable pour exposer un seul fichier au lieu d'un répertoire entier.
 
 Enfin, le module{nbsp}``npm`` _express-minify_ ([URL]#https://npmjs.com/express-minify#)
 est à considérer pour profiter d'une mise en place rapide ou
@@ -1540,17 +1539,18 @@ $ node framework/minify.js
 ----
 include::{sourceDir}/framework/minify.js[]
 ----
-<1> Le module _express-minify_ transforme les fichiers Sass si leur en-tête de réponse `Content-Type` vaut `text/x-scss` – cette ligne assigne cet en-tête aux fichiers dont l'extension est `.scss`.
+<1> Le module _express-minify_ transforme les fichiers Sass si leur en-tête de réponse `Content-Type` vaut `text/x-scss` – cette ligne affecte cet en-tête aux fichiers dont l'extension est{nbsp}``.scss``.
 <2> Ajout du module comme <<middleware,middleware>>.
-<3> Le fichier `main.scss` sera converti en CSS.
+<3> Le fichier `main.scss` sera converti en{nbsp}CSS.
 
 Si ce module permet de démarrer plus vite, sans avoir à se familiariser
-avec les scripts npm ni même la commande `node-sass`, je vois deux inconvénients
-majeurs : les *erreurs sont difficiles à déceler* et elles peuvent se produire
-au cas où notre machine de développement est significativement différente du
-sereur de production (compilateur, installation manquée, etc.).
-Ça représente aussi un *gâchis de ressources* dans la mesure où ces fichiers
-ne changent plus une fois mis en ligne ; ça ne veut pas le coup de rajouter
+avec les scripts{nbsp}``npm`` ni même avec la commande `node-sass`,
+je lui vois deux inconvénients majeurs : les *erreurs sont difficiles à déceler*
+et elles risquent de se produire au cas où notre machine de développement est
+significativement différente du serveur de production (compilateur,
+installation manquée).
+Cela représente aussi un *gâchis de ressources* dans la mesure où ces fichiers
+ne changent plus une fois mis en ligne ; cela ne justifie pas d'ajouter
 du temps de compilation à la volée.
 
 En clair, c'est pratique pour dépanner et pour démarrer.
@@ -1561,7 +1561,7 @@ En clair, c'est pratique pour dépanner et pour démarrer.
 L'utilisation d'une base de données sert à mémoriser des informations entre
 deux redémarrages de notre application – sinon, ce qui est en mémoire
 applicative disparaît.
-Je vous recommande de lire la section <<database-choice>> pour éclairer votre choix.
+Je vous recommande de lire la section "`<<database-choice>>`" pour éclairer votre choix.
 
 ----
 $ node framework/database.js
@@ -1572,36 +1572,37 @@ $ node framework/database.js
 ----
 include::{sourceDir}/framework/database.js[]
 ----
-<1> La connexion à la base de données est asynchrone – l'objet `db` qui permet d'exécuter des requêtes est renvoyé par la promesse.
-<2> Exécution d'une requête avec un paramètre issu du <<path,routing>> – le champ `:id`.
+<1> La connexion à la base de données est asynchrone – l'objet{nbsp}``db`` qui permet d'exécuter des requêtes est renvoyé par la promesse.
+<2> Exécution d'une requête avec un paramètre issu du <<path,routage>> – le champ{nbsp}``:id``.
 <3> Le résultat est fourni lors de la résolution de la promesse – il vaut `undefined` si aucun enregistrement n'a été trouvé.
 <4> Affichage de l'enregistrement côté client (sans mise en forme aucune).
 
-L'intégration d'une base de données se fait en deux temps. +
-D'abord l'ouverture d'une connexion qui est asynchrone.
-Les connexions HTTP sont acceptées seulement si la connexion à la base réussit. +
-La réponse est renvoyée après avoir fait un aller-retour vers la base
-afin d'en extraire un ou plusieurs résultats.
+L'intégration d'une base de données se fait en deux temps :
+
+- D'abord, on ouvre une connexion asynchrone.
+Les connexions HTTP sont acceptées seulement si la connexion à la base réussit.
+- La réponse est renvoyée après avoir fait un aller-retour vers la base
+afin d'en extraire un ou plusieurs résultat(s).
 
 [CAUTION]
 .[RemarquePreTitre]#Sécurité# Systématiser les emplacements de paramètre
 ====
 L'utilisation des _emplacements de paramètre_ dans les requêtes SQL avec
-le caractère `?` renforce la sécurité de notre application.
+le caractère{nbsp}``?`` renforce la sécurité de notre application.
 
 La valeur est filtrée pour éviter de déjouer le moteur de base de données en
 le faisant planter ou en exposant davantage d'informations que prévues.
 ====
 
-Nous verrons dans la section <<tests>> qu'un des enjeux est de rendre le fichier
-de démarrage le plus _fin_ possible.
+Nous verrons dans la section "`<<modularity>>`" qu'un des enjeux est de rendre
+le fichier de démarrage le plus fin possible.
 
 [[sessions]]
 === Sessions utilisateurs
 
 Nous avons appris à mémoriser des données et à les partager avec un serveur
 grâce au mécanisme des <<cookies,cookies>>.
-Les sessions utilisateurs centralisent cette mémoire du côté du serveur.
+Les sessions utilisateur centralisent cette mémoire du côté du serveur.
 Elles se basent sur un *cookie de session* pour garder un lien.
 
 Les sessions sont destinées à *stocker des données temporaires*, liées à une
@@ -1609,10 +1610,11 @@ personne.
 Un utilisateur peut avoir plusieurs sessions – une par appareil par exemple.
 Chaque session est propre à son environnement immédiat.
 Elles sont pratiques pour mémoriser des informations liées à un état
-(connecté·e, déconnecté·e, date de dernière activité). +
-Tout stockage qui serait permanent relève des _préférences utilisateurs_.
+(connecté·e, déconnecté·e, date de dernière activité).
 
-Le middleware _express-session_ ([URL]#https://npmjs.com/express-session#)
+Tout stockage qui serait permanent relève des _préférences utilisateur_.
+
+L'extension _express-session_ ([URL]#https://npmjs.com/express-session#)
 se charge de ce travail pour nous.
 Il ajoute un élément `request.session` qu'il mémorise et récupère à partir
 d'un identifiant de session difficile à deviner.
@@ -1626,12 +1628,12 @@ $ node framework/session.js
 ----
 include::{sourceDir}/framework/session.js[]
 ----
-<1> Configuration du _middleware_ avec un secret qui rend moins prévisible le nommage du <<cookies,cookie>>.
+<1> Configuration du _middleware_ avec un secret qui rend moins prévisible le nom du <<cookies,cookie>>.
 <2> Création d'une donnée de session nommée `pokemon`, de valeur aléatoire.
-<3> Affiche un message du genre de `Mon Pokémon en session : Pikachu`.
+<3> Affiche un message similaire à `Mon Pokémon en session : Pikachu`.
 
 La même valeur s'affiche si vous ouvrez un nouvel onglet dans le même navigateur
-et en vous rendant sur `{serverUrl}/my-pokemon`.
+et en vous rendant sur [URL]#{serverUrl}/my-pokemon#.
 Le serveur fait fait le lien entre votre identifiant de session (stocké en cookie)
 et les valeurs associées (stockées en mémoire, pour l'instant) grâce à un identifiant
 unique stocké dans le cookie de session.
@@ -1651,8 +1653,8 @@ Content-Length: 32
 Date: Tue, 17 Jul 2018 09:46:15 GMT
 ----
 
-Le seul inconvénient à notre exemple est que si nous stoppons et que
-nous relançons le serveur, la page `{serverUrl}/my-pokemon` affiche
+Le seul inconvénient à notre exemple est que, si nous stoppons puis relançons
+le serveur, la page [URL]#{serverUrl}/my-pokemon# affiche
 `undefined` comme nom de Pokémon.
 C'est normal : le stockage par défaut étant en mémoire, les données de session
 sont détruites dès que le processus Node s'interrompt.
@@ -1676,37 +1678,35 @@ include::{sourceDir}/framework/session-database.js[]
 <2> Configuration du connecteur de stockage et de l'emplacement du fichier qui contient les données des sessions.
 <3> L'écriture et la lecture des données de session est inchangée.
 
-Cette fois, si nous stoppons le serveur et que nous le relançons,
-le gestionnaire de session affiche le nom de Pokémon associé à notre identifiant
-de session.
+Cette fois, si nous stoppons le serveur puis le relançons, le gestionnaire de
+sessions affiche le nom de Pokémon associé à notre identifiant.
 La persistance a fonctionné !
 
 [[logs]]
-=== Tracer les actions (_logs_)
+=== Tracer les actions{nbsp}(logs)
 
 Consigner les actions (_logging_ en anglais) est une pratique courante
-en informatique pour créer une mémoire des actions effectuées par une application.
+en informatique pour créer une mémoire de l'activité d'une application.
 Ces consignes aident à garder des traces de choses invisibles en surface,
 d'événements sensibles ou critiques (envoi de mot de passe, création de compte)
 afin de détecter des anomalies de fréquence.
 
-C'est un endroit idéal pour historiser les erreurs avec des indications qui
+C'est un endroit idéal pour répertorier les erreurs avec des indications qui
 aideraient à reproduire le problème.
-D'ailleurs, l'habitude est à tenir un journal d'erreurs séparé du journal des
+D'ailleurs, l'habitude est de tenir un journal d'erreurs séparé du journal des
 événements afin de retrouver plus facilement ces premières.
-J'ai tendance à préférer l'installation d'une _sonde_, comme expliqué dans
-la section
-<<../chapter-06/index.adoc#exceptions,s'informer des erreurs applicatives>>
-du <<../chapter-06/index.adoc#,chapitre 6>>.
+J'ai tendance à préférer l'installation d'une sonde (section
+"`<<../chapter-06/index.adoc#exceptions,S'informer des erreurs applicatives>>`"
+du <<../chapter-06/index.adoc#,chapitre{nbsp}6>>).
 
-C'est *à nous de choisir la granularité des informations* historisées.
-Nous sommes responsables de rendre ces informations anonymes et de ne pas
-mettre d'autre information personnelle qu'un identifiant (numérique ou généré)
+C'est *à nous de choisir la granularité des informations* enregistrées.
+Nous sommes responsables de rendre ces informations anonymes et de ne rien
+mettre de personnel qu'un identifiant (numérique ou généré)
 pour rattacher des informations à un utilisateur si c'est nécessaire
 – dans le cas de transaction bancaire ou de renvoi de mot de passe par exemple.
 
 [CAUTION]
-.[RemarquePreTitre]#Attention# Rotation de logs
+.[RemarquePreTitre]#Attention# Rotation de{nbsp}logs
 ====
 Consigner des informations est bien jusqu'au moment où l'historique finit
 par saturer le disque dur de la machine qui héberge l'application.
@@ -1714,22 +1714,21 @@ par saturer le disque dur de la machine qui héberge l'application.
 Sous Linux, le logiciel _logrotate_ ([URL]#https://doc.ubuntu-fr.org/logrotate#)
 est souvent installé par défaut.
 Il indique au système quand tronquer le fichier d'historique –
-tous les X Mégaoctets, tous les X jours.
+tous les X{nbsp}mégaoctets, tous les X{nbsp}jours.
 ====
 
-Les modules `npm` pour consigner nos actions fonctionnent comme des `console.log()`
-finement configurables.
-Les modules _winston_ ([URL]#https://npmjs.com/winston#), _morgan_
-([URL]#https://npmjs.com/morgan#) et _bunyan_ ([URL]#https://npmjs.com/bunyan#)
+Les modules{nbsp}``npm`` pour consigner nos actions fonctionnent comme des
+`console.log()` finement configurables : _winston_ ([URL]#https://npmjs.com/winston#),
+_morgan_ ([URL]#https://npmjs.com/morgan#) et _bunyan_ ([URL]#https://npmjs.com/bunyan#)
 sont à essayer, pour voir celui qui vous convient le mieux.
 
 .Extrait de logs retournés par une application hébergée chez Heroku.
 image::images/heroku-logs.png[]
 
-Les journaux de sorties se connectent à des logiciels comme _rsyslog_
+Les journaux de sortie se connectent à des logiciels comme _rsyslog_
 ([URL]#https://rsyslog.com#) ou à des services en ligne comme
 _Papertrail_ ([URL]#https://papertrailapp.com#), _Logstash_
-([URL]#https://elastic.co/products/logstash#) et _AWS CloudWatch_
+([URL]#https://elastic.co/products/logstash#) et _AWS{nbsp}CloudWatch_
 ([URL]#https://aws.amazon.com/cloudwatch#).
 Elles vous aident – ou vous demandent de travailler davantage – pour visualiser,
 orchestrer et déclencher des actions quand des valeurs spécifiques sont rencontrées
@@ -1740,22 +1739,22 @@ dans les journaux.
 
 L'intention de cette section est de consolider les différents concepts
 évoqués au cours de ce chapitre.
-Nous a composé pas à pas une application web jusqu'à l'organiser avec le framework
-Express.
+Nous avons composé pas à pas une application web jusqu'à l'organiser avec
+le framework Express.
 Maintenant, nous allons réorganiser les composants pour améliorer la
-maintenance et la résilience aux changementds de nos applications web.
+maintenance et la robustesse aux changements de nos applications{nbsp}web.
 
 Notre but ?
 *Diminuer la taille du script de lancement*, rendre les composants indépendants
-et préparer au mieux les données passées à nos templates pour faciliter
+et préparer au mieux les données passées à nos gabarits pour faciliter
 l'écriture de tests et favoriser l'automatisation du déploiement.
 
 === Modulariser le code des routes
 
-Le défi de lisibilité et de maintenance augmente au fur et à mesure où
+Le défi de lisibilité et de maintenance augmente au fur et à mesure que
 le volume de code augmente.
 C'est particulièrement vrai quand le nombre de lignes dépasse un seuil
-psychologique dans un même fichier – je commence à saturer au-delà de 100 lignes,
+psychologique dans un même fichier – je commence à saturer au-delà de 100{nbsp}lignes,
 par exemple.
 Ce phénomène se renforce quand plusieurs concepts s'entrecroisent visuellement.
 
@@ -1763,7 +1762,7 @@ La modularisation des routes et de notre application web va nous rendre la vie
 plus confortable.
 Nous ouvrons la porte à l'écriture de <<tests.unit,tests unitaires>>, à un
 déplacement plus aisé du code et à une quasi-disparition des variables globales.
-Nous en profitons pour rendre nos intentions explicites, ce à quoi nous oblige
+Nous en profitons pour rendre nos intentions explicites, ce à quoi nous obligent
 les réflexions de nommage de fichiers et de fonctions.
 
 ----
@@ -1775,7 +1774,7 @@ $ node modularity/01/server.js
 ----
 include::{sourceDir}/modularity/01/server.js[]
 ----
-<1> Nous déplaçons la configuration et connexion à la base de données dans son propre module.
+<1> Nous déplaçons la configuration de et la connexion à la base de données dans son propre module.
 <2> Nous déplaçons aussi le code des routes.
 <3> Au premier coup d'œil, la route est une association de chemin et d'une fonction.
 
@@ -1790,7 +1789,7 @@ puisse réagir à l'aboutissement de la connexion :
 ----
 include::{sourceDir}/modularity/01/src/database.js[]
 ----
-<1> Nous réutilisons la base de données de la section <<database>> de ce même chapitre.
+<1> Nous réutilisons la base de données d'un exemple précédent.
 <2> La fonction `sqlite.open()` retourne une promesse résolue lorsque la connexion à la base est établie.
 
 Notons que nous exploitons le <<../chapter-04/index.adoc#require,mécanisme de cache>>
@@ -1799,8 +1798,8 @@ Chaque appel au fichier `database.js` retourne la même promesse.
 Nous créons ainsi une seule connexion à la base de données même si nous chargeons
 plusieurs fois ce module.
 
-Je trouve ça agréable de regrouper ce genre de lignes de code dans un même fichier.
-Les dépendances aux modules Node et aux modules `npm` deviennent vraiment claires.
+Je trouve agréable de regrouper ce genre de lignes de code dans un même fichier.
+Les dépendances aux modules Node et{nbsp}``npm`` deviennent vraiment claires.
 Je suis moins dérangé par l'organisation visuelle du code – elle aurait ralenti
 ma lecture du fichier `server.js` autrement.
 
@@ -1810,7 +1809,7 @@ ma lecture du fichier `server.js` autrement.
 include::{sourceDir}/modularity/01/src/routes.js[]
 ----
 
-Le fichier de routes a vocation à réexporter les fonctions de _routing_.
+Le fichier de routes a vocation à réexporter les fonctions de routage.
 Je trouve que cette organisation sous forme de catalogue fait énormément
 gagner en lisibilité lors de l'intégration avec le routeur.
 
@@ -1828,13 +1827,13 @@ Le code de la route est quasi inchangé mais on voit à quel point elle prenait
 de la place dans le code d'origine.
 Ce déplacement révèle le positionnement du point d'attention et quels fichiers
 sont amenés à changer au quotidien.
-Peu importe l'organisation de votre, ce qui compte c'est que cette organisation
+Peu importe l'organisation du vôtre, ce qui compte c'est que cette organisation
 vous convienne, soit communicable aux personnes qui utilisent ce code et que
-nous puissions suivre le fil logique.
+nous puissions en suivre le fil logique.
 
 Je vois toutefois apparaître une zone d'ombre : je ne suis pas satisfait
 de la connexion à la base de données.
-C'est la résolution de la promesse dans la route qui me fait dire ça ; ça ne
+C'est la résolution de la promesse dans la route qui me fait dire ça ; elle ne
 semble pas à sa place.
 
 Faisons une nouvelle itération pour ajuster ce code et tendre vers quelque
@@ -1863,13 +1862,13 @@ dépendance au module `database.js` dans le script `books.js` :
 include::{sourceDir}/modularity/02/src/routes/books.js[]
 ----
 <1> Cette fois, nous exportons une fonction qui accepte un objet de base de données en argument.
-<2> Le code exécuté par le routeur est la fonction qui est retournée ici.
+<2> Le code exécuté par le routeur est la fonction qui est retournée{nbsp}ici.
 
 L'appel à la fonction `require()` a disparu.
 La résolution de la promesse aussi.
 Notre module est autonome tant qu'il reçoit un objet de base de données en
 paramètres.
-Ça le rend nettement plus lisible – le code est désormais uniquement lié
+Cela le rend nettement plus lisible – le code est désormais uniquement lié
 à la réception d'une requête HTTP et à l'établissement d'une réponse.
 
 [source,javascript]
@@ -1877,19 +1876,19 @@ paramètres.
 ----
 include::{sourceDir}/modularity/02/configure.js[]
 ----
-<1> Nous utilisons la syntaxe raccourcie de création d'objets pour les exporter en une seule fois.
+<1> Nous utilisons la syntaxe raccourcie de création d'objets pour les exporter en une seule{nbsp}fois.
 
 Nous retrouvons le même mécanisme que celui rencontré dans le fichier `routes.js`.
 
 Au final, le motif qui émerge est celui de
 l'*encapsulation de code dans des fonctions paramétrables*.
-Les paramètres sont les seuls points d'entrées.
+Les paramètres sont les seuls points d'entrée.
 Les arguments font office de contrat et les fichiers font office de regroupement
 logique – de fonctions et d'objets.
 
 Nous avons allégé le fichier `server.js` et rendu lisibles les points importants
 de l'application : la connexion à la base de données, le rendu d'une route
-et la configuration de l'application. +
+et la configuration de l'application.
 Ce travail va nous permettre de tester petit à petit les différents éléments
 de l'application web, par ordre de criticité.
 
@@ -1897,41 +1896,26 @@ de l'application web, par ordre de criticité.
 === Un code testable est un code indépendant du framework
 
 L'écriture de tests unitaires est influencée par et influence l'organisation
-de notre code en unité réutilisables.
+de notre code en unités réutilisables.
 Ils accroissent la qualité, la confiance et la prédictibilité d'une éventuelle
 mise en ligne.
 
-Cette section se déroule dans la continuité de la section précédente.
+Cette section se déroule dans la continuité de la précédente.
 Nous allons préparer et mettre en place pas à pas un environnement de test
-pour vérifier les intentions de notre code.
+pour vérifier les intentions de notre{nbsp}code.
 
-[NOTE]
-.[RemarquePreTitre]#Anecdote# Tu peux pas test
-====
-J'entends régulièrement des témoignages de personnes qui n'écrivent pas de tests
-car il n'y a pas assez de temps ou de budget dans leurs projets, parce que les
-clients ne les paient pas pour ça ou parce que ça ralentit la cadence de développement.
-
-J'ai écrit mes premiers tests unitaires en rejoignant un
-*environnement favorble au travail de qualité* et en
-*apprenant au contact d'autres praticien·ne·s*.
-J'ai beaucoup appris lors de mon premier _Global Day of Code Retreat_
-([URL]#https://www.coderetreat.org#), une journée propice pour explorer des
-concepts de programmation au travers des tests unitaires.
-====
-
-Les tests unitaires sont destinés à couvrir les différents cas de figures
+Les tests unitaires sont destinés à couvrir les différents cas de figure
 des entrées et des sorties de nos fonctions.
 Nous testons leurs réactions aux arguments pour vérifier que nous obtenons
 le résultat attendu.
-Je teste en priorité le code critique, partagé (en tant que librairie) et
+Je teste en priorité le code critique, partagé (en tant que bibliothèque) et
 qui est au plus proche de l'interface utilisateur.
 
-De quoi on a besoin pour tester `routes/books.js` ?
+De quoi a-t-on besoin pour tester `routes/books.js` ?
 La fonction qui est exportée par le module dépend d'une connexion établie
 à une base de données et de deux objets – la requête entrante et la réponse sortante.
-Nous avons aussi besoin d'écrire des _assertions_ – des attentes – et nous
-allons utiliser le module d'assertion de Node dans un premier temps.
+Nous avons aussi besoin d'écrire des _assertions_ et, dans un premier temps, nous
+allons utiliser le module dédié de{nbsp}Node.
 
 [source,javascript]
 .testing/tests/initial.js
@@ -1946,7 +1930,7 @@ $ node testing/tests/initial.js
 ----
 
 Le script n'affiche rien de particulier.
-C'est normal, c'est parce que le test s'est bien passé.
+C'est normal, parce que le test s'est bien passé.
 Une assertion lance une erreur si elle constate un résultat différent de l'attente.
 
 Nous avons toutefois testé une évidence, que le module retourne une fonction.
@@ -1960,8 +1944,8 @@ Le raisonnement est de pouvoir la recréer et la détruire sans craindre
 de générer des effets secondaires, y compris si nous exécutons les tests
 sur le serveur de production.
 
-Pour se faire, commençons par simplifier le fichier `src/database.js` en
-supprimant toute chemin d'accès écrit en dur :
+Pour ce faire, commençons par simplifier le fichier `src/database.js` en
+supprimant tout chemin d'accès écrit en{nbsp}dur :
 
 [source,javascript]
 .testing/src/database.js
@@ -1971,7 +1955,7 @@ include::{sourceDir}/testing/src/database.js[]
 <1> Le module n'a plus d'opinion sur l'emplacement de la base de données.
 <2> Le module exporte désormais une fonction à paramétrer lors de son exécution.
 
-Ça nous ouvre la voie à nous connecter à une base de données différente
+Cela nous ouvre la voie pour nous connecter à une base de données différente
 dans notre script de tests :
 
 [source,javascript]
@@ -1979,32 +1963,32 @@ dans notre script de tests :
 ----
 include::{sourceDir}/testing/tests/with-db.js[]
 ----
-<1> Nous pouvons nous passer de ce test vu que nous allons tester l'exécution de la fonction – les tests seraient redondants.
+<1> Nous pouvons nous passer de ce test puisque nous allons tester l'exécution de la fonction.
 <2> La valeur `:memory:` est une valeur spéciale de chemin d'accès pour _SQLite_ – la base est créée en mémoire et disparaît à la fin de l'exécution du script.
 <3> Configuration de la route – comme nous le faisons dans le fichier `configure.js`.
-<4> La route configurée retourne bien une fonction – comme toute à l'heure, ça ne suffit pas à affirmer que son fonctionnement correspond à nos attentes.
+<4> La route configurée retourne bien une fonction, mais cela ne suffit pas à affirmer que son fonctionnement correspond à nos attentes.
 <5> En commentaire : comment tester le résultat de la route Express ?
 
 Résultat : la connexion à la base de données réussit et nous sommes en mesure
 de la transmettre à la fonction de paramétrage de la route.
 
-Le chemin d'accès était d'ailleurs exprimé de la manière suivante : `/books/:id`.
+Le chemin d'accès était exprimé de la manière suivante : `/books/:id`.
 Autrement dit, la requête à la base de données dépend d'un objet `request.params`
-dont la clé `id` vaut `1`.
+dont la clé{nbsp}``id`` vaut{nbsp}``1``.
 
 C'est ce que nous allons passer à la fonction `route`.
 Mais qu'en est-il de la réponse ? Doit-on réécrire un objet qui reproduit
 l'objet `response` d'Express ?
-Je déconseille cette option car ça nous oblige à écrire du code, faillible,
+Je déconseille cette option car elle nous oblige à écrire du code, faillible,
 et donc à introduire des biais dans nos propres tests.
 
-Les _librairies d'interception_ se destinent à éviter ce cas de figure.
-Elles se greffent à du code existant pour observer ses réactions voire pour les
+Les _bibliothèques d'interception_ évitent ce cas de figure.
+Elles se greffent à du code existant pour observer ses réactions, voire pour les
 remplacer temporairement, le temps des tests.
 J'ai l'habitude d'utiliser le module{nbsp}``npm`` _sinon.js_ ([URL]#https://npmjs.com/sinon#,
 [URL]#https://sinonjs.org/#).
 Il propose tout le nécessaire, est bien documenté et fonctionne aussi bien
-côté Node que côté navigateurs web.
+côté Node que côté navigateurs{nbsp}web.
 
 [source,javascript]
 .testing/tests/with-sinon.js
@@ -2019,11 +2003,11 @@ C'est une chance que le module Express expose directement un objet de réponse
 sans avoir à attendre qu'une vraie requête HTTP atteigne notre serveur web.
 Le _stub_ neutralise son action – nous nous contentons seulement d'observer
 comment la fonction est appelée.
-L'enjeu est de constater que la connexion à la base de donnée se fasse bien,
+L'enjeu est de constater que la connexion à la base de donnée se passe bien,
 que la requête retourne bien la ligne attendue et que ses valeurs soient
 bien transmises en réponse.
 
-Malheureusement pour nous : la base de données en mémoire n'a aucune donnée.
+Malheureusement pour nous : la base en mémoire n'a aucune donnée.
 Le test échoue donc.
 Notre nouvel objectif est de maintenir l'intention du test et de lui ajouter
 les données nécessaires à son exécution.
@@ -2035,12 +2019,12 @@ Les espions, _stubs_ et _mocks_ couvrent trois aspects complémentaires.
 Les *espions enregistrent les appels* à des attributs et à des fonctions
 – le nombre de fois, quels arguments, quels résultats.
 Les *_stubs_ interceptent les appels* à des fonctions – vous pouvez même définir
-les valeurs de retours ou de _callback_ en fonction des paramètres d'appel.
+les valeurs de retours ou de rappel en fonction des paramètres d'appel.
 Les *_mocks_ interceptent les résultats* – je n'en parle pas car notre
-exemple ne s'y prête pas.
+exemple ne s'y prête{nbsp}pas.
 ====
 
-C'est la raison d'être des fichiers dits de "_fixtures_".
+C'est la raison d'être des fichiers dits de _fixtures_.
 Ces données peuplent une base de données d'enregistrements suffisamment
 réalistes pour illustrer les différents cas de figure de notre application.
 
@@ -2052,9 +2036,9 @@ include::{sourceDir}/testing/tests/fixtures.js[]
 
 Ce cas est particulièrement adapté à la syntaxe
 <<../chapter-03/index.adoc#async-await,`async`/`await`>>.
-Ces promesses sont séquentielles et cette syntaxe linéarise leur lecture.
+Ces promesses sont séquentielles et la syntaxe linéarise leur lecture.
 Le même exemple sans `async`/`await` et juste avec les promesses est moins
-digeste à lire.
+digeste à{nbsp}lire.
 
 Il ne nous reste plus qu'à appeler cette fonction de génération de données
 depuis notre script de tests :
@@ -2068,17 +2052,17 @@ include::{sourceDir}/testing/tests/with-sinon-data.js[lines=8..-1]
 <1> Chargement du module qui contient les requêtes SQL nécessaires à l'initialisation de la table et des données.
 <2> Les données sont chargées après la connexion à la base et avant l'exécution des tests.
 <3> Nous remplaçons l'appel à `sendFake.called()` par `sendFake.calledWith()` pour affirmer plus explicitement le résultat attendu.
-<4> Le module sinon propose un ensemble de fonction de vérification (les _matchers_) – ici, nous vérifions que `response.send()` est appelée avec un objet, qui contient au moins une clé `title` dont la valeur est `Design Systems`.
+<4> Le module sinon propose un ensemble de fonctions de vérification (les _matchers_) – ici, nous vérifions que `response.send()` est appelée avec un objet, qui contient au moins une clé `title` dont la valeur est `Design Systems`.
 
 Le test passe !
-Et en plus de ça, nous n'avons plus de doute que la fonction `response.send()`
+Et, en plus, nous n'avons plus de doute que la fonction `response.send()`
 est bien appelée avec la valeur issue de la base de données.
 Le module _sinon_ a été d'une grande aide pour intercepter l'exécution de cette
-fonction et pour nous faciliter son introspection, après coup.
+fonction et pour nous faciliter son introspection, après{nbsp}coup.
 
 Pour être exhaustifs, il nous faudrait maintenant tester le deuxième cas de figure,
-celui où le paramètre `id` de l'URL fait référence à un enregistrement qui
-n'existe pas en base de données pour générer une erreur 404.
+celui où le paramètre{nbsp}``id`` de l'URL fait référence à un enregistrement qui
+n'existe pas en base de données pour générer une erreur{nbsp}404.
 
 [source,javascript]
 .testing/tests/with-sinon-full.js
@@ -2091,18 +2075,18 @@ include::{sourceDir}/testing/tests/with-sinon-full.js[lines=10..-1]
 <3> La méthode `calledWith()` détermine si une fonction est appelée avec cette exacte valeur.
 <4> Cette méthode s'applique aussi aux _stubs_.
 
-Dans ce cas, nous avons eu recourt à un _espion_ pour observer la méthode
+Dans ce cas, nous avons eu recours à un _espion_ pour observer la méthode
 `response.status()` d'Express.
-Nous avons fait ainsi car nous n'avions pas à neutraliser son fonctionnement
-et seulement d'observer la valeur de son argument.
-Le fait qu'il soit de `404` prouve que la branche de code à l'intérieur de la
-condition `if` a bien été visitée.
+Nous avons procédé ainsi car nous n'avions pas à neutraliser son fonctionnement
+mais seulement à observer la valeur de son argument.
+Le fait qu'il soit de{nbsp}``404`` prouve que la branche de code à l'intérieur de la
+condition{nbsp}``if`` a bien été visitée.
 
 Je constate un problème dans cette écriture cependant.
 L'espion et le _stub_ sont créés une seule fois et partagés entre chaque test.
-Cette pratique génèrera des effets de bord si nous ne prêtons pas attention
+Cette pratique entraînera des effets de bord si nous ne prêtons pas attention
 au déroulé des tests.
-Ils devraient être remis à zéro entre chaque test.
+Ils devraient être remis à zéro entre chaque{nbsp}test.
 
 Les _suites de tests_ sont des outils qui aident à donner davantage de cohérence
 et de structure, notamment pour automatiser l'exécution d'actions avant et après
@@ -2110,7 +2094,7 @@ des tests.
 J'utilise le module{nbsp}``npm`` _mocha_ ([URL]#https://npmjs.com/mocha#,
 [URL]#https://mochajs.org#), par habitude, parce qu'il ne demande aucune
 configuration et parce qu'il fait le travail à la fois côté Node et du côté des
-navigateurs web.
+navigateurs.
 
 ----
 $ ../node_modules/.bin/mocha testing/tests/with-mocha.js
@@ -2122,12 +2106,12 @@ $ ../node_modules/.bin/mocha testing/tests/with-mocha.js
 include::{sourceDir}/testing/tests/with-mocha.js[lines=1..10]
 // ...
 ----
-<1> Import des fonctions qui décrivent respectivement la suite de tests, l'exécution de code avant le démarrage de la suite et l'exécution de code après chaque test.
-<2> Import de la fonction de test.
+<1> Import des fonctions qui décrivent respectivement la suite de tests, l'exécution de code avant le démarrage de la suite et l'exécution de code après chaque{nbsp}test.
+<2> Import de la fonction de{nbsp}test.
 
-Notre script de test comporte désormais ce qu'on appelle une _suite de tests_.
-C'est-à-dire, un *ensemble de tests qui expriment nos attentes* vis-à-vis
-d'une fonctionnalité – ici, une route d'application web.
+Notre script de test comporte désormais ce qu'on appelle une _suite de tests_,
+c'est-à-dire, un *ensemble de tests qui expriment nos attentes* vis-à-vis
+d'une fonctionnalité – ici, une route d'application{nbsp}web.
 
 [source,javascript]
 .testing/tests/with-mocha.js (configuration)
@@ -2137,13 +2121,13 @@ include::{sourceDir}/testing/tests/with-mocha.js[lines=12..21]
   // ...
 });
 ----
-<1> Déclaration de la suite de test – sa valeur reflète généralement le sujet des tests.
+<1> Déclaration de la suite de tests – sa valeur reflète généralement le sujet des tests.
 <2> Avant le démarrage des tests, nous créons la base de données et configurons la route.
-<3> Après chaque test, nous remettons à zéro l'état de _sinon_ – nos tests n'ont plus la possibilité de se parasiter entre eux.
+<3> Après chaque test, nous remettons à zéro l'état de _sinon_ – nos tests n'ont plus la possibilité de se parasiter entre{nbsp}eux.
 
 Ce découpage a le mérite de clarifier les différents temps de nos tests,
 à savoir la préparation de l'environnement d'exécution, le nettoyage puis
-l'exécution-même des tests.
+l'exécution des{nbsp}tests.
 
 [source,javascript]
 .testing/tests/with-mocha.js (tests)
@@ -2155,13 +2139,13 @@ include::{sourceDir}/testing/tests/with-mocha.js[lines=23..-1]
 ----
 <1> La suite compte deux tests.
 <2> Premier test – il se termine quand la promesse retournée par la fonction `route()` est résolue.
-<3> Deuxième test – cette fois, l'espion et le stub ne sont pas affectés par le précédent test.
+<3> Deuxième test – cette fois, l'espion et le stub ne sont pas affectés par le précédent{nbsp}test.
 
-La suite de tests se fiche pas mal de savoir comment nous testons notre code.
+La suite de tests ne cherche pas à savoir comment nous testons notre code.
 Son objectif est de capturer les messages d'erreur des assertions qui échouent
 et de nous les communiquer en contexte.
 
-.Exemple d'une suite de tests _mocha_ qui se termine avec succès.
+.Exemple d'une suite de tests mocha qui se termine avec succès.
 image::images/tests-ok.png[width="66%"]
 
 
@@ -2169,7 +2153,7 @@ image::images/tests-ok.png[width="66%"]
 .[RemarquePreTitre]#Réflexion# Écriture optimiste
 ====
 Nous avons l'habitude d'écrire des tests de manière optimiste.
-Ce biais naturel fait que nous ne testons pas les cas dont les fonctionnements
+Ce biais naturel fait que nous ne testons pas les cas
 dont nous n'avons pas encore connaissance.
 
 Trouver les cas de figure qui font échouer notre code est un vrai travail
@@ -2178,33 +2162,32 @@ de réflexion.
 
 L'approche _Test Driven Development_ (_TDD_) est pilotée par les tests.
 Dans ce contexte, nous écrivons les tests avant même d'avoir écrit notre code.
-L'écriture des tests nous force à réfléchir à l'intention et à concevoir
+Cela nous force à réfléchir à l'intention et à concevoir
 le code de manière à ce qu'il soit testable.
 Qu'on adopte ou non cette méthode, nous gagnons en qualité en faisant échouer
-les tests, juste pour nous assurer que le passage au vert d'un test n'est pas
-un _bug_.
-Oui ça arrive.
+les tests, juste pour nous assurer que ce n'est pas un bogue (oui ça arrive)
+quand ils indiquent que tout est correct.
 
-.Exemple d'une suite de tests _mocha_ dont un test échoue.
+.Exemple d'une suite de tests mocha dont un test échoue.
 image::images/tests-ko.png[width="80%"]
 
 Maintenant que nos tests sont écrits, nous sommes en mesure de
-<<deployment,déployer notre application>> automatiquement seulement et seulement
-si l'exécution des tests est réussie.
+<<deployment,déployer notre application>> automatiquement seulement
+si leur exécution est réussie.
 
 [[deployment]]
 === Déployer automatiquement
 
-Cette section s'inscrit dans la continuité de l'ajout d'automatisation
+Cette section continue à ajouter de l'automatisation
 dans notre manière de fonctionner.
-Elle n'est pas donc pas spécifique aux frameworks et est tout à fait valide
+Elle n'est donc pas spécifique aux _frameworks_ et est tout à fait valide
 si vous vous constituez votre propre application, brique par brique.
 
 Le déploiement automatique sert principalement à *révéler les points de friction*.
-Si nous ne sommes pas confident·e dans le déploiement, c'est probablement qu'il
+Si nous manquons de confiance dans le déploiement, c'est probablement qu'il
 y a des nœuds à démêler.
-L'automatisation du déploiement et la facilité de sa répétabilité nous permet
-de gommer ces frictions petit à petit.
+L'automatisation du déploiement et la facilité de sa répétabilité nous aident
+à gommer ces frictions petit à petit.
 La pression de la mise en production se transforme en incitation au changement.
 
 La fréquence des déploiements *révèle les points de congestion*.
@@ -2212,14 +2195,13 @@ Tout ce qui est trop lent à notre goût est un appel à gommer cette lenteur,
 à trouver une autre approche pour finalement observer le résultat du déploiement
 plus rapidement.
 
-L'enjeu des livraisons automatisée est double.
-Le premier enjeu est de *faciliter le transport du code vers le serveur de production*.
-En cas de bug, le temps passé concerne seulement la résolution du problème et non
-la livraison elle-même.
-Enfin, l'automatisation sert de *documentation du processus de livraison*.
+L'enjeu des livraisons automatisées est double : d'abord,
+*faciliter le transport du code vers le serveur de production*
+(en cas de bogue, le temps passé concerne seulement la résolution du problème et non
+la livraison elle-même) et servir de *documentation du processus de livraison*.
 
-Nous abordons plus en détails les différents mécanismes techniques
-dans le <<../chapter-06/index.adoc#,chapitre 6>>, que ça soit "à la main",
+Nous abordons plus en détail les différents mécanismes techniques
+dans le <<../chapter-06/index.adoc#,chapitre{nbsp}6>>, que ce soit "`à la main`",
 avec des recettes de déploiement ou par le biais de notre service d'hébergement.
 
 [[advanced]]
@@ -2229,77 +2211,76 @@ avec des recettes de déploiement ou par le biais de notre service d'hébergemen
 [[advanced.server]]
 === Pourquoi lancer un serveur ?
 
-Il y a des environnements ou des logiciels comme Apache ou Nginx intègrent
-notre langage de programmation avec des modules, par exemple PHP avec le `mod_php`
+Il y a des environnements où des logiciels comme Apache et Nginx intègrent
+notre langage de programmation avec des modules : par exemple, PHP avec le `mod_php`
 ou Perl avec le `mod_cgi`.
 Les requêtes entrantes sont dirigées vers un script que le module interprète
-et retourne une réponse, dynamiquement.
+et qui retourne une réponse, dynamiquement.
 
-Le *script PHP est interprété à chaque requête* et tout cette représentation
-est détruite une fois la réponse envoyée – mémoire, valeurs des variables, configuration.
+Le *script PHP est interprété à chaque requête* et toute cette représentation
+est détruite une fois la réponse envoyée (mémoire, valeurs des variables, configuration).
 Il faut recourir à un ensemble de modules additionnels pour optimiser ce gâchis
-de ressources informatiques – cache d'interprétation, cache applicatif, cache de configuration.
+de ressources informatiques : cache d'interprétation, cache applicatif, cache de configuration.
 
 Démarrer un serveur HTTP dans le langage de notre application nous éloigne de
 ce modèle coûteux et nous rapproche d'un fonctionnement plus performant, organisé
-autour de ces 3 piliers :
+autour des trois piliers suivants :
 
-- *Node et Apache/Nginx fonctionnent ensemble* – ils se font le relais des requêtes
-et des réponses car ils parlent le même protocole ;
-- *le serveur Node est préchauffé* – une requête entrante trouve une application
+- *Node et Apache/Nginx fonctionnent ensemble* – ils se relaient les requêtes
+et les réponses car ils parlent le même protocole.
+- *Le serveur Node est "`préchauffé`"* – une requête entrante trouve une application
 déjà opérationnelle, déjà configurée, déjà connectée à une base de données
-et prête à répondre ;
-- *le code exécuté est spécifique à la requête* – l'application reçoit chaque
+et prête à répondre.
+- *Le code exécuté est spécifique à la requête* – l'application reçoit chaque
 requête de manière indépendante en ayant le minimum d'effort à faire pour
 générer une réponse.
 
 Autrement dit, ce modèle réduit le temps de parcours entre une requête entrante
 et une réponse sortante.
-Ça a un impact significatif sur le temps d'apparition de l'icône de chargement
+Cela a un effet significatif sur le temps d'apparition de l'icône de chargement
 côté client.
 
 [[http]]
-=== Comprendre le modèle HTTP
+=== Comprendre le modèle{nbsp}HTTP
 
 Deux éléments ressortent du modèle de fonctionnement du protocole HTTP :
 *tout est du texte* (en-têtes et contenu) et *chaque requête est indépendante*.
-C'est-à-dire que chaque requête emporte son contexte avec elle, toutes les
+Cela revient à dire que chaque requête emporte son contexte avec elle, toutes les
 informations nécessaires à sa compréhension.
 
-Qu'est-ce qu'il se passe lorsque notre navigateur web ou que le programme `curl`
-demande à accéder à `http://example.com` ?
+Que se passe-t-il lorsque notre navigateur web ou le programme `curl`
+demande à accéder à [URL]#http://example.com# ?
 
-. *résolution de DNS* : nous ne savons pas encore à quelle adresse IP parler ;
-la résolution de DNS interroge un des annuaires DNS pour savoir quelle adresse
-IP est associée au nom de domaine ;
-. *établissement de la connexion* : le client (nous) ouvre une connexion réseau
-avec le serveur pour échanger des données ;
-. *envoi de la requête HTTP* : la requête contient des informations au format
-texte (méthode, en-têtes, des fois un corps de message) pour que le serveur
-s'adapte au mieux à notre demande ;
-. *réception de la requête* : le serveur interprète la demande
-(est-ce qu'il la comprend ?), cherche la ressource associée au chemin demandé ;
-. *envoi de la réponse* : le serveur répond avec des données au format texte
-(statut, en-têtes, corps de message) ;
-. *interprétation de la réponse* : l'en-tête `Content-Type` aide le client à déterminer
-comment afficher les informations - XML, HTML,{nbsp}JSON, CSS, vidéo etc – et si
+. *Résolution de DNS* : un des annuaires DNS est interrogé pour savoir quelle
+adresse{nbsp}IP est associée au nom de domaine.
+. *Établissement de la connexion* : le client (nous) ouvre une connexion réseau
+avec le serveur pour échanger des données.
+. *Envoi de la requête HTTP* : la requête contient des informations au format
+texte (méthode, en-têtes, parfois un corps de message) pour que le serveur
+s'adapte au mieux à notre demande.
+. *Réception de la requête* : le serveur interprète la demande
+(est-ce qu'il la comprend ?), cherche la ressource associée au chemin demandé.
+. *Envoi de la réponse* : le serveur répond avec des données au format texte
+(statut, en-têtes, corps de message).
+. *Interprétation de la réponse* : l'en-tête `Content-Type` aide le client à déterminer
+comment afficher les informations - XML, HTML, JSON, CSS, vidéo etc – et si
 le document contient d'autres ressources à aller récupérer.
 
 Dans le cas du programme `curl`, la réponse est affichée telle quelle, en texte.
 
-Avec un navigateur web en revanche, le HTML est interprété et le navigateur
-demande les ressources listées dans les différentes balises (`img`, `video`, `audio`).
-Le navigateur fait ensuite autant de nécessaires – l'indicateur de chargement
+Avec un navigateur en revanche, le HTML est interprété.
+Le navigateur demande les ressources listées dans les différentes balises
+(`img`, `video`, `audio`) ; l'indicateur de chargement
 s'arrête quand toutes les ressources ont été demandées et téléchargées.
 
-.Cascade de requêtes HTTP suite à l'interprétation d'un document HTML par un navigateur web.
+.Cascade de requêtes HTTP suite à l'interprétation d'un document HTML par un navigateur.
 image::images/http-waterfall.png[]
 
-Le nombre de requêtes et la taille des ressources impactent donc la vitesse de
+Le nombre de requêtes et la taille des ressources affectent donc la vitesse de
 chargement d'une page.
 Plus il y en a, plus le client doit en demander et plus le serveur multiplie le
 nombre de réponses.
-Le temps de téléchargement augmente
+Le temps de téléchargement augmente.
 
 [NOTE]
 .[RemarquePreTitre]#Technique# Les WebViews sur mobile
@@ -2307,130 +2288,128 @@ Le temps de téléchargement augmente
 Les WebViews sont des composants proposés par les systèmes d'exploitation
 pour embarquer du contenu HTML dans une application native.
 
-Elles fonctionnent comme des navigateurs web, sans les boutons de navigation.
+Elles fonctionnent comme des navigateurs, sans les boutons de navigation.
 ====
 
 Le module{nbsp}``npm`` _jshttp_ ([URL]#https://github.com/jshttp#) affiche les en-têtes
 de réponse comme le programme `curl` le ferait et détaille le parcours réseau,
 de la résolution du nom de domaine jusqu'au temps passé à négocier une transaction
-sécurisée. +
-Nous comprenons ainsi mieux des temps qui sont rendus invisibles et où nous
+sécurisée.
+Nous comprenons ainsi mieux des temps qui sont rendus invisibles et sur lesquels nous
 pouvons faire des efforts – réduire les temps de transfert ou le temps de réponse
 de notre application par exemple.
 
-.Temporalité de l'exécution d'une requête HTTP et des en-têtes de réponse.
+.En-têtes de réponse et durée des différentes étapes de l'exécution d'une requête{nbsp}HTTP.
 image::images/httpstat.png[]
 
 
 [[database-choice]]
-=== Quelle(s) base(s) de données choisir ?
+=== Quel(s) moteur(s) de base(s) de données choisir ?
 
-Quand je faisais du PHP, nous parlions beaucoup de la pile technique _LAMP_
-– pour Linux, Apache, MySQL et PHP.
-C'était la combinaison _de facto_ des différents projets.
+Quand je codais en PHP, nous parlions beaucoup de la pile technique _LAMP_
+(Linux, Apache, MySQL et{nbsp}PHP).
+C'était la combinaison _de{nbsp}facto_ des différents projets.
 MySQL était la base de données de choix tandis que les Pythonistes et Rubyistes
 se focalisaient plutôt sur PostgreSQL.
 
 J'ai croisé beaucoup de développeurs et développeuses qui se lançaient dans
-les bases de données dite "documents" comme MongoDB "parce que les données
-sont stockées en{nbsp}JSON et donc c'est un choix logique pour Node".
+les bases de données dites "`documents`" comme MongoDB
+"`parce que les données sont stockées en{nbsp}JSON et donc c'est un choix logique pour Node`".
 
-Je suis fortement en désaccord avec cette affirmation et je pense que la bonne
-base de données est celle qui tient la route par rapport
-Node n'est pas meilleur en MongoDB qu'en MySQL.
-Le *débit de données* entre Node et la base de données compte davantage, ainsi que
+Je suis fortement en désaccord avec cette dernière affirmation et je pense que la bonne
+base de données est celle qui tient la route par rapport à Node.
+Le *débit de données* entre Node et la base compte davantage, ainsi que
 la *rapidité de la base à exécuter une requête* et retourner des résultats
-– certaines gèrent mieux que d'autres la concurrence d'accès ou les critères
-de filtrage.
-Le troisième critère est subjectif : c'est le *confort d'utilisation* de la base
-en question.
-Postgres est peut-être plus rapide pour un cas d'usage précis mais si vous
+(certaines gèrent mieux que d'autres la concurrence d'accès ou les critères
+de filtrage).
+Le troisième critère est subjectif : c'est le *confort d'utilisation* ;
+PostgreSQL est peut-être plus rapide pour un cas d'usage précis, mais si vous
 êtes plus à l'aise avec MariaDB ou MySQL, commencez avec la base qui vous parle
 le plus – ou expérimentez et réservez-vous le droit de changer d'avis après
-avoir joué avec un nombre représentatif de données en base.
+avoir joué avec un nombre représentatif de données.
 
 Je choisis une base de données en fonction de plusieurs critères :
 la rapidité de lecture, l'intégrité des données, la volumétrie acceptée avant
 de devoir distribuer les données sur plusieurs machines et enfin,
 des fonctionnalités spéciales (recherche géographique, type de champ particulier
-comme le champ{nbsp}JSON de Postgres).
+comme le champ{nbsp}JSON de PostgreSQL).
 
 Stockage fichier::
   Nous pourrions tout à fait décider d'utiliser un fichier{nbsp}JSON ou CSV pour
   lire et écrire des données.
-  C'est facile à mettre en œuvre mais c'est la solution la plus lente en tous
-  points de vue : la recherche est lente et l'écriture aussi.
+  C'est facile à mettre en œuvre, mais c'est la solution la plus lente à tout
+  point de vue : recherche comme écriture.
 Stockage en mémoire::
-  _Redis_ et _memcache_ sont des bases de données très rapides en lecture et en écriture
-  – elles sont idéales pour accéder et modifier fréquemment des données, avant
-  de les persister sur un stockage moins rapide mais plus sûr.
-  Elles sont généralement dites "clé/valeur" car nous cherchons un identifiant
-  donné pour récupérer un, voire plusieurs champs associés.
+  Redis et memcache sont des gestionnaires très rapides en lecture et en écriture.
+  C'est idéal pour accéder fréquemment aux données et les modifier, avant
+  de les sauvegarder sur un stockage moins rapide mais plus sûr.
+  Ils sont généralement dits "`clé/valeur`" car nous cherchons un identifiant
+  donné pour récupérer un, voire plusieurs champ(s) associé(s).
 Stockage sur disque::
-  _MySQL_, _MSSQL_, _Postgres_ et _MongoDB_ stockent leurs données sur disque,
+  MySQL, MSSQL, PostgreSQL et MongoDB stockent leurs données sur disque,
   dans des fichiers optimisés pour la recherche d'informations – les _index_.
-  Elles sont souvent rapides en lecture et plus lentes en écriture – selon
+  Ces moteurs sont souvent rapides en lecture et plus lents en écriture – selon
   le type de disque dur utilisé pour le stockage.
-  Certaines sont contraintes par des schémas (les bases SQL) tandis que d'autres
+  Certains sont contraints par des schémas (bases{nbsp}SQL) tandis que d'autres
   ont une structure libre (MongoDB). +
-  En pratique, nous typons ou structurons les données d'une manière ou d'une autre
-  – à minima pour les manipuler de manière cohérente dans notre code.
+  En pratique, nous typons ou structurons les données d'une manière ou d'une autre,
+  a{nbsp}minima pour les manipuler de manière cohérente dans notre code.
   Certaines bases SQL ont un type de champ{nbsp}JSON, en structure libre.
 Stockage sur un service en ligne::
-  _Firebase_, _DynamoDB_, _Parse_ et _Kinto_ sont des bases de données accessibles
-  comme des services, avec des requêtes HTTP.
-  Les services d'hébergement gèrent la distribution des données et leur résilience.
+  Firebase, DynamoDB, Parse et Kinto sont des gestionnaires de bases de données
+  accessibles comme des services, avec des requêtes HTTP.
+  Les services d'hébergement gèrent la distribution des données et leur sauvegarde.
 
 J'utilise souvent SQLite pour prototyper quelque chose de rapide sur ma machine.
-Je passe ensuite à MySQL ou Postsgres selon le projet – je me sens autonome sur
-MySQL pour l'installation tandis que je préfère un service qui gère tout de
-bout en bout avec Postgres.
+Je passe ensuite à MySQL ou PostsgreSQL selon le projet – je me sens autonome sur
+le premier pour l'installation tandis que je préfère un service qui gère tout de
+bout en bout avec le second.
 
-Je peux être amené à indexer les données dans une base de données Elasticsearch
+Je peux être amené à indexer les données dans une base Elasticsearch
 ou Algolia pour leur donner une autre structure, spécialement optimisée pour
-la recherche – une lecture très rapide sur des critères variables.
+la recherche : une lecture très rapide sur des critères variables.
 Je le fais si un des aspects principaux du projet est de préserver des performances
-élevées, qui ne soient pas ralenties par l'activité d'une base SQL.
+élevées, qui ne soient pas ralenties par l'activité d'une base{nbsp}SQL.
 
 Je complète en général avec Redis pour gérer les <<job-queues,files d'attente>>,
-des données intermédiaires que je considère comme "jetables".
+des données intermédiaires que je considère comme "`jetables`".
 
 S'il est plus simple de tout gérer avec un seul support de stockage, utiliser
-*plusieurs bases de données* dans une même application est quelque chose de tout
+*plusieurs gestionnaires de bases de données* dans une même application est quelque chose de tout
 à fait encouragé pour profiter de leurs caractéristiques.
 
 [[security]]
 === Protéger nos applications
 
 Il faut prendre des mesures de précaution dès lors que nous utilisons des
-données saisies par un utilisateur.
-C'est-à-dire *toute variable dont la valeur provient de l'extérieur*.
+données saisies par un utilisateur, c'est-à-dire
+*toute variable dont la valeur provient de l'extérieur*.
 Je pense à des données de formulaire, des paramètres d'URL, des chemins d'accès,
-des fichiers uploadés mais aussi des scripts qu'ils ou elles injectent dans la page,
+des fichiers téléversés mais aussi des scripts qu'ils ou elles injectent dans la page,
 de leur plein gré ou via un logiciel vérolé installé sur leur ordinateur.
 
 [URL]#https://npmjs.com/helmet#::
-  Déjoue les injections de scripts et d'iframes non-sollicitées.
+  Déjoue les injections de scripts et d'iframes non{nbsp}sollicitées.
 [URL]#https://npmjs.com/safe-regex#::
   Filtre une expression régulière fournie ou composée avec une valeur fournie par un utilisateur.
-  Ça évite certains bugs qui surchargent le CPU ou qui déjouent les motifs des expressions.
+  Cela évite certains bogues qui surchargent la CPU ou qui déjouent les motifs des expressions.
 [URL]#https://npmjs.com/dompurify#::
 [URL]#https://npmjs.com/xss#::
-  Nettoie du HTML d'attributs et de balises non-sollicitées.
-  Les injections de scripts et les événements malicieux de clics sont supprimées.
+  Nettoie le HTML d'attributs et de balises non{nbsp}sollicitées.
+  Les injections de scripts et les événements malintentionnés de clics sont supprimés.
 [URL]#https://npmjs.com/sql-escape-string#::
   Nettoie une saisie utilisateur de tout caractère qui pourrait déjouer nos attentes
-  au sein d'une requête SQL.
+  au sein d'une requête{nbsp}SQL.
 
-Outre les données arbitraire, il faut toujours s'assurer des *permissions*.
-L'utilisateur a-t-il ou a-t-elle vraiment le droit d'être là ou il/elle est ?
-Le volume du fichier uploadé est-il vraiment cohérent ?
+Outre les données arbitraires, il faut toujours s'assurer des *permissions*.
+L'utilisateur a-t-il vraiment le droit d'être là ou il est ?
+Le volume du fichier téléversé est-il vraiment cohérent ?
 
 L'utilisation du <<../chapter-03/index.adoc#strict,mode strict>> a l'avantage
-de nous protéger de l'exploitation d'anciennes bizarreries de JavaScript.
+de nous protéger de l'exploitation d'anciennes bizarreries d'ECMAScript.
 Ce qui doit planter plante au lieu d'être passé sous silence.
 
-Des fois, même les caractères autorisés suffisent à déjouer notre attention.
+Parfois, même les caractères autorisés suffisent à déjouer notre attention.
 C'est le cas si une variable est utilisée pour composer un chemin avec
 `path.resolve()` ou `path.join()` par exemple.
 La saisie utilisateur crée un chemin de traverse qui permet d'aller exploiter
@@ -2444,31 +2423,32 @@ include::{sourceDir}/path-traversal.js[]
 <1> Affiche `/etc/passwd` – notre chemin de base a été complètement remplacé.
 <2> Affiche `+/.../chapter-07/examples+` – notre chemin de base a été complètement remplacé.
 
-Un moyen solide de vérifier que nous n'avons pas été déraillé·e en dehors
+Un moyen solide de vérifier que nous n'avons pas été dérouté·e en dehors
 d'un répertoire racine – ici, `base_dir` – est de vérifier que le chemin final
 débute bien par le chemin du répertoire racine.
 
 [options="header", cols="2, 4a"]
 .En-têtes de réponse qui ont un impact sur la sécurité de navigation.
 |===
-| En-tête | Description
-| `X-DNS-Prefetch-Control` | Avec la valeur `off`, le navigateur ne va pas proactivement chercher les informations DNS des ressources contenues dans la page. Nos informations de navigation ne sont pas divulguées à notre insu.
-| `X-Frame-Options` | Avec la valeur `SAMEORIGIN`, le navigateur autorise la création d'``<iframe>`` seulement depuis le même domaine – les `<iframe>` tierces sont bloquées.
-| `Strict-Transport-Security` | Lorsque l'option est activée, le navigateur accèdera par défaut à ce site en HTTPS au lieu de HTTP.
-| `X-Download-Options` | Avec la valeur `noopen`, Internet Explorer téléchargera un fichier au lieu de tenter de l'ouvrir à même le navigateur – ça peut être exploité pour pirater le navigateur par des fichiers malicieux.
-| `X-Content-Type-Options` | Avec la valeur `nosniff`, les navigateurs bloquent les scripts et les styles qui n'ont respectivement pas l'en-tête `Content-Type` à `application/javascript` et `text/css`.
-| `X-XSS-Protection` | Avec la valeur `1; mode=block`, les navigateurs interrompent le chargement d'une page s'ils détecte une exploitation malicieuse de chargement de données ou de fichier.
+| En-tête                     | Description
+| `X-DNS-Prefetch-Control`    | Avec la valeur `off`, le navigateur ne va pas proactivement chercher les informations DNS des ressources contenues dans la page. Nos informations de navigation ne sont pas divulguées à notre{nbsp}insu.
+| `X-Frame-Options`           | Avec la valeur `SAMEORIGIN`, le navigateur autorise la création d'``<iframe>`` seulement depuis le même domaine – les `<iframe>` tierces sont bloquées.
+| `Strict-Transport-Security` | Lorsque l'option est activée, le navigateur accède par défaut à ce site en HTTPS au lieu de{nbsp}HTTP.
+| `X-Download-Options`        | Avec la valeur `noopen`, Internet Explorer télécharge un fichier au lieu de tenter de l'ouvrir à même le navigateur – cela risque d'être exploité pour pirater le navigateur par des fichiers malintentionnés.
+| `X-Content-Type-Options`    | Avec la valeur `nosniff`, les navigateurs bloquent les scripts et les styles qui n'ont respectivement pas l'en-tête `Content-Type` à `application/javascript` et `text/css`.
+| `X-XSS-Protection`          | Avec la valeur `1; mode=block`, les navigateurs interrompent le chargement d'une page s'ils détectent une exploitation malintentionnée de chargement de données ou de fichier.
 |===
 
 [TIP]
-.[RemarquePreTitre]#Guide# Open Web Application Security Project (_OWASP_)
+.[RemarquePreTitre]#Guide# Open Web Application Security Project (OWASP)
 ====
 L'organisme _Open Web Application Security Project_ (_OWASP_) recueille et
 diffuse nombre de critères de sécurité à connaître et vérifier pour déjouer
-au mieux des attaques.
+au mieux les attaques.
 
-Ils mettent à disposition un guide spécialisé pour Node à l'adresse
-[URL]#https://nodegoat.herokuapp.com/tutorial#.
+Il met à disposition un guide spécialisé pour Node à l'adresse suivante :
+
+- [URL]#https://nodegoat.herokuapp.com/tutorial#
 ====
 
 
@@ -2536,12 +2516,11 @@ Les _lambda_ sont une approche minimaliste d'application web : il n'y a qu'une
 seule route, c'est *une seule fonction qui retourne un résultat*.
 
 L'application s'endort quand elle ne reçoit pas de trafic dans un laps de temps donné.
-Elle est "réveillée" quand du trafic arrive.
+Elle est "`réveillée`" quand du trafic arrive.
 La facturation se fait à l'échelle de la seconde et au nombre de requêtes entrantes.
-Nous en parlons un peu plus en détails dans le <<../chapter-06/index.adoc#,chapitre 6>>,
-consacré à l'hébergement et aux déploiements.
+Nous en parlons un peu plus en détails dans le <<../chapter-06/index.adoc#,chapitre{nbsp}6>>.
 
-Ce mécanisme s'adapte à des résultats en réaction à un événément : _webhook_,
+Ce mécanisme s'adapte à des résultats en réaction à un événement : _webhook_,
 notification, erreur, etc.
 
 Le module{nbsp}``npm`` _micro_ ([URL]#https://npmjs.com/micro#) est un serveur minimaliste
@@ -2553,25 +2532,25 @@ tout instant.
 ----
 include::{sourceDir}/micro.js[]
 ----
-<1> Nous avons accès à la requête et à la réponse mais nous avons aussi la liberté de renvoyer un résultat en le retournant à la _fonction de callback_.
+<1> Nous avons accès à la requête et à la réponse, mais nous avons aussi la liberté de renvoyer un résultat à la fonction de rappel.
 <2> À la manière d'une <<server,application classique>>, nous la démarrons sur le port HTTP de notre choix.
 
-Un service comme _AWS Lambda_ ([URL]#https://aws.amazon.com/lambda#) pousse
+Un service comme _AWS{nbsp}Lambda_ ([URL]#https://aws.amazon.com/lambda#) pousse
 le concept encore plus loin.
 La fonction réagit à un événement interne (notification SQS, quelque chose lié
-à notre infrastructure, déploiement, etc.) ou à un événement externe (via l'API
+à notre infrastructure, déploiement) ou à un événement externe (via l'API
 ou un autre service ouvert vers l'extérieur).
-Elle n'est pas forcément exposée sur le web.
+Elle n'est pas forcément exposée sur le{nbsp}Web.
 
 [source,javascript]
 .lambda.js
 ----
 include::{sourceDir}/lambda.js[]
 ----
-<1> C'est tout ce qu'il faut pour qu'une _lambda_ retourne un résultat pour qu'il soit utilisable pour l'appelant.
+<1> C'est tout ce qu'il faut pour qu'une _lambda_ retourne un résultat utilisable pour l'appelant.
 
-La versatilité de se mécanisme permet de créer une API complète en agrégeant
-plusieurs lambda derrière une _portail d'API_ comme _AWS API Gateway_
+L'adaptabilité de ce mécanisme permet de créer une API complète en agrégeant
+plusieurs lambda derrière un _portail d'API_ comme _AWS{nbsp}API Gateway_
 ([URL]#https://aws.amazon.com/api-gateway#).
 À une API et une ressource (chemin et méthode HTTP) est associée une ressource
 AWS, dont les _lambda_ font partie.
@@ -2600,18 +2579,18 @@ si vous avez besoin d'en acheter, il suffit d'indiquer le chemin vers les diffé
 Nous avons vu qu'une *application web est bâtie autour du protocole HTTP*.
 Elle passe son temps à interpréter le texte des requêtes entrantes et à produire
 des réponses, elles aussi au format texte.
-Ces données de sorties sont aussi bien issues des fichiers placés sur notre disque
+Ces données de sortie sont aussi bien issues des fichiers placés sur notre disque
 que des pages HTML assemblées dynamiquement depuis une base de données.
 
 Les frameworks structurent notre pensée et automatisent l'application de
 vérifications et de transformations pour toutes les requêtes entrantes.
 Une fois le concept maîtrisé, il devient plus facile d'en essayer de nouveaux
-et d'utiliser celui qui nous plait le plus.
+et d'utiliser celui qui nous plaît le plus.
 
 Nous avons aussi constaté qu'une *approche modulaire permet d'interchanger des modules*
-entre eux mais aussi qu'elle amène naturellement à une structure adaptée aux
+entre eux, mais aussi qu'elle amène naturellement à une structure adaptée aux
 frameworks et à l'écriture de tests, indispensables pour maintenir une
-confiance dans notre code grandissante et pour en automatiser les déploiements.
+confiance grandissante dans notre code et pour en automatiser les déploiements.
 
-Le protocole HTTP est une pierre angulaire du web tel que nous l'utilisons.
-Le pratiquer avec Node est un bon moyen d'apprendre à le comprendre par la pratique.
+Le protocole HTTP est une pierre angulaire du Web tel que nous l'utilisons.
+Le pratiquer avec Node est un bon moyen de le comprendre par la pratique.
