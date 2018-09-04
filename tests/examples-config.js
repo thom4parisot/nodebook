@@ -77,6 +77,9 @@ module.exports = {
   'chapter-03/examples/date/base.js': {
     stdout: `2013\n${YEAR}\n`
   },
+  'chapter-03/examples/number/parse-int.js': {
+    stdout: '16\n10\n2560\n',
+  },
   'chapter-04/examples/errors/callback.js': {
     stderr: 'ENOENT'
   },

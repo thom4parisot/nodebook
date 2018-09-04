@@ -1,4 +1,4 @@
-:chapterNumber: A
+:appendix-number: A
 :chapterId: appendix-a
 :sectnums:
 :nodeCurrentVersion: v10
@@ -11,11 +11,11 @@ ifdef::env[]
 endif::[]
 
 [appendix]
-= Sélection de modules npm
+= Sélection de modules{nbsp}npm
 
-Cette annexe est une sélection de modules npm ([URL]#https://npmjs.com#)
-à laquelle vous réferer pour démarrer rapidement mais aussi pour découvrir
-des usages et des domaines d'applications insoupçonnés.
+Cette annexe est une sélection de modules{nbsp}``npm`` ([URL]#https://npmjs.com#)
+à laquelle vous référer pour démarrer rapidement, mais aussi pour découvrir
+des usages et des domaines d'application insoupçonnés.
 
 J'ai bâti cette liste à partir de mon expérience personnelle et sur la confiance
 que je porte aux personnes à l'origine de ces modules.
@@ -24,9 +24,9 @@ include::../docs/tip-versions.adoc[]
 include::../docs/tip-examples.adoc[]
 
 
-== Boîte à outil du quotidien
+== Boîte à outils du quotidien
 
-Ces modules adressent des besoins quotidiens, pour travailler plus rapidement
+Ces modules répondent à des besoins quotidiens, pour travailler plus rapidement
 sur des structures ECMAScript.
 
 === lodash
@@ -36,7 +36,7 @@ dizaines de fonctions pour travailler plus facilement avec des chaînes de carac
 des tableaux, des fonctions et des objets.
 
 Vous pourrez ainsi filtrer, sélectionner, fusionner, vérifier et composer
-de nouvelles variables aussi bien pour Node que dans les navigateurs web.
+de nouvelles variables, aussi bien pour Node que dans les navigateurs.
 
 [source%interactive,javascript]
 .lodash.js
@@ -61,8 +61,9 @@ include::{sourceDir}/he.js[]
 === chance
 
 _chance_ ([URL]#https://npmjs.com/chance#) crée des données de manière aléatoire.
-Le module retourne aussi des prénoms fictifs mais aussi des numéros de téléphone,
-des nombres, des paragraphes, des dates d'anniversaire, des identifiants Android ou Apple, etc.
+Le module retourne aussi des prénoms fictifs, mais aussi des numéros de téléphone,
+des nombres, des paragraphes, des dates d'anniversaire, des identifiants Android
+ou Apple, etc.
 
 Il s'utilise surtout pour générer des données factices à des fins de tests,
 en attendant les vraies données.
@@ -70,17 +71,17 @@ en attendant les vraies données.
 === date-fns
 
 _date-fns_ ([URL]#https://npmjs.com/date-fns#) est une collection de fonctions
-pour travailler avec des dates, plus facilement qu'avec l'objet natif `Date`.
+pour travailler avec des dates, plus facilement qu'avec l'objet natif{nbsp}``Date``.
 
-Vous pouvez formatter, ajouter ou retirer des jours, vérifier si deux périodes
+Vous pouvez formater, ajouter ou retirer des jours, vérifier si deux périodes
 de temps se chevauchent ou si deux dates font partie d'une même semaine calendaire.
 
 
 === tcomb
 
 _tcomb_ ([URL]#https://npmjs.com/tcomb#) renforce la création de structures
-typées et immutables.
-Ça a pour effet de réduire les effets de bord de nos applications lorsque les
+typées et non mutables.
+Cela réduit les effets de bord de nos applications lorsque les
 données n'ont pas la structure attendue.
 
 [source%interactive,javascript]
@@ -88,14 +89,14 @@ données n'ont pas la structure attendue.
 ----
 include::{sourceDir}/tcomb.js[]
 ----
-<1> Définition d'une structure stricte qui a pour propriété `lat` et `lon`, pour _latitude_ et _longitude_.
+<1> Définition d'une structure stricte qui a pour propriétés `lat` et `lon`, pour _latitude_ et _longitude_.
 <2> Cet appel va lancer une exception car la propriété `long` est inconnue.
 <3> Cet appel va lancer une exception car la propriété `lon` doit être un nombre.
 
 === eventemitter3
 
-_eventemitter3_ ([URL]#https://npmjs.com/eventemitter3#) permet de gérer
-des événements de manière uniforme dans un script Node et dans les navigateurs web.
+_eventemitter3_ ([URL]#https://npmjs.com/eventemitter3#) sert à gérer
+des événements de manière uniforme dans un script Node et dans les navigateurs.
 
 [source%interactive,javascript]
 .eventemitter3.js
@@ -113,8 +114,8 @@ include::{sourceDir}/eventemitter3.js[]
 
 === debug
 
-_debug_ ([URL]#https://npmjs.com/debug#) rend l'affichage de messages de déboguage
-optionnels.
+_debug_ ([URL]#https://npmjs.com/debug#) rend optionnel l'affichage de
+messages de débogage.
 Les messages s'affichent en présence d'une variable d'environnement.
 Nous pouvons ainsi lancer un processus et retracer un cheminement complexe de
 données.
@@ -133,8 +134,8 @@ $ ##DEBUG=app## node examples/debug.js
   app fromages [ 'livarot', 'chaource' ] +0ms
 ----
 
-Nous pouvons en afficher plusieurs en même temps, en usant du caractère `*`
-ou en séparant les noms de débogueurs avec le caractère `,` :
+Nous pouvons en afficher plusieurs en même temps, en usant du caractère{nbsp}``*``
+ou en séparant les noms de débogueurs avec des virgules :
 
 [subs="+quotes"]
 ----
@@ -159,17 +160,17 @@ _nodemon_ ([URL]#https://npmjs.com/nodemon#) relance le processus actif
 dès qu'un fichier ECMAScript ou JSON est modifié.
 C'est un module exécutable particulièrement utile lorsque nous voulons prendre
 en compte les changements dans une application qui tourne en continu.
-C'est le cas des application web, entre autres.
+C'est le cas des applications web, entre autres.
 
 Pour en savoir plus, rendez-vous à la section
-<<../chapter-07/index.adoc#dev,Pendant le développement : relancer le serveur automatiquement>>
-du <<../chapter-07/index.adoc#,chapitre 7>>.
+"`<<../chapter-07/index.adoc#dev,Pendant le développement : relancer le serveur automatiquement>>`"
+du <<../chapter-07/index.adoc#,chapitre{nbsp}7>>.
 
 === npm-run-all
 
 _npm-run-all_ ([URL]#https://npmjs.com/npm-run-all#) est mon outil favori
-pour composer avec les _scripts npm_.
-Il a l'avantage d'être versatile, de régler finement ce qui
+pour composer avec les scripts{nbsp}``npm``.
+Il a l'avantage d'être adaptable, de régler finement ce qui
 doit être exécuté en parallèle ou séquentiellement.
 Le module transfère les arguments aux sous-scripts.
 
@@ -190,9 +191,9 @@ Le module transfère les arguments aux sous-scripts.
 === husky
 
 _husky_ ([URL]#https://npmjs.com/husky#) intègre Git aux
-<<../chapter-05/index.adoc#scripts,scripts npm>>.
+<<../chapter-05/index.adoc#scripts,scripts{nbsp}``npm``>>.
 Autrement dit, vous pouvez déclencher des scripts lors d'événements Git,
-lors d'un _push_, avant un _commit_ ou après avoir rapatrié des changements.
+lors d'un `push`, avant un `commit` ou après avoir rapatrié des changements.
 
 [source,json]
 .package.json
@@ -207,14 +208,14 @@ lors d'un _push_, avant un _commit_ ou après avoir rapatrié des changements.
 ----
 
 La liste complète des _hooks_ Git se trouve dans la documentation
-officielle à cette adresse [URL]#https://git-scm.com/docs/githooks#.
+officielle : [URL]#https://git-scm.com/docs/githooks#.
 
 === onchange
 
 _onchange_ ([URL]#https://npmjs.com/onchange#) observe une liste de fichiers
-en continu et délenche une commande dès que l'un d'entre eux est modifié.
-C'est particulièrement utile pour reconstruire des fichiers de configuration
-ou des fichiers front-end pendant le développement, sans avoir à le faire à la main.
+en continu et déclenche une commande dès que l'un d'entre eux est modifié.
+C'est particulièrement utile pour reconstruire automatiquement des fichiers
+de configuration ou des fichiers _front-end_ pendant le développement.
 
 [source,json]
 .package.json
@@ -235,34 +236,34 @@ ou des fichiers front-end pendant le développement, sans avoir à le faire à l
 _tiny-lr_ ([URL]#https://npmjs.com/tiny-lr#) est une implémentation minimale
 du protocole _livereload_ ([URL]#http://livereload.com/#).
 Il s'intègre à un serveur HTTP ou à une application _express_ pour relayer
-la liste des fichiers modifié côté client.
+la liste des fichiers modifiés côté client.
 
 Le script ou l'extension navigateur client remplace les anciens fichiers
-par les nouveaux pour refléter les changements sans recharger la page.
+par les nouveaux pour refléter les changements sans recharger la{nbsp}page.
 
 === livereactload
 
 _livereactload_ ([URL]#https://npmjs.com/livereactload#) recherche les composants
-<<react,React>> à chaud.
-C'est à dire sans raffraichir la page et sans perdre l'état des données.
+<<react,React>> à chaud, c'est-à-dire sans rafraîchir la page ni perdre l'état des données.
 C'est un module indispensable pour développer des applications front-end réactives.
 
-Rendez-vous dans la section <<../chapter-09/index.adoc#livereload,changements en temps-réel>>
-du <<../chapter-09/index.adoc#,chapitre 9>> pour en savoir plus sur son
+[NOTE]
+====
+Rendez-vous dans la section "`<<../chapter-09/index.adoc#livereload,Changements en temps{nbsp}réel>>`"
+du <<../chapter-09/index.adoc#,chapitre{nbsp}9>> pour en savoir plus sur son
 installation et son intégration.
-
+====
 
 == Protéger nos applications
 
 Le code que nous écrivons se protège dès la conception et dans le temps.
-Des modules nous protègent en filtrant les tentatives d'exploitation de nos
-applications tandis que d'autres vérifient si le code déployé est toujours sûr.
+Certains modules filtrent les tentatives d'exploitation de nos
+applications, tandis que d'autres vérifient si le code déployé est toujours{nbsp}sûr.
 
 === sanitize-filename
 
 _sanitize-filename_ ([URL]#https://npmjs.com/sanitize-filename#) nettoie
-une variable de tout caractère ambigü ou qui ne serait pas attendu de la part
-d'un·e usagèr·e.
+une variable de tout caractère ambigu ou qui ne serait pas attendu.
 
 [source%interactive,javascript]
 .sanitize-filename.js
@@ -270,18 +271,18 @@ d'un·e usagèr·e.
 include::{sourceDir}/sanitize-filename.js[]
 ----
 <1> Affiche `aucun-problème.txt`.
-<2> Affiche `+.....sshid_rsa+` — les caractères `/` sont nettoyés car il permettrait de créer des chemins compromettant pour l'application ou le système d'exploitation.
+<2> Affiche `+.....sshid_rsa+` – les caractères{nbsp}``/`` sont nettoyés car il permettrait de créer des chemins compromettants pour l'application ou le système d'exploitation.
 
 === helmet
 
 _helmet_ ([URL]#https://npmjs.com/helmet#) est un module à intégrer systématiquement
 dans toute application _express_.
-Il ajoute des entêtes HTTP _Content-Security Policy_, _Strict Transport Policy_
+Il ajoute des en-têtes HTTP _Content-Security Policy_, _Strict Transport Policy_
 et d'autres qui empêchent le détournement d'informations.
 
 Chacune de ses protections se configure aussi au cas par cas.
 Elles s'intègrent manuellement dans d'autres types d'applications web,
-y compris un serveur HTTP natif à Node.
+y{nbsp}compris un serveur HTTP natif à{nbsp}Node.
 
 === dompurify
 
@@ -294,16 +295,15 @@ ou encore des _iframes_ qui injecteraient des contenus tiers sans notre consente
 
 _filenamify_ ([URL]#https://npmjs.com/filenamify#) nettoie une valeur
 pour retirer tout caractère invalide dans un nom de fichier.
-C'est pratique dans le cas où vous laissez la possibilité à un·e usagèr·e
-de choisir un nom de fichier sans pour autant leur laisser la possibilité
-de mettre en danger le système ou l'application.
+C'est pratique pour laisser la possibilité à un utilisateur de choisir
+un nom de fichier sans pour autant mettre en danger le système ou l'application.
 
 === retire.js
 
-_retire.js_ ([URL]#https://npmjs.com/retire#) est un module npm pour
-scanner soi-même des vulnérabilités connues dans des fichiers JavaScript.
+_retire.js_ ([URL]#https://npmjs.com/retire#) sert à scanner soi-même des
+vulnérabilités connues dans des fichiers JavaScript.
 Il est complémentaire de la commande <<../chapter-05/index.adoc#audit,`npm audit`>>
-car il inspecte des dépendances qui ne sont pas forcément sur npm.
+car il inspecte des dépendances qui ne sont pas forcément sur{nbsp}``npm``.
 
 === snyk
 
@@ -312,24 +312,24 @@ et un module pour vérifier la présence de failles de sécurité connues
 dans les dépendances de nos projets.
 
 
-== Vérifier la syntaxe de notre code
+== Vérifier la syntaxe de notre{nbsp}code
 
 La vérification syntaxique est un mécanisme s'assurant que votre code respecte
 la grammaire du langage associé.
 Elle révèle aussi des anomalies fondamentales (balise mal fermée,
-expression inconnue etc.) et renforce des pratiques de programmation commune
+expression inconnue, etc.) et renforce des pratiques de programmation commune
 au groupe de développement.
 
-Vérifier la syntaxe de notre code est un excellente première étape avant
+Vérifier la syntaxe de notre code est une excellente première étape avant
 d'introduire des tests unitaires ou fonctionnels.
 
 === htmlhint
 
 _htmlhint_ ([URL]#https://npmjs.com/htmlhint#) vérifie la structure de
 nos documents HTML.
-Il rapporte les doublons d'attributs `id`, la présence de balises
-mal formées, l'absence de balise fermante ou encore l'existance de chaînes de
-caractère non-imprimables dans des attributs critiques, entre autres.
+Il rapporte les doublons d'attributs{nbsp}``id``, la présence de balises
+mal formées, l'absence de balise fermante ou encore l'existence de chaînes de
+caractères non imprimables dans des attributs critiques, entre autres.
 
 Prenons en exemple le document suivant :
 
@@ -340,8 +340,8 @@ include::{sourceDir}/sample.html[]
 ----
 
 Une lecture distraite pourrait nous faire passer à côté d'erreurs et
-d'inconsistances de programmation.
-Ce genre d'erreurs passe d'autant plus inaperçues que la base de code
+d'incohérences de programmation.
+Les erreurs de ce genre passent d'autant plus inaperçues que la base de code
 devient volumineuse et change fréquemment.
 
 L'exécution de _htmlhint_ avec ses règles par défaut remontera les alertes
@@ -364,7 +364,8 @@ syntaxique pour ECMAScript par excellence.
 Il est souple, rapide à mettre en œuvre et s'adapte à des contextes complexes.
 J'aime son mécanisme de configuration de règles : utilisation systématique du
 <<../chapter-03/index.adoc#strict,mode strict>>, nombre maximum de paramètres
-de fonctions, objets non-déclarés, variables inconnues etc. +
+de fonctions, objets non déclarés, variables inconnues, etc.
+
 _eslint_ expose également des fonctions pour créer vos propres règles métier.
 
 [source,json]
@@ -380,23 +381,28 @@ Le niveau de sévérité de chaque règle est représenté par un identifiant :
 - `error` : affiche une erreur (le processus se terminera avec un code d'erreur).
 
 Certaines règles demandent ou acceptent des arguments supplémentaires.
-Elles sont toutes documentées sur le site web du projet
+Elles sont toutes documentées sur le site web du projet :
 [URL]#http://eslint.org/docs/rules/#.
 
-Le détail des règles de configuration mises en application sont disponible
-simplement en parcourant l'arborescence du dépôt de code disponible sur
-[URL]#https://github.com/airbnb/javascript#.
+[NOTE]
+.[RemarquePreTitre]#Documentation# Règles personnalisées
+====
+Un exemple réutilisable de règles personnalisées se trouve sur le dépôt
+GitHub de Airbnb :
+
+- [URL]#https://github.com/airbnb/javascript#
+====
 
 === csslint
 
 _csslint_ ([URL]#https://npmjs.com/csslint#) est un outil de vérification
 syntaxique de feuilles de style CSS.
-Il a été créé par deux anciens ingénieurs de _Yahoo!_.
-Leurs anciens travaux dans le domaine de la performance ont influencé
+Il a été créé par deux anciens ingénieurs de Yahoo! dont les anciens travaux
+dans le domaine de la performance ont influencé
 l'architecture et le choix des règles par défaut.
 
 _csslint_ fournit les mécanismes de vérification adéquats pour alerter de
-possibles effets de bord de _box model_, de déclaration incompatible de
+possibles effets de bord de _box{nbsp}model_, de déclaration incompatible de
 `@font-face`, de _vendor prefix_ dépréciés ou encore de combinaisons de
 propriétés connues pour casser l'affichage dans certains navigateurs.
 
@@ -408,7 +414,7 @@ Prenons par exemple le fichier CSS suivant :
 include::{sourceDir}/sample.css[]
 ----
 
-_csslint_ génèrera trois alertes en lisant le fichier `sample.css` et ce,
+_csslint_ lancera trois alertes en lisant le fichier `sample.css`,
 même si celui-ci est syntaxiquement parfaitement valide :
 
 ----
@@ -431,16 +437,16 @@ Using height with border can sometimes make
 
 === doiuse
 
-_doiuse_ ([URL]#https://npmjs.com/doiuse#) est un utilitaire qui se repose
+_doiuse_ ([URL]#https://npmjs.com/doiuse#) est un utilitaire qui repose
 sur la base de données du site communautaire [URL]#https://caniuse.com#.
 Il nous alerte des possibles incompatibilités de syntaxe en fonction de la liste
-de navigateurs web à supporter.
-Cette liste concerne aussi bien des versions spécifiques (Internet Explorer 8)
-que des parts de marché (tous les navigateurs avec plus de 5% de parts de marché).
+de navigateurs à gérer.
+Cette liste concerne aussi bien des versions spécifiques (Internet Explorer{nbsp}8)
+que des parts de marché (tous les navigateurs avec plus de 5{nbsp}% de parts de marché).
 
 L'exemple suivant illustre les alertes relevées par _doiuse_ dans le cas
-d'une recherche de compatibilité avec Internet Explorer 6 et Internet
-Explorer 7 :
+d'une recherche de compatibilité avec Internet Explorer{nbsp}6 et Internet
+Explorer{nbsp}7 :
 
 ----
 $ ../node_modules/.bin/doiuse -b 'ie < 8' sample.css
@@ -451,41 +457,41 @@ sample.css:14:1: CSS 2.1 selectors not supported by: IE (6)
 ----
 
 [[optimize]]
-== Optimiser notre code
+== Optimiser notre{nbsp}code
 
-Commentaires, indentations ou encore noms de variables : tout ça occupe de
-la place — autant d'octets transférés sur le réseau avant d'être exécutés
+Commentaires, indentations ou encore noms de variables : tout cela occupe de
+la place – autant d'octets transférés sur le réseau avant d'être exécutés
 par un client web.
 Les outils d'optimisation offrent l'opportunité aux développeurs et développeuses
 d'écrire du code sans compromettre sa lisibilité et sa maintenabilité.
 
 Les minifieurs et optimiseurs mettent en œuvre différentes techniques pour
-réduire le poids de notre code :
+réduire le poids de notre{nbsp}code :
 
-- suppression des commentaires et caractères non-significatifs ;
+- suppression des commentaires et caractères non significatifs ;
 - renommage de variables ;
 - factorisation d'occurrences multiples similaires ;
 - suppression des instructions relatives au débogage/développement ;
 - suppression du code inutilisé ;
-- écriture automatique de code pour supporter des environnements anciens ou futurs.
+- écriture automatique de code pour prendre en charge des environnements anciens ou futurs.
 
 === uglify-es
 
 _UglifyJS_ ([URL]#https://npmjs.com/uglify-es#) est un des premiers
 compresseurs à utiliser une représentation syntaxique en arbre
-(_Abstract Syntax Tree_ — _AST_) en lieu et place des classiques
-optimisations à coups d'expressions régulières.
+(_Abstract Syntax Tree_ – _AST_) en lieu et place des classiques
+optimisations avec expressions régulières.
 
 Cette méthode élargit les perspectives de la compression via de
-la réécriture de code :
+la réécriture de{nbsp}code :
 
-- _hoisting_ des variables (remontée de leur déclaration en début de _scope_) ;
+- _hoisting_ des variables (remontée de leur déclaration en début de portée) ;
 - combinaison des déclarations de variables ;
 - factorisation des valeurs de variables ;
 - réécriture partielle d'expressions ;
 - injection en ligne du contenu de variables.
 
-_UglifyJS_ s'utilise en ligne de commande ou comme un module Node.
+_UglifyJS_ s'utilise en ligne de commande ou comme un module{nbsp}Node.
 
 === postcss
 
@@ -495,18 +501,18 @@ et d'un compilateur texte.
 C'est la même recette qui a participé au succès et à la richesse fonctionnelle
 d'outils comme <<uglify-js2,UglifyJS>> et <<eslint,ESLint>>.
 
-Avec une ou plusieurs extensions, vous basculez d'un optimiseur de code
-vers la possibilité de créer votre propre préprocesseur, à la Sass !
+Avec une ou plusieurs extension(s), vous basculez d'un optimiseur de code
+vers la possibilité de créer votre propre préprocesseur, comme{nbsp}Sass !
 
 === autoprefixer
 
 _autoprefixer_ ([URL]#https://npmjs.com/autoprefixer#) est _le_ module qui
 vous épargnera l'écriture de centaines de lignes CSS.
-Il ajoute automatiquement les préfixes navigateurs aux bons endroits
-— `-webkit`, `-moz`, etc.
+Il ajoute automatiquement les préfixes navigateurs aux bons endroits :
+`-webkit`, `-moz`, etc.
 
-_autoprefixer_ s'utilise comme extension au module <<postcss,PostCSS>>,
-en ligne de commande ou comme module Node.
+_autoprefixer_ s'utilise comme extension au module <<postcss,_PostCSS_>>,
+en ligne de commande ou comme module{nbsp}Node.
 
 ----
 $ ../node_modules/.bin/postcss sample.css \
@@ -532,16 +538,16 @@ _uncss_ ([URL]#https://npmjs.com/uncss#) est le pendant inverse d'_autoprefixer_
 puisqu'il se charge de supprimer le code CSS inutilisé.
 Il s'utilise de manière autonome ou comme module <<postcss,PostCSS>>.
 
-Le module charge une ou plusieurs pages web, calcule la différence entre
+Le module charge une ou plusieurs page(s) web, calcule la différence entre
 les règles utilisées et celles qui ne le sont pas.
-Libre à vous de mentionner une liste blanche de règles à ne jamais supprimer.
+Vous êtes libre de mentionner une liste blanche de règles à ne jamais supprimer.
 
 === csswring
 
 _csswring_ ([URL]#https://npmjs.com/csswring#) est un minifieur de code CSS
 qui s'interface lui aussi avec <<postcss,PostCSS>>.
 Vous lui donnez du code, il en ressort une version avec le minimum de caractères
-possibles.
+possible.
 
 === google-closure-compiler-js
 
@@ -553,8 +559,8 @@ des niveaux de finesse difficiles à obtenir autrement.
 
 === csso
 
-_csso_ ([URL]#https://npmjs.com/csso#) est une alternative à <<csswring,csswring>>.
-Elle est écrite par l'équipe derrière la méthodologie BEM ([URL]#https://en.bem.info#).
+_csso_ ([URL]#https://npmjs.com/csso#) est une alternative à <<csswring,csswring>>,
+écrite par l'équipe derrière la méthodologie BEM ([URL]#https://en.bem.info#).
 
 _csso_ ira jusqu'à réécrire les codes couleurs, les `margin` et `padding` et
 factorisera les sélecteurs similaires.
@@ -571,8 +577,8 @@ ou l'intégrer comme extension à <<postcss,PostCSS>>.
 === wawoff2
 
 _wawoff2_ ([URL]#https://npmjs.com/wawoff2#) optimise des polices de caractères
-pour le web.
-Le module convertit des polices au format TTF vers le format WOFF2 — à préférer
+pour le Web.
+Le module convertit des polices au format TTF vers le format WOFF2 – à préférer
 car plus léger et donc rapide à charger.
 
 [[transpiling]]
@@ -580,7 +586,7 @@ car plus léger et donc rapide à charger.
 
 Les préprocesseurs sont des outils de productivité pour CSS.
 Ils transforment un langage plus avancé dans quelque chose qui est compris
-par un navigateur web.
+par un navigateur{nbsp}web.
 
 La même chose s'applique avec la compilation ou la transpilation pour ECMAScript,
 pour utiliser dès maintenant une version du futur.
@@ -588,7 +594,7 @@ pour utiliser dès maintenant une version du futur.
 === less
 
 _less_ ([URL]#https://npmjs.com/less#) est un préprocesseur CSS.
-Il gère des variables, de _mixins_, des calculs de couleurs et des fonctions
+Il gère des variables, des _mixins_, des calculs de couleurs et des fonctions
 qui encouragent une écriture modulaire, plus logique et plus succincte.
 
 [source]
@@ -597,7 +603,7 @@ qui encouragent une écriture modulaire, plus logique et plus succincte.
 include::{sourceDir}/stylesheet.less[]
 ----
 
-L'exécutable `lessc` compile le fichier LESS:
+L'exécutable `lessc` compile le fichier _Less_:
 
 ----
 $ ../node_modules/.bin/lessc stylesheet.less
@@ -607,18 +613,21 @@ $ ../node_modules/.bin/lessc stylesheet.less
 
 _Sass_ ([URL]#https://npmjs.com/node-sass#) est un autre préprocesseur CSS.
 Il est issu du monde Ruby et est désormais tout aussi puissant dans Node
-grâce à _libsass_, un module rapide et portable écrit C++.
+grâce à _libsass_, un module rapide et portable écrit en{nbsp}{cpp}.
 
 === browserify
 
 _browserify_ ([URL]#https://npmjs.com/browserify#) transforme des modules et du
-code initialement écrit pour Node vers du code exécutable dans un navigateur Web.
+code initialement écrit pour Node vers du code exécutable dans un navigateur{nbsp}web.
 
-Un puissant mécanisme de _transformations_ étend ses capacités au coup par coup.
+Un puissant mécanisme de transformations étend ses capacités au coup par{nbsp}coup.
 
-Nous en parlons plus en détails dans la section
-<<../chapter-09/index.adoc#browserify,importer des modules npm pour le web>>
-au <<../chapter-09/index.adoc#,chapitre 9>>.
+[NOTE]
+====
+Nous en parlons plus en détail dans la section
+"`<<../chapter-09/index.adoc#browserify,Importer des modules{nbsp}``npm`` pour le Web>>`"
+au <<../chapter-09/index.adoc#,chapitre{nbsp}9>>.
+====
 
 === babel
 
@@ -643,27 +652,26 @@ du jour au lendemain et travailler sur le code qu'il aura généré sans aucun p
 [[fs]]
 == Gérer des fichiers
 
-Ces librairies nous permettent d'écrire moins de lignes de code
+Ces bibliothèques nous aident à écrire moins de lignes de code
 pour des besoins quotidiens de manipulation de fichiers.
 
 === mkdirp
 
 _mkdirp_ ([URL]#https://npmjs.com/mkdirp#) est identique à la
-commande Unix `mkdir -p`.
-C'est-à-dire que les répertoires seront créés récursivement
+commande Unix `mkdir -p`, c'est-à-dire que les répertoires seront créés récursivement
 s'ils n'existent pas au préalable.
 
-Si nous utilisions le module Node `fs`, nous devrions créer l'arborescence de
+Si nous utilisions le module Node{nbsp}``fs``, nous devrions créer l'arborescence de
 répertoires par nous-même, niveau par niveau.
 
 === rimraf
 
-_rimraf_ ([URL]#https://npmjs.com/rimraf#) est le pendant opposé _mkdirp_.
+_rimraf_ ([URL]#https://npmjs.com/rimraf#) est le pendant opposé de _mkdirp_.
 Il supprime une arborescence de manière récursive.
-C'est l'équivalent de la commande Unix `rm -rf`.
+C'est l'équivalent de la commande Unix{nbsp}``rm -rf``.
 
-Si nous utilisions le module Node `fs`, nous devrions supprimer d'abord
-les fichiers puis les répertoires, un par un.
+Si nous utilisions le module Node{nbsp}``fs``, nous devrions supprimer d'abord
+les fichiers puis les répertoires, un par{nbsp}un.
 
 === glob
 
@@ -675,9 +683,9 @@ une liste de fichiers en utilisant des motifs.
 ----
 include::{sourceDir}/glob.js[]
 ----
-<1> Affiche une liste de fichiers dont l'extension est `.js`.
-<2> Affiche une liste de fichiers qui commencent par `re` et dont l'extension est `.js`.
-<3> Affiche une liste de fichiers qui s'appelle `sample`, peu importe leur extension.
+<1> Affiche une liste de fichiers dont l'extension est{nbsp}``.js``.
+<2> Affiche une liste de fichiers qui commencent par{nbsp}``re`` et dont l'extension est{nbsp}``.js``.
+<3> Affiche une liste de fichiers qui s'appellent `sample`, peu importe leur extension.
 
 === fs-extra
 
@@ -689,14 +697,14 @@ pour copier, déplacer ou supprimer des fichiers.
 === graceful-fs
 
 _graceful-fs_ ([URL]#https://npmjs.com/graceful-fs#) est identique
-au module Node `fs`.
+au module Node{nbsp}``fs``.
 
 La différence se situe sous le capot : le module gère les défaillances
 du système et tente d'accéder à nouveau aux ressources demandées
 si les erreurs sont liées à des problèmes de performance.
 
 C'est un module à utiliser si notre application dépend fortement de la disponibilité
-du système de fichiers et que celui est fortement sollicité.
+du système de fichiers et si celui-ci est fortement sollicité.
 
 === chokidar
 
@@ -705,23 +713,23 @@ système de fichiers.
 Il gère les différences des systèmes d'exploitation et nous permet d'écrire
 un seul et même code.
 
-C'est la librairie vers laquelle se tourner lorsque nous avons besoin
+C'est la bibliothèque vers laquelle se tourner lorsque nous avons besoin
 de déclencher des actions quand des fichiers sont modifiés.
 
 
 [[databases]]
 == Stocker dans des bases de données
 
-Node sait communiquer avec tout type de bases de données grâce à l'écosystème npm.
-Préférez les modules faisant état de _driver_ natif/binaire —
-les transferts de données n'en sera que plus rapide.
+Node sait communiquer avec tout type de bases de données grâce à l'écosystème{nbsp}``npm``.
+Préférez les modules faisant état de pilote natif/binaire –
+le transfert de données n'en sera que plus rapide.
 
 === db-migrate
 
 _db-migrate_ ([URL]#https://npmjs.com/db-migrate#) est un outil de gestion
-de migrations pour MySQL, SQLite, MongoDB et Postgres.
-À l'aide de scripts de migration, il rend reproductible des changements
-de structure dans une base de données — ajout ou suppression de champ, de table
+de migrations pour MySQL, SQLite, MongoDB et PostgreSQL.
+À l'aide de scripts de migration, il rend reproductibles des changements
+de structure dans une base de données – ajout ou suppression de champ, de table
 ou d'index.
 
 === knex
@@ -729,8 +737,8 @@ ou d'index.
 _knex_ ([URL]#https://npmjs.com/knex#) propose d'interagir et d'interroger
 des bases de données SQL comme PostgreSQL, MariaDB, MySQL et SQLite.
 
-Les requêtes s'écrivent en SQL pur ou en utilisant une API dite "fluide",
-pour ne pas écrire le SQL à la main.
+Les requêtes s'écrivent en SQL pur ou en utilisant une API dite "`fluide`",
+pour ne pas écrire le SQL à la{nbsp}main.
 
 [source,javascript]
 .knex.js
@@ -739,38 +747,38 @@ include::{sourceDir}/knex.js[]
 ----
 <1> Indique que nous allons nous connecter à une base de données de type SQLite.
 <2> Spécifie l'emplacement de la base de données.
-<3> Effectue une recherche floue sur les lignes dont le titre contient le mot 'Node'.
+<3> Effectue une recherche floue sur les lignes dont le titre contient le mot{nbsp}``'Node'``.
 <4> Compte le nombre de lignes et retourne le premier (et seul) résultat de la requête.
 <5> Affiche `[ { id: 1, title: 'Node.js ', created_at: '2018-07-11 10:34:33' } ]`.
 <6> Affiche `{ count: 3 }`.
 
 === bookshelf
 
-_bookshelf_ ([URL]#https://npmjs.com/bookshelf#) est une surcouche à <<knex>>,
+_bookshelf_ ([URL]#https://npmjs.com/bookshelf#) est une surcouche à <<knex,_Knex_>>,
 écrite par les mêmes personnes.
-Elle modèlise les données sous formes d'objets et de schémas (ORM) pour
-automatiser des actions et ajouter plus d'"intelligence" à notre modèle de données.
+Elle modélise les données sous formes d'objets et de schémas (ORM) pour
+automatiser des actions et ajouter plus d'"`intelligence`" à notre modèle de données.
 
 === sequelize
 
 _sequelize_ ([URL]#https://npmjs.com/sequelize#) est une alternative
-à <<knex>> et <<bookshelf>>.
-Elle gère des schémas de données de manière optionnelle mais aussi les migrations.
+à <<knex,_Knex_>> et à <<bookshelf,_Bookshelf_>>.
+Elle gère des schémas de données de manière optionnelle, mais aussi les migrations.
 Ces dernières permettent de scripter les changements de structure d'une base
 de données, de les tester en local avant de les jouer en production.
 
 === mongoose
 
 _mongoose_ ([URL]#https://npmjs.com/mongoose#) sert à composer des modèles
-de données pour la base de données MongoDB — dite NoSQL.
+de données pour la base de données MongoDB – dite NoSQL.
 Elle définit des comportements annexes comme des mixins
 ou des _accesseurs_ dynamiques.
 
 === levelup
 
-_LevelDB_ ([URL]#https://npmjs.com/levelup#) est un système de base de
+_LevelDB_ ([URL]#https://npmjs.com/levelup#) est un système de bases de
 données clé/valeur extrêmement modulaire.
-Le stockage se fait sur disque par défaut mais il peut évoluer vers du stockage
+Le stockage se fait sur disque par défaut, mais il peut évoluer vers du stockage
 en mémoire (module `memdown`) ou même dans un navigateur web (avec IndexedDB).
 
 [source,javascript]
@@ -779,13 +787,13 @@ en mémoire (module `memdown`) ou même dans un navigateur web (avec IndexedDB).
 include::{sourceDir}/levelup.js[]
 ----
 <1> Crée la connexion à la base de données en mémoire.
-<2> Recherche un enregistrement après les avoir enregistré en mémoire.
+<2> Recherche un enregistrement après l'avoir enregistré en mémoire.
 <3> Affiche `{ title: 'Node.js' }`.
 
 === redis
 
-_redis_ ([URL]#https://npmjs.com/redis#) est une base de données
-clé/valeur distribuée et performante.
+_redis_ ([URL]#https://npmjs.com/redis#) est un gestionnaire de bases de données
+clés/valeurs distribuées et performantes.
 
 [source,javascript]
 .redis.js
@@ -793,21 +801,21 @@ clé/valeur distribuée et performante.
 include::{sourceDir}/redis.js[]
 ----
 
-_hiredis_ ([URL]#https://npmjs.com/hiredis#) est un _driver_ C++ qui
-augmente les performances de connexion à une base de données _redis_.
+_hiredis_ ([URL]#https://npmjs.com/hiredis#) est un pilote {cpp} qui
+augmente les performances de connexion à une base de données{nbsp}__redis__.
 
 === elasticsearch
 
 _elasticsearch_ ([URL]#https://npmjs.com/elasticsearch#) est un client pour
 simplifier la connexion à une base de données Elasticsearch.
-Ce type de base est particulièrement adaptée à l'indexation des données,
+Une base de ce type est particulièrement adaptée à l'indexation des données,
 pour des recherches performantes et complexes.
 
 [[cli]]
 == Ligne de commande
 
 Ces modules complètent le panorama déjà très varié présenté
-dans le <<../chapter-08/index.adoc,chapitre 8>>.
+dans le <<../chapter-08/index.adoc,chapitre{nbsp}8>>.
 
 === yargs-parser
 
@@ -834,24 +842,24 @@ les types de valeurs et l'autocomplétion.
 === promptly
 
 _promptly_ ([URL]#https://npmjs.com/promptly#) est un utilitaire pour
-poser des questions, valider et travaillers avec les réponses obtenues.
+poser des questions, valider et travailler avec les réponses obtenues.
 Il est minimaliste et a un faible nombre de dépendances.
 
 === supports-color
 
-_supports-color_ ([URL]#https://npmjs.com/supports-color#) est un module
-pour vérifier si le contexte d'exécution du programme en ligne de commande
+_supports-color_ ([URL]#https://npmjs.com/supports-color#) vérifie
+si le contexte d'exécution du programme en ligne de commande
 supporte les couleurs.
 
-Ça nous évite d'envoyer des codes ANSI qui du coup, seraient affichés
+Cela nous évite d'envoyer des codes ANSI, qui, seraient affichés
 au lieu d'être interprétés comme des couleurs.
 
 
 [[webapp]]
-== Applications web
+== Applications{nbsp}web
 
 Ces modules complètent le panorama déjà très varié présenté
-dans le <<../chapter-07/index.adoc,chapitre 7>>.
+dans le <<../chapter-07/index.adoc,chapitre{nbsp}7>>.
 
 === fastify
 
@@ -867,12 +875,12 @@ Vous avez ainsi accès à l'utilisation de <<templating,modules de templating>>.
 
 === passport
 
-_passport_ ([URL]#https://npmjs.com/passport#) est une librairie modulaire
+_passport_ ([URL]#https://npmjs.com/passport#) est une bibliothèque modulaire
 d'authentification pour _express_.
-Elle permet de se brancher à différents mécanismes pour vérifier les utilisateurs :
+Elle se branche à différents mécanismes pour vérifier les utilisateurs :
 utilisateur et mot de passe, compte GitHub, Twitter, OAuth, etc.
 
-Les sessions d'utilisateurs se gèrent à côté — pour mémoriser
+Les sessions d'utilisateurs se gèrent à côté – pour mémoriser
 qui est connecté ou non, et avec quel identifiant sécurisé et unique.
 
 Référez-vous à sa documentation pour des exemples détaillés d'utilisation.
@@ -880,10 +888,10 @@ Référez-vous à sa documentation pour des exemples détaillés d'utilisation.
 === restify
 
 _restify_ ([URL]#https://npmjs.com/restify#) est un framework web
-spécialisé dans la création d'API HTTP.
+spécialisé dans la création d'API{nbsp}HTTP.
 
 Il gère les versions de routes et expose un client permettant de consommer
-des données sur d'autres API REST — proxy.
+des données sur d'autres API{nbsp}REST – proxy.
 
 [source,javascript]
 .restify.js
@@ -897,7 +905,7 @@ include::{sourceDir}/restify.js[]
 _faye_ ([URL]#https://npmjs.com/faye#) est un serveur WebSocket pour communiquer
 en temps réel entre un client et un serveur.
 Il sait débrayer vers Ajax ou JSON-P pour les navigateurs anciens qui
-ne supportent pas WebSocket.
+ne comprennent pas WebSocket.
 
 [source,javascript]
 .faye.js
@@ -905,9 +913,8 @@ ne supportent pas WebSocket.
 include::{sourceDir}/faye.js[]
 ----
 
-Cet exemple de serveur minimaliste expose un point d'entrée qui peut
-être accédé via le client _Faye_, dans un navigateur web ou via un autre
-script Node.
+Cet exemple de serveur minimaliste expose un point d'entrée auquel on peut accéder
+via le client _Faye_, dans un navigateur ou via un autre script{nbsp}Node.
 
 Tout message émit par un client sera relayé auprès des autres clients
 connectés.
@@ -918,19 +925,19 @@ _swagger-client_ ([URL]#https://npmjs.com/swagger-client#) sert à valider
 des requêtes et des réponses HTTP en fonction de schémas qui répondent
 à la spécification OpenAPI.
 
-Cette spécification permet entre autre de gérer automatiquement les routes
-de notre application pour se concentrer sur le code qui génère les données de sortie.
+Cette spécification permet entre autres de gérer automatiquement les routes
+de notre application pour nous concentrer sur le code qui génère les données de sortie.
 
 [[templating]]
 == Modules front-end et templating
 
-Les librairies de templating proposent d'associer
+Les bibliothèques de templating proposent d'associer
 une structure de données à une logique de présentation.
-La plupart fonctionnent aussi bien sous Node que dans les navigateurs web.
-Ce qui est une excellente nouvelle pour partager des comportements d'affichage
+Pour la plupart, elles fonctionnent aussi bien sous Node que dans les navigateurs,
+ce qui est une excellente nouvelle pour partager des comportements d'affichage
 entre les deux environnements.
 
-Tous les modules que nous allons voir généreront cette sortie HTML :
+Tous les modules que nous allons voir généreront cette sortie{nbsp}HTML :
 
 [source,html]
 ----
@@ -952,7 +959,7 @@ Tous les modules que nous allons voir généreront cette sortie HTML :
 === nunjucks
 
 _nunjucks_ ([URL]#https://npmjs.com/nunjucks#) est un portage de _Jinja_,
-librairie bien connue par les adeptes de Python.
+bibliothèque bien connue par les adeptes de Python.
 Sa syntaxe inclut des fonctionnalités comme les filtres, les blocs ou
 l'héritage de gabarit.
 
@@ -979,8 +986,8 @@ include::{sourceDir}/template.hbs[]
 
 === pug
 
-_pug_ ([URL]#https://npmjs.com/pug#) opte pour pour un
-parti minimaliste qui repose entièrement sur l'indentation.
+_pug_ ([URL]#https://npmjs.com/pug#) opte pour un parti minimaliste qui
+repose entièrement sur l'indentation.
 Son mécanisme de blocs facilite la réutilisation d'éléments de présentation.
 
 [source,javascript]
@@ -1004,8 +1011,8 @@ include::{sourceDir}/template.ejs[]
 
 === react
 
-_react_ ([URL]#https://npmjs.com/react#) est une librairie de présentation
-dite "réactive" et orientée composants.
+_react_ ([URL]#https://npmjs.com/react#) est une bibliothèque de présentation
+dite "`réactive`" et orientée composants.
 Elle génère un arbre visuel à partir de données passées en entrée.
 Cet arbre est ensuite transformé en HTML, en interface iOS ou Android, entre autres.
 
@@ -1026,14 +1033,14 @@ dans une autre application.
 [[testing]]
 == Tester notre code
 
-Le module `assert` intégré à Node peut suffire à démarrer.
-Il existe tout un outillage pour tester notre code à destination de Node (tests unitaires)
-ou des navigateurs (tests fonctionnels) ainsi que pour écrire des assertions
-plus facilement.
+Le module `assert` intégré à Node suffit pour démarrer.
+Il existe cependant tout un outillage pour tester notre code à destination de
+Node (tests unitaires) ou des navigateurs (tests fonctionnels) ainsi que pour
+écrire des assertions plus facilement.
 
 === tape
 
-_tape_ ([URL]#https://npmjs.com/tape#) est une librairie
+_tape_ ([URL]#https://npmjs.com/tape#) est une bibliothèque
 d'exécution de tests minimaliste qui se base sur le
 _Test Anything Protocol_ (_TAP_, [URL]#https://testanything.org#).
 Elle embarque aussi le minimum vital pour écrire des assertions.
@@ -1048,7 +1055,7 @@ include::{sourceDir}/tape.js[]
 
 === chai
 
-_chai_ ([URL]#https://npmjs.com/chai#) est une librairie poussée d'assertions.
+_chai_ ([URL]#https://npmjs.com/chai#) est une bibliothèque poussée d'assertions.
 Son mécanisme chaîne permet de quasiment écrire des phrases pour exprimer
 l'intention des choses à vérifier.
 
@@ -1059,7 +1066,7 @@ include::{sourceDir}/chai.js[]
 ----
 <1> Vérification du type d'une variable.
 <2> Vérification stricte de valeur d'une variable.
-<3> Double vérification — il s'agit bien d'objet et il est vide, sans clé/valeur.
+<3> Double vérification – il s'agit bien d'objet et il est vide, sans clé/valeur.
 
 === sinon
 
@@ -1070,57 +1077,56 @@ Le module propose de créer des écouteurs (_spys_) et des bouchons
 
 En d'autres termes, vous prenez la main sur des portions de votre propre
 code pendant la durée des tests.
-Ces techniques permettent de simuler des erreurs et différentes situations
-tout en observant le comportement réel de notre code.
+Ces techniques servent pour simuler des erreurs et différentes situations
+tout en observant le comportement réel de notre{nbsp}code.
 
 [source,javascript]
 .sinon.js
 ----
 include::{sourceDir}/sinon.js[]
 ----
-<1> Création d'un bouchon pour la méthode `now()` d'un objet `Date`.
+<1> Création d'un bouchon pour la méthode `now()` d'un objet{nbsp}``Date``.
 <2> Surcharge de la valeur retournée par la méthode `d.now()`.
 <3> Nous constatons le nombre de fois où la méthode `d.now()` a été appelée.
 
 Le module _sinon-chai_ ([URL]#https://npmjs.com/sinon-chai#)
-intègre _sinon_ avec le mécanisme d'assertions de <<chai>>.
+intègre _sinon_ avec le mécanisme d'assertions de{nbsp}<<chai,_chai_>>.
 
 === nyc
 
 _nyc_ ([URL]#https://npmjs.com/nyc#) génère une couverture de code.
 Il inspecte le code exécuté pendant les tests et en déduit les portions
-qui n'ont pas été visitées, et donc qui n'ont pas été testées.
+qui n'ont pas été visitées et, donc, qui n'ont pas été testées.
 C'est un indicateur utile pour attester de la fiabilité d'une base de code
-— plus la couverture est importante, plus il y a de chances que les cas à la marge
-ont été vérifiés.
+– plus la couverture est importante, plus il y a de chances que les cas à la marge
+aient été vérifiés.
 
 .Couverture de code visualisée dans un terminal.
 image::images/nyc-cli.png[width="85%"]
 
-_nyc_ se greffe sur n'importe quel librairie d'exécution de tests.
+_nyc_ se greffe sur n'importe quelle bibliothèque d'exécution de tests.
 Sous le capot, c'est le module _istanbul_ ([URL]#https://npmjs.com/istanbul#)
-qui est utilisé pour effectuer les calculs de couverture de code.
+qui est utilisé pour effectuer les calculs de couverture de{nbsp}code.
 
-.Couverture de code visualisée dans un navigateur web.
+.Couverture de code visualisée dans un navigateur{nbsp}web.
 image::images/nyc-web.png[width="85%"]
 
 === karma
 
 _karma_ ([URL]#https://npmjs.com/karma#) pilote l'exécution de tests
-depuis un ou plusieurs navigateurs web.
-Ces navigateurs se pilotent sur notre ordinateur (Chrome, Safari, Firefox, etc.),
+depuis un ou plusieur(s) navigateurs web.
+Ces derniers (Chrome, Safari, Firefox, etc.) se pilotent sur notre ordinateur,
 depuis une machine virtuelle (VirtualBox) ou même par le biais d'un service
 en ligne (SauceLabs, BrowserStack, etc.).
 
-.Exemple d'exécution de tests en continu avec Karma.
+.Exemple d'exécution de tests en continu avec{nbsp}Karma.
 image::images/karma.png[width="85%"]
 
 === supertest
 
-_supertest_ ([URL]#https://npmjs.com/supertest#) nous permet de tester
-une interface HTTP.
+_supertest_ ([URL]#https://npmjs.com/supertest#) sert à tester une interface HTTP.
 Le module envoie des requêtes et nos assertions vérifient qu'elles retournent
-bien ce qui est attendu — code HTTP, structure de réponse etc.
+bien ce qui est attendu – code HTTP, structure de réponse etc.
 
 Je trouve ce module pratique pour tester des choses qui seraient difficiles
 à couvrir seulement avec des tests unitaires.
@@ -1130,38 +1136,38 @@ Je trouve ce module pratique pour tester des choses qui seraient difficiles
 
 Node a bénéficié de l'engouement autour des objets connectés grâce à sa nature
 asynchrone et à sa légèreté.
-C'est une plate-forme de choix pour dialoguer ou être embarquée dans des
-nano-ordinateurs, frigo et autres ampoules connectées.
+C'est une plate-forme de choix pour dialoguer ou embarquer dans des
+nano-ordinateurs, réfrigérateurs et autres ampoules connectées.
 
 === nitrogen
 
 _nitrogen_ ([URL]#https://npmjs.com/nitrogen#) gère les interactions entre
 différents périphériques, sur un même réseau local et à travers Internet.
 
-La librairie se base sur un mécanisme déclaratif de fonctionnalités et de
+La bibliothèque se base sur un mécanisme déclaratif de fonctionnalités et de
 terminaux ainsi que la publication de messages.
 
 === serialport
 
-_serialport_ ([URL]#https://npmjs.com/serialport#) est la librairie de base
+_serialport_ ([URL]#https://npmjs.com/serialport#) est la bibliothèque de base
 pour communiquer avec le _port série_ d'un appareil.
 Un câble USB suffit ensuite pour envoyer nos instructions à cet appareil.
 
 === firmata
 
 _firmata_ ([URL]#https://npmjs.com/firmata#) est un _firmware_, un protocole
-de communication ainsi qu'une librairie de communication pour microcontrôleur
+de communication, ainsi qu'une bibliothèque de communication pour microcontrôleur
 Arduino.
 
 Le module Node apprend ainsi à communiquer avec un Arduino préalablement
 flashé avec Firmata.
-Ça nous permet notamment d'écrire des applications en JavaScript au lieu
-d'utiliser du C.
+Cela nous permet notamment d'écrire des applications en JavaScript au lieu
+d'utiliser{nbsp}du{nbsp}C.
 
 === johnny-five
 
-_johnny-five_ ([URL]#https://npmjs.com/johnny-five#) est une librairie
-haut-niveau pour Arduino, Raspberry Pi et tout autre microcontrôleur.
+_johnny-five_ ([URL]#https://npmjs.com/johnny-five#) est une bibliothèque
+haut{nbsp}niveau pour Arduino, Raspberry{nbsp}Pi et tout autre microcontrôleur.
 Elle simplifie les interactions avec des moteurs, des servo-contrôleurs,
 des capteurs etc.
 
@@ -1169,7 +1175,7 @@ des capteurs etc.
 
 _node-red_ ([URL]#https://npmjs.com/node-red#) est une interface visuelle
 pour programmer des flux de données entre objets connectés.
-Le projet émane d'employé·e·s d'IBM.
+Le projet émane d'employé·e·s{nbsp}d'IBM.
 
 L'exécutable démarre un serveur web dont l'interface nous sert à relier
 des sources de données, des réactions à des événements avec des objets prêts à
@@ -1178,7 +1184,7 @@ recevoir les instructions.
 
 == Accessibilité
 
-L'écosystème npm a participé à un essor d'outillage lié à l'accessibilité
+L'écosystème{nbsp}``npm`` a participé à un essor d'outillage lié à l'accessibilité
 d'applications web.
 Auparavant, les outils étaient difficilement automatisables.
 
@@ -1189,7 +1195,7 @@ Il détecte des problèmes de contrastes, de calques qui masquent du contenu
 ou d'éléments qui ne seraient pas navigables au clavier, entre autres.
 
 C'est un excellent outil pour améliorer la qualité d'une application tout en
-l'ouvrant à un public trop souvent mis de côté.
+l'ouvrant à un public trop souvent mis de{nbsp}côté.
 
 ----
 $ npx a11y https://oncletom.io
@@ -1208,7 +1214,7 @@ $ npx a11y https://oncletom.io
 
 _a11y.css_ ([URL]#https://npmjs.com/a11y.css#) est une feuille de styles CSS
 à injecter dans une page web pour rendre visible des incohérences.
-Parmi ces incohérences, nous retrouvons des boutons sans intitulés, l'absence
+Parmi ces dernières, nous retrouvons des boutons sans intitulé, l'absence
 de langue du document ou encore l'absence de bouton de validation de formulaire
 ou de texte alternatif d'images.
 
@@ -1216,15 +1222,15 @@ ou de texte alternatif d'images.
 
 _lighthouse_ ([URL]#https://npmjs.com/lighthouse#) est l'outil d'analyse de
 performances, de référencement (SEO) et d'accessibilité embarqué dans
-le navigateur web Google Chrome.
+le navigateur web Google{nbsp}Chrome.
 
-Ce module npm le rend utilisable depuis un terminal et écrit le rapport
-dans un fichier HTML.
+Ce module{nbsp}``npm`` le rend utilisable depuis un terminal et écrit le rapport
+dans un fichier{nbsp}HTML.
 
 === storybook-addon-a11y
 
 _storybook-addon-a11y_ ([URL]#https://npmjs.com/storybook-addon-a11y#)
-est une extension au module <<storybook>>.
+est une extension au module <<storybook,_storybook_>>.
 Le module signale les problèmes d'accessibilité au niveau de chaque composant.
 Le suivi est ainsi fait en continu, au plus proche des composants distribués
 et utilisés dans les applications.
@@ -1235,6 +1241,6 @@ et utilisés dans les applications.
 === sharp
 
 _sharp_ ([URL]#https://npmjs.com/sharp#) est un module de redimensionnement
-et de transformation d'images JPG, PNG et WebP écrit en JavaScript et C++.
+et de transformation d'images JPG, PNG et WebP écrit en JavaScript et{nbsp}{cpp}.
 Il ne nécessite pas de programme externe et est compatible avec une approche
-en _streaming_.
+en flux.

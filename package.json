@@ -14,7 +14,7 @@
     "lint": "eslint '**/*.js'",
     "prestart": "npm run build:html",
     "start": "node server.js",
-    "test": "tape 'tests/*.js' | tap-spec",
+    "test": "tape 'tests/*.js'",
     "test:docker": "docker run -ti --rm -v $(pwd):/tests -e CI=1 -e DEBUG=tape-spawn -w /tests node:${npm_package_engines_node}-slim npm cit",
     "posttest": "npm run lint"
   },
@@ -54,7 +54,7 @@
     "yargs": "^12.0.1"
   },
   "devDependencies": {
-    "asciidoctor-converter-opendocument": "^1.0.0-alpha.8",
+    "asciidoctor-converter-opendocument": "^1.0.0-alpha.11",
     "asciidoctor-docbook.js": "^1.5.7-rc.2",
     "asciidoctor-extension-interactive-runner": "^1.2.1",
     "asciidoctor.js": "^1.5.7-rc.1",

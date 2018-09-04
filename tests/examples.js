@@ -1,14 +1,16 @@
 'use strict';
 
 const test = require('blue-tape');
+const tapSpec = require('tap-spec');
 const {extname, posix, relative, join} = require('path');
 const spawn = require('tape-spawn');
 const glob = require('glob');
 const {platform} = process;
 
-const EXTRAS = require('./examples-config.js');
+test.createStream().pipe(tapSpec()).pipe(process.stdout);
 
-const examples = glob.sync('*/examples/**/*.{mjs,js}');
+const EXTRAS = require('./examples-config.js');
+const examples = glob.sync(process.argv[3] || '*/examples/**/*.{mjs,js}');
 const serverSide = (file) => /chapter-09/.test(file) === false;
 const nodeModules = (file) => /node_modules/.test(file) === false;
 

@@ -1,15 +1,15 @@
 import React, { Component } from 'react';
 import timerFn from './timer.js';
 
-export default class DateInterval extends Component {        // <1>
-  constructor(props) {                                       // <2>
+export default class DateInterval extends Component {    // <1>
+  constructor(props) {                                   // <2>
     super(props);
 
     const {interval} = props;
     this.onTick = this.onTick.bind(this);
 
     this.state = {
-      tickData: timerFn({ interval, onTick: this.onTick })   // <3>
+      tickData: timerFn({ interval, onTick: this.onTick })// <3>
     };
   }
 

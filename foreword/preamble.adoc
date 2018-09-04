@@ -5,15 +5,15 @@ Ryan Dahl, ancien étudiant sans le sou et au parcours informatique atypique.
 Son talent a été de s'obstiner à *résoudre un problème d'expérience utilisateur*
 fréquent sur le web : *l'attente devant un navigateur web figé*.
 Son but ? Rendre possible et facile la création de *barres de progression*
-dans les navigateurs Web.
+dans les navigateurs{nbsp}web.
 
 J'ai utilisé Node pour la première fois en 2010, par curiosité.
-Nous en étaions alors à la version `0.4`.
+Nous en étions alors à la version{nbsp}0.4.
 Créer mon propre serveur HTTP était un concept qui semblait étrange,
-moi qui étais un habitué à écrire des applications PHP et à les mettre derrière
-un serveur Apache — nginx commençait à peine à décoller.
+habitué que j'étais à écrire des applications PHP et à les mettre derrière
+un serveur Apache – nginx commençait à peine à décoller.
 
-*L'effet _wahou_ était pourtant là* : une installation en quelques secondes,
+L'effet "wahou" était pourtant là : une installation en quelques secondes,
 quelques lignes de JavaScript et j'avais une API REST câblée avec une base
 de données _CouchDB_ pour impressionner mes collègues.
 
@@ -23,24 +23,24 @@ Nous voulions *un langage commun* pour le back-end et le front-end.
 Nous partons sur Node, installé sans encombre sur notre serveur dédié
 géré par l'hébergeur _AlwaysData_.
 Nous avions la *sensation de progresser rapidement*.
-Nous allions _réellement_ vite.
+Nous allions réellement{nbsp}vite.
 
 Depuis, de nombreuses entreprises ont communiqué sur leur adoption de Node :
-Paypal, LinkedIn, eBay, Airbnb, British Gaz, Allociné, The New York Times,
+Paypal, LinkedIn, eBay, Airbnb, British{nbsp}Gas, Allociné, The{nbsp}New{nbsp}York{nbsp}Times,
 Yahoo!, Microsoft, Mozilla, Flickr ou encore Twitter.
 Ces entreprises l'utilisent pour façonner leur outillage métier,
-gérer les transactions bancaires, leurs serveurs LDAP, des web services ou
-des sites web.
+gérer les transactions bancaires, leurs serveurs LDAP, des services ou
+des sites{nbsp}web.
 
 == Pourquoi ce livre ?
 
 Je trouve que *Node est un environnement élégant et agréable*.
-Je prends beaucoup de plaisir à l'uitliser au quotidien mais je regrette
+Je prends beaucoup de plaisir à l'utiliser au quotidien, mais je regrette
 l'accent placé sur la nouveauté permanente et la sur-ingéniérie des articles
 et ouvrages en langue française.
 
-Node est *mon outil de travail principal* depuis 2011 et je fais quasiment tout avec
-— y compris l'outillage de publication de cet ouvrage.
+Node est mon outil de travail principal depuis 2011 et je fais quasiment tout avec
+– y compris l'outillage de publication de cet ouvrage.
 J'avais envie de communiquer sur la simplicité, l'architecture modulaire et
 la versatilité de Node pour que vous puissiez *progresser dans l'usage de JavaScript*,
 *façonner votre propre outillage* et pour mieux
@@ -52,69 +52,64 @@ Cet ouvrage s'installe avec Node : tous les exemples sont réels et fonctionnent
 dans votre terminal.
 
 Indirectement, je souhaite *déconstruire la posture d'expert et de lecteur*
-en me mettant à vos côté pendant votre apprentissage.
+en me mettant à vos côtés pendant votre apprentissage.
 Une partie des contenus a été conçue et relue en ateliers collectifs pour que
 la progression se fasse de manière naturelle.
 
 == À qui s'adresse cet ouvrage ?
 
-J'ai écris cet ouvrage avec _trois profils de personnes_ en tête :
+J'ai écrit cet ouvrage avec trois profils de lecteurs en tête :
 des personnes qui souhaitent *se mettre à Node sans savoir par où commencer*,
 celles et ceux qui font du *front-end et souhaitent mieux comprendre leur outillage*
-et enfin, les personnes qui veulent *renforcer leurs connaissances* en Node et
+et celles qui veulent *renforcer leurs connaissances* en Node et
 JavaScript afin de changer de travail/métier.
 
-Cet ouvrage s'adresse aussi à des personnes qui ne programment pas pour gagner leur
-vie et qui veulent mieux comprendre de quoi parlent les développeurs et développeuses.
-Je pense que les interactions de travail sont de meilleures qualité quand nous
-avons le loisir de comprendre les implications des personnes avec qui nous travaillons.
+Cet ouvrage s'adresse aussi à des lecteurs qui ne programment pas pour gagner leur
+vie mais qui veulent mieux comprendre de quoi parlent les développeurs et développeuses.
+Je pense que les interactions de travail sont de meilleure qualité quand nous
+comprenons les problématiques de celles et ceux avec qui nous travaillons.
 
 == Structure de l'ouvrage
 
 Cet ouvrage se lit dans l'ordre de votre choix.
 
 J'ai fait en sorte que la lecture soit progressive, du plus simple au plus complexe.
-Le contenu des chapitres est progressif, explore une problématique et se termine
-souvent sur une section avancée, *pour aller plus loin*.
+Le contenu des chapitres explore une problématique et se termine
+souvent sur une section avancée, pour aller plus{nbsp}loin.
 
 Cette édition est composée de _neuf chapitres_ et d'_une annexe_ :
 
 . *Histoire, écosystème et gouvernance* +
-  Nous apprendrons d'où vient Node et qui sont les acteurs participant à son histoire.
+  D'où vient Node et qui sont les acteurs participant à son histoire.
 . *Installer, mettre à jour et développer* +
-  Nous apprendrons à être autonome pour installer Node.js
+  Être autonome pour installer Node.js
   sur notre ordinateur ou un serveur, se tenir au courant
   des mises à jour et jongler entre différentes versions.
-  Ce sera aussi l'occasion de découvrir des outils confortables
-  pour écrire du code.
+  Découvrir des outils confortables pour écrire du{nbsp}code.
 . *Jouer avec JavaScript* +
-  Nous apprendrons à comprendre les différences entre
-  JavaScript, ECMAScript, le DOM et Node.js.
-  Ce sera aussi l'occasion de revoir les bases du langage
-  pour se sentir plus à l'aise.
+  Comprendre les différences entre JavaScript, ECMAScript, le DOM et Node.js.
+  Revoir les bases du langage pour se sentir plus à l'aise.
 . *Jouer avec Node.js* +
-  Nous apprendrons à manipuler des scripts et des modules Node.js :
-  les notres, ceux fournis par Node et ceux de la communauté.
+  S'exercer avec des scripts et des modules Node.js :
+  les nôtres, ceux fournis par Node et ceux de la communauté.
 . *Jouer avec npm* +
-  Nous apprendrons à tirer parti de l'outil livré par défaut avec Node.js.
-  Ce sera l'occasion de s'amuser à créer nos propres
-  outils dignes d'artisans du logiciel.
+  Apprendre à tirer parti de l'outil livré par défaut avec Node.js.
+  S'amuser à créer nos propres outils dignes d'artisans du logiciel.
 . *Déployer notre code* +
-  Nous apprendrons à déployer notre code le plus tôt possible pour célébrer notre premier programme !
+  Déployer notre code le plus tôt possible pour célébrer notre premier programme !
 . *Créer une application web* +
-  Nous apprendrons à créer une application web en partant de zéro,
-  en utilisant un _framework_ puis en parlant à une base de données.
-  Bienvenue dans l'odyssée d'une requête HTTP !
+  Créer une application web en partant de zéro, en utilisant un _framework_ puis
+  en parlant à une base de données.
+  Bienvenue dans l'odyssée d'une requête{nbsp}HTTP !
 . *Créer un outil en ligne de commande* +
-  Nous apprendrons à rendre du code métier fonctionnel dans un terminal.
-  La ligne de commande ne paraîtra plus aussi austère après ça.
+  Rendre du code métier fonctionnel dans un terminal ;
+  la ligne de commande ne paraîtra plus aussi austère.
 . *Créer une application front-end* +
-  Nous apprendrons à utiliser la richesse de l'écosystème npm
-  et à profiter des modules pour écrire des
+  Utiliser la richesse de l'écosystème{nbsp}npm et profiter des modules pour écrire des
   applications front-end de qualité.
 
-L'*annexe* complète l'ouvrage avec une *sélection de modules _npm_*,
-pour démarrer plus vite et mieux cerner ce qu'on peut faire avec Node.
+L'annexe complète l'ouvrage avec une *sélection de modules*{nbsp}npm,
+pour démarrer plus vite et mieux cerner ce qu'on peut faire avec{nbsp}Node.
 
 [TIP]
 .[RemarquePreTitre]#Ressources# Contenu en [line-through]#livre# libre accès
@@ -123,41 +118,40 @@ Le contenu de cet ouvrage est actualisé en permanence sur [URL]#https://oncleto
 
 L'intégralité du code source du livre et des exemples sont hébergés sur
 [URL]#https://github.com/oncletom/nodebook#.
-J'utilise la plate-forme collaborative _GitHub_ pour recueillir vos avis,
+J'utilise la plate-forme collaborative GitHub pour recueillir vos avis,
 corrections et suggestions.
 ====
 
 == Remerciements
 
-Cet ouvrage a été rédigé sur près de _quatre années_ – longue est la liste
-exhaustive des personnes à remercier.
-Longue aussi est la liste de celles et ceux à qui je dois m'excuser pour mes
+Cet ouvrage a été rédigé sur près de quatre années – longue est la liste
+des personnes à remercier.
+Longue aussi est la liste de celles et ceux à qui je demande pardon pour mes
 sautes d'humeur, mes absences ou mes passages à vide.
 L'écriture sur une longue durée est une activité que je trouve éprouvante.
-Elle nécessite un ajustement permanent vis à vis de moi-même pour ne pas
+Elle nécessite un ajustement permanent vis-à-vis de moi-même pour ne pas
 (trop) en souffrir.
 
 Mes premiers remerciements vont à Noémie.
 Ta joie, tes encouragements et ta présence sont essentiels à mon équilibre.
 Ils m'emplissent de confiance, m'inspirent et atténuent les peurs qui me paralysent.
 
-Je remercie Karine, Laurène, Elsa et Alexandre d'_Eyrolles_ pour cette opportunité.
-Je trouve que vous avez fait preuve d'une patience et d'une confiance
-infinies malgré le délai d'écriture.
+Je remercie Karine, Laurène, Elsa et Alexandre des Éditions Eyrolles pour cette opportunité.
+Vous avez fait preuve d'une patience et d'une confiance infinies malgré le délai d'écriture.
 
-Je tiens à remercier mes anciens collègues de BBC R&D pour leur soutien,
+Je tiens à remercier mes anciens collègues de BBC{nbsp}R&D pour leur soutien,
 leur confiance et leur tolérance aux jeux de mots.
-Olivier, Sean, Katie, Chris N et Chris L : c'était un plaisir et un honneur
-d'être à vos côtés.
+Olivier, Sean, Katie, Chris{nbsp}N et Chris{nbsp}L : c'était un plaisir et un honneur
+d'être à vos{nbsp}côtés.
 
-Certain·e·s d'entre vous m'ont beaucoup aidé de par leurs conseils,
+Certain·e·s d'entre vous m'ont beaucoup aidé par leurs conseils,
 leurs relectures et leurs encouragements.
-Alors un grand merci pour ça à Béa, Claire, Clémentine, David, Efi, Fabien,
+Alors un grand merci pour cela à Béa, Claire, Clémentine, David, Efi, Fabien,
 Frank, Philippe, Stéphane et Thierry.
 
 Merci à l'équipe d'Asciidoctor pour leur travail précieux et leurs réponses à
 mes innombrables questions.
-Je pense notamment à Guillaume et à Dan.
+Je pense notamment à Guillaume et à{nbsp}Dan.
 
 Merci à Antoine pour notre travail en duo sur l'écriture numérique.
 Je suis fier d'apporter ce mode d'écriture dans les communautés académiques,
@@ -165,8 +159,8 @@ du design et des archivistes.
 
 Enfin, je remercie toutes les personnes qui m'ont accueilli chez elles,
 dans leur maison, dans leur bureau ou dans leur communauté/meet-up pendant mon
-écriture itinérante en 2017 et 2018.
+écriture itinérante en{nbsp}2017 et{nbsp}2018.
 
 Bonne lecture,
 
-— Thomas
+Thomas

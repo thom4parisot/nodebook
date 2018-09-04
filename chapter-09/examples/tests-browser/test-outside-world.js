@@ -11,7 +11,7 @@ describe('getLinkElementContent', () => {
 
     return getLinkElementContent(link).then(deps => {   // <3>
       expect(deps).to.contain.all.keys(                 // <4>
-        'babel', 'react', 'enzyme'
+        '@babel/core', 'react', 'enzyme'
       );
     });
   });

@@ -1,2 +1,2 @@
-console.log(typeof NaN);
-console.log(typeof 10);
+console.log(typeof NaN);  // <1>
+console.log(typeof 10);   // <2>
