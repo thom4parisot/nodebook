@@ -51,6 +51,10 @@ module.exports = {
     exitCode: 1,
     stderr: 'SyntaxError: Identifier \'base_price\' has already been declared'
   },
+  'chapter-03/examples/variables/const-freeze.js': {
+    exitCode: 1,
+    stderr: 'Cannot add property 3, object is not extensible'
+  },
   'chapter-03/examples/class-constructor.js': {
     stderr: 'Error: Extend the View class to render content'
   },

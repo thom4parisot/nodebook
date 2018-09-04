@@ -398,13 +398,33 @@ rangée dans la clé `price` de l'objet `book`, calculée par la fonction
 
 Le mot-clé `const` nous a servi à _déclarer_ une variable.
 On ne peut étiqueter ainsi une variable avec le même nom qu'une seule fois.
-L'exemple suivant générera une erreur :
+L'exemple suivant générera une erreur lors de la deuxième affectation :
 
 [source%interactive,javascript]
 .variables/const.js
 ----
 include::{sourceDir}/variables/const.js[lines=3..-1]
 ----
+
+[NOTE]
+.[RemarquePreTitre]#Question# Une variable constante ?
+====
+`const` est un type de variable qui ne peut être ni redéclaré ni être réaffecté :
+c'est en ça qu'il est _constant_.
+
+Une variable `const` n'empêche pas la modification de son contenu, dans le cas
+d'un tableau ou d'un objet.
+La fonction `Object.freeze()` est une réponse adaptée pour garantir son immuabilité.
+
+[source%interactive,javascript]
+.variables/const-freeze.js
+----
+include::{sourceDir}/variables/const-freeze.js[lines=3..-1]
+----
+<1> Affiche `[ 'a', 'b', 'c' ]`.
+<2> L'objet `table` est gelé grâce à la fonction `Object.freeze()`.
+<3> Cette ligne lance une erreur car nous tentons de modifier un objet gelé.
+====
 
 === Les instructions
 
