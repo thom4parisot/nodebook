@@ -129,6 +129,21 @@ La bonne santé des exemples est vérifiée à l'aide d'[ESLint](http://eslint.o
 $ npm test
 ```
 
+## Dépendances & cie
+
+|             | Dépendances       | Sécurité
+| ------------|-------------------|---------
+| Chapitre 1  | ![][ch01-deps]    | ![][ch01-security]
+| Chapitre 2  | ![][ch02-deps]    | ![][ch02-security]
+| Chapitre 3  | ![][ch03-deps]    | ![][ch03-security]
+| Chapitre 4  | ![][ch04-deps]    | ![][ch04-security]
+| Chapitre 5  | ![][ch05-deps]    | ![][ch05-security]
+| Chapitre 6  | ![][ch06-deps]    | ![][ch06-security]
+| Chapitre 7  | ![][ch07-deps]    | ![][ch07-security]
+| Chapitre 8  | ![][ch08-deps]    | ![][ch08-security]
+| Chapitre 9  | ![][ch09-deps]    | ![][ch09-security]
+| Annexe A    | ![][a01-deps]    | ![][a01-security]
+
 ## Génération des épreuves
 
 ### HTML
@@ -206,21 +221,41 @@ Les exemples de code sont placés sous la [licence MIT][].
 [preamble]: foreword/preamble.adoc
 [ch01]: chapter-01/index.adoc
 [ch01-issues]: https://github.com/oncletom/nodebook/labels/:book:%20chapitre:1
+[ch01-deps]: https://david-dm.org/oncletom/nodebook/status.svg?path=chapter-01
+[ch01-security]: https://snyk.io/test/github/oncletom/nodebook/badge.svg?targetFile=chapter-01/package.json
 [ch02]: chapter-02/index.adoc
 [ch02-issues]: https://github.com/oncletom/nodebook/labels/:book:%20chapitre:2
+[ch02-deps]: https://david-dm.org/oncletom/nodebook/status.svg?path=chapter-02
+[ch02-security]: https://snyk.io/test/github/oncletom/nodebook/badge.svg?targetFile=chapter-02/package.json
 [ch03]: chapter-03/index.adoc
 [ch03-issues]: https://github.com/oncletom/nodebook/labels/:book:%20chapitre:3
+[ch03-deps]: https://david-dm.org/oncletom/nodebook/status.svg?path=chapter-03
+[ch03-security]: https://snyk.io/test/github/oncletom/nodebook/badge.svg?targetFile=chapter-03/package.json
 [ch04]: chapter-04/index.adoc
 [ch04-issues]: https://github.com/oncletom/nodebook/labels/:book:%20chapitre:4
+[ch04-deps]: https://david-dm.org/oncletom/nodebook/status.svg?path=chapter-04
+[ch04-security]: https://snyk.io/test/github/oncletom/nodebook/badge.svg?targetFile=chapter-04/package.json
 [ch05]: chapter-05/index.adoc
 [ch05-issues]: https://github.com/oncletom/nodebook/labels/:book:%20chapitre:5
+[ch05-deps]: https://david-dm.org/oncletom/nodebook/status.svg?path=chapter-05
+[ch05-security]: https://snyk.io/test/github/oncletom/nodebook/badge.svg?targetFile=chapter-05/package.json
 [ch06]: chapter-06/index.adoc
 [ch06-issues]: https://github.com/oncletom/nodebook/labels/:book:%20chapitre:6
+[ch06-deps]: https://david-dm.org/oncletom/nodebook/status.svg?path=chapter-06
+[ch06-security]: https://snyk.io/test/github/oncletom/nodebook/badge.svg?targetFile=chapter-06/package.json
 [ch07]: chapter-07/index.adoc
 [ch07-issues]: https://github.com/oncletom/nodebook/labels/:book:%20chapitre:7
+[ch07-deps]: https://david-dm.org/oncletom/nodebook/status.svg?path=chapter-07
+[ch07-security]: https://snyk.io/test/github/oncletom/nodebook/badge.svg?targetFile=chapter-07/package.json
 [ch08]: chapter-08/index.adoc
 [ch08-issues]: https://github.com/oncletom/nodebook/labels/:book:%20chapitre:8
+[ch08-deps]: https://david-dm.org/oncletom/nodebook/status.svg?path=chapter-08
+[ch08-security]: https://snyk.io/test/github/oncletom/nodebook/badge.svg?targetFile=chapter-08/package.json
 [ch09]: chapter-09/index.adoc
 [ch09-issues]: https://github.com/oncletom/nodebook/labels/:book:%20chapitre:9
+[ch09-deps]: https://david-dm.org/oncletom/nodebook/status.svg?path=chapter-09
+[ch09-security]: https://snyk.io/test/github/oncletom/nodebook/badge.svg?targetFile=chapter-09/package.json
 [a01]: appendix-a/index.adoc
 [appendix-issues]: https://github.com/oncletom/nodebook/labels/:book:%20chapitre:annexes
+[a01-deps]: https://david-dm.org/oncletom/nodebook/status.svg?path=appendix-a
+[a01-security]: https://snyk.io/test/github/oncletom/nodebook/badge.svg?targetFile=appendix-a/package.json
