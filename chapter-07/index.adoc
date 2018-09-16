@@ -455,8 +455,8 @@ $ node static/routes.js
 ----
 include::{sourceDir}/static/routes.js[]
 ----
-<1> Le chemin d'accès au fichier est paramétré dans la route pour plus de sécurité.
-<2> Composition dynamique du chemin d'accès au fichier depuis la route.
+<1> Création d'une route paramétrée qui répond avec la fonction{nbsp}``staticFiles``.
+<2> Composition dynamique du chemin d'accès au fichier.
 
 Si nous accédons à [URL]#{serverUrl}/files/doc.pdf# et [URL]#{serverUrl}/files/screenshot.jpg#,
 nous verrons les deux documents s'afficher dans notre navigateur.
