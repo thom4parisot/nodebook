@@ -426,16 +426,17 @@ Nous allons commencer par mettre à disposition un seul fichier, quel que soit
 le chemin demandé :
 
 ----
-$ node static/routes.js
+$ node static/stream.js
 ----
 
 [source,javascript]
-.static/routes.js
+.static/stream.js
 ----
-include::{sourceDir}/static/routes.js[]
+include::{sourceDir}/static/stream.js[]
 ----
-<1> Nous constituons un chemin d'accès avec `path.join` (<<../chapter-04/index.adoc#path,chapitre{nbsp}4>>, module{nbsp}``path``).
-<2> Nous créons un flux de lecture vers ce fichier (<<../chapter-04/index.adoc#stream,chapitre{nbsp}4>>, module `stream`) et nous le redirigeons vers la réponse.
+<1> Nous constituons un chemin d'accès avec `path.join()` (<<../chapter-04/index.adoc#path,chapitre{nbsp}4>>, module{nbsp}``path``).
+<2> Nous créons un flux de lecture vers ce fichier (<<../chapter-04/index.adoc#stream,chapitre{nbsp}4>>, module `stream`).
+<3> Nous redirigeons le flux de lecture vers la réponse.
 
 Ce que cet exemple nous apprend,
 c'est que l'*objet de réponse est aussi un flux d'écriture*.
@@ -455,10 +456,8 @@ $ node static/routes.js
 ----
 include::{sourceDir}/static/routes.js[]
 ----
-<1> Création d'une route paramétrée qui répond avec la fonction `staticFiles`.
-<2> Réutilisation de la fonction `staticFiles` pour répondre à la méthode{nbsp}``HEAD`` – nous verrons plus loin pourquoi c'est important.
-<3> Composition dynamique du chemin d'accès au fichier.
-<4> Redirection du flux de lecture du fichier vers la réponse.
+<1> Le chemin d'accès au fichier est paramétré dans la route pour plus de sécurité.
+<2> Composition dynamique du chemin d'accès au fichier depuis la route.
 
 Si nous accédons à [URL]#{serverUrl}/files/doc.pdf# et [URL]#{serverUrl}/files/screenshot.jpg#,
 nous verrons les deux documents s'afficher dans notre navigateur.

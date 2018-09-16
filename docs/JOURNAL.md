@@ -11,6 +11,7 @@ a été écrit, relu et testé avec un public apprenant.
 ## Dimanche 16 septembre 2018 • Paris
 
 - _Chapitre 8_, _Chapitre 9_, _Annexe A_ : relecture de l'épreuve pré-impression
+- _Chapitre 7_ : correction du doublon `static/routes.js`
 
 ## Samedi 15 septembre 2018 • Paris
 

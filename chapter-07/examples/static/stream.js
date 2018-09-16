@@ -8,6 +8,5 @@ const server = createServer().listen(4000);
 
 server.on('request', (requet, response) => {
   const filepath = join(__dirname, 'files', 'doc.pdf'); // <1>
-  createReadStream(filepath)                            // <2>
-    .pipe(response);                                    // <3>
+  createReadStream(filepath).pipe(response);            // <2>
 });
