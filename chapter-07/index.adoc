@@ -435,8 +435,7 @@ $ node static/routes.js
 include::{sourceDir}/static/routes.js[]
 ----
 <1> Nous constituons un chemin d'accès avec `path.join` (<<../chapter-04/index.adoc#path,chapitre{nbsp}4>>, module{nbsp}``path``).
-<2> Nous créons un flux de lecture vers ce fichier (<<../chapter-04/index.adoc#stream,chapitre{nbsp}4>>, module `stream`).
-<3> Nous redirigeons le flux de lecture vers la réponse.
+<2> Nous créons un flux de lecture vers ce fichier (<<../chapter-04/index.adoc#stream,chapitre{nbsp}4>>, module `stream`) et nous le redirigeons vers la réponse.
 
 Ce que cet exemple nous apprend,
 c'est que l'*objet de réponse est aussi un flux d'écriture*.

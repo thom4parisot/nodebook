@@ -8,6 +8,20 @@ a été écrit, relu et testé avec un public apprenant.
 
 ---
 
+## Dimanche 16 septembre 2018 • Paris
+
+- _Chapitre 8_, _Chapitre 9_, _Annexe A_ : relecture de l'épreuve pré-impression
+
+## Samedi 15 septembre 2018 • Paris
+
+- _Chapitre 7_, _Chapitre 8_ : relecture de l'épreuve pré-impression
+
+## Vendredi 14 septembre 2018 • Paris
+
+- _Chapitre 1_, _Chapitre 2_, _Chapitre 3_, _Chapitre 4_, _Chapitre 5_, _Chapitre 6_ : relecture de l'épreuve pré-impression
+
+---
+
 ## Dimanche 22 juillet 2018 • Paris/Bordeaux
 
 - _Chapitre 7_ : Un code testable est un code indépendant du framework

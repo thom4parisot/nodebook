@@ -950,7 +950,7 @@ include::{sourceDir}/progress/spinner.js[]
 Nous pouvons aussi tirer parti du fonctionnement du module _ora_ en reproduisant
 l'animation et en personnalisant le symbole de réussite.
 
-.Pendant et{nbsp}après
+.Pendant et{nbsp}après l'indicateur de progression personnalisé avec le module{nbsp}ora.
 image::images/cli-spinner-custom.png[]
 
 [source,javascript]
@@ -1104,7 +1104,7 @@ include::{sourceDir}/testing/01/cli.js[lines="3..-1"]
 ----
 <1> Tout le code a été modularisé sous forme d'une seule fonction.
 
-Nous avons opéré un changement : l'utilisation de `console.log` pour l'affichage
+Nous avons opéré un changement : l'utilisation de `console.log()` pour l'affichage
 des résultats revient du côté de l'exécutable.
 
 Notre code est portable s'il retourne un résultat et en laissant la

@@ -1,14 +1,12 @@
 language: node_js             # <1>
-node_js: {nodeCurrentVersion}                   # <2>
+node_js: {nodeCurrentVersion}                  # <2>
 
 addons:
   firefox: latest             # <3>
 
 env:
-  - MOZ_HEADLESS=1            # <4>
+- MOZ_HEADLESS=1                                      # <4>
+- BROWSER_STACK_USERNAME="$BROWSER_STACK_USERNAME"    # <5>
+- BROWSER_STACK_ACCESS_KEY="$BROWSER_STACK_ACCESS_KEY"
 
 script: npm run test:browser -- --browsers Firefox
-
-env:
-  BROWSER_STACK_USERNAME: "$BROWSER_STACK_USERNAME"       # <5>
-  BROWSER_STACK_ACCESS_KEY: "$BROWSER_STACK_ACCESS_KEY"

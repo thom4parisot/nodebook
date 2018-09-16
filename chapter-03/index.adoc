@@ -673,7 +673,7 @@ Global{nbsp}(`g`)::
   La recherche identifie _tous_ les résultats – au lieu du seul premier.
 Unicode{nbsp}(`u`)::
   S'utilise si le motif de recherche exprime des séquences de caractères
-  Unicode sous la forme{nbsp}``\u{....}`` (voir les _classes de caractères_ ci-après).
+  Unicode sous la forme{nbsp}``\u{...}`` (voir les _classes de caractères_ ci-après).
 
 Illustrons leur utilisation en _identifiant du texte_ répondant (`match`)
 à une _expression régulière_{nbsp}(`/.../`) :
@@ -761,7 +761,7 @@ Caractère numérique{nbsp}(`\d`)::
   Identique à{nbsp}``[0-9]``.
 Caractère d'espacement{nbsp}(`\s`)::
   Tout caractère d'espacement : espace, tabulation, retour chariot, etc.
-Caractère Unicode{nbsp}(`\u{....}`)::
+Caractère Unicode{nbsp}(`\u{...}`)::
   Doit être combiné avec l'option{nbsp}``u`` (`/.../u`).
   Exemple : ♥︎{nbsp}->{nbsp}``\u{2665}``.
 

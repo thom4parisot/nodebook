@@ -447,15 +447,15 @@ actions nécessaires au déploiement en les listant dans un
 fichier de configuration, en choisissant dans quel ordre les déclencher
 et sur quel(s) serveur(s).
 
-Nous retrouvons _Puppet_ ([URL]#https://puppet.com#),
-_Chef_ ([URL]#https://www.chef.io#) et _Ansible_ ([URL]#https://ansible.com#)
+Nous retrouvons Puppet ([URL]#https://puppet.com#),
+Chef ([URL]#https://www.chef.io#) et Ansible ([URL]#https://ansible.com#)
 parmi les outils les plus utilisés et les mieux documentés.
 Ils ont des philosophies de configuration et d'exécution différentes
 – l'idéal est encore d'essayer d'écrire une première recette avec chacun d'entre
 eux pour voir celui qui vous semble le plus naturel à utiliser.
 
-Ma préférence va vers _Ansible_ car le logiciel s'installe facilement
-sur macOS et Linux, se configure avec une syntaxe que je connais déjà (_YAML_)
+Ma préférence va vers Ansible car le logiciel s'installe facilement
+sur macOS et Linux, se configure avec une syntaxe que je connais déjà (YAML)
 et je trouve ses messages d'erreurs informatifs.
 
 L'exemple suivant illustre le déploiement de l'application Node _Slackin_
@@ -502,7 +502,7 @@ Ces actions peuvent être rejouées à l'infini et de manière prédictible.
 ====
 
 Le _playbook_ suivant illustre deux tâches appliquées uniquement sur
-les serveurs étiquetés dans notre _inventaire_ en tant que `webservers` :
+les serveurs étiquetés dans notre inventaire en tant que `webservers` :
 
 [source,yml]
 .ansible/playbook.yaml
@@ -574,7 +574,7 @@ $ curl -L http://localhost:4000
 ----
 
 Nous avons déjà parlé de l'<<deploy.cli,outil en ligne de commande>>
-du service _now_ ([URL]#https://zeit.co/now#) dans la section du même nom.
+du service `now` ([URL]#https://zeit.co/now#) dans la section du même nom.
 Il est aussi capable de déployer un conteneur Docker en se basant sur un fichier
 `Dockerfile` en rajoutant l'option `--docker` :
 

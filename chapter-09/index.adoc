@@ -259,13 +259,13 @@ Une autre page explique où placer et quoi mettre dans les fichiers
 ====
 
 [[polyfills]]
-=== Combler les manques avec des _polyfills_
+=== Combler les manques avec des polyfills
 
 Des outils comme Babel nous permettent d'écrire avec une syntaxe moderne qui
 *comblent les fonctionnalités manquantes* – leur implémentation.
 
 Un _polyfill_ harmonise la présence d'une fonctionnalité au sein d'une variété de
-navigateurs et d'environnements JavaScript.
+navigateurs et d'environnements ECMAScript.
 Cela se fera au détriment de quelques kilo-octets de code à charger en plus
 dans nos applications.
 L'appel à un service de _polyfill_ externe entraîne un léger ralentissement du
@@ -691,13 +691,13 @@ refont surface :
 - Variables globales : que faire si `jQuery` n'existe pas ?
 - Connaissance implicite du document : que faire si une personne tierce remplace
 la balise `<time>` par une autre balise ?
-- Code JavaScript piloté par le document : que faire si une personne tierce
+- Code ECMAScript piloté par le document : que faire si une personne tierce
 exprime l'intervalle en secondes et non en millisecondes ?
 
 La faute n'est pas vraiment celle de _jQuery_ mais plutôt la nôtre – enfin, la mienne.
 Nous avons mélangé règles de fonctionnement (contenu de balise, classe{nbsp}CSS
 à ajouter/enlever) et données (date courante, parité des secondes, événement de
-mise à jour `setInterval`).
+mise à jour `setInterval()`).
 
 === Vers une approche jQuery composite
 
@@ -1170,17 +1170,21 @@ La commande suivante compilerait le fichier `examples/modules/react-app.js`
 une seule fois :
 
 ----
-$ ./node_modules/.bin/browserify -t babelify -e examples/modules/react-app.js -o examples/modules/react-app-browserify.js
+$ ./node_modules/.bin/browserify -t babelify \
+  -e examples/modules/react-app.js \
+  -o examples/modules/react-app-browserify.js
 ----
 
 Il suffit de remplacer `browserify` par `watchify` – le programme garde la main
 et indique chaque nouvelle compilation sur une nouvelle ligne :
 
 ----
-$ ./node_modules/.bin/watchify -dv -t babelify -e examples/modules/react-app.js -o examples/modules/react-app-browserify.js
-1840601 bytes written to examples/modules/react-app-browserify.js (2.58 seconds) at 4:44:28 PM
-352482 bytes written to examples/modules/react-app-browserify.js (0.10 seconds) at 4:45:09 PM
-1840605 bytes written to examples/modules/react-app-browserify.js (0.25 seconds) at 4:45:15 PM
+$ ./node_modules/.bin/watchify -dv -t babelify \
+  -e examples/modules/react-app.js \
+  -o examples/modules/react-app-browserify.js
+1840601 bytes written to react-app-browserify.js (2.58 seconds) at 4:44:28 PM
+352482 bytes written to react-app-browserify.js (0.10 seconds) at 4:45:09 PM
+1840605 bytes written to react-app-browserify.js (0.25 seconds) at 4:45:15 PM
 ----
 
 _watchify_ utilise un mécanisme dit de *compilation incrémentale* : il ne
@@ -1210,7 +1214,7 @@ autre logiciel (un optimiseur d'images ou la <<node-sass,compilation d'un fichie
 
 Nous allons explorer deux stratégies d'actualisation : le rafraîchissement
 automatique du navigateur et le remplacement de modules à chaud
-(_Hot Module Replacement_, _HMR_).
+(_Hot Module Replacement_, HMR).
 
 _browser-sync_ est un outil formidable de développement pour
 rafraîchir automatiquement une page web si son contenu ou une des ressources
@@ -1255,14 +1259,14 @@ La synchronisation peut être activée avec tous les exemples du chapitre en
 suffixant la commande `npm start` :
 
 ----
-$ nodebook chapter 4
+$ cd $(nodebook dir chapter-09)
 $ npm start -- --with-sync
 ----
 
 [TIP]
 .[RemarquePreTitre]#Documentation# _browser-sync_
 ====
-_browser-sync_ ([URL]#https://browsersync.io/#) est richement documenté et
+_browser-sync_ ([URL]#https://browsersync.io#) est richement documenté et
 illustré, y{nbsp}compris ses intégrations avec les outils Gulp et Grunt.
 ====
 
@@ -1270,7 +1274,7 @@ _browser-sync_ a beau maintenir la position du défilement, il n'en reste pas
 moins que chaque changement remet à zéro l'espace mémoire de la page.
 C'est là qu'entre en jeu le remplacement des modules à chaud.
 
-Le *remplacement des modules à chaud* (_Hot Module Replacement_ ou _HMR_) est
+Le *remplacement des modules à chaud* (_Hot Module Replacement_ ou HMR) est
 une technique basée sur le remplacement de fonctions ou d'objets tout en assurant
 le maintien de leurs variables ou états internes.
 Cette technique a notamment été popularisée par la combinaison de la bibliothèque
@@ -1314,7 +1318,7 @@ La commande `npm run watch` de ce chapitre démarre un serveur web et reconstrui
 en continu le fichier `{sourceDir}/livereload/react-app-hmr.js` :
 
 ----
-$ nodebook chapter 4
+$ cd $(nodebook dir chapter-09)
 $ npm run watch
 ----
 
@@ -1322,7 +1326,7 @@ Qui n'est autre qu'un équivalent de :
 
 [subs="+attributes"]
 ----
-$ watchify -dv \
+$ ./node_modules/.bin/watchify -dv \
   -t babelify \
   -p livereactload \
   -e {sourceDir}/livereload/react-app-hmr.js \
@@ -1715,8 +1719,8 @@ Ces trois bibliothèques disposent d'une documentation en ligne expliquant leurs
 options respectives, ainsi que des exemples d'utilisation.
 
 - _chai_ : [URL]#http://chaijs.com/api/bdd/# ;
-- _mocha_ : [URL]#https://mochajs.org/# ;
-- _karma_ : [URL]#https://karma-runner.github.io/#.
+- _mocha_ : [URL]#https://mochajs.org# ;
+- _karma_ : [URL]#https://karma-runner.github.io#.
 ====
 
 [source%interactive,javascript]
@@ -1840,7 +1844,7 @@ include::{sourceDir}/tests/button-count.js[]
 <2> Simulation du clic sur le composant.
 <3> L'état interne a bien été changé et correspond à la valeur attendue.
 
-Le fichier `package.json` des ressources du <<../chapter-04/index.adoc#,chapitre{nbsp}4>>
+Le fichier `package.json` des ressources de ce chapitre
 contient une tâche exécutant les tests exécutables dans un environnement Node uniquement.
 Elle se lance de la manière suivante :
 
@@ -1929,7 +1933,7 @@ Les navigateurs lancés par défaut lors des tests sont listés dans l'option `b
 include::karma.conf.js[lines=49]
 ----
 
-_karma_ se charge d'inclure les fichiers JavaScript ou de servir des fichiers
+_karma_ se charge d'inclure les fichiers ECMAScript ou de servir des fichiers
 statiques en fonction de motifs de chemins.
 Ces fichiers peuvent être locaux (de préférence) ou distants et même de
 types différents comme JSON ou{nbsp}HTML :
@@ -1975,7 +1979,7 @@ include::karma.conf.js[lines=21..25]
 Nous avons vu un exemple de code reposant sur un élément du DOM dans la section
 "`<<testing-101,Que tester ?>>`".
 Nous allons nous intéresser à une manière possible de tester la fonction
-exportée `getLinkElementContent` en se basant sur un véritable appel HTTP et
+exportée `getLinkElementContent()` en se basant sur un véritable appel HTTP et
 un véritable élément du DOM, créé à partir du fichier de _fixture_ suivant :
 
 [source,html]
@@ -2125,7 +2129,7 @@ l'infrastructure de tests chez des personnes contribuant de manière occasionnel
 Cerise sur le gâteau, on prévient en partie les régressions – changements qui
 cassent le fonctionnement attendu d'une fonctionnalité.
 
-Le service _Travis{nbsp}CI_ ([URL]#https://travis-ci.org#) est un service
+Le service _Travis{nbsp}CI_ ([URL]#https://travis-ci.com#) est un service
 d'intégration continue (_Continuous Integration_, _CI_) parmi d'autres, mais
 qui a été rendu populaire pour son intégration avec GitHub.
 Il est gratuit pour les projets _open source_.
