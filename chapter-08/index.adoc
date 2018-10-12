@@ -338,7 +338,7 @@ L'enjeu des arguments et des options est de les
 que paramètres d'une fonction.
 
 [options="header", cols="1,2,2"]
-.Représentation des arguments et des options dans un outil en ligne de commande, une fonction et une{nbsp}URL.
+.Représentation des arguments et des options dans un outil en ligne de commande, une fonction et une{nbsp}URL
 |===
 | {empty}           | Options                               | Arguments
 | Fonction          | `prog({country: 'FR', 'fast': true})` | `prog('FR', 'fast')`
@@ -449,7 +449,7 @@ include::{sourceDir}/options/types.js[]
 ----
 
 [horizontal]
-.Synthèse des différentes formes d'options.
+.Synthèse des différentes formes d'options
 `--country FR`::
 `-c FR`::
   Un nombre ou une chaîne de caractères.
@@ -558,7 +558,7 @@ Une approche plus économique est d'utiliser les
 Nous y reviendrons <<streaming,plus loin>>.
 
 [horizontal]
-.Synthèse des différentes formes d'arguments.
+.Synthèse des différentes formes d'arguments
 `prog [argument1, …]`::
   L'ordre de placement étant important, les arguments facultatifs doivent
   être placés à droite des arguments obligatoires.
@@ -615,7 +615,7 @@ Nous y reviendrons dans la section "`<<application,Utilisation d'un framework>>`
 Les couleurs vont nous aider à faire ressortir, différencier et distinguer
 des éléments au sein d'une interface monochrome.
 
-.Exemple d'utilisation de couleurs dans un terminal.
+.Exemple d'utilisation de couleurs dans un terminal
 image::images/cli-colors.png[width="60%"]
 
 L'alternance de texte coloré et monochrome a été créée à partir du
@@ -656,7 +656,7 @@ Les huit couleurs principales et les huit couleurs vives s'affichent dans
 à peu près tous les terminaux.
 Cela vaut aussi pour leur utilisation en couleur de{nbsp}fond.
 
-.Affichage des huit couleurs principales et des huit couleurs{nbsp}vives.
+.Affichage des huit couleurs principales et des huit couleurs{nbsp}vives
 image::images/cli-colors-all.png[width="60%"]
 
 [source,javascript]
@@ -889,7 +889,7 @@ Il se trouve que certaines de ces commandes contrôlent aussi la *position du cu
 Ainsi, au lieu d'écrire à la suite, nous pouvons revenir en arrière et même
 effacer le contenu d'une ligne.
 
-.Pendant et après la progression d'un script{nbsp}Node.
+.Pendant et après la progression d'un script{nbsp}Node
 image::images/cli-dots.png[]
 
 Il n'y a pas beaucoup de code à changer dans l'exemple précédent pour y parvenir :
@@ -903,7 +903,7 @@ include::{sourceDir}/progress/dots.js[]
 <2> Cette séquence est ajoutée en début de ligne remonter d'une ligne avant d'écrire la suite des caractères.
 
 [format="csv", separator=";", options="header", cols="1,3"]
-.Liste de commandes ANSI pour déplacer le curseur.
+.Liste de commandes ANSI pour déplacer le curseur
 |===
 Commande;Effet
 `<n>E`; Descend le curseur de ``<n>``{nbsp}lignes.
@@ -933,7 +933,7 @@ et une information de réussite ou non de notre action.
 Nous nous aidons du module{nbsp}``npm`` _ora_ ([URL]#https://npmjs.com/ora#).
 Il est rapide à configurer et propose une palette intéressante d'animations.
 
-.Pendant et après la progression avec le module{nbsp}ora.
+.Pendant et après la progression avec le module{nbsp}ora
 image::images/cli-spinner.png[]
 
 Nous nous retrouvons à enlever encore quelques lignes par rapport aux
@@ -950,7 +950,7 @@ include::{sourceDir}/progress/spinner.js[]
 Nous pouvons aussi tirer parti du fonctionnement du module _ora_ en reproduisant
 l'animation et en personnalisant le symbole de réussite.
 
-.Pendant et{nbsp}après l'indicateur de progression personnalisé avec le module{nbsp}ora.
+.Pendant et{nbsp}après l'indicateur de progression personnalisé avec le module{nbsp}ora
 image::images/cli-spinner-custom.png[]
 
 [source,javascript]
@@ -1372,7 +1372,7 @@ ce qui ne tiendrait pas dans l'option `--help`.
 Je trouve que le `README` est un excellent endroit pour reporter
 l'affichage de la commande `--help`.
 
-.Présentation de la documentation d'un exécutable dans un{nbsp}README.
+.Présentation de la documentation d'un exécutable dans un{nbsp}README
 image::images/documentation-readme.png[]
 
 Je ne pense pas qu'il y ait besoin de faire plus compliqué pour véhiculer
@@ -1857,7 +1857,7 @@ Cette section n'a pas été testée avec les systèmes d'exploitation Windows.
 Les commandes référencées ci-après ne fonctionnent peut-être pas{nbsp}avec.
 ====
 
-.Prérequis pour installer les exécutables de ce chapitre.
+.Prérequis pour installer les exécutables de ce chapitre
 ----
 $ npm install --global $(nodebook dir chapter-08 --root)
 ----

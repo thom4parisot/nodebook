@@ -94,7 +94,7 @@ Les <<../chapter-05/index.adoc#modules,modules `npm`>>
 (<<../chapter-05/index.adoc#,chapitre{nbsp}5>>) sont installés automatiquement dans
 leur version la plus récente.
 
-.Exemple de _notebook_ RunKit dans le navigateur Firefox.
+.Exemple de _notebook_ RunKit dans le navigateur Firefox
 image::images/runkit-notebook.png[width="85%"]
 
 RunKit propose aussi un modèle de <<lambda,fonction éphémère>> dont le
@@ -123,7 +123,7 @@ Le fichier `.env` stocke les
 <<../chapter-04/index.adoc#process.env,variables d'environnement>> de manière
 sécurisée – personne d'autre que nous n'y a accès.
 
-.Exemple d'application Node sur glitch.com.
+.Exemple d'application Node sur glitch.com
 image::images/glitch-app.png[width="85%"]
 
 [TIP]
@@ -167,7 +167,7 @@ servent d'interfaces graphiques pour transférer des fichiers vers une machine d
 Les codes d'accès SSH se trouvent en général dans la section [Menu]#Aide#
 ou [Menu]#Guides# de votre hébergeur.
 
-.Exemple de connexion à un serveur SSH distant avec FileZilla Client sous macOS.
+.Exemple de connexion à un serveur SSH distant avec FileZilla Client sous macOS
 image::images/filezilla-file-transfer.png[width="85%"]
 
 [TIP]
@@ -198,7 +198,7 @@ La plate-forme de <<deploy.notebook,programmation en ligne>> Glitch
 offre une option pour importer n'importe quel projet GitHub – à partir du moment
 où le dépôt est public.
 
-.Bouton d'import d'un dépôt GitHub sur glitch.com.
+.Bouton d'import d'un dépôt GitHub sur glitch.com
 image::images/glitch-github-import.png[width="85%"]
 
 Un clic sur le bouton btn:[Import from GitHub] ouvre une invite de saisie
@@ -219,7 +219,7 @@ pousse l'import GitHub un peu plus loin.
 Sa fonctionnalité _déploie_ l'application à chaque nouveau commit.
 L'application redémarre ensuite automatiquement pour prendre les changements en compte.
 
-.Paramétrage de déploiement automatisé depuis un dépôt GitHub sur heroku.com.
+.Paramétrage de déploiement automatisé depuis un dépôt GitHub sur heroku.com
 image::images/heroku-github-import.png[width="85%"]
 
 Une option nous permet de déployer une nouvelle version de l'application
@@ -320,7 +320,7 @@ On peut faire la même chose dans un navigateur web en nous rendant sur
 La commande `heroku git:remote` associe notre copie locale Git à cette application :
 
 [subs="+quotes"]
-.Configuration de notre dépôt Git pour en faire une application Heroku.
+.Configuration de notre dépôt Git pour en faire une application Heroku
 ----
 $ heroku apps:create --region eu
 Creating app... done, ⬢ ##polar-taiga-61296##, region is eu
@@ -353,7 +353,7 @@ Nous pouvons vérifier si le dépôt est bien configuré à l'aide de la
 commande `git remote` :
 
 [subs="+quotes"]
-.Liste des dépôts distants d'un projet Git configuré pour Heroku.
+.Liste des dépôts distants d'un projet Git configuré pour Heroku
 ----
 $ git remote -v
 ##heroku##	https://git.heroku.com/mon-application.git (fetch)
@@ -406,7 +406,7 @@ Cette technique s'applique si notre application est placée sur un
 L'exemple suivant illustre l'initialisation d'un projet via la connexion
 SSH à un <<hosting.shared,hébergement mutualisé>> chez alwaysdata.
 
-.Première récupération d'un dépôt Git lors d'une session{nbsp}SSH.
+.Première récupération d'un dépôt Git lors d'une session{nbsp}SSH
 ----
 $ ssh moncompte@ssh-moncompte.alwaysdata.net
 $$ git clone https://github.com/moncompte/monprojet .
@@ -422,7 +422,7 @@ distant avec `git pull`.
 le contenu du fichier `package.json` et les modules déjà installés
 (<<../chapter-05/index.adoc#,chapitre{nbsp}5>>).
 
-.Mise à jour d'une application lors d'une session{nbsp}SSH.
+.Mise à jour d'une application lors d'une session{nbsp}SSH
 ----
 $ ssh moncompte@ssh-moncompte.alwaysdata.net
 $$ git pull
@@ -599,7 +599,7 @@ la plate-forme officielle de partage d'images Docker,
 qui dispose d'une fonctionnalité de construction automatique connectée à GitHub.
 Docker{nbsp}Hub construit l'image à chaque nouveau commit, puis la met à disposition.
 
-.Création d'un _build_ automatisé à partir d'un dépôt GitHub.
+.Création d'un _build_ automatisé à partir d'un dépôt GitHub
 image::images/docker-automated-build.png[width="85%"]
 
 Il ne reste alors plus qu'à la collecter sur un ordinateur avec la commande
@@ -768,7 +768,7 @@ D'autres services gèrent l'envoi de courriels,
 l'indexation de contenus, le monitoring, les logs, etc.
 En majorité, ils offrent un petit espace de stockage gratuit pour tester le produit.
 
-.Ensemble de ressources complémentaires à une application Node hébergée sur Heroku.
+.Ensemble de ressources complémentaires à une application Node hébergée sur Heroku
 image::images/heroku-addons.png[width="85%"]
 
 S'il est facile de déployer sur ces infrastructures et de gérer les ressources
@@ -808,7 +808,7 @@ lors de la phase d'inscription.
 Un clic sur le bouton btn:[Modifier] nous aidera à changer ses réglages :
 
 
-.Liste de nos sites configurés chez alwaysdata.
+.Liste de nos sites configurés chez alwaysdata
 image::images/alwaysdata-site-list.png[width="85%"]
 
 Le nouvel écran mentionne les adresses auxquelles le site répond.
@@ -835,7 +835,7 @@ image::images/alwaysdata-site-configuration.png[width="85%"]
 La commande complète devrait apparaître dans la section [Menu]#Processus#
 une fois la configuration sauvegardée.
 
-.Liste des processus liés à nos sites chez alwaysdata.
+.Liste des processus liés à nos sites chez alwaysdata
 image::images/alwaysdata-process-list.png[width="85%"]
 
 En cas de doute, un bouton btn:[Redémarrer] est affiché à côté du bouton
@@ -972,7 +972,7 @@ Ce code est très similaire à ce que nous pourrions écrire lors de l'événeme
 Voyons cela en contexte dans l'interface web du service Webtask
 ([URL]#https://webtask.io/make#) :
 
-.Exemple de fonction événementielle et de son historique d'exécutions avec le service Webtask.
+.Exemple de fonction événementielle et de son historique d'exécutions avec le service Webtask
 image::images/webtask-make.png[width="85%"]
 
 Un nom de Pokémon est affiché lorsque nous accédons à l'URL indiquée en bas
@@ -1419,7 +1419,7 @@ La commande suivante démarre un script et le place aussitôt en tâche de fond 
 $ pm2 start app.js
 ----
 
-.Exemple de démarrage et d'affichage de l'état d'une application Node avec _pm2_.
+.Exemple de démarrage et d'affichage de l'état d'une application Node avec _pm2_
 image::images/pm2-start.png[width="85%"]
 
 Cette même application s'arrête avec la commande `pm2 stop` et
@@ -1698,7 +1698,7 @@ vous abonnant au fil{nbsp}RSS pour être prevenu·e au bon moment.
 - [URL]#https://nodejs.org/en/feed/vulnerability.xml#
 ====
 
-.Exemple d'alerte de sécurité envoyée par courriel.
+.Exemple d'alerte de sécurité envoyée par courriel
 image::images/node-security-bulletin.png[]
 
 [[security.npm]]
@@ -1717,7 +1717,7 @@ projets open source.
 Il scanne les vulnérabilités de nos dépendances et sous-dépendances
 Il nous alerte sur la sévérité des failles décelées dans nos projets.
 
-.Tableau de bord des dépendances vulnérables avec{nbsp}Snyk.
+.Tableau de bord des dépendances vulnérables avec{nbsp}Snyk
 image::images/snyk-dashboard.png[width="85%"]
 
 Ces failles sont classées en trois niveaux : dangereuses, modérées et superficielles.
@@ -1733,7 +1733,7 @@ module{nbsp}``npm`` _restify_ dans sa version{nbsp}4 :
 
 [TIP]
 
-.Affichage d'une vulnérabilité et d'un chemin de résolution avec{nbsp}Snyk.
+.Affichage d'une vulnérabilité et d'un chemin de résolution avec{nbsp}Snyk
 image::images/snyk-vulnerability.png[width="85%"]
 
 La correction du problème implique de passer à la version{nbsp}5.

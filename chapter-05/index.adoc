@@ -237,7 +237,7 @@ Tapez "`mysql`" dans le champ de recherche du registre{nbsp}``npm`` ou saisissez
 directement l'URL menant aux résultats de cette recherche
 ([URL]#https://npmjs.com/search?q=mysql#) :
 
-.Extrait des résultats d'une recherche de modules{nbsp}npm avec le mot-clé "`mysql`".
+.Extrait des résultats d'une recherche de modules{nbsp}npm avec le mot-clé "`mysql`"
 image::images/npm-registry-search.png[]
 
 Les résultats sont triés par pertinence – un mélange entre popularité,
@@ -247,7 +247,7 @@ Je trouve qu'il est difficile de décider uniquement en regardant la liste.
 J'ai tendance à ouvrir un onglet par module pour en lire la documentation.
 Prenons le cas du module _mysql2_ ([URL]#https://npmjs.com/mysql2#) justement :
 
-.Extrait de la page consacrée au module{nbsp}npm{nbsp}mysql2.
+.Extrait de la page consacrée au module{nbsp}npm{nbsp}mysql2
 image::images/npm-package-mysql2.png[]
 
 Plusieurs éléments de cette page tendent à me rassurer
@@ -270,7 +270,7 @@ Cependant, il y a suffisamment d'indicateurs au vert pour l'installer avec
 Le module _mysql-libmysqlclient_ ([URL]#https://npmjs.com/mysql-libmysqlclient#)
 ne me fait pas du tout le même effet :
 
-.Extrait de la page consacrée au module{nbsp}npm{nbsp}mysql-libmysqlclient.
+.Extrait de la page consacrée au module{nbsp}npm{nbsp}mysql-libmysqlclient
 image::images/npm-package-mysql-libmysqlclient.png[]
 
 La page du module ne met pas d'exemple simple à comprendre et fait référence
@@ -288,7 +288,7 @@ Cela confirme mes doutes ; c'est suffisant pour que je passe mon chemin.
 En continuant plus loin dans la liste des résultats de recherche,
 je suis tombé sur le module nommé _falchion_ :
 
-.Extrait de la page consacrée au module{nbsp}npm{nbsp}falchion.
+.Extrait de la page consacrée au module{nbsp}npm{nbsp}falchion
 image::images/npm-package-falchion.png[]
 
 Il n'y a qu'une seule version du module, qui date de quatre années
@@ -1334,7 +1334,7 @@ published 23 hours ago by oncletom
 ----
 
 [horizontal]
-.Sélection de champs que je trouve intéressants.
+.Sélection de champs que je trouve intéressants
 `bin`::
   Indique la présence d'un moins un <<install.global,exécutable>>.
 `dist`::
@@ -1605,26 +1605,27 @@ de votre environnement de production ou d'intégration continue.
 ====
 
 Pour y voir plus clair, voici une petite sélection des éléments
-de configuration que vous seriez peut-être amené à modifier sur votre
+de configuration que vous pourriez être amené à modifier sur votre
 machine de développement ou sur votre configuration de production :
 
 [format="csv",options="header",separator=";", cols="1,1,3"]
+.Sélection d'éléments de configuration de la commande npm
 |===
-Clé;Valeur par défaut;Remarque
-`access`;`restricted`;Passez à `public` pour faire en sorte que les modules faisant partie d'une organisation soient considérés comme publics.
-`audit`;`true`;Passez à `false` pour désactiver l'audit automatique à chaque installation de module (voir <<audit,`npm audit`>>).
-`cache`;`~/.npm`;Modifiez le chemin pour que le cache des modules `npm` soit géré ailleurs.
-`color`;`true`;Passez à `false` pour désactiver l'utilisation des couleurs de{nbsp}``npm``.
-`depth`;`Infinity`;Le nombre utilisé limitera la profondeur d'affichage des commandes `npm ls`, `npm outdated`, etc.
-`git`;`git`;Nom de l'exécutable ou chemin d'accès de l'exécutable `git`.
-`https-proxy`;{empty};Adresse du proxy HTTPS – remplace alors la variable d'environnement `HTTPS_PROXY`.
-`loglevel`;`notice`;Change le taux d'affichage des messages – `silent`, `error`, `warn` diminueront ce taux tandis que `http`, `timing`, `info`, `verbose` ou `silly` augmenteront le niveau de détail.
-`offline`;`false`;Passez à `true` pour que l'installation des modules `npm` se fasse sans transiter par le réseau.
-`progress`;`true`;Passez à `false` pour désactiver l'affichage de la barre de progression.
-`proxy`;`true`;Adresse du proxy HTTP – remplace alors la variable d'environnement `HTTP_PROXY`.
-`registry`;`https://registry.npmjs.org/`;Changez cette valeur par celle de votre registre privé ou auto-hébergé.
-`send-metrics`;`false`;Passez à `true` pour envoyer des statistiques d'utilisation à l'équipe de{nbsp}``npm``.
-`tmp`;`$TMPDIR`;Changez cette valeur pour utiliser un autre répertoire temporaire.
+Clé           ; Valeur par défaut ;Remarque
+`access`      ;`restricted`       ;Passez à `public` pour faire en sorte que les modules faisant partie d'une organisation soient considérés comme publics.
+`audit`       ;`true`             ;Passez à `false` pour désactiver l'audit automatique à chaque installation de module (voir <<audit,`npm audit`>>).
+`cache`       ;`~/.npm`           ;Modifiez le chemin pour que le cache des modules `npm` soit géré ailleurs.
+`color`       ;`true`             ;Passez à `false` pour désactiver l'utilisation des couleurs de{nbsp}``npm``.
+`depth`       ;`Infinity`         ;Le nombre utilisé limitera la profondeur d'affichage des commandes `npm ls`, `npm outdated`, etc.
+`git`         ;`git`              ;Nom de l'exécutable ou chemin d'accès de l'exécutable `git`.
+`https-proxy` ;{empty}            ;Adresse du proxy HTTPS – remplace alors la variable d'environnement `HTTPS_PROXY`.
+`loglevel`    ;`notice`           ;Change le taux d'affichage des messages – `silent`, `error`, `warn` diminueront ce taux tandis que `http`, `timing`, `info`, `verbose` ou `silly` augmenteront le niveau de détail.
+`offline`     ;`false`            ;Passez à `true` pour que l'installation des modules `npm` se fasse sans transiter par le réseau.
+`progress`    ;`true`             ;Passez à `false` pour désactiver l'affichage de la barre de progression.
+`proxy`       ;`true`             ;Adresse du proxy HTTP – remplace alors la variable d'environnement `HTTP_PROXY`.
+`registry`    ;`https://registry.npmjs.org/`;Changez cette valeur par celle de votre registre privé ou auto-hébergé.
+`send-metrics`;`false`            ;Passez à `true` pour envoyer des statistiques d'utilisation à l'équipe de{nbsp}``npm``.
+`tmp`         ;`$TMPDIR`          ;Changez cette valeur pour utiliser un autre répertoire temporaire.
 |===
 
 [NOTE]
@@ -1702,7 +1703,7 @@ demandera alors de vous identifier – le module sera ensuite publié en votre n
 
 Idéalement, je recommande de ne pas publier de module à la main mais de
 *préférer l'utilisation d'un service d'intégration continue* comme
-_Travis{nbsp}CI_ ([URL]#https://travisci.com#).
+_Travis{nbsp}CI_ ([URL]#https://travis-ci.com#).
 La configuration d'un tel service permet de publier <<version,une nouvelle version>>
 seulement si les tests passent au{nbsp}vert.
 
@@ -1797,7 +1798,7 @@ détecte qu'une version plus récente est disponible.
 ----
 ╭─────────────────────────────────────╮
 │                                     │
-│   Update available 6.0.0 → {npmvX}   │
+│   Update available 6.0.0 → {npmvX}  │
 │     Run npm i -g npm to update      │
 │                                     │
 ╰─────────────────────────────────────╯
@@ -1877,7 +1878,7 @@ ce fichier et accélérer le processus d'installation.
 .Inconvénients
 ====
 - Nous devons vérifier manuellement s'il y a des _patchs_ avec `npm outdated` et `npm update`.
-- C'est une chose de plus à apprendre même si on n'a pas l'impression de l'utiliser.
+- C'est une chose de plus à apprendre même si on n'a pas l'intention de l'utiliser.
 ====
 
 [[bower]]
@@ -1893,7 +1894,7 @@ Node et aux navigateurs web tend à se confondre.
 
 En apprenant ECMAScript, Node et `npm`, nous gagnons non seulement un outillage
 disponible immédiatement, mais aussi la capacité à créer le nôtre.
-Pour en savoir plus sur comment développer pour le front-end comme on développe
+Pour en savoir plus sur comment développer pour le _front-end_ comme on développe
 pour Node, je vous invite à lire le <<../chapter-09/index.adoc#,chapitre{nbsp}9>>.
 
 [NOTE]
@@ -1940,13 +1941,13 @@ Ce fichier texte se situe en général à la racine de votre projet.
 [[yarn]]
 === Il paraît que Yarn, c'est mieux
 
-L'application _yarn_ ([URL]#https://yarnpkg.com#) veut être une alternative
+L'application _Yarn_ ([URL]#https://yarnpkg.com#) veut être une alternative
 à l'exécutable{nbsp}``npm``.
 Le programme vise une installation rapide, hors-ligne et sécurisée.
 
-npm rattrape régulièrement les fonctionnalités qui "`donnent de l'avance`" à _yarn_.
+npm rattrape régulièrement les fonctionnalités qui "`donnent de l'avance`" à _Yarn_.
 Le choix tient donc plutôt du goût ou de l'idéologie.
-Essayez donc _yarn_ et gardez-le pour les bonnes raisons – les vôtres.
+Essayez donc _Yarn_ et gardez-le pour les bonnes raisons – les vôtres.
 
 [NOTE]
 .Avantages
@@ -1957,7 +1958,7 @@ Essayez donc _yarn_ et gardez-le pour les bonnes raisons – les vôtres.
 [NOTE]
 .Inconvénients
 ====
-- Il faudra quand même savoir comment fonctionne npm pour les projets qui n'utilisent pas{nbsp}__yarn__.
+- Il faudra quand même savoir comment fonctionne npm pour les projets qui n'utilisent pas{nbsp}__Yarn__.
 ====
 
 [[all-your-base-are-belong-to-us]]
@@ -1987,7 +1988,7 @@ garde un historique du poids des modules `npm`.
 Celui de _webpack_ se trouve sur
 [URL]#https://packagephobia.now.sh/result?p=webpack#.
 
-.Coût d'installation du module{nbsp}npm{nbsp}webpack (en foncé) et de ses dépendances (en clair).
+.Coût d'installation du module{nbsp}npm{nbsp}webpack (en foncé) et de ses dépendances (en clair)
 image::images/module-content.png[]
 
 
@@ -2043,7 +2044,7 @@ Un module déprécié ne nous regarde pas sauf s'il est listé dans le champ
 `dependencies` ou `devDependencies` d'un fichier `package.json`.
 
 [subs="-specialchars,+quotes"]
-.Exemple d'encouragements à utiliser un autre module.
+.Exemple d'encouragements à utiliser un autre module
 ----
 npm WARN deprecated babel-preset-es2017@6.24.1:
   Thanks for using Babel: ##we recommend using babel-preset-env##
@@ -2055,7 +2056,7 @@ npm WARN deprecated babel-preset-babili@0.0.10: babili has
 ----
 
 [subs="-specialchars,+quotes"]
-.Exemple de module qui n'est plus maintenu.
+.Exemple de module qui n'est plus maintenu
 ----
 npm WARN deprecated nomnom@1.6.2: ##Package no longer supported##.
   Contact support@npmjs.com for more info.

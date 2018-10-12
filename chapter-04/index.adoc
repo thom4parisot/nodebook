@@ -67,7 +67,7 @@ Cela peut rendre l'accès au terminal plus facile.
 Ce chapitre se base sur le principe que vous avez un terminal installé,
 sur lequel vous allez saisir des instructions ECMAScript.
 
-.Exemple de _terminal_ sous macOS.
+.Exemple de _terminal_ sous macOS
 image::images/terminal.png[width="85%"]
 
 include::../docs/tip-examples.adoc[]
@@ -311,7 +311,7 @@ fonctions existants.
 La documentation officielle de Node reflète ces changements et
 affiche un indice de stabilité pour savoir à quoi s'en{nbsp}tenir.
 
-.Documentation du module `fs` et son indice de stabilité.
+.Documentation du module `fs` et son indice de stabilité
 image::images/api-fs.png[width="85%"]
 
 Exceptionnellement, un module de base (ou une de ses fonctions) peut être supprimé.
@@ -320,7 +320,7 @@ le code reste en place et sera supprimé dans une version ultérieure.
 En général, c'est une question de mois voire d'années.
 On verra plus loin comment <<deprecation,afficher les alertes de dépréciation>>.
 
-.Documentation de la fonction `fs.exists`, affichée comme dépréciée depuis Node{nbsp}v1.
+.Documentation de la fonction `fs.exists`, affichée comme dépréciée depuis Node{nbsp}v1
 image::images/api-deprecation-fs-exists.png[width="85%"]
 
 [NOTE]
@@ -426,7 +426,7 @@ C'est un onglet de la boîte à outils de développement.
 On peut y lire des messages placés dans le code JavaScript de la page web.
 On l'utilise aussi pour inspecter la page et interagir avec du{nbsp}code.
 
-.Console web dans le navigateur web Firefox.
+.Console web dans le navigateur web Firefox
 image::images/web-console.png[]
 
 ====
@@ -1355,7 +1355,7 @@ de temps pour aboutir.
 Dirigeons notre navigateur vers `http://localhost:4000` pour observer
 le résultat.
 
-.Rendu navigateur de l'exemple `http/web-server.js`.
+.Rendu navigateur de l'exemple `http/web-server.js`
 image::images/web-server.png[width="65%"]
 
 La balise HTML{nbsp}``<h1>`` a bien été prise en compte, mais le
@@ -1393,7 +1393,7 @@ include::{sourceDir}/http/web-server-ok.js[]
 Cette indication suffit au navigateur pour décoder les caractères
 et les afficher comme on l'espérait.
 
-.Rendu navigateur de l'exemple `http/web-server-ok.js`.
+.Rendu navigateur de l'exemple `http/web-server-ok.js`
 image::images/web-server-ok.png[width="65%"]
 
 L'étape suivante consisterait à transmettre deux contenus différents selon
@@ -1411,7 +1411,7 @@ Si tout se passe bien, le chargement de la page HTML devrait déclencher
 une requête vers `http://localhost:4000/main.css`.
 La confirmation est visuelle en visitant notre serveur avec un navigateur{nbsp}web :
 
-.Rendu navigateur de l'exemple `http/web-server-routes.js`.
+.Rendu navigateur de l'exemple `http/web-server-routes.js`
 image::images/web-server-routes.png[width="65%"]
 
 On est en situation de contrôle : on décide de ce qu'on répond.
@@ -3431,13 +3431,13 @@ et met aussitôt son exécution en pause.
 
 Le logo de Node s'affiche dans les outils de développement de Chrome :
 
-.Outils de développement _Google Chrome_ avec l'icône de l'inspecteur{nbsp}Node.
+.Outils de développement _Google Chrome_ avec l'icône de l'inspecteur{nbsp}Node
 image::images/chrome-devtools.png[width="85%"]
 
 Un clic sur le logo Node ouvre une nouvelle fenêtre, outillée pour inspecter
 ce qui se passe dans notre script.
 
-.Inspecteur en pause sur la première ligne de notre script{nbsp}Node.
+.Inspecteur en pause sur la première ligne de notre script{nbsp}Node
 image::images/inspector-paused.png[width="85%"]
 
 
@@ -3453,7 +3453,7 @@ La valeur des variables ECMAScript courantes s'affichent au survol de la souris
 ou en interagissant avec la console.
 ====
 
-.Inspecteur en pause, avec un point d'arrêt marqué sur une des lignes du{nbsp}script.
+.Inspecteur en pause, avec un point d'arrêt marqué sur une des lignes du{nbsp}script
 image::images/inspector-breakpoint.png[width="85%"]
 
 C'est le moment idéal pour placer un ou plusieurs point(s) d'arrêt.
@@ -3462,7 +3462,7 @@ Un clic sur le bouton{nbsp}btn:[&#9654;] met alors fin à la pause.
 Le script s'exécutera jusqu'à l'épuisement des instructions
 ou jusqu'au _prochain point d'arrêt_.
 
-.Inspecteur en pause, suite à la rencontre d'un point d'arrêt.
+.Inspecteur en pause, suite à la rencontre d'un point d'arrêt
 image::images/inspector-breakpoint-in.png[width="85%"]
 
 L'option `--inspect` est adaptée à des processus de longue durée,

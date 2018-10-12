@@ -89,7 +89,7 @@ Il est souvent installé par défaut sur les distributions Linux, sur macOS et
 
 Utilisons _curl_ pour observer le contenu d'une requête et de sa réponse.
 
-.Exemple de requête HTTP vers le site [URL]#perdu.com#.
+.Exemple de requête HTTP vers le site [URL]#perdu.com#
 ----
 $ curl -v http://perdu.com  # <1>
 GET / HTTP/1.1              # <2>
@@ -108,7 +108,7 @@ celui-ci les comprend.
 
 Voyons maintenant la réponse :
 
-.Exemple de réponse HTTP transmise en retour.
+.Exemple de réponse HTTP transmise en retour
 ----
 HTTP/1.1 200 OK                                       # <1>
 Date: Thu, 28 Jun 2018 19:02:27 GMT                   # <2>
@@ -257,7 +257,7 @@ ne pas considérer le contenu comme celui qui était demandé. +
 Par défaut et sauf mention contraire, le statut est{nbsp}``200``.
 
 [options="header", cols="1,2,4"]
-.Principaux codes HTTP et leur signification.
+.Principaux codes HTTP et leur signification
 |===
 | Code  | Raison                  | Explication
 | `200` | `OK`                    | La ressource demandée est retournée en réponse.
@@ -276,7 +276,7 @@ Si une page d'erreur est affichée avec un statut{nbsp}``200``, le client sera d
 l'impossibilité de deviner qu'il ne s'agit pas du contenu attendu.
 
 [options="header", cols="1,1,4"]
-.D'autres codes HTTP utiles à connaître.
+.D'autres codes HTTP utiles à connaître
 |===
 | Code  | Raison                | Explication
 | `201` | `Created`             | La ressource demandée a été créée.
@@ -392,7 +392,7 @@ sans avoir à télécharger le contenu – ce sont autant de kilo ou méga-octet
 d'économisés.
 
 [options="header", cols="1,4"]
-.Principaux verbes HTTP et leur utilisation.
+.Principaux verbes HTTP et leur utilisation
 |===
 | Verbe     | Description
 | `GET`     | Récupération d'une ressource.
@@ -533,7 +533,7 @@ Ils aident le client à interpréter ou représenter le contenu de manière opti
 téléchargement du navigateur web) et à distinguer l'ancienneté du fichier.
 
 [options="header", cols="1,3"]
-.En-têtes de réponse utiles pour transmettre des fichiers.
+.En-têtes de réponse utiles pour transmettre des fichiers
 |===
 | En-tête               | Utilité
 | `Content-Type`        | Explicite la nature du contenu mis à disposition.
@@ -624,7 +624,7 @@ Les deux URL [URL]#{serverUrl}/date?format=svg# et [URL]#{serverUrl}/date# font
 référence à une même ressource, mais l'affichage s'adapte au contexte.
 
 [options="header"]
-.Exemples d'arguments et de leur représentation en structure ECMAScript.
+.Exemples d'arguments et de leur représentation en structure ECMAScript
 |===
 | Argument            | Représentation
 | `?cle=valeur`        | `{cle: "valeur"}`
@@ -672,7 +672,7 @@ $ curl -XPOST -d 'fromage=cabécou' -d 'remember_me=1' \
 
 C'est vraiment l'équivalent d'un classique formulaire{nbsp}HTML.
 
-.Représentation d'un formulaire HTML qui envoie les mêmes informations que la commande `curl` précédente.
+.Représentation d'un formulaire HTML qui envoie les mêmes informations que la commande `curl` précédente
 image::images/send-data.png[]
 
 [source,html]
@@ -707,7 +707,7 @@ Nous retrouvons l'en-tête `Content-Type` dans l'affichage du script `post/serve
 Le contenu du message envoyé ressemble beaucoup à des arguments d'URL
 encodés avec <<encode-uri,encodeURIComponent>>.
 
-.Extrait d'affichage d'un message reçu par `post/server.js`.
+.Extrait d'affichage d'un message reçu par `post/server.js`
 ----
 application/x-www-form-urlencoded
 fromage=cab%C3%A9cou&remember_me=1
@@ -744,6 +744,10 @@ Le fichier `post/send.js` se simplifie si on utilise le module{nbsp}``npm`` _sup
 ([URL]#https://npmjs.com/superagent#).
 Je le trouve simple d'utilisation et il fonctionne avec des promesses,
 des formulaires et les <<upload,téléversements de fichiers>>.
+
+----
+$ node post/send-data.js
+----
 
 [source,javascript]
 .post/send-data.js
@@ -833,7 +837,7 @@ $ curl -XPOST -F 'hello=##@upload/hello.txt##' \
 
 Cette commande est équivalente à l'envoi du formulaire HTML suivant :
 
-.Représentation d'un formulaire HTML qui téléverse un fichier.
+.Représentation d'un formulaire HTML qui téléverse un fichier
 image::images/send-file.png[]
 
 [source,html]
@@ -963,7 +967,7 @@ include::{sourceDir}/cookies/set-cookie.js[]
 Nous pouvons observer la création du cookie en nous rendant sur [URL]#{serverUrl}#
 avec un navigateur, puis en ouvrant les outils de développement.
 
-.Visualisation des cookies avec les outils de développement du navigateur Firefox.
+.Visualisation des cookies avec les outils de développement du navigateur Firefox
 image::images/cookies-browser.png[]
 
 Les cookies sont transmis du client au serveur *à chaque requête*.
@@ -1034,7 +1038,7 @@ tandis que [URL]#{serverUrl}/admin# affiche un cookie supplémentaire –
 `{"is_admin":"1","compteur":"1","language":"fr"}`.
 
 [options="header", cols="1,4a"]
-.Directives complémentaires à la valeur d'un cookie.
+.Directives complémentaires à la valeur d'un cookie
 |===
 | Directive | Explication
 | `Max-Age` | Durée de vie du cookie en secondes. +
@@ -1073,7 +1077,7 @@ Dans la suite de cette section, nous allons créer une présentation à partir
 d'une liste de modules{nbsp}``npm`` contenue dans un fichier{nbsp}JSON.
 L'image suivante illustre très bien ce que nous cherchons à atteindre.
 
-.Exemple de présentation qui met en scène des données dynamiques et des composants{nbsp}HTML.
+.Exemple de présentation qui met en scène des données dynamiques et des composants{nbsp}HTML
 image::images/template.png[width="70%"]
 
 [source,javascript]
@@ -1116,7 +1120,7 @@ Nous retrouvons ces principes de fonctionnement dans d'autres langages, à quelq
 variations{nbsp}près.
 
 [horizontal]
-.Fonctionnement des expressions nunjucks.
+.Fonctionnement des expressions nunjucks
 `{%{nbsp}...{nbsp}%}`::
   Expression _nunjucks_ qui marque le début ou la fin d'un bloc.
   Ce dernier contient une expression dont le contenu est affiché, inclus ou répété
@@ -1154,7 +1158,7 @@ votre application{nbsp}Node.
 ====
 
 [options="header", cols="1,2,4a", id="templating-engines"]
-.Sélection de moteurs de gabarits et dans quelle situation j'aurais une préférence à les utiliser.
+.Sélection de moteurs de gabarits et dans quelle situation j'aurais une préférence à les utiliser
 |===
 | Module      | Adresse                             | Pourquoi l'utiliser ?
 | ejs         | [URL]#https://npmjs.com/ejs#        | Pour écrire ses gabarits avec ECMAScript.
@@ -1339,7 +1343,7 @@ de requête et de réponse HTTP.
 *Les _middlewares_ relient tous les concepts* évoqués dans la section
 "`<<webapp,Composer son application{nbsp}web>>`".
 
-.Extraits des en-têtes d'une réponse HTTP une fois le module helmet configuré.
+.Extraits des en-têtes d'une réponse HTTP une fois le module helmet configuré
 ----
 $ curl --head http://localhost:4000
 HTTP/1.1 200 OK
@@ -1448,7 +1452,7 @@ moteur de gabarits favori.
 [[frontend]]
 === Intégrer les ressources front-end (CSS, images, JavaScript)
 
-La gestion des ressources front-end ne demande pas à changer nos habitudes.
+La gestion des ressources _front-end_ ne demande pas à changer nos habitudes.
 Les fichiers CSS, JavaScript et les images sont des fichiers statiques
 à mettre à disposition via un <<middleware,_middleware_>>.
 
@@ -1639,7 +1643,7 @@ Le _middleware_ de session retrouve les informations associées à cet identifia
 depuis l'espace de stockage des données de sessions.
 
 [subs="+quotes"]
-.Extrait des en-têtes de réponse à l'origine de la création du cookie de session.
+.Extrait des en-têtes de réponse à l'origine de la création du cookie de session
 ----
 $ curl -i -L http://localhost:4000
 HTTP/1.1 302 Found
@@ -1719,7 +1723,7 @@ Les modules{nbsp}``npm`` pour consigner nos actions fonctionnent comme des
 _morgan_ ([URL]#https://npmjs.com/morgan#) et _bunyan_ ([URL]#https://npmjs.com/bunyan#)
 sont à essayer, pour voir celui qui vous convient le mieux.
 
-.Extrait de logs retournés par une application hébergée chez Heroku.
+.Extrait de logs retournés par une application hébergée chez Heroku
 image::images/heroku-logs.png[]
 
 Les journaux de sortie se connectent à des logiciels comme _rsyslog_
@@ -2142,7 +2146,7 @@ La suite de tests ne cherche pas à savoir comment nous testons notre code.
 Son objectif est de capturer les messages d'erreur des assertions qui échouent
 et de nous les communiquer en contexte.
 
-.Exemple d'une suite de tests mocha qui se termine avec succès.
+.Exemple d'une suite de tests mocha qui se termine avec succès
 image::images/tests-ok.png[width="66%"]
 
 
@@ -2165,7 +2169,7 @@ Qu'on adopte ou non cette méthode, nous gagnons en qualité en faisant échouer
 les tests, juste pour nous assurer que ce n'est pas un bogue (oui ça arrive)
 quand ils indiquent que tout est correct.
 
-.Exemple d'une suite de tests mocha dont un test échoue.
+.Exemple d'une suite de tests mocha dont un test échoue
 image::images/tests-ko.png[width="80%"]
 
 Maintenant que nos tests sont écrits, nous sommes en mesure de
@@ -2270,7 +2274,7 @@ Le navigateur demande les ressources listées dans les différentes balises
 (`img`, `video`, `audio`) ; l'indicateur de chargement
 s'arrête quand toutes les ressources ont été demandées et téléchargées.
 
-.Cascade de requêtes HTTP suite à l'interprétation d'un document HTML par un navigateur.
+.Cascade de requêtes HTTP suite à l'interprétation d'un document HTML par un navigateur
 image::images/http-waterfall.png[]
 
 Le nombre de requêtes et la taille des ressources affectent donc la vitesse de
@@ -2296,7 +2300,7 @@ Nous comprenons ainsi mieux des temps qui sont rendus invisibles et sur lesquels
 pouvons faire des efforts – réduire les temps de transfert ou le temps de réponse
 de notre application par exemple.
 
-.En-têtes de réponse et durée des différentes étapes de l'exécution d'une requête{nbsp}HTTP.
+.En-têtes de réponse et durée des différentes étapes de l'exécution d'une requête{nbsp}HTTP
 image::images/httpstat.png[]
 
 
@@ -2425,7 +2429,7 @@ d'un répertoire racine – ici, `base_dir` – est de vérifier que le chemin 
 débute bien par le chemin du répertoire racine.
 
 [options="header", cols="2, 4a"]
-.En-têtes de réponse qui ont un impact sur la sécurité de navigation.
+.En-têtes de réponse qui ont un impact sur la sécurité de navigation
 |===
 | En-tête                     | Description
 | `X-DNS-Prefetch-Control`    | Avec la valeur `off`, le navigateur ne va pas proactivement chercher les informations DNS des ressources contenues dans la page. Nos informations de navigation ne sont pas divulguées à notre{nbsp}insu.
