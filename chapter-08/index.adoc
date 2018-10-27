@@ -21,7 +21,7 @@ système d'exploitation.
 - Créer un script exécutable.
 - Du script au programme interactif.
 - Vers un code réutilisable et testable.
-- Utilisation d’un framework d’application en ligne de commande.
+- Utilisation d’un framework d’application en ligne de commandes.
 - Gérer les chemins d'accès et les flux de données.
 - Rendre le programme indépendant de{nbsp}Node.
 ====
@@ -327,7 +327,7 @@ Ce tableau est un peu "`léger`" car il se contente de retourner les arguments,
 sans compréhension de la logique recherchée.
 C'est à nous de dire que{nbsp}``FR`` est une valeur associée à `--country`.
 
-Dans le contexte des outils en ligne de commande,
+Dans le contexte des outils en ligne de commandes,
 les arguments et les options sont des paramètres qui sont interprétées
 par le programme pour contextualiser son action.
 Ils fonctionnent un peu comme des arguments de
@@ -338,7 +338,7 @@ L'enjeu des arguments et des options est de les
 que paramètres d'une fonction.
 
 [options="header", cols="1,2,2"]
-.Représentation des arguments et des options dans un outil en ligne de commande, une fonction et une{nbsp}URL
+.Représentation des arguments et des options dans un outil en ligne de commandes, une fonction et une{nbsp}URL
 |===
 | {empty}           | Options                               | Arguments
 | Fonction          | `prog({country: 'FR', 'fast': true})` | `prog('FR', 'fast')`
@@ -1093,7 +1093,7 @@ compliqué à maintenir car il est difficile de tester tous les cas
 de figure à la main.
 
 Un programme exécutable robuste est un script qui contient le moins possible de code
-spécifique à la gestion de la ligne de commande.
+spécifique à la gestion de la ligne de commandes.
 Pour ce faire, nous allons séparer la logique d'exécution en la plaçant dans une
 fonction, dans un autre module.
 
@@ -1265,7 +1265,7 @@ Nous avons à nouveau recours au module _tape_.
 Cette fois-ci, nous l'accompagnons d'un autre module,
 _tape-spawn_ ([URL]#https://npmjs.com/tape-spawn#).
 Ce dernier intègre à _tape_ le test de processus externes.
-En l'occurrence ici, cela concerne nos exécutables en ligne de commande.
+En l'occurrence ici, cela concerne nos exécutables en ligne de commandes.
 
 [source,javascript]
 .testing/02/cli.test.js
@@ -1518,7 +1518,7 @@ pour en savoir plus.
 ====
 
 Cette pratique renforce une approche applicative modulaire.
-L'*interface absorbe* les spécificités de la ligne de commande.
+L'*interface absorbe* les spécificités de la ligne de commandes.
 L'*application réagit aux paramètres* sans avoir à se préoccuper du contexte,
 que ce soit sur le Web ou dans un terminal.
 
