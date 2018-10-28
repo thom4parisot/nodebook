@@ -2,9 +2,7 @@ dist: trusty
 sudo: false
 
 language: node_js
-cache:
-  directories:
-  - $HOME/.npm
+cache: npm
 
 addons:
   apt:
