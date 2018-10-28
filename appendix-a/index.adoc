@@ -237,8 +237,8 @@ de configuration ou des fichiers _front-end_ pendant le développement.
 === tiny-lr
 
 _tiny-lr_ ([URL]#https://npmjs.com/tiny-lr#) est une implémentation minimale
-du protocole _livereload_ ([URL]#http://livereload.com/#).
-Il s'intègre à un serveur HTTP ou à une application _express_ pour relayer
+du protocole _livereload_ ([URL]#http://livereload.com#).
+Il s'intègre à un serveur HTTP ou à une application _Express_ pour relayer
 la liste des fichiers modifiés côté client.
 
 Le script ou l'extension navigateur client remplace les anciens fichiers
@@ -247,12 +247,12 @@ par les nouveaux pour refléter les changements sans recharger la{nbsp}page.
 === livereactload
 
 _livereactload_ ([URL]#https://npmjs.com/livereactload#) recherche les composants
-<<react,React>> à chaud, c'est-à-dire sans rafraîchir la page ni perdre l'état des données.
+<<react,_React_>> à chaud, c'est-à-dire sans rafraîchir la page ni perdre l'état des données.
 C'est un module indispensable pour développer des applications _front-end_ réactives.
 
 [NOTE]
 ====
-Rendez-vous dans la section "`<<../chapter-09/index.adoc#livereload,Changements en temps{nbsp}réel>>`"
+Rendez-vous dans la section "`<<../chapter-09/index.adoc#livereload,Changements en temps{nbsp}réel dans le navigateur>>`"
 du <<../chapter-09/index.adoc#,chapitre{nbsp}9>> pour en savoir plus sur son
 installation et son intégration.
 ====
@@ -279,7 +279,7 @@ include::{sourceDir}/sanitize-filename.js[]
 === helmet
 
 _helmet_ ([URL]#https://npmjs.com/helmet#) est un module à intégrer systématiquement
-dans toute application _express_.
+dans toute application _Express_.
 Il ajoute des en-têtes HTTP _Content-Security Policy_, _Strict Transport Policy_
 et d'autres qui empêchent le détournement d'informations.
 
@@ -500,7 +500,7 @@ _UglifyJS_ s'utilise en ligne de commande ou comme un module{nbsp}Node.
 
 _PostCSS_ ([URL]#https://npmjs.com/postcss#) est une optimiseur CSS modulaire.
 Cet outil est construit autour d'un parseur CSS, d'un arbre syntaxique
-et d'un compilateur texte.
+et d'un compilateur de texte.
 C'est la même recette qui a participé au succès et à la richesse fonctionnelle
 d'outils comme <<uglify-js2,UglifyJS>> et <<eslint,ESLint>>.
 
@@ -606,7 +606,7 @@ qui encouragent une écriture modulaire, plus logique et plus succincte.
 include::{sourceDir}/stylesheet.less[]
 ----
 
-L'exécutable `lessc` compile le fichier _Less_:
+L'exécutable `lessc` compile le fichier _less_:
 
 ----
 $ ../node_modules/.bin/lessc stylesheet.less
@@ -614,9 +614,9 @@ $ ../node_modules/.bin/lessc stylesheet.less
 
 === sass
 
-_Sass_ ([URL]#https://npmjs.com/node-sass#) est un autre préprocesseur CSS.
+_sass_ ([URL]#https://npmjs.com/node-sass#) est un autre préprocesseur CSS.
 Il est issu du monde Ruby et est désormais tout aussi puissant dans Node
-grâce à _libsass_, un module rapide et portable écrit en{nbsp}{cpp}.
+grâce à _LibSass_, un module rapide et portable écrit en{nbsp}{cpp}.
 
 === browserify
 
@@ -759,7 +759,7 @@ include::{sourceDir}/knex.js[]
 
 _bookshelf_ ([URL]#https://npmjs.com/bookshelf#) est une surcouche à <<knex,_Knex_>>,
 écrite par les mêmes personnes.
-Elle modélise les données sous formes d'objets et de schémas (ORM) pour
+Elle modélise les données sous forme d'objets et de schémas (ORM) pour
 automatiser des actions et ajouter plus d'"`intelligence`" à notre modèle de données.
 
 === sequelize
@@ -867,7 +867,7 @@ dans le <<../chapter-07/index.adoc,chapitre{nbsp}7>>.
 === fastify
 
 _fastify_ ([URL]#https://npmjs.com/fastify#) est un framework
-inspiré de _express_.
+inspiré de _Express_.
 Il se focalise sur la simplicité de l'expérience de développement et sur
 de hautes performances.
 Il sait valider les données sortantes à l'aide de schémas.
@@ -879,7 +879,7 @@ Vous avez ainsi accès à l'utilisation de <<templating,modules de templating>>.
 === passport
 
 _passport_ ([URL]#https://npmjs.com/passport#) est une bibliothèque modulaire
-d'authentification pour _express_.
+d'authentification pour _Express_.
 Elle se branche à différents mécanismes pour vérifier les utilisateurs :
 utilisateur et mot de passe, compte GitHub, Twitter, OAuth, etc.
 
@@ -1014,7 +1014,7 @@ include::{sourceDir}/template.ejs[]
 
 === react
 
-_react_ ([URL]#https://npmjs.com/react#) est une bibliothèque de présentation
+_React_ ([URL]#https://npmjs.com/react#) est une bibliothèque de présentation
 dite "`réactive`" et orientée composants.
 Elle génère un arbre visuel à partir de données passées en entrée.
 Cet arbre est ensuite transformé en HTML, en interface iOS ou Android, entre autres.
@@ -1120,7 +1120,7 @@ _karma_ ([URL]#https://npmjs.com/karma#) pilote l'exécution de tests
 depuis un ou plusieur(s) navigateurs web.
 Ces derniers (Chrome, Safari, Firefox, etc.) se pilotent sur notre ordinateur,
 depuis une machine virtuelle (VirtualBox) ou même par le biais d'un service
-en ligne (SauceLabs, BrowserStack, etc.).
+en ligne (_SauceLabs_, _BrowserStack_, etc.).
 
 .Exemple d'exécution de tests en continu avec{nbsp}Karma
 image::images/karma.png[width="85%"]
@@ -1132,7 +1132,7 @@ Le module envoie des requêtes et nos assertions vérifient qu'elles retournent
 bien ce qui est attendu – code HTTP, structure de réponse etc.
 
 Je trouve ce module pratique pour tester des choses qui seraient difficiles
-à couvrir seulement avec des tests unitaires.
+à couvrir uniquement avec des tests unitaires.
 
 [[internet-of-things]]
 == Objets connectés
