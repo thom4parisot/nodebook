@@ -13,8 +13,8 @@ endif::[]
 
 = Créer une application{nbsp}web
 
-Nous allons apprendre à composer et à tester une application web créée de toute
-pièce ou avec l'aide du framework Express.
+Nous allons apprendre à composer et à tester une application web créée de toutes
+pièces ou avec l'aide du framework Express.
 
 ====
 .Sommaire
@@ -34,9 +34,9 @@ créant une application web module par module, fonctionnalité par fonctionnalit
 
 Dans un second temps, nous organiserons notre code avec le framework Express.
 Nous verrons en quoi notre application gagne en clarté, comment générer du HTML
-dynamiquement avec des informations issues d'une base de données.
+de façon dynamique avec des informations issues d'une base de données.
 
-Nous consoliderons notre savoir en organisation notre code de sorte à le
+Nous consoliderons notre savoir en organisant notre code de sorte à le
 rendre plus résilient et testable – chose que nous apprendrons à faire pas à pas.
 --
 
@@ -165,7 +165,7 @@ include::{sourceDir}/server/start.js[]
 <3> Affiche les en-têtes de la réponse – en l'occurrence `{ 'content-type': 'text/html' }`.
 
 Nous avons composé les fondations minimales pour créer une application web
-en mesure d'accepter des requêtes et de répondre, quelque chose
+en mesure d'accepter des requêtes et de répondre quelque chose
 d'arbitraire certes mais compréhensible par un navigateur web.
 
 *Pourquoi avoir démarré le serveur sur le port{nbsp}4000* dans l'exemple précédent ?
@@ -286,7 +286,7 @@ l'impossibilité de deviner qu'il ne s'agit pas du contenu attendu.
 | `503` | `Service Unavailable` | Le serveur distant répond qu'il n'est pas disponible pour l'instant.
 |===
 
-Une application web devient vite compliquée à se gérer si nous devons lister
+Une application web devient vite compliquée à gérer si nous devons lister
 tous les chemins possibles.
 C'est à ce moment qu'entre en jeu le _routing_, une technique pour décrire
 des chemins d'accès au lieu de s'embourber dans une longue liste de `if/else`.
@@ -388,8 +388,8 @@ Connection: keep-alive
 L'utilisation de `HEAD` renvoie uniquement les en-têtes de réponse et nous
 économise la <<templating,génération d'un gabarit>>.
 D'un point de vue client, le verbe `HEAD` aide à inspecter des ressources
-sans avoir à télécharger le contenu – ce sont autant de kilo ou méga-octets
-d'économisés.
+sans avoir à télécharger le contenu – ce sont autant de kilo ou mégaoctets
+économisés.
 
 [options="header", cols="1,4"]
 .Principaux verbes HTTP et leur utilisation
@@ -411,8 +411,8 @@ C'est donc à nous de leur associer une action pour les prendre en charge.
 
 Les <<path,chemins d'accès>> s'associent aussi à des fichiers statiques.
 Ainsi, à une URL correspond un fichier placé sur notre disque dur.
-J'ai placé trois fichiers de différente nature (texte, image, PDF) pour illustrer
-les exemples de cette section.
+J'ai placé trois fichiers de différentes natures (texte, image, PDF) pour
+illustrer les exemples de cette section.
 
 ----
 $ tree -a static/files
@@ -624,7 +624,7 @@ Les deux URL [URL]#{serverUrl}/date?format=svg# et [URL]#{serverUrl}/date# font
 référence à une même ressource, mais l'affichage s'adapte au contexte.
 
 [options="header"]
-.Exemples d'arguments et de leur représentation en structure ECMAScript
+.Exemples d'arguments et leurs représentations en structure ECMAScript
 |===
 | Argument            | Représentation
 | `?cle=valeur`        | `{cle: "valeur"}`
@@ -1024,7 +1024,7 @@ include::{sourceDir}/cookies/set-multiple.js[]
 <4> L'utilisation de `cookie.serialize` est une autre manière de créer des cookies en construisant un objet ECMAScript au lieu d'une chaîne de caractères.
 <5> La ligne précédente équivaut à l'écriture de cette ligne.
 
-Cet exemple était aussi l'occasion de compléter les cookies avec
+Cet exemple est aussi l'occasion de compléter les cookies avec
 des directives, qui modifient leur durée de vie et leur visibilité.
 
 Cela s'observe en lançant à nouveau le script `cookies/parse.js` :
@@ -1113,7 +1113,7 @@ include::{sourceDir}/templating/list.njk[]
 
 Le gabarit se concentre sur la *transformation de données*.
 Il faut au préalable avoir réuni et structuré les données nécessaires à l'affichage.
-Nous avons la possibilité de fragmenter notre code de sorte à ce que chaque
+Nous avons la possibilité de fragmenter notre code de sorte que chaque
 gabarit contienne uniquement ce qui dépend de sa responsabilité.
 
 Nous retrouvons ces principes de fonctionnement dans d'autres langages, à quelques
@@ -1158,14 +1158,14 @@ votre application{nbsp}Node.
 ====
 
 [options="header", cols="1,2,4a", id="templating-engines"]
-.Sélection de moteurs de gabarits et dans quelle situation j'aurais une préférence à les utiliser
+.Sélection de moteurs de gabarits et dans quelle situation les utiliser
 |===
 | Module      | Adresse                             | Pourquoi l'utiliser ?
 | ejs         | [URL]#https://npmjs.com/ejs#        | Pour écrire ses gabarits avec ECMAScript.
 | handlebars  | [URL]#https://npmjs.com/handlebars# | Performant, éprouvé et large catalogue de filtres prêts à l'emploi.
 | nunjucks    | [URL]#https://npmjs.com/nunjucks#   | Mécanisme élégant de blocs, de filtres et d'héritage de gabarit.
 | pug         | [URL]#https://npmjs.com/pug#        | Écriture très concise des balises avec un système d'indentation.
-| React       | [URL]#https://npmjs.com/react#      | Pour réutiliser les mêmes composants que le _front-end_.
+| react       | [URL]#https://npmjs.com/react#      | Pour réutiliser les mêmes composants que le _front-end_.
 |===
 
 Nous détaillons des <<../appendix-a/index.adoc#templating,exemples de rendu de gabarit>>
@@ -1213,7 +1213,7 @@ $ nodemon --ext js,css,html cookies/parse.js
 ----
 
 [NOTE]
-.[RemarquePreTitre]#Question# Installation globale, installation locale ?
+.[RemarquePreTitre]#Question# Installation globale ou installation locale ?
 ====
 Vous n'êtes pas sûr·e de la meilleure manière d'installer et d'utiliser
 le module _nodemon_ ?
@@ -1231,11 +1231,11 @@ qui permettent à la fois de mieux comprendre comment fonctionne HTTP, mais auss
 comment constituer des briques d'une application web avec{nbsp}Node.
 
 Les _frameworks applicatifs web_ sont des outils qui proposent de créer une
-cohérence dans l'organisation de ces fonctionnalités, de sorte à ce que nos
+cohérence dans l'organisation de ces fonctionnalités, de sorte que nos
 efforts se concentrent plus sur l'écriture du code et moins sur la création du cadre.
 
 Dans cette section, je vous propose d'appliquer ces connaissances au framework
-Express ([URL]#https://npmjs.com/express#).
+_Express_ ([URL]#https://npmjs.com/express#).
 C'est un outil flexible et bien documenté, un choix de prédilection pour commencer.
 
 Vous pouvez vous en tenir à ce framework ou bien évoluer ou compléter son utilisation
@@ -1250,7 +1250,7 @@ clarté autour des concepts que nous manipulons.
 [[setup]]
 === Configuration du framework
 
-La configuration initiale d'Express définit un serveur{nbsp}HTTP – à la manière
+La configuration initiale d'_Express_ définit un serveur{nbsp}HTTP – à la manière
 de ce que nous faisions avec `http.createServer()` – et retourne
 un <<paths,routeur>> pour attacher des comportements à des chemins d'accès.
 
@@ -1280,11 +1280,11 @@ avec les différents objets du module.
 Sa lecture vous aidera à mieux suivre cette section car vous comprendrez
 d'où sortent les méthodes utilisées.
 
-- *express* : [URL]#https://expressjs.com/fr/4x/api.html#express#
-- *application* : [URL]#https://expressjs.com/fr/4x/api.html#app#
-- *requête* : [URL]#https://expressjs.com/fr/4x/api.html#req#
-- *réponse* : [URL]#https://expressjs.com/fr/4x/api.html#res#
-- *routeur* : [URL]#https://expressjs.com/fr/4x/api.html#routeur#
+- *Express* : [URL]#https://expressjs.com/fr/4x/api.html#express#
+- *Application* : [URL]#https://expressjs.com/fr/4x/api.html#app#
+- *Requête* : [URL]#https://expressjs.com/fr/4x/api.html#req#
+- *Réponse* : [URL]#https://expressjs.com/fr/4x/api.html#res#
+- *Routeur* : [URL]#https://expressjs.com/fr/4x/api.html#routeur#
 ====
 
 [[middleware]]
@@ -1322,7 +1322,7 @@ ni à un chemin d'accès.
 Dans l'exemple suivant, nous allons connecter plusieurs middlewares grâce
 aux modules{nbsp}``npm`` _helmet_ ([URL]#https://npmjs.com/helmet#) et _serve-static_
 ([URL]#https://npmjs.com/serve-static#).
-Ce dernier est une version embarquée de <<static,serve>> par le module Express.
+Ce dernier est une version embarquée de <<static,serve>> par le module _Express_.
 
 ----
 $ node framework/middleware-multi.js
@@ -1407,13 +1407,13 @@ include::{sourceDir}/framework/templating.js[]
 <3> Nous appelons la méthode `response.render()` au lieu de `response.send()` – elle charge le gabarit donné et lui passe un objet dont chaque clé devient une variable.
 
 Nous avons de la chance car _nunjucks_ prend en charge toute la configuration
-d'Express pour nous.
+d'_Express_ pour nous.
 La seule différence avec les précédents exemples est l'utilisation de la
 méthode `response.render()`.
 Le premier effet que cela me fait est une sensation de légèreté – nous avons
 le strict minimum à gérer pour que cela fonctionne.
 
-En comparaison, voilà comment Express se configure à la main :
+En comparaison, voici comment _Express_ se configure à la main :
 
 ----
 $ node framework/templating-manual.js
@@ -1424,13 +1424,13 @@ $ node framework/templating-manual.js
 ----
 include::{sourceDir}/framework/templating-manual.js[]
 ----
-<1> On indique à Express de contextualiser le répertoire racine où se trouvent les gabarits.
+<1> On indique à _Express_ de contextualiser le répertoire racine où se trouvent les gabarits.
 <2> Déclaration de la fonction de rendu pour les fichiers{nbsp}``.njk`` – elle est lancée à chaque fois que `response.render()` est appelée avec un fichier{nbsp}``.njk``.
 <3> Rendu du fichier passé en paramètre.
 <4> Le HTML généré est passé à la fonction de rappel `next()` – le premier argument est utilisé pour transmettre une erreur, le second le résultat en cas de succès.
 
 Cette méthode demande davantage de travail.
-Elle implique aussi d'être suffisamment familier·ère avec Express pour en
+Elle implique aussi d'être suffisamment familier·ère avec _Express_ pour en
 venir à créer cette fonction de rendu.
 
 Au final, nous pourrions utiliser différents moteurs de gabarits si le besoin
@@ -1445,7 +1445,7 @@ Le module{nbsp}``npm`` _consolidate_ ([URL]#https://npmjs.com/consolidate#)
 gomme les différences de configuration pour plusieurs dizaines de moteurs
 de gabarit.
 
-Il vous sera utile si vous peinez à configurer Express avec votre
+Il vous sera utile si vous peinez à configurer _Express_ avec votre
 moteur de gabarits favori.
 ====
 
@@ -1480,7 +1480,7 @@ Dans le <<../chapter-05/index.adoc#,chapitre{nbsp}5>>, j'explique comment
 Ces connaissances s'appliquent dans notre cas de figure, sans distinction. +
 L'extrait suivant de fichier `package.json` illustre l'organisation
 des scripts pour démarrer le site en temps normal, pour générer les fichiers
-compilés et pour le faire en continu dans un contexte de développement :
+compilés et pour le faire en continu dans un contexte de développement.
 
 [source,json]
 .package.json
@@ -1506,8 +1506,8 @@ après avoir lancé `npm start`.
 La seconde partie lance le serveur de développement et la construction
 des fichiers Sass en continu avec l'option `--watch`.
 L'option `--source-map` s'utilisent dans un contexte de développement pour
-associer les lignes du fichier compilé au fichiers sources.
-L'utilisation des doubles tirets{nbsp}(`--`) nous permet de réutiliser le script
+associer les lignes du fichier compilé aux fichiers sources.
+Les doubles tirets{nbsp}(`--`) nous permettent de réutiliser le script
 `build:css` en lui passant deux options supplémentaires.
 
 Le middleware statique s'utilise aussi avec des fichiers.
@@ -1635,7 +1635,7 @@ include::{sourceDir}/framework/session.js[]
 
 La même valeur s'affiche si vous ouvrez un nouvel onglet dans le même navigateur
 et en vous rendant sur [URL]#{serverUrl}/my-pokemon#.
-Le serveur fait fait le lien entre votre identifiant de session (stocké en cookie)
+Le serveur fait le lien entre votre identifiant de session (stocké en cookie)
 et les valeurs associées (stockées en mémoire, pour l'instant) grâce à un identifiant
 unique stocké dans le cookie de session.
 
@@ -1675,7 +1675,7 @@ $ node framework/session-database.js
 ----
 include::{sourceDir}/framework/session-database.js[]
 ----
-<1> Branchement du module de stockage au gestionnaire de sessions d'express.
+<1> Branchement du module de stockage au gestionnaire de sessions d'_Express_.
 <2> Configuration du connecteur de stockage et de l'emplacement du fichier qui contient les données des sessions.
 <3> L'écriture et la lecture des données de session est inchangée.
 
@@ -1694,15 +1694,15 @@ afin de détecter des anomalies de fréquence.
 
 C'est un endroit idéal pour répertorier les erreurs avec des indications qui
 aideraient à reproduire le problème.
-D'ailleurs, l'habitude est de tenir un journal d'erreurs séparé du journal des
+D'ailleurs, l'usage est de tenir un journal d'erreurs séparé du journal des
 événements afin de retrouver plus facilement ces premières.
 J'ai tendance à préférer l'installation d'une sonde (section
 "`<<../chapter-06/index.adoc#exceptions,S'informer des erreurs applicatives>>`"
 du <<../chapter-06/index.adoc#,chapitre{nbsp}6>>).
 
 C'est *à nous de choisir la granularité des informations* enregistrées.
-Nous sommes responsables de rendre ces informations anonymes et de ne rien
-mettre de personnel qu'un identifiant (numérique ou généré)
+Nous sommes responsables de l'anonymat de ces informations et de ne
+rendre personnel que l'identifiant (numérique ou généré)
 pour rattacher des informations à un utilisateur si c'est nécessaire
 – dans le cas de transaction bancaire ou de renvoi de mot de passe par exemple.
 
@@ -1741,7 +1741,7 @@ dans les journaux.
 L'intention de cette section est de consolider les différents concepts
 évoqués au cours de ce chapitre.
 Nous avons composé pas à pas une application web jusqu'à l'organiser avec
-le framework Express.
+le framework _Express_.
 Maintenant, nous allons réorganiser les composants pour améliorer la
 maintenance et la robustesse aux changements de nos applications{nbsp}web.
 
@@ -1821,7 +1821,7 @@ Le dernier morceau est la route elle-même :
 ----
 include::{sourceDir}/modularity/01/src/routes/books.js[]
 ----
-<1> Récupération de la promesse de connexion à la base de données – elle est déjà pré-configurée.
+<1> Récupération de la promesse de connexion à la base de données – déjà pré-configurée.
 <2> De fait, l'exécution d'une requête dépend de la résolution de la connexion.
 
 Le code de la route est quasi inchangé mais on voit à quel point elle prenait
@@ -1829,8 +1829,8 @@ de la place dans le code d'origine.
 Ce déplacement révèle le positionnement du point d'attention et quels fichiers
 sont amenés à changer au quotidien.
 Peu importe l'organisation du vôtre, ce qui compte c'est que cette organisation
-vous convienne, soit communicable aux personnes qui utilisent ce code et que
-nous puissions en suivre le fil logique.
+vous convienne, qu'elle soit communicable aux personnes qui utilisent ce code
+et que nous puissions en suivre le fil logique.
 
 Je vois toutefois apparaître une zone d'ombre : je ne suis pas satisfait
 de la connexion à la base de données.
@@ -1956,8 +1956,8 @@ include::{sourceDir}/testing/src/database.js[]
 <1> Le module n'a plus d'opinion sur l'emplacement de la base de données.
 <2> Le module exporte désormais une fonction à paramétrer lors de son exécution.
 
-Cela nous ouvre la voie pour nous connecter à une base de données différente
-dans notre script de tests :
+Cela ouvre la voie pour nous connecter à une base de données différente
+dans notre script de tests.
 
 [source,javascript]
 .testing/tests/with-db.js
@@ -1968,7 +1968,7 @@ include::{sourceDir}/testing/tests/with-db.js[]
 <2> La valeur `:memory:` est une valeur spéciale de chemin d'accès pour _SQLite_ – la base est créée en mémoire et disparaît à la fin de l'exécution du script.
 <3> Configuration de la route – comme nous le faisons dans le fichier `configure.js`.
 <4> La route configurée retourne bien une fonction, mais cela ne suffit pas à affirmer que son fonctionnement correspond à nos attentes.
-<5> En commentaire : comment tester le résultat de la route Express ?
+<5> En commentaire : comment tester le résultat de la route _Express_ ?
 
 Résultat : la connexion à la base de données réussit et nous sommes en mesure
 de la transmettre à la fonction de paramétrage de la route.
@@ -1979,7 +1979,7 @@ dont la clé{nbsp}``id`` vaut{nbsp}``1``.
 
 C'est ce que nous allons passer à la fonction `route`.
 Mais qu'en est-il de la réponse ? Doit-on réécrire un objet qui reproduit
-l'objet `response` d'Express ?
+l'objet `response` d'_Express_ ?
 Je déconseille cette option car elle nous oblige à écrire du code, faillible,
 et donc à introduire des biais dans nos propres tests.
 
@@ -1996,15 +1996,15 @@ côté Node que côté navigateurs{nbsp}web.
 ----
 include::{sourceDir}/testing/tests/with-sinon.js[]
 ----
-<1> Nous récupérons l'objet de réponse d'Express – je l'ai découvert en fouillant dans les objets exportés par le module.
+<1> Nous récupérons l'objet de réponse d'_Express_ – je l'ai découvert en fouillant dans les objets exportés par le module.
 <2> Nous neutralisons la fonction `response.send()` avec un _stub_ pour observer les données qui lui sont données en argument.
 <3> La propriété `called` d'un _stub_ ou d'un espion passe à `true` si elle a été appelée.
 
-C'est une chance que le module Express expose directement un objet de réponse
+C'est une chance que le module _Express_ expose directement un objet de réponse
 sans avoir à attendre qu'une vraie requête HTTP atteigne notre serveur web.
-Le _stub_ neutralise son action – nous nous contentons seulement d'observer
+Le _stub_ neutralise son action – nous nous contentons d'observer
 comment la fonction est appelée.
-L'enjeu est de constater que la connexion à la base de donnée se passe bien,
+L'enjeu est de constater que la connexion à la base de données se passe bien,
 que la requête retourne bien la ligne attendue et que ses valeurs soient
 bien transmises en réponse.
 
@@ -2055,8 +2055,8 @@ include::{sourceDir}/testing/tests/with-sinon-data.js[lines=8..-1]
 <3> Nous remplaçons l'appel à `sendFake.called()` par `sendFake.calledWith()` pour affirmer plus explicitement le résultat attendu.
 <4> Le module sinon propose un ensemble de fonctions de vérification (les _matchers_) – ici, nous vérifions que `response.send()` est appelée avec un objet, qui contient au moins une clé `title` dont la valeur est `Design Systems`.
 
-Le test passe !
-Et, en plus, nous n'avons plus de doute que la fonction `response.send()`
+Le test est concluant !
+Et nous n'avons plus de doute que la fonction `response.send()`
 est bien appelée avec la valeur issue de la base de données.
 Le module _sinon_ a été d'une grande aide pour intercepter l'exécution de cette
 fonction et pour nous faciliter son introspection, après{nbsp}coup.
@@ -2071,7 +2071,7 @@ n'existe pas en base de données pour générer une erreur{nbsp}404.
 // ...
 include::{sourceDir}/testing/tests/with-sinon-full.js[lines=10..-1]
 ----
-<1> Création d'un espion sur la méthode `response.status()` du module Express.
+<1> Création d'un espion sur la méthode `response.status()` du module _Express_.
 <2> Création d'un deuxième cas de test, pour couvrir l'appel à un enregistrement inconnu en base de données.
 <3> La méthode `calledWith()` détermine si une fonction est appelée avec cette exacte valeur.
 <4> Cette méthode s'applique aussi aux _stubs_.
@@ -2089,12 +2089,12 @@ Cette pratique entraînera des effets de bord si nous ne prêtons pas attention
 au déroulé des tests.
 Ils devraient être remis à zéro entre chaque{nbsp}test.
 
-Les _suites de tests_ sont des outils qui aident à donner davantage de cohérence
-et de structure, notamment pour automatiser l'exécution d'actions avant et après
+Les _suites de tests_ sont des outils qui renforcent la cohérence
+et la structure, notamment pour automatiser l'exécution d'actions avant et après
 des tests.
 J'utilise le module{nbsp}``npm`` _mocha_ ([URL]#https://npmjs.com/mocha#,
 [URL]#https://mochajs.org#), par habitude, parce qu'il ne demande aucune
-configuration et parce qu'il fait le travail à la fois côté Node et du côté des
+configuration et parce qu'il fait le travail à la fois côté Node et côté
 navigateurs.
 
 ----
@@ -2139,8 +2139,8 @@ include::{sourceDir}/testing/tests/with-mocha.js[lines=12]
 include::{sourceDir}/testing/tests/with-mocha.js[lines=23..-1]
 ----
 <1> La suite compte deux tests.
-<2> Premier test – il se termine quand la promesse retournée par la fonction `route()` est résolue.
-<3> Deuxième test – cette fois, l'espion et le stub ne sont pas affectés par le précédent{nbsp}test.
+<2> Premier test : se termine quand la promesse retournée par la fonction `route()` est résolue.
+<3> Deuxième test : cette fois, l'espion et le stub ne sont pas affectés par le précédent{nbsp}test.
 
 La suite de tests ne cherche pas à savoir comment nous testons notre code.
 Son objectif est de capturer les messages d'erreur des assertions qui échouent
@@ -2173,7 +2173,7 @@ quand ils indiquent que tout est correct.
 image::images/tests-ko.png[width="80%"]
 
 Maintenant que nos tests sont écrits, nous sommes en mesure de
-<<deployment,déployer notre application>> automatiquement seulement
+<<deployment,déployer notre application>> automatiquement, seulement
 si leur exécution est réussie.
 
 [[deployment]]
@@ -2341,7 +2341,7 @@ Stockage fichier::
   C'est facile à mettre en œuvre, mais c'est la solution la plus lente à tout
   point de vue : recherche comme écriture.
 Stockage en mémoire::
-  Redis et memcache sont des gestionnaires très rapides en lecture et en écriture.
+  Redis et Memcached sont des gestionnaires très rapides en lecture et en écriture.
   C'est idéal pour accéder fréquemment aux données et les modifier, avant
   de les sauvegarder sur un stockage moins rapide mais plus sûr.
   Ils sont généralement dits "`clé/valeur`" car nous cherchons un identifiant
@@ -2386,8 +2386,8 @@ Il faut prendre des mesures de précaution dès lors que nous utilisons des
 données saisies par un utilisateur, c'est-à-dire
 *toute variable dont la valeur provient de l'extérieur*.
 Je pense à des données de formulaire, des paramètres d'URL, des chemins d'accès,
-des fichiers téléversés mais aussi des scripts qu'ils ou elles injectent dans la page,
-de leur plein gré ou via un logiciel vérolé installé sur leur ordinateur.
+des fichiers téléversés mais aussi des scripts qui sont injectés dans la page,
+volontairement ou via un logiciel vérolé installé sur leur ordinateur.
 
 [URL]#https://npmjs.com/helmet#::
   Déjoue les injections de scripts et d'iframes non{nbsp}sollicitées.
@@ -2396,7 +2396,7 @@ de leur plein gré ou via un logiciel vérolé installé sur leur ordinateur.
   Cela évite certains bogues qui surchargent la CPU ou qui déjouent les motifs des expressions.
 [URL]#https://npmjs.com/dompurify#::
 [URL]#https://npmjs.com/xss#::
-  Nettoie le HTML d'attributs et de balises non{nbsp}sollicitées.
+  Nettoie le HTML d'attributs et de balises non{nbsp}sollicités.
   Les injections de scripts et les événements malintentionnés de clics sont supprimés.
 [URL]#https://npmjs.com/sql-escape-string#::
   Nettoie une saisie utilisateur de tout caractère qui pourrait déjouer nos attentes
@@ -2435,7 +2435,7 @@ débute bien par le chemin du répertoire racine.
 | `X-DNS-Prefetch-Control`    | Avec la valeur `off`, le navigateur ne va pas proactivement chercher les informations DNS des ressources contenues dans la page. Nos informations de navigation ne sont pas divulguées à notre{nbsp}insu.
 | `X-Frame-Options`           | Avec la valeur `SAMEORIGIN`, le navigateur autorise la création d'``<iframe>`` seulement depuis le même domaine – les `<iframe>` tierces sont bloquées.
 | `Strict-Transport-Security` | Lorsque l'option est activée, le navigateur accède par défaut à ce site en HTTPS au lieu de{nbsp}HTTP.
-| `X-Download-Options`        | Avec la valeur `noopen`, Internet Explorer télécharge un fichier au lieu de tenter de l'ouvrir à même le navigateur – cela risque d'être exploité pour pirater le navigateur par des fichiers malintentionnés.
+| `X-Download-Options`        | Avec la valeur `noopen`, Internet Explorer télécharge un fichier au lieu de tenter de l'ouvrir dans le navigateur – cela risque d'être exploité pour pirater le navigateur par des fichiers malintentionnés.
 | `X-Content-Type-Options`    | Avec la valeur `nosniff`, les navigateurs bloquent les scripts et les styles qui n'ont respectivement pas l'en-tête `Content-Type` à `application/javascript` et `text/css`.
 | `X-XSS-Protection`          | Avec la valeur `1; mode=block`, les navigateurs interrompent le chargement d'une page s'ils détectent une exploitation malintentionnée de chargement de données ou de fichier.
 |===
@@ -2513,7 +2513,7 @@ cas de figure du statut 202 (au lieu de 201)
 
 Le principe d'une application web est d'afficher un résultat à partir d'un
 chemin d'accès et de rester allumée en permanence, sauf exception.
-Les _lambda_ sont une approche minimaliste d'application web : il n'y a qu'une
+Les _Lambda_ sont une approche minimaliste d'application web : il n'y a qu'une
 seule route, c'est *une seule fonction qui retourne un résultat*.
 
 L'application s'endort quand elle ne reçoit pas de trafic dans un laps de temps donné.
@@ -2548,13 +2548,13 @@ Elle n'est pas forcément exposée sur le{nbsp}Web.
 ----
 include::{sourceDir}/lambda.js[]
 ----
-<1> C'est tout ce qu'il faut pour qu'une _lambda_ retourne un résultat utilisable pour l'appelant.
+<1> C'est tout ce qu'il faut pour qu'une _Lambda_ retourne un résultat utilisable pour l'appelant.
 
 L'adaptabilité de ce mécanisme permet de créer une API complète en agrégeant
-plusieurs lambda derrière un _portail d'API_ comme _AWS{nbsp}API Gateway_
+plusieurs _Lambda_ derrière un _portail d'API_ comme _AWS{nbsp}API Gateway_
 ([URL]#https://aws.amazon.com/api-gateway#).
 À une API et une ressource (chemin et méthode HTTP) est associée une ressource
-AWS, dont les _lambda_ font partie.
+AWS, dont les _Lambda_ font partie.
 
 ////
 [[https]]
@@ -2590,8 +2590,8 @@ et d'utiliser celui qui nous plaît le plus.
 
 Nous avons aussi constaté qu'une *approche modulaire permet d'interchanger des modules*
 entre eux, mais aussi qu'elle amène naturellement à une structure adaptée aux
-frameworks et à l'écriture de tests, indispensables pour maintenir une
-confiance grandissante dans notre code et pour en automatiser les déploiements.
+frameworks et à l'écriture de tests, indispensables pour améliorer la
+confiance dans notre code et pour en automatiser les déploiements.
 
 Le protocole HTTP est une pierre angulaire du Web tel que nous l'utilisons.
 Le pratiquer avec Node est un bon moyen de le comprendre par la pratique.
