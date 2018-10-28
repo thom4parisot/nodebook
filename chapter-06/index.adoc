@@ -3,6 +3,7 @@
 :sourceDir: ./examples
 :httpRoot: http://localhost:8000
 :nodeCurrentVersion: v10
+:v: 10
 :nodeNextVersion: v11
 :npmCurrentVersion: v6
 :sectnums:
@@ -53,14 +54,14 @@ include::../docs/tip-examples.adoc[]
 [[deploy]]
 == Déployer une application{nbsp}Node
 
-Le choix de la technique de déploiement dépend de plusieurs facteurs qui se
+Le choix de la technique de déploiement dépend de plusieurs facteurs qui
 renvoient à eux-mêmes : l'hébergement peut dépendre du déploiement et vice-versa.
 
 Je vous propose de partir balayer les différentes techniques de déploiement
 avec des exemples et de voir quelles seraient les raisons d'opter pour l'une
 ou l'autre d'entre{nbsp}elles.
 
-Le choix est subjectif et vous appartient, en fonction de l'aisance que vous avez
+Le choix est subjectif et vous appartient, en fonction de votre aisance
 à vous en emparer.
 C'est un sujet qui prend du temps avant d'être maîtrisé, donc n'hésitez pas
 à vous y reprendre à plusieurs{nbsp}fois.
@@ -94,7 +95,7 @@ Les <<../chapter-05/index.adoc#modules,modules `npm`>>
 (<<../chapter-05/index.adoc#,chapitre{nbsp}5>>) sont installés automatiquement dans
 leur version la plus récente.
 
-.Exemple de _notebook_ RunKit dans le navigateur Firefox
+.Exemple de notebook RunKit dans le navigateur Firefox
 image::images/runkit-notebook.png[width="85%"]
 
 RunKit propose aussi un modèle de <<lambda,fonction éphémère>> dont le
@@ -116,7 +117,7 @@ C'est la valeur de retour passée à la réponse, comme on l'aurait fait
 avec le <<../chapter-04/index.adoc#http,module{nbsp}``http``>> ou dans une
 <<../chapter-07/index.adoc#,application web>> (<<../chapter-07/index.adoc#,chapitre{nbsp}7>>).
 
-Le service en ligne _glitch_ ([URL]#https://glitch.com/#) va plus loin
+Le service en ligne _Glitch_ ([URL]#https://glitch.com#) va plus loin
 en développant, hébergeant et partageant des applications complètes.
 Le service redéploie notre application à chaque changement.
 Le fichier `.env` stocke les
@@ -184,8 +185,8 @@ Notre terminal peut aussi servir à transférer des fichiers.
 Deux programmes se basent sur SSH et sont installés par défaut sur la plupart
 des ordinateurs Linux et macOS :
 
-- `scp` pour envoyer des fichiers de machine à machine
-- `rsync` pour n'envoyer que les fichiers qui ont été modifiés ou supprimés
+- `scp` pour envoyer des fichiers de machine à machine ;
+- `rsync` pour n'envoyer que les fichiers qui ont été modifiés ou supprimés.
 ====
 
 [[deploy.github]]
@@ -214,7 +215,7 @@ Récupérez tout le contenu et les exemples de cet ouvrage
 en recopiant `oncletom/nodebook` dans l'invite de saisie.
 ====
 
-La <<paas,plate-forme de services>> Heroku ([URL]#https://heroku.com#)
+La <<paas,plate-forme de services>> _Heroku_ ([URL]#https://heroku.com#)
 pousse l'import GitHub un peu plus loin.
 Sa fonctionnalité _déploie_ l'application à chaque nouveau commit.
 L'application redémarre ensuite automatiquement pour prendre les changements en compte.
@@ -300,7 +301,7 @@ $ gandi deploy
 ----
 ////
 
-L'outil de la <<paas,plate-forme de services>> Heroku suit une approche
+L'outil de la <<paas,plate-forme de services>> _Heroku_ suit une approche
 légèrement différente.
 Il nous informe de l'état de nos applications et en augmente ou diminue
 la quantité de ressources allouée à leur fonctionnement.
@@ -314,7 +315,7 @@ L'outil se télécharge sur
 $ heroku login
 ----
 
-La commande `heroku apps:create` crée une nouvelle application chez Heroku.
+La commande `heroku apps:create` crée une nouvelle application chez _Heroku_.
 On peut faire la même chose dans un navigateur web en nous rendant sur
 [URL]#https://dashboard.heroku.com/new-app#.
 La commande `heroku git:remote` associe notre copie locale Git à cette application :
@@ -347,7 +348,7 @@ tandis qu'un autre sert pour réceptionner le code à déployer.
 L'exemple suivant part du principe que notre terminal est positionné dans un
 répertoire qui est un projet Git contenant au moins un _commit_.
 Vous avez déjà configuré le dépôt distant à l'aide de
-l'<<deploy.cli,outil de déploiement>> Heroku (<<deploy.cli,section précédente>>).
+l'<<deploy.cli,outil de déploiement>> _Heroku_ (<<deploy.cli,section précédente>>).
 
 Nous pouvons vérifier si le dépôt est bien configuré à l'aide de la
 commande `git remote` :
@@ -517,7 +518,7 @@ include::{sourceDir}/ansible/playbook.yaml[]
 <6> Indique d'installer les dépendances `npm` avec `npm install`.
 <7> Indique de lancer la mise à jour des modules `npm` avec l'option `--production` – c'est-à-dire sans les dépendances listées dans le champ `devDependencies`.
 
-Les tâches sont réplicables sur les serveurs listés dans un fichier d'inventaire :
+Les tâches sont réplicables sur les serveurs listés dans un fichier d'inventaire.
 
 [source,yml]
 .ansible/inventory.yaml
@@ -565,7 +566,7 @@ des fichiers applicatifs vers l'image (`COPY`).
 Suite à cela, nous installons aussi les dépendances de l'application et spécifions
 quelle commande effectuer lorsque l'image Docker est lancée{nbsp}(`CMD`).
 
-L'image se construit et le conteneur se démarre sur notre ordinateur comme suit :
+L'image se construit et on démarre le conteneur sur notre ordinateur comme suit :
 
 ----
 $ docker build -t nodebook/demo .
@@ -576,7 +577,7 @@ $ curl -L http://localhost:4000
 Nous avons déjà parlé de l'<<deploy.cli,outil en ligne de commande>>
 du service `now` ([URL]#https://zeit.co/now#) dans la section du même nom.
 Il est aussi capable de déployer un conteneur Docker en se basant sur un fichier
-`Dockerfile` en rajoutant l'option `--docker` :
+`Dockerfile` en ajoutant l'option `--docker` :
 
 [subs="+quotes"]
 ----
@@ -594,12 +595,14 @@ $ now ##--docker## --public
 > Success! Deployment ready
 ----
 
-Une autre solution consiste à publier notre image sur _Docker{nbsp}Hub_,
-la plate-forme officielle de partage d'images Docker,
-qui dispose d'une fonctionnalité de construction automatique connectée à GitHub.
-Docker{nbsp}Hub construit l'image à chaque nouveau commit, puis la met à disposition.
+Une autre solution consiste à publier notre image sur _Docker{nbsp}Hub_
+([URL]#https://hub.docker.com#), la plate-forme officielle de partage
+d'images Docker, qui dispose d'une fonctionnalité de construction automatique
+connectée à GitHub.
+Docker{nbsp}Hub construit l'image à chaque nouveau _commit_,
+puis la met à disposition.
 
-.Création d'un _build_ automatisé à partir d'un dépôt GitHub
+.Création d'un build automatisé à partir d'un dépôt GitHub
 image::images/docker-automated-build.png[width="85%"]
 
 Il ne reste alors plus qu'à la collecter sur un ordinateur avec la commande
@@ -635,7 +638,7 @@ compiler la documentation mais aussi pour déployer des artefacts sur d'autres
 plates-formes : <<../chapter-05/index.adoc#publish,registre{nbsp}``npm``>>,
 GitHub Pages, Heroku ou même <<hosting.lambda,Amazon Lambda>>.
 
-Le logiciel Jenkins ([URL]#https://jenkins.io/#) s'installe sur notre propre
+Le logiciel Jenkins ([URL]#https://jenkins.io#) s'installe sur notre propre
 infrastructure tandis que des services en ligne comme
 Circle{nbsp}CI ([URL]#https://circleci.com#), Travis{nbsp}CI ([URL]#https://travis-ci.com#)
 et CodeShip ([URL]#https://codeship.com#) mettent à disposition leur
@@ -710,7 +713,7 @@ image::images/travisci-build.png[width="85%"]
 Nous allons nous intéresser aux différentes possibilités d'hébergement
 d'applications{nbsp}Node.
 
-Côté tarifs, certaines sont gratuites sous certaines conditions,
+Côté tarifs, il en existe des gratuites sous certaines conditions,
 d'autres se paient à l'heure et d'autres à l'année.
 Certaines offres sont figées, d'autres permettent d'ajouter des machines,
 voire de changer la puissance en cours de route.
@@ -801,7 +804,7 @@ avec un <<deploy.ci,service d'intégration continue>> ou bien en
 
 L'interface d'administration référence une section *Sites* dans la barre de
 navigation, qui liste les différents sites de notre compte.
-Si vous venez juste de créer le vôtre, un site a automatiquement été créé.
+Si vous venez juste de créer le vôtre, un site a automatiquement été généré.
 Son URL est déterminée à partir du *nom d'utilisateur* que vous avez choisi
 lors de la phase d'inscription.
 
@@ -1059,7 +1062,7 @@ pour chacun de nos projets.
 [TIP]
 .[RemarquePreTitre]#Conseil# Une version de Node par application
 ====
-Je trouve qu'il est plus facile de gérer la version de Node au cas par cas
+Je trouve qu'il est plus facile d'adapter la version de Node au cas par cas
 au lieu de m'imposer une seule version pour tout le code que j'écris.
 
 C'est très utile quand je reprends le code après plusieurs mois d'inactivité.
@@ -1115,7 +1118,7 @@ Il est nécessaire de renseigner un _port_ lorsqu'on démarre un serveur
 avec le <<../chapter-04/index.adoc#http,module `http`>>
 (cf. <<../chapter-04/index.adoc#,chapitre{nbsp}4>>).
 Pourtant, nous allons faire face à un "`problème`" si le code suivant est déployé
-sur une <<hosting.paas,plate-forme de services>> :
+sur une <<hosting.paas,plate-forme de services>>.
 
 [source,javascript]
 .server-port.js
@@ -1233,7 +1236,7 @@ en un rapide coup d'œil – et cela nous évite de fouiller dans le code applic
 [TIP]
 .[RemarquePreTitre]#Optimisation# NODE_ENV=production
 ====
-Certains <<../chapter-05/index.adoc#modules,modules{nbsp}``npm``>> comme _express_
+Certains <<../chapter-05/index.adoc#modules,modules{nbsp}``npm``>> comme _Express_
 ([URL]#https://npmjs.com/express#) lisent la valeur de `process.env.NODE_ENV`.
 Ils s'en servent pour procéder à des optimisations et masquer des informations
 sensibles dans un contexte de production
@@ -1265,7 +1268,7 @@ Les images sont stockées à deux endroits :
 - `app/uploads/images` : fichiers enregistrés sur le disque par l'intermédiaire
 de notre application – on ne les versionne pas avec{nbsp}Git.
 
-Un inconvénient se présente à nous : nous perdons tout si nous supprimons
+Un inconvénient se présente à nous : tout est perdu si nous supprimons
 le répertoire `app` pour réinstaller l'application de zéro.
 Je conseille donc d'*écrire tout nouveau fichier dans un répertoire indépendant*.
 L'arborescence se transformerait comme suit :
@@ -1332,13 +1335,13 @@ Service;Emplacement(s) du stockage;Tarif mensuel
 Le contenu et la structure d'une application risquent de changer selon qu'elle tourne
 sur notre ordinateur ou sur notre hébergement.
 Nous pourrions reporter les changements de structure à la main mais c'est
-sujet à erreurs, difficile à reproduire et difficile à intégrer dans le
+source d'erreurs : difficile à reproduire et difficile à intégrer dans le
 <<deploy,processus de déploiement>>.
 
 L'idéal est de synchroniser la structure de nos bases de données.
 Ou plutôt, l'idéal est de *reproduire les changements de structure*.
 
-L'exemple suivant illustre la création d'un nouveau champ :
+L'exemple suivant illustre la création d'un nouveau champ.
 
 [source,javascript]
 .db-migration-step.js
@@ -1419,7 +1422,7 @@ La commande suivante démarre un script et le place aussitôt en tâche de fond 
 $ pm2 start app.js
 ----
 
-.Exemple de démarrage et d'affichage de l'état d'une application Node avec _pm2_
+.Exemple de démarrage et d'affichage de l'état d'une application Node avec pm2
 image::images/pm2-start.png[width="85%"]
 
 Cette même application s'arrête avec la commande `pm2 stop` et
@@ -1617,7 +1620,7 @@ image::images/heroku-app-error.png[width="85%"]
 S'il s'agit d'une application personnelle ou sans enjeu,
 nous pouvons nous contenter de reproduire le problème localement.
 Dans le cas d'une application professionnelle,
-nous aurons besoin d'avoir plus de précisions, rapidement.
+nous aurons besoin de plus de précisions, rapidement.
 
 _Sentry_ ([URL]#https://sentry.io#) est un service en ligne qui s'intègre
 dans notre code comme une sonde.
@@ -1637,8 +1640,8 @@ L'inclusion d'une sonde basique revient à insérer deux lignes dans notre code 
 ----
 include::{sourceDir}/sentry.js[]
 ----
-<1> _raven_ est le nom du module{nbsp}``npm`` édité par Sentry pour collecter les erreurs.
-<2> Configuration du client Sentry – il collectera et enverra les erreurs auprès de la plate-forme.
+<1> _raven_ est le nom du module{nbsp}``npm`` édité par _Sentry_ pour collecter les erreurs.
+<2> Configuration du client _Sentry_ – il collectera et enverra les erreurs auprès de la plate-forme.
 <3> Cette ligne est la source de notre erreur – la variable n'est pas définie.
 
 _Sentry_ nous communique une clé d'API pour chaque projet à instrumenter.
@@ -1654,7 +1657,7 @@ $ SENTRY_DSN=https://0c...@sentry.io/1201870 node sentry.js
 .[RemarquePreTitre]#Documentation# Configurer Sentry
 ====
 Un guide complet (en anglais) documente comment aller plus loin
-dans l'utilisation de Sentry :
+dans l'utilisation de _Sentry_ :
 
 - [URL]#https://docs.sentry.io/clients/node/#
 ====
@@ -1717,9 +1720,6 @@ projets open source.
 Il scanne les vulnérabilités de nos dépendances et sous-dépendances
 Il nous alerte sur la sévérité des failles décelées dans nos projets.
 
-.Tableau de bord des dépendances vulnérables avec{nbsp}Snyk
-image::images/snyk-dashboard.png[width="85%"]
-
 Ces failles sont classées en trois niveaux : dangereuses, modérées et superficielles.
 Mieux vaut mettre à jour les dépendances affectées par une faille dangereuse
 le plus rapidement possible.
@@ -1729,9 +1729,10 @@ En revanche, cela peut avoir un impact négatif si cette vieille version est
 affectée par une faille.
 
 La capture d'écran suivante illustre une vulnérabilité décelée dans le
-module{nbsp}``npm`` _restify_ dans sa version{nbsp}4 :
+module{nbsp}``npm`` _restify_ dans sa version{nbsp}4.
 
-[TIP]
+.Tableau de bord des dépendances vulnérables avec{nbsp}Snyk
+image::images/snyk-dashboard.png[width="85%"]
 
 .Affichage d'une vulnérabilité et d'un chemin de résolution avec{nbsp}Snyk
 image::images/snyk-vulnerability.png[width="85%"]
