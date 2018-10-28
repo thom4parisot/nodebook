@@ -248,7 +248,7 @@ entre un objet et une fonction.
 
 === Les types de données
 
-Qu'entend-t-on par _type de données_ ?
+Qu'entend-on par _type de données_ ?
 Faisons-nous notre propre idée avec une suite d'exemples.
 Ces notions seront développées dans le reste du chapitre,
 pour mieux comprendre ce que l'on peut en faire.
@@ -314,7 +314,7 @@ La valeur `undefined` est utilisée pour signifier
 qu'une *valeur* est *inconnue*.
 Rares sont les cas où on choisira ce type de données par nous-même.
 
-mdn::javascript[Data_structures, title="primitives"]
+mdn::javascript[Data_structures, title="Primitives", text="primitives"]
 
 Il existe trois autres types de données qui se basent sur ces types
 dits _primitifs_.
@@ -448,7 +448,7 @@ On notera au passage que `book.title` n'est pas un booléen.
 ECMAScript regarde dans ce cas que la chaîne de caractères
 contient _au moins un caractère_.
 On expliquera ce comportement plus en détail dans la section
-"<<#boolean,jongler avec des valeurs vraies ou fausses>>".
+"<<#boolean,Jongler avec des valeurs vraies ou fausses>>".
 
 L'instruction{nbsp}``if`` peut être complétée avec l'instruction `else`
 pour exécuter du code qui répondrait au cas contraire.
@@ -667,7 +667,7 @@ Cet exemple utilise l'option{nbsp}``i`` mais il en existe plusieurs :
 [horizontal]
 Insensible à la casse{nbsp}(`i`)::
   On souhaite identifier du contenu, peu importe s'il est en majuscules ou non.
-Multi-ligne{nbsp}(`m`)::
+Multiligne{nbsp}(`m`)::
   La recherche s'effectue sur _toutes_ les lignes.
 Global{nbsp}(`g`)::
   La recherche identifie _tous_ les résultats – au lieu du seul premier.
@@ -720,7 +720,7 @@ include::{sourceDir}/regexp/syntax.js[]
 D'autres opérateurs délimitent notre recherche :
 
 Début et fin de chaîne (``^``{nbsp}et{nbsp}``$``)::
-  Quand l'option multi-ligne (`m`) est utilisée, les notions de début
+  Quand l'option multiligne (`m`) est utilisée, les notions de début
   et de fin s'appliquent au niveau de la ligne.
 Limite de mot{nbsp}(`\b`)::
   Symbolise tout caractère ne faisant pas partie d'un mot, y compris le début
@@ -741,12 +741,12 @@ include::{sourceDir}/regexp/limits.js[]
 ----
 <1> Affiche `["75015 Paris"]`.
 <2> Affiche `["75015 Paris", "75015"]` – le premier élément correspond à la chaîne identifiée tandis que le second correspond au _premier_ groupe de capture.
-<3> Affiche `["33900", "33900"]` – l'option multi-ligne itère de ligne en ligne jusqu'à trouver un motif.
-<4> Affiche `["33900", "33074", "33700"]` – l'option multi-ligne globale retourne tous les groupes de capture.
+<3> Affiche `["33900", "33900"]` – l'option multiligne itère de ligne en ligne jusqu'à trouver un motif.
+<4> Affiche `["33900", "33074", "33700"]` – l'option multiligne globale retourne tous les groupes de capture.
 
 On notera qu'il faut faire attention à ce que l'on regarde :
 le format de résultat varie selon qu'on utilise ou non des groupes de capture et
-selon qu'on utilise l'option globale ou multi-ligne.
+selon qu'on utilise l'option globale ou multiligne.
 
 Des symboles servent de raccourcis pour désigner
 plusieurs caractères simultanément :
@@ -799,7 +799,7 @@ include::{sourceDir}/regexp/replace.js[]
 ----
 <1> Affiche `"I love JavaScript"` – si le premier argument de `replace` est une chaîne, elle est convertie automatiquement en expression régulière.
 <2> Affiche `"I ♥ PHP"`.
-<3> Affiche `JavaScript ♥ me"` – les symboles `$<numéro>` représentent les groupes de capture, qu'on place dans l'ordre de notre choix.
+<3> Affiche `"JavaScript ♥ me"` – les symboles `$<numéro>` représentent les groupes de capture, qu'on place dans l'ordre de notre choix.
 
 Le second argument accepte une <<functions,fonction>>
 pour procéder à des remplacements dynamiques :
@@ -1022,14 +1022,11 @@ Les lignes qui précédent l'évoquent un peu : on peut passer d'autres types
 de données à des nombres.
 Idéalement, on voudra transformer explicitement quelque chose en un nombre.
 
-Pour cela nous avons deux fonctions à disposition :
+Pour cela nous disposons de deux fonctions :
 
-[horizontal]
-`parseInt`::
-  Essaie d'interpréter un nombre entier.
-`parseFloat`::
-  Essaie d'interpréter un nombre à virgule.
-  La fonction s'arrête dès qu'elle n'a plus affaire à un chiffre.
+- `parseInt` essaie d'interpréter un nombre entier.
+- `parseFloat` essaie d'interpréter un nombre à virgule. La fonction s'arrête
+  dès qu'elle n'a plus affaire à un chiffre.
 
 [source%interactive,javascript]
 .number/parse.js
@@ -1042,7 +1039,7 @@ include::{sourceDir}/number/parse.js[]
 <4> Affiche{nbsp}``14.1`` – la fonction s'arrête à la décimale précédant une lettre.
 
 `parseInt` a cette particularité que l'on peut choisir la base
-de la conversion avec le second argument de la fonction :
+de la conversion avec le second argument de la fonction.
 
 [source%interactive,javascript]
 .number/parse-int.js
@@ -1326,7 +1323,7 @@ Pourquoi passer le tableau d'origine alors qu'on itère dessus ?
 Pour donner du contexte au cas où on opère
 avec une <<function,fonction nommée>>.
 Nous verrons un usage concret de ce troisième argument
-dans la section "<<array.map,transformer les valeurs>>".
+dans la section "<<array.map,Transformer les valeurs>>".
 
 [source%interactive,javascript]
 .array/foreach-function.js
@@ -1576,7 +1573,7 @@ include::{sourceDir}/object/base.js[]
 <4> Affiche{nbsp}``undefined` – aucune valeur n'est affectée pour cette{nbsp}clé.
 
 Une autre syntaxe existe pour _créer_ des valeurs et y _accéder_ en utilisant
-des variables en guise d'identifiant d'index :
+des variables en guise d'identifiant d'index.
 
 [source%interactive,javascript]
 .object/dynamic.js
@@ -1962,7 +1959,7 @@ Le contexte (`this`)::
   _je fais référence à cet objet_ et, donc,
   appeler les données et méthodes attenantes.
 
-mdn::reference[Classes]
+mdn::reference[Classes, title="Classes", text="les classes"]
 
 [[class.method]]
 === Méthodes d'instance
@@ -2001,7 +1998,7 @@ On verra dans le <<../chapter-04/index.adoc,chapitre sur Node>>
 qu'on peut se baser sur les modules pour partager du code
 sans avoir à l'affecter à une classe.
 
-mdn::reference[Classes/static]
+mdn::reference[Classes/static, title="Méthodes statiques", text="les méthodes statiques"]
 
 
 [[object-getset]]
@@ -2035,8 +2032,8 @@ include::{sourceDir}/setters.js[]
 <3> Affiche `2212139938` – idem.
 <4> Affiche `undefined` – il faudrait créer un _accesseur_ `get ean13()` pour recomposer dynamiquement sa valeur.
 
-mdn::reference[Functions/get]
-mdn::reference[Functions/set]
+mdn::reference[Functions/get, title="Accesseurs", text="les accesseurs"]
+mdn::reference[Functions/set, title="Mutateurs", text="les mutateurs"]
 
 
 
@@ -2156,7 +2153,7 @@ dans le reste de l'ouvrage, plus particulièrement
 avec <<../chapter-09/index.adoc#io-fetch,fetch()>> au chapitre{nbsp}9
 ainsi qu'avec <<../chapter-04/index.adoc#util.promisify,promisify>> au chapitre{nbsp}4.
 
-mdn::global[Promise]
+mdn::global[Promise, text="les promesses"]
 
 [TIP]
 .[RemarquePreTitre]#Lien# Guide des promesses

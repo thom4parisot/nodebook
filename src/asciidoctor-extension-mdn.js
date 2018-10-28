@@ -15,7 +15,7 @@ module.exports = function MDNExtension () {
     this.positionalAttributes('page');
     this.process((parent, target, attrs) => {
       const doc_attrs = parent.getDocument().getAttributes();
-      const {title='',page} = attrs;
+      const {title='', page, text=''} = attrs;
       const titleOrPage = title || page;
 
       const {'mdn-caption':mdn_caption='📖'} = doc_attrs;
@@ -35,7 +35,7 @@ module.exports = function MDNExtension () {
       const path = NAMESPACES[target] ? '/' + NAMESPACES[target] : '';
 
       const content = `
-Rendez-vous sur _MDN web docs_ pour en savoir plus sur ${titleOrPage}. +
+Rendez-vous sur _MDN web docs_ pour en savoir plus sur ${text || titleOrPage}. +
 link:https://developer.mozilla.org/docs/${lang}${path}/${page}[role="URL",window="_blank"]
       `;
 
