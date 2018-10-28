@@ -30,7 +30,7 @@ animent la communauté et d'où vient cette plate-forme qui fait tant parler d'e
 [abstract]
 --
 Node.js est-il un langage de programmation ?
-Node.js est-il un _framework_ JavaScript ?
+Node.js est-il un framework JavaScript ?
 Qu'en restera-t-il une fois la frénésie retombée ?
 
 Ce chapitre permet de *comprendre pourquoi Node a émergé* et comment.
@@ -42,7 +42,7 @@ peut vous apporter, que ce soit dans un contexte personnel ou professionnel.
 == Node.js : un environnement d'exécution JavaScript
 
 Node.js n'est pas un langage de programmation.
-Ce n'est pas non plus un _framework_ JavaScript.
+Ce n'est pas non plus un framework JavaScript.
 *Node.js est un environnement d'exécution JavaScript*.
 
 La différence entre ces trois désignations peut sembler subtile, futile voire
@@ -132,7 +132,7 @@ Alors qu'il cherche à effectuer des petits boulots, il y rencontre une autre
 personne développant des sites web.
 Ruby{nbsp}on{nbsp}Rails connaît un succès grandissant et attire son attention.
 Alors que Ryan envisage d'utiliser Rails, il découvre avec horreur la lenteur
-du _framework_ et cherche à en découvrir les causes.
+du framework et cherche à en découvrir les causes.
 
 Ryan débute alors sa quête des applications web performantes et découvre
 Mongrel, un serveur HTTP écrit en Ruby.
@@ -181,14 +181,14 @@ rapide et moins gourmande en ressources.
 
 Ryan admet que JavaScript dispose des caractéristiques idéales, même s'il n'est
 pas un adepte du langage : fonctions anonymes, _closures_ et l'_event loop_
-(dans le DOM en tous cas).
+(dans le DOM en tout cas).
 Il manque juste aux machines virtuelles JavaScript la capacité d'accéder à des
 _sockets_, au système de fichiers et à d'autres fonctions système.
 
 Ryan quitte alors son travail, s'inspire de ses travaux de modules non bloquants
 pour Nginx et s'affaire pendant six mois à marier JavaScript, V8 et l'environnement
 du système d'exploitation.
-De ces efforts naît Node.js.
+De ses efforts naît Node.js.
 
 Il présente alors officiellement son travail ([URL]#https://gist.github.com/ry/a3d0bbbff196af633995#
 et [URL]#https://www.youtube.com/watch?v=ztspvPYybIY#) qui suscite l'enthousiasme
@@ -228,7 +228,7 @@ endif::[]
 == Les raisons du succès
 
 La tension et l'attention autour de JavaScript sont énormes en 2009.
-La mode du tout Ajax et des _mashup_ s'est estompée, mais une chose en est
+La mode du tout Ajax et des _mashups_ s'est estompée, mais une chose en est
 ressortie : JavaScript n'a plus à rougir ni à être relégué au rang de sous-langage.
 Les initiatives JSLint, CommonJS et les _good{nbsp}parts_ de
 Douglas{nbsp}Crockford sont pour beaucoup dans la création de code élégant.
@@ -270,7 +270,7 @@ la réponse est "oui".
 == Pourquoi éviter Node.js ?
 
 Il est tentant de vouloir suivre un chemin populaire,
-d'adopter le dernier outil ou _framework_ à la{nbsp}mode.
+d'adopter le dernier outil ou framework à la{nbsp}mode.
 
 J'ai pourtant envie d'écrire qu'il n'est pas forcément nécessaire
 de passer à{nbsp}Node.
@@ -393,14 +393,14 @@ de commandes, un registre de modules ainsi qu'une entreprise privée à but lucr
 À l'origine, c'est un module Node créé par Isaac{nbsp}Schlueter,
 qui sert à installer des modules tiers et à les lier sous forme d'un
 arbre de dépendances.
-Il est l’équivalent de Rubygems ([URL]#https://rubygems.org/#) pour Ruby, de
-CPAN ([URL]#http://www.cpan.org/#) pour Perl ou encore de pypi
+Il est l’équivalent de RubyGems ([URL]#https://rubygems.org#) pour Ruby, de
+CPAN ([URL]#http://www.cpan.org#) pour Perl ou encore de PyPI
 ([URL]#https://pypi.python.org/pypi#) pour Python.
 
 Nous reviendrons plus en détail sur son utilisation dans le
 <<../chapter-05/index.adoc#,chapitre{nbsp}5>>.
 
-`npm` désigne également le _registre_ principal qui héberge les modules des
+`npm` désigne également le registre principal qui héberge les modules des
 communautés Node : [URL]#https://npmjs.com#.
 
 [TIP]
@@ -419,7 +419,7 @@ Auparavant, il fallait l'installer séparément.
 Isaac{nbsp}Schlueter est embauché par Joyent en septembre{nbsp}2010.
 Il succède à Ryan{nbsp}Dahl dans la gestion du projet Node de
 janvier{nbsp}2012 jusqu'à janvier{nbsp}2014, date à laquelle il quitte Joyent
-pour fonder _npm,{nbsp}Inc_.
+pour fonder npm,{nbsp}Inc.
 Cette entreprise a pour but de fournir des solutions professionnelles basées
 sur `npm` et soutient en parallèle l'effort open source
 et les coûts d’infrastructure du registre.
@@ -429,8 +429,8 @@ une nouvelle architecture du registre `npm`.
 Ce financement a également pour vocation la mise en place d'une stratégie
 commerciale basée sur les modules privés et les solutions professionnelles.
 
-La société _npm,{nbsp}Inc_ détient les marques _npm_, _npm,{nbsp}Inc_ ainsi que
-le logo _npm_.
+La société npm,{nbsp}Inc détient les marques npm, npm,{nbsp}Inc ainsi que
+le logo npm.
 
 .Logo officiel de npm,{nbsp}Inc
 image::images/logo-npm.png[width="40%"]
@@ -452,7 +452,7 @@ Le projet io.js connaît une fin heureuse en{nbsp}2015 :
 les efforts du projet et de sa communauté auront abouti à
 la création de la <<node-foundation,Node.js Foundation>> et
 du Node.js Advisory Board, respectivement l'organe
-de gestion du projet et le groupe d'individus qui en est en charge.
+de gestion du projet et le groupe d'individus qui en a la charge.
 
 [TIP]
 .[RemarquePreTitre]#Lien# Clap de{nbsp}fin
@@ -491,11 +491,11 @@ Nodejitsu démontre un investissement fort dans la communauté Node en contribua
 à plusieurs centaines de modules.
 La société prend en charge l'hébergement du registre `npm` de{nbsp}2010 jusqu'en décembre{nbsp}2013.
 
-En{nbsp}2013, l'entreprise lance l'initiative controversée <<scalenpm,_++#scalenpm++_>>
+En{nbsp}2013, l'entreprise lance l'initiative controversée <<scalenpm,++#scalenpm++>>
 (voir l'encadré ci-après).
 Elle vise à collecter des fonds pour améliorer la performance
 et la stabilité du registre `npm` ([URL]#https://www.npmjs.com/#).
-Nodejitsu attise les tensions avec la compagnie _npm,{nbsp}Inc._
+Nodejitsu attise les tensions avec la compagnie npm,{nbsp}Inc.
 en tentant de lui couper l'herbe sous le pied.
 Ce ne sera pas un succès.
 
@@ -512,7 +512,7 @@ Son effort se poursuit dans le but de fournir une meilleure instrumentation et
 une architecture résistant à la montée en puissance de l'utilisation des modules `npm`.
 
 Cette initiative a suscité une controverse dans la mesure où l’opération s’est
-déroulée lors de la naissance de _npm,{nbsp}Inc_ et du dépôt de marque associé,
+déroulée lors de la naissance de npm,{nbsp}Inc et du dépôt de marque associé,
 mais sans entente apparente entre les deux parties.
 
 Le contenu est depuis archivé sur
@@ -524,7 +524,7 @@ Le contenu est depuis archivé sur
 
 La Node Security Platform ([URL]#https://nodesecurity.io# –
 anciennement Node Security Project) est un projet à but lucratif soutenu par
-la société américaine _&yet_ ([URL]#https://andyet.com#).
+la société américaine &yet ([URL]#https://andyet.com#).
 Il a été initié au début de l'année{nbsp}2013.
 La société, les employés et les logiciels ont été rachetés par <<npm-inc>> en{nbsp}2018.
 
@@ -605,7 +605,7 @@ Ce mécanisme a été choisi afin de préserver la vitalité du projet.
 Un quota d'appartenance à une même entreprise a été mis en place
 pour maintenir une diversité de représentation.
 Dans une moindre mesure, ce mécanisme vise à réduire les possibles conflits
-d'intérêt ou une prise en otage du projet comme a pu le faire
+d'intérêts ou une prise en otage du projet comme a pu le faire
 <<joyent,Joyent>> avant l'apparition de ce modèle de gouvernance.
 
 [TIP]

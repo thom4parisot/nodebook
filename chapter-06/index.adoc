@@ -401,7 +401,7 @@ similaire à la mise à jour et au démarrage d'une application sur notre ordina
 
 Cette technique s'applique si notre application est placée sur un
 <<hosting.shared,hébergement mutualisé>>,
-<<hosting.vm,dédié ou virtualisé>> ou une <<hosting.cloud,offre _cloud_>>.
+<<hosting.vm,dédié ou virtualisé>> ou une <<hosting.cloud,offre cloud>>.
 
 L'exemple suivant illustre l'initialisation d'un projet via la connexion
 SSH à un <<hosting.shared,hébergement mutualisé>> chez alwaysdata.
@@ -611,7 +611,7 @@ partout.
 [NOTE]
 .[RemarquePreTitre]#Avancé# Amazon Elastic Container Registry
 ====
-Le <<hosting.cloud,fournisseur _cloud_>> Amazon Web Services intègre
+Le <<hosting.cloud,fournisseur cloud>> Amazon Web Services intègre
 un registre privé d'images Docker pour chaque compte client.
 
 _Elastic Container Registry_ (ECR, [URL]#https://aws.amazon.com/ecr/#)
@@ -876,7 +876,7 @@ Les _Virtual Private Servers_ (_VPS_) sont des machines virtuelles
 (_Virtual Machine_,{nbsp}__VM__) : les ressources d'un serveur dédié sont
 réparties en plusieurs unités indépendantes les unes des autres, les{nbsp}VM.
 
-Les offres _cloud_ sont une version "`élastique`" des{nbsp}VM : la puissance de calcul,
+Les offres cloud sont une version "`élastique`" des{nbsp}VM : la puissance de calcul,
 la bande{nbsp}passante et la mémoire allouées sont ajustables sans avoir à
 changer de machine, sans avoir à tout réinstaller.
 Ces ressources sont considérées comme étant "`à{nbsp}la demande`" : elles s'obtiennent
@@ -886,7 +886,7 @@ supprimées à tout moment.
 Leur modèle de facturation s'adapte à la souplesse d'allocation des ressources :
 
 - au mois : VPS, serveur virtualisé, serveur dédié ;
-- à l'heure : serveur _cloud_ ;
+- à l'heure : serveur cloud ;
 - à la (milli)seconde : <<hosting.lambda,fonction événementielle>>.
 
 Les modes de déploiement adaptés sont <<deploy.clone,Git>>
@@ -907,7 +907,7 @@ Service; Déploiement; Add-ons; Tarif horaire; Tarif mensuel
 [URL]#https://alwaysdata.com/fr/pricing/#vps#; "SSH, API"; {tick}; -; 149{nbsp}€/VM
 |===
 
-L'offre _cloud_ est plus intéressante si vos besoins sont
+L'offre cloud est plus intéressante si vos besoins sont
 singulièrement fluctuants – par exemple lorsqu'il y a besoin de doubler la CPU
 pendant deux heures, à heure fixe ou en fonction de la charge, mais aussi quand il
 s'agit d'ajouter dix serveurs d'un coup pour traiter un calcul gourmand.
@@ -940,7 +940,7 @@ sans gérer la complexité et la non-interopérabilité de leurs{nbsp}API.
 [[hosting.lambda]]
 === Fonction événementielle (Serverless, Lambda)
 
-La fonction événementielle est l'évolution ultime des offres _cloud_.
+La fonction événementielle est l'évolution ultime des offres cloud.
 Au lieu de payer une machine ou une VM à l'heure,
 *nous payons pour exécuter du code à la milliseconde*.
 Ce code se déclenche en réaction à un événement se produisant ailleurs

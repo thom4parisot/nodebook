@@ -1296,7 +1296,7 @@ Elles ajoutent des capacités de compréhension de la requête
 (<<post,parser des données de formulaire>> par exemple), de modifier la réponse
 ou de <<views,connecter des gabarits de présentation>>.
 
-Chaque couche de transformation est appelée un _middleware_ – une fonction
+Chaque couche de transformation est appelée un middleware – une fonction
 intermédiaire entre la requête et la réponse.
 
 ----
@@ -1308,18 +1308,18 @@ $ node framework/middleware.js
 ----
 include::{sourceDir}/framework/middleware.js[]
 ----
-<1> Un _middleware_ se branche avec la méthode `app.use()`.
+<1> Un middleware se branche avec la méthode `app.use()`.
 <2> L'objet `response.locals` passe des données jusqu'à la route – qui sont effacées une fois la réponse envoyée.
-<3> La fonction `next()` passe la main au prochain _middleware_.
-<4> Nous récupérons l'objet `response.locals.pokemon` créé par notre _middleware_.
+<3> La fonction `next()` passe la main au prochain middleware.
+<4> Nous récupérons l'objet `response.locals.pokemon` créé par notre middleware.
 <5> Affichage d'un message similaire à `Pokémon aléatoire : Patrat`.
 
-Un _middleware_ n'est pas très différent d'une route : c'est une fonction
+Un middleware n'est pas très différent d'une route : c'est une fonction
 qui a accès à la requête et à la réponse HTTP.
 Elle n'est pas forcément affectée à une méthode HTTP (`app.get()`, `app.post()`)
 ni à un chemin d'accès.
 
-Dans l'exemple suivant, nous allons connecter plusieurs _middlewares_ grâce
+Dans l'exemple suivant, nous allons connecter plusieurs middlewares grâce
 aux modules{nbsp}``npm`` _helmet_ ([URL]#https://npmjs.com/helmet#) et _serve-static_
 ([URL]#https://npmjs.com/serve-static#).
 Ce dernier est une version embarquée de <<static,serve>> par le module Express.
@@ -1333,14 +1333,14 @@ $ node framework/middleware-multi.js
 ----
 include::{sourceDir}/framework/middleware-multi.js[]
 ----
-<1> Nous branchons le _middleware_ utilisé dans la section <<static,répondre avec des fichiers statiques>> sur l'URL `{serveUrl}/files`.
-<2> Nous branchons les _middlewares_ de <<security,sécurité>> à notre application.
+<1> Nous branchons le middleware utilisé dans la section <<static,répondre avec des fichiers statiques>> sur l'URL `{serveUrl}/files`.
+<2> Nous branchons les middlewares de <<security,sécurité>> à notre application.
 <3> La racine de l'application affiche une image contenue dans un autre répertoire.
 
-Le mécanisme de _middlewares_ est minimaliste, et pourtant, il nous permet de
+Le mécanisme de middlewares est minimaliste, et pourtant, il nous permet de
 brancher des modules dont le seul pré-requis est de comprendre les objets
 de requête et de réponse HTTP.
-*Les _middlewares_ relient tous les concepts* évoqués dans la section
+*Les middlewares relient tous les concepts* évoqués dans la section
 "`<<webapp,Composer son application{nbsp}web>>`".
 
 .Extraits des en-têtes d'une réponse HTTP une fois le module helmet configuré
@@ -1364,7 +1364,7 @@ Le module _helmet_ agit seulement sur les en-têtes de réponse.
 Nous verrons dans la section "`<<security,Protéger nos applications>>`" quels
 en-têtes sont essentiels à la sécurité et pourquoi.
 
-Enfin, notons une méthode alternative pour appliquer un _middleware_ : au niveau
+Enfin, notons une méthode alternative pour appliquer un middleware : au niveau
 d'une route, au lieu de toutes les routes – avec `app.use()`.
 Pour cela, nous allons transformer l'exemple `framework/middleware.js` et
 l'appliquer à une seule route :
@@ -1379,12 +1379,12 @@ $ node framework/middleware-function.js
 include::{sourceDir}/framework/middleware-function.js[]
 ----
 <1> Nous avons factorisé la route dans une fonction afin de la rendre réutilisable.
-<2> La route{nbsp}``/`` reçoit d'abord le _middleware_, puis la fonction d'affichage.
+<2> La route{nbsp}``/`` reçoit d'abord le middleware, puis la fonction d'affichage.
 <3> La route `/rondoudou` reçoit uniquement la fonction d'affichage.
 
 Nous verrons que, même si la fonction d'affichage est identique, les routes
 `{serverUrl}/` et `{serverUrl}/rondoudou` produisent des résultats différents.
-Cette dernière n'ayant pas reçu le _middleware_ `pokéMiddleware`, sa variable
+Cette dernière n'ayant pas reçu le middleware `pokéMiddleware`, sa variable
 `response.locals.pokemon` n'a pas été définie et elle vaut donc `undefined`.
 
 [[views]]
@@ -1454,7 +1454,7 @@ moteur de gabarits favori.
 
 La gestion des ressources _front-end_ ne demande pas à changer nos habitudes.
 Les fichiers CSS, JavaScript et les images sont des fichiers statiques
-à mettre à disposition via un <<middleware,_middleware_>>.
+à mettre à disposition via un <<middleware,middleware>>.
 
 ----
 $ node framework/assets.js
@@ -1510,7 +1510,7 @@ associer les lignes du fichier compilé au fichiers sources.
 L'utilisation des doubles tirets{nbsp}(`--`) nous permet de réutiliser le script
 `build:css` en lui passant deux options supplémentaires.
 
-Le _middleware_ statique s'utilise aussi avec des fichiers.
+Le middleware statique s'utilise aussi avec des fichiers.
 
 ----
 $ node framework/assets-file.js
@@ -1629,7 +1629,7 @@ $ node framework/session.js
 ----
 include::{sourceDir}/framework/session.js[]
 ----
-<1> Configuration du _middleware_ avec un secret qui rend moins prévisible le nom du <<cookies,cookie>>.
+<1> Configuration du middleware avec un secret qui rend moins prévisible le nom du <<cookies,cookie>>.
 <2> Création d'une donnée de session nommée `pokemon`, de valeur aléatoire.
 <3> Affiche un message similaire à `Mon Pokémon en session : Pikachu`.
 
@@ -1639,7 +1639,7 @@ Le serveur fait fait le lien entre votre identifiant de session (stocké en cook
 et les valeurs associées (stockées en mémoire, pour l'instant) grâce à un identifiant
 unique stocké dans le cookie de session.
 
-Le _middleware_ de session retrouve les informations associées à cet identifiant
+Le middleware de session retrouve les informations associées à cet identifiant
 depuis l'espace de stockage des données de sessions.
 
 [subs="+quotes"]
