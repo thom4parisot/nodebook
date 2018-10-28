@@ -12,7 +12,7 @@ endif::[]
 
 = Créer un outil en ligne de commande
 
-Créer un outil en ligne de commande est un savoir utile pour se forger nos
+Créer un outil en ligne de commande est un savoir utile pour forger ses
 propres outils, automatiser des actions et mieux s'intégrer au
 système d'exploitation.
 
@@ -29,12 +29,12 @@ système d'exploitation.
 [abstract]
 --
 Ce chapitre est une invitation à créer des applications au plus proche des
-systèmes d'exploitation ; une chose dans laquelle Node excelle.
+systèmes d'exploitation, là où Node excelle.
 
 Nous apprendrons à passer d'un script Node ordinaire à un script qui
 s'exécute comme un programme de notre système d'exploitation.
 
-Nous renforcerons ce programme en améliorant son expérience utilisateur
+Nous compléterons ce programme en améliorant son expérience utilisateur
 mais aussi en le rendant robuste grâce aux tests et à l'écriture d'une
 documentation minimaliste, générée automatiquement.
 
@@ -328,7 +328,7 @@ sans compréhension de la logique recherchée.
 C'est à nous de dire que{nbsp}``FR`` est une valeur associée à `--country`.
 
 Dans le contexte des outils en ligne de commandes,
-les arguments et les options sont des paramètres qui sont interprétées
+les arguments et les options sont des paramètres qui sont interprétés
 par le programme pour contextualiser son action.
 Ils fonctionnent un peu comme des arguments de
 <<../chapter-03/index.adoc#function,fonction>> et des paramètres{nbsp}d'URL.
@@ -396,7 +396,7 @@ include::{sourceDir}/options/alias.js[]
 <1> Définition de l'option{nbsp}``-c`` en tant qu'alias de `--country`.
 <2> L'affichage représente à la fois la valeur de l'option et celle de l'alias.
 
-La lecture est rendue plus difficile pour celui ou celle qui n'a pas lu
+La lecture est rendue plus difficile pour celui ou celle qui n'a pas consulté
 le manuel d'utilisation en détail – ce qui est souvent le cas, surtout
 pour des personnes qui découvrent un nouveau logiciel.
 
@@ -413,9 +413,9 @@ $ node options/defaults.js --fast
 ----
 <1> La clé `country` affiche une valeur alors que nous ne l'avons pas spécifiée dans la commande.
 
-L'enjeu réside alors dans l'utilisation des valeurs à bon escient, pour
+L'enjeu réside donc dans l'utilisation des valeurs à bon escient, pour
 que le programme fasse ce qui est attendu d'un point de vue utilisateur.
-Le paramétrage est similaire à celui des _alias_ :
+Le paramétrage est similaire à celui des _alias_.
 
 [source,javascript]
 .options/defaults.js
@@ -465,7 +465,7 @@ include::{sourceDir}/options/types.js[]
 `--verbose --verbose`::
 `-vv`::
   Certaines bibliothèques utilisent la répétition d'un booléen comme un compteur.
-  Auquel cas, la notation `--verbose --verbose` correspond à la valeur `{verbose: 2}`.
+  Dans ce cas, la notation `--verbose --verbose` correspond à la valeur `{verbose: 2}`.
   C'est utile pour gérer la gradation d'une option comme la loquacité de l'affichage
   des _logs_.
 
@@ -615,8 +615,15 @@ Nous y reviendrons dans la section "`<<application,Utilisation d'un framework>>`
 Les couleurs vont nous aider à faire ressortir, différencier et distinguer
 des éléments au sein d'une interface monochrome.
 
+ifdef::backend-html5[]
 .Exemple d'utilisation de couleurs dans un terminal
 image::images/cli-colors.png[width="60%"]
+endif::[]
+
+ifndef::backend-html5[]
+.Exemple d'utilisation de couleurs (ici, en niveaux de gris) dans un terminal
+image::images/cli-colors.png[width="60%"]
+endif::[]
 
 L'alternance de texte coloré et monochrome a été créée à partir du
 script suivant :
@@ -656,8 +663,15 @@ Les huit couleurs principales et les huit couleurs vives s'affichent dans
 à peu près tous les terminaux.
 Cela vaut aussi pour leur utilisation en couleur de{nbsp}fond.
 
+ifdef::backend-html5[]
 .Affichage des huit couleurs principales et des huit couleurs{nbsp}vives
 image::images/cli-colors-all.png[width="60%"]
+endif::[]
+
+ifndef::backend-html5[]
+.Affichage des huit couleurs principales et des huit couleurs{nbsp}vives (ici, en niveaux de gris)
+image::images/cli-colors-all.png[width="60%"]
+endif::[]
 
 [source,javascript]
 .colors/all.js
@@ -709,7 +723,7 @@ include::{sourceDir}/colors/chalk.js[]
 <3> Utilisation de la couleur de fond rouge.
 
 Le module s'utilise aussi comme modèle avec les guillemets obliques,
-ce qui augmente encore plus la clarté d'affichage :
+ce qui augmente encore plus la clarté d'affichage.
 
 [source,javascript]
 .colors/chalk-literal.js
@@ -892,7 +906,7 @@ effacer le contenu d'une ligne.
 .Pendant et après la progression d'un script{nbsp}Node
 image::images/cli-dots.png[]
 
-Il n'y a pas beaucoup de code à changer dans l'exemple précédent pour y parvenir :
+Il n'y a pas beaucoup de code à changer dans l'exemple précédent pour y parvenir.
 
 [source,javascript]
 .progress/dots.js
@@ -1084,6 +1098,9 @@ de la section "`<<args,Utiliser des arguments et des options>>`".
 ----
 include::{sourceDir}/options/timezone.js[]
 ----
+<1> Nous affectons à `timezone` la première valeur du tableau d’arguments.
+<2> Configuration des préférences d'affichage de l'heure.
+<3> Utilisation de la méthode `toLocaleDateString()` avec nos options pour afficher la date courante.
 
 [[interface]]
 === Modulariser le code du fichier exécutable
@@ -1171,7 +1188,7 @@ include::{sourceDir}/testing/01/lib.test.js[]
 <3> Assertion qui teste que la fonction `getTime` retourne bien un résultat.
 <4> Assertion qui teste que la fonction `getTime` provoque une erreur si aucun argument n'est passé.
 
-Nous sommes parés aux éventualités, mais en y réfléchissant, le module `cli.js`
+Nous sommes parés à toute éventualité, mais en y réfléchissant, le module `cli.js`
 ne gère pas vraiment le cas où aucun argument n'est transmis.
 
 ----
@@ -1243,7 +1260,7 @@ Unsupported time zone specified Brexit/London
 Tester l'exécutable est un moyen de vérifier que les câblages entre notre
 exécutable et notre mode Node sont bien faits.
 L'idée n'est pas de tester à nouveau les mêmes aspects du code, mais bel et
-bien de nous assurer que les conditions d'utilisation du programme soient remplies.
+bien de nous assurer que les conditions d'utilisation du programme sont remplies.
 
 ----
 $ node testing/02/cli.test.js
@@ -1375,8 +1392,8 @@ l'affichage de la commande `--help`.
 .Présentation de la documentation d'un exécutable dans un{nbsp}README
 image::images/documentation-readme.png[]
 
-Je ne pense pas qu'il y ait besoin de faire plus compliqué pour véhiculer
-autant d'informations essentielles avec un minimum d'efforts.
+Nul besoin de faire compliqué pour véhiculer autant d'informations essentielles
+avec un minimum d'efforts.
 Démarrer un projet en écrivant cette documentation est un excellent moyen pour
 travailler à la clarification de ses idées et pour commencer à imaginer la
 forme que va prendre l'<<tests,écriture des{nbsp}tests>>.
@@ -1513,7 +1530,7 @@ devient problématique sur des machines avec peu de ressources,
 si vous souhaitez obtenir des résultats le plus tôt possible et si
 vous avez d'autres impératifs de performance.
 
-Je vous invite à lire la section "`<<streaming,Utiliser des flux de données>>`"
+Je vous invite à lire la section "`<<streaming,Utiliser les flux de données>>`"
 pour en savoir plus.
 ====
 
@@ -1665,7 +1682,7 @@ include::{sourceDir}/files/glob.js[]
 
 L'expansion est caractérisée par l'utilisation des accolades.
 Les valeurs sont séparées par des virgules, qui signifient _ou_.
-Les deux syntaxes se combinent, ici pour récupérer les fichiers suffixés par
+Les deux syntaxes se combinent ici pour récupérer les fichiers suffixés par
 `.adoc` ou par{nbsp}``.html`` :
 
 ----
@@ -1854,7 +1871,8 @@ Elle accélère et réduit le risque d'erreurs durant la saisie des commandes.
 .[RemarquePreTitre]#Compatibilité# Incertitudes de fonctionnement sous Windows
 ====
 Cette section n'a pas été testée avec les systèmes d'exploitation Windows.
-Les commandes référencées ci-après ne fonctionnent peut-être pas{nbsp}avec.
+Les commandes référencées ci-après ne fonctionnent peut-être pas
+sous ses systèmes.
 ====
 
 .Prérequis pour installer les exécutables de ce chapitre
@@ -1917,7 +1935,7 @@ include::{sourceDir}/autocomplete/omelette.js[]
 <1> L'arbre est un objet ECMAScript.
 <2> L'option `--timezone` suggère la liste complète des fuseaux horaires.
 
-C'est clairement pratique quand on ne sait pas par où commencer et quand on ne
+C'est très pratique quand on ne sait pas par où commencer et quand on ne
 connaît pas la liste exhaustive des propositions.
 
 Nous avons parlé du module{nbsp}``npm`` _yargs_ dans la section sur
