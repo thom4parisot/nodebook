@@ -29,9 +29,9 @@ web _front-end_ alors profitons-en pour partager du code entre client et serveur
 [abstract]
 --
 Avant l'apparition de Node, rare était l'outillage n'imposant pas une ou
-plusieurs plates-formes de développement : _YUICompressor_ demandait Java,
-_Google Closure Compiler_ demandait Java, _sprockets_ Ruby et _pngquant_
-quelques dépendances système comme _libpng_.
+plusieurs plates-formes de développement : _YUICompressor_ et _Google Closure Compiler_
+demandaient Java, _sprockets_ demandait Ruby et _pngquant_ reposait sur des
+dépendances système comme _libpng_.
 
 L'existence de Node et du registre `npm` a favorisé le développement d'un
 écosystème orienté _front-end_ plus simple à appréhender.
@@ -48,8 +48,8 @@ include::../docs/tip-versions.adoc[]
 == Quel rapport entre Node et les navigateurs{nbsp}web ?
 
 Ce chapitre peut sembler confus au premier abord.
-Si Node s'exécute au niveau du système d'exploitation – "`côté serveur`" – en quoi
-est-il lié au développement _front-end_ – "`côté client`" ?
+Si Node s'exécute au niveau du système d'exploitation – "`côté serveur`" –,
+en quoi est-il lié au développement _front-end_ – "`côté client`" ?
 Est-ce parce que du code écrit pour Node peut aussi fonctionner dans un navigateur{nbsp}web ?
 Quid de l'utilisation de `require('fs')` pour accéder au système de fichiers ?
 
@@ -70,7 +70,7 @@ implémentant ECMAScript de façon plus ou moins complète.
 - Ils n'ont pas accès aux mêmes APIs – Node accède à `fs` et `http` tandis que
 les navigateurs ont `File` et `fetch`/`XmlHttpRequest`.
 - Ils ne gèrent pas le chargement de modules de la même manière
-(voir la section "`<<managing-dependencies,Gestion des dépendances>>`").
+(voir la section "`<<managing-dependencies,Dépendences de développement>>`").
 - L'implémentation même d'ECMAScript diffère selon les versions de Node
 employées – un navigateur moderne et Node{nbsp}{nodeCurrentVersion} comprennent
 l'objet natif `Promise`, mais pas Node{nbsp}0.12.
@@ -173,16 +173,16 @@ des navigateurs et, à défaut, transformer le code pour l'adapter aux autres na
 
 Il arrive que certains éléments de syntaxe soient abandonnés pendant le
 processus de standardisation – ou que leur implémentation change beaucoup
-(on pensera à `Object.observe`).
+(on pensera à `Object.observe()`).
 
 La question qui nous taraude est : comment transformer le code pour satisfaire
 à la fois les navigateurs compatibles et les autres ?
-_Babel_ ([URL]#https://babel.io#) est un outil de choix  pour parvenir à ces
-fins d'écriture de code résistant au(x standards du) temps.
+_Babel_ ([URL]#https://babeljs.io#) est un outil de choix  pour parvenir à ses
+fins d'écrire du code résistant au(x standards du) temps.
 
 Ce module convertit de manière sélective toute syntaxe ECMAScript{nbsp}2015/2016/etc.
 vers de l'ECMAScript{nbsp}5, compréhensible par les navigateurs modernes.
-L'intérêt de sa _sélectivité_ fait que l'on peut progressivement arrêter de
+L'intérêt de sa sélectivité fait que l'on peut progressivement arrêter de
 convertir les éléments de syntaxe couverts par 100{nbsp}% des navigateurs.
 
 [TIP]
@@ -227,7 +227,7 @@ include::{sourceDir}/babel/es2018-es5.js[]
 ----
 
 Chaque fonctionnalité d'ECMAScript est transformée selon une règle personnalisable,
-intégrée à _Babel_ ou disponible sous forme d'un _plug-in_.
+intégrée à _Babel_ ou disponible sous forme d'un plug-in.
 Les _presets_ sont des modules{nbsp}``npm`` qui regroupent les règles
 de transformation selon un certaine logique.
 
@@ -240,7 +240,7 @@ en fonction soit de leur version, soit de leur part de marché.
 La configuration des presets et d'autres aspects de Babel se fait
 dans un fichier nommé `.babelrc`.
 L'exemple suivant configure Babel pour préserver les commentaires,
-transformer la syntaxe JSX pour <<react,React>> et transformer pour les
+transformer la syntaxe JSX pour <<react,_React_>> et transformer pour les
 dernières versions des navigateurs sur le marché :
 
 .{empty}.babelrc
@@ -266,7 +266,7 @@ Des outils comme Babel nous permettent d'écrire avec une syntaxe moderne qui
 
 Un _polyfill_ harmonise la présence d'une fonctionnalité au sein d'une variété de
 navigateurs et d'environnements ECMAScript.
-Cela se fera au détriment de quelques kilo-octets de code à charger en plus
+Cela se fera au prix de quelques kilo-octets de code à charger en plus
 dans nos applications.
 L'appel à un service de _polyfill_ externe entraîne un léger ralentissement du
 chargement de notre{nbsp}page.
@@ -294,7 +294,7 @@ L'inclusion d'un _polyfill_ de `Promise` résoudrait le problème.
 .[RemarquePreTitre]#Bonne pratique# Quand inclure les polyfills ?
 ====
 *Un _polyfill_ se charge toujours en premier*.
-On incluet tous les _polyfills_ d'un coup avant notre propre code.
+On incluet tous les _polyfills_ en une seule fois avant notre propre code.
 
 Nous garantissons ainsi cohérence et stabilité de comportement au sein de
 notre application, peu importe l'ordre d'exécution de nos scripts.
@@ -317,7 +317,7 @@ include::{sourceDir}/polyfill.io.html[]
 [TIP]
 .[RemarquePreTitre]#Documentation# polyfill.io
 ====
-_polyfill.io_ possède une documentation très complète qui aide à configurer
+polyfill.io possède une documentation très complète qui aide à configurer
 finement le service en fonction de nos besoins :
 
 - [URL]#https://qa.polyfill.io/v2/docs/#
@@ -330,7 +330,8 @@ Nous pouvons déduire deux règles de cet exemple :
 
 La deuxième méthode est d'embarquer les _polyfills_ dans notre base de code.
 L'avantage est de maîtriser notre base de code et de ne pas dépendre d'un service externe.
-L'inconvénient est que nous chargeons du code qui sera inutile dans les navigateurs et environnements disposant déjà de ces fonctionnalités :
+L'inconvénient est que nous chargeons du code qui sera inutile dans les
+navigateurs et environnements disposant déjà de ces fonctionnalités.
 
 [source,html]
 .polyfill-import.html
@@ -390,7 +391,7 @@ include::{sourceDir}/polyfill-require.js[]
 [TIP]
 .[RemarquePreTitre]#Guide# Bonnes pratiques constatées
 ====
-De bons usages des _polyfills_ ainsi les risques liés à leur utilisation
+De bons usages des _polyfills_ ainsi que les risques liés à leur utilisation
 sont compilés dans un guide édité par le{nbsp}W3C :
 
 - [URL]#https://w3ctag.github.io/polyfills/#
@@ -406,7 +407,7 @@ rien de natif avant les <<modules-es2015,modules ECMAScript>>.
 Auparavant, on aura vu débarquer les modules AMD (_Asynchronous Module Definition_)
 pour gérer les dépendances entre scripts.
 Les bibliothèques Dojo, RequireJS et YUI ont popularisé ce motif de conception.
-Un désir d'universalité a ensuite émergé avec le gain de popularité croissant de Node,
+Un désir d'universalité a ensuite émergé avec la popularité croissante de Node,
 conduisant aux modules{nbsp}UMD, conciliant AMD et CommonJS.
 
 Les modules ECMAScript ont émergé de ce bouillonnement.
@@ -539,17 +540,18 @@ Le seul hic, c'est que *cela ne fonctionne pas* :
 - Rien ne garantit que `jquery` expose son code en tant que module ECMAScript.
 - On n'a certainement pas envie d'exposer publiquement le répertoire `node_modules`.
 
-C'est alors qu'entre en jeu *browserify*.
-_browserify_ est un outil générique de transformation de code.
+C'est alors qu'entre en jeu _Browserify_.
+Il s'agit d'un outil générique de transformation de code.
 Il peut être utilisé en ligne de commandes, via son API Node, mais aussi par
 le biais de plug-in pour d'autres outils (comme Gulp ou Grunt).
 
-_browserify_ a été initialement créé pour transformer du code écrit pour Node en
+_Browserify_ a été initialement créé pour transformer du code écrit pour Node en
 code fonctionnel dans les navigateurs.
 Il expose notamment un concept d'intégrations (les _transforms_) afin d'effectuer
 des remplacements ligne à ligne.
 
-Là où _Babel_ cherche uniquement à traduire un langage vers un autre, _browserify_ est le couteau suisse pour effectuer des remplacements majeurs dans le code :
+Là où _Babel_ cherche uniquement à traduire un langage vers un autre,
+_Browserify_ est le couteau suisse pour effectuer des remplacements majeurs dans le code :
 
 - portage de la fonction `require()` et inclusion du code des modules sous-jacents ;
 - suppression de code conditionnel ;
@@ -557,13 +559,13 @@ Là où _Babel_ cherche uniquement à traduire un langage vers un autre, _browse
 - extraction de{nbsp}CSS ;
 - etc.
 
-_browserify_ est intéressant au sens où il nous apprend à nous constituer
+_Browserify_ est intéressant au sens où il nous apprend à nous constituer
 notre outillage, pour nos propres besoins.
 
 [TIP]
-.[RemarquePreTitre]#Guide# Utiliser browserify
+.[RemarquePreTitre]#Guide# Utiliser Browserify
 ====
-_browserify_ ([URL]#https://npmjs.com/browserify#) est un outil extrêmement
+_Browserify_ ([URL]#https://npmjs.com/browserify#) est un outil extrêmement
 adaptable, modulaire et puissant.
 Son apprentissage progressif peut faire de lui un allié de choix dans tous
 vos projets Node et{nbsp}Web.
@@ -671,7 +673,7 @@ include::{sourceDir}/modules/jquery-plugin.html[]
 ----
 
 Maintenant que la structure HTML est définie, nous devons écrire le
-code affichant l'heure dans un élément HTML toutes les secondes :
+code affichant l'heure dans un élément HTML toutes les secondes.
 
 [source,javascript]
 .modules/jquery-plugin.js
@@ -679,7 +681,7 @@ code affichant l'heure dans un élément HTML toutes les secondes :
 include::{sourceDir}/modules/jquery-plugin.js[]
 ----
 <1> Ce bloc de code est exécuté toutes les secondes.
-<2> La donnée de temps est obtenue chaque seconde par notre _plug-in jQuery_.
+<2> La donnée de temps est obtenue chaque seconde par notre plug-in _jQuery_.
 <3> Certaines décisions métier sont mélangées avec l'affichage de la donnée temps.
 <4> L'intervalle est déterminé par la valeur de l'attribut `data-interval`.
 <5> Ce bloc de code est exécuté dès que le document HTML est prêt – toute sa structure HTML est disponible.
@@ -790,7 +792,8 @@ Chaque seconde, la fonction `console.log` est appelée et affiche la structure
 de données de notre minuteur dans la sortie standard du terminal.
 
 Nous pourrions dès à présent utiliser le minuteur dans d'autres applications,
-côté client, côté serveur et, pourquoi pas, un jour le publier sur le registre{nbsp}``npm``.
+côté client, côté serveur et, pourquoi pas, un jour le publier sur le
+registre{nbsp}``npm`` ?
 
 === Séparation du fond et de la forme : données, rendu et interactions
 
@@ -814,13 +817,13 @@ représentation.
 === Rapprocher données, rendu et interactions avec{nbsp}React
 
 _React_ a atteint un pic de popularité certain en{nbsp}2015 et{nbsp}2016,
-pas seulement parce qu'il s'agit d'un outil bien conçu, mais justement parce
+pas seulement parce que c'est un outil bien conçu, mais justement parce
 qu'il encourage cette pratique de la représentation des données.
 
 [TIP]
 .[RemarquePreTitre]#Documentation# API{nbsp}React
 ====
-Les exemples suivants se basent sur la bibliothèque _React_ ([URL]#https://facebook.github.io/react/#).
+Les exemples suivants se basent sur la bibliothèque _React_ ([URL]#https://reactjs.org#).
 Sa documentation offre de bons exemples pour se familiariser avec son utilisation.
 ====
 
@@ -854,7 +857,7 @@ Cela ressemble fortement au contenu de nos précédentes invocations de
 `$(document).ready()` mais sans avoir à se soucier du fonctionnement interne du minuteur.
 
 La représentation et le fonctionnement du minuteur sont désormais regroupés
-dans un seul composant :
+dans un seul composant.
 
 [source,jsx]
 .modules/date-interval.jsx
@@ -902,7 +905,7 @@ image::images/react-devtools.png[width="85%"]
 ====
 
 [[io]]
-== Des requêtes Ajax au temps{nbsp}réel
+== Des requêtes Ajax vers du temps{nbsp}réel
 
 Les technologies web offrent un panel de fonctionnalités créatives et adaptables.
 L'explosion du _Web 2.0_ a coïncidé avec la redécouverte de `XMLHttpRequest`,
@@ -930,7 +933,7 @@ L'implémentation côté serveur est basée sur un serveur
 image::images/io-example.png[width="85%"]
 
 [TIP]
-.[RemarquePreTitre]#Remarque# Node, mais pas{nbsp}que.
+.[RemarquePreTitre]#Remarque# Node, mais pas{nbsp}que
 ====
 `fetch()`, _EventSource_ et _WebSocket_ reposent sur le protocole HTTP/1 et ses extensions.
 Il est important de comprendre que leur contrepartie "`côté serveur`" existe aussi
@@ -978,7 +981,7 @@ include::{sourceDir}/io/fetch-client.js[]
 image::images/fetch-frames.png[width="85%"]
 
 L'implémentation d'une ressource HTTP côté serveur s'effectue simplement
-en retournant une réponse lors d'une requête :
+en retournant une réponse lors d'une requête.
 
 [source,javascript]
 .io/fetch-server.js
@@ -1005,7 +1008,7 @@ navigateurs.
 [[io-eventsource]]
 === Approche unidirectionnelle avec EventSource
 
-_EventSource_ est un mécanisme moins connu que `fetch()` ou _WebSocket_ mais
+_EventSource_ est un mécanisme moins connu que `fetch()` ou _WebSocket_ mais qui
 tire ses origines de la technologie _Comet_.
 On peut l'assimiler à une inversion de `fetch()` : le client appelle une ressource
 serveur, maintient une connexion de longue durée et attend un ou plusieurs
@@ -1063,7 +1066,7 @@ et souscrire à des mises à jour en continu.
 Chaque connexion _EventSource_ devrait concerner qu'un seul et même type d'événement.
 
 [[io-websocket]]
-=== Échanges en temps{nbsp}réel avec _WebSocket_
+=== Échanges en temps{nbsp}réel avec WebSocket
 
 _WebSocket_ est une technologie web favorisant les échanges bidirectionnels
 entre client et serveur.
@@ -1117,7 +1120,7 @@ Voici ce qui se passe lorsqu'un client _WebSocket_ se connecte sur `ws://example
 
 Par extension et de par la nature même du protocole `ws`, il serait tout à
 fait possible que _et_ clients _et_ serveur soient des agents Node.
-Autrement dit, un client _WebSocket_ n'a pas nécessairement à être un navigateur.
+Autrement dit, un client _WebSocket_ ne doit pas nécessairement être un navigateur.
 
 [source,javascript]
 .io/websocket-server.js
@@ -1176,7 +1179,7 @@ $ ./node_modules/.bin/browserify -t babelify \
 ----
 
 Il suffit de remplacer `browserify` par `watchify` – le programme garde la main
-et indique chaque nouvelle compilation sur une nouvelle ligne :
+et indique chaque nouvelle compilation sur une nouvelle ligne.
 
 ----
 $ ./node_modules/.bin/watchify -dv -t babelify \
@@ -1195,7 +1198,7 @@ Trois arguments sont utiles à _watchify_ :
 
 - ``-v``{nbsp}(`--verbose`) : force la création du fichier compilé au lancement de la commande.
 - ``-o``{nbsp}(`--outfile`) : spécifie le chemin d'enregistrement du fichier compilé – il est impossible d'utiliser la <<../chapter-04/index.adoc#stdio,sortie standard>> (<<../chapter-04/index.adoc#,chapitre{nbsp}4>>).
-- ``-d``{nbsp}(`--debug`) : (lire "`<<browserify-sourcemaps,Source{nbsp}Maps>>`" dans ce même chapitre).
+- ``-d``{nbsp}(`--debug`) : (lire "`<<browserify-sourcemaps,Les source{nbsp}maps>>`" dans ce même chapitre).
 
 [[livereload]]
 === Changements en temps{nbsp}réel dans le navigateur
@@ -1224,14 +1227,14 @@ fenêtres et terminaux – y compris les clics, défilements et toute interactio
 avec des formulaires.
 
 ifeval::["{backend}" == "html5"]
-.Exemple de synchronisation d'affichage et de contenus entre deux fenêtres avec _browser-sync_
+.Exemple de synchronisation d'affichage et de contenus entre deux fenêtres avec browser-sync
 video::videos/browser-sync.mp4[width="70%"]
 endif::[]
 
 _browser-sync_ maintient la position du curseur de défilement lors d'un rechargement de contenu.
 L'outil se lance soit de manière autonome, soit en _proxy_ entre l'utilisateur
 et tout autre serveur web.
-Il ne nécessite pas non plus de _plug-in_ ou d'extension navigateur pour fonctionner,
+Il ne nécessite pas non plus de plug-in ou d'extension navigateur pour fonctionner,
 ce qui le rend idéal pour du prototypage, de la recherche utilisateur ou du
 développement local.
 
@@ -1292,11 +1295,11 @@ de remplacement à chaud vers le navigateur.
 - Le code client remplace les modules et maintient leur état interne.
 
 ifeval::["{backend}" == "html5"]
-.Exemple de rechargement à chaud avec des composants _React_
+.Exemple de rechargement à chaud avec des composants React
 video::videos/react-hmr.mp4[width="70%"]
 endif::[]
 
-Le _plug-in browserify_ nommé _livereactload_ ([URL]#https://npmjs.com/livereactload#)
+Le plug-in _Browserify_ nommé _livereactload_ ([URL]#https://npmjs.com/livereactload#)
 est très certainement le plus facile à mettre en place pour remplacer des
 modules _React_ à la volée.
 Il nécessite une ligne de configuration côté _browserify_ mais aucun
@@ -1337,7 +1340,7 @@ Dans cet exemple, le __transform__{nbsp}(`-t`) modifie le code source à la vol�
 ici, pour adapter le code écrit dans une syntaxe compréhensible par la majorité
 des navigateurs grâce à l'outil <<transpilation,Babel>>.
 
-Le __plug-in__{nbsp}(`-p`) ne transforme pas le code mais le fonctionnement de
+Le plug-in {nbsp}(`-p`) ne transforme pas le code mais le fonctionnement de
 _watchify_ pour y ajouter des fonctionnalités – ici, refléter les
 changements du fichier source vers le navigateur en temps réel.
 
@@ -1372,11 +1375,11 @@ déclarer des modules remplaçables et pour démarrer un serveur de remplacement
 ====
 
 [[node-sass]]
-=== Modulariser ses feuilles de style avec{nbsp}Sass
+=== Modulariser ses feuilles de styles avec{nbsp}Sass
 
 La modularité et l'écriture d'un code isolé facilitent sa réutilisation et
 préviennent les effets de bord.
-Dans le cas des feuilles de style CSS, cela peut éviter de faire
+Dans le cas des feuilles de styles CSS, cela peut éviter de faire
 déborder la cascade – si l'on peut{nbsp}dire.
 
 Avec le langage Sass ([URL]#http://sass-lang.com#), nous pourrions songer à
@@ -1434,20 +1437,20 @@ include::{sourceDir}/ui/buttons.css[]
 ----
 
 [TIP]
-.[RemarquePreTitre]#Astuce# Oublions les _vendor prefix_
+.[RemarquePreTitre]#Astuce# Oublions les vendor prefix
 ====
 Les navigateurs évoluent plus vite que le cycle de vie de nos projets.
 Certaines propriétés CSS sont abritées derrière des préfixes (`-moz`, `-webkit`,
 etc.) avant d'être standardisées.
 
 Les modules _autoprefixer_ ([URL]#https://npmjs.com/autoprefixer#) et
-_postcss_ ([URL]#https://npmjs.com/postcss#) facilitent notre vie en préfixant
+_postcss_ ([URL]#https://npmjs.com/postcss#) nous facilitent la tâche en préfixant
 et réécrivant automatiquement les attributs en fonction de nos exigences de
 compatibilité avec les navigateurs.
 ====
 
 [[ui-bundling]]
-=== Lier composants visuels et feuilles de{nbsp}style
+=== Lier composants visuels et feuilles de{nbsp}styles
 
 Souvenons-nous de la section expliquant le
 <<react,rapprochement entre données, rendu et interactions avec React>>.
@@ -1464,13 +1467,13 @@ code à la volée durant la phase de compilation.
 Il se charge lui-même d'ajouter les styles dans le document HTML ou expose le
 code CSS compilé via la fonction `require()`.
 
-Une saine stratégie serait de charger des CSS de base dans une feuille de style
+Une saine stratégie serait de charger des CSS de base dans une feuille de styles
 en tête de `<head>` puis de laisser les composants graphiques injecter leurs
 feuilles CSS respectives après coup.
 
 L'exemple suivant expose deux composants _React_, regroupés dans une thématique
 de composants de boutons HTML.
-Une feuille de style est importée à même le module afin de gérer à un même niveau
+Une feuille de styles est importée à même le module afin de gérer au même niveau
 présentation, rendu et interactions :
 
 [source,jsx]
@@ -1518,7 +1521,7 @@ Quand j'écris ressources graphiques, j'entends par là le redimensionnement ou
 la création de vignettes d'images, l'optimisation de leur poids, la fusion de
 fichiers{nbsp}SVG sous forme de symboles, la création de piles de
 polices de caractères et même l'encodage audio/vidéo – via des logiciels
-spécialisés comme _ffmpeg_ ou _lame_.
+spécialisés comme _FFmpeg_ ou _LAME_.
 
 L'outil en ligne de commande _imagemin-cli_ ([URL]#https://npmjs.com/imagemin-cli#)
 est le module de référence pour optimiser les fichiers graphiques.
@@ -1542,7 +1545,7 @@ potentielle de couleurs dans le cas d'images complexes ;
 à l'œil{nbsp}nu.
 
 Il vaut mieux privilégier la _compression sans perte_ pour éviter les artefacts
-visuels et respecter fidèlement la création d'origine.
+visuels et respecter la création d'origine.
 ====
 
 Le redimensionnement d'images est une autre de ces tâches courantes et récurrentes
@@ -1611,14 +1614,14 @@ exemple.
 [[testing]]
 == Tester son code
 
-C'est bien connu que "`lorsqu'on produit du code de qualité, écrire des tests est amplement superflu et ne sert qu'à nous ralentir`".
+C'est bien connu : "`lorsqu'on produit du code de qualité, écrire des tests est amplement superflu et ne sert qu'à nous ralentir`".
 
-La réalité est toute autre et suit un paradigme très simple :
+La réalité est tout autre et suit un paradigme très simple :
 *plus il y a de lignes de code, plus il y a de risques de commettre des erreurs*.
 Cela vaut aussi bien pour du HTML que du CSS ou encore de l'ECMAScript.
 
-Cette dernière section de ce chapitre nous aidera à comprendre
-quoi et comment tester pour diminuer le coût de maintenance de nos applications.
+Cette dernière section nous aidera à comprendre quoi et comment tester
+pour diminuer le coût de maintenance de nos applications.
 
 [[testing-101]]
 === Que tester ?
@@ -1680,7 +1683,7 @@ nos applications en écrivant quelques tests.
 === S'outiller pour écrire des assertions
 
 Avant de nous lancer directement dans la conception et l'écriture des tests,
-intéressons-nous à comprendre comment l'outillage se structure.
+penchons-nous sur la structure de l'outillage.
 
 Assertion*::
   C'est la vérification d'une vérité, d'une attente, du résultat d'une opération.
@@ -1879,7 +1882,7 @@ C'est bien beau de tester uniquement l'interface de composants _React_
 (ou autre technologie) mais comment faire lorsqu'on a besoin de tester avec un
 vrai DOM ou dans plusieurs navigateurs ?
 
-On a besoin de tester dans des navigateurs pour :
+Il est nécessaire d'effectuer des tests dans des navigateurs pour :
 
 * s'assurer de la compatibilité de notre code avec les variations d'implémentation de navigateurs ;
 * valider notre choix de _polyfills_ ;
@@ -1936,7 +1939,7 @@ include::karma.conf.js[lines=49]
 _karma_ se charge d'inclure les fichiers ECMAScript ou de servir des fichiers
 statiques en fonction de motifs de chemins.
 Ces fichiers peuvent être locaux (de préférence) ou distants et même de
-types différents comme JSON ou{nbsp}HTML :
+types différents comme JSON ou{nbsp}HTML.
 
 [source,javascript,indent=0]
 .karma.conf.js#L7-17
@@ -1954,8 +1957,8 @@ base de _karma_.
 Ces dernières se résument à charger des fichiers ECMAScript
 dans une balise `<script>`.
 
-L'extrait de configuration suivant illustre le chargement des _plug-in_ pour
-_browserify_ (modules _CommonJS_ et transpilation), _mocha_ (suites de tests)
+L'extrait de configuration suivant illustre le chargement des plug-ins pour
+_Browserify_ (modules _CommonJS_ et transpilation), _mocha_ (suites de tests)
 et _fixture_ (données représentant des cas d'utilisation) – respectivement
 les modules `npm` `karma-browserify`, `karma-mocha` et `karma-fixture` :
 
@@ -1965,7 +1968,7 @@ les modules `npm` `karma-browserify`, `karma-mocha` et `karma-fixture` :
 include::karma.conf.js[lines=5]
 ----
 
-Une fois encore, des motifs de chemins sont utilisés pour indiquer aux _plug-in_
+Une fois encore, des motifs de chemins sont utilisés pour indiquer aux plug-ins
 leur responsabilité de prise en charge.
 
 [source,javascript,indent=0]
@@ -1988,7 +1991,7 @@ un véritable élément du DOM, créé à partir du fichier de _fixture_ suivant
 include::{sourceDir}/tests-browser/fixtures/link-package.html[]
 ----
 
-Ce fichier de fixture est chargé dans le DOM par le _plug-in_ `karma-fixture`
+Ce fichier de fixture est chargé dans le DOM par le plug-in `karma-fixture`
 pour prouver que l'on peut récupérer les dépendances exposées par le fichier
 `package.json` des ressources de ce chapitre :
 
@@ -1998,15 +2001,15 @@ pour prouver que l'on peut récupérer les dépendances exposées par le fichier
 include::{sourceDir}/tests-browser/test-outside-world.js[]
 ----
 <1> `before()` indique à _mocha_ d'exécuter ce bloc de code avant tout{nbsp}test.
-<2> Appel du _plug-in_ de fixture pour obtenir l'élément du DOM nécessaire à la fonction `getLinkElementContent`.
-<3> Appel réel de la fonction `getLinkElementContent`, résolu comme une <<../chapter-03/index.adoc#promise,promesse>> et dont nous testons le résultat à la ligne suivante.
+<2> Appel du plug-in de fixture pour obtenir l'élément du DOM nécessaire à la fonction `getLinkElementContent()`.
+<3> Appel réel de la fonction `getLinkElementContent()`, résolu comme une <<../chapter-03/index.adoc#promise,promesse>> et dont nous testons le résultat à la ligne suivante.
 <4> Assertion vérifiant que le résultat contient bien les clés de dépendances{nbsp}``npm`` attendues – nous avons bien récupéré le bon fichier et le bon contenu !
 
 L'invocation de _karma_ se fait en invoquant `./node_modules/.bin/karma start`.
 Par mesure de simplicité, cette commande a été abstraite en tant que
 <<../chapter-05/index.adoc#npm-scripts,script{nbsp}``npm``>> :
 
-.Exécution ponctuelle de _karma_
+.Exécution ponctuelle de karma
 ----
 $ npm run test:browser
 ----
@@ -2016,7 +2019,7 @@ désactivant l'exécution unique (_single run_).
 C'est idéal lorsque les tests sont écrits en parallèle de l'implémentation du
 code ou que des ajustements fréquents ont lieu en phase de développement :
 
-.Exécution continue de _karma_
+.Exécution continue de karma
 ----
 $ npm run test:browser -- --no-single-run
 ----
@@ -2029,7 +2032,7 @@ navigateurs avec du code modulaire et réutilisable.
 La question qui se pose désormais est la suivante :
 *comment faire pour tester plusieurs versions d'un même navigateur*, pour
 tester sur un système d'exploitation que l'on n'a pas ou encore plusieurs
-terminaux mobiles de type _smartphone_ ou tablette.
+terminaux mobiles de type _smartphone_ ou tablette ?
 
 [[ci]]
 === Intégration continue et compatibilité navigateurs
@@ -2039,15 +2042,15 @@ Deux cas de figure se présentent en complément de la section précédente :
 * la difficulté d'accès à certaines combinaisons navigateur + système d'exploitation ;
 * l'envie d'automatiser les tests de navigateurs.
 
-Sous Windows, il nous sera difficile de tester Safari pour macOS.
-Inversement, sous macOS, il nous sera difficile de tester
+Sous Windows, il sera difficile de tester la version macOS de Safari.
+Inversement, sous macOS, il sera difficile de tester
 Internet{nbsp}Explorer ou Edge.
 Que dire d'anciennes versions de navigateurs Android, dont la rapidité de
 développement et donc la compatibilité sont bien en-deçà des versions de Chrome
 pour ordinateur ou mobile ?
 
 ifeval::["{backend}" == "html5"]
-.Exemple de tests multi-navigateurs en continu avec _karma_ et _BrowserStack_
+.Exemple de tests multi-navigateurs en continu avec karma et BrowserStack
 video::videos/karma-browserstack.mp4[width="70%"]
 endif::[]
 
@@ -2059,7 +2062,7 @@ Il s'agit du module `karma-browserstack-launcher`
 
 
 [TIP]
-.[RemarquePreTitre]#Documentation# _BrowserStack_
+.[RemarquePreTitre]#Documentation# BrowserStack
 ====
 La documentation de _BrowserStack_ ([URL]#https://www.browserstack.com/automate/node#)
 décrit les différents systèmes d'exploitation à disposition ainsi que les
@@ -2072,8 +2075,8 @@ effectuer des tests sans passer par _karma_.
 _BrowserStack_ n'est pas un navigateur en soi, mais offre un accès à une multitude
 de navigateurs.
 Il faut donc créer de nouvelles configurations dans la propriété `customLaunchers`.
-L'extrait de configuration suivant illustre la création d'un navigateur _Safari_
-pour _iPhone{nbsp}4S_ sous _iOS{nbsp}5.1_ :
+L'extrait de configuration suivant illustre la création d'un navigateur Safari
+pour iPhone{nbsp}4S sous iOS{nbsp}5.1.
 
 [source,javascript,indent=0]
 .karma.conf.js#L51-58
@@ -2110,7 +2113,7 @@ include::karma.conf.js[lines=39..41]
 .[RemarquePreTitre]#Alternative# Sauce{nbsp}Labs
 ====
 _Sauce{nbsp}Labs_ ([URL]#https://saucelabs.com#) est un concurrent de _BrowserStack_.
-Il offre des fonctionnalités similaires et est gratuit pour les projets open source.
+Il offre des fonctionnalités similaires et il est gratuit pour les projets open source.
 ====
 
 Indépendamment de _BrowserStack_, l'intégration continue est un mécanisme
@@ -2129,7 +2132,7 @@ l'infrastructure de tests chez des personnes contribuant de manière occasionnel
 Cerise sur le gâteau, on prévient en partie les régressions – changements qui
 cassent le fonctionnement attendu d'une fonctionnalité.
 
-Le service _Travis{nbsp}CI_ ([URL]#https://travis-ci.com#) est un service
+Le service Travis{nbsp}CI ([URL]#https://travis-ci.com#) est un service
 d'intégration continue (_Continuous Integration_, _CI_) parmi d'autres, mais
 qui a été rendu populaire pour son intégration avec GitHub.
 Il est gratuit pour les projets open source.
@@ -2143,7 +2146,7 @@ Son mécanisme de variables d'environnement cryptées nous évitera de donner
 accès à notre compte au premier{nbsp}venu.
 
 Un fichier de configuration minimal au format YAML est nécessaire.
-Des services comme GitHub facilitent la connexion avec _Travis{nbsp}CI_ et
+Des services comme GitHub facilitent la connexion avec Travis{nbsp}CI et
 déclenchent automatiquement l'exécution des tests à chaque _commit_
 ou _pull{nbsp}request_.
 
@@ -2162,11 +2165,11 @@ include::.travis.yml[]
 [TIP, id="travis-ci"]
 .[RemarquePreTitre]#Documentation# Travis{nbsp}CI
 ====
-Des services comme _Travis{nbsp}CI_ sont puissants et amplement configurable
+Des services comme Travis{nbsp}CI sont puissants et amplement configurable
 pour de nombreux besoins – dont Node ([URL]#https://docs.travis-ci.com/user/languages/javascript-with-nodejs/#) –
 et y{nbsp}compris pour se connecter à des bases de données PostgreSQL ou MariaDB.
 
-.Écran de paramétrage des variables d'environnement secrètes sur Travis{nbsp}CI.
+.Écran de paramétrage des variables d'environnement secrètes sur Travis{nbsp}CI
 image::images/travis-ci-encrypted-env.png[width="85%"]
 ====
 
@@ -2175,11 +2178,11 @@ image::images/travis-ci-encrypted-env.png[width="85%"]
 Nous sommes désormais en mesure d'*exécuter des tests unitaires* impliquant
 des *navigateurs web* sur notre machine, sur des *services distants* mais
 également de manière automatique avec des services d'*intégration continue*
-comme _Travis{nbsp}CI_.
+comme Travis{nbsp}CI.
 
 Le recours aux modules{nbsp}``npm`` combinés aux modules ECMAScript facilite
 *la conception et la maintenance de code testable et réutilisable*.
 
 Ces pratiques de modularisation – jusqu'au rendu intermédiaire de _React_
-– encouragent une *rigueur ayant un effet positif* sur la qualité de notre
-code et notre confiance à le déployer en production.
+– incitent à la *rigueur qui a un effet positif* sur la qualité de notre
+code et renforce notre confiance à le déployer en production.
