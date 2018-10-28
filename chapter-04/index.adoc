@@ -33,8 +33,8 @@ et Windows.
 
 [abstract]
 --
-Après avoir exécuté notre premier script Node, nous allons nous découvrir
-l'étendue des modules Node et ce qu'ils nous offrent en terme de capacité
+Après avoir exécuté notre premier script Node, nous allons découvrir
+l'étendue des modules Node et ce qu'ils nous offrent en termes de capacité
 d'interaction avec le système d'exploitation – disque, réseau, calculs, etc.
 
 Nous apprendrons ensuite à créer et organiser nos propres modules – nous
@@ -52,8 +52,8 @@ include::../docs/tip-versions.adoc[]
 
 L'interpréteur Node est le programme qui nous fournit des résultats
 en échange d'instructions ECMAScript.
-Le terminal est un autre programme pour dialoguer avec
-un ordinateur et les programmes installés.
+Le terminal est un autre programme permettant de faire dialoguer
+un ordinateur avec les programmes installés.
 
 [NOTE]
 ====
@@ -67,7 +67,7 @@ Cela peut rendre l'accès au terminal plus facile.
 Ce chapitre se base sur le principe que vous avez un terminal installé,
 sur lequel vous allez saisir des instructions ECMAScript.
 
-.Exemple de _terminal_ sous macOS
+.Exemple de terminal sous macOS
 image::images/terminal.png[width="85%"]
 
 include::../docs/tip-examples.adoc[]
@@ -133,7 +133,7 @@ ABC
 Node nous rend ensuite la main pour exécuter d'autres commandes.
 
 On apprendra à passer des <<process.argv,arguments d'exécution>>
-dans la section <<process,module `process`>>.
+dans la section sur le <<process,module `process`>>.
 
 [TIP]
 .[RemarquePreTitre]#Performances# Ressources machine
@@ -343,7 +343,7 @@ changeraient d'une version à l'autre de{nbsp}Node.
 ====
 
 Les sections suivantes illustrent des usages courants des modules de base
-pour mieux comprendre quoi en attendre et comment les utiliser.
+pour mieux comprendre ce qu'on peut en attendre et comment les utiliser.
 
 [[console]]
 === console : déboguer rapidement des variables
@@ -579,7 +579,7 @@ include::{sourceDir}/url/to-string.js[]
 
 La fonction `format()` va plus loin que `url.toString()`.
 Ses options contrôlent plus finement ce qui sera conservé ou retiré lors
-de la conversion en chaîne de caractères :
+de la conversion en chaîne de caractères.
 
 [source%interactive,javascript]
 .url/format.js
@@ -770,7 +770,7 @@ d'exploitation, sans effort.
 
 L'exemple suivant crée un répertoire dans un <<os,dossier temporaire>>,
 copie un fichier sous un autre nom et liste le contenu du répertoire
-une fois la copie effectuée :
+une fois la copie effectuée.
 
 [source%interactive,javascript]
 .fs/copy-tmp.js
@@ -898,7 +898,7 @@ une structure de document{nbsp}HTML.
 - [URL]#https://developer.mozilla.org/fr/docs/Web/Events#
 ====
 
-On peut décider d'écouter un événement une seule fois avec{nbsp}``once()`` :
+On peut décider d'écouter un événement une seule fois avec{nbsp}``once()``.
 
 [source%interactive,javascript]
 .events/once.js
@@ -979,7 +979,7 @@ La documentation du module `events` est disponible sur le site officiel de Node 
 === util : transformer des fonctions de rappel en promesses
 
 Le petit module `util` contient des fonctions utilitaires
-qui ne rentreraient pas dans le périmètre d'autres modules.
+qui n'entreraient pas dans le périmètre d'autres modules.
 
 On y trouve `util.format()`, une fonction qui fait beaucoup penser à
 <<console,`console.log`>> mais sans afficher le message :
@@ -996,7 +996,7 @@ il suffirait de décommenter la dernière ligne et de (re)lancer le script.
 
 La fonction `util.debuglog()` formate aussi des messages.
 Son affichage est toutefois conditionnel, ce qui est pratique quand on veut
-déboguer des variables sans toucher au code entre deux exécutions :
+déboguer des variables sans toucher au code entre deux exécutions.
 
 [source%interactive,javascript]
 .util/debuglog.js
@@ -1032,7 +1032,7 @@ Une de mes fonctions préférées est `util.promisify()`.
 Elle convertit une fonction acceptant un <<callback,callback>> en une fonction
 retournant une <<../chapter-03/index.adoc#promise,promesse>>.
 C'est particulièrement pratique quand on n'a pas la maîtrise du
-code source original :
+code source original.
 
 [source%interactive,javascript]
 .util/fs-readdir-promisified.js
@@ -1092,7 +1092,7 @@ Dans le second, on utilise le protocole HTTP pour
 *mettre à disposition des ressources* et les envoyer en _réponse_.
 
 Le module `https` offre exactement les mêmes propriétés.
-Il est à privilégier pour établir des connections sécurisées
+Il est à privilégier pour établir des connexions sécurisées
 vers des adresses commençant par{nbsp}``https://``.
 
 
@@ -1151,12 +1151,12 @@ Cela pose problème à des fonctions comme
 <<../chapter-03/index.adoc#json,`JSON.parse`>>, qui nécessitent un document
 JSON complet pour produire un résultat.
 
-Une solution consiste accumuler les morceaux de réponse et à les assembler.
+Une solution consiste à accumuler les morceaux de réponse et à les assembler.
 Cela veut aussi dire que l'on consomme autant de mémoire que l'on reçoit de données.
 
 Une autre solution repose sur l'utilisation des <<stream,flux de données>>.
 Ils pompent et brassent les données comme du liquide, en consommant peu de mémoire.
-On en parle plus loin, dans la section sur le <<stream,module `streams`>>.
+On en parle plus loin, dans la section sur le <<stream,module `stream`>>.
 
 [horizontal]
 .Propriétés notables
@@ -1251,13 +1251,13 @@ Nous verrons comment arriver au même résultat en écrivant moins de code grâc
 `message.read()`::
   Obtient un morceau de données manuellement – au lieu d'utiliser
   l'événement `data`, automatique.
-  On apprendra mieux comment manipuler cette fonction dans la section sur le
-  <<stream,module `streams`>>.
+  On apprendra à mieux manipuler cette fonction dans la section sur le
+  <<stream,module `stream`>>.
 `message.destroy()`::
   Termine la transmission des données sans que le serveur distant
   nous aie tout transmis.
 Attribut `message.headers`::
-  Objet contenant les en-têtes de la réponse – c'est le serveur distant qui décide
+  Objet contenant les en-têtes de la réponse – le serveur distant décide
   de leur contenu.
 Attribut `message.statusCode`::
   Code qui reflète l'état de compréhension de notre requête par le serveur distant.
@@ -1328,8 +1328,8 @@ C'est l'équivalent de `response.headers`.
 On a posé les bases d'un serveur HTTP minimaliste sur lequel on pourra
 construire pas à pas tout type d'application web.
 Que manque-t-il pour en faire un serveur web ?
-De _typer_ les ressources renvoyées afin qu'elles soient comprises
-par un navigateur, c'est-à-dire de pouvoir signaler que nos réponses
+Il faut encore _typer_ les ressources renvoyées afin qu'elles soient comprises
+par un navigateur, c'est-à-dire signaler que nos réponses
 contiennent du HTML, du CSS, des images, etc.
 
 Modifions notre exemple précédent pour renvoyer du{nbsp}HTML :
@@ -1365,14 +1365,14 @@ Si le serveur distant ne précise pas l'encodage des caractères,
 le navigateur l'interprète en <<ascii,ASCII>>.
 Or, les éditeurs de code enregistrent les fichiers avec un autre encodage : UTF-8.
 Ce standard englobe les alphabets du monde entier, dont les accents et
-caractères diacritique de la langue française.
+signes diacritiques de la langue française.
 
 [NOTE,id="ascii"]
 .[RemarquePreTitre]#Histoire# American Standard Code for Information Interchange{nbsp}(ASCII)
 ====
-L'informatique contemporaine a débuté aux États-Unis.
-Les systèmes ont été conçus à cette époque pour comprendre l'alphabet anglais,
-les signes de ponctuations et des caractères spéciaux.
+Au début de l'informatique contemporaire, les systèmes étaient conçus
+pour comprendre l'alphabet anglais, les signes de ponctuations et
+des caractères spéciaux.
 On parle alors de standard d'encodage{nbsp}ASCII.
 
 L'émergence d'Internet et du World{nbsp}Wide{nbsp}Web ont popularisé l'encodage UTF-8
@@ -1409,7 +1409,8 @@ include::{sourceDir}/http/web-server-routes.js[]
 
 Si tout se passe bien, le chargement de la page HTML devrait déclencher
 une requête vers `http://localhost:4000/main.css`.
-La confirmation est visuelle en visitant notre serveur avec un navigateur{nbsp}web :
+Nous en avons la confirmation visuelle en visitant le serveur grâce à un
+navigateur{nbsp}web :
 
 .Rendu navigateur de l'exemple `http/web-server-routes.js`
 image::images/web-server-routes.png[width="65%"]
@@ -1448,8 +1449,7 @@ aidé par les <<../chapter-05/index.adoc#modules,modules{nbsp}``npm``>> que l'on
   Se délenche lorsque la requête a été terminée par le client,
   avant qu'on ait pu transmettre l'intégralité des données.
 `response.on('finish')`::
-  Se délenche lorsqu'on a envoyé le dernier morceau de données au client
-  ayant initié la requête.
+  Se délenche après l'envoi du dernier morceau de données.
 `response.end()`::
   Signale au client que nous n'avons plus de données à transmettre.
 `response.getHeader()`::
@@ -1610,7 +1610,7 @@ Le constat est similaire à celui produit avec le <<fs,module{nbsp}``fs``>> :
 les fichiers listés sont ceux du _répertoire courant_,
 notre emplacement dans le terminal.
 
-Modifions maintenant la valeur de l'option{nbsp}``cwd`` :
+Modifions maintenant la valeur de l'option{nbsp}``cwd``.
 
 [source%interactive,javascript]
 .child_process/ls-root.js
@@ -1695,7 +1695,7 @@ Dans le programme externe, on y accède avec <<process.argv,`process.argv`>>.
 Pour transmettre un volume de données plus important en paramètre,
 il vaut mieux faire appel à la propriété `stdin`.
 C'est un <<stream,flux d'écriture>> dont le fonctionnement est identique
-à <<process.std,`process.stdin`>> :
+à <<process.std,`process.stdin`>>.
 
 [source%interactive,javascript]
 .child_process/spawn-stdin.js
@@ -1872,7 +1872,7 @@ dans le <<../chapter-08/index.adoc#,chapitre{nbsp}8>>.
 [[process.argv]]
 Les arguments d'exécution sont des morceaux d'information transmis
 à un script Node.
-On les place à la droite du nom du fichier :
+On les place à droite du nom du fichier :
 
 ----
 $ node print-first.js salut
@@ -1910,7 +1910,7 @@ Le script `print-first.js` affiche le premier argument.
 On en conclut que les arguments sont séparés par le caractère "`espace`".
 
 Dans le cas où un argument doit contenir un espace, on l'encadre alors
-entre guillemets :
+de guillemets :
 
 ----
 $ node print-first.js "salut ça va ?" "oui et toi ?"
@@ -2083,7 +2083,7 @@ Voyons comment cela fonctionne :
 ----
 include::{sourceDir}/process/stdin-uppercase.js[]
 ----
-<1> Chaque afflux de donnée appelle notre fonction en lui fournissant un seul paramètre contenant les données en question.
+<1> Chaque afflux de données appelle notre fonction en lui fournissant un seul paramètre contenant les données en question.
 <2> Le paramètre est de <<buffer,type Buffer>> – on souhaite le transformer en <<../chapter-03/index.adoc#string,chaîne de caractères>>.
 <3> La chaîne de caractères est transformée en majuscules et écrite dans le flux de sortie.
 
@@ -2260,7 +2260,7 @@ En plus du signal `SIGINT`, Node nous relaie les signaux suivants :
 
 `SIGKILL` est un autre événement important, mais on ne peut pas l'écouter.
 Quand il est émis, le processus doit être arrêté quoiqu'il arrive.
-On l'utilise justement en cas de dernier recours, quand `SIGINT`
+On l'utilise justement en dernier recours, quand `SIGINT`
 et `SIGTERM` ne font pas effet ; par exemple à cause d'un bogue dans notre code,
 ou d'une ressource qui ne rend pas la main.
 
@@ -2302,12 +2302,12 @@ include::{sourceDir}/process/exit-devinette.js[]
 ----
 <1> Le nombre secret est{nbsp}``3`` par défaut, sauf s'il est passé <<process.argv,en argument>> du script.
 <2> Cette fonction est invoquée à chaque saisie suivie de l'appui sur la touche kbd:[ENTRÉE].
-<3> Cette ligne met fin immédiatement au script, après avoir affiché un message de félicitations.
+<3> Cette ligne met fin au script, après avoir affiché un message de félicitations.
 <4> Ce message s'affiche à chaque saisie erronée, jusqu'à ce que le nombre secret soit trouvé.
 
 On pourrait tout à fait imaginer une variante de ce script dans laquelle
 on limiterait le nombre de mauvaises réponses.
-Lorsqu'on attendrait cette limite, le programme utiliserait un code de sortie
+Lorsqu'on atteindrait cette limite, le programme utiliserait un code de sortie
 différent de{nbsp}``0``.
 Le code{nbsp}``9`` ferait l'affaire puisqu'il indique qu'un argument invalide a été
 passé.
@@ -2372,7 +2372,7 @@ include::{sourceDir}/stream/read.js[]
 <2> Affiche `Lecture terminée` lorsque tous les morceaux ont été{nbsp}lus.
 
 L'option `highWaterMark` adapte le débit de lecture.
-Cette valeur est exprimé en octets.
+Cette valeur est exprimée en octets.
 Plus ce nombre est petit, moins Node utilise de mémoire :
 
 ----
@@ -2436,7 +2436,7 @@ L'utilisation de `pipe()` semble superflue pour copier des fichiers.
 À vrai dire, la fonction <<fs,`fs.copyFile`>> fait exactement la même chose.
 Toutefois, le mécanisme de redirection proposé par `pipe()` est modulaire et composable.
 On peut par exemple diriger une source de données vers plusieurs flux d'écriture
-en même temps :
+en même temps.
 
 [source%interactive,javascript]
 .stream/pipe-multi.js
@@ -2485,7 +2485,7 @@ entre un script Node et un programme externe, entre deux programmes externes
 et entre deux scripts{nbsp}Node.
 
 [horizontal, id="stream.Readable"]
-.Principaux attributs d'un flux _Readable_
+.Principaux attributs d'un flux Readable
 `stream.pipe()`::
   Redirige un flux de lecture vers un flux d'écriture.
 `stream.on('data')`::
@@ -2498,7 +2498,7 @@ et entre deux scripts{nbsp}Node.
   Se déclenche lorsque la lecture de données est prête à démarrer.
 
 [horizontal, id="stream.Writeable"]
-.Principaux attributs d'un flux _Writeable_
+.Principaux attributs d'un flux Writeable
 `stream.write()`::
   Écrit des données dans le flux.
 `stream.end()`::
@@ -2574,7 +2574,7 @@ include::{sourceDir}/modules/enfant.js[]
 
 Le fichier d'exemple `modules/enfant.js` contient une variable, `number`.
 Essayons de la réutiliser dans le fichier `modules/parent.js`
-à l'aide de la fonction `require()` :
+à l'aide de la fonction `require()`.
 
 [source,javascript]
 .modules/parent.js
@@ -2618,7 +2618,7 @@ include::{sourceDir}/modules/parent-export.js[]
 `module.exports` rend visible depuis l'extérieur ce qui est exporté par un module.
 Par défaut, `module.exports` est un objet.
 
-Essayons maintenant d'exporter plusieurs valeurs en une seule fois :
+Essayons maintenant d'exporter plusieurs valeurs en une seule fois.
 
 [source,javascript]
 .modules/enfant-export-multiple.js
@@ -2712,7 +2712,7 @@ include::{sourceDir}/modules/increment.js[]
 <1> Variable privée.
 <2> `increment` est rendue publique à cet endroit – la fonction incrémente la variable privée `counter`.
 
-Nous allons importer ce module par deux fois, dans deux variables différentes :
+Nous allons importer ce module par deux fois, dans deux variables différentes.
 
 [source,javascript]
 .modules/double-import.js
@@ -2780,7 +2780,7 @@ et nécessitent l'utilisation de l'<<options,option de démarrage>>
 ====
 
 Reprenons l'exemple `modules/increment.js` pour le
-transformer en module ECMAScript :
+transformer en module ECMAScript.
 
 [source,javascript]
 .modules/increment.mjs
@@ -3013,7 +3013,7 @@ Par convention, le premier paramètre est une erreur.
 
 Ce paramètre est nul (`null`) ou indéfini (`undefined`) lorsqu'il n'y a pas eu
 d'erreurs en cours de route.
-En revanche, il contient un objet d'erreur lorsque un problème s'est produit :
+En revanche, il contient un objet d'erreur lorsque un problème s'est produit.
 
 [source%interactive,javascript]
 .errors/callback.js
@@ -3184,7 +3184,7 @@ Les erreurs système indiquent la raison du problème.
 .Erreurs couramment rencontrées
 [cols="1,2,2",options="header"]
 |===
-| Code erreur | Raison | Indice de résolution
+| Code erreur | Raison | Piste de résolution
 | `EACCES` | Permission refusée : nous n'avons pas le droit d'accéder à cette ressource. | Changer les permissions d'accès sans mettre en péril la sécurité.
 | `EADDRINUSE` | Adresse déjà utilisée : nous tentons de créer une ressource réseau alors qu'une
 interface existe déjà à la même adresse. | Vérifier l'origine du serveur déjà en place à cette adresse. Attribuer une autre adresse/port à la ressource réseau.
@@ -3299,7 +3299,7 @@ Pour l'instant, Node utilise un <<modules,mécanisme de modules>> (CommonJS)
 différent des modules ECMAScript des navigateurs.
 
 La convergence vers les modules ECMAScript est en cours.
-Il y a fort à parier qu'ils soient pris en charge nativement par Node dans une
+Il y a fort à parier qu'ils seront pris en charge nativement par Node dans une
 version ultérieure.
 
 Nous verrons au <<../chapter-08/index.adoc#,chapitre{nbsp}9>> comment utiliser
@@ -3431,7 +3431,7 @@ et met aussitôt son exécution en pause.
 
 Le logo de Node s'affiche dans les outils de développement de Chrome :
 
-.Outils de développement _Google Chrome_ avec l'icône de l'inspecteur{nbsp}Node
+.Outils de développement Google Chrome avec l'icône de l'inspecteur{nbsp}Node
 image::images/chrome-devtools.png[width="85%"]
 
 Un clic sur le logo Node ouvre une nouvelle fenêtre, outillée pour inspecter
@@ -3493,7 +3493,7 @@ et d'ajuster les valeurs offrant le meilleur rapport stabilité/performances.
 `--optimize_for_size`::
   Optimise le fonctionnement interne pour utiliser moins de mémoire,
   au détriment de la vitesse.
-  Idéal pour l'exécution de scripts Node sur des environnement à faible mémoire,
+  Idéal pour l'exécution de scripts Node sur des environnements à faible mémoire,
   comme les Raspberry{nbsp}Pi.
 `--mem_old_space_limit`::
   Détermine la quantité de mémoire maximale qu'un processus Node pourra utiliser.
@@ -3515,7 +3515,7 @@ et d'ajuster les valeurs offrant le meilleur rapport stabilité/performances.
   On peut ainsi mieux en comprendre les raisons.
 
 [NOTE]
-.[RemarquePreTitre]#Notion# Ramasse-miettes (garbage collector)
+.[RemarquePreTitre]#Notion# Ramasse-miettes (_garbage collector_)
 ====
 Le ramasse-miettes est un mécanisme informatique qui libère les objets inutilisés
 de la mémoire.

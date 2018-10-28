@@ -448,7 +448,7 @@ On notera au passage que `book.title` n'est pas un booléen.
 ECMAScript regarde dans ce cas que la chaîne de caractères
 contient _au moins un caractère_.
 On expliquera ce comportement plus en détail dans la section
-"<<#boolean,Jongler avec des valeurs vraies ou fausses>>".
+"`<<#boolean,Jongler avec des valeurs vraies ou fausses>>`".
 
 L'instruction{nbsp}``if`` peut être complétée avec l'instruction `else`
 pour exécuter du code qui répondrait au cas contraire.
@@ -777,7 +777,7 @@ include::{sourceDir}/regexp/classes.js[]
 <1> Affiche `["♥ RegExp", "RegExp"]` – et s'arrête là car l'espace suivant n'est pas un caractère de{nbsp}mot.
 <2> Affiche `"I ♥ {docyear}"` – on a extrait le début de la phrase et l'année placée en fin de chaîne.
 
-mdn::global[RegExp,title="Expressions régulières"]
+mdn::global[RegExp, title="Expressions régulières", text="les expressions régulières"]
 
 
 La méthode `test` est pratique si la seule chose qui vous intéresse
@@ -1323,7 +1323,7 @@ Pourquoi passer le tableau d'origine alors qu'on itère dessus ?
 Pour donner du contexte au cas où on opère
 avec une <<function,fonction nommée>>.
 Nous verrons un usage concret de ce troisième argument
-dans la section "<<array.map,Transformer les valeurs>>".
+dans la section "`<<array.map,Transformer les valeurs>>`".
 
 [source%interactive,javascript]
 .array/foreach-function.js
