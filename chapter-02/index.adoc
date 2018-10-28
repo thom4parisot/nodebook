@@ -17,7 +17,7 @@ endif::[]
 
 = Installer, mettre à jour et développer
 
-Installons Node et l'outillage de développement qui nous correspond au mieux,
+Installons Node et l'outillage de développement qui nous correspond le mieux,
 peu importe notre niveau de familiarité avec le développement logiciel.
 
 ====
@@ -88,7 +88,7 @@ C'est la solution la plus simple pour installer Node.
 [[online]]
 === Sans installation, dans un navigateur web
 
-Il est facile de s'essayer à Node juste avec un navigateur web moderne comme
+Il est facile de s'essayer à Node avec un navigateur web moderne comme
 Firefox, Edge ou Chrome.
 Des services en ligne combinent un <<ide,éditeur de texte>>
 et un environnement d'exécution Node à distance.
@@ -186,11 +186,12 @@ $ curl -L https://github.com/creationix/nvm/raw/{nvmVersion}/install.sh | bash
 `nvm` et Node s'installent encore plus facilement sous macOS si vous
 utilisez le logiciel _Homebrew_.
 
-Rendez-vous dans la section <<install-macos,macOS>> pour en savoir{nbsp}plus.
+Rendez-vous dans la section «{nbsp}<<install-macos,macOS>>{nbdp}» pour en
+savoir{nbsp}plus.
 ====
 
 Nous sommes libres d'installer toutes les versions de Node qui nous intéressent
-en appelant la commande `nvm install` dans un <<shell,terminal>> :
+en appelant la commande `nvm install` dans un <<shell,terminal>>.
 
 [subs="+attributes"]
 .Installation de deux versions différentes de{nbsp}Node
@@ -488,7 +489,7 @@ L'intégralité des versions et architectures prises en charge est disponible su
 le catalogue Docker{nbsp}Hub : [URL]#https://hub.docker.com/_/node/#.
 
 Nous reviendrons sur ce sujet dans la section
-"<<../chapter-06/index.adoc#deploy.docker,déploiement d'une image Docker>>" du
+"<<../chapter-06/index.adoc#deploy.docker,Déploiement d'une image Docker>>" du
 <<../chapter-06/index.adoc#,chapitre{nbsp}6>>.
 
 [[shell]]
@@ -576,7 +577,7 @@ Parmi elles, on retrouve la coloration syntaxique,
 l'inspection dynamique, le débogage, des astuces de productivité et
 d'intégration à l'écosystème{nbsp}Node.
 
-Cette sélection a pour intention de vous aider à piocher au plus près
+Cette sélection a pour but de vous aider à piocher au plus près
 de vos goûts.
 Le meilleur logiciel sera celui qui vous plaira.
 Rien n'empêche d'en changer par la suite.
@@ -588,7 +589,7 @@ Rien n'empêche d'en changer par la suite.
 image::images/atom.png[width="85%"]
 
 Atom ([URL]#https://atom.io#) est un éditeur de code open-source,
-multilingue et multi plate-forme, dont le développement a été initié
+multilingue et multi plate-forme, dont le développement a été lancé
 par la société commerciale GitHub ([URL]#http://github.com#).
 Le logiciel est basé sur Electron, un environnement d'exécution
 d'applications de bureau reposant sur les technologies web et sur{nbsp}Node !
@@ -670,9 +671,9 @@ image::images/visual-studio-code.png[width="85%"]
 
 Visual Studio Code ([URL]#https://code.visualstudio.com#)
 est un éditeur de code open source, multilingue et multi plate-forme
-dont le développement a été initié par la société Microsoft.
+dont le développement a été lancé par la société Microsoft.
 Le logiciel est basé sur Electron, un environnement d'exécution
-d'applications de bureau reposant sur les technologies web et sur Node !
+d'applications de bureau reposant sur les technologies web et sur Node.
 
 Le système IntelliSense est un de ses atouts principaux.
 Il se sert du contexte disponible pour offrir une auto-complétion
@@ -708,7 +709,7 @@ ainsi qu'un débogage avancé.
 
 Le téléchargement de WebStorm inclut une période d'essai de 30{nbsp}jours.
 La tarification du produit varie selon que vous soyez un individu ou
-une entreprise et que le paiement se fasse mensuellement ou annuellement.
+une entreprise et que le paiement soit mensuel ou annuel.
 
 [TIP]
 .[RemarquePreTitre]#Astuce# Licence open source
@@ -733,7 +734,7 @@ de langages, dont{nbsp}C#, HTML, CSS, JavaScript, ASP.Net.
 Il est surtout extensible, ce qui permet de lui ajouter Python ou encore Node, entre autres.
 
 Visual Studio est compatible Windows uniquement.
-Il existe en plusieurs éditions dont la _Community Edition_, qui est gratuite.
+Il existe en plusieurs versions, parmi lesquelles la _Community_ qui est gratuite.
 
 Afin de bénéficier de l'intégration complète de l'écosystème Node,
 il est nécessaire d'installer l'extension Node.js Tools for Visual Studio
@@ -751,7 +752,7 @@ pour lesquelles de nouvelles versions de Node sont distribuées.
 Quelle que soit la raison, la mise à jour est identique à
 l'<<install,installation initiale de Node>> :
 
-- Si vous aviez utilisé un *installeur* : téléchargez et installez-en
+- Si vous aviez utilisé un *installeur* : téléchargez et installez
 la nouvelle version.
 - Si vous aviez utilisé un *gestionnaire de versions* : téléchargez la
 nouvelle version et indiquez qu'elle devient celle par défaut.
@@ -766,7 +767,7 @@ Node n'est pas exempt de bogues. Une catégorie en particulier nécessite d'êtr
 réactif : les failles de sécurité.
 Ces failles offrent une surface d'attaque à des personnes
 mal intentionnées, qui seraient tentées d'accéder sans permission à des serveurs,
-et, donc, aux données qu'ils contiennent.
+et donc aux données qu'ils contiennent.
 
 L'impact peut être faible pour un site personnel, à condition de ne pas laisser
 traîner de mots de passe ici et{nbsp}là.
@@ -790,7 +791,7 @@ Elles sont indiquées par le troisième numéro de version : `v{v}.0.*0*`, `v{v}
 Plusieurs ressources sont à notre disposition pour se tenir informé·e :
 
 Liste de diffusion ([URL]#https://groups.google.com/group/nodejs-sec#)::
-  Pour recevoir l'alerte par courriel (moins d'un par{nbsp}mois).
+  Pour recevoir l'alerte par courriel (moins d'une par{nbsp}mois).
 Blog Node.js ([URL]#https://nodejs.org/en/blog/vulnerability/#)::
   Une page web à consulter avec un navigateur.
   Les mêmes messages sont relayés sur la liste de diffusion.
@@ -808,16 +809,16 @@ Un groupe de travail ([URL]#https://github.com/nodejs/security-wg#) veille à
 maintenir et améliorer la sécurité de Node.
 Ces personnes se chargent d'être proactives dans la détection
 de failles dans l'architecture de Node, mais aussi dans
-l'intégration de code tiers, comme la brique _OpenSSL_
-ou le module _npm_.
+l'intégration de code tiers, comme la brique OpenSSL
+ou le module `npm`.
 ====
 
 Le <<../chapter-06/index.adoc#,chapitre{nbsp}6>> décrit
 comment se maintenir à jour sur les
 <<../chapter-06/index.adoc#security,alertes de sécurité>> de nos
 applications Node.
-Celles-ci risquent notamment d'être vulnérables du fait des modules `npm` dont elles
-sont dépendantes – en plus des vulnérabilités de{nbsp}Node.
+Celles-ci risquent notamment d'être vulnérables à cause des modules `npm`
+dont elles dépendent – en plus des vulnérabilités de{nbsp}Node.
 
 === Versions mineures
 
@@ -830,11 +831,11 @@ Les versions mineures sortent une petite dizaine de fois par{nbsp}an.
 Une migration ne demande pas nécessairement d'investir beaucoup de temps pour
 adapter et tester nos applications{nbsp}Node.
 
-Que faire en cas de sortie d'une version mineure sur :
+En cas de sortie d'une version mineure :
 
-- Notre ordinateur de développement : on peut migrer si l'on veut tester
+- Sur notre ordinateur de développement : on peut migrer si l'on veut tester
 ou bénéficier des nouvelles fonctionnalités de cette version.
-- Notre site web : pas d'action immédiate requise.
+- Sur notre site web : pas d'action immédiate requise.
 On peut migrer si l'on veut bénéficier des nouvelles fonctionnalités
 de cette version.
 
@@ -848,14 +849,14 @@ Elles sont indiquées par le premier chiffre du numéro de version :
 `v**{v}**.0.0`, `v**{vNext}**.0.0`, …
 
 Les versions majeures sortent deux fois par{nbsp}an.
-Une migration peut demander d'investir un certain temps pour adapter
-et tester nos applications Node.
+Une migration peut demander de consacrer un certain temps à adapter
+et à tester nos applications Node.
 
-Que faire en cas de sortie d'une version majeure ?
+En cas de sortie d'une version majeure :
 
-- Sur notre ordinateur de développement, nous chercherons à prendre du temps
+- Sur notre ordinateur de développement : nous prenins du temps
 pour tester nos applications et nous assurer de leur bon fonctionnement.
-- Sur la machine de production, il n'y a pas d'action immédiate requise.
+- Sur la machine de production : il n'y a pas d'action immédiate requise.
 
 [[lifecycle]]
 === Comprendre le cycle de vie produit
@@ -869,7 +870,7 @@ dont une est maintenue à long terme (_Long Term Support_, _LTS_).
 La notion de version{nbsp}LTS a été introduite pour donner un repère de stabilité.
 On sait qu'on peut compter dessus sans se poser de question.
 Les autres versions sont à voir comme des coups d'essai, dans l'anticipation d'une migration
-vers une version suivante, maintenue à long terme,{nbsp}elle.
+vers une version suivante, maintenue à long terme.
 
 .Calendrier de publication des versions de Node
 image::images/schedule.png[width="85%",link="https://github.com/nodejs/Release/blob/master/schedule.png"]
