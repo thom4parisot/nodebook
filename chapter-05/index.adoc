@@ -40,7 +40,7 @@ de nos projets.
 [abstract]
 --
 Ce chapitre va nous permettre d'y voir plus clair du côté des <<modules,modules `npm`>>.
-Nous apprendrons comment identifier des module de confiance, les installer et
+Nous apprendrons comment identifier des modules de confiance, les installer et
 les mettre à jour sans casser nos projets.
 
 Nous nous tournerons ensuite du côté des <<scripts,scripts{nbsp}``npm``>> pour créer
@@ -58,11 +58,11 @@ Le mot _npm_ correspond à trois concepts différents que nous aborderons
 tout au long de ce chapitre :
 
 - l'*exécutable* `npm` – un programme écrit en ECMAScript ;
-- le *registre* _npm_ – une plate-forme de distribution de modules ;
-- un *module* _npm_ – en général installé depuis le registre et utilisable
+- le *registre* `npm` – une plate-forme de distribution de modules ;
+- un *module* `npm` – en général installé depuis le registre et utilisable
 avec les fonctions `require()` et `import`.
 
-Je préciserai toujours si l'utilisation de _npm_ fait référence
+Je préciserai toujours si l'utilisation de ``npm`` fait référence
 à l'_exécutable_, au _registre_ ou à un _module_.
 
 L'exécutable `npm` est installé par défaut avec Node.
@@ -89,7 +89,7 @@ La présence d'un fichier `package.json` devient nécessaire dès qu'un projet
 inclut un <<modules,module{nbsp}``npm``>> ou a vocation à être publié pour être repris
 dans un autre projet – que ce soit dans un cadre professionnel ou personnel.
 
-Le fichier `package.json` est une clé de voûte pour reproduire l'installation
+Le fichier `package.json` est la clé de voûte servant à reproduire l'installation
 du projet et créer un <<scripts,outillage autonome>>.
 La commande `npm init` génère un tel fichier.
 L'utilisation de l'option `--yes` va plus vite car elle nous évite
@@ -218,7 +218,7 @@ commande `npm install cowsay` :
 ====
 Il existe une variante de la commande pour distinguer les dépendances
 spécifiques à l'outillage du projet.
-Rendez-vous dans la section "`<<install.dev,dépendances de développement>>`"
+Rendez-vous dans la section "`<<install.dev,Dépendances de développement>>`"
 pour en savoir plus.
 ====
 
@@ -227,10 +227,10 @@ pour en savoir plus.
 === Trouver son bonheur dans le registre{nbsp}npm
 
 Le registre `npm` ([URL]#https://npmjs.com#) fourmille de modules
-– de simples fonctions, des bibliothèques ou des _frameworks_ complets.
+– de simples fonctions, des bibliothèques ou des frameworks complets.
 Ils couvrent un spectre d'usages très larges : accès aux bases de données,
-_frameworks_ web, outils _front-end_, utilitaires de test,
-compression de données, paiement bancaire, des _frameworks_ mobiles, etc.
+frameworks web, outils _front-end_, utilitaires de test,
+compression de données, paiement bancaire, des frameworks mobiles, etc.
 
 Cherchons une bibliothèque pour nous connecter à une base de données MySQL ou MariaDB.
 Tapez "`mysql`" dans le champ de recherche du registre{nbsp}``npm`` ou saisissez
@@ -268,7 +268,7 @@ Cependant, il y a suffisamment d'indicateurs au vert pour l'installer avec
 `npm install mysql2` puis l'essayer dans un script.
 
 Le module _mysql-libmysqlclient_ ([URL]#https://npmjs.com/mysql-libmysqlclient#)
-ne me fait pas du tout le même effet :
+ne me fait pas du tout le même effet.
 
 .Extrait de la page consacrée au module{nbsp}npm{nbsp}mysql-libmysqlclient
 image::images/npm-package-mysql-libmysqlclient.png[]
@@ -286,7 +286,7 @@ C'est peu, mais l'une d'entre elles est intitulée
 Cela confirme mes doutes ; c'est suffisant pour que je passe mon chemin.
 
 En continuant plus loin dans la liste des résultats de recherche,
-je suis tombé sur le module nommé _falchion_ :
+je suis tombé sur le module nommé _falchion_.
 
 .Extrait de la page consacrée au module{nbsp}npm{nbsp}falchion
 image::images/npm-package-falchion.png[]
@@ -317,19 +317,11 @@ Ils sont publiés par les personnes présentes dans cette liste non{nbsp}exhaust
 
 .Personnes ayant écrit des modules npm à suivre
 |===
-| dougwilson | [URL]#https://npmjs.com/~dougwilson#
-| feross | [URL]#https://npmjs.com/~feross#
-| fgribreau | [URL]#https://npmjs.com/~fgribreau#
-| iarna | [URL]#https://npmjs.com/~iarna#
-| isaacs | [URL]#https://npmjs.com/~isaacs#
-| jdalton | [URL]#https://github.com/jdalton#
-| jshttp | [URL]#https://github.com/jshttp#
-| mbostock | [URL]#https://npmjs.com/~mbostock#
-| nodejitsu | [URL]#https://github.com/nodejitsu#
-| rwaldron | [URL]#https://npmjs.com/~rwaldron#
-| sindresorhus | [URL]#https://npmjs.com/~sindresorhus#
-| substack | [URL]#https://npmjs.com/~substack#
-| zkat | [URL]#https://npmjs.com/~zkat#
+| link:https://npmjs.com/~dougwilson[dougwilson, role="URL"]  | link:https://github.com/jdalton[jdalton, role="URL"]  | link:https://npmjs.com/~sindresorhus[sindresorhus, role="URL"]
+| link:https://npmjs.com/~feross[feross, role="URL"]          | link:https://github.com/jshttp[jshttp, role="URL"]    | link:https://npmjs.com/~substack[substack, role="URL"]
+| link:https://npmjs.com/~fgribreau[fgribreau, role="URL"]    | link:https://npmjs.com/~mbostock[mbostock, role="URL"]| link:https://npmjs.com/~zkat[zkat, role="URL"]
+| link:https://npmjs.com/~iarna[iarna, role="URL"]            | link:https://github.com/nodejitsu[nodejitsu, role="URL"]  |
+| link:https://npmjs.com/~isaacs[isaacs, role="URL"]          | link:https://npmjs.com/~rwaldron[rwaldron, role="URL"]    |
 |===
 
 [TIP]
@@ -627,7 +619,7 @@ $ npm update
 added 7 packages and updated 3 packages in 2.717s
 ----
 
-Observons ce qui a changé dans les résultats de la commande `npm oudated` :
+Observons ce qui a changé dans les résultats de la commande `npm outdated` :
 
 [subs="+attributes"]
 ----
@@ -729,7 +721,7 @@ L'étape suivante serait de déployer un registre{nbsp}``npm`` privé ou de sous
 une option payante sur le registre principal.
 
 [[install.dev]]
-=== Dépendance de développement
+=== Dépendances de développement
 
 Les dépendances de développement sont des modules `npm` utilisés
 pour *exécuter les tests unitaires* ou pour *de l'outillage* sont aussi des
@@ -1064,7 +1056,7 @@ Un script{nbsp}``npm`` peut faire appel à d'autres :
 
 J'ai plutôt tendance à découper mes scripts de sorte à ce qu'ils fassent
 tous une chose et une seule.
-Je peux ainsi aussi les appeler de manière individuelle.
+Je peux ainsi les appeler de manière individuelle.
 
 [source,json,subs="-specialchars"]
 .package.json
@@ -1153,7 +1145,7 @@ En voici une sélection.
 
 [options="header", cols="1,2,2"]
 |===
-| Script            | Quand                               | Pourquoi
+| Script            | Quand ?                             | Pourquoi ?
 | `pretest`         | Avant les tests                     | Préparer l'espace de travail
 | `posttest`        | Après les tests                     | Vérifier les règles de syntaxe de notre code
 | `postinstall`     | Après installation les dépendances  | Préparation significative du projet (téléchargements supplémentaires, etc.)
@@ -1188,7 +1180,7 @@ module qui parallélise leur exécution et simplifie l'appel d'un groupe de scri
 <1> Les trois scripts préfixés par `build:` seront appelés en parallèle en exécutant `npm run build`.
 
 Il est aussi possible de déclencher des actions parallèles après une première
-action séquentielle :
+action séquentielle.
 
 .package.json
 ----
@@ -1212,7 +1204,7 @@ et `--sequential` (alias{nbsp}``-s``) pour activer ou désactiver
 le parallélisme d'exécution.
 
 [NOTE]
-.[RemarquePreTitre]#Question# Pourtant j'ai entendu parler de Gulp et de Grunt
+.[RemarquePreTitre]#Remarque# Pourtant j'ai entendu parler de Gulp et de Grunt
 ====
 L'énorme avantage d'outiller un projet avec la commande `npm run` et
 l'exécutable `npm-run-all` est que nous utilisons directement les outils
@@ -1605,7 +1597,7 @@ de votre environnement de production ou d'intégration continue.
 ====
 
 Pour y voir plus clair, voici une petite sélection des éléments
-de configuration que vous pourriez être amené à modifier sur votre
+de configuration que vous pourriez être amené·e à modifier sur votre
 machine de développement ou sur votre configuration de production :
 
 [format="csv",options="header",separator=";", cols="1,1,3"]
@@ -1966,8 +1958,7 @@ Essayez donc _Yarn_ et gardez-le pour les bonnes raisons – les vôtres.
 
 L'exécutable `npm` passe le plus clair de son temps à faire des allers-retours
 vers le registre{nbsp}``npm`` en utilisant votre connexion Internet.
-Il téléchargera un module seulement s'il ne l'a pas déjà téléchargé à une autre
-reprise, sur un autre projet.
+Il téléchargera un module seulement s'il ne l'a pas déjà téléchargé sur un autre projet.
 
 L'équipe de développement de l'exécutable `npm` travaille à améliorer
 ses performances et sa qualité d'utilisation.
@@ -1999,7 +1990,7 @@ Le module{nbsp}``npm`` _cost-of-modules_ ([URL]#https://npmjs.com/cost-of-module
 calcule la quantité et le poids des dépendances listées
 dans un fichier `package.json`.
 
-C'est pratique pour identifier quel module remplacer par un autre, plus léger et donc
+C'est pratique pour identifier quel module remplacer par un autre, plus léger et
 plus rapide à installer.
 
 ----
@@ -2076,7 +2067,7 @@ Il arrive que l'opération de compilation n'aboutisse pas pour diverses raisons
 – logiciel manquant, incompatibilité avec le système d'exploitation
 ou avec l'architecture CPU.
 
-Le fait qu'il y ait marqué `SKIPPING` et `OPTIONAL` me laisse penser
+Le fait de voir écrit `SKIPPING` et `OPTIONAL` me laisse penser
 que ce n'est pas grave si l'opération ne se passe pas comme prévu.
 
 ----
