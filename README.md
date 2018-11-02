@@ -1,15 +1,20 @@
 # Node.js • Apprendre par l'exemple [![Build Linux][ci-linux]](https://travis-ci.org/oncletom/nodebook) [![Build Windows][ci-windows]](https://ci.appveyor.com/project/oncletom/nodebook) [![Backers on Open Collective](https://opencollective.com/nodebook/backers/badge.svg)][backers] [![Sponsors on Open Collective](https://opencollective.com/nodebook/sponsors/badge.svg)][sponsors]
 
-> Devenez autonome avec JavaScript, l'écosystème npm, le développement frontend, les applications web et en ligne de commande.
+> Familiarisez-vous avec JavaScript, Node.js et l'écosystème de modules `npm`.
+Apprenez à concevoir et à déployer des *applications web* et
+des *outils en ligne de commande*.
+>
+> Plus de 500 exemples pour apprendre en pratiquant.
 
+✅ **Versions couvertes** • `node v10` • `npm v6`.<br>
 📖 **Journal de bord d'écriture** • [2018][journal-2018] • [2017][journal-2017].<br>
-👀 **Lire l'ouvrage** • [sur papier](#sur-papier) • [sur le web](#sur-le-web) • [avec Node.js](#avec-nodejs).<br>
-🎧 [Ce que j'écoute en boucle quand j'écris][playlist].
+🔎 **Lire l'ouvrage** • [sur papier](#sur-papier) • [sur le web](#sur-le-web) • [sur npm](#avec-nodejs).
+
+
+[![Couverture du livre « Node.js »](cover.png)](#lire-louvrage)
 
 
 # Table des matières
-
-**Légende** • ✍️ = écriture/corrections • ✅ = terminé.
 
 | Statut | Chapitre                  | Objectif d'apprentissage | |
 | -------|---------------------------|--------- |---|
@@ -35,15 +40,17 @@
 
 ## Sur papier
 
-⏳ Sortie fin octobre 2018.
+Acheter chez : [une librairie indépendante](https://www.placedeslibraires.fr/livre/9782212139938) • [Amazon.fr](https://amzn.to/2F0l737)
 
 **Fonctionnalités** : confort de lecture, annotations libres, rémunère mon travail.
 
+<!--
 ## Sur liseuse numérique
 
 ⏳ Sortie fin octobre 2018 (à confirmer).
 
 **Fonctionnalités** : ne prend pas de place sur l'étagère, rémunère mon travail.
+-->
 
 ## Avec Node.js
 
@@ -84,13 +91,13 @@ Exemples:
                                             racine du chapitre 4
 ```
 
-# Contribuer
+# Contribuer au contenu
 
 Je vous invite à contribuer **de la manière de votre choix** — par e-mail, en ouvrant une _issue_ ou en contribuant du texte ou du code.
 
 Si vous n'êtes pas sûr·e de votre coup mais que l'envie est là, c'est suffisant pour démarrer 🙂. Nous éclaircirons les choses ensemble.
 
-## Installation
+## Installation de la copie de travail
 
 Il est possible de travailler sur une copie locale de l'épreuve en la dupliquant avec Git.
 
@@ -111,7 +118,7 @@ $ git lfs pull
 
 Elle utilise l'extension [git-lfs](https://git-lfs.github.com/).
 
-## Prévisualiser
+## Prévisualisation des changements
 
 Un serveur local est disponible pour prévisualiser les modifications sans être connecté à Internet.
 
@@ -129,7 +136,7 @@ La bonne santé des exemples est vérifiée à l'aide d'[ESLint](http://eslint.o
 $ npm test
 ```
 
-## Dépendances & cie
+## État des dépendances
 
 |             | Dépendances       | Sécurité
 | ------------|-------------------|---------
@@ -151,13 +158,6 @@ $ npm test
 ```bash
 $ make build-html
 $ open ./dist
-```
-
-### DocBook
-
-```bash
-$ make build-docbook
-$ soffice ./dist/book.xml
 ```
 
 ### OpenDocument
@@ -200,7 +200,7 @@ Support this project by becoming a sponsor. Your logo will show up here with a l
 
 # Mentions légales
 
-_Node.js • Apprendre par la pratique_ est un ouvrage rédigé par [Thomas Parisot](https://oncletom.io). Il est édité, publié et distribué en papier et e-book par les [éditions Eyrolles][Eyrolles].
+_Node.js • Apprendre par la pratique_ est un ouvrage rédigé par [Thomas Parisot](https://oncletom.io). Il est édité, publié et distribué en papier et e-book par les [Éditions Eyrolles][Eyrolles].
 
 L’épreuve est soumise à la licence [Creative Commons NC-BY-SA 4.0][cc-nc-by-sa] (_Attribution, Non-Commercial, Share Alike_).<br>
 Les exemples de code sont placés sous la [licence MIT][].
