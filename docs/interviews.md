@@ -56,3 +56,8 @@ Je pose régulièrement 2-3 questions à des personnes qui font des contribution
 > (…) je ne fais pas du PHP mais plutôt du Drupal et je m'aperçois de plus en plus que si je veux faire des trucs cool (application en tout genre) avec n'importe quoi (API, arduino...) bah je suis un peu limité, du moins, je mettrai plus de temps. Je pourrai me mettre à Symfony mais j'ai envie de changer d'air, c'est plus enrichissant.
 
 > Et ce qui est de Node, au fil de mes lectures et vidéo, je m'aperçois que c'est le langage le plus utilisé au monde dans tout et n'importe quoi !!! L'autre avantage indéniable est que l'ES fonctionne côté serveur et client : je prépare mon avenir ;)
+
+## Personne 7
+
+> J’ai bien aimé la façon dont on passe de la théorie à la pratique et la façon dont les infos importantes sont transmises.
+Nous avons déjà édité pas mal des ouvrages de programmation (tous langages confondus) et le tien se démarque du lot.
