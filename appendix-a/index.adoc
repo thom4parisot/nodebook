@@ -354,12 +354,22 @@ suivantes :
 
 ----
 $ ../node_modules/.bin/htmlhint sample.html
-sample.html:
-line 1, col 1: Doctype must be first.
-line 8, col 10: Id redefinition of [ btn ].
-line 10, col 3: Tagname [ BUTTON ] must be lower case.
-...
-line 10, col 52: Tagname [ BUTTON ] must be lower case.
+examples/sample.html
+   L1 |<html>
+       ^ Doctype must be declared first. (doctype-first)
+   L4 |</head>
+       ^ <title> must be present in <head> tag. (title-require)
+   L8 |  <button id="btn" class="btn">KO</button>
+                ^ The id value [ btn ] must be unique. (id-unique)
+   L10 |  <BUTTON class='btn__primary--curent btn--active'></BUTTON>
+          ^ The html element name of [ BUTTON ] must be in lowercase.
+            (tagname-lowercase)
+   L10 |  class='btn__primary--curent btn--active'></BUTTON>
+          ^ The value of attribute [ class ] must be in double quotes.
+          (attr-value-double-quotes)
+   L10 |...></BUTTON>
+            ^ The html element name of [ BUTTON ] must be in lowercase.
+            (tagname-lowercase)
 ----
 
 === eslint
