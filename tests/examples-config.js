@@ -432,6 +432,12 @@ module.exports = {
     args: 'Europe/Paris',
     stdout: /\d{2}:\d{2}/
   },
+  'chapter-08/examples/progress/spinner.js': {
+    stderr: /- Un-deux-trois…\n✔ Un-deux-trois… Soleil !/
+  },
+  'chapter-08/examples/progress/spinner-custom.js': {
+    stderr: /- Un-deux-trois…\n☀️ Soleil !/
+  },
   'chapter-08/examples/streaming/input-fallback.js': {
     stdin: 'cou cou',
     stdout: /COU COU/
