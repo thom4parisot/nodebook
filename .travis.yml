@@ -43,6 +43,13 @@ deploy:
     on:
       branch: master
   - provider: releases
+    skip-cleanup: true
+    api-key: "$GH_TOKEN"
+    file-glob: true
+    file: dist/book.*
+    on:
+      tags: true
+  - provider: releases
     prerelease: true
     skip-cleanup: true
     api-key: "$GH_TOKEN"
@@ -50,6 +57,7 @@ deploy:
     file: dist/book.*
     on:
       tags: true
+      branch: v2
   - provider: npm
     skip-cleanup: true
     on:
