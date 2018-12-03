@@ -52,9 +52,9 @@ De nombreux exemples sont interactifs, modifiables et affichent leur résultat d
 
 Il s'obtient de plusieurs manières :
 
-* [Commander et se faire livrer par Eyrolles](https://www.eyrolles.com/Informatique/Livre/node-js-9782212139938)
-* [Acheter un librairie indépendante près de chez soi](https://www.placedeslibraires.fr/livre/9782212139938)
-* [Se faire livrer par Amazon.fr](https://amzn.to/2F0l737)
+* [Commander et se faire livrer par **Eyrolles**](https://www.eyrolles.com/Informatique/Livre/node-js-9782212139938)
+* [Acheter en **librairie indépendante**, près de chez soi](https://www.placedeslibraires.fr/livre/9782212139938)
+* [Se faire livrer par **Amazon.fr**](https://amzn.to/2F0l737)
 
 **Fonctionnalités** : confort de lecture, annotations libres, rémunère mon travail.
 
