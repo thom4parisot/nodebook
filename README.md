@@ -8,7 +8,7 @@ des *outils en ligne de commande*.
 
 ✅ **Versions couvertes** • `node v10` • `npm v6`.<br>
 📖 **Journal de bord d'écriture** • [2018][journal-2018] • [2017][journal-2017].<br>
-🔎 **Lire l'ouvrage** • [sur papier](#sur-papier) • [sur le web](#sur-le-web) • [sur npm](#avec-nodejs).
+🔎 **Lire l'ouvrage** • [sur papier](#sur-papier) • [sur liseuse numérique](#sur-liseuse-numerique) • [sur le web](#sur-le-web) • [sur npm](#avec-nodejs).
 
 
 [![Couverture du livre « Node.js »](cover.png)](#lire-louvrage)
@@ -34,23 +34,30 @@ des *outils en ligne de commande*.
 
 ## Sur le web
 
-🌐 L’épreuve est consultable gratuitement à cette adresse : [https://oncletom.io/node.js/][livre-web].<br>
+🌐 L’épreuve est consultable gratuitement à cette adresse : [oncletom.io/node.js/][livre-web].
+
+De nombreux exemples sont interactifs, modifiables et affichent leur résultat depuis un simple navigateur web.
 
 **Fonctionnalités** : exemples interactifs, vidéos, mise à jour en continu.
 
+## Sur liseuse numérique
+
+📱 L'e-book est édité et vendu par les [**Éditions Eyrolles**](https://www.eyrolles.com/Informatique/Livre/node-js-9782212139938) (mi-décembre 2018).
+
+**Fonctionnalités** : compact, chercher dans le contenu, rémunère mon travail.
+
 ## Sur papier
 
-Acheter chez : [une librairie indépendante](https://www.placedeslibraires.fr/livre/9782212139938) • [Amazon.fr](https://amzn.to/2F0l737)
+📖 Le livre est édité, publié et distribué par les **Éditions Eyrolles**.
+
+Il s'obtient de plusieurs manières :
+
+* [Commander et se faire livrer par Eyrolles](https://www.eyrolles.com/Informatique/Livre/node-js-9782212139938)
+* [Acheter un librairie indépendante près de chez soi](https://www.placedeslibraires.fr/livre/9782212139938)
+* [Se faire livrer par Amazon.fr](https://amzn.to/2F0l737)
 
 **Fonctionnalités** : confort de lecture, annotations libres, rémunère mon travail.
 
-<!--
-## Sur liseuse numérique
-
-⏳ Sortie fin octobre 2018 (à confirmer).
-
-**Fonctionnalités** : ne prend pas de place sur l'étagère, rémunère mon travail.
--->
 
 ## Avec Node.js
 
