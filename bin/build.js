@@ -18,7 +18,9 @@ var DEFAULT_ATTRIBUTES = [
   'toc=left',
   'toclevels=4',
   'webfonts!',
-  'stylesheet=main.css',
+  'revdate!',
+  'nofooter',
+  'stylesheet=book.css',
   `stylesdir=${join(__dirname, '..', 'src')}`,
   'linkattrs',
   'lang=fr',
@@ -39,6 +41,8 @@ var DEFAULT_ATTRIBUTES = [
   'table-caption=Tableau',
   'untitled-label=Sans titre',
   'mdn-caption-prefix=[RemarquePreTitre]#Documentation#',
+  'docinfo=shared',
+  `docinfodir=${join(__dirname, '..', 'src')}`,
 ];
 
 const BUILD_DIR = 'dist';
