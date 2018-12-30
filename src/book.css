@@ -15,10 +15,10 @@
 }
 
 a {
-  white-space: nowrap;
+  /* white-space: nowrap; */
 }
 
-img {
+img, iframe, video, audio {
   max-width: 100%;
 }
 
@@ -115,9 +115,6 @@ td.hdlist1 {
     content: "•";
     padding-left: 5px;
   }
-  .RemarquePreTitre:last-child::after {
-    display: none;
-  }
 .admonitionblock {
 }
 .admonitionblock > table,
@@ -126,15 +123,27 @@ td.hdlist1 {
   --border-radius-base: 8px;
 
   background-color: #fafafa;
-  border: none;
-  /* border-radius: var(--border-radius-base); */
-  box-shadow: 0 0 8px var(--commented);
+  border: 1px solid var(--dark-shade);
+  border-left: none;
+  border-right: none;
   margin: 1.5em 0;
   padding: 1em;
+}
+.exampleblock .title {
+  font-weight: bold;
 }
 .icon .title {
   font-size: 2em;
 }
+  .admonitionblock > table td.icon {
+    display: none;
+  }
+
+  @media screen and (min-width: 769px) {
+    .admonitionblock > table td.icon {
+      display: table-cell;
+    }
+  }
 
   .admonitionblock > table td.icon {
     padding-right: 1em;
@@ -187,11 +196,11 @@ td.hdlist1 {
   padding: 0;
 }
 .listingblock pre.highlightjs > code {
-  border: 1px solid #7a2518;
+  border: 1px solid var(--light-accent);
   border-left-width: 4px;
 }
 .listingblock pre.highlightjs > code.language-bash {
-  border-color: #323232;
+  border-left-color: limegreen;
 }
 
 .hdlist .hdlist1 {
@@ -206,6 +215,27 @@ td > p:first-child {
 .hljs-comment {
   font-style: normal !important;
 }
+
+#toc.toc2 a {
+  text-decoration: none;
+  white-space: normal;
+}
+  #toc.toc2 a:hover,
+  #toc.toc2 a:focus {
+    text-decoration: underline;
+  }
+
+#toc.toc2 ul {
+  list-style: none;
+}
+
+  #toc.toc2 > ul {
+    padding-left: 0;
+  }
+
+  #toc.toc2 ul ul {
+    padding-left: 1em;
+  }
 
 @media screen and (min-width: 769px) {
   body {
@@ -229,30 +259,17 @@ td > p:first-child {
     z-index: 1000;
   }
 
-  #toc.toc2 a {
-    text-decoration: none;
-    white-space: normal;
-  }
-    #toc.toc2 a:hover,
-    #toc.toc2 a:focus {
-      text-decoration: underline;
-    }
-
-  #toc.toc2 ul {
-    list-style: none;
-  }
-
   #toc.toc2 > ul {
     font-size: 0.85em;
-    padding-left: 0;
-  }
-
-  #toc.toc2 ul ul {
-    padding-left: 1em;
   }
 
   #toc li.active > a[href^="#"],
   [id]:target {
     background: #ffc;
   }
+}
+
+.admonitionblock.context-callout > table {
+  border-width: 5px;
+  border-color: var(--brand-color);
 }
