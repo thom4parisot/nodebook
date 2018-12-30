@@ -1,4 +1,4 @@
-# Node.js • Apprendre par l'exemple [![Build Linux][ci-linux]](https://travis-ci.org/oncletom/nodebook) [![Build Windows][ci-windows]](https://ci.appveyor.com/project/oncletom/nodebook) [![Backers on Open Collective](https://opencollective.com/nodebook/backers/badge.svg)][backers] [![Sponsors on Open Collective](https://opencollective.com/nodebook/sponsors/badge.svg)][sponsors]
+# Node.js • Apprendre par la pratique [![Build Linux][ci-linux]](https://travis-ci.org/oncletom/nodebook) [![Build Windows][ci-windows]](https://ci.appveyor.com/project/oncletom/nodebook) [![Backers on Open Collective](https://opencollective.com/nodebook/backers/badge.svg)][backers] [![Sponsors on Open Collective](https://opencollective.com/nodebook/sponsors/badge.svg)][sponsors]
 
 > Familiarisez-vous avec JavaScript, Node.js et l'écosystème de modules `npm`.
 Apprenez à concevoir et à déployer des *applications web* et
