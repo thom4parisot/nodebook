@@ -12,15 +12,14 @@ module.exports = function hashScrollExtension () {
 (function(d){
   d.addEventListener('DOMContentLoaded', function(){
     const script = d.createElement('script');
-    script.src = 'https://wzrd.in/standalone/menuspy';
+    script.src = 'https://unpkg.com/menuspy@1.3.0/dist/menuspy.js';
     script.async = true;
-    script.onload = () => new menuspy(document.querySelector('#toc'), {enableLocationHash: false});
+    script.onload = () => new MenuSpy(document.querySelector('#toc'), {enableLocationHash: false});
     d.body.appendChild(script);
   });
 })(document);</script>
 <style type="text/css">
 #toc li.active > a[href^="#"] {
-  background: #ffc;
   font-weight: bold;
 }
 #toc li.active > a[href^="#"]::before {
