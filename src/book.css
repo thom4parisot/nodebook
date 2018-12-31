@@ -167,10 +167,11 @@ td.hdlist1 {
   .colist ol p {
     margin: 0 0 .5em;
   }
-.listingblock pre:not(.hljs),
+.listingblock:not(.prismjs) pre,
 .language-bash.hljs {
   background: #323232;
   color: wheat;
+  margin: 0;
   padding: 1rem;
 }
 .language-bash.hljs .hljs-built_in,
@@ -198,13 +199,17 @@ td.hdlist1 {
   font-weight: bold;
   padding: 0.1em 0.4em;
 }
-.listingblock pre.highlightjs {
+.listingblock pre.highlightjs,
+.listingblock.prismjs pre {
+  background-color: transparent;
   margin: 0;
   padding: 0;
 }
-.listingblock pre.highlightjs > code {
-  border: 1px solid var(--light-accent);
-  border-left-width: 4px;
+.listingblock pre.highlightjs > code,
+.listingblock.prismjs .highlight {
+  border-left: 4px solid var(--dark-accent);
+  padding-left: 1em;
+  font-size: .8em;
 }
 .listingblock pre.highlightjs > code.language-bash {
   border-left-color: limegreen;
