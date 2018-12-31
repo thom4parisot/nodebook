@@ -57,8 +57,15 @@ div.footnote {
   white-space: pre;
   word-wrap: normal;
 }
+
+.listingblock {
+  margin: 0 0 2em;
+}
 .listingblock > .content {
   position: relative;
+}
+.listingblock > .title {
+  font-weight: bold;
 }
 .listingblock code[data-lang]::before {
   display: none;
@@ -90,7 +97,7 @@ td.hdlist1 {
 }
 .literalblock + .colist,
 .listingblock + .colist {
-  margin-top: -0.5em;
+  margin-top: -1.5em;
 }
 .colist td:not([class]):first-child {
   padding: 0.4em 0.75em 0 0.75em;
