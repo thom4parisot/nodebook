@@ -1687,7 +1687,7 @@ nos applications en écrivant quelques tests.
 Avant de nous lancer directement dans la conception et l'écriture des tests,
 penchons-nous sur la structure de l'outillage.
 
-Assertion*::
+Assertion::
   C'est la vérification d'une vérité, d'une attente, du résultat d'une opération.
   Une assertion couvre une branche de{nbsp}code.
 Test::
@@ -1737,7 +1737,7 @@ expect(2+2).to.equal(4);
 ----
 
 [source,javascript]
-.Exemple de test avec la bibliothèque _mocha_
+.Exemple de test avec la bibliothèque mocha
 ----
 describe('functionName', () => {
   it('should succeed with parameter cheese', () => {
@@ -1781,7 +1781,7 @@ Dans tous les cas, elle nous permettra de monter nos composants, soit de manièr
 isolée, soit dans un véritable arbre DOM, soit en rendu{nbsp}HTML.
 
 [TIP]
-.[RemarquePreTitre]#Documentation# _Enzyme_
+.[RemarquePreTitre]#Documentation# Enzyme
 ====
 L'équipe d'Airbnb offre une documentation exhaustive sur [URL]#http://airbnb.io/enzyme/#.
 J'ai beaucoup apprécié les exemples complets d'intégration avec
@@ -1858,11 +1858,11 @@ $ npm run test:node
 ----
 
 .Extrait de la sortie de la commande npm{nbsp}run{nbsp}test:node
-image::images/mocha-react.png[width="80%", align="center"]
+image::images/mocha-react.png[width="80%"]
 
 
 [TIP]
-.[RemarquePreTitre]#Alternative# _jest_
+.[RemarquePreTitre]#Alternative# jest
 ====
 _jest_ ([URL]#https://npmjs.com/jest#) est un exécuteur de tests moderne et
 rapide particulièrement adapté au test de composants côté serveur.
@@ -2106,9 +2106,9 @@ C'est un réglage utile en cas de proxy exigeant ou de
 réglages de connexion à Internet bien spécifiques.
 
 [source,javascript,indent=0]
-.karma.conf.js#L39-41
+.karma.conf.js#L41-43
 ----
-include::karma.conf.js[lines=39..41]
+include::karma.conf.js[lines=41..43]
 ----
 
 [TIP]

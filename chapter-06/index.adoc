@@ -665,7 +665,7 @@ d'assistance technique.
 Le fichier suivant est un exemple de configuration pour Travis{nbsp}CI.
 Il se place à la racine d'un projet à tester et s'écrit avec la syntaxe{nbsp}YAML :
 
-[subs="+attributes"]
+[source,yaml,subs="+attributes"]
 .{empty}.travis.yml
 ----
 include::{sourceDir}/.travis.yml[]
@@ -697,7 +697,7 @@ L'exemple suivant illustre l'utilisation de
 l'<<deploy.cli,outil en ligne de commande>>{nbsp}``now`` dès qu'un nouveau
 _commit_ est poussé sur la branche `master` et que les tests passent au vert :
 
-[subs="+attributes"]
+[source,yaml,subs="+attributes"]
 .{empty}.travis.yml
 ----
 include::{sourceDir}/.travis-now.yml[]
