@@ -6,6 +6,7 @@ const asciidoctor = require('asciidoctor.js')();
 const runnerExtension = require('asciidoctor-extension-interactive-runner');
 const microtypoExtension = require('../src/asciidoctor-microtypography-french.js');
 const bash$Extension = require('../src/asciidoctor-extension-bash-dollar.js');
+const prismExtension = require('../src/asciidoctor-extension-prism.js');
 const MDNExtension = require('../src/asciidoctor-extension-mdn.js');
 const hashScroll = require('../src/asciidoctor-toc-hash-scroll.js');
 const styles = require('../src/asciidoctor-opendocument-styles.js');
@@ -28,7 +29,7 @@ var DEFAULT_ATTRIBUTES = [
   'hide-uri-scheme',
   'experimental',
   'idprefix',
-  'source-highlighter=highlightjs',
+  'source-highlighter!',
   'toc-title=Table des matières',
   'appendix-caption=Annexe',
   'last-update-label=Dernière mise à jour',
@@ -49,6 +50,7 @@ const BUILD_DIR = 'dist';
 
 asciidoctor.LoggerManager.setLogger(memoryLogger);
 asciidoctor.Extensions.register(microtypoExtension);
+asciidoctor.Extensions.register(prismExtension);
 asciidoctor.Extensions.register(runnerExtension);
 asciidoctor.Extensions.register(bash$Extension);
 asciidoctor.Extensions.register(MDNExtension);
