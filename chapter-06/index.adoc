@@ -507,7 +507,7 @@ Ces actions peuvent être rejouées à l'infini et de manière prédictible.
 Le _playbook_ suivant illustre deux tâches appliquées uniquement sur
 les serveurs étiquetés dans notre inventaire en tant que `webservers` :
 
-[source,yml]
+[source,yaml]
 .ansible/playbook.yaml
 ----
 include::{sourceDir}/ansible/playbook.yaml[]
@@ -522,7 +522,7 @@ include::{sourceDir}/ansible/playbook.yaml[]
 
 Les tâches sont réplicables sur les serveurs listés dans un fichier d'inventaire.
 
-[source,yml]
+[source,yaml]
 .ansible/inventory.yaml
 ----
 include::{sourceDir}/ansible/inventory.yaml[]
