@@ -296,7 +296,7 @@ L'inclusion d'un _polyfill_ de `Promise` résoudrait le problème.
 .[RemarquePreTitre]#Bonne pratique# Quand inclure les polyfills ?
 ====
 *Un _polyfill_ se charge toujours en premier*.
-On incluet tous les _polyfills_ en une seule fois avant notre propre code.
+On inclut tous les _polyfills_ en une seule fois avant notre propre code.
 
 Nous garantissons ainsi cohérence et stabilité de comportement au sein de
 notre application, peu importe l'ordre d'exécution de nos scripts.
