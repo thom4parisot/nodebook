@@ -51,7 +51,7 @@ La différence entre ces trois désignations peut sembler subtile, futile voire
 inutile, mais le terme "environnement" est la véritable nature de Node.
 
 Exécuter du JavaScript côté serveur n'est pas une révolution.
-Netscape Enterprise Server s'y est déjà essayé au début des années 1990,
+((Netscape Enterprise Server)) s'y est déjà essayé au début des années 1990,
 juste après son introduction dans le navigateur web Netscape Navigator.
 
 En 1997, la société Netscape s'est attelée à créer Rhino
@@ -69,7 +69,7 @@ JavaScript était surtout un choix logique de partage de code entre client et
 serveur pour Comet, le précurseur des <<../chapter-09/index.adoc#websockets,WebSockets>>.
 
 [TIP]
-.[RemarquePreTitre]#Glossaire# Comet
+.[RemarquePreTitre]#Glossaire# ((Comet))
 ====
 Comet est un terme regroupant les différentes tentatives techniques permettant
 à un serveur web d'envoyer des données à un client sans que celui-ci ne les ait
@@ -80,7 +80,7 @@ connexion Ajax ouverte pendant la durée de vie d'une page web.
 ====
 
 [TIP]
-.[RemarquePreTitre]#Glossaire# WebSockets
+.[RemarquePreTitre]#Glossaire# ((WebSockets))
 ====
 WebSockets est un protocole basé sur{nbsp}TCP.
 
@@ -112,6 +112,7 @@ Node représente un *environnement d'exécution* (_runtime_), un
 *ensemble d'API JavaScript* ainsi qu'une *machine virtuelle{nbsp}(VM) JavaScript*
 performante (parseur, interpréteur et compilateur) capable d'accéder à des ressources
 système telles que des fichiers (_filesystem_) ou des connexions réseau (_sockets_).
+indexterm:[Node.js, runtime]
 
 Typiquement, une personne développant en Node écrit du code se basant sur les
 API à disposition.
@@ -124,6 +125,8 @@ lorsque son créateur Ryan{nbsp}Dahl cherche à résoudre élégamment un probl�
 performance de programmation.
 
 == Bref historique
+indexterm:[Node.js, historique]
+indexterm:[Ryan Dahl]
 
 En 2006, Ryan{nbsp}Dahl est un étudiant américain en troisième année de doctorat
 de mathématiques.
@@ -201,7 +204,7 @@ ifeval::["{backend}" == "html5"]
 video::ztspvPYybIY[youtube,width=640,height=480]
 endif::[]
 
-L'entreprise américaine Joyent l'embauche à plein temps pour continuer le développement de Node.
+L'entreprise américaine ((Joyent)) l'embauche à plein temps pour continuer le développement de Node.
 Ils pressentent que cet outil répondra à leurs projets de _datacenter_ et d'hébergement.
 *Node et sa communauté se constituent* et continuent leur chemin depuis lors ;
 pour une simple affaire de barre de progression et une obsession pour la
@@ -247,7 +250,7 @@ de la conférence JSConf Europe en{nbsp}2009.
 Elle contribue à son amélioration et à la création d'un écosystème
 de modules réutilisables.
 
-Il faudra attendre la création de `npm` au tout début 2010,
+Il faudra attendre la création de ((`npm`)) au tout début 2010,
 qui a pour but d'héberger des modules Node et de faciliter
 leur installation.
 Dès lors, une simple commande suffit pour inclure dans nos projets du
@@ -310,6 +313,7 @@ Cela reste avant tout une affaire de compétences et d'expérience.
 
 
 == Pourquoi choisir Node.js ?
+indexterm:[Node.js, pourquoi l'utiliser ?]
 
 Node est un choix de langage principal tout à fait viable.
 
@@ -341,6 +345,7 @@ Node est un environnement adapté à *l'apprentissage et l'amélioration de nos 
 On peut désormais penser sur du long terme, en se souciant moins de devoir supporter de vieilles versions de Node ou de navigateurs web tant il est facile de passer d'une version du langage à une autre.
 
 == L'écosystème des acteurs
+indexterm:[Node.js, écosystème]
 
 Les développements initiaux de Node sont en majorité financés par Joyent,
 à commencer par l'embauche de Ryan{nbsp}Dahl.
@@ -351,7 +356,7 @@ qui voient un avenir prometteur dans le projet.
 S'ensuivent des entreprises privées comme IBM ou PayPal, qui sponsorisent le
 projet ou le salaire de contributeurs.
 
-=== Joyent
+=== ((Joyent))
 
 Joyent est une entreprise américaine fondée en{nbsp}2004.
 Elle propose à l'origine des services de collaborations
@@ -386,7 +391,7 @@ l'entreprise Joyent sur le blog officiel du projet
 ([URL]#https://nodejs.org/en/blog/uncategorized/trademark/#).
 ====
 
-=== npm
+=== ((npm))
 
 _npm_ est une dénomination qui abrite plusieurs concepts : un outil en ligne
 de commandes, un registre de modules ainsi qu'une entreprise privée à but lucratif
@@ -417,6 +422,7 @@ Auparavant, il fallait l'installer séparément.
 
 [[npm-inc]]
 === npm,{nbsp}Inc.
+indexterm:[npm, "npm, Inc."]
 
 Isaac{nbsp}Schlueter est embauché par Joyent en septembre{nbsp}2010.
 Il succède à Ryan{nbsp}Dahl dans la gestion du projet Node de
@@ -438,7 +444,8 @@ le logo npm.
 image::images/logo-npm.png[width="40%"]
 
 [[iojs]]
-=== io.js
+=== ((io.js))
+indexterm:[Node.js, le fork io.js]
 
 _io.js_ est un _fork_ de Node initié par la communauté en décembre{nbsp}2014
 en raison de la main-mise de Joyent sur les développements et de la communication
@@ -467,7 +474,8 @@ est consultable à l'adresse suivante :
 
 
 [[node-foundation]]
-=== Node.js Foundation
+=== ((Node.js Foundation))
+indexterm:[Node.js, la Fondation]
 
 La Node.js Foundation ([URL]#https://foundation.nodejs.org#) est l'un des
 organes officiels de gouvernance du projet Node depuis juin{nbsp}2015.
@@ -522,7 +530,8 @@ Le contenu est depuis archivé sur
 ====
 
 
-=== Node Security Platform
+=== ((Node Security Platform))
+indexterm:[Node.js, la plate-forme sécurité]
 
 La Node Security Platform ([URL]#https://nodesecurity.io# –
 anciennement Node Security Project) est un projet à but lucratif soutenu par
@@ -550,6 +559,7 @@ Nous aborderons le sujet de la sécurité tout au long de cet ouvrage :
 
 [[governance]]
 == Gouvernance du projet
+indexterm:[Node.js, gouvernance projet]
 
 Node a connu une forte croissance depuis{nbsp}2012.
 La gouvernance du projet open source a été effectuée

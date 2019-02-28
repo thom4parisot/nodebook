@@ -64,6 +64,7 @@ Ce contenu s'applique également à un serveur destiné à héberger vos applica
 
 [[install]]
 == Installer Node.js
+indexterm:[installation]
 
 Il y a plusieurs manières d'installer Node sur une machine.
 Elles sont _toutes_ correctes.
@@ -89,6 +90,7 @@ C'est la solution la plus simple pour installer Node.
 
 [[online]]
 === Sans installation, dans un navigateur web
+indexterm:[installation, service en ligne]
 
 Il est facile de s'essayer à Node avec un navigateur web moderne comme
 Firefox, Edge ou Chrome.
@@ -149,6 +151,8 @@ Cela tombe bien, <<nvm,`nvm`>> est préinstallé sur chaque espace de travail.
 
 [[nvm]]
 === Plusieurs versions sur la même machine{nbsp}(nvm)
+indexterm:[installation, nvm]
+indexterm:[nvm]
 
 `nvm` est l'acronyme de _Node Version Manager_.
 Ce logiciel permet d'*installer plusieurs versions de Node sur un même ordinateur*.
@@ -194,6 +198,7 @@ savoir{nbsp}plus.
 
 Nous sommes libres d'installer toutes les versions de Node qui nous intéressent
 en appelant la commande `nvm install` dans un <<shell,terminal>>.
+indexterm:[nvm, install]
 
 [subs="+attributes"]
 .Installation de deux versions différentes de{nbsp}Node
@@ -206,6 +211,7 @@ Dans cet exemple, nous installons deux versions de Node sur le même
 ordinateur.
 La version active est la dernière installée.
 On retrouve à tout moment les versions installées avec la commande `nvm ls`.
+indexterm:[nvm, ls]
 
 [subs="+attributes"]
 .Liste des versions installées de Node avec la commande `nvm{nbsp}ls`
@@ -224,18 +230,22 @@ La commande `nvm use` nous fait naviguer entre des versions différentes de Node
 L'utilisation répétée de `nvm use {nodeCurrentVersion}` et de
 `nvm use {nodePrevVersion}` nous fera aller et venir entre ces deux versions,
 sans rien perdre de ce que nous étions en train de faire.
+indexterm:[nvm, use]
 
 La commande `nvm --help` affiche de l'aide à propos des commandes disponibles.
 J'utilise principalement les suivantes :
+indexterm:[nvm, --help]
 
 - `nvm install` : installe ou met à jour une version de Node.
 - `nvm ls` : liste les versions installées.
 - `nvm use` : bascule vers une version donnée.
 - `nvm alias <nom> <version>` : crée un alias nommé vers une version.
 - `nvm run <version> <script>` : exécute un script Node dans une version donnée.
+indexterm:[nvm, run]
 
 Quand nous avons fixé une version de Node à utiliser au quotidien,
 l'alias spécial `default` en fait la version qui est systématiquement activée :
+indexterm:[nvm, alias]
 
 [subs="+attributes"]
 ----
@@ -247,6 +257,7 @@ la durée nécessaire à notre expérimentation.
 
 [[install-ubuntu]]
 === Distributions Linux : Debian/Ubuntu et RedHat/CentOS
+indexterm:[installation, Linux]
 
 Ces distributions Linux listent Node dans leurs paquets officiels.
 Un simple `apt-get install nodejs` et ça fonctionne !
@@ -280,6 +291,7 @@ $ curl -sL https://rpm.nodesource.com/setup_{v}.x | bash -
 ----
 
 === Distributions Linux : les{nbsp}autres
+indexterm:[installation, Linux]
 
 Des paquets officiels pour d'autres distributions que Debian, Ubuntu et Mint
 sont maintenus et accessibles par le biais des gestionnaires de paquets habituels :
@@ -297,6 +309,8 @@ Node indépendamment du cycle de vie de votre système d'exploitation Linux.
 
 [[install-macos]]
 === macOS
+indexterm:[installation, macOS]
+indexterm:[installation, homebrew]
 
 Un installeur officiel pour macOS est fourni sur le site de Node,
 à l'adresse [URL]#https://nodejs.org/fr/download/#.
@@ -305,7 +319,7 @@ Un installeur officiel pour macOS est fourni sur le site de Node,
 de Node en parallèle.
 
 Il est toutefois possible d'installer Node et `nvm` via le gestionnaire de
-paquets Homebrew ([URL]#https://brew.sh/#).
+paquets Homebrew ([URL]#https://brew.sh#).
 Il aide à installer des logiciels qui ne sont pas distribués via le
 _Mac{nbsp}App{nbsp}Store_.
 
@@ -335,6 +349,7 @@ Vous obtiendrez des options d'installation et de configuration en tapant
 `brew info nvm` et/ou `brew info node`.
 
 === Windows
+indexterm:[installation, Windows]
 
 Un installeur officiel pour Windows est fourni sur le site de Node à l'adresse
 [URL]#https://nodejs.org/fr/download/#.
@@ -386,6 +401,7 @@ vie en toute sécurité !
 
 [[install-rpi]]
 === Raspberry{nbsp}Pi
+indexterm:[installation, Raspberry Pi]
 
 Des binaires sont disponibles pour les microcontrôleurs fonctionnant avec des
 processeurs ARM{nbsp}v6/7/8, au cœur de ce que l'on appelle
@@ -411,6 +427,7 @@ sur [URL]#https://nodejs.org/fr/download/#.
 
 [[build]]
 === Compiler depuis les sources
+indexterm:[installation, compilation des sources]
 
 Certaines situations exigeront que vous compiliez Node.
 C'est le cas si vous cherchez à travailler au plus près du système sur lequel
@@ -443,6 +460,7 @@ l'adresse suivante : [URL]#https://github.com/nodejs/node/blob/master/BUILDING.m
 
 [[install-docker]]
 === Images Docker
+indexterm:[installation, Docker]
 
 Docker ([URL]#https://docker.com#) est un outil open source dit d'_applications en conteneur_.
 Une de ses qualités principales est d'*isoler l'exécution d'applications de leur environnement*.
@@ -495,7 +513,7 @@ Nous reviendrons sur ce sujet dans la section
 <<../chapter-06/index.adoc#,chapitre{nbsp}6>>.
 
 [[shell]]
-== Vérifier l'installation de Node depuis un terminal (shell)
+== Vérifier l'installation de Node depuis un ((terminal)) (shell)
 
 Nous avons installé un environnement d'exécution Node dans la section précédente.
 Pour vérifier que tout s'est bien déroulé, ouvrez un terminal et saisissez
@@ -512,6 +530,7 @@ Si le mot _terminal_ ne vous parle pas, la suite de cette section va vous
 éclairer – vous pourrez ensuite revenir essayer cette commande.
 
 === Qu'est-ce qu'un terminal ?
+indexterm:[terminal, définition]
 
 Le <<shell,terminal>> est notre compagnon pour dialoguer avec le système d'exploitation.
 L'_invite de commandes_ est son nom véritable.
@@ -544,6 +563,9 @@ image::images/glitch-terminal.png[width="70%"]
 === Choisir un terminal
 
 Voici une liste non exhaustive d'applications de type terminal :
+indexterm:[terminal, pour macOS]
+indexterm:[terminal, pour Linux]
+indexterm:[terminal, pour Windows]
 
 macOS::
 * Terminal.app : fourni par défaut (dans menu:Applications[Utilitaires]) ;
@@ -565,6 +587,8 @@ attaquons-nous au dernier morceau du puzzle :
 
 [[ide]]
 == Choisir un éditeur de texte
+indexterm:[installation, éditeur de texte]
+indexterm:[éditeur de texte, installation]
 
 Programmer pour Node revient dans la majorité des cas à écrire du JavaScript.
 À cela s'ajoutent le HTML et le CSS dans le cas d'applications ou de sites{nbsp}web.
@@ -585,7 +609,8 @@ Le meilleur logiciel sera celui qui vous plaira.
 Rien n'empêche d'en changer par la suite.
 
 [[atom]]
-=== Atom
+=== ((Atom))
+indexterm:[éditeur de texte, Atom]
 
 .Atom
 image::images/atom.png[width="85%"]
@@ -666,7 +691,8 @@ $ apm stars --install
 ====
 
 [[vs-code]]
-=== Visual Studio Code
+=== ((Visual Studio Code))
+indexterm:[éditeur de texte, Visual Studio Code]
 
 .Visual Studio Code
 image::images/visual-studio-code.png[width="85%"]
@@ -689,7 +715,8 @@ et d'une place de marché ([URL]#https://marketplace.visualstudio.com/VSCode#) p
 étendre ses fonctionnalités.
 
 [[webstorm]]
-=== WebStorm
+=== ((WebStorm))
+indexterm:[éditeur de texte, WebStorm]
 
 .WebStorm
 image::images/webstorm.png[width="85%"]
@@ -723,7 +750,8 @@ Rendez-vous sur [URL]#https://www.jetbrains.com/buy/opensource/#.
 ====
 
 [[vs-ide]]
-=== Visual Studio IDE
+=== ((Visual Studio IDE))
+indexterm:[éditeur de texte, Visual Studio IDE]
 
 .Visual Studio IDE
 image::images/visual-studio.png[width="85%"]
@@ -746,6 +774,8 @@ Elle est gratuite, open source et disponible à l'adresse suivante :
 
 
 == Quand mettre à jour Node.js ?
+indexterm:[installation, mises à jour]
+indexterm:[mise à jour de Node.js]
 
 Le développement de Node continue pendant que vous lisez ces lignes.
 Les sections suivantes présentent les différentes raisons
@@ -764,6 +794,7 @@ de la nouvelle version et compilez à nouveau.
 version en ayant recours à la commande `docker pull node:<version>`.
 
 === Mises à jour de sécurité
+indexterm:[mise à jour de Node.js, sécurité]
 
 Node n'est pas exempt de bogues. Une catégorie en particulier nécessite d'être
 réactif : les failles de sécurité.
@@ -823,6 +854,7 @@ Celles-ci risquent notamment d'être vulnérables à cause des modules `npm`
 dont elles dépendent – en plus des vulnérabilités de{nbsp}Node.
 
 === Versions mineures
+indexterm:[mise à jour de Node.js, version mineure]
 
 Les versions mineures de Node sont celles qui lui ajoutent de
 nouvelles fonctionnalités quasiment sans risque de casser une application existante.
@@ -842,6 +874,7 @@ On peut migrer si l'on veut bénéficier des nouvelles fonctionnalités
 de cette version.
 
 === Versions majeures
+indexterm:[mise à jour de Node.js, version majeure]
 
 Les versions majeures ajoutent également de nouvelles fonctionnalités à Node,
 mais elles peuvent être amenées à changer des comportements qui casseraient
@@ -862,6 +895,7 @@ pour tester nos applications et nous assurer de leur bon fonctionnement.
 
 [[lifecycle]]
 === Comprendre le cycle de vie produit
+indexterm:[mise à jour de Node.js, cycle de vie]
 
 Le développement de la plate-forme Node prend soin de ne pas
 aller trop vite ni d'altérer la stabilité des applications et des
