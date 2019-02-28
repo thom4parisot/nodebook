@@ -48,7 +48,7 @@ var DEFAULT_ATTRIBUTES = [
   `docinfodir=${join(__dirname, '..', 'src')}`,
 ];
 
-const BUILD_DIR = 'dist';
+const BUILD_DIR = join(__dirname, '..', 'dist');
 
 asciidoctor.LoggerManager.setLogger(memoryLogger);
 asciidoctor.Extensions.register(microtypoExtension);
