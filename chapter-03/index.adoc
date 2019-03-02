@@ -45,6 +45,8 @@ ainsi qu'à mieux les traiter.
 
 [[definition]]
 == Qu'est-ce que JavaScript ?
+indexterm:[JavaScript, voir ECMAScript]
+indexterm:[ECMAScript]
 
 Je vais vous présenter plusieurs exemples de code.
 Ils ont en commun d'être tous écrits en JavaScript.
@@ -69,7 +71,7 @@ C'est un ajout des navigateurs web.
 On parle alors d'*API JavaScript pour le Web*.
 
 [NOTE]
-.[RemarquePreTitre]#Glossaire# API (Interface de programmation)
+.[RemarquePreTitre]#Glossaire# ((API (Interface de programmation)))
 ====
 Les API sont des interfaces pour dialoguer avec un programme ou une
 ressource informatique.
@@ -86,6 +88,7 @@ La variable `document` et les méthodes `querySelector` et `addEventListener`
 font aussi partie des API JavaScript pour le Web.
 En l'occurrence, elles font partie de l'API DOM (_Document Object Model_),
 un mécanisme pour interagir avec une page web grâce à ECMAScript.
+indexterm:[DOM (Document Object Model)]
 
 [source%interactive,javascript]
 .intro/node.js
@@ -107,6 +110,8 @@ pour fonctionner.
 [NOTE]
 .[RemarquePreTitre]#Histoire# À propos de JavaScript
 ====
+indexterm:[ECMAScript, historique]
+
 JavaScript est inventé en 1995 par Brendan{nbsp}Eich alors qu'il est employé de
 la société Netscape Communications.
 Microsoft lui emboîte le pas en incluant JavaScript dans son logiciel
@@ -145,16 +150,20 @@ Le comité de travail TC39 (_Technical Committee_,
 du langage, standardisé sous le doux sobriquet de _standard ECMA-262_,
 à charge ensuite aux différents implémenteurs de suivre les changements
 et de les incorporer dans leurs machines virtuelles.
+indexterm:[TC39 (comité de travail)]
+indexterm:[ECMASCript, comité de travail TC39]
 
 Node se base sur la machine virtuelle{nbsp}<<../chapter-01/index.adoc#v8,V8 de Google>>
 pour interpréter les expressions ECMAScript.
 De fait, Node comprend les mêmes expressions ECMAScript que{nbsp}V8.
+indexterm:[V8 (machine virtuelle)]
 
 Nous verrons un peu plus tard dans ce chapitre comment suivre la
 compatibilité de Node avec ECMAScript.
 Intéressons-nous à l'évolution du langage et à ce que ça nous apporte.
 
 === ECMAScript{nbsp}5 (aka ES5)
+indexterm:[ECMAScript, ES5]
 
 ECMAScript a été standardisé dans sa version{nbsp}5 en décembre{nbsp}2009.
 La révision{nbsp}5.1 de juin{nbsp}2011 est une correction mineure de la spécification.
@@ -176,11 +185,15 @@ Table de compatibilité::
   [URL]#https://kangax.github.io/compat-table/es5/#
 Spécification::
   [URL]#https://www.ecma-international.org/ecma-262/5.1/#
+indexterm:[ECMAScript, table de compatibilité]
+indexterm:[Table de compatibilité, ECMAScript]
 
 .Table de compatibilité
 image::images/compat-table.png[width="85%"]
 
 === ECMAScript 2015 (aka{nbsp}ES6 puis{nbsp}ES2015)
+indexterm:[ECMAScript, ES2015]
+indexterm:[ECMAScript, ES6]
 
 La spécification ECMAScript{nbsp}2015 (ES2015) a été publiée en juin{nbsp}2015.
 Elle succède à ECMAScript{nbsp}5 après six années de gestation.
@@ -193,7 +206,7 @@ Et surtout, un nouveau type d'outillage s'est formé pour commencer
 à utiliser ce JavaScript du futur avec le compilateur
 _traceur_ de Google dès{nbsp}2011 ([URL]#https://github.com/google/traceur-compiler#),
 puis avec le projet indépendant _6to5_ dès{nbsp}2014.
-Ce dernier a été renommé en Babel ([URL]#https://babeljs.io#)
+Ce dernier a été renommé en ((Babel)) ([URL]#https://babeljs.io#)
 et son instigateur a par la suite été embauché par Facebook.
 
 La pratique de compiler du JavaScript en JavaScript était en rupture
@@ -215,12 +228,14 @@ Table de compatibilité (Node.js)::
   [URL]#https://node.green/#
 Spécification::
   [URL]#https://www.ecma-international.org/ecma-262/6.0/#
+indexterm:[Table de compatibilité, Node.js]
 
 .Illustration de l'évolution de la compatibilité ECMAScript au fil des versions de{nbsp}Node
 image::images/node-green.png[width="85%"]
 
 
 === ECMAScript 2016, etc. (aka{nbsp}ES2016)
+indexterm:[ECMAScript, ES2016]
 
 Depuis la sortie d'ECMAScript{nbsp}2015, l'intention est de publier une
 nouvelle spécification par an, de travailler les fonctionnalités une par une
@@ -241,6 +256,7 @@ Les fonctionnalités approuvées sont consignées dans un document :
 
 [[primitives]]
 == Éléments de base du langage
+indexterm:[ECMAScript, éléments de langage]
 
 Cette section décrit les notions nécessaires
 pour s'approprier le reste des exemples de l'ouvrage.
@@ -249,6 +265,7 @@ des listes d'éléments et à faire la différence
 entre un objet et une fonction.
 
 === Les types de données
+indexterm:[ECMAScript, type de données]
 
 Qu'entend-on par _type de données_ ?
 Faisons-nous notre propre idée avec une suite d'exemples.
@@ -263,6 +280,8 @@ include::{sourceDir}/base/string.js[]
 
 Une valeur entourée de guillemets est considérée
 par l'interpréteur ECMAScript comme une chaîne de caractères, du texte.
+indexterm:[chaîne de caractère]
+indexterm:[type de données, chaîne de caractère]
 
 Ces guillemets sont selon les cas des guillemets simples{nbsp}(+'+),
 doubles (+"+) ou obliques (+`+).
@@ -280,6 +299,8 @@ include::{sourceDir}/base/number.js[]
 ECMAScript considère les entiers (``3``{nbsp}dans cet exemple)
 et les réels (``12.3``{nbsp}dans cet exemple) comme des nombres.
 Il ne fait _pas_ de distinction entre les{nbsp}deux.
+indexterm:[nombre]
+indexterm:[type de données, nombre]
 
 On peut effectuer des opérations mathématiques entre plusieurs
 valeurs de type *nombre*.
@@ -292,6 +313,8 @@ include::{sourceDir}/base/boolean.js[]
 
 ECMAScript considère deux valeurs pour signifier _vrai_ ou _faux_ :
 respectivement `true` et `false`.
+indexterm:[booléen]
+indexterm:[type de données, booléen]
 
 On peut effectuer des opérations logiques avec une
 valeur de type *booléen*.
@@ -315,6 +338,8 @@ include::{sourceDir}/base/undefined.js[]
 La valeur `undefined` est utilisée pour signifier
 qu'une *valeur* est *inconnue*.
 Rares sont les cas où on choisira ce type de données par nous-même.
+indexterm:[undefined]
+indexterm:[type de données, undefined]
 
 mdn::javascript[Data_structures, title="Primitives", text="primitives"]
 
@@ -333,6 +358,8 @@ include::{sourceDir}/base/array.js[]
 Un tableau se déclare en encadrant une suite de valeurs entre crochets.
 Il est capable de contenir n'importe quel type de valeurs et autant que nécessaire.
 L'ordre des valeurs a généralement une importance.
+indexterm:[tableau]
+indexterm:[type de données, tableau]
 
 On peut effectuer des opérations de tri et de sélection avec un
 *tableau de valeurs*.
@@ -348,6 +375,8 @@ entre accolades.
 Il fonctionne comme un _dictionnaire_ : on associe une valeur (type au choix)
 à une clé (un intitulé, un label).
 L'ordre des paires n'a généralement pas d'importance.
+indexterm:[objet]
+indexterm:[type de données, objet]
 
 On peut effectuer des opérations de sélection avec un
 *objet de valeurs*.
@@ -363,6 +392,8 @@ Une fonction accepte des _arguments_, de n'importe quel type et
 autant que nécessaire.
 Elle doit être _déclarée_ pour être _exécutée_
 (dernière ligne de l'exemple précédent).
+indexterm:[fonction]
+indexterm:[type de données, fonction]
 
 Une fonction _retourne_ un résultat explicite avec le
 mot-clé `return`.
@@ -377,6 +408,7 @@ Dès que l'on doit écrire deux fois la même chose,
 on l'écrit dans une fonction qu'on appelle deux{nbsp}fois.
 
 === Les variables
+indexterm:[variable]
 
 Les variables servent à ranger des valeurs.
 On peut ainsi les réutiliser plus tard, les transmettre et prendre
@@ -401,6 +433,7 @@ rangée dans la clé `price` de l'objet `book`, calculée par la fonction
 Le mot-clé `const` nous a servi à _déclarer_ une variable.
 On ne peut étiqueter ainsi une variable avec le même nom qu'une seule fois.
 L'exemple suivant générera une erreur lors de la deuxième affectation :
+indexterm:[variable, const]
 
 [source%interactive,javascript]
 .variables/const.js
@@ -409,7 +442,7 @@ include::{sourceDir}/variables/const.js[lines=3..-1]
 ----
 
 [NOTE]
-.[RemarquePreTitre]#Question# Une variable constante ?
+.[RemarquePreTitre]#Question# Une variable ((constante)) ?
 ====
 `const` est un type de variable qui ne peut être ni redéclaré ni être réaffecté :
 c'est en ça qu'il est _constant_.
@@ -427,8 +460,10 @@ include::{sourceDir}/variables/const-freeze.js[lines=3..-1]
 <2> L'objet `table` est gelé grâce à la fonction `Object.freeze()`.
 <3> Cette ligne lance une erreur car nous tentons de modifier un objet gelé.
 ====
+indexterm:[objet, Object.freeze()]
 
 === Les instructions
+indexterm:[instruction]
 
 Des _instructions_ nous servent à suivre, éviter ou répéter
 des chemins dans notre code.
@@ -436,6 +471,7 @@ des chemins dans notre code.
 L'instruction{nbsp}``if`` exécute du code s'il remplit une condition.
 Cette dernière peut être une _valeur_ ou une _expression_ interprétée
 pour savoir à quel _booléen_ elle correspond.
+indexterm:[instruction, if (condition)]
 
 [source%interactive,javascript]
 .instructions/if.js
@@ -445,6 +481,7 @@ include::{sourceDir}/instructions/if.js[lines=3..-1]
 
 L'exemple précédent vérifie que les deux conditions sont remplies
 (opérateur `&&`) pour afficher un message en conséquence.
+indexterm:[opérateur, && (et)]
 
 On notera au passage que `book.title` n'est pas un booléen.
 ECMAScript regarde dans ce cas que la chaîne de caractères
@@ -455,6 +492,8 @@ On expliquera ce comportement plus en détail dans la section
 L'instruction{nbsp}``if`` peut être complétée avec l'instruction `else`
 pour exécuter du code qui répondrait au cas contraire.
 Il est possible d'imbriquer plusieurs `else if` à la suite.
+indexterm:[instruction, if ... else]
+indexterm:[instruction, else if]
 
 [source%interactive,javascript]
 .instructions/else-if.js
@@ -467,7 +506,8 @@ qu'on pourrait en emprunter un autre
 en modifiant la valeur des clés `title` et `published`.
 
 [[scope]]
-=== La portée (scope)
+=== La ((portée)) (scope)
+indexterm:[variable, portée]
 
 La _portée_ est un concept très présent dans ECMAScript.
 On y fait souvent référence en parlant de _variable globale_{nbsp}et
@@ -523,6 +563,7 @@ Le mot-clé `const` crée une variable certes,
 mais une variable dont la portée est _lexicale_.
 *La portée lexicale est délimitée par le bloc d'instructions*
 dans lequel la variable est déclarée.
+indexterm:[variable, const]
 
 Ainsi, la variable `price` n'existe que dans le cadre du bloc `if`.
 
@@ -531,6 +572,7 @@ pour que son existence soit oubliée aussitôt le bloc exécuté.
 
 [[string]]
 == Jongler avec du texte (chaînes de caractères)
+indexterm:[chaîne de caractères]
 
 Il est commun d'avoir à travailler avec des chaînes de caractères.
 Elles servent à stocker des URL, des titres, des identifiants,
@@ -559,6 +601,7 @@ ou à les composer à partir d'une autre variable.
 ----
 include::{sourceDir}/string/concat.js[]
 ----
+indexterm:[chaîne de caractère, concaténation]
 
 Toute chaîne de caractères offre un ensemble
 d'_attributs_ (`.quelque-chose`)
@@ -574,6 +617,7 @@ include::{sourceDir}/string/length.js[]
 ----
 <1> Affiche{nbsp}``14``.
 <2> Affiche{nbsp}``0``.
+indexterm:[chaîne de caractère, length]
 
 On accède à un caractère spécifique en utilisant
 la chaîne comme un tableau, ou à l'aide d'une méthode dédiée :
@@ -585,6 +629,7 @@ include::{sourceDir}/string/char-at.js[]
 ----
 <1> Affiche{nbsp}``N``.
 <2> Affiche{nbsp}``o``.
+indexterm:[chaîne de caractère, charAt()]
 
 [WARNING]
 .[RemarquePreTitre]#Attention#
@@ -602,6 +647,8 @@ include::{sourceDir}/string/lower-upper-case.js[]
 ----
 <1> Affiche `node.js`.
 <2> Affiche `NODE.JS`.
+indexterm:[chaîne de caractère, toLocaleUpperCase()]
+indexterm:[chaîne de caractère, toLocaleLowerCase()]
 
 D'autres fonctions nettoient ou complètent les espaces autour,
 au début ou à la fin d'une chaîne de caractères :
@@ -615,15 +662,21 @@ include::{sourceDir}/string/trim-pad.js[]
 <2> Affiche `Node.js{nbsp}{nbsp}`.
 <3> Affiche `{nbsp}{nbsp}Node.js`.
 <4> Affiche `BARCGB22XXX`.
+indexterm:[chaîne de caractère, trim()]
+
 
 Dans cet exemple, la méthode `padEnd` complète jusqu'à ``11``{nbsp}caractères,
 avec la lettre `X`.
 La méthode `padStart` fait la même chose mais avec le début de la chaîne.
+indexterm:[chaîne de caractère, padEnd()]
+indexterm:[chaîne de caractère, padStart()]
 
 `indexOf` retourne la position de la _première occurrence_ dans une chaîne
 d'une sous-chaîne passée en paramètre.
 Si la valeur n'est pas trouvée, la méthode renvoie la valeur{nbsp}``-1``.
 À l'inverse, `lastIndexOf` retournera la dernière occurrence trouvée :
+indexterm:[chaîne de caractère, indexOf()]
+indexterm:[chaîne de caractère, lastIndexOf()]
 
 [source%interactive,javascript]
 .string/index-of.js
@@ -637,6 +690,8 @@ include::{sourceDir}/string/index-of.js[]
 
 [[regexp]]
 === Expressions régulières (RegExp)
+indexterm:[chaîne de caractère, expression régulière]
+indexterm:[chaîne de caractère, RegExp]
 
 Si `indexOf` et `lastIndexOf` identifient des caractères exacts,
 comment faire lorsque l'on souhaite chercher de manière approximative,
@@ -679,6 +734,7 @@ Unicode{nbsp}(`u`)::
 
 Illustrons leur utilisation en _identifiant du texte_ répondant (`match`)
 à une _expression régulière_{nbsp}(`/.../`) :
+indexterm:[chaîne de caractère, match()]
 
 [source%interactive,javascript]
 .regexp/flags.js
@@ -691,6 +747,7 @@ include::{sourceDir}/regexp/flags.js[]
 
 Des éléments de syntaxe complètent les options pour
 identifier des motifs au sein de chaînes de caractères :
+indexterm:[chaîne de caractère, syntaxe]
 
 Ensemble de caractères (entre{nbsp}``[``{nbsp}et{nbsp}``]``)::
   Liste l'ensemble des caractères recherchés.
@@ -735,6 +792,7 @@ Groupe de capture (entre{nbsp}``(``{nbsp}et{nbsp}``)``)::
   On notera également que l'emploi des _groupes_ change
   la structure des résultats en un tableau de plusieurs éléments,
   de la forme `["chaîne identifiée", "groupe 1", "groupe 2" ...]`.
+indexterm:[expression régulière, syntaxe]
 
 [source%interactive,javascript]
 .regexp/limits.js
@@ -766,6 +824,7 @@ Caractère d'espacement{nbsp}(`\s`)::
 Caractère Unicode{nbsp}(`\u{...}`)::
   Doit être combiné avec l'option{nbsp}``u`` (`/.../u`).
   Exemple : ♥︎{nbsp}->{nbsp}``\u{2665}``.
+indexterm:[expression régulière, syntaxe]
 
 Les alternatives de classes en majuscules sont des _négations_.
 ``\W``{nbsp}pour "tout sauf un caractère de mot", ``\S``{nbsp}pour "tout sauf un caractère
@@ -778,12 +837,14 @@ include::{sourceDir}/regexp/classes.js[]
 ----
 <1> Affiche `["♥ RegExp", "RegExp"]` – et s'arrête là car l'espace suivant n'est pas un caractère de{nbsp}mot.
 <2> Affiche `"I ♥ {docyear}"` – on a extrait le début de la phrase et l'année placée en fin de chaîne.
+indexterm:[expression régulière, classe]
 
 mdn::global[RegExp, title="Expressions régulières", text="les expressions régulières"]
 
 
 La méthode `test` est pratique si la seule chose qui vous intéresse
 est de tester si une chaîne correspond à un motif :
+indexterm:[expression régulière, test()]
 
 [source%interactive,javascript]
 .regexp/test.js
@@ -793,6 +854,8 @@ include::{sourceDir}/regexp/test.js[]
 
 Enfin, la méthode `replace` est très utile pour transformer des chaînes de
 caractères, surtout en combinaison avec les groupes de capture :
+indexterm:[chaîne de caractère, replace()]
+indexterm:[expression régulière, replace()]
 
 [source%interactive,javascript]
 .regexp/replace.js
@@ -816,6 +879,7 @@ include::{sourceDir}/regexp/replace-function.js[]
 
 [[boolean]]
 == Jongler avec des valeurs vraies ou fausses (booléens)
+indexterm:[booléen]
 
 Un booléen est un élément logique dont la valeur est soit `true` soit `false`,
 c'est-à-dire respectivement _vrai_ ou _faux_.
@@ -835,6 +899,8 @@ include::{sourceDir}/boolean/base.js[]
 Une donnée d'un autre type peut être convertie en booléen.
 La logique qui déterminera si la conversion retournera `true` ou `false`
 est la suivante :
+indexterm:[booléen, conversion]
+indexterm:[booléen, Boolean()]
 
 [horizontal]
 `true`::
@@ -854,6 +920,9 @@ include::{sourceDir}/boolean/convert.js[]
 
 [[number]]
 == Jongler avec des valeurs numériques (Number, Math)
+indexterm:[nombre]
+indexterm:[nombre, Number()]
+indexterm:[nombre, Math]
 
 ECMAScript ne fait pas de distinction entre des entiers et des
 nombres contenant des décimales : ce sont des _nombres_ un point c'est tout.
@@ -881,12 +950,21 @@ include::{sourceDir}/number/constants.js[]
 <4> Affiche{nbsp}``5e-324`` – le plus petit réel utilisable.
 <5> Affiche{nbsp}``9007199254740991`` – le plus grand entier utilisable.
 <6> Affiche{nbsp}``-9007199254740991`` – le plus petit entier utilisable.
+indexterm:[nombre, Number.POSITIVE_INFINITY]
+indexterm:[nombre, Number.NEGATIVE_INFINITY]
+indexterm:[nombre, Number.MAX_VALUE]
+indexterm:[nombre, Number.MIN_VALUE]
+indexterm:[nombre, Number.MAX_SAFE_INTEGER]
+indexterm:[nombre, Number.MIN_SAFE_INTEGER]
 
 Il est aussi possible de compter dans d'autres bases, notamment en hexadécimal
 (_base{nbsp}16_).
 Cette dernière est exprimée en préfixant la valeur par{nbsp}``0x`` et avec les
 caractères de{nbsp}0 à{nbsp}F – 0{nbsp}à{nbsp}9 puis A (vaut{nbsp}10),
 B (vaut{nbsp}11), etc.
+indexterm:[nombre, base 10]
+indexterm:[nombre, base 16 (hexadécimal)]
+indexterm:[hexadécimal]
 
 [source%interactive,javascript]
 .number/hexa.js
@@ -898,11 +976,10 @@ include::{sourceDir}/number/hexa.js[]
 <3> Affiche{nbsp}``160`` – pour `10×16` (une "`dizaine`" vaut{nbsp}16).
 <4> Affiche{nbsp}``2560`` – pour `10×16×16` (une "`centaine`" vaut{nbsp}16×16).
 
-Test "ah".
-
 [NOTE]
 .[RemarquePreTitre]#Rumeur# JavaScript est nul en virgule flottante !
 ====
+indexterm:[nombre, virgule flottante]
 ECMAScript est souvent décrié pour son incapacité à gérer les opérations
 mathématiques avec précision.
 
@@ -923,6 +1000,7 @@ Pour en savoir plus : [URL]#https://fr.wikipedia.org/wiki/IEEE_754#.
 
 Les nombres s'utilisent pour effectuer des opérations mathématiques.
 Chaque opération est dotée d'un symbole :
+indexterm:[nombre, opérateur]
 
 [options="header"]
 |===
@@ -949,6 +1027,7 @@ include::{sourceDir}/number/operations.js[]
 
 [[nan]]
 === Les nombres qui n'en sont pas (_NaN_)
+indexterm:[nombre, NaN (Not a Number)]
 
 [CAUTION]
 .[RemarquePreTitre]#Attention# Opérations exotiques
@@ -979,9 +1058,10 @@ Dans ce cas, leur résultat vaudra `NaN` pour _not{nbsp}a{nbsp}number_
 include::{sourceDir}/number/nan.js[]
 ----
 
-La fonction `Number.isNaN` nous aidera à vérifier si la valeur d'une variable
+La fonction `Number.isNaN()` nous aidera à vérifier si la valeur d'une variable
 ou le résultat d'une opération est un{nbsp}``NaN`` ou non.
 Cette fonction retourne un <<boolean,booléen>>.
+indexterm:[nombre, Number.isNaN()]
 
 [source%interactive,javascript]
 .number/is-nan.js
@@ -1019,12 +1099,15 @@ include::{sourceDir}/number/is-not-a-nan.js[]
 ====
 
 === Convertir en nombre
+indexterm[nombre, conversion]
 
 Les lignes qui précédent l'évoquent un peu : on peut passer d'autres types
 de données à des nombres.
 Idéalement, on voudra transformer explicitement quelque chose en un nombre.
 
 Pour cela nous disposons de deux fonctions :
+indexterm:[nombre, parseInt()]
+indexterm:[nombre, parseFloat()]
 
 - `parseInt` essaie d'interpréter un nombre entier.
 - `parseFloat` essaie d'interpréter un nombre à virgule. La fonction s'arrête
@@ -1051,19 +1134,25 @@ include::{sourceDir}/number/parse-int.js[]
 <1> Affiche{nbsp}``16``.
 <2> Affiche{nbsp}``10`` – ``A``{nbsp}vaut{nbsp}``10`` en hexadécimal.
 <3> Affiche{nbsp}``2560`` – aurait pu s'écrire `0xA00`.
+indexterm:[nombre, base 16 (hexadécimal)]
+indexterm:[hexadécimal]
 
 === Formater et arrondir des nombres
+indexterm:[nombre, arrondir]
 
 Si l'envie vous prenait de vouloir arrondir des nombres, il existe
 quelques fonctions pour vous aider :
 
 [horizontal]
-`Math.round`::
+`Math.round()`::
   Arrondit à l'entier le plus proche.
-`Math.ceil`::
+`Math.ceil()`::
   Arrondit à l'entier supérieur du nombre donné.
-`Math.floor`::
+`Math.floor()`::
   Arrondit à l'entier inférieur du nombre donné.
+indexterm:[nombre, Math.round()]
+indexterm:[nombre, Math.ceil()]
+indexterm:[nombre, Math.floor()]
 
 [source%interactive,javascript]
 .number/round.js
@@ -1078,7 +1167,7 @@ include::{sourceDir}/number/round.js[]
 
 Enfin, on peut préserver le formatage du nombre de décimales
 après la virgule en transformant le nombre _en chaîne de caractères_
-grâce à la méthode `toFixed` :
+grâce à la méthode `toFixed()` :
 
 [source%interactive,javascript]
 .number/to-fixed.js
@@ -1087,9 +1176,11 @@ include::{sourceDir}/number/to-fixed.js[]
 ----
 <1> Affiche{nbsp}``'10.01'``.
 <2> Affiche{nbsp}``'10'``.
+indexterm:[nombre, toFixed()]
 
 [[functions]]
 == Créer et réutiliser des blocs de code (fonctions)
+indexterm:[fonction]
 
 Une fonction est un *bloc de code réutilisable et paramétrable*.
 Elle _retourne_ un résultat dont la valeur se calcule en fonction des
@@ -1100,8 +1191,9 @@ Cela se passe en deux temps :
 . la _création_ de la fonction ;
 . l'_exécution_.
 
-ECMAScript fournit un ensemble de fonctions de base : `console.log`, `setTimeout`, etc.
-Node ajoute les siennes (comme `require`).
+ECMAScript fournit un ensemble de fonctions de base : `console.log()`,
+`setTimeout()`, etc.
+Node ajoute les siennes (comme `require()`).
 Nous avons la liberté d'en créer nous-mêmes, spécifiques à nos besoins.
 
 [source%interactive,javascript]
@@ -1129,6 +1221,9 @@ La *valeur de retour*::
   Elle est définie à l'aide du mot-clé `return`.
   La valeur `undefined` est retournée de manière implicite
   lorsque ce dernier est absent.
+indexterm:[fonction, return]
+indexterm:[instruction, return]
+indexterm:[type de données, undefined]
 
 [TIP]
 .[RemarquePreTitre]#Rappel# Variables et portée
@@ -1139,6 +1234,8 @@ dans le corps d'une fonction est invisible en dehors.
 
 [[anonymous-function]]
 === Les fonctions anonymes
+indexterm:[fonction, anonyme]
+indexterm:[fonction, de rappel (callback)]
 
 Les fonctions anonymes sont employées en arguments d'autres fonctions.
 On les dit _anonymes_, car elles ne sont pas consignées dans des _variables_.
@@ -1157,6 +1254,7 @@ include::{sourceDir}/functions/anonymous.js[]
 
 [[callback]]
 === Les fonctions de rappel (callback)
+indexterm:[fonction, de rappel (callback)]
 
 Quand une fonction est passée en argument d'une autre fonction,
 on appelle cela un _callback_.
@@ -1169,12 +1267,14 @@ _au moment_ de son exécution.
 ----
 include::{sourceDir}/functions/callback.js[]
 ----
-<1> Le troisième argument (et les suivants) de `setTimeout` sont transmis en paramètres de la fonction de rappel (_callback_).
+<1> Le troisième argument (et les suivants) de `setTimeout()` sont transmis en paramètres de la fonction de rappel (_callback_).
 <2> Cette fonction est invoquée une seconde après le début du script, et reçoit en paramètre la date du moment.
 <3> Affiche l'année de la date passée en argument – dans cet exemple, l'année en courss.
 
 [[rest-parameters]]
 === Paramètres du reste (rest parameters)
+indexterm:[fonction, paramètre du reste]
+indexterm:[opérateur, spread]
 
 Les _paramètres du reste_ sont un nombre indéfini de paramètres
 regroupés dans un même <<array,tableau>>.
@@ -1189,6 +1289,8 @@ include::{sourceDir}/functions/rest.js[]
 
 [[array]]
 == Lister, filtrer et trier des éléments (Array)
+indexterm:[tableau]
+indexterm:[liste indexée (voir tableau)]
 
 Les tableaux (ou listes indexées) servent à lister des éléments,
 de tout type et dans l'ordre de notre choix.
@@ -1205,6 +1307,7 @@ include::{sourceDir}/array/base.js[]
 <2> Affiche{nbsp}``5`` – soit la longueur du tableau.
 <3> Affiche `"mardi"` – un tableau commence à l'index{nbsp}``0``.
 <4> Affiche `undefined` – il n'y a aucun élément défini à l'index{nbsp}``5``.
+indexterm:[tableau, index]
 
 L'exemple précédent illustre plusieurs caractéristiques des collections :
 
@@ -1212,10 +1315,12 @@ L'exemple précédent illustre plusieurs caractéristiques des collections :
 - La propriété `length` contient la longueur du tableau.
 - La valeur `undefined` est retournée quand on tente d'accéder à un index
 qui n'existe pas.
+indexterm:[tableau, length]
 
 === Créer des tableaux à partir d'autres valeurs
+indexterm[tableau, Array.from()]
 
-La fonction `Array.from` est une manière de créer
+La fonction `Array.from()` est une manière de créer
 un tableau à partir de quelque chose qui _ressemble à un tableau_.
 
 [source%interactive,javascript,id="array.from"]
@@ -1226,23 +1331,25 @@ include::{sourceDir}/array/from.js[]
 <1> Affiche `["f", "r", "o", "m", "a", "g", "e"]` – chaque lettre de la chaîne.
 <2> Affiche `["F", "R", "O", "M", "A", "G", "E"]` – chaque lettre de la chaîne a été passée en majuscule.
 
-Le deuxième argument de `Array.from` est facultatif.
-C'est une <<anonymous-function,fonction anonyme>> qui s'utilise comme les <<array.forEach,méthodes d'itération>> `Array.forEach` et `Array.map`.
+Le deuxième argument de `Array.from()` est facultatif.
+C'est une <<anonymous-function,fonction anonyme>> qui s'utilise comme les <<array.forEach,méthodes d'itération>> `Array.forEach()` et `Array.map()`.
 
 Cette méthode est des plus utiles pour itérer sur des listes d'éléments DOM
-obtenues avec les fonctions `document.querySelectorAll`
-et `document.getElementsByTagName`, entre autres.
+obtenues avec les fonctions `document.querySelectorAll()`
+et `document.getElementsByTagName()`, entre autres.
 
 [source,javascript]
 ----
 include::{sourceDir}/array/node-list.js[]
 ----
+indexterm:[DOM (Document Object Model), NodeList]
 
 [[array.concat]]
 === Combiner des tableaux
+indexterm:[tableau, Array.concat()]
 
 Il est relativement aisé de composer des tableaux en fonction d'autres tableaux.
-Une première manière d'y parvenir est d'utiliser la méthode `concat` :
+Une première manière d'y parvenir est d'utiliser la méthode `concat()` :
 
 [source%interactive,javascript]
 .array/concat.js
@@ -1256,6 +1363,7 @@ Cette méthode _crée un nouveau tableau_ à partir de deux passés en paramètr
 [NOTE]
 .[RemarquePreTitre]#Alternative# Opérateur{nbsp}``...``{nbsp}(_spread_)
 ====
+indexterm:[opérateur, spread]
 Une autre manière de faire est d'utiliser l'opérateur `...`
 (aussi appelé <<spread,spread>>) pour éclater plusieurs tableaux et
 les rassembler dans un autre :
@@ -1269,8 +1377,9 @@ include::{sourceDir}/array/spread.js[]
 
 ====
 
-À l'inverse, la méthode `join` _concatène_ tous les éléments dans une
+À l'inverse, la méthode `join()` concatène tous les éléments dans une
 <<string,chaîne de caractères>> avec le séparateur de notre choix (optionnel).
+indexterm:[tableau, join()]
 
 [source%interactive,javascript]
 .array/join.js
@@ -1283,6 +1392,7 @@ include::{sourceDir}/array/join.js[]
 
 [[array.forEach]]
 === Itérer sur les valeurs avec des boucles
+indexterm:[tableau, forEach()]
 
 Les boucles sont une manière de parcourir plusieurs valeurs.
 Elles aident à mettre en place des automatismes pour éviter de répéter du code.
@@ -1304,10 +1414,16 @@ On y découvre plusieurs manières d'écrire des boucles sur un tableau :
 `forEach(element => expression)`::
   La méthode `forEach` applique une <<anonymous-function,fonction anonyme>>
   pour chaque élément du tableau.
+indexterm:[fonction, anonyme]
+indexterm:[fonction, de rappel (callback)]
 
 Il y a en réalité deux manières d'itérer avec la boucle{nbsp}``for`` :
 sur les _index_ (avec l'opérateur{nbsp}``in``)
 et sur les _valeurs_ (avec l'opérateur{nbsp}``of``).
+indexterm:[instruction, for ... in]
+indexterm:[instruction, for ... of]
+indexterm:[opérateur, in]
+indexterm:[opérateur, of]
 
 [source%interactive,javascript]
 .array/for-of-in.js
@@ -1318,7 +1434,7 @@ include::{sourceDir}/array/for-of-in.js[]
 <2> Affiche successivement `"samedi"` puis `"dimanche"` – l'index sert à retrouver la valeur dans le tableau.
 <3> Affiche successivement `"samedi"` puis `"dimanche"`.
 
-La méthode `forEach` propage en réalité trois arguments à notre fonction anonyme :
+La méthode `forEach()` propage en réalité trois arguments à notre fonction anonyme :
 l'élément en cours de l'itération, l'index de l'élément et le tableau d'origine.
 
 Pourquoi passer le tableau d'origine alors qu'on itère dessus ?
@@ -1326,13 +1442,14 @@ Pour donner du contexte au cas où on opère
 avec une <<function,fonction nommée>>.
 Nous verrons un usage concret de ce troisième argument
 dans la section "`<<array.map,Transformer les valeurs>>`".
+indexterm:[fonction, nommée]
 
 [source%interactive,javascript]
 .array/foreach-function.js
 ----
 include::{sourceDir}/array/foreach-function.js[]
 ----
-<1> Applique la fonction `printIndex` pour chaque élément du tableau `undeux`.
+<1> Applique la fonction `printIndex()` pour chaque élément du tableau `undeux`.
 <2> Affiche successivement `"un : index 0"` puis `"deux : index 1"`.
 
 Outre l'inspection et l'affichage des valeurs, les boucles offrent la liberté
@@ -1345,16 +1462,17 @@ Ces méthodes sont décrites dans les sections suivantes.
 
 [[array.sort]]
 === Trier les valeurs
+indexterm:[tableau, sort()]
 
-La méthode `sort` change l'ordre des éléments d'un tableau.
+La méthode `sort()` change l'ordre des éléments d'un tableau.
 Elle utilise une <<anonymous-function,fonction anonyme>> qui compare deux éléments
 entre eux ; elle retourne un nombre positif, négatif ou égal à zéro selon la
 logique que l'on souhaite donner au tri :
 
 * Quand la comparaison est _négative_,
-`sort` place le premier élément _avant_ le second.
+`sort()` place le premier élément _avant_ le second.
 * Quand la comparaison est _positive_,
-`sort` place le premier élément _après_ le second.
+`sort()` place le premier élément _après_ le second.
 * Quand la comparaison est égale à zéro, nulle ou non spécifiée,
 l'ordre des éléments reste inchangé.
 
@@ -1366,9 +1484,10 @@ include::{sourceDir}/array/sort.js[]
 <1> Affiche `[1, 2, 3]`.
 <2> Affiche `[ { label: "un", order: 1 }, { label: "deux", order: 2 } ]` – le tableau a été trié sur la valeur de `order`.
 
-Les <<string,chaînes de caractères>> peuvent être comparées avec `localeCompare`.
+Les <<string,chaînes de caractères>> peuvent être comparées avec `localeCompare()`.
 Cette méthode retourne un nombre après une comparaison caractère par caractère
 entre deux chaînes.
+indexterm:[chaîne de caractère, localeCompare()]
 
 [source%interactive,javascript]
 .array/sort-strings.js
@@ -1379,9 +1498,10 @@ include::{sourceDir}/array/sort-strings.js[]
 <2> Affiche `[ { label: "deux", order: 2 }, { label: "un", order: 1 } ]` – le tableau a été trié sur la valeur de `label`.
 
 [TIP]
-.[RemarquePreTitre]#Alternative# `Array.reverse`
+.[RemarquePreTitre]#Alternative# `Array.reverse()`
 ====
-La méthode `reverse` transforme le tableau d'origine
+indexterm:[tableau, reverse()]
+La méthode `reverse()` transforme le tableau d'origine
 en inversant l'ordre de ses éléments.
 
 [source%interactive,javascript]
@@ -1395,8 +1515,9 @@ include::{sourceDir}/array/reverse.js[]
 
 [[array.map]]
 === Transformer les valeurs
+indexterm:[tableay, map()]
 
-La méthode `map` fonctionne quasiment comme `forEach`, à ceci près qu'elle
+La méthode `map()` fonctionne quasiment comme `forEach()`, à ceci près qu'elle
 retourne un nouveau tableau, constitué des valeurs retournées par la fonction
 appliquée sur chaque élément.
 
@@ -1407,7 +1528,7 @@ include::{sourceDir}/array/map.js[]
 ----
 <1> Retourne `['A', 'B', 'C']` – on a passé tous les éléments en lettres majuscules.
 
-Le troisième argument de la méthode `map` prend ici tout son sens.
+Le troisième argument de la méthode `map()` prend ici tout son sens.
 Par exemple, si l'on souhaite dédoublonner un tableau :
 
 [source%interactive,javascript]
@@ -1421,24 +1542,26 @@ Cet exemple vérifie, à chaque itération, si la valeur de l'élément
 est contenue dans la _suite du tableau_.
 `array.slice(index+1)` crée un nouveau tableau contenant tous les éléments
 situés _après_ l'élément courant (`index+1`).
+indexterm:[tableau, slice()]
 
-La méthode de transformation `reduce` est différente, car elle passe le résultat
+La méthode de transformation `reduce()` est différente, car elle passe le résultat
 de la précédente itération à la suivante.
 C'est comme si elle _accumulait_ les résultats.
 Elle retourne une valeur finale qui peut être autre chose qu'un tableau.
+indexterm:[tableau, reduce()]
 
 [source%interactive,javascript]
 .array/reduce.js
 ----
 include::{sourceDir}/array/reduce.js[]
 ----
-<1> Effectue une _réduction_ à l'aide de la fonction `sum` et d'une valeur par défaut de{nbsp}``0`` – affiche{nbsp}``22`` à l'issue des itérations .
-<2> La valeur de l'élément est le _second paramètre_ ; le premier paramètre correspond au résultat de l'itération précédente ou à la valeur initiale, passée en argument à `reduce`.
+<1> Effectue une _réduction_ à l'aide de la fonction `sum()` et d'une valeur par défaut de{nbsp}``0`` – affiche{nbsp}``22`` à l'issue des itérations .
+<2> La valeur de l'élément est le _second paramètre_ ; le premier paramètre correspond au résultat de l'itération précédente ou à la valeur initiale, passée en argument à `reduce()`.
 
 [[array.filter]]
 === Filtrer les valeurs
 
-La méthode `filter` retourne un nouveau tableau filtré à l'aide
+La méthode `filter()` retourne un nouveau tableau filtré à l'aide
 d'une <<anonymous-function,fonction anonyme>>.
 Seuls les éléments qui satisfont à la condition établie par la fonction
 se retrouvent dans le nouveau tableau.
@@ -1454,12 +1577,16 @@ include::{sourceDir}/array/filter.js[]
 [[array.find]]
 === Identifier des valeurs
 
-Les méthodes `indexOf`, `lastIndexOf` et `includes` identifient une
+Les méthodes `indexOf()`, `lastIndexOf()` et `includes()` identifient une
 _valeur exacte_ au sein d'un tableau.
+indexterm:[tableau, indexOf()]
+indexterm:[tableau, lastIndexOf()]
+indexterm:[tableau, includes()]
+indexterm:[tableau, index]
 
-`indexOf` et `lastIndexOf` retournent l'_index_ de la valeur recherchée.
+`indexOf()` et `lastIndexOf()` retournent l'index de la valeur recherchée.
 Si aucun élément n'a été retrouvé, elles retourneront la valeur{nbsp}``-1``. +
-`includes` retourne un <<boolean,booléen>> indiquant si la recherche
+`includes()` retourne un <<boolean,booléen>> indiquant si la recherche
 est fructueuse (`true`) ou non (`false`).
 
 [source%interactive,javascript]
@@ -1474,13 +1601,17 @@ include::{sourceDir}/array/index-of-includes.js[]
 <5> Affiche{nbsp}``true`` – l'élément `"un"` existe dans le tableau.
 <6> Affiche{nbsp}``false`` – l'élément `"trois"` n'existe pas dans le tableau.
 
-Il existe ensuite d'autres méthodes comme `find`, `some` et `every`.
+Il existe ensuite d'autres méthodes comme `find()`, `some()` et `every()`.
 Elles *identifient des éléments à partir d'une fonction*.
 Les conditions de recherche sont plus complètes, car on n'est pas obligé
 de connaître la valeur exacte recherchée.
+indexterm:[tableau, find()]
+indexterm:[tableau, findIndex()]
+indexterm:[tableau, some()]
+indexterm:[tableau, every()]
 
-La méthode `find` retourne le premier _élément_ qui remplisse la condition ;
- `findIndex` en retourne l'_index_.
+La méthode `find()` retourne le premier _élément_ qui remplisse la condition ;
+ `findIndex()` en retourne l'_index_.
 
 [source%interactive,javascript]
 .array/find.js
@@ -1491,9 +1622,10 @@ include::{sourceDir}/array/find.js[]
 <2> Affiche{nbsp}``100``.
 <3> Affiche{nbsp}``3`` – c'est l'index de la valeur{nbsp}``100``.
 
-Les méthodes `some` et `every` retournent `true` respectivement
+Les méthodes `some()` et `every()` retournent `true` respectivement
 si _au moins une itération_ est satisfaisante et
 si _toutes les itérations_ sont satisfaisantes.
+indexterm:[booléen]
 
 [source%interactive,javascript]
 .array/some.js
@@ -1505,9 +1637,11 @@ include::{sourceDir}/array/some.js[]
 <3> Affiche `false` – il n'y a plus de valeur `undefined` dans le tableau, car on a utilisé la méthode <<array.filter,filter>> pour supprimer les valeurs vides.
 
 [[array-destructuring]]
-=== Décomposition de tableau (_destructuring_)
+=== Décomposition de tableau (destructuring)
+indexterm:[tableau, décomposition (destructuring)]
+indexterm:[opérateur, spread]
 
-L'affectation par _décomposition_ (_destructuring_) est une manière élégante
+L'affectation par décomposition (_destructuring_) est une manière élégante
 de piocher des valeurs dans un <<array,tableau>>.
 Ce mécanisme n'altère pas le contenu des variables décomposées et existe aussi
 pour les <<object-destructuring,objets>>.
@@ -1522,7 +1656,7 @@ include::{sourceDir}/array/destructuring.js[]
 <3> Affiche `"mercredi"` – l'utilisation des virgules sans variable a permis de _sauter_ des positions dans la décomposition.
 
 La décomposition se combine agréablement avec l'opérateur `...` (_spread_).
-Il accumule _le reste_ des éléments dans une variable, sous forme de tableau.
+Il accumule le reste des éléments dans une variable, sous forme de tableau.
 
 [source%interactive,javascript]
 .array/destructuring-rest.js
@@ -1531,8 +1665,9 @@ include::{sourceDir}/array/destructuring-rest.js[]
 ----
 <1> Affiche `["mercredi", "jeudi", "vendredi"]`.
 
-La méthode `slice` offre davantage de souplesse pour gérer les _limites_.
+La méthode `slice()` offre davantage de souplesse pour gérer les _limites_.
 On choisit _l'index de début_ (inclus) et celui _de fin_ (non inclus) de la décomposition.
+indexterm:[tableau, slice()]
 
 [source%interactive,javascript]
 .array/slice.js
@@ -1558,6 +1693,8 @@ include::{sourceDir}/array/slice-negative.js[]
 
 [[object]]
 == Représenter des structures d'objet et y accéder
+indexterm:[objet]
+indexterm:[objet, syntaxe]
 
 Les structures d'objet servent à lister des éléments de tout type
 au sein d'une même variable.
@@ -1574,7 +1711,7 @@ include::{sourceDir}/object/base.js[]
 <3> Affiche{nbsp}``25` – la valeur numérique précédemment affectée.
 <4> Affiche{nbsp}``undefined` – aucune valeur n'est affectée pour cette{nbsp}clé.
 
-Une autre syntaxe existe pour _créer_ des valeurs et y _accéder_ en utilisant
+Une autre syntaxe existe pour créer des valeurs et y accéder en utilisant
 des variables en guise d'identifiant d'index.
 
 [source%interactive,javascript]
@@ -1588,6 +1725,8 @@ include::{sourceDir}/object/dynamic.js[]
 
 [[object-destructuring]]
 === Décomposition d'objet (_destructuring_)
+indexterm:[objet, décomposition]
+indexterm:[opérateur, spread]
 
 L'affectation par décomposition (_destructuring_) est une manière
 élégante de piocher des valeurs dans un <<object,objet>>.
@@ -1615,8 +1754,10 @@ include::{sourceDir}/object/destructuring-rest.js[]
 
 [[object.assign]]
 === Combiner des objets
+indexterm:[objet, Object.assign()]
+indexterm:[objet, concaténation]
 
-`Object.assign` est une méthode qui sert à étendre et combiner plusieurs objets.
+`Object.assign()` est une méthode qui sert à étendre et combiner plusieurs objets.
 On a le choix d'intégrer les nouveaux éléments à un objet existant
 ou bien d'en créer un nouveau.
 Les objets sont combinés dans le premier paramètre de la fonction.
@@ -1635,6 +1776,8 @@ Toute clé existante est remplacée.
 
 La <<object-destructuring,décomposition d'objet>> sert également à combiner
 des objets entre{nbsp}eux.
+indexterm:[objet, décomposition]
+indexterm:[opérateur, spread]
 
 [source%interactive,javascript]
 .object/destructuring-spread.js
@@ -1645,8 +1788,10 @@ include::{sourceDir}/object/destructuring-spread.js[]
 
 
 === Itérer sur des objets
+indexterm:[objet, itération]
+indexterm:[objet, Object.entries()]
 
-La méthode `Object.entries` est probablement la plus adaptée pour itérer à la
+La méthode `Object.entries()` est probablement la plus adaptée pour itérer à la
 fois sur les _clés_ et sur les _valeurs_ d'un objet.
 Elle retourne un tableau qui contient autant de paires de `[clé, valeur]` qu'il y a
 d'éléments dans l'objet.
@@ -1661,6 +1806,7 @@ include::{sourceDir}/object/entries.js[]
 Nous sommes libres d'<<array.forEach,itérer sur les valeurs>>
 et d'utiliser la <<array-destructuring,décomposition de tableaux>>
 pour rendre notre code explicite :
+indexterm:[instruction, for ... of]
 
 [source%interactive,javascript]
 .object/entries-loop.js
@@ -1669,9 +1815,11 @@ include::{sourceDir}/object/entries-loop.js[]
 ----
 <1> Affiche successivement `"francine.first_name vaut Francine"` puis `"francine.location vaut Drôme"`.
 
-Deux autres méthodes récupèrent soit _la liste des clés_ d'un objet (`Object.keys`)
-soit _la liste de ses valeurs_ (`Object.values`).
+Deux autres méthodes récupèrent soit _la liste des clés_ d'un objet (`Object.keys()`)
+soit _la liste de ses valeurs_ (`Object.values()`).
 Dans les deux cas, les résultats sont retournés sous forme d'un <<array,tableau>>.
+indexterm:[objet, Object.keys()]
+indexterm:[objet, Object.values()]
 
 [source%interactive,javascript]
 .object/keys.js
@@ -1683,13 +1831,15 @@ include::{sourceDir}/object/keys.js[]
 
 
 === Identifier des valeurs
+indexterm:[objet, hasOwnProperty()]
 
 Il y a trois manières d'identifier si un objet contient une valeur
 associée à une{nbsp}clé.
 
-Le plus simple est d'utiliser la méthode `hasOwnProperty`.
+Le plus simple est d'utiliser la méthode `hasOwnProperty()`.
 Elle prend en argument le nom de la clé à tester et
 retourne un <<boolean,booléen>>.
+indexterm:[booléen]
 
 [source%interactive,javascript]
 .object/has-own-property.js
@@ -1702,6 +1852,8 @@ include::{sourceDir}/object/has-own-property.js[]
 La seconde manière est d'utiliser l'opérateur{nbsp}``in``.
 On l'aura déjà rencontré lors des <<array.forEach,boucles>> ;
 ici, on l'utilise une seule{nbsp}fois.
+indexterm:[opérateur, in]
+indexterm:[instruction, for ... in]
 
 [source%interactive,javascript]
 .object/key-in.js
@@ -1712,6 +1864,7 @@ include::{sourceDir}/object/key-in.js[]
 <2> Affiche `false` – cette clé n'existe pas dans cet objet.
 
 Enfin, on peut tester la valeur associée avec la syntaxe standard `objet.clé`.
+indexterm:[objet, syntaxe]
 
 [source%interactive,javascript]
 .object/key.js
@@ -1723,6 +1876,8 @@ include::{sourceDir}/object/key.js[]
 
 Attention toutefois : cette méthode _teste uniquement la valeur_.
 Si la clé existe et contient `undefined`, vous ne verrez pas la différence.
+indexterm:[undefined]
+indexterm:[type de données, undefined]
 
 [source%interactive,javascript]
 .object/key-undefined.js
@@ -1737,6 +1892,8 @@ include::{sourceDir}/object/key-undefined.js[]
 
 [[json]]
 == Lire et écrire des données au format JSON
+indexterm:[JSON]
+indexterm:[objet, JSON]
 
 JSON ([URL]#http://json.org#) est un format de données textuel standardisé.
 Son but est de représenter des données informatiques de manière
@@ -1759,11 +1916,12 @@ On ne peut donc pas représenter de <<function,fonction>>,
 d'<<class,instance d'objet>> ni même la valeur `undefined`.
 
 ECMAScript embarque le nécessaire pour _parser_ depuis et _convertir_ en JSON.
-Cela se fait respectivement avec les fonctions `JSON.parse` et `JSON.stringify`.
+Cela se fait respectivement avec les fonctions `JSON.parse()` et `JSON.stringify()`.
 
-La fonction `JSON.parse` consomme du texte.
+La fonction `JSON.parse()` consomme du texte.
 Elle retourne une représentation ECMAScript ou lance une <<error,erreur>>
 en cas de problème.
+indexterm:[JSON, JSON.parse()]
 
 [source%interactive,javascript]
 .json/parse.js
@@ -1774,8 +1932,9 @@ include::{sourceDir}/json/parse.js[]
 <2> Affiche{nbsp}``32``.
 <3> Affiche `{price_tag: 32, title: "Node.js"}`.
 
-À l'inverse, la fonction `JSON.stringify` convertit une structure ECMAScript
+À l'inverse, la fonction `JSON.stringify()` convertit une structure ECMAScript
 en chaîne de caractères au format{nbsp}JSON :
+indexterm:[JSON, JSON.stringify()]
 
 [source%interactive,javascript]
 .json/stringify.js
@@ -1784,10 +1943,12 @@ include::{sourceDir}/json/stringify.js[]
 ----
 <1> Affiche `"{\"lat\":48.8503439,\"lon\":2.34658949}"`.
 
-La fonction `JSON.stringify` parcourt tous les éléments
+La fonction `JSON.stringify()` parcourt tous les éléments
 pour les sérialiser en forme textuelle.
-Quand elle rencontre la la clé spéciale `toJSON`,
+Quand elle rencontre la la clé spéciale `toJSON()`,
 elle l'utilise pour effectuer la conversion :
+indexterm:[JSON, toJSON()]
+indexterm:[objet, toJSON()]
 
 [source%interactive,javascript]
 .json/to-json.js
@@ -1797,7 +1958,7 @@ include::{sourceDir}/json/to-json.js[]
 <1> Affiche `"\"geo=48.8503439,2.34658949\""` – c'est la sérialisation définie par notre fonction `toJSON`.
 <2> Affiche `"{\"lat\":48.8503439,\"lon\":2.34658949}"` – sans la clé `toJSON`, notre objet initial est sérialisé tel{nbsp}quel.
 
-Notre implémentation contenue dans la fonction `toJSON` est
+Notre implémentation contenue dans la fonction `toJSON()` est
 responsable de renvoyer du texte seulement et de choisir les clés
 à sérialiser.
 
@@ -1809,13 +1970,15 @@ include::{sourceDir}/json/to-json-extra.js[]
 <1> Affiche `"\"geo=48.8503439,2.34658949\""`.
 
 Dans cette variante d'exemple, la clé `city` n'a pas été sérialisée
-car notre fonction `toJSON` se préoccupait seulement des clés `lat` et{nbsp}`lon`.
+car notre fonction `toJSON()` se préoccupait seulement des clés `lat` et{nbsp}`lon`.
 
 mdn::global[JSON]
 
 
 [[date]]
 == Interagir avec des dates
+indexterm:[date]
+indexterm:[objet, Date]
 
 Les calculs de date s'effectuent à l'aide des objets `Date`.
 Chaque instance représente un moment dans le temps, à un jour
@@ -1829,10 +1992,11 @@ include::{sourceDir}/date/base.js[]
 <1> On initialise l'objet date `past` au 04{nbsp}décembre{nbsp}2013.
 <2> Affiche `2013` – l'année liée à l'objet{nbsp}``past``.
 <3> Affiche `{docyear}` – l'année liée à l'objet{nbsp}``now`` (date du jour).
+indexterm:[date, getUTCFullYear()]
 
-Un certain nombre de méthodes _retournent_ différents éléments de la date
+Un certain nombre de méthodes retournent différents éléments de la date
 contenue dans l'objet : année, secondes, jour de la semaine, etc.
-Il en existe tout autant pour _modifier_ ces éléments de date.
+Il en existe tout autant pour modifier ces éléments de date.
 
 [source%interactive,javascript]
 .date/set.js
@@ -1843,8 +2007,11 @@ include::{sourceDir}/date/set.js[]
 <2> Affiche `"2015-12-04T10:00:00.000Z"`.
 <3> Change la date vers le mois{nbsp}``1``.
 <4> Affiche `"2015-02-04T10:00:00.000Z"` – pourquoi le mois de février ??
+indexterm:[date, setUTCFullYear()]
+indexterm:[date, setUTCMonth()]
+indexterm:[date, toISOString()]
 
-L'exemple précédent illustre l'ambiguïté de la notion de _mois_.
+L'exemple précédent illustre l'ambiguïté de la notion de mois.
 Il s'agit en réalité de l'_index du mois_ :
 0{nbsp}correspond à janvier, 1 à février, etc.
 
@@ -1861,6 +2028,9 @@ mdn::global[Date]
 
 [[intl.datetimeformat]]
 === Formatage internationalisé (Intl.DateTimeFormat)
+indexterm:[date, formattage]
+indexterm:[date, internationalisation]
+indexterm:[Intl, DateTimeFormat]
 
 La spécification _ECMA{nbsp}Intl_ a été conçue pour ajouter des
 fonctionnalités relatives aux langues.
@@ -1868,9 +2038,12 @@ Cette spécification est complémentaire.
 Son comportement varie en fonction du système d'exploitation
 – mode d'installation de Node et/ou version du navigateur{nbsp}web.
 
-Les méthodes `toLocaleString`, `toLocaleDateString` et
-`toLocaleTimeString` renvoient respectivement une version localisée
+Les méthodes `toLocaleString()`, `toLocaleDateString()` et
+`toLocaleTimeString()` renvoient respectivement une version localisée
 d'une date complète, d'une date et d'une heure.
+indexterm:[date, toLocaleString()]
+indexterm:[date, toLocaleDateString()]
+indexterm:[date, toLocaleTimeString()]
 
 [source%interactive,javascript]
 .date/to-locale-date.js
@@ -1897,6 +2070,8 @@ Une version plus verbeuse consiste à créer un formateur avec
 Ce formateur se réutilise pour transformer plusieurs fois
 des dates différentes avec les mêmes réglages
 ou une même date avec des formatages différents.
+indexterm:[Intl, DateTimeFormat]
+indexterm:[Intl, DateTimeFormat, format()]
 
 [source%interactive,javascript]
 .date/intl.js
@@ -1911,6 +2086,9 @@ mdn::global[DateTimeFormat]
 
 [[class]]
 == Partager une logique avec des objets de même nature (Class)
+indexterm:[objet, classe]
+indexterm:[opérateur, new]
+indexterm:[variable, classe d'objet]
 
 Une classe est une structure qui partage des propriétés
 et des méthodes entre les objets qui y font appel.
@@ -1923,11 +2101,14 @@ const date1 = new Date();
 const date2 = new Date('2013-12-04');
 ----
 
-Nos deux variables sont des objets issus de la _classe_ <<date,Date>>.
+Nos deux variables sont des objets issus de la classe <<date,Date>>.
 Chacune des variables bénéficie des méthodes définies par cette classe.
 
 Autrement dit, si les <<object,structures d'objet>> définissent des données,
 les classes définissent des comportements partagés.
+indexterm:[instruction, class]
+indexterm:[opérateur, new]
+indexterm:[opérateur, this]
 
 [source%interactive,javascript]
 .class/base.js
@@ -1936,13 +2117,19 @@ include::{sourceDir}/class/base.js[]
 ----
 <1> Le constructeur reçoit un ou plusieurs argument(s) lors de l'instanciation de la classe.
 <2> `this` fait référence à _ce contexte_, c'est-à-dire à _cette instance de classe_ ; deux instances peuvent être initialisées avec des données différentes.
-<3> `toJSON` est une méthode de la classe.
-<4> `isbn` est un accesseur (préfixe `get`) – une propriété dont la valeur est calculée à chaque fois qu'elle est appelée.
-<5> `clean` est une méthode dite _statique_ – elle est appelée en dehors d'une instance.
+<3> `toJSON()` est une méthode de la classe.
+<4> `isbn()` est un accesseur (préfixe `get`) – une propriété dont la valeur est calculée à chaque fois qu'elle est appelée.
+<5> `clean()` est une méthode dite _statique_ – elle est appelée en dehors d'une instance.
 
 Nous développerons cet exemple dans les sections qui suivent.
 On peut d'ores et déjà noter que la structure d'une classe
 se décompose en plusieurs parties :
+indexterm:[objet, classe, syntaxe]
+indexterm:[objet, classe, constructeur]
+indexterm:[objet, classe, méthode]
+indexterm:[objet, classe, méthode statique]
+indexterm:[objet, accesseur get()]
+indexterm:[objet, mutateur set()]
 
 La définition::
   Définit le nom de la classe que l'on pourra instancier.
@@ -1965,10 +2152,11 @@ mdn::reference[Classes, title="Classes", text="les classes"]
 
 [[class.method]]
 === Méthodes d'instance
+indexterm:[objet, classe, méthode]
 
 Les méthodes définissent des comportements partagés entre chaque instance
 de la classe.
-Elles servent à _retourner_ ou _transformer_ des valeurs rattachées à l'objet.
+Elles servent à retourner ou transformer des valeurs rattachées à l'objet.
 
 [source%interactive,javascript]
 .class/methods.js
@@ -1982,17 +2170,19 @@ include::{sourceDir}/class/methods.js[]
 
 [[class.static]]
 === Méthodes statiques
+indexterm:[objet, classe, méthode statique]
+indexterm:[opérateur, static]
 
 Les méthodes statiques sont pratiques pour mettre à disposition du code
 métier de manière organisée.
-Elles se caractérisent par le préfixe `static` devant un nom de fonction.
+Elles se caractérisent par le mot-clé `static` devant un nom de fonction.
 
 [source%interactive,javascript]
 .class/static.js
 ----
 include::{sourceDir}/class/static.js[]
 ----
-<1> On appelle la méthode statique `Book.clean` pour nettoyer le code EAN13.
+<1> On appelle la méthode statique `Book.clean()` pour nettoyer le code EAN13.
 <2> Affiche `"9782212139938"` – la valeur a bien été nettoyée.
 <3> Affiche `undefined` – les méthodes statiques ne sont pas accessibles depuis l'instance de classe.
 
@@ -2005,11 +2195,14 @@ mdn::reference[Classes/static, title="Méthodes statiques", text="les méthodes 
 
 [[object-getset]]
 === Accesseurs et mutateurs
+indexterm:[objet, classe, attribut]
+indexterm:[objet, classe, accesseur]
+indexterm:[objet, classe, mutateur]
 
-Ce type de méthode définit des _attributs_ dont la lecture ou l'écriture
+Ce type de méthode définit des attributs dont la lecture ou l'écriture
 sont dynamiques.
 
-L'_accesseur_ est une fonction préfixée par le mot-clé `get` ; elle retourne
+L'accesseur est une fonction préfixée par le mot-clé `get` ; elle retourne
 la valeur d'un attribut.
 
 [source%interactive,javascript]
@@ -2017,11 +2210,11 @@ la valeur d'un attribut.
 ----
 include::{sourceDir}/getters.js[]
 ----
-<1> Définition de l'__accesseur__{nbsp}``isbn``.
+<1> Définition de l'accesseur{nbsp}``isbn()``.
 <2> Affiche `"9782212139938"` – c'est une propriété de l'objet `nodebook`.
-<3> Affiche `"2212139938"` – `isbn` s'utilise comme un attribut mais sa valeur est calculée à chaque fois qu'elle est appelée.
+<3> Affiche `"2212139938"` – `isbn()` s'utilise comme un attribut mais sa valeur est calculée à chaque fois qu'elle est appelée.
 
-Le _mutateur_ est une fonction préfixée par le mot-clé `set` ; elle définit
+Le mutateur est une fonction préfixée par le mot-clé `set` ; elle définit
 la valeur d'un ou plusieurs attribut(s).
 
 [source%interactive,javascript]
@@ -2029,10 +2222,10 @@ la valeur d'un ou plusieurs attribut(s).
 ----
 include::{sourceDir}/setters.js[]
 ----
-<1> Définition du _mutateur_ `ean13` – il accepte un seul argument.
+<1> Définition du mutateur `ean13()` – il accepte un seul argument.
 <2> Affiche `978` – l'attribut a été créé lors de l'appel du mutateur.
 <3> Affiche `2212139938` – idem.
-<4> Affiche `undefined` – il faudrait créer un _accesseur_ `get ean13()` pour recomposer dynamiquement sa valeur.
+<4> Affiche `undefined` – il faudrait créer un accesseur `get ean13()` pour recomposer dynamiquement sa valeur.
 
 mdn::reference[Functions/get, title="Accesseurs", text="les accesseurs"]
 mdn::reference[Functions/set, title="Mutateurs", text="les mutateurs"]
@@ -2041,13 +2234,17 @@ mdn::reference[Functions/set, title="Mutateurs", text="les mutateurs"]
 
 [[class.extends]]
 === Héritage
+indexterm:[objet, classe, héritage]
+indexterm:[objet, classe, constructeur]
+indexterm:[opérateur, extends]
+indexterm:[opérateur, super()]
 
 L'héritage est un mécanisme d'extension de classe.
 C'est une pratique peu employée en JavaScript,
 principalement en raison de sa nature modulaire et fonctionnelle.
 
-L'héritage se caractérise par l'usage de l'opérateur `extends` lors de la
-définition de la classe et aussi par l'utilisation du mot-clé `super`
+L'héritage se caractérise par l'usage du mot-clé `extends` lors de la
+définition de la classe et aussi par l'utilisation de l'opérateur `super()`
 dans le constructeur.
 
 [source%interactive,javascript]
@@ -2074,6 +2271,10 @@ la bibliothèque React.
 
 [[promise]]
 == Coordonner des actions asynchrones (Promise)
+indexterm:[objet, Promise]
+indexterm:[promesse]
+indexterm:[fonction, anonyme]
+indexterm:[fonction, de rappel (callback)]
 
 Une promesse est *un objet retourné immédiatement* mais dont le
 *résultat est obtenu plus tard*, de manière asynchrone.
@@ -2092,7 +2293,7 @@ include::{sourceDir}/promise/base.js[]
 [NOTE]
 .[RemarquePreTitre]#Design Pattern# Executor
 ====
-Le fait qu'une fonction nous passe d'_autres fonctions_ pour commander
+Le fait qu'une fonction nous passe d'autres fonctions pour commander
 un résultat s'appelle le _pattern Executor_.
 ====
 
@@ -2103,9 +2304,13 @@ Une `Promise` s'orchestre en deux temps :
 On décide de la manière dont le traitement asynchrone sera effectué.
 - La résolution +
 _Positive_ en appelant `resolve()` ou _négative_, en appelant `reject()`.
-Le résultat passé à `resolve` sera transmis au premier argument de `then`.
-Le résultat passé à `reject` sera transmis au deuxième argument de `then`,
-mais aussi au premier argument de `catch`.
+Le résultat passé à `resolve()` sera transmis au premier argument de `then()`.
+Le résultat passé à `reject()` sera transmis au deuxième argument de `then()`,
+mais aussi au premier argument de `catch()`.
+indexterm:[promesse, resolve()]
+indexterm:[promesse, reject()]
+indexterm:[promesse, catch()]
+indexterm:[promesse, then()]
 
 Une instance de `Promise` expose plusieurs méthodes pour propager
 le statut de son exécution :
@@ -2121,8 +2326,8 @@ le statut de son exécution :
 ----
 include::{sourceDir}/promise/then-catch.js[]
 ----
-<1> La fonction `oddTime` accepte un argument de type <<date,Date>. Elle résout la promesse _positivement_ (`resolve`) si le nombre de secondes est impair et _négativement_ (`reject`) sinon.
-<2> Utilisation de la forme compacte de `then` avec deux _callbacks_ : un de succès (associé à `resolve`) et un d'échec (associé à `reject`).
+<1> La fonction `oddTime()` accepte un argument de type <<date,Date>. Elle résout la promesse _positivement_ (`resolve()`) si le nombre de secondes est impair et _négativement_ (`reject`) sinon.
+<2> Utilisation de la forme compacte de `then()` avec deux _callbacks_ : un de succès (associé à `resolve()`) et un d'échec (associé à `reject()`).
 <3> On crée une nouvelle promesse, avec une date calée une seconde plus tard.
 <4> Affiche `"le nombre de secondes est impair :-)"` puisque la résolution est positive.
 <5> Affiche `"le nombre de secondes n'est pas impair :-("` puisque la résolution est négative.
@@ -2130,6 +2335,9 @@ include::{sourceDir}/promise/then-catch.js[]
 [NOTE]
 .[RemarquePreTitre]#Histoire# Standard `Promise/A+`
 ====
+indexterm:[promesse, spécification Promise/A+]
+indexterm:[ECMAScript, ES2015]
+indexterm:[ECMAScript, ES6]
 Historiquement, de nombreuses bibliothèques ont proposé leur propre implémentation de promesses.
 Elles avaient le défaut de ne pas être interopérables.
 La spécification _Promise/A+_ ([URL]#https://github.com/promises-aplus/promises-spec#)
@@ -2169,8 +2377,10 @@ d'y contribuer.
 
 [[promise.all]]
 === Collection de promesses
+indexterm:[promesse, Promise.all()]
+indexterm:[tableau]
 
-`Promise.all` est une <<class.static,méthode statique>> de la class _Promise_.
+`Promise.all()` est une <<class.static,méthode statique>> de la class _Promise_.
 Elle accepte un <<array,tableau>> de promesses et en retourne elle-même une promesse.
 Cette dernière est résolue positivement si toutes les promesses réussissent
 et négativement dès que l'_une d'entre elles_ échoue.
@@ -2181,7 +2391,7 @@ et négativement dès que l'_une d'entre elles_ échoue.
 include::{sourceDir}/promise/all.js[]
 ----
 <1> Cette fonction résout la promesse après un délai aléatoire compris entre{nbsp}0 et 2000{nbsp}millisecondes.
-<2> On passe trois promesses à `Promise.all`.
+<2> On passe trois promesses à `Promise.all()`.
 <3> La résolution est déclenchée dès que les trois promesses sont résolues – l'argument contient un tableau listant les résultats _dans l'ordre initial_ des promesses.
 
 L'exemple précédent illustre la *parallélisation des actions*.
@@ -2197,13 +2407,16 @@ Les promesses sont un des meilleurs moyens à notre disposition pour
 
 [[async-await]]
 === async/await
+indexterm:[promesse, async et await]
+indexterm:[opérateur, await]
+indexterm:[opérateur, await]
 
 Les opérateurs `async` et `await` aident à mettre en pause
 l'interpréteur ECMAScript, en attendant le résultat d'une
 fonction asynchrone (préfixée par `async`).
 Les <<promise,promesses>> sont implicitement compatibles.
 On peut donc les mettre à plat pour obtenir un résultat
-sans avoir à utiliser `then` ni{nbsp}`catch`.
+sans avoir à utiliser `then()` ni{nbsp}`catch()`.
 
 Transformons l'exemple de la <<promise.all,section précédente>>
 pour comprendre l'impact de `async` et de{nbsp}`await`.
