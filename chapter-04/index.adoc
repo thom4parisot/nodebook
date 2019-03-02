@@ -1622,6 +1622,7 @@ indexterm:[documentation, module http]
 
 [[os]]
 === os : en savoir plus sur les capacités de l'ordinateur
+indexterm:[module, os]
 
 Le module{nbsp}``os`` donne des informations sur l'environnement système dans lequel
 le script est exécuté.
@@ -1649,6 +1650,7 @@ et macOS.
 ----
 include::{sourceDir}/os/apps.js[]
 ----
+indexterm:[module, os, os.type()]
 
 L'exemple précédent se base sur la valeur retournée par la fonction `os.type()`
 afin de choisir le répertoire à lister.
@@ -1661,6 +1663,7 @@ le nom du compte utilisateur ou du type de système d'exploitation.
 Nous allons maintenant lire le contenu du fichier `.npmrc`,
 le fichier de configuration de
 l'<<../chapter-05/index.adoc#cli,exécutable{nbsp}npm>> :
+indexterm:[npm, .npmrc (fichier de configuration)]
 
 [source%interactive,javascript]
 .os/npmrc.js
@@ -1669,39 +1672,48 @@ include::{sourceDir}/os/npmrc.js[]
 ----
 <1> Construit un chemin sans connaissance préalable du système d'exploitation sur lequel tournera le script : par exemple `C:\Users\anonymous\.npmrc` pour Windows, `/Users/anonymous/.npmrc` pour macOS et `/home/anonymous/.npmrc` pour Linux.
 <2> `ENOENT` est un <<fs.errors,code d'erreur>> indiquant que le fichier n'existe pas ; on se permet de l'ignorer et de considérer que le fichier est vide.
+indexterm:[erreur, ENOENT (fichier introuvable)]
 
 [horizontal]
 .Propriétés notables
 `os.arch()`::
   Retourne l'architecture CPU.
   Les valeurs les plus courantes sont généralement `x64`, `arm` et{nbsp}``arm64``.
+  indexterm:[module, os, os.arch()]
 `os.cpus()`::
   Retourne un tableau contenant des informations à propos de la ou des CPU.
   Entre autres, on retrouve leur modèle, leur fréquence et
   le temps passé en attente ou en action depuis le démarrage de l'ordinateur.
+  indexterm:[module, os, os.cpus()]
 `os.homedir()`::
   Retourne le chemin vers le répertoire utilisateur.
   Équivalent de la variable `$HOME` sous Unix et `%USERPROFILE%` ou `%AppData%`
   sous Windows.
+  indexterm:[module, os, os.homedir()]
 `os.hostname()`::
   Retourne l'identifiant réseau de la machine.
+  indexterm:[module, os, os.hostname()]
 `os.networkInterfaces()`::
   Retourne un tableau contenant des informations à propos de la ou des
   carte(s) réseau de l'ordinateur.
   Entre autres, on retrouve l'adresse{nbsp}IP (IPv4, IPv6), l'adresse MAC
   et le masque réseau.
+  indexterm:[module, os, os.networkInterfaces()]
 `os.platform()`::
   Retourne la nature du système d'exploitation.
   Les valeurs les plus courantes sont généralement `win32`, `linux`, `darwin`
   et `freebsd`.
+  indexterm:[module, os, os.platform()]
 `os.tmpdir()`::
   Retourne l'emplacement du répertoire temporaire fourni par
   le système d'exploitation.
+  indexterm:[module, os, os.tmpdir()]
 `os.type()`::
   Retourne une forme normalisée de la nature du système d'exploitation,
   équivalent à ce que retournerait la commande Unix `uname -s`.
   Les valeurs les plus courantes sont généralement
   `Windows_NT`, `Linux`, `Darwin` et `FreeBSD`.
+  indexterm:[module, os, os.type()]
 Attribut `os.constants`::
   Objet contenant la liste des <<signals,signaux système>> et des codes d'erreur.
 Attribut `os.EOL`::
@@ -1715,13 +1727,20 @@ La documentation du module{nbsp}``os`` est disponible sur le site officiel de No
 
 - [URL]#https://nodejs.org/docs/latest-{nodeCurrentVersion}.x/api/os.html#
 ====
+indexterm:[module, os, documentation]
+indexterm:[documentation, module os]
 
 [[child_process]]
 === child_process : appeler un exécutable système
+indexterm:[module, child_process]
 
 Le module `child_process` exécute des programmes externes,
 leur transmet des données et consulte leurs résultats via
 les <<process.std,flux standards>>.
+indexterm:[flux de données]
+indexterm:[module, process, stdout]
+indexterm:[module, process, stdin]
+indexterm:[module, process, stderr]
 
 [source%interactive,javascript]
 .child_process/intro.js
@@ -1736,8 +1755,9 @@ externe fournit une fonctionnalité mais ne s'interface pas avec Node,
 ou encore quand on veut sortir l'exécution d'un script Node du processus courant
 pour tirer parti des autres CPU de l'ordinateur sans ralentir l'application principale.
 
-La fonction `child_process.exec` accepte un deuxième argument optionnel.
+La fonction `child_process.exec()` accepte un deuxième argument optionnel.
 `cwd` (_current working directory_) en est une des options utiles.
+indexterm:[module, child_process, child_process.exec()]
 
 [source%interactive,javascript]
 .child_process/ls.js
@@ -1770,14 +1790,16 @@ $ node child_process/ls-root.js
 ----
 
 La liste des fichiers et répertoires affichés est désormais différente,
-même si la commande passée à `child_process.exec` est la même.
+même si la commande passée à `child_process.exec()` est la même.
 ``cwd``{nbsp}a changé le répertoire courant l'espace d'une commande.
 
 [NOTE]
 .[RemarquePreTitre]#Performance# ls{nbsp}vs. fs.readdir
 ====
+indexterm:[module, child_process, child_process.exec()]
+indexterm:[module, fs, fs.readdir()]
 Si on arrive au même résultat avec `exec('ls')`, pourquoi utiliser
-la fonction `fs.readdir` du <<fs,module{nbsp}``fs``>> ?
+la fonction `fs.readdir()` du <<fs,module{nbsp}``fs``>> ?
 Cette dernière présente au moins trois avantages :
 
 . Elle est plus rapide – à écrire, à exécuter, à diagnostiquer.
@@ -1785,7 +1807,7 @@ Cette dernière présente au moins trois avantages :
 . Elle est compatible avec tous les systèmes d'exploitation.
 ====
 
-``env``{nbsp}est une deuxième option à passer à `child_process.exec`.
+``env``{nbsp}est une deuxième option à passer à `child_process.exec()`.
 Elle redéfinit les <<process.env,variables d'environnement>> utilisables
 par le processus enfant :
 
@@ -1799,6 +1821,7 @@ include::{sourceDir}/child_process/ping.js[]
 
 Si on ne transmettait pas les valeurs de `process.env` au processus enfant,
 la variable d'environnement `PATH` ne serait pas définie.
+indexterm:[variable d'environnement]
 Le processus enfant ne saurait plus où chercher l'exécutable{nbsp}``ping``. +
 On aurait pu appeler le programme `ping` en utilisant un chemin absolu comme
 `/sbin/ping` mais son emplacement varie selon les systèmes d'exploitation.
@@ -1823,8 +1846,9 @@ Une des solutions consiste à se reposer sur le <<os,module{nbsp}``os``>>
 et adapter la commande en fonction du système d'exploitation.
 ====
 
-`child_process.spawn` est une autre approche de démarrage
+`child_process.spawn()` est une autre approche de démarrage
 et de communication avec un processus externe.
+indexterm:[module, child_process, child_process.spawn()]
 
 [source%interactive,javascript]
 .child_process/spawn.js
@@ -1837,11 +1861,14 @@ include::{sourceDir}/child_process/spawn.js[]
 
 Les arguments et options à transmettre au programme sont passés dans un tableau.
 Dans le programme externe, on y accède avec <<process.argv,`process.argv`>>.
+indexterm:[module, process, process.argv]
 
 Pour transmettre un volume de données plus important en paramètre,
 il vaut mieux faire appel à la propriété `stdin`.
 C'est un <<stream,flux d'écriture>> dont le fonctionnement est identique
 à <<process.std,`process.stdin`>>.
+indexterm:[flux de données]
+indexterm:[module, process, stdin]
 
 [source%interactive,javascript]
 .child_process/spawn-stdin.js
@@ -1857,6 +1884,8 @@ remplace des plages de caractères.
 On lui a transmis des caractères en entrée et spécifié les plages de traduction
 en arguments.
 Nous avons utilisé la <<process.std,sortie standard>> pour lire les résultats.
+indexterm:[flux de données]
+indexterm:[module, process, stdout]
 
 L'exemple précédent revient au même que la commande suivante :
 
@@ -1866,7 +1895,7 @@ abcd klmn
 ----
 
 Dans ce cas précis, je trouve que l'instruction en ligne de commande est plus
-concise que l'utilisation d'un script Node faisant appel à `child_process.spawn`.
+concise que l'utilisation d'un script Node faisant appel à `child_process.spawn()`.
 J'aurais plutôt tendance à transmettre le résultat de cette commande
 à l'<<process.std,entrée standard>> d'un script Node.
 
@@ -1877,11 +1906,13 @@ J'aurais plutôt tendance à transmettre le résultat de cette commande
 `child_process.spawn()`::
   Exécute une commande et retourne un objet <<process,processus>>.
   Le script Node et le nouveau processus peuvent communiquer entre eux.
+  indexterm:[module, process]
 
 [horizontal]
 .Propriétés notables de la classe `ChildProcess`
 `process.on('message')`::
   Se déclenche lorsque le processus enfant reçoit un message envoyé par l'autre script.
+  indexterm:[module, child_process, process.on()]
 `process.kill()`::
   Envoie un <<signals,signal d'arrêt>> au processus enfant.
 `process.send()`::
@@ -1899,10 +1930,15 @@ La documentation du module `child_process` est disponible sur le site officiel d
 
 - [URL]#https://nodejs.org/docs/latest-{nodeCurrentVersion}.x/api/child_process.html#
 ====
+indexterm:[module, child_process, documentation]
+indexterm:[documentation, module child_process]
 
 
 [[process]]
 === process : en savoir plus sur le processus en cours
+indexterm:[module, process]
+indexterm:[variable globale, process]
+indexterm:[variable d'environnement]
 
 La module `process` retourne des informations
 sur l'environnement dans lequel le script est exécuté.
@@ -1930,6 +1966,9 @@ Les variables d'environnement sont *définies au niveau du système d'exploitati
 Elles contiennent des informations comme le répertoire courant, la langue du
 système d'exploitation, l'utilisateur système courant, le type de terminal,
 les emplacements d'installation des exécutables, etc.
+indexterm:[module, process, process.env]
+indexterm:[variable, d'environnement]
+indexterm:[variable d'environnement]
 
 On retrouve ces variables sous la forme d'un
 <<../chapter-03/index.adoc#object,objet ECMAScript>> nommé `process.env` :
@@ -1955,8 +1994,10 @@ de notre programme, etc.
 Par exemple et par convention, la variable `NODE_ENV` est utilisée pour indiquer au programme
 s'il est lancé dans le cadre du développement, de l'exécution des tests
 ou s'il tourne sur le serveur de production.
+indexterm:[Node.js, NODE_ENV]
 
 Variable d'environnement éphémère::
+indexterm:[variable d'environnement, éphémère]
 La variable n'existe que pendant la durée de vie du programme.
 La définition `CLÉ=valeur` est placée sur la même ligne que le programme
 en question.
@@ -1965,6 +2006,7 @@ $ NODE_ENV=production node process/env.js
 mode : production
 ----
 Variable d'environnement permanente::
+indexterm:[variable d'environnement, permanente]
 La variable existe pendant la durée de la session
 grâce à l'opérateur `export` sous Linux et macOS et
 avec l'opérateur `set` sous Windows. +
@@ -1980,6 +2022,7 @@ mode : production
 [TIP]
 .[RemarquePreTitre]#Revenir en arrière# Effacer une variable d'environnement
 ====
+indexterm:[variable d'environnement, effacement]
 L'opérateur `unset` dans un terminal efface le contenu
 d'une variable d'environnement.
 
@@ -2002,6 +2045,7 @@ include::{sourceDir}/process/env.js[]
 On notera que son comportement s'adapte à la présence et à la valeur
 de la variable d'environnement `NODE_ENV`.
 Elle est accessible dans Node en tant que `process.env.NODE_ENV`.
+indexterm:[Node.js, NODE_ENV]
 
 ----
 $ NODE_ENV=dev node process/env.js
@@ -2019,6 +2063,7 @@ dans le <<../chapter-08/index.adoc#,chapitre{nbsp}8>>.
 Les arguments d'exécution sont des morceaux d'information transmis
 à un script Node.
 On les place à droite du nom du fichier :
+indexterm:[module, process, process.argv]
 
 ----
 $ node print-first.js salut
@@ -2033,6 +2078,7 @@ encore des fonctionnalités à activer ou à désactiver.
 Il faut imaginer les arguments comme des paramètres de fonction,
 accessibles dans un programme Node dans
 le <<../chapter-03/index.adoc#array,tableau>> `process.argv` :
+indexterm:[tableau]
 
 [source,javascript]
 .print-first.js
@@ -2124,7 +2170,7 @@ $ machine-a-laver P-ECO 40 --fast --no-dry --room kitchen
 
 Ce qu'il faut en comprendre, c'est qu'on démarrerait la machine située
 dans la cuisine avec un programme économique _et_ à{nbsp}40°C,
-en activant l'option rapide et _en désactivant_ l'option séchage.
+en activant l'option rapide et en désactivant l'option séchage.
 
 Nous verrons d'autres mises en situation pour
 <<../chapter-08/index.adoc#argv,passer des paramètres à une application en ligne de commande>>
@@ -2134,6 +2180,10 @@ dans le <<../chapter-08/index.adoc#,chapitre{nbsp}8>>.
 Chaque processus système est doté de trois flux de données :
 le flux d'entrée (`stdin`), le flux de sortie (`stdout`)
 et le flux d'erreur (`stderr`).
+indexterm:[flux de données]
+indexterm:[module, process, stdin]
+indexterm:[module, process, stdout]
+indexterm:[module, process, stderr]
 
 Les flux standards peuvent être alimentés pendant la durée de vie du processus
 en utilisant peu de mémoire.
@@ -2156,7 +2206,7 @@ quatre
 ----
 
 Le code source de `process/stdout.js` fait appel à la fonction
-`process.stdout.write` par deux fois.
+`process.stdout.write()` par deux fois.
 On notera que le caractère{nbsp}``\n`` symbolise un retour à la ligne
 (`\r\n` sous Windows) :
 
@@ -2173,10 +2223,12 @@ qui se repose en effet sur `process.stdout` (voir encadré).
 [TIP]
 .[RemarquePreTitre]#Raccourci# Les fonctions `console.log` et `console.error`
 ====
-La fonction d'affichage `console.log` écrit dans le flux de sortie
+indexterm:[module, console, console.log()]
+La fonction d'affichage `console.log()` écrit dans le flux de sortie
 `process.stdout`.
-Sans surprise, `console.error` écrit dans le flux d'erreur
+Sans surprise, `console.error()` écrit dans le flux d'erreur
 `process.stderr`.
+indexterm:[module, console, console.error()]
 
 Elles ajoutent un retour à la ligne et des options de formatage pour
 notre confort.
@@ -2194,7 +2246,7 @@ Filtrons la sortie de l'exemple précédent sans écrire une ligne de code de pl
 Le programme `grep` ([URL]#https://fr.wikipedia.org/wiki/Grep#)
 est fourni par défaut sur les systèmes Linux et macOS.
 Il ne retourne que les lignes qui contiennent le motif
-donné en <<process.arv,argument>> :
+donné en <<process.argv,argument>> :
 
 [subs="+quotes"]
 ----
@@ -2204,6 +2256,7 @@ qua##tre##
 
 La sortie standard de `process/stdout.js` est devenue l'entrée standard
 de `grep` grâce à l'utilisation du __pipe__{nbsp}(`|`).
+indexterm:[flux de données, redirection (pipe)]
 
 C'est le moment idéal pour regarder du côté de l'entrée standard de Node.
 Implémentons quelque chose qui transforme un message :
@@ -2232,8 +2285,11 @@ include::{sourceDir}/process/stdin-uppercase.js[]
 <1> Chaque afflux de données appelle notre fonction en lui fournissant un seul paramètre contenant les données en question.
 <2> Le paramètre est de <<buffer,type Buffer>> – on souhaite le transformer en <<../chapter-03/index.adoc#string,chaîne de caractères>>.
 <3> La chaîne de caractères est transformée en majuscules et écrite dans le flux de sortie.
+indexterm:[objet, Buffer]
+indexterm:[Buffer]
 
 Terminons avec la sortie erreur (`process.stderr`).
+indexterm:[module, process, process.stderr]
 Elle fonctionne de manière identique à la sortie standard (`process.stdout`).
 S'il n'y a visuellement aucune différence, la sortie erreur écrit son contenu
 dans un canal différent – un descripteur différent.
@@ -2273,6 +2329,7 @@ include::{sourceDir}/process/stdout-long.js[]
 
 On pourrait décider de n'afficher que le flux d'erreur.
 Utilisons l'opérateur{nbsp}``>`` pour *rediriger la sortie standard vers un fichier* :
+indexterm:[flux de données, redirection (entrée standard)]
 
 ----
 $ node process/stdout-long.js > stdout.txt
@@ -2291,12 +2348,14 @@ des fichiers ou des sites web distants.
 
 Pour mieux comprendre la logique de flux continu que l'on vient de découvrir,
 je vous invite à lire la section liée au <<stream,module `stream`>>.
+indexterm:[module, stream]
 On y détaillera la liste des événements à écouter, ainsi que les différentes
 méthodes d'écriture, de pause et de lecture.
 
 [[process.on]]
 Un processus système reçoit et émet des données, mais il peut aussi
 *écouter des événements* grâce à la fonction `process.on`.
+indexterm:[module, process, process.on()]
 
 [source,javascript]
 .process/exit.js
@@ -2309,6 +2368,7 @@ Cet exemple illustre l'événement `exit`, qui est déclenché quand le processu
 lequel le programme se termine.
 On parlera davantage du code de sortie et de sa signification
 dans la section "`<<process.exit,Mettre fin au processus>>`".
+indexterm:[module, process, code de sortie]
 
 Lançons le script précédent :
 
@@ -2360,6 +2420,7 @@ Si rien n'est fait, le processus va s'arrêter avec un code erreur. +
 *Note* : il vaut mieux qu'un programme s'arrête en cas de problème.
 | `message` | `(message, sourceSocket)` | Un <<child_process,processus parent>> nous envoie un message.
 |===
+indexterm:[module, process, liste des événements]
 
 [[signals]]
 La méthode `process.on` est à l'écoute des signaux système.
@@ -2378,7 +2439,7 @@ include::{sourceDir}/process/interrupt.js[]
 ----
 <1> Un premier message s'affiche au démarrage du script.
 <2> Cette <<../chapter-03/index.adoc#function,fonction>> se déclenche lors de la réception du _signal d'interruption_ (`SIGINT`), lorsque le système d'exploitation lui relaie notre combinaison de touches kbd:[Ctrl+C].
-<3> La fonction <<process.exit,`process.exit`>> termine le processus.
+<3> La fonction <<process.exit,`process.exit()`>> termine le processus.
 <4> Sinon, ce chronomètre mettra fin au processus au bout de 5 secondes.
 
 En pratique le résultat ressemble à ceci :
@@ -2415,6 +2476,7 @@ ou d'une ressource qui ne rend pas la main.
 Ce peut être provoqué via
 l'<<signals,émission d'un signal extérieur>>, mais aussi de l'intérieur
 par l'intermédiaire de la fonction `process.exit()`.
+indexterm:[module, process, process.exit()]
 
 On utilise cette fonction car le programme a atteint son but.
 On le fait aussi lorsqu'on intercepte une erreur en souhaitant
@@ -2461,12 +2523,14 @@ passé.
 [NOTE]
 .[RemarquePreTitre]#Avancé# process.abort()
 ====
-Comme avec `process.exit`, le programme est terminé immédiatement.
+indexterm:[module, process, process.abort()]
+Comme avec `process.exit()`, le programme est terminé immédiatement.
 On l'utilise quand quelque chose d'inopiné et nécessitant un débogage
 avancé se produit.
 
 La fonction génère un fichier de débogage (_core file_) qui contient tout le contenu
 de la mémoire utilisée par Node.
+indexterm:[Node.js, débogage (core file)]
 Ce fichier s'analyse avec des logiciels avancés comme `mdb_v8`.
 ====
 
@@ -2478,10 +2542,14 @@ La documentation du module `process` est disponible sur le site officiel de Node
 
 - [URL]#https://nodejs.org/docs/latest-{nodeCurrentVersion}.x/api/process.html#
 ====
+indexterm:[module, process, documentation]
+indexterm:[documentation, module process]
 
 
 [[stream]]
 === stream : manipuler des flux de données
+indexterm:[module, stream]
+indexterm:[flux de données]
 
 Le module `stream` contient les éléments de base pour lire, écrire et
 transformer des flux de données rapidement et avec peu de mémoire.
@@ -2506,6 +2574,8 @@ $ node stream/intro.js
 
 *Un flux de lecture consomme les données petit à petit*.
 Il correspond à une instance de l'objet <<stream.Readable,`stream.Readable`>>.
+indexterm:[module, stream, stream.Readable]
+indexterm:[flux de données, en lecture]
 L'exemple précédent n'a affiché qu'un seul morceau car la taille maximale
 par défaut est d'environ `16{nbsp}Ko`.
 
@@ -2530,6 +2600,8 @@ Lecture terminée
 ----
 
 Le mécanisme de flux s'applique également à l'écriture.
+indexterm:[module, stream, stream.Writeable]
+indexterm:[flux de données, en écriture]
 *Un flux d'écriture écrit des données petit à petit*.
 Il correspond à une instance de l'objet <<stream.Writeable,`stream.Writeable`>>.
 
@@ -2551,6 +2623,8 @@ Ce mécanisme est particulièrement adapté lorsque l'écriture prend du temps
 ou implique un certain volume de données.
 
 *Les flux de lecture et d'écriture se combinent*.
+indexterm:[module, stream, stream.pipe()]
+indexterm:[flux de données, redirection (pipe)]
 Les données lues depuis une source (`Readable`) sont redirigées vers
 une destination (`Writeable`) à l'aide de la fonction `pipe()` :
 
@@ -2579,7 +2653,9 @@ Ici, le mécanisme s'applique à des fonctions{nbsp}Node.
 ====
 
 L'utilisation de `pipe()` semble superflue pour copier des fichiers.
-À vrai dire, la fonction <<fs,`fs.copyFile`>> fait exactement la même chose.
+À vrai dire, la fonction <<fs,`fs.copyFile()`>> fait exactement la même chose.
+indexterm:[module, fs, fs.copyFile()]
+indexterm:[flux de données, redirection (pipe)]
 Toutefois, le mécanisme de redirection proposé par `pipe()` est modulaire et composable.
 On peut par exemple diriger une source de données vers plusieurs flux d'écriture
 en même temps.
@@ -2621,6 +2697,8 @@ au format Gzip – un format de compression libre.
 
 Le programme Unix `gzip` sait décoder des données compressées dans ce format.
 Il sait aussi les décoder à la volée avec un{nbsp}__pipe__ :
+indexterm:[flux de données, redirection (pipe)]
+indexterm:[module, gzip]
 
 ----
 $ node stream/pipe-transform.js | gzip
@@ -2664,6 +2742,8 @@ La documentation du module `stream` est disponible sur le site officiel de Node 
 
 - [URL]#https://nodejs.org/docs/latest-{nodeCurrentVersion}.x/api/stream.html#
 ====
+indexterm:[module, stream, documentation]
+indexterm:[documentation, module stream]
 
 === D'autres modules pour aller plus loin
 
@@ -2673,35 +2753,48 @@ plus proches du matériel et des protocoles réseau.
 
 [[cluster]]`cluster`::
   Gère la distribution d'une application sur plusieurs CPU d'un même ordinateur.
+  indexterm:[module, cluster]
 [[crypto]]`crypto`::
   Fonctions cryptographiques pour chiffrer, signer et vérifier des données.
+  indexterm:[module, crypto]
 [[dgram]]`dgram`::
   Création et consommation de ressources{nbsp}UDP.
+  indexterm:[module, dgram]
 [[dns]]`dns`::
   Résolution et lecture d'enregistrements{nbsp}DNS.
+  indexterm:[module, dns]
 [[net]]`net`::
   Création et consommation de ressources TCP.
   Les modules `http`, `https` et `http2` se basent dessus.
+  indexterm:[module, net]
 [[readline]]`readline`::
   Manipulation ligne par ligne d'un <<stream,flux>>.
   Ce module est particulièrement utilisé dans des
   <<../chapter-08/index.adoc#,applications en ligne de commande>> (chapitre{nbsp}8),
   pour mettre à jour une barre de progression et animer des éléments d'affichage.
+  indexterm:[module, readline]
 [[tty]]`tty`::
   Gestion d'interface de terminal en mode texte.
   Le module `readline` se base dessus.
+  indexterm:[module, tty]
 [[v8]]`v8`::
   Lecture et écriture d'instructions de la machine virtuelle{nbsp}V8
   dans le processus actuel.
+  indexterm:[module, v8]
+  indexterm:[V8 (machine virtuelle)]
 [[vm]]`vm`::
   Création de nouveaux contextes d'interprétation de la machine virtuelle{nbsp}V8.
+  indexterm:[module, vm]
+  indexterm:[V8 (machine virtuelle)]
 [[zlib]]`zlib`::
   Compression et décompression de données (Gzip, Inflate/Deflate).
   Ces formats sont utilisés pour la compression de requêtes{nbsp}HTTP.
+  indexterm:[module, zlib]
 
 
 [[modules]]
 == Créer ses propres modules Node
+indexterm:[module]
 
 Les <<modules-builtin,modules de base>> nous fournissent de nombreuses fonctionnalités.
 Nous pouvons réutiliser le même mécanisme mécanisme pour
@@ -2711,6 +2804,8 @@ PHP (`require`) et Ruby (`require` et `require_relative`).
 
 [[modules.require]]
 === Importer et exporter des valeurs
+indexterm:[module, require()]
+indexterm:[variable globale, require()]
 
 [source,javascript]
 .modules/enfant.js
@@ -2744,6 +2839,7 @@ on ne peut pas voir ce qu'il y a dans un module depuis l'extérieur.
 
 Choisissons maintenant ce que l'on souhaite exporter en affectant
 la valeur de notre choix à `module.exports` :
+indexterm:[module, exports]
 
 [source,javascript]
 .modules/enfant-export.js
@@ -2773,7 +2869,7 @@ include::{sourceDir}/modules/enfant-export-multiple.js[]
 ----
 
 Nous avons créé deux nouvelles valeurs : `number` (un nombre) et
-`random` (une fonction).
+`random()` (une fonction).
 
 [source,javascript]
 .modules/parent-export-multiple.js
@@ -2788,6 +2884,7 @@ include::{sourceDir}/modules/parent-export-multiple.js[]
 [TIP]
 .[RemarquePreTitre]#Raccourci# Exporter un objet
 ====
+indexterm:[module, exports]
 L'utilisation de la syntaxe d'objet raccourcie évite la répétition
 du nom des variables lors de l'export.
 
@@ -2809,6 +2906,8 @@ référence à un <<modules-builtin,module de base>> ou à un
 [NOTE]
 .[RemarquePreTitre]#Histoire# Modules CommonJS
 ====
+indexterm:[module, CommonJS]
+indexterm:[CommonJS (type de module)]
 Le mécanisme de modules implémenté dans Node est basé sur la
 spécification _CommonJS_, à peu de choses près.
 
@@ -2817,6 +2916,8 @@ spécification _CommonJS_, à peu de choses près.
 
 [[require]]
 === Aller plus loin avec `require()`
+indexterm:[module, require()]
+indexterm:[variable globale, require()]
 
 Lorsqu'on fait appel à la fonction `require()`, Node effectue les actions suivantes :
 
@@ -2841,6 +2942,7 @@ Ils sont disponibles avec chaque installation de Node.
 Modules{nbsp}``npm``::
 Ils sont disponibles avec une étape d'installation supplémentaire
 (<<../chapter-05/index.adoc#,chapitre 5>>).
+indexterm:[module, npm]
 
 *Node met les modules en cache*.
 Si on inclut deux fois le même module, le deuxième import ira directement
@@ -2891,6 +2993,7 @@ Enfin, plusieurs *problèmes* sont susceptibles d'apparaître lors du chargement
 - Le module contient une erreur de syntaxe.
 
 Node lance alors une <<errors,exception>> et le programme s'arrête aussitôt.
+indexterm:[erreur, exception]
 
 [NOTE,subs="attributes"]
 .[RemarquePreTitre]#Documentation# Module "`modules`"
@@ -2902,9 +3005,13 @@ forcément listées dans cet ouvrage.
 
 - [URL]#https://nodejs.org/docs/latest-{nodeCurrentVersion}.x/api/modules.html#
 ====
+indexterm:[module, modules, documentation]
+indexterm:[documentation, module CommonJS]
 
 [[esm]]
 === Le futur : les modules ECMAScript
+indexterm:[module, ECMAScript]
+indexterm:[ECMAScript, (type de module)]
 
 Pendant que le mécanisme de modules de Node montait en puissance,
 les navigateurs web étaient en attente d'une solution native.
@@ -2938,6 +3045,8 @@ include::{sourceDir}/modules/increment.mjs[]
 
 La syntaxe `export` sert à exporter des variables.
 Elle se combine avec `import` :
+indexterm:[instruction, export]
+indexterm:[instruction, import]
 
 [source,javascript]
 .modules/ecmascript.mjs
@@ -2949,6 +3058,7 @@ include::{sourceDir}/modules/ecmascript.mjs[]
 Il ne nous reste maintenant plus qu'à exécuter notre script `.mjs`
 pour observer le résultat.
 On notera l'utilisation de `--experimental-modules` :
+indexterm:[Node.js, --experimental-modules (option de démarrage)]
 
 ----
 $ node --experimental-modules modules/ecmascript.mjs
@@ -2964,7 +3074,7 @@ Reprenons cet exemple pour importer plusieurs exports d'un coup :
 include::{sourceDir}/modules/ecmascript-multiple.mjs[]
 ----
 <1> On importe la valeur par défaut, ainsi qu'une valeur nommée – c'est particulièrement pratique pour sélectionner avec finesse ce que l'on veut utiliser d'un module.
-<2> La fonction `reset` remet le compteur à{nbsp}zéro.
+<2> La fonction `reset()` remet le compteur à{nbsp}zéro.
 
 On notera au passage qu'on utilise la
 <<../chapter-03/index.adoc#object-destructuring,décomposition d'objet>>
@@ -2977,10 +3087,15 @@ $ node --experimental-modules modules/ecmascript-multiple.mjs
 1
 ----
 
-La fonction `reset` a bien remis le compteur à zéro entre-temps.
+La fonction `reset()` a bien remis le compteur à zéro entre-temps.
 Objectif accompli !
 
 Résumons les différences notables avec le mécanisme de modules{nbsp}Node :
+indexterm:[module, CommonJS]
+indexterm:[module, ECMAScript]
+indexterm:[instruction, import]
+indexterm:[instruction, export]
+indexterm:[module, require()]
 
 - Tous les appels à `import` doivent se faire en début de fichier.
 - On ne peut pas utiliser `import` de manière dynamique
@@ -3004,6 +3119,7 @@ de l'interopérabilité.
 Il suffit de le charger avant de démarrer un script Node,
 peu importe son mécanisme de chargement de modules :
 `esm` rend le chargement des modules totalement transparent.
+indexterm:[module npm, esm]
 
 ----
 $ node -r esm modules/ecmascript.js
@@ -3028,10 +3144,14 @@ forcément listées dans cet ouvrage.
 
 - [URL]#https://nodejs.org/docs/latest-{nodeCurrentVersion}.x/api/esm.html#
 ====
+indexterm:[module, modules, documentation]
+indexterm:[documentation, module ECMAScript]
 
 
 [[errors]]
 == S'en sortir quand ça ne se passe pas comme{nbsp}prévu
+indexterm:[erreur]
+indexterm:[Node.js, erreur (voir erreur)]
 
 On fait toutes et tous des erreurs.
 Notre code va forcément mener à des plantages applicatifs.
@@ -3041,6 +3161,7 @@ Cette section a pour intention de nous aider à prendre confiance dans ce qu'on
 voit et de piocher l'information qui va nous aider à résoudre le problème.
 
 === Une erreur est nichée dans notre{nbsp}code
+indexterm:[erreur, de syntaxe]
 
 Il y a deux familles d'erreurs dans du code ECMAScript : celles de syntaxe
 et celles d'exécution.
@@ -3077,6 +3198,7 @@ guillemet mais bien de l'échapper en le préfixant d'un caractère{nbsp}``\``.
 Node l'interprétera alors correctement.
 
 Penchons-nous à présent sur les erreurs provoquées lorsque le code est exécuté :
+indexterm:[erreur, d'exécution]
 
 [subs="+quotes"]
 ----
@@ -3101,6 +3223,7 @@ Les erreurs d'exécution sont pernicieuses ; elles sont parfois
 provoquées après le démarrage de l'application.
 Dans l'exemple qui suit, l'une d'elles se produit deux secondes après le
 démarrage du script :
+indexterm:[erreur, XYZ is not a function]
 
 [subs="+quotes"]
 ----
@@ -3125,6 +3248,7 @@ L'erreur sera corrigée en utilisant `secret.toLocaleUpperCase`.
 [TIP]
 .[RemarquePreTitre]#npm# Module eslint
 ====
+indexterm:[module npm, eslint]
 Le module{nbsp}``npm``{nbsp}``eslint`` ([URL]#https://npmjs.com/eslint#)
 est un vérificateur syntaxique.
 Son intention est de s'accorder sur le style d'écriture et d'éviter des
@@ -3141,6 +3265,7 @@ elles demandent qu'on cherche à en comprendre la nature.
 [TIP]
 .[RemarquePreTitre]#npm# Module pretty-error
 ====
+indexterm:[module npm, pretty-error]
 Le module{nbsp}``npm``{nbsp}``pretty-error`` ([URL]#https://npmjs.com/pretty-error#)
 enjolive l'affichage des erreurs.
 Il suffit de l'installer, de le <<require,précharger>> et
@@ -3152,6 +3277,8 @@ $ node -r pretty-error/start process/exit-error.js
 ====
 
 === Une erreur est retournée dans une fonction de rappel
+indexterm:[fonction, de rappel (callback)]
+indexterm:[erreur, dans une fonction de rappel (callback)]
 
 La fonction de rappel est un des moyens de retourner le résultat
 d'une exécution asynchrone.
@@ -3180,6 +3307,8 @@ $ node errors/callback.js
   syscall: 'open',
   path: 'je-n-existe-pas.txt' }
 ----
+indexterm:[erreur, structure d'objet d'erreur]
+indexterm:[objet, Error]
 
 L'erreur affichée nous précise que le fichier demandé n'existe pas.
 Son code (`ENOENT`) signifie la même chose, mais a l'avantage d'être plus
@@ -3207,6 +3336,9 @@ informer l'équipe de maintenance et
 afficher une page d'erreur côté utilisateur.
 
 === Une erreur est retournée dans une promesse
+indexterm:[promesse]
+indexterm:[erreur, dans une promesse]
+indexterm:[promesse, catch()]
 
 La gestion d'erreur des <<../chapter-03/index.adoc#promise,promesses>>
 s'effectue à l'aide de la fonction `.catch()`.
@@ -3266,8 +3398,11 @@ L'affichage de `UnhandledPromiseRejectionWarning` indique que l'erreur s'est
 produite mais qu'aucun `.catch()` ne l'a pris en charge.
 Nous savons cependant que l'erreur s'est produite dans la méthode `.then()`
 suite à l'utilisation de `Promise.resolve()`.
+indexterm:[erreur, UnhandledPromiseRejectionWarning]
 
 === Une erreur est retournée dans un événement
+indexterm:[erreur, dans un événement]
+indexterm:[module, events, EventEmitter.on('error')]
 
 Tout élément doté d'une méthode `.on()` a un événement spécial : `.on('error')`.
 Il est appelé à chaque fois qu'une erreur se produit.
@@ -3294,6 +3429,7 @@ nous indiquent quoi regarder pour mieux comprendre la cause.
 
 Si une erreur est émise et si aucune fonction n'est à l'écoute,
 l'événement `uncaughtException` est produit :
+indexterm:[erreur, uncaughtException]
 
 [source%interactive,javascript]
 .errors/on-error.js
@@ -3315,11 +3451,13 @@ Error: Oops !
 
 La section liée au <<events,module `events`>> explique plus en détail
 la gestion des événements.
+indexterm:[module, events]
 On les retrouve par exemple dans les modules <<http,`http`>>, <<stream,`stream`>>
 et <<process,`process`>>.
 
 [[errors.system]]
 === Une erreur est renvoyée par le système d'exploitation
+indexterm:[erreur, d'accès à une ressource du système d'exploitation]
 
 L'accès à une ressource distante est plus complexe qu'il n'y paraît
 car les erreurs sont de natures variées et sujettes à interprétation au cas par cas,
@@ -3343,9 +3481,20 @@ interface existe déjà à la même adresse. | Vérifier l'origine du serveur d�
 | `EPIPE` | L'accès à la ressource distante a été interrompu. | Retenter l'opération.
 | `ETIMEDOUT` | L'opération a été annulée car la ressource distante a mis trop de temps pour aboutir. | Retenter l'opération. Vérifier la disponibilité de la ressource distante. S'assurer que le volume demandé n'est pas trop important.
 |===
+indexterm:[erreur, EACCES]
+indexterm:[erreur, EADDRINUSE]
+indexterm:[erreur, ECONNREFUSED]
+indexterm:[erreur, EEXIST]
+indexterm:[erreur, EMFILE]
+indexterm:[erreur, ENOENT]
+indexterm:[erreur, EPERM]
+indexterm:[erreur, EPIPE]
+indexterm:[erreur, ETIMEDOUT]
 
 
 === Le programme ne se termine pas
+indexterm:[erreur, le programme ne se termine pas]
+indexterm:[erreur, timeout]
 
 Il arrive qu'un programme ne se termine pas contrairement à nos attentes.
 Il peut y avoir plusieurs raisons à cela :
@@ -3362,10 +3511,12 @@ consommation mémoire et CPU du processus Node en question.
 
 Peut-être qu'il faudra sonder le programme pour déceler le point de blocage.
 L'<<inspect,inspecteur Node>> est un outil particulièrement adapté à cet usage.
+indexterm:[Node.js, inspecteur]
 
 [TIP]
 .[RemarquePreTitre]#npm# Module debug
 ====
+indexterm:[module npm debug]
 Le module{nbsp}``npm``{nbsp}``debug`` ([URL]#https://npmjs.com/debug#) affiche des
 messages dans la console de manière conditionnelle.
 Les messages s'affichent lorsque les variables d'environnement de notre choix
@@ -3376,6 +3527,8 @@ On apprendra à le configurer dans l'<<../appendix-a/index.adoc#debug,annexe{nbs
 
 [[deprecation]]
 === Une alerte de dépréciation s'affiche
+indexterm:[erreur, alerte de dépréciation]
+indexterm:[erreur, DeprecationWarning]
 
 Un des objectifs de l'équipe développant Node est de maintenir
 la stabilité de la plate-forme.
@@ -3401,11 +3554,16 @@ vers la nouvelle recommandation petit à petit.
 
 
 == Les différences d'ECMAScript entre Node et les navigateurs{nbsp}web
+indexterm:[Node.js, différence avec le JavaScript côté client]
 
 Puisqu'on utilise du code ECMAScript avec Node et avec les navigateurs web,
 qu'est-ce qui les distingue vraiment ?
 
 === L'absence du DOM et des variables `window` et `document`
+indexterm:[variable globale, window]
+indexterm:[variable globale, document]
+indexterm:[variable globale, process]
+indexterm:[DOM (Document Object Model)]
 
 Dans Node, il n'est pas possible de faire appel aux variables `window`
 et `document` (raccourci pour `window.document`).
@@ -3440,6 +3598,7 @@ On peut toutefois construire des applications graphiques en ligne de commande
 (<<../chapter-08/index.adoc#,chapitre{nbsp}8>>).
 
 === Le mécanisme de modules
+indexterm:[module, CommonJS]
 
 Pour l'instant, Node utilise un <<modules,mécanisme de modules>> (CommonJS)
 différent des modules ECMAScript des navigateurs.
@@ -3467,6 +3626,7 @@ réseau{nbsp}(<<http,`http`>>, <<net,`net`>>, <<dns,`dns`>>,
 et processus{nbsp}(<<process,`process`>>, <<child_process,`child_process`>>).
 
 === Node est un processus système
+indexterm:[Node.js, interpréteur]
 
 Le système d'exploitation crée un nouveau processus dès
 qu'on exécute le programme `node`.
@@ -3494,6 +3654,8 @@ en sera affectée.
 
 [[options]]
 == Options utiles pour démarrer{nbsp}Node
+indexterm:[Node.js, options de démarrage]
+indexterm:[Node.js, interpréteur]
 
 L'exécutable `node` accepte plusieurs options afin de personnaliser
 son comportement et l'affichage des résultats.
@@ -3508,6 +3670,7 @@ La documentation de l'exécutable `node` est disponible sur le site officiel :
 
 [[print-eval]]
 === Afficher le résultat d'une expression, sans{nbsp}script
+indexterm:[Node.js, invite de commande (REPL)]
 
 L'interpréteur Node sait interpréter du code qu'on lui donne
 via l'option{nbsp}``-p`` (pour _print_, c'est-à-dire _afficher_).
@@ -3530,6 +3693,7 @@ ABC
 
 [[options-require]]
 === Précharger un module
+indexterm:[Node.js, --require (option de démarrage)]
 
 L'option de démarrage `--require` charge le module indiqué avant le script{nbsp}Node.
 
@@ -3559,6 +3723,8 @@ lors d'un plantage applicatif, entre autres.
 
 [[inspect]]
 === Inspecter notre code avec Google{nbsp}Chrome
+indexterm:[Node.js, inspecteur]
+indexterm:[Node.js, --inspect (option de démarrage)]
 
 Node accepte deux options `--inspect` et `--inspect-brk`.
 Elles exposent un protocole de débogage auquel on peut se connecter
@@ -3618,6 +3784,8 @@ se termineraient avant qu'on ait le temps de jeter un œil au contenu.
 
 [[options-v8]]
 === Ajuster les options de compatibilité et de traçabilité de{nbsp}V8
+indexterm:[V8 (machine virtuelle)]
+indexterm:[Node.js, --v8-options (option de démarrage)]
 
 Node repose sur la <<../chapter-01/index.adoc#v8,machine virtuelle{nbsp}V8>>
 pour interpréter nos instructions ECMAScript et en expose différentes options
