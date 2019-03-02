@@ -89,6 +89,7 @@ font aussi partie des API JavaScript pour le Web.
 En l'occurrence, elles font partie de l'API DOM (_Document Object Model_),
 un mécanisme pour interagir avec une page web grâce à ECMAScript.
 indexterm:[DOM (Document Object Model)]
+indexterm:[variable globale, document]
 
 [source%interactive,javascript]
 .intro/node.js
@@ -99,6 +100,7 @@ include::{sourceDir}/intro/node.js[]
 Ce dernier exemple est spécifique à Node.
 Ce dernier propose la fonction `require()` pour charger des modules et interagir
 avec le système d'exploitation.
+indexterm:[variable globale, require()]
 
 Autrement dit,
 *ECMAScript est un langage, une grammaire avec des fonctionnalités de base*.
@@ -2031,6 +2033,7 @@ mdn::global[Date]
 indexterm:[date, formattage]
 indexterm:[date, internationalisation]
 indexterm:[Intl, DateTimeFormat]
+indexterm:[variable globale, Intl]
 
 La spécification _ECMA{nbsp}Intl_ a été conçue pour ajouter des
 fonctionnalités relatives aux langues.
