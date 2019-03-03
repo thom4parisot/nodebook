@@ -1664,6 +1664,7 @@ Nous allons maintenant lire le contenu du fichier `.npmrc`,
 le fichier de configuration de
 l'<<../chapter-05/index.adoc#cli,exécutable{nbsp}npm>> :
 indexterm:[npm, .npmrc (fichier de configuration)]
+indexterm:[configuration, .npmrc]
 
 [source%interactive,javascript]
 .os/npmrc.js
@@ -3162,6 +3163,7 @@ voit et de piocher l'information qui va nous aider à résoudre le problème.
 
 === Une erreur est nichée dans notre{nbsp}code
 indexterm:[erreur, de syntaxe]
+indexterm:[erreur, SyntaxError]
 
 Il y a deux familles d'erreurs dans du code ECMAScript : celles de syntaxe
 et celles d'exécution.
@@ -3199,6 +3201,7 @@ Node l'interprétera alors correctement.
 
 Penchons-nous à présent sur les erreurs provoquées lorsque le code est exécuté :
 indexterm:[erreur, d'exécution]
+indexterm:[erreur, ReferenceError]
 
 [subs="+quotes"]
 ----
@@ -3224,6 +3227,7 @@ provoquées après le démarrage de l'application.
 Dans l'exemple qui suit, l'une d'elles se produit deux secondes après le
 démarrage du script :
 indexterm:[erreur, XYZ is not a function]
+indexterm:[erreur, TypeError]
 
 [subs="+quotes"]
 ----
@@ -3307,7 +3311,7 @@ $ node errors/callback.js
   syscall: 'open',
   path: 'je-n-existe-pas.txt' }
 ----
-indexterm:[erreur, structure d'objet d'erreur]
+indexterm:[erreur, structure de l'objet Error]
 indexterm:[objet, Error]
 
 L'erreur affichée nous précise que le fichier demandé n'existe pas.

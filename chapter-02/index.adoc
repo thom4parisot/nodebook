@@ -514,6 +514,7 @@ Nous reviendrons sur ce sujet dans la section
 
 [[shell]]
 == Vérifier l'installation de Node depuis un ((terminal)) (shell)
+indexterm:[installation, vérification]
 
 Nous avons installé un environnement d'exécution Node dans la section précédente.
 Pour vérifier que tout s'est bien déroulé, ouvrez un terminal et saisissez
@@ -795,6 +796,7 @@ version en ayant recours à la commande `docker pull node:<version>`.
 
 === Mises à jour de sécurité
 indexterm:[mise à jour de Node.js, sécurité]
+indexterm:[version sémantique, patch]
 
 Node n'est pas exempt de bogues. Une catégorie en particulier nécessite d'être
 réactif : les failles de sécurité.
@@ -855,6 +857,7 @@ dont elles dépendent – en plus des vulnérabilités de{nbsp}Node.
 
 === Versions mineures
 indexterm:[mise à jour de Node.js, version mineure]
+indexterm:[version sémantique, version mineure]
 
 Les versions mineures de Node sont celles qui lui ajoutent de
 nouvelles fonctionnalités quasiment sans risque de casser une application existante.
@@ -875,6 +878,7 @@ de cette version.
 
 === Versions majeures
 indexterm:[mise à jour de Node.js, version majeure]
+indexterm:[version sémantique, version majeure]
 
 Les versions majeures ajoutent également de nouvelles fonctionnalités à Node,
 mais elles peuvent être amenées à changer des comportements qui casseraient
@@ -896,6 +900,7 @@ pour tester nos applications et nous assurer de leur bon fonctionnement.
 [[lifecycle]]
 === Comprendre le cycle de vie produit
 indexterm:[mise à jour de Node.js, cycle de vie]
+indexterm:[mise à jour de Node.js, version maintenue à long terme (LTS)]
 
 Le développement de la plate-forme Node prend soin de ne pas
 aller trop vite ni d'altérer la stabilité des applications et des
@@ -914,13 +919,14 @@ image::images/schedule.png[width="85%",link="https://github.com/nodejs/Release/b
 [NOTE]
 .[RemarquePreTitre]#Lien# Calendrier de sorties
 =====
+indexterm:[mise à jour de Node.js, calendrier de sortie]
 Le calendrier des sorties de Node est tenu à jour sur [URL]#https://github.com/nodejs/Release#.
 Référez-vous à ce calendrier pour des informations à jour sur
 les prochaines versions et l'arrêt de maintenance des plus anciennes.
 =====
 
 Si on récapitule :
-
+indexterm:[version sémantique]
 - Les versions *impaires* (v5,{nbsp}v7,{nbsp}etc.)
   - sont développées pendant _neuf mois_ ;
   - ne sont pas maintenues au-delà.

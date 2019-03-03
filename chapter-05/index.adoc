@@ -86,6 +86,8 @@ include::../docs/tip-examples.adoc[]
 
 [[cli]]
 == Créer un fichier `package.json`
+indexterm:[configuration, package.json]
+indexterm:[package.json]
 
 La présence d'un fichier `package.json` devient nécessaire dès qu'un projet
 inclut un <<modules,module{nbsp}``npm``>> ou a vocation à être publié pour être repris
@@ -94,6 +96,7 @@ dans un autre projet – que ce soit dans un cadre professionnel ou personnel.
 Le fichier `package.json` est la clé de voûte servant à reproduire l'installation
 du projet et créer un <<scripts,outillage autonome>>.
 La commande `npm init` génère un tel fichier.
+indexterm:[npm, init]
 L'utilisation de l'option `--yes` va plus vite car elle nous évite
 de répondre aux questions :
 
@@ -117,6 +120,8 @@ l'installation de modules.
 
 [[modules]]
 == Installer des modules{nbsp}npm
+indexterm:[npm, install <module>]
+indexterm:[module, npm]
 
 Le mécanisme des modules est documenté dans
 le <<../chapter-04/index.adoc#modules,chapitre{nbsp}4>>.
@@ -129,6 +134,7 @@ Cette section va nous aider à comprendre ce qui se passe pendant les phases
 d'installation, de mise à jour et de désinstallation des modules `npm`.
 
 === Depuis le registre npm
+indexterm:[npm, registre principal]
 
 Le registre{nbsp}``npm`` ([URL]#https://npmjs.com#) est l'hébergement principal
 des modules ECMAScript, pour Node et le front-end.
@@ -136,6 +142,7 @@ des modules ECMAScript, pour Node et le front-end.
 La commande `npm install` s'utilise directement quand nous connaissons déjà
 le nom d'un module à installer,
 par exemple  _cowsay_ ([URL]#https://npmjs.com/cowsay#) :
+indexterm:[module npm, cowsay]
 
 [subs="+attributes"]
 ----
@@ -148,6 +155,7 @@ found 0 vulnerabilities
 Le module est installé et prêt à être inclus dans un script.
 Nous constatons aussi que le champ `dependencies` est apparu
 dans le fichier `package.json` :
+indexterm:[package.json, dépendance]
 
 [source,json,subs="+attributes"]
 .package.json
@@ -164,6 +172,7 @@ L'exécutable `npm` tient les comptes des modules installés à notre demande.
 Cela nous sera utile pour <<install,installer les modules sur un autre ordinateur>>.
 Nous reviendrons plus tard sur la notation des versions
 – on en reparlera sous le nom de _versions sémantiques_ (_Semantic Versionning_).
+indexterm:[version sémantique]
 
 [source%interactive,javascript]
 .cow.js
@@ -173,6 +182,7 @@ include::{sourceDir}/cow.js[]
 
 L'inclusion d'un module{nbsp}``npm`` est identique
 à celle d'un <<../chapter-04/index.adoc#modules-builtin,module de{nbsp}base>>.
+indexterm:[module]
 
 Regardons le résultat sans plus tarder :
 
@@ -196,6 +206,7 @@ d'autres et comprendre comment les utiliser.
 [NOTE]
 .[RemarquePreTitre]#Question# Où sont stockés les modules{nbsp}npm ?
 ====
+indexterm:[Node.js, node_modules (répertoire)]
 Les modules `npm` et leurs dépendances sont stockés dans un répertoire
 `node_modules`, situé au même niveau que le fichier `package.json`.
 ====
@@ -204,6 +215,8 @@ Les modules `npm` et leurs dépendances sont stockés dans un répertoire
 [NOTE]
 .[RemarquePreTitre]#Sous le capot# Ce que fait l'exécutable{nbsp}npm pendant l'installation
 ====
+indexterm:[npm, fonctionnement]
+indexterm:[npm, install <module>]
 L'exécutable `npm` effectue un bon nombre d'actions lorsqu'on valide la
 commande `npm install cowsay` :
 
@@ -218,6 +231,7 @@ commande `npm install cowsay` :
 [NOTE]
 .[RemarquePreTitre]#Remarque# Dépendances de développement
 ====
+indexterm:[package.json, dépendance de développement]
 Il existe une variante de la commande pour distinguer les dépendances
 spécifiques à l'outillage du projet.
 Rendez-vous dans la section "`<<install.dev,Dépendances de développement>>`"
@@ -227,6 +241,7 @@ pour en savoir plus.
 
 [[registry]]
 === Trouver son bonheur dans le registre{nbsp}npm
+indexterm:[npm, search]
 
 Le registre `npm` ([URL]#https://npmjs.com#) fourmille de modules
 – de simples fonctions, des bibliothèques ou des frameworks complets.
@@ -268,6 +283,7 @@ pas forcément très réactives.
 
 Cependant, il y a suffisamment d'indicateurs au vert pour l'installer avec
 `npm install mysql2` puis l'essayer dans un script.
+indexterm:[npm, install <module>]
 
 Le module _mysql-libmysqlclient_ ([URL]#https://npmjs.com/mysql-libmysqlclient#)
 ne me fait pas du tout le même effet.
@@ -281,6 +297,7 @@ Rien n'indique qu'il ne peut pas fonctionner avec Node{nbsp}{nodeCurrentVersion}
 mais la présence du mot [Menu]#binding# m'évoque que l'installation du module
 compile un programme écrit dans un autre langage
 – en l'occurrence, _libmysqlclient_.
+indexterm:[Node.js, binding]
 
 Point positif : il n'y a que [Menu]#14{nbsp}issues# GitHub.
 C'est peu, mais l'une d'entre elles est intitulée
@@ -299,6 +316,7 @@ Il y a très peu de chances que nous puissions en faire quelque chose.
 
 Voici au final ce que j'estime être le plus important pour me faire
 une idée d'un module et décider de l'installer ou{nbsp}non :
+indexterm:[npm, choisir un module]
 
 - Présence d'une *documentation* – je peux me faire une idée des fonctionnalités
 et de la complexité d'utilisation du module.
@@ -336,6 +354,8 @@ Vous la trouverez en <<../appendix-a/index.adoc#,annexe{nbsp}A>>.
 
 [[uninstall]]
 === Désinstaller un module
+indexterm:[npm, uninstall]
+indexterm:[package.json]
 
 L'utilisation de la commande `npm uninstall` supprime en toute sécurité
 un module{nbsp}``npm`` et les fichiers qu'il a installés.
@@ -359,6 +379,7 @@ internal/modules/cjs/loader.js:596
 
 Error: Cannot find module 'cowsay'
 ----
+indexterm:[erreur, Cannot find module '...']
 
 Le chargement du module a échoué car Node n'arrive pas à le trouver
 – et c'est normal.
@@ -369,6 +390,8 @@ pour que le script fonctionne à nouveau.
 
 [[install]]
 === Depuis un fichier `package.json`
+indexterm:[npm, install]
+indexterm:[package.json]
 
 Jusqu'à présent, nous avons installé des modules en les ajoutant un par{nbsp}un.
 La procédure est légèrement différente quand nous installons le projet de zéro
@@ -400,14 +423,16 @@ les modules listés dans le fichier `package.json`.
 La commande `npm install` installe, met à jour et retire les modules nécessaires.
 
 [TIP]
-.[RemarquePreTitre]#Pratique# npm{nbsp}ci
+.[RemarquePreTitre]#Pratique# npm{nbsp}clean-install (npm ci)
 ====
-La commande `npm ci` réinstalle un projet de zéro de manière prédictible.
+indexterm:[npm, clean-install]
+La commande `npm clean-install` réinstalle un projet de zéro de manière prédictible.
 <<ci,Nous y reviendrons plus loin>>.
 ====
 
 [[install.version]]
 === Spécifier une version
+indexterm:[npm, install <module>]
 
 Par défaut, l'exécutable `npm` installe la dernière version d'un module.
 Nous avons la liberté d'en installer d'autres qui sont antérieures.
@@ -459,6 +484,7 @@ $ npm install lodash@2.2
 [TIP]
 .[RemarquePreTitre]#Pratique# Connaître toutes les versions d'un module
 ====
+indexterm:[npm, view]
 La <<view,commande `npm view`>> affiche les informations d'un module{nbsp}``npm``
 directement depuis notre terminal.
 Elle affiche toutes les versions publiées avec l'argument `versions` :
@@ -478,6 +504,7 @@ $ npm view lodash ##versions##
 
 Revenons à la version la plus récente en réutilisant la
 <<install,commande d'installation>> abordée auparavant :
+indexterm:[npm, install <module>]
 
 ----
 $ npm install lodash
@@ -487,6 +514,7 @@ $ npm install lodash
 Quelque chose d'inattendu s'est produit : la version la plus récente
 de la série{nbsp}2 a été installée au lieu de la version{nbsp}{lodashVersion}.
 Nous trouverons un élément de réponse dans le fichier `package.json` :
+indexterm:[package.json, dépendance]
 
 [source,json,subs="-specialchars,+attributes,+quotes"]
 .package.json
@@ -507,6 +535,7 @@ la plus récente.
 
 L'étiquette `latest` explicite notre envie d'installer la version
 la plus récente et sans tenir compte du fichier `package.json` :
+indexterm:[latest (étiquette de version) (voir npm install <module>)]
 
 [subs="+attributes,+quotes"]
 ----
@@ -524,6 +553,7 @@ dans le fichier `package.json`.
 [TIP]
 .[RemarquePreTitre]#Pratique# Connaître les étiquettes d'un module
 ====
+indexterm:[npm, view]
 La <<view,commande `npm view`>> va à nouveau nous aider.
 Elle affiche toutes les versions publiées avec l'argument `dist-tags` :
 
@@ -540,6 +570,8 @@ Ce mécanisme d'étiquette sert de raccourci pour associer un numéro de version
 
 [[semver]]
 === Comprendre les numéros de versions (Semantic Versioning)
+indexterm:[version sémantique]
+indexterm:[npm, install <module>]
 
 Les numéros de versions ont été utilisés de deux manières dans les
 sections précédentes : avec l'exécutable `npm` et en observant la liste
@@ -572,10 +604,12 @@ l'interprétation des développeurs de modules `npm`.
 | `~`     | `~1.0.0` | `1.0.x`                    | `>=1.0.0 <1.1.0`
 | `*`     | `*`      | `x.x.x`                    | `>=0.0.1`
 |===
+indexterm:[version sémantique, syntaxe]
 
 Je ne pense pas qu'il soit nécessaire de toujours choisir la dernière version majeure.
 Les versions _patch_ et mineures sont plus importantes à mes yeux,
 car elles contiennent des corrections dont bénéficient nos applications.
+indexterm:[version sémantique, patch]
 
 [TIP]
 .[RemarquePreTitre]#Pratique# Calculateur de version
@@ -601,6 +635,7 @@ $ npm install lodash@2.0.0 cowsay@1.0.0
 ----
 
 La commande `npm outdated` affiche les dépendances qui ne sont pas à{nbsp}jour :
+indexterm:[npm, outdated]
 
 [subs="+attributes"]
 ----
@@ -612,6 +647,7 @@ lodash     2.0.0   2.4.2  {lodashVersion}  nodebook.chapter-05
 
 Le numéro de version affiché dans la colonne `Wanted` est celui qui sera atteint
 avec la commande `npm update`.
+indexterm:[npm, update]
 
 [subs="+attributes"]
 ----
@@ -622,6 +658,7 @@ added 7 packages and updated 3 packages in 2.717s
 ----
 
 Observons ce qui a changé dans les résultats de la commande `npm outdated` :
+indexterm:[npm, outdated]
 
 [subs="+attributes"]
 ----
@@ -636,6 +673,7 @@ de rendre notre code compatible avec ses changements.
 
 Sinon, une <<install.version,installation manuelle>> s'impose
 avec l'étiquette `latest` :
+indexterm:[npm, version <module>]
 
 [subs="+attributes"]
 ----
@@ -644,6 +682,7 @@ $ npm install lodash@latest
 ----
 
 Un dernier appel à `npm outdated` nous en donne le cœur{nbsp}net :
+indexterm:[npm, outdated]
 
 ----
 $ npm outdated
@@ -661,6 +700,7 @@ commandes exécutables au niveau du système d'exploitation.
 
 [[install.git]]
 === Depuis GitHub, GitLab ou un dépôt{nbsp}Git
+indexterm:[npm, install <module> (depuis Git)]
 
 Il arrive que l'auteur·e d'un module{nbsp}``npm`` corrige un problème
 sans publier le correctif sur le registre{nbsp}``npm``.
@@ -724,6 +764,7 @@ une option payante sur le registre principal.
 
 [[install.dev]]
 === Dépendances de développement
+indexterm:[package.json, dépendance de développement]
 
 Les dépendances de développement sont des modules `npm` utilisés
 pour *exécuter les tests unitaires* ou pour *de l'outillage* sont aussi des
@@ -735,6 +776,7 @@ Par exemple, le module{nbsp}``npm`` _mocha_ est utilisé pour structurer et exé
 des tests unitaires pour Node et les navigateurs web.
 Il est donc logique de l'installer comme dépendance de développement.
 L'option `--save-dev` signale cette intention à l'exécutable `npm` :
+indexterm:[npm, install --save-dev]
 
 [subs="+attributes"]
 ----
@@ -762,6 +804,7 @@ fichier `package.json` – la section `devDependencies` :
 [TIP]
 .[RemarquePreTitre]#Optimisation# Installer seulement les dépendances de production
 ====
+indexterm:[npm, install --production]
 La <<install,commande `npm install`>> accepte l'option `--production`.
 Elle installe seulement les dépendances listées dans la section `dependencies` :
 
@@ -777,10 +820,12 @@ C'est l'idéal dans le cas du déploiement de
 
 [[install.global]]
 === Exécutable système (installation globale)
+indexterm:[npm, install --global]
 
 Certains modules `npm` s'installent comme des programmes exécutables.
 Ils s'appellent ensuite dans un terminal, exactement comme nous le faisions
 jusqu'à présent avec l'exécutable `npm`.
+indexterm:[module npm, serve]
 
 C'est le cas du module _serve_ ([URL]#https://npmjs.com/serve#), par exemple.
 Il démarre un serveur web en ligne de commande pour tester le rendu
@@ -837,6 +882,7 @@ $ serve --help
 
 Un module installé de manière globale se désinstalle en passant l'option
 `--global` à la <<uninstall,commande `npm uninstall`>> :
+indexterm:[npm, uninstall]
 
 ----
 $ npm uninstall --global serve
@@ -848,6 +894,8 @@ en détail dans le développement d'exécutables système écrits en ECMAScript.
 
 [[scripts]]
 == Outiller un projet avec les scripts{nbsp}npm
+indexterm:[npm, run]
+indexterm:[package.json, script npm]
 
 Les scripts{nbsp}``npm`` sont des outils puissants qui *autonomisent l'outillage projet*,
 *automatisent des actions* manuelles et *simplifient des actions* trop
@@ -865,6 +913,7 @@ au projet en question.
 
 [[start]]
 === Démarrer l'application
+indexterm:[npm, start]
 
 Le script `npm start` concerne les projets dont le script principal
 tourne en continu – une application web par exemple.
@@ -885,6 +934,7 @@ micro: Accepting connections on port 3000
 
 Nous sommes libres de renseigner la valeur du champ `scripts.start`
 du fichier `package.json` comme bon nous semble :
+indexterm:[package.json, script npm]
 
 [source,json,subs="+attributes"]
 .package.json
@@ -923,6 +973,7 @@ pour déterminer comment démarrer notre application.
 
 [[test]]
 === Exécuter des tests
+indexterm:[npm, test]
 
 Le script `npm test` concerne tous les projets pour lesquels nous avons écrit
 des tests qu'ils soient unitaires ou fonctionnels.
@@ -949,6 +1000,7 @@ app.js
 
 Cette fois-ci, nous avons personnalisé la valeur du champ `scripts.test`
 du fichier `package.json` :
+indexterm:[package.json, script npm]
 
 [source,json,subs="+attributes"]
 .package.json
@@ -969,9 +1021,11 @@ de même qu'avec le <<start,script de démarrage>>, nous nous sommes basés
 sur l'exécutable fourni par le module.
 En revanche, nous l'avons listé dans la <<install.dev,section `devDependencies`>>
 car il est relatif à l'outillage du projet.
+indexterm:[module npm, mocha]
 
 Les services d'intégration continue lancent le script `npm test`
 lorsqu'ils détectent qu'ils ont affaire à un projet Node.
+indexterm:[npm, test]
 
 [NOTE]
 .[RemarquePreTitre]#Documentation# Scripts définis par{nbsp}npm
@@ -981,9 +1035,14 @@ Ils sont tous documentés sur :
 
 - [URL]#https://docs.npmjs.com/misc/scripts#
 ====
+indexterm:[documentation, script npm]
+indexterm:[documentation, package.json]
+indexterm:[package.json, documentation]
 
 [[run]]
 === Créer un script{nbsp}npm personnalisé
+indexterm:[npm, run]
+indexterm:[package.json, script npm]
 
 Les scripts{nbsp}``npm`` personnalisés sont utiles *lorsque nous souhaitons outiller*
 notre projet sans forcément que ce soit en rapport avec le lancement des tests
@@ -1031,6 +1090,7 @@ Avec le temps, j'ai développé les conventions suivantes :
 [TIP]
 .[RemarquePreTitre]#Pratique# Passer des arguments à un script{nbsp}npm
 ====
+indexterm:[module, process, process.argv]
 Une option spéciale nous aide à transmettre des arguments à un script.
 Les arguments doivent être placés à droite de l'option `--` :
 
@@ -1059,6 +1119,8 @@ Un script{nbsp}``npm`` peut faire appel à d'autres :
 J'ai plutôt tendance à découper mes scripts de sorte à ce qu'ils fassent
 tous une chose et une seule.
 Je peux ainsi les appeler de manière individuelle.
+indexterm:[package.json, script npm]
+indexterm:[npm, run]
 
 [source,json,subs="-specialchars"]
 .package.json
@@ -1079,6 +1141,7 @@ les uns par rapport aux autres.
 [TIP]
 .[RemarquePreTitre]#Pratique# Accéder aux valeurs du fichier `package.json`
 ====
+indexterm:[npm, run, variable d'environnement]
 Toutes les sections du fichier `package.json` sont accessibles depuis
 les scripts{nbsp}``npm`` sous forme de
 <<../chapter-04/index.adoc#process.argv,variables d'environnement>>.
@@ -1103,6 +1166,8 @@ et le champ `config.port` en tant que `$npm_package_config_port` :
 
 [[run-pre-post]]
 === Exécuter des commandes avant et après des scripts{nbsp}npm
+indexterm:[npm, run]
+indexterm:[package.json, script npm, pré et post-script]
 
 L'ordre d'exécution des scripts se contrôle en utilisant les préfixes
 `pre` et `post`.
@@ -1124,6 +1189,7 @@ respectivement avant et après le script `test`.
 
 Dans cet exemple de configuration, l'exécution de la commande `npm test`
 lancera d'abord le script `pretest`, puis `lint` puis enfin{nbsp}``test`` :
+indexterm:[npm, test]
 
 ----
 $ npm test
@@ -1157,6 +1223,8 @@ En voici une sélection.
 
 [[run-all]]
 === Automatiser tout l'outillage projet
+indexterm:[npm, run]
+indexterm:[module npm, npm-run-all]
 
 Les scripts{nbsp}``npm`` suffisent à outiller la majorité des projets.
 Cependant ils deviennent difficiles à lire lorsque les
@@ -1220,6 +1288,8 @@ C'est tant mieux si nous pouvons nous en passer pour façonner nos propres outil
 
 [[package.json]]
 == Anatomie du fichier `package.json`
+indexterm:[package.json, liste des champs]
+indexterm:[documentation, package.json]
 
 Le fichier `package.json` est essentiel pour tirer parti de l'exécutable `npm`.
 Tout projet concerné par l'<<install,installation de modules `npm`>> ou par
@@ -1255,6 +1325,9 @@ Section;Obligatoire{nbsp}?;Type;Modifiable;Description
 `bin`;{cross};Texte (chemin);À la main;Script qui sera utilisé comme exécutable lors de l'appel `npx <module>`
 `bin`;{cross};Objet (nom/chemin);À la main;Idem – forme qui permet de déclarer plusieurs exécutables au sein d'un même module
 |===
+indexterm:[package.json, main]
+indexterm:[package.json, bin]
+indexterm:[package.json, name]
 
 [format="csv", options="header", separator=";", cols="1,1,1,2,2"]
 .Configuration projet pour l'exécutable `npm`
@@ -1270,6 +1343,8 @@ Section;Obligatoire{nbsp}?;Type;Modifiable;Description
 [NOTE]
 .[RemarquePreTitre]#Documentation# Tout sur le fichier package.json
 ====
+indexterm:[documentation, package.json]
+indexterm:[package.json, documentation]
 La page [URL]#https://docs.npmjs.com/files/package.json# documente
 de manière exhaustive les sections du fichier `package.json`.
 
@@ -1289,6 +1364,7 @@ j'en parle pour *éclairer quelques points intéressants à explorer*.
 
 [[view]]
 === npm view : voir les informations d'un module
+indexterm:[npm, view]
 
 La commande `npm view` donne une vue synthétique d'un module{nbsp}``npm`` donné.
 Elle est similaire à celle que nous pourrions trouver sur le registre{nbsp}``npm``,
@@ -1372,6 +1448,8 @@ $ npm view nodebook dist
 
 [[npx]]
 === npx : exécuter un module sans l'installer
+indexterm:[npx]
+indexterm:[npm, utilitaire npx]
 
 L'<<install.global,installation globale>> est idéale pour disposer d'un module
 npm sous forme d'exécutable système.
@@ -1405,6 +1483,7 @@ $ npm uninstall cowsay
 
 [[home]]
 === npm home : visiter le site web d'un module
+indexterm:[npm, home]
 
 Vous vous demandez où trouver davantage de documentation à propos d'un
 module{nbsp}``npm`` ?
@@ -1418,6 +1497,9 @@ $ npm home micro
 
 [[audit]]
 === npm audit : vérifier la sécurité des dépendances
+indexterm:[npm, audit]
+indexterm:[sécurité, module npm]
+indexterm:[package.json, sécurité des dépendances]
 
 La commande `npm audit` part à la recherche de vulnérabilités connues
 dans l'intégralité des dépendances d'un projet.
@@ -1468,16 +1550,21 @@ Ici, elle indique qu'une <<semver,mise à jour majeure>> est
 nécessaire pour se débarrasser du problème.
 Cela nécessitera peut-être d'ajuster le code utilisant cette
 dépendance sous peine de casser notre application.
+indexterm:[version sémantique, version majeure]
 
 La commande `npm audit fix` corrigera toutes les dépendances pour lesquelles
 il est possible de changer la version de manière automatique et sans risque.
 Les mises à jour majeures sont toujours manuelles et demandent votre intervention.
+indexterm:[npm, audit, fix]
 
 [[ci]]
-=== npm ci : installer à toute vitesse
+=== npm clean-install : installer à toute vitesse
+indexterm:[npm, clean-install]
+indexterm:[package-lock.json]
+indexterm:[package.json]
 
-La commande `npm ci` est destinée à installer les modules listés dans
-le fichier `package.json`.
+La commande `npm clean-install` (`npm ci`) est destinée à installer les
+modules listés dans le fichier `package.json`.
 Elle vise à s'exécuter plus rapidement et dans des environnements
 autres que ceux de développement : en intégration continue, en production, etc.
 
@@ -1504,13 +1591,15 @@ cache: npm        # <2>
 [TIP]
 .[RemarquePreTitre]#Pratique# Remettre un projet à{nbsp}zéro
 ====
-La commande `npm ci` est pratique pour remettre un projet à zéro,
+La commande `npm clean-install` est pratique pour remettre un projet à zéro,
 en cas de problème d'installation ou après avoir bidouillé dans le répertoire
 `node_modules` par exemple.
 ====
 
 [[doctor]]
 === npm doctor : vérifier l'état du système
+indexterm:[npm, doctor]
+indexterm:[installation, vérification]
 
 `npm doctor` est une commande utilitaire qui vérifie que npm trouve
 tout ce qu'il lui faut pour bien fonctionner.
@@ -1536,6 +1625,9 @@ Verify cache contents               verified 4066 tarballs
 
 [[config]]
 === npm config : changer les réglages de l'exécutable `npm`
+indexterm:[npm, config]
+indexterm:[npm, .npmrc (fichier de configuration)]
+indexterm:[configuration, .npmrc]
 
 La commande `npm config` affiche et modifie la configuration
 de l'exécutable `npm`.
@@ -1553,6 +1645,7 @@ npm ERR! npm config edit
 ----
 
 La sous-commande `get` affiche la valeur par défaut d'une clé de configuration :
+indexterm:[npm, config, get]
 
 ----
 $ npm config get loglevel
@@ -1564,6 +1657,7 @@ Elle agit comme un curseur pour choisir une vue plus ou moins détaillée de
 ce qui se trame sous le capot.
 
 Augmentons le taux d'affichage avec la sous-commande `set` :
+indexterm:[npm, config, set]
 ----
 $ npm config set loglevel http
 ----
@@ -1581,6 +1675,7 @@ GET 304 https://registry.npmjs.org/arg 274ms (from cache)
 
 La sous-commande{nbsp}``ls`` récapitule tous nos changements de configuration.
 Elle affiche tous les réglages par défaut en la suffixant de l'option `--long` :
+indexterm:[npm, config, ls]
 
 ----
 $ npm config ls
@@ -1590,6 +1685,8 @@ $ npm config ls --long
 [TIP]
 .[RemarquePreTitre]#Pratique# Sauvegarder sa configuration{nbsp}npm
 ====
+indexterm:[npm, .npmrc (fichier de configuration)]
+indexterm:[configuration, .npmrc]
 Chaque appel à `npm config set` enregistre les changements dans un fichier
 de configuration `~/.npmrc`.
 
@@ -1621,6 +1718,9 @@ Clé           ; Valeur par défaut ;Remarque
 `send-metrics`;`false`            ;Passez à `true` pour envoyer des statistiques d'utilisation à l'équipe de{nbsp}``npm``.
 `tmp`         ;`$TMPDIR`          ;Changez cette valeur pour utiliser un autre répertoire temporaire.
 |===
+indexterm:[npm, .npmrc (fichier de configuration)]
+indexterm:[configuration, .npmrc]
+indexterm:[documentation, npm, configuration]
 
 [NOTE]
 .[RemarquePreTitre]#Documentation# Tout sur npm{nbsp}config
@@ -1632,6 +1732,8 @@ l'exécutable{nbsp}``npm``.
 
 [[publish]]
 === npm publish : publier un module{nbsp}npm
+indexterm:[npm, publish]
+indexterm:[module, publier un module]
 
 Nous savons comment <<install,installer des modules>> depuis le registre,
 mais nous n'avons pas encore vu comment contribuer nous-même à cet écosystème.
@@ -1674,6 +1776,7 @@ npm notice total files:   13
 [TIP]
 .[RemarquePreTitre]#Configuration# Empêcher un module d'être publié
 ====
+indexterm:[package.json, private]
 La section de configuration `private` est à ajouter dans le fichier `package.json`
 d'un module pour empêcher toute publication involontaire.
 
@@ -1692,6 +1795,7 @@ quel fichier charger avec `require('<module>')` ou exécuter avec <<npx,`npx <mo
 
 La publication d'un module nécessite de se créer un compte sur le registre
 [URL]#https://npmjs.com#.
+indexterm:[npm, registre principal]
 Si c'est la première fois, l'exécutable `npm` vous
 demandera alors de vous identifier – le module sera ensuite publié en votre nom.
 
@@ -1704,6 +1808,7 @@ seulement si les tests passent au{nbsp}vert.
 [TIP]
 .[RemarquePreTitre]#Pratique# Ignorer des fichiers à publier
 ====
+indexterm:[npm, .npmignore (fichier de configuration)]
 L'exécutable `npm` ignore par défaut les mêmes fichiers que Git.
 Il honore la présence des fichiers `.gitignore` et exclut les fichiers
 et répertoires concernés de la publication.
@@ -1728,6 +1833,7 @@ src/*.html      # <3>
 
 [[version]]
 === npm version : déterminer une nouvelle version sans se tromper
+indexterm:[npm, version]
 
 Nous ne pouvons pas <<publish,publier>> deux fois une même version d'un
 module{nbsp}``npm``.
@@ -1743,6 +1849,7 @@ publication automatique par le biais d'un service d'intégration continue.
 La commande `npm version` se complète forcément d'un argument pour
 indiquer la <<semver,granularité de version sémantique>> concernée.
 Ainsi, si nous voulons mettre à jour un module actuellement en version{nbsp}``1.0.0`` :
+indexterm:[version sémantique]
 
 - `npm version patch` la changera en{nbsp}``1.0.1``.
 - `npm version minor` la changera en{nbsp}``1.1.0``.
@@ -1750,6 +1857,8 @@ Ainsi, si nous voulons mettre à jour un module actuellement en version{nbsp}``1
 
 Cette montée en version se complète optionnellement de <<scripts,scripts{nbsp}``npm``>>
 pour automatiser d'autres actions lors d'une montée en version :
+indexterm:[npm, run]
+indexterm:[package.json, script npm, pré et post-script]
 
 [horizontal]
 .Ordre d'exécution des <<run,scripts{nbsp}``npm``>> lors d'une montée de version
@@ -1763,6 +1872,7 @@ pour automatiser d'autres actions lors d'une montée en version :
 [TIP]
 .[RemarquePreTitre]#Avancé# Déterminer la version depuis{nbsp}Git
 ====
+indexterm:[npm, version, from-git]
 Peut-être que vous gérez vous-même le numéro de version en l'attribuant
 directement avec un ``tag``{nbsp}Git{nbsp}(`git tag`).
 
@@ -1783,6 +1893,9 @@ afin d'y voir plus{nbsp}clair.
 
 [[npm.update]]
 === Quand mettre à jour l'exécutable{nbsp}npm ?
+indexterm:[npm, mise à jour du module npm]
+indexterm:[npm, install --global, npm]
+indexterm:[mise à jour de Node.js, mise à jour du module npm]
 
 De nouvelles versions de l'exécutable `npm` sont régulièrement publiées.
 Un message s'affiche dans notre terminal lorsque nous l'utilisons et qu'il
@@ -1808,6 +1921,7 @@ majeure m'affecte.
 
 [[package-lock]]
 === Je ne vois pas l'intérêt du fichier package-lock.json
+indexterm:[package-lock.json]
 
 Le fichier `package-lock.json` est créé automatiquement par l'exécutable `npm`
 dès que vous ajoutez votre première dépendance à un projet.
@@ -1877,6 +1991,8 @@ ce fichier et accélérer le processus d'installation.
 
 [[bower]]
 === npm c'est pour le back-end et bower pour le front-end
+indexterm:[module npm, bower]
+indexterm:[bower.json]
 
 _bower_ ([URL]#https://bower.io#) est un gestionnaire de modules
 spécialisé dans le développement _front-end_.
@@ -1906,6 +2022,9 @@ pour Node, je vous invite à lire le <<../chapter-09/index.adoc#,chapitre{nbsp}9
 ====
 
 === Est-ce que je dois versionner le répertoire node_modules ?
+indexterm:[Node.js, node_modules (répertoire)]
+indexterm:[package.json]
+indexterm:[package-lock.json]
 
 Le contenu du répertoire `node_modules` se recrée automatiquement
 en utilisant l'exécutable `npm`, que ce soit avec <<install,`npm install`>> ou
@@ -1934,6 +2053,8 @@ Ce fichier texte se situe en général à la racine de votre projet.
 
 [[yarn]]
 === Il paraît que Yarn, c'est mieux
+indexterm:[module npm, yarn]
+indexterm:[yarn]
 
 L'application _Yarn_ ([URL]#https://yarnpkg.com#) veut être une alternative
 à l'exécutable{nbsp}``npm``.
@@ -1988,6 +2109,8 @@ image::images/module-content.png[]
 [TIP]
 .[RemarquePreTitre]#Pratique# Connaître le coût des dépendances de son projet
 ====
+indexterm:[module npm, cost-of-modules]
+indexterm:[npx]
 Le module{nbsp}``npm`` _cost-of-modules_ ([URL]#https://npmjs.com/cost-of-modules#)
 calcule la quantité et le poids des dépendances listées
 dans un fichier `package.json`.
@@ -2015,6 +2138,8 @@ $ npx cost-of-modules               # <1>
 
 [[errors]]
 === Que signifient les erreurs affichées pendant npm install ?
+indexterm:[erreur, lors de npm install]
+indexterm:[npm, install, erreur pendant l'installation]
 
 L'exécutable `npm` est généreux en messages pendant l'installation
 de modules.
@@ -2028,6 +2153,7 @@ avons une action immédiate à mener.
 
 [[error-deprecated]]
 ==== Module déprécié
+indexterm:[erreur, npm WARN deprecated ...]
 
 Un module est déprécié quand il n'est plus maintenu,
 s'il est développé sous un nouveau nom ou si nous sommes encouragé·e·s à
@@ -2060,6 +2186,9 @@ Il vaut mieux dans ce cas en trouver un autre qui fait plus ou moins la même ch
 
 [[error-skipping]]
 ==== Problème avec une dépendance optionnelle
+indexterm:[npm, install, erreur pendant l'installation]
+indexterm:[erreur, npm WARN optional SKIPPING OPTIONAL ...]
+indexterm:[erreur, npm WARN notsup SKIPPING OPTIONAL ...]
 
 Certains modules effectuent une opération de compilation : une partie de leur
 code source est écrit dans un autre langage que l'ECMAScript et ils
@@ -2082,6 +2211,8 @@ npm WARN notsup SKIPPING OPTIONAL DEPENDENCY:
 
 [[error-404]]
 ==== Module introuvable
+indexterm:[npm, install, erreur pendant l'installation]
+indexterm:[erreur, npm ERR! code E404]
 
 Le module que vous cherchez à installer n'existe pas.
 Il s'agit peut-être d'une erreur de frappe ou alors le module a été retiré
@@ -2095,6 +2226,7 @@ npm ERR! 404 Not Found: aria-roless@latest
 
 [[error-crlf]]
 ==== Caractère de fin de ligne sous Windows
+indexterm:[erreur, npm error Expected linebreaks to be ...]
 
 Les anciennes versions de{nbsp}``npm`` avaient du mal à concilier les caractères de fin
 de ligne sous Windows (`\r\n`), différents des autres systèmes (`\n`).
@@ -2109,6 +2241,8 @@ régler le problème.
 
 [[error-pkg]]
 ==== Fichier package.json incomplet
+indexterm:[package.json]
+indexterm:[erreur, npm WARN ... No description]
 
 Les messages suivants s'affichent quand les champs `description` et
 `repository` manquent à l'appel de notre fichier `package.json`.
@@ -2123,6 +2257,9 @@ pour savoir comment remplir ces champs manquants.
 
 [[error-peer-dependency]]
 ==== Dépendance complémentaire à installer
+indexterm:[npm, install, erreur pendant l'installation]
+indexterm:[erreur, npm WARN ... requires a peer of ...]
+indexterm:[package.json, dépendance complémentaire]
 
 Certains modules nécessitent des modules complémentaires pour fonctionner.
 Toutefois ces derniers sont à installer manuellement.
