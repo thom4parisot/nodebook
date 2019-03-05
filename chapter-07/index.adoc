@@ -58,10 +58,14 @@ et à construire une réponse appropriée à chaque fois, le plus rapidement pos
 Ce chapitre s'inscrit dans la continuité de la découverte du
 <<../chapter-04/index.adoc#http,module `http`>>
 (<<../chapter-04/index.adoc#,chapitre{nbsp}4>>).
+indexterm:[module, http]
 
 [NOTE]
 .[RemarquePreTitre]#Documentation# En-têtes{nbsp}HTTP
 ====
+indexterm:[HTTP, en-tête]
+indexterm:[HTTP, documentation]
+indexterm:[documentation, protocole HTTP]
 Ce chapitre fait souvent référence à des en-têtes HTTP.
 La documentation _MDN{nbsp}web{nbsp}docs_
 les liste tous, avec le détail de leurs valeurs possibles :
@@ -74,6 +78,7 @@ C'est un onglet intéressant à ouvrir en parallèle de cette lecture
 
 [[webapp]]
 == Composer son application{nbsp}web
+indexterm:[application web]
 
 Dans cette première section, nous allons nous focaliser sur la construction
 d'une application web avec une approche modulaire.
@@ -83,6 +88,7 @@ donner du sens à leurs contenus respectifs.
 
 Le _protocole HTTP_ est le dialecte informatique utilisé et compris pour exprimer
 les requêtes (émises par un client) et les réponses (émises par un serveur).
+indexterm:[HTTP]
 Les navigateurs web sont des clients tandis que notre application Node est un serveur.
 
 Le logiciel _curl_ ([URL]#https://curl.haxx.se#) est un client en ligne de commandes.
@@ -90,6 +96,8 @@ Il est souvent installé par défaut sur les distributions Linux, sur macOS et
 à partir de Windows{nbsp}7 – via le terminal _PowerShell_.
 
 Utilisons _curl_ pour observer le contenu d'une requête et de sa réponse.
+indexterm:[curl]
+indexterm:[HTTP, requête]
 
 .Exemple de requête HTTP vers le site [URL]#perdu.com#
 ----
@@ -104,11 +112,13 @@ Accept: */*
 <3> En-tête de requête.
 
 Un en-tête est exprimé sous la forme `Clé: Valeur`.
+indexterm:[HTTP, en-tête]
 Chacun précise un élément de contexte.
 Certains influencent plus que d'autres la réponse du serveur, si
 celui-ci les comprend.
 
 Voyons maintenant la réponse :
+indexterm:[HTTP, réponse]
 
 .Exemple de réponse HTTP transmise en retour
 ----
@@ -144,6 +154,8 @@ include::../docs/tip-examples.adoc[]
 
 [[server]]
 === Démarrer un serveur{nbsp}HTTP
+indexterm:[application web, serveur HTTP]
+indexterm:[HTTP, démarrer un serveur]
 
 Nous l'avons dit : une requête HTTP envoyée vers un hôte reçoit une réponse.
 Cet hôte doit au préalable avoir installé et démarré un serveur HTTP qui
@@ -152,6 +164,7 @@ Cet hôte doit au préalable avoir installé et démarré un serveur HTTP qui
 Le script d'exemple `server/start.js` répond à ce besoin.
 Une fois démarré, il est joignable à l'adresse `{serverUrl}`.
 Il affichera alors les en-têtes des requêtes et de leurs réponses :
+indexterm:[module, http, http.createServer()]
 
 ----
 $ node server/start.js
@@ -165,12 +178,15 @@ include::{sourceDir}/server/start.js[]
 <1> Comme nous retournons du HTML au client, nous explicitons le type de contenu de la réponse.
 <2> Affiche les en-têtes de la requête reçue par le serveur – le contenu varie selon le client utilisé.
 <3> Affiche les en-têtes de la réponse – en l'occurrence `{ 'content-type': 'text/html' }`.
+indexterm:[HTTP, en-tête, Content-Type]
 
 Nous avons composé les fondations minimales pour créer une application web
 en mesure d'accepter des requêtes et de répondre quelque chose
 d'arbitraire certes mais compréhensible par un navigateur web.
 
 *Pourquoi avoir démarré le serveur sur le port{nbsp}4000* dans l'exemple précédent ?
+indexterm:[application web, port d'écoute]
+indexterm:[HTTP, port réseau]
 C'est un choix arbitraire de ma part : nous pouvons démarrer un serveur HTTP
 sur n'importe quel port tant qu'il est libre et supérieur ou égal à{nbsp}1000.
 Quand on cherche à se connecter à une adresse comme [URL]#http://localhost# (HTTP)
@@ -179,6 +195,7 @@ et{nbsp}443, respectivement.
 
 Le module{nbsp}``npm`` _get-port_ ([URL]#https://npmjs.com/get-port#) retourne
 un numéro de port parmi ceux disponibles sur le système d'exploitation.
+indexterm:[module npm, get-port]
 
 ----
 $ node server/port.js
@@ -211,10 +228,12 @@ par seconde, selon la popularité du service.
 
 [[path]]
 === Répondre à un chemin (routing)
+indexterm:[application web, chemin d'accès (routing)]
 
 Nous avons vu qu'une URL est un identifiant qui se décompose en plusieurs
 parties grâce au <<../chapter-04/index.adoc#url,module `url`>>
 (<<../chapter-04/index.adoc#,chapitre{nbsp}4>>).
+indexterm:[module, url]
 Une d'elles est le _chemin d'accès_ à une ressource. +
 Par exemple, le chemin de l'URL [URL]#{serverUrl}/coucou# est `/coucou`.
 
@@ -253,6 +272,9 @@ include::{sourceDir}/path/404.js[]
 
 La prise en compte d'une ressource inconnue de notre application fait émerger
 un nouveau concept : le _statut de la réponse_.
+indexterm:[HTTP, code de réponse]
+indexterm:[HTTP, code de réponse, 404]
+indexterm:[HTTP, code de réponse, 200]
 Ce statut est un code numérique qui donne des indications sur la ressource retournée.
 Dans ce cas de figure, le statut{nbsp}``404`` de la réponse indique au client de
 ne pas considérer le contenu comme celui qui était demandé. +
@@ -271,6 +293,9 @@ Par défaut et sauf mention contraire, le statut est{nbsp}``200``.
 | `404` | `Not Found`             | La ressource n'existe{nbsp}pas.
 | `500` | `Internal Server Error` | Le serveur distant est en erreur.
 |===
+indexterm:[HTTP, code de réponse, 3xx]
+indexterm:[HTTP, code de réponse, 4xx]
+indexterm:[HTTP, code de réponse, 5xx]
 
 Les statuts HTTP sont importants dans la création d'applications web.
 Leur code permet de vérifier que le client et le serveur se sont bien compris. +
@@ -287,15 +312,21 @@ l'impossibilité de deviner qu'il ne s'agit pas du contenu attendu.
 | `302` | `Found`               | La ressource demandée est temporairement disponible à une autre adresse.
 | `503` | `Service Unavailable` | Le serveur distant répond qu'il n'est pas disponible pour l'instant.
 |===
+indexterm:[HTTP, code de réponse, 2xx]
+indexterm:[HTTP, code de réponse, 3xx]
+indexterm:[HTTP, code de réponse, 5xx]
 
 Une application web devient vite compliquée à gérer si nous devons lister
 tous les chemins possibles.
 C'est à ce moment qu'entre en jeu le _routing_, une technique pour décrire
-des chemins d'accès au lieu de s'embourber dans une longue liste de `if/else`.
+des chemins d'accès au lieu de s'embourber dans une longue liste de `if ... else`.
+indexterm:[instruction, if ... else]
 
 Nous utilisons le module{nbsp}``npm`` _find-my-way_ ([URL]#https://npmjs.com/find-my-way#)
 pour transformer l'exemple `path/request-url.js`
 en quelque chose de plus modulaire :
+indexterm:[module npm, find-my-way]
+indexterm:[application web, chemin d'accès (routing)]
 
 ----
 $ node path/routes.js
@@ -326,6 +357,7 @@ include::{sourceDir}/path/route-params.js[]
 ----
 <1> Création d'une route paramétrée – le symbole `:word` est accessible dans le troisième argument, en tant que `params.word`.
 <2> Affiche une phrase composée avec le paramètre de notre route.
+indexterm:[application web, chemin d'accès (routing), symbole]
 
 Dirigez-vous vers [URL]#{serverUrl}/hello/word# pour voir le résultat s'afficher.
 Changez le dernier segment du chemin pour observer le changement.
@@ -334,10 +366,13 @@ Ce mécanisme est utile pour relier un identifiant à un enregistrement précis
 en base de données, par exemple.
 Il se complète avec les <<argument,arguments d'URL>> pour véhiculer des
 éléments optionnels – nous y reviendrons plus loin.
+indexterm:[application web, chemin d'accès (routing), argument]
+indexterm:[module, url, argument]
 
 [CAUTION]
 .[RemarquePreTitre]#Sécurité# Filtrer les données entrantes
 ====
+indexterm:[sécurité, url]
 C'est le moment de rappeler que *toute information saisie par l'utilisateur*
 doit être filtrée et nettoyée avant d'être utilisée.
 L'exemple `path/route-params.js` n'est pas sécurisé ; vous vous en rendrez
@@ -350,6 +385,7 @@ Nous verrons tous ces aspects plus en détail dans la section
 
 Enfin, les routeurs contextualisent les actions à effectuer vis-à-vis d'une
 ressource grâce au _verbe HTTP_.
+indexterm:[HTTP, verbe]
 Ce dernier communique une intention – récupération, mise à jour, suppression.
 Le routeur organise notre code pour déclencher une action adaptée
 à la méthode employée :
@@ -368,11 +404,16 @@ include::{sourceDir}/path/method.js[]
 <3> La méthode `response.writeHead` est un moyen de définir le statut en même temps que les en-têtes de réponse.
 <4> Définition d'un en-tête personnalisé – le préfixe `X-` indique qu'il n'est pas lié au standard{nbsp}HTTP.
 <5> Écriture du corps du message – nous verrons qu'il est ignoré et n'est pas transmis au client.
+indexterm:[HTTP, requête]
+indexterm:[HTTP, verbe, GET]
+indexterm:[HTTP, verbe, HEAD]
 
 Les navigateurs web affichent seulement notre route `GET` car c'est
 leur fonctionnement par défaut.
 Ils comprennent le verbe `POST` pour <<upload,téléverser des fichiers>> ou
 <<post,transmettre des formulaires>>. +
+indexterm:[HTTP, verbe, POST]
+indexterm:[curl]
 Tournons-nous à nouveau vers le programme `curl` pour observer les différences
 entre les réponses nos deux verbes HTTP `GET` et{nbsp}``HEAD`` :
 
@@ -404,12 +445,16 @@ sans avoir à télécharger le contenu – ce sont autant de kilo ou mégaoctets
 | `PATCH`   | Mise à jour partielle d'une ressource.
 | `DELETE`  | Demande de suppression d'une ressource.
 |===
+indexterm:[HTTP, verbe, DELETE]
+indexterm:[HTTP, verbe, PATCH]
+indexterm:[HTTP, verbe, PUT]
 
 La responsabilité de comprendre ces verbes revient à notre application.
 C'est donc à nous de leur associer une action pour les prendre en charge.
 
 [[static]]
 === Répondre avec des fichiers statiques
+indexterm:[application web, fichier statique]
 
 Les <<path,chemins d'accès>> s'associent aussi à des fichiers statiques.
 Ainsi, à une URL correspond un fichier placé sur notre disque dur.
@@ -438,15 +483,21 @@ include::{sourceDir}/static/stream.js[]
 ----
 <1> Nous constituons un chemin d'accès avec `path.join()` (<<../chapter-04/index.adoc#path,chapitre{nbsp}4>>, module{nbsp}``path``).
 <2> Nous créons un flux de lecture vers ce fichier (<<../chapter-04/index.adoc#stream,chapitre{nbsp}4>>, module `stream`) et nous le redirigeons vers la réponse.
+indexterm:[module, path, path.join()]
+indexterm:[module, stream]
+indexterm:[flux de données]
+indexterm:[module, fs, fs.createReadStream()]
 
 Ce que cet exemple nous apprend,
 c'est que l'*objet de réponse est aussi un flux d'écriture*.
+indexterm:[module, stream, stream.writeableStream]
 Peu importe le volume du fichier, l'envoi se régulera en fonction de la capacité
 de téléchargement du client et en consommant le minimum de mémoire possible.
 La lecture sera interrompue si le client annule le téléchargement.
 
 Nous pouvons à présent étendre ce savoir nouvellement acquis en
 <<path,routant un chemin d'accès>> vers le répertoire qui contient nos fichiers.
+indexterm:[application web, chemin d'accès (routing)]
 
 ----
 $ node static/routes.js
@@ -474,7 +525,7 @@ Date: Mon, 02 Jul 2018 15:47:33 GMT
 Connection: keep-alive
 ----
 <1> C'est pour exécuter cette commande que j'ai ajouté l'écoute de la méthode{nbsp}``HEAD``.
-
+indexterm:[HTTP, verbe, HEAD]
 En fait, nous gagnerions à documenter la ressource en transmettant
 des en-têtes supplémentaires.
 La question est : lesquels ?
@@ -482,6 +533,7 @@ La question est : lesquels ?
 [CAUTION]
 .[RemarquePreTitre]#Sécurité# Filtrer les données entrantes
 ====
+indexterm:[sécurité, chemin d'accès]
 *Toute information saisie par l'utilisateur* doit être filtrée et nettoyée avant
 d'être utilisée.
 L'exemple `static/routes.js` n'est pas sécurisé ; vous vous rendrez
@@ -497,6 +549,7 @@ Nous verrons tous ces aspects plus en détail dans la section
 Nous allons nous baser sur le module{nbsp}``npm`` _send_ ([URL]#https://npmjs.com/send#)
 pour améliorer l'exemple précédent et constater par nous-même quels
 en-têtes sont utiles.
+indexterm:[module npm, send]
 
 ----
 $ node static/send.js
@@ -530,6 +583,9 @@ Connection: keep-alive
 
 Parmi les en-têtes les plus importants, nous trouvons `Content-Type`,
 `Content-Length` et `Last-Modified`.
+indexterm:[HTTP, en-tête, Content-Type]
+indexterm:[HTTP, en-tête, Content-Length]
+indexterm:[HTTP, en-tête, Last-Modified]
 Ils aident le client à interpréter ou représenter le contenu de manière optimale,
 à informer de la taille du contenu (utile à l'animation de la barre de
 téléchargement du navigateur web) et à distinguer l'ancienneté du fichier.
@@ -546,10 +602,16 @@ téléchargement du navigateur web) et à distinguer l'ancienneté du fichier.
 | `Content-Encoding`    | Indique le mode de compression utilisé pour transmettre les données.
 | `Accept-Ranges`       | Indique la possibilité ou non de reprendre un téléchargement ou d'en choisir un segment avec l'en-tête de requête `Range`.
 |===
+indexterm:[HTTP, en-tête, Cache-Control]
+indexterm:[HTTP, en-tête, Cache-Disposition]
+indexterm:[HTTP, en-tête, Accept-Ranges]
 
 [TIP]
 .[RemarquePreTitre]#Performance# Utiliser Apache ou nginx en production
 ====
+indexterm:[nginx]
+indexterm:[Apache httpd]
+indexterm:[application web, fichier statique]
 Si Node s'en sort bien pour envoyer des fichiers vers le client,
 les serveurs web Apache et nginx sont encore plus performants à ce niveau.
 C'est quelque chose à considérer si votre application sert principalement
@@ -561,6 +623,8 @@ configurer Node derrière un autre serveur{nbsp}web.
 
 [[arguments]]
 === Réagir aux arguments{nbsp}d'URL
+indexterm:[module, url]
+indexterm:[application web, argument d'URL]
 
 Les arguments d'une URL servent à *affiner le contexte d'affichage* d'une
 ressource donnée.
@@ -591,6 +655,7 @@ Le <<../chapter-04/index.adoc#url,module `url`>>
 (<<../chapter-04/index.adoc#,chapitre{nbsp}4>>) entre en jeu.
 En plus de déstructurer une URL entière, il sait aussi décomposer les options
 et les transformer en un objet utilisable côté{nbsp}Node :
+indexterm:[module, url, url.parse()]
 
 ----
 $ node arguments/parse.js
@@ -601,7 +666,7 @@ $ node arguments/parse.js
 ----
 include::{sourceDir}/arguments/parse.js[]
 ----
-<1> Le deuxième argument de la fonction `url.parse` décompose les arguments, disponibles dans l'attribut `query` de l'objet retourné.
+<1> Le deuxième argument de la fonction `url.parse()` décompose les arguments, disponibles dans l'attribut `query` de l'objet retourné.
 <2> L'attribut `search` correspond aux arguments, sous forme textuelle.
 <3> L'attribut `query` est un objet – ici, transformé pour être affiché dans la page sous forme de texte.
 
@@ -621,7 +686,7 @@ include::{sourceDir}/arguments/format.js[]
 <1> Nous rentrons dans ce bloc en présence de l'argument d'URL `format=svg`.
 <2> L'en-tête `Content-Type` fait que le contenu est interprété (et affiché) comme du HTML – en retirant cette ligne, le document sera alors téléchargé.
 <3> Sinon, le reste du temps, nous affichons la date telle quelle, en tant que texte.
-
+indexterm:[HTTP, en-tête, Content-Type]
 Les deux URL [URL]#{serverUrl}/date?format=svg# et [URL]#{serverUrl}/date# font
 référence à une même ressource, mais l'affichage s'adapte au contexte.
 
@@ -637,6 +702,7 @@ référence à une même ressource, mais l'affichage s'adapte au contexte.
 [TIP]
 .[RemarquePreTitre]#Performance# Module npm parseurl
 ====
+indexterm:[module npm, parseurl]
 Si vous êtes à la recherche de performance, le module{nbsp}``npm`` _parseurl_
 ([URL]#https://npmjs.com/parseurl#) retourne les mêmes résultats
 tout en étant jusqu'à 10{nbsp}fois plus rapide que le module natif de{nbsp}Node.
@@ -644,6 +710,10 @@ tout en étant jusqu'à 10{nbsp}fois plus rapide que le module natif de{nbsp}Nod
 
 [[post]]
 === Recevoir des données de formulaire{nbsp}(POST)
+indexterm:[application web, formulaire]
+indexterm:[HTTP, verbe, POST]
+indexterm:[HTTP, verbe, PUT]
+indexterm:[HTTP, verbe, PATCH]
 
 Lorsque nous ne précisons pas la méthode employée, les outils et logiciels
 utilisent par défaut la méthode{nbsp}``GET``.
@@ -664,6 +734,7 @@ $ node post/server.js
 
 La commande `curl` règle le nom et la valeur d'un champ de formulaire
 avec l'option{nbsp}``-d``.
+indexterm:[curl]
 Nous pouvons ainsi transmettre des données avec la méthode `POST` à notre
 serveur :
 
@@ -690,6 +761,7 @@ btn:[Transmettre], les mêmes informations qu'avec la commande `curl` s'affichen
 Il se trouve que Node aussi sait envoyer des informations de formulaire
 avec le <<../chapter-04/index.adoc#http,module `http`>>
 (<<../chapter-04/index.adoc#,chapitre{nbsp}4>>).
+indexterm:[module, http]
 
 ----
 $ node post/send.js
@@ -707,7 +779,9 @@ include::{sourceDir}/post/send.js[]
 
 Nous retrouvons l'en-tête `Content-Type` dans l'affichage du script `post/server.js`.
 Le contenu du message envoyé ressemble beaucoup à des arguments d'URL
-encodés avec <<encode-uri,encodeURIComponent>>.
+encodés avec <<encode-uri,encodeURIComponent()>>.
+indexterm:[encodeURIComponent()]
+indexterm:[application web, formulaire, encodage]
 
 .Extrait d'affichage d'un message reçu par `post/server.js`
 ----
@@ -719,11 +793,13 @@ Comme dans les sections précédentes, nous devons _décoder_ une chaîne de
 caractères pour en extraire sa signification et en faire quelque chose
 en ECMAScript.
 
-Nous pourrions utiliser la fonction `parse` du module Node `querystring`
+Nous pourrions utiliser la fonction `parse()` du module Node `querystring`
 pour décoder le contenu de cette chaîne, mais nous allons plutôt faire appel
 au module{nbsp}``npm`` _co-body_ ([URL]#https://npmjs.com/co-body#).
+indexterm:[module npm, co-body]
 Ce module décode plusieurs types de requêtes `POST`, illustrés dans d'autres
 exemples de cette même section.
+indexterm:[HTTP, verbe, POST]
 
 ----
 $ node post/server-parse.js
@@ -744,8 +820,11 @@ d'un formulaire.
 
 Le fichier `post/send.js` se simplifie si on utilise le module{nbsp}``npm`` _superagent_
 ([URL]#https://npmjs.com/superagent#).
+indexterm:[module npm, superagent]
 Je le trouve simple d'utilisation et il fonctionne avec des promesses,
 des formulaires et les <<upload,téléversements de fichiers>>.
+indexterm:[application web, téléversement de fichier (upload)]
+indexterm:[application web, formulaire, pièce-jointe]
 
 ----
 $ node post/send-data.js
@@ -763,6 +842,7 @@ include::{sourceDir}/post/send-data.js[]
 formulaire sans pièce{nbsp}jointe.
 Notre serveur est même prêt à recevoir des données transmises en dehors d'un
 formulaire, au format{nbsp}JSON :
+indexterm:[JSON]
 
 ----
 $ node post/send-json.js
@@ -777,12 +857,15 @@ include::{sourceDir}/post/send-json.js[]
 
 Nous constatons que la valeur de l'en-tête `Content-Type` change pour devenir
 `application/json`.
+indexterm:[HTTP, en-tête, Content-Type]
 Là aussi, le module _co-body_ nous est utile, car il s'adapte au type des données
 entrantes et les décode de manière transparente.
 
 Il existe un dernier type d'encodage de données que nous pouvons nous
 attendre à recevoir.
 Ce sont les formulaires dits _multipart_.
+indexterm:[application web, formulaire, encodage multipart]
+indexterm:[application web, formulaire, pièce-jointe]
 
 ----
 $ node post/send-multipart.js
@@ -794,6 +877,7 @@ $ node post/send-multipart.js
 include::{sourceDir}/post/send-multipart.js[]
 ----
 <1> Le module _superagent_ utilise la méthode `field()` pour définir la valeur d'un champ _multipart_.
+indexterm:[module npm, superagent]
 
 Le serveur va pourtant afficher une erreur du type :
 
@@ -808,6 +892,8 @@ pour gérer le <<upload,téléversement de fichiers>>.
 
 [[upload]]
 === Téléverser des fichiers
+indexterm:[application web, téléversement de fichier (upload)]
+indexterm:[application web, formulaire, pièce-jointe]
 
 Le téléversement de fichier implique un peu plus de travail qu'un <<post,simple formulaire>>
 car la structure des données envoyées diffère mais aussi, surtout,
@@ -828,6 +914,7 @@ include::{sourceDir}/upload/server.js[]
 
 Ce serveur affiche le contenu d'une requête entrante.
 La requête suivante illustre le téléversement d'un fichier avec le programme `curl`.
+indexterm:[curl]
 Notez que, cette fois-ci, nous utilisons l'option{nbsp}``-F`` et que la valeur
 est préfixée avec le caractère{nbsp}``@``, suivi du chemin d'accès au fichier en question.
 
@@ -874,6 +961,7 @@ Hello World
 [TIP]
 .[RemarquePreTitre]#Pratique# Courriels et pièces{nbsp}jointes
 ====
+indexterm:[application web, envoyer un email]
 Les courriels utilisent aussi l'encodage `multipart/form-data` pour joindre
 des fichiers à un message.
 Si vous savez encoder ou décoder des fichiers pour le{nbsp}Web, vous savez scripter
@@ -885,6 +973,7 @@ nous-même interpréter un contenu de requête qui contient des pièces{nbsp}joi
 C'est suffisamment compliqué à programmer de manière robuste pour que le module
 _co-body_ vu dans la <<post,section précédente>> ne s'en charge pas et recommande
 le module _formidable_ ([URL]#https://npmjs.com/formidable#).
+indexterm:[module npm, formidable]
 C'est exactement ce que nous allons faire pour outiller un nouveau serveur.
 
 ----
@@ -908,10 +997,12 @@ Le <<../chapter-04/index.adoc#fs,module{nbsp}``fs``>> (<<../chapter-04/index.ado
 propose le nécessaire pour déplacer le fichier ailleurs sur le système ou
 pour en lire le contenu et le stocker ailleurs – sur un service de stockage distant
 (Amazon{nbsp}S3, par exemple).
+indexterm:[module, fs]
 
 [CAUTION]
 .[RemarquePreTitre]#Sécurité# Un fichier texte n'a de texte que le nom
 ====
+indexterm:[sécurité, type de fichier]
 Comme pour toute donnée transmise par un utilisateur ou une utilisatrice,
 nous devons rester vigilant·e sur le contenu des fichiers pour
 éviter des attaques mal intentionnées.
@@ -930,12 +1021,14 @@ pour retirer tout balisage HTML (voir section "`<<security,Protéger son applica
 - S'il s'agit d'un *fichier binaire* (image, vidéo, PDF) : utiliser un antivirus
 en ligne de commande pour scanner le contenu – _ClamAV_ ([URL]#https://www.clamav.net#)
 est un excellent antivirus open source.
+indexterm:[sécurité, anti-virus]
 
 Ces opérations risquent de prendre du temps – de quelques secondes à plusieurs
 minutes dans le cas de fichiers volumineux.
 Au lieu de faire attendre l'utilisateur devant son écran, je recommande
 de faire appel à un <<job-queue,mécanisme de file d'attente>> pour traiter
 l'effort indépendamment, en fonction des capacités de calcul disponibles.
+indexterm:[application web, traitement asynchrone (file d'attente)]
 
 Enfin, quand vous avez fini d'utiliser la pièce{nbsp}jointe – ou si vous ne l'utilisez pas –
 pensez aussi à la *supprimer du répertoire temporaire*.
@@ -944,6 +1037,7 @@ Le disque dur du serveur pourrait manquer d'espace si plusieurs fichiers volumin
 
 [[cookies]]
 === Garder un lien avec les cookies
+indexterm:[application web, cookie]
 
 Un cookie est une information partagée entre un client et un serveur pour
 une durée limitée dans le temps.
@@ -964,7 +1058,8 @@ $ node cookies/set-cookie.js
 ----
 include::{sourceDir}/cookies/set-cookie.js[]
 ----
-<1> L'en-tête de réponse `Set-Header` crée/modifie la valeur d'un cookie chez le client – ici, le cookie `compteur` est créé avec la valeur{nbsp}``1``.
+<1> L'en-tête de réponse `Set-Cookie` crée/modifie la valeur d'un cookie chez le client – ici, le cookie `compteur` est créé avec la valeur{nbsp}``1``.
+indexterm:[HTTP, en-tête, Set-Cookie]
 
 Nous pouvons observer la création du cookie en nous rendant sur [URL]#{serverUrl}#
 avec un navigateur, puis en ouvrant les outils de développement.
@@ -985,6 +1080,8 @@ include::{sourceDir}/cookies/read.js[]
 ----
 <1> Les cookies se lisent en inspectant l'en-tête de requête `Cookie`.
 <2> Affiche `Contenu : compteur=1`.
+intexterm:[HTTP, en-tête, Cookie]
+intexterm:[application web, cookie]
 
 Nous avons récupéré la valeur de l'en-tête contenant le cookie.
 Nous devons faire un effort supplémentaire pour transformer cette valeur textuelle
@@ -992,9 +1089,11 @@ en une structure ECMAScript qui fait sens pour notre application.
 
 Nous allons nous aider pour cela du module{nbsp}``npm`` _cookie_
 ([URL]#https://npmjs.com/cookie#).
+indexterm:[module npm, cookie]
 Il sait interpréter le contenu d'un en-tête HTTP et il sait également faire
 l'inverse, transformer une structure ECMAScript vers du texte utilisable
 dans l'en-tête de réponse `Set-Cookie`.
+indexterm:[HTTP, en-tête, Set-Cookie]
 
 ----
 $ node cookies/parse.js
@@ -1007,9 +1106,12 @@ include::{sourceDir}/cookies/parse.js[]
 ----
 <1> Nous passons l'intégralité de l'en-tête de requête `Cookie` à la fonction `cookie.parse`.
 <2> Affiche `{"compteur":"1"}`.
+indexterm:[HTTP, en-tête, Cookie]
+indexterm:[application web, cookie]
 
 La méthode `response.setHeader()` accepte un tableau pour créer plusieurs
 cookies en même temps :
+indexterm:[module, http, IncomingResponse]
 
 ----
 $ node cookies/set-multiple.js
@@ -1023,7 +1125,7 @@ include::{sourceDir}/cookies/set-multiple.js[]
 <1> Nous créons plusieurs cookies en passant un tableau de valeurs à la méthode `response.setHeader()`.
 <2> Crée un cookie dont la durée est limitée à 9{nbsp}millions de secondes (~104{nbsp}jours).
 <3> Crée un cookie visible pour le chemin d'accès `/path` (et les sous-chemins) – la deuxième directive empêche les scripts clients d'en lire ou modifier la valeur.
-<4> L'utilisation de `cookie.serialize` est une autre manière de créer des cookies en construisant un objet ECMAScript au lieu d'une chaîne de caractères.
+<4> L'utilisation de `cookie.serialize()` est une autre manière de créer des cookies en construisant un objet ECMAScript au lieu d'une chaîne de caractères.
 <5> La ligne précédente équivaut à l'écriture de cette ligne.
 
 Cet exemple est aussi l'occasion de compléter les cookies avec
@@ -1051,19 +1153,25 @@ Si cette valeur n'est pas précisée, le cookie est supprimé à la fin de la se
 | `Secure` | Le cookie est envoyé seulement si le document est demandé via{nbsp}HTTPS.
 | `HttpOnly` | Le cookie ne peut pas être lu ou modifié côté client, via la variable `document.cookie`.
 |===
+indexterm:[HTTP, en-tête, Set-Cookie]
+indexterm:[HTTP, en-tête, Cookie]
+indexterm:[application web, cookie]
 
 Nous savons maintenant garder le lien avec nos utilisateurs.
 Nous utiliserons d'ailleurs les cookies pour <<sessions,maintenir une session>>
 avec un framework{nbsp}web.
+indexterm:[application web, session utilisateur]
 
 [[templating]]
 === Structurer l'affichage avec les gabarits de présentation
+indexterm:[application web, gabarit de présentation (template)]
 
 Les gabarits de présentation (ou _templates_) répondent à deux problèmes :
 séparer le code applicatif (le fond) de la présentation (la forme) et aussi
 structurer la complexité visuelle avec des composants réutilisables.
 
 Nous allons nous pencher sur le module _nunjucks_ ([URL]#https://npmjs.com/nunjucks#).
+indexterm:[module npm, nunjucks]
 Je l'apprécie pour son élégance et pour son caractère extensible.
 Il existe d'<<templating-engines,autres modules de présentation>> bien sûr
 et je vous invite à choisir celui qui vous parle le plus,
@@ -1169,6 +1277,12 @@ votre application{nbsp}Node.
 | pug         | [URL]#https://npmjs.com/pug#        | Écriture très concise des balises avec un système d'indentation.
 | react       | [URL]#https://npmjs.com/react#      | Pour réutiliser les mêmes composants que le _front-end_.
 |===
+indexterm:[application web, gabarit de présentation (template), liste de syntaxe]
+indexterm:[module npm, ejs]
+indexterm:[module npm, handlebars]
+indexterm:[module npm, nunjucks]
+indexterm:[module npm, pug]
+indexterm:[module npm, react]
 
 Nous détaillons des <<../appendix-a/index.adoc#templating,exemples de rendu de gabarit>>
 en <<../appendix-a/index.adoc#,annexe{nbsp}A>>.
@@ -1176,6 +1290,7 @@ en <<../appendix-a/index.adoc#,annexe{nbsp}A>>.
 
 [[dev]]
 === Pendant le développement : relancer le serveur automatiquement
+indexterm:[application web, pratique de développement]
 
 Vous avez modifié un des exemples de ce chapitre pendant qu'il était en
 cours d'exécution et vous avez remarqué que résultat ne changeait pas ?
@@ -1188,6 +1303,7 @@ c'est-à-dire après avoir stoppé et lancé à nouveau le script.
 Le module{nbsp}``npm`` exécutable _nodemon_ ([URL]#https://npmjs.com/nodemon#)
 relance automatiquement une commande dès qu'il détecte un changement
 dans le répertoire courant.
+indexterm:[module npm, nodemon]
 
 ----
 $ nodemon cookies/parse.js
@@ -1217,6 +1333,8 @@ $ nodemon --ext js,css,html cookies/parse.js
 [NOTE]
 .[RemarquePreTitre]#Question# Installation globale ou installation locale ?
 ====
+indexterm:[npm, install]
+indexterm:[npm, install --global]
 Vous n'êtes pas sûr·e de la meilleure manière d'installer et d'utiliser
 le module _nodemon_ ?
 Je vous invite à relire la section
@@ -1227,6 +1345,9 @@ du <<../chapter-05/index.adoc#,chapitre{nbsp}5>> consacré à{nbsp}``npm``.
 
 [[express]]
 == Organiser une application avec le framework Express
+indexterm:[application web, framework express]
+indexterm:[application web, framework de développement]
+indexterm:[module npm, express]
 
 La section précédente a détaillé un ensemble de fonctionnalités individuelles
 qui permettent à la fois de mieux comprendre comment fonctionne HTTP, mais aussi
@@ -1243,18 +1364,25 @@ C'est un outil flexible et bien documenté, un choix de prédilection pour comme
 Vous pouvez vous en tenir à ce framework ou bien évoluer ou compléter son utilisation
 avec _fastify_ (plus récent et plus rapide), _restify_ (orienté <<api,API{nbsp}REST>>),
 _koa_ (asynchrone et plus rapide) ou encore _hapi_ (plus structuré et plus complexe).
+indexterm:[module npm, fastify]
+indexterm:[module npm, restify]
+indexterm:[module npm, koa]
+indexterm:[module npm, hapi]
 
 J'ai une préférence pour les outils qui ne font pas trop de choix à notre place,
 bien documentés et, si possible, qui travaillent autour du
 <<../chapter-04/index.adoc#http,module{nbsp}``http``>> – cela conserve une certaine
 clarté autour des concepts que nous manipulons.
+indexterm:[module, http]
 
 [[setup]]
 === Configuration du framework
+indexterm:[application web, framework express, configuration]
 
 La configuration initiale d'_Express_ définit un serveur{nbsp}HTTP – à la manière
 de ce que nous faisions avec `http.createServer()` – et retourne
 un <<paths,routeur>> pour attacher des comportements à des chemins d'accès.
+indexterm:[module, http, http.createServer()]
 
 ----
 $ node framework/setup.js
@@ -1273,10 +1401,15 @@ include::{sourceDir}/framework/setup.js[]
 C'est vraiment très proche de ce que nous avons déjà appris
 à faire dans les sections "`<<server,Démarrer un serveur HTTP>>`" et
 "`<<paths,Répondre à un chemin>>`".
+indexterm:[application web, serveur HTTP]
+indexterm:[application web, chemin d'accès (routing)]
+indexterm:[HTTP, démarrer un serveur]
 
 [NOTE]
 .[RemarquePreTitre]#Documentation# Quelles méthodes et pour quoi faire ?
 ====
+indexterm:[documentation, framework express]
+indexterm:[application web, framework express, documentation]
 La documentation d'Express est le meilleur endroit pour savoir quoi faire
 avec les différents objets du module.
 Sa lecture vous aidera à mieux suivre cette section car vous comprendrez
@@ -1291,12 +1424,17 @@ d'où sortent les méthodes utilisées.
 
 [[middleware]]
 === Greffer des extensions (middlewares)
+indexterm:[application web, framework express, middleware]
+indexterm:[application web, framework express, extension]
+indexterm:[application web, modularité]
 
 Un des premiers éléments différenciant est le *branchement d'extensions*.
 Une fois configurées, ces extensions s'appliquent à chaque requête entrante.
 Elles ajoutent des capacités de compréhension de la requête
 (<<post,parser des données de formulaire>> par exemple), de modifier la réponse
 ou de <<views,connecter des gabarits de présentation>>.
+indexterm:[application, formulaire]
+indexterm:[application, gabarit de présentation (templating)]
 
 Chaque couche de transformation est appelée un middleware – une fonction
 intermédiaire entre la requête et la réponse.
@@ -1324,6 +1462,10 @@ ni à un chemin d'accès.
 Dans l'exemple suivant, nous allons connecter plusieurs middlewares grâce
 aux modules{nbsp}``npm`` _helmet_ ([URL]#https://npmjs.com/helmet#) et _serve-static_
 ([URL]#https://npmjs.com/serve-static#).
+indexterm:[application web, sécurité]
+indexterm:[sécurité, en-tête HTTP]
+indexterm:[module npm, helmet]
+indexterm:[module npm, serve-static]
 Ce dernier est une version embarquée de <<static,serve>> par le module _Express_.
 
 ----
@@ -1365,6 +1507,7 @@ Connection: keep-alive
 Le module _helmet_ agit seulement sur les en-têtes de réponse.
 Nous verrons dans la section "`<<security,Protéger nos applications>>`" quels
 en-têtes sont essentiels à la sécurité et pourquoi.
+indexterm:[module npm, helmet]
 
 Enfin, notons une méthode alternative pour appliquer un middleware : au niveau
 d'une route, au lieu de toutes les routes – avec `app.use()`.
@@ -1391,6 +1534,8 @@ Cette dernière n'ayant pas reçu le middleware `pokéMiddleware`, sa variable
 
 [[views]]
 === Brancher les gabarits de présentation
+indexterm:[application web, framework express, gabarit de présentation]
+indexterm:[application web, gabarit de présentation (template)]
 
 La configuration des gabarits de présentation n'est pas très différente
 de ce que nous avons vu dans la section <<templating,qui leur est consacrée>>.
@@ -1410,6 +1555,7 @@ include::{sourceDir}/framework/templating.js[]
 
 Nous avons de la chance car _nunjucks_ prend en charge toute la configuration
 d'_Express_ pour nous.
+indexterm:[module npm, nunjucks]
 La seule différence avec les précédents exemples est l'utilisation de la
 méthode `response.render()`.
 Le premier effet que cela me fait est une sensation de légèreté – nous avons
@@ -1443,6 +1589,7 @@ présentation de la configuration du routeur.
 [TIP]
 .[RemarquePreTitre]#Pratique# Un module pour les présenter tous
 ====
+indexterm:[module npm, consolidate]
 Le module{nbsp}``npm`` _consolidate_ ([URL]#https://npmjs.com/consolidate#)
 gomme les différences de configuration pour plusieurs dizaines de moteurs
 de gabarit.
@@ -1453,6 +1600,9 @@ moteur de gabarits favori.
 
 [[frontend]]
 === Intégrer les ressources front-end (CSS, images, JavaScript)
+indexterm:[application web, ressource front-end]
+indexterm:[Sass]
+indexterm:[CSS]
 
 La gestion des ressources _front-end_ ne demande pas à changer nos habitudes.
 Les fichiers CSS, JavaScript et les images sont des fichiers statiques
@@ -1479,6 +1629,8 @@ des fichiers compilés.
 
 Dans le <<../chapter-05/index.adoc#,chapitre{nbsp}5>>, j'explique comment
 <<../chapter-05/index.adoc#run-all,automatiser l'outillage projet>>.
+indexterm:[npm, run]
+indexterm:[package.json, script npm]
 Ces connaissances s'appliquent dans notre cas de figure, sans distinction. +
 L'extrait suivant de fichier `package.json` illustre l'organisation
 des scripts pour démarrer le site en temps normal, pour générer les fichiers
@@ -1560,6 +1712,8 @@ En clair, c'est pratique pour dépanner et pour démarrer.
 
 [[database]]
 === Brancher une base de données
+indexterm:[base de données]
+indexterm:[application web, base de données (voir base de données)]
 
 L'utilisation d'une base de données sert à mémoriser des informations entre
 deux redémarrages de notre application – sinon, ce qui est en mémoire
@@ -1590,6 +1744,7 @@ afin d'en extraire un ou plusieurs résultat(s).
 [CAUTION]
 .[RemarquePreTitre]#Sécurité# Systématiser les emplacements de paramètre
 ====
+indexterm:[base de donnée, paramètre d'accès]
 L'utilisation des _emplacements de paramètre_ dans les requêtes SQL avec
 le caractère{nbsp}``?`` renforce la sécurité de notre application.
 
@@ -1602,6 +1757,8 @@ le fichier de démarrage le plus fin possible.
 
 [[sessions]]
 === Sessions utilisateurs
+indexterm:[application web, session utilisateur]
+indexterm:[application web, cookie]
 
 Nous avons appris à mémoriser des données et à les partager avec un serveur
 grâce au mécanisme des <<cookies,cookies>>.
@@ -1619,6 +1776,8 @@ Tout stockage qui serait permanent relève des _préférences utilisateur_.
 
 L'extension _express-session_ ([URL]#https://npmjs.com/express-session#)
 se charge de ce travail pour nous.
+indexterm:[module npm, express-session]
+indexterm:[application web, framework express]
 Il ajoute un élément `request.session` qu'il mémorise et récupère à partir
 d'un identifiant de session difficile à deviner.
 
@@ -1667,6 +1826,8 @@ Fort heureusement pour nous, ces données se stockent avec la
 Nous allons utiliser le moteur de base de données _SQLite_
 à l'aide du module _connect-sqlite3_ ([URL]#https://npmjs.com/connect-sqlite3#)
 pour illustrer la persistance des données de session.
+indexterm:[base de donnée, SQLite]
+indexterm:[module npm, connect-sqlite3]
 
 ----
 $ node framework/session-database.js
@@ -1687,6 +1848,7 @@ La persistance a fonctionné !
 
 [[logs]]
 === Tracer les actions{nbsp}(logs)
+indexterm:[application web, journalisation (logging)]
 
 Consigner les actions (_logging_ en anglais) est une pratique courante
 en informatique pour créer une mémoire de l'activité d'une application.
@@ -1724,6 +1886,10 @@ Les modules{nbsp}``npm`` pour consigner nos actions fonctionnent comme des
 `console.log()` finement configurables : _winston_ ([URL]#https://npmjs.com/winston#),
 _morgan_ ([URL]#https://npmjs.com/morgan#) et _bunyan_ ([URL]#https://npmjs.com/bunyan#)
 sont à essayer, pour voir celui qui vous convient le mieux.
+indexterm:[module npm, morgan]
+indexterm:[module npm, bunyan]
+indexterm:[module npm, winston]
+indexterm:[Heroku, journalisation]
 
 .Extrait de logs retournés par une application hébergée chez Heroku
 image::images/heroku-logs.png[]
@@ -1739,6 +1905,7 @@ dans les journaux.
 
 [[modularity]]
 == Vers un code réutilisable et testable
+indexterm:[application web, modularité]
 
 L'intention de cette section est de consolider les différents concepts
 évoqués au cours de ce chapitre.
@@ -1753,6 +1920,8 @@ et préparer au mieux les données passées à nos gabarits pour faciliter
 l'écriture de tests et favoriser l'automatisation du déploiement.
 
 === Modulariser le code des routes
+indexterm:[application web, modularité]
+indexterm:[application web, chemin d'accès (routing)]
 
 Le défi de lisibilité et de maintenance augmente au fur et à mesure que
 le volume de code augmente.
@@ -1767,6 +1936,8 @@ Nous ouvrons la porte à l'écriture de <<tests.unit,tests unitaires>>, à un
 déplacement plus aisé du code et à une quasi-disparition des variables globales.
 Nous en profitons pour rendre nos intentions explicites, ce à quoi nous obligent
 les réflexions de nommage de fichiers et de fonctions.
+indexterm:[npm, test]
+indexterm:[application web, test]
 
 ----
 $ node modularity/01/server.js
@@ -1786,6 +1957,7 @@ Nous connectons ensuite ces fonctions aux chemins d'accès du routeur.
 
 Profitons du mécanisme de promesses pour que tout autre module
 puisse réagir à l'aboutissement de la connexion :
+indexterm:[base de donnée, connexion]
 
 [source,javascript]
 .modularity/01/src/database.js
@@ -1857,6 +2029,7 @@ include::{sourceDir}/modularity/02/server.js[]
 La grande différence ici est l'invocation d'une fonction pour définir la route.
 C'est le moyen le plus propre pour transmettre une variable en enlevant la
 dépendance au module `database.js` dans le script `books.js` :
+indexterm:[base de données]
 
 
 [source,javascript]
@@ -1873,6 +2046,7 @@ Notre module est autonome tant qu'il reçoit un objet de base de données en
 paramètres.
 Cela le rend nettement plus lisible – le code est désormais uniquement lié
 à la réception d'une requête HTTP et à l'établissement d'une réponse.
+indexterm:[application web, serveur HTTP]
 
 [source,javascript]
 .modularity/02/configure.js
@@ -1897,6 +2071,7 @@ de l'application web, par ordre de criticité.
 
 [[tests.unit]]
 === Un code testable est un code indépendant du framework
+indexterm:[application web, test]
 
 L'écriture de tests unitaires est influencée par et influence l'organisation
 de notre code en unités réutilisables.
@@ -1949,6 +2124,8 @@ sur le serveur de production.
 
 Pour ce faire, commençons par simplifier le fichier `src/database.js` en
 supprimant tout chemin d'accès écrit en{nbsp}dur :
+indexterm:[base de données, test]
+indexterm:[base de données, automatisation]
 
 [source,javascript]
 .testing/src/database.js
@@ -1990,6 +2167,7 @@ Elles se greffent à du code existant pour observer ses réactions, voire pour l
 remplacer temporairement, le temps des tests.
 J'ai l'habitude d'utiliser le module{nbsp}``npm`` _sinon.js_ ([URL]#https://npmjs.com/sinon#,
 [URL]#https://sinonjs.org/#).
+indexterm:[module npm, sinon.js]
 Il propose tout le nécessaire, est bien documenté et fonctionne aussi bien
 côté Node que côté navigateurs{nbsp}web.
 
@@ -2030,6 +2208,7 @@ exemple ne s'y prête{nbsp}pas.
 C'est la raison d'être des fichiers dits de _fixtures_.
 Ces données peuplent une base de données d'enregistrements suffisamment
 réalistes pour illustrer les différents cas de figure de notre application.
+indexterm:[base de données, fixture]
 
 [source,javascript]
 .testing/tests/fixtures.js
@@ -2039,12 +2218,16 @@ include::{sourceDir}/testing/tests/fixtures.js[]
 
 Ce cas est particulièrement adapté à la syntaxe
 <<../chapter-03/index.adoc#async-await,`async`/`await`>>.
+indexterm:[promesse, async et await]
+indexterm:[opérateur, await]
+indexterm:[opérateur, await]
 Ces promesses sont séquentielles et la syntaxe linéarise leur lecture.
 Le même exemple sans `async`/`await` et juste avec les promesses est moins
 digeste à{nbsp}lire.
 
 Il ne nous reste plus qu'à appeler cette fonction de génération de données
 depuis notre script de tests :
+indexterm:[module npm, sinon.js]
 
 [source,javascript]
 .testing/tests/with-sinon-data.js
@@ -2098,6 +2281,8 @@ J'utilise le module{nbsp}``npm`` _mocha_ ([URL]#https://npmjs.com/mocha#,
 [URL]#https://mochajs.org#), par habitude, parce qu'il ne demande aucune
 configuration et parce qu'il fait le travail à la fois côté Node et côté
 navigateurs.
+indexterm:[module npm, mocha]
+indexterm:[application web, test]
 
 ----
 $ ../node_modules/.bin/mocha testing/tests/with-mocha.js
@@ -2180,6 +2365,9 @@ si leur exécution est réussie.
 
 [[deployment]]
 === Déployer automatiquement
+indexterm:[déploiement, intégration continue]
+indexterm:[application web, intégration continue (voir déploiement)]
+indexterm:[application web, test]
 
 Cette section continue à ajouter de l'automatisation
 dans notre manière de fonctionner.
@@ -2213,6 +2401,7 @@ avec des recettes de déploiement ou par le biais de notre service d'hébergemen
 
 [[advanced.server]]
 === Pourquoi lancer un serveur ?
+indexterm:[application web, serveur HTTP]
 
 Il y a des environnements où des logiciels comme Apache et Nginx intègrent
 notre langage de programmation avec des modules : par exemple, PHP avec le `mod_php`
@@ -2245,6 +2434,7 @@ côté client.
 
 [[http]]
 === Comprendre le modèle{nbsp}HTTP
+indexterm:[HTTP, modèle de fonctionnement]
 
 Deux éléments ressortent du modèle de fonctionnement du protocole HTTP :
 *tout est du texte* (en-têtes et contenu) et *chaque requête est indépendante*.
@@ -2253,6 +2443,10 @@ informations nécessaires à sa compréhension.
 
 Que se passe-t-il lorsque notre navigateur web ou le programme `curl`
 demande à accéder à [URL]#http://example.com# ?
+indexterm:[DNS]
+indexterm:[HTTP, connexion entrante]
+indexterm:[HTTP, requête]
+indexterm:[HTTP, réponse]
 
 . *Résolution de DNS* : un des annuaires DNS est interrogé pour savoir quelle
 adresse{nbsp}IP est associée au nom de domaine.
@@ -2268,6 +2462,8 @@ s'adapte au mieux à notre demande.
 . *Interprétation de la réponse* : l'en-tête `Content-Type` aide le client à déterminer
 comment afficher les informations - XML, HTML, JSON, CSS, vidéo etc – et si
 le document contient d'autres ressources à aller récupérer.
+indexterm:[HTTP, en-tête, Content-Type]
+indexterm:[curl]
 
 Dans le cas du programme `curl`, la réponse est affichée telle quelle, en texte.
 
@@ -2298,6 +2494,7 @@ Le module{nbsp}``npm`` _jshttp_ ([URL]#https://github.com/jshttp#) affiche les e
 de réponse comme le programme `curl` le ferait et détaille le parcours réseau,
 de la résolution du nom de domaine jusqu'au temps passé à négocier une transaction
 sécurisée.
+indexterm:[module npm, jshttp]
 Nous comprenons ainsi mieux des temps qui sont rendus invisibles et sur lesquels nous
 pouvons faire des efforts – réduire les temps de transfert ou le temps de réponse
 de notre application par exemple.
@@ -2308,12 +2505,16 @@ image::images/httpstat.png[]
 
 [[database-choice]]
 === Quel(s) moteur(s) de base(s) de données choisir ?
+indexterm:[base de données, liste de moteurs]
 
 Quand je codais en PHP, nous parlions beaucoup de la pile technique _LAMP_
 (Linux, Apache, MySQL et{nbsp}PHP).
 C'était la combinaison _de{nbsp}facto_ des différents projets.
 MySQL était la base de données de choix tandis que les Pythonistes et Rubyistes
 se focalisaient plutôt sur PostgreSQL.
+indexterm:[base de données, MySQL]
+indexterm:[base de données, PostgreSQL]
+indexterm:[base de données, MongoDB]
 
 J'ai croisé beaucoup de développeurs et développeuses qui se lançaient dans
 les bases de données dites "`documents`" comme MongoDB
@@ -2336,18 +2537,25 @@ la rapidité de lecture, l'intégrité des données, la volumétrie acceptée av
 de devoir distribuer les données sur plusieurs machines et enfin,
 des fonctionnalités spéciales (recherche géographique, type de champ particulier
 comme le champ{nbsp}JSON de PostgreSQL).
+indexterm:[base de données, stockage en mémoire]
+indexterm:[base de données, stockage sur disque]
+indexterm:[base de données, stockage en ligne]
+indexterm:[déploiement, service en ligne]
 
 Stockage fichier::
   Nous pourrions tout à fait décider d'utiliser un fichier{nbsp}JSON ou CSV pour
   lire et écrire des données.
   C'est facile à mettre en œuvre, mais c'est la solution la plus lente à tout
   point de vue : recherche comme écriture.
+  indexterm:[JSON]
 Stockage en mémoire::
   Redis et Memcached sont des gestionnaires très rapides en lecture et en écriture.
   C'est idéal pour accéder fréquemment aux données et les modifier, avant
   de les sauvegarder sur un stockage moins rapide mais plus sûr.
   Ils sont généralement dits "`clé/valeur`" car nous cherchons un identifiant
   donné pour récupérer un, voire plusieurs champ(s) associé(s).
+  indexterm:[base de données, Redis]
+  indexterm:[base de données, Memcached]
 Stockage sur disque::
   MySQL, MSSQL, PostgreSQL et MongoDB stockent leurs données sur disque,
   dans des fichiers optimisés pour la recherche d'informations – les _index_.
@@ -2358,6 +2566,11 @@ Stockage sur disque::
   En pratique, nous typons ou structurons les données d'une manière ou d'une autre,
   a{nbsp}minima pour les manipuler de manière cohérente dans notre code.
   Certaines bases SQL ont un type de champ{nbsp}JSON, en structure libre.
+  indexterm:[base de données, SQLite]
+  indexterm:[base de données, PostgreSQL]
+  indexterm:[base de données, MSSQL]
+  indexterm:[base de données, MongoDB]
+  indexterm:[base de données, MySQL]
 Stockage sur un service en ligne::
   Firebase, DynamoDB, Parse et Kinto sont des gestionnaires de bases de données
   accessibles comme des services, avec des requêtes HTTP.
@@ -2373,9 +2586,12 @@ ou Algolia pour leur donner une autre structure, spécialement optimisée pour
 la recherche : une lecture très rapide sur des critères variables.
 Je le fais si un des aspects principaux du projet est de préserver des performances
 élevées, qui ne soient pas ralenties par l'activité d'une base{nbsp}SQL.
+indexterm:[base de données, Elasticsearch]
 
 Je complète en général avec Redis pour gérer les <<job-queues,files d'attente>>,
 des données intermédiaires que je considère comme "`jetables`".
+indexterm:[base de données, Redis]
+indexterm:[application web, traitement asynchrone (file d'attente)]
 
 S'il est plus simple de tout gérer avec un seul support de stockage, utiliser
 *plusieurs gestionnaires de bases de données* dans une même application est quelque chose de tout
@@ -2383,6 +2599,8 @@ S'il est plus simple de tout gérer avec un seul support de stockage, utiliser
 
 [[security]]
 === Protéger nos applications
+indexterm:[application web, sécurité]
+indexterm:[sécurité]
 
 Il faut prendre des mesures de précaution dès lors que nous utilisons des
 données saisies par un utilisateur, c'est-à-dire
@@ -2393,16 +2611,22 @@ volontairement ou via un logiciel vérolé installé sur leur ordinateur.
 
 [URL]#https://npmjs.com/helmet#::
   Déjoue les injections de scripts et d'iframes non{nbsp}sollicitées.
+  indexterm:[module npm, helmet]
 [URL]#https://npmjs.com/safe-regex#::
   Filtre une expression régulière fournie ou composée avec une valeur fournie par un utilisateur.
   Cela évite certains bogues qui surchargent la CPU ou qui déjouent les motifs des expressions.
+  indexterm:[module npm, safe-regex]
 [URL]#https://npmjs.com/dompurify#::
 [URL]#https://npmjs.com/xss#::
   Nettoie le HTML d'attributs et de balises non{nbsp}sollicités.
   Les injections de scripts et les événements malintentionnés de clics sont supprimés.
+  indexterm:[DOM (Document Object Model)]
+  indexterm:[module npm, dompurify]
+  indexterm:[module npm, xss]
 [URL]#https://npmjs.com/sql-escape-string#::
   Nettoie une saisie utilisateur de tout caractère qui pourrait déjouer nos attentes
   au sein d'une requête{nbsp}SQL.
+  indexterm:[module npm, sql-escape-string]
 
 Outre les données arbitraires, il faut toujours s'assurer des *permissions*.
 L'utilisateur a-t-il vraiment le droit d'être là ou il est ?
@@ -2411,10 +2635,14 @@ Le volume du fichier téléversé est-il vraiment cohérent ?
 L'utilisation du <<../chapter-03/index.adoc#strict,mode strict>> a l'avantage
 de nous protéger de l'exploitation d'anciennes bizarreries d'ECMAScript.
 Ce qui doit planter plante au lieu d'être passé sous silence.
+indexterm:[ECMAScript, mode strict]
 
 Parfois, même les caractères autorisés suffisent à déjouer notre attention.
 C'est le cas si une variable est utilisée pour composer un chemin avec
 `path.resolve()` ou `path.join()` par exemple.
+indexterm:[module, path, path.resolve()]
+indexterm:[module, path, path.join()]
+indexterm:[sécurité, chemin d'accès]
 La saisie utilisateur crée un chemin de traverse qui permet d'aller exploiter
 des données ailleurs sur l'ordinateur.
 
@@ -2429,6 +2657,8 @@ include::{sourceDir}/path-traversal.js[]
 Un moyen solide de vérifier que nous n'avons pas été dérouté·e en dehors
 d'un répertoire racine – ici, `base_dir` – est de vérifier que le chemin final
 débute bien par le chemin du répertoire racine.
+indexterm:[sécurité, en-tête HTTP]
+indexterm:[HTTP, sécurité]
 
 [options="header", cols="2, 4a"]
 .En-têtes de réponse qui ont un impact sur la sécurité de navigation
@@ -2445,6 +2675,8 @@ débute bien par le chemin du répertoire racine.
 [TIP]
 .[RemarquePreTitre]#Guide# Open Web Application Security Project (OWASP)
 ====
+indexterm:[sécurité]
+indexterm:[OWASP (Open Web Application Security Project)]
 L'organisme _Open Web Application Security Project_ (_OWASP_) recueille et
 diffuse nombre de critères de sécurité à connaître et vérifier pour déjouer
 au mieux les attaques.
@@ -2512,6 +2744,9 @@ cas de figure du statut 202 (au lieu de 201)
 
 [[lambda]]
 === Une application minimaliste avec les Lambda
+indexterm:[application, fonction éphémère (lambda)]
+indexterm:[hébergement, fonction éphémère]
+indexterm:[webhook]
 
 Le principe d'une application web est d'afficher un résultat à partir d'un
 chemin d'accès et de rester allumée en permanence, sauf exception.
@@ -2529,6 +2764,7 @@ notification, erreur, etc.
 Le module{nbsp}``npm`` _micro_ ([URL]#https://npmjs.com/micro#) est un serveur minimaliste
 qui répond à ce principe de micro-application, prête à être mise en pause à
 tout instant.
+indexterm:[module npm, micro]
 
 [source%interactive%endpoint,javascript]
 .micro.js
@@ -2540,6 +2776,7 @@ include::{sourceDir}/micro.js[]
 
 Un service comme _AWS{nbsp}Lambda_ ([URL]#https://aws.amazon.com/lambda#) pousse
 le concept encore plus loin.
+indexterm:[AWS (Amazon Web Services)]
 La fonction réagit à un événement interne (notification SQS, quelque chose lié
 à notre infrastructure, déploiement) ou à un événement externe (via l'API
 ou un autre service ouvert vers l'extérieur).
