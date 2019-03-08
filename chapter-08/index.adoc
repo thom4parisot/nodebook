@@ -49,8 +49,11 @@ include::../docs/tip-versions.adoc[]
 
 Un script en ligne de commande revient souvent à une installation globale
 d'un module{nbsp}``npm`` (`npm install --global <module>`).
+indexterm:[npm, install --global]
+indexterm:[application en ligne de commande]
 Il prend aussi bien la forme d'un petit outil que d'une application complète.
 Dans tous les cas, le terminal est l'interface d'affichage.
+indexterm:[terminal]
 
 Node est particulièrement adapté à la création d'outils en ligne de commande
 grâce à son modèle de gestion mémoire et son processus unique.
@@ -66,6 +69,7 @@ surtout si vous les avez bien <<tests,testés et documentés>>.
 
 [[start]]
 == Créer un script exécutable
+indexterm:[Node.js, script exécutable]
 
 La première étape est de rendre exécutable votre script Node.
 Le système d'exploitation ne le percevra plus comme un simple fichier texte,
@@ -77,6 +81,7 @@ code distribuable sous forme d'un <<../chapter-05/index.adoc#modules,module{nbsp
 
 [[script]]
 === Au départ, un simple script{nbsp}Node
+indexterm:[Node.js, script]
 
 Ce dont nous avons besoin pour démarrer, c'est d'un script Node que nous
 pouvons appeler depuis notre terminal.
@@ -106,6 +111,8 @@ Il est 13h42.
 
 [[permissions]]
 === Modifier les permissions du{nbsp}script
+indexterm:[système d'exploitation, permission]
+indexterm:[système d'exploitation, fichier exécutable]
 
 Les systèmes d'exploitation modernes distinguent les fichiers ordinaires
 des fichiers exécutables.
@@ -115,6 +122,7 @@ d'autre que son emplacement.
 Essayons d'exécuter le script précédent pour nous en rendre compte.
 Pour ce faire, nous allons l'invoquer seulement avec son chemin
 – ici, son chemin relatif :
+indexterm:[erreur, permission denied (script exécutable)]
 
 ----
 $ ./bin/time.js
@@ -138,6 +146,8 @@ propriétaire, son poids et enfin la date de dernière modification.
 [NOTE]
 .[RemarquePreTitre]#Déchiffrer# Lire les permissions Unix
 ====
+indexterm:[système d'exploitation, permission de fichier Unix]
+indexterm:[chmod]
 Le premier caractère spécifie le type (fichier, répertoire, lien symbolique) et
 ensuite, ce sont des blocs de trois caractères qui décrivent les permissions de
 l'utilisateur propriétaire, du groupe propriétaire et du reste des utilisateurs
@@ -158,6 +168,7 @@ $ chmod u+x bin/time.js
 L'utilisation renouvelée de la commande{nbsp}``ls`` confirme que la
 permission _exécutable_ du fichier a été attribuée à l'utilisateur propriétaire
 du fichier :
+indexterm:[système d'exploitation, fichier exécutable]
 
 ----
 $ ls -l bin/time.js
@@ -179,6 +190,8 @@ Néanmoins, il semblerait que le système d'exploitation ait du mal
 
 [[shebang]]
 === Préciser le contexte d'exécution (shebang)
+indexterm:[système d'exploitation, fichier exécutable, shebang (+#!+)]
+indexterm:[shebang (+!#+)]
 
 Donner les permissions d'exécution à un fichier ne suffit donc pas.
 Nous avons perdu un élément contextuel en supprimant l'appel à `node`
@@ -230,6 +243,9 @@ interopérable est de le lier à un
 
 [[package.json]]
 === Faire le lien avec un module{nbsp}npm
+indexterm:[package.json, main]
+indexterm:[package.json, bin]
+indexterm:[package.json, name]
 
 Nous avons vu dans le <<../chapter-05/index.adoc#,chapitre{nbsp}5>>
 que Node utilisait la valeur `main` du fichier `package.json` pour déterminer
@@ -253,6 +269,7 @@ avec notre système d'exploitation est de
 l'<<../chapter-05/index.adoc#install.global,installer globalement>>.
 L'exécutable{nbsp}``npm`` sait aussi installer un module à partir
 d'un chemin vers un répertoire contenant un fichier `package.json` :
+indexterm:[npm, install --global]
 
 ----
 $ npm install --global .
@@ -269,6 +286,8 @@ Il est 13h42.
 [TIP]
 .[RemarquePreTitre]#Pratique# Un autre nom ou plusieurs exécutables
 ====
+indexterm:[application en ligne de commande, nommage du script]
+indexterm:[package.json, bin]
 Le champ{nbsp}``bin`` s'écrit sous forme d'un objet si vous souhaitez utiliser
 un autre nom que celui du module{nbsp}``npm``.
 La clé correspond au nom de l'exécutable tel qu'il sera utilisable sur le
@@ -305,6 +324,9 @@ l'écosystème de modules `npm`.
 
 [[args]]
 === Utiliser des arguments et des options
+indexterm:[module, process, process.argv]
+indexterm:[application en ligne de commande, argument]
+indexterm:[application en ligne de commande, option]
 
 Nous avons vu comment récupérer les arguments d'un script Node
 en découvrant le <<../chapter-04/index.adoc#process,module `process`>>
@@ -347,15 +369,19 @@ que paramètres d'une fonction.
 | Ligne de commande | `prog --country FR --fast`            | `prog FR fast`
 | URL               | `prog/?country=FR&fast=true`          | `prog/FR/fast`
 |===
+indexterm:[application en ligne de commande, argument]
+indexterm:[application en ligne de commande, option]
 
 Nous allons utiliser le module{nbsp}``npm`` _minimist_ ([URL]#https://npmjs.com/minimist#)
 dans les exemples suivants.
+indexterm:[module npm, minimist]
 Il prend en charge la complexité de l'interprétation de `process.argv` et je
 le trouve robuste, bien testé et minimaliste.
 
 [NOTE]
 .[RemarquePreTitre]#Histoire# Au commencement était getopt
 ====
+indexterm:[système d'exploitation, Unix, getopt]
 `getopt` ([URL]#https://linux.die.net/man/3/getopt#) est le programme Linux
 qui sert à l'analyse des arguments et des options.
 Les modules{nbsp}``npm`` se calquent sur son modèle de fonctionnement.
@@ -363,6 +389,7 @@ Les modules{nbsp}``npm`` se calquent sur son modèle de fonctionnement.
 
 [[args.options]]
 Commençons par les *options* et voyons ce que _minimist_ affiche :
+indexterm:[application en ligne de commande, option]
 
 ----
 $ node options/parse.js --country FR --fast
@@ -383,6 +410,7 @@ include::{sourceDir}/options/parse.js[]
 Les options s'écrivent sous une *forme raccourcie* (_alias_).
 Un alias réduit l'encombrement visuel et est signalé avec un seul tiret
 (au lieu de deux pour leur forme complète) :
+indexterm:[application en ligne de commande, option, forme raccourcie]
 
 [subs="+quotes"]
 ----
@@ -408,6 +436,7 @@ afin d'augmenter les chances de compréhension.
 
 Les *valeurs par défaut* simplifient le paramétrage en rendant certaines
 valeurs implicites :
+indexterm:[application en ligne de commande, option, valeur par défaut]
 
 ----
 $ node options/defaults.js --fast
@@ -429,6 +458,7 @@ include::{sourceDir}/options/defaults.js[]
 Un autre concept utile est celui des *types*.
 Nous définissons explicitement nos attentes sur ce que telle ou telle option
 est censée recevoir :
+indexterm:[application en ligne de commande, option, type]
 
 ----
 $ node options/types.js --country --fast furious  # <1>
@@ -472,6 +502,7 @@ include::{sourceDir}/options/types.js[]
   des _logs_.
 
 [[args.arguments]]
+indexterm:[application en ligne de commande, argument]
 Les arguments sont adaptés à des situations où *des valeurs sont obligatoires*,
 n'ont pas besoin d'être nommées et pour en accepter un nombre arbitraire.
 Si les valeurs ne correspondent pas à une liste, le positionnement des arguments
@@ -513,6 +544,7 @@ include::{sourceDir}/options/timezone.js[]
 <1> Nous affectons à `timezone` la première valeur du tableau d'arguments.
 <2> Configuration des préférences d'affichage de l'heure.
 <3> Utilisation de la méthode `toLocaleDateString()` avec nos options pour afficher la date courante.
+indexterm:[date, toLocaleDateString()]
 
 Cet exemple se transformerait de la manière suivante si nous souhaitions
 étendre l'affichage de l'heure à autant de fuseaux horaires que voulus :
@@ -558,6 +590,8 @@ faire quelque chose.
 Une approche plus économique est d'utiliser les
 <<../chapter-04/index.adoc#stream,flux de données>> (<<../chapter-04/index.adoc#,chapitre{nbsp}4>>.
 Nous y reviendrons <<streaming,plus loin>>.
+indexterm:[flux de données]
+indexterm:[application en ligne de commande, argument]
 
 [horizontal]
 .Synthèse des différentes formes d'arguments
@@ -571,11 +605,13 @@ Nous y reviendrons <<streaming,plus loin>>.
   avec ses propres arguments et options.
 
 [[args.subcommand]]
+indexterm:[application en ligne de commande, sous-commande]
 L'utilisation des sous-commandes est la bienvenue pour organiser des actions
 de manière indépendante, là où les choses deviendraient implicites et chaotiques
 avec les options.
 C'est l'équivalent d'une _route_ dans une
 <<../chapter-07/index.adoc#,application web>> (<<../chapter-07/index.adoc#,chapitre{nbsp}7>>).
+indexterm:[application web, chemin d'accès (routing)]
 
 Les commandes suivantes illustrent la génération de résultats aléatoires.
 Leur nature varie en fonction de la sous-commande employée ;
@@ -613,6 +649,7 @@ Nous y reviendrons dans la section "`<<application,Utilisation d'un framework>>`
 
 [[colours]]
 === Améliorer la lisibilité grâce aux couleurs
+indexterm:[application en ligne de commande, affichage en couleur]
 
 Les couleurs vont nous aider à faire ressortir, différencier et distinguer
 des éléments au sein d'une interface monochrome.
@@ -645,6 +682,9 @@ le soulignement et même la position du curseur.
 [NOTE]
 .[RemarquePreTitre]#ANSI# Structure d'une commande d'échappement
 ====
+indexterm:[ANSI (commande d'échappement)]
+indexterm:[application en ligne de commande, position du curseur]
+indexterm:[application en ligne de commande, échappement de caractère]
 Le caractère d'_échappement_ est un caractère invisible, ici représenté
 en hexadécimal par{nbsp}``\x1B``.
 Il existe sur nos claviers d'ordinateur : c'est la fameuse touche
@@ -701,6 +741,7 @@ $ tput colors
 Un autre type de commande sélectionne dans une palette de 256{nbsp}couleurs
 mais aussi dans la _palette{nbsp}RGB_ (_Red Green Blue_, _Rouge Vert Bleu_).
 Ces commandes débutent par `[38;5` et `[38;2`, respectivement :
+indexterm:[RGB]
 
 [source,javascript]
 .colors/palette.js
@@ -714,6 +755,7 @@ Le module{nbsp}``npm`` _chalk_ ([URL]#https://npmjs.com/chalk#) facilite l'utili
 des codes ANSI en leur donnant des libellés mémorisables, en gérant
 la compatibilité du nombre des couleurs supportées par le terminal voire
 en désactivant les couleurs si nécessaire.
+indexterm:[module npm, chalk]
 
 [source,javascript]
 .colors/chalk.js
@@ -735,6 +777,7 @@ include::{sourceDir}/colors/chalk-literal.js[]
 
 [[prompt]]
 === Demander une série d'informations
+indexterm:[application en ligne de commande, proposer un choix]
 
 Les programmes interactifs demandent des informations de manière
 guidée à la personne utilisant l'exécutable,
@@ -752,6 +795,8 @@ Coucou Thomas !
 Le module `readline` proposé par Node est peu connu.
 Il sert à transformer les <<../chapter-04/index.adoc#process.std,flux d'entrée et de sortie>>
 (<<../chapter-04/index.adoc#,chapitre{nbsp}4>>.
+indexterm:[module, readline]
+indexterm:[module, process, stdin]
 Le système de curseur sait mettre en pause, revenir en arrière et effacer tout
 ou une partie d'une ligne, entre autres.
 Ce module sait aussi poser des questions{nbsp}(!) :
@@ -767,6 +812,8 @@ include::{sourceDir}/prompt/intro.js[]
 
 Nous allons utiliser le module{nbsp}``npm`` _inquirer_ ([URL]#https://npmjs.com/inquirer#)
 dans la suite de cette section.
+indexterm:[module npm, inquirer]
+indexterm:[module, readline]
 Il se base sur `readline` et *simplifie grandement l'interactivité* :
 question, liste à choix unique navigable au clavier, boîte à cocher,
 confirmation, validation de réponse et exécution conditionnelle, si telle ou
@@ -781,6 +828,7 @@ include::{sourceDir}/prompt/question.js[]
 ----
 <1> La question est créée avec l'identifiant `name` – cela facilite l'utilisation des réponses.
 <2> Les résultats sont retournés dans une <<../chapter-04/index.adoc#promise,promesse>> – c'est plus élégant et pratique à gérer qu'une fonction de rappel.
+indexterm:[promesse]
 <3> Les valeurs des réponses s'obtiennent grâce à leurs identifiants.
 
 Ce n'est pas beaucoup plus compliqué de poser plusieurs questions et de les
@@ -830,6 +878,7 @@ include::{sourceDir}/prompt/validate.js[]
 
 Enfin, deux modes de liste sont proposés par le module _inquirer_ : `list`
 et `checkbox`.
+indexterm:[application en ligne de commande, case à cocher]
 Dans le premier cas, nous naviguons au clavier pour sélectionner une seule réponse.
 Dans le deuxième, nous naviguons au clavier et sélectionnons les choix
 à l'aide de la touche btn:[Espace] :
@@ -860,6 +909,7 @@ ils n'est pas nécessaire de les écrire en dur dans le code.
 
 [[progress]]
 === Informer de la progression
+indexterm:[application en ligne de commande, barre de progression]
 
 Je trouve que *transmettre un feedback est un élément différenciant* dans la
 conception d'une application – qu'elle soit utilisée sur le Web ou dans un
@@ -886,7 +936,7 @@ l'accomplissement de la tâche.
 include::{sourceDir}/progress/intro.js[]
 ----
 <1> Cette fonction affiche la progression toutes les secondes.
-<2> La méthode `padEnd` (<<../chapter-03/index.adoc#,chapitre{nbsp}3>>) complète la barre de progression jusqu'à atteindre le nombre souhaité de points.
+<2> La méthode `padEnd()` (<<../chapter-03/index.adoc#,chapitre{nbsp}3>>) complète la barre de progression jusqu'à atteindre le nombre souhaité de points.
 <3> Le message de progression est paramétré pour afficher les éléments nécessaires – l'émoji "`soleil`" s'affiche quand le compteur atteint{nbsp}``3``.
 
 [TIP]
@@ -901,6 +951,8 @@ La seule chose qu'il manque à mon goût est d'avoir un réel sens de progressio
 c'est-à-dire une actualisation du contenu qui informe de l'avancement.
 
 Nous avons parlé des commandes ANSI pour <<colors,changer les couleurs>>.
+indexterm:[ANSI (commande d'échappement)]
+indexterm:[application en ligne de commande, position du curseur]
 Il se trouve que certaines de ces commandes contrôlent aussi la *position du curseur*.
 Ainsi, au lieu d'écrire à la suite, nous pouvons revenir en arrière et même
 effacer le contenu d'une ligne.
@@ -939,14 +991,18 @@ Deux modules `npm` simplifient la vie quand on n'apprécie pas trop les commande
 
 - _ansi-escapes_ ([URL]#https://npmjs.com/ansi-escapes#) est l'équivalent
 de _chalk_ mais pour déplacer le curseur.
+indexterm:[module npm, ansi-escapes]
 L'utilisation de méthodes nommées remplace celle des commandes{nbsp}ANSI.
 - _progress-string_ ([URL]#https://npmjs.com/progress-string#) met
 à disposition une base pour afficher des barres de progression
 avec un minimum d'options.
+indexterm:[module npm, progress-string]
 
 Terminons cette section avec l'utilisation d'un indicateur d'activité
 et une information de réussite ou non de notre action.
 Nous nous aidons du module{nbsp}``npm`` _ora_ ([URL]#https://npmjs.com/ora#).
+indexterm:[module npm, ora]
+indexterm:[application en ligne de commande, animation de caractères]
 Il est rapide à configurer et propose une palette intéressante d'animations.
 
 .Pendant et après la progression avec le module{nbsp}ora
@@ -979,6 +1035,7 @@ include::{sourceDir}/progress/spinner-custom.js[]
 
 [[tables]]
 === Afficher des informations sous forme de tableau
+indexterm:[application en ligne de commande, tableau d'informations]
 
 L'affichage d'informations sous forme de tableau est idéal pour
 le *confort de lecture de listes*.
@@ -999,6 +1056,7 @@ $ node table.js
 ----
 
 Cet exemple est généré à l'aide du module{nbsp}``npm`` _table_ ([URL]#https://npmjs.com/table#).
+indexterm:[module npm, table]
 Il s'utilise sans configuration pour démarrer.
 Il a la capacité de tronquer et limiter la largeur des colonnes, mais aussi
 de gérer l'alignement des contenus dans les cellules.
@@ -1015,6 +1073,7 @@ include::{sourceDir}/table.js[]
 [TIP]
 .[RemarquePreTitre]#Pratique# Utilisation des couleurs
 ====
+indexterm:[application en ligne de commande, affichage en couleur]
 La lecture de la section "`<<colors,améliorer la lisibilité grâce aux couleurs>>`"
 vous aidera à améliorer la lisibilité de vos tableaux.
 ====
@@ -1026,6 +1085,8 @@ ou sur un <<streaming,fichier volumineux>>.
 
 [[update]]
 === Inviter à mettre à jour le module
+indexterm:[application en ligne de commande, invite de mise à jour]
+indexterm:[npm, outdated]
 
 L'inconvénient d'<<../chapter-05/index.adoc#install.global,installer un module exécutable>>,
 c'est la difficulté de savoir si une mise à jour intéressante a été publiée
@@ -1035,6 +1096,7 @@ exécutable qu'une version plus récente existe.
 
 J'aime l'approche minimaliste du module{nbsp}``npm`` _update-check_
 ([URL]#https://npmjs.com/update-check#).
+indexterm:[module npm, update-check]
 Il compare le numéro de version passé en paramètre avec celui de la dernière
 version de ce même module, sur le registre{nbsp}``npm``.
 
@@ -1045,6 +1107,7 @@ $ node update/intro.js
 
 Dans cet exemple, _update-check_ interroge le registre{nbsp}``npm``
 pour déterminer la version la plus récente de _nodebook_.
+indexterm:[module npm, nodebook]
 S'il estime que la version installée localement est plus
 ancienne, il retourne un objet avec le numéro de version à installer.
 
@@ -1063,11 +1126,12 @@ et que nous publions sur le registre{nbsp}``npm``, nous aurions tendance
 
 Maintenant, nous pouvons présenter une information
 plus digeste et actionnable à la personne qui utilise notre module :
+indexterm:[npm, install --global]
 
 ----
 $ node update/cli.js
 nodebook@0.10.0 est dispo
-Tape 'npm install -g nodebook'
+Tape 'npm install --global nodebook'
 ----
 
 [source,javascript]
@@ -1085,6 +1149,8 @@ La décision d'actualiser leur appartient toutefois.
 
 [[tests]]
 == Vers un code réutilisable et testable
+indexterm:[application en ligne de commande, test]
+indexterm:[application en ligne de commande, modularité]
 
 Nous avons appris comment transformer un script Node en un programme paramétrable,
 clair et agréable à utiliser.
@@ -1094,6 +1160,8 @@ de commande pour progressivement tester notre code, puis l'exécutable lui-même
 
 Notre progression va s'effectuer en transformant l'exemple `options/timezone.js`
 de la section "`<<args,Utiliser des arguments et des options>>`".
+indexterm:[application en ligne de commande, argument]
+indexterm:[application en ligne de commande, option]
 
 [source,javascript]
 .options/timezone.js
@@ -1106,6 +1174,7 @@ include::{sourceDir}/options/timezone.js[]
 
 [[interface]]
 === Modulariser le code du fichier exécutable
+indexterm:[refactoring]
 
 Un programme qui accepte beaucoup d'options devient de plus en plus
 compliqué à maintenir car il est difficile de tester tous les cas
@@ -1141,12 +1210,14 @@ Justement, parlons-en.
 
 [[tests.interface]]
 === Tester le code partagé
+indexterm:[application en ligne de commande, test]
 
 L'écriture de tests nous aide à découvrir qu'une modification produit un résultat
 différent de celui attendu.
 Les tests documentent aussi les cas à la marge de notre code.
-En général, dès qu'il y a un `if/else`, cela implique d'écrire au moins une
+En général, dès qu'il y a un `if ... else`, cela implique d'écrire au moins une
 nouvelle assertion.
+indexterm:[instruction, if ... else]
 
 [NOTE]
 .[RemarquePreTitre]#Glossaire# Test et assertion
@@ -1159,8 +1230,10 @@ couvrir le spectre de ses fonctionnalités.
 
 Pour des besoins simples, j'utilise le module{nbsp}``npm`` _tape_
 ([URL]#https://npmjs.com/tape#).
+indexterm:[module npm, tape]
 Il gère l'exécution des tests et il fournit quelques méthodes pour exprimer
 nos attentes – les assertions.
+indexterm:[application en ligne de commande, test, assertion]
 
 ----
 $ node testing/01/lib.test.js
@@ -1187,8 +1260,8 @@ include::{sourceDir}/testing/01/lib.test.js[]
 ----
 <1> Création d'un test – le paramètre{nbsp}``t`` contient les méthodes d'assertion.
 <2> La méthode `t.plan()` spécifie le nombre d'assertions attendues – si ce nombre n'est pas atteint, _tape_ considère qu'il y a un problème.
-<3> Assertion qui teste que la fonction `getTime` retourne bien un résultat.
-<4> Assertion qui teste que la fonction `getTime` provoque une erreur si aucun argument n'est passé.
+<3> Assertion qui teste que la fonction `getTime()` retourne bien un résultat.
+<4> Assertion qui teste que la fonction `getTime()` provoque une erreur si aucun argument n'est passé.
 
 Nous sommes parés à toute éventualité, mais en y réfléchissant, le module `cli.js`
 ne gère pas vraiment le cas où aucun argument n'est transmis.
@@ -1224,6 +1297,7 @@ Merci d'indiquer un fuseau horaire :-)
 
 Afin de parvenir à ce résultat, j'ai opté pour l'utilisation de
 <<../chapter-03/index.adoc#promise,promesse>> (<<../chapter-03/index.adoc#,chapitre{nbsp}3>>).
+indexterm:[promesse]
 Je trouve cette méthode plus élégante car nous gérons le résultat et le message
 d'erreur d'une manière visuellement similaire, mais séparée.
 
@@ -1233,7 +1307,7 @@ d'erreur d'une manière visuellement similaire, mais séparée.
 include::{sourceDir}/testing/02/cli.js[lines="3..-1"]
 ----
 <1> Le résultat est affiché en cas de succès.
-<2> En cas d'erreur produite dans la fonction `getTime`, nous affichons le message en question.
+<2> En cas d'erreur produite dans la fonction `getTime()`, nous affichons le message en question.
 <3> Nous arrêtons le programme avec un code d'erreur pour la signaler au niveau du système d'exploitation.
 
 Ce changement n'implique pas de bouleversement dans notre code.
@@ -1258,6 +1332,8 @@ Unsupported time zone specified Brexit/London
 
 [[tests.cli]]
 === Tester l'exécutable
+indexterm:[application en ligne de commande, test]
+indexterm:[Node.js, script exécutable]
 
 Tester l'exécutable est un moyen de vérifier que les câblages entre notre
 exécutable et notre mode Node sont bien faits.
@@ -1283,6 +1359,8 @@ ok 3 exit code matched
 Nous avons à nouveau recours au module _tape_.
 Cette fois-ci, nous l'accompagnons d'un autre module,
 _tape-spawn_ ([URL]#https://npmjs.com/tape-spawn#).
+indexterm:[module npm, tape]
+indexterm:[module npm, tape-spawn]
 Ce dernier intègre à _tape_ le test de processus externes.
 En l'occurrence ici, cela concerne nos exécutables en ligne de commandes.
 
@@ -1302,6 +1380,8 @@ incohérences d'interface utilisateur.
 
 [[doc]]
 === Documenter notre programme
+indexterm:[application en ligne de commande, documentation]
+indexterm:[application en ligne de commande, option, --help]
 
 La documentation d'un logiciel est aussi importante que son code.
 C'est le premier élément qui donne une idée de la simplicité ou de
@@ -1354,6 +1434,7 @@ invitation à essayer sans appréhension.
 
 Cette aide a été générée automatiquement en utilisant le <<application,framework>>
 _yargs_ – nous en parlerons dans la section suivante.
+indexterm:[module npm, yargs]
 Ses méthodes `.usage()` et `.example()` ainsi que la propriété `description` de chaque
 option suffisent à constituer un affichage clair et informatif.
 
@@ -1369,6 +1450,8 @@ include::{sourceDir}/help/time.js[]
 [NOTE]
 .[RemarquePreTitre]#Alternative# module{nbsp}npm help-version
 ====
+indexterm:[module npm, help-version]
+indexterm:[application en ligne de commande, option, --help]
 Le module _help-version_ ([URL]#https://npmjs.com/help-version#) gère l'appel
 à l'option `--help` et il est indépendant de tout autre module.
 
@@ -1377,6 +1460,8 @@ fonctionnement du programme.
 ====
 
 Un autre lieu courant pour documenter un projet est le `README`.
+indexterm:[README]
+indexterm:[application en ligne de commande, documentation]
 C'est un fichier texte souvent affiché en premier sur la page d'accueil
 d'un projet logiciel.
 Sa mise en forme s'améliore avec l'utilisation d'une syntaxe de balisage léger
@@ -1411,6 +1496,8 @@ web ou _front-end_.
 
 [[application]]
 === Utilisation d'un framework d'application en ligne de commande
+indexterm:[application en ligne de commande, framework]
+indexterm:[module npm, yargs]
 
 Une application en ligne de commande dont le nombre de lignes de code augmente
 devient de *plus en plus complexe à maintenir*.
@@ -1467,6 +1554,8 @@ C'est le cas des dates par exemple : nous les recevons sous forme de chaîne de
 caractères alors qu'il serait plus facile de travailler avec des
 <<../chapter-03/index.adoc#date,objets{nbsp}``Date``>>
 (<<../chapter-03/index.adoc#,chapitre{nbsp}3>>).
+indexterm:[date]
+indexterm:[application en ligne de commande, option]
 
 ----
 $ node application/coerce.js --help
@@ -1515,18 +1604,22 @@ Elle le reçoit en argument et a la responsabilité d'en lire
 le contenu et de le transformer en objet ECMAScript grâce à la fonction
 <<../chapter-03.index.adoc#json,`JSON.parse()`>>
 (<<../chapter-03/index.adoc#,chapitre{nbsp}3>>).
+indexterm:[JSON, JSON.parse()]
 
 [source,javascript]
 .application/coerce-file.js
 ----
 include::{sourceDir}/application/coerce-file.js[]
 ----
-<1> Notre fonction `parseJSON` assure la transformation de l'argument `--json-file`.
+<1> Notre fonction `parseJSON()` assure la transformation de l'argument `--json-file`.
 <2> C'est bien le contenu du fichier qui s'affiche et non la valeur passée au programme.
 
 [CAUTION]
 .[RemarquePreTitre]#Performance# Lire et écrire des fichiers
 ====
+indexterm:[flux de données]
+indexterm:[module, process, stdin]
+indexterm:[module, process, stdout]
 La lecture de fichiers dont la taille dépasse quelques centaines de kilo-octets
 devient problématique sur des machines avec peu de ressources,
 si vous souhaitez obtenir des résultats le plus tôt possible et si
@@ -1543,6 +1636,7 @@ que ce soit sur le Web ou dans un terminal.
 
 Les frameworks d'application en ligne de commande facilitent
 l'organisation et la définition de <<args.subcommand,sous-commandes>>.
+indexterm:[application en ligne de commande, sous-commande]
 
 ----
 $ node application/random.js --help
@@ -1559,6 +1653,8 @@ Options:
 
 C'est l'occasion d'adapter l'exemple utilisé dans la section
 "`<<args.subcommand,Utiliser des arguments et des options>>`".
+indexterm:[application en ligne de commande, argument]
+indexterm:[application en ligne de commande, option]
 L'intention est de modifier le moins possible le code initial.
 
 [source,javascript]
@@ -1576,6 +1672,7 @@ Nous n'avons même pas eu à modifier la signature des fonctions `words` et `num
 [NOTE]
 .[RemarquePreTitre]#Syntaxe# Annotation des arguments dans une commande
 ====
+indexterm:[module npm, yargs]
 Certains frameworks comme _yargs_ interprètent la commande que nous déclarons.
 Lorsque c'est le cas, les arguments sont rangés dans un objet d'arguments nommés.
 Les frameworks gèrent plusieurs cas de figure qui ont chacun leur notation.
@@ -1616,6 +1713,9 @@ include::{sourceDir}/application/commands/words.js[]
 
 [[files]]
 === Stratégies pour gérer les chemins d'accès
+indexterm:[application en ligne de commande, chemin d'accès]
+indexterm:[application en ligne de commande, chemin relatif]
+indexterm:[application en ligne de commande, chemin absolu]
 
 Il y a des cas où passer des chemins d'accès à des fichiers en <<args,arguments>>
 d'un exécutable ne suffit pas.
@@ -1647,8 +1747,13 @@ include::{sourceDir}/files/intro.js[]
 [NOTE]
 .[RemarquePreTitre]#Repère# Chemin relatif, absolu ou +__dirname+ ?
 ====
+indexterm:[variable globale, +__dirname+]
+indexterm:[application en ligne de commande, chemin relatif]
+indexterm:[application en ligne de commande, chemin absolu]
 Les fichiers passés en argument peuvent être un mélange de chemins absolus
 et de chemins relatifs, qui se normalisent avec la fonction `path.resolve()`.
+indexterm:[module, path, path.resolve()]
+indexterm:[module, path, path.cwd()]
 La base à considérer est le _répertoire courant_, là où le programme est exécuté,
 c'est-à-dire la valeur de `process.cwd()`
 (<<../chapter-04/index.adoc#path,chapitre{nbsp}4>>).
@@ -1660,6 +1765,8 @@ La saisie des chemins se simplifie en utilisant deux mécanismes : l'_expansion_
 et le _globbing_.
 Le module{nbsp}``npm`` _glob_ ([URL]#https://npmjs.com/glob#) fait très bien ce travail,
 mais nous allons nous baser sur _globby_ ([URL]#https://npmjs.com/globby#) à la place.
+indexterm:[module npm, glob]
+indexterm:[module npm, globby]
 Il gère les <<../chapter-03/index.adoc#promise,promesses>> et je le trouve
 plus simple d'utilisation.
 
