@@ -16,7 +16,8 @@
     "start": "node server.js",
     "test": "tape 'tests/*.js'",
     "test:docker": "docker run -ti --rm -v $(pwd):/tests -e CI=1 -e DEBUG=tape-spawn -w /tests node:${npm_package_engines_node}-slim npm cit",
-    "posttest": "npm run lint"
+    "posttest": "npm run lint",
+    "postinstall": "node bin/cli.js --help"
   },
   "engines": {
     "node": "10",
