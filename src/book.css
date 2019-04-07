@@ -210,13 +210,16 @@ td.hdlist1 {
   padding: 0;
 }
 .listingblock pre.highlightjs > code,
-.listingblock pre.prismjs > code {
+.listingblock pre.prismjs {
   border-left: 4px solid var(--dark-accent);
   padding-left: 1em;
   font-size: .8em;
 }
 .listingblock pre.highlightjs > code.language-bash {
   border-left-color: limegreen;
+}
+.token.comment .conum {
+  font-weight: normal;
 }
 
 .hdlist .hdlist1 {
