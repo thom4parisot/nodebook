@@ -2,7 +2,7 @@
 
 const {join} = require('path');
 const ora = require('ora');
-const asciidoctor = require('asciidoctor.js')();
+const asciidoctor = require('@asciidoctor/core')();
 const runnerExtension = require('asciidoctor-extension-interactive-runner');
 const microtypoExtension = require('../src/asciidoctor-microtypography-french.js');
 const bash$Extension = require('../src/asciidoctor-extension-bash-dollar.js');
@@ -10,10 +10,10 @@ const prismExtension = require('asciidoctor-prism-extension');
 const MDNExtension = require('../src/asciidoctor-extension-mdn.js');
 const hashScroll = require('../src/asciidoctor-toc-hash-scroll.js');
 const styles = require('../src/asciidoctor-opendocument-styles.js');
-const memoryLogger = asciidoctor.MemoryLogger.$new();
+const memoryLogger = asciidoctor.MemoryLogger.create();
 
 require('asciidoctor-converter-opendocument')(asciidoctor, {styles});
-require('asciidoctor-docbook.js')();
+require('@asciidoctor/docbook-converter')();
 
 var DEFAULT_ATTRIBUTES = [
   'toc=left',
@@ -30,7 +30,7 @@ var DEFAULT_ATTRIBUTES = [
   'experimental',
   'idprefix',
   'source-highlighter=prism',
-  'prism-languages=apacheconf,bash,docker,http,json,jsx,less,markdown,nginx,properties,sass,scss,typescript,tsx,yaml',
+  'prism-languages=apacheconf,bash,docker,http,ini,json,jsx,less,markdown,nginx,properties,sass,scss,typescript,tsx,yaml',
   'prism-theme',
   'toc-title=Table des matières',
   'appendix-caption=Annexe',
@@ -51,8 +51,8 @@ var DEFAULT_ATTRIBUTES = [
 const BUILD_DIR = join(__dirname, '..', 'dist');
 
 asciidoctor.LoggerManager.setLogger(memoryLogger);
+asciidoctor.SyntaxHighlighter.register('prism', prismExtension);
 asciidoctor.Extensions.register(microtypoExtension);
-asciidoctor.Extensions.register(prismExtension);
 asciidoctor.Extensions.register(runnerExtension);
 asciidoctor.Extensions.register(bash$Extension);
 asciidoctor.Extensions.register(MDNExtension);
@@ -76,10 +76,11 @@ const builder = (backend, ext, attributes=DEFAULT_ATTRIBUTES) => {
     });
 
     spinner.succeed();
-    if (!memoryLogger.$empty) {
+
+    if (!memoryLogger.getMessages().length) {
       memoryLogger.getMessages().map(({message}) => {
-        const {lineno} = message.source_location;
-        spinner.warn(`${SOURCE_FILE}:${lineno} • ${message.text}`);
+        const lineno = message.getSourceLocation().getLineNumber();
+        spinner.warn(`${SOURCE_FILE}:${lineno} • ${message.getText()}`);
       });
       memoryLogger.$clear();
     }
