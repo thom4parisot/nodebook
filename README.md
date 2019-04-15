@@ -8,7 +8,7 @@ des *outils en ligne de commande*.
 
 ✅ **Versions couvertes** • `node v10` • `npm v6`.<br>
 📖 **Journal de bord d'écriture** • [2018][journal-2018] • [2017][journal-2017].<br>
-🔎 **Lire l'ouvrage** • [sur papier](#sur-papier) • [sur liseuse numérique](#sur-liseuse-numerique) • [sur le web](#sur-le-web) • [sur npm](#avec-nodejs).
+🔎 **Lire l'ouvrage** • [sur papier](#sur-papier) • [sur liseuse numérique](#sur-liseuse-numérique) • [sur le web](#sur-le-web) • [sur npm](#avec-nodejs).
 
 
 [![Couverture du livre « Node.js »](cover.png)](#lire-louvrage)
