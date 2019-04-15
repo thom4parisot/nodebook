@@ -109,7 +109,7 @@ Si vous n'êtes pas sûr·e de votre coup mais que l'envie est là, c'est suffis
 Il est possible de travailler sur une copie locale de l'épreuve en la dupliquant avec Git.
 
 ```bash
-$ git clone --single-branch https:/github.com/oncletom/nodebook
+$ git clone --single-branch https://github.com/oncletom/nodebook
 $ cd nodebook
 # Installe les dépendances de développement
 $ npm ci
