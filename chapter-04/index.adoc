@@ -2283,7 +2283,7 @@ Voyons comment cela fonctionne :
 ----
 include::{sourceDir}/process/stdin-uppercase.js[]
 ----
-<1> Chaque afflux de données appelle notre fonction en lui fournissant un seul paramètre contenant les données en question.
+<1> Cette fonction est appelée avec le morceau de données qui vient d'être lu par Node ; elle est appelée autant de fois que nécessaire, jusqu'à ce que toutes les données entrantes soient lues.
 <2> Le paramètre est de <<buffer,type Buffer>> – on souhaite le transformer en <<../chapter-03/index.adoc#string,chaîne de caractères>>.
 <3> La chaîne de caractères est transformée en majuscules et écrite dans le flux de sortie.
 indexterm:[objet, Buffer]
