@@ -17,7 +17,8 @@
     "test": "tape 'tests/*.js'",
     "test:docker": "docker run -ti --rm -v $(pwd):/tests -e CI=1 -e DEBUG=tape-spawn -w /tests node:${npm_package_engines_node}-slim npm cit",
     "posttest": "npm run lint",
-    "postinstall": "node bin/cli.js --help"
+    "postinstall": "node bin/cli.js --help",
+    "update:schedule": "curl -sSL https://github.com/nodejs/Release/raw/master/schedule.json > chapter-02/schedule.json && npx lts -d $PWD/chapter-02/schedule.json --start $(gdate -d '2 months ago' +'%Y-%m-%d') --end $(gdate -d '2 years' +'%Y-%m-%d') --png chapter-02/images/schedule.png"
   },
   "engines": {
     "node": "10",
