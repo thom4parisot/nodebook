@@ -5,6 +5,7 @@ language: node_js
 cache: npm
 
 addons:
+  ssh_known_hosts: ssh-oncletom.alwaysdata.net
   apt:
     packages:
       - libxml2-utils
@@ -27,21 +28,29 @@ install:
 script:
 - ./bin/cli.js --help
 - npm test
+- make build-html
 - make build-odt
 - xmllint --noout dist/book.fodt 2>&1
 
 before_deploy:
+- openssl aes-256-cbc -K $encrypted_5256f0527d52_key -iv $encrypted_5256f0527d52_iv -in deploykey_ed25519.enc -out /tmp/deploykey -d
+- eval "$(ssh-agent -s)" && chmod 600 /tmp/deploykey && ssh-add /tmp/deploykey
 - git-lfs pull
-- make build-html
 - make build-docbook
 
 deploy:
-  - provider: pages
+  - provider: script
     skip-cleanup: true
-    github-token: "$GH_TOKEN"
     local-dir: dist
+    script: rsync -r --delete-after --quiet $TRAVIS_BUILD_DIR/dist oncletom@ssh-oncletom.alwaysdata.net:~/../www_nodebook/v1
     on:
       branch: master
+  - provider: script
+    skip-cleanup: true
+    local-dir: dist
+    script: rsync -r --delete-after --quiet $TRAVIS_BUILD_DIR/dist oncletom@ssh-oncletom.alwaysdata.net:~/../www_nodebook/v2
+    on:
+      branch: v2
   - provider: releases
     skip-cleanup: true
     api-key: "$GH_TOKEN"
