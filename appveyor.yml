@@ -2,14 +2,14 @@ image: Visual Studio 2017
 
 environment:
   matrix:
-    - nodejs_version: '10'
+    - nodejs_version: '12'
+      PLATFORM:       'x64'
       npm_version:    '6'
       DEBUG:          'tape-spawn'
       SHARP_IGNORE_GLOBAL_LIBVIPS: '1'
 
 install:
-  - ps: Install-Product node $env:nodejs_version x64
-#  - ps: npm install -g "npm@${env:npm_version}"
+  - ps: Update-NodeJsInstallation (Get-NodeJsLatestBuild $env:nodejs_version) $env:PLATFORM
   - npm config set script-shell "C:\\Program Files\\git\\bin\\bash.exe"
   - npm config set prefer-offline true
   - npm install
