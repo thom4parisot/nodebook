@@ -392,9 +392,6 @@ module.exports = {
     stderr: 'SQLITE_ERROR: no such table: books',
     exitCode: 1
   },
-  'chapter-07/examples/upload/send.js': {
-    stderr: 'ExperimentalWarning',
-  },
   'chapter-07/examples/upload/server.js': {
     skip: true
   },
