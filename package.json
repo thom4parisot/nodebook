@@ -21,7 +21,7 @@
     "update:schedule": "curl -sSL https://github.com/nodejs/Release/raw/master/schedule.json > chapter-02/schedule.json && npx lts -d $PWD/chapter-02/schedule.json --start $(gdate -d '2 months ago' +'%Y-%m-%d') --end $(gdate -d '2 years' +'%Y-%m-%d') --png chapter-02/images/schedule.png"
   },
   "engines": {
-    "node": "10",
+    "node": "12",
     "npm": "6"
   },
   "repository": {

@@ -6,7 +6,7 @@ des *outils en ligne de commande*.
 >
 > Plus de 500 exemples pour apprendre en pratiquant.
 
-✅ **Versions couvertes** • `node v10` • `npm v6`.<br>
+✅ **Versions couvertes** • `node v12` • `npm v6`.<br>
 📖 **Journal de bord d'écriture** • [2018][journal-2018] • [2017][journal-2017].<br>
 🔎 **Lire l'ouvrage** • [sur papier](#sur-papier) • [sur liseuse numérique](#sur-liseuse-numérique) • [sur le web](#sur-le-web) • [sur npm](#avec-nodejs).
 
