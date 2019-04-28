@@ -28,7 +28,8 @@ des *outils en ligne de commande*.
 | ✅      | **[Créer une application web][ch07]** |  _ça marche comment HTTP ?_ | [issues][ch07-issues]
 | ✅      | **[Créer un outil en ligne de commande][ch08]** | _ça marche comment du code métier dans le terminal ?_ | [issues][ch08-issues]
 | ✅      | **[Créer une application frontend][ch09]** | _ça marche comment les modules Node dans les navigateurs web ?_ | [issues][ch09-issues]
-| ✅      | Annexe : **[Sélection de modules npm][a01]** | _quel(s) module(s) npm choisir ou découvrir ?_ | [issues][appendix-issues]
+| ✅      | Annexe A : **[Sélection de modules npm][a01]** | _quel(s) module(s) npm choisir ou découvrir ?_ | [issues][appendix-issues]
+| ✅      | Annexe B : **[Nouveautés et changements dans Node.js][a02]** | _qu'est-ce je dois prendre en compte dans cette nouvelle version ?_ | [issues][appendix-issues]
 
 # Lire l'ouvrage
 
@@ -157,6 +158,7 @@ $ npm test
 | Chapitre 8  | ![][ch08-deps]    | ![][ch08-security]
 | Chapitre 9  | ![][ch09-deps]    | ![][ch09-security]
 | Annexe A    | ![][a01-deps]    | ![][a01-security]
+| Annexe B    | ![][a02-deps]    | ![][a02-security]
 
 ## Génération des épreuves
 
@@ -263,3 +265,7 @@ Les exemples de code sont placés sous la [licence MIT][].
 [appendix-issues]: https://github.com/oncletom/nodebook/labels/:book:%20chapitre:annexes
 [a01-deps]: https://david-dm.org/oncletom/nodebook/status.svg?path=appendix-a
 [a01-security]: https://snyk.io/test/github/oncletom/nodebook/badge.svg?targetFile=appendix-a/package.json
+[a02]: appendix-a/index.adoc
+[appendix-issues]: https://github.com/oncletom/nodebook/labels/:book:%20chapitre:annexes
+[a02-deps]: https://david-dm.org/oncletom/nodebook/status.svg?path=appendix-b
+[a02-security]: https://snyk.io/test/github/oncletom/nodebook/badge.svg?targetFile=appendix-b/package.json
