@@ -1,0 +1,147 @@
+:appendix-number: B
+:chapterId: appendix-b
+:sectnums:
+:nodeCurrentVersion: v12
+:npmCurrentVersion: v6
+:revdate: {docdate}
+:sourceDir: ./examples
+:imagesdir: {indir}
+ifdef::env[]
+:imagesdir: .
+endif::[]
+
+[appendix]
+= Nouveautés et changements dans Node.js
+
+include::../docs/web-header.adoc[]
+
+Cet ouvrage traite de l'état de l'art d'ECMAScript et des modules Node
+tels que nous pouvons les utiliser dans Node {nodeCurrentVersion}.
+Certaines évolutions du langage et nouveautés de la plate-forme sont utiles
+pour gagner en confort de développement.
+
+Cette annexe a pour but de vous aider à comprendre les changements techniques
+entre les versions majeures de Node, pour que vous puissiez les prendre en compte.
+Les changements politiques et organisationnels sont documentés dans
+le <<../chapter-01/index.adoc#,chapitre 1>>.
+
+== Node.js v12
+
+La version 12 de Node est sortie le 23 avril 2019.
+V8 est mis à niveau en version{nbsp}``7.4``.
+
+J'ai été particulièrement ravi de bénéficier des changements suivants :
+
+Modules ESM sans l'option `--experimental-modules`::
+  Nous nous rapprochons de plus en plus de modules interopérables entre Node
+  et les navigateurs Web, sans outillage supplémentaire.
+  La syntaxe `import`/`export` fonctionne nativement si notre script est
+  préfixé par `.mjs` (au lieu de `.js`) ou si l'entrée `"type": "module",`
+  est présente dans le fichier `package.json`.
+Amélioration de l'internationalisation native (`Intl`)::
+  Nous pouvons calculer des dates relatives (exemple : "`il y a 2 jours`")
+  dans plusieurs langues avec `Intl.RelativeTimeFormat()`.
+  L'écriture de listes de mots (exemple : "`Un, deux et trois.`") est facilitée
+  avec l'apparition de `Intl.ListFormat()`.
+Itérations asynchrones sur les objets `Stream`::
+  La combinaison du concept de <<../chapter-04/index.adoc#stream,flux de données>>
+  et des <<../chapter-04/index.adoc#events,événements>> n'est ni évidente
+  ni intuitive. +
+  La lecture asynchrone d'un flux de données avec
+  <<../chapter-03/index.adoc#async-await,`async`/`await`>> simplifie la donne.
+
+Certains aspects de Node ont gagné en rapidité (`process.cwd()`, assertions,
+lecture de fichiers avec `fs.readFile()`, le _parsing_ de nos scripts).
+D'autres changements sont moins visibles mais contribuent néanmoins
+à notre confort de travail :
+
+Mises à jour de sécurité::
+  Support du chiffrement TLSv1.3 pour un support des connexions sécurisées
+  améliorées, plus rapides et moins gourmandes en ressources.
+Remplacement du parseur HTTP::
+  La base de code qui interprète les requêtes HTTP entrantes a été entièrement
+  remplacée par un parseur deux fois plus rapide{nbsp}:{nbsp}``llhttp``
+  ([URL]#https://llhttp.org#).
+Introduction des diagnostics d'erreur::
+  L'option `--experimental-report` active un rapport d'erreur dans un fichier
+  JSON en cas de plantage applicatif.
+  Ce fichier reste malgré tout lisible par un humain
+  Je pense qu'un écosystème d'outillage va se développer pour rendre ces rapports
+  davantage lisibles et exploitables pour déceler plus finement des bugs applicatifs.
+
+[NOTE]
+.[RemarquePreTitre]#Documentation# Liste exhaustive des changements
+====
+Voici une liste de liens pour mieux comprendre ce qui se cache sous le capot
+de Node v12 :
+
+- [URL]#https://v8.dev/blog/v8-release-74#
+- [URL]#https://github.com/nodejs/node/blob/master/doc/changelogs/CHANGELOG_V12.md#
+- [URL]#https://wiki.openssl.org/index.php/TLS1.3#
+====
+
+
+== Node.js v10
+
+La version 10 de Node est sortie le 24 avril 2018.
+V8 est mis à niveau en version{nbsp}``6.6``.
+
+J'ai été content de passer à cette version de Node pour les raisons suivantes :
+
+Introduction des promesses natives pour le module `fs`::
+  L'objet `fs.promises` propose les mêmes fonctions que `fs`… mais elles
+  retournent des <<../chapter-03.adoc#promise,promesses>> au lieu de faire
+  usage des <<../chapter-03/index.adoc#callback,fonctions de rappel>>. +
+  Voilà de quoi faciliter l'orgation d'opérations typiquement asynchrones.
+Création de répertoires de manière récursive::
+  La fonction `fs.mkdir()` accepte l'option `recursive` : lorsque sa valeur
+  vaut `true`, Node crée tous les répertoires nécessaires.
+  Nous n'avons plus besoin de les créer un par un, ni d'avoir recours
+  au module{nbsp}``npm`` _mkdirp_ ([URL]#https://npmjs.com/mkdirp#).
+Introduction des modules ESM::
+  C'est la première fois que l'on peut importer des
+  <<../chapter-04/index.adoc#esm,modules{nbsp}ECMAScript>> dans Node
+  sans avoir recours à de l'outillage externe.
+  Cela nécessite d'utiliser l'option `--experimental-modules` lors d'un appel
+  à la commande{nbsp}``node``, ainsi que d'avoir recours à l'extension de fichier
+  `.mjs`… mais c'est un (bon) début.
+Introduction de l'internationalisation native (`Intl`)::
+  Le module d'internationalisation `Intl` entre en scène pour gérer l'affichage
+  des nombres, devises et dates selon des règles propres à chaque pays.
+  L'installation de base de Node gère uniquement l'anglais mais il est possible
+  d'installer des locales supplémentaires, ou de se reposer sur les réglages
+  du système d'exploitation.
+Le module{nbsp}``npm`` en version 6::
+  La sixième version majeure du module{nbsp}``npm`` embarque la
+  commande{nbsp}``npm audit`` qui simplifie la résolution de l'installation
+  de mises à jour de sécurité.
+  Les temps d'installation ont été drastiquement réduits.
+
+Certains aspects de Node ont gagné en rapidité (itération sur les tableaux,
+itérations asynchrones, création de serveur DNS, assertions) mais d'autres
+changements avancés vont avoir des conséquences intéressantes à moyen et
+long{nbsp}terme :
+
+Module de base `http2`::
+  Node supporte désormais nativement la création de serveur http/2.
+  C'est plus complexe à gérer mais fort heureusement, l'offre de
+  __frameworks__{nbsp}web va s'adapter pour absorber cette complexité à notre place.
+Stabilisation de l'interface `N-API`::
+  L'interface `N-API` est une approche bas-niveau pour interfacer du code écrit
+  en {cpp} directement avec Node, sans script ECMAScript.
+  Certains modules y ont recours pour des questions de performance… mais aussi
+  pour expérimenter avec Node, en utilisant une autre machine virtuelle que V8.
+Module de base `worker_threads`::
+  Il s'agit d'un concept similaire au _Web Workers_ des navigateurs web :
+  ce module expérimental sert à paralléliser l'exécution d'opérations sans
+  bloquer le processus principal, et sans créer de nouveau processus indépendant.
+
+[NOTE]
+.[RemarquePreTitre]#Documentation# Liste exhaustive des changements
+====
+Voici une liste de liens pour mieux comprendre ce qui se cache sous le capot
+de Node v10 :
+
+- [URL]#https://v8.dev/blog/v8-release-66#
+- [URL]#https://github.com/nodejs/node/blob/master/doc/changelogs/CHANGELOG_V10.md#
+====
