@@ -161,9 +161,13 @@ $ npm test
 | Annexe A    | ![][a01-deps]    | ![][a01-security]
 | Annexe B    | ![][a02-deps]    | ![][a02-security]
 <<<<<<< HEAD
+<<<<<<< HEAD
 | Annexe C    | ![][a03-deps]    | ![][a03-security]
 =======
 >>>>>>> feat(appendix-b): Nouveautés et changements dans Node.js
+=======
+| Annexe C    | ![][a03-deps]    | ![][a03-security]
+>>>>>>> feat(appendix-c): Utilisation de cet ouvrage grâce au module nodebook
 
 ## Génération des épreuves
 
@@ -271,6 +275,7 @@ Les exemples de code sont placés sous la [licence MIT][].
 [a01-deps]: https://david-dm.org/oncletom/nodebook/status.svg?path=appendix-a
 [a01-security]: https://snyk.io/test/github/oncletom/nodebook/badge.svg?targetFile=appendix-a/package.json
 <<<<<<< HEAD
+<<<<<<< HEAD
 [a02]: appendix-b/index.adoc
 [a02-deps]: https://david-dm.org/oncletom/nodebook/status.svg?path=appendix-b
 [a02-security]: https://snyk.io/test/github/oncletom/nodebook/badge.svg?targetFile=appendix-b/package.json
@@ -283,3 +288,11 @@ Les exemples de code sont placés sous la [licence MIT][].
 [a02-deps]: https://david-dm.org/oncletom/nodebook/status.svg?path=appendix-b
 [a02-security]: https://snyk.io/test/github/oncletom/nodebook/badge.svg?targetFile=appendix-b/package.json
 >>>>>>> feat(appendix-b): Nouveautés et changements dans Node.js
+=======
+[a02]: appendix-b/index.adoc
+[a02-deps]: https://david-dm.org/oncletom/nodebook/status.svg?path=appendix-b
+[a02-security]: https://snyk.io/test/github/oncletom/nodebook/badge.svg?targetFile=appendix-b/package.json
+[a03]: appendix-c/index.adoc
+[a03-deps]: https://david-dm.org/oncletom/nodebook/status.svg?path=appendix-c
+[a03-security]: https://snyk.io/test/github/oncletom/nodebook/badge.svg?targetFile=appendix-c/package.json
+>>>>>>> feat(appendix-c): Utilisation de cet ouvrage grâce au module nodebook
