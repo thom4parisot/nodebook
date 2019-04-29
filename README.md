@@ -1,4 +1,4 @@
-# Node.js • Apprendre par la pratique [![Build Linux][ci-linux]](https://travis-ci.org/oncletom/nodebook) [![Build Windows][ci-windows]](https://ci.appveyor.com/project/oncletom/nodebook) [![Backers on Open Collective](https://opencollective.com/nodebook/backers/badge.svg)][backers] [![Sponsors on Open Collective](https://opencollective.com/nodebook/sponsors/badge.svg)][sponsors]
+# Node.js • Apprendre par la pratique [![Build Linux][ci-linux]](https://travis-ci.org/oncletom/nodebook) [![Build Windows][ci-windows]](https://ci.appveyor.com/project/oncletom/nodebook) [![Backers on Open Collective](https://opencollective.com/nodebook/backers/badge.svg)][backers] <!--[![Sponsors on Open Collective](https://opencollective.com/nodebook/sponsors/badge.svg)][sponsors]-->
 
 > Familiarisez-vous avec JavaScript, Node.js et l'écosystème de modules `npm`.
 Apprenez à concevoir et à déployer des *applications web* et
@@ -177,18 +177,15 @@ $ soffice ./dist/book.fodt
 
 ## Contributrices et Contributeurs
 
-Merci à vous pour avoir contribué à l'ouvrage grâce à vos relectures, corrections et demandes de clarification.
+🙌 Merci à vous pour avoir contribué à l'ouvrage grâce à vos relectures, corrections et demandes de clarification.
 
 [![](https://opencollective.com/nodebook/contributors.svg?width=890&button=false)][contributors]
 
+🙏 Merci à vous pour avoir [contribué financièrement](https://opencollective.com/nodebook#backer) à l'écriture de l'ouvrage !
+
+<a href="https://opencollective.com/nodebook#backers" target="_blank"><img src="https://opencollective.com/nodebook/backers.svg?width=890&button=false"></a>
+
 <!--
-## Backers
-
-Thank you to all our backers! 🙏 [[Become a backer](https://opencollective.com/nodebook#backer)]
-
-<a href="https://opencollective.com/nodebook#backers" target="_blank"><img src="https://opencollective.com/nodebook/backers.svg?width=890"></a>
-
-
 ## Sponsors
 
 Support this project by becoming a sponsor. Your logo will show up here with a link to your website. [[Become a sponsor](https://opencollective.com/nodebook#sponsor)]
