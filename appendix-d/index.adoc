@@ -1,0 +1,51 @@
+:appendix-number: D
+:chapterId: appendix-d
+:sectnums:
+:nodeCurrentVersion: v12
+:npmCurrentVersion: v6
+:revdate: {docdate}
+:sourceDir: ./examples
+:imagesdir: {indir}
+ifdef::env[]
+:imagesdir: .
+endif::[]
+
+[appendix]
+= Une chaîne de publication basée sur Node.js
+
+include::../docs/web-header.adoc[]
+
+
+== Processus de publication
+
+Expliquer le fonctionnement entre l'auteurice, la maison d'édition et les librairies.
+
+== Une chaîne de publication pur texte
+
+
+Cf. principe publié dans Sciences du Design (https://www.cairn.info/revue-sciences-du-design-2018-2.htm),
+en libre accès sur http://antoinentl.gitlab.io/readme.book/
+et dont le code source est sur http://gitlab.com/antoinentl/readme.book.
+
+=== Écrire : Asciidoc
+
+Format
+
+=== Outiller : Node.js
+
+Pour le convertisseur Asciidoc -> OpenDocument
+Pour le convertisseur Asciidoc -> HTML
+Pour la publication du module sur le registre npm
+
+=== Versionner : Git
+
+Pour garder l'historique
+
+=== Partager : GitHub
+
+Pour l'échange de l'historique et l'intégration des corrections extérieures
+(à un moment, aussi le lieu d'échange avec une éditrice)
+
+=== Automatiser : Travis CI
+
+Pour l'automatisation de la production des formats détachables et le module npm (cf. Annexe C).
