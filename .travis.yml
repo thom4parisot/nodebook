@@ -69,7 +69,16 @@ deploy:
       branch: v2
   - provider: npm
     skip-cleanup: true
+    tag: latest
     on:
       tags: true
+    email: "hi@oncletom.io"
+    api-key: "$NPM_TOKEN"
+  - provider: npm
+    skip-cleanup: true
+    tag: next
+    on:
+      tags: true
+      branch: v2
     email: "hi@oncletom.io"
     api-key: "$NPM_TOKEN"
