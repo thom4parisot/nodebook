@@ -6,6 +6,7 @@ const asciidoctor = require('@asciidoctor/core')();
 const runnerExtension = require('asciidoctor-extension-interactive-runner');
 const microtypoExtension = require('../src/asciidoctor-microtypography-french.js');
 const bash$Extension = require('../src/asciidoctor-extension-bash-dollar.js');
+const externalLinksAttributes = require('../src/asciidoctor-external-links-attributes.js');
 const prismExtension = require('asciidoctor-prism-extension');
 const MDNExtension = require('../src/asciidoctor-extension-mdn.js');
 const hashScroll = require('../src/asciidoctor-toc-hash-scroll.js');
@@ -55,6 +56,7 @@ asciidoctor.SyntaxHighlighter.register('prism', prismExtension);
 asciidoctor.Extensions.register(microtypoExtension);
 asciidoctor.Extensions.register(runnerExtension);
 asciidoctor.Extensions.register(bash$Extension);
+asciidoctor.Extensions.register(externalLinksAttributes);
 asciidoctor.Extensions.register(MDNExtension);
 asciidoctor.Extensions.register(hashScroll);
 
@@ -67,7 +69,7 @@ const builder = (backend, ext, attributes=DEFAULT_ATTRIBUTES) => {
     spinner.start(source);
 
     asciidoctor.convertFile(join(__dirname, '..', SOURCE_FILE), {
-      'to_file': `${join(BUILD_DIR, destinationFile)}`,
+      to_file: join(BUILD_DIR, destinationFile),
       mkdirs: true,
       safe: 'unsafe',
       doctype: 'book',
