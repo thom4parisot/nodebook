@@ -192,7 +192,7 @@ $ curl -L https://github.com/creationix/nvm/raw/{nvmVersion}/install.sh | bash
 `nvm` et Node s'installent encore plus facilement sous macOS si vous
 utilisez le logiciel _Homebrew_.
 
-Rendez-vous dans la section «{nbsp}<<install-macos,macOS>>{nbdp}» pour en
+Rendez-vous dans la section «{nbsp}<<install-macos,macOS>>{nbsp}» pour en
 savoir{nbsp}plus.
 ====
 
@@ -329,8 +329,7 @@ _Mac{nbsp}App{nbsp}Store_.
 .Installation des Command Line Tools et de Homebrew sous macOS
 ----
 $ xcode-select --install
-$ BREWRL=https://rawgit.com/Homebrew/install/master/install \
-   /usr/bin/ruby -e "$(curl -fsSL $BREWRL)"
+$ /usr/bin/ruby -e "$(curl -fsSL https://git.io/brew-install)"
 ----
 
 Pour installer `nvm`, il suffit alors de lancer la commande suivante :
