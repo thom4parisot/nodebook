@@ -9,14 +9,16 @@ module.exports = function externalLinksAttributes () {
 
         return `<script>
   (function(d){
-    const {origin} = window.location;
+    d.addEventListener('DOMContentLoaded', function(){
+      const {origin} = window.location;
 
-    Array.from(document.querySelectorAll('a[href]'))
-      .filter(link => link.href.indexOf(origin) !== 0)
-      .forEach(link => {
-        link.setAttribute('target', '_blank');
-        link.setAttribute('rel', 'noopener');
-      });
+      Array.from(document.querySelectorAll('a[href]'))
+        .filter(link => link.href.indexOf(origin) !== 0)
+        .forEach(link => {
+          link.setAttribute('target', '_blank');
+          link.setAttribute('rel', 'noopener');
+        });
+    });
   })(document);</script>`;
       });
     });
