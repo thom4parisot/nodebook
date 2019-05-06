@@ -52,12 +52,15 @@ deploy:
     on:
       branch: v2
   - provider: releases
+    prerelease: false
     skip-cleanup: true
     api-key: "$GH_TOKEN"
     file-glob: true
     file: dist/book.*
     on:
       tags: true
+      all-branches: true
+      condition: $TRAVIS_BRANCH =~ ^1._
   - provider: releases
     prerelease: true
     skip-cleanup: true
@@ -66,10 +69,23 @@ deploy:
     file: dist/book.*
     on:
       tags: true
-      branch: v2
+      all-branches: true
+      condition: $TRAVIS_BRANCH =~ ^2._
   - provider: npm
+    tag: latest
     skip-cleanup: true
     on:
       tags: true
+      all-branches: true
+      condition: $TRAVIS_BRANCH =~ ^1._
+    email: "hi@oncletom.io"
+    api-key: "$NPM_TOKEN"
+  - provider: npm
+    tag: next
+    skip-cleanup: true
+    on:
+      tags: true
+      all-branches: true
+      condition: $TRAVIS_BRANCH =~ ^2._
     email: "hi@oncletom.io"
     api-key: "$NPM_TOKEN"
