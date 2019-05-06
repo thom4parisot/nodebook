@@ -83,18 +83,9 @@ deploy:
   - provider: npm
     tag: next
     skip-cleanup: true
-    tag: latest
     on:
       tags: true
       all-branches: true
       condition: $TRAVIS_BRANCH =~ ^v2.
-    email: "hi@oncletom.io"
-    api-key: "$NPM_TOKEN"
-  - provider: npm
-    skip-cleanup: true
-    tag: next
-    on:
-      tags: true
-      branch: v2
     email: "hi@oncletom.io"
     api-key: "$NPM_TOKEN"
