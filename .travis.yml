@@ -60,7 +60,7 @@ deploy:
     on:
       tags: true
       all-branches: true
-      condition: $TRAVIS_BRANCH =~ ^1._
+      condition: $TRAVIS_BRANCH =~ ^v1._
   - provider: releases
     prerelease: true
     skip-cleanup: true
@@ -70,14 +70,14 @@ deploy:
     on:
       tags: true
       all-branches: true
-      condition: $TRAVIS_BRANCH =~ ^2._
+      condition: $TRAVIS_BRANCH =~ ^v2._
   - provider: npm
     tag: latest
     skip-cleanup: true
     on:
       tags: true
       all-branches: true
-      condition: $TRAVIS_BRANCH =~ ^1._
+      condition: $TRAVIS_BRANCH =~ ^v1._
     email: "hi@oncletom.io"
     api-key: "$NPM_TOKEN"
   - provider: npm
@@ -86,6 +86,6 @@ deploy:
     on:
       tags: true
       all-branches: true
-      condition: $TRAVIS_BRANCH =~ ^2._
+      condition: $TRAVIS_BRANCH =~ ^v2._
     email: "hi@oncletom.io"
     api-key: "$NPM_TOKEN"
