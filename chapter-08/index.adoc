@@ -1779,6 +1779,7 @@ Dans cet exemple, nous partons à la recherche de tous les fichiers préfixés
 par `package-` et terminés par `.json`.
 Cette intention est exprimée par un seul argument qui contient le caractère
 de __globbing__{nbsp}(`*`).
+indexterm:[symboles et motifs, * (chemin d'accès)]
 
 [source,javascript]
 .files/glob.js
@@ -1790,6 +1791,7 @@ include::{sourceDir}/files/glob.js[]
 <3> Pour ensuite les afficher dans le terminal.
 
 L'expansion est caractérisée par l'utilisation des accolades.
+indexterm:[symboles et motifs, {...} (chemin d'accès)]
 Les valeurs sont séparées par des virgules, qui signifient _ou_.
 Les deux syntaxes se combinent ici pour récupérer les fichiers suffixés par
 `.adoc` ou par{nbsp}``.html`` :
@@ -1800,6 +1802,7 @@ $ node files/glob.js '../*.{adoc,html}'
 ----
 
 Enfin, l'utilisation de la double-étoile{nbsp}(`**`) signifie _dans tous les répertoires_.
+indexterm:[symboles et motifs, ** (chemin d'accès)]
 Nous récupérons ainsi tous les fichiers{nbsp}``.js`` contenus dans ce répertoire
 et les sous-répertoires :
 
@@ -1810,6 +1813,10 @@ $ node files/glob.js '**/*.js'
 
 [[streaming]]
 === Utiliser les flux de données (stdin, stdout et stderr)
+indexterm:[module, stream]
+indexterm:[module, process, stdin]
+indexterm:[module, process, stdout]
+indexterm:[module, process, stderr]
 
 Cette section complète notre découverte du
 <<../chapter-04/index.adoc#stream,module `stream`>>
@@ -1835,11 +1842,14 @@ include::{sourceDir}/streaming/intro.js[]
 ----
 <1> Le module{nbsp}``npm`` _get-stdin_ ([URL]#https://npmjs.com/get-stdin#) est pratique pour un flux d'entrée à petit volume.
 <2> Il retourne une promesse quand il a terminé de lire le flux d'entrée.
+indexterm:[module npm, get-stdin]
 
 J'aime bien proposer une alternative à l'entrée standard, en utilisant
 les *arguments lorsqu'il y a un nombre indéfini d'éléments* à lire.
 Je trouve que cette proposition évite de renoncer à un outil
 dans un contexte où il est impossible de configurer un flux d'entrée.
+indexterm:[application en ligne de commande, argument]
+indexterm:[module, process, process.argv]
 
 ----
 $ cat blah.txt | node streaming/intro-fallback.js
@@ -1863,11 +1873,14 @@ include::{sourceDir}/streaming/intro-fallback.js[]
 Notons au passage l'utilisation de `Promise.resolve()`
 (<<../chapter-03/index.adoc#promise,chapitre{nbsp}3>>) pour transformer deux
 sources de données de manière identique.
+indexterm:[promesse, resolve()]
 
 Les <<args.options,options>> sont adaptées pour *indiquer l'emplacement d'une ressource*.
-La méthode `fs.createReadStream` (<<../chapter-04/index.adoc#fs,chapitre{nbsp}4>>)
+La méthode `fs.createReadStream()` (<<../chapter-04/index.adoc#fs,chapitre{nbsp}4>>)
 lit les données d'une ressource de la même manière que nous consommons
 l'entrée standard.
+indexterm:[module, fs, fs.createReadStream()]
+indexterm:[module, stream, stream.Readable]
 
 ----
 $ node streaming/input.js --input blah.txt
@@ -1881,6 +1894,8 @@ include::{sourceDir}/streaming/input.js[]
 ----
 <1> Le module{nbsp}``npm`` _get-stream_ ([URL]#https://npmjs.com/get-stream#) est similaire à _get-stdin_ et fonctionne avec tout flux de lecture.
 <2> Il résout une promesse dès qu'il a terminé de consommer le flux de lecture.
+indexterm:[module npm, get-stream]
+indexterm:[module npm, get-stdin]
 
 Là aussi, je trouve intéressant de proposer une approche double, en acceptant
 un chemin de fichier en option et son contenu via l'entrée standard :
@@ -1900,6 +1915,8 @@ include::{sourceDir}/streaming/input-fallback.js[]
 <1> Le module{nbsp}``npm`` _through2_ ([URL]#https://npmjs.com/through2#) s'intègre à un flux en exécutant une fonction à chaque arrivée de données.
 <2> Nous transformons la chaîne de caractères entrante dans le flux de sortie.
 <3> Ce flux de sortie est lui-même redirigé vers la sortie standard du programme.
+indexterm:[module npm, through2]
+indexterm:[module, stream]
 
 Ce qui est intéressant avec cette approche est qu'elle nous apprend
 à intervenir nous-même sur un flux sans avoir à en connaître les tenants et aboutissant.
@@ -1928,6 +1945,7 @@ sont lues, bloc par{nbsp}bloc.
 
 Nous sommes désormais en mesure de travailler avec des fichiers au même
 titre qu'avec l'entrée et la sortie standards.
+indexterm:[flux de données, redirection (pipe)]
 
 ----
 $ cat blah.txt | node streaming/pipe-in.js
@@ -1970,6 +1988,10 @@ l'entrée standard ou écrivent vers la sortie standard.
 
 [[autocomplete]]
 === Activer l'autocomplétion des commandes
+indexterm:[autocomplétion]
+indexterm:[terminal, autocomplétion]
+indexterm:[application en ligne de commande, autocomplétion]
+indexterm:[application en ligne de commande, argument]
 
 Faire en sorte que les options possibles s'affichent à l'écran sur une simple
 pression de la touche kbd:[Tab] est la cerise sur le gâteau !
@@ -2005,6 +2027,7 @@ $ nodebook.ch08.autocomplete kbd:[Tab]
 
 Le mécanisme de complétion est fourni par le module{nbsp}``npm`` _omelette_
 ([URL]#https://npmjs.com/omelette#).
+indexterm:[module npm, omelette]
 Il est totalement indépendant de notre outillage d'<<args,arguments et d'options>>.
 Je le trouve léger et rapide à prendre en main.
 
@@ -2049,6 +2072,7 @@ connaît pas la liste exhaustive des propositions.
 
 Nous avons parlé du module{nbsp}``npm`` _yargs_ dans la section sur
 l'<<application,utilisation d'un framework>>.
+indexterm:[module npm, yargs]
 Il embarque un module d'autocomplétion.
 Si vous utilisez déjà ce module, l'autocomplétion revient à ajouter une ligne
 de code à notre programme.
@@ -2080,6 +2104,7 @@ et `~/.config/fish/config.fish` pour{nbsp}__fish__.
 
 [[packaging]]
 === Rendre le programme indépendant de{nbsp}Node
+indexterm:[Node.js, script exécutable]
 
 Nos programmes exécutables souffrent d'un défaut : ils imposent
 l'installation préalable de Node pour fonctionner.
@@ -2088,6 +2113,7 @@ de production car nous sommes à même de contrôler l'environnement d'exécutio
 
 La première solution consiste à empaqueter notre application avec le module
 npm _pkg_ ([URL]#https://npmjs.com/pkg#).
+indexterm:[module npm, pkg]
 Cet exécutable embarque notre code, les dépendances npm du projet
 et la version de Node de notre choix sous la forme d'un unique fichier exécutable.
 
@@ -2104,6 +2130,7 @@ Nous pourrions faire de même pour des ordinateurs légers de type Raspberry{nbs
 
 Une solution alternative consiste à utiliser le logiciel _Docker_
 ([URL]#https://docker.com/community-edition#).
+indexterm:[Docker]
 Ce système crée une base d'environnement réutilisable (le conteneur) à partir
 d'une recette d'installation (l'image).
 Une même image applicative se réplique à l'infini, sans avoir
