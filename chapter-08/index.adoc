@@ -1779,7 +1779,7 @@ Dans cet exemple, nous partons à la recherche de tous les fichiers préfixés
 par `package-` et terminés par `.json`.
 Cette intention est exprimée par un seul argument qui contient le caractère
 de __globbing__{nbsp}(`*`).
-indexterm:[symboles et motifs, * (chemin d'accès)]
+indexterm:[symboles et motifs, +*+ (chemin d'accès)]
 
 [source,javascript]
 .files/glob.js
@@ -1791,7 +1791,7 @@ include::{sourceDir}/files/glob.js[]
 <3> Pour ensuite les afficher dans le terminal.
 
 L'expansion est caractérisée par l'utilisation des accolades.
-indexterm:[symboles et motifs, {...} (chemin d'accès)]
+indexterm:[symboles et motifs, +{...}+ (chemin d'accès)]
 Les valeurs sont séparées par des virgules, qui signifient _ou_.
 Les deux syntaxes se combinent ici pour récupérer les fichiers suffixés par
 `.adoc` ou par{nbsp}``.html`` :
@@ -1802,7 +1802,7 @@ $ node files/glob.js '../*.{adoc,html}'
 ----
 
 Enfin, l'utilisation de la double-étoile{nbsp}(`**`) signifie _dans tous les répertoires_.
-indexterm:[symboles et motifs, ** (chemin d'accès)]
+indexterm:[symboles et motifs, +**+ (chemin d'accès)]
 Nous récupérons ainsi tous les fichiers{nbsp}``.js`` contenus dans ce répertoire
 et les sous-répertoires :
 
