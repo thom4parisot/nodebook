@@ -48,6 +48,7 @@ les futurs standards d'ECMAScript et _HTML5_, sur les navigateurs actuels et anc
 include::../docs/tip-versions.adoc[]
 
 == Quel rapport entre Node et les navigateurs{nbsp}web ?
+indexterm:[application front-end]
 
 Ce chapitre peut sembler confus au premier abord.
 Si Node s'exécute au niveau du système d'exploitation – "`côté serveur`" –,
@@ -57,12 +58,14 @@ Quid de l'utilisation de `require('fs')` pour accéder au système de fichiers ?
 
 La réponse courte est : nous n'exécutons pas Node dans un navigateur.
 
-Et voici la réponse longue : *Node est utilisé pour assembler du code*, le _transformer_
-et le rendre fonctionnel dans une paire de balises `<script></script>`.
+Et voici la réponse longue : *Node est utilisé pour assembler du code*,
+le _transformer_ et le rendre fonctionnel dans une paire de
+balises `<script></script>`.
 Ce code peut aussi aussi bien être fourni par des bibliothèques tierces
 installées via{nbsp}``npm`` (_jQuery_, _React_ ou _d3_ par exemple) que par de
 l'outillage (optimiseurs, suite de tests, orchestration de tâches) ou encore
 par le code réutilisable de notre propre application{nbsp}web.
+indexterm:[module, npm]
 
 Il faut également bien comprendre qu'il y a plusieurs "`problèmes`" cachés sous
 une même question :
@@ -71,6 +74,8 @@ une même question :
 implémentant ECMAScript de façon plus ou moins complète.
 - Ils n'ont pas accès aux mêmes APIs – Node accède à `fs` et `http` tandis que
 les navigateurs ont `File` et `fetch`/`XmlHttpRequest`.
+indexterm:[module, de base]
+indexterm:[module, fs]
 - Ils ne gèrent pas le chargement de modules de la même manière
 (voir la section "`<<managing-dependencies,Dépendences de développement>>`").
 - L'implémentation même d'ECMAScript diffère selon les versions de Node
@@ -83,6 +88,7 @@ prochaines sections comment tout ceci fonctionne.
 include::../docs/tip-examples.adoc[]
 
 == Écrire dès à présent le code du{nbsp}futur
+indexterm:[ECMAScript]
 
 Transformer du code ECMAScript a pendant longtemps été chose pénible.
 Je pense par exemple à de la minification de code (pour réduire les temps de
@@ -96,15 +102,21 @@ _esprima_ ([URL]#https://npmjs.com/esprima#) chamboule les règles du jeu en
 décembre 2011 : ce parseur ECMAScript – lui-même écrit en ECMAScript –
 exporte une compréhension de code sous forme d'arbre syntaxique abstrait
 (_Abstract Syntax Tree_, _AST_).
+indexterm:[module npm, esprima]
+indexterm:[Abstract Syntax Tree (AST)]
 Cet arbre est lui-même analysable par de nouveaux outils :
 
 - les _source maps_ pour associer le code transformé au code d'origine,
 notamment dans les outils de développement des navigateurs ;
+indexterm:[Source map]
 - des minifieurs plus efficaces et ayant connaissance des portions de code exécutées ;
 - des analyseurs de code pour informer le développeur d'erreurs de syntaxe,
 de non-respect de styles de développement, etc. ;
 - des convertisseurs de code pour passer d'ECMAScript vers CoffeeScript,
 de modules CommonJS vers des modules ECMAScript, etc.
+indexterm:[CoffeeScript]
+indexterm:[module, CommonJS]
+indexterm:[CommonJS (type de module)]
 
 [TIP]
 .[RemarquePreTitre]#Lien# Annonce d'esprima
@@ -133,6 +145,7 @@ ses ressources graphiques.
 
 [[transpilation]]
 === Écrire au plus proche des standards
+indexterm:[module npm, esprima]
 
 Fort heureusement, l'arrivée d'_esprima_ change la donne et permet d'écrire un
 code proche des standards qui résiste au temps.
@@ -156,6 +169,7 @@ compte du temps de développement et du temps de maintenance d'une base de{nbsp}
 [TIP]
 .[RemarquePreTitre]#Question# Standards, quels standards ?
 ====
+indexterm:[documentation, standards Web]
 Plusieurs organismes prennent part à la standardisation de langages et
 d'API lorsque l'on touche aux navigateurs :
 
@@ -176,11 +190,16 @@ des navigateurs et, à défaut, transformer le code pour l'adapter aux autres na
 Il arrive que certains éléments de syntaxe soient abandonnés pendant le
 processus de standardisation – ou que leur implémentation change beaucoup
 (on pensera à `Object.observe()`).
+indexterm:[objet, Object.observe()]
 
 La question qui nous taraude est : comment transformer le code pour satisfaire
 à la fois les navigateurs compatibles et les autres ?
-_Babel_ ([URL]#https://babeljs.io#) est un outil de choix  pour parvenir à ses
+_Babel_ ([URL]#https://babeljs.io#) est un outil de choix pour parvenir à ses
 fins d'écrire du code résistant au(x standards du) temps.
+indexterm:[module npm, babel (voir Babel)]
+indexterm:[Babel]
+indexterm:[ECMAScript, conversion]
+indexterm:[Babel, conversion]
 
 Ce module convertit de manière sélective toute syntaxe ECMAScript{nbsp}2015/2016/etc.
 vers de l'ECMAScript{nbsp}5, compréhensible par les navigateurs modernes.
@@ -193,6 +212,7 @@ convertir les éléments de syntaxe couverts par 100{nbsp}% des navigateurs.
 
 _Traceur_ est un des premiers transpilateurs ECMAScript{nbsp}2015 vers
 ECMAScript{nbsp}5 à avoir émergé dans l'écosystème{nbsp}Node.
+indexterm:[module npm, traceur]
 
 Grâce à lui, il a été possible d'écrire des modules en ECMAScript{nbsp}2015
 bien avant que la spécification ne soit entièrement terminée et donc on a pu
@@ -214,6 +234,7 @@ Le seul obstacle consiste à traduire ce code pour l'ensemble des navigateurs
 compatibles avec ECMAScript{nbsp}5.
 
 Exécutons cette commande :
+indexterm:[Babel, ligne de commande]
 
 ----
 $ npm run babel -- examples/babel/es2018.js
@@ -232,18 +253,25 @@ Chaque fonctionnalité d'ECMAScript est transformée selon une règle personnali
 intégrée à _Babel_ ou disponible sous forme d'un plug-in.
 Les _presets_ sont des modules{nbsp}``npm`` qui regroupent les règles
 de transformation selon un certaine logique.
+indexterm:[Babel, preset]
 
 _preset-env_ [URL]#https://npmjs.com/babel-preset-env# convertit
 notre code dans une version compatible avec la majorité des navigateurs
 supportés sur le marché.
+indexterm:[module npm, babel-preset-env]
 Si vos besoins sont différents, sa configuration sait cibler des navigateurs
 en fonction soit de leur version, soit de leur part de marché.
 
 La configuration des presets et d'autres aspects de Babel se fait
 dans un fichier nommé `.babelrc`.
+indexterm:[Babel, .babelrc (fichier de configuration)]
+indexterm:[configuration, .babelrc]
 L'exemple suivant configure Babel pour préserver les commentaires,
 transformer la syntaxe JSX pour <<react,_React_>> et transformer pour les
 dernières versions des navigateurs sur le marché :
+indexterm:[application front-end, React (framework)]
+indexterm:[application front-end, JSX (syntaxe)]
+indexterm:[module npm, react]
 
 .{empty}.babelrc
 ----
@@ -253,6 +281,7 @@ include::{sourceDir}/.babelrc[]
 [TIP]
 .[RemarquePreTitre]#Lien# Documentation de Babel
 ====
+indexterm:[configuration, .babelrc]
 Toutes les options de configuration sont documentées sur le site officiel
 de Babel : [URL]#https://babeljs.io/docs/en/babel-core/#options#.
 
@@ -262,6 +291,8 @@ Une autre page explique où placer et quoi mettre dans les fichiers
 
 [[polyfills]]
 === Combler les manques avec des polyfills
+indexterm:[application front-end, polyfill (voir ECMAScript)]
+indexterm:[ECMAScript, polyfill]
 
 Des outils comme Babel nous permettent d'écrire avec une syntaxe moderne qui
 *comblent les fonctionnalités manquantes* – leur implémentation.
@@ -345,6 +376,8 @@ include::{sourceDir}/polyfill-import.html[]
 
 Le module _npm_ `core-js` est une bibliothèque exhaustive de _polyfills_
 pouvant être inclus un à un ou par versions d'ECMAScript.
+indexterm:[module npm, core-js]
+indexterm:[ECMAScript, polyfill]
 
 [TIP]
 .[RemarquePreTitre]#Documentation# core-js
@@ -393,6 +426,7 @@ include::{sourceDir}/polyfill-require.js[]
 [TIP]
 .[RemarquePreTitre]#Guide# Bonnes pratiques constatées
 ====
+indexterm:[documentation, polyfill]
 De bons usages des _polyfills_ ainsi que les risques liés à leur utilisation
 sont compilés dans un guide édité par le{nbsp}W3C :
 
@@ -401,6 +435,8 @@ sont compilés dans un guide édité par le{nbsp}W3C :
 
 [[modules]]
 == Importer des modules
+indexterm:[ECMAScript, module]
+indexterm:[module, ECMAScript]
 
 Importer des modules est une pratique courante avec Node.
 Elle l'est en revanche beaucoup moins dans l'univers du Web puisqu'il n'existait
@@ -408,6 +444,8 @@ rien de natif avant les <<modules-es2015,modules ECMAScript>>.
 
 Auparavant, on aura vu débarquer les modules AMD (_Asynchronous Module Definition_)
 pour gérer les dépendances entre scripts.
+indexterm:[module, Asynchronous Module Definition (AMD)]
+indexterm:[module, Universal Module Definition (UMD)]
 Les bibliothèques Dojo, RequireJS et YUI ont popularisé ce motif de conception.
 Un désir d'universalité a ensuite émergé avec la popularité croissante de Node,
 conduisant aux modules{nbsp}UMD, conciliant AMD et CommonJS.
@@ -416,6 +454,7 @@ Les modules ECMAScript ont émergé de ce bouillonnement.
 
 [[modules-script]]
 === La balise <script>
+indexterm:[application front-end, balise <script>]
 
 Rappelons-le, la méthode incontournable pour charger du code dans un navigateur
 est l'utilisation de la base `<script>`.
@@ -460,6 +499,8 @@ Le développement _front-end_ basé sur de l'outillage Node va justement nous ai
 
 [[modules-es2015]]
 === Les modules ECMAScript
+indexterm:[application front-end, balise <script type=module>]
+indexterm:[module ECMAScript]
 
 Nous avons évoqué les <<../chapter-03/index.adoc#primitives,primitives ECMAScript{nbsp}2015>> dans le chapitre{nbsp}3.
 Les modules font partie des fonctionnalités tant attendues.
@@ -471,6 +512,8 @@ L'attribut `type="module"` sert à maintenir une compatibilité entre les script
 classiques et les modules ECMAScript.
 Ce mécanisme s'appuie sur plusieurs concepts importants :
 
+indexterm:[opérateur, export]
+indexterm:[opérateur, import]
 - Toute variable est privée sauf si elle est exportée avec l'opérateur `export`.
 - Les modules sont explicitement inclus avec l'opérateur `import`.
 - Les variables globales définies par l'utilisateur ne sont pas accessibles depuis un module.
@@ -508,6 +551,8 @@ include::{sourceDir}/import/dom-log.js[]
 
 [[browserify]]
 === Importer des modules{nbsp}npm pour le{nbsp}Web
+indexterm:[module, npm]
+indexterm:[application front-end, module npm]
 
 Qu'en est-il alors des modules{nbsp}``npm`` ?
 Nous pouvons transpiler et importer du code.
@@ -542,7 +587,9 @@ Le seul hic, c'est que *cela ne fonctionne pas* :
 - Rien ne garantit que `jquery` expose son code en tant que module ECMAScript.
 - On n'a certainement pas envie d'exposer publiquement le répertoire `node_modules`.
 
-C'est alors qu'entre en jeu _Browserify_.
+C'est alors qu'entre en jeu _Browserify_ ([URL]#https://npmjs.com/browserify#).
+indexterm:[module npm, browserify]
+indexterm:[application front-end, empaquetage]
 Il s'agit d'un outil générique de transformation de code.
 Il peut être utilisé en ligne de commandes, via son API Node, mais aussi par
 le biais de plug-in pour d'autres outils (comme Gulp ou Grunt).
@@ -555,6 +602,7 @@ des remplacements ligne à ligne.
 Là où _Babel_ cherche uniquement à traduire un langage vers un autre,
 _Browserify_ est le couteau suisse pour effectuer des remplacements majeurs dans le code :
 
+indexterm:[ECMAScript, polyfill]
 - portage de la fonction `require()` et inclusion du code des modules sous-jacents ;
 - suppression de code conditionnel ;
 - remplacement d'API spécifiques à Node par des _polyfills_ pour le{nbsp}Web ;
@@ -567,6 +615,7 @@ notre outillage, pour nos propres besoins.
 [TIP]
 .[RemarquePreTitre]#Guide# Utiliser Browserify
 ====
+indexterm:[documentation, browserify]
 _Browserify_ ([URL]#https://npmjs.com/browserify#) est un outil extrêmement
 adaptable, modulaire et puissant.
 Son apprentissage progressif peut faire de lui un allié de choix dans tous
@@ -581,6 +630,8 @@ Nous allons maintenant chercher à transformer le fichier `script-import-jquery.
 non seulement pour rendre la syntaxe `import` intelligible
 (c'est le <<transpilation,rôle de Babel>>), mais aussi pour faire le
 lien avec les modules{nbsp}``npm`` :
+indexterm:[Babel]
+indexterm:[Babel, conversion]
 
 ----
 $ npm run browserify -- \
@@ -613,6 +664,8 @@ include::{sourceDir}/import/import-jquery-browserify.html[]
 En résumé, nous avons besoin de nous baser sur deux ou trois outils pour écrire
 un code modulaire et compatible avec n'importe quel type de syntaxe :
 
+indexterm:[ECMAScript, polyfill]
+indexterm:[Babel]
 - Babel pour transformer la syntaxe ;
 - des _polyfills_ pour harmoniser les fonctionnalités ;
 - _browserify_ pour l'intégration avec les modules{nbsp}``npm``.
