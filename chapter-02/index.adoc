@@ -316,16 +316,23 @@ indexterm:[installation, homebrew]
 Un installeur officiel pour macOS est fourni sur le site de Node,
 à l'adresse [URL]#https://nodejs.org/fr/download/#.
 
-<<nvm,nvm>> est la voie alternative recommandée pour gérer plusieurs versions
-de Node en parallèle.
+<<nvm,nvm>> est la voie alternative que je recommande pour installer Node
+mais aussi pour gérer plusieurs versions de Node en parallèle.
+Lisez la suite de cette section si le gestionnaire de paquets Homebrew ([URL]#https://brew.sh#)
+vous est familier, sinon rendez-vous à la section
+`"<<nvm,Plusieurs versions sur la même machine{nbsp}(nvm)>>`" pour y découvrir
+les instructions classiques d'installation.
 
-Il est toutefois possible d'installer Node et `nvm` via le gestionnaire de
-paquets Homebrew ([URL]#https://brew.sh#).
-Il aide à installer des logiciels qui ne sont pas distribués via le
-_Mac{nbsp}App{nbsp}Store_.
+Homebrew est la voie royale pour installer{nbsp}`nvm`.
+C'est l'outil que j'utilise au quotidien pour installer mes logiciels macOS,
+ceux en ligne de commande et ceux avec une interface graphique,
+qui ne sont pas distribués sur le _Mac{nbsp}App{nbsp}Store_.
 
-. Installer les _Command Line Tools_ pour compiler des logiciels depuis leur code source.
-. Installation Homebrew.
+L'installation des _Command Line Tools_ est un pré-requis.
+Ce sont utilitaires distribués par Apple pour transformer un ordinateur
+grand{nbsp}public en outil de travail pour développeur·se.
+On y retrouve Git et des compilateurs comme GCC, entre autres. +
+C'est une installation qui se fait une bonne fois pour toutes.
 
 .Installation des Command Line Tools et de Homebrew sous macOS
 ----
@@ -333,20 +340,35 @@ $ xcode-select --install
 $ /usr/bin/ruby -e "$(curl -fsSL https://git.io/brew-install)"
 ----
 
-Pour installer `nvm`, il suffit alors de lancer la commande suivante :
+Enfin, l'installation de `nvm` peut s'effectuer avec la commande suivante :
 
 ----
 $ brew install nvm
 ----
 
-Ou, pour installer une seule version de Node, la plus récente :
+Vous pouvez vérifier que le programme répond comme prévu avec cette commande :
 
+[subs="+attributes"]
 ----
-$ brew install node
+$ nvm --version
+{nvmVersion}
 ----
 
-Vous obtiendrez des options d'installation et de configuration en tapant
-`brew info nvm` et/ou `brew info node`.
+Une dernière manipulation est nécessaire pour intégrer `nvm` de manière
+permanente à notre terminal.
+Ajoutez les lignes suivantes à la fin du fichier `~/.bashrc` (par défaut),
+ou `~/.zshrc` (si vous avez installé votre propre _shell_) :
+
+.{blank}~/.bashrc ou ~/.zshrc
+----
+# (...)
+
+export NVM_DIR="$HOME/.nvm"
+. "/usr/local/opt/nvm/nvm.sh"
+. "/usr/local/opt/nvm/etc/bash_completion"
+----
+
+Vous êtes maintenant paré·e à utiliser Node sur votre Mac !
 
 === Windows
 indexterm:[installation, Windows]
@@ -354,8 +376,8 @@ indexterm:[installation, Windows]
 Un installeur officiel pour Windows est fourni sur le site de Node à l'adresse
 [URL]#https://nodejs.org/fr/download/#.
 
-<<nvm,`nvm-windows`>> est la voie alternative recommandée pour gérer plusieurs
-versions de Node en parallèle.
+<<nvm,`nvm-windows`>> est la voie alternative que je recommande pour installer
+Node mais aussi pour gérer plusieurs versions de Node en parallèle.
 
 .Un des écrans d'installation de Node sous{nbsp}Windows{nbsp}10
 image::images/windows-node-installer.png[width="50%"]
