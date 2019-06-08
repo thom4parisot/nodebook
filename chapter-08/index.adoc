@@ -2017,8 +2017,9 @@ $ npm install --global $(nodebook dir chapter-08 --root)
 Le mécanisme d'autocomplétion est fourni par l'environnement d'exécution
 de notre terminal, le _shell_.
 Sous Linux et macOS, il s'agit de _bash_, de _zsh_ ou plus rarement, de _fish_.
-Il "`suffit`" donc d'interconnecter notre programme exécutable pour qu'il fournisse
-les résultats de complétion au mécanisme de notre _shell_.
+Il "`suffit`" donc d'interconnecter notre programme exécutable Node avec
+le système d'exploitation — ce dernier envoie des signaux et attend des résultats
+d'autocomplétion en retour.
 
 [subs="+macros"]
 ----
@@ -2079,7 +2080,7 @@ indexterm:[module npm, yargs]
 Il embarque un module d'autocomplétion.
 Si vous utilisez déjà ce module, l'autocomplétion revient à ajouter une ligne
 de code à notre programme.
-Elle est un peu plus basique et demande plus de travail pour
+Elle est un peu plus basique et demande davantage de travail pour
 arriver à la qualité des résultats du module _omelette_.
 
 [subs="+macros"]
