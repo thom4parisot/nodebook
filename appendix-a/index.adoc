@@ -32,6 +32,7 @@ Ces modules répondent à des besoins quotidiens, pour travailler plus rapidemen
 sur des structures ECMAScript.
 
 === lodash
+indexterm:[module npm, lodash]
 
 _lodash_ ([URL]#https://npmjs.com/lodash#) est une collection de plusieurs
 dizaines de fonctions pour travailler plus facilement avec des chaînes de caractères,
@@ -48,6 +49,7 @@ include::{sourceDir}/lodash.js[]
 <1> Affiche `Thor`.
 
 === he
+indexterm:[module npm, he]
 
 _he_ ([URL]#https://npmjs.com/he#) est un utilitaire pour encoder et décoder
 des entités HTML dans des chaînes de caractères.
@@ -61,6 +63,7 @@ include::{sourceDir}/he.js[]
 <2> Affiche `++&#x3C;h1&#x3E;Blog Post&#x3C;/h1&#x3E;++`.
 
 === chance
+indexterm:[module npm, chance]
 
 _chance_ ([URL]#https://npmjs.com/chance#) crée des données de manière aléatoire.
 Le module retourne aussi des prénoms fictifs, mais aussi des numéros de téléphone,
@@ -71,6 +74,8 @@ Il s'utilise surtout pour générer des données factices à des fins de tests,
 en attendant les vraies données.
 
 === date-fns
+indexterm:[module npm, date-fns]
+indexterm:[date]
 
 _date-fns_ ([URL]#https://npmjs.com/date-fns#) est une collection de fonctions
 pour travailler avec des dates, plus facilement qu'avec l'objet natif{nbsp}``Date``.
@@ -80,6 +85,8 @@ de temps se chevauchent ou si deux dates font partie d'une même semaine calenda
 
 
 === tcomb
+indexterm:[typage]
+indexterm:[module npm, tcomb]
 
 _tcomb_ ([URL]#https://npmjs.com/tcomb#) renforce la création de structures
 typées et non mutables.
@@ -96,6 +103,8 @@ include::{sourceDir}/tcomb.js[]
 <3> Cet appel va lancer une exception car la propriété `lon` doit être un nombre.
 
 === eventemitter3
+indexterm:[module, events]
+indexterm:[module npm, eventemitter3]
 
 _eventemitter3_ ([URL]#https://npmjs.com/eventemitter3#) sert à gérer
 des événements de manière uniforme dans un script Node et dans les navigateurs.
@@ -115,6 +124,8 @@ include::{sourceDir}/eventemitter3.js[]
 == Pendant le développement
 
 === debug
+indexterm:[Node.js, débogage]
+indexterm:[module npm, debug]
 
 _debug_ ([URL]#https://npmjs.com/debug#) rend optionnel l'affichage de
 messages de débogage.
@@ -157,6 +168,7 @@ include::{sourceDir}/debug.js[]
 <4> Cette fonction fait appel au débogueur `app:timer`.
 
 === nodemon
+indexterm:[module npm, nodemon]
 
 _nodemon_ ([URL]#https://npmjs.com/nodemon#) relance le processus actif
 dès qu'un fichier ECMAScript ou JSON est modifié.
@@ -172,6 +184,9 @@ du <<../chapter-07/index.adoc#,chapitre{nbsp}7>>.
 ====
 
 === npm-run-all
+indexterm:[package.json]
+indexterm:[npm, run]
+indexterm:[module npm, npm-run-all]
 
 _npm-run-all_ ([URL]#https://npmjs.com/npm-run-all#) est mon outil favori
 pour composer avec les scripts{nbsp}``npm``.
@@ -194,6 +209,9 @@ Le module transfère les arguments aux sous-scripts.
 ----
 
 === husky
+indexterm:[module npm, husky]
+indexterm:[npm, run]
+indexterm:[déploiement, Git]
 
 _husky_ ([URL]#https://npmjs.com/husky#) intègre Git aux
 <<../chapter-05/index.adoc#scripts,scripts{nbsp}``npm``>>.
@@ -216,6 +234,8 @@ La liste complète des _hooks_ Git se trouve dans la documentation
 officielle : [URL]#https://git-scm.com/docs/githooks#.
 
 === onchange
+indexterm:[module npm, onchange]
+indexterm:[npm, run]
 
 _onchange_ ([URL]#https://npmjs.com/onchange#) observe une liste de fichiers
 en continu et déclenche une commande dès que l'un d'entre eux est modifié.
@@ -237,6 +257,9 @@ de configuration ou des fichiers _front-end_ pendant le développement.
 ----
 
 === tiny-lr
+indexterm:[module npm, tiny-lr]
+indexterm:[module npm, express]
+indexterm:[module, http]
 
 _tiny-lr_ ([URL]#https://npmjs.com/tiny-lr#) est une implémentation minimale
 du protocole _livereload_ ([URL]#http://livereload.com#).
@@ -247,6 +270,8 @@ Le script ou l'extension navigateur client remplace les anciens fichiers
 par les nouveaux pour refléter les changements sans recharger la{nbsp}page.
 
 === livereactload
+indexterm:[module npm, livereactreload]
+indexterm:[module npm, react]
 
 _livereactload_ ([URL]#https://npmjs.com/livereactload#) recherche les composants
 <<react,_React_>> à chaud, c'est-à-dire sans rafraîchir la page ni perdre l'état des données.
@@ -260,12 +285,17 @@ installation et son intégration.
 ====
 
 == Protéger nos applications
+indexterm:[Node.js, sécurité]
+indexterm:[application web, sécurité]
 
 Le code que nous écrivons se protège dès la conception et dans le temps.
 Certains modules filtrent les tentatives d'exploitation de nos
 applications, tandis que d'autres vérifient si le code déployé est toujours{nbsp}sûr.
 
 === sanitize-filename
+indexterm:[module npm, sanitize-filename]
+indexterm:[module, path]
+indexterm:[module, fs]
 
 _sanitize-filename_ ([URL]#https://npmjs.com/sanitize-filename#) nettoie
 une variable de tout caractère ambigu ou qui ne serait pas attendu.
@@ -279,6 +309,9 @@ include::{sourceDir}/sanitize-filename.js[]
 <2> Affiche `+.....sshid_rsa+` – les caractères{nbsp}``/`` sont nettoyés car il permettrait de créer des chemins compromettants pour l'application ou le système d'exploitation.
 
 === helmet
+indexterm:[module npm, helmet]
+indexterm:[module npm, express]
+indexterm:[HTTP, en-tête]
 
 _helmet_ ([URL]#https://npmjs.com/helmet#) est un module à intégrer systématiquement
 dans toute application _Express_.
@@ -290,6 +323,8 @@ Elles s'intègrent manuellement dans d'autres types d'applications web,
 y{nbsp}compris un serveur HTTP natif à{nbsp}Node.
 
 === dompurify
+indexterm:[module npm, dompurify]
+indexterm:[Document Object Model (DOM)]
 
 _dompurify_ ([URL]#https://npmjs.com/dompurify#) nettoie un contenu HTML
 pour le rendre affichable en toute sécurité.
@@ -297,6 +332,9 @@ Il nettoie des scripts indésirés, des balises mal formées qui casseraient l'a
 ou encore des _iframes_ qui injecteraient des contenus tiers sans notre consentement.
 
 === filenamify
+indexterm:[module npm, filenamify]
+indexterm:[module, path]
+indexterm:[module, fs]
 
 _filenamify_ ([URL]#https://npmjs.com/filenamify#) nettoie une valeur
 pour retirer tout caractère invalide dans un nom de fichier.
@@ -304,6 +342,8 @@ C'est pratique pour laisser la possibilité à un utilisateur de choisir
 un nom de fichier sans pour autant mettre en danger le système ou l'application.
 
 === retire.js
+indexterm:[module npm, retire.js]
+indexterm:[npm, audit]
 
 _retire.js_ ([URL]#https://npmjs.com/retire#) sert à scanner soi-même des
 vulnérabilités connues dans des fichiers JavaScript.
@@ -311,6 +351,7 @@ Il est complémentaire de la commande <<../chapter-05/index.adoc#audit,`npm audi
 car il inspecte des dépendances qui ne sont pas forcément sur{nbsp}``npm``.
 
 === snyk
+indexterm:[module npm, snyk]
 
 _snyk_ ([URL]#https://npmjs.com/snyk#) est à la fois un service en ligne
 et un module pour vérifier la présence de failles de sécurité connues
@@ -329,6 +370,7 @@ Vérifier la syntaxe de notre code est une excellente première étape avant
 d'introduire des tests unitaires ou fonctionnels.
 
 === htmlhint
+indexterm:[module npm, htmlhint]
 
 _htmlhint_ ([URL]#https://npmjs.com/htmlhint#) vérifie la structure de
 nos documents HTML.
@@ -363,6 +405,7 @@ line 10, col 52: Tagname [ BUTTON ] must be lower case.
 ----
 
 === eslint
+indexterm:[module npm, eslint]
 
 _eslint_ ([URL]#https://npmjs.com/eslint#) est l'outil de vérification
 syntaxique pour ECMAScript par excellence.
@@ -399,6 +442,7 @@ GitHub de Airbnb :
 ====
 
 === csslint
+indexterm:[module npm, csslint]
 
 _csslint_ ([URL]#https://npmjs.com/csslint#) est un outil de vérification
 syntaxique de feuilles de style CSS.
@@ -441,6 +485,7 @@ Using height with border can sometimes make
 ----
 
 === doiuse
+indexterm:[module npm, doiuse]
 
 _doiuse_ ([URL]#https://npmjs.com/doiuse#) est un utilitaire qui repose
 sur la base de données du site communautaire [URL]#https://caniuse.com#.
@@ -463,6 +508,7 @@ sample.css:14:1: CSS 2.1 selectors not supported by: IE (6)
 
 [[optimize]]
 == Optimiser notre{nbsp}code
+indexterm:[application front-end, optimisation du code]
 
 Commentaires, indentations ou encore noms de variables : tout cela occupe de
 la place – autant d'octets transférés sur le réseau avant d'être exécutés
@@ -481,6 +527,8 @@ réduire le poids de notre{nbsp}code :
 - écriture automatique de code pour prendre en charge des environnements anciens ou futurs.
 
 === uglify-es
+indexterm:[module npm, uglify]
+indexterm:[module npm, uglify-es]
 
 _UglifyJS_ ([URL]#https://npmjs.com/uglify-es#) est un des premiers
 compresseurs à utiliser une représentation syntaxique en arbre
@@ -499,6 +547,7 @@ la réécriture de{nbsp}code :
 _UglifyJS_ s'utilise en ligne de commande ou comme un module{nbsp}Node.
 
 === postcss
+indexterm:[module npm, postcss]
 
 _PostCSS_ ([URL]#https://npmjs.com/postcss#) est une optimiseur CSS modulaire.
 Cet outil est construit autour d'un parseur CSS, d'un arbre syntaxique
@@ -510,6 +559,9 @@ Avec une ou plusieurs extension(s), vous basculez d'un optimiseur de code
 vers la possibilité de créer votre propre préprocesseur, comme{nbsp}Sass !
 
 === autoprefixer
+indexterm:[module npm, postcss]
+indexterm:[module npm, autoprefixer]
+indexterm:[module npm, browserlist]
 
 _autoprefixer_ ([URL]#https://npmjs.com/autoprefixer#) est _le_ module qui
 vous épargnera l'écriture de centaines de lignes CSS.
@@ -538,6 +590,8 @@ $ ../node_modules/.bin/postcss sample.css \
 ----
 
 === uncss
+indexterm:[module npm, uncss]
+indexterm:[module npm, postcss]
 
 _uncss_ ([URL]#https://npmjs.com/uncss#) est le pendant inverse d'_autoprefixer_
 puisqu'il se charge de supprimer le code CSS inutilisé.
@@ -548,6 +602,8 @@ les règles utilisées et celles qui ne le sont pas.
 Vous êtes libre de mentionner une liste blanche de règles à ne jamais supprimer.
 
 === csswring
+indexterm:[module npm, csswring]
+indexterm:[module npm, postcss]
 
 _csswring_ ([URL]#https://npmjs.com/csswring#) est un minifieur de code CSS
 qui s'interface lui aussi avec <<postcss,PostCSS>>.
@@ -563,6 +619,7 @@ Ses optimisations sont en général bien plus poussées et permettent d'atteindr
 des niveaux de finesse difficiles à obtenir autrement.
 
 === csso
+indexterm:[module npm, csso]
 
 _csso_ ([URL]#https://npmjs.com/csso#) est une alternative à <<csswring,csswring>>,
 écrite par l'équipe derrière la méthodologie BEM ([URL]#https://en.bem.info#).
@@ -571,6 +628,7 @@ _csso_ ira jusqu'à réécrire les codes couleurs, les `margin` et `padding` et
 factorisera les sélecteurs similaires.
 
 === svgo
+indexterm:[module npm, svgo]
 
 _svgo_ ([URL]#https://www.npmjs.com/svgo#) s'attaque au nettoyage des fichiers
 graphiques vectoriels au format SVG.
@@ -580,6 +638,7 @@ Vous pouvez l'essayer en ligne sur [URL]#https://jakearchibald.github.io/svgomg/
 ou l'intégrer comme extension à <<postcss,PostCSS>>.
 
 === wawoff2
+indexterm:[module npm, wawoff2]
 
 _wawoff2_ ([URL]#https://npmjs.com/wawoff2#) optimise des polices de caractères
 pour le Web.
@@ -588,6 +647,7 @@ car plus léger et donc rapide à charger.
 
 [[transpiling]]
 == Passer d'un langage à un autre
+indexterm:[ECMAScript, conversion]
 
 Les préprocesseurs sont des outils de productivité pour CSS.
 Ils transforment un langage plus avancé dans quelque chose qui est compris
@@ -597,6 +657,10 @@ La même chose s'applique avec la compilation ou la transpilation pour ECMAScrip
 pour utiliser dès maintenant une version du futur.
 
 === less
+indexterm:[module npm, less]
+indexterm:[application front-end, optimisation du code]
+indexterm:[Less]
+indexterm:[Sass]
 
 _less_ ([URL]#https://npmjs.com/less#) est un préprocesseur CSS.
 Il gère des variables, des _mixins_, des calculs de couleurs et des fonctions
@@ -615,12 +679,15 @@ $ ../node_modules/.bin/lessc stylesheet.less
 ----
 
 === sass
+indexterm:[module npm, node-sass]
+indexterm:[Sass]
 
 _sass_ ([URL]#https://npmjs.com/node-sass#) est un autre préprocesseur CSS.
 Il est issu du monde Ruby et est désormais tout aussi puissant dans Node
 grâce à _LibSass_, un module rapide et portable écrit en{nbsp}{cpp}.
 
 === browserify
+indexterm:[module npm, browserify]
 
 _browserify_ ([URL]#https://npmjs.com/browserify#) transforme des modules et du
 code initialement écrit pour Node vers du code exécutable dans un navigateur{nbsp}web.
@@ -635,6 +702,8 @@ au <<../chapter-09/index.adoc#,chapitre{nbsp}9>>.
 ====
 
 === babel
+indexterm:[ECMAScript, conversion]
+indexterm:[module npm, babel]
 
 _babel_ ([URL]#https://npmjs.com/babel#) est un outil qui permet de passer
 d'une version d'ECMAScript à une autre, fonctionnalité par fonctionnalité.
@@ -642,6 +711,9 @@ C'est un outil indispensable pour écrire un code moderne et le faire
 fonctionner dans des navigateurs anciens.
 
 === typescript
+indexterm:[typage]
+indexterm:[ECMAScript, conversion]
+indexterm:[module npm, typescript]
 
 _TypeScript_ ([URL]#https://npmjs.com/typescript#) est un langage de programmation
 typé.
@@ -656,11 +728,13 @@ du jour au lendemain et travailler sur le code qu'il aura généré sans aucun p
 
 [[fs]]
 == Gérer des fichiers
+indexterm:[module, fs]
 
 Ces bibliothèques nous aident à écrire moins de lignes de code
 pour des besoins quotidiens de manipulation de fichiers.
 
 === mkdirp
+indexterm:[module npm, mkdirp]
 
 _mkdirp_ ([URL]#https://npmjs.com/mkdirp#) est identique à la
 commande Unix `mkdir -p`, c'est-à-dire que les répertoires seront créés récursivement
@@ -670,6 +744,7 @@ Si nous utilisions le module Node{nbsp}``fs``, nous devrions créer l'arborescen
 répertoires par nous-même, niveau par niveau.
 
 === rimraf
+indexterm:[module npm, rimraf]
 
 _rimraf_ ([URL]#https://npmjs.com/rimraf#) est le pendant opposé de _mkdirp_.
 Il supprime une arborescence de manière récursive.
@@ -679,6 +754,7 @@ Si nous utilisions le module Node{nbsp}``fs``, nous devrions supprimer d'abord
 les fichiers puis les répertoires, un par{nbsp}un.
 
 === glob
+indexterm:[module npm, glob]
 
 _glob_ ([URL]#https://npmjs.com/glob#) est un utilitaire pour obtenir
 une liste de fichiers en utilisant des motifs.
@@ -693,6 +769,8 @@ include::{sourceDir}/glob.js[]
 <3> Affiche une liste de fichiers qui s'appellent `sample`, peu importe leur extension.
 
 === fs-extra
+indexterm:[module npm, fs-extra]
+indexterm:[module, fs]
 
 _fs-extra_ ([URL]#https://npmjs.com/fs-extra#) est une collection
 de fonctions pour gérer les opérations de fichiers.
@@ -700,6 +778,7 @@ Le module inclut _rimraf_ et _mkdirp_ en plus d'autres fonctions récursives,
 pour copier, déplacer ou supprimer des fichiers.
 
 === graceful-fs
+indexterm:[module npm, graceful-fs]
 
 _graceful-fs_ ([URL]#https://npmjs.com/graceful-fs#) est identique
 au module Node{nbsp}``fs``.
@@ -712,6 +791,7 @@ C'est un module à utiliser si notre application dépend fortement de la disponi
 du système de fichiers et si celui-ci est fortement sollicité.
 
 === chokidar
+indexterm:[module npm, chokidar]
 
 _chokidar_ ([URL]#https://npmjs.com/chokidar#) crée des observateurs du
 système de fichiers.
@@ -724,12 +804,14 @@ de déclencher des actions quand des fichiers sont modifiés.
 
 [[databases]]
 == Stocker dans des bases de données
+indexterm:[base de données]
 
 Node sait communiquer avec tout type de bases de données grâce à l'écosystème{nbsp}``npm``.
 Préférez les modules faisant état de pilote natif/binaire –
 le transfert de données n'en sera que plus rapide.
 
 === db-migrate
+indexterm:[module npm, db-migrate]
 
 _db-migrate_ ([URL]#https://npmjs.com/db-migrate#) est un outil de gestion
 de migrations pour MySQL, SQLite, MongoDB et PostgreSQL.
@@ -738,6 +820,7 @@ de structure dans une base de données – ajout ou suppression de champ, de tab
 ou d'index.
 
 === knex
+indexterm:[module npm, knex]
 
 _knex_ ([URL]#https://npmjs.com/knex#) propose d'interagir et d'interroger
 des bases de données SQL comme PostgreSQL, MariaDB, MySQL et SQLite.
@@ -758,6 +841,7 @@ include::{sourceDir}/knex.js[]
 <6> Affiche `{ count: 3 }`.
 
 === bookshelf
+indexterm:[module npm, bookshelf]
 
 _bookshelf_ ([URL]#https://npmjs.com/bookshelf#) est une surcouche à <<knex,_Knex_>>,
 écrite par les mêmes personnes.
@@ -765,6 +849,7 @@ Elle modélise les données sous forme d'objets et de schémas (ORM) pour
 automatiser des actions et ajouter plus d'"`intelligence`" à notre modèle de données.
 
 === sequelize
+indexterm:[module npm, sequelize]
 
 _sequelize_ ([URL]#https://npmjs.com/sequelize#) est une alternative
 à <<knex,_Knex_>> et à <<bookshelf,_Bookshelf_>>.
@@ -773,6 +858,7 @@ Ces dernières permettent de scripter les changements de structure d'une base
 de données, de les tester en local avant de les jouer en production.
 
 === mongoose
+indexterm:[module npm, mongoose]
 
 _mongoose_ ([URL]#https://npmjs.com/mongoose#) sert à composer des modèles
 de données pour la base de données MongoDB – dite NoSQL.
@@ -780,6 +866,7 @@ Elle définit des comportements annexes comme des mixins
 ou des _accesseurs_ dynamiques.
 
 === levelup
+indexterm:[module npm, levelup]
 
 _LevelDB_ ([URL]#https://npmjs.com/levelup#) est un système de bases de
 données clé/valeur extrêmement modulaire.
@@ -796,6 +883,8 @@ include::{sourceDir}/levelup.js[]
 <3> Affiche `{ title: 'Node.js' }`.
 
 === redis
+indexterm:[module npm, redis]
+indexterm:[module npm, hiredis]
 
 _redis_ ([URL]#https://npmjs.com/redis#) est un gestionnaire de bases de données
 clés/valeurs distribuées et performantes.
@@ -810,6 +899,7 @@ _hiredis_ ([URL]#https://npmjs.com/hiredis#) est un pilote {cpp} qui
 augmente les performances de connexion à une base de données{nbsp}__redis__.
 
 === elasticsearch
+indexterm:[module npm, elasticsearch]
 
 _elasticsearch_ ([URL]#https://npmjs.com/elasticsearch#) est un client pour
 simplifier la connexion à une base de données Elasticsearch.
@@ -818,17 +908,23 @@ pour des recherches performantes et complexes.
 
 [[cli]]
 == Ligne de commande
+indexterm:[application en ligne de commande]
+indexterm:[terminal]
 
 Ces modules complètent le panorama déjà très varié présenté
 dans le <<../chapter-08/index.adoc#,chapitre{nbsp}8>>.
 
 === yargs-parser
+indexterm:[module npm, yargs]
+indexterm:[module npm, yargs-parser]
 
 _yargs-parser_ ([URL]#https://npmjs.com/yargs-parser#) est le module
 d'interprétation des arguments utilisé par le module _yargs_.
 C'est une alternative plus puissante et plus complexe que _minimist_.
 
 === args
+indexterm:[module npm, args]
+indexterm:[module, process, process.argv]
 
 _args_ ([URL]#https://npmjs.com/args#) est un module minimaliste
 pour interpréter les arguments, les structurer et afficher une aide
@@ -838,6 +934,7 @@ Cerise sur le gâteau : le module suggère un choix de commande en cas
 d'erreur de frappe.
 
 === caporal
+indexterm:[module npm, caporal]
 
 _caporal_ ([URL]#https://npmjs.com/caporal#) est un framework complet
 pour bâtir des applications en ligne de commandes.
@@ -845,12 +942,15 @@ Il gère les classiques arguments et options ainsi que les sous-commandes,
 les types de valeurs et l'autocomplétion.
 
 === promptly
+indexterm:[module npm, promptly]
 
 _promptly_ ([URL]#https://npmjs.com/promptly#) est un utilitaire pour
 poser des questions, valider et travailler avec les réponses obtenues.
 Il est minimaliste et a un faible nombre de dépendances.
 
 === supports-color
+indexterm:[module npm, supports-color]
+indexterm:[ANSI (commande d'échappement)]
 
 _supports-color_ ([URL]#https://npmjs.com/supports-color#) vérifie
 si le contexte d'exécution du programme en ligne de commande
@@ -862,11 +962,15 @@ au lieu d'être interprétés comme des couleurs.
 
 [[webapp]]
 == Applications{nbsp}web
+indexterm:[application web]
 
 Ces modules complètent le panorama déjà très varié présenté
 dans le <<../chapter-07/index.adoc#,chapitre{nbsp}7>>.
 
 === fastify
+indexterm:[module npm, fastify]
+indexterm:[module npm, express]
+indexterm:[module npm, point-of-view]
 
 _fastify_ ([URL]#https://npmjs.com/fastify#) est un framework
 inspiré de _Express_.
@@ -879,6 +983,8 @@ Pour aller au-delà des données, il se combine avec le module _point-of-view_
 Vous avez ainsi accès à l'utilisation de <<templating,modules de templating>>.
 
 === passport
+indexterm:[module npm, passport]
+indexterm:[application web, authentification]
 
 _passport_ ([URL]#https://npmjs.com/passport#) est une bibliothèque modulaire
 d'authentification pour _Express_.
@@ -891,6 +997,8 @@ qui est connecté ou non, et avec quel identifiant sécurisé et unique.
 Référez-vous à sa documentation pour des exemples détaillés d'utilisation.
 
 === restify
+indexterm:[module npm, restify]
+indexterm:[application web, API REST]
 
 _restify_ ([URL]#https://npmjs.com/restify#) est un framework web
 spécialisé dans la création d'API{nbsp}HTTP.
@@ -906,11 +1014,11 @@ include::{sourceDir}/restify.js[]
 
 
 === faye
+indexterm:[module npm, faye]
+indexterm:[WebSockets]
 
 _faye_ ([URL]#https://npmjs.com/faye#) est un serveur WebSocket pour communiquer
 en temps réel entre un client et un serveur.
-indexterm:[module npm, faye]
-indexterm:[WebSockets]
 Il sait débrayer vers Ajax ou JSON-P pour les navigateurs anciens qui
 ne comprennent pas WebSocket.
 
@@ -927,6 +1035,7 @@ Tout message émit par un client sera relayé auprès des autres clients
 connectés.
 
 === swagger-client
+indexterm:[module npm, swagger-client]
 
 _swagger-client_ ([URL]#https://npmjs.com/swagger-client#) sert à valider
 des requêtes et des réponses HTTP en fonction de schémas qui répondent
@@ -937,6 +1046,8 @@ de notre application pour nous concentrer sur le code qui génère les données 
 
 [[templating]]
 == Modules front-end et templating
+indexterm:[application web, gabarit de présentation (template)]
+indexterm:[application front-end]
 
 Les bibliothèques de templating proposent d'associer
 une structure de données à une logique de présentation.
@@ -964,6 +1075,7 @@ Tous les modules que nous allons voir généreront cette sortie{nbsp}HTML :
 ----
 
 === nunjucks
+indexterm:[module npm, nunjucks]
 
 _nunjucks_ ([URL]#https://npmjs.com/nunjucks#) est un portage de _Jinja_,
 bibliothèque bien connue par les adeptes de Python.
@@ -977,6 +1089,7 @@ include::{sourceDir}/template.html[]
 ----
 
 === handlebars
+indexterm:[module npm, handlebars]
 
 _handlebars_ ([URL]#https://npmjs.com/handlebars#) et son prédécesseur _mustache_
 sont les vétérans du templating Node.
@@ -992,6 +1105,7 @@ include::{sourceDir}/template.hbs[]
 ----
 
 === pug
+indexterm:[module npm, pug]
 
 _pug_ ([URL]#https://npmjs.com/pug#) opte pour un parti minimaliste qui
 repose entièrement sur l'indentation.
@@ -1004,6 +1118,7 @@ include::{sourceDir}/template.pug[]
 ----
 
 === ejs
+indexterm:[module npm, ejs]
 
 _ejs_ ([URL]#https://npmjs.com/ejs#) part du principe qu'il n'y a pas besoin
 d'un langage de templating autre qu'ECMAScript.
@@ -1017,6 +1132,7 @@ include::{sourceDir}/template.ejs[]
 ----
 
 === react
+indexterm:[module npm, react]
 
 _React_ ([URL]#https://npmjs.com/react#) est une bibliothèque de présentation
 dite "`réactive`" et orientée composants.
@@ -1030,6 +1146,8 @@ include::{sourceDir}/template.jsx[]
 ----
 
 === storybook
+indexterm:[module npm, storybook]
+indexterm:[module npm, react]
 
 _storybook_ ([URL]#https://github.com/storybooks/storybook#) complète <<react,React>>
 et d'autres frameworks de _templating_ en créant un catalogue de composants
@@ -1039,6 +1157,8 @@ dans une autre application.
 
 [[testing]]
 == Tester notre code
+indexterm:[test]
+indexterm:[module, assert]
 
 Le module `assert` intégré à Node suffit pour démarrer.
 Il existe cependant tout un outillage pour tester notre code à destination de
@@ -1046,6 +1166,8 @@ Node (tests unitaires) ou des navigateurs (tests fonctionnels) ainsi que pour
 écrire des assertions plus facilement.
 
 === tape
+indexterm:[module npm, tape]
+indexterm:[test, TAP (protocole)]
 
 _tape_ ([URL]#https://npmjs.com/tape#) est une bibliothèque
 d'exécution de tests minimaliste qui se base sur le
@@ -1061,6 +1183,8 @@ include::{sourceDir}/tape.js[]
 <2> Écriture d'une assertion.
 
 === chai
+indexterm:[module npm, chai]
+indexterm:[test, assertion]
 
 _chai_ ([URL]#https://npmjs.com/chai#) est une bibliothèque poussée d'assertions.
 Son mécanisme chaîne permet de quasiment écrire des phrases pour exprimer
@@ -1076,6 +1200,12 @@ include::{sourceDir}/chai.js[]
 <3> Double vérification – il s'agit bien d'objet et il est vide, sans clé/valeur.
 
 === sinon
+indexterm:[module npm, sinon]
+indexterm:[module npm, sinon-chai]
+indexterm:[module npm, chai]
+indexterm:[test, espion]
+indexterm:[test, stub]
+indexterm:[test, mock]
 
 _sinon_ ([URL]#https://npmjs.com/sinon#) est un compagnon idéal pour
 intercepter le fonctionnement interne de variables et d'objets.
@@ -1100,6 +1230,9 @@ Le module _sinon-chai_ ([URL]#https://npmjs.com/sinon-chai#)
 intègre _sinon_ avec le mécanisme d'assertions de{nbsp}<<chai,_chai_>>.
 
 === nyc
+indexterm:[module npm, nyc]
+indexterm:[module npm, istanbul]
+indexterm:[test, couverture]
 
 _nyc_ ([URL]#https://npmjs.com/nyc#) génère une couverture de code.
 Il inspecte le code exécuté pendant les tests et en déduit les portions
@@ -1119,6 +1252,8 @@ qui est utilisé pour effectuer les calculs de couverture de{nbsp}code.
 image::images/nyc-web.png[width="85%"]
 
 === karma
+indexterm:[module npm, karma]
+indexterm:[test, front-end (avec navigateur)]
 
 _karma_ ([URL]#https://npmjs.com/karma#) pilote l'exécution de tests
 depuis un ou plusieur(s) navigateurs web.
@@ -1130,6 +1265,9 @@ en ligne (_SauceLabs_, _BrowserStack_, etc.).
 image::images/karma.png[width="85%"]
 
 === supertest
+indexterm:[module npm, supertest]
+indexterm:[test, HTTP]
+indexterm:[HTTP, test]
 
 _supertest_ ([URL]#https://npmjs.com/supertest#) sert à tester une interface HTTP.
 Le module envoie des requêtes et nos assertions vérifient qu'elles retournent
@@ -1140,6 +1278,9 @@ Je trouve ce module pratique pour tester des choses qui seraient difficiles
 
 [[internet-of-things]]
 == Objets connectés
+indexterm:[module npm, lodash]
+indexterm:[microcontrôleur]
+indexterm:[Arduino (voir microcontrôleur)]
 
 Node a bénéficié de l'engouement autour des objets connectés grâce à sa nature
 asynchrone et à sa légèreté.
@@ -1147,6 +1288,7 @@ C'est une plate-forme de choix pour dialoguer ou embarquer dans des
 nano-ordinateurs, réfrigérateurs et autres ampoules connectées.
 
 === nitrogen
+indexterm:[module npm, nitrogen]
 
 _nitrogen_ ([URL]#https://npmjs.com/nitrogen#) gère les interactions entre
 différents périphériques, sur un même réseau local et à travers Internet.
@@ -1155,12 +1297,14 @@ La bibliothèque se base sur un mécanisme déclaratif de fonctionnalités et de
 terminaux ainsi que la publication de messages.
 
 === serialport
+indexterm:[module npm, serialport]
 
 _serialport_ ([URL]#https://npmjs.com/serialport#) est la bibliothèque de base
 pour communiquer avec le _port série_ d'un appareil.
 Un câble USB suffit ensuite pour envoyer nos instructions à cet appareil.
 
 === firmata
+indexterm:[module npm, firmata]
 
 _firmata_ ([URL]#https://npmjs.com/firmata#) est un _firmware_, un protocole
 de communication, ainsi qu'une bibliothèque de communication pour microcontrôleur
@@ -1172,6 +1316,7 @@ Cela nous permet notamment d'écrire des applications en JavaScript au lieu
 d'utiliser{nbsp}du{nbsp}C.
 
 === johnny-five
+indexterm:[module npm, johnny-five]
 
 _johnny-five_ ([URL]#https://npmjs.com/johnny-five#) est une bibliothèque
 haut{nbsp}niveau pour Arduino, Raspberry{nbsp}Pi et tout autre microcontrôleur.
@@ -1179,6 +1324,7 @@ Elle simplifie les interactions avec des moteurs, des servo-contrôleurs,
 des capteurs etc.
 
 === node-red
+indexterm:[module npm, node-red]
 
 _node-red_ ([URL]#https://npmjs.com/node-red#) est une interface visuelle
 pour programmer des flux de données entre objets connectés.
@@ -1190,12 +1336,16 @@ recevoir les instructions.
 
 
 == Accessibilité
+indexterm:[application front-end, accessibilité]
+indexterm:[application front-end, optimisation de code]
+indexterm:[test, automatisation]
 
 L'écosystème{nbsp}``npm`` a participé à un essor d'outillage lié à l'accessibilité
 d'applications web.
 Auparavant, les outils étaient difficilement automatisables.
 
 === a11y
+indexterm:[module npm, a11y]
 
 _a11y_ ([URL]#https://npmjs.com/a11y#) est un automate d'inspection de pages web.
 Il détecte des problèmes de contrastes, de calques qui masquent du contenu
@@ -1218,6 +1368,7 @@ $ npx a11y https://oncletom.io
 ----
 
 === a11y.css
+indexterm:[module npm, a11y.css]
 
 _a11y.css_ ([URL]#https://npmjs.com/a11y.css#) est une feuille de styles CSS
 à injecter dans une page web pour rendre visible des incohérences.
@@ -1226,6 +1377,7 @@ de langue du document ou encore l'absence de bouton de validation de formulaire
 ou de texte alternatif d'images.
 
 === lighthouse
+indexterm:[module npm, lighthouse]
 
 _lighthouse_ ([URL]#https://npmjs.com/lighthouse#) est l'outil d'analyse de
 performances, de référencement (SEO) et d'accessibilité embarqué dans
@@ -1235,6 +1387,8 @@ Ce module{nbsp}``npm`` le rend utilisable depuis un terminal et écrit le rappor
 dans un fichier{nbsp}HTML.
 
 === storybook-addon-a11y
+indexterm:[module npm, storybook]
+indexterm:[module npm, storybook-addon-a11y]
 
 _storybook-addon-a11y_ ([URL]#https://npmjs.com/storybook-addon-a11y#)
 est une extension au module <<storybook,_storybook_>>.
@@ -1244,8 +1398,10 @@ et utilisés dans les applications.
 
 
 == Travailler avec des images, des sons et des vidéos
+indexterm:[application front-end, optimisation d'image]
 
 === sharp
+indexterm:[module npm, sharp]
 
 _sharp_ ([URL]#https://npmjs.com/sharp#) est un module de redimensionnement
 et de transformation d'images JPG, PNG et WebP écrit en JavaScript et{nbsp}{cpp}.
