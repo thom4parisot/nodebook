@@ -76,6 +76,8 @@ implémentant ECMAScript de façon plus ou moins complète.
 les navigateurs ont `File` et `fetch`/`XmlHttpRequest`.
 indexterm:[module, de base]
 indexterm:[module, fs]
+indexterm:[module, http]
+indexterm:[variable globale, fetch()]
 - Ils ne gèrent pas le chargement de modules de la même manière
 (voir la section "`<<managing-dependencies,Dépendences de développement>>`").
 - L'implémentation même d'ECMAScript diffère selon les versions de Node
@@ -666,6 +668,7 @@ un code modulaire et compatible avec n'importe quel type de syntaxe :
 
 indexterm:[ECMAScript, polyfill]
 indexterm:[Babel]
+indexterm:[module npm, browserify]
 - Babel pour transformer la syntaxe ;
 - des _polyfills_ pour harmoniser les fonctionnalités ;
 - _browserify_ pour l'intégration avec les modules{nbsp}``npm``.
@@ -693,7 +696,7 @@ une balise HTML affichant l'heure dont nous actualisons le contenu toutes les se
 image::images/modules-time.png[width="85%"]
 
 [TIP]
-.[RemarquePreTitre]#Documentation# _jQuery_
+.[RemarquePreTitre]#Documentation# jQuery
 ====
 Les exemples suivants se basent sur l'utilisation de la bibliothèque _jQuery_
 ([URL]#https://api.jquery.com#).
@@ -813,6 +816,9 @@ Tout n'est pas parfait, car nous sommes encore liés à la structure du
 document{nbsp}HTML.
 
 === Partager le code métier avec{nbsp}Node
+indexterm:[application front-end, module Node]
+indexterm:[Node.js, application front-end]
+indexterm:[module, universel]
 
 Cette séparation de principes (_separation of concerns_) va au-delà du plaisir
 de l'esthète.
@@ -843,7 +849,7 @@ $ node examples/modules/node-timer.js
 kbd:[Ctrl+C]
 ----
 
-Chaque seconde, la fonction `console.log` est appelée et affiche la structure
+Chaque seconde, la fonction `console.log()` est appelée et affiche la structure
 de données de notre minuteur dans la sortie standard du terminal.
 
 Nous pourrions dès à présent utiliser le minuteur dans d'autres applications,
@@ -870,7 +876,7 @@ représentation.
 
 [[react]]
 === Rapprocher données, rendu et interactions avec{nbsp}React
-
+indexterm:[module npm, react]
 _React_ a atteint un pic de popularité certain en{nbsp}2015 et{nbsp}2016,
 pas seulement parce que c'est un outil bien conçu, mais justement parce
 qu'il encourage cette pratique de la représentation des données.
@@ -961,6 +967,8 @@ image::images/react-devtools.png[width="85%"]
 
 [[io]]
 == Des requêtes Ajax vers du temps{nbsp}réel
+indexterm:[variable globale, fetch()]
+indexterm:[variable globale, XMLHttpRequest]
 
 Les technologies web offrent un panel de fonctionnalités créatives et adaptables.
 L'explosion du _Web 2.0_ a coïncidé avec la redécouverte de `XMLHttpRequest`,
@@ -1000,6 +1008,7 @@ relativement aisée et triviale, aussi et en grande partie grâce à l'écosyst�
 
 [[io-fetch]]
 === Échange ponctuel de données avec `fetch()`
+indexterm:[variable globale, fetch()]
 
 `fetch()` offre une interface très simple pour appeler une ressource HTTP.
 Le résultat est retourné sous forme de promesse
@@ -1007,10 +1016,16 @@ Le résultat est retourné sous forme de promesse
 Cette fonction sert aussi bien à obtenir des ressources avec des requêtes de
 type{nbsp}``GET`` et `HEAD` qu'à en créer et modifier avec des requêtes de type `POST`,
 `PUT`, `DELETE` et `PATCH`.
+indexterm:[HTTP, verbe, GET]
+indexterm:[HTTP, verbe, HEAD]
+indexterm:[HTTP, verbe, POST]
+indexterm:[HTTP, verbe, PUT]
+indexterm:[HTTP, verbe, DELETE]
+indexterm:[HTTP, verbe, PATCH]
 
 L'exemple associé est accessible sur [URL]#{httpRoot}/io/fetch.html#.
 Nous pouvons vérifier la compatibilité navigateur de `fetch()` sur
-[URL]#http://caniuse.com#feat=fetch#.
+[URL]#https://caniuse.com#feat=fetch#.
 
 Le déroulé d'exécution d'un appel à `fetch()` est le suivant :
 
@@ -1032,7 +1047,7 @@ include::{sourceDir}/io/fetch-client.js[]
 <2> Décodage progressif de la réponse.
 <3> Une fois le décodage terminé, le résultat de la requête HTTP est mis à disposition – ici, sous forme de chaîne de caractères.
 
-.Traces réseau d'appels successifs à `fetch()` ; chacun résultant en une nouvelle requête{nbsp}HTTP
+.Traces réseau d'appels successifs à fetch() ; chacun résultant en une nouvelle requête{nbsp}HTTP
 image::images/fetch-frames.png[width="85%"]
 
 L'implémentation d'une ressource HTTP côté serveur s'effectue simplement
@@ -1059,9 +1074,14 @@ Le module{nbsp}``npm`` `node-fetch` ([URL]#https://npmjs.com/node-fetch#) est un
 implémentation de `fetch()` pour Node, tandis que `whatwg-fetch`
 ([URL]#https://npmjs.com/whatwg-fetch#) s'occupe uniquement de _polyfiller_ les
 navigateurs.
+indexterm:[module npm, node-fetch]
+indexterm:[module npm, whatwg-fetch]
+indexterm:[ECMAScript, polyfill]
 
 [[io-eventsource]]
 === Approche unidirectionnelle avec EventSource
+indexterm:[variable globale, fetch()]
+indexterm:[EventSource]
 
 _EventSource_ est un mécanisme moins connu que `fetch()` ou _WebSocket_ mais qui
 tire ses origines de la technologie _Comet_.
@@ -1083,7 +1103,7 @@ réel à destination de tous les usagers.
 
 L’exemple associé est accessible sur [URL]#http://localhost:4000/examples/io/eventsource.html#.
 Nous pouvons vérifier la compatibilité navigateur de _EventSource_ sur
-[URL]#http://caniuse.com#feat=eventsource#.
+[URL]#https://caniuse.com#feat=eventsource#.
 
 [source,javascript]
 .io/eventsource-client.js
@@ -1109,7 +1129,7 @@ include::{sourceDir}/io/eventsource-server.js[]
 ----
 <1> Une connexion _EventSource_ s'effectue (presque) comme une requête HTTP classique – il convient de vérifier qu'elle s'annonce en tant que{nbsp}telle.
 <2> Création d'un canal unique entre le client et le serveur.
-<3> Chaque appel à `es.send` enverra un nouveau message au client.
+<3> Chaque appel à `es.send()` enverra un nouveau message au client.
 
 Le serveur est responsable de la gestion des connexions demandées par les
 différents clients.
@@ -1122,6 +1142,8 @@ Chaque connexion _EventSource_ devrait concerner qu'un seul et même type d'év�
 
 [[io-websocket]]
 === Échanges en temps{nbsp}réel avec WebSocket
+indexterm:[WebSockets]
+indexterm:[WebSockets]
 
 _WebSocket_ est une technologie web favorisant les échanges bidirectionnels
 entre client et serveur.
@@ -1133,7 +1155,7 @@ rapidité du protocole en comparaison avec le modèle requête/réponse.
 
 L’exemple associé est accessible sur [URL]#http://localhost:4000/examples/io/websocket.html#.
 Nous pouvons vérifier la compatibilité navigateur de _WebSocket_ sur
-[URL]#http://caniuse.com#feat=websocket#.
+[URL]#https://caniuse.com#feat=websocket#.
 
 [source,javascript]
 .io/websocket-client.js
@@ -1155,8 +1177,8 @@ le serveur{nbsp}``ws``.
 HTTP sert de tunnel tandis que le dialogue entre client et serveur s'effectue
 dans un dialecte compréhensible uniquement de clients _WebSocket_.
 
-Il est nécessaire d'utiliser un module{nbsp}``npm`` _WebSocket_ comme _faye_
-([URL]#https://npmjs.com/faye-websocket#) ou _socket.io_
+Il est plus facile de démarrer en utilisant un module{nbsp}``npm`` _WebSocket_
+comme _faye_ ([URL]#https://npmjs.com/faye-websocket#) ou _socket.io_
 ([URL]#https://npmjs.com/socket.io#) à moins de vouloir réimplémenter le protocole
 soi-même.
 Le motif de conception est similaire à celui d'_EventSource_, à la différence près
@@ -1166,6 +1188,8 @@ qu'il faut aussi écouter les messages transmis par le client.
 .[RemarquePreTitre]#Remarque# HTTP et le statut 101 Switching Protocols
 ====
 Voici ce qui se passe lorsqu'un client _WebSocket_ se connecte sur `ws://example.com` :
+indexterm:[HTTP, code de réponse, 1xx]
+indexterm:[HTTP, en-tête, Upgrade]
 
 . Requête HTTP `http://example.com` standard contenant les en-têtes `Upgrade: websocket` et `Connection: Upgrade`.
 . Le serveur HTTP répond avec un statut `101 Switching Protocols`.
@@ -1212,7 +1236,9 @@ notre application web au fil du développement
 optimisant nos fichiers graphiques.
 
 [[watchify]]
-=== Reconstruire en continu avec `watchify`
+=== Reconstruire en continu avec watchify
+indexterm:[module npm, browserify]
+indexterm:[module npm, watchify]
 
 L'utilisation de <<browserify,browserify>> nous apporte du confort avec la
 possibilité d'inclure des modules{nbsp}``npm`` dans les navigateurs.
@@ -1257,6 +1283,8 @@ Trois arguments sont utiles à _watchify_ :
 
 [[livereload]]
 === Changements en temps{nbsp}réel dans le navigateur
+indexterm:[application front-end, rechargement continu (live reload)]
+indexterm:[application front-end, remplacement de module à chaud (HMR)]
 
 Modifier un fichier. Changer de fenêtre. Recharger. Changer de fenêtre. Re-modifier
 un fichier. Changer de fenêtre. Recharger. Là c'est bon.
@@ -1277,6 +1305,7 @@ automatique du navigateur et le remplacement de modules à chaud
 _browser-sync_ est un outil formidable de développement pour
 rafraîchir automatiquement une page web si son contenu ou une des ressources
 associées change.
+indexterm:[module npm, browser-sync]
 Il offre également la possibilité de propager les changements sur plusieurs
 fenêtres et terminaux – y compris les clics, défilements et toute interaction
 avec des formulaires.
@@ -1322,7 +1351,7 @@ $ npm start -- --with-sync
 ----
 
 [TIP]
-.[RemarquePreTitre]#Documentation# _browser-sync_
+.[RemarquePreTitre]#Documentation# browser-sync
 ====
 _browser-sync_ ([URL]#https://browsersync.io#) est richement documenté et
 illustré, y{nbsp}compris ses intégrations avec les outils Gulp et Grunt.
@@ -1335,6 +1364,8 @@ C'est là qu'entre en jeu le remplacement des modules à chaud.
 Le *remplacement des modules à chaud* (_Hot Module Replacement_ ou HMR) est
 une technique basée sur le remplacement de fonctions ou d'objets tout en assurant
 le maintien de leurs variables ou états internes.
+indexterm:[application front-end, remplacement de module à chaud (HMR)]
+indexterm:[module npm, react]
 Cette technique a notamment été popularisée par la combinaison de la bibliothèque
 _React_ et de l'outil d'assemblage _Webpack_.
 Il est toutefois possible de procéder à du remplacement à chaud sans _React_
@@ -1357,6 +1388,8 @@ endif::[]
 Le plug-in _Browserify_ nommé _livereactload_ ([URL]#https://npmjs.com/livereactload#)
 est très certainement le plus facile à mettre en place pour remplacer des
 modules _React_ à la volée.
+indexterm:[module npm, livereactload]
+indexterm:[module npm, browserify]
 Il nécessite une ligne de configuration côté _browserify_ mais aucun
 changement de code côté client.
 
@@ -1431,6 +1464,7 @@ déclarer des modules remplaçables et pour démarrer un serveur de remplacement
 
 [[node-sass]]
 === Modulariser ses feuilles de styles avec{nbsp}Sass
+indexterm:[Sass]
 
 La modularité et l'écriture d'un code isolé facilitent sa réutilisation et
 préviennent les effets de bord.
@@ -1446,6 +1480,7 @@ Le langage Sass est originaire du monde Ruby, mais il a été depuis rendu
 accessible nativement à l'écosystème Node par le biais de _node-sass_
 ([URL]#https://npmjs.com/node-sass#)– et, par extension,
 par la bibliothèque{nbsp}C _libsass_.
+indexterm:[module npm, node-sass]
 
 [TIP]
 .[RemarquePreTitre]#Lecture# CSS maintenables avec Sass et Compass
@@ -1502,10 +1537,15 @@ Les modules _autoprefixer_ ([URL]#https://npmjs.com/autoprefixer#) et
 _postcss_ ([URL]#https://npmjs.com/postcss#) nous facilitent la tâche en préfixant
 et réécrivant automatiquement les attributs en fonction de nos exigences de
 compatibilité avec les navigateurs.
+indexterm:[application front-end, préfixes CSS]
+indexterm:[module npm, autoprefixer]
+indexterm:[module npm, postcss]
 ====
 
 [[ui-bundling]]
 === Lier composants visuels et feuilles de{nbsp}styles
+indexterm:[Sass]
+indexterm:[application front-end, feuille de style]
 
 Souvenons-nous de la section expliquant le
 <<react,rapprochement entre données, rendu et interactions avec React>>.
@@ -1517,8 +1557,13 @@ un _transform browserify_ pour compiler et/ou extraire notre code Sass ou
 CSS depuis nos modules CommonJS ou ECMAScript.
 
 C'est exactement la proposition du module _sassify_.
+indexterm
 Il intègre _node-sass_ en tant que _transform browserify_ et transforme le
 code à la volée durant la phase de compilation.
+indexterm:[module npm, browserify]
+indexterm:[module npm, sassify]
+indexterm:[module npm, node-sass]
+indexterm:[module npm, react]
 Il se charge lui-même d'ajouter les styles dans le document HTML ou expose le
 code CSS compilé via la fonction `require()`.
 
@@ -1564,6 +1609,7 @@ $ ./node_modules/.bin/browserify \
 ----
 
 === Optimiser ses ressources graphiques
+indexterm:[application front-end, optimisation d'image]
 
 Node est un outil de choix lorsque l'on souhaite s'atteler au développement
 _front-end_ et ce n'est pas sans raison.
@@ -1578,6 +1624,8 @@ fichiers{nbsp}SVG sous forme de symboles, la création de piles de
 polices de caractères et même l'encodage audio/vidéo – via des logiciels
 spécialisés comme _FFmpeg_ ou _LAME_.
 
+indexterm:[module npm, imagemin-cli]
+indexterm:[module npm, imagemin]
 L'outil en ligne de commande _imagemin-cli_ ([URL]#https://npmjs.com/imagemin-cli#)
 est le module de référence pour optimiser les fichiers graphiques.
 Il est basé sur la bibliothèque _imagemin_ ([URL]#https://npmjs.com/imagemin#) et
@@ -1609,6 +1657,8 @@ On voudra par exemple redimensionner des photos depuis des fichiers originaux,
 générer des vignettes ou encore différentes tailles d'image adaptées
 aux différentes dispositions d'un site web _responsive_.
 
+indexterm:[module npm, sharp-cli]
+indexterm:[module npm, sharp]
 _sharp-cli_ ([URL]#https://npmjs.com/sharp-cli#) répond exactement à ce cahier
 des charges.
 Ce module en ligne de commande est basé sur _sharp_ ([URL]#https://npmjs.com/sharp#),
@@ -1648,6 +1698,7 @@ s'aidant des exemples documentés sur [URL]#http://sharp.dimens.io#.
 [TIP]
 .[RemarquePreTitre]#Alternative# gm
 ====
+indexterm:[module npm, gm]
 __gm__{nbsp}([URL]#https://npmjs.com/gm#) est le module classique de
 redimensionnement dans l'écosystème Node.
 Il s'interface avec les programmes _GraphicsMagick_ et _ImageMagick_ –
@@ -1665,9 +1716,13 @@ Les scripts sont alors à invoquer manuellement, sur un crochet Git
 (_git{nbsp}hook_) ou automatiquement lors du déploiement avec un
 <<../chapter-06/index.adoc#deploy.ci,service d'intégration continue>>, par
 exemple.
+indexterm:[déploiement, Git]
+indexterm:[déploiement, intégration continue]
 
 [[testing]]
 == Tester son code
+indexterm:[application front-end, test (voir test)]
+indexterm:[test]
 
 C'est bien connu : "`lorsqu'on produit du code de qualité, écrire des tests est amplement superflu et ne sert qu'à nous ralentir`".
 
@@ -1680,6 +1735,7 @@ pour diminuer le coût de maintenance de nos applications.
 
 [[testing-101]]
 === Que tester ?
+indexterm:[test, séparation de principe]
 
 L'idée d'écrire des tests pour améliorer la qualité de son code est attrayante,
 mais quand on ne sait pas quoi tester et ni à qui demander pour se lancer,
@@ -1702,7 +1758,7 @@ l'exécuter dans une application.
 ----
 include::{sourceDir}/test-export.js[]
 ----
-<1> La fonction `countWords` est le seul élément exporté par notre module et devrait donc être le seul sujet de nos{nbsp}tests.
+<1> La fonction `countWords()` est le seul élément exporté par notre module et devrait donc être le seul sujet de nos{nbsp}tests.
 
 Une branche est une portion de code qui s'exécute de manière ponctuelle.
 Ces sections de code s'activent ou non selon l'état d'une structure de données.
@@ -1741,12 +1797,17 @@ Avant de nous lancer directement dans la conception et l'écriture des tests,
 penchons-nous sur la structure de l'outillage.
 
 Assertion::
+  indexterm:[test, assertion]
   C'est la vérification d'une vérité, d'une attente, du résultat d'une opération.
   Une assertion couvre une branche de{nbsp}code.
 Test::
+  indexterm:[test]
   C'est un regroupement d'assertions couvrant toutes les branches des
   fonctionnalités publiques de notre{nbsp}code.
 Suite de tests::
+  indexterm:[test, suite de test]
+  indexterm:[test, unitaire]
+  indexterm:[test, fonctionnel]
   C'est un ensemble de tests couvrant un aspect logique d'un code applicatif.
   Une application peut comporter plusieurs suites selon sa complexité :
   tests *unitaires* (interface de code),
@@ -1763,6 +1824,9 @@ Certains outils offrent une écriture d'assertion plus fluide, d'autres proposen
 Les sections suivantes sont complémentaires.
 J'ai favorisé des approches itératives et modulaires pour faciliter l'ajout ou le retrait de tout outil de notre outillage :
 
+indexterm:[module npm, chai]
+indexterm:[module npm, mocha]
+indexterm:[module npm, karma]
 * la bibliothèque _chai_ pour les assertions ;
 * la bibliothèque _mocha_ pour les tests ;
 * la bibliothèque _mocha_ pour la suite de tests exécutable par{nbsp}Node ;
@@ -1776,7 +1840,7 @@ dans les navigateurs.
 Ces trois bibliothèques disposent d'une documentation en ligne expliquant leurs
 options respectives, ainsi que des exemples d'utilisation.
 
-- _chai_ : [URL]#http://chaijs.com/api/bdd/# ;
+- _chai_ : [URL]#https://chaijs.com/api/bdd/# ;
 - _mocha_ : [URL]#https://mochajs.org# ;
 - _karma_ : [URL]#https://karma-runner.github.io#.
 ====
@@ -1815,6 +1879,9 @@ Nous en trouverons un à la racine du répertoire des ressources du
 
 
 === Tester ses composants React sans navigateur
+indexterm:[test, composant React]
+indexterm:[test, front-end (sans navigateur)]
+indexterm:[module npm, React]
 
 Un des points forts de <<react,React>> évoqués dans ce chapitre est la
 description de son rendu à même le composant.
@@ -1830,6 +1897,7 @@ certaines méthodes du composant.
 
 La bibliothèque _Enzyme_ ([URL]#https://npmjs.com/enzyme#) s'occupe très bien des
 deux, en plus de s'intégrer avec n'importe quelle bibliothèque de tests.
+indexterm:[module npm, enzyme]
 Dans tous les cas, elle nous permettra de monter nos composants, soit de manière
 isolée, soit dans un véritable arbre DOM, soit en rendu{nbsp}HTML.
 
@@ -1886,6 +1954,9 @@ include::{sourceDir}/tests/date-interval.js[lines="15..-1"]
 <4> Assertion vérifiant qu'une propriété de l'état ne peut être qu'une des deux valeurs parmi `pair` et `impair`.
 
 
+indexterm:[module npm, chai-enzyme]
+indexterm:[module npm, chai]
+indexterm:[test, assertion]
 En complément, la bibliothèque _chai-enzyme_ ([URL]#https://npmjs.com/chai-enzyme#)
 étend le vocabulaire de _chai_ pour ajouter des assertions de composants.
 C'est une question de goût plus qu'une nécessité. +
@@ -1917,6 +1988,7 @@ image::images/mocha-react.png[width="80%"]
 [TIP]
 .[RemarquePreTitre]#Alternative# jest
 ====
+indexterm:[module npm, jest]
 _jest_ ([URL]#https://npmjs.com/jest#) est un exécuteur de tests moderne et
 rapide particulièrement adapté au test de composants côté serveur.
 Au moment d'écrire cet ouvrage, il n'était pas encore possible de l'exécuter
@@ -1932,12 +2004,15 @@ Les tests navigateurs sont en revanche utiles pour tester la compatibilité
 navigateurs, que ce soit au niveau de la syntaxe ECMAScript ou du rendu{nbsp}CSS.
 
 === Tester code et composants dans les navigateurs
+indexterm:[test, front-end (avec navigateur)]
 
 C'est bien beau de tester uniquement l'interface de composants _React_
 (ou autre technologie) mais comment faire lorsqu'on a besoin de tester avec un
 vrai DOM ou dans plusieurs navigateurs ?
 
 Il est nécessaire d'effectuer des tests dans des navigateurs pour :
+indexterm:[ECMAScript, polyfill]
+indexterm:[Web Audio]
 
 * s'assurer de la compatibilité de notre code avec les variations d'implémentation de navigateurs ;
 * valider notre choix de _polyfills_ ;
@@ -1950,6 +2025,7 @@ Idéalement, nous voulons que cet exécuteur de tests n'influe pas sur l'outilla
 employé pour écrire nos tests et donc nous permette d'utiliser _mocha_ et _chai_
 comme dans la section précédente.
 
+indexterm:[module npm, karma]
 _karma_ ([URL]#https://npmjs.com/karma#) est l'outil phare de l'écosystème
 Node dédié aux tests dans les navigateurs.
 Il a été créé en{nbsp}2012 pour faciliter l'exécution des suites de tests de la
@@ -1991,6 +2067,7 @@ Les navigateurs lancés par défaut lors des tests sont listés dans l'option `b
 include::karma.conf.js[lines=49]
 ----
 
+indexterm:[module npm, karma]
 _karma_ se charge d'inclure les fichiers ECMAScript ou de servir des fichiers
 statiques en fonction de motifs de chemins.
 Ces fichiers peuvent être locaux (de préférence) ou distants et même de
@@ -2012,10 +2089,13 @@ base de _karma_.
 Ces dernières se résument à charger des fichiers ECMAScript
 dans une balise `<script>`.
 
+indexterm:[module npm, browserify]
+indexterm:[module npm, mocha]
+indexterm:[module npm, karma]
 L'extrait de configuration suivant illustre le chargement des plug-ins pour
 _Browserify_ (modules _CommonJS_ et transpilation), _mocha_ (suites de tests)
 et _fixture_ (données représentant des cas d'utilisation) – respectivement
-les modules `npm` `karma-browserify`, `karma-mocha` et `karma-fixture` :
+les modules{nbsp}``npm`` `karma-browserify`, `karma-mocha` et `karma-fixture` :
 
 [source,javascript,indent=0]
 .karma.conf.js#L5
@@ -2069,6 +2149,7 @@ Par mesure de simplicité, cette commande a été abstraite en tant que
 $ npm run test:browser
 ----
 
+indexterm:[test, en continu]
 Les tests peuvent être relancés en continu – dès qu'un fichier change – en
 désactivant l'exécution unique (_single run_).
 C'est idéal lorsque les tests sont écrits en parallèle de l'implémentation du
@@ -2091,12 +2172,17 @@ terminaux mobiles de type _smartphone_ ou tablette ?
 
 [[ci]]
 === Intégration continue et compatibilité navigateurs
+indexterm:[déploiement, intégration continue]
+indexterm:[application front-end, compatibilité navigateur]
+indexterm:[test, front-end (avec navigateur)]
 
 Deux cas de figure se présentent en complément de la section précédente :
 
 * la difficulté d'accès à certaines combinaisons navigateur + système d'exploitation ;
 * l'envie d'automatiser les tests de navigateurs.
 
+indexterm:[BrowserStack]
+indexterm:[module npm, karma]
 Sous Windows, il sera difficile de tester la version macOS de Safari.
 Inversement, sous macOS, il sera difficile de tester
 Internet{nbsp}Explorer ou Edge.
@@ -2182,11 +2268,13 @@ Cela a deux avantages indéniables :
 - s'assurer de l'exécution systématique des tests ;
 - mettre en commun la logique d'exécution de tests.
 
-On évite ainsi les _oublis_ tout en enlevant le coût de mise en place de
+On évite ainsi les oublis tout en enlevant le coût de mise en place de
 l'infrastructure de tests chez des personnes contribuant de manière occasionnelle.
 Cerise sur le gâteau, on prévient en partie les régressions – changements qui
 cassent le fonctionnement attendu d'une fonctionnalité.
 
+indexterm:[déploiement, intégration continue]
+indexterm:[test, intégration continue]
 Le service Travis{nbsp}CI ([URL]#https://travis-ci.com#) est un service
 d'intégration continue (_Continuous Integration_, _CI_) parmi d'autres, mais
 qui a été rendu populaire pour son intégration avec GitHub.

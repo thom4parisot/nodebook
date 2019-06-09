@@ -1149,8 +1149,8 @@ La décision d'actualiser leur appartient toutefois.
 
 [[tests]]
 == Vers un code réutilisable et testable
-indexterm:[application en ligne de commande, test]
-indexterm:[application en ligne de commande, modularité]
+indexterm:[application en ligne de commande, test (voir test)]
+indexterm:[test, séparation de principe]
 
 Nous avons appris comment transformer un script Node en un programme paramétrable,
 clair et agréable à utiliser.
@@ -1210,7 +1210,8 @@ Justement, parlons-en.
 
 [[tests.interface]]
 === Tester le code partagé
-indexterm:[application en ligne de commande, test]
+indexterm:[application en ligne de commande, test (voir test)]
+indexterm:[test]
 
 L'écriture de tests nous aide à découvrir qu'une modification produit un résultat
 différent de celui attendu.
@@ -1222,6 +1223,7 @@ indexterm:[instruction, if ... else]
 [NOTE]
 .[RemarquePreTitre]#Glossaire# Test et assertion
 ====
+indexterm:[test, assertion]
 Une assertion est l'expression d'une attente quant au fonctionnement de notre code.
 
 Un test s'applique à une fonction et utilise une à plusieurs assertion(s) pour
@@ -1233,7 +1235,7 @@ Pour des besoins simples, j'utilise le module{nbsp}``npm`` _tape_
 indexterm:[module npm, tape]
 Il gère l'exécution des tests et il fournit quelques méthodes pour exprimer
 nos attentes – les assertions.
-indexterm:[application en ligne de commande, test, assertion]
+indexterm:[test, assertion]
 
 ----
 $ node testing/01/lib.test.js
@@ -1332,7 +1334,8 @@ Unsupported time zone specified Brexit/London
 
 [[tests.cli]]
 === Tester l'exécutable
-indexterm:[application en ligne de commande, test]
+indexterm:[test, exécutable]
+indexterm:[test, TAP (protocole)]
 indexterm:[Node.js, script exécutable]
 
 Tester l'exécutable est un moyen de vérifier que les câblages entre notre

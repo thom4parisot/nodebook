@@ -1297,6 +1297,7 @@ indexterm:[flux de données]
   gérer les connexions entrantes via <<http.Server,`http.Server`>>
 `http.get()`::
   Crée une connexion HTTP de type{nbsp}``GET``.
+  indexterm:[HTTP, verbe, GET]
   Il s'agit d'une version simplifiée de `http.request()`.
 `http.request()`::
   Crée une connexion HTTP du type de son choix : `GET`, `POST`, `OPTION`, `PUT`,
@@ -1588,6 +1589,7 @@ aidé par les <<../chapter-05/index.adoc#modules,modules{nbsp}``npm``>> que l'on
   Se déclenche lorsqu'une requête entrante demande un changement de protocole.
   Utilisée pour basculer vers HTTP/2 et
   <<../chapter-09/index.adoc#io-websocket,WebSocket>>.
+  indexterm:[WebSockets]
 `response.on('close')`::
   Se délenche lorsque la requête a été terminée par le client,
   avant qu'on ait pu transmettre l'intégralité des données.

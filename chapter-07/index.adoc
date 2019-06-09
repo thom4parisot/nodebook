@@ -306,12 +306,14 @@ l'impossibilité de deviner qu'il ne s'agit pas du contenu attendu.
 .D'autres codes HTTP utiles à connaître
 |===
 | Code  | Raison                | Explication
+| `101` | `Switching Protocol`  | Le serveur indique basculer vers le protocole spécifié dans l'en-tête `Upgrade`.
 | `201` | `Created`             | La ressource demandée a été créée.
 | `202` | `Accepted`            | La demande a été acceptée et la ressource sera disponible ultérieurement.
 | `204` | `No Content`          | La ressource demandée n'a pas de contenu.
 | `302` | `Found`               | La ressource demandée est temporairement disponible à une autre adresse.
 | `503` | `Service Unavailable` | Le serveur distant répond qu'il n'est pas disponible pour l'instant.
 |===
+indexterm:[HTTP, code de réponse, 1xx]
 indexterm:[HTTP, code de réponse, 2xx]
 indexterm:[HTTP, code de réponse, 3xx]
 indexterm:[HTTP, code de réponse, 5xx]
@@ -1937,7 +1939,8 @@ déplacement plus aisé du code et à une quasi-disparition des variables global
 Nous en profitons pour rendre nos intentions explicites, ce à quoi nous obligent
 les réflexions de nommage de fichiers et de fonctions.
 indexterm:[npm, test]
-indexterm:[application web, test]
+indexterm:[application web, test (voir test)]
+indexterm:[test, unitaire]
 
 ----
 $ node modularity/01/server.js
@@ -2071,7 +2074,7 @@ de l'application web, par ordre de criticité.
 
 [[tests.unit]]
 === Un code testable est un code indépendant du framework
-indexterm:[application web, test]
+indexterm:[test, unitaire]
 
 L'écriture de tests unitaires est influencée par et influence l'organisation
 de notre code en unités réutilisables.
@@ -2124,8 +2127,8 @@ sur le serveur de production.
 
 Pour ce faire, commençons par simplifier le fichier `src/database.js` en
 supprimant tout chemin d'accès écrit en{nbsp}dur :
-indexterm:[base de données, test]
-indexterm:[base de données, automatisation]
+indexterm:[base de données, test (voir test)]
+indexterm:[test, automatisation]
 
 [source,javascript]
 .testing/src/database.js
@@ -2282,7 +2285,7 @@ J'utilise le module{nbsp}``npm`` _mocha_ ([URL]#https://npmjs.com/mocha#,
 configuration et parce qu'il fait le travail à la fois côté Node et côté
 navigateurs.
 indexterm:[module npm, mocha]
-indexterm:[application web, test]
+indexterm:[test, suite de test]
 
 ----
 $ ../node_modules/.bin/mocha testing/tests/with-mocha.js
@@ -2367,7 +2370,7 @@ si leur exécution est réussie.
 === Déployer automatiquement
 indexterm:[déploiement, intégration continue]
 indexterm:[application web, intégration continue (voir déploiement)]
-indexterm:[application web, test]
+indexterm:[test, automatisation]
 
 Cette section continue à ajouter de l'automatisation
 dans notre manière de fonctionner.
