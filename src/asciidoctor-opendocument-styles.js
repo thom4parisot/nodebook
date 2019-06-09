@@ -115,103 +115,103 @@ const settings = `<office:settings>
   </config:config-item-set>
  </office:settings>`;
 
-const scripts = `<office:scripts>
-  <office:script script:language="ooo:Basic">
-   <ooo:libraries xmlns:ooo="http://openoffice.org/2004/office" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <ooo:library-embedded ooo:name="Standard">
-     <ooo:module ooo:name="ThisDocument">
-      <ooo:source-code>Sub ThisDocument
-
-Rem Private Sub Document_Close()&#x0d;
-Rem &#x0d;
-Rem End Sub&#x0d;
-Rem &#x0d;
-Rem Private Sub Document_New()&#x0d;
-Rem &#x0d;
-Rem End Sub&#x0d;
-Rem &#x0d;
-Rem Private Sub Document_Open()&#x0d;
-Rem &#x0d;
-Rem End Sub&#x0d;
-Rem
-End Sub
-      </ooo:source-code>
-     </ooo:module>
-     <ooo:module ooo:name="AaMacrosPersos">
-      <ooo:source-code>Sub AaMacrosPersos
-
-Rem &#x0d;
-Rem Sub AltFTavecNumeros()&#x0d;
-Rem     Selection.Style = ActiveDocument.Styles(&quot;Figure&quot;)&#x0d;
-Rem     Selection.TypeParagraph&#x0d;
-Rem     Selection.Style = ActiveDocument.Styles(&quot;Légende&quot;)&#x0d;
-Rem     &#x0d;
-Rem     Selection.TypeText (&quot;Figure &quot;)&#x0d;
-Rem     &#x0d;
-Rem WordBasic.Insertfield Field:=&quot;styleref NuméroChapitre&quot;&#x0d;
-Rem Selection.TypeText &quot;–&quot;&#x0d;
-Rem WordBasic.Insertfield Field:=&quot;autonum&quot;&#x0d;
-Rem WordBasic.Insert &quot; &quot;&#x0d;
-Rem WordBasic.EndOfLine&#x0d;
-Rem &#x0d;
-Rem     Selection.MoveLeft Unit:=wdWord, Count:=2, Extend:=wdExtend&#x0d;
-Rem     Selection.Fields.Update&#x0d;
-Rem     Selection.MoveRight Unit:=wdCharacter, Count:=1&#x0d;
-Rem End Sub&#x0d;
-Rem Sub AAccentue()&#x0d;
-Rem     Selection.TypeText Text:=&quot;À&quot;&#x0d;
-Rem End Sub&#x0d;
-Rem Sub EAccentue()&#x0d;
-Rem     Selection.TypeText Text:=&quot;É&quot;&#x0d;
-Rem End Sub&#x0d;
-Rem Sub MarquerEntreeIndex()&#x0d;
-Rem Dim EntreeIndex As String&#x0d;
-Rem &#x0d;
-Rem &apos;ActiveWindow.ActivePane.View.ShowAll = True&#x0d;
-Rem &#x0d;
-Rem &apos;sélectionner le mot courant si aucune sélection&#x0d;
-Rem If Selection.Type = wdSelectionIP Then&#x0d;
-Rem     Selection.MoveLeft Unit:=wdWord, Count:=1&#x0d;
-Rem     Selection.MoveRight Unit:=wdWord, Count:=1, Extend:=wdExtend&#x0d;
-Rem End If&#x0d;
-Rem &#x0d;
-Rem &apos;enlever les espaces de début et fin&#x0d;
-Rem EntreeIndex = Trim(Selection)&#x0d;
-Rem     If Mid(EntreeIndex, 2, 1) = &quot;’&quot; Then &apos;ôte les débuts de mot avec apostrophe&#x0d;
-Rem     EntreeIndex = Mid(EntreeIndex, 3)&#x0d;
-Rem     End If&#x0d;
-Rem &apos;marquer l&apos;entrée&#x0d;
-Rem ActiveDocument.Indexes.MarkEntry Range:=Selection.Range, Entry:=EntreeIndex&#x0d;
-Rem &apos;se positionner en fin d&apos;entrée&#x0d;
-Rem     Selection.MoveRight Unit:=wdCharacter, Count:=1&#x0d;
-Rem     Selection.MoveRight Unit:=wdWord, Count:=1, Extend:=wdExtend&#x0d;
-Rem     Selection.MoveRight Unit:=wdCharacter, Count:=1&#x0d;
-Rem     Selection.MoveLeft Unit:=wdCharacter, Count:=1&#x0d;
-Rem End Sub&#x0d;
-Rem Sub GuillemetsOnOff()&#x0d;
-Rem     With Options&#x0d;
-Rem         .AutoFormatAsYouTypeReplaceQuotes = Not .AutoFormatAsYouTypeReplaceQuotes&#x0d;
-Rem     End With&#x0d;
-Rem End Sub&#x0d;
-Rem Sub AltFT()&#x0d;
-Rem     Selection.Style = ActiveDocument.Styles(&quot;Figure&quot;)&#x0d;
-Rem     Selection.TypeParagraph&#x0d;
-Rem     Selection.Style = ActiveDocument.Styles(&quot;Légende&quot;)&#x0d;
-Rem     &#x0d;
-Rem End Sub&#x0d;
-Rem &#x0d;
-Rem
-End Sub
-      </ooo:source-code>
-     </ooo:module>
-    </ooo:library-embedded>
-   </ooo:libraries>
-  </office:script>
-  <office:event-listeners>
-   <script:event-listener script:language="ooo:StarBasic" script:event-name="office:start-app" script:macro-name="application:Indesko.FixOutline.FixOutline"/>
-   <script:event-listener script:language="ooo:StarBasic" script:event-name="office:save" script:macro-name="application:Indesko.FixOutline.FixOutline"/>
-  </office:event-listeners>
- </office:scripts>`;
+// const scripts = `<office:scripts>
+//   <office:script script:language="ooo:Basic">
+//    <ooo:libraries xmlns:ooo="http://openoffice.org/2004/office" xmlns:xlink="http://www.w3.org/1999/xlink">
+//     <ooo:library-embedded ooo:name="Standard">
+//      <ooo:module ooo:name="ThisDocument">
+//       <ooo:source-code>Sub ThisDocument
+//
+// Rem Private Sub Document_Close()&#x0d;
+// Rem &#x0d;
+// Rem End Sub&#x0d;
+// Rem &#x0d;
+// Rem Private Sub Document_New()&#x0d;
+// Rem &#x0d;
+// Rem End Sub&#x0d;
+// Rem &#x0d;
+// Rem Private Sub Document_Open()&#x0d;
+// Rem &#x0d;
+// Rem End Sub&#x0d;
+// Rem
+// End Sub
+//       </ooo:source-code>
+//      </ooo:module>
+//      <ooo:module ooo:name="AaMacrosPersos">
+//       <ooo:source-code>Sub AaMacrosPersos
+//
+// Rem &#x0d;
+// Rem Sub AltFTavecNumeros()&#x0d;
+// Rem     Selection.Style = ActiveDocument.Styles(&quot;Figure&quot;)&#x0d;
+// Rem     Selection.TypeParagraph&#x0d;
+// Rem     Selection.Style = ActiveDocument.Styles(&quot;Légende&quot;)&#x0d;
+// Rem     &#x0d;
+// Rem     Selection.TypeText (&quot;Figure &quot;)&#x0d;
+// Rem     &#x0d;
+// Rem WordBasic.Insertfield Field:=&quot;styleref NuméroChapitre&quot;&#x0d;
+// Rem Selection.TypeText &quot;–&quot;&#x0d;
+// Rem WordBasic.Insertfield Field:=&quot;autonum&quot;&#x0d;
+// Rem WordBasic.Insert &quot; &quot;&#x0d;
+// Rem WordBasic.EndOfLine&#x0d;
+// Rem &#x0d;
+// Rem     Selection.MoveLeft Unit:=wdWord, Count:=2, Extend:=wdExtend&#x0d;
+// Rem     Selection.Fields.Update&#x0d;
+// Rem     Selection.MoveRight Unit:=wdCharacter, Count:=1&#x0d;
+// Rem End Sub&#x0d;
+// Rem Sub AAccentue()&#x0d;
+// Rem     Selection.TypeText Text:=&quot;À&quot;&#x0d;
+// Rem End Sub&#x0d;
+// Rem Sub EAccentue()&#x0d;
+// Rem     Selection.TypeText Text:=&quot;É&quot;&#x0d;
+// Rem End Sub&#x0d;
+// Rem Sub MarquerEntreeIndex()&#x0d;
+// Rem Dim EntreeIndex As String&#x0d;
+// Rem &#x0d;
+// Rem &apos;ActiveWindow.ActivePane.View.ShowAll = True&#x0d;
+// Rem &#x0d;
+// Rem &apos;sélectionner le mot courant si aucune sélection&#x0d;
+// Rem If Selection.Type = wdSelectionIP Then&#x0d;
+// Rem     Selection.MoveLeft Unit:=wdWord, Count:=1&#x0d;
+// Rem     Selection.MoveRight Unit:=wdWord, Count:=1, Extend:=wdExtend&#x0d;
+// Rem End If&#x0d;
+// Rem &#x0d;
+// Rem &apos;enlever les espaces de début et fin&#x0d;
+// Rem EntreeIndex = Trim(Selection)&#x0d;
+// Rem     If Mid(EntreeIndex, 2, 1) = &quot;’&quot; Then &apos;ôte les débuts de mot avec apostrophe&#x0d;
+// Rem     EntreeIndex = Mid(EntreeIndex, 3)&#x0d;
+// Rem     End If&#x0d;
+// Rem &apos;marquer l&apos;entrée&#x0d;
+// Rem ActiveDocument.Indexes.MarkEntry Range:=Selection.Range, Entry:=EntreeIndex&#x0d;
+// Rem &apos;se positionner en fin d&apos;entrée&#x0d;
+// Rem     Selection.MoveRight Unit:=wdCharacter, Count:=1&#x0d;
+// Rem     Selection.MoveRight Unit:=wdWord, Count:=1, Extend:=wdExtend&#x0d;
+// Rem     Selection.MoveRight Unit:=wdCharacter, Count:=1&#x0d;
+// Rem     Selection.MoveLeft Unit:=wdCharacter, Count:=1&#x0d;
+// Rem End Sub&#x0d;
+// Rem Sub GuillemetsOnOff()&#x0d;
+// Rem     With Options&#x0d;
+// Rem         .AutoFormatAsYouTypeReplaceQuotes = Not .AutoFormatAsYouTypeReplaceQuotes&#x0d;
+// Rem     End With&#x0d;
+// Rem End Sub&#x0d;
+// Rem Sub AltFT()&#x0d;
+// Rem     Selection.Style = ActiveDocument.Styles(&quot;Figure&quot;)&#x0d;
+// Rem     Selection.TypeParagraph&#x0d;
+// Rem     Selection.Style = ActiveDocument.Styles(&quot;Légende&quot;)&#x0d;
+// Rem     &#x0d;
+// Rem End Sub&#x0d;
+// Rem &#x0d;
+// Rem
+// End Sub
+//       </ooo:source-code>
+//      </ooo:module>
+//     </ooo:library-embedded>
+//    </ooo:libraries>
+//   </office:script>
+//   <office:event-listeners>
+//    <script:event-listener script:language="ooo:StarBasic" script:event-name="office:start-app" script:macro-name="application:Indesko.FixOutline.FixOutline"/>
+//    <script:event-listener script:language="ooo:StarBasic" script:event-name="office:save" script:macro-name="application:Indesko.FixOutline.FixOutline"/>
+//   </office:event-listeners>
+//  </office:scripts>`;
 
 const fonts = `<office:font-face-decls>
   <style:font-face style:name="StarSymbol" svg:font-family="StarSymbol" style:font-charset="x-symbol"/>

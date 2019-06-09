@@ -7,9 +7,9 @@ module.exports = function LexicalIndexExtension () {
         return doc;
       }
 
-      doc.findBy({context: 'paragraph'}).forEach(block => {
-        // console.log(block.lines);
-      });
+      // doc.findBy({context: 'paragraph'}).forEach(block => {
+      //  console.log(block.lines);
+      // });
     });
   });
 

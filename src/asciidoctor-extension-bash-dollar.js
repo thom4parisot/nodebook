@@ -31,7 +31,7 @@ module.exports = function bash$Extension () {
             line = '<span data-bash-subs=">"></span>' + block.$sub_specialchars(line.slice(2));
           }
 
-          line = line.replace(/# (&lt;|<)(\d+)(&gt;|>)$/, (match, pre, id, post) => {
+          line = line.replace(/# (&lt;|<)(\d+)(&gt;|>)$/, (match, pre, id) => {
             isModified = true;
             return ` <span data-bash-conum="${id}"></span>`;
           });

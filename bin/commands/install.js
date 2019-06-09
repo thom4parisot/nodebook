@@ -2,7 +2,6 @@
 
 const {promisify} = require('util');
 const {spawn} = require('child_process');
-const exec = promisify(require('child_process').exec);
 const {list,dir} = require('./chapters');
 
 const DEFAULTS_OPEN = {
