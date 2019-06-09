@@ -4,6 +4,7 @@
 
 'use strict';
 
+const pkg = require('./package.json');
 const http = require('http');
 const finalhandler = require('finalhandler');
 const getPort = require('get-port');
@@ -34,7 +35,7 @@ const startServer = (port) => {
   const url = `http://${host}:${port}`;
 
   return server.listen(port, host, () => {
-    console.log('💡 Livre consultable sur %s', url);
+    console.log('💡 %s@%s consultable sur %s', pkg.name, pkg.version, url);
   });
 }
 

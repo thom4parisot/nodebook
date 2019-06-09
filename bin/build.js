@@ -1,5 +1,6 @@
 'use strict'
 
+const pkg = require('../package.json');
 const {join} = require('path');
 const ora = require('ora');
 const asciidoctor = require('@asciidoctor/core')();
@@ -33,7 +34,10 @@ var DEFAULT_ATTRIBUTES = [
   'source-highlighter=prism',
   'prism-languages=apacheconf,bash,docker,http,ini,json,jsx,less,markdown,nginx,properties,sass,scss,typescript,tsx,yaml',
   'prism-theme',
+  `book-module=${pkg.name}`,
+  `book-module-version=${pkg.version}`,
   'toc-title=Table des matières',
+  'chapter-label=Chapitre',
   'appendix-caption=Annexe',
   'last-update-label=Dernière mise à jour',
   'example-caption=Exemple',

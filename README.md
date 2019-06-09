@@ -42,7 +42,7 @@ De nombreux exemples sont interactifs, modifiables et affichent leur résultat d
 
 ## Sur liseuse numérique
 
-📱 L'e-book est édité et vendu par les [**Éditions Eyrolles**](https://www.eyrolles.com/Informatique/Livre/node-js-9782212139938) (mi-décembre 2018).
+📱 L'e-book est édité et vendu par les [**Éditions Eyrolles**](https://www.editions-eyrolles.com/Livre/9782212139938).
 
 **Fonctionnalités** : compact, chercher dans le contenu, rémunère mon travail.
 
