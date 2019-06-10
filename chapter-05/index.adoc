@@ -980,6 +980,73 @@ indexterm:[test]
 Le script `npm test` concerne tous les projets pour lesquels nous avons écrit
 des tests qu'ils soient unitaires ou fonctionnels.
 
+[NOTE]
+[[test-unitaire]]
+.[RemarquePreTitre]#Glossaire# Test unitaire
+====
+indexterm:[test, unitaire]
+
+Un test unitaire vérifie les différents scénarios d'un morceau de code
+— par exemple une fonction.
+Nous écrivons les différents cas de figure, c'est-à-dire les différents
+résultats retournés en fonction des argumentés donnés à cette fonction.
+
+L'enjeu est d'expliciter les résultats attendus sans avoir à lancer
+une application complète pour s'en rendre compte.
+====
+
+[NOTE]
+[[assertion]]
+.[RemarquePreTitre]#Glossaire# Assertion
+====
+indexterm:[test, assertion]
+
+Une assertion est l'élément de vérification le plus fin que nous ayons.
+Il prend la forme d'une fonction qui compare deux choses — le résultat d'une fonction
+et la valeur à laquelle nous nous attendons. +
+
+[source,javascript]
+.assert.js
+----
+include::{sourceDir}/assert.js[]
+----
+
+Il est parfois nécessaire d'utiliser plusieurs assertions dans un test
+unitaire, pour exprimer toutes nos attentes.
+====
+
+[NOTE]
+[[test-branche]]
+.[RemarquePreTitre]#Glossaire# Branche
+====
+indexterm:[instruction, if ... else]
+
+Si une fonction comporte une instruction `if ... else`, ça veut dire
+que l'interpréteur ECMAScript peut emprunter deux chemins différents, le bloc
+du `if` ou le bloc du `else`. +
+La branche est le chemin que prend l'interpréteur.
+Pour faire bien faire les choses, nous devrions tester toutes les branches
+de notre code.
+
+L'exhaustivité des branches testée est exprimée sous le nom de *couverture de code*,
+un pourcentage des branches testées par nos assertions.
+====
+
+[NOTE]
+[[test-fonctionnel]]
+.[RemarquePreTitre]#Glossaire# Test fonctionnel
+====
+indexterm:[test, fonctionnel]
+
+Si Node suffit à tester unitairement du code ECMAScript, il n'est pas dit
+que ce même code fonctionne de manière identique dans un navigateur web.
+
+Un test fonctionnel ajoute donc la prise en compte d'un environnement d'exécution
+particulier pour garantir son bon fonctionnement.
+Par exemple, l'exécution de tests dans un navigateur web ou sur un microcontrôleur
+Raspberry{nbsp}Pi.
+====
+
 L'intention de la commande lancée par le script{nbsp}``npm`` est de terminer
 en erreur si un des tests n'aboutit pas au résultat escompté.
 

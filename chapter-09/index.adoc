@@ -1731,8 +1731,12 @@ La réalité est tout autre et suit un paradigme très simple :
 *plus il y a de lignes de code, plus il y a de risques de commettre des erreurs*.
 Cela vaut aussi bien pour du HTML que du CSS ou encore de l'ECMAScript.
 
-Cette dernière section nous aidera à comprendre quoi et comment tester
-pour diminuer le coût de maintenance de nos applications.
+La section `"<<../chapter-05/index.adoc#test,Exécuter des tests"`>> du chapitre{nbsp}5
+décrit la mécanique de base pour tester son projet.
+Dans cette dernière section, nous chercherons à comprendre comment appliquer
+cette même logique à du code destiné aux navigateurs web.
+Ces connaissances vont nous aider à trouver des bugs, à améliorer l'organisation
+de notre code et à en faciliter sa maintenance.
 
 [[testing-101]]
 === Que tester ?
@@ -1883,6 +1887,7 @@ Nous en trouverons un à la racine du répertoire des ressources du
 indexterm:[test, composant React]
 indexterm:[test, front-end (sans navigateur)]
 indexterm:[module npm, React]
+indexterm:[test, unitaire]
 
 Un des points forts de <<react,React>> évoqués dans ce chapitre est la
 description de son rendu à même le composant.
@@ -2006,6 +2011,7 @@ navigateurs, que ce soit au niveau de la syntaxe ECMAScript ou du rendu{nbsp}CSS
 
 === Tester code et composants dans les navigateurs
 indexterm:[test, front-end (avec navigateur)]
+indexterm:[test, fonctionnel]
 
 C'est bien beau de tester uniquement l'interface de composants _React_
 (ou autre technologie) mais comment faire lorsqu'on a besoin de tester avec un

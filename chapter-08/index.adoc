@@ -1213,28 +1213,18 @@ Justement, parlons-en.
 indexterm:[application en ligne de commande, test (voir test)]
 indexterm:[test]
 
-L'écriture de tests nous aide à découvrir qu'une modification produit un résultat
-différent de celui attendu.
-Les tests documentent aussi les cas à la marge de notre code.
-En général, dès qu'il y a un `if ... else`, cela implique d'écrire au moins une
-nouvelle assertion.
-indexterm:[instruction, if ... else]
+La section `"<<../chapter-05/index.adoc#test,Exécuter des tests"`>> du chapitre{nbsp}5
+décrit la mécanique de base pour tester son projet.
+Dans cette section, nous allons couvrir la partie spécifique aux tests
+d'applications en ligne de commande.
+La logique reste la même : expliciter nos attentes et découvrir quand une
+modification dans notre code produit un résultat inattendu.
 
-[NOTE]
-.[RemarquePreTitre]#Glossaire# Test et assertion
-====
-indexterm:[test, assertion]
-Une assertion est l'expression d'une attente quant au fonctionnement de notre code.
-
-Un test s'applique à une fonction et utilise une à plusieurs assertion(s) pour
-couvrir le spectre de ses fonctionnalités.
-====
-
-Pour des besoins simples, j'utilise le module{nbsp}``npm`` _tape_
-([URL]#https://npmjs.com/tape#).
+J'utilise le module{nbsp}``npm`` _tape_ ([URL]#https://npmjs.com/tape#)
+quand j'ai des besoins simples, pour démarrer.
 indexterm:[module npm, tape]
-Il gère l'exécution des tests et il fournit quelques méthodes pour exprimer
-nos attentes – les assertions.
+J'aime son nombre réduit de dépendances — et donc sa rapidité d'installation —
+ainsi que son petit nombre de fonctions d'assertion.
 indexterm:[test, assertion]
 
 ----

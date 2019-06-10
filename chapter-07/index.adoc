@@ -1934,7 +1934,7 @@ Ce phénomène se renforce quand plusieurs concepts s'entrecroisent visuellement
 
 La modularisation des routes et de notre application web va nous rendre la vie
 plus confortable.
-Nous ouvrons la porte à l'écriture de <<tests.unit,tests unitaires>>, à un
+Nous ouvrons la porte à l'écriture de <<tests,tests>>, à un
 déplacement plus aisé du code et à une quasi-disparition des variables globales.
 Nous en profitons pour rendre nos intentions explicites, ce à quoi nous obligent
 les réflexions de nommage de fichiers et de fonctions.
@@ -2072,7 +2072,7 @@ et la configuration de l'application.
 Ce travail va nous permettre de tester petit à petit les différents éléments
 de l'application web, par ordre de criticité.
 
-[[tests.unit]]
+[[tests]]
 === Un code testable est un code indépendant du framework
 indexterm:[test, unitaire]
 
@@ -2081,22 +2081,24 @@ de notre code en unités réutilisables.
 Ils accroissent la qualité, la confiance et la prédictibilité d'une éventuelle
 mise en ligne.
 
-Cette section se déroule dans la continuité de la précédente.
-Nous allons préparer et mettre en place pas à pas un environnement de test
-pour vérifier les intentions de notre{nbsp}code.
+La section `"<<../chapter-05/index.adoc#test,Exécuter des tests"`>> du chapitre{nbsp}5
+décrit la mécanique de base pour tester son projet.
+Dans cette section, nous allons appliquer ces connaissances de base au code
+précédemment écrit.
+Nous vérifierons ainsi que nos exemples fonctionnent comme prévu, mais
+peut-être que nous découvrirons aussi des cas limites auxquels nous n'avions pas pensé !
 
-Les tests unitaires sont destinés à couvrir les différents cas de figure
-des entrées et des sorties de nos fonctions.
-Nous testons leurs réactions aux arguments pour vérifier que nous obtenons
-le résultat attendu.
-Je teste en priorité le code critique, partagé (en tant que bibliothèque) et
-qui est au plus proche de l'interface utilisateur.
+Quand j'écris des tests après avoir écrit la majorité du code,
+j'ai tendance à *tester en priorité le code critique*, et celui qui est au
+plus proche de l'interface utilisateur.
+Je commence donc par les fonctions exportées par un module.
 
 De quoi a-t-on besoin pour tester `routes/books.js` ?
 La fonction qui est exportée par le module dépend d'une connexion établie
 à une base de données et de deux objets – la requête entrante et la réponse sortante.
-Nous avons aussi besoin d'écrire des _assertions_ et, dans un premier temps, nous
-allons utiliser le module dédié de{nbsp}Node.
+Dans un premier temps, nous utiliserons le module `assert` de{nbsp}Node pour
+écrire nos assertions.
+indexterm:[test, assertion]
 
 [source,javascript]
 .testing/tests/initial.js
@@ -2115,15 +2117,16 @@ C'est normal, parce que le test s'est bien passé.
 Une assertion lance une erreur si elle constate un résultat différent de l'attente.
 
 Nous avons toutefois testé une évidence, que le module retourne une fonction.
-Ce qui serait plus révélateur serait de tester l'invocation de cette fonction
-pour vérifier qu'elle produit un résultat prédictible.
+Ce qui serait plus révélateur serait de tester l'invocation de cette fonction,
+pour *vérifier qu'elle produit un résultat prédictible*.
 
 Modifions notre fichier de test pour établir une connexion à la base de données.
 Nous avons une contrainte toutefois : nous devons utiliser une base dont
 l'emplacement est différent de notre environnement de développement.
-Le raisonnement est de pouvoir la recréer et la détruire sans craindre
-de générer des effets secondaires, y compris si nous exécutons les tests
-sur le serveur de production.
+L'idée est de pouvoir la recréer et la détruire à chaque invocation de la commande
+`npm test`, sans craindre de générer des effets secondaires, sans perdre de données.
+Ça serait dommage de tout perdre si on venait un jour à exécuter les tests
+sur le serveur de production !
 
 Pour ce faire, commençons par simplifier le fichier `src/database.js` en
 supprimant tout chemin d'accès écrit en{nbsp}dur :
