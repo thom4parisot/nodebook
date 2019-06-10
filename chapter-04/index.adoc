@@ -293,17 +293,71 @@ Elle est équivalente à la variable{nbsp}``$_`` dans la console
 des outils de développement des navigateurs web.
 ====
 
+[[concepts]]
+== Quelques concepts et spécificités de Node
+
+WARNING: section en travaux
+
+=== Variables globales
+
+WARNING: section en travaux
+
+`+__filename+` est une chaîne de caractères faisant référence au fichier actuel. +
+`+__dirname+` fait référence au répertoire du fichier actuel.
+indexterm:[variable globale, +__filename+]
+indexterm:[variable globale, +__dirname+]
+
+[source%interactive,javascript]
+.dirname-filename.js
+----
+include::{sourceDir}/dirname-filename.js[]
+----
+<1> Affiche `/.../chapter-04/examples/dirname-filename.js`.
+<2> Affiche `true` – ça ne serait pas un _raccourci_ sinon{nbsp};-).
+<3> Affiche `/.../chapter-04/examples`.
+
+Ces variables sont utiles pour opérer sur des _chemins relatifs au fichier actuel_.
+
+[WARNING]
+.[RemarquePreTitre]#Compatibilité# Des globales pas toujours globales
+====
+indexterm:[module, CommonJS]
+indexterm:[module, ECMAScript]
+Les variables `+__filename+` et `+__dirname+` n'existent que lorsque notre code
+est chargé en tant que <<modules,module CommonJS>>.
+====
+
+[[asynchronous]]
+=== Opérations asynchrones
+indexterm:[fonction, asynchrone]
+indexterm:[programmation asynchrone]
+
+WARNING: section en travaux
+
+
+[[callbacks]]
+=== Fonctions de callbacks
+
+WARNING: section en travaux
+
+C'est un prolongement du mécanisme expliqué au <<../chapter-03/index.adoc#callbacks,chapitre 3>>
+Parler du pattern `fn(err, result)`, remplacé petit à petit par un mécanisme de promesses
+
+[[buffer]]
+=== Données binaires (Buffer)
+
+WARNING: section en travaux
+
 [[modules-builtin]]
 == Les modules de base
 indexterm:[Node.js, module de base (voir module)]
 indexterm:[module, de base]
 indexterm:[module, require()]
 
-Les modules de base *étendent le champ d'action de Node*.
-Ils servent d'interfaces pour communiquer avec le système d'exploitation,
-le système de fichiers, des ressources HTTP et des connexions réseau, entre autres.
-Ils sont inclus avec chaque installation de Node.
-On peut donc en bénéficier sans effort supplémentaire.
+Les modules de base contiennent des *fonctions ECMAScript pour interagir avec le système d'exploitation*.
+Ils nous donnent la capacité à communiquer avec le système d'exploitation,
+son système de fichiers, des ressources réseau (HTTP, DNS, TCP), entre autres.
+Les modules sont inclus par défaut avec chaque installation de Node.
 
 Un module de base se charge en passant son identifiant
 à la fonction `require()`, qui retourne alors un objet avec un certain nombre
@@ -314,23 +368,14 @@ afin d'interagir avec les fichiers et les répertoires présents sur l'ordinateu
 indexterm:[module, fs]
 
 [source%interactive,javascript]
-.fs/read-dir.js
+.base-module.js
 ----
-include::{sourceDir}/fs/read-dir.js[]
+include::{sourceDir}/base-module.js[]
 ----
-<1> On charge les fonctions et attributs du module `fs` dans la variable du même nom (on pourrait l'appeler autrement).
-<2> L'appel à la fonction `fs.readdir()` passe un objet d'erreur ainsi que la liste des fichiers et répertoires contenus dans le chemin indiqué.
-<3> Affiche un tableau contenant les noms de fichiers et de répertoires présents dans le dossier courant.
-indexterm:[module, fs, fs.readdir()]
+<1> Chargement du module `fs` : ses fonctions et attributs sont désormais accessibles depuis la variable `fs` (le nom de la variable n'a pas d'incidence).
+<2> Affiche un tableau qui contient toutes les fonctions et attributs du module{nbsp}``fs``.
 
-Ces modules de base représentent la pierre angulaire de nos applications Node.
-Ils fournissent le nécessaire pour tout faire !
-On apprendra à étendre encore plus le champ des possibles dans
-le <<../chapter-05/index.adoc#,chapitre{nbsp}5>>,
-grâce aux <<../chapter-05/index.adoc#modules,modules{nbsp}``npm``>>.
-indexterm:[module, npm]
-
-Les modules de base changent au fil du temps :
+Les modules de base évoluent au fil du temps :
 les nouvelles versions de Node ajoutent, corrigent et complètent les modules et
 fonctions existants.
 La documentation officielle de Node reflète ces changements et
@@ -369,6 +414,15 @@ Cette échelle se décompose en trois niveaux :
 L'indice est parfois appliqué à des fonctions dont les attentes
 changeraient d'une version à l'autre de{nbsp}Node.
 ====
+
+Si les modules de base représentent la pierre angulaire de nos applications,
+on peut vite se retrouver à écrire toujours et encore les mêmes choses.
+L'écosystème communautaire des <<../chapter-05/index.adoc#modules,modules{nbsp}``npm``>>
+étend les modules Node avec des fonctionnalités manquantes,
+des utilitaires qui simplifient la vie mais aussi avec des choses qui
+dépassent nos connaissances et qui n'ont pas leur place dans les modules de base.
+On entrera dans les détails dans le <<../chapter-05/index.adoc#,chapitre{nbsp}5>>.
+indexterm:[module, npm]
 
 Les sections suivantes illustrent des usages courants des modules de base
 pour mieux comprendre ce qu'on peut en attendre et comment les utiliser.
@@ -531,6 +585,16 @@ include::{sourceDir}/path/relative.js[]
 ----
 <1> Affiche `../source` (`..\source` sous Windows) – c'est ce qu'il faut parcourir pour aller du premier chemin au second.
 <2> Affiche `/tmp/source` (`C:\tmp\source` sous Windows) – on constate que le chemin _résolu_ est absolu, et intègre la lettre du lecteur sous Windows.
+
+[NOTE]
+.[RemarquePreTitre]#Notation# Répertoire courant et parent
+====
+Lorsqu'on écrit des chemins d'accès, le point{nbsp}(`.`) fait référence au
+_répertoire courant_ et les deux points (`..`) au _répertoire parent_.
+
+La notion de _courant_ correspond à l'emplacement depuis lequel nous
+appelons l'exécutable `node`.
+====
 
 Les résultats produits par les fonctions du module `path`
 se combinent particulièrement bien avec celles <<fs,du module{nbsp}``fs``>>, pour
@@ -742,96 +806,46 @@ indexterm:[module, url, documentation]
 === fs : manipuler le système de fichiers
 indexterm:[module, fs]
 
-Le module{nbsp}``fs`` est un incontournable.
-On y a recours dès que l'on a besoin de lire ou d'écrire dans un fichier.
-On s'en sert également pour créer, déplacer ou supprimer des fichiers
-et des répertoires.
+Le module{nbsp}``fs`` est incontournable.
+On y a recours dès que l'on a besoin de lire, écrire ou déplacer un fichier,
+parcourir des répertoires et surveiller leurs changements.
+
+Toutes les fonctions dont le résultat n'est pas instantané sont <<asynchronous,asynchrones>>.
+Leur rapidité d'exécution varie en fonction du support de stockage utilisé
+(disque, mémoire), de son usure et de la capacité de traitement de la CPU
+de l'ordinateur.
 
 [source%interactive,javascript]
 .fs/intro.js
 ----
 include::{sourceDir}/fs/intro.js[]
 ----
-<1> Lorsque la lecture du fichier aboutit, la <<callbacks,fonction de rappel>> est appelée avec deux paramètres : un objet d'erreur et le contenu.
-<2> Affiche le contenu d'un fichier `package.json`.
+<1> La fonction `fs.readdir()` demande au système d'exploitation la liste des fichiers du répertoire courant (`.`) et exécute la <<callbacks,fonction de rappel>> quand les résultats sont disponibles.
+<2> La variables `files` est un tableau dont chaque élément est un nom de fichier ou de répertoire.
 indexterm:[fonction, de rappel (callback)]
 
-[TIP]
-.[RemarquePreTitre]#Raccourci# Variables +__filename+ et +__dirname+
-====
-`+__filename+` est une chaîne de caractères faisant référence au fichier actuel. +
-`+__dirname+` fait référence au répertoire du fichier actuel.
-indexterm:[variable globale, +__filename+]
-indexterm:[variable globale, +__dirname+]
+Le mécanisme des <<callbacks,fonction de rappel>> est un héritage du temps
+où les <<../chapter-03/index.adoc#promise,promesses>> n'existaient pas.
+Fort heureusement pour nous, l'objet `fs.promises` contient une copie conforme
+des fonctions historiques… mais avec des promesses. +
+Reprenons l'exemple précédent pour illustrer ces propos :
 
 [source%interactive,javascript]
-.dirname-filename.js
+.fs/intro-promises.js
 ----
-include::{sourceDir}/dirname-filename.js[]
+include::{sourceDir}/fs/intro-promises.js[]
 ----
-<1> Affiche `/.../chapter-04/examples/dirname-filename.js`.
-<2> Affiche `true` – ça ne serait pas un _raccourci_ sinon{nbsp};-).
-<3> Affiche `/.../chapter-04/examples`.
+<1> La fonction `fs.readdir()` accepte les mêmes arguments, à l'exception de la fonction de rappel.
+<2> La méthode `then()` est appelée seulement si la lecture du répertoire est un succès.
 
-Ces variables sont utiles pour opérer sur des _chemins relatifs au fichier actuel_.
+La suite de cette section repose sur l'utilisation des promesses.
+J'estime qu'elles facilitent la gestion des erreurs et accentuent
+à la fois la lisibilité et la maintenance du code écrit.
 
-====
-
-Dans l'exemple précédent, nous avons parcouru le contenu d'un fichier.
-`fs.readdir()` parcourt un répertoire :
-indexterm:[module, fs, fs.readdir()]
-
-[source%interactive,javascript]
-.fs/ls.js
-----
-include::{sourceDir}/fs/ls.js[]
-----
-
-En l'exécutant, nous obtenons le résultat suivant :
-
-----
-$ node fs/ls.js
-[ '.eslintrc.yaml',
-  'console',
-  'debug.txt',
-  'deprecation-warning.js',
-  'process/env.js',
-  ...
-  'util' ]
-----
-
-Dans les environnements UNIX, le point{nbsp}(`.`) pour faire référence au
-_répertoire courant_ et deux points (`..`) pour le _répertoire parent_.
-C'est le cas avec Node également.
-La notion de _courant_ fait référence à l'emplacement depuis lequel nous
-appelons l'exécutable `node`.
-
-Changeons de répertoire :
-
-----
-$ cd ../..
-$ node chapter-04/examples/fs/ls.js
-[ '.eslintignore',
-  'README.md',
-  'chapter-01'
-  'chapter-02'
-  ...
-  'tests' ]
-----
-
-Les _chemins relatifs_ se définissent par rapport à l'emplacement depuis
-lequel on exécute la commande `node`.
-`+__dirname+` et `+__filename+` sont déterminées par rapport
-à l'emplacement du script qui fait référence à ces variables.
-
-Puisque les opérations liées au système de fichiers ne sont pas immédiates
-les fonctions de ce module sont en majorité *asynchrones*.
-Leur rapidité d'exécution varie en fonction du support de stockage utilisé
-(disque, mémoire), de son usure et de la capacité de traitement de la CPU
-de l'ordinateur.
-
-Cela veut aussi dire que les erreurs sont obtenues de manière asynchrone :
-indexterm:[fonction, asynchrone]
+Je vais illustrer la gestion des erreurs en faisant appel à `fs.rmdir()`.
+La suppression du répertoire courant `+__dirname+`
+(voir la section `"<<globals,Variables globales>>"`) va forcément échouer
+car un répertoire ne peut être supprimé tant qu'il contient un élément
 indexterm:[module, fs, fs.rmdir()]
 
 [source%interactive,javascript]
@@ -839,27 +853,69 @@ indexterm:[module, fs, fs.rmdir()]
 ----
 include::{sourceDir}/fs/rmdir.js[]
 ----
-<1> Indique que la suppression n'a pas abouti car le répertoire en question n'est pas vide – et pour cause, c'est celui qui contient notre fichier d'exemple.
+<1> Affiche un message qui commence par `ENOTEMPTY: directory not empty`.
+indexterm:[erreur, ENOTEMPTY]
 
+La section `"<<errors.system,Une erreur est renvoyée par le système d’exploitation>>"`
+détaille des raisons courantes d'erreurs.
+Les codes associés (ici, `ENOTEMPTY`) sont des indicateurs stables et pérennes
+pour détecter quel type de problème est rencontré, et quelle réponse appropriée
+prévoir dans notre application.
 
-On peut articuler plusieurs opérations entre elles et utiliser le <<path,module{nbsp}``path``>>
-pour construire des chemins robustes qui fonctionnent avec tous les systèmes
-d'exploitation, sans effort.
+Le <<path,module{nbsp}``path``>> est un bon compagnon au module{nbsp}``fs``.
+Leur combinaison aide à construire des chemins robustes, prédictibles et
+qui fonctionnent avec tous les systèmes d'exploitation.
 indexterm:[module, path, join()]
 
-L'exemple suivant crée un répertoire dans un <<os,dossier temporaire>>,
-copie un fichier sous un autre nom et liste le contenu du répertoire
-une fois la copie effectuée.
+Le script suivant crée un répertoire dans un <<os,dossier temporaire>>
+et s'y duplique sous un autre nom :
 indexterm:[module, os, tmpdir()]
+indexterm:[module, fs, mkdir()]
+indexterm:[module, fs, copyFile()]
 
 [source%interactive,javascript]
 .fs/copy-tmp.js
 ----
 include::{sourceDir}/fs/copy-tmp.js[]
 ----
-<1> On assemble un chemin composé à partir du <<os,répertoire temporaire>> fourni par le système d'exploitation.
-<2> Crée le répertoire en question.
-<3> Copie le contenu de ce script d'exemple vers le répertoire en question en lui attribuant un nouveau nom.
+<1> On assemble un chemin de fichier composé à partir du <<os,répertoire temporaire>>, fourni par le système d'exploitation.
+<2> Ce message s'affiche seulement si la création du répertoire et la copie aboutissent.
+
+Les promesses facilitent l'enchainement d'actions asynchrones.
+Notre code reste relativement "plat" et explicite sur ce qu'on tente d'y faire.
+indexterm:[promesse]
+
+Une autre opération classique est de *lire le contenu d'un fichier*.
+Nous ferons appel à la fonction `fs.readFile()` pour lire son contenu en une seule fois
+et afficher le contenu du script que nous exécutons :
+
+[source%interactive,javascript]
+.fs/readfile.js
+----
+include::{sourceDir}/fs/readfile.js[]
+----
+
+À notre grande surprise, ce n'est pas le contenu du fichier qui s'affiche
+mais une chaîne de caractères qui ressemble à
+`<Buffer 27 75 73 65 ... 44 more bytes>`.
+En effet, Node retourne le contenus sous forme binaire, avec un <<buffer,Buffer>>
+(voir `"<<buffer,Données binaires (Buffer)>>"`).
+
+Nous savons que le fichier en question est un contenu texte, nous pouvons indiquer
+l'encodage de conversion souhaité.
+En général, la valeur `utf8` suffit :
+
+[source%interactive,javascript]
+.fs/readfile-utf8.js
+----
+include::{sourceDir}/fs/readfile-utf8.js[]
+----
+
+Une fonction alternative à `fs.readFile()` existe : `fs.createReadStream()`.
+Elle est adaptée aux fichiers dont le poids dépasse de la centaine d'octets.
+Vous pouvez en savoir plus à son sujet dans la section
+`"<<stream,stream : manipuler des flux de données>>"`.
+
 
 [WARNING]
 .[RemarquePreTitre]#Sécurité# Utilisateur et permissions
@@ -872,30 +928,6 @@ au même titre que l'utilisateur système qui lance le script.
 Ce n'est pas grave si on exécute du code écrit soi-même.
 Il faut être vigilant·e si le code exécuté provient d'une autre personne.
 ====
-
-Si l'exemple précédent semble agréable à lire, il révèle deux points de vigilance.
-
-J'ai écrit le code de manière "optimiste", pour des questions de lisibilité.
-Pourtant, à chaque opération, il y a une possibilité d'erreur à gérer :
-de la création du répertoire jusqu'à la lecture des fichiers qu'il contient.
-Il faudrait vérifier l'argument `error` à chaque fois et décider quoi faire
-en fonction de la <<errors,nature du problème>>.
-
-Je vous invite à modifier ce code
-pour afficher la valeur des variables `error` à l'aide des
-<<console,fonctions du module `console`>>.
-Certaines erreurs apparaissent quand nous invoquons le script une seconde fois.
-indexterm:[module, console, console.error()]
-
-L'imbrication des <<callbacks,fonctions de rappel>> fait qu'il est
-*difficile d'en interrompre la suite*.
-Une bonne piste serait d'appliquer l'<<util,utilitaire `promisify`>>
-sur les fonctions du module{nbsp}``fs`` afin de créer une
-<<../chapter-03/index.adoc#promise,chaîne de promesses>>. +
-Nous apprendrons à le faire dans la section sur le <<util,module{nbsp}``util``>>.
-indexterm:[promesse]
-indexterm:[module, util, util.promisify()]
-indexterm:[fonction, de rappel (callback)]
 
 indexterm:[module, fs, fs.mkdir()]
 indexterm:[module, fs, fs.copyFile()]
@@ -1861,7 +1893,7 @@ indexterm:[module, child_process, child_process.spawn()]
 ----
 include::{sourceDir}/child_process/spawn.js[]
 ----
-<1> ``cat``{nbsp}est un programme qui affiche le contenu d'un fichier – un peu comme `fs.readFile`.
+<1> ``cat``{nbsp}est un programme qui affiche le contenu d'un fichier – un peu comme `fs.readFile()`.
 <2> Les données retournées par la commande externe se lisent depuis les <<process.std,flux de sortie>>.
 <3> Affiche le contenu du fichier `package.json`.
 
@@ -3485,6 +3517,7 @@ interface existe déjà à la même adresse. | Vérifier l'origine du serveur d�
 | `ECONNRESET` | La ressource distante a été interrompue en cours de route. | Retenter la connexion. Vérifier la stabilité de la connexion réseau.
 | `EEXIST` | La ressource à créer existe{nbsp}déjà. | C'est un problème seulement si la ressource n'était pas censée exister au préalable.
 | `EMFILE` | Trop de fichiers sont ouverts simultanément. | Les systèmes d'exploitation peuvent travailler sur une quantité finie de fichiers. Peut-être que vous avez ouvert trop de fichiers en même temps. Fermer l'accès aux fichiers ouverts.
+| `ENOTEMPTY` | Le répertoire n'est pas vide. | L'opération n'aboutira qu'une fois tous ses éléments sont supprimés ou déplacés ailleurs.
 | `ENOENT` | Ressource inexistante. | Vérifier que le chemin d'accès est correct. Inspecter la raison de l'inexistance de la ressource.
 | `EPERM` | L'opération n'est pas autorisée. | Des droits d'administration sont nécessaires pour effectuer cette opération.
 | `EPIPE` | L'accès à la ressource distante a été interrompu. | Retenter l'opération.
@@ -3496,6 +3529,7 @@ indexterm:[erreur, ECONNREFUSED]
 indexterm:[erreur, EEXIST]
 indexterm:[erreur, EMFILE]
 indexterm:[erreur, ENOENT]
+indexterm:[erreur, ENOTEMPTY]
 indexterm:[erreur, EPERM]
 indexterm:[erreur, EPIPE]
 indexterm:[erreur, ETIMEDOUT]

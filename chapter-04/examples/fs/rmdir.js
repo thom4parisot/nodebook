@@ -1,5 +1,7 @@
-const fs = require('fs');
+'use strict';
 
-fs.rmdir(__dirname, (error) => {
+const fs = require('fs').promises;
+
+fs.rmdir(__dirname).catch((error) => {
   console.error(error.message);   // <1>
 });
