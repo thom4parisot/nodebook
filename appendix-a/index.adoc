@@ -397,19 +397,19 @@ suivantes :
 ----
 $ ../node_modules/.bin/htmlhint sample.html
 examples/sample.html
-   L1 |<html>
+   L1 |&lt;html&gt;
        ^ Doctype must be declared first. (doctype-first)
-   L4 |</head>
-       ^ <title> must be present in <head> tag. (title-require)
-   L8 |  <button id="btn" class="btn">KO</button>
+   L4 |&lt;/head&gt;
+       ^ &lt;title&gt; must be present in &lt;head&gt; tag. (title-require)
+   L8 |  &lt;button id="btn" class="btn"&gt;KO&lt;/button&gt;
                 ^ The id value [ btn ] must be unique. (id-unique)
-   L10 |  <BUTTON class='btn__primary--curent btn--active'></BUTTON>
+   L10 |  &lt;BUTTON class='btn__primary--curent btn--active'>&lt;/BUTTON&gt;
           ^ The html element name of [ BUTTON ] must be in lowercase.
             (tagname-lowercase)
-   L10 |  class='btn__primary--curent btn--active'></BUTTON>
+   L10 |  class='btn__primary--curent btn--active'&gt;&lt;/BUTTON&gt;
           ^ The value of attribute [ class ] must be in double quotes.
           (attr-value-double-quotes)
-   L10 |...></BUTTON>
+   L10 |...&gt;&lt;/BUTTON&gt;
             ^ The html element name of [ BUTTON ] must be in lowercase.
             (tagname-lowercase)
 ----
@@ -554,17 +554,6 @@ la réécriture de{nbsp}code :
 
 _UglifyJS_ s'utilise en ligne de commande ou comme un module{nbsp}Node.
 
-=== postcss
-indexterm:[module npm, postcss]
-
-_PostCSS_ ([URL]#https://npmjs.com/postcss#) est une optimiseur CSS modulaire.
-Cet outil est construit autour d'un parseur CSS, d'un arbre syntaxique
-et d'un compilateur de texte.
-C'est la même recette qui a participé au succès et à la richesse fonctionnelle
-d'outils comme <<uglify-js2,UglifyJS>> et <<eslint,ESLint>>.
-
-Avec une ou plusieurs extension(s), vous basculez d'un optimiseur de code
-vers la possibilité de créer votre propre préprocesseur, comme{nbsp}Sass !
 
 === autoprefixer
 indexterm:[module npm, postcss]
@@ -672,35 +661,63 @@ par un navigateur{nbsp}web.
 La même chose s'applique avec la compilation ou la transpilation pour ECMAScript,
 pour utiliser dès maintenant une version du futur.
 
+=== sass
+indexterm:[module npm, node-sass]
+indexterm:[Sass]
+
+_Sass_ ([URL]#https://npmjs.com/node-sass#) est un autre préprocesseur CSS.
+Il est issu du monde Ruby et est désormais tout aussi puissant dans Node
+grâce à _LibSass_, un module rapide et portable écrit en{nbsp}{cpp}.
+
+[source,scss]
+.stylesheet.scss
+----
+include::{sourceDir}/stylesheet.scss[]
+----
+
+L'exécutable `sass` compile le fichier `.scss`:
+
+----
+$ ../node_modules/.bin/node-sass stylesheet.scss
+----
+
+=== postcss
+indexterm:[module npm, postcss]
+
+_PostCSS_ ([URL]#https://npmjs.com/postcss#) est une chaîne modulaire de transformation CSS.
+Cet outil est construit autour d'un parseur CSS, d'un arbre syntaxique
+et d'un compilateur de texte.
+C'est la même recette qui a participé au succès et à la richesse fonctionnelle
+d'outils comme <<uglify-js2,UglifyJS>> et <<eslint,ESLint>>.
+
+Avec une ou plusieurs extension(s), vous basculez d'un optimiseur de code
+vers la possibilité de créer votre propre préprocesseur, comme{nbsp}Sass !
+
 === less
 indexterm:[module npm, less]
 indexterm:[application front-end, optimisation du code]
 indexterm:[Less]
 indexterm:[Sass]
 
-_less_ ([URL]#https://npmjs.com/less#) est un préprocesseur CSS.
-Il gère des variables, des _mixins_, des calculs de couleurs et des fonctions
-qui encouragent une écriture modulaire, plus logique et plus succincte.
+_less_ ([URL]#https://npmjs.com/less#) est un préprocesseur CSS dans la même lignée que Sass.
+Il gère lui aussi des variables, des _mixins_, des calculs de couleurs et
+des fonctions qui encouragent une écriture modulaire, plus logique et plus succincte.
 
-[source]
+Sass est devenu beaucoup plus populaire au fil du temps.
+Less a toutefois l'avantage de fonctionner dans les navigateurs : compiler
+une feuille de style sous Node et dans un navigateur retourne le même résultat !
+
+[source,less]
 .stylesheet.less
 ----
 include::{sourceDir}/stylesheet.less[]
 ----
 
-L'exécutable `lessc` compile le fichier _less_:
+L'exécutable `lessc` compile le fichier `.less`:
 
 ----
 $ ../node_modules/.bin/lessc stylesheet.less
 ----
-
-=== sass
-indexterm:[module npm, node-sass]
-indexterm:[Sass]
-
-_sass_ ([URL]#https://npmjs.com/node-sass#) est un autre préprocesseur CSS.
-Il est issu du monde Ruby et est désormais tout aussi puissant dans Node
-grâce à _LibSass_, un module rapide et portable écrit en{nbsp}{cpp}.
 
 === browserify
 indexterm:[module npm, browserify]

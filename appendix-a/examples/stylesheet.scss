@@ -1,0 +1,17 @@
+$warning-color: red !default;
+$base-font-size: 18px !default;
+
+.btn {
+  border: 1px solid black;
+  border-radius: $base-font-size / 6;
+  font-size: $base-font-size;
+
+  &--large {
+    font-size: $base-font-size * 1.5;
+  }
+
+  &--warning {
+    border-color: fade-out($warning-color, 0.1);
+    color: $warning-color;
+  }
+}
