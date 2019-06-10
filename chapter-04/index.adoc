@@ -321,7 +321,7 @@ include::{sourceDir}/fs/read-dir.js[]
 <1> On charge les fonctions et attributs du module `fs` dans la variable du même nom (on pourrait l'appeler autrement).
 <2> L'appel à la fonction `fs.readdir()` passe un objet d'erreur ainsi que la liste des fichiers et répertoires contenus dans le chemin indiqué.
 <3> Affiche un tableau contenant les noms de fichiers et de répertoires présents dans le dossier courant.
-indexterm:[module, fs, readdir()]
+indexterm:[module, fs, fs.readdir()]
 
 Ces modules de base représentent la pierre angulaire de nos applications Node.
 Ils fournissent le nécessaire pour tout faire !
@@ -349,7 +349,7 @@ indexterm:[module, dépréciation]
 
 .Documentation de la fonction `fs.exists()`, affichée comme dépréciée depuis Node{nbsp}v1
 image::images/api-deprecation-fs-exists.png[width="85%"]
-indexterm:[module, fs, exists()]
+indexterm:[module, fs, fs.exists()]
 
 [NOTE]
 .[RemarquePreTitre]#Documentation# Lecture des indices de stabilité
@@ -897,7 +897,10 @@ indexterm:[promesse]
 indexterm:[module, util, util.promisify()]
 indexterm:[fonction, de rappel (callback)]
 
-
+indexterm:[module, fs, fs.mkdir()]
+indexterm:[module, fs, fs.copyFile()]
+indexterm:[module, fs, fs.readdir()]
+indexterm:[module, fs, fs.rename()]
 [horizontal]
 .Propriétés notables
 `fs.appendFile()`::
@@ -907,7 +910,7 @@ indexterm:[fonction, de rappel (callback)]
   Copie un fichier depuis un emplacement vers un autre.
 `fs.mkdir()`::
   Crée un nouveau répertoire.
-  Le répertoire parent doit déjà exister.
+  L'option `recursive` crée les répertoires parents qui manquent.
 `fs.readdir()`::
   Obtient la liste des fichiers et dossiers contenus dans un répertoire donné.
 `fs.readFile()`::
