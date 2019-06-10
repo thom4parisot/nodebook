@@ -517,17 +517,15 @@ sample.css:14:1: CSS 2.1 selectors not supported by: IE (6)
 ----
 
 [[optimize]]
-== Optimiser notre{nbsp}code
+== Optimiser nos ressources{nbsp}web
 indexterm:[application front-end, optimisation du code]
+indexterm:[application front-end, optimisation d'image]
 
-Commentaires, indentations ou encore noms de variables : tout cela occupe de
-la place – autant d'octets transférés sur le réseau avant d'être exécutés
-par un client web.
-Les outils d'optimisation offrent l'opportunité aux développeurs et développeuses
-d'écrire du code sans compromettre sa lisibilité et sa maintenabilité.
+Commentaires dans le code, fonctions inutilisées ou images surdimensionnées :
+autant d'octets transférés pour rien et qui pénalisent la navigation sur le web.
 
-Les minifieurs et optimiseurs mettent en œuvre différentes techniques pour
-réduire le poids de notre{nbsp}code :
+Les minifieurs et optimiseurs de code mettent en œuvre différentes techniques pour
+réduire le poids de notre code sans compromettre sa lisibilité et sa maintenabilité :
 
 - suppression des commentaires et caractères non significatifs ;
 - renommage de variables ;
@@ -646,6 +644,14 @@ Il simplifie les chemins et supprime les attributs et déclarations superflues.
 
 Vous pouvez l'essayer en ligne sur [URL]#https://jakearchibald.github.io/svgomg/#
 ou l'intégrer comme extension à <<postcss,PostCSS>>.
+
+=== sharp
+indexterm:[module npm, sharp]
+
+_sharp_ ([URL]#https://npmjs.com/sharp#) est un module de redimensionnement
+et de transformation d'images JPG, PNG et WebP écrit en JavaScript et{nbsp}{cpp}.
+Il ne nécessite pas de programme externe et est compatible avec une approche
+en flux.
 
 === wawoff2
 indexterm:[module npm, wawoff2]
@@ -1340,7 +1346,7 @@ des sources de données, des réactions à des événements avec des objets prê
 recevoir les instructions.
 
 
-== Accessibilité
+== Accessibilité web
 indexterm:[application front-end, accessibilité]
 indexterm:[application front-end, optimisation de code]
 indexterm:[test, automatisation]
@@ -1400,15 +1406,3 @@ est une extension au module <<storybook,_storybook_>>.
 Le module signale les problèmes d'accessibilité au niveau de chaque composant.
 Le suivi est ainsi fait en continu, au plus proche des composants distribués
 et utilisés dans les applications.
-
-
-== Travailler avec des images, des sons et des vidéos
-indexterm:[application front-end, optimisation d'image]
-
-=== sharp
-indexterm:[module npm, sharp]
-
-_sharp_ ([URL]#https://npmjs.com/sharp#) est un module de redimensionnement
-et de transformation d'images JPG, PNG et WebP écrit en JavaScript et{nbsp}{cpp}.
-Il ne nécessite pas de programme externe et est compatible avec une approche
-en flux.
