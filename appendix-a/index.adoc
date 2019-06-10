@@ -743,25 +743,15 @@ indexterm:[module, fs]
 Ces bibliothèques nous aident à écrire moins de lignes de code
 pour des besoins quotidiens de manipulation de fichiers.
 
-=== mkdirp
-indexterm:[module npm, mkdirp]
-
-_mkdirp_ ([URL]#https://npmjs.com/mkdirp#) est identique à la
-commande Unix `mkdir -p`, c'est-à-dire que les répertoires seront créés récursivement
-s'ils n'existent pas au préalable.
-
-Si nous utilisions le module Node{nbsp}``fs``, nous devrions créer l'arborescence de
-répertoires par nous-même, niveau par niveau.
-
 === rimraf
 indexterm:[module npm, rimraf]
 
-_rimraf_ ([URL]#https://npmjs.com/rimraf#) est le pendant opposé de _mkdirp_.
-Il supprime une arborescence de manière récursive.
-C'est l'équivalent de la commande Unix{nbsp}``rm -rf``.
+Supprimer un répertoire et ce qu'il contient revient à lister ses fichiers,
+les effacer un à un puis à supprimer les répertoires lorsqu'ils sont enfin vides.
+_rimraf_ ([URL]#https://npmjs.com/rimraf#) masque cette complexité et supprime
+une arborescence de manière récursive en une ligne de code.
 
-Si nous utilisions le module Node{nbsp}``fs``, nous devrions supprimer d'abord
-les fichiers puis les répertoires, un par{nbsp}un.
+C'est l'équivalent de la commande Unix{nbsp}``rm -rf``.
 
 === glob
 indexterm:[module npm, glob]
@@ -778,14 +768,6 @@ include::{sourceDir}/glob.js[]
 <2> Affiche une liste de fichiers qui commencent par{nbsp}``re`` et dont l'extension est{nbsp}``.js``.
 <3> Affiche une liste de fichiers qui s'appellent `sample`, peu importe leur extension.
 
-=== fs-extra
-indexterm:[module npm, fs-extra]
-indexterm:[module, fs]
-
-_fs-extra_ ([URL]#https://npmjs.com/fs-extra#) est une collection
-de fonctions pour gérer les opérations de fichiers.
-Le module inclut _rimraf_ et _mkdirp_ en plus d'autres fonctions récursives,
-pour copier, déplacer ou supprimer des fichiers.
 
 === graceful-fs
 indexterm:[module npm, graceful-fs]
@@ -799,6 +781,19 @@ si les erreurs sont liées à des problèmes de performance.
 
 C'est un module à utiliser si notre application dépend fortement de la disponibilité
 du système de fichiers et si celui-ci est fortement sollicité.
+
+=== fs-extra
+indexterm:[module npm, fs-extra]
+indexterm:[module, fs]
+
+_fs-extra_ ([URL]#https://npmjs.com/fs-extra#) est une collection
+de fonctions pour qui simplifient des opérations courantes : créer plusieurs
+répertoires d'un coup, créer l'arborescence nécessaire à l'écriture d'un fichier,
+lecture et écriture de fichiers JSON.
+
+Il se base sur <<graceful-fs,_graceful-fs_>> pour une meilleure gestion des
+erreurs et des ressources. Son but est d'être un remplacement transparent
+du module de base{nbsp}``fs``.
 
 === chokidar
 indexterm:[module npm, chokidar]
