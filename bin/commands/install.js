@@ -2,7 +2,7 @@
 
 const {promisify} = require('util');
 const {spawn} = require('child_process');
-const {list,dir} = require('./chapters');
+const {list,dir} = require('./chapters.js');
 
 const DEFAULTS_OPEN = {
   stdio: 'inherit',
@@ -31,7 +31,7 @@ module.exports = {
   handler: (args) => {
     const {chapter} = args;
 
-    return Promise.resolve('npm install')
+    return Promise.resolve('npm install --no-package-lock --no-audit')
       // take advantage of npm ci during continuous integration
       // SEE http://blog.npmjs.org/post/171556855892
       .then(command => process.env.CI ? 'npm ci' : command)
