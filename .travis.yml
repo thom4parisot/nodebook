@@ -24,11 +24,13 @@ install:
 - npm run install:all
 
 script:
+- set -e
 - ./bin/cli.js --help
 - npm test
 - make build-html
 - make build-odt
 - xmllint --noout dist/book.fodt 2>&1
+- set +e
 
 before_deploy:
 - openssl aes-256-cbc -K $encrypted_5256f0527d52_key -iv $encrypted_5256f0527d52_iv -in deploykey_ed25519.enc -out /tmp/deploykey -d

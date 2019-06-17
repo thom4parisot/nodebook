@@ -196,9 +196,6 @@ module.exports = {
   'chapter-04/examples/events/remove.js': {
     skip: true,
   },
-  'chapter-04/examples/fs/copy-tmp.js': {
-    stdout: /La copie vers .+example-copy.js s'est bien passée./,
-  },
   'chapter-04/examples/fs/intro.js': {
     stdout: /package.json/,
   },
@@ -216,9 +213,6 @@ module.exports = {
   },
   'chapter-04/examples/fs/readfile-utf8.js': {
     stdout: /__filename/,
-  },
-  'chapter-04/examples/fs/rmdir.js': {
-    stderr: 'ENOTEMPTY: directory not empty',
   },
   'chapter-04/examples/http/intro.js': {
     stdout: /"name": "nodebook"/,
