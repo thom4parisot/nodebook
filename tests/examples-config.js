@@ -212,6 +212,9 @@ module.exports = {
     stderr: /ENOTEMPTY/,
   },
   'chapter-04/examples/fs/readfile.js': {
+    stdout: /<Buffer (.+) more bytes>/,
+  },
+  'chapter-04/examples/fs/readfile-utf8.js': {
     stdout: /__filename/,
   },
   'chapter-04/examples/fs/rmdir.js': {
