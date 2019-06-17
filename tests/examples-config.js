@@ -200,10 +200,19 @@ module.exports = {
     stdout: /La copie vers .+example-copy.js s'est bien passée./,
   },
   'chapter-04/examples/fs/intro.js': {
-    stdout: /"name": "[^"]+"[\s\S]+"version": "[^"]+"/,
-  },
-  'chapter-04/examples/fs/ls.js': {
     stdout: /package.json/,
+  },
+  'chapter-04/examples/fs/intro-promises.js': {
+    stdout: /package.json/,
+  },
+  'chapter-04/examples/fs/copy-tmp.js': {
+    stdout: /Copie vers (.+) OK !/,
+  },
+  'chapter-04/examples/fs/rmdir.js': {
+    stderr: /ENOTEMPTY/,
+  },
+  'chapter-04/examples/fs/readfile.js': {
+    stdout: /__filename/,
   },
   'chapter-04/examples/fs/rmdir.js': {
     stderr: 'ENOTEMPTY: directory not empty',
