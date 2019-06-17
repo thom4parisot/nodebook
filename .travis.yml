@@ -42,13 +42,13 @@ deploy:
     local-dir: dist
     script: rsync -r --delete-after --quiet $TRAVIS_BUILD_DIR/dist/ oncletom@ssh-oncletom.alwaysdata.net:~/node.js/v1/
     on:
-      branch: master
+      branch: v1
   - provider: script
     skip-cleanup: true
     local-dir: dist
     script: rsync -r --delete-after --quiet $TRAVIS_BUILD_DIR/dist/ oncletom@ssh-oncletom.alwaysdata.net:~/node.js/v2/
     on:
-      branch: v2
+      branch: master
   - provider: releases
     prerelease: false
     skip-cleanup: true
