@@ -20,7 +20,9 @@
     "start": "node ./server.js",
     "test": "npm-run-all 'test:*'",
     "test:node": "mocha --exit --require @babel/register examples/tests",
-    "test:browser": "./node_modules/.bin/karma start"
+    "test:browser": "./node_modules/.bin/karma start",
+    "snyk-protect": "snyk protect",
+    "prepare": "npm run snyk-protect"
   },
   "engines": {
     "node": "^12.0.0"
@@ -79,6 +81,8 @@
     "sassify": "^4.0.1",
     "sharp": "^0.21.3",
     "sharp-cli": "^1.9.0",
-    "watchify": "^3.11.1"
-  }
+    "watchify": "^3.11.1",
+    "snyk": "^1.192.3"
+  },
+  "snyk": true
 }
