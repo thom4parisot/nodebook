@@ -7,7 +7,7 @@ des *outils en ligne de commande*.
 > Plus de 500 exemples pour apprendre en pratiquant.
 
 ✅ **Versions couvertes** • `node v12` • `npm v6`.<br>
-📖 **Journal de bord d'écriture** • [2018][journal-2018] • [2017][journal-2017].<br>
+📖 **Journal de bord d'écriture** • [2019][journal-2019] • [2018][journal-2018] • [2017][journal-2017].<br>
 🔎 **Lire l'ouvrage** • [sur papier](#sur-papier) • [sur liseuse numérique](#sur-liseuse-numérique) • [sur le web](#sur-le-web) • [sur npm](#avec-nodejs).
 
 
@@ -18,6 +18,7 @@ des *outils en ligne de commande*.
 
 | Chapitre                  | Objectif d'apprentissage | |
 |---------------------------|--------- |---|
+| **[Préface][foreword]** | _qu'est-ce que cet ouvrage a apporté à une autre personne ?_ | -
 | **[Avant-propos][preamble]** | _pourquoi tu écris cet ouvrage ?_ | -
 | **[Histoire, écosystème et gouvernance][ch01]** | _ça marche comment la vie de Node et des gens qui le font ?_ | [issues][ch01-issues]
 | **[Installer, mettre à jour et développer][ch02]** | _ça marche comment Node sur une machine ?_ | [issues][ch02-issues]
@@ -213,17 +214,19 @@ Les exemples de code sont placés sous la [licence MIT][].
 
 [ci-linux]: https://travis-ci.org/oncletom/nodebook.svg?branch=master
 [ci-windows]: https://ci.appveyor.com/api/projects/status/crewvvqeybl8f16c?svg=true&amp;branch=master
-[journal-2018]: docs/JOURNAL.md
-[journal-2017]: docs/JOURNAL-2017.md
+[journal-2019]: docs/JOURNAL/2019.md
+[journal-2018]: docs/JOURNAL/2018.md
+[journal-2017]: docs/JOURNAL/2017.md
 [livre-web]: https://oncletom.io/node.js/
 [livre-npm]: https://npmjs.com/nodebook
-[Eyrolles]: http://www.eyrolles.fr
+[Eyrolles]: https://www.editions-eyrolles.com/
 [playlist]: https://open.spotify.com/user/oncletom/playlist/4Ywqaz0XpFVNa5CKohuUN8?si=edpuGs_NRgapHyigrrwU3w
 [licence MIT]: LICENSE
 [cc-nc-by-sa]: https://creativecommons.org/licenses/by-nc-sa/4.0/deed.fr
 [backers]: https://opencollective.com/nodebook#backers
 [sponsors]: https://opencollective.com/nodebook#sponsor
 [contributors]: https://github.com/oncletom/nodebook/graphs/contributors
+[foreword]: foreword/foreword.adoc
 [preamble]: foreword/preamble.adoc
 [ch01]: chapter-01/index.adoc
 [ch01-issues]: https://github.com/oncletom/nodebook/labels/:book:%20chapitre:1
