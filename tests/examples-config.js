@@ -393,7 +393,7 @@ module.exports = {
     exitCode: 1
   },
   'chapter-07/examples/upload/send.js': {
-    stderr: 'ExperimentalWarning',
+    skip: true,
   },
   'chapter-07/examples/upload/server.js': {
     skip: true
