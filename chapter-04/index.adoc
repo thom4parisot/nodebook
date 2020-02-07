@@ -1513,7 +1513,7 @@ indexterm:[encodage de caractères, UTF-8]
 [NOTE,id="ascii"]
 .[RemarquePreTitre]#Histoire# American Standard Code for Information Interchange{nbsp}(ASCII)
 ====
-Au début de l'informatique contemporaire, les systèmes étaient conçus
+Au début de l'informatique contemporaine, les systèmes étaient conçus
 pour comprendre l'alphabet anglais, les signes de ponctuations et
 des caractères spéciaux.
 On parle alors de standard d'encodage{nbsp}ASCII.
@@ -1591,10 +1591,10 @@ aidé par les <<../chapter-05/index.adoc#modules,modules{nbsp}``npm``>> que l'on
   <<../chapter-09/index.adoc#io-websocket,WebSocket>>.
   indexterm:[WebSockets]
 `response.on('close')`::
-  Se délenche lorsque la requête a été terminée par le client,
+  Se déclenche lorsque la requête a été terminée par le client,
   avant qu'on ait pu transmettre l'intégralité des données.
 `response.on('finish')`::
-  Se délenche après l'envoi du dernier morceau de données.
+  Se déclenche après l'envoi du dernier morceau de données.
 `response.end()`::
   Signale au client que nous n'avons plus de données à transmettre.
 `response.getHeader()`::
@@ -3389,7 +3389,7 @@ include::{sourceDir}/errors/promise-chain.js[]
 include::{sourceDir}/errors/promise-no-catch.js[]
 ----
 
-L'absence de `.catch()` provoque un plantage applicatif et le délenchement
+L'absence de `.catch()` provoque un plantage applicatif et le déclenchement
 de l'<<process.on,événement de processus>> `unhandledRejection` :
 
 [subs="+quotes"]
@@ -3820,7 +3820,7 @@ et d'ajuster les valeurs offrant le meilleur rapport stabilité/performances.
 `--mem_old_space_limit`::
   Détermine la quantité de mémoire maximale qu'un processus Node pourra utiliser.
   Idéal pour le confiner sur des environnements à faible mémoire.
-`--gc_inverval`::
+`--gc_interval`::
   Détermine le nombre de cycles entre chaque déclenchement du ramasse-miettes.
 `--expose_gc`::
   Expose les fonctions de manipulation du ramasse-miettes.
