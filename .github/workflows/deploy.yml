@@ -8,11 +8,12 @@ on:
   push:
     branches: [ v1 ]
     paths:
-    - .github/workflows/deploy.yml
     - foreword/**/*
     - chapter-*/**/*
     - appendix-*/**/*
     - '*.adoc'
+    - .github/workflows/deploy.yml
+    - 'src/*'
 
 jobs:
   build:
