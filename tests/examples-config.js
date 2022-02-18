@@ -245,10 +245,10 @@ module.exports = {
     stdout: /.+/,
   },
   'chapter-04/examples/url/intro.js': {
-    stdout: 'thom4.net\n/node.js/\n',
+    stdout: 'apprendre-nodejs.fr\n/v1/\n',
   },
   'chapter-04/examples/url/resolve.js': {
-    stdout: 'https://apprendre-nodejs.fr/v1/\nhttps://thom4.net/\n',
+    stdout: 'https://apprendre-nodejs.fr/v1/\nhttps://apprendre-nodejs.fr/\n',
   },
   'chapter-04/examples/url/search-params.js': {
     stdout: 'https://thom4.net/?search=node.js\nsearch=node.js\nhttps://thom4.net/\n',

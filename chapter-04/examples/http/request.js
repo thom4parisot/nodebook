@@ -1,8 +1,8 @@
 const https = require('https');
 const options = {                                 // <1>
   protocol: 'https:',
-  host: 'thom4.net',
-  path: '/node.js/package.json',
+  host: 'apprendre-nodejs.fr',
+  path: '/v1/package.json',
   method: 'HEAD',
 };
 

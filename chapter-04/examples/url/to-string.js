@@ -1,4 +1,4 @@
-const example = new URL('https://apprendre-nodejs.fr/v1/');
+const example = new URL('https://thom4.net');
 example.pathname = '/';
 example.hash = '#top';
 
