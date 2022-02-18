@@ -1,0 +1,65 @@
+# yaml-language-server: $schema=https://json.schemastore.org/github-workflow.json
+
+# This workflow will do a clean install of node dependencies, build the source code and run tests across different versions of node
+# For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
+name: Build and deploy
+
+on:
+  push:
+    branches: [ v1 ]
+    paths:
+    - foreword/**/*
+    - chapter-*/**/*
+    - appendix-*/**/*
+    - '*.adoc'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    environment:
+      name: alwaysdata
+      url: https://apprendre-nodejs.fr/v1/
+    steps:
+
+    # Setup
+    - uses: actions/checkout@v2
+    - uses: actions/setup-node@v2
+      with:
+        node-version: '10'
+        cache: npm
+    - name: install
+      run: |
+        npm ci
+        npm run install:all
+      env:
+        SHARP_IGNORE_GLOBAL_LIBVIPS: 1
+
+    # Test
+    - name: test
+      run: |
+        ./bin/cli.js --help
+        npm test
+        make build-html
+        make build-odt
+        xmllint --noout dist/book.fodt 2>&1
+      env:
+        DEBUG: tape-spawn
+
+    # Build
+    - name: build
+      run: |
+        git-lfs pull
+        make build-docbook
+
+    # Deploy
+    - name: Install SSH key
+      uses: shimataro/ssh-key-action@v2
+      with:
+        key: "${{ secrets.SSH_DEPLOY_KEY }}"
+        known_hosts: ${{ secrets.SSH_KNOWN_HOSTS }}
+
+    - name: rsync
+      run: rsync -r --delete-after --quiet ./dist/ oncletom@ssh-oncletom.alwaysdata.net:/home/oncletom/www_nodejs/v1/
+
+    # Publish npm package
+    # TODO
