@@ -14,6 +14,7 @@ on:
     - '*.adoc'
     - .github/workflows/deploy.yml
     - 'src/*'
+    - '**/*/package{-lock}.json'
 
 jobs:
   build:
