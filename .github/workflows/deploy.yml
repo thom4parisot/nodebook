@@ -27,7 +27,9 @@ jobs:
       with:
         node-version: '10'
         cache: npm
-    - name: install
+    - name: apt install
+      run: apt install libxml2-utils --no-install-recommends --yes
+    - name: npm install
       run: |
         npm ci
         npm run install:all
@@ -52,7 +54,7 @@ jobs:
         make build-docbook
 
     # Deploy
-    - name: Install SSH key
+    - name: ssh-key
       uses: shimataro/ssh-key-action@v2
       with:
         key: "${{ secrets.SSH_DEPLOY_KEY }}"
