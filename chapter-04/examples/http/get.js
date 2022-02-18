@@ -1,7 +1,7 @@
 const {get} = require('https');
 let count = 0;
 
-get('https://oncletom.io/node.js/index.html', (response) => {
+get('https://apprendre-nodejs.fr/v1/index.html', (response) => {
   response.on('data', (data) => {
     count = count + 1;
     const ko = data.length/1024;

@@ -617,7 +617,7 @@ La variable `URL` (en majuscules) est disponible de manière globale.
 ----
 include::{sourceDir}/url/intro.js[]
 ----
-<1> Affiche `oncletom.io`.
+<1> Affiche `thom4.net`.
 <2> Affiche `/node.js/`.
 
 [TIP]
@@ -638,7 +638,7 @@ et de récupérer une URL sous forme d'une chaîne de caractères :
 ----
 include::{sourceDir}/url/to-string.js[]
 ----
-<1> Affiche `https://oncletom.io/#top` – le chemin et le fragment ont été modifiés.
+<1> Affiche `https://thom4.net/#top` – le chemin et le fragment ont été modifiés.
 
 La fonction `format()` va plus loin que `url.toString()`.
 Ses options contrôlent plus finement ce qui sera conservé ou retiré lors
@@ -650,7 +650,7 @@ indexterm:[objet, toString()]
 ----
 include::{sourceDir}/url/format.js[]
 ----
-<1> Affiche `https://oncletom.io/` – les identifiants, l'ancre et les arguments ont été retirés par la fonction `format()`.
+<1> Affiche `https://thom4.net/` – les identifiants, l'ancre et les arguments ont été retirés par la fonction `format()`.
 indexterm:[module, url, url.format()]
 
 Le constructeur `URL` accepte une URL de référence en second argument.
@@ -661,8 +661,8 @@ Cette adresse résout un chemin absolu à partir du premier argument :
 ----
 include::{sourceDir}/url/resolve.js[]
 ----
-<1> Affiche `https://oncletom.io/node.js/`.
-<2> Affiche `https://oncletom.io/`.
+<1> Affiche `https://apprendre-nodejs.fr/v1/`.
+<2> Affiche `https://thom4.net/`.
 
 [horizontal]
 .Propriétés notables
@@ -705,9 +705,9 @@ Les paramètres ne sont pas en reste avec l'attribut `searchParams` :
 ----
 include::{sourceDir}/url/search-params.js[]
 ----
-<1> Affiche `https://oncletom.io/?search=node.js` – représentation de l'URL complète.
+<1> Affiche `https://thom4.net/?search=node.js` – représentation de l'URL complète.
 <2> Affiche `search=node.js` – représentation des paramètres seulement.
-<3> Affiche `https://oncletom.io/` – le paramètre `search` et sa valeur ont été supprimés de{nbsp}l'URL.
+<3> Affiche `https://thom4.net/` – le paramètre `search` et sa valeur ont été supprimés de{nbsp}l'URL.
 
 [horizontal]
 .Propriétés notables de la classe `URLSearchParams`
@@ -1831,10 +1831,10 @@ On aurait pu appeler le programme `ping` en utilisant un chemin absolu comme
 
 ----
 $ node child_process/ping.js
-PING oncletom.io (185.31.40.11): 56 data bytes
+PING thom4.net (185.31.40.11): 56 data bytes
 64 bytes from 185.31.40.11: icmp_seq=0 ttl=56 time=23.763 ms
 
---- oncletom.io ping statistics ---
+--- thom4.net ping statistics ---
 1 packets transmitted, 1 packets received, 0.0% packet loss
 round-trip min/avg/max/stddev = 23.763/23.763/23.763/0.000 ms
 ----

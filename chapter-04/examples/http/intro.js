@@ -1,5 +1,5 @@
 const {get} = require('https');
-const url = 'https://oncletom.io/node.js/package.json';
+const url = 'https://apprendre-nodejs.fr/v1/package.json';
 
 get(url, (response) => {                        // <1>
   response.on('data', (data) => {

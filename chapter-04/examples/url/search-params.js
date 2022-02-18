@@ -1,4 +1,4 @@
-const example = new URL('https://oncletom.io/');
+const example = new URL('https://thom4.net/');
 example.searchParams.set('search', 'node.js');
 
 console.log(example.toString());               // <1>

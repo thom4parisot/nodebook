@@ -846,7 +846,7 @@ Ce qui suit est la rétrospective de la session d'écriture passée avec [Philip
 
 **Météo** : 😴
 
-[#208]: https://github.com/oncletom/nodebook/pull/208
+[#208]: https://github.com/thom4parisot/nodebook/pull/208
 
 ---
 
@@ -934,9 +934,9 @@ On a fait un atelier de [mob programming][] basé sur un besoin réel pour faire
 Pas d'écriture aujourd'hui mais de bonnes réflexions autour du contenu.
 
 - [Intentions quant à la _première édition_](https://docs.google.com/document/d/1yUVaBCkaiDtviOCvEbchabMM9oVLwyWYSrJ9NsyYCUQ/edit?usp=sharing)
-- [Repenser le chapitrage](https://github.com/oncletom/nodebook/issues/184)
-- [Trouver une autre baseline](https://github.com/oncletom/nodebook/issues/181)
-- Plusieurs idées : [Pouvoir copier les exemples de code dans le presse-papier](https://github.com/oncletom/nodebook/issues/185), Annexe _Ce livre est construit avec Node.js_, Chapitre _Jouer avec les microservices_
+- [Repenser le chapitrage](https://github.com/thom4parisot/nodebook/issues/184)
+- [Trouver une autre baseline](https://github.com/thom4parisot/nodebook/issues/181)
+- Plusieurs idées : [Pouvoir copier les exemples de code dans le presse-papier](https://github.com/thom4parisot/nodebook/issues/185), Annexe _Ce livre est construit avec Node.js_, Chapitre _Jouer avec les microservices_
 
 **Météo** : 😄
 

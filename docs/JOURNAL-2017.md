@@ -2,8 +2,8 @@
 
 Ce journal détaille l'effort d'écriture de l'année 2017.
 
-Une partie du travail s'est fait à l'occasion d'une [résidence d'écriture itinérante](https://oncletom.io/2017/residence-nodejs/).
-Le [résumé de la résidence itinérante](https://oncletom.io/2017/without-a-home/) (en anglais)
+Une partie du travail s'est fait à l'occasion d'une [résidence d'écriture itinérante](https://thom4.net/2017/residence-nodejs/).
+Le [résumé de la résidence itinérante](https://thom4.net/2017/without-a-home/) (en anglais)
 documente les conclusions de l'écriture en mouvement.
 
 ---
@@ -256,7 +256,7 @@ Merci [@laMYNE_][la-myne] pour le coin de bureau, [Maxime](https://twitter.com/m
 
 - _Chapitre 4_ : Modulariser ses feuilles de style avec Sass
 - _Chapitre 4_ : Lier composants visuels et feuilles de style
-- _Outillage_ : Manipulation du livre en ligne de commande ([#122](https://github.com/oncletom/nodebook/pull/122))
+- _Outillage_ : Manipulation du livre en ligne de commande ([#122](https://github.com/thom4parisot/nodebook/pull/122))
 
 **Moral** : 😀
 
@@ -316,7 +316,7 @@ Merci pour vos contributions [@lellex](https://github.com/lellex), [@ThomasG77](
 - _Chapitre 4_ : Le syndrome du plugin jQuery
 - _Chapitre 4_ : Importer des modules npm pour le web
 - _Chapitre 4_ : Importer des modules
-- jade ➡️ pug ([#113](https://github.com/oncletom/nodebook/pull/113))
+- jade ➡️ pug ([#113](https://github.com/thom4parisot/nodebook/pull/113))
 
 **Moral** : 😊
 
@@ -368,7 +368,7 @@ Merci pour tes contributions [@dirtyF](https://github.com/DirtyF).
 - _Septième jour de résidence au [Fab Lab 127°](https://www.fablab127.net) avec mes compères de [dtc innovation](https://dtc-innovation.org)_
 - _Chapitre 4_ : Écrire dès à présent le code du futur
 - _Chapitre 4_ : Réécriture de l'introduction
-- _Chapitre 4_ : Mise à la benne du chapitre entier ([commit](https://github.com/oncletom/nodebook/commit/24645574ae6a1fcf0fb939dfc43db161501f9303))
+- _Chapitre 4_ : Mise à la benne du chapitre entier ([commit](https://github.com/thom4parisot/nodebook/commit/24645574ae6a1fcf0fb939dfc43db161501f9303))
 
 **Moral** : 😴
 
@@ -402,7 +402,7 @@ Merci pour tes contributions [@lellex](https://github.com/lellex).
 ## Mercredi 1 février
 
 - _Troisième jour de résidence au [Fab Lab 127°](https://www.fablab127.net) avec mes compères de [dtc innovation](https://dtc-innovation.org)_
-- _Chapitre 3_ : amélioration de l'exemple `fs-extra`, merci [@DirtyF](https://github.com/DirtyF) ([#100](https://github.com/oncletom/nodebook/pull/100))
+- _Chapitre 3_ : amélioration de l'exemple `fs-extra`, merci [@DirtyF](https://github.com/DirtyF) ([#100](https://github.com/thom4parisot/nodebook/pull/100))
 - _Chapitre 2_ : ajout d'une section sur les _accesseurs_ et _mutateurs_
 
 **Moral** : 😊 😴
@@ -417,14 +417,14 @@ Merci pour tes contributions [@lellex](https://github.com/lellex).
 ## Lundi 30 janvier
 
 - Début de notre résidence au [Fab Lab 127°](https://www.fablab127.net) avec mes compères de [dtc innovation](https://dtc-innovation.org)
-- _Chapitre 3_ : ajout d'informations complémentaires à propos de `.argv` ([#21](https://github.com/oncletom/nodebook/issues/21))
-- _Chapitre 3_ : ajout d'informations complémentaires à propos des crashs applicatifs et d'`uncaughtException` ([#10](https://github.com/oncletom/nodebook/issues/10))
+- _Chapitre 3_ : ajout d'informations complémentaires à propos de `.argv` ([#21](https://github.com/thom4parisot/nodebook/issues/21))
+- _Chapitre 3_ : ajout d'informations complémentaires à propos des crashs applicatifs et d'`uncaughtException` ([#10](https://github.com/thom4parisot/nodebook/issues/10))
 
 **Moral** : 😊
 
 ## Dimanche 29 janvier
 
-Merci [@DirtyF](https://github.com/DirtyF) pour ton travail de _corrections_ et d'_amélioration_ d'exemples pour apprendre Node ([#98](https://github.com/oncletom/nodebook/pull/98)).
+Merci [@DirtyF](https://github.com/DirtyF) pour ton travail de _corrections_ et d'_amélioration_ d'exemples pour apprendre Node ([#98](https://github.com/thom4parisot/nodebook/pull/98)).
 
 - _Chapitre 2_ : suppression des appels à `fs.exists` (API dépréciée)
 - _Chapitre 3_ : remplacement de _blanket_ par _nyc_
@@ -462,14 +462,14 @@ Merci [@ArnaudRinquin](https://github.com/arnaudrinquin) pour le canap' et le bo
 
 ![](JOURNAL-2017/daily-20170122-trio.jpg)
 
-- _Chapitre 2_ : async/await ([#77](https://github.com/oncletom/nodebook/issues/77))
-- _Chapitre 2_ : scripts shell ([#80](https://github.com/oncletom/nodebook/issues/80))
-- _Chapitre 2_ : Map et Set ([#75](https://github.com/oncletom/nodebook/issues/75))
-- _Chapitre 2_ : ([#77](https://github.com/oncletom/nodebook/issues/77))
+- _Chapitre 2_ : async/await ([#77](https://github.com/thom4parisot/nodebook/issues/77))
+- _Chapitre 2_ : scripts shell ([#80](https://github.com/thom4parisot/nodebook/issues/80))
+- _Chapitre 2_ : Map et Set ([#75](https://github.com/thom4parisot/nodebook/issues/75))
+- _Chapitre 2_ : ([#77](https://github.com/thom4parisot/nodebook/issues/77))
 - _Chapitre 2_ : réécriture et ajout d'exemples pour _Object_, _Promise_ notamment
 - Maintenance, nettoyages et PR :
-  - Chemin du fichier data/books.csv ([#69](https://github.com/oncletom/nodebook/issues/69))
-  - Correction coquille ([#79](https://github.com/oncletom/nodebook/issues/79))
+  - Chemin du fichier data/books.csv ([#69](https://github.com/thom4parisot/nodebook/issues/69))
+  - Correction coquille ([#79](https://github.com/thom4parisot/nodebook/issues/79))
 
 **Moral** : 🚂 🤓
 
@@ -502,7 +502,7 @@ Merci [@JoliCode](https://github.com/jolicode) pour le coin de bureau 👋
 Merci [@BetaGouv](https://github.com/sgmap) pour le coin de bureau 👋
 
 - _Chapitre 1_ : mises à jour du _Node Security Projet_, des chiffres liées à _npm_ et Node
-- _Chapitre 1_ : semver, cycle de vie rendu et LTS ([#54](https://github.com/oncletom/nodebook/issues/54), [#53](https://github.com/oncletom/nodebook/issues/53))
+- _Chapitre 1_ : semver, cycle de vie rendu et LTS ([#54](https://github.com/thom4parisot/nodebook/issues/54), [#53](https://github.com/thom4parisot/nodebook/issues/53))
 - _hors sujet_ : début des conversations pour organiser un [ToulouseJS](http://toulousejs.francejs.org/) et [MontpellierJS](https://www.meetup.com/MontpellierJS/)
 - _hors sujet_ : atelier _design thinking_ pour [augmenter la présence de la nature en ville](https://beta.gouv.fr/startup/biodiversite.html) avec les gens de [beta.gouv.fr](https://beta.gouv.fr/)
 - Heaven from the oven:<br>
@@ -512,8 +512,8 @@ Merci [@BetaGouv](https://github.com/sgmap) pour le coin de bureau 👋
 
 ## Mercredi 18 janvier
 
-- _Chapitre 1_ : début du travail sur LTS ([#54](https://github.com/oncletom/nodebook/issues/54))
-- Quelques revues et échanges par rapport à la migration du code vers ES2015 Migration des exemples de code vers ES2015 ([#63](https://github.com/oncletom/nodebook/pull/63))
+- _Chapitre 1_ : début du travail sur LTS ([#54](https://github.com/thom4parisot/nodebook/issues/54))
+- Quelques revues et échanges par rapport à la migration du code vers ES2015 Migration des exemples de code vers ES2015 ([#63](https://github.com/thom4parisot/nodebook/pull/63))
 
 **Moral** : 😣 (je me suis laissé distraire. Mais j'ai fait du pain et avancé sur la mise en forme d'une galerie photo …)
 
@@ -521,7 +521,7 @@ Merci [@BetaGouv](https://github.com/sgmap) pour le coin de bureau 👋
 
 - _Chapitre 3_ : finalisation de la réécriture du texte associé aux _callbacks_, _events_ et _promesses_
 - Mise à jour des versions de Node et npm utilisées dans le livre
-- Migration des exemples de code vers ES2015 ([#63](https://github.com/oncletom/nodebook/pull/63))
+- Migration des exemples de code vers ES2015 ([#63](https://github.com/thom4parisot/nodebook/pull/63))
 - Suivi des mises à jour du module [talisman](https://github.com/Yomguithereal/talisman/issues/28)
 
 **Moral** : 🚂 😣
@@ -529,7 +529,7 @@ Merci [@BetaGouv](https://github.com/sgmap) pour le coin de bureau 👋
 ## Lundi 16 janvier 2017
 
 - Triage et acceptation de pull requests
-- _Chapitre 3_ : réorganisation et réécriture du texte associé aux _callbacks_, _events_ et _promesses_ – [#49](https://github.com/oncletom/nodebook/issues/49)
+- _Chapitre 3_ : réorganisation et réécriture du texte associé aux _callbacks_, _events_ et _promesses_ – [#49](https://github.com/thom4parisot/nodebook/issues/49)
 
 **Moral** : 😊
 

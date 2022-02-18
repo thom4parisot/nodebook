@@ -1,7 +1,7 @@
 const https = require('https');
 const options = {                                 // <1>
   protocol: 'https:',
-  host: 'oncletom.io',
+  host: 'thom4.net',
   path: '/node.js/package.json',
   method: 'HEAD',
 };

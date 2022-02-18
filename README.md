@@ -34,7 +34,7 @@ des *outils en ligne de commande*.
 
 ## Sur le web
 
-🌐 L’épreuve est consultable gratuitement à cette adresse : [oncletom.io/node.js/][livre-web].
+🌐 L’épreuve est consultable gratuitement à cette adresse : [apprendre-nodejs.fr/v1/][livre-web].
 
 De nombreux exemples sont interactifs, modifiables et affichent leur résultat depuis un simple navigateur web.
 
@@ -109,7 +109,7 @@ Si vous n'êtes pas sûr·e de votre coup mais que l'envie est là, c'est suffis
 Il est possible de travailler sur une copie locale de l'épreuve en la dupliquant avec Git.
 
 ```bash
-$ git clone --single-branch https://github.com/oncletom/nodebook
+$ git clone --single-branch https://github.com/thom4parisot/nodebook
 $ cd nodebook
 # Installe les dépendances de développement
 $ npm ci
@@ -204,7 +204,7 @@ Support this project by becoming a sponsor. Your logo will show up here with a l
 
 # Mentions légales
 
-_Node.js • Apprendre par la pratique_ est un ouvrage rédigé par [Thomas Parisot](https://oncletom.io). Il est édité, publié et distribué en papier et e-book par les [Éditions Eyrolles][Eyrolles].
+_Node.js • Apprendre par la pratique_ est un ouvrage rédigé par [Thomas Parisot](https://thom4.net). Il est édité, publié et distribué en papier et e-book par les [Éditions Eyrolles][Eyrolles].
 
 L’épreuve est soumise à la licence [Creative Commons NC-BY-SA 4.0][cc-nc-by-sa] (_Attribution, Non-Commercial, Share Alike_).<br>
 Les exemples de code sont placés sous la [licence MIT][].
@@ -213,7 +213,7 @@ Les exemples de code sont placés sous la [licence MIT][].
 [ci-windows]: https://ci.appveyor.com/api/projects/status/crewvvqeybl8f16c?svg=true&amp;branch=master
 [journal-2018]: docs/JOURNAL.md
 [journal-2017]: docs/JOURNAL-2017.md
-[livre-web]: https://oncletom.io/node.js/
+[livre-web]: https://apprendre-nodejs.fr/v1/
 [livre-npm]: https://npmjs.com/nodebook
 [Eyrolles]: http://www.eyrolles.fr
 [playlist]: https://open.spotify.com/user/oncletom/playlist/4Ywqaz0XpFVNa5CKohuUN8?si=edpuGs_NRgapHyigrrwU3w
@@ -221,45 +221,45 @@ Les exemples de code sont placés sous la [licence MIT][].
 [cc-nc-by-sa]: https://creativecommons.org/licenses/by-nc-sa/4.0/deed.fr
 [backers]: https://opencollective.com/nodebook#backers
 [sponsors]: https://opencollective.com/nodebook#sponsor
-[contributors]: https://github.com/oncletom/nodebook/graphs/contributors
+[contributors]: https://github.com/thom4parisot/nodebook/graphs/contributors
 [preamble]: foreword/preamble.adoc
 [ch01]: chapter-01/index.adoc
-[ch01-issues]: https://github.com/oncletom/nodebook/labels/:book:%20chapitre:1
+[ch01-issues]: https://github.com/thom4parisot/nodebook/labels/:book:%20chapitre:1
 [ch01-deps]: https://david-dm.org/oncletom/nodebook/status.svg?path=chapter-01
 [ch01-security]: https://snyk.io/test/github/oncletom/nodebook/badge.svg?targetFile=chapter-01/package.json
 [ch02]: chapter-02/index.adoc
-[ch02-issues]: https://github.com/oncletom/nodebook/labels/:book:%20chapitre:2
+[ch02-issues]: https://github.com/thom4parisot/nodebook/labels/:book:%20chapitre:2
 [ch02-deps]: https://david-dm.org/oncletom/nodebook/status.svg?path=chapter-02
 [ch02-security]: https://snyk.io/test/github/oncletom/nodebook/badge.svg?targetFile=chapter-02/package.json
 [ch03]: chapter-03/index.adoc
-[ch03-issues]: https://github.com/oncletom/nodebook/labels/:book:%20chapitre:3
+[ch03-issues]: https://github.com/thom4parisot/nodebook/labels/:book:%20chapitre:3
 [ch03-deps]: https://david-dm.org/oncletom/nodebook/status.svg?path=chapter-03
 [ch03-security]: https://snyk.io/test/github/oncletom/nodebook/badge.svg?targetFile=chapter-03/package.json
 [ch04]: chapter-04/index.adoc
-[ch04-issues]: https://github.com/oncletom/nodebook/labels/:book:%20chapitre:4
+[ch04-issues]: https://github.com/thom4parisot/nodebook/labels/:book:%20chapitre:4
 [ch04-deps]: https://david-dm.org/oncletom/nodebook/status.svg?path=chapter-04
 [ch04-security]: https://snyk.io/test/github/oncletom/nodebook/badge.svg?targetFile=chapter-04/package.json
 [ch05]: chapter-05/index.adoc
-[ch05-issues]: https://github.com/oncletom/nodebook/labels/:book:%20chapitre:5
+[ch05-issues]: https://github.com/thom4parisot/nodebook/labels/:book:%20chapitre:5
 [ch05-deps]: https://david-dm.org/oncletom/nodebook/status.svg?path=chapter-05
 [ch05-security]: https://snyk.io/test/github/oncletom/nodebook/badge.svg?targetFile=chapter-05/package.json
 [ch06]: chapter-06/index.adoc
-[ch06-issues]: https://github.com/oncletom/nodebook/labels/:book:%20chapitre:6
+[ch06-issues]: https://github.com/thom4parisot/nodebook/labels/:book:%20chapitre:6
 [ch06-deps]: https://david-dm.org/oncletom/nodebook/status.svg?path=chapter-06
 [ch06-security]: https://snyk.io/test/github/oncletom/nodebook/badge.svg?targetFile=chapter-06/package.json
 [ch07]: chapter-07/index.adoc
-[ch07-issues]: https://github.com/oncletom/nodebook/labels/:book:%20chapitre:7
+[ch07-issues]: https://github.com/thom4parisot/nodebook/labels/:book:%20chapitre:7
 [ch07-deps]: https://david-dm.org/oncletom/nodebook/status.svg?path=chapter-07
 [ch07-security]: https://snyk.io/test/github/oncletom/nodebook/badge.svg?targetFile=chapter-07/package.json
 [ch08]: chapter-08/index.adoc
-[ch08-issues]: https://github.com/oncletom/nodebook/labels/:book:%20chapitre:8
+[ch08-issues]: https://github.com/thom4parisot/nodebook/labels/:book:%20chapitre:8
 [ch08-deps]: https://david-dm.org/oncletom/nodebook/status.svg?path=chapter-08
 [ch08-security]: https://snyk.io/test/github/oncletom/nodebook/badge.svg?targetFile=chapter-08/package.json
 [ch09]: chapter-09/index.adoc
-[ch09-issues]: https://github.com/oncletom/nodebook/labels/:book:%20chapitre:9
+[ch09-issues]: https://github.com/thom4parisot/nodebook/labels/:book:%20chapitre:9
 [ch09-deps]: https://david-dm.org/oncletom/nodebook/status.svg?path=chapter-09
 [ch09-security]: https://snyk.io/test/github/oncletom/nodebook/badge.svg?targetFile=chapter-09/package.json
 [a01]: appendix-a/index.adoc
-[appendix-issues]: https://github.com/oncletom/nodebook/labels/:book:%20chapitre:annexes
+[appendix-issues]: https://github.com/thom4parisot/nodebook/labels/:book:%20chapitre:annexes
 [a01-deps]: https://david-dm.org/oncletom/nodebook/status.svg?path=appendix-a
 [a01-security]: https://snyk.io/test/github/oncletom/nodebook/badge.svg?targetFile=appendix-a/package.json
