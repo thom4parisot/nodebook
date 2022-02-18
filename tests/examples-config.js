@@ -163,7 +163,7 @@ module.exports = {
     stderr: 'ExperimentalWarning: The ESM module loader is experimental',
   },
   'chapter-04/examples/url/format.js': {
-    stdout: 'https://oncletom.io/\n',
+    stdout: 'https://thom4.net/\n',
   },
   'chapter-04/examples/child_process/intro.js': {
     stdout: /npm version \d+.\d+.\d+/,
@@ -245,16 +245,16 @@ module.exports = {
     stdout: /.+/,
   },
   'chapter-04/examples/url/intro.js': {
-    stdout: 'oncletom.io\n/node.js/\n',
+    stdout: 'thom4.net\n/node.js/\n',
   },
   'chapter-04/examples/url/resolve.js': {
-    stdout: 'https://oncletom.io/node.js/\nhttps://oncletom.io/\n',
+    stdout: 'https://apprendre-nodejs.fr/v1/\nhttps://thom4.net/\n',
   },
   'chapter-04/examples/url/search-params.js': {
-    stdout: 'https://oncletom.io/?search=node.js\nsearch=node.js\nhttps://oncletom.io/\n',
+    stdout: 'https://thom4.net/?search=node.js\nsearch=node.js\nhttps://thom4.net/\n',
   },
   'chapter-04/examples/url/to-string.js': {
-    stdout: 'https://oncletom.io/#top\n',
+    stdout: 'https://thom4.net/#top\n',
   },
   'chapter-04/examples/util/debuglog.js': {
     stdout: /Cet ordinateur a \d+ CPU./,
