@@ -29,7 +29,7 @@ jobs:
         node-version: '10'
         cache: npm
     - name: apt install
-      run: apt install libxml2-utils --no-install-recommends --yes
+      run: sudo apt install libxml2-utils --no-install-recommends --yes
     - name: npm install
       run: |
         npm ci
