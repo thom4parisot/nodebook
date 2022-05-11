@@ -1082,8 +1082,8 @@ include::{sourceDir}/cookies/read.js[]
 ----
 <1> Les cookies se lisent en inspectant l'en-tête de requête `Cookie`.
 <2> Affiche `Contenu : compteur=1`.
-intexterm:[HTTP, en-tête, Cookie]
-intexterm:[application web, cookie]
+indexterm:[HTTP, en-tête, Cookie]
+indexterm:[application web, cookie]
 
 Nous avons récupéré la valeur de l'en-tête contenant le cookie.
 Nous devons faire un effort supplémentaire pour transformer cette valeur textuelle
@@ -1295,7 +1295,7 @@ en <<../appendix-a/index.adoc#,annexe{nbsp}A>>.
 indexterm:[application web, pratique de développement]
 
 Vous avez modifié un des exemples de ce chapitre pendant qu'il était en
-cours d'exécution et vous avez remarqué que résultat ne changeait pas ?
+cours d'exécution et vous avez remarqué que le résultat ne changeait pas ?
 
 C'est normal : la version du code utilisée par Node est celle qui a été évaluée
 au lancement du script.
@@ -1951,7 +1951,7 @@ $ node modularity/01/server.js
 ----
 include::{sourceDir}/modularity/01/server.js[]
 ----
-<1> Nous déplaçons la configuration de et la connexion à la base de données dans son propre module.
+<1> Nous déplaçons la configuration et la connexion à la base de données dans son propre module.
 <2> Nous déplaçons aussi le code des routes.
 <3> Au premier coup d'œil, la route est une association de chemin et d'une fonction.
 
